@@ -1,0 +1,27 @@
+{
+  "schema": "held-out-component-state-closure/v1",
+  "status": "PASS",
+  "closesIncident": "../23/incident-retro.json",
+  "closesGapAudit": "../23/component-family-gap-audit.json",
+  "freshQa": "visual-qa-assessment.json",
+  "coverage": "../23/component-family-coverage.json",
+  "routes": ["plaza", "build", "mine", "event", "round", "detail"],
+  "sharedFamilies": ["CardViewer", "DetailOverlay", "build publish drawer", "mine delete confirm"],
+  "stateEvidence": {
+    "CardViewer": "Build/Detail/Event origins x 390/536/1280; commerce, quantity, navigation, zoom front/back/close",
+    "DetailOverlay": "approved navigation-failure fallback x 390/536/1280; long-title and unchanged long-description disclosures, image/text views, viewer entry, buy, favorite, copy",
+    "restoration": "temporary router and title fixtures exactly restored",
+    "externalWrites": 0
+  },
+  "gates": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "PASS",
+    "componentStateCoverage": "PASS",
+    "sharedStructural": "2/2 PASS",
+    "routeStructural": "6/6 PASS",
+    "responsiveRouteCells": "18/18 PASS",
+    "productionBuild": "PASS 662 modules"
+  },
+  "scopeBoundary": "The unregistered standalone pages/viewer route remains N/A; no production route or business behavior was added for QA."
+}

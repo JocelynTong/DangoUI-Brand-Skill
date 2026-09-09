@@ -1,0 +1,20 @@
+{
+  "schema": "brand-host-structural-manifest/v1",
+  "route": "shared/DetailOverlay",
+  "allowedStyleImports": [],
+  "decorativeNodes": [],
+  "primitiveSubstitutions": [],
+  "accessibilityAugmentations": [
+    {"baselineNodeId":"n7","approved":true,"reason":"Expose the existing title disclosure","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{"aria-expanded":"titleExpanded"},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n18","approved":true,"reason":"Expose the existing description disclosure","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{"aria-expanded":"descExpanded"},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n31","approved":true,"reason":"Expose the existing deck purchase action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n35","approved":true,"reason":"Expose the existing image-view tab","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"tab","tabindex":"0"},"addedBindings":{"aria-selected":"view === 'img'"},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n38","approved":true,"reason":"Expose the existing text-view tab","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"tab","tabindex":"0"},"addedBindings":{"aria-selected":"view === 'txt'"},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n49","approved":true,"reason":"Expose existing grid-card viewer actions","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n57","approved":true,"reason":"Expose existing Pokemon row viewer actions","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n62","approved":true,"reason":"Expose existing energy row viewer actions","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n68","approved":true,"reason":"Expose existing trainer row viewer actions","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n72","approved":true,"reason":"Expose the existing favorite action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n75","approved":true,"reason":"Expose the existing copy action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}}
+  ]
+}

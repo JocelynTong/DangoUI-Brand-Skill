@@ -57,7 +57,7 @@
       "visualSystemConformance": "PASS",
       "runtimeTheme": "PASS",
       "fullHostExperience": "PASS_ADVISORY",
-      "implementation": {"routes": "6/6", "acceptedPageQaAttempts": [10, 13, 22, 17, 19, 20], "fullIntegrationQaAttempt": 21, "postIntegrationUserFeedbackClosureAttempt": 22},
+      "implementation": {"routes": "6/6", "acceptedPageQaAttempts": [10, 13, 22, 17, 19, 20], "fullIntegrationQaAttempt": 21, "postIntegrationUserFeedbackClosureAttempt": 22, "acceptedComponentFamilyQaAttempt": 28},
       "dangoUi": "PARTIAL_STYLE_ONLY",
       "businessEvidenceBoundary": "Fresh QA preserved data, routes, stores, APIs, mutations and navigation outcomes and emitted zero external writes. Destructive delete and publish submission were intentionally not executed; no unobserved production result is claimed.",
       "evidence": [
@@ -74,7 +74,9 @@
         "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/17/visual-qa-assessment.json",
         "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/19/visual-qa-assessment.json",
         "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/20/visual-qa-assessment.json",
-        "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/21/full-host-visual-qa-assessment.json"
+        "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/21/full-host-visual-qa-assessment.json",
+        "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/28/component-state-closure.json",
+        "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/28/visual-qa-assessment.json"
       ],
       "advisories": [
         "Mobile subordinate labels reach 8.32–9.88px; they passed current legibility review but must not be reused for longer CJK copy.",

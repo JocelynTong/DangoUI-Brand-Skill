@@ -1,0 +1,69 @@
+{
+  "schema": "heldout-component-family-visual-qa-assessment/v1",
+  "attempt": 28,
+  "generatedAt": "2026-09-10T04:12:30+08:00",
+  "role": "fresh-independent-component-family-visual-qa",
+  "independence": {
+    "implementationEdited": false,
+    "productionSourceEdited": false,
+    "producerVerdictReused": false,
+    "freshRuntime": "new Playwright contexts using local Chrome",
+    "approvedContracts": ["../24/detail-overlay-qa-harness-contract.json", "../26/detail-overlay-long-copy-qa-contract.json"],
+    "inputsRead": ["../27/visual-qa-assessment.json", "implementation-proof.json", "../../preedit-baseline-bundle.json", "../23/shared-component-preedit-baseline-bundle.json", "../23/component-family-coverage.json", "../../structural-baselines", "../../structural-manifests"]
+  },
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "PASS",
+    "componentStateCoverage": "PASS",
+    "overall": "PASS"
+  },
+  "blockingFindings": [],
+  "qa27Closure": {
+    "QA27-GEO-01": "PASS_CLOSED: description owner is 45.75x45.75, 44x44 and 44x44 at 390/536/1280; center ownership, Pointer/Enter/Space and exact collapsed restore pass.",
+    "QA27-GEO-02": "PASS_CLOSED: buy owner is 87.359375x45.75, 84x44 and 84x44 at 390/536/1280; pointer-center bubbling reaches the real role=button owner, Enter/Space parity and stat containment pass."
+  },
+  "componentResults": {
+    "cardViewerBuildDetailEvent3905361280": "PASS_9_OF_9_VIEWPORT_AND_COMPOSITION_CONTAINMENT",
+    "cardViewerCommerceStepperNav": "PASS_POINTER_ENTER_SPACE; BUILD_COUNTS_1_2_3_THEN_0; DECK_NAV_ORDER_PRESERVED",
+    "cardViewerZoom": "PASS_OPEN_FLIP_CLOSE; 18 fresh front/back screenshots plus 9 base viewer screenshots",
+    "cardViewerPurpleAndPills": "PASS_NONE",
+    "detailOverlayFallback": "PASS_APPROVED_ROUTER_REJECTION_AND_EXACT_ROUTER_RESTORE_3_OF_3",
+    "detailOverlayTitleDisclosure": "PASS_POINTER_CENTER_ENTER_SPACE_EXACT_COLLAPSED_RESTORE_AND_NO_TAG_OVERLAP_3_OF_3",
+    "detailOverlayDescriptionDisclosure": "PASS_POINTER_CENTER_ENTER_SPACE_EXACT_COLLAPSED_RESTORE_AND_OWNER_GEOMETRY_3_OF_3",
+    "detailOverlayTabsGridTextViewer": "PASS_REAL_RENDERED_PATHS",
+    "detailOverlayBuy": "PASS_POINTER_ENTER_SPACE_OWNER_GEOMETRY_AND_STAT_CONTAINMENT_3_OF_3",
+    "detailOverlayFavoriteCopy": "PASS_LOW_RADIUS_BOUNDED_ACTION_BAR_AND_INTERACTION_3_OF_3",
+    "detailOverlayPurple": "PASS_NONE"
+  },
+  "fixtureSafety": {
+    "originalDeck0Title": "喷火龙 烈焰速攻",
+    "originalTitleSha256": "20065916b9eebaad79200b93f178a869c1ff278b0a41a923418647073f906445",
+    "isolatedInjectedTitleSha256": "f2208dfcfaf9d65f73c806720b2a6279b02c6266b89114c5a265d4c9dc581a74",
+    "exactTitleRestore": "PASS_3_OF_3",
+    "exactRouterRestore": "PASS_3_OF_3",
+    "unchangedDeck0LongDescription": "PASS_USED_FOR_REAL_DISCLOSURE",
+    "externalWrites": "PASS_ZERO_NON_GET_HEAD_OPTIONS"
+  },
+  "businessSafety": {
+    "buildH5": "PASS_662_MODULES",
+    "themeOrder": "PASS_SINGLE_GLOBAL_ENTRY_src/app.js",
+    "sharedPreeditReceipt": "PASS_2_OF_2",
+    "structuralDiff": "PASS_8_OF_8_SHARED_PLUS_SIX_ROUTES",
+    "browserRegression": "PASS_18_OF_18_NONEMPTY_ZERO_HORIZONTAL_OVERFLOW",
+    "reducedMotion": "PASS_ZERO_ACTIVE_COMPONENT_ANIMATIONS_OR_TRANSITIONS",
+    "productionMutation": "PASS_NONE"
+  },
+  "freshEvidence": {
+    "probes": ["fresh-browser-probes.json", "owner-geometry-probes.json"],
+    "screens": 30,
+    "viewerBase": 9,
+    "viewerZoomFrontBack": 18,
+    "detailOverlay": 3
+  },
+  "handoff": {
+    "status": "PASS_READY_FOR_ORCHESTRATOR_RECONCILIATION",
+    "mayDeclareComponentFamilyAccepted": true,
+    "notes": "Fresh QA28 closes both QA27 blockers without component-family, structural, theme, route, motion, overflow, fixture-safety or write regressions."
+  }
+}

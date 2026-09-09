@@ -1,0 +1,24 @@
+{
+  "schema": "brand-safe-qa-fixture/v1",
+  "status": "APPROVED_TEST_ONLY",
+  "approvedByRole": "designDirectorOrchestrator",
+  "target": "DetailOverlay title and description disclosure branches",
+  "reason": "Frozen production decks contain a long description but no title longer than TITLE_PREVIEW_LEN. The title disclosure branch is real production code but cannot be reached with existing fixture content.",
+  "allowedMechanism": [
+    "Use deck 0 through an unchanged real openDetail action so the existing long description produces the real description disclosure.",
+    "In an isolated browser QA context only, temporarily replace deck 0 title with a deterministic CJK string longer than TITLE_PREVIEW_LEN, invoke the unchanged real action, test the real disclosure, then restore the exact original title.",
+    "Record before, injected, and restored values or hashes."
+  ],
+  "forbidden": [
+    "No production source or persisted fixture file may be edited.",
+    "No store persistence, API mutation, external write, synthesized DOM, or direct component state setter.",
+    "The temporary title may not be used to claim production content quality."
+  ],
+  "requiredEvidence": [
+    "real action and production fallback path",
+    "description disclosure from unchanged deck 0 data",
+    "title disclosure from isolated temporary long title",
+    "pointer, Enter, and Space parity",
+    "exact restoration and zero external writes"
+  ]
+}

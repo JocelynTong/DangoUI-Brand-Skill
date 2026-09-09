@@ -1,0 +1,31 @@
+{
+  "schema": "brand-user-feedback-incident/v1",
+  "route": "pages/build/index?mode=new",
+  "trigger": "user-browser-comments",
+  "status": "COMPONENT_COVERAGE_REOPENED",
+  "observedMismatch": [
+    "CardViewer commerce control .cvprice/.cvbuy retained the legacy purple treatment.",
+    "CardViewer quantity stepper .vstep/.vstep-plus retained the legacy purple pill/circle treatment.",
+    "The overlay family retained rounded-card and chip conventions that were never assessed as a family."
+  ],
+  "rootCause": "The host inventory and QA were route-complete but not component-state-complete. Shared overlay descendants were treated as incidental content inside Build instead of an independently themeable component family, so selector coverage and visual replacement never included them.",
+  "missedBy": [
+    "host coverage inventory",
+    "build minimal experiment",
+    "build QA17",
+    "full-host QA21"
+  ],
+  "whyPreviousGatePassed": "The gates checked visible route shells, named controls, navigation, clipping, overflow and interaction parity. They did not require every visible shared component family and overlay state to have an explicit baseline-to-theme disposition.",
+  "failureOwner": "Host Strategist for coverage; Host Implementation for replacement; Visual QA for missed legacy-family detection",
+  "requiredClosure": [
+    "Audit all shared overlay/modal/drawer/sticky/action/stepper/commerce component families across the six routes and their reachable states.",
+    "Give each visible family an explicit preserve/theme/style-only/N-A disposition with selectors and routes.",
+    "Repair all instances of the same family, not only the two annotated nodes.",
+    "Run a fresh component-family QA plus six-route regression with zero writes."
+  ],
+  "completionImpact": {
+    "methodology": "REOPENED_COMPONENT_STATE_COVERAGE",
+    "secondHostVisual": "NEEDS_REPAIR_AND_FRESH_QA",
+    "overall": "NOT_DONE"
+  }
+}

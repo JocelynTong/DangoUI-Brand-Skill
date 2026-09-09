@@ -1,0 +1,81 @@
+{
+  "schema": "heldout-component-family-visual-qa-assessment/v1",
+  "attempt": 24,
+  "generatedAt": "2026-09-10T00:00:00+08:00",
+  "role": "fresh-independent-component-family-visual-qa",
+  "independence": {
+    "implementationEdited": false,
+    "implementationSelfcheckUsedAsVerdict": false,
+    "implementationOwnedHarnessEvidenceUsedAsVerdict": false,
+    "qaOutputsOnly": true
+  },
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "FAIL",
+    "componentStateCoverage": "FAIL",
+    "overall": "FAIL"
+  },
+  "blockingFindings": [
+    {
+      "id": "QA24-VIS-01",
+      "severity": "BLOCKER",
+      "family": "shared-card-viewer-mode-controls",
+      "viewport": "390x844",
+      "routes": ["pages/build/index?mode=new", "pages/detail/index?id=0"],
+      "finding": "The shared 440px mode-control bar is not responsive below 440px. At 390px, Build .vstep is left=-25/right=415 and Detail deck navigation is left=-25.5/right=415.5. Both are visibly cut off at the viewport edges while document horizontal overflow still reports zero, proving clipping is masking the geometry defect.",
+      "evidence": ["fresh-browser-probes.json#results.buildCardViewer[0]", "fresh-browser-probes.json#results.detailCardViewer[0]", "live fresh 390x844 browser capture emitted during QA24"],
+      "failureOwnerRole": "Host Implementation",
+      "requiredRepair": "Make the shared bottom/mode-control width viewport-bounded at 390px while retaining visual attachment, >=44px controls, Build count behavior, and deck navigation order; then rerun all 9 CardViewer cells."
+    },
+    {
+      "id": "QA24-COV-02",
+      "severity": "BLOCKER",
+      "family": "detail-overlay-shell-and-controls",
+      "viewport": "390/536/1280",
+      "routes": ["pages/event/index?id=0 fallback"],
+      "finding": "Attempt24 implementation-owned overlay evidence cannot substitute for a fresh independent QA run. The approved rejection harness could not be executed through the available independent read-only browser evaluation surface, so disclosures, tabs, grid/text viewer entries, buy/favorite/copy and close remain unverified by this QA role.",
+      "evidence": ["detail-overlay-qa-harness-contract.json", "fresh-browser-probes.json#results.detailOverlayHarness"],
+      "failureOwnerRole": "Visual QA orchestration / Host testability",
+      "requiredRepair": "Provide the approved harness through a QA-callable browser capability that permits temporary navigateTo interception, restoration, and unchanged real-action triggering; do not reuse producer evidence."
+    }
+  ],
+  "componentResults": {
+    "cardViewerDesktopContainment": "PASS_BUILD_1280",
+    "cardViewerMobileContainment": "FAIL_390_BUILD_STEPPER_AND_DECK_NAV; PASS_536",
+    "cardViewerCommerce": "PASS_VISIBLE_HELDOUT_COLOR_AT_TESTED_CELLS",
+    "cardViewerBuildStepper": "PASS_ENTER_SPACE_POINTER_AND_44PX; FAIL_390_VIEWPORT_CONTAINMENT",
+    "cardViewerDeckNavigation": "PASS_ENTER_SPACE_ORDER_AND_44PX; FAIL_390_VIEWPORT_CONTAINMENT",
+    "cardViewerZoom": "PARTIAL_PASS_OPEN_AND_FLIP; CLOSE_TRANSITION_NOT_ACCEPTED",
+    "detailOverlay": "FAIL_NOT_FRESHLY_INDEPENDENTLY_RENDERED",
+    "standaloneViewer": "N/A_UNREGISTERED"
+  },
+  "visualChecks": {
+    "legacyPurple": "PASS_NONE_COMPUTED_IN_TESTED_CARDVIEWERS",
+    "legacyPills": "PASS_TESTED_VISIBLE_CONTROLS",
+    "modalSurfaceContentCommerceBounds": "PASS_536_AND_BUILD_1280; FAIL_390_MODE_CONTROL_BOUNDS",
+    "stepperAttached": "PASS",
+    "stepperViewportContained": "FAIL_390",
+    "clippingMasking": "FAIL_PRESENT_390",
+    "horizontalDocumentOverflow": "PASS_0_BUT_NON_COMPENSATORY",
+    "touchTargets": "PASS_TESTED_ROLE_BUTTONS_AT_OR_ABOVE_44PX",
+    "focusability": "PASS_TESTED_ROLE_BUTTONS_TABINDEX_0"
+  },
+  "businessSafety": {
+    "buildH5": "PASS_662_MODULES",
+    "sharedCardViewerStructuralDiff": "PASS",
+    "sharedDetailOverlayStructuralDiff": "PASS",
+    "implementationHashesMatchProof": "PASS_3_OF_3",
+    "externalWrites": "PASS_NONE_OBSERVED"
+  },
+  "freshEvidence": {
+    "probes": "fresh-browser-probes.json",
+    "screens": "live fresh 1280x720 and 390x844 browser captures emitted during QA24; no producer screenshot reused",
+    "producerArtifactsReadForScopeOnly": ["implementation-proof.json", "overlay-harness-probes.json"]
+  },
+  "handoff": {
+    "status": "RETURN_TO_IMPLEMENTATION_THEN_NEW_FRESH_QA",
+    "mayDeclareDone": false,
+    "notes": "Attempt24 fixes the QA23 desktop clipping blocker, but introduces or preserves a non-compensatory 390px shared-control containment failure. DetailOverlay also lacks a fresh independent verdict."
+  }
+}

@@ -1,0 +1,1027 @@
+{
+  "schema": "brand-host-structural-snapshot/v1",
+  "file": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/components/CardViewer.vue",
+  "sourceSha256": "1132f59ca9d1b96690d24a3f26f7946fa2c637939ff2012518749fcae3a9324b",
+  "template": [
+    {
+      "id": "n0",
+      "parent": "root",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "close"
+      },
+      "directiveDetails": [
+        {
+          "name": "bind:class",
+          "arg": "class",
+          "modifiers": [],
+          "value": "{ on: store.viewer.open, 'is-zooming': zoomOpen }"
+        },
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [],
+          "value": "close"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "cv"
+      ]
+    },
+    {
+      "id": "n1",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cv-cluster"
+      ]
+    },
+    {
+      "id": "n2",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "noop"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "noop"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "cvinfo"
+      ]
+    },
+    {
+      "id": "n3",
+      "parent": "n2",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvrow"
+      ]
+    },
+    {
+      "id": "n4",
+      "parent": "n3",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "openZoom"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "openZoom"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "cvimg-hit"
+      ]
+    },
+    {
+      "id": "n5",
+      "parent": "n4",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(c.img)"
+      },
+      "directiveDetails": [
+        {
+          "name": "bind:src",
+          "arg": "src",
+          "modifiers": [],
+          "value": "asset(c.img)"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "cvimg"
+      ]
+    },
+    {
+      "id": "n6",
+      "parent": "n3",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvtitle"
+      ]
+    },
+    {
+      "id": "n7",
+      "parent": "n6",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{c.n}}",
+      "classes": [
+        "cvname"
+      ]
+    },
+    {
+      "id": "n8",
+      "parent": "n6",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "收录于 {{c.st}}",
+      "classes": [
+        "cvset"
+      ]
+    },
+    {
+      "id": "n9",
+      "parent": "n6",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvbadges"
+      ]
+    },
+    {
+      "id": "n10",
+      "parent": "n9",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [
+        {
+          "name": "bind:class",
+          "arg": "class",
+          "modifiers": [],
+          "value": "['cardmark', gradeClass]"
+        }
+      ],
+      "content": "{{c.g}}",
+      "classes": []
+    },
+    {
+      "id": "n11",
+      "parent": "n9",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "c.ty"
+      },
+      "directiveDetails": [
+        {
+          "name": "if",
+          "arg": null,
+          "modifiers": [],
+          "value": "c.ty"
+        }
+      ],
+      "content": "{{c.ty}}系",
+      "classes": [
+        "cvmeta"
+      ]
+    },
+    {
+      "id": "n12",
+      "parent": "n9",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{c.t}}",
+      "classes": [
+        "cvmeta"
+      ]
+    },
+    {
+      "id": "n13",
+      "parent": "n2",
+      "tag": "template",
+      "tagType": 3,
+      "attrs": {},
+      "directives": {
+        "if": "c.t === '宝可梦'"
+      },
+      "directiveDetails": [
+        {
+          "name": "if",
+          "arg": null,
+          "modifiers": [],
+          "value": "c.t === '宝可梦'"
+        }
+      ],
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n14",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvdiv"
+      ]
+    },
+    {
+      "id": "n15",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "hprow"
+      ]
+    },
+    {
+      "id": "n16",
+      "parent": "n15",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvhp"
+      ]
+    },
+    {
+      "id": "n17",
+      "parent": "n16",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "HP",
+      "classes": [
+        "hp-label"
+      ]
+    },
+    {
+      "id": "n18",
+      "parent": "n16",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{c.hp || '--'}}",
+      "classes": [
+        "hp-num"
+      ]
+    },
+    {
+      "id": "n19",
+      "parent": "n15",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "keyword"
+      },
+      "directiveDetails": [
+        {
+          "name": "if",
+          "arg": null,
+          "modifiers": [],
+          "value": "keyword"
+        },
+        {
+          "name": "bind:class",
+          "arg": "class",
+          "modifiers": [],
+          "value": "['keywordmark', keywordClass]"
+        }
+      ],
+      "content": "{{keyword}}",
+      "classes": []
+    },
+    {
+      "id": "n20",
+      "parent": "n13",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{effectText}}",
+      "classes": [
+        "cveffect"
+      ]
+    },
+    {
+      "id": "n21",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvmarks"
+      ]
+    },
+    {
+      "id": "n22",
+      "parent": "n21",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{ruleMark}}",
+      "classes": [
+        "regmark"
+      ]
+    },
+    {
+      "id": "n23",
+      "parent": "n2",
+      "tag": "template",
+      "tagType": 3,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "directiveDetails": [
+        {
+          "name": "else",
+          "arg": null,
+          "modifiers": [],
+          "value": null
+        }
+      ],
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n24",
+      "parent": "n23",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvdiv"
+      ]
+    },
+    {
+      "id": "n25",
+      "parent": "n23",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{effectText}}",
+      "classes": [
+        "cveffect"
+      ]
+    },
+    {
+      "id": "n26",
+      "parent": "n23",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvmarks"
+      ]
+    },
+    {
+      "id": "n27",
+      "parent": "n26",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{ruleMark}}",
+      "classes": [
+        "regmark"
+      ]
+    },
+    {
+      "id": "n28",
+      "parent": "n2",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "cvprice"
+      ]
+    },
+    {
+      "id": "n29",
+      "parent": "n28",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "¥{{price}}",
+      "classes": [
+        "price"
+      ]
+    },
+    {
+      "id": "n30",
+      "parent": "n28",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "buy"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [],
+          "value": "buy"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "cvbuy"
+      ]
+    },
+    {
+      "id": "n31",
+      "parent": "n30",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "去购买",
+      "classes": []
+    },
+    {
+      "id": "n32",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "noop"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "noop"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "vbottom"
+      ]
+    },
+    {
+      "id": "n33",
+      "parent": "n32",
+      "tag": "template",
+      "tagType": 3,
+      "attrs": {},
+      "directives": {
+        "if": "store.viewer.mode === 'build'"
+      },
+      "directiveDetails": [
+        {
+          "name": "if",
+          "arg": null,
+          "modifiers": [],
+          "value": "store.viewer.mode === 'build'"
+        }
+      ],
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n34",
+      "parent": "n33",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "vstep"
+      ]
+    },
+    {
+      "id": "n35",
+      "parent": "n34",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "on:tap": "dec"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [],
+          "value": "dec"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "vstep-b",
+        "vstep-minus"
+      ]
+    },
+    {
+      "id": "n36",
+      "parent": "n35",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "−",
+      "classes": [
+        "vstep-sign"
+      ]
+    },
+    {
+      "id": "n37",
+      "parent": "n34",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{count}}",
+      "classes": [
+        "vstep-n"
+      ]
+    },
+    {
+      "id": "n38",
+      "parent": "n34",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "on:tap": "inc"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [],
+          "value": "inc"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "vstep-b",
+        "vstep-plus"
+      ]
+    },
+    {
+      "id": "n39",
+      "parent": "n38",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "+",
+      "classes": [
+        "vstep-sign",
+        "vstep-sign-w"
+      ]
+    },
+    {
+      "id": "n40",
+      "parent": "n32",
+      "tag": "template",
+      "tagType": 3,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "directiveDetails": [
+        {
+          "name": "else",
+          "arg": null,
+          "modifiers": [],
+          "value": null
+        }
+      ],
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n41",
+      "parent": "n40",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "prev"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [],
+          "value": "prev"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "vnav-btn"
+      ]
+    },
+    {
+      "id": "n42",
+      "parent": "n41",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "‹ 上一张",
+      "classes": [
+        "vnav-t"
+      ]
+    },
+    {
+      "id": "n43",
+      "parent": "n40",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "next"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [],
+          "value": "next"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "vnav-btn"
+      ]
+    },
+    {
+      "id": "n44",
+      "parent": "n43",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "下一张 ›",
+      "classes": [
+        "vnav-t"
+      ]
+    },
+    {
+      "id": "n45",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "zoomOpen",
+        "on:tap": "closeZoom",
+        "on:wheel": "closeZoom",
+        "on:touchstart": "onZoomTouchStart",
+        "on:touchmove": "onZoomTouchMove"
+      },
+      "directiveDetails": [
+        {
+          "name": "if",
+          "arg": null,
+          "modifiers": [],
+          "value": "zoomOpen"
+        },
+        {
+          "name": "bind:class",
+          "arg": "class",
+          "modifiers": [],
+          "value": "['zoommask', zoomClosing ? 'is-closing' : '']"
+        },
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "closeZoom"
+        },
+        {
+          "name": "on:wheel",
+          "arg": "wheel",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "closeZoom"
+        },
+        {
+          "name": "on:touchstart",
+          "arg": "touchstart",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "onZoomTouchStart"
+        },
+        {
+          "name": "on:touchmove",
+          "arg": "touchmove",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "onZoomTouchMove"
+        }
+      ],
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n46",
+      "parent": "n45",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "closeZoom"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "closeZoom"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "zoomclose"
+      ]
+    },
+    {
+      "id": "n47",
+      "parent": "n46",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "×",
+      "classes": []
+    },
+    {
+      "id": "n48",
+      "parent": "n45",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "toggleZoomFlip"
+      },
+      "directiveDetails": [
+        {
+          "name": "on:tap",
+          "arg": "tap",
+          "modifiers": [
+            "stop"
+          ],
+          "value": "toggleZoomFlip"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "zoomstage"
+      ]
+    },
+    {
+      "id": "n49",
+      "parent": "n48",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [
+        {
+          "name": "bind:class",
+          "arg": "class",
+          "modifiers": [],
+          "value": "['zoomflip', zoomOpening ? 'is-opening' : '', zoomClosing ? 'is-closing' : '', zoomFlipped ? 'is-flipped' : '']"
+        },
+        {
+          "name": "bind:style",
+          "arg": "style",
+          "modifiers": [],
+          "value": "zoomStyle"
+        }
+      ],
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n50",
+      "parent": "n49",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "zoomface",
+        "zoomfront"
+      ]
+    },
+    {
+      "id": "n51",
+      "parent": "n50",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "cardZoomAsset(c.img)"
+      },
+      "directiveDetails": [
+        {
+          "name": "bind:src",
+          "arg": "src",
+          "modifiers": [],
+          "value": "cardZoomAsset(c.img)"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "zoomimg"
+      ]
+    },
+    {
+      "id": "n52",
+      "parent": "n49",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "zoomback",
+        "zoomface"
+      ]
+    },
+    {
+      "id": "n53",
+      "parent": "n52",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "pitchCardBack"
+      },
+      "directiveDetails": [
+        {
+          "name": "bind:src",
+          "arg": "src",
+          "modifiers": [],
+          "value": "pitchCardBack"
+        }
+      ],
+      "content": "",
+      "classes": [
+        "zoomimg",
+        "zoomimg-back"
+      ]
+    },
+    {
+      "id": "n54",
+      "parent": "n48",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "",
+      "classes": [
+        "zoomhint"
+      ]
+    },
+    {
+      "id": "n55",
+      "parent": "n54",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "directiveDetails": [],
+      "content": "{{zoomFlipped ? '点击查看卡面' : '点击翻到卡背'}}",
+      "classes": []
+    }
+  ],
+  "script": {
+    "lang": "js",
+    "semanticSha256": "aab4a3afffff4d1886f3df5742a0e510f27ec20a0a73b1756986b8d9e42c9ea6",
+    "styleImports": [
+      "./CardViewer.scss"
+    ]
+  },
+  "styles": []
+}

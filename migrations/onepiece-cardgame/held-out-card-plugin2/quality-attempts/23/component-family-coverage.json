@@ -1,0 +1,27 @@
+{
+  "schema": "held-out-component-family-coverage/v1",
+  "attempt": 23,
+  "scope": "reachable shared descendants across six configured routes",
+  "families": [
+    {"family":"CardViewer shell","selectors":[".cv", ".cv.on", ".cv-cluster", ".cvinfo", ".vbottom"],"routes":["build","detail","event journey","plaza/mine/round fallback"],"states":["closed","open-build","open-deck","zooming"],"disposition":"THEMED_SHARED_FAMILY","evidence":"component-browser-probes.json"},
+    {"family":"CardViewer commerce","selectors":[".cvprice", ".price", ".cvbuy"],"routes":["build","detail","event journey","all DetailOverlay consumers"],"states":["price","purchase","toast","focus"],"disposition":"THEMED_AND_A11Y_AUGMENTED","evidence":"shared-card-viewer manifest n30; nine viewport-route probes"},
+    {"family":"CardViewer build stepper","selectors":[".vstep", ".vstep-b", ".vstep-minus", ".vstep-plus", ".vstep-n"],"routes":["build"],"states":["zero","positive","increment","decrement","bound toast inherited"],"disposition":"THEMED_AND_A11Y_AUGMENTED","evidence":"0 -> Enter 1 -> Space 2 -> pointer minus 1 at 390/536/1280"},
+    {"family":"CardViewer deck navigation","selectors":[".vnav-btn", ".vnav-t"],"routes":["detail","event journey","all DetailOverlay consumers"],"states":["previous","next","wrap"],"disposition":"THEMED_AND_A11Y_AUGMENTED","evidence":"next Enter and previous Space restore original card at all viewports"},
+    {"family":"CardViewer zoom","selectors":[".cvimg-hit", ".zoommask", ".zoomclose", ".zoomstage", ".zoomflip", ".zoomface", ".zoomhint"],"routes":["build","detail","event journey","all DetailOverlay consumers"],"states":["opening","front","back","closing","reduced-motion"],"disposition":"THEMED_AND_A11Y_AUGMENTED; GESTURES_PRESERVED","evidence":"Enter opens, Space flips, Enter closes; flip=true and active reduced motion=0 in nine probes"},
+    {"family":"DetailOverlay shell","selectors":[".doverlay", ".doverlay.shown", ".detail", ".dfly"],"routes":["plaza fallback","mine fallback","event fallback","round fallback"],"states":["unmounted","mounted-hidden","opening-clone","shown","closing"],"disposition":"THEMED_SHARED_FALLBACK; NORMAL NAVIGATION-FIRST OUTCOME PRESERVED","evidence":"shared-detail-overlay structural diff and existing store openDetail failure branch"},
+    {"family":"DetailOverlay detail controls","selectors":[".title-toggle-inline", ".desc-toggle-inline", ".tb", ".gcard", ".txt-row", ".buybtn", ".dbtn-fav", ".dbtn-copy"],"routes":["plaza fallback","mine fallback","event fallback","round fallback"],"states":["collapsed","expanded","image","text","viewer-entry","buy","favorite","copy"],"disposition":"ALIGNED_TO_STANDALONE DETAIL AND A11Y_AUGMENTED","evidence":"shared-detail-overlay manifest n7/n18/n31/n35/n38/n49/n57/n62/n68/n72/n75"},
+    {"family":"build publish drawer","selectors":[".mask", ".sheet", ".envpicker", ".sheet-close", ".sheet-draft", ".sheet-publish"],"routes":["build"],"states":["closed","open","invalid","ready","success","failure"],"disposition":"PRESERVE_ACCEPTED_QA17"},
+    {"family":"mine delete confirm","selectors":[".confirmmask", ".confirmbox", ".confirmcancel", ".confirmdanger"],"routes":["mine"],"states":["closed","open","cancel","confirm"],"disposition":"PRESERVE_ACCEPTED_QA19"},
+    {"family":"legacy standalone viewer","selectors":["pages/viewer/index"],"routes":[],"states":["not configured"],"disposition":"N/A_CURRENT_HOST; not registered and no navigation target"}
+  ],
+  "auditDisposition": {
+    "CF23-01":"closed by shared shell theme",
+    "CF23-02":"closed by commerce theme + n30 augmentation",
+    "CF23-03":"closed by rectangular stepper + n35/n38 augmentation",
+    "CF23-04":"closed by rectangular navigation + n41/n43 augmentation",
+    "CF23-05":"closed by zoom family theme + n4/n46/n48 augmentation",
+    "CF23-06":"closed by DetailOverlay theme + eleven approved augmentations",
+    "CF23-07":"closed by this selector-route-state disposition artifact",
+    "CF23-08":"N/A retained; no scope expansion"
+  }
+}

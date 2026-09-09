@@ -1,0 +1,67 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 24,
+  "scope": "held-out-card-plugin2-card-viewer-desktop-responsive-repair",
+  "qaVerdict": null,
+  "changedFiles": [
+    {
+      "path": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sha256": "d06004056ebd6544015896adfac4a8144f2b4035efe5c2254f88a33a7a9f4624",
+      "change": "CardViewer responsive CSS only: desktop physical sizing, bounded information surface, compact content flow, attached Build stepper, and >=44px real controls"
+    }
+  ],
+  "unchangedProductionComponents": [
+    {
+      "path": "card-plugin2.0/frontend/src/components/CardViewer.vue",
+      "sha256": "e90787358ed0daa0824b3d8388410a2e982de81e3e4946dd18ce91c20319312d"
+    },
+    {
+      "path": "card-plugin2.0/frontend/src/components/DetailOverlay.vue",
+      "sha256": "daea2a94be017ecfb4431494af8817c2bef050f3e1c0ef2446590fa6a7d432d7"
+    }
+  ],
+  "repair": {
+    "desktopCardViewer": "At 1280x720 the CardViewer information surface is a physical 440px-wide bounded sheet. Build modal is y=103.08..506.92; commerce is y=400.92..488.92; its associated stepper is y=520.92..612.92, leaving the complete composition inside the 720px viewport.",
+    "desktopDetailOrigin": "Detail-origin modal is y=147.08..508.92 and commerce is y=444.92..490.92.",
+    "desktopEventOrigin": "Event-origin modal is y=157.53..498.45 and commerce is y=434.45..480.45.",
+    "mobilePreservation": "The desktop physical-sizing branch is compiled above the 536px test width; the accepted 390x844 and 536x864 CardViewer geometry and interaction family remain in their prior responsive paths.",
+    "masking": "No overflow-hidden repair was introduced; the desktop content is compacted/reflowed and the Build stepper remains a visible adjacent owned control.",
+    "detailOverlay": "No production DetailOverlay behavior or source was changed in Attempt24."
+  },
+  "browserEvidence": {
+    "cardViewerArtifact": "../23/component-browser-probes.json",
+    "cardViewerArtifactNote": "Re-generated during Attempt24 against the fixed 10092 opt-in preview; retained at the existing systemic component-family artifact path.",
+    "matrix": "Build + Detail + Event origin at 390x844, 536x864 and 1280x720",
+    "cases": 9,
+    "undersizedFailures": 0,
+    "computedPurpleVisuals": 0,
+    "documentOverflowFailures": 0,
+    "activeReducedMotion": 0,
+    "externalNetworkWrites": 0,
+    "interactionCoverage": "Build plus Enter, plus Space and minus pointer parity; Detail/Event previous/next keyboard parity; buy toast; zoom open/flip/close.",
+    "detailOverlayHarnessArtifact": "overlay-harness-probes.json",
+    "detailOverlayHarnessContract": "detail-overlay-qa-harness-contract.json",
+    "detailOverlayHarness": {
+      "browserOnly": true,
+      "productionSourceChanged": false,
+      "installedAndRestored": "3/3 viewports",
+      "viewports": ["390x844", "536x864", "1280x720"],
+      "states": "fallback rendered; text tab; text row CardViewer; image tab; image grid CardViewer; buy toast; favorite toggle; copy navigation and close",
+      "undersizedFailures": 0,
+      "nonFocusableFailures": 0,
+      "documentOverflowFailures": 0,
+      "activeReducedMotion": 0,
+      "externalNetworkWrites": 0
+    }
+  },
+  "gates": {
+    "productionBuild": "PASS; 662 modules",
+    "sharedCardViewerStructuralDiff": "PASS",
+    "sharedDetailOverlayStructuralDiff": "PASS",
+    "sharedComponentPreeditReceipt": "PASS; 2 entries",
+    "sixRouteStructuralRegression": "PASS; 6/6",
+    "themeOrder": "PASS"
+  },
+  "preview": "http://127.0.0.1:10092/",
+  "status": "READY_FOR_FRESH_INDEPENDENT_QA24"
+}

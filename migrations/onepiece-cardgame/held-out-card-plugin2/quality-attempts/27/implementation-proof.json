@@ -1,0 +1,64 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 27,
+  "scope": "held-out-card-plugin2-detail-overlay-title-disclosure-mobile-hit-repair",
+  "qaVerdict": null,
+  "changedFiles": [
+    {
+      "path": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sha256": "5124fdc1e9eaab5cbb96482ba8587e8fa52dc6e2bb273383d2e818080dc403e2",
+      "change": "CSS-only independent title disclosure hit owner: reserved inline space, absolute centered owner, parent text excluded from hit testing, and responsive physical >=44px sizing."
+    }
+  ],
+  "productionSafety": {
+    "detailOverlayVueChanged": false,
+    "cardViewerVueChanged": false,
+    "existingTapHandlerChanged": false,
+    "stateOrOutcomeChanged": false,
+    "routesStoresApisDataEventsChanged": false
+  },
+  "approvedFixtureEvidence": {
+    "contract": "../26/detail-overlay-long-copy-qa-contract.json",
+    "artifact": "../26/selfcheck-probes.json",
+    "realAction": "The first Plaza production deck card invokes unchanged openDetail(0); approved router rejection invokes the production DetailOverlay fallback.",
+    "titleFixture": "A deterministic >14-character CJK title is injected only into the isolated browser runtime.",
+    "originalTitleSha256": "20065916b9eebaad79200b93f178a869c1ff278b0a41a923418647073f906445",
+    "injectedTitleSha256": "f2208dfcfaf9d65f73c806720b2a6279b02c6266b89114c5a265d4c9dc581a74",
+    "exactTitleRestore": "PASS 3/3; restored hash equals original hash",
+    "exactRouterRestore": "PASS 3/3",
+    "externalNetworkWrites": 0
+  },
+  "titleDisclosure": {
+    "mobile390": {"left":324.53125,"top":63.921875,"width":45.75,"height":45.75,"centerOwner":"title-toggle-inline","internalClipping":false,"overlapsTags":false},
+    "mid536": {"left":473,"top":46.4375,"width":44,"height":44,"centerOwner":"title-toggle-inline","internalClipping":false,"overlapsTags":false},
+    "desktop1280": {"left":1176,"top":19,"width":44,"height":44,"centerOwner":"title-toggle-inline","internalClipping":false,"overlapsTags":false},
+    "pointerCenter":"PASS 3/3; false -> true",
+    "enter":"PASS 3/3; true -> false",
+    "space":"PASS 3/3; false -> true",
+    "restoredState":"PASS 3/3; false"
+  },
+  "unchangedDescriptionRegression": {
+    "renderedFromFrozenDeck0Description":"PASS 3/3",
+    "pointerEnterSpace":"PASS 3/3",
+    "restoredState":"PASS 3/3"
+  },
+  "componentRegressions": {
+    "overlayActionBar":"Attempt26 low-radius Favorite/Copy hierarchy retained; controls >=44 at all viewports",
+    "cardViewerMatrix":"PASS 9/9 Build/Detail/Event x 390/536/1280",
+    "cardViewerUndersizedFailures":0,
+    "cardViewerComputedPurpleVisuals":0,
+    "documentOverflowFailures":0,
+    "activeReducedMotion":0,
+    "externalNetworkWrites":0
+  },
+  "gates": {
+    "productionBuild":"PASS; 662 modules",
+    "sharedCardViewerStructuralDiff":"PASS",
+    "sharedDetailOverlayStructuralDiff":"PASS",
+    "sharedComponentPreeditReceipt":"PASS; 2 entries",
+    "sixRouteStructuralRegression":"PASS; 6/6",
+    "themeOrder":"PASS"
+  },
+  "preview":"http://127.0.0.1:10092/",
+  "status":"READY_FOR_FRESH_INDEPENDENT_QA27"
+}

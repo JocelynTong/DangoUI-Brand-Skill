@@ -1,0 +1,55 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 25,
+  "scope": "held-out-card-plugin2-card-viewer-mobile-bottom-control-containment",
+  "qaVerdict": null,
+  "changedFiles": [
+    {
+      "path": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sha256": "666a2ea4d96e23fb1d3e82d0a723b57bf575782ed9f47861b6ab4f9d65c6f27e",
+      "change": "Shared CardViewer bottom control width is viewport-bounded with a 14px inline safe margin; the stepper no longer uses overflow clipping as a geometry mask."
+    }
+  ],
+  "productionBehavior": {
+    "cardViewerVueChanged": false,
+    "detailOverlayVueChanged": false,
+    "detailOverlayHarnessChanged": false,
+    "routesStoresApisDataEventsChanged": false
+  },
+  "responsiveEvidence": {
+    "artifact": "../23/component-browser-probes.json",
+    "artifactNote": "Re-generated during Attempt25 at 2026-09-09T19:42:10.093Z against the fixed 10092 held-out preview.",
+    "matrix": "Build + Detail + Event at 390x844, 536x864 and 1280x720",
+    "mobile390": {
+      "buildStepper": {"left":14.5625,"right":375.4375,"width":360.875,"height":47.75},
+      "detailDeckNav": {"left":14.5625,"right":375.4375,"buttonWidths":[176.28125,176.28125],"height":47.828125},
+      "eventDeckNav": {"left":14.5625,"right":375.4375,"buttonWidths":[176.28125,176.28125],"height":47.828125},
+      "viewportContainment":"PASS by measured rects; all left >= 0 and right <= 390",
+      "bottomControlInternalClipping":0
+    },
+    "preserved536": {
+      "buildStepper":{"left":48,"right":488,"width":440},
+      "deckNav":{"left":48,"right":488,"width":440}
+    },
+    "preserved1280": {
+      "buildStepper":{"left":420,"right":860,"width":440,"top":520.921875,"bottom":612.921875},
+      "deckNav":{"left":420,"right":860,"width":440},
+      "desktopAttachment":"unchanged from accepted Attempt24 geometry"
+    },
+    "undersizedFailures":0,
+    "documentOverflowFailures":0,
+    "activeReducedMotion":0,
+    "externalNetworkWrites":0,
+    "interactions":"Build plus Enter 0->1, plus Space 1->2, minus pointer 2->1; Detail/Event next Enter and previous Space preserve navigation order; buy toast observed."
+  },
+  "gates": {
+    "productionBuild":"PASS; 662 modules",
+    "sharedCardViewerStructuralDiff":"PASS",
+    "sharedDetailOverlayStructuralDiff":"PASS",
+    "sharedComponentPreeditReceipt":"PASS; 2 entries",
+    "sixRouteStructuralRegression":"PASS; 6/6",
+    "themeOrder":"PASS"
+  },
+  "preview":"http://127.0.0.1:10092/",
+  "status":"READY_FOR_FRESH_INDEPENDENT_QA25"
+}

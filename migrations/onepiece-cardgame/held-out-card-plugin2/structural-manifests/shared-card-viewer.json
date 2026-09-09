@@ -1,0 +1,17 @@
+{
+  "schema": "brand-host-structural-manifest/v1",
+  "route": "shared/CardViewer",
+  "allowedStyleImports": [],
+  "decorativeNodes": [],
+  "primitiveSubstitutions": [],
+  "accessibilityAugmentations": [
+    {"baselineNodeId":"n4","approved":true,"reason":"Expose the existing card zoom action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"查看卡牌大图"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n30","approved":true,"reason":"Expose the existing card purchase action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n35","approved":true,"reason":"Expose the existing quantity decrement action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"减少一张"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n38","approved":true,"reason":"Expose the existing quantity increment action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"增加一张"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n41","approved":true,"reason":"Expose the existing previous-card action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"上一张卡牌"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n43","approved":true,"reason":"Expose the existing next-card action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"下一张卡牌"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n46","approved":true,"reason":"Expose the existing zoom close action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"关闭大图"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}},
+    {"baselineNodeId":"n48","approved":true,"reason":"Expose the existing zoom flip action","approvalRef":"quality-attempts/23/incident-retro.json#requiredClosure","addedAttributes":{"role":"button","tabindex":"0","aria-label":"翻转卡牌"},"addedBindings":{},"keydownDelegation":{"sameOutcomeAs":"tap","keys":["Enter","Space"]}}
+  ]
+}

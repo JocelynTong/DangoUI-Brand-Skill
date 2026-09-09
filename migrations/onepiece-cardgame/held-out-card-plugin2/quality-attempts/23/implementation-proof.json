@@ -1,0 +1,46 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 23,
+  "scope": "held-out-card-plugin2-component-family-systemic-repair",
+  "qaVerdict": null,
+  "changedFiles": [
+    {"path":"card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss","sha256":"79d5a8030a0527a884861600e23839b978d98d99a9a2a7bf18cfe6946e47911b"},
+    {"path":"card-plugin2.0/frontend/src/components/CardViewer.vue","sha256":"e90787358ed0daa0824b3d8388410a2e982de81e3e4946dd18ce91c20319312d","change":"approved accessibility augmentations only"},
+    {"path":"card-plugin2.0/frontend/src/components/DetailOverlay.vue","sha256":"daea2a94be017ecfb4431494af8817c2bef050f3e1c0ef2446590fa6a7d432d7","change":"approved accessibility augmentations only"}
+  ],
+  "systemicRepair": {
+    "commerce":"price ink + navy buy auxiliary + red marker + yellow commerce surface; computed purple count 0",
+    "stepper":"low-radius ruled rectangle; separate minus/count/plus; real controls >=44px",
+    "modal":"warm-paper bounded information sheet with navy masthead rule, 1px geometry and restrained tags",
+    "navigation":"rectangular previous/next family with visible focus",
+    "zoom":"contained navy mask, rectangular >=44 close, keyboard-open/flip/close, gestures and image scaling preserved",
+    "detailOverlay":"standalone Detail semantic action hierarchy and interaction semantics applied to all fallback consumers",
+    "fixedContainment":"viewer explicitly remains viewport-fixed when nested under Detail's generic child positioning rule"
+  },
+  "browserEvidence": {
+    "artifact":"component-browser-probes.json",
+    "matrix":"Build + Detail + Event-originated journey at 390x844, 536x864, 1280x720",
+    "cases":9,
+    "undersizedFailures":0,
+    "purpleComputedVisuals":0,
+    "overflowFailures":0,
+    "activeReducedMotion":0,
+    "externalNetworkWrites":0,
+    "buildStepperParity":"each viewport: Enter 0->1, Space 1->2, pointer minus 2->1",
+    "deckNavigationParity":"each Detail/Event viewport: next Enter changes card and previous Space restores it",
+    "purchase":"buy toast observed in all nine cases",
+    "zoom":"open + keyboard flip + keyboard close exercised; flipped=true in all nine cases",
+    "otherRouteRegression":"Plaza/Mine/Event/Round hashes recorded and overflow=0"
+  },
+  "gates": {
+    "productionBuild":"PASS; 662 modules",
+    "sharedCardViewerStructuralDiff":"PASS",
+    "sharedDetailOverlayStructuralDiff":"PASS",
+    "sixRouteStructuralRegression":"PASS; 6/6",
+    "sharedComponentPreeditReceipt":"PASS; 2 entries",
+    "themeOrder":"PASS"
+  },
+  "coverageArtifact":"component-family-coverage.json",
+  "preview":"http://127.0.0.1:10092/",
+  "status":"READY_FOR_FRESH_INDEPENDENT_COMPONENT_FAMILY_QA"
+}

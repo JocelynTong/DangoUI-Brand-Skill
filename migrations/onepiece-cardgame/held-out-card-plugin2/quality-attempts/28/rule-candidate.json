@@ -1,0 +1,22 @@
+{
+  "schema": "brand-rule-candidate/v1",
+  "id": "shared-component-state-inventory-before-full-host-pass",
+  "promotion": {
+    "level": "candidate-warning",
+    "reason": "Observed in one brand/host transfer. Brand policy requires a second unrelated validation before promotion to a global blocking guard."
+  },
+  "observedIn": "onepiece-cardgame -> held-out card-plugin2",
+  "problem": "Route-complete coverage and QA passed while reachable shared overlay descendants retained legacy visual and interaction systems.",
+  "abstractMechanism": "A shared component rendered inside a covered route can escape coverage when the matrix treats it as incidental route content instead of enumerating its own reachable states and selectors.",
+  "appliesWhen": "An apply-host target contains shared modal, overlay, drawer, viewer, sticky action, commerce, stepper, or other stateful descendant used by one or more covered routes.",
+  "evidenceRequired": [
+    "shared component source and route consumers",
+    "entry path for every reachable state",
+    "selector x route x state x viewport disposition",
+    "fresh rendered evidence for every interactive state",
+    "explicit N/A evidence for unregistered or unreachable components"
+  ],
+  "scriptCheck": "Extend validate-host-coverage-matrix so fullHost PASS requires a declared shared-component inventory and rejects a reachable family/state absent from coverage cells.",
+  "currentRunEnforcement": "Attempt28 component-state-closure is required in addition to route QA21.",
+  "promotionCondition": "Promote to blocking after the same mechanism is verified on a second unrelated host or an implementation-independent inventory inspector is available."
+}

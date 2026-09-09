@@ -1,0 +1,101 @@
+{
+  "schema": "heldout-component-family-visual-qa-assessment/v1",
+  "attempt": 25,
+  "generatedAt": "2026-09-10T12:00:00+08:00",
+  "role": "fresh-independent-component-family-visual-qa",
+  "independence": {
+    "implementationEdited": false,
+    "productionSourceEdited": false,
+    "implementationSelfcheckUsedAsVerdict": false,
+    "qaOutputsOnly": true,
+    "freshBrowserRuntime": "Playwright with project-installed playwright-core and local Chrome",
+    "approvedHarness": "Attempt24 detail-overlay-qa-harness-contract.json"
+  },
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "FAIL",
+    "componentStateCoverage": "FAIL",
+    "overall": "FAIL"
+  },
+  "blockingFindings": [
+    {
+      "id": "QA25-VIS-01",
+      "severity": "BLOCKER",
+      "family": "detail-overlay-bottom-actions",
+      "viewport": "1280x720",
+      "finding": "The real production DetailOverlay fallback renders Favorite and Copy as oversized fully rounded pills across the desktop bottom bar. This directly violates the approved no-legacy-pill component-family criterion even though CardViewer itself is now clean.",
+      "evidence": ["fresh-1280x720-detail-overlay.png"],
+      "failureOwnerRole": "Host Implementation",
+      "requiredRepair": "Replace the DetailOverlay bottom action pill geometry with the approved squared/low-radius secondary Favorite and red primary Copy hierarchy at desktop and confirm the same component across 390/536/1280."
+    },
+    {
+      "id": "QA25-COV-02",
+      "severity": "BLOCKER",
+      "family": "detail-overlay-disclosures-and-input-matrix",
+      "viewport": "390/536/1280",
+      "finding": "The approved runtime rejection harness successfully triggered and restored the real fallback, but the unchanged event card action produced no title or description disclosure controls at any viewport. Their pointer/Enter/Space behavior is therefore not rendered or verified. The full buy/favorite/copy control matrix was also not proven for every input method in this fresh run.",
+      "evidence": ["fresh-browser-probes.json#overlay", "fresh-390x844-detail-overlay.png", "fresh-536x864-detail-overlay.png", "fresh-1280x720-detail-overlay.png"],
+      "failureOwnerRole": "Visual QA orchestration / Host testability",
+      "requiredRepair": "Use an approved unchanged real card action whose production fallback data naturally renders both disclosures, then independently exercise disclosure, buy, favorite, copy and close with pointer, Enter and Space without direct state setters or synthetic DOM."
+    }
+  ],
+  "componentResults": {
+    "cardViewerBuildDetailEvent3905361280": "PASS",
+    "cardViewerVbottomVstepDeckNavActualRects": "PASS_ALL_LEFT_GTE_0_RIGHT_LTE_VIEWPORT",
+    "cardViewerDesktopModalCommerceStepperBounds": "PASS_1280",
+    "cardViewerControls44px": "PASS",
+    "cardViewerLegacyPurpleAndPills": "PASS_NONE",
+    "cardViewerPointerEnterSpaceFocus": "PASS_STEPPER_NAV_BUY",
+    "cardViewerReducedMotion": "PASS_ZERO_ACTIVE",
+    "detailOverlayRealFallback": "PASS_TRIGGERED_BY_APPROVED_NAVIGATION_REJECTION_AND_ROUTER_RESTORED",
+    "detailOverlayTabsCardsViewersBuyFavoriteCopy": "PASS_RENDERED_AND_BASIC_INTERACTION",
+    "detailOverlayDisclosures": "FAIL_NOT_RENDERED",
+    "detailOverlayNoLegacyPills": "FAIL_DESKTOP_BOTTOM_ACTIONS",
+    "detailOverlayCompleteInputParity": "FAIL_INCOMPLETE_FRESH_MATRIX"
+  },
+  "workflowCompletion": {
+    "approvedHarnessInstalled": true,
+    "realCardActionTriggered": true,
+    "navigationRejectionObserved": true,
+    "productionFallbackRendered": true,
+    "navigationFunctionRestored": true,
+    "qaScript": "run-fresh-qa.mjs",
+    "status": "PASS"
+  },
+  "businessSafety": {
+    "buildH5": "PASS_662_MODULES",
+    "themeOrder": "PASS_SINGLE_GLOBAL_ENTRY_src/app.js",
+    "sharedPreeditReceipt": "PASS_2_OF_2",
+    "sharedStructuralDiff": "PASS_2_OF_2",
+    "sixRouteStructuralRegression": "PASS_6_OF_6",
+    "sixRouteBrowserRegression": "PASS_18_OF_18_ZERO_HORIZONTAL_OVERFLOW",
+    "externalWrites": "PASS_ZERO_NON_GET_HEAD_OPTIONS_REQUESTS",
+    "productionMutation": "PASS_NONE"
+  },
+  "visualQuality": {
+    "cardViewerContainment": "PASS_9_OF_9",
+    "cardViewerDesktopComposition": "PASS",
+    "cardViewerPurple": "PASS_NONE",
+    "cardViewerPills": "PASS_NONE",
+    "detailOverlayPurple": "PASS_NONE",
+    "detailOverlayContainment": "PASS_3_OF_3",
+    "detailOverlayPills": "FAIL_DESKTOP",
+    "status": "FAIL"
+  },
+  "componentStateCoverage": {
+    "cardViewer": "PASS_FOR_STEPPER_NAV_BUY_FOCUS_REDUCED_MOTION; zoom was not used to compensate for overlay blockers",
+    "detailOverlay": "FAIL_DISCLOSURES_ABSENT_AND_COMPLETE_POINTER_ENTER_SPACE_MATRIX_UNPROVEN",
+    "status": "FAIL"
+  },
+  "freshEvidence": {
+    "probes": "fresh-browser-probes.json",
+    "cardViewerScreens": 9,
+    "detailOverlayScreens": 3,
+    "routeViewportCells": 18
+  },
+  "handoff": {
+    "status": "RETURN_TO_IMPLEMENTATION_AND_QA_ORCHESTRATION_THEN_NEW_FRESH_QA",
+    "mayDeclareDone": false
+  }
+}

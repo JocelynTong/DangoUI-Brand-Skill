@@ -1,0 +1,221 @@
+{
+  "schema": "held-out-component-family-gap-audit/v1",
+  "audit": "quality-attempt-23",
+  "date": "2026-09-10",
+  "mode": "READ_ONLY_SOURCE_AND_PRIOR_EVIDENCE_AUDIT",
+  "implementationChanged": false,
+  "verdict": "REWORK_COMPONENT_FAMILY_COVERAGE",
+  "implementationPassAllowed": false,
+  "scope": {
+    "host": "card-plugin2.0/frontend",
+    "configuredRoutes": [
+      "pages/plaza/index",
+      "pages/build/index",
+      "pages/mine/index",
+      "pages/event/index",
+      "pages/round/index",
+      "pages/detail/index"
+    ],
+    "sharedComponents": [
+      "src/components/DetailOverlay.vue",
+      "src/components/CardViewer.vue"
+    ],
+    "inputsCompared": [
+      "coverage-matrix.json",
+      "preedit-baseline-bundle.json",
+      "design-direction.json",
+      "*-minimal-experiment-direction.json",
+      "quality-attempts/10",
+      "quality-attempts/13",
+      "quality-attempts/17",
+      "quality-attempts/19",
+      "quality-attempts/20",
+      "quality-attempts/22",
+      "quality-attempts/23/incident-retro.json"
+    ]
+  },
+  "routeReachability": [
+    {
+      "route": "pages/build/index",
+      "entry": [".lrow-img", ".lrow-name-hit", ".tag", ".pg-box", ".tc-img"],
+      "outcome": "openViewer(..., 'build') -> shared CardViewer",
+      "cardViewerMode": "build",
+      "visibleStates": ["closed", "open", "card-info", "commerce", "count-zero", "count-positive", "increment", "decrement", "limit/error-toast", "zoom-opening", "zoom-front", "zoom-back", "zoom-closing"],
+      "currentHostReachability": "DIRECT_AND_REAL"
+    },
+    {
+      "route": "pages/detail/index",
+      "entry": [".gcard", ".txt-row"],
+      "outcome": "openViewer(..., 'deck') -> shared CardViewer",
+      "cardViewerMode": "deck",
+      "visibleStates": ["closed", "open", "card-info", "commerce", "previous", "next", "zoom-opening", "zoom-front", "zoom-back", "zoom-closing"],
+      "currentHostReachability": "DIRECT_AND_REAL"
+    },
+    {
+      "route": "pages/event/index",
+      "entry": ["event deck action -> openDetail", "DetailOverlay .gcard", "DetailOverlay .txt-row"],
+      "outcome": "normal navigation reaches pages/detail/index; navigation-failure fallback opens DetailOverlay, whose card cells open shared CardViewer in deck mode",
+      "cardViewerMode": "deck",
+      "visibleStates": ["detail-navigation", "fallback-overlay-opening", "fallback-overlay-shown", "image-tab", "text-tab", "viewer-open", "commerce", "previous", "next", "zoom-front", "zoom-back"],
+      "currentHostReachability": "DETAIL_ROUTE_REAL; INLINE_OVERLAY_CONDITIONAL_ON_NAVIGATION_FAILURE"
+    },
+    {
+      "route": "pages/plaza/index",
+      "entry": ["deck card -> openDetail", "DetailOverlay .gcard", "DetailOverlay .txt-row"],
+      "outcome": "same normal-detail plus fallback-overlay path as Event",
+      "cardViewerMode": "deck",
+      "visibleStates": ["detail-navigation", "fallback-overlay", "viewer-open", "commerce", "previous", "next", "zoom"],
+      "currentHostReachability": "DETAIL_ROUTE_REAL; INLINE_OVERLAY_CONDITIONAL"
+    },
+    {
+      "route": "pages/mine/index",
+      "entry": ["non-draft .deck-card -> openDetail", "DetailOverlay .gcard", "DetailOverlay .txt-row"],
+      "outcome": "same normal-detail plus fallback-overlay path; draft edit/delete branches do not open CardViewer",
+      "cardViewerMode": "deck",
+      "visibleStates": ["detail-navigation", "fallback-overlay", "viewer-open", "commerce", "previous", "next", "zoom"],
+      "currentHostReachability": "DETAIL_ROUTE_REAL; INLINE_OVERLAY_CONDITIONAL"
+    },
+    {
+      "route": "pages/round/index",
+      "entry": ["ranked deck action -> openDetail", "DetailOverlay .gcard", "DetailOverlay .txt-row"],
+      "outcome": "same normal-detail plus fallback-overlay path",
+      "cardViewerMode": "deck",
+      "visibleStates": ["detail-navigation", "fallback-overlay", "viewer-open", "commerce", "previous", "next", "zoom"],
+      "currentHostReachability": "DETAIL_ROUTE_REAL; INLINE_OVERLAY_CONDITIONAL"
+    },
+    {
+      "route": "pages/viewer/index",
+      "entry": [],
+      "outcome": "legacy standalone duplicate exists on disk but is absent from src/app.config.js and no navigation reference targets it",
+      "cardViewerMode": "legacy standalone",
+      "visibleStates": ["not-configured"],
+      "currentHostReachability": "NOT_IN_CURRENT_HOST_ROUTE_SCOPE"
+    }
+  ],
+  "familyInventory": [
+    {"family":"build-publish-drawer","selector":".mask + .sheet; .sheet.on; .envpicker; .sheet-close; .sheet-draft; .sheet-publish","source":"src/pages/build/index.vue + index.scss","routes":["pages/build/index"],"states":["closed","open","env-open","invalid","publish-ready","success","failure"],"priorDisposition":"explicitly covered and themed in QA17","gap":false},
+    {"family":"build-sticky-editor-tray-and-steppers","selector":".tray; .lrow-plus; .countctl .mini; .pg-control; .pg-plus; .pg-step-minus; .tc-minus","source":"src/pages/build/index.vue + index.scss","routes":["pages/build/index"],"states":["empty","count-zero","count-positive","add","remove","list","grid","tray"],"priorDisposition":"explicit build family with held-out overrides","gap":false},
+    {"family":"mine-delete-confirm-modal","selector":".confirmmask; .confirmbox; .confirmcancel; .confirmdanger","source":"src/pages/mine/index.vue + index.scss","routes":["pages/mine/index"],"states":["closed","open","cancel","confirm"],"priorDisposition":"explicit modal coverage and theme treatment in QA19","gap":false},
+    {"family":"detail-sticky-commerce-actions","selector":".detail .stat-price; .detail .buybtn; .detail .dbottom; .detail .dbtn-fav; .detail .dbtn-copy","source":"src/pages/detail/index.vue + index.scss; src/components/DetailOverlay.vue + DetailOverlay.scss","routes":["pages/detail/index","pages/plaza/index fallback","pages/mine/index fallback","pages/event/index fallback","pages/round/index fallback"],"states":["buy","favorite-off","favorite-on","copy","sticky"],"priorDisposition":"visual hierarchy themed in QA22","gap":"PARTIAL: overlay copy lacks standalone-detail interaction semantics"},
+    {"family":"shared-card-viewer-modal","selector":".cv; .cv.on; .cv-cluster; .cvinfo; .vbottom","source":"src/components/CardViewer.vue + CardViewer.scss","routes":["pages/build/index","pages/detail/index","all DetailOverlay consumers"],"states":["closed","open","build-mode","deck-mode","zooming"],"priorDisposition":"only detail coverage named viewer; no shared family/theme selector disposition","gap":true},
+    {"family":"card-viewer-commerce","selector":".cvprice; .price; .cvbuy","source":"src/components/CardViewer.vue:39-41; src/components/CardViewer.scss:347-378","routes":["pages/build/index","pages/detail/index","all DetailOverlay consumers"],"states":["visible","tap","toast"],"priorDisposition":"not inventoried","gap":true},
+    {"family":"card-viewer-build-stepper","selector":".vstep; .vstep-b; .vstep-minus; .vstep-plus; .vstep-n","source":"src/components/CardViewer.vue:47-50; src/components/CardViewer.scss:402-447","routes":["pages/build/index"],"states":["zero","positive","increment","decrement","limit/error-toast"],"priorDisposition":"mistakenly subsumed under build stepper without CardViewer state","gap":true},
+    {"family":"card-viewer-deck-navigation","selector":".vnav-btn; .vnav-t","source":"src/components/CardViewer.vue:54-55; src/components/CardViewer.scss:381-400","routes":["pages/detail/index","all DetailOverlay consumers"],"states":["previous","next","wrap-first-last"],"priorDisposition":"not inventoried","gap":true},
+    {"family":"card-viewer-zoom-modal","selector":".cvimg-hit; .zoommask; .zoomclose; .zoomstage; .zoomflip; .zoomface; .zoomhint","source":"src/components/CardViewer.vue:5,59-78; src/components/CardViewer.scss:450+","routes":["pages/build/index","pages/detail/index","all DetailOverlay consumers"],"states":["closed","opening","front","flipped/back","swipe-close","wheel-close","closing","reduced-motion"],"priorDisposition":"not inventoried in route QA","gap":true},
+    {"family":"detail-overlay-shell","selector":".doverlay; .doverlay.shown; .detail; .dfly","source":"src/components/DetailOverlay.vue + DetailOverlay.scss","routes":["pages/plaza/index","pages/mine/index","pages/event/index","pages/round/index"],"states":["unmounted","mounted-hidden","opening-clone","shown","closing"],"priorDisposition":"shared fallback mounted but absent from route component-family lists","gap":true},
+    {"family":"detail-overlay-tabs-card-openers-and-expands","selector":".title-toggle-inline; .desc-toggle-inline; .tb; .gcard; .txt-row","source":"src/components/DetailOverlay.vue:7-70","routes":["pages/plaza/index fallback","pages/mine/index fallback","pages/event/index fallback","pages/round/index fallback"],"states":["collapsed","expanded","image-tab","text-tab","viewer-entry"],"priorDisposition":"visual descendants partly inherit detail theme; interaction semantics lag standalone page","gap":true}
+  ],
+  "gaps": [
+    {
+      "id": "CF23-01",
+      "family": "shared-card-viewer-modal",
+      "selector": ".cv, .cv.on, .cv-cluster, .cvinfo, .vbottom",
+      "source": "card-plugin2.0/frontend/src/components/CardViewer.scss:1-34",
+      "route": ["pages/build/index", "pages/detail/index", "DetailOverlay on plaza/mine/event/round"],
+      "state": ["open-build", "open-deck", "zooming"],
+      "finding": "No .cv-family selector exists in onepiece-cardgame-heldout-theme.scss. The modal remains a generic dark scrim plus rounded white floating card/pill composition rather than an explicitly disposed held-out overlay family.",
+      "owner": "Host Implementation + Host Strategist coverage",
+      "severity": "BLOCKER",
+      "repairScope": "Theme the shared CardViewer shell once, under the opt-in held-out ancestor, including mobile/desktop and reduced-motion states; do not patch only the annotated purchase and plus nodes."
+    },
+    {
+      "id": "CF23-02",
+      "family": "card-viewer-commerce",
+      "selector": ".cvprice, .price, .cvbuy",
+      "source": "card-plugin2.0/frontend/src/components/CardViewer.vue:39-41; CardViewer.scss:347-378",
+      "route": ["pages/build/index", "pages/detail/index", "DetailOverlay on plaza/mine/event/round"],
+      "state": ["price-visible", "purchase-idle", "purchase-hover/tap", "toast"],
+      "finding": "Legacy #7C5CFF is still used for both price and purchase fill; .cvbuy is only 22px high and has no role, tabindex or Enter/Space parity.",
+      "owner": "Host Implementation",
+      "severity": "BLOCKER",
+      "repairScope": "Map price/action hierarchy to held-out commerce semantics, enforce >=44px actual target and approved focus treatment, and add only the already-approved accessibility delegation to existing buy()."
+    },
+    {
+      "id": "CF23-03",
+      "family": "card-viewer-build-stepper",
+      "selector": ".vstep, .vstep-b, .vstep-minus, .vstep-plus, .vstep-n",
+      "source": "card-plugin2.0/frontend/src/components/CardViewer.vue:47-50; CardViewer.scss:402-447",
+      "route": ["pages/build/index"],
+      "state": ["zero", "positive", "increment", "decrement", "maximum/error"],
+      "finding": "The wrapper remains a 27px pill, controls remain 20px-radius circles, .vstep-plus remains #7C5CFF, and both actual controls are 40x40 with no button semantics or keyboard parity.",
+      "owner": "Host Implementation",
+      "severity": "BLOCKER",
+      "repairScope": "Treat the modal quantity control as the same held-out stepper family as Build list/grid/tray controls; repair wrapper, plus/minus, count, focus, >=44px target and all count states through shared selectors."
+    },
+    {
+      "id": "CF23-04",
+      "family": "card-viewer-deck-navigation",
+      "selector": ".vnav-btn, .vnav-t",
+      "source": "card-plugin2.0/frontend/src/components/CardViewer.vue:54-55; CardViewer.scss:381-400",
+      "route": ["pages/detail/index", "DetailOverlay on plaza/mine/event/round"],
+      "state": ["previous", "next", "wrap-around"],
+      "finding": "Previous/next controls retain 23px-radius white pills and lack role/tabindex/Enter/Space/focus-visible behavior. They were not listed as a viewer subfamily in prior QA.",
+      "owner": "Host Implementation + Visual QA",
+      "severity": "HIGH",
+      "repairScope": "Theme both controls as one compact navigation family and add approved accessibility parity without changing card-order or wrap behavior."
+    },
+    {
+      "id": "CF23-05",
+      "family": "card-viewer-zoom-modal",
+      "selector": ".cvimg-hit, .zoommask, .zoomclose, .zoomstage, .zoomflip, .zoomhint",
+      "source": "card-plugin2.0/frontend/src/components/CardViewer.vue:5,59-78; CardViewer.scss:450+",
+      "route": ["pages/build/index", "pages/detail/index", "DetailOverlay on plaza/mine/event/round"],
+      "state": ["opening", "front", "flipped-back", "swipe/wheel-close", "closing", "reduced-motion"],
+      "finding": "Nested modal/flip states have no explicit coverage disposition or held-out selectors. The 36x36 circular close control and image/flip surface also lack keyboard semantics and visible focus.",
+      "owner": "Host Strategist coverage + Host Implementation",
+      "severity": "HIGH",
+      "repairScope": "Add the entire zoom state machine to component coverage; theme mask/close/hint/flip framing consistently, enforce >=44px close target and keyboard-operable open/close/flip while preserving gestures."
+    },
+    {
+      "id": "CF23-06",
+      "family": "detail-overlay-shell-and-controls",
+      "selector": ".doverlay, .detail, .title-toggle-inline, .desc-toggle-inline, .tb, .gcard, .txt-row, .buybtn, .dbtn",
+      "source": "card-plugin2.0/frontend/src/components/DetailOverlay.vue:1-81; DetailOverlay.scss",
+      "route": ["pages/plaza/index", "pages/mine/index", "pages/event/index", "pages/round/index"],
+      "state": ["mounted-hidden", "clone-opening", "shown-image", "shown-text", "expanded", "favorite", "copy", "buy", "closing"],
+      "finding": "Visual .detail overrides cover much of the surface, but the fallback overlay itself was not enumerated. Unlike pages/detail/index, its expanders, tabs, card cells, purchase and bottom actions omit role/tabindex/ARIA/Enter/Space parity, so QA22's standalone Detail result does not close this shared component.",
+      "owner": "Host Implementation + Visual QA",
+      "severity": "BLOCKER",
+      "repairScope": "Bring DetailOverlay interaction semantics to parity with the already-repaired standalone Detail component, verify all overlay lifecycle states, then exercise CardViewer from both image and text branches. Preserve openDetail navigation-first behavior."
+    },
+    {
+      "id": "CF23-07",
+      "family": "coverage-contract",
+      "selector": "coverage-matrix route componentFamilies/states",
+      "source": "migrations/onepiece-cardgame/held-out-card-plugin2/coverage-matrix.json",
+      "route": ["all six configured routes"],
+      "state": ["all shared descendant states"],
+      "finding": "Route completeness was mistaken for component-state completeness. Build names a generic stepper but not CardViewer; Detail names viewer without commerce/navigation/zoom subfamilies; Plaza/Mine/Event/Round omit their mounted DetailOverlay/CardViewer fallback descendants.",
+      "owner": "Host Strategist",
+      "severity": "BLOCKER",
+      "repairScope": "Amend coverage to require explicit preserve/theme/style-only/N-A disposition for every visible shared modal/drawer/sticky/action/stepper/commerce family and each reachable state before fresh QA."
+    },
+    {
+      "id": "CF23-08",
+      "family": "legacy-standalone-viewer-route",
+      "selector": "pages/viewer/index.vue .vstep and related viewer controls",
+      "source": "card-plugin2.0/frontend/src/pages/viewer/index.vue + index.scss; src/app.config.js",
+      "route": ["pages/viewer/index"],
+      "state": ["not-configured", "not-navigated"],
+      "finding": "A duplicate legacy viewer implementation contains the same purple stepper, but the route is not registered among the six app pages and no source navigation targets it.",
+      "owner": "Host Strategist",
+      "severity": "ADVISORY",
+      "repairScope": "Mark N/A for current-host visual closure. Do not cite it as coverage evidence. If the route is later registered, consolidate with shared CardViewer or add a separate full-state repair before acceptance."
+    }
+  ],
+  "priorQaMissAnalysis": [
+    {"attempt":"QA10","scope":"Plaza standard sample","miss":"Other-route hash/overflow regression did not open shared overlays or viewer descendants."},
+    {"attempt":"QA13","scope":"Event provenance closure","miss":"Event actions were checked for route navigation, not navigation-failure DetailOverlay or nested CardViewer states."},
+    {"attempt":"QA17","scope":"Build editor","miss":"Build shell/sheet/list-grid steppers passed, but no CardViewer entry was opened; modal .vstep was incorrectly treated as covered by route-level stepper work."},
+    {"attempt":"QA19","scope":"Mine and delete modal","miss":"Delete confirm was covered; non-draft DetailOverlay fallback and nested CardViewer were not."},
+    {"attempt":"QA20","scope":"Round","miss":"Rank/content route passed without opening the fallback overlay/viewer family."},
+    {"attempt":"QA22","scope":"Standalone Detail action hierarchy","miss":"Repaired .detail purchase/sticky controls but did not inspect CardViewer commerce/stepper/navigation/zoom or the semantically older DetailOverlay copy."}
+  ],
+  "closureRequirements": [
+    "No implementation PASS may be issued from this audit.",
+    "Repair shared families, not route-local screenshots or only .cvbuy/.vstep-plus.",
+    "Fresh QA must open CardViewer from Build list, grid and tray; standalone Detail image and text; and an Event-originated detail journey, with fallback overlay explicitly fixture-tested if navigation failure is not naturally reproducible.",
+    "Fresh QA must cover build/deck modes, price/buy, zero/positive/max quantity, previous/next wrap, zoom opening/front/back/closing, focus/keyboard, >=44px targets and reduced motion.",
+    "Six-route default/state regression and zero-write safety remain required."
+  ]
+}

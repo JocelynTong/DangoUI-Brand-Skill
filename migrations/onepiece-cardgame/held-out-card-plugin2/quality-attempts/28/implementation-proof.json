@@ -1,0 +1,64 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 28,
+  "scope": "held-out-card-plugin2-detail-overlay-desktop-control-physical-sizing",
+  "qaVerdict": null,
+  "changedFiles": [
+    {
+      "path": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sha256": "0e22b7fc772ab5cdfedf410d2b7cfe021af1d68f8bb308c2426257fda4b1577a",
+      "change": "At desktop scaling only, DetailOverlay description disclosure and buy owners receive physical 44px minimum dimensions, proportional padding, and border-box sizing."
+    }
+  ],
+  "productionSafety": {
+    "vueComponentsChanged": false,
+    "handlersChanged": false,
+    "routesStoresApisDataEventsChanged": false,
+    "mobile390And536RulesChanged": false
+  },
+  "browserEvidence": {
+    "overlayArtifact": "../26/selfcheck-probes.json",
+    "matrix": "DetailOverlay at 390x844, 536x864 and 1280x720 via approved deck-0 isolated fixture and router rejection harness",
+    "descriptionToggleRects": {
+      "390": {"width":45.75,"height":45.75,"centerOwner":"desc-toggle-inline","scrollWidth":46,"clientWidth":46},
+      "536": {"width":44,"height":44,"centerOwner":"desc-toggle-inline","scrollWidth":44,"clientWidth":44},
+      "1280": {"width":44,"height":44,"centerOwner":"desc-toggle-inline","scrollWidth":88,"clientWidth":88}
+    },
+    "buyRects": {
+      "390": {"width":87.359375,"height":45.75,"insideStat":true},
+      "536": {"width":84,"height":44,"insideStat":true},
+      "1280": {"width":84,"height":44,"insideStat":true}
+    },
+    "descriptionPointerEnterSpace":"PASS 3/3; pointer false->true, Enter true->false, Space false->true, final restore false",
+    "buyPointerEnterSpace":"PASS 3/3; unchanged buy action invoked by pointer, Enter and Space with toast observed",
+    "titleDisclosureRegression":"PASS 3/3 pointer-center, Enter and Space; owner >=44 and no tag overlap",
+    "overlayActionBarRegression":"PASS; Attempt26 hierarchy retained and owners >=44",
+    "internalClippingFailures":0,
+    "documentOverflowFailures":0,
+    "activeReducedMotion":0,
+    "exactFixtureRestore":"PASS 3/3; restored SHA-256 20065916b9eebaad79200b93f178a869c1ff278b0a41a923418647073f906445",
+    "exactRouterRestore":"PASS 3/3",
+    "externalNetworkWrites":0
+  },
+  "cardViewerRegression": {
+    "artifact":"../23/component-browser-probes.json",
+    "generatedAt":"2026-09-09T20:07:37.743Z",
+    "matrix":"Build/Detail/Event x 390/536/1280",
+    "cases":9,
+    "undersizedFailures":0,
+    "computedPurpleVisuals":0,
+    "documentOverflowFailures":0,
+    "activeReducedMotion":0,
+    "externalNetworkWrites":0
+  },
+  "gates": {
+    "productionBuild":"PASS; 662 modules",
+    "sharedCardViewerStructuralDiff":"PASS",
+    "sharedDetailOverlayStructuralDiff":"PASS",
+    "sharedComponentPreeditReceipt":"PASS; 2 entries",
+    "sixRouteStructuralRegression":"PASS; 6/6",
+    "themeOrder":"PASS"
+  },
+  "preview":"http://127.0.0.1:10092/",
+  "status":"READY_FOR_FRESH_INDEPENDENT_QA28"
+}

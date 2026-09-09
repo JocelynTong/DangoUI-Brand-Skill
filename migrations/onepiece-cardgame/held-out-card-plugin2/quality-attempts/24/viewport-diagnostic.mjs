@@ -1,0 +1,3 @@
+import { chromium } from 'playwright-core'
+const b=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--no-sandbox']})
+const c=await b.newContext({viewport:{width:1280,height:720}}),p=await c.newPage();await p.goto('http://127.0.0.1:10092/#/pages/event/index?id=0',{waitUntil:'networkidle'});console.log(await p.evaluate(()=>{const a=document.querySelector('.taro_router').__vue_app__,i=a._instance;return{appKeys:Object.keys(a),provides:Reflect.ownKeys(i?.appContext?.provides||{}).map(String),global:Object.keys(i?.appContext?.config?.globalProperties||{}),instanceKeys:Object.keys(i||{})}}));await b.close()

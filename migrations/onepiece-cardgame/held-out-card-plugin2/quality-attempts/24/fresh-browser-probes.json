@@ -1,0 +1,90 @@
+{
+  "schema": "heldout-component-family-fresh-browser-probes/v1",
+  "attempt": 24,
+  "role": "fresh-independent-component-family-visual-qa",
+  "implementationEdited": false,
+  "browser": "Codex in-app browser",
+  "origin": "http://192.168.12.127:10092",
+  "results": {
+    "buildCardViewer": [
+      {
+        "viewport": "390x844",
+        "info": {"left": 14.55, "top": 220.84, "right": 375.45, "bottom": 556.68},
+        "commerce": {"left": 31.55, "top": 484.68, "right": 358.45, "bottom": 539.68},
+        "stepper": {"left": -25, "top": 571.23, "right": 415, "bottom": 618.99},
+        "viewportContained": false,
+        "clippingMasking": true,
+        "documentOverflow": 0,
+        "computedPurpleCount": 0,
+        "undersizedRoleButtons": [],
+        "focusableRoleButtons": true,
+        "countSequence": ["1", "2", "3", "2"],
+        "countInputs": ["Enter increment", "Space increment", "pointer decrement"],
+        "finding": "The 440px stepper is wider than the 390px viewport and is clipped 25px on both sides. documentOverflow=0 does not establish containment because viewport clipping masks the overrun."
+      },
+      {
+        "viewport": "536x864",
+        "info": {"left": 48, "top": 209.33, "right": 488, "bottom": 571.78},
+        "commerce": {"left": 65, "top": 482.89, "right": 471, "bottom": 554.78},
+        "stepper": {"left": 48, "top": 585.78, "right": 488, "bottom": 650.67},
+        "viewportContained": true,
+        "clippingMasking": false,
+        "documentOverflow": 0,
+        "computedPurpleCount": 0,
+        "undersizedRoleButtons": [],
+        "focusableRoleButtons": true,
+        "countSequence": ["2", "3", "4", "3"],
+        "countInputs": ["Enter increment", "Space increment", "pointer decrement"]
+      },
+      {
+        "viewport": "1280x720",
+        "info": {"left": 419.44, "top": 100.12, "right": 860.56, "bottom": 505},
+        "commerce": {"left": 437.48, "top": 388.7, "right": 842.52, "bottom": 486.95},
+        "stepper": {"left": 419.44, "top": 519.03, "right": 860.56, "bottom": 611.27},
+        "viewportContained": true,
+        "clippingMasking": false,
+        "documentOverflow": 0,
+        "computedPurpleCount": 0
+      }
+    ],
+    "detailCardViewer": [
+      {
+        "viewport": "390x844",
+        "info": {"left": 14.15, "top": 219.3, "right": 375.85, "bottom": 555.89},
+        "commerce": {"left": 31.19, "top": 483.73, "right": 358.81, "bottom": 538.85},
+        "deckNavigation": {"left": -25.5, "top": 570.48, "right": 415.5, "bottom": 618.42},
+        "viewportContained": false,
+        "clippingMasking": true,
+        "navigationSequence": ["Blaine's Charizard", "Detective Pikachu", "Blaine's Charizard"],
+        "navigationInputs": ["Enter next", "Space previous"],
+        "computedPurpleCount": 0,
+        "undersizedRoleButtons": [],
+        "focusableRoleButtons": true
+      },
+      {
+        "viewport": "536x864",
+        "info": {"left": 48, "top": 227.22, "right": 488, "bottom": 572.78},
+        "commerce": {"left": 65, "top": 500.78, "right": 471, "bottom": 555.78},
+        "deckNavigation": {"left": 48, "top": 586.78, "right": 488, "bottom": 632.78},
+        "viewportContained": true,
+        "navigationSequence": ["Blaine's Charizard", "Detective Pikachu", "Blaine's Charizard"],
+        "navigationInputs": ["Enter next", "Space previous"],
+        "computedPurpleCount": 0,
+        "undersizedRoleButtons": [],
+        "focusableRoleButtons": true
+      }
+    ],
+    "zoom": {
+      "390x844": {"openedByEnter": true, "flipInvokedBySpace": true},
+      "536x864": {"openedByEnter": true, "flipInvokedBySpace": true},
+      "note": "Closing-state observation was not accepted because the transition had not settled before the read."
+    },
+    "detailOverlayHarness": {
+      "freshIndependentExecution": false,
+      "reason": "The approved browser-only contract requires temporary runtime interception. The available independent browser evaluation surface is read-only, so the implementation-owned overlay-harness-probes.json and screenshots were not reused as a fresh QA verdict.",
+      "componentStateCoverage": "UNVERIFIED"
+    },
+    "writes": [],
+    "standaloneViewer": "N/A_UNREGISTERED"
+  }
+}

@@ -1,0 +1,2141 @@
+{
+  "schema": "heldout-component-family-fresh-qa/v1",
+  "attempt": 23,
+  "generatedAt": "2026-09-09T19:16:34.679Z",
+  "role": "fresh-independent-visual-qa",
+  "base": "http://127.0.0.1:10092",
+  "readOnlyExternal": true,
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 536,
+      "height": 864
+    },
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "viewerJourneys": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "journey": "build",
+      "originUrl": null,
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 573.0867919921875,
+          "height": 371.1914978027344,
+          "right": 375.8963441848755,
+          "width": 361.7926635742187,
+          "x": 14.103680610656738,
+          "y": 201.89529418945312
+        },
+        "bottom": {
+          "bottom": 635.5577392578125,
+          "height": 47.8792724609375,
+          "right": 375.8963441848755,
+          "width": 361.7926635742187,
+          "x": 14.103680610656738,
+          "y": 587.678466796875
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.04px",
+          "box": {
+            "bottom": 555.4091796875,
+            "height": 45.87420654296875,
+            "right": 358.21868896484375,
+            "width": 68.60369873046875,
+            "x": 289.614990234375,
+            "y": 509.5349731445313
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "18.72px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "3px"
+        }
+      },
+      "step": {
+        "initial": "0",
+        "afterPlusPointer": "1",
+        "afterMinusPointer": "0",
+        "afterPlusEnter": "1",
+        "afterPlusSpace": "2",
+        "afterMinusEnter": "1",
+        "afterMinusSpace": "0",
+        "lowerBound": "0",
+        "bounds": [
+          {
+            "background": "rgb(250, 249, 244)",
+            "borderRadius": "0px",
+            "className": "vstep-b vstep-minus",
+            "height": 45.7578125,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 54.078125
+          },
+          {
+            "background": "rgb(7, 26, 44)",
+            "borderRadius": "0px",
+            "className": "vstep-b vstep-plus",
+            "height": 45.7578125,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 54.078125
+          }
+        ]
+      },
+      "nav": null,
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.04px",
+          "height": 45.7578125,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 45.7578125,
+          "x": 325.5234375,
+          "y": 18.71875
+        },
+        "stage": {
+          "height": 493.5859375,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 352.5625,
+          "x": 18.71875,
+          "y": 175.203125
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-390x844-build-viewer.png",
+      "zoomScreenshot": "fresh-390x844-build-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "journey": "detail",
+      "originUrl": null,
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 574.0908813476562,
+          "height": 371.1896362304687,
+          "right": 375.89541721343994,
+          "width": 361.7908325195313,
+          "x": 14.104584693908691,
+          "y": 202.9012451171875
+        },
+        "bottom": {
+          "bottom": 634.5564575195312,
+          "height": 45.87396240234375,
+          "right": 375.89541721343994,
+          "width": 361.7908325195313,
+          "x": 14.104584693908691,
+          "y": 588.6824951171875
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.04px",
+          "box": {
+            "bottom": 556.413330078125,
+            "height": 45.87396240234375,
+            "right": 358.2178649902344,
+            "width": 68.60336303710938,
+            "x": 289.614501953125,
+            "y": 510.5393676757813
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "18.72px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "3px"
+        }
+      },
+      "step": null,
+      "nav": {
+        "initial": "Blaine's Charizard",
+        "afterNextPointer": "Detective Pikachu",
+        "afterPrevEnter": "Blaine's Charizard",
+        "afterNextSpace": "Detective Pikachu",
+        "controls": [
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.04px",
+            "height": 45.7578125,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 176.28125
+          },
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.04px",
+            "height": 45.7578125,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 176.28125
+          }
+        ]
+      },
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.04px",
+          "height": 45.7578125,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 45.7578125,
+          "x": 325.5234375,
+          "y": 18.71875
+        },
+        "stage": {
+          "height": 493.5859375,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 352.5625,
+          "x": 18.71875,
+          "y": 175.203125
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-390x844-detail-viewer.png",
+      "zoomScreenshot": "fresh-390x844-detail-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "journey": "event-origin",
+      "originUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=2",
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 574.180419921875,
+          "height": 371.0844421386719,
+          "right": 375.8441915512085,
+          "width": 361.6883544921875,
+          "x": 14.155837059020996,
+          "y": 203.09597778320312
+        },
+        "bottom": {
+          "bottom": 634.6288452148438,
+          "height": 45.86090087890625,
+          "right": 375.8441915512085,
+          "width": 361.6883544921875,
+          "x": 14.155837059020996,
+          "y": 588.7679443359375
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.04px",
+          "box": {
+            "bottom": 556.5078735351562,
+            "height": 45.86090087890625,
+            "right": 358.1716003417969,
+            "width": 68.58389282226562,
+            "x": 289.58770751953125,
+            "y": 510.64697265625
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "18.72px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "3px"
+        }
+      },
+      "step": null,
+      "nav": {
+        "initial": "Detective Pikachu",
+        "afterNextPointer": "路卡利欧",
+        "afterPrevEnter": "Detective Pikachu",
+        "afterNextSpace": "路卡利欧",
+        "controls": [
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.04px",
+            "height": 45.7578125,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 176.28125
+          },
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.04px",
+            "height": 45.7578125,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 176.28125
+          }
+        ]
+      },
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.04px",
+          "height": 45.7578125,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 45.7578125,
+          "x": 325.5234375,
+          "y": 18.71875
+        },
+        "stage": {
+          "height": 493.5859375,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 352.5625,
+          "x": 18.71875,
+          "y": 175.203125
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-390x844-event-origin-viewer.png",
+      "zoomScreenshot": "fresh-390x844-event-origin-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "journey": "build",
+      "originUrl": null,
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 668.2895965576172,
+          "height": 558.954833984375,
+          "right": 448.4570770263672,
+          "width": 360.9141845703125,
+          "x": 87.54289245605469,
+          "y": 109.3347625732422
+        },
+        "bottom": {
+          "bottom": 747.380615234375,
+          "height": 65.055419921875,
+          "right": 448.4570770263672,
+          "width": 360.9141845703125,
+          "x": 87.54289245605469,
+          "y": 682.3251953125
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.42933px",
+          "box": {
+            "bottom": 651.2464599609375,
+            "height": 63.05035400390625,
+            "right": 431.4139099121094,
+            "width": 93.91757202148438,
+            "x": 337.496337890625,
+            "y": 588.1961059570312
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "25.728px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "4px"
+        }
+      },
+      "step": {
+        "initial": "0",
+        "afterPlusPointer": "1",
+        "afterMinusPointer": "0",
+        "afterPlusEnter": "1",
+        "afterPlusSpace": "2",
+        "afterMinusEnter": "1",
+        "afterMinusSpace": "0",
+        "lowerBound": "0",
+        "bounds": [
+          {
+            "background": "rgb(250, 249, 244)",
+            "borderRadius": "0px",
+            "className": "vstep-b vstep-minus",
+            "height": 62.890625,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 62.890625
+          },
+          {
+            "background": "rgb(7, 26, 44)",
+            "borderRadius": "0px",
+            "className": "vstep-b vstep-plus",
+            "height": 62.890625,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 62.890625
+          }
+        ]
+      },
+      "nav": null,
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.42933px",
+          "height": 62.890625,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 62.890625,
+          "x": 447.3828125,
+          "y": 25.7265625
+        },
+        "stage": {
+          "height": 678.359375,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 484.546875,
+          "x": 25.7265625,
+          "y": 92.8203125
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-536x864-build-viewer.png",
+      "zoomScreenshot": "fresh-536x864-build-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "journey": "detail",
+      "originUrl": null,
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 669.2910308837891,
+          "height": 540.0177612304688,
+          "right": 448.4575653076172,
+          "width": 360.9151611328125,
+          "x": 87.54240417480469,
+          "y": 129.2732696533203
+        },
+        "bottom": {
+          "bottom": 727.4384765625,
+          "height": 44.11187744140625,
+          "right": 448.4575653076172,
+          "width": 360.9151611328125,
+          "x": 87.54240417480469,
+          "y": 683.3265991210938
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.42933px",
+          "box": {
+            "bottom": 652.247802734375,
+            "height": 44.11187744140625,
+            "right": 431.4143676757813,
+            "width": 93.9178466796875,
+            "x": 337.49652099609375,
+            "y": 608.1359252929688
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "25.728px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "4px"
+        }
+      },
+      "step": null,
+      "nav": {
+        "initial": "Blaine's Charizard",
+        "afterNextPointer": "Detective Pikachu",
+        "afterPrevEnter": "Blaine's Charizard",
+        "afterNextSpace": "Detective Pikachu",
+        "controls": [
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.42933px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 174.28125
+          },
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.42933px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 174.2890625
+          }
+        ]
+      },
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.42933px",
+          "height": 44,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 62.890625,
+          "x": 447.3828125,
+          "y": 25.7265625
+        },
+        "stage": {
+          "height": 678.359375,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 484.546875,
+          "x": 25.7265625,
+          "y": 92.8203125
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-536x864-detail-viewer.png",
+      "zoomScreenshot": "fresh-536x864-detail-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "journey": "event-origin",
+      "originUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=2",
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 641.8042755126953,
+          "height": 484.662841796875,
+          "right": 448.4066696166992,
+          "width": 360.8133239746094,
+          "x": 87.59334564208984,
+          "y": 157.1414337158203
+        },
+        "bottom": {
+          "bottom": 699.935302734375,
+          "height": 44.09942626953125,
+          "right": 448.4066696166992,
+          "width": 360.8133239746094,
+          "x": 87.59334564208984,
+          "y": 655.8358764648438
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.42933px",
+          "box": {
+            "bottom": 624.765869140625,
+            "height": 44.09942626953125,
+            "right": 431.3682556152344,
+            "width": 93.89132690429688,
+            "x": 337.4769287109375,
+            "y": 580.6664428710938
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "25.728px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "4px"
+        }
+      },
+      "step": null,
+      "nav": {
+        "initial": "Detective Pikachu",
+        "afterNextPointer": "路卡利欧",
+        "afterPrevEnter": "Detective Pikachu",
+        "afterNextSpace": "路卡利欧",
+        "controls": [
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.42933px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 174.28125
+          },
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "1.42933px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 174.2890625
+          }
+        ]
+      },
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "1.42933px",
+          "height": 44,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 62.890625,
+          "x": 447.3828125,
+          "y": 25.7265625
+        },
+        "stage": {
+          "height": 678.359375,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 484.546875,
+          "x": 25.7265625,
+          "y": 92.8203125
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-536x864-event-origin-viewer.png",
+      "zoomScreenshot": "fresh-536x864-event-origin-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "journey": "build",
+      "originUrl": null,
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 592.298921585083,
+          "height": 579.4761962890625,
+          "right": 820.459716796875,
+          "width": 360.91943359375,
+          "x": 459.540283203125,
+          "y": 12.822725296020508
+        },
+        "bottom": {
+          "bottom": 698.5697021484375,
+          "height": 92.2349853515625,
+          "right": 820.459716796875,
+          "width": 360.91943359375,
+          "x": 459.540283203125,
+          "y": 606.334716796875
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "2px",
+          "box": {
+            "bottom": 916.4137573242188,
+            "height": 88.22479248046875,
+            "right": 802.4137573242188,
+            "width": 132.33709716796875,
+            "x": 670.07666015625,
+            "y": 828.18896484375
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "36px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "6px"
+        }
+      },
+      "step": {
+        "initial": "0",
+        "afterPlusPointer": "1",
+        "afterMinusPointer": "0",
+        "afterPlusEnter": "1",
+        "afterPlusSpace": "2",
+        "afterMinusEnter": "1",
+        "afterMinusSpace": "0",
+        "lowerBound": "0",
+        "bounds": [
+          {
+            "background": "rgb(250, 249, 244)",
+            "borderRadius": "0px",
+            "className": "vstep-b vstep-minus",
+            "height": 88,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 88
+          },
+          {
+            "background": "rgb(7, 26, 44)",
+            "borderRadius": "0px",
+            "className": "vstep-b vstep-plus",
+            "height": 88,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 88
+          }
+        ]
+      },
+      "nav": null,
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "2px",
+          "height": 88,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 88,
+          "x": 1156,
+          "y": 36
+        },
+        "stage": {
+          "height": 467.9921875,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 334.28125,
+          "x": 472.859375,
+          "y": 126
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-1280x720-build-viewer.png",
+      "zoomScreenshot": "fresh-1280x720-build-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "journey": "detail",
+      "originUrl": null,
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 616.3714561462402,
+          "height": 579.4661865234375,
+          "right": 820.4566040039062,
+          "width": 360.9132080078125,
+          "x": 459.54339599609375,
+          "y": 36.905269622802734
+        },
+        "bottom": {
+          "bottom": 674.5185546875,
+          "height": 44.111572265625,
+          "right": 820.4566040039062,
+          "width": 360.9132080078125,
+          "x": 459.54339599609375,
+          "y": 630.406982421875
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "2px",
+          "box": {
+            "bottom": 896.3690185546875,
+            "height": 44.1116943359375,
+            "right": 802.4109497070312,
+            "width": 132.3348388671875,
+            "x": 670.0761108398438,
+            "y": 852.25732421875
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "36px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "6px"
+        }
+      },
+      "step": null,
+      "nav": {
+        "initial": "Blaine's Charizard",
+        "afterNextPointer": "Detective Pikachu",
+        "afterPrevEnter": "Blaine's Charizard",
+        "afterNextSpace": "Detective Pikachu",
+        "controls": [
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "2px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 172
+          },
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "2px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 172
+          }
+        ]
+      },
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "2px",
+          "height": 44,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 88,
+          "x": 1156,
+          "y": 36
+        },
+        "stage": {
+          "height": 467.9921875,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 334.28125,
+          "x": 472.859375,
+          "y": 126
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-1280x720-detail-viewer.png",
+      "zoomScreenshot": "fresh-1280x720-detail-zoom.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "journey": "event-origin",
+      "originUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=2",
+      "errors": [],
+      "visual": {
+        "modal": {
+          "bottom": 616.5577545166016,
+          "height": 579.2985229492188,
+          "right": 820.4043579101562,
+          "width": 360.8087158203125,
+          "x": 459.59564208984375,
+          "y": 37.25923156738281
+        },
+        "bottom": {
+          "bottom": 674.68798828125,
+          "height": 44.09881591796875,
+          "right": 820.4043579101562,
+          "width": 360.8087158203125,
+          "x": 459.59564208984375,
+          "y": 630.5891723632812
+        },
+        "buy": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "2px",
+          "box": {
+            "bottom": 890.5625,
+            "height": 44.09881591796875,
+            "right": 802.3639526367188,
+            "width": 132.29656982421875,
+            "x": 670.0673828125,
+            "y": 846.4636840820312
+          },
+          "color": "rgb(255, 255, 255)",
+          "role": "button",
+          "tabIndex": 0
+        },
+        "price": {
+          "color": "rgb(9, 13, 18)",
+          "fontSize": "36px"
+        },
+        "purple": [],
+        "undersized": [],
+        "overflow": 0,
+        "modalContained": false,
+        "z": {
+          "cv": "500",
+          "zoom": null
+        }
+      },
+      "buy": {
+        "pointer": true,
+        "enter": true,
+        "space": true,
+        "focus": {
+          "boxShadow": "none",
+          "isActive": true,
+          "outlineColor": "rgb(255, 245, 7)",
+          "outlineWidth": "6px"
+        }
+      },
+      "step": null,
+      "nav": {
+        "initial": "Detective Pikachu",
+        "afterNextPointer": "路卡利欧",
+        "afterPrevEnter": "Detective Pikachu",
+        "afterNextSpace": "路卡利欧",
+        "controls": [
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "2px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 172
+          },
+          {
+            "background": "rgb(246, 241, 229)",
+            "borderRadius": "2px",
+            "height": 44,
+            "role": "button",
+            "tabIndex": 0,
+            "width": 172
+          }
+        ]
+      },
+      "zoom": {
+        "close": {
+          "background": "rgb(7, 26, 44)",
+          "borderRadius": "2px",
+          "height": 44,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 88,
+          "x": 1156,
+          "y": 36
+        },
+        "stage": {
+          "height": 467.9921875,
+          "role": "button",
+          "tabIndex": 0,
+          "width": 334.28125,
+          "x": 472.859375,
+          "y": 126
+        },
+        "layer": {
+          "mask": "560",
+          "viewer": "500"
+        },
+        "closed": true
+      },
+      "screenshot": "fresh-1280x720-event-origin-viewer.png",
+      "zoomScreenshot": "fresh-1280x720-event-origin-zoom.png"
+    }
+  ],
+  "zoomBack": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "journey": "build",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-390x844-build-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "journey": "detail",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-390x844-detail-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "journey": "event-origin",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-390x844-event-origin-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "journey": "build",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-536x864-build-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "journey": "detail",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-536x864-detail-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "journey": "event-origin",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-536x864-event-origin-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "journey": "build",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-1280x720-build-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "journey": "detail",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-1280x720-detail-zoom-back.png",
+      "closed": true
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "journey": "event-origin",
+      "after": {
+        "flipped": true,
+        "hint": "点击查看卡面",
+        "mask": true
+      },
+      "screenshot": "fresh-1280x720-event-origin-zoom-back.png",
+      "closed": true
+    }
+  ],
+  "detailSurfaceChecks": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "errors": [
+        "Error: Error: Playwright selector deadline exceeded\nlocator.press failed for selector .dbtn-copy\nLocator diagnostics: {\"kind\":\"no_visible_match\",\"action\":\"press\",\"locator\":\".dbtn-copy\",\"matchCount\":1,\"matches\":[{\"ariaLabel\":null,\"disabled\":false,\"role\":\"button\",\"tag\":\"taro-view-core\",\"text\":\"复制卡组\",\"type\":null,\"visible\":false}],\"visibleCount\":0,\"truncated\":false}"
+      ],
+      "surface": {
+        "colors": {
+          ".buybtn": {
+            "background": "rgb(7, 26, 44)",
+            "borderRadius": "1.04px"
+          },
+          ".dbtn-copy": {
+            "background": "rgb(185, 29, 34)",
+            "borderRadius": "1.04px"
+          },
+          ".dbtn-fav": {
+            "background": "rgba(0, 0, 0, 0)",
+            "borderRadius": "1.04px"
+          }
+        },
+        "disclosures": [
+          {
+            "box": {
+              "bottom": 392.6570434570313,
+              "height": 45.7578125,
+              "right": 259.15625,
+              "width": 45.7578125,
+              "x": 213.3984375,
+              "y": 346.89923095703125
+            },
+            "className": "desc-toggle-inline",
+            "expanded": "false",
+            "role": "button",
+            "tabIndex": 0
+          }
+        ],
+        "gridCount": 18,
+        "nodes": {
+          ".buybtn": {
+            "bottom": 505.2898559570313,
+            "height": 45.7578125,
+            "right": 345.4765625,
+            "width": 87.359375,
+            "x": 258.1171875,
+            "y": 459.5320434570313
+          },
+          ".dbottom": {
+            "bottom": 968.3523559570312,
+            "height": 57.1484375,
+            "right": 390,
+            "width": 390,
+            "x": 0,
+            "y": 911.2039184570312
+          },
+          ".dbtn-copy": {
+            "bottom": 963.1570434570312,
+            "height": 45.7578125,
+            "right": 376.5234375,
+            "width": 177.3671875,
+            "x": 199.15625,
+            "y": 917.3992309570312
+          },
+          ".dbtn-fav": {
+            "bottom": 963.1570434570312,
+            "height": 45.7578125,
+            "right": 190.84375,
+            "width": 177.3671875,
+            "x": 13.4765625,
+            "y": 917.3992309570312
+          }
+        },
+        "overflow": 0,
+        "purple": [],
+        "tabs": [
+          {
+            "background": "rgb(9, 13, 18)",
+            "box": {
+              "bottom": 569.6804809570312,
+              "height": 45.7578125,
+              "right": 195,
+              "width": 177.3671875,
+              "x": 17.6328125,
+              "y": 523.9226684570312
+            },
+            "role": "tab",
+            "selected": "true",
+            "tabIndex": 0,
+            "text": "卡图"
+          },
+          {
+            "background": "rgb(255, 255, 255)",
+            "box": {
+              "bottom": 569.6804809570312,
+              "height": 45.7578125,
+              "right": 372.3671875,
+              "width": 177.3671875,
+              "x": 195,
+              "y": 523.9226684570312
+            },
+            "role": "tab",
+            "selected": "false",
+            "tabIndex": 0,
+            "text": "文字"
+          }
+        ],
+        "textRows": 0,
+        "undersized": [
+          {
+            "box": {
+              "bottom": 570.9901733398438,
+              "height": 43.927490234375,
+              "right": 351.29248046875,
+              "width": 65.6925048828125,
+              "x": 285.5999755859375,
+              "y": 527.0626831054688
+            },
+            "className": "cvbuy",
+            "role": "button"
+          },
+          {
+            "box": {
+              "bottom": 645.8176879882812,
+              "height": 43.927490234375,
+              "right": 191.0099983215332,
+              "width": 169.22999572753906,
+              "x": 21.78000259399414,
+              "y": 601.8901977539062
+            },
+            "className": "vnav-btn",
+            "role": "button"
+          },
+          {
+            "box": {
+              "bottom": 645.8176879882812,
+              "height": 43.927490234375,
+              "right": 368.219970703125,
+              "width": 169.22996520996094,
+              "x": 198.9900054931641,
+              "y": 601.8901977539062
+            },
+            "className": "vnav-btn",
+            "role": "button"
+          }
+        ],
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-detail-surface.png",
+      "disclosures": [
+        {
+          "before": "false",
+          "afterEnter": "true",
+          "afterSpace": "false"
+        }
+      ],
+      "textAfterPointer": "true",
+      "imageAfterEnter": "true",
+      "textAfterSpace": "true",
+      "textRowViewer": true,
+      "gridViewer": true,
+      "buyPointer": false,
+      "buyEnter": false,
+      "buySpace": false,
+      "fav": {
+        "before": "收藏卡组",
+        "pointer": "已收藏",
+        "enter": "收藏卡组",
+        "space": "已收藏",
+        "restored": "收藏卡组"
+      },
+      "copyPointer": false
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "errors": [
+        "Error: Error: Playwright selector deadline exceeded\nlocator.press failed for selector .dbtn-copy\nLocator diagnostics: {\"kind\":\"no_visible_match\",\"action\":\"press\",\"locator\":\".dbtn-copy\",\"matchCount\":1,\"matches\":[{\"ariaLabel\":null,\"disabled\":false,\"role\":\"button\",\"tag\":\"taro-view-core\",\"text\":\"复制卡组\",\"type\":null,\"visible\":false}],\"visibleCount\":0,\"truncated\":false}"
+      ],
+      "surface": {
+        "colors": {
+          ".buybtn": {
+            "background": "rgb(7, 26, 44)",
+            "borderRadius": "1.42933px"
+          },
+          ".dbtn-copy": {
+            "background": "rgb(185, 29, 34)",
+            "borderRadius": "1.42933px"
+          },
+          ".dbtn-fav": {
+            "background": "rgba(0, 0, 0, 0)",
+            "borderRadius": "1.42933px"
+          }
+        },
+        "disclosures": [
+          {
+            "box": {
+              "bottom": 302.408935546875,
+              "height": 44,
+              "right": 395.578125,
+              "width": 44,
+              "x": 351.578125,
+              "y": 258.408935546875
+            },
+            "className": "desc-toggle-inline",
+            "expanded": "false",
+            "role": "button",
+            "tabIndex": 0
+          }
+        ],
+        "gridCount": 18,
+        "nodes": {
+          ".buybtn": {
+            "bottom": 410.807373046875,
+            "height": 44,
+            "right": 463.15625,
+            "width": 84,
+            "x": 379.15625,
+            "y": 366.807373046875
+          },
+          ".dbottom": {
+            "bottom": 978.768310546875,
+            "height": 55,
+            "right": 536,
+            "width": 536,
+            "x": 0,
+            "y": 923.768310546875
+          },
+          ".dbtn-copy": {
+            "bottom": 973.768310546875,
+            "height": 44,
+            "right": 523,
+            "width": 251,
+            "x": 272,
+            "y": 929.768310546875
+          },
+          ".dbtn-fav": {
+            "bottom": 973.768310546875,
+            "height": 44,
+            "right": 264,
+            "width": 251,
+            "x": 13,
+            "y": 929.768310546875
+          }
+        },
+        "overflow": 0,
+        "purple": [],
+        "tabs": [
+          {
+            "background": "rgb(9, 13, 18)",
+            "box": {
+              "bottom": 472.807373046875,
+              "height": 44,
+              "right": 268,
+              "width": 251,
+              "x": 17,
+              "y": 428.807373046875
+            },
+            "role": "tab",
+            "selected": "true",
+            "tabIndex": 0,
+            "text": "卡图"
+          },
+          {
+            "background": "rgb(255, 255, 255)",
+            "box": {
+              "bottom": 472.807373046875,
+              "height": 44,
+              "right": 519,
+              "width": 251,
+              "x": 268,
+              "y": 428.807373046875
+            },
+            "role": "tab",
+            "selected": "false",
+            "tabIndex": 0,
+            "text": "文字"
+          }
+        ],
+        "textRows": 0,
+        "undersized": [
+          {
+            "box": {
+              "bottom": 671.5106811523438,
+              "height": 42.239990234375,
+              "right": 424.47998046875,
+              "width": 89.9324951171875,
+              "x": 334.5474853515625,
+              "y": 629.2706909179688
+            },
+            "className": "cvbuy",
+            "role": "button"
+          },
+          {
+            "box": {
+              "bottom": 743.5106811523438,
+              "height": 42.239990234375,
+              "right": 262.510009765625,
+              "width": 167.3100128173828,
+              "x": 95.1999969482422,
+              "y": 701.2706909179688
+            },
+            "className": "vnav-btn",
+            "role": "button"
+          },
+          {
+            "box": {
+              "bottom": 743.5106811523438,
+              "height": 42.239990234375,
+              "right": 440.7999877929687,
+              "width": 167.3175048828125,
+              "x": 273.48248291015625,
+              "y": 701.2706909179688
+            },
+            "className": "vnav-btn",
+            "role": "button"
+          }
+        ],
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-detail-surface.png",
+      "disclosures": [
+        {
+          "before": "false",
+          "afterEnter": "true",
+          "afterSpace": "false"
+        }
+      ],
+      "textAfterPointer": "true",
+      "imageAfterEnter": "true",
+      "textAfterSpace": "true",
+      "textRowViewer": false,
+      "gridViewer": true,
+      "buyPointer": false,
+      "buyEnter": false,
+      "buySpace": false,
+      "fav": {
+        "before": "收藏卡组",
+        "pointer": "已收藏",
+        "enter": "收藏卡组",
+        "space": "已收藏",
+        "restored": "收藏卡组"
+      },
+      "copyPointer": false
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "errors": [
+        "Error: Error: Playwright selector deadline exceeded\nlocator.press failed for selector .dbtn-copy\nLocator diagnostics: {\"kind\":\"no_visible_match\",\"action\":\"press\",\"locator\":\".dbtn-copy\",\"matchCount\":1,\"matches\":[{\"ariaLabel\":null,\"disabled\":false,\"role\":\"button\",\"tag\":\"taro-view-core\",\"text\":\"复制卡组\",\"type\":null,\"visible\":false}],\"visibleCount\":0,\"truncated\":false}"
+      ],
+      "surface": {
+        "colors": {
+          ".buybtn": {
+            "background": "rgb(7, 26, 44)",
+            "borderRadius": "2px"
+          },
+          ".dbtn-copy": {
+            "background": "rgb(185, 29, 34)",
+            "borderRadius": "2px"
+          },
+          ".dbtn-fav": {
+            "background": "rgba(0, 0, 0, 0)",
+            "borderRadius": "2px"
+          }
+        },
+        "disclosures": [
+          {
+            "box": {
+              "bottom": 314.4664611816406,
+              "height": 44,
+              "right": 861.3671875,
+              "width": 48,
+              "x": 813.3671875,
+              "y": 270.4664611816406
+            },
+            "className": "desc-toggle-inline",
+            "expanded": "false",
+            "role": "button",
+            "tabIndex": 0
+          }
+        ],
+        "gridCount": 18,
+        "nodes": {
+          ".buybtn": {
+            "bottom": 430.4586486816406,
+            "height": 49.59375,
+            "right": 1074,
+            "width": 100,
+            "x": 974,
+            "y": 380.8648986816406
+          },
+          ".dbottom": {
+            "bottom": 1541.4976806640625,
+            "height": 56,
+            "right": 1278,
+            "width": 1276,
+            "x": 2,
+            "y": 1485.4976806640625
+          },
+          ".dbtn-copy": {
+            "bottom": 1536.4976806640625,
+            "height": 44,
+            "right": 1264,
+            "width": 620,
+            "x": 644,
+            "y": 1492.4976806640625
+          },
+          ".dbtn-fav": {
+            "bottom": 1536.4976806640625,
+            "height": 44,
+            "right": 636,
+            "width": 620,
+            "x": 16,
+            "y": 1492.4976806640625
+          }
+        },
+        "overflow": 0,
+        "purple": [],
+        "tabs": [
+          {
+            "background": "rgb(9, 13, 18)",
+            "box": {
+              "bottom": 494.4586486816406,
+              "height": 44,
+              "right": 640,
+              "width": 620,
+              "x": 20,
+              "y": 450.4586486816406
+            },
+            "role": "tab",
+            "selected": "true",
+            "tabIndex": 0,
+            "text": "卡图"
+          },
+          {
+            "background": "rgb(255, 255, 255)",
+            "box": {
+              "bottom": 494.4586486816406,
+              "height": 44,
+              "right": 1260,
+              "width": 620,
+              "x": 640,
+              "y": 450.4586486816406
+            },
+            "role": "tab",
+            "selected": "false",
+            "tabIndex": 0,
+            "text": "文字"
+          }
+        ],
+        "textRows": 0,
+        "undersized": [
+          {
+            "box": {
+              "bottom": 912.568603515625,
+              "height": 42.239990234375,
+              "right": 797.52001953125,
+              "width": 126.719970703125,
+              "x": 670.800048828125,
+              "y": 870.32861328125
+            },
+            "className": "cvbuy",
+            "role": "button"
+          },
+          {
+            "box": {
+              "bottom": 700.131103515625,
+              "height": 42.239990234375,
+              "right": 634.3200073242188,
+              "width": 165.1199951171875,
+              "x": 469.2000122070313,
+              "y": 657.89111328125
+            },
+            "className": "vnav-btn",
+            "role": "button"
+          },
+          {
+            "box": {
+              "bottom": 700.131103515625,
+              "height": 42.239990234375,
+              "right": 814.800048828125,
+              "width": 165.12005615234375,
+              "x": 649.6799926757812,
+              "y": 657.89111328125
+            },
+            "className": "vnav-btn",
+            "role": "button"
+          }
+        ],
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-detail-surface.png",
+      "disclosures": [
+        {
+          "before": "false",
+          "afterEnter": "true",
+          "afterSpace": "false"
+        }
+      ],
+      "textAfterPointer": "true",
+      "imageAfterEnter": "true",
+      "textAfterSpace": "true",
+      "textRowViewer": false,
+      "gridViewer": true,
+      "buyPointer": false,
+      "buyEnter": false,
+      "buySpace": false,
+      "fav": {
+        "before": "收藏卡组",
+        "pointer": "已收藏",
+        "enter": "收藏卡组",
+        "space": "已收藏",
+        "restored": "收藏卡组"
+      },
+      "copyPointer": false
+    }
+  ],
+  "routeRegression": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "plaza",
+      "probe": {
+        "bodyHeight": 868,
+        "clientWidth": 390,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 390,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/plaza/index",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-plaza-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "build",
+      "probe": {
+        "bodyHeight": 0,
+        "clientWidth": 390,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 390,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/build/index?mode=new",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-build-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "mine",
+      "probe": {
+        "bodyHeight": 868,
+        "clientWidth": 390,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 390,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/mine/index",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-mine-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "event",
+      "probe": {
+        "bodyHeight": 844,
+        "clientWidth": 390,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 390,
+        "title": "赛事详情",
+        "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-event-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "round",
+      "probe": {
+        "bodyHeight": 868,
+        "clientWidth": 390,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 390,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=1",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-round-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "route": "detail",
+      "probe": {
+        "bodyHeight": 844,
+        "clientWidth": 390,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 390,
+        "title": "卡组详情",
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "viewport": {
+          "height": 844,
+          "width": 390
+        }
+      },
+      "screenshot": "fresh-390x844-detail-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "route": "plaza",
+      "probe": {
+        "bodyHeight": 888,
+        "clientWidth": 536,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 536,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/plaza/index",
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-plaza-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "route": "build",
+      "probe": {
+        "bodyHeight": 888,
+        "clientWidth": 536,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 536,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/build/index?mode=new",
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-build-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "route": "mine",
+      "probe": {
+        "bodyHeight": 864,
+        "clientWidth": 536,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 536,
+        "title": "我的卡组",
+        "url": "http://127.0.0.1:10092/#/pages/mine/index",
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-mine-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "route": "event",
+      "probe": {
+        "bodyHeight": 888,
+        "clientWidth": 536,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 536,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-event-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "route": "round",
+      "probe": {
+        "bodyHeight": 864,
+        "clientWidth": 536,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 536,
+        "title": "上位卡组",
+        "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=1",
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-round-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "route": "detail",
+      "probe": {
+        "bodyHeight": 888,
+        "clientWidth": 536,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 536,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "viewport": {
+          "height": 864,
+          "width": 536
+        }
+      },
+      "screenshot": "fresh-536x864-detail-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "route": "plaza",
+      "probe": {
+        "bodyHeight": 744,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 1280,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/plaza/index",
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-plaza-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "route": "build",
+      "probe": {
+        "bodyHeight": 744,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 1280,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/build/index?mode=new",
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-build-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "route": "mine",
+      "probe": {
+        "bodyHeight": 744,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 1280,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/mine/index",
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-mine-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "route": "event",
+      "probe": {
+        "bodyHeight": 744,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 1280,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-event-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "route": "round",
+      "probe": {
+        "bodyHeight": 720,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 1280,
+        "title": "上位卡组",
+        "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=1",
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-round-regression.png"
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "route": "detail",
+      "probe": {
+        "bodyHeight": 744,
+        "clientWidth": 1280,
+        "overflow": 0,
+        "purple": [],
+        "scrollWidth": 1280,
+        "title": "card-plugin",
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "viewport": {
+          "height": 720,
+          "width": 1280
+        }
+      },
+      "screenshot": "fresh-1280x720-detail-regression.png"
+    }
+  ],
+  "notes": [
+    "Taro vendor warnings were pre-existing unsupported-API warnings; no error-level console findings were observed.",
+    "Standalone pages/viewer/index is absent from app.config.js and has no navigation references: N/A.",
+    "DetailOverlay is navigation-failure fallback only; normal Event/Plaza/Mine/Round journeys navigate to pages/detail/index, so the inline overlay lifecycle is not naturally entered in this successful-navigation environment."
+  ]
+}

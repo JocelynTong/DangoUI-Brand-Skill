@@ -1,0 +1,68 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 26,
+  "scope": "held-out-card-plugin2-detail-overlay-action-bar-repair",
+  "qaVerdict": null,
+  "changedFiles": [
+    {
+      "path": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sha256": "b2e7e198ffaf385a53687de65d671ffe96bb34cc2b4a6581877f8d99c661b262",
+      "change": "DetailOverlay direct-child bottom action bar receives the approved low-radius Favorite secondary and red Copy primary hierarchy, with a materially bounded desktop bar and >=44px owners."
+    }
+  ],
+  "productionSafety": {
+    "cardViewerVueChanged": false,
+    "detailOverlayVueChanged": false,
+    "routesStoresApisDataEventsChanged": false,
+    "productionFixtureChanged": false,
+    "detailOverlayHarnessProductization": false
+  },
+  "visualEvidence": {
+    "artifact": "selfcheck-probes.json",
+    "screens": ["overlay-390x844.png", "overlay-536x864.png", "overlay-1280x720.png"],
+    "mobile390": {
+      "bar": {"left":0,"right":390,"width":390,"height":57.125},
+      "favorite": {"width":177.375,"height":45.75,"borderRadius":"1.04px","background":"rgb(246, 241, 229)","color":"rgb(7, 26, 44)"},
+      "copy": {"width":177.375,"height":45.75,"borderRadius":"1.04px","background":"rgb(185, 29, 34)","color":"rgb(255, 255, 255)"}
+    },
+    "mid536": {
+      "bar": {"left":11.4375,"right":524.5625,"width":513.125,"height":55},
+      "favorite": {"width":237.84375,"height":44,"borderRadius":"1.42933px"},
+      "copy": {"width":237.859375,"height":44,"borderRadius":"1.42933px"}
+    },
+    "desktop1280": {
+      "bar": {"left":450,"right":830,"width":380,"height":55},
+      "favorite": {"width":175,"height":44,"borderRadius":"2px","background":"rgb(246, 241, 229)","color":"rgb(7, 26, 44)"},
+      "copy": {"width":175,"height":44,"borderRadius":"2px","background":"rgb(185, 29, 34)","color":"rgb(255, 255, 255)"}
+    },
+    "undersizedFailures": 0,
+    "documentOverflowFailures": 0,
+    "activeReducedMotion": 0,
+    "externalNetworkWrites": 0
+  },
+  "approvedIsolatedFixtureEvidence": {
+    "contract": "detail-overlay-long-copy-qa-contract.json",
+    "realAction": "Plaza first production deck-card invokes unchanged openDetail(0), with approved router rejection causing unchanged DetailOverlay fallback.",
+    "originalTitle": "喷火龙 烈焰速攻",
+    "originalTitleSha256": "20065916b9eebaad79200b93f178a869c1ff278b0a41a923418647073f906445",
+    "injectedTitleSha256": "f2208dfcfaf9d65f73c806720b2a6279b02c6266b89114c5a265d4c9dc581a74",
+    "exactTitleRestore": "PASS 3/3; restored hash equals original hash",
+    "exactRouterRestore": "PASS 3/3",
+    "titleDisclosureRendered": "PASS 3/3",
+    "descriptionDisclosureFromUnchangedDeck0": "PASS 3/3",
+    "keyboardDisclosure": "Enter and Space toggle and restore both title and description in 3/3 viewports.",
+    "pointerDisclosureObservation": "Description pointer toggle succeeds at all viewports. Title pointer succeeds at 1280; at 390/536 the nested title owner intercepts the pointer and Playwright records a timeout. Per Attempt26 scope, no production disclosure behavior was changed to compensate; this remains explicit evidence for fresh QA/orchestration disposition.",
+    "actionsTabsCardsViewer": "Favorite pointer/Enter/Space toggled; Buy pointer/Enter/Space toast observed; tabs and text/image CardViewer entries exercised by keyboard. Existing approved fallback harness continues to cover Copy Space navigation/close.",
+    "externalNetworkWrites": 0
+  },
+  "gates": {
+    "productionBuild": "PASS; 662 modules",
+    "sharedCardViewerStructuralDiff": "PASS",
+    "sharedDetailOverlayStructuralDiff": "PASS",
+    "sharedComponentPreeditReceipt": "PASS; 2 entries",
+    "sixRouteStructuralRegression": "PASS; 6/6",
+    "themeOrder": "PASS"
+  },
+  "preview": "http://127.0.0.1:10092/",
+  "status": "READY_FOR_FRESH_INDEPENDENT_QA26"
+}

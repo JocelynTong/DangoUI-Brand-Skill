@@ -1,0 +1,119 @@
+{
+  "schema": "heldout-component-family-visual-qa-assessment/v1",
+  "attempt": 23,
+  "generatedAt": "2026-09-10T03:20:00+08:00",
+  "role": "fresh-independent-component-family-visual-qa",
+  "independence": {
+    "implementationSelfcheckUsedAsVerdict": false,
+    "implementationEdited": false,
+    "qaOutputsOnly": true,
+    "inputsRead": [
+      "quality-attempts/23/incident-retro.json",
+      "quality-attempts/23/component-family-gap-audit.json",
+      "quality-attempts/23/shared-component-preedit-baseline-bundle.json",
+      "quality-attempts/23/shared-component-preedit-targets.json",
+      "quality-attempts/23/implementation-proof.json",
+      "quality-attempts/23/component-family-coverage.json",
+      "structural-manifests/shared-card-viewer.json",
+      "structural-manifests/shared-detail-overlay.json"
+    ]
+  },
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "FAIL",
+    "componentStateCoverage": "FAIL",
+    "overall": "FAIL"
+  },
+  "blockingFindings": [
+    {
+      "id": "QA23-VIS-01",
+      "severity": "BLOCKER",
+      "family": "shared-card-viewer-modal",
+      "viewport": "1280x720",
+      "routes": [
+        "pages/build/index?mode=new",
+        "pages/detail/index?id=0",
+        "pages/event/index?id=0 -> pages/detail/index?id=2"
+      ],
+      "finding": "The desktop CardViewer is not contained. The fixed-width portrait card keeps mobile/rpx vertical sizing at 1280x720: the information surface ends near y=592-616 while the commerce row computes around y=828-916 and is visibly clipped out of the modal. In Build mode the detached quantity bar remains visible below the clipped surface, producing a broken two-piece composition.",
+      "evidence": [
+        "fresh-1280x720-build-viewer.png",
+        "fresh-1280x720-detail-viewer.png",
+        "fresh-1280x720-event-origin-viewer.png",
+        "fresh-browser-probes.json#viewerJourneys"
+      ],
+      "failureOwnerRole": "Host Implementation",
+      "requiredRepair": "Add a desktop CardViewer layout/height containment rule that keeps all information, commerce, and mode-specific controls visible within 1280x720 without separating the bottom control family; re-run all three desktop journeys and both build/deck modes."
+    },
+    {
+      "id": "QA23-COV-02",
+      "severity": "BLOCKER",
+      "family": "detail-overlay-shell-and-controls",
+      "viewport": "all",
+      "routes": [
+        "pages/plaza/index",
+        "pages/mine/index",
+        "pages/event/index",
+        "pages/round/index"
+      ],
+      "finding": "DetailOverlay remains a navigation-failure-only fallback. All fresh real journeys navigated successfully to pages/detail/index, so the inline overlay lifecycle (clone opening, shown image/text, disclosures, grid/text viewer entries, buy/favorite/copy, closing) was not naturally reachable and therefore cannot receive a fresh rendered PASS in this environment.",
+      "evidence": [
+        "fresh-browser-probes.json#routeRegression",
+        "fresh-browser-probes.json#viewerJourneys",
+        "card-plugin2.0/frontend/src/store.js#openDetail"
+      ],
+      "failureOwnerRole": "Visual QA orchestration / Host testability",
+      "requiredRepair": "Provide an approved deterministic failure-path harness or a registered QA entry that invokes the existing navigateTo failure branch without changing production business behavior, then test every declared DetailOverlay state at 390/536/1280."
+    }
+  ],
+  "componentResults": {
+    "cardViewerSurfaceInfoTags": "PASS_390_536; FAIL_1280_CLIPPED",
+    "cardViewerCommerce": "PASS_COLOR_SEMANTICS_AND_INPUT_PARITY; FAIL_1280_VISIBILITY",
+    "cardViewerBuildStepper": "PASS_POINTER_ENTER_SPACE_LOWER_BOUND_44PX_AND_NO_LEGACY_PILL; FAIL_1280_COMPOSITION_CONTAINMENT",
+    "cardViewerDeckNavigation": "PASS_POINTER_ENTER_SPACE_44PX_NO_LEGACY_PILL",
+    "cardViewerZoom": "PASS_OPEN_FLIP_CLOSE_ALL_9_CELLS; PASS_LAYER_560_OVER_VIEWER_500",
+    "standaloneDetailDisclosuresTabsGridTextActions": "PARTIAL_PASS; disclosure and tabs passed keyboard parity, grid viewer entry passed; buy is a navigation action and was not treated as a toast; fresh detail screenshots pass visual hierarchy",
+    "detailOverlay": "FAIL_NOT_FRESHLY_RENDERED_CONDITIONAL_FALLBACK",
+    "standaloneUnregisteredViewer": "N/A_CONFIRMED_NOT_IN_APP_CONFIG_AND_NO_NAVIGATION_REFERENCE"
+  },
+  "visualChecks": {
+    "legacyPurple": "PASS_NONE_FOUND_IN_VISIBLE_COMPONENTS_OR_18_ROUTE_CAPTURES",
+    "legacyPillsAndGiantRadius": "PASS_FOR_AUDITED_CONTROLS",
+    "approvedHierarchy": "PASS_NAVY_COMMERCE_AND_STEPPER_RED_PRIMARY_COPY_YELLOW_ACTIVE_INFORMATION",
+    "modalContainment": "FAIL_1280",
+    "fixedLayering": "PASS_ZOOM; FAIL_CARDVIEWER_DESKTOP_COMPOSITION",
+    "horizontalOverflow": "PASS_0PX_ALL_18_ROUTE_CAPTURES",
+    "touchTargets": "PASS_VISIBLE_CARDVIEWER_CONTROLS_AT_OR_ABOVE_44PX",
+    "focus": "PASS_PURCHASE_VISIBLE_YELLOW_OUTLINE",
+    "reducedMotion": "PASS_SOURCE_RULE_PRESENT; COMPUTED_EMULATION_NOT_AVAILABLE_IN_FRESH_CUA_SESSION"
+  },
+  "interactionChecks": {
+    "purchase": "PASS_POINTER_ENTER_SPACE_SAME_TOAST_IN_CARDVIEWER",
+    "stepper": "PASS_POINTER_ENTER_SPACE; 0->1->0, keyboard 0->1->2->1->0, lower bound remains 0",
+    "deckPrevNext": "PASS_POINTER_ENTER_SPACE_SAME_CARD_ORDER",
+    "zoom": "PASS_ENTER_OPEN_SPACE_FLIP_ENTER_OR_SPACE_CLOSE",
+    "externalWrites": "PASS_NONE_OBSERVED; only GET/asset/navigation and local reversible UI state were exercised"
+  },
+  "businessSafety": {
+    "buildH5": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_ENTRY_src/app.js",
+    "sharedPreeditReceipt": "PASS_2_OF_2",
+    "sharedStructuralDiff": "PASS_2_OF_2_APPROVED_ACCESSIBILITY_AUGMENTATIONS_ONLY",
+    "sixRouteRegression": "PASS_RENDER_AND_0_HORIZONTAL_OVERFLOW_AT_390_536_1280",
+    "routesApiDataStoreBusinessScripts": "PASS_UNCHANGED_BY_STRUCTURAL_GATE_AND_HASH_INSPECTION"
+  },
+  "freshEvidence": {
+    "probes": "fresh-browser-probes.json",
+    "viewerScreens": 9,
+    "zoomFrontScreens": 9,
+    "zoomBackScreens": 9,
+    "routeRegressionScreens": 18,
+    "detailSurfaceScreens": 3
+  },
+  "handoff": {
+    "status": "RETURN_TO_IMPLEMENTATION_THEN_NEW_FRESH_QA",
+    "mayDeclareDone": false,
+    "notes": "Color replacement and input parity are materially improved, but component-family acceptance is non-compensatory: the 1280 containment blocker and unrendered DetailOverlay failure path keep Attempt 23 at FAIL."
+  }
+}

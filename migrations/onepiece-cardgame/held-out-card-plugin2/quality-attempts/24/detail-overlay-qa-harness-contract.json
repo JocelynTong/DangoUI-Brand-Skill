@@ -1,0 +1,26 @@
+{
+  "schema": "brand-safe-qa-harness/v1",
+  "status": "APPROVED_TEST_ONLY",
+  "approvedByRole": "designDirectorOrchestrator",
+  "target": "shared/DetailOverlay fallback lifecycle",
+  "reason": "The production overlay is reachable only when Taro.navigateTo rejects. Normal journeys cannot render this real fallback branch, so deterministic read-only failure injection is required for fresh evidence.",
+  "allowedMechanism": [
+    "In the browser QA context only, temporarily intercept Taro.navigateTo or the resolved runtime navigation function for the targeted card-detail call and return a rejected Promise.",
+    "Trigger the unchanged real card action and observe the unchanged production catch/fallback path rendering DetailOverlay.",
+    "Restore the original function before leaving the test case."
+  ],
+  "forbidden": [
+    "No production source, route, API, store, fixture data, or handler may be changed to expose the branch.",
+    "No external request or mutation may be emitted.",
+    "The harness may not synthesize overlay DOM or call internal overlay state setters directly.",
+    "Harness evidence may not be reused for the normal successful navigation branch."
+  ],
+  "requiredEvidence": [
+    "interception installed and restored",
+    "real user-facing card action invoked",
+    "navigateTo rejection observed",
+    "production DetailOverlay rendered",
+    "all overlay states tested by pointer, Enter, and Space",
+    "zero external writes"
+  ]
+}

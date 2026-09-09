@@ -1,0 +1,17 @@
+{
+  "schema": "brand-host-preedit-targets/v1",
+  "approvedByRole": "designDirectorOrchestrator",
+  "approvalRef": "quality-attempts/23/incident-retro.json#requiredClosure",
+  "targets": [
+    {
+      "route": "shared/CardViewer",
+      "sourceFile": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/components/CardViewer.vue",
+      "baselineFile": "/Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/onepiece-cardgame/held-out-card-plugin2/structural-baselines/shared-card-viewer.json"
+    },
+    {
+      "route": "shared/DetailOverlay",
+      "sourceFile": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/components/DetailOverlay.vue",
+      "baselineFile": "/Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/onepiece-cardgame/held-out-card-plugin2/structural-baselines/shared-detail-overlay.json"
+    }
+  ]
+}

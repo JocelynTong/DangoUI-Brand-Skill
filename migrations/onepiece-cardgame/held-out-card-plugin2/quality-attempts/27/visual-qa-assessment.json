@@ -1,0 +1,84 @@
+{
+  "schema": "heldout-component-family-visual-qa-assessment/v1",
+  "attempt": 27,
+  "generatedAt": "2026-09-10T14:00:00+08:00",
+  "role": "fresh-independent-component-family-visual-qa",
+  "independence": {
+    "implementationEdited": false,
+    "productionSourceEdited": false,
+    "producerVerdictReused": false,
+    "freshRuntime": "new Playwright contexts using local Chrome",
+    "approvedContracts": ["../24/detail-overlay-qa-harness-contract.json", "../26/detail-overlay-long-copy-qa-contract.json"]
+  },
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "FAIL",
+    "componentStateCoverage": "FAIL",
+    "overall": "FAIL"
+  },
+  "blockingFindings": [
+    {
+      "id": "QA27-GEO-01",
+      "severity": "BLOCKER",
+      "family": "detail-overlay-description-disclosure",
+      "viewport": "1280x720",
+      "finding": "The unchanged deck-0 long description renders the real .desc-toggle-inline owner at only 24x22px on desktop. Pointer-center, Enter and Space all toggle, and elementFromPoint returns the disclosure owner, but successful activation cannot compensate for the frozen >=44px physical target contract.",
+      "evidence": ["fresh-browser-probes.json#overlay[2].probe.description", "fresh-1280x720-detail-overlay.png"],
+      "failureOwnerRole": "Host Implementation",
+      "requiredRepair": "Give the desktop description disclosure an independent >=44x44 hit owner while retaining center ownership, no parent interception, no text/tag overlap, exact disclosure outcome, and mobile geometry."
+    },
+    {
+      "id": "QA27-GEO-02",
+      "severity": "BLOCKER",
+      "family": "detail-overlay-commerce",
+      "viewport": "1280x720",
+      "finding": "The real DetailOverlay .buybtn ('购齐') computes to 50x24.796875px at desktop. Pointer, Enter and Space reach the purchase toast, but the visible control remains materially below the >=44px height required by the shared component-family contract.",
+      "evidence": ["fresh-browser-probes.json#overlay[2].probe.undersized", "fresh-1280x720-detail-overlay.png"],
+      "failureOwnerRole": "Host Implementation",
+      "requiredRepair": "Increase the desktop overlay commerce owner to >=44px physical height without reintroducing purple, a pill, clipping, or overlap."
+    }
+  ],
+  "componentResults": {
+    "cardViewerBuildDetailEvent3905361280": "PASS_9_OF_9_CONTAINMENT_COMMERCE_STEPPER_NAV",
+    "cardViewerPointerEnterSpace": "PASS_BUY_STEPPER_AND_DECK_NAV",
+    "cardViewerZoom": "PASS_OPEN_FLIP_CLOSE; 18 fresh front/back screenshots plus 9 base viewer screenshots",
+    "cardViewerPurpleAndPills": "PASS_NONE",
+    "detailOverlayFallback": "PASS_REAL_ACTION_APPROVED_ROUTER_REJECTION_AND_EXACT_ROUTER_RESTORE_3_OF_3",
+    "detailOverlayTitleDisclosure": "PASS_POINTER_CENTER_ENTER_SPACE_RESTORE_GEOMETRY_3_OF_3",
+    "detailOverlayDescriptionDisclosure": "PASS_BEHAVIOR_3_OF_3; FAIL_1280_24x22_TARGET",
+    "detailOverlayTabsGridTextViewer": "PASS_REAL_RENDERED_PATHS",
+    "detailOverlayBuy": "PASS_BEHAVIOR; FAIL_1280_HEIGHT_24.796875",
+    "detailOverlayFavoriteCopy": "PASS_LOW_RADIUS_BOUNDED_ACTION_BAR_AND_INTERACTION",
+    "detailOverlayPurple": "PASS_NONE"
+  },
+  "fixtureSafety": {
+    "originalDeck0Title": "喷火龙 烈焰速攻",
+    "originalTitleSha256": "20065916b9eebaad79200b93f178a869c1ff278b0a41a923418647073f906445",
+    "isolatedInjectedTitleSha256": "f2208dfcfaf9d65f73c806720b2a6279b02c6266b89114c5a265d4c9dc581a74",
+    "exactTitleRestore": "PASS_3_OF_3",
+    "exactRouterRestore": "PASS_3_OF_3",
+    "unchangedDeck0LongDescription": "PASS_USED_FOR_REAL_DISCLOSURE",
+    "externalWrites": "PASS_ZERO_NON_GET_HEAD_OPTIONS"
+  },
+  "businessSafety": {
+    "buildH5": "PASS_662_MODULES",
+    "themeOrder": "PASS_SINGLE_GLOBAL_ENTRY_src/app.js",
+    "sharedPreeditReceipt": "PASS_2_OF_2",
+    "structuralDiff": "PASS_8_OF_8_SHARED_PLUS_SIX_ROUTES",
+    "browserRegression": "PASS_18_OF_18_NONEMPTY_ZERO_HORIZONTAL_OVERFLOW",
+    "productionMutation": "PASS_NONE"
+  },
+  "freshEvidence": {
+    "probes": "fresh-browser-probes.json",
+    "screens": 30,
+    "viewerBase": 9,
+    "viewerZoomFrontBack": 18,
+    "detailOverlay": 3
+  },
+  "handoff": {
+    "status": "RETURN_TO_IMPLEMENTATION_THEN_NEW_FRESH_QA",
+    "mayDeclareDone": false,
+    "notes": "Attempt27 closes the title-disclosure interception defect and preserves the repaired action-bar hierarchy, but exact desktop geometry exposes two non-compensatory undersized controls."
+  }
+}
