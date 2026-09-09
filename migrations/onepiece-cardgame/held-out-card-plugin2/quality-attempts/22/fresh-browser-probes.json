@@ -1,0 +1,659 @@
+{
+  "schema": "heldout-detail-action-hierarchy-fresh-qa/v1",
+  "attempt": 22,
+  "generatedAt": "2026-09-09T17:58:10.510Z",
+  "readOnly": true,
+  "renders": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "fresh-390x844-detail.png",
+      "bottomScreenshot": "fresh-390x844-detail-bottom.png",
+      "metrics": {
+        "rects": {
+          "buybtn": {
+            "top": 459.046875,
+            "bottom": 504.796875,
+            "left": 258.109375,
+            "right": 345.46875,
+            "width": 87.359375,
+            "height": 45.75
+          },
+          "dbtn dbtn-fav": {
+            "top": 793.0625,
+            "bottom": 838.8125,
+            "left": 13.46875,
+            "right": 190.84375,
+            "width": 177.375,
+            "height": 45.75
+          },
+          "dbtn dbtn-copy": {
+            "top": 793.0625,
+            "bottom": 838.8125,
+            "left": 199.15625,
+            "right": 376.53125,
+            "width": 177.375,
+            "height": 45.75
+          }
+        },
+        "bottom": {
+          "top": 786.875,
+          "bottom": 844,
+          "left": 0,
+          "right": 390,
+          "width": 390,
+          "height": 57.125
+        },
+        "pageBottomPadding": "79.04px",
+        "lastCard": {
+          "top": 803.28125,
+          "bottom": 875.3125,
+          "left": 310.09375,
+          "right": 359.859375,
+          "width": 49.765625,
+          "height": 72.03125
+        },
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844
+        },
+        "colors": {
+          "price": "rgb(9, 13, 18)",
+          "buyBg": "rgb(7, 26, 44)",
+          "buyColor": "rgb(255, 255, 255)",
+          "favoriteColor": "rgb(7, 26, 44)",
+          "favoriteBorder": "rgb(7, 26, 44)",
+          "favoriteIcon": "brightness(0) saturate(1) invert(0.08) sepia(0.29) saturate(19.18) hue-rotate(172deg) brightness(0.92) contrast(1.01)",
+          "copyBg": "rgb(185, 29, 34)"
+        },
+        "focus": {
+          "buybtn": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "3px",
+            "outlineStyle": "solid"
+          },
+          "dbtn dbtn-fav": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "3px",
+            "outlineStyle": "solid"
+          },
+          "dbtn dbtn-copy": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "3px",
+            "outlineStyle": "solid"
+          }
+        },
+        "purpleVisual": [],
+        "undersized": [],
+        "clipping": [],
+        "overflow": 0,
+        "reducedMotion": 0,
+        "semantics": [
+          {
+            "className": "buybtn",
+            "role": "button",
+            "tabindex": "0",
+            "text": "购齐"
+          },
+          {
+            "className": "dbtn dbtn-fav",
+            "role": "button",
+            "tabindex": "0",
+            "text": "收藏卡组"
+          },
+          {
+            "className": "dbtn dbtn-copy",
+            "role": "button",
+            "tabindex": "0",
+            "text": "复制卡组"
+          }
+        ]
+      },
+      "bottomState": {
+        "scrollables": [
+          {
+            "className": "theme-onepiece-cardgame-heldout",
+            "clientHeight": 844,
+            "scrollHeight": 844,
+            "scrollTop": 0,
+            "overflowY": "visible"
+          },
+          {
+            "className": "BODY",
+            "clientHeight": 844,
+            "scrollHeight": 844,
+            "scrollTop": 0,
+            "overflowY": "hidden"
+          },
+          {
+            "className": "taro_router",
+            "clientHeight": 844,
+            "scrollHeight": 844,
+            "scrollTop": 0,
+            "overflowY": "visible"
+          },
+          {
+            "className": "taro_page taro_navigation_page taro_page_show taro_page_stationed",
+            "clientHeight": 844,
+            "scrollHeight": 1484,
+            "scrollTop": 640,
+            "overflowY": "scroll"
+          },
+          {
+            "className": "detail theme-pokemon-tcg-pitch-black",
+            "clientHeight": 1484,
+            "scrollHeight": 1484,
+            "scrollTop": 0,
+            "overflowY": "hidden"
+          }
+        ],
+        "lastCard": {
+          "top": 163.28125,
+          "bottom": 235.3125,
+          "height": 72.03125
+        },
+        "bottom": {
+          "top": 786.875,
+          "bottom": 844,
+          "height": 57.125
+        },
+        "lastCardFullyAboveBar": true,
+        "safeGap": 551.5625
+      },
+      "networkWrites": []
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "screenshot": "fresh-536x864-detail.png",
+      "bottomScreenshot": "fresh-536x864-detail-bottom.png",
+      "metrics": {
+        "rects": {
+          "buybtn": {
+            "top": 365.484375,
+            "bottom": 409.484375,
+            "left": 379.15625,
+            "right": 463.15625,
+            "width": 84,
+            "height": 44
+          },
+          "dbtn dbtn-fav": {
+            "top": 815,
+            "bottom": 859,
+            "left": 13,
+            "right": 264,
+            "width": 251,
+            "height": 44
+          },
+          "dbtn dbtn-copy": {
+            "top": 815,
+            "bottom": 859,
+            "left": 272,
+            "right": 523,
+            "width": 251,
+            "height": 44
+          }
+        },
+        "bottom": {
+          "top": 809,
+          "bottom": 864,
+          "left": 0,
+          "right": 536,
+          "width": 536,
+          "height": 55
+        },
+        "pageBottomPadding": "76px",
+        "lastCard": {
+          "top": 783.875,
+          "bottom": 887.921875,
+          "left": 434.390625,
+          "right": 506.90625,
+          "width": 72.515625,
+          "height": 104.046875
+        },
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864
+        },
+        "colors": {
+          "price": "rgb(9, 13, 18)",
+          "buyBg": "rgb(7, 26, 44)",
+          "buyColor": "rgb(255, 255, 255)",
+          "favoriteColor": "rgb(7, 26, 44)",
+          "favoriteBorder": "rgb(7, 26, 44)",
+          "favoriteIcon": "brightness(0) saturate(1) invert(0.08) sepia(0.29) saturate(19.18) hue-rotate(172deg) brightness(0.92) contrast(1.01)",
+          "copyBg": "rgb(185, 29, 34)"
+        },
+        "focus": {
+          "buybtn": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "4px",
+            "outlineStyle": "solid"
+          },
+          "dbtn dbtn-fav": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "4px",
+            "outlineStyle": "solid"
+          },
+          "dbtn dbtn-copy": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "4px",
+            "outlineStyle": "solid"
+          }
+        },
+        "purpleVisual": [],
+        "undersized": [],
+        "clipping": [],
+        "overflow": 0,
+        "reducedMotion": 0,
+        "semantics": [
+          {
+            "className": "buybtn",
+            "role": "button",
+            "tabindex": "0",
+            "text": "购齐"
+          },
+          {
+            "className": "dbtn dbtn-fav",
+            "role": "button",
+            "tabindex": "0",
+            "text": "收藏卡组"
+          },
+          {
+            "className": "dbtn dbtn-copy",
+            "role": "button",
+            "tabindex": "0",
+            "text": "复制卡组"
+          }
+        ]
+      },
+      "bottomState": {
+        "scrollables": [
+          {
+            "className": "theme-onepiece-cardgame-heldout",
+            "clientHeight": 864,
+            "scrollHeight": 864,
+            "scrollTop": 0,
+            "overflowY": "visible"
+          },
+          {
+            "className": "BODY",
+            "clientHeight": 864,
+            "scrollHeight": 864,
+            "scrollTop": 0,
+            "overflowY": "hidden"
+          },
+          {
+            "className": "taro_router",
+            "clientHeight": 864,
+            "scrollHeight": 864,
+            "scrollTop": 0,
+            "overflowY": "visible"
+          },
+          {
+            "className": "taro_page taro_navigation_page taro_page_show taro_page_stationed",
+            "clientHeight": 864,
+            "scrollHeight": 1686,
+            "scrollTop": 822,
+            "overflowY": "scroll"
+          },
+          {
+            "className": "detail theme-pokemon-tcg-pitch-black",
+            "clientHeight": 1686,
+            "scrollHeight": 1686,
+            "scrollTop": 0,
+            "overflowY": "hidden"
+          }
+        ],
+        "lastCard": {
+          "top": -38.125,
+          "bottom": 65.921875,
+          "height": 104.046875
+        },
+        "bottom": {
+          "top": 809,
+          "bottom": 864,
+          "height": 55
+        },
+        "lastCardFullyAboveBar": true,
+        "safeGap": 743.078125
+      },
+      "networkWrites": []
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screenshot": "fresh-1280x720-detail.png",
+      "bottomScreenshot": "fresh-1280x720-detail-bottom.png",
+      "metrics": {
+        "rects": {
+          "buybtn": {
+            "top": 380.078125,
+            "bottom": 429.671875,
+            "left": 974,
+            "right": 1074,
+            "width": 100,
+            "height": 49.59375
+          },
+          "dbtn dbtn-fav": {
+            "top": 671,
+            "bottom": 715,
+            "left": 14,
+            "right": 636,
+            "width": 622,
+            "height": 44
+          },
+          "dbtn dbtn-copy": {
+            "top": 671,
+            "bottom": 715,
+            "left": 644,
+            "right": 1266,
+            "width": 622,
+            "height": 44
+          }
+        },
+        "bottom": {
+          "top": 664,
+          "bottom": 720,
+          "left": 0,
+          "right": 1280,
+          "width": 1280,
+          "height": 56
+        },
+        "pageBottomPadding": "76px",
+        "lastCard": {
+          "top": 1175.546875,
+          "bottom": 1450.6875,
+          "left": 1055.28125,
+          "right": 1247.9375,
+          "width": 192.65625,
+          "height": 275.140625
+        },
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720
+        },
+        "colors": {
+          "price": "rgb(9, 13, 18)",
+          "buyBg": "rgb(7, 26, 44)",
+          "buyColor": "rgb(255, 255, 255)",
+          "favoriteColor": "rgb(7, 26, 44)",
+          "favoriteBorder": "rgb(7, 26, 44)",
+          "favoriteIcon": "brightness(0) saturate(1) invert(0.08) sepia(0.29) saturate(19.18) hue-rotate(172deg) brightness(0.92) contrast(1.01)",
+          "copyBg": "rgb(185, 29, 34)"
+        },
+        "focus": {
+          "buybtn": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "6px",
+            "outlineStyle": "solid"
+          },
+          "dbtn dbtn-fav": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "6px",
+            "outlineStyle": "solid"
+          },
+          "dbtn dbtn-copy": {
+            "outlineColor": "rgb(255, 245, 7)",
+            "outlineWidth": "6px",
+            "outlineStyle": "solid"
+          }
+        },
+        "purpleVisual": [],
+        "undersized": [],
+        "clipping": [],
+        "overflow": 0,
+        "reducedMotion": 0,
+        "semantics": [
+          {
+            "className": "buybtn",
+            "role": "button",
+            "tabindex": "0",
+            "text": "购齐"
+          },
+          {
+            "className": "dbtn dbtn-fav",
+            "role": "button",
+            "tabindex": "0",
+            "text": "收藏卡组"
+          },
+          {
+            "className": "dbtn dbtn-copy",
+            "role": "button",
+            "tabindex": "0",
+            "text": "复制卡组"
+          }
+        ]
+      },
+      "bottomState": {
+        "scrollables": [
+          {
+            "className": "theme-onepiece-cardgame-heldout",
+            "clientHeight": 720,
+            "scrollHeight": 720,
+            "scrollTop": 0,
+            "overflowY": "visible"
+          },
+          {
+            "className": "BODY",
+            "clientHeight": 720,
+            "scrollHeight": 720,
+            "scrollTop": 0,
+            "overflowY": "hidden"
+          },
+          {
+            "className": "taro_router",
+            "clientHeight": 720,
+            "scrollHeight": 720,
+            "scrollTop": 0,
+            "overflowY": "visible"
+          },
+          {
+            "className": "taro_page taro_navigation_page taro_page_show taro_page_stationed",
+            "clientHeight": 720,
+            "scrollHeight": 2533,
+            "scrollTop": 1813,
+            "overflowY": "scroll"
+          },
+          {
+            "className": "detail theme-pokemon-tcg-pitch-black",
+            "clientHeight": 2533,
+            "scrollHeight": 2533,
+            "scrollTop": 0,
+            "overflowY": "hidden"
+          }
+        ],
+        "lastCard": {
+          "top": -637.453125,
+          "bottom": -362.3125,
+          "height": 275.140625
+        },
+        "bottom": {
+          "top": 664,
+          "bottom": 720,
+          "height": 56
+        },
+        "lastCardFullyAboveBar": true,
+        "safeGap": 1026.3125
+      },
+      "networkWrites": []
+    }
+  ],
+  "interaction": [
+    {
+      "selector": ".buybtn",
+      "input": "pointer",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "toastDelta": true,
+      "networkWrites": []
+    },
+    {
+      "selector": ".dbtn-fav",
+      "input": "pointer",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "toastDelta": true,
+      "networkWrites": []
+    },
+    {
+      "selector": ".dbtn-copy",
+      "input": "pointer",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/build/index",
+        "fav": null
+      },
+      "toastDelta": false,
+      "networkWrites": []
+    },
+    {
+      "selector": ".buybtn",
+      "input": "Enter",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "toastDelta": true,
+      "networkWrites": []
+    },
+    {
+      "selector": ".dbtn-fav",
+      "input": "Enter",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "toastDelta": true,
+      "networkWrites": []
+    },
+    {
+      "selector": ".dbtn-copy",
+      "input": "Enter",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/build/index",
+        "fav": null
+      },
+      "toastDelta": false,
+      "networkWrites": []
+    },
+    {
+      "selector": ".buybtn",
+      "input": "Space",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "toastDelta": true,
+      "networkWrites": []
+    },
+    {
+      "selector": ".dbtn-fav",
+      "input": "Space",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "toastDelta": true,
+      "networkWrites": []
+    },
+    {
+      "selector": ".dbtn-copy",
+      "input": "Space",
+      "before": {
+        "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+        "fav": null
+      },
+      "after": {
+        "url": "http://127.0.0.1:10092/#/pages/build/index",
+        "fav": null
+      },
+      "toastDelta": false,
+      "networkWrites": []
+    }
+  ],
+  "otherRoutes": [
+    {
+      "route": "plaza",
+      "screenshot": "fresh-390x844-plaza.png",
+      "sha256": "147e09aca04fa1e1748b2e9f997991b47a4d19fe920d0428a36e79455ffe2ed6",
+      "overflow": 0,
+      "networkWrites": []
+    },
+    {
+      "route": "build",
+      "screenshot": "fresh-390x844-build.png",
+      "sha256": "3f1dc90595bb9d9562b8cfa12cceb555c3eaf9e2b81c54d6e0c560b8a509496e",
+      "overflow": 0,
+      "networkWrites": []
+    },
+    {
+      "route": "mine",
+      "screenshot": "fresh-390x844-mine.png",
+      "sha256": "5c5c203fed2c6ab371d6fb39f8dcfe1f1e7e9c22d0b0342b969f4ea0a0585756",
+      "overflow": 0,
+      "networkWrites": []
+    },
+    {
+      "route": "event",
+      "screenshot": "fresh-390x844-event.png",
+      "sha256": "c90fdbfe485997024c9dab0623aa2d885748a69b989c7ca3e8befca3cbff2ffe",
+      "overflow": 0,
+      "networkWrites": []
+    },
+    {
+      "route": "round",
+      "screenshot": "fresh-390x844-round.png",
+      "sha256": "0e4851bf146a6c64a4cf1dc5785625888a821d6cb4a6bb755a716d5e64148e00",
+      "overflow": 0,
+      "networkWrites": []
+    }
+  ]
+}

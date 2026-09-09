@@ -1,0 +1,67 @@
+{
+  "schema": "brand-host-implementation-proof/v1",
+  "attempt": 22,
+  "scope": "held-out-card-plugin2-detail-action-hierarchy-repair",
+  "implementationRole": "Host Implementation Agent",
+  "qaVerdict": null,
+  "sourceInputs": [
+    "incident-retro.json",
+    "../../detail-minimal-experiment-direction.json",
+    "../15/visual-qa-assessment.json",
+    "../21/full-host-visual-qa-assessment.json"
+  ],
+  "changedFiles": [
+    {
+      "path": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sha256": "e81c3efac5d3c466fd1bf399148a11fd1797687a994cef3e4b5ed61655697925",
+      "scope": "Detail-only held-out theme CSS"
+    }
+  ],
+  "unchangedStructure": {
+    "detailSfcSha256": "e620b26431430c82f295f32bb661983f2b4c2bd038ff22825d5e1b7c1f871bbf",
+    "businessHandlers": ["onBuy", "onFav", "onCopy"],
+    "routesStoreApiData": "unchanged",
+    "structuralGate": "PASS"
+  },
+  "implementedHierarchy": {
+    "copy": "primary red filled action",
+    "favorite": "restrained navy/ink outlined secondary action",
+    "buyAll": "compact navy commerce auxiliary inside a pale-yellow ruled zone with red section marker",
+    "purple": "removed from computed price/buy/favorite/icon/border/focus visuals and from Detail declarations in the held-out theme",
+    "stickyBar": "reduced to a 55-57.125px container with 44-45.75px true action owners; page bottom safe reserve remains 76-79.04px"
+  },
+  "responsiveEvidence": {
+    "artifact": "browser-probes.json",
+    "screenshots": [
+      "selfcheck-390x844-detail.png",
+      "selfcheck-536x864-detail.png",
+      "selfcheck-1280x720-detail.png"
+    ],
+    "viewportResults": {
+      "390x844": {"bottomBarHeight": 57.125, "minActionHeight": 45.75, "overflow": 0, "clipping": 0, "purpleVisuals": 0, "activeReducedMotion": 0, "externalWrites": 0},
+      "536x864": {"bottomBarHeight": 55, "minActionHeight": 44, "overflow": 0, "clipping": 0, "purpleVisuals": 0, "activeReducedMotion": 0, "externalWrites": 0},
+      "1280x720": {"bottomBarHeight": 56, "minActionHeight": 44, "overflow": 0, "clipping": 0, "purpleVisuals": 0, "activeReducedMotion": 0, "externalWrites": 0}
+    },
+    "computedPalette": {
+      "price": "rgb(9, 13, 18)",
+      "buy": "rgb(7, 26, 44)",
+      "favorite": "rgb(7, 26, 44)",
+      "copy": "rgb(185, 29, 34)",
+      "focus": "yellow focus-visible rule"
+    }
+  },
+  "interactionEvidence": {
+    "pointerEnterSpaceParity": "preserved existing same-owner @tap, @keydown.enter and @keydown.space.prevent bindings; structural manifest validation passed",
+    "focus": "all three owners retain role=button/tabindex=0 and Detail action focus-visible uses the approved yellow outline",
+    "renderNetworkWrites": 0
+  },
+  "regressionEvidence": {
+    "otherRoutes": ["plaza", "build", "mine", "event", "round"],
+    "otherRouteOverflowFailures": 0,
+    "otherRouteScreenshotsRecorded": true,
+    "themeOrderGate": "PASS",
+    "productionBuild": "PASS (662 modules)"
+  },
+  "preview": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+  "status": "READY_FOR_FRESH_INDEPENDENT_QA"
+}

@@ -1,0 +1,56 @@
+{
+  "schema": "heldout-detail-action-hierarchy-fresh-visual-business-qa/v1",
+  "attempt": 22,
+  "qaRole": "fresh-independent-visual-qa",
+  "fresh": true,
+  "readOnlyImplementation": true,
+  "scope": "Detail action hierarchy repair plus five-route regression",
+  "verdict": "PASS",
+  "workflowCompletion": "PASS",
+  "businessSafety": "PASS",
+  "visualQuality": "PASS",
+  "blockingFindings": [],
+  "advisoryFindings": [],
+  "summary": "The two user-reported mismatches are closed. Buy-all is now a compact navy auxiliary action in its own pale-yellow commerce zone, favorite is a restrained navy outline secondary action, and copy remains the red filled primary action. Purple is absent from the price, buy, favorite, icon filter, border and focus-visible treatment. The sticky action bar is materially shorter and lighter and the bottom scroll state exposes all card content above it.",
+  "visualAssessment": {
+    "status": "PASS",
+    "actionHierarchy": "PASS: auxiliary navy buy / secondary navy-outline favorite / primary red copy read as one coherent hierarchy at 390, 536 and 1280.",
+    "palette": "PASS: computed scan found zero purple visuals across price and action subtrees; focus-visible is yellow, price is ink, buy/favorite are navy and copy is red.",
+    "buyComposition": "PASS: the 84-100px by 44-49.59px buy owner has its own pale-yellow ruled commerce zone and no longer appears as a compressed purple control inside a statistic.",
+    "stickyWeight": "PASS: bar height fell from Attempt21 66.55/64/64px to 57.13/55/56px at 390/536/1280 (14.2%, 14.1%, 12.5% shorter), with translucent warm paper, restrained shadow and two 44px-or-larger owners.",
+    "contentSafety": "PASS: real wheel scroll reaches the Taro page maximum; the last card is fully above the fixed bar at all viewports and the explicit 76-79.04px bottom reserve remains.",
+    "screenshots": [
+      "fresh-390x844-detail.png",
+      "fresh-536x864-detail.png",
+      "fresh-1280x720-detail.png",
+      "fresh-390x844-detail-bottom.png",
+      "fresh-536x864-detail-bottom.png",
+      "fresh-1280x720-detail-bottom.png"
+    ]
+  },
+  "businessAssessment": {
+    "status": "PASS",
+    "handlersAndDom": "PASS: Detail SFC SHA-256 remains e620b26431430c82f295f32bb661983f2b4c2bd038ff22825d5e1b7c1f871bbf; all six frozen structural diffs pass; onBuy/onFav/onCopy pointer, Enter and Space bindings remain on the same owners.",
+    "runtimeParity": "PASS: all nine input/action combinations preserve their expected result—buy toast without navigation, favorite toast/toggle path, copy navigation to Build—with zero non-GET/HEAD/OPTIONS requests.",
+    "focusAndOwnership": "PASS: buy, favorite and copy retain role=button, tabindex=0, visible yellow focus and true owner dimensions >=44px at every viewport.",
+    "motionOverflowClipping": "PASS: reduced-motion has zero active transitions/animations; action text has zero clipping; document horizontal overflow is zero.",
+    "externalWrites": 0
+  },
+  "workflowAssessment": {
+    "status": "PASS",
+    "incidentClosure": "PASS: fresh evidence supersedes QA15/QA21 for the reported action-hierarchy defect.",
+    "otherRoutes": "PASS: Plaza, Build, Mine, Event and Round fresh 390px hashes exactly match Attempt22 implementation self-check, with zero overflow and zero external writes.",
+    "structuralGate": "PASS_6_OF_6",
+    "themeOrderGate": "PASS_SINGLE_GLOBAL_ENTRY_src/app.js",
+    "productionBuild": "PASS_662_MODULES"
+  },
+  "evidence": {
+    "freshBrowserProbes": "fresh-browser-probes.json",
+    "runner": "run-fresh-qa.mjs",
+    "incidentRetro": "incident-retro.json",
+    "implementationProofReadOnlyInput": "implementation-proof.json",
+    "direction": "../../detail-minimal-experiment-direction.json",
+    "priorQa": ["../15/visual-qa-assessment.json", "../21/full-host-visual-qa-assessment.json"]
+  },
+  "failureRoute": null
+}

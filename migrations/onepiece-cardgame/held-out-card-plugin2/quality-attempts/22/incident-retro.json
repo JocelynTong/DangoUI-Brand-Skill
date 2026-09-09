@@ -1,0 +1,31 @@
+{
+  "schema": "brand-user-feedback-incident/v1",
+  "route": "pages/detail/index",
+  "trigger": "user-browser-comments",
+  "status": "OPEN_REPAIR_REQUIRED",
+  "observedMismatch": [
+    "The buy-all action uses saturated purple unrelated to the approved navy/red/yellow system and is compressed into the statistics cell.",
+    "The sticky favorite action repeats the unrelated purple while the bottom action bar is visually heavier than the deck content and occludes too much of the card grid.",
+    "Buy, favorite, and copy do not express a coherent auxiliary/secondary/primary action hierarchy."
+  ],
+  "missedBy": [
+    "detail-independent-qa-attempt15",
+    "full-host-integration-qa-attempt21"
+  ],
+  "whyPreviousGatePassed": "The prior gates measured touch size, interaction parity, clipping, overflow, and cross-route consistency but did not compare the three persistent commerce/library actions as one semantic hierarchy or reject an out-of-palette legacy action color.",
+  "frozenEvidenceRefs": [
+    "detail-minimal-experiment-direction.json",
+    "quality-attempts/15/visual-qa-assessment.json",
+    "quality-attempts/21/full-host-visual-qa-assessment.json"
+  ],
+  "repairOwner": "Host Implementation Agent",
+  "qaOwner": "fresh independent Visual QA",
+  "executableRule": "On Detail, copy is the primary red action, favorite is a restrained navy/ink secondary action, and buy-all is a compact commerce auxiliary action using the approved palette. No persistent action may introduce an unrelated chromatic family, and the sticky bar must reserve content-safe bottom space without dominating the viewport.",
+  "acceptance": [
+    "390 and 536 show a coherent auxiliary/secondary/primary action hierarchy.",
+    "No purple remains in price, buy, favorite, focus, border, or icon styling.",
+    "The bottom bar is materially lighter and shorter while all real owners remain at least 44px.",
+    "The buy action remains legible and distinct from statistics without altering its handler.",
+    "Pointer, Enter, Space, focus, reduced motion, no clipping, no overflow, zero external writes, and other-route regression pass."
+  ]
+}
