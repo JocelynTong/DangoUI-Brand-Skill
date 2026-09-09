@@ -1,0 +1,38 @@
+{
+  "schema": "brand-interpreter-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 10,
+  "role": "Design Translator",
+  "status": "PASS",
+  "inputBoundary": {
+    "consumed": [
+      "migrations/onepiece-cardgame/goal-contract.json",
+      "migrations/onepiece-cardgame/footer-motion-evidence-v10.json",
+      "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-00-before-entry.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png"
+    ],
+    "excluded": ["Demo", "Demo screenshots", "implementation rationale", "prior QA verdicts"]
+  },
+  "checks": [
+    {"id":"narrow-scope","pass":true,"finding":"Pattern is restricted to the Home page-closing organism before the structural navy footer."},
+    {"id":"evidence-region-trace","pass":true,"finding":"Every accepted motion state cites a v10 capture and narrow visible region."},
+    {"id":"spatial-contract","pass":true,"finding":"Eight semantic layers have normalized placement, crop policy and hierarchy."},
+    {"id":"reveal-contract","pass":true,"finding":"One-shot fadein→is-in persistence and staggered background/character/catch/logo reveals are frozen."},
+    {"id":"state-swap-contract","pass":true,"finding":"Finite inItem inCard 0.6s + inItem 0.8s bridge must terminate at opacity 0 and yield to showItem."},
+    {"id":"loop-contract","pass":true,"finding":"card01 is infinite 5s; card02 and card03 are infinite 8s; generic or uniform loops are forbidden."},
+    {"id":"control-scope","pass":true,"finding":"footer .js-bgAnimeBtn pauses only the three card loops and must not pause, rewind or replay reveal/state-swap layers."},
+    {"id":"responsive-boundary","pass":true,"finding":"Only scale, container height, outer background crop, proportional overlap offsets and necessary vertical staging may change; hierarchy and motion topology remain invariant."},
+    {"id":"forbidden-substitutions","pass":true,"finding":"Pale diagonal poster composition, static-only substitute, single-raster flattening and generic animation are explicitly prohibited."},
+    {"id":"no-role-expansion","pass":true,"finding":"Footer motion is not promoted to a global motion recipe or generic brand decoration."},
+    {"id":"fact-interpretation-separation","pass":true,"finding":"Observed telemetry, interpretation and implementation recommendation remain distinct."},
+    {"id":"unresolved-reduced-motion","pass":true,"finding":"Reduced-motion behavior remains unresolved because v10 could not expose the preference; no unsupported fallback was approved."}
+  ],
+  "outputs": [
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json"
+  ]
+}

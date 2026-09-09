@@ -1,0 +1,75 @@
+{
+  "schema": "brand-token-evidence-recheck/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "candidate": {
+    "token": "--du-border-1",
+    "value": "#5E5E5E",
+    "requestedRole": "ordinary-subtle-divider"
+  },
+  "status": "rejected",
+  "reviewMethod": "screenshot-first",
+  "reviewedEvidence": [
+    {
+      "ref": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+      "role": "sealed-goal"
+    },
+    {
+      "ref": "migrations/pokemon-tcg-official/source-observation-manifest.json",
+      "role": "frozen-source-capture-index"
+    },
+    {
+      "ref": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png",
+      "role": "source-screenshot"
+    },
+    {
+      "ref": "migrations/pokemon-tcg-official/captures/source/home/desktop/loaded-000.png",
+      "role": "source-visible-viewport"
+    },
+    {
+      "ref": "migrations/pokemon-tcg-official/site-evidence.json",
+      "role": "candidate-inventory"
+    },
+    {
+      "ref": "migrations/pokemon-tcg-official/brand-evidence.json",
+      "role": "visible-claim-inventory"
+    },
+    {
+      "ref": "https://tcg.pokemon.com/en-us/",
+      "role": "live-official-page",
+      "observedState": "desktop home initial/default"
+    }
+  ],
+  "candidateOccurrences": [
+    {
+      "source": "https://tcg.pokemon.com/global.css",
+      "selector": ".main-nav__featured-dropdown .main-nav__dropdown-column::before",
+      "state": "desktop dropdown candidate",
+      "declaredColor": "#5E5E5E"
+    },
+    {
+      "source": "https://tcg.pokemon.com/global.css",
+      "selector": ".main-nav__dropdown-column::before",
+      "state": "desktop dropdown candidate",
+      "declaredColor": "#5E5E5E"
+    }
+  ],
+  "visibleRegion": null,
+  "computedEvidence": null,
+  "finding": "No reviewed source screenshot or visible brand-evidence claim shows an ordinary subtle divider rendered as #5E5E5E. The only located occurrences are CSS/pseudo-element candidates for navigation dropdown columns. The frozen captures show the default navigation state, not an expanded dropdown state, and provide no visible-region, bounding-box, or computed-style evidence for either pseudo-element.",
+  "rejectionReasons": [
+    "A CSS declaration or variable candidate is not rendered evidence.",
+    "A pseudo-element candidate without a captured visible state and computed result is not rendered evidence.",
+    "The live official home page default viewport does not visibly expose either dropdown-column divider.",
+    "The existing brand-evidence claims do not identify #5E5E5E as a visible ordinary divider."
+  ],
+  "contractRecommendation": {
+    "action": "remove-from-mapped-contract",
+    "token": "--du-border-1",
+    "reason": "The requested semantic role is unsupported by rendered source evidence; do not search for or invent a consumer to preserve the candidate."
+  },
+  "forbiddenFollowups": [
+    "Do not add a consumer solely to retain #5E5E5E.",
+    "Do not promote the dropdown pseudo-element declaration into a general divider token without a newly captured visible state and computed proof."
+  ]
+}

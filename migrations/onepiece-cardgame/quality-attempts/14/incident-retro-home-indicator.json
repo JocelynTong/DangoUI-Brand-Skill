@@ -1,0 +1,57 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 14,
+  "status": "closed-after-fresh-blind-qa-r4-pass",
+  "userFeedback": "home indicator 还是有问题",
+  "observedMismatch": {
+    "surface": "normal user-facing ONE PIECE Home phone mockup",
+    "fact": "The indicator was absolutely positioned but rendered a solid rgba(247,244,233,.94) strip across the screen bottom, visually behaving like an appended footer.",
+    "measuredBefore": {
+      "phoneRect": [627.5, 55.765625, 390, 821.4609375],
+      "screenRect": [637, 65.265625, 371, 802.4609375],
+      "indicatorRect": [637, 834.1640625, 371, 33.5625],
+      "position": "absolute",
+      "background": "rgba(247, 244, 233, 0.94)"
+    }
+  },
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "qaMiss": {
+    "role": "Visual QA",
+    "reason": "Prior QA checked position and scroll stability but did not reject a solid full-width indicator background that visually became a footer."
+  },
+  "userCorrectionRevision2": {
+    "feedback": ["Why is there spacing above the bottom edge?", "Why add a white translucent gradient?"],
+    "rootCause": "The implementation and first fresh QA reused a Pokémon-derived contrast treatment without ONE PIECE evidence. They optimized bar visibility and non-overlap but failed the necessity test: neither a white veil nor a full indicator-height blank band was required.",
+    "decision": "Use a fully transparent indicator container, anchor it to the chassis bottom, retain only the black bar, and reduce content inset to the minimum needed for clearance."
+  },
+  "correctiveAction": [
+    "Inset the outer indicator horizontally by the measured chassis border and anchor it to the chassis bottom.",
+    "Use a fully transparent indicator container; only the black bar may be visible.",
+    "Reduce final document safe inset below the indicator height while retaining minimum clearance.",
+    "Keep explicit no-shell proof modes free of the indicator."
+  ],
+  "preventiveGate": {
+    "file": "scripts/brand-preview-layout-contract.mjs",
+    "function": "validateHomeIndicatorProbe",
+    "blockerCode": "HOME_INDICATOR_OPAQUE_FOOTER",
+    "promotion": "blocking-platform-rule",
+    "basis": "The same chassis-vs-document ownership failure appeared in both brands; the ONE PIECE follow-up additionally proves that a generic contrast gradient and full-height safe band can themselves become unsupported chrome."
+  },
+  "requiredClosure": ["browser visual proof", "scroll geometry proof", "proof-mode absence", "fresh independent Blind QA"],
+  "closure": {
+    "verdict": "PASS",
+    "qaArtifact": "migrations/onepiece-cardgame/quality-attempts/14/blind-qa-r4/report.md",
+    "evidence": {
+      "footerToBarClearancePx": 1.4453125,
+      "lastVisibleContentToBarClearancePx": 43.4453125,
+      "normalScreenClientWidthPx": 298,
+      "normalScreenScrollWidthPx": 298,
+      "mobileViewportWidthPx": 390,
+      "mobileHorizontalOverflowPx": 0
+    },
+    "earliestFailureNode": null,
+    "failureOwnerRole": null
+  }
+}

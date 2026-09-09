@@ -1,0 +1,79 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r3",
+  "qaExecutionId": "pokemon_pocket_blind_qa_r3",
+  "scope": "Attempt10 Pocket revision3 only",
+  "verdict": "REWORK",
+  "threeProofVerdicts": {
+    "evidenceFidelity": {
+      "status": "PASS",
+      "reason": "Fresh source/demo comparison and live computed probes support the full-background layering, exact breakpoint geometry, byte-identical URL aliases, independent logo asset, type hierarchy and official CTA states."
+    },
+    "structuralFidelity": {
+      "status": "PASS",
+      "reason": "Desktop and mobile composition, reading order, background/copy ownership and responsive reflow match the frozen contract without overflow; prior Hero, News and TCG Live sections remain operational."
+    },
+    "generativeProof": {
+      "status": "PASS",
+      "reason": "The isolated fixture is visibly fictional/non-official, changes copy, product concept and desktop child arrangement, uses an original DOM/CSS concept tile, omits the official composite, and preserves only approved Pocket section-local invariants."
+    }
+  },
+  "interactionVerdict": "FAIL",
+  "protocolVerdict": "NEEDS_CLEAN_INPUT_PACKET",
+  "blockingFindings": [
+    {
+      "code": "HELD_OUT_CTA_BREAKS_SPA_ROUTE",
+      "severity": "blocking",
+      "observableMismatch": "Review the Concept is presented as an enabled CTA, but its href has no matching target. Clicking changes the URL from the direct fixture route to #fictional-pocket-concept; after reload the held-out fixture is gone.",
+      "evidence": {
+        "href": "#fictional-pocket-concept",
+        "targetExists": false,
+        "beforeUrl": "http://127.0.0.1:5177/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "afterClickUrl": "http://127.0.0.1:5177/?proof=desktop#fictional-pocket-concept",
+        "afterReloadHeldOutExists": false
+      },
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "requiredFix": "Make the fictional CTA a true inert control or a valid route-safe target, then capture click and reload recovery in a new implementation revision."
+    },
+    {
+      "code": "BLIND_QA_INPUT_HYGIENE_GAP",
+      "severity": "blocking-protocol",
+      "observableMismatch": "The canonical Blind QA contract requires a QA Input Manifest and forbids prior verdict material. No attempt-local qa-input-manifest.json was supplied, while demo-revision3/provenance.json embeds prior QA blocker codes. Those codes were ignored for this product conclusion, but the packet is not cleanly blind.",
+      "earliestFailureNode": "Design Director / Orchestrator dispatch",
+      "failureOwnerRole": "designDirectorOrchestrator",
+      "requiredFix": "Create a hash-bound attempt10 QA input manifest and remove previous-verdict fields from the next QA packet before spawning a fresh reviewer."
+    }
+  ],
+  "nonBlockingFindings": [
+    {
+      "code": "MOTION_UNRESOLVED_UNSCORED",
+      "status": "accepted-boundary",
+      "detail": "No intermediate motion, timing, easing or stagger was scored or inferred."
+    },
+    {
+      "code": "CAPTURE_EXTENSION_OVERLAY_EXCLUDED",
+      "status": "excluded",
+      "detail": "The small red capture badge and source scroll-to-top overlays are not runtime brand patterns and were excluded from fidelity scoring."
+    }
+  ],
+  "liveChecks": {
+    "desktopPocketGeometry": "PASS",
+    "mobilePocketGeometry": "PASS",
+    "responsiveAliasAndHashes": "PASS",
+    "logoTypographyOfficialCta": "PASS",
+    "calibrationScrollAndRestore": "PASS",
+    "heldOutVisualIndependence": "PASS",
+    "heldOutCtaDestinationAndRecovery": "FAIL",
+    "heroNewsTcglRegression": "PASS",
+    "console": "PASS"
+  },
+  "machineChecks": {
+    "validateDesignDirection": "PASS",
+    "validateSectionFidelityStrict": "PASS",
+    "assetUsageGate": "PASS",
+    "validateBrandPreview": "PASS_WITH_EXISTING_WARNINGS",
+    "build": "PASS_WITH_CHUNK_SIZE_WARNING"
+  }
+}

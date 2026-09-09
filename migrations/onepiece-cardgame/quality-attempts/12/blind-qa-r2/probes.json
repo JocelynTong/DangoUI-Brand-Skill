@@ -1,0 +1,58 @@
+{
+  "schema": "blind-visual-qa-browser-probes/v1",
+  "attempt": 12,
+  "revision": 2,
+  "viewportRequestedOuter": { "width": 429, "height": 929 },
+  "viewportMeasuredCss": { "width": 390, "height": 844 },
+  "document": { "clientWidth": 390, "scrollWidth": 390, "scrollHeight": 7975, "horizontalOverflow": false },
+  "sectionOrder": ["hero", "welcome", "news", "new-arrival", "products", "events", "schedule", "recommend", "videos", "footer-illustration", "footer-nav-legal"],
+  "newArrivalControlProbe": {
+    "buttons": [
+      { "ariaLabel": "Previous products", "enabled": true },
+      { "ariaLabel": "Next products", "enabled": true }
+    ],
+    "before": { "firstItem": "Red Monkey D. Luffy / ST-31", "firstX": 15.9943, "itemWidth": 165.9943, "scrollLeft": 0 },
+    "afterNext": { "firstItem": "Red Monkey D. Luffy / ST-31", "firstX": 15.9943, "itemWidth": 165.9943, "scrollLeft": 0 },
+    "afterPrevious": { "firstItem": "Red Monkey D. Luffy / ST-31", "firstX": 15.9943, "itemWidth": 165.9943, "scrollLeft": 0 },
+    "operative": false
+  },
+  "heroProbe": {
+    "autoplayBefore": "variant-5",
+    "autoplayAfter4200ms": "variant-6",
+    "pauseLabelBefore": "Pause campaign carousel",
+    "pausedVariantAfter4200ms": "variant-6",
+    "pauseLabelAfter": "Play campaign carousel",
+    "operative": true
+  },
+  "assetProbe": {
+    "events": {
+      "imageCount": 6,
+      "generatedHeldOutSvgCount": 4,
+      "officialSourceImageCount": 2,
+      "authenticityPass": false
+    },
+    "recommend": {
+      "imageCount": 5,
+      "uniqueImageCount": 1,
+      "repeatedSrc": "/assets/brand-assets/onepiece-cardgame/source/product-decks.png",
+      "naturalSize": [94, 66],
+      "authenticityAndOrganizationPass": false
+    },
+    "videos": { "thumbnailLinks": 5, "channelLinks": 1 },
+    "footer": { "officialIllustrationLayers": 7 }
+  },
+  "semanticProbe": {
+    "events": { "links": 7 },
+    "recommend": { "links": 5 },
+    "videos": { "links": 6 },
+    "footer": { "links": 10, "plusButtons": 6, "cookieSettingsButton": 1 }
+  },
+  "footerMotionProbe": {
+    "prePauseFrameHashesDiffer": true,
+    "pauseButtonLabelAfterClick": "Resume footer card animation",
+    "operative": true,
+    "note": "Frame hash difference proves changing rendered output; pause operability is established by the semantic state toggle."
+  },
+  "console": { "inspected": false },
+  "countPolicy": "Counts are diagnostic only and were not used to offset visual or structural failures."
+}

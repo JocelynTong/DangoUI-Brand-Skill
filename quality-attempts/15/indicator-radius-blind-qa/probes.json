@@ -1,0 +1,31 @@
+{
+  "scope": "Home Indicator geometry/radius/state only",
+  "viewports": ["1184x933", "777x848"],
+  "surfaces": [
+    "dango/style/color",
+    "pokemon-tcg-official/style/button",
+    "dango/components/navigation-bar",
+    "pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "onepiece-cardgame/pages/onepiece-cardgame-home"
+  ],
+  "large": {
+    "phone": { "width": 390, "bottom": 877.21875 },
+    "screen": { "x": 636, "width": 372, "bottom": 868.21875, "bottomRadius": "31.5936px" },
+    "indicator": { "x": 636, "width": 372, "bottom": 868.21875, "bottomRadius": "31.5936px", "height": 33.5625 }
+  },
+  "small": {
+    "phone": { "width": 257, "bottom": 694.65625 },
+    "screen": { "x": 477.296875, "width": 245, "bottom": 688.65625, "bottomRadius": "20.8192px" },
+    "indicator": { "x": 477.296875, "width": 245, "bottom": 688.65625, "bottomRadius": "20.8192px", "height": 22.109375 }
+  },
+  "stateChecks": {
+    "tabbarSurfaces": "indicator and tabbar computed backgrounds match on Dango style, Pokemon style, and Dango component",
+    "noTabbarSurfaces": "indicator computed background is transparent on Pokemon Home and ONE PIECE Home",
+    "scroll": "indicator rect unchanged after scroll; both long Home screens reached scrollTop 120 and restored to 0",
+    "proof": {
+      "1": "display:none",
+      "desktop": "display:none",
+      "mobile": "display:none"
+    }
+  }
+}

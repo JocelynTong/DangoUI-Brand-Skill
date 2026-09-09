@@ -1,0 +1,37 @@
+{
+  "schema": "dango-mapping-qa-input-manifest/v1",
+  "qaRole": "fresh-independent-dangoui-mapping-qa",
+  "createdAt": "2026-09-06T00:00:00+08:00",
+  "workspaceHead": "feef2d8f2207c39d1a0f58db40cc8ed50d85c642",
+  "constraints": {
+    "oldMappingQaReportsRead": false,
+    "implementationNarrativeRead": false,
+    "desiredVerdictRead": false,
+    "protectedInputsModified": false,
+    "excludedPathPatterns": ["migrations/dango/mapping-qa*/**"]
+  },
+  "inputs": [
+    {"path":"/Users/jocelyn/.codex/skills/brand/SKILL.md","sha256":"d488ba4cb711e6b730681bed6cdd7430146f3c16b47a4c301dda6ee1a27dc164"},
+    {"path":"/Users/jocelyn/.codex/skills/brand/references/mapping-rules.md","sha256":"9e7992b999f6ddcf34efb7894e9059ef66c4b0ea6561a0dfc1e7f0a6e22f1f30"},
+    {"path":"migrations/dango/brand-profile.dtcg.json","sha256":"29f3603c10cf5ba740fc5adba813f485100518b63947fd5734447f9e8e472b02"},
+    {"path":"migrations/dango/brand-mod.json","sha256":"666315d11cb979a584345c4d4a24036f3ee725fc96c3da77a0816e872f61ca64"},
+    {"path":"migrations/dango/dangoui-adapter.json","sha256":"b9c050803cb797b42e84f30181a69e55aac68c23ffb15392e38c597df076a047"},
+    {"path":"migrations/dango/component-mapping.json","sha256":"f5515026621b0a9b346eb34e590d2f1875032736b9ab78fdaeb3479a3620f5cd"},
+    {"path":"migrations/dango/mapping-runtime-proof.json","sha256":"bb3f2e92ae25bbacf2d9f21c13d4c6fc0b721e0b4e78b5e52da30b57b0ff9d08"},
+    {"path":"migrations/dango/brand-evidence.json","sha256":"06a5374f36f3c300165a5fdc0ef2b8393276ea3573ca03cfede99c86f138b88f"},
+    {"path":"migrations/dango/action-evidence-v02.json","sha256":"095ca564d9199264dd28fae8c11161c1902a5a3da6f99742a3796905cf6a5210"},
+    {"path":"migrations/dango/site-evidence.json","sha256":"50b20b0e86820237290510fcc77b89ab0304df558d0a28200d6b2b0fec6c6316"},
+    {"path":"migrations/dango/source-observation-manifest.json","sha256":"19be116f7ef0bffee3d4781d5c25f0c84f76ffc20248c4b52d28a413facddae9"},
+    {"path":"migrations/dango/brand-intent.json","sha256":"bc39df3dfa8af7138720304f6c15863f6f0a25aac52a258c34e3d8335146f958"},
+    {"path":"migrations/dango/approved-visual-patterns.json","sha256":"4d90b0aad2a442839223c3198e895bbbcf0a03ddf201111dc3ad6a35a2147a51"},
+    {"path":"migrations/dango/visual-pattern-inventory.json","sha256":"d957a8ac404d34f2fb8b718066a523b21f42eea73f56d1818d9687f80ee67aa2"},
+    {"path":"migrations/dango/generative-proof.json","sha256":"9d07debf0bee95cb6d08b4ab83360cfaa1c96287753f13b5abd8efb49ec5d8a6"},
+    {"path":"data/dangoui.design-system.json","sha256":"8ad5da661d05e1ac74e95bc55562ab0ce690f89323315f124bc6368755c348b2"},
+    {"path":"node_modules/dangoui/src/button/Button.vue","sha256":"621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"},
+    {"path":"node_modules/dangoui/dist/style.css","sha256":"92cf5d8e51ead45c06635373053860d41fbf0a8eaa81509e5480cff670df250d"},
+    {"path":"public/brand-previews/dango.json","sha256":"e946e62e404b173ad641130461558c00d2bd5bb212248d36ae4fc6b48b1c2a10"},
+    {"path":"src/App.vue","sha256":"dcfdbcafae5982fc8a2df38d83298fa74ab02f6d2847071b74dd8daa63401584"},
+    {"path":"src/styles.css","sha256":"25c30600ffe5b36ad88dcf1f98129b8092cb844d02615d2bedf2f639ec8b2e2b"}
+  ],
+  "runtime": {"baseUrl":"http://localhost:5179","browser":"Chromium via Codex in-app browser","routes":["#/brand/dango/pages/dango-introduction-calibration","#/brand/dango/pages/dango-button-calibration","#/brand/dango/pages/dango-release-checklist-held-out"]}
+}

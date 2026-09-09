@@ -1,0 +1,28 @@
+{
+  "schema": "interaction-state-matrix/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "control": "Championship Series Learn more CTA",
+  "href": "https://championships.pokemon.com/en-us/",
+  "overallStatus": "PASS",
+  "matrix": {
+    "desktop-1440": [
+      {"state": "settled", "status": "observed", "capture": "captures/desktop/championship-series-cta-default-1440x900.png", "sha256": "8bdde3f14490c1744bcc4e168b3189e3e7a9268160b4fa0097a16186492f79d5", "region": "CTA in 1440x900 viewport", "dom": "a.button", "computed": "default button state"},
+      {"state": "hover-transition", "status": "observed", "capture": "captures/desktop/championship-series-cta-hover-transition-1440x900.png", "sha256": "2687595da0703bc99b97dcfe0eb94ddeeb9608f4de5f8e4e957815582f438f61", "region": "CTA in 1440x900 viewport", "dom": "a.button:hover .button__bg::before", "computed": "intermediate scaleX visual; exact capture time not frozen"},
+      {"state": "hover-settled", "status": "observed", "capture": "captures/desktop/championship-series-cta-hover-settled-1440x900.png", "sha256": "930a3214c5016a6226f1b2d88b6654ff73ad2b959b61a1adcb3864ad5525041e", "region": "CTA in 1440x900 viewport", "dom": "a.button:hover .button__bg::before", "computed": "transform:scaleX(1); archived CSS transition is 0.2s ease-in-out"},
+      {"state": "focus", "status": "observed", "capture": "captures/desktop/championship-series-cta-focus-1440x900.png", "sha256": "a5664a0f01a00546a004cdc5b30e4914bfb0a950d42c77237a88754946dad3c1", "region": "CTA in 1440x900 viewport", "dom": "focused a.button", "computed": "focus presentation frozen visually"},
+      {"state": "activated-or-destination", "status": "observed", "capture": "captures/desktop/championship-series-cta-destination-1440x900.png", "sha256": "3f1198961a319dce891cee2ede6dda39dc045fc11c233bca5f4b39fcdf0fbfaa", "region": "destination viewport", "dom": "a.button href", "computed": "destination=https://championships.pokemon.com/en-us/"}
+    ],
+    "mobile-390": [
+      {"state": "settled", "status": "observed", "capture": "captures/mobile/championship-series-settled-top-390x844.png", "sha256": "06dbded102bcae374984ac22e15d69906cea91f3153146c86dc24c29856e6459", "region": "390x844 target viewport", "dom": "a.button", "computed": "rect=[99.625,737.078,190.742,51.297], black background, white content"},
+      {"state": "hover", "status": "observed", "capture": "captures/mobile/championship-series-cta-hover-settled-390x844.png", "sha256": "b0f38d0479e7f3126d54b480ff3970f236187aa4a5734c9dec4a45b4157fea10", "region": "CTA visible in 390x844 viewport", "dom": "mobile a.button:hover .button__bg::before", "computed": "transform: matrix(1, 0, 0, 1, 0, 0); gold rgb(226,186,101); transition 0.2s ease-in-out"},
+      {"state": "focus", "status": "observed", "capture": "captures/mobile/championship-series-cta-focus-390x844.png", "sha256": "80b8276a37a6d551c98b9cad7abd0d8e3009ac990c188ccee94669fdeb14a160", "region": "CTA visible in 390x844 viewport", "dom": "focused mobile a.button", "computed": "document.activeElement is CTA; default black fill retained; outline rgb(0,95,204) auto 1px"},
+      {"state": "activated-or-destination", "status": "observed", "capture": "captures/mobile/championship-series-cta-destination-390x844.png", "sha256": "179fc69bbd0e7fd9e6351f78f55d525459037c9cba4aa83cedeae6ef1c084070", "region": "390x844 destination viewport", "dom": "a.button href", "computed": "final URL=https://championships.pokemon.com/en-us/; title=Pokémon Championship Series"}
+    ]
+  },
+  "scroll": {
+    "desktop-1440": {"status": "observed-endpoints", "before": "captures/source-desktop-scroll-before.png", "target": "captures/source-desktop-section-settled-visible.png", "restored": "captures/continuous/desktop-restored.png", "dom": "document scrolling element", "computed": "absolute pageY excluded; section-local geometry preserved"},
+    "mobile-390": {"status": "observed-endpoints", "before": "captures/source-mobile-390-scroll-before.png", "target": "captures/source-mobile-390-content-settled.png", "restored": "captures/source-mobile-390-scroll-restored.png", "dom": "document scrolling element", "computed": "absolute pageY excluded; section-local geometry preserved"}
+  },
+  "blockers": []
+}

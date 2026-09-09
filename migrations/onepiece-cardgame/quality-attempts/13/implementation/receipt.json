@@ -1,0 +1,12 @@
+{
+  "schema": "brand-role-receipt/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 13,
+  "role": "Demo Implementation Agent",
+  "status": "IMPLEMENTED_AWAITING_INDEPENDENT_QA",
+  "frozenInputs": ["goal-contract.json","quality-attempts/13/interpreter/contract.json","quality-attempts/13/evidence/asset-manifest.json","approved-visual-patterns.json"],
+  "outputs": ["public/brand-previews/onepiece-cardgame.json","src/App.vue","src/styles.css","quality-attempts/13/implementation/asset-mapping.json","quality-attempts/13/implementation/browser-probes.json","quality-attempts/13/implementation/interaction-trace.json","quality-attempts/13/implementation/captures/manifest.json"],
+  "preserved": ["attempt12 red-frame Events organism","390 canvas/no horizontal overflow","scrollable Home","Footer motion organism","desktop phone shell"],
+  "verification": {"build":"PASS","browserProbe":"PASS","independentVisualQA":"NOT_RUN"},
+  "verdictBoundary": "No final PASS claim; handoff is ready for a fresh independent Visual QA agent."
+}

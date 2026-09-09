@@ -1,0 +1,32 @@
+{
+  "schema": "dango-mapping-qa-input-manifest/v0.1",
+  "brand": "dango",
+  "qaRole": "independent-dangoui-mapping-qa",
+  "constraints": {
+    "implementationNarrativesRead": false,
+    "priorQaVerdictsRead": false,
+    "sourceOrMappingArtifactsModified": false
+  },
+  "inputs": [
+    {"path":"migrations/dango/brand-profile.dtcg.json","sha256":"c27917c6c1aad578f77027d9bc3e13d807b72c0aa3c69d6f836e48c97ec576af"},
+    {"path":"migrations/dango/brand-mod.json","sha256":"36ead949189dc5fadc537bf85910f7117d23b7b7fcbbc53942b20edadcfb3fd8"},
+    {"path":"migrations/dango/dangoui-adapter.json","sha256":"75fbba2d33335fadb8989d4ad498ebdd6bb12ab780767c18f234bffb568ec741"},
+    {"path":"migrations/dango/component-mapping.json","sha256":"c479903a23caa351f160109c5da3b2962e90de4a980e97cadfd9168a46d8ca58"},
+    {"path":"migrations/dango/mapping-runtime-proof.json","sha256":"2f2dd2e989522de2b1e0819a7931a8a0517fbbd3cc32d4ff5e3f1f73552d49c1"},
+    {"path":"migrations/dango/goal-contract.json","sha256":"07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac"},
+    {"path":"migrations/dango/brand-evidence.json","sha256":"06a5374f36f3c300165a5fdc0ef2b8393276ea3573ca03cfede99c86f138b88f"},
+    {"path":"migrations/dango/brand-intent.json","sha256":"bc39df3dfa8af7138720304f6c15863f6f0a25aac52a258c34e3d8335146f958"},
+    {"path":"migrations/dango/approved-visual-patterns.json","sha256":"4d90b0aad2a442839223c3198e895bbbcf0a03ddf201111dc3ad6a35a2147a51"},
+    {"path":"migrations/dango/generative-proof.json","sha256":"9d07debf0bee95cb6d08b4ab83360cfaa1c96287753f13b5abd8efb49ec5d8a6"},
+    {"path":"src/App.vue","sha256":"dcfdbcafae5982fc8a2df38d83298fa74ab02f6d2847071b74dd8daa63401584"},
+    {"path":"src/styles.css","sha256":"ac421ee505944cdf53dc90894dcb6fbf530a9186d54309093934e48ef10da6d2"},
+    {"path":"node_modules/dangoui/src/button/Button.vue","sha256":"621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"},
+    {"path":"node_modules/dangoui/src/button/style.scss","sha256":"8187ae882057c25accd65893218047825ca2f91e8606968abb65aec5caf12c30"},
+    {"path":"skills/brand/references/dangoui.design-system.json","sha256":"8ad5da661d05e1ac74e95bc55562ab0ce690f89323315f124bc6368755c348b2"}
+  ],
+  "runtimeRoutes": [
+    "http://localhost:5179/#/brand/dango/pages/dango-introduction-calibration",
+    "http://localhost:5179/#/brand/dango/pages/dango-button-calibration",
+    "http://localhost:5179/#/brand/dango/pages/dango-release-checklist-held-out"
+  ]
+}

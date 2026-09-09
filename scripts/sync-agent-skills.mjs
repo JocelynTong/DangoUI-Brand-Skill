@@ -4,6 +4,8 @@ import path from "node:path";
 const root = process.cwd();
 const skillsRoot = path.join(root, "skills");
 const claudeSkillsRoot = path.join(root, ".claude", "skills");
+const codexSkillsRoot = path.join(process.env.CODEX_HOME || path.join(process.env.HOME || "", ".codex"), "skills");
+const ignoredEntries = new Set([".DS_Store"]);
 
 if (!fs.existsSync(skillsRoot)) {
   console.error("Missing skills directory");
@@ -15,11 +17,17 @@ for (const entry of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
 
   const source = path.join(skillsRoot, entry.name);
   const claudeTarget = path.join(claudeSkillsRoot, entry.name);
+  const codexTarget = path.join(codexSkillsRoot, entry.name);
 
   if (!fs.existsSync(path.join(source, "SKILL.md"))) continue;
 
   syncDirectory(source, claudeTarget);
   console.log(`Synced ${path.relative(root, source)} -> ${path.relative(root, claudeTarget)}`);
+
+  if (codexSkillsRoot && fs.existsSync(path.dirname(codexTarget))) {
+    syncDirectory(source, codexTarget);
+    console.log(`Synced ${path.relative(root, source)} -> ${codexTarget}`);
+  }
 }
 
 function syncDirectory(from, to) {
@@ -27,6 +35,8 @@ function syncDirectory(from, to) {
   removeExtraneousFiles(from, to);
 
   for (const entry of fs.readdirSync(from, { withFileTypes: true })) {
+    if (ignoredEntries.has(entry.name)) continue;
+
     const sourcePath = path.join(from, entry.name);
     const targetPath = path.join(to, entry.name);
 
@@ -43,6 +53,8 @@ function syncDirectory(from, to) {
 
 function removeExtraneousFiles(from, to) {
   for (const entry of fs.readdirSync(to, { withFileTypes: true })) {
+    if (ignoredEntries.has(entry.name)) continue;
+
     const sourcePath = path.join(from, entry.name);
     const targetPath = path.join(to, entry.name);
 

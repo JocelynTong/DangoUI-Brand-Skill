@@ -1,0 +1,25 @@
+{
+  "schema": "brand-indicator-probe/v2",
+  "brand": "onepiece-cardgame",
+  "attempt": 14,
+  "revision": 2,
+  "normalMockup": {
+    "indicatorRect": [646.8671875, 834.1640625, 351.265625, 33.5625],
+    "position": "absolute",
+    "parentIsPhone": true,
+    "insideChassisBounds": true,
+    "backgroundFullyTransparent": true,
+    "backgroundColor": "rgba(0,0,0,0)",
+    "backgroundImage": "none",
+    "barVisible": true,
+    "barRect": [756.3515625, 847.984375, 132.296875, 4.9296875],
+    "barColor": "rgb(17,17,17)",
+    "contentSafeInset": 15.7968,
+    "minimumSafeInset": 12,
+    "scroll": {"clientHeight": 802, "scrollHeight": 6177, "before": 0, "after": 5374, "restored": true},
+    "bottomReachability": {"footerVisibleBottom": 810.1484375, "barTop": 847.984375, "clearance": 37.8359375}
+  },
+  "narrow390": {"indicatorDisplay": "none"},
+  "selfCheck": "PASS",
+  "freshBlindQaRequired": true
+}

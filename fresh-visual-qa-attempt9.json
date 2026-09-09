@@ -1,0 +1,45 @@
+{
+  "attempt": 9,
+  "mode": "fresh-blind-read-only",
+  "timestamp": "2026-09-07T21:45:00+08:00",
+  "target": "http://localhost:10086/roco-lib/#/pages/sprite-list/index",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "journey": {
+    "query": "灵",
+    "nonzeroScroll": true,
+    "targetNumber": "141",
+    "targetName": "雪灵",
+    "targetSpuId": "977750981045448386",
+    "detailUrlObserved": "http://localhost:10086/roco-lib/#/pages/sprite-detail/index?spuId=977750981045448386",
+    "returnedUrl": "http://localhost:10086/roco-lib/#/pages/sprite-list/index",
+    "returnedQuery": "灵"
+  },
+  "activeRoute": {
+    "selector": ".taro_page_show:not(.taro_page--shade)",
+    "routeClass": "taro_page taro_navigation_page taro_page_show taro_page_stationed",
+    "afterScrollTop": 682,
+    "targetRowTop": 486.375,
+    "targetRowBottom": 554.375,
+    "targetVisible": true
+  },
+  "dataJourneyRestoreProbe": {
+    "executed": true,
+    "anchorSpuId": "977750981045448386",
+    "routeClass": "taro_page taro_navigation_page taro_page_show taro_page_stationed",
+    "beforeTop": 1070.109375,
+    "savedTop": 387.875,
+    "finalDelta": 0.234375,
+    "afterScrollTop": 682,
+    "stableFrames": 3,
+    "frames": 4
+  },
+  "thresholdPx": 24,
+  "measuredDeltaPx": 0.234375,
+  "deltaPass": true,
+  "priorRegressionStatus": "pass",
+  "verdict": "PASS",
+  "notes": "The data-journey-restore-probe attribute was present on the visible, non-shade active list route after browser back and explicitly reported executed=true. Its settled finalDelta is the authoritative restoration delta."
+}

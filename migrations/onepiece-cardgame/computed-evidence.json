@@ -1,0 +1,68 @@
+{
+  "schema": "brand-computed-evidence/v1",
+  "brand": "onepiece-cardgame",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "capturedAt": "2026-09-01T05:40:29.799Z",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "nodes": [
+    {
+      "selector": "html",
+      "computed": {
+        "backgroundColor": "#FFFFFF",
+        "color": "#000000",
+        "fontFamily": "Poppins, YuGothic, -apple-system, sans-serif",
+        "borderRadius": "0px"
+      }
+    },
+    {
+      "selector": "#top .gnaviCol .navLink",
+      "computed": {
+        "color": "#FFFFFF",
+        "backgroundColor": "transparent",
+        "fontFamily": "Poppins, YuGothic, -apple-system, sans-serif",
+        "transition": ".3s"
+      },
+      "state": "initial hero overlay"
+    },
+    {
+      "selector": "#top .gnaviCol .js-buttonMenu.is-open",
+      "computed": {
+        "color": "#FFF507"
+      },
+      "state": "active/open",
+      "sourceRule": "top.css"
+    },
+    {
+      "selector": ".mainCol .welcomeCol",
+      "computed": {
+        "backgroundImage": "https://asia-en.onepiece-cardgame.com/renewal/images/common/logo_op.png"
+      }
+    },
+    {
+      "selector": ".mainCol .welcomeColBtn",
+      "computed": {
+        "color": "#FFFFFF",
+        "backgroundColor": "transparent",
+        "borderRadius": "999px",
+        "fontWeight": "600",
+        "transition": ".3s"
+      }
+    },
+    {
+      "selector": ".mainCol .productsCol",
+      "computed": {
+        "backgroundColor": "rgba(210,212,214,.5)"
+      }
+    },
+    {
+      "selector": ".mainCol .firstCol .mvItem.dark .mvDetailTxt",
+      "computed": {
+        "color": "#FFFFFF",
+        "filter": "drop-shadow rgba(0,0,0,.6)"
+      }
+    }
+  ]
+}

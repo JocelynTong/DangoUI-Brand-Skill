@@ -1,0 +1,107 @@
+{
+  "schema": "brand-action-evidence/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "sourceUrl": "https://dumpling.echo.tech/style/button",
+  "entries": [
+    {
+      "id": "dango-primary-button-hover",
+      "sourcePageId": "button",
+      "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:hover",
+      "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+      "observedState": "default-hover-transition-hover-settled",
+      "trigger": "move the pointer over the Primary button and wait 25ms, then 180ms",
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+      "transitionCapture": "migrations/dango/captures/source/button/desktop/primary-button/hover-transition.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
+      "continuousCapture": "migrations/dango/captures/source/button/desktop/continuous-scroll.webm",
+      "timeline": "migrations/dango/captures/source/button/desktop/primary-button/timeline.json",
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:hover",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "stateChanged": false,
+      "computedProperty": "background-color",
+      "beforeComputedValue": "rgb(124, 102, 255)",
+      "transitionComputedValue": "rgb(124, 102, 255)",
+      "computedValue": "rgb(124, 102, 255)",
+      "secondaryComputed": {
+        "transform": "none",
+        "box-shadow": "none",
+        "outline-style": "none"
+      },
+      "pixelResult": "Default, 25ms hover-transition and 180ms hover-settled captures have the same SHA-256; no visible hover change was observed.",
+      "sourceRule": ".du-button is the rendered base and .du-button--primary/.du-c-primary-bt provide the active variable chain; no effective :hover rule changed the sampled properties.",
+      "sourceRuleFile": "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css"
+    },
+    {
+      "id": "dango-primary-button-focus",
+      "sourcePageId": "button",
+      "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:focus",
+      "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+      "observedState": "hover-settled-focus",
+      "trigger": "programmatically focus the visible Primary button after hover settles",
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
+      "transitionCapture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+      "continuousCapture": "migrations/dango/captures/source/button/desktop/continuous-scroll.webm",
+      "timeline": "migrations/dango/captures/source/button/desktop/primary-button/timeline.json",
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:focus",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "stateChanged": true,
+      "computedProperty": "outline-style",
+      "beforeComputedValue": "none",
+      "computedValue": "auto",
+      "secondaryComputed": {
+        "outline-color": "rgb(0, 95, 204)",
+        "outline-width": "1px",
+        "background-color": "rgb(124, 102, 255)"
+      },
+      "pixelResult": "The focus capture shows a thin blue browser focus outline while the purple component fill remains unchanged.",
+      "sourceRule": "No component-specific focus fill override was observed; Chrome's focus outline is the effective rendered treatment.",
+      "sourceRuleFile": "browser user-agent focus rendering plus output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css"
+    },
+    {
+      "id": "dango-primary-button-activated",
+      "sourcePageId": "button",
+      "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+      "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+      "observedState": "activated-settled-focus-retained",
+      "trigger": "click the focused Primary button and wait 40ms",
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+      "transitionCapture": "migrations/dango/captures/source/button/desktop/primary-button/activated.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/activated.png",
+      "continuousCapture": "migrations/dango/captures/source/button/desktop/continuous-scroll.webm",
+      "timeline": "migrations/dango/captures/source/button/desktop/primary-button/timeline.json",
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "stateChanged": false,
+      "computedProperty": "background-color",
+      "beforeComputedValue": "rgb(124, 102, 255)",
+      "computedValue": "rgb(124, 102, 255)",
+      "secondaryComputed": {
+        "outline-style": "auto",
+        "outline-color": "rgb(0, 95, 204)",
+        "outline-width": "1px"
+      },
+      "pixelResult": "The activated-settled capture is pixel-identical to the focus capture. No red or orange active fill was observed.",
+      "sourceRule": "The rendered Primary button preserves its component variable chain after click; no effective active selector changed the sampled properties.",
+      "sourceRuleFile": "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css"
+    }
+  ],
+  "coverage": {
+    "requiredStates": ["default", "hover", "focus", "activated"],
+    "coveredStates": ["default", "hover-transition", "hover", "focus", "activated"],
+    "result": "covered"
+  }
+}

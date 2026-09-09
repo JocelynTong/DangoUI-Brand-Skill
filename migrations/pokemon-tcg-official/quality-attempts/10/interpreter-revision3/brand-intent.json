@@ -1,0 +1,93 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-pocket-only",
+  "status": "APPROVED_WITH_CONSTRAINTS_CORRECTED",
+  "supersedes": "../interpreter-revision2/brand-intent.json",
+  "sourceEvidence": [
+    "../evidence/brand-evidence.json",
+    "../evidence-revision2/brand-evidence.json",
+    "../evidence-revision3/brand-evidence.json",
+    "../evidence-revision3/probes.json"
+  ],
+  "interpretationPrinciple": "Preserve the Pocket section's true parent/child layering: one light campaign background spans the complete article and a local black copy panel occludes only its evidenced region. Do not translate a content child into a parent-level black section fill.",
+  "visualIntent": {
+    "summary": "A full-width pale Pocket campaign world acts as the shared parent field. Product identity sits directly over it; an inset black copy panel creates a local reading interruption on desktop and becomes a complete lower reading block on mobile.",
+    "hierarchy": [
+      "The light campaign background is the full-section base layer at both viewports.",
+      "The logo-and-cards composite sits above that shared background in the asset region.",
+      "Desktop uses a vertically inset black panel only in the right half, leaving the parent background visible above and below.",
+      "Mobile keeps the same parent background but the full-width lower black panel completely occludes its lower portion.",
+      "Title, paragraph, and external CTA remain children of the local black panel."
+    ]
+  },
+  "layeringContract": {
+    "id": "pokemon-pocket-shared-background-local-copy-panel",
+    "scope": "homepage Pokémon TCG Pocket section",
+    "desktop1440": {
+      "article": "1440x476.195, position relative",
+      "backgroundLayer": "absolute 1440x476.195, full-section background.jpg, cover, 100% 50%",
+      "contentLayer": "relative 1440x476.195, transparent",
+      "assetColumn": "transparent 720x476.195 left half over the shared background",
+      "copyPanel": "opaque black 720x356.5 right child at x=720, y=59.844; approximately 59.84px shared background exposed above and 59.85px below"
+    },
+    "mobile390": {
+      "article": "390x743.023, position relative",
+      "backgroundLayer": "absolute 390x743, full-section header_bg-small.jpg, cover, 50% 50%",
+      "contentLayer": "relative transparent 390x743",
+      "assetRegion": "transparent 390x334 first row over the shared background",
+      "copyPanel": "opaque black 390x409 second row, full width and fully occluding the lower background with no exposed strip"
+    },
+    "mustNotImplement": [
+      "a parent article or content layer filled black",
+      "two mutually exclusive left-light/right-black parent backgrounds",
+      "a desktop black panel stretched to the full 476.195px section height",
+      "desktop black extending behind the top and bottom exposed-background strips",
+      "mobile side or vertical gaps around the lower black panel"
+    ],
+    "evidenceRefs": ["desktop-background-layering", "desktop-copy-panel-geometry", "mobile-layering"]
+  },
+  "responsiveBackgroundContract": {
+    "desktopBinding": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+    "mobileBinding": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+    "currentPayload": {
+      "pixelSize": [720, 464],
+      "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "relationship": "byte-identical aliases"
+    },
+    "semantic": "Different viewport URL bindings are implementation roles, not evidence of art-directed visual substitution.",
+    "evidenceRefs": ["responsive-alias-identity"]
+  },
+  "preservedApprovedPatterns": [
+    "PAT-POCKET-03",
+    "PAT-POCKET-04",
+    "PAT-POCKET-06",
+    "PAT-POCKET-07"
+  ],
+  "correctedPatterns": {
+    "PAT-POCKET-01": "The responsive aliases share identical bytes and both serve a full-article parent background layer.",
+    "PAT-POCKET-02": "Desktop remains a 50/50 content grid, but only the content columns split; the light background spans beneath both columns and the black right panel is vertically inset.",
+    "PAT-POCKET-05": "The black copy anchor is a local child panel, never the parent section/background/content layer."
+  },
+  "typographyAndAction": {
+    "heading": "Kanit italic 700, desktop 40/44 and mobile 28/30.8",
+    "body": "PT Sans 18/28.8, centered",
+    "cta": "PT Sans italic 700; white background, black resting foreground, gold rgb(226,186,101) hover foreground; external href https://tcgpocket.pokemon.com/en-us"
+  },
+  "motionBoundary": {
+    "status": "UNRESOLVED",
+    "observedOnly": ["hidden endpoint", "settled endpoint"],
+    "mustNotInvent": ["intermediate frames", "duration", "easing", "stagger", "sequence"]
+  },
+  "scopeBoundaries": {
+    "sectionLocalOnly": ["shared Pocket background", "desktop inset black panel", "desktop 50/50 content grid", "mobile asset-first/copy-second", "Kanit/PT Sans hierarchy", "white external CTA and localized gold hover"],
+    "mustNotGeneralize": ["full-width parent background layering", "50/50 split", "black copy panel", "mobile stacking", "background alias binding", "type and hover roles"],
+    "mustNotInvent": ["parent-level full-section black fill", "visually different mobile artwork", "red browser-extension overlay", "extra kicker or CTA", "precise motion choreography"]
+  },
+  "handoff": {
+    "verdict": "PASS_WITH_CONSTRAINTS",
+    "blockers": [],
+    "requiredDirectionCorrection": "Direction must depict the desktop as full-width light background plus a vertically inset black right panel, not as two full-height background halves.",
+    "patternsThatMustForbidParentBlack": ["PAT-POCKET-01", "PAT-POCKET-02", "PAT-POCKET-03", "PAT-POCKET-05"]
+  }
+}

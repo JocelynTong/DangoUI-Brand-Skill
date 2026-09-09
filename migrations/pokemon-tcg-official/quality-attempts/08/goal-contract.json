@@ -1,0 +1,30 @@
+{
+  "schema": "brand-goal-contract/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "mode": "learn-brand",
+  "scope": "homepage/whats-new-only",
+  "objective": "Prove that the screenshot-first pipeline can reproduce the official WHAT'S NEW editorial carousel without reopening the full-site learning scope.",
+  "mustPreserve": [
+    "full-bleed white section field with separate content safe areas",
+    "desktop two-card and mobile one-card responsive recomposition",
+    "uncropped 578:325 story media",
+    "heading, archive link, image, headline, CTA and pagination hierarchy",
+    "visible translate, fade and scale carousel change"
+  ],
+  "mustNot": [
+    "reuse the existing generic news grid as proof",
+    "hard-code line breaks from Chrome-translated captures",
+    "promote yellow into a global title, active or primary-action color",
+    "claim exact entry-on-scroll or CTA hover-layer fidelity while unresolved",
+    "pass a carousel that changes only index, class or pagination"
+  ],
+  "referenceViewports": ["1440x900", "390x844"],
+  "acceptance": {
+    "evidence": "Every required structure and motion claim traces to source capture, visible DOM/state and computed evidence, with unresolved facts kept unresolved.",
+    "structure": "Desktop shows two equal stories per page; mobile shows one edge-to-edge story per page; page count recomputes from three to six.",
+    "visual": "Source and Demo comparison preserves full-bleed boundary, title hierarchy, media ratio, CTA role and next-section seam.",
+    "interaction": "Before, transition, settled and restored states visibly change image, headline and CTA; controls are operable and accessible."
+  },
+  "decisionStatus": "frozen"
+}

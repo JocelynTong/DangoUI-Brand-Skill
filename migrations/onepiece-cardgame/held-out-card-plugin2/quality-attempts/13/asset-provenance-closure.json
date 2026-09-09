@@ -1,0 +1,33 @@
+{
+  "schema": "brand-host-asset-provenance-closure/v1",
+  "attempt": 13,
+  "blocker": "QA12_ASSET_PROVENANCE_INCOMPLETE",
+  "decision": "replace the untraceable existing ETB file with a visually equivalent host asset whose frozen upstream record and byte identity are verifiable",
+  "rejectedAsset": {
+    "localPath": "frontend/src/assets/brand-assets/pokemon-tcg-pitch-black/me05-pc-etb-en.png",
+    "sha256": "9b512941e129a70b9033c864ad05a50e21b688dfda35ffe0654f862adcfd1f7e",
+    "reason": "no exact upstream URL exists in project history or the frozen rendered asset inventory; no URL was inferred or invented"
+  },
+  "replacementAsset": {
+    "id": "pokemon-pitch-black-mega-darkrai-card",
+    "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/pitch-black/en-us/KD5B_EN_116.png",
+    "sourceKind": "original-site DOM image captured in the frozen Pokémon host inventory",
+    "businessRole": "contained expansion/event identity media; it does not replace event, deck, round or user data",
+    "localPath": "frontend/src/assets/brand-assets/pokemon-tcg-pitch-black/KD5B_EN_116.png",
+    "sha256": "e4b59f83713045deb5eb8d84590533188c4392c3c5543839cd5af2f9018daf41",
+    "retrievedAt": "2026-09-10T00:00:00+08:00",
+    "observedEvidence": [
+      "frontend/migrations/pokemon-tcg-pitch-black/rendered-asset-inventory.json records rawSrc/resolvedUrl, source=tmp/pokemon-tcg-pitch-black/rendered.html, sourceType=dom-image/dom-srcset, alt=Mega Darkrai ex and shouldMigrate=true",
+      "a read-only retrieval from sourceUrl on 2026-09-10 produced SHA-256 e4b59f83713045deb5eb8d84590533188c4392c3c5543839cd5af2f9018daf41, byte-identical to localPath",
+      "Attempt13 browser probes load /static/images/KD5B_EN_116.png at 390, 536 and 1280 with zero failed requests"
+    ]
+  },
+  "companionLogo": {
+    "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me05/logo/en-us/me05-logo-2x.png",
+    "sourceKind": "original-site DOM image captured in frozen Pokémon host inventory",
+    "businessRole": "contained expansion identity mark",
+    "localPath": "frontend/src/assets/brand-assets/pokemon-tcg-pitch-black/me05-logo-2x.png",
+    "sha256": "c749edce39748188135d3b0ea9bcdcc378829c1390ed3cc26ac5f6c917030155"
+  },
+  "provenanceStatus": "CLOSED"
+}

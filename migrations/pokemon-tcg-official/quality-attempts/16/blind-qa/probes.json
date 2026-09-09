@@ -1,0 +1,65 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 16,
+  "qaExecutionId": "pokemon-attempt16-fresh-blind-qa",
+  "baseUrl": "http://127.0.0.1:5177/",
+  "goal": {
+    "path": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+    "goalId": "pokemon-tcg-official-cold-start-v2",
+    "sha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"
+  },
+  "viewports": [
+    {"width": 390, "height": 844, "phoneWidth": 390, "phoneScreenWidth": 371},
+    {"width": 371, "height": 844, "phoneWidth": 371, "phoneScreenWidth": 353}
+  ],
+  "pages": {
+    "home": {
+      "shell": {"selector": ".phone", "border": "9.5px solid rgba(0, 0, 0, 0.08)", "borderRadius": "41.4666px", "screenSelector": ".phone-screen", "clientHeight": 802, "scrollHeight": 2461},
+      "sections": ["home-campaign-stage", "home-news-grid", "home-product-bands", "home-editorial-grid"],
+      "scroll": {"before": 0, "after": 500, "restored": 0},
+      "carousel": {"beforeActive": "Show campaign 1", "triggeredActive": "Show campaign 2", "triggeredAsset": "championships.jpg", "restoredActive": "Show campaign 1", "status": "PASS"},
+      "overflow": {"documentClientWidth": 390, "documentScrollWidth": 390, "selector": ".pokemon-tcgl", "clientWidth": 371, "scrollWidth": 381, "status": "FAIL_CLIPPED_INTERNAL_OVERFLOW"}
+    },
+    "card-database": {
+      "shell": {"selector": ".phone", "screenSelector": ".phone-screen", "clientHeight": 802, "scrollHeightDefault": 1605, "scrollHeightAdvanced": 2329},
+      "sections": ["card-database-search-shell", "card-database-search-guidance"],
+      "search": {"typed": "Pikachu", "settledCardCount": 4, "resetValue": "", "resultsRemovedAfterReset": true, "status": "PASS"},
+      "advanced": {"closedHeight": 0, "openHeight": 724, "openLabel": "HIDE ADVANCED SEARCH", "restoredHeight": 0, "restoredLabel": "SHOW ADVANCED SEARCH", "status": "PASS"},
+      "results390": {"phoneScreenWidth": 371, "columns": 1, "cardWidth": 343, "documentHorizontalOverflow": false},
+      "results371": {"phoneScreenWidth": 353, "columns": 1, "cardWidth": 325, "documentHorizontalOverflow": false},
+      "overflow": {"selector": ".source-schema-demo--database", "clientWidth": 371, "scrollWidth": 383, "status": "FAIL_CLIPPED_INTERNAL_OVERFLOW"},
+      "contrastFailures": [
+        {"selector": "[data-schema-section-id='card-database-search-shell'] h1", "text": "Pokémon TCG Card Database", "fontSize": 26, "ratio": 1.0, "region": [141.5, 51.5, 0, 0]},
+        {"selector": "[role='group'][aria-label='Energy Type'] button", "examples": ["Grass", "Fire", "Water", "Lightning"], "fontSize": 12, "ratio": 1.17, "regionStart": [27.5, 441.6]}
+      ]
+    },
+    "learn": {
+      "shell": {"selector": ".phone", "screenSelector": ".phone-screen", "clientHeight": 802, "scrollHeight": 3590},
+      "sections": ["learn-getting-started", "learn-card-breakdown", "learn-field-of-play"],
+      "accordion": {"default": "Name and Type", "triggered": "Hit Points", "exclusive": true, "restored": "Name and Type", "status": "PASS"},
+      "scroll": {"before": 0, "after": 650, "restored": 0},
+      "overflow": {"selector": ".pokemon-learn--pokemon-learn-section", "clientWidth": 371, "scrollWidth": 431, "status": "FAIL_CLIPPED_INTERNAL_OVERFLOW"},
+      "contrastFailures": [
+        {"selector": "[data-schema-section-id='learn-card-breakdown'] h2", "text": "Pokémon Card Breakdown", "fontSize": 42, "ratio": 1.51, "region": [31.5, 1804.3, 327, 101]},
+        {"selector": "[data-schema-section-id='learn-card-breakdown'] button, [data-schema-section-id='learn-card-breakdown'] p", "fontSize": 12, "ratio": 1.51, "regionStart": [31.5, 1929.1]}
+      ]
+    },
+    "held-out": {
+      "shell": {"selector": ".phone", "screenSelector": ".phone-screen", "clientHeight": 802, "scrollHeight": 1681},
+      "sections": ["held-out-deck-entry", "held-out-deck-steps"],
+      "accordion": {"default": "Choose a lead Pokémon", "triggered": "Support the plan", "exclusive": true, "restored": "Choose a lead Pokémon", "status": "PASS"},
+      "scroll": {"before": 0, "after": 500, "restored": 0},
+      "overflow": {"documentClientWidth": 390, "documentScrollWidth": 390, "internalOverflow": false, "status": "PASS"},
+      "contrastFailures": [
+        {"selector": "[data-schema-section-id='held-out-deck-steps'] button, [data-schema-section-id='held-out-deck-steps'] p", "fontSize": 12, "ratio": 1.16, "regionStart": [31.5, 875.8]}
+      ]
+    }
+  },
+  "manifestSelectors": {
+    "status": "PASS_WITH_RENDERED_REGIONS",
+    "resolved": ["home-campaign-stage", "home-news-grid", "home-product-bands", "home-editorial-grid", "card-database-search-shell", "learn-getting-started", "learn-card-breakdown", "learn-field-of-play", "held-out-deck-entry", "held-out-deck-steps"]
+  },
+  "patternBindings": {"inventoryHighSalienceCount": 10, "allHaveApprovedPatternIdAndEvidenceRefs": true, "unsupportedGenerativeRule": "bounded-long-form-sections"},
+  "captures": ["home-390x844-full.png", "card-database-390x844-default.png", "card-database-390x844-search-triggered.png", "card-database-390x844-search-results.png", "card-database-390x844-advanced-open.png", "card-database-371x844-results.png", "learn-390x844-default.png", "learn-390x844-accordion-hit-points.png", "learn-390x844-card-breakdown.png", "held-out-390x844-default.png", "held-out-390x844-lower.png"]
+}

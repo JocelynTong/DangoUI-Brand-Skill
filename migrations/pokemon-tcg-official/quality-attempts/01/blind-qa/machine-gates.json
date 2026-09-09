@@ -1,0 +1,16 @@
+{
+  "schema": "brand-blind-qa-machine-gates/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 1,
+  "gates": [
+    {"command": "npm run build", "status": "pass", "note": "Vite build passed; chunk-size warning only."},
+    {"command": "npm run validate:brand-preview", "status": "pass", "note": "Four previews valid; warnings were for unrelated brands."},
+    {"command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --strict", "status": "pass", "failures": []},
+    {"command": "npm run validate:brand-quality:strict -- --brand pokemon-tcg-official", "status": "blocked", "blocking": ["fidelity-gate-not-passed", "learning-proof-gate-not-passed"], "warnings": ["missing-visual-comparison-report", "local-demo-assets-not-proven-as-source-assets", "missing-rendered-verification-items"]}
+  ],
+  "contractAudit": {
+    "status": "fail",
+    "finding": "generative-proof.json does not satisfy the active fidelity validator contract: goalSha256, challenge.heldOut/sourceContentIndependent, frozenRules, output screenshot hash, and checks.structureRulesApplied are absent.",
+    "validator": "skills/brand/scripts/validate-brand-fidelity.mjs"
+  }
+}

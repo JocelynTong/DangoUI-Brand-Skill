@@ -1,0 +1,147 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "4f8d03df-6f84-41a9-ac06-3f565293a358",
+  "runId": "672d1d73-774e-4aec-acac-1e75f44b7a54",
+  "stageId": "demo-2",
+  "stage": "demo",
+  "role": "demoImplementationAgent",
+  "attempt": 2,
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "mission": "Build a brand-learning-capability-test that proves evidence-backed visual rules can generate distinct demo structures without mirroring a website, applying to a host, or disguising a branded asset template as learning.",
+  "roleContractVersion": "2.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/onepiece-cardgame/goal-contract.json",
+      "sha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/brand-evidence.json",
+      "sha256": "1cceb545baac48bbf93f226e436c6b489d3a888c0c3c1389b890287cdefca0b3"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/source-observation-manifest.json",
+      "sha256": "c122ee54af9ffb9ee3906ffd00caa5258997cb139ddaf1a54484857621d1099d"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/rendered-asset-inventory.json",
+      "sha256": "f5e5075587b6bab475c1ac0ac7fdb0c95b485a58f3f3b3f2a306a88d2447087a"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/action-evidence.json",
+      "sha256": "7a491ca50b7f0f9046af6f55fc605b218926bd25acd602f473ca0169629c10e9"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/action-evidence-v02.json",
+      "sha256": "a958b3b854abd19677d4931c6d475bf548112d96babd7a365b46486e3030d852"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/third-party-evidence.dembrandt.json",
+      "sha256": "ca86b46e1287c160a4f76b3205f33102cb5532d75e1b2fa59dd4212e860552e8"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/brand-intent.json",
+      "sha256": "8211c6bdec93a6e4d04eb3d272933a43e3a9d31c726e0d44d9f16a3f69c06f1c"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/approved-visual-patterns.json",
+      "sha256": "3276d9a90ce36f432e352699b6dbe41904f1b95e4fe20ff5165c62311f7bb8a2"
+    },
+    {
+      "path": "public/brand-previews/onepiece-cardgame.json",
+      "sha256": "248662b1d05bf824999b8a6af563ddd09115f1e31d985bd4fbb91204eebdf2e3"
+    },
+    {
+      "path": "src/App.vue",
+      "sha256": "66871f878acc8e0780fb8eea74bf7c3fa4ed0475fba5432befa8e5868a876dfd"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "8e4d987915165f0ef1c970b77f8438f26f91d29cebfebee9d96f965f403a4487"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+      "sha256": "a886df017c179100ed347227b0b4b47447869776ac31bbfba3a0c81d07fdc097"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/generative-proof.json",
+      "sha256": "984ee59b7aa0b28d94a7d38aae9bf108688f860d24a44e93a44bf053cf1eed20"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/demo-screenshot-manifest.json",
+      "sha256": "56be87bb9398e8bd96621883442187a2994214664133ceebee8f429722b0fb74"
+    }
+  ],
+  "allowedInputs": [
+    "source screenshots as read-only composition evidence",
+    "DangoUI schema",
+    "existing demo runtime",
+    "blocking findings on retry"
+  ],
+  "forbiddenInputs": [
+    "authority to modify goal contract",
+    "previous QA verdict before initial implementation"
+  ],
+  "tasks": [
+    "map each reference page to a distinct demo page",
+    "implement mustPreserve before optional details",
+    "rebuild composition with source DOM/CSS and independently inventoried original site assets",
+    "bind approved source assets",
+    "inventory every high-salience visual pattern and runtime asset provenance before QA",
+    "run an evidence-support self-check",
+    "create a generative variation that reuses learned invariants with different content or structure",
+    "capture reproducible demo screenshots",
+    "record implemented, missing and pre-authorized transformations"
+  ],
+  "requirements": [
+    "brand color, official asset status and logo do not substitute for composition",
+    "source screenshots and crops are QA evidence only and never Demo runtime assets unless the sealed goal explicitly has goalType screenshot-recreation and implementationPolicy.allowSourceScreenshotAsRuntimeAsset true",
+    "every high-salience runtime asset records provenance sourceUrl, sourceSha256, role and sourceKind",
+    "allowed sourceKind values are original-site-asset, dom-css-reconstruction and generated-independent-asset",
+    "every high-salience visual pattern has an approved pattern id plus evidenceRefs and sourceRegion",
+    "every pattern claiming a composition mustPreserve id declares preserves and compositionSupport with source/demo asset identity plus variant, at least two bounded structural layers, and any aspect/crop translation",
+    "a color role may only be used in its declared allowedRoles",
+    "all transformations exist in goal-contract.mayTranslate before implementation",
+    "generative-proof.json identifies invariant learned rules, the deliberately varied input or structure, and why the result remains in-system without copying a full source composition",
+    "viewport and state are recorded"
+  ],
+  "mustNot": [
+    "change fidelity thresholds",
+    "invent a translation justification after implementation",
+    "self-approve visual fidelity",
+    "use an unproven placeholder as official",
+    "copy a source screenshot, screenshot crop, or reference-derived full-frame raster into the Demo runtime",
+    "claim screenshot-derived pixels as DOM/CSS reconstruction or original source assets"
+  ],
+  "expectedOutputs": [
+    "demo screenshot manifest",
+    "visual-pattern-inventory.json",
+    "generative-proof.json",
+    "implementation receipt"
+  ],
+  "passCriteria": [
+    "protocol/build gates pass",
+    "all target pages render",
+    "mustPreserve items have implementation locations",
+    "Evidence Fidelity, Structural Fidelity, and Generative Proof each pass independently"
+  ],
+  "failCriteria": [
+    "SCREENSHOT_AS_IMPLEMENTATION",
+    "EVIDENCE_LEAKAGE",
+    "ASSET_PROVENANCE_MISSING",
+    "unsupported high-salience visual pattern",
+    "color role expanded into an unapproved component role",
+    "mustNotReplace violated",
+    "core asset authenticity unknown",
+    "target page cannot render",
+    "goal rewritten",
+    "generative proof is missing, circular, or only demonstrates a website mirror or asset swap"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, or demoImplementationAgent"
+  ]
+}

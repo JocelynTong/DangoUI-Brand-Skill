@@ -1,0 +1,34 @@
+{
+  "schema":"brand-role-receipt/v1",
+  "runId":"warm-regression-2",
+  "role":"Design Translator",
+  "brand":"pokemon-tcg-pitch-black",
+  "goalId":"pokemon-tcg-pitch-black-warm-regression-v1",
+  "status":"PASS_TO_IMPLEMENTATION_WITH_DEMO_PENDING",
+  "startedAt":"2026-09-01T23:19:22+08:00",
+  "completedAt":"2026-09-01T23:23:47+08:00",
+  "actualElapsedSeconds":265,
+  "actualElapsedMinutes":4.4,
+  "goalContract":{"path":"migrations/pokemon-tcg-pitch-black/goal-contract.json","sha256":"d5877a182561c4485e5fc2c0fcb64dd1971008e748b7a102cbeca83076d7e838","sealed":true,"modified":false},
+  "inputs":[
+    {"path":"migrations/pokemon-tcg-pitch-black/brand-evidence.json","sha256":"e2ebaf0f9357624f3b5f69f692b1dcde211649ef15030f9da7a8c3b3d5f68f40"},
+    {"path":"migrations/pokemon-tcg-pitch-black/action-evidence-v02.json","sha256":"1de9df0c81a10f226d370e42d4c1c03b643a9f99df054cba107b4a1a0380e40d"},
+    {"path":"migrations/pokemon-tcg-pitch-black/source-observation-manifest.json","sha256":"0ddaf04caa4feb27e4ee0a9005c26719f7c123c1451a6d4f229c9b244a071564"},
+    {"path":"quality-attempts/warm-regression-1/evidence/receipt.json","disposition":"superseded where attempt2 resolves prior blockers"},
+    {"path":"quality-attempts/warm-regression-2/evidence/receipt.json","disposition":"authoritative"}
+  ],
+  "outputs":[
+    {"path":"migrations/pokemon-tcg-pitch-black/brand-intent.json","sha256":"bc4945081eb3c7312fdc9556430e32e3d175441e40335c6671b5dbc2ddc24a23"},
+    {"path":"migrations/pokemon-tcg-pitch-black/approved-visual-patterns.json","sha256":"604b00de5f6c588271d11b6afea4de90fbe4222c3d1210e07ee9f43f35d8ca80"},
+    {"path":"migrations/pokemon-tcg-pitch-black/section-fidelity-manifest.json","sha256":"de9ba0464597883cb9048396aa7413008f281cbece875ab4cfdb38d4970593ec"}
+  ],
+  "reuse":{"legacyIntentPatternsReviewed":5,"legacyConceptsSafelyReusedOrNarrowed":3,"approvedPatterns":4,"reuseRate":0.75,"formula":"3 evidence-valid reused/narrowed concepts / 4 approved patterns","reused":["dark stage narrowed to staged expansion composition","physical asset focus narrowed to exact asset identities","sharp frame narrowed to divider/database CTA frame"],"removed":["lime-to-magenta global action semantics","card flip motion","zoom/back-flip interaction recipe"],"downgraded":["energy texture remains unresolved"]},
+  "approvedContracts":{"sectionCount":4,"fieldsFrozen":["composition","layers","readingOrder","responsive","assetIdentity","interactionBoundary"]},
+  "disproofsInherited":[
+    {"id":"mega-gallery-selection","boundary":"No selection interaction/state may be defined or claimed."},
+    {"id":"gallery-filter","boundary":"Only Special Art text color white→black→white is supported; visible card set is unchanged and filtering success is forbidden."}
+  ],
+  "validation":{"jsonParse":"PASS","sectionFidelity":{"result":"FAIL_EXPECTED_DEMO_PENDING","reason":"Demo captures, viewports, regions, selectors and final pass statuses are outside Interpreter scope; source contracts remain frozen for downstream implementation."}},
+  "scopeIntegrity":{"evidenceModified":false,"demoModified":false,"qaModified":false},
+  "handoff":{"readyForDemoImplementation":true,"consumerRule":"Implement only approved patterns and section approvedContract fields; do not add selection/filter semantics beyond the two explicit boundaries."}
+}

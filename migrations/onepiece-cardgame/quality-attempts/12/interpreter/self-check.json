@@ -1,0 +1,42 @@
+{
+  "schema": "brand-interpreter-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 12,
+  "role": "Design Translator",
+  "result": "PASS",
+  "checks": {
+    "goalContractReadAndUnchanged": true,
+    "evidenceOnlyInputsUsed": true,
+    "demoAndQaInputsExcluded": true,
+    "allSixRequestedSectionsCovered": true,
+    "requiredLayersFrozenPerSection": true,
+    "readingOrderFrozenPerSection": true,
+    "imageTextControlProportionsFrozenPerSection": true,
+    "responsiveBehaviorFrozenPerSection": true,
+    "semanticActionsFrozenPerSection": true,
+    "interactiveStatesBoundedPerSection": true,
+    "mustPreserveAndMustNotReplaceFrozenPerSection": true,
+    "eventsUsesBgPikupEventsRedFrameOrganism": true,
+    "recommendAndVideosPreserveSwiperMediaOrganization": true,
+    "newArrivalDoesNotInventDragOrActiveState": true,
+    "footerLinksAndButtonsRequiredSemanticActionable": true,
+    "itemCountProxyHasBlockingMachineAcceptance": true,
+    "unresolvedStatesRemainUnresolved": true,
+    "tokenRoleExpansionIntroduced": false,
+    "implementationEvidenceDemoQaUntouched": true
+  },
+  "unresolved": [
+    "Welcome touch/pressed and fresh animation-frame states",
+    "New Arrival drag before/after and active slide identity",
+    "Events exact runtime border-image slice/width and touch hover",
+    "Recommend drag before/after and active slide identity",
+    "Videos fancybox open, drag and active state",
+    "Footer accordion expanded and cookie-settings modal after-state"
+  ],
+  "downstreamBlockers": [
+    "ITEM_COUNT_USED_AS_STRUCTURE_PROXY",
+    "UNRESOLVED_STATE_INVENTED",
+    "REQUIRED_LAYER_MISSING",
+    "SEMANTIC_ACTION_NOT_ACTIONABLE"
+  ]
+}

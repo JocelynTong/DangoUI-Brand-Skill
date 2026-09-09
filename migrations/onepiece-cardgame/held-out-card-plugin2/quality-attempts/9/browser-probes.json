@@ -1,0 +1,1017 @@
+{
+  "schema": "heldout-plaza-standard-sample-fresh-qa/v1",
+  "attempt": 9,
+  "generatedAt": "2026-09-09T15:38:09.743Z",
+  "fresh": true,
+  "readOnly": true,
+  "base": "http://127.0.0.1:10092/#/pages/plaza/index",
+  "renders": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "fresh-390x844-plaza.png",
+      "probe": {
+        "document": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "overflowPx": 0
+        },
+        "regions": {
+          "head": {
+            "rect": {
+              "left": 0,
+              "right": 390,
+              "top": 0,
+              "bottom": 69.609375,
+              "width": 390,
+              "height": 69.609375
+            },
+            "css": {
+              "color": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(7, 24, 47)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "12.48px 18.72px 10.4px",
+              "gap": "normal"
+            }
+          },
+          "nav": {
+            "rect": {
+              "left": 0,
+              "right": 390,
+              "top": 69.609375,
+              "bottom": 132.984375,
+              "width": 390,
+              "height": 63.375
+            },
+            "css": {
+              "color": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(7, 24, 47)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "8.32px 18.72px",
+              "gap": "normal"
+            }
+          },
+          "search": {
+            "rect": {
+              "left": 18.71875,
+              "right": 371.28125,
+              "top": 151.703125,
+              "bottom": 199.53125,
+              "width": 352.5625,
+              "height": 47.828125
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.84)",
+              "border": "1px solid rgb(9, 13, 18)",
+              "borderRadius": "2.08px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "0px 13.52px",
+              "gap": "normal"
+            }
+          },
+          "input": {
+            "rect": {
+              "left": 77.484375,
+              "right": 356.765625,
+              "top": 152.734375,
+              "bottom": 198.484375,
+              "width": 279.28125,
+              "height": 45.75
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "border": "0px none rgb(9, 13, 18)",
+              "borderRadius": "0px",
+              "fontSize": "13.52px",
+              "fontWeight": "400",
+              "lineHeight": "normal",
+              "padding": "0px",
+              "gap": "normal"
+            }
+          },
+          "panel": {
+            "rect": {
+              "left": 18.71875,
+              "right": 371.28125,
+              "top": 214.078125,
+              "bottom": 349.15625,
+              "width": 352.5625,
+              "height": 135.078125
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.74)",
+              "border": "",
+              "borderRadius": "2.08px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "12.48px 12.48px 10.4px",
+              "gap": "normal"
+            }
+          },
+          "campaign": {
+            "rect": {
+              "left": 18.71875,
+              "right": 371.28125,
+              "top": 365.78125,
+              "bottom": 435.359375,
+              "width": 352.5625,
+              "height": 69.578125
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.84)",
+              "border": "",
+              "borderRadius": "2.08px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "10.4px 12.48px 10.4px 15.6px",
+              "gap": "normal"
+            }
+          },
+          "card": {
+            "rect": {
+              "left": 18.71875,
+              "right": 371.28125,
+              "top": 454.078125,
+              "bottom": 570.375,
+              "width": 352.5625,
+              "height": 116.296875
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.88)",
+              "border": "",
+              "borderRadius": "2.08px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "12.48px",
+              "gap": "11.44px"
+            }
+          },
+          "env": {
+            "rect": {
+              "left": 73.765625,
+              "right": 357.8125,
+              "top": 281.609375,
+              "bottom": 337.765625,
+              "width": 284.046875,
+              "height": 56.15625
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "20.8px",
+              "fontWeight": "400",
+              "lineHeight": "33.28px",
+              "padding": "0px 0px 10.4px",
+              "gap": "normal"
+            }
+          }
+        },
+        "counts": {
+          "filterButtons": 42,
+          "environmentButtons": 39,
+          "cards": 3,
+          "tabs": 2
+        },
+        "fold": {
+          "campaign": true,
+          "firstCard": true
+        },
+        "text": {
+          "head": "宝可梦集换式卡牌\n⌄\n•••",
+          "nav": "卡组广场\n赛事\n我的",
+          "searchPlaceholder": "搜索卡组 / 卡牌 / 玩家",
+          "campaign": "赛季活动 · 08.26 - 09.15\nPitch Black 赛季挑战",
+          "firstCard": "喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万"
+        }
+      },
+      "writes": []
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "screenshot": "fresh-536x864-plaza.png",
+      "probe": {
+        "document": {
+          "scrollWidth": 536,
+          "clientWidth": 536,
+          "overflowPx": 0
+        },
+        "regions": {
+          "head": {
+            "rect": {
+              "left": 0,
+              "right": 536,
+              "top": 0,
+              "bottom": 95.3125,
+              "width": 536,
+              "height": 95.3125
+            },
+            "css": {
+              "color": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(7, 24, 47)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "17.152px 25.728px 14.2933px",
+              "gap": "normal"
+            }
+          },
+          "nav": {
+            "rect": {
+              "left": 0,
+              "right": 536,
+              "top": 95.3125,
+              "bottom": 182.046875,
+              "width": 536,
+              "height": 86.734375
+            },
+            "css": {
+              "color": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(7, 24, 47)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "11.4347px 25.728px",
+              "gap": "normal"
+            }
+          },
+          "search": {
+            "rect": {
+              "left": 25.71875,
+              "right": 510.28125,
+              "top": 207.765625,
+              "bottom": 273.5,
+              "width": 484.5625,
+              "height": 65.734375
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.84)",
+              "border": "1px solid rgb(9, 13, 18)",
+              "borderRadius": "2.85867px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "0px 18.5813px",
+              "gap": "normal"
+            }
+          },
+          "input": {
+            "rect": {
+              "left": 105.734375,
+              "right": 490.703125,
+              "top": 209.1875,
+              "bottom": 272.078125,
+              "width": 384.96875,
+              "height": 62.890625
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "border": "0px none rgb(9, 13, 18)",
+              "borderRadius": "0px",
+              "fontSize": "18.5813px",
+              "fontWeight": "400",
+              "lineHeight": "normal",
+              "padding": "0px",
+              "gap": "normal"
+            }
+          },
+          "panel": {
+            "rect": {
+              "left": 25.71875,
+              "right": 510.28125,
+              "top": 293.5,
+              "bottom": 478.40625,
+              "width": 484.5625,
+              "height": 184.90625
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.74)",
+              "border": "",
+              "borderRadius": "2.85867px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "17.152px 17.152px 14.2933px",
+              "gap": "normal"
+            }
+          },
+          "campaign": {
+            "rect": {
+              "left": 25.71875,
+              "right": 510.28125,
+              "top": 501.265625,
+              "bottom": 596.140625,
+              "width": 484.5625,
+              "height": 94.875
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.84)",
+              "border": "",
+              "borderRadius": "2.85867px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "14.2933px 17.152px 14.2933px 21.44px",
+              "gap": "normal"
+            }
+          },
+          "card": {
+            "rect": {
+              "left": 25.71875,
+              "right": 510.28125,
+              "top": 621.859375,
+              "bottom": 780.203125,
+              "width": 484.5625,
+              "height": 158.34375
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.88)",
+              "border": "",
+              "borderRadius": "2.85867px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "17.152px",
+              "gap": "15.7227px"
+            }
+          },
+          "env": {
+            "rect": {
+              "left": 101.015625,
+              "right": 492.140625,
+              "top": 385.953125,
+              "bottom": 463.125,
+              "width": 391.125,
+              "height": 77.171875
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "28.5867px",
+              "fontWeight": "400",
+              "lineHeight": "45.7387px",
+              "padding": "0px 0px 14.2933px",
+              "gap": "normal"
+            }
+          }
+        },
+        "counts": {
+          "filterButtons": 42,
+          "environmentButtons": 39,
+          "cards": 3,
+          "tabs": 2
+        },
+        "fold": {
+          "campaign": true,
+          "firstCard": true
+        },
+        "text": {
+          "head": "宝可梦集换式卡牌\n⌄\n•••",
+          "nav": "卡组广场\n赛事\n我的",
+          "searchPlaceholder": "搜索卡组 / 卡牌 / 玩家",
+          "campaign": "赛季活动 · 08.26 - 09.15\nPitch Black 赛季挑战",
+          "firstCard": "喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万"
+        }
+      },
+      "writes": []
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "screenshot": "fresh-1280x720-plaza.png",
+      "probe": {
+        "document": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "overflowPx": 0
+        },
+        "regions": {
+          "head": {
+            "rect": {
+              "left": 51,
+              "right": 1229,
+              "top": 0,
+              "bottom": 67,
+              "width": 1178,
+              "height": 67
+            },
+            "css": {
+              "color": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(7, 24, 47)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "24px 36px 20px",
+              "gap": "normal"
+            }
+          },
+          "nav": {
+            "rect": {
+              "left": 51,
+              "right": 1229,
+              "top": 67,
+              "bottom": 128,
+              "width": 1178,
+              "height": 61
+            },
+            "css": {
+              "color": "rgb(255, 255, 255)",
+              "backgroundColor": "rgb(7, 24, 47)",
+              "border": "",
+              "borderRadius": "0px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "16px 36px",
+              "gap": "normal"
+            }
+          },
+          "search": {
+            "rect": {
+              "left": 69,
+              "right": 1211,
+              "top": 146,
+              "bottom": 192,
+              "width": 1142,
+              "height": 46
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.84)",
+              "border": "2px solid rgb(9, 13, 18)",
+              "borderRadius": "4px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "0px 26px",
+              "gap": "normal"
+            }
+          },
+          "input": {
+            "rect": {
+              "left": 125.609375,
+              "right": 1197,
+              "top": 147,
+              "bottom": 191,
+              "width": 1071.390625,
+              "height": 44
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "border": "0px none rgb(9, 13, 18)",
+              "borderRadius": "0px",
+              "fontSize": "26px",
+              "fontWeight": "400",
+              "lineHeight": "normal",
+              "padding": "0px",
+              "gap": "normal"
+            }
+          },
+          "panel": {
+            "rect": {
+              "left": 69,
+              "right": 1211,
+              "top": 206,
+              "bottom": 476,
+              "width": 1142,
+              "height": 270
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.74)",
+              "border": "",
+              "borderRadius": "4px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "24px 24px 20px",
+              "gap": "normal"
+            }
+          },
+          "campaign": {
+            "rect": {
+              "left": 69,
+              "right": 1211,
+              "top": 492,
+              "bottom": 559,
+              "width": 1142,
+              "height": 67
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.84)",
+              "border": "",
+              "borderRadius": "4px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "20px 24px 20px 30px",
+              "gap": "normal"
+            }
+          },
+          "card": {
+            "rect": {
+              "left": 69,
+              "right": 1211,
+              "top": 577,
+              "bottom": 689,
+              "width": 1142,
+              "height": 112
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(255, 255, 255, 0.88)",
+              "border": "",
+              "borderRadius": "4px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "24px",
+              "gap": "22px"
+            }
+          },
+          "env": {
+            "rect": {
+              "left": 122,
+              "right": 1198,
+              "top": 271,
+              "bottom": 465,
+              "width": 1076,
+              "height": 194
+            },
+            "css": {
+              "color": "rgb(9, 13, 18)",
+              "backgroundColor": "rgba(0, 0, 0, 0)",
+              "border": "0px none rgb(9, 13, 18)",
+              "borderRadius": "0px",
+              "fontSize": "40px",
+              "fontWeight": "400",
+              "lineHeight": "64px",
+              "padding": "0px",
+              "gap": "normal"
+            }
+          }
+        },
+        "counts": {
+          "filterButtons": 42,
+          "environmentButtons": 39,
+          "cards": 3,
+          "tabs": 2
+        },
+        "fold": {
+          "campaign": true,
+          "firstCard": true
+        },
+        "text": {
+          "head": "宝可梦集换式卡牌\n⌄\n•••",
+          "nav": "卡组广场\n赛事\n我的",
+          "searchPlaceholder": "搜索卡组 / 卡牌 / 玩家",
+          "campaign": "赛季活动 · 08.26 - 09.15\nPitch Black 赛季挑战",
+          "firstCard": "喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万"
+        }
+      },
+      "writes": []
+    }
+  ],
+  "reachability": [
+    {
+      "text": "全部",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "true",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-18.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-17.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-17.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-16.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-15.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-15.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-14.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-14.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-13.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-13.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-12.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-12.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-11.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-11.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-10.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-10.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-9.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-9.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-8.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-8.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-8.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-8.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-7.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-7.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-7.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-7.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-6.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-6.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-6.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "开放赛制-6.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-5.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-5.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-4.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-4.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-3.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "标准赛制-3.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "太阳&月亮-2.5",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    },
+    {
+      "text": "太阳&月亮-2.0",
+      "role": "button",
+      "tabIndex": 0,
+      "pressed": "false",
+      "focused": true,
+      "fullyVisible": true
+    }
+  ],
+  "interactions": [
+    {
+      "kind": "pointer",
+      "before": "false",
+      "after": "true",
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+    },
+    {
+      "kind": "Enter",
+      "before": "false",
+      "after": "true",
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+    },
+    {
+      "kind": "Space",
+      "before": "false",
+      "after": "true",
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+    }
+  ],
+  "search": {
+    "value": "耿鬼",
+    "visibleCards": 1
+  },
+  "tab": [
+    {
+      "kind": "pointer",
+      "before": "false",
+      "after": "true",
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+    },
+    {
+      "kind": "Enter",
+      "before": "false",
+      "after": "true",
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+    },
+    {
+      "kind": "Space",
+      "before": "false",
+      "after": "true",
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+    }
+  ],
+  "cardNavigation": {
+    "before": "http://127.0.0.1:10092/#/pages/plaza/index",
+    "after": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+    "changed": true
+  },
+  "writes": [],
+  "regression": [
+    {
+      "route": "build",
+      "sha256": "aacf2ad9aeb5e0a9c1581c48d4538cf30ffde8b7e0f1a6b422a70688a5cdb51f",
+      "attempt4Sha256": "aacf2ad9aeb5e0a9c1581c48d4538cf30ffde8b7e0f1a6b422a70688a5cdb51f",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "mine",
+      "sha256": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "attempt4Sha256": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "event",
+      "sha256": "4b10611cfd672e55a784a7da2cff0f6a975bcd4b3aeddee2d05c8b9d528d0982",
+      "attempt4Sha256": "4b10611cfd672e55a784a7da2cff0f6a975bcd4b3aeddee2d05c8b9d528d0982",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "round",
+      "sha256": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca",
+      "attempt4Sha256": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "detail",
+      "sha256": "b30a4bcb032970d6a323159ce31a3df2039468157964a9a37c242dc28ab42008",
+      "attempt4Sha256": "b30a4bcb032970d6a323159ce31a3df2039468157964a9a37c242dc28ab42008",
+      "exactMatch": true,
+      "overflowPx": 0
+    }
+  ]
+}

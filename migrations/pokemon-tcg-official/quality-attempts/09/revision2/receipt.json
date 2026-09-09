@@ -1,0 +1,15 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "brand":"pokemon-tcg-official","attempt":"09-revision2","role":"Demo Implementation Agent",
+  "executionId":"/root/pokemon_tcg_live_demo","scope":"homepage/home-product-bands-only",
+  "goalSha256":"352f3e39aab1766e2aed0c877808656a6692ed5372669765b21aabbb7046b585",
+  "inputBindings":{
+    "evidenceSha256":"7b9a9b8a69062c45addcd964d41032e3ebcdc3cb451991077b0e1de30c3c5844",
+    "intentSha256":"c79d4562a123bac5eeba0d3b1ab236ca62066a8dbe061e303b41f51d314fa05f",
+    "patternsSha256":"bfd659665d1dc7ba0d9589cafc0d44d280f4d1fb4025e3a76b310aced963ac42",
+    "designDirectionSha256":"51f6541c7303853f78dce2e6c03c8e6d79ef80709a456a3623f071e8bf16e936"
+  },
+  "outputs":["src/App.vue","src/styles.css","public/assets/brand-assets/pokemon-tcg-official/kanit-v17-latin-700.ttf","scripts/pokemon-home-attempt09-r2-probe.mjs","migrations/pokemon-tcg-official/quality-attempts/09/revision2/browser-probes.json","migrations/pokemon-tcg-official/quality-attempts/09/revision2/section-fidelity-manifest.json","migrations/pokemon-tcg-official/quality-attempts/09/revision2/captures/desktop-1440x900-settled.png","migrations/pokemon-tcg-official/quality-attempts/09/revision2/captures/desktop-1440x900-hover.png","migrations/pokemon-tcg-official/quality-attempts/09/revision2/captures/mobile-390x844-settled.png","migrations/pokemon-tcg-official/quality-attempts/09/revision2/captures/mobile-390x844-hover.png"],
+  "motionDisposition":"PAT-TCGL-R2-07 unresolved; omitted from implementation and acceptance scoring",
+  "implementationChecksPass":true,"buildPass":true,"visualVerdict":"not-assigned-by-implementation-agent","handoffTo":"fresh Blind QA / TPP"
+}

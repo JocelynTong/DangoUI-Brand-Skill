@@ -1,0 +1,91 @@
+{
+  "schema": "brand-mapper-self-test/v1",
+  "brand": "pokemon-tcg-official",
+  "finding": "MAPPER_STALE_GOAL_REFERENCE",
+  "role": "dangouiMapper",
+  "status": "PASS",
+  "scope": {
+    "changed": [
+      "migrations/pokemon-tcg-official/brand-mod.json",
+      "migrations/pokemon-tcg-official/dangoui-adapter.json",
+      "migrations/pokemon-tcg-official/component-mapping.json",
+      "migrations/pokemon-tcg-official/style.json"
+    ],
+    "notChanged": [
+      "migrations/pokemon-tcg-official/goal-contract-v2.json",
+      "UI",
+      "CSS",
+      "pages"
+    ]
+  },
+  "frozenGoal": {
+    "goalId": "pokemon-tcg-official-cold-start-v2",
+    "goalContract": "goal-contract-v2.json",
+    "goalContractPath": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+    "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+    "supersedes": "pokemon-tcg-official-cold-start-v1",
+    "sealed": true
+  },
+  "bindingChecks": [
+    {
+      "artifact": "brand-mod.json",
+      "bindingPath": "verification",
+      "goalIdMatch": true,
+      "goalPathMatch": true,
+      "goalHashMatch": true,
+      "staleGoalContractReference": false
+    },
+    {
+      "artifact": "dangoui-adapter.json",
+      "bindingPath": "verification",
+      "goalIdMatch": true,
+      "goalPathMatch": true,
+      "goalHashMatch": true,
+      "staleGoalContractReference": false
+    },
+    {
+      "artifact": "component-mapping.json",
+      "bindingPath": "verification",
+      "goalIdMatch": true,
+      "goalPathMatch": true,
+      "goalHashMatch": true,
+      "staleGoalContractReference": false
+    },
+    {
+      "artifact": "style.json",
+      "bindingPath": "brandMetadata.verification",
+      "goalIdMatch": true,
+      "goalPathMatch": true,
+      "goalHashMatch": true,
+      "staleGoalContractReference": false
+    }
+  ],
+  "commands": [
+    {
+      "command": "node scripts/normalize-brand-mod-dtcg.mjs migrations/pokemon-tcg-official/brand-mod.json --write",
+      "status": "PASS"
+    },
+    {
+      "command": "node scripts/validate-brand-mod.mjs migrations/pokemon-tcg-official/brand-mod.json",
+      "status": "PASS"
+    },
+    {
+      "command": "node skills/brand/scripts/brand-guard.mjs rule-candidate-gate --brand pokemon-tcg-official",
+      "status": "PASS",
+      "blocking": 0,
+      "warnings": 0
+    },
+    {
+      "command": "node skills/brand/scripts/brand-guard.mjs handoff-artifact-gate --mode learn-brand --brand pokemon-tcg-official --strict",
+      "status": "FAIL_OUTSIDE_MAPPER_SCOPE",
+      "mapperFindingPresent": false,
+      "remainingOwners": [
+        "visualQA",
+        "designDirectorOrchestrator",
+        "methodologyKeeper"
+      ],
+      "note": "The strict handoff gate no longer exposes a mapper goal-binding failure. It remains blocked by the existing visual QA/fidelity artifact shape and missing retro-learnings handoff, which this scoped mapper task must not rewrite."
+    }
+  ],
+  "conclusion": "All current mapper handoff artifacts explicitly bind the same sealed v2 goal id, path and SHA-256. The stale v1 mapper reference is closed without changing the frozen goal or runtime UI."
+}

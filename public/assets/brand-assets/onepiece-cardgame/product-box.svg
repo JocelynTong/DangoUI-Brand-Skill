@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 260" role="img" aria-label="ONE PIECE product box">
+  <defs>
+    <linearGradient id="box" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#222"/>
+      <stop offset=".58" stop-color="#f2d469"/>
+      <stop offset="1" stop-color="#e31f25"/>
+    </linearGradient>
+  </defs>
+  <rect width="260" height="260" rx="6" fill="#101010"/>
+  <path d="M56 50h124l32 30v130H56z" fill="url(#box)" stroke="#fff507" stroke-width="6"/>
+  <path d="M180 50l32 30h-32z" fill="#8a1116"/>
+  <path d="M78 82h92v88H78z" fill="#070707" opacity=".72"/>
+  <text x="130" y="120" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="24" fill="#fff">BOOSTER</text>
+  <text x="130" y="150" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-size="20" fill="#fff507">PACK</text>
+</svg>

@@ -1,0 +1,83 @@
+{
+  "schema": "brand-generative-proof/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalContractPath": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "canonicalEvidenceBindings": {
+    "homeDesktopFull":"66a446457df6de071de9b172b83c09a33f2921c85e5446620bf5b959264e1242",
+    "homeDesktopTimeline":"27b6023fe353dff0f7dcf59aaad91e06cbde4f5b341780ff5910e4ec5bbdd9a2",
+    "homeMobile390Full":"44b1ac0a3c653af1ba7d77e6dc37c1061534051c563030a05fd7a26f390da51e",
+    "homeMobile390Timeline":"4bd5961a7ec1fcaf761a86b67bbfb00f0e3b6814fc64b8f68b02a3f5a8179835",
+    "learnDesktopFull":"8ac316b87f33e005faecf5bdec58aed38c1a37c3b003f996be0f92d6b834a2be",
+    "learnDesktopTimeline":"a3a7d253627a05d10e9bae33408277c9a8b7cb28fac531a605c3b7d0181e85ab",
+    "learnMobile390Full":"a8bb7edb545359be34b443352d60a7f3635347cdb2cb15c2134821de9f35fd22",
+    "learnMobile390Timeline":"bbbe37cb60ea38eb9bf8d819000096deceb74c28c830592db8a8bf44dbbc0b3f"
+  },
+  "status": "ready-for-blind-qa",
+  "targetPageId": "pokemon-tcg-official-held-out",
+  "standardDemoPageIds": [
+    "pokemon-tcg-official-home",
+    "pokemon-tcg-official-card-database",
+    "pokemon-tcg-official-learn",
+    "pokemon-tcg-official-held-out"
+  ],
+  "excludedImplementationPageIds": [
+    {
+      "pageId": "pokemon-tcg-official-pocket-fixture",
+      "reason": "Not present in the frozen goal; removed from the current preview registry and standard Demo surface."
+    },
+    {
+      "pageId": "pokemon-tcg-official-championship-fixture",
+      "reason": "Not present in the frozen goal; removed from the current preview registry and standard Demo surface."
+    }
+  ],
+  "challengeId": "pokemon-tcg-official-deck-lab-v1",
+  "challenge": {
+    "id": "pokemon-tcg-official-deck-lab-v1",
+    "heldOut": true,
+    "sourceContentIndependent": true,
+    "selectedAfterRulesFrozen": true,
+    "mapsToSourcePageId": null,
+    "contentChange": "Generate a new Deck Lab teaching route with original deck-building content and a two-organism entry-to-instruction sequence that is not mapped one-to-one to Home, Card Database, or Learn."
+  },
+  "frozenRules": [
+    {"recipeId":"learn-media-entry","name":"Oversized instructional entry hierarchy","frozenBeforeChallenge":true,"appliedAt":"held-out-deck-entry"},
+    {"recipeId":"learn-painted-card-anatomy","name":"Bounded definition-to-authentic-object teaching rhythm","frozenBeforeChallenge":true,"appliedAt":"held-out-deck-steps"},
+    {"recipeId":"bounded-long-form-sections","name":"Purpose-separated organisms preserve reading order","frozenBeforeChallenge":true,"appliedAt":"pokemon-tcg-official-held-out"}
+  ],
+  "output": {
+    "demoPageId": "pokemon-tcg-official-held-out",
+    "screenshot": {"path":"migrations/pokemon-tcg-official/captures/demo/held-out/desktop/full-page.png","sha256":"37ef16bd6f0bef8a7c96173fc49d16e1cc8c0c99622b2cd2a82aec5e907d0efb"}
+  },
+  "checks": {
+    "brandCueSubstitution": false,
+    "structureRulesApplied": [
+      {"ruleId":"learn-media-entry","selector":"[data-schema-section-id='held-out-deck-entry']","finding":"Oversized entry heading precedes a full authentic card object in a bounded dark organism."},
+      {"ruleId":"learn-painted-card-anatomy","selector":"[data-schema-section-id='held-out-deck-steps']","finding":"Exclusive definitions remain paired with an authentic card visual inside a separate instructional organism."},
+      {"ruleId":"bounded-long-form-sections","selector":".source-schema-demo[data-page-id='pokemon-tcg-official-held-out'] > section","finding":"Two differently purposed organisms preserve entry-to-instruction reading order at desktop host and 390px."}
+    ]
+  },
+  "invariants": [
+    "purpose-specific-color-role",
+    "authentic-object-as-proof",
+    "hierarchy-preserved-on-phone",
+    "bounded-long-form-sections"
+  ],
+  "deliberateChanges": [
+    "New Deck Lab information architecture",
+    "New deck-building copy and three-step accordion",
+    "Black entry organism followed by a bounded pale instructional organism"
+  ],
+  "allowedBecause": "The held-out page changes content and section purpose while retaining approved authentic-object hierarchy, oversized instructional heading, bounded organisms, exclusive accordion, and phone reading order.",
+  "prohibitedShortcuts": [
+    "source screenshot runtime",
+    "one-to-one source page copy",
+    "logo/color substitution as sole proof"
+  ],
+  "screenshots": [
+    "migrations/pokemon-tcg-official/captures/demo/held-out/desktop/full-page.png",
+    "migrations/pokemon-tcg-official/captures/demo/held-out/mobile-390/full-page.png"
+  ],
+  "implementationDecision": "REVISION_2_PASS_TO_FRESH_BLIND_QA_NOT_SELF_APPROVED"
+}

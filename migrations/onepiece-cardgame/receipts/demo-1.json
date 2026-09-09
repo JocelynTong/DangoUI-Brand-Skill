@@ -1,0 +1,40 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "dispatchId":"d1c04c59-7d6a-488f-bf72-4b2d11fd3086",
+  "runId":"672d1d73-774e-4aec-acac-1e75f44b7a54",
+  "stageId":"demo-1",
+  "role":"demoImplementationAgent",
+  "agentExecutionId":"/root/onepiece_home_v5_demo",
+  "attempt":1,
+  "goalId":"onepiece-cardgame-learn-v4",
+  "goalSha256":"1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "verdict":"pass",
+  "verdictReason":"Demo implementation handoff is ready: required deliverables exist and protocol, build, render, interaction, scrolling, provenance and runtime-asset self-tests pass. This stage PASS is limited to implementation readiness; visual fidelity and the independent Evidence Fidelity, Structural Fidelity and Generative Proof verdicts remain unapproved and pending Blind QA.",
+  "handoffStatus":"ready-for-independent-visual-qa",
+  "proofApproval":{"evidenceFidelity":"pending-independent-qa","structuralFidelity":"pending-independent-qa","generativeProof":"pending-independent-qa"},
+  "failureOwnerRole":null,
+  "inputs":[
+    {"path":"migrations/onepiece-cardgame/goal-contract.json","sha256":"1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"},
+    {"path":"migrations/onepiece-cardgame/brand-evidence.json","sha256":"1cceb545baac48bbf93f226e436c6b489d3a888c0c3c1389b890287cdefca0b3"},
+    {"path":"migrations/onepiece-cardgame/source-observation-manifest.json","sha256":"c122ee54af9ffb9ee3906ffd00caa5258997cb139ddaf1a54484857621d1099d"},
+    {"path":"migrations/onepiece-cardgame/rendered-asset-inventory.json","sha256":"f5e5075587b6bab475c1ac0ac7fdb0c95b485a58f3f3b3f2a306a88d2447087a"},
+    {"path":"migrations/onepiece-cardgame/action-evidence.json","sha256":"7a491ca50b7f0f9046af6f55fc605b218926bd25acd602f473ca0169629c10e9"},
+    {"path":"migrations/onepiece-cardgame/action-evidence-v02.json","sha256":"a958b3b854abd19677d4931c6d475bf548112d96babd7a365b46486e3030d852"},
+    {"path":"migrations/onepiece-cardgame/third-party-evidence.dembrandt.json","sha256":"ca86b46e1287c160a4f76b3205f33102cb5532d75e1b2fa59dd4212e860552e8"},
+    {"path":"migrations/onepiece-cardgame/brand-intent.json","sha256":"8211c6bdec93a6e4d04eb3d272933a43e3a9d31c726e0d44d9f16a3f69c06f1c"},
+    {"path":"migrations/onepiece-cardgame/approved-visual-patterns.json","sha256":"3276d9a90ce36f432e352699b6dbe41904f1b95e4fe20ff5165c62311f7bb8a2"}
+  ],
+  "outputs":[
+    {"path":"public/brand-previews/onepiece-cardgame.json","sha256":"248662b1d05bf824999b8a6af563ddd09115f1e31d985bd4fbb91204eebdf2e3"},
+    {"path":"src/App.vue","sha256":"66871f878acc8e0780fb8eea74bf7c3fa4ed0475fba5432befa8e5868a876dfd"},
+    {"path":"src/styles.css","sha256":"8e4d987915165f0ef1c970b77f8438f26f91d29cebfebee9d96f965f403a4487"},
+    {"path":"migrations/onepiece-cardgame/visual-pattern-inventory.json","sha256":"a886df017c179100ed347227b0b4b47447869776ac31bbfba3a0c81d07fdc097"},
+    {"path":"migrations/onepiece-cardgame/generative-proof.json","sha256":"984ee59b7aa0b28d94a7d38aae9bf108688f860d24a44e93a44bf053cf1eed20"},
+    {"path":"migrations/onepiece-cardgame/demo-screenshot-manifest.json","sha256":"56be87bb9398e8bd96621883442187a2994214664133ceebee8f429722b0fb74"}
+  ],
+  "selfTests":{"jsonParse":"pass","brandPreviewProtocol":"pass-with-unrelated-existing-warnings","build":"pass","browserRender":"pass","heroControls":7,"heroManualVariantSelection":"pass","heroPause":"pass","welcomeHover":{"transform":"scale(1.03)","duration":"0.3s","scope":"Home Welcome only"},"scroll":{"clientHeight":583,"scrollHeight":2809,"lowerTop":2163.64},"sourceScreenshotRuntimeScan":"pass"},
+  "implemented":["seven-variant Hero with one-at-a-time dominance, autoplay, manual selection and pause/play","four scoped typography roles","Welcome-only CTA hover","scoped Home surfaces and colors","phone mockup with multi-module scroll","source-independent held-out editorial variation"],
+  "missing":[],
+  "preAuthorizedTransformations":["responsive-phone-layout"],
+  "visualFidelitySelfApproved":false
+}

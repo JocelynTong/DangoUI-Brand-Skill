@@ -1,0 +1,209 @@
+{
+  "schema": "brand-demo-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "generatedAt": "2026-09-02T04:56:48.510Z",
+  "baseUrl": "http://127.0.0.1:5174",
+  "probes": [
+    {
+      "pageId": "pokemon-tcg-official-home",
+      "viewport": "desktop",
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 2761,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-learn",
+      "viewport": "desktop",
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 2792,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-held-out",
+      "viewport": "desktop",
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1554,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-home",
+      "viewport": "mobile-390",
+      "scroll": {
+        "clientHeight": 796,
+        "scrollHeight": 4553,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-card-database",
+      "viewport": "mobile-390",
+      "scroll": {
+        "clientHeight": 675,
+        "scrollHeight": 1659,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-learn",
+      "viewport": "mobile-390",
+      "scroll": {
+        "clientHeight": 646,
+        "scrollHeight": 3068,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-held-out",
+      "viewport": "mobile-390",
+      "scroll": {
+        "clientHeight": 622,
+        "scrollHeight": 1575,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-card-database",
+      "viewport": "desktop",
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1549,
+        "before": 0,
+        "after": 500,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "pokemon-tcg-official-card-database",
+      "interaction": {
+        "search": [
+          {
+            "id": "empty",
+            "state": {
+              "search": "empty",
+              "advancedText": "Show Advanced Search",
+              "advancedExpanded": "false",
+              "advancedHeight": "0px",
+              "advancedComputedHeight": "0px",
+              "advancedRectHeight": 0,
+              "results": false,
+              "page": null
+            }
+          },
+          {
+            "id": "pikachu",
+            "state": {
+              "search": "pikachu-entered",
+              "advancedText": "Show Advanced Search",
+              "advancedExpanded": "false",
+              "advancedHeight": "0px",
+              "advancedComputedHeight": "0px",
+              "advancedRectHeight": 0,
+              "results": false,
+              "page": null
+            }
+          },
+          {
+            "id": "results",
+            "state": {
+              "search": "results",
+              "advancedText": "Show Advanced Search",
+              "advancedExpanded": "false",
+              "advancedHeight": "0px",
+              "advancedComputedHeight": "0px",
+              "advancedRectHeight": 0,
+              "results": true,
+              "page": "1/12"
+            }
+          },
+          {
+            "id": "reset",
+            "state": {
+              "search": "empty",
+              "advancedText": "Show Advanced Search",
+              "advancedExpanded": "false",
+              "advancedHeight": "0px",
+              "advancedComputedHeight": "0px",
+              "advancedRectHeight": 0,
+              "results": false,
+              "page": null
+            }
+          }
+        ],
+        "advanced": [
+          {
+            "id": "default",
+            "state": {
+              "search": "empty",
+              "advancedText": "Show Advanced Search",
+              "advancedExpanded": "false",
+              "advancedHeight": "0px",
+              "advancedComputedHeight": "0px",
+              "advancedRectHeight": 0,
+              "results": false,
+              "page": null
+            }
+          },
+          {
+            "id": "triggered",
+            "state": {
+              "search": "empty",
+              "advancedText": "Hide Advanced Search",
+              "advancedExpanded": "true",
+              "advancedHeight": "triggered-724px",
+              "advancedComputedHeight": "724px",
+              "advancedRectHeight": 724,
+              "results": false,
+              "page": null
+            }
+          },
+          {
+            "id": "settled",
+            "state": {
+              "search": "empty",
+              "advancedText": "Hide Advanced Search",
+              "advancedExpanded": "true",
+              "advancedHeight": "settled-1206.73px",
+              "advancedComputedHeight": "1206.73px",
+              "advancedRectHeight": 1206.734375,
+              "results": false,
+              "page": null
+            }
+          },
+          {
+            "id": "restored",
+            "state": {
+              "search": "empty",
+              "advancedText": "Show Advanced Search",
+              "advancedExpanded": "false",
+              "advancedHeight": "0px",
+              "advancedComputedHeight": "0px",
+              "advancedRectHeight": 0,
+              "results": false,
+              "page": null
+            }
+          }
+        ]
+      }
+    }
+  ]
+}

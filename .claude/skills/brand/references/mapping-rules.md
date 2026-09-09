@@ -19,6 +19,17 @@
 
 ## 1. 先证明链路
 
+### 1.0 Demo 证明边界
+
+learn-brand Demo 是学习能力测试，不是官网镜像、宿主成果或品牌素材模板。映射开始前把页面分为：
+
+- `reference calibration`：允许 Researcher / Interpreter 用来提取证据、校准规则和回归结构。
+- `held-out generative challenge`：在 brand intent、approved patterns 和约束冻结后才交给 Demo / Blind QA，用来检验规则是否可生成。
+
+同一页面不得跨组复用。Reference 上高度还原只能得到 Evidence / Structure Proof；只有 held-out 页面仍满足品牌结构、且所有显著模式可追溯，才能得到 Generative Proof。Logo、品牌色、官方壁纸、截图 crop 和固定模板换皮均不能替代三证。
+
+映射和 QA 需要为每个高显著度模式保留 `proofType`、`evidenceRefs`、`sourceRegion`、`demoRegion`、`calibrationOrHeldOut`。缺失或角色语义扩张时进入内部 blocker，不交给用户发现。
+
 任何设计语言判断，先追踪真实输出，再做语义判断。源码、目录、文件名、品牌印象都只能作为辅助线索，不能替代最终渲染证据。
 
 ### Computed-first 证据链
@@ -426,6 +437,16 @@ DTCG 表达：
 - 如果迁移资产和宿主项目现有设计系统冲突，先保留宿主项目 API 和命名，再用局部 theme class 承接品牌表现。
 - 如果 `dangoui-adapter.json` 暴露 `--style-border-frame`、`--style-divider-color`、`*Frame.applyRecipe` 或类似 Frame / Divider style-only 配置，必须落地为 CSS。只初始化 `--du-border-1` 或 Divider 颜色会丢失装饰框。
 - Frame / Divider style-only CSS 至少包含：目标作用域、真实容器 border、贴边角线或 asset fallback、radius、反例排除区域。
+
+### DangoUI 映射完整性 Gate
+
+映射完成不等于 JSON 文件存在。标准链路必须能从 `brand-profile.dtcg.json` 追到 `dangoui-adapter.json`、`component-mapping.json` 和 `mapping-runtime-proof.json`；正式放行还要有独立 Mapping QA。运行：
+
+```bash
+node skills/brand/scripts/validate-dangoui-mapping.mjs --brand <brand> --strict
+```
+
+这个 Gate 只固化平台级完整性，不固化任何单品牌视觉结论。它检查：DTCG 与 adapter target 不漂移；mapped token 确实指向已有 `--du-*`，style-only 不冒充 DangoUI；每项有 evidence、allowed role 和 runtime consumer；native component 有真实源码/API/selector 证明；composition 不伪装成组件；runtime proof 无 pending；独立 Mapping QA 无 blocker。颜色值、构图、页面类型等仍由各品牌冻结证据和 Visual QA 决定。
 
 ## 7. Style Pack 应用链路校验
 

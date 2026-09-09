@@ -1,0 +1,21 @@
+{
+  "verdict": "FAIL",
+  "earliestFailureNode": "demoImplementationAgent",
+  "failureOwnerRole": "demoImplementationAgent",
+  "passed": [
+    "normal Home retains phone frame and radii",
+    "indicator is a phone-owned absolute chassis overlay",
+    "indicator container is transparent with background-image none; only black bar is visible",
+    "computed bottom is 0px and no explicit bottom-frame inset raises the overlay",
+    "content inset 12.664px is below indicator height 26.90625px and above the contract minimum 12px",
+    "top/mid/bottom/restored phone, screen and indicator rects are invariant",
+    "footer blue background extends to the scroll end",
+    "390px proof mode removes shell and indicator",
+    "390px document has no horizontal overflow",
+    "build, registry validation and updated layout contract unit test pass"
+  ],
+  "failed": [
+    "at bottom scroll, footer content overlaps the black bar by 3.15625px",
+    "normal phone footer navigation and copyright extend 68.9375px past the screen right edge and are clipped"
+  ]
+}

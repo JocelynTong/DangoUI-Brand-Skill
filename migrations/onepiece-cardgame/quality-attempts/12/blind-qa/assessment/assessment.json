@@ -1,0 +1,39 @@
+{
+  "schema": "attempt12-blind-visual-assessment/v1",
+  "attempt": 12,
+  "overall": "FAIL",
+  "failureOwner": "Demo",
+  "failureOwnerReason": "Frozen evidence and the interpreter contract explicitly require the source organisms and reject generic replacements. The earliest visible divergence is the rendered Demo implementation.",
+  "proofs": {
+    "evidenceFidelity": {
+      "verdict": "FAIL",
+      "reason": "High-salience observed structures are referenced but not faithfully rendered, most decisively the Events red-frame organism."
+    },
+    "structuralFidelity": {
+      "verdict": "FAIL",
+      "reason": "Multiple section layers, proportions, crops, surfaces and reading-order relationships differ materially; passing semantics and item counts do not compensate."
+    },
+    "generativeProof": {
+      "verdict": "PASS",
+      "reason": "A separate Field Notes page uses fictional content, independent generated SVG assets, black-white taxonomy, hard unboxed heading and editorial-module rhythm without a one-to-one source mapping."
+    }
+  },
+  "sections": {
+    "welcome": { "verdict": "FAIL", "reason": "Readable heading/body/CTA and layered cards exist, but the section is 586.87px versus the 679px contract and the rendered field reads as a simplified flat warm panel rather than the complete textured/color-burn mobile story field." },
+    "newArrival": { "verdict": "FAIL", "reason": "The clipped rail and product links exist, but the source's two prominent 46.8px circular controls are reduced to visually negligible marks; control hierarchy and decorated navy composition are not faithful." },
+    "events": { "verdict": "FAIL", "reason": "The live result is a red textured container containing borderless white rows. It lacks the source's per-row red framing, connecting frame geometry and visibly overlapping thumbnail tabs. This is an ordinary list inside a red accent, not a faithful bg_pikup-events organism." },
+    "recommend": { "verdict": "FAIL", "reason": "A clipped rail and partial-next cue exist, but the wood/textured field and emphatic WANTED poster organism are replaced by generic cream cards on a cool gray field; media hierarchy is materially weaker." },
+    "videos": { "verdict": "FAIL", "reason": "Links and a horizontal row exist, but the live thumbnails render as several small tiles rather than the contracted ~229.84px / 58.93%-viewport cropped media rail; proportion and crop organization differ." },
+    "footerNavLegal": { "verdict": "FAIL", "reason": "Semantic anchors/buttons and navy single-column navigation exist and footer loops run, but the source illustration/banner organism is compressed to 168.59px, source banners/social/language hierarchy are absent, and an unrelated held-out section interrupts the Videos-to-footer reading order." }
+  },
+  "regressions": {
+    "canvas": "PASS (none)",
+    "horizontalOverflow": "PASS",
+    "verticalScroll": "PASS",
+    "hero": "PASS_STRUCTURAL_ONLY; campaign carousel composition and official asset hierarchy remain, while the live slide identity is time-dependent",
+    "news": "PASS_STRUCTURAL_ONLY; editorial rows and CTA remain readable",
+    "footerMotion": "PASS",
+    "desktopPhoneShell": "PASS"
+  },
+  "compensationPolicyApplied": true
+}

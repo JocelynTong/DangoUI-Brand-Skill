@@ -1,0 +1,72 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "pokemon-tcg-official-cold-start-v1",
+  "brand": "pokemon-tcg-official",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "cold-start-visible-learning",
+  "createdAt": "2026-09-02T12:10:12+08:00",
+  "sealed": true,
+  "goal": "Cold-start learn the official Pokémon TCG site from rendered evidence and generate three visibly distinct Demo pages plus an independent held-out variation without consuming Pitch Black brand conclusions or migrations.",
+  "nonGoals": ["reuse-pitch-black-intent", "website-mirror", "host-apply"],
+  "implementationPolicy": {
+    "allowSourceScreenshotAsRuntimeAsset": false,
+    "requireIndependentRuntimeAssetsOrDomCssReconstruction": true,
+    "requireHighSalienceEvidenceTrace": true,
+    "forbidBrandConclusionReuseFrom": ["pokemon-tcg-pitch-black", "pokemon30"]
+  },
+  "evidencePolicy": {
+    "continuousCaptureRequired": true,
+    "requiredPageIds": ["home", "cards", "how-to-play"],
+    "requiredPageStates": ["initial", "continuous-scroll", "settled-end"],
+    "requiredInteractionStates": ["default", "triggered", "settled", "restored"],
+    "consumerRule": "Interpreter is blocked until all three pages and their high-salience sections pass screenshot-first, asset-provenance, responsive, and interaction evidence gates."
+  },
+  "referencePages": [
+    { "id": "home", "url": "https://tcg.pokemon.com/en-us/", "core": true },
+    { "id": "cards", "url": "https://tcg.pokemon.com/en-us/cards/", "core": true },
+    { "id": "how-to-play", "url": "https://tcg.pokemon.com/en-us/how-to-play/", "core": true }
+  ],
+  "demoPages": [
+    { "id": "pokemon-tcg-official-home", "mapsToSourcePageId": "home" },
+    { "id": "pokemon-tcg-official-cards", "mapsToSourcePageId": "cards" },
+    { "id": "pokemon-tcg-official-how-to-play", "mapsToSourcePageId": "how-to-play" },
+    { "id": "pokemon-tcg-official-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out" }
+  ],
+  "mustPreserve": [
+    { "id": "home-brand-stage", "requiredOn": ["home"], "dimensions": ["composition", "assetAuthenticity", "informationDensity"] },
+    { "id": "cards-browsing-organism", "requiredOn": ["cards"], "dimensions": ["composition", "informationDensity", "interactionSemantics"] },
+    { "id": "learning-content-hierarchy", "requiredOn": ["how-to-play"], "dimensions": ["composition", "typographyGraphics", "interactionSemantics"] },
+    { "id": "responsive-section-structure", "requiredOn": ["home", "cards", "how-to-play"], "dimensions": ["composition", "informationDensity"] }
+  ],
+  "mayTranslate": [
+    { "id": "responsive-phone-layout", "description": "Source desktop structures may reflow to phone while preserving hierarchy, asset weight, density, and interaction truth." },
+    { "id": "representative-content", "description": "Representative source-independent content may be used only for held-out proof after recipes are frozen." }
+  ],
+  "mustNotReplace": [
+    { "id": "no-pitch-black-conclusion-reuse", "description": "Pitch Black tokens, intent, patterns, page schemas, or QA conclusions may not seed this cold start." },
+    { "id": "no-screenshot-runtime", "description": "Source screenshots are QA evidence only." },
+    { "id": "no-item-count-proxy", "description": "Counts do not substitute for section structure." },
+    { "id": "no-fake-controls", "description": "Enabled controls require captured state changes and restoration." }
+  ],
+  "learningProofContract": {
+    "evidenceFidelity": { "required": true },
+    "structuralFidelity": { "required": true },
+    "generativeProof": { "required": true },
+    "visibleLearningProof": { "required": true },
+    "compensationPolicy": "No proof can compensate for another."
+  },
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "dimensionMin": { "composition": 3, "assetAuthenticity": 3 },
+    "maxAttempts": 2
+  },
+  "timeBudget": {
+    "profile": "full",
+    "targetMinutes": [30, 45],
+    "stopOptionalExpansionAtMinutes": 60,
+    "blockAtMinutes": 75
+  }
+}

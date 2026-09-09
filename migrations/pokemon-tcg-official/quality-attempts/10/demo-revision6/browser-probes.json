@@ -1,0 +1,304 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision6",
+  "scope": "normal mockup shell versus explicit desktop/mobile calibration modes",
+  "results": [
+    {
+      "id": "normal-home",
+      "pageId": "pokemon-tcg-official-home",
+      "viewport": {
+        "width": 1200,
+        "height": 900
+      },
+      "query": "?qa=attempt10-revision6",
+      "section": "home-campaign-stage",
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision6#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+        "phoneClass": "phone template-phone",
+        "proofRole": null,
+        "phone": {
+          "x": 635,
+          "y": 51.390625,
+          "width": 390,
+          "height": 855.015625,
+          "right": 1025,
+          "bottom": 906.40625
+        },
+        "screen": {
+          "x": 644,
+          "y": 60.390625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 863.84375
+        },
+        "content": {
+          "x": 644,
+          "y": 60.390625,
+          "width": 372,
+          "height": 2546.828125,
+          "right": 1016,
+          "bottom": 2607.21875
+        },
+        "section": {
+          "x": 644,
+          "y": 60.390625,
+          "width": 372,
+          "height": 416,
+          "right": 1016,
+          "bottom": 476.390625
+        },
+        "frame": {
+          "borderTopWidth": "9px",
+          "borderRadius": "41.4666px",
+          "backgroundColor": "rgba(0, 0, 0, 0.08)",
+          "pseudoContent": "\"\"",
+          "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px"
+        },
+        "screenStyle": {
+          "borderRadius": "31.5936px",
+          "clipPath": "inset(0px round 31.5936px)",
+          "overflowY": "auto",
+          "overflowX": "hidden"
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 2547
+        }
+      },
+      "afterScroll": {
+        "top": 240,
+        "clientHeight": 803,
+        "scrollHeight": 2547
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "id": "normal-pocket-fixture",
+      "pageId": "pokemon-tcg-official-pocket-fixture",
+      "viewport": {
+        "width": 1200,
+        "height": 900
+      },
+      "query": "?qa=attempt10-revision6",
+      "section": "held-out-pocket-family",
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision6#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "phoneClass": "phone template-phone",
+        "proofRole": "generative-held-out-fictional",
+        "phone": {
+          "x": 635,
+          "y": 51.390625,
+          "width": 390,
+          "height": 855.015625,
+          "right": 1025,
+          "bottom": 906.40625
+        },
+        "screen": {
+          "x": 644,
+          "y": 60.390625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 863.84375
+        },
+        "content": {
+          "x": 644,
+          "y": 60.390625,
+          "width": 372,
+          "height": 1252.015625,
+          "right": 1016,
+          "bottom": 1312.40625
+        },
+        "section": {
+          "x": 644,
+          "y": 60.390625,
+          "width": 372,
+          "height": 743.015625,
+          "right": 1016,
+          "bottom": 803.40625
+        },
+        "frame": {
+          "borderTopWidth": "9px",
+          "borderRadius": "41.4666px",
+          "backgroundColor": "rgba(0, 0, 0, 0.08)",
+          "pseudoContent": "\"\"",
+          "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px"
+        },
+        "screenStyle": {
+          "borderRadius": "31.5936px",
+          "clipPath": "inset(0px round 31.5936px)",
+          "overflowY": "auto",
+          "overflowX": "hidden"
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 1252
+        }
+      },
+      "afterScroll": null,
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "id": "proof-desktop-pocket",
+      "pageId": "pokemon-tcg-official-pocket-fixture",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "query": "?qa=attempt10-revision6&proof=desktop",
+      "section": "held-out-pocket-family",
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision6&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "phoneClass": "phone template-phone template-phone--source-desktop",
+        "proofRole": "generative-held-out-fictional",
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 870.1875,
+          "right": 1440,
+          "bottom": 870.1875
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 836.1875,
+          "right": 1440,
+          "bottom": 836.1875
+        },
+        "content": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 836.1875,
+          "right": 1440,
+          "bottom": 836.1875
+        },
+        "section": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 476.1875,
+          "right": 1440,
+          "bottom": 476.1875
+        },
+        "frame": {
+          "borderTopWidth": "0px",
+          "borderRadius": "0px",
+          "backgroundColor": "rgb(7, 61, 42)",
+          "pseudoContent": "none",
+          "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px"
+        },
+        "screenStyle": {
+          "borderRadius": "0px",
+          "clipPath": "none",
+          "overflowY": "visible",
+          "overflowX": "visible"
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 836,
+          "scrollHeight": 836
+        }
+      },
+      "afterScroll": null,
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "id": "proof-mobile-pocket",
+      "pageId": "pokemon-tcg-official-pocket-fixture",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "query": "?qa=attempt10-revision6&proof=mobile",
+      "section": "held-out-pocket-family",
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision6&proof=mobile#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "phoneClass": "phone template-phone template-phone--source-mobile-proof",
+        "proofRole": "generative-held-out-fictional",
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "content": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1252.015625,
+          "right": 390,
+          "bottom": 1252.015625
+        },
+        "section": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 743.015625,
+          "right": 390,
+          "bottom": 743.015625
+        },
+        "frame": {
+          "borderTopWidth": "0px",
+          "borderRadius": "0px",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "pseudoContent": "none",
+          "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px"
+        },
+        "screenStyle": {
+          "borderRadius": "0px",
+          "clipPath": "none",
+          "overflowY": "auto",
+          "overflowX": "hidden"
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 844,
+          "scrollHeight": 1252
+        }
+      },
+      "afterScroll": null,
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "checks": {
+    "normalFrameVisible": true,
+    "normalScreenRoundedAndScrollable": true,
+    "proofRoleDoesNotRemoveShell": true,
+    "desktopExplicitNoShell": true,
+    "mobileExplicitNoShell": true,
+    "proofFullBleed": true,
+    "normalContentUsesScreen": true,
+    "consoleClean": true
+  },
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

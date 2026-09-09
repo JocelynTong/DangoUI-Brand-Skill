@@ -1,0 +1,20 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "role": "Demo Implementation Agent",
+  "executionId": "/root/pokemon_news_demo",
+  "scope": "homepage/whats-new-only",
+  "goalSha256": "db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5",
+  "inputBindings": {
+    "evidenceSha256": "2e25ce6832bfc1a866c317463299219ce784f1ca80a450c7294b8f67b2b35744",
+    "intentSha256": "27e954feded71c16ae7af6725adfd8b5989d752aea73a1c3020cb9c3e19619b8",
+    "patternsSha256": "48be4cc525315b83c109f43c5125c77d03925a5a441e2289a819cb16fb15af27",
+    "designDirectionSha256": "08d52c0d212a0c991b682d5629385d3df53b65c8b5860ae57437608b8984d35e"
+  },
+  "outputs": ["src/App.vue","src/styles.css","public/brand-previews/pokemon-tcg-official.json","migrations/pokemon-tcg-official/quality-attempts/08/demo/browser-probes.json","migrations/pokemon-tcg-official/quality-attempts/08/demo/section-fidelity-manifest.json","migrations/pokemon-tcg-official/quality-attempts/08/demo/visual-pattern-inventory.json","migrations/pokemon-tcg-official/quality-attempts/08/demo/generative-proof.json"],
+  "implementationChecksPass": true,
+  "buildPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent",
+  "handoffTo": "fresh Blind QA / TPP"
+}

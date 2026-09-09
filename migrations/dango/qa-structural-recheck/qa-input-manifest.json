@@ -1,0 +1,32 @@
+{
+  "schema": "brand-qa-input-manifest/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "qaRun": "structural-recheck",
+  "generatedAt": "2026-09-05T05:15:55Z",
+  "independence": {
+    "role": "blindVisualQA",
+    "oldQaArtifactsRead": false,
+    "implementationRationaleRead": false,
+    "implementationOrGoalModified": false
+  },
+  "thresholds": { "overall": 80, "corePage": 75 },
+  "proofPolicy": "evidence, structural and generative proof must each pass independently",
+  "inputs": [
+    { "path": "migrations/dango/goal-contract.json", "sha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac" },
+    { "path": "migrations/dango/brand-evidence.json", "sha256": "06a5374f36f3c300165a5fdc0ef2b8393276ea3573ca03cfede99c86f138b88f" },
+    { "path": "migrations/dango/source-observation-manifest.json", "sha256": "19be116f7ef0bffee3d4781d5c25f0c84f76ffc20248c4b52d28a413facddae9" },
+    { "path": "migrations/dango/approved-visual-patterns.json", "sha256": "4d90b0aad2a442839223c3198e895bbbcf0a03ddf201111dc3ad6a35a2147a51" },
+    { "path": "migrations/dango/visual-pattern-inventory.json", "sha256": "d957a8ac404d34f2fb8b718066a523b21f42eea73f56d1818d9687f80ee67aa2" },
+    { "path": "migrations/dango/generative-proof.json", "sha256": "9d07debf0bee95cb6d08b4ab83360cfaa1c96287753f13b5abd8efb49ec5d8a6" },
+    { "path": "migrations/dango/demo-2/demo-screenshot-manifest.json", "sha256": "7515022e5ec6187e151ebbf366c0a132165fd794b95e02217abb7c9bbdf66249" },
+    { "path": "migrations/dango/demo-2/section-fidelity-implementation-manifest.json", "sha256": "1b9fe7d5b54ba422459187afbe63e015d90a456ee3630753fd95a357e4697e4c" },
+    { "url": "http://localhost:5179", "kind": "live-rendered-demo" }
+  ],
+  "forbiddenInputs": [
+    "previous visual-qa-assessment",
+    "previous visual-comparison-report",
+    "previous fidelity-report",
+    "implementation rationale or chat conclusions"
+  ]
+}

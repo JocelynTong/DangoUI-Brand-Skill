@@ -1,0 +1,30 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "04-demo-r2",
+  "role": "demoImplementationAgent",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "decision": "ready-for-independent-blind-qa",
+  "input": {
+    "designDirection": {
+      "path": "migrations/pokemon-tcg-official/design-direction.json",
+      "sha256": "98fffcb0b7b526d6c8b7d5545e4ad22e351b372356cd1ba4475b762c9513e2d6"
+    },
+    "blindQa": "migrations/pokemon-tcg-official/quality-attempts/04/blind-qa/visual-qa-assessment.json"
+  },
+  "implementation": [
+    {"path": "src/App.vue", "sha256": "a03cb505b1b799290e8470bd699333c020261332ec586b06b7abc9551d1de838"},
+    {"path": "src/styles.css", "sha256": "8b1865b8711c038d1ce715d0139139ceb691a941f14eeb105d4a5ddf1457bf5d"}
+  ],
+  "proof": {
+    "browserProbes": {
+      "path": "migrations/pokemon-tcg-official/quality-attempts/04/demo-r2/browser-probes.json",
+      "sha256": "7c25e8ebda1db0324e8be3d9644f00005c947abe9dc42584156962ba102dbb07"
+    },
+    "surfaces": ["390x844", "outer-1440-internal-348"],
+    "carouselSequence": [0, 1, 0],
+    "allStatesPreserveSixLayers": true,
+    "build": "pass"
+  },
+  "selfVerdict": "implementation-checks-pass-no-fidelity-verdict"
+}

@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "implementationGates": [
+    {"name": "validate-design-direction", "command": "node skills/brand/scripts/validate-design-direction.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/11/design-direction.json", "exitCode": 0, "ok": true},
+    {"name": "validate-section-fidelity-strict", "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/11/demo/section-fidelity-manifest.json --strict", "exitCode": 0, "ok": true, "failures": []},
+    {"name": "vite-build", "command": "npm run build", "exitCode": 0, "ok": true}
+  ],
+  "qaOnlyGate": {"name": "validate-brand-fidelity", "runAsDemoVerdict": false, "note": "Requires a fresh independent QA assessment and execution identity; intentionally not claimed by Demo role."},
+  "implementationGateStatus": "complete"
+}

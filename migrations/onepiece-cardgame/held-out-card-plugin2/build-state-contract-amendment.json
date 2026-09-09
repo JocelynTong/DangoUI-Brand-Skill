@@ -1,0 +1,16 @@
+{
+  "schema": "brand-host-design-amendment/v1",
+  "status": "approved-before-attempt17",
+  "route": "pages/build/index",
+  "reason": "Fresh QA exposed that the frozen visual direction assumed a pre-submit disabled state which the host business does not have. The host intentionally allows submit to surface validation errors.",
+  "preservedBusinessModel": "validation-on-submit",
+  "stateMapping": {
+    "incompleteBeforeSubmit": "active control; clicking produces existing validation feedback",
+    "invalidAfterSubmit": "error feedback is visible and associated with the unchanged active publish action",
+    "submitting": "disabled/loading styling and semantics only if this real host state exists",
+    "success": "existing success outcome",
+    "failure": "existing failure outcome"
+  },
+  "forbidden": ["invent a disabled state", "suppress existing validation feedback", "change validation or mutation behavior"],
+  "qaCorrection": "Absence of a pre-submit disabled state is N/A, not a failure, when validation-on-submit is proven."
+}

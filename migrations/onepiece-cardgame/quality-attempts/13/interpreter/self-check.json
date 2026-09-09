@@ -1,0 +1,31 @@
+{
+  "schema": "brand-interpreter-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 13,
+  "role": "Design Translator",
+  "result": "PASS",
+  "checks": {
+    "goalContractReadAndUnchanged": true,
+    "strictEvidenceGatePassed": true,
+    "onlyEvidenceGoalIntentPatternsConsumed": true,
+    "demoImplementationAndQaExcluded": true,
+    "eventsAllSixPositionallyBoundToOfficialIdentity": true,
+    "eventsOnlyJakartaManilaShareAllowed": true,
+    "eventsGeneratedAssetsForbidden": true,
+    "recommendFiveDistinct640x360IdentitiesBound": true,
+    "recommendCoverCropAndRailOrganizationFrozen": true,
+    "newArrivalNextStateOneToTwoAndMinus182Frozen": true,
+    "newArrivalPreviousDisabledToEnabledFrozen": true,
+    "newArrivalPreviousReverseRestorationRequired": true,
+    "fakeOrNoOpButtonsForbidden": true,
+    "heldOutSeparateDemoRouteRequired": true,
+    "heldOutMapsToSourcePageIdNull": true,
+    "heldOutInsertionIntoHomeForbidden": true,
+    "brandIntentUpdated": true,
+    "approvedPatternsUpdated": true,
+    "evidenceDemoQaUntouched": true,
+    "tokenRoleExpansionIntroduced": false
+  },
+  "unresolved": [],
+  "downstreamBlockingCodes": ["EVENT_ASSET_IDENTITY_MISMATCH","RECOMMEND_MEDIA_OR_RAIL_MISMATCH","NEW_ARRIVAL_CONTROL_NOT_REVERSIBLE","HELD_OUT_PAGE_BOUNDARY_VIOLATION"]
+}

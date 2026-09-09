@@ -1,0 +1,25 @@
+{
+  "schema": "brand-fidelity-report/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "qaRun": "structural-recheck",
+  "thresholds": { "overall": 80, "corePage": 75 },
+  "scores": {
+    "overall": 88,
+    "corePages": { "introduction": 90, "button": 84 },
+    "heldOut": 88
+  },
+  "proofs": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "PASS",
+    "generativeProof": "PASS"
+  },
+  "blockingFindings": [],
+  "gateEvaluation": {
+    "overallThresholdMet": true,
+    "allCorePageThresholdsMet": true,
+    "allThreeProofsPass": true,
+    "verdict": "PASS"
+  },
+  "conclusion": "PASS: the latest scoped structural repair satisfies the frozen Dango goal. All mobile composition layers inspected are bounded, Button identity/variant and state geometry match, the bounded Button comparison has negligible aspect delta with real focal-point and reading-order retention, and all distribution/proof routes remain reachable and operable."
+}

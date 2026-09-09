@@ -1,0 +1,75 @@
+{
+  "schema": "onepiece-home-mobile-section-probes/v1",
+  "attempt": 12,
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "viewport": { "width": 390, "height": 844, "deviceScaleFactor": 1 },
+  "provenance": {
+    "renderedCapture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png",
+    "renderedDocument": { "scrollWidth": 390, "scrollHeight": 7576 },
+    "domSnapshot": "official HTML fetched 2026-09-01; selectors are locators only and semantic elements are recorded separately",
+    "stylesheet": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+    "computedMethod": "Values below are the winning <=1000px declarations resolved at 390 CSS px and visually cross-checked against the source capture. They are not a substitute for a fresh getComputedStyle trace.",
+    "limitation": "The live in-app-browser navigation timed out before a fresh runtime getComputedStyle dump completed; properties that require runtime Swiper state are UNRESOLVED."
+  },
+  "sections": [
+    {
+      "id": "welcome",
+      "semanticElement": "section",
+      "domHierarchy": ["main.mainCol", "section.welcomeCol", "div.welcomeColInner", "h2.welcomeColTitle + div.welcomeColTxt + a.welcomeColBtn", "div.welcomeColBg > div.welcomeColBgInner > ul.cardCol ×2 > li.cardColItem ×11"],
+      "renderedBox": { "x": 0, "y": 954.7, "width": 390, "height": 679 },
+      "computed390": { "height": "auto", "innerPaddingPx": [41.08, 28.6, 52, 28.6], "titleFontSizePx": 32.24, "bodyFontSizePx": 14.56, "ctaWidthPx": 213.2, "ctaHeightPx": 57.2, "ctaFontSizePx": 15.6, "backgroundImage": "/renewal/images/top/sp/bg_welcome.webp?v2", "decorationImage": "/renewal/images/top/sp/bg_welcome_txt.webp", "decorationBlendMode": "color-burn" },
+      "actions": [{ "element": "a", "text": "Begin Your Adventure", "href": "/beginners/", "observedDefault": true, "mobileHoverState": "UNRESOLVED; desktop hover evidence exists but is not promoted to touch behavior" }],
+      "counts": { "paragraphs": 3, "decorativeCardItems": 11, "factOnly": true }
+    },
+    {
+      "id": "new-arrival",
+      "semanticElement": "section",
+      "domHierarchy": ["main.mainCol", "section.newarrivalCol", "div.newarrivalColWrap", "h2[aria-label='New Arrival']", "div.swiper.swiper-newarrival > ul.swiper-wrapper > li.swiper-slide ×10", "div.swiper-option > div.swiper-button-prev + div.swiper-button-next"],
+      "renderedBox": { "x": 0, "yApprox": 2313, "width": 390, "heightApprox": 520 },
+      "computed390": { "backgroundColor": "#0f1331", "color": "#fff", "paddingTopPx": 34.32, "paddingBottomPx": 15.6, "itemWidthPx": 166.4, "itemGapPx": 15.6, "thumbPx": [166.4, 166.4], "prevNextPx": [46.8, 46.8], "decorationImage": "/renewal/images/top/sp/bg_new-arrival.webp", "decorationHeightPx": 184.6 },
+      "rail": { "horizontal": "observed", "viewportCrop": "observed", "prev": "observed", "next": "observed", "activeSlide": "UNRESOLVED", "drag": "UNRESOLVED", "reason": "Static source capture shows a masked rail and both controls but no before/after drag or active-class capture." },
+      "counts": { "sourceItems": 10, "factOnly": true },
+      "actions": { "itemLinks": 10, "hrefsRecordedIn": "section-checklist.json" }
+    },
+    {
+      "id": "events",
+      "semanticElement": "section",
+      "domHierarchy": ["main.mainCol", "section.eventsCol", "div.eventsTitCol.titleCol > div.titleColEng + h2.titleColTxt", "div.eventsColInner > ul.eventsList > li.eventsListItem ×6 > a.eventsListLink", "div.moreBtnCol > a.moreBtn"],
+      "renderedBox": { "x": 0, "yApprox": 3863, "width": 390, "heightApprox": 1125 },
+      "computed390": { "sectionWidthPx": 373.36, "titleBarHeightPx": 43.68, "titleBarBackground": "#000", "innerPaddingPx": [16.64, 15.6, 15.6, 0], "pickupDecoration": "border-image: url(../images/top/sp/bg_pikup-events.webp)", "itemGapPx": 10.4, "linkPaddingLeftPx": 71.76, "thumbPx": [104, 104], "detailMinHeightPx": 124.8, "detailPaddingPx": [20.8, 15.6, 20.8, 50.44], "leadDisplay": "none" },
+      "pickupEventOrganism": { "redFrameObserved": true, "blackTitleBarObserved": true, "whiteCardBodiesObserved": true, "sourceAssetResolved": "/renewal/images/top/sp/bg_pikup-events.webp", "borderSliceAndWidths": "UNRESOLVED; no fresh runtime computed border-image-slice trace" },
+      "counts": { "eventRows": 6, "factOnly": true },
+      "actions": [{ "element": "a", "text": "VIEW ALL EVENTS", "href": "/events/" }]
+    },
+    {
+      "id": "recommend",
+      "semanticElement": "section",
+      "domHierarchy": ["main.mainCol", "section.recommendCol", "div.recommendTitCol > h2.titleColEng", "div.recommendColInner.swiper.swiper-recommend > ul.recommendList.swiper-wrapper > li.recommendListItem.swiper-slide ×5 > a.recommendListLink"],
+      "renderedBox": { "x": 0, "yApprox": 5270, "width": 390, "heightApprox": 620 },
+      "computed390": { "background": "url(../images/top/sp/bg_recommend.webp) center/cover over rgba(220,214,198,.3)", "paddingBlockPx": [75.92, 99.84], "listDisplay": "flex", "itemPx": [270.4, 391.56], "itemMarginInlinePx": 7.8, "cardSurfaceImage": "/renewal/images/top/bg_recommend_item.webp?v1", "thumbPx": [244.92, 137.28], "swiperOptionDisplay": "none" },
+      "rail": { "horizontal": "observed", "partialNextCard": "observed", "prevNext": "not-visible-at-mobile", "drag": "UNRESOLVED", "activeSlide": "UNRESOLVED" },
+      "counts": { "cards": 5, "factOnly": true },
+      "actions": { "links": 5, "hrefsRecordedIn": "section-checklist.json" }
+    },
+    {
+      "id": "videos",
+      "semanticElement": "section",
+      "domHierarchy": ["main.mainCol", "section.movieCol", "div.movieColWrap", "h2.titleColEng", "div.movieColInner.swiper.swiper-movie > ul.movieColBox.swiper-wrapper > li.movieColBoxItem.swiper-slide ×5 > a.movieThumb[data-fancybox]", "button.js-autoslider_play", "a.moreBtn"],
+      "renderedBox": { "x": 0, "yApprox": 5700, "width": 390, "heightApprox": 252 },
+      "computed390": { "backgroundColor": "rgba(220,214,198,.3)", "paddingTopPx": 34.84, "itemPx": [229.84, 129.48], "itemMarginInlinePx": 7.8, "railMarginTopPx": 16.64, "mobileDecorationImage": "/renewal/images/top/sp/bg_movie.webp", "swiperOptionDisplay": "none" },
+      "mediaOrganization": { "fiveThumbnailLinks": "observed", "fancyboxEmbeds": true, "embeddedPlaybackState": "UNRESOLVED", "horizontalCrop": "observed" },
+      "counts": { "videoThumbnails": 5, "factOnly": true },
+      "actions": [{ "element": "a", "text": "OFFICIAL YouTube CHANNEL", "href": "https://www.youtube.com/channel/UCMhxrrst-3oDFY2oWJGd29Q", "target": "_blank" }]
+    },
+    {
+      "id": "footer-nav-legal",
+      "semanticElement": "footer",
+      "domHierarchy": ["footer.footerCol", "div.footerBnrCol", "div.footerIllust", "div.footerColInner", "div.socialMediaCol", "nav.gnaviCol", "ul.footerContactCol", "a.footerLogo", "div.footerTxtCol"],
+      "renderedBox": { "x": 0, "y": 5951.8, "width": 390, "height": 1624.7 },
+      "computed390": { "navWidthPx": 343.2, "navInsetPx": 23.4, "baseFontSizePx": 8.32, "footerInnerBackground": "#002156", "footerInnerColor": "#fff" },
+      "operability": { "primaryNavLinksVisible": true, "accordionButtonsVisible": true, "socialLinksVisible": true, "legalLinksVisible": true, "cookiePolicyButtonVisible": true, "expandedAccordionState": "UNRESOLVED" },
+      "actions": { "contact": "https://sec.carddass.com/en/contact/", "cookiePolicy": "button#ot-sdk-btn opens cookie settings", "privacy": "https://www.bandai.co.jp/en/site/privacy/", "globalEntrance": "https://www.onepiece-cardgame.com/global/", "homeLogo": "/" },
+      "counts": { "footerLiTotal": 39, "anchorsTotal": 34, "buttonsTotal": 11, "factOnly": true }
+    }
+  ]
+}

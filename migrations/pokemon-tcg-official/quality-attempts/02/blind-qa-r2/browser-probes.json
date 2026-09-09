@@ -1,0 +1,41 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "qaExecutionId": "blind-qa-r2-20260902-pokemon-official",
+  "liveUrl": "http://127.0.0.1:5174/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "desktop": {
+    "viewport": {"width": 1440, "height": 1000},
+    "pages": [
+      {"pageId": "pokemon-tcg-official-home", "phone": true, "phoneScreen": true, "sections": 4, "clientHeight": 802, "scrollHeight": 2749, "after": 1151.8181, "end": 1947.2727, "restored": 0, "assetsLoaded": true},
+      {"pageId": "pokemon-tcg-official-card-database", "phone": true, "phoneScreen": true, "sections": 2, "clientHeight": 802, "scrollHeight": 1551, "after": 550, "end": 748.6364, "restored": 0, "assetsLoaded": true},
+      {"pageId": "pokemon-tcg-official-learn", "phone": true, "phoneScreen": true, "sections": 3, "clientHeight": 802, "scrollHeight": 2772, "after": 550, "end": 1969.5454, "restored": 0, "assetsLoaded": true},
+      {"pageId": "pokemon-tcg-official-held-out", "phone": true, "phoneScreen": true, "sections": 2, "clientHeight": 802, "scrollHeight": 1556, "after": 550, "end": 753.6364, "restored": 0, "assetsLoaded": true}
+    ]
+  },
+  "css390": {
+    "viewport": {"width": 390, "height": 843},
+    "routeTop": 640.5327,
+    "finding": "Every phone mockup starts about 640.5 CSS px below the route top, leaving only about 202.5 px in the initial viewport. Home additionally extends to x=431.45 and is clipped by 41.45 px at the right edge.",
+    "pages": [
+      {"pageId": "pokemon-tcg-official-home", "phoneRect": {"x": 43.9915, "y": 640.5327, "width": 387.4574, "height": 849.4531}, "rightOverflowPx": 41.4488},
+      {"pageId": "pokemon-tcg-official-card-database", "phoneRect": {"x": 43.9915, "y": 640.5327, "width": 328.3452, "height": 719.8579}, "rightOverflowPx": 0},
+      {"pageId": "pokemon-tcg-official-learn", "phoneRect": {"x": 43.9915, "y": 640.5327, "width": 314.8438, "height": 690.2557}, "rightOverflowPx": 0},
+      {"pageId": "pokemon-tcg-official-held-out", "phoneRect": {"x": 43.9915, "y": 640.5327, "width": 302.017, "height": 662.1378}, "rightOverflowPx": 0}
+    ]
+  },
+  "interaction": {
+    "search": [
+      {"state": "empty", "input": "", "results": false, "page": null},
+      {"state": "pikachu", "input": "Pikachu", "results": false, "page": null},
+      {"state": "results", "input": "Pikachu", "results": true, "page": "1/12"},
+      {"state": "reset", "input": "", "results": false, "page": null}
+    ],
+    "advanced": [
+      {"state": "default", "label": "SHOW ADVANCED SEARCH", "height": "0px", "ariaExpanded": "false"},
+      {"state": "triggered", "label": "HIDE ADVANCED SEARCH", "height": "723.999px", "rectHeight": 723.9985, "ariaExpanded": "true"},
+      {"state": "settled", "label": "HIDE ADVANCED SEARCH", "height": "1206.73px", "rectHeight": 1206.7329, "ariaExpanded": "true"},
+      {"state": "restored", "label": "SHOW ADVANCED SEARCH", "height": "0px", "ariaExpanded": "false"}
+    ]
+  },
+  "reduceMotion": {"controlImplementedInDemo": false, "inventedStateObserved": false}
+}

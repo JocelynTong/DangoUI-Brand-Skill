@@ -1,0 +1,514 @@
+{
+  "schema": "brand-rendered-asset-inventory/v1",
+  "brand": "dango",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "createdAt": "2026-09-04T16:40:22.738Z",
+  "collection": {
+    "documents": [
+      {
+        "type": "html-file",
+        "url": "output/extractor-benchmark/dango/rendered/rendered.html",
+        "bytes": 251789
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "bytes": 229534
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/02-prosecode-e63e49c6-css.css",
+        "bytes": 46
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/03-inline-style.css",
+        "bytes": 327
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/04-inline-style.css",
+        "bytes": 3107
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/05-inline-style.css",
+        "bytes": 45
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/06-inline-style.css",
+        "bytes": 26
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/07-inline-style.css",
+        "bytes": 2314
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/08-inline-style.css",
+        "bytes": 14409
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/09-inline-style.css",
+        "bytes": 3935
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/10-inline-style.css",
+        "bytes": 17314
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/11-inline-style.css",
+        "bytes": 45418
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/12-inline-style.css",
+        "bytes": 113615
+      },
+      {
+        "type": "css-file",
+        "url": "output/extractor-benchmark/dango/rendered/css/13-inline-style.css",
+        "bytes": 1409
+      },
+      {
+        "type": "network-file",
+        "url": "output/extractor-benchmark/dango/rendered/network.json",
+        "bytes": 10684
+      }
+    ],
+    "warningCount": 0,
+    "warnings": []
+  },
+  "assets": [
+    {
+      "rawSrc": "https://dumpling.echo.tech/get-started/introduction/_payload.json",
+      "resolvedUrl": "https://dumpling.echo.tech/get-started/introduction/_payload.json",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "json",
+      "roleGuess": "asset",
+      "implementationHint": "ReviewQueue",
+      "geometry": {},
+      "shouldMigrate": false
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot",
+      "sourceType": "css-rule",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "eot",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot",
+      "sourceType": "font-face",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "@font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "eot",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "eot",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot#iefix",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot#iefix",
+      "sourceType": "css-rule",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "eot",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot#iefix",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot#iefix",
+      "sourceType": "font-face",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "@font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "eot",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot#iefix",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.eot#iefix",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "eot",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.svg#iconfont",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.svg#iconfont",
+      "sourceType": "font-face",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "@font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "svg",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.ttf",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.ttf",
+      "sourceType": "css-rule",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "ttf",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.ttf",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.ttf",
+      "sourceType": "font-face",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "@font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "ttf",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.ttf",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.ttf",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "ttf",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff",
+      "sourceType": "css-rule",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "woff",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff",
+      "sourceType": "font-face",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "@font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "woff",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "woff",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff2",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff2",
+      "sourceType": "css-rule",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "woff2",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff2",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff2",
+      "sourceType": "font-face",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "@font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "woff2",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff2",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.woff2",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "woff2",
+      "roleGuess": "font",
+      "implementationHint": "@font-face + computed font-family verification",
+      "geometry": {},
+      "shouldMigrate": true
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.svg#iconfont",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.svg#iconfont",
+      "sourceType": "css-rule",
+      "source": "output/extractor-benchmark/dango/rendered/rendered.html#style",
+      "selector": "font-face",
+      "pseudo": "",
+      "tag": "",
+      "property": "src",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "svg",
+      "roleGuess": "icon",
+      "implementationHint": "DangoUI Icon if mapped, otherwise image/mask asset",
+      "geometry": {},
+      "shouldMigrate": true,
+      "sources": [
+        "output/extractor-benchmark/dango/rendered/rendered.html#style",
+        "output/extractor-benchmark/dango/rendered/css/01-entry-c8c49e3a-css.css",
+        "output/extractor-benchmark/dango/rendered/css/12-inline-style.css"
+      ]
+    },
+    {
+      "rawSrc": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.svg#iconfont",
+      "resolvedUrl": "https://assets.qiandaocdn.com/icons/2c73ce399f3eb3a9c649c6792fd8f82c.svg#iconfont",
+      "sourceType": "network-resource",
+      "source": "output/extractor-benchmark/dango/rendered/network.json",
+      "selector": "",
+      "pseudo": "",
+      "tag": "",
+      "property": "asset",
+      "id": "",
+      "className": "",
+      "alt": "",
+      "format": "svg",
+      "roleGuess": "icon",
+      "implementationHint": "DangoUI Icon if mapped, otherwise image/mask asset",
+      "geometry": {},
+      "shouldMigrate": true
+    }
+  ],
+  "roleCoverage": {
+    "byRole": {
+      "font": 16,
+      "icon": 2,
+      "asset": 1
+    },
+    "missingCoreRoles": [
+      "hero-kv",
+      "campaign-asset",
+      "content-image",
+      "illustration",
+      "background",
+      "decorative-layer",
+      "asset-frame",
+      "brand-mark"
+    ],
+    "completeEnoughForDemoGate": false
+  },
+  "sectionBackgroundChain": {
+    "rule": "Use this ordered chain to reconstruct page backgrounds: hero cover first, then section pseudo-element backgrounds with recorded geometry. A gradient-only demo fails when a chain item has a URL.",
+    "items": []
+  },
+  "rule": "Rendered assets are collected from DOM currentSrc/srcset/poster, CSS background/mask/border-image, pseudo-elements, computed style and network resources before mapping to Image, Frame, texture or style-only recipe."
+}

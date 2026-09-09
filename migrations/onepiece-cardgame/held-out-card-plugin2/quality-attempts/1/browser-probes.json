@@ -1,0 +1,46 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "attempt": 1,
+  "browser": "Codex in-app browser fresh QA context",
+  "base": "http://127.0.0.1:10092/",
+  "viewports": {
+    "desktop": "1280x720",
+    "mobile": "unavailable in this execution surface"
+  },
+  "coldLoads": [
+    { "route": "pages/plaza/index", "theme": "onepiece", "status": "rendered" },
+    { "route": "pages/build/index", "theme": "onepiece", "status": "rendered" },
+    { "route": "pages/mine/index", "theme": "onepiece", "status": "rendered" },
+    { "route": "pages/event/index?id=0", "theme": "onepiece", "status": "rendered" },
+    { "route": "pages/round/index?id=0", "theme": "onepiece", "status": "rendered" },
+    { "route": "pages/detail/index?id=0", "theme": "onepiece", "status": "rendered" },
+    { "route": "pages/plaza/index", "theme": "default-pokemon", "status": "fresh-tab-rendered-distinct" }
+  ],
+  "navigationProbe": {
+    "start": "#/pages/plaza/index?heldOutTheme=onepiece",
+    "action": "activate first deck card",
+    "result": "#/pages/detail/index?id=0",
+    "themeParameterPreserved": false,
+    "verdict": "FAIL"
+  },
+  "observations": [
+    "Default Pokémon and direct cold opt-in ONE PIECE render distinctly when tested in separate fresh tabs.",
+    "Same-SPA theme state is not deterministic after URL/query changes.",
+    "Round opt-in desktop rendering has insufficient content contrast.",
+    "Event opt-in desktop hero truncates the primary event name.",
+    "Interactive custom controls are not exposed as keyboard controls in the accessibility tree."
+  ],
+  "screenshots": {
+    "capturedAndEmittedByBrowserTool": [
+      "plaza-onepiece-desktop",
+      "build-onepiece-desktop",
+      "mine-onepiece-desktop",
+      "event-onepiece-desktop",
+      "round-onepiece-desktop",
+      "detail-onepiece-desktop",
+      "plaza-default-pokemon-desktop"
+    ],
+    "binaryFilesPersisted": false,
+    "reason": "The independent browser tool emitted screenshot bytes to the QA transcript but exposes no filesystem writer. This is recorded as evidence incompleteness rather than silently claiming persisted captures."
+  }
+}

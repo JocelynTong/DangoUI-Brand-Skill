@@ -1,0 +1,30 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "05-blind-qa-r2",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "verdict": "PASS",
+  "isIndependentBlindQA": true,
+  "blockers": [],
+  "warnings": [
+    {
+      "code": "CAROUSEL_SECOND_STATE_WEAK_DIFFERENTIATION",
+      "finding": "The second carousel state remains functional but reuses the same campaign logo and featured card; this is outside the approved correction scope and does not block the compact Hero acceptance."
+    }
+  ],
+  "checks": {
+    "visibilityAndReadability": { "status": "PASS", "notes": "Logo, MENU, campaign mark, card and CTA are readable and spatially separated." },
+    "compactComposition": { "status": "PASS", "notes": "Hero is 415.9943px high and the next section is visible immediately on both proof surfaces." },
+    "navigationCollision": { "status": "PASS", "notes": "All four desktop labels compute to display:none with zero-size boxes; MENU is visible and logo-to-nav-item overlap is 0px²." },
+    "criticalElementCollision": { "status": "PASS", "notes": "Pairwise overlap among both logos, card, CTA and both carousel controls is 0px²." },
+    "cardFlip": { "status": "PASS", "notes": "Pointer, Enter and Space each complete reversible front/back states without moving card bounds or phone scrollTop." },
+    "reducedMotion": { "status": "PASS", "notes": "Independent runtime rerun reports matchMedia=true, 0s transition and immediate stable back transform." },
+    "carousel": { "status": "PASS_WITH_WARNING", "notes": "0→1→0 works with nonblank states; state differentiation remains limited." },
+    "responsiveGeometry": { "status": "PASS", "notes": "Compact behavior persists inside the narrow phone at outer 1440; no horizontal overflow." },
+    "brandCharacter": { "status": "PASS", "notes": "This reads as a branded compact campaign Hero, not a uniformly shrunken or crowded desktop thumbnail." },
+    "console": { "status": "PASS", "notes": "No warnings or errors observed." }
+  },
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "finalVerdict": "PASS"
+}

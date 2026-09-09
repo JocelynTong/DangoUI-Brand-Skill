@@ -1,0 +1,43 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "08-revision2",
+  "scope": "home-news-grid QA blockers only",
+  "mobile390x844": {
+    "scrollStability": {"before":352,"afterNext":352,"afterPrevious":352,"afterDirectDot":352,"afterKeyboardEnter":352,"pass":true},
+    "typography": {
+      "title":{"fontFamily":"Kanit Official, Kanit, sans-serif","fontSize":"32px","fontWeight":"700","fontStyle":"italic"},
+      "more":{"fontFamily":"PT Sans Official, PT Sans, sans-serif","fontSize":"18px","fontWeight":"800","fontStyle":"italic"},
+      "cta":{"fontFamily":"PT Sans Official, PT Sans, sans-serif","fontSize":"18px","fontWeight":"700","fontStyle":"italic"}
+    },
+    "redSeam":{"x":0,"width":390,"height":24,"background":"rgb(196, 12, 12)"},
+    "officialCarousel":{"pageCount":6,"heldOutMixedIntoCarousel":false}
+  },
+  "desktop1440x900": {
+    "typography": {
+      "title":{"fontFamily":"Kanit Official, Kanit, sans-serif","fontSize":"48px","fontWeight":"700","fontStyle":"italic"},
+      "more":{"fontFamily":"PT Sans Official, PT Sans, sans-serif","fontSize":"18px","fontWeight":"800","fontStyle":"italic"},
+      "cta":{"fontFamily":"PT Sans Official, PT Sans, sans-serif","fontSize":"20px","fontWeight":"700","fontStyle":"italic"}
+    },
+    "redSeam":{"x":0,"width":1440,"height":24,"background":"rgb(196, 12, 12)"},
+    "officialCarousel":{"pageCount":3,"heldOutMixedIntoCarousel":false}
+  },
+  "reducedMotionRuntime": {
+    "route":"?qa=attempt8-r2&reducedMotion=1",
+    "before":{"activePage":0,"scrollTop":352},
+    "immediateAfter":{"activePage":1,"scrollTop":352,"transitioning":false,"outgoingCount":0,"animationName":"none","animationDuration":"0s","transitionDuration":"0s","transform":"matrix(1, 0, 0, 1, 0, 0)","opacity":"1"},
+    "contentChangedImmediately":true,
+    "capture":"captures/mobile-reduced-motion-settled.png"
+  },
+  "heldOutProof": {
+    "route":"?proof=heldout-news&qa=attempt8-r2",
+    "label":"GENERATIVE PROOF · NON-OFFICIAL FIXTURE",
+    "title":"Deck Lab: Build Around a Single Energy Type",
+    "sourceKind":"independent-generated-svg-fixture",
+    "official":false,
+    "officialCarouselPageCountUnchanged":{"desktop":3,"mobile":6},
+    "capture":"captures/mobile-heldout-generative-proof.png"
+  },
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

@@ -1,0 +1,683 @@
+{
+  "schema": "brand-standard-demo-preview.v0.1",
+  "brand": "pokemon-tcg-official",
+  "displayName": "Pokémon TCG Official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "sourceHost": "tcg.pokemon.com",
+  "status": "fidelity-pass",
+  "standardDemo": true,
+  "businessApply": false,
+  "migrationRoot": "migrations/pokemon-tcg-official",
+  "demoPurpose": "brand-learning-capability-test",
+  "nonGoals": [
+    "website mirror",
+    "host application",
+    "runtime use of source screenshots",
+    "reuse of prior Pokémon migration conclusions"
+  ],
+  "proofs": {
+    "evidenceFidelity": {
+      "claim": "Every high-salience decision maps to approved official evidence.",
+      "status": "pass",
+      "requiredEvidence": [
+        "visual-pattern-inventory.json",
+        "section-fidelity-manifest.json"
+      ]
+    },
+    "structuralFidelity": {
+      "claim": "Purpose-specific composition and responsive hierarchy survive translation.",
+      "status": "pass",
+      "requiredEvidence": [
+        "desktop and 390 screenshots",
+        "browser probes"
+      ]
+    },
+    "generativeProof": {
+      "claim": "Approved bounded-section rules generate an independent Deck Lab page.",
+      "status": "pass",
+      "requiredEvidence": [
+        "generative-proof.json",
+        "held-out screenshots"
+      ]
+    }
+  },
+  "generativeChallenge": {
+    "challengeId": "pokemon-tcg-official-deck-lab-v1",
+    "status": "pass",
+    "targetPageId": "pokemon-tcg-official-held-out",
+    "heldOutContentRule": "Use source-independent deck-building lesson content with only approved bounded instructional hierarchy and authentic-object rules."
+  },
+  "sourceNavigation": {
+    "visiblePageIds": [
+      "pokemon-tcg-official-home",
+      "pokemon-tcg-official-card-database",
+      "pokemon-tcg-official-learn",
+      "pokemon-tcg-official-held-out"
+    ],
+    "items": [
+      {
+        "label": "Home",
+        "pageId": "pokemon-tcg-official-home"
+      },
+      {
+        "label": "Card Database",
+        "pageId": "pokemon-tcg-official-card-database"
+      },
+      {
+        "label": "Learn",
+        "pageId": "pokemon-tcg-official-learn"
+      },
+      {
+        "label": "Deck Lab",
+        "pageId": "pokemon-tcg-official-held-out"
+      }
+    ]
+  },
+  "mustVerifyBeforeApply": [
+    "Run independent Blind QA against source captures.",
+    "Verify search, advanced drawer, carousel, accordion, and scroll restoration in browser."
+  ],
+  "preset": {
+    "id": "pokemon-tcg-official",
+    "label": "Pokémon TCG Official",
+    "icon": "/assets/brand-assets/pokemon-tcg-official/tcg-logo.png",
+    "source": "https://tcg.pokemon.com/en-us/",
+    "hero": "Pokémon Trading Card Game",
+    "notice": "Purpose-specific campaign, database, and learning systems reconstructed from current official evidence.",
+    "evidenceNote": "Implementation self-test is complete; Evidence, Structure, and Generative Proof remain pending independent Blind QA.",
+    "sectionTitle": "Pokémon TCG Official",
+    "tokens": [
+      {
+        "name": "--du-bg-2",
+        "value": "#f3f3f3"
+      },
+      {
+        "name": "--du-bg-1",
+        "value": "#ffffff"
+      },
+      {
+        "name": "--du-text-1",
+        "value": "#202020"
+      },
+      {
+        "name": "--du-primary-color",
+        "value": "#202020"
+      }
+    ],
+    "style": {
+      "cardRadius": "4px",
+      "controlRadius": "4px",
+      "pageSpacing": "0px",
+      "cardShadow": "none",
+      "media": "transparent",
+      "fontBody": "'PT Sans Official', Arial, sans-serif"
+    },
+    "assets": {
+      "officialLogo": {
+        "src": "/assets/brand-assets/pokemon-tcg-official/tcg-logo.png",
+        "role": "navigation identity"
+      },
+      "campaignArt": {
+        "src": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+        "role": "home campaign art"
+      },
+      "learnCard": {
+        "src": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+        "role": "instructional card"
+      }
+    }
+  },
+  "learningProof": {
+    "status": "fidelity-pass",
+    "evidenceStatus": "通过",
+    "structureStatus": "通过",
+    "generativeStatus": "通过",
+    "blockers": [],
+    "businessApply": false
+  },
+  "styleRecipeDetails": {
+    "color": [
+      "Black is scoped to the Home campaign stage.",
+      "Charcoal and light neutral surfaces are scoped to database search; no distinct source-evidenced action color is approved.",
+      "Yellow and navy painted fields are scoped to learning organisms."
+    ],
+    "asset": [
+      "Only independent official assets from this migration are used at runtime."
+    ],
+    "motion": [
+      "Only captured carousel, search, advanced drawer, and exclusive accordion states are enabled; Reduce Motion behavior is not invented."
+    ]
+  },
+  "pages": [
+    {
+      "id": "pokemon-tcg-official-home",
+      "side": "distribution",
+      "tab": "Home",
+      "name": "Official Home",
+      "kind": "home",
+      "layoutRecipe": "pokemon-official-home",
+      "mapsToSourcePageId": "home",
+      "proofRole": "source-calibration",
+      "recipeIds": [
+        "home-layered-campaign-stage",
+        "home-banded-editorial-journey"
+      ],
+      "evidenceTrace": [
+        "home-stage-composition",
+        "home-responsive-reflow"
+      ],
+      "contentIndependence": {
+        "mode": "source-content",
+        "status": "pass"
+      },
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "HeroHeader",
+        "Image",
+        "Card",
+        "Button"
+      ],
+      "sections": [
+        {
+          "id": "home-campaign-stage",
+          "type": "brand-hero",
+          "component": "HeroHeader",
+          "recipe": "pokemon-home-stage",
+          "content": {
+            "navigation": [
+              "EXPANSIONS",
+              "CARDS",
+              "HOW TO PLAY",
+              "NEWS"
+            ],
+            "activeNavigation": "EXPANSIONS",
+            "hideTextTitle": true,
+            "controls": [
+              "1",
+              "2"
+            ],
+            "activeControl": "1",
+            "actions": [
+              {
+                "label": "Discover the celebration"
+              }
+            ],
+            "variants": [
+              {
+                "proofRole": "source-calibration",
+                "titleImage": "/assets/brand-assets/pokemon-tcg-official/Logo-30th.png",
+                "background": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+                "product": {
+                  "src": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png",
+                  "alt": "Featured Pokémon card"
+                }
+              },
+              {
+                "proofRole": "generative-held-out",
+                "official": false,
+                "showTextTitle": true,
+                "title": "BUILD YOUR NEXT DECK",
+                "description": "Explore cards, strategy, and play.",
+                "background": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+                "product": {
+                  "src": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+                  "alt": "Held-out deck lab Pokémon card"
+                },
+                "actions": [
+                  {
+                    "label": "Explore the Deck Lab"
+                  }
+                ]
+              }
+            ]
+          },
+          "assets": {
+            "logo": "/assets/brand-assets/pokemon-tcg-official/tcg-logo.png"
+          }
+        },
+        {
+          "id": "home-news-grid",
+          "type": "pokemon-learn-section",
+          "component": "Card",
+          "recipe": "pokemon-home-news",
+          "content": {
+            "kicker": "WHAT'S NEW!",
+            "moreLabel": "See More News",
+            "heldOutProof": {
+              "title": "Deck Lab: Build Around a Single Energy Type",
+              "cta": "Open Deck Lab",
+              "src": "/assets/brand-assets/pokemon-tcg-official/news/pokemon-news-heldout-fixture.svg",
+              "official": false
+            },
+            "stories": [
+              {
+                "title": "Get Ready to Celebrate 30 Years of the Pokémon Trading Card Game",
+                "cta": "Learn More",
+                "src": "/assets/brand-assets/pokemon-tcg-official/news/wcs26-binder-inserts.png",
+                "sourceUrl": "https://tcg.pokemon.com/assets/img/news/items/en-us/wcs26-binder-inserts.png"
+              },
+              {
+                "title": "Discover the Artists Behind the Pokémon TCG 30th Celebration",
+                "cta": "Learn More",
+                "src": "/assets/brand-assets/pokemon-tcg-official/news/30thYoshirotten_169_EN.png",
+                "sourceUrl": "https://tcg.pokemon.com/assets/img/news/items/en-us/30thYoshirotten_169_EN.png"
+              },
+              {
+                "title": "Pikachu Takes Center Stage in the 30th Celebration",
+                "cta": "Learn More",
+                "src": "/assets/brand-assets/pokemon-tcg-official/news/tcg_30th_pikachu_reveals_169_en.png",
+                "sourceUrl": "https://tcg.pokemon.com/assets/img/news/items/en-us/tcg_30th_pikachu_reveals_169_en.png"
+              },
+              {
+                "title": "A Look Back at Pikachu Through the Pokémon TCG",
+                "cta": "Learn More",
+                "src": "/assets/brand-assets/pokemon-tcg-official/news/30th-pikachu-reveal-169-en.png",
+                "sourceUrl": "https://tcg.pokemon.com/assets/img/news/items/en-us/30th-pikachu-reveal-169-en.png"
+              },
+              {
+                "title": "Explore the Latest Pokémon TCG Product Showcase",
+                "cta": "Learn More",
+                "src": "/assets/brand-assets/pokemon-tcg-official/news/product-showcase-169-en.png",
+                "sourceUrl": "https://tcg.pokemon.com/assets/img/news/items/en-us/product-showcase-169-en.png"
+              },
+              {
+                "title": "Prepare for the 2027 Play! Pokémon Season",
+                "cta": "Learn More",
+                "src": "/assets/brand-assets/pokemon-tcg-official/news/PCOM_2027_Season_Refresh-16x9.png",
+                "sourceUrl": "https://tcg.pokemon.com/assets/img/news/items/en-us/PCOM_2027_Season_Refresh-16x9.png"
+              }
+            ]
+          },
+          "assets": {}
+        },
+        {
+          "id": "home-product-bands",
+          "type": "pokemon-learn-section",
+          "component": "Image",
+          "recipe": "pokemon-product-band",
+          "content": {
+            "title": "Pokémon TCG Live",
+            "description": "Experience the fun and strategy of the Pokémon Trading Card Game in a new way.",
+            "cta": "Learn More",
+            "href": "https://tcg.pokemon.com/en-us/tcgl/"
+          },
+          "assets": {
+            "background": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/tcgl-background.jpg"
+            },
+            "laptop": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/laptop.png"
+            },
+            "phone": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/phone.png"
+            },
+            "pikachu": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/pikachu.png"
+            },
+            "avatar1": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/avatar-1.png"
+            },
+            "avatar2": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/avatar-2.png"
+            }
+          }
+        },
+        {
+          "id": "home-editorial-grid",
+          "type": "pokemon-learn-section",
+          "component": "Card",
+          "recipe": "pokemon-tcg-pocket",
+          "content": {
+            "title": "POKÉMON TRADING CARD GAME POCKET",
+            "description": "Experience the fun of collecting Pokémon TCG cards with Pokémon Trading Card Game Pocket. Collect and battle with digital cards featuring nostalgic artwork from the past as well as brand-new cards that are exclusive to Pokémon TCG Pocket.",
+            "cta": "Play Now",
+            "href": "https://tcgpocket.pokemon.com/en-us"
+          },
+          "assets": {
+            "desktopBackground": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+              "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg"
+            },
+            "mobileBackground": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+              "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg"
+            },
+            "composite": {
+              "src": "/assets/brand-assets/pokemon-tcg-official/logo-cards.png",
+              "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "pokemon-tcg-official-card-database",
+      "side": "display",
+      "tab": "Card Database",
+      "name": "Card Database",
+      "kind": "database",
+      "layoutRecipe": "pokemon-card-database",
+      "mapsToSourcePageId": "card-database",
+      "proofRole": "source-calibration",
+      "recipeIds": [
+        "database-dark-search-organism",
+        "database-reversible-search-results",
+        "database-advanced-drawer"
+      ],
+      "evidenceTrace": [
+        "card-db-search-shell",
+        "card-db-results",
+        "card-db-advanced-state"
+      ],
+      "contentIndependence": {
+        "mode": "source-content",
+        "status": "pass"
+      },
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "Search",
+        "Input",
+        "Button",
+        "Card"
+      ],
+      "sections": [
+        {
+          "id": "card-database-search-shell",
+          "type": "pokemon-database",
+          "component": "Search",
+          "recipe": "pokemon-database-organism",
+          "content": {
+            "title": "Pokémon TCG Card Database",
+            "energyTypes": [
+              "Grass",
+              "Fire",
+              "Water",
+              "Lightning",
+              "Psychic",
+              "Fighting",
+              "Darkness",
+              "Metal",
+              "Colorless"
+            ]
+          },
+          "assets": {
+            "cards": [
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/card-database/SVP_EN_27.png",
+                "alt": "Pikachu card 27"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/card-database/SVP_EN_85.png",
+                "alt": "Pikachu card 85"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/card-database/SVP_EN_88.png",
+                "alt": "Pikachu card 88"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/card-database/SVP_EN_101.png",
+                "alt": "Pikachu card 101"
+              }
+            ]
+          }
+        },
+        {
+          "id": "card-database-search-guidance",
+          "type": "checklist-download",
+          "component": "Card",
+          "recipe": "pokemon-database-guidance",
+          "content": {
+            "title": "Search the Collection",
+            "description": "Use card name, text, evolution, and Energy Type to narrow the official catalog.",
+            "items": [
+              "Enter Pikachu in Card Name",
+              "Choose Search",
+              "Use Reset to return to empty"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pokemon-tcg-official-learn",
+      "side": "display",
+      "tab": "Learn",
+      "name": "Learn to Play",
+      "kind": "learn",
+      "layoutRecipe": "pokemon-learn",
+      "mapsToSourcePageId": "how-to-play",
+      "proofRole": "structural-transfer",
+      "recipeIds": [
+        "learn-media-entry",
+        "learn-painted-card-anatomy",
+        "learn-painted-field-pairs"
+      ],
+      "evidenceTrace": [
+        "learn-hierarchy",
+        "learn-accordion"
+      ],
+      "contentIndependence": {
+        "mode": "representative-content",
+        "status": "pass"
+      },
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "HeroHeader",
+        "Image",
+        "Collapse",
+        "Card"
+      ],
+      "sections": [
+        {
+          "id": "learn-getting-started",
+          "type": "pokemon-learn-section",
+          "component": "HeroHeader",
+          "recipe": "pokemon-learn-entry",
+          "content": {
+            "kicker": "HOW TO PLAY",
+            "title": "Learn to Play the Pokémon TCG",
+            "description": "Everything you need to start your first battle."
+          },
+          "assets": {
+            "hero": "/assets/brand-assets/pokemon-tcg-official/card-header-asset_en-2x.png",
+            "cards": [
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/getting-started-video-thumbnail.jpg",
+                "title": "Getting Started Video"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/img-product-guide.png",
+                "title": "Product Guide"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/logo-cards.png",
+                "title": "Card Database"
+              }
+            ]
+          }
+        },
+        {
+          "id": "learn-card-breakdown",
+          "type": "pokemon-learn-section",
+          "component": "Collapse",
+          "recipe": "pokemon-learn-yellow",
+          "content": {
+            "kicker": "KNOW YOUR CARD",
+            "title": "Pokémon Card Breakdown",
+            "items": [
+              {
+                "title": "Name and Type",
+                "description": "Identify the Pokémon and its Energy type."
+              },
+              {
+                "title": "Hit Points",
+                "description": "Track how much damage the Pokémon can take."
+              },
+              {
+                "title": "Attacks",
+                "description": "Read Energy costs, damage, and effects."
+              }
+            ]
+          },
+          "assets": {
+            "cards": [
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+                "alt": "Official Pokémon card anatomy example"
+              }
+            ]
+          }
+        },
+        {
+          "id": "learn-field-of-play",
+          "type": "pokemon-learn-section",
+          "component": "Collapse",
+          "recipe": "pokemon-learn-navy",
+          "content": {
+            "kicker": "SET UP A BATTLE",
+            "title": "The Field of Play",
+            "items": [
+              {
+                "title": "Active Spot",
+                "description": "Your battling Pokémon goes here."
+              },
+              {
+                "title": "Bench",
+                "description": "Keep backup Pokémon ready."
+              },
+              {
+                "title": "Prize Cards",
+                "description": "Take one when you Knock Out an opponent's Pokémon."
+              },
+              {
+                "title": "Deck",
+                "description": "Draw cards from your deck."
+              },
+              {
+                "title": "Discard Pile",
+                "description": "Used cards and Knocked Out Pokémon go here."
+              }
+            ]
+          },
+          "assets": {
+            "cards": [
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/field-breakdown-active-spot.png"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/field-breakdown-bench.png"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/field-breakdown-prize-cards.png"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/field-breakdown-deck.png"
+              },
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/field-breakdown-discard-pile.png"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "pokemon-tcg-official-held-out",
+      "side": "distribution",
+      "tab": "Deck Lab",
+      "name": "Deck Lab",
+      "kind": "held-out",
+      "layoutRecipe": "pokemon-held-out",
+      "proofRole": "generative-held-out",
+      "recipeIds": [
+        "learn-media-entry",
+        "learn-painted-card-anatomy"
+      ],
+      "evidenceTrace": [
+        "learn-hierarchy",
+        "authentic-object-as-proof"
+      ],
+      "contentIndependence": {
+        "mode": "held-out-content",
+        "status": "pass"
+      },
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "Card",
+        "Collapse",
+        "Image"
+      ],
+      "sections": [
+        {
+          "id": "held-out-deck-entry",
+          "type": "pokemon-learn-section",
+          "component": "Card",
+          "recipe": "pokemon-heldout-entry",
+          "content": {
+            "kicker": "DECK LAB",
+            "title": "Build a Battle-Ready Deck",
+            "description": "A source-independent teaching challenge using the learned bounded-section hierarchy."
+          },
+          "assets": {
+            "hero": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+          }
+        },
+        {
+          "id": "held-out-deck-steps",
+          "type": "pokemon-learn-section",
+          "component": "Collapse",
+          "recipe": "pokemon-heldout-painted",
+          "content": {
+            "kicker": "THREE FOUNDATIONS",
+            "title": "Balance Your Strategy",
+            "items": [
+              {
+                "title": "Choose a lead Pokémon",
+                "description": "Start with a clear attacking plan."
+              },
+              {
+                "title": "Support the plan",
+                "description": "Add Trainers that keep cards moving."
+              },
+              {
+                "title": "Tune your Energy",
+                "description": "Use enough Energy to attack consistently."
+              }
+            ]
+          },
+          "assets": {
+            "cards": [
+              {
+                "src": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

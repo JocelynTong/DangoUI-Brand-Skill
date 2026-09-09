@@ -1,0 +1,25 @@
+{
+  "schema": "brand-demo-implementation-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 9,
+  "role": "Demo Implementation Agent",
+  "status": "pass-ready-for-independent-qa",
+  "scope": ["HOME_TITLE_FONT_NOT_VISIBLY_LOADED", "HOME_FOOTER_ILLUSTRATION_MISSING"],
+  "frozenInputsModified": [],
+  "checks": [
+    {"id":"resource-backed-fonts","status":"pass","result":"Four locally delivered official Google font resources report FontFace.status=loaded and document.fonts.check=true."},
+    {"id":"computed-font-roles","status":"pass","result":{"display":"OPCG Alfa Slab One","editorial":"OPCG Noto Serif","utility":"OPCG Poppins","metadata":"OPCG Oswald"}},
+    {"id":"display-title-dom","status":"pass","result":"Home News contains visible H2.source-schema-demo__display-title with text LATEST NEWS."},
+    {"id":"footer-independent-assets","status":"pass","result":"Seven official independent source assets render; no source screenshot/crop is referenced at runtime."},
+    {"id":"footer-natural-sizes","status":"pass","result":[[1050,830],[385,61],[824,213],[1074,544],[306,331],[167,167],[163,174]]},
+    {"id":"footer-layer-contract","status":"pass","result":"CSS background plus character, catch, logo, card composite and cards 01/02/03 appear immediately before structural navy footer."},
+    {"id":"motion","status":"pass","result":"Bounded one-shot entrance with settled reduced-motion composition; no loop or invented controls."},
+    {"id":"scroll","status":"pass","result":{"scrollHeight":3005,"clientHeight":583,"before":0,"after":2422,"restored":0}},
+    {"id":"held-out-preserved","status":"pass","result":"Browser validator passed held-out page with two sections, five images and reversible scroll."},
+    {"id":"build","status":"pass","result":"vite build completed"}
+  ],
+  "probe":"output/visual-qa/onepiece-cardgame/demo-v9/browser-probe.json",
+  "captures":["output/visual-qa/onepiece-cardgame/demo-v9/home-display-title.png","output/visual-qa/onepiece-cardgame/demo-v9/home-footer-settled.png","output/visual-qa/onepiece-cardgame/demo-v9/home-footer-context.png"],
+  "limitations": ["No exact visual-fidelity verdict is claimed; this receipt hands the implementation to fresh Blind Visual QA."],
+  "sourceScreenshotUsedAtRuntime": false
+}

@@ -1,0 +1,19 @@
+{
+  "$description": "Evidence-bounded ONE PIECE CARD GAME token contract. It records only source-supported roles; derived primary/action colors are deliberately excluded.",
+  "$extensions": {"echo.brand.schema":"brand-profile.dtcg/v0.2","echo.brand.source":"migrations/onepiece-cardgame/brand-evidence.json","echo.brand.intent":"migrations/onepiece-cardgame/brand-intent.json"},
+  "color": {
+    "surface": {"content":{"$type":"color","$value":"#FFFFFF","$extensions":{"echo.brand.target":"--du-bg-1","echo.brand.channel":"mapped","echo.brand.status":"runtime-consumed","echo.brand.evidenceRefs":["computed-evidence:html"]}}},
+    "text": {}
+  },
+  "fontFamily": {
+    "utility":{"$type":"fontFamily","$value":["OPCG Poppins","Poppins","Arial","sans-serif"],"$extensions":{"echo.brand.target":"--style-font-body","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["home-type-body-poppins","home-font-asset-poppins"]}},
+    "display":{"$type":"fontFamily","$value":["Alfa Slab One","Arial Black","sans-serif"],"$extensions":{"echo.brand.target":"--style-font-display","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["home-type-display-alfa-slab","home-font-asset-alfa-slab-one"]}},
+    "narrative":{"$type":"fontFamily","$value":["OPCG Noto Serif","Noto Serif","Georgia","serif"],"$extensions":{"echo.brand.target":"--style-font-narrative","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["home-font-asset-noto-serif"]}},
+    "metadata":{"$type":"fontFamily","$value":["OPCG Oswald","Oswald","Arial Narrow","sans-serif"],"$extensions":{"echo.brand.target":"--style-font-numeric","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["home-type-metadata-oswald","home-font-asset-oswald"]}}
+  },
+  "dimension": {
+    "welcomeControlRadius":{"$type":"dimension","$value":"999px","$extensions":{"echo.brand.target":"--style-welcome-control-radius","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["welcome-button-image-pill"],"echo.brand.forbiddenRoles":["generic button","card","section title"]}},
+    "editorialMediaRadius":{"$type":"dimension","$value":"0px","$extensions":{"echo.brand.target":"--style-editorial-media-radius","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["product-first-catalog-density"]}}
+  },
+  "duration": {"welcomeHover":{"$type":"duration","$value":"300ms","$extensions":{"echo.brand.target":"--style-welcome-hover-duration","echo.brand.channel":"styleOnly","echo.brand.status":"runtime-consumed-style-only","echo.brand.evidenceRefs":["welcome-button-hover-motion"]}}}
+}

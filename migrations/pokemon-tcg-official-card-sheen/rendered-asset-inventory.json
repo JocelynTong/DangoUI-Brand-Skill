@@ -1,0 +1,23 @@
+{
+  "schema": "rendered-asset-inventory/v1",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "scope": "bounded hero card candidate only",
+  "assets": [
+    {
+      "role": "card-front",
+      "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/30th-celebration/en-us/2M6P_EN_23.png",
+      "element": ".perspective-card__artwork--front img",
+      "loaded": true,
+      "renderedVisible": false,
+      "reason": "opacity-zero ancestor"
+    },
+    {
+      "role": "card-back",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/global/tcg-card-back.jpg",
+      "element": ".perspective-card__artwork--back img",
+      "loaded": true,
+      "renderedVisible": false,
+      "reason": "backface layer and opacity-zero ancestor"
+    }
+  ]
+}

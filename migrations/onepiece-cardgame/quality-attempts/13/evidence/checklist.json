@@ -1,0 +1,10 @@
+{
+  "schema":"attempt13-evidence-checklist/v1","status":"PASS","items":[
+    {"id":"events-six-real-thumbs","status":"PROVED","evidence":"asset-manifest.json#events","note":"Six DOM items; five distinct official files because source intentionally reuses the BCG Fest asset for Jakarta and Manila."},
+    {"id":"recommend-five-distinct-media","status":"PROVED","evidence":"asset-manifest.json#recommend","note":"Five distinct sourceUrl and SHA-256 identities, each lazy-loaded by real rail state."},
+    {"id":"new-arrival-prev-next-state","status":"PROVED","evidence":"rail-state-probes.json#newArrival"},
+    {"id":"held-out-contract-boundary","status":"OUT_OF_SCOPE_FOR_SOURCE_HOME","evidence":["migrations/onepiece-cardgame/goal-contract.json","migrations/onepiece-cardgame/generative-proof.json#challenge"],"note":"Held-out is a separate Demo generative-proof page contract with mapsToSourcePageId=null; it is not and must not be represented as official Home evidence."},
+    {"id":"source-screenshot-runtime","status":"REJECTED","note":"Captures are evidence-only. Runtime assets are independent official files bundled from loaded page resources."},
+    {"id":"generated-svg-for-source-items","status":"REJECTED","note":"No generated SVG is used for Events or Recommend source item identity."}
+  ],"interpreterHandoff":"ALLOWED_FOR_THE_FOUR_SCOPED_ITEMS","unresolved":[]
+}

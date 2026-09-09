@@ -1,0 +1,105 @@
+{
+  "schema": "brand-blind-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision7",
+  "qaExecutionId": "/root/pokemon_home_indicator_blind_qa",
+  "baseUrl": "http://127.0.0.1:5177/",
+  "viewport": [1440, 900],
+  "method": "Fresh in-app-browser render; visible wheel scrolling inside .phone-screen; read-only computed-style and bounding-rect probes after every state change.",
+  "normalRoutes": [
+    {
+      "pageId": "pokemon-tcg-official-home",
+      "scroll": {"start": 0, "middle": 700, "max": 1790, "restored": 0, "scrollHeight": 2592, "clientHeight": 802},
+      "stableRects": {
+        "phone": [755, 51.398, 390, 821.461],
+        "screen": [764.5, 60.898, 371, 802.461],
+        "indicator": [774.367, 819.93, 351.266, 33.563]
+      },
+      "indicatorStyle": {"position": "absolute", "display": "flex", "backgroundColor": "rgba(0, 0, 0, 0)", "zIndex": "30"},
+      "screenStyle": {"overflowY": "auto", "position": "relative"},
+      "phoneStyle": {"position": "relative", "border": "9.5px solid rgba(0, 0, 0, 0.08)", "borderRadius": "41.4666px"},
+      "bottomReachability": {"lastSectionBottom": 817.73, "indicatorTop": 819.93, "clearance": 2.2, "contentSafeInset": 45.57, "status": "PASS"},
+      "rectStableAcrossAllStates": true,
+      "noFlowFooter": true,
+      "barVisible": true,
+      "captures": ["captures/home-before.png", "captures/home-middle.png", "captures/home-max.png", "captures/home-restored.png"]
+    },
+    {
+      "pageId": "pokemon-tcg-official-pocket-fixture",
+      "scroll": {"start": 0, "middle": 249, "max": 497.5, "restored": 0, "scrollHeight": 1300, "clientHeight": 802},
+      "stableRects": {
+        "phone": [755, 51.398, 390, 821.461],
+        "screen": [764.5, 60.898, 371, 802.461],
+        "indicator": [774.367, 819.93, 351.266, 33.563]
+      },
+      "indicatorStyle": {"position": "absolute", "display": "flex", "backgroundColor": "rgba(0, 0, 0, 0)", "zIndex": "30"},
+      "bottomReachability": {"lastSectionBottom": 817.91, "indicatorTop": 819.93, "clearance": 2.02, "contentSafeInset": 45.57, "status": "PASS"},
+      "rectStableAcrossAllStates": true,
+      "noFlowFooter": true,
+      "barVisible": true,
+      "captures": ["captures/pocket-fixture-before.png", "captures/pocket-fixture-middle.png", "captures/pocket-fixture-max.png", "captures/pocket-fixture-restored.png"]
+    },
+    {
+      "pageId": "pokemon-tcg-official-held-out",
+      "scroll": {"start": 0, "middle": 399, "max": 798.5, "restored": 0, "scrollHeight": 1601, "clientHeight": 802},
+      "stableRects": {
+        "phone": [755, 51.398, 390, 821.461],
+        "screen": [764.5, 60.898, 371, 802.461],
+        "indicator": [774.367, 819.93, 351.266, 33.563]
+      },
+      "indicatorStyle": {"position": "absolute", "display": "flex", "backgroundColor": "rgba(0, 0, 0, 0)", "zIndex": "30"},
+      "bottomReachability": {"lastSectionBottom": 817.63, "indicatorTop": 819.93, "clearance": 2.3, "contentSafeInset": 45.57, "status": "PASS"},
+      "rectStableAcrossAllStates": true,
+      "noFlowFooter": true,
+      "barVisible": true,
+      "captures": ["captures/deck-lab-before.png", "captures/deck-lab-middle.png", "captures/deck-lab-max.png", "captures/deck-lab-restored.png"]
+    }
+  ],
+  "proofModes": [
+    {
+      "query": "proof=desktop",
+      "viewport": [1440, 900],
+      "phoneRect": [0, 0, 1440, 2379.984],
+      "screenRect": [0, 0, 1440, 2379.984],
+      "phoneBorder": "0px solid rgba(0, 0, 0, 0.08)",
+      "phoneBorderRadius": "0px",
+      "indicatorDisplay": "none",
+      "status": "PASS",
+      "capture": "captures/proof-desktop.png"
+    },
+    {
+      "query": "proof=mobile",
+      "viewport": [390, 844],
+      "phoneRect": [0, 0, 390, 844],
+      "screenRect": [0, 0, 390, 844],
+      "phoneBorder": "0px none rgba(0, 0, 0, 0.88)",
+      "phoneBorderRadius": "0px",
+      "indicatorDisplay": "none",
+      "status": "PASS",
+      "capture": "captures/proof-mobile.png"
+    }
+  ],
+  "regression": {
+    "hero": {"status": "PASS", "ariaPressed": ["false", "true"], "label": ["Show featured Pokémon card back", "Show featured Pokémon card front"], "capture": "captures/regression-hero-flipped.png"},
+    "news": {"status": "PASS", "activePage": [1, 2], "headline": ["Get Ready to Celebrate 30 Years of the Pokémon Trading Card Game", "Discover the Artists Behind the Pokémon TCG 30th Celebration"], "capture": "captures/regression-news-next.png"},
+    "tcgLive": {"status": "PASS", "loadedImages": 5, "failedImages": 0, "href": "https://tcg.pokemon.com/en-us/tcgl/", "capture": "captures/regression-tcgl.png"},
+    "pocket": {"status": "PASS", "ctaRestColor": "rgb(0, 0, 0)", "ctaHoverColor": "rgb(226, 186, 101)", "ctaBackground": "rgb(255, 255, 255)", "href": "https://tcgpocket.pokemon.com/en-us", "capture": "captures/regression-pocket-hover.png"},
+    "heldOut": {"status": "PASS", "accordion": {"before": "Choose a lead Pokémon", "after": "Support the plan", "expandedStateChanged": true}, "capture": "captures/regression-deck-lab-accordion.png"},
+    "consoleErrorsOrWarnings": []
+  },
+  "checks": {
+    "normalIndicatorIsChassisOverlay": true,
+    "normalIndicatorDoesNotParticipateInFlow": true,
+    "normalIndicatorDoesNotCreateWhiteFooter": true,
+    "normalRectsStableAcrossScroll": true,
+    "normalScrollRestores": true,
+    "normalLastContentReachable": true,
+    "normalLastContentUnobscured": true,
+    "normalFrameAndRadiusPresent": true,
+    "proofDesktopNoShell": true,
+    "proofMobileNoShell": true,
+    "proofIndicatorHidden": true,
+    "regressionSmokePass": true
+  },
+  "overall": "PASS"
+}

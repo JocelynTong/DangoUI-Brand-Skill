@@ -1,0 +1,178 @@
+{
+  "schema": "brand-host-blind-goal-decision/v1",
+  "brand": "onepiece-cardgame",
+  "host": "roco-lib",
+  "route": "/pages/team-create-sprite/index?slot=0",
+  "role": "designDirectorOrchestrator",
+  "decision": {
+    "recommendedOption": "B",
+    "verdict": "REDEFINE_AS_BRAND_LANGUAGE_FAMILY_OR_STOP_THE_ONE_PIECE_CLAIM",
+    "summary": "在遮蔽品牌名、Logo 和显式品牌文字，同时禁止 ONE PIECE 角色、卡牌产品、标志性插画与其他 IP 承载资产的前提下，要求五名盲测者中至少四名把洛克王国精灵编队页识别为 ONE PIECE，不是合理或可验证的设计目标。航海、地图、档案、硬边框、暖纸、黑红等剩余语法属于共享类型语言，最多支持 brand-language-family 识别，不能支持具体 IP 归因。保留严格 Gate，不以降低阈值掩盖失败；本 host 只能在重新命名目标后继续，或在坚持具体 IP 强识别时按方案 C 停止。",
+    "specificIpBlindRecognitionTarget": "BLOCKED_BY_GOAL_CONFLICT",
+    "brandLanguageFamilyTarget": "ELIGIBLE_FOR_REDESIGN_AND_FRESH_QA",
+    "onePieceStrongApplyCompletionClaim": "PROHIBITED"
+  },
+  "questionAnswered": {
+    "isFourOfFiveSpecificIpRecognitionReasonableUnderCurrentAssetBan": false,
+    "reason": "具体 IP 识别依赖区别性诊断信号。当前允许集合剥离了证据中承担该工作的角色、卡牌产品、Logo、官方叙事插画和组合资产，只剩可被海盗、航海游戏、复古档案馆或一般收藏品产品共同使用的弱特异性语法。要求评审者据此唯一归因为 ONE PIECE，会把品牌先验、猜测或测试暗示误当设计证据。",
+    "gateIntegrity": "The existing masked blind test remains valid for claims of specific-IP distinctiveness. The claim must change before its acceptance target changes; the failed implementation must not be made to pass by relabeling the same score."
+  },
+  "options": {
+    "A": {
+      "title": "保留具体 IP 严格盲测，并批准有限、来源明确的独立官方资产",
+      "assessment": "CONDITIONALLY_VIABLE_BUT_NOT_RECOMMENDED_WITHOUT_RIGHTS_AND_CONTENT_FIT",
+      "designBasis": [
+        "官方独立资产可以提供足够高的信息增益，使盲测判断来自视觉内容而不是标签。",
+        "资产必须作为受控构图的一部分形成显著 visual mass；小 Logo、角标或微图标不会修复当前问题。",
+        "ONE PIECE 官网证据表明，角色、卡牌产品和叙事型组合资产是主要识别载体；仅加入通用海图纹理仍不足以满足具体 IP 目标。"
+      ],
+      "risks": {
+        "legal": "官方角色、卡图、商品图、Logo 和插画通常受版权、商标及授权范围约束。来源可追溯不等于获得了在洛克王国宿主中再利用或暗示联名的权利。",
+        "brand": "把 ONE PIECE 资产包裹洛克王国精灵内容会产生错误联名、官方背书或内容归属暗示；若视觉主角与实际业务对象不一致，品牌表达越强，误导越强。",
+        "business": "大面积 IP 资产会与精灵选择、队伍状态和操作任务争夺首屏注意力，并可能让用户误以为页面内容已切换到 ONE PIECE 卡牌。"
+      },
+      "approvalPrerequisites": [
+        "书面确认该 host 场景拥有相应资产的跨产品使用权及必要的品牌方批准。",
+        "产品明确接受并披露这是视觉主题或授权联动，不让用户误解数据归属。",
+        "Evidence 重新采集独立官方资产的 sourceUrl、sourceSha256、sourceKind、许可/授权依据、真实官网可见 region、语义 role 与响应式裁切证据。",
+        "Interpreter 明确 suitableFor、notFor、允许裁切、色彩叠加、遮挡比例、移动端降级与不得替代的业务信息。",
+        "Design Director 重新冻结目标后，由全新 Host Implementation 与 fresh masked Blind QA 执行；旧截图和 verdict 不得复用。"
+      ],
+      "minimumAssetPolicyIfLaterAuthorized": {
+        "allowed": [
+          {
+            "assetClass": "独立官方角色或角色群像透明资产",
+            "role": "bounded hero or chapter-divider focal, subordinate to the host task heading and current selected sprite",
+            "minimumVisualMass": "single bounded region approximately 18-30% of the first viewport; not a tiny badge",
+            "notFor": [
+              "global wallpaper behind controls",
+              "replacing 洛克王国精灵 artwork",
+              "implying the host sprite is a ONE PIECE character",
+              "repeated decoration on every card"
+            ]
+          },
+          {
+            "assetClass": "独立官方卡牌或产品包装组合资产",
+            "role": "secondary collectible-system composition or bounded promotional rail only when the host context explicitly explains the theme",
+            "minimumVisualMass": "approximately 10-20% of the viewport as a coherent composition",
+            "notFor": [
+              "team-stat substitution",
+              "fake inventory item",
+              "action affordance without matching behavior",
+              "unlabeled placement that suggests host content ownership"
+            ]
+          },
+          {
+            "assetClass": "官方独立背景/波浪/海图图形资产，且不从截图裁切",
+            "role": "bounded environmental stage supporting one focal region",
+            "minimumVisualMass": "at least 20% of the viewport, paired with another independently distinctive asset dimension",
+            "notFor": [
+              "sole evidence for ONE PIECE recognition",
+              "global texture on every surface",
+              "low-contrast text background",
+              "screenshot-derived full-frame raster"
+            ]
+          }
+        ],
+        "stillExcluded": [
+          "website screenshots or screenshot crops",
+          "unlicensed fan art",
+          "assets with unknown rights or missing provenance",
+          "Logo-only solutions",
+          "generic anchors, ropes, compasses, parchment or skull motifs presented as ONE PIECE evidence"
+        ]
+      }
+    },
+    "B": {
+      "title": "把目标降为 brand-language family，并禁止误称 ONE PIECE 完成",
+      "assessment": "RECOMMENDED",
+      "designBasis": [
+        "这是唯一同时尊重当前资产禁令、宿主内容真实性和现有 Evidence 边界的方案。",
+        "盲测问题应从‘这是哪个具体 IP’改为‘是否稳定读成高能量航海冒险收藏品/船员档案系统，而非通用后台’，并继续要求显著 visual mass、composition、type/motion 等多维信号。",
+        "用户肉眼反馈已经证明当前通用档案换色不足；B 不是接受现状，而是要求更强的构图、节奏与舞台化表达，只是不把共享语言伪称为具体 IP 识别。"
+      ],
+      "newClaim": "ONE PIECE-evidence-derived nautical adventure collectible language applied to a 洛克王国 team-building host; not an official ONE PIECE experience and not specific-IP recognizable after masking.",
+      "acceptance": {
+        "maskedPrompt": "在不显示任何品牌名、Logo 或显式 IP 文本时，这个页面是否明显属于‘航海冒险 + 船员编成 + 收藏品档案’语言家族，并且与通用管理后台有清晰区别？",
+        "threshold": "4/5 reviewers identify the declared language family and 0/5 report that the UI falsely presents 洛克王国 content as official ONE PIECE content.",
+        "materialSignals": "Retain the v0.8 high-capacity requirement: at least three visible evidence-backed signals, each at least 5% of the viewport and spanning at least three dimensions. Generic color, font family names, micro-icons and archive mood remain insufficient.",
+        "reporting": [
+          "workflowCompletion",
+          "businessSafety",
+          "visualDistinctiveness: PASS only for the declared family-level target",
+          "specificIpDistinctiveness: NOT_CLAIMED"
+        ]
+      },
+      "risks": {
+        "legal": "较低，因为不引入受保护的识别资产；但仍须避免复制受版权保护的独特构图或制造官方关联表述。",
+        "brand": "用户可能仍不会把它叫作 ONE PIECE；这是该方案诚实接受的边界，交付命名必须明确。",
+        "business": "航海隐喻若过量会降低精灵数据扫描效率，因此每个高显著度区块必须服务于队伍编成、属性阅读或步骤反馈，而非纯装饰。"
+      }
+    },
+    "C": {
+      "title": "判定该 host/page 不适合强 ONE PIECE 换肤",
+      "assessment": "REQUIRED_IF_THE_PRODUCT_INSISTS_ON_SPECIFIC_IP_RECOGNITION_WITH_CURRENT_ASSET_BAN",
+      "designBasis": [
+        "页面的核心对象是洛克王国精灵，业务意义与 ONE PIECE 角色/卡牌并不一致。",
+        "强 IP 视觉需要大面积资产和叙事构图，会与高频选择、比较和确认任务竞争。",
+        "当最有效的区别性资产被禁止时，继续强行要求具体 IP 识别只会诱导团队堆叠通用符号、过度装饰或偷偷泄露品牌标签。"
+      ],
+      "recommendedDisposition": "保留为 conservative/application style study，或把强 ONE PIECE 展示迁移到明确的主题预览、营销落地页或有授权联动说明的低风险 surface；当前业务页不签署 strong apply。",
+      "risks": {
+        "legal": "最低。",
+        "brand": "避免形成低质量仿作和错误联名。",
+        "business": "避免装饰压过关键数据与操作；代价是放弃该页面承担强品牌展示的诉求。"
+      }
+    }
+  },
+  "professionalRationale": {
+    "distinctiveness": "品牌辨识度不是风格元素数量，而是信号的诊断性。锚、绳索、指南针、羊皮纸、红黑色和粗体标题具有低专属性；它们的组合可以指向航海/海盗家族，却不能在没有角色、卡牌产品、Logo 和独特官方构图时可靠地区分 ONE PIECE。",
+    "semiotics": "遮蔽测试用于去除答案提示，而不是去除所有承载身份的信息。如果规则先删除所有高诊断性符号，再要求具体 IP 命中，测试测到的是评审者猜测与先验，不是设计性能。",
+    "contentFit": "强品牌迁移必须让外来视觉语言解释宿主任务。洛克王国精灵应始终是业务主角；任何让外来角色或产品成为内容主角的方案都改变了信息语义，而不仅是换肤。",
+    "evidenceBoundary": "现有 approved patterns 的高识别项多数被限定在 Home hero、Welcome、Products catalog 或 Footer organism，不能无证据扩张到 team-create-sprite。editorial-module-rhythm 可以迁移结构，但不足以承担具体 IP 识别。",
+    "userEvidence": "用户明确表示肉眼看不出改动，证明旧技术/流程完成度没有转化为可见品牌结果。该反馈支持强化 material signals 和诚实拆分状态，不支持降低或包装 distinctiveness Gate。"
+  },
+  "requiredNextActions": [
+    {
+      "owner": "designDirectorOrchestrator",
+      "action": "将当前 ONE PIECE specific-IP strong-apply 目标标记为 BLOCKED_BY_GOAL_CONFLICT；不得沿用旧 overall 百分比或宣布 ONE PIECE 视觉完成。"
+    },
+    {
+      "owner": "designDirectorOrchestrator",
+      "action": "若采用 B，创建新的 goal correction，明确 family-level claim、blind prompt、4/5 family threshold 和 specificIpDistinctiveness=NOT_CLAIMED；这属于目标重签，不是对失败 Gate 的事后放宽。"
+    },
+    {
+      "owner": "brandResearcher",
+      "action": "仅收集可合法迁移且与 team-building 语义相容的结构、背景、版式、动效证据；不得把通用航海符号标注为 ONE PIECE 独占 signature。"
+    },
+    {
+      "owner": "designTranslator",
+      "action": "为 family-level signals 写清 host role、suitableFor、notFor、visual mass、响应式和业务价值，并拒绝 Home-only/catalog-only 语义扩张。"
+    },
+    {
+      "owner": "visualQA",
+      "action": "使用全新执行上下文和 fresh masked screenshots；分别报告 familyDistinctiveness 与 specificIpDistinctiveness，禁止将前者 PASS 映射为后者 PASS。"
+    }
+  ],
+  "evidenceReviewed": [
+    "skills/brand/SKILL.md",
+    "skills/brand/workflow-contract.json#version=0.8",
+    "skills/brand/roles/design-director.md",
+    "skills/brand/roles/blind-qa-tpp.md",
+    "skills/brand/scripts/validate-brand-distinctiveness.mjs",
+    "migrations/onepiece-cardgame/brand-evidence.json",
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "migrations/onepiece-cardgame/brand-mod.json",
+    "migrations/onepiece-cardgame-host/post-detail-rework-plan.json",
+    "migrations/onepiece-cardgame/quality-attempts (latest available QA captures, probes and masked/blind reports)",
+    "user feedback: visually unable to identify what changed"
+  ],
+  "nonNegotiables": [
+    "Do not lower or bypass the existing specific-IP distinctiveness Gate to turn the current failure into a pass.",
+    "Do not use website screenshots or screenshot crops as runtime assets.",
+    "Do not claim provenance as a substitute for permission or license.",
+    "Do not replace or semantically relabel 洛克王国精灵 data as ONE PIECE characters, cards or products.",
+    "Do not report one overall completion percentage."
+  ]
+}

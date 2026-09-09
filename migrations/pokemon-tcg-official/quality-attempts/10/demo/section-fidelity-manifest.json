@@ -1,0 +1,29 @@
+{
+  "schema":"brand-section-fidelity/v1",
+  "brand":"pokemon-tcg-official",
+  "goalSha256":"2d591b12db9bc717b91dc7840386119054b93ed73fa2f7dc5c29771722a8470a",
+  "scope":"attempt-10-home-editorial-grid",
+  "canonicalEvidenceBinding":{"goalContract":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/goal-contract.json","sha256":"2d591b12db9bc717b91dc7840386119054b93ed73fa2f7dc5c29771722a8470a"},"sourceDesktop":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/evidence/captures/tcg-pocket-desktop-1440-settled.png"}},"sourceMobile":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/evidence/captures/tcg-pocket-mobile-390-settled.png"}}},
+  "sections":[{
+    "id":"home-editorial-grid","pageId":"pokemon-tcg-official-home","status":"implementation-self-check-complete",
+    "sourceCapture":"migrations/pokemon-tcg-official/quality-attempts/10/evidence/captures/tcg-pocket-desktop-1440-settled.png","demoCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/desktop-1440-settled.png",
+    "sourceViewport":{"width":1440,"height":900},"demoViewport":{"width":1440,"height":900},"approvedViewportTranslation":"Independent full-width 1440px and 390px content proof surfaces; inspector, phone chassis, and extension overlay excluded.",
+    "sourceRegion":[0,212.34,1440,476.2],"demoRegion":[0,0,1440,476.195],
+    "requiredLayers":[
+      {"id":"responsive-background","sourceSelector":"article.tcg-pocket responsive background","demoSelector":".pokemon-pocket__background","status":"implemented"},
+      {"id":"independent-composite","sourceSelector":"article.tcg-pocket img logo-cards.png","demoSelector":".pokemon-pocket__composite","status":"implemented"},
+      {"id":"copy-panel","sourceSelector":"article.tcg-pocket black copy column","demoSelector":".pokemon-pocket__copy","status":"implemented"},
+      {"id":"external-cta","sourceSelector":"article.tcg-pocket a.button--white","demoSelector":".pokemon-pocket__cta","status":"implemented"}
+    ],
+    "readingOrder":["desktop asset-left then copy-right","mobile asset-first then copy-second","H2","paragraph","Play Now CTA","next section"],
+    "responsiveBehavior":{"status":"implemented","desktop":"1440x476.195 with two 720px halves","mobile":"390x743.023 with 334.23px asset and 408.793px copy fields","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/desktop-1440-settled.png","migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-settled.png"]},
+    "assetRefs":[
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"implemented"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"implemented"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png","sourceSha256":"27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009","status":"implemented"}
+    ],
+    "interactionChecks":[{"id":"cta-hover-and-target","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["foreground rgb(0,0,0) to rgb(226,186,101)","real external href"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-settled.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-hover.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-settled.png"}],
+    "unresolvedInteractions":[{"id":"viewport-entry","status":"unresolved-unscored","reason":"only hidden and settled source endpoints were captured reliably; implementation omits invented choreography"}],
+    "usesItemCountAsStructureProxy":false,"horizontalOverflow":false,"visualVerdict":"reserved-for-blind-qa"
+  }]
+}

@@ -1,0 +1,38 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "0b908cee-3c1e-4415-beb4-3722de737894",
+  "runId": "672d1d73-774e-4aec-acac-1e75f44b7a54",
+  "stageId": "visualQA-2",
+  "role": "visualQA",
+  "attempt": 2,
+  "agentExecutionId": "/root/onepiece_home_v5_blind_qa_retry",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "verdict": "fail",
+  "failureOwnerRole": "demoImplementationAgent",
+  "inputs": [
+    {"path":"migrations/onepiece-cardgame/goal-contract.json","sha256":"1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png","sha256":"a4a27247f174cc816dc8afc17f19335b2c5cd0986d2c009c33aa940b0752c033"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png","sha256":"cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png","sha256":"8960cbe1a67d01f9cf7ad4f8da48988ed269d7fe5e739b91f1aa3de682219acc"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png","sha256":"3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a"},
+    {"path":"output/visual-qa/onepiece-cardgame/demo-home.png","sha256":"d6de2e7a8a2bc23bc64e6b2738ce7b776cf3364a8d43b92a17d90599e0e79d61"},
+    {"path":"output/visual-qa/onepiece-cardgame/demo-products.png","sha256":"be89751df2d52b732f8a002790d1397eebbbb0f291a9a194a778986b58ec265f"},
+    {"path":"migrations/onepiece-cardgame/visual-pattern-inventory.json","sha256":"5fd445468cb9e83affa959680d75bca34f9d49df6ec52029c707a3796b6c0c19"},
+    {"path":"migrations/onepiece-cardgame/generative-proof.json","sha256":"97a9b9d8d11175fd047e0f7364c6679fc2bfffa15ba275ec524084ca767af4dd"}
+  ],
+  "outputs": [
+    {"path":"migrations/onepiece-cardgame/visual-qa-assessment.json","sha256":"9485e6cb2415fbdaf04fe134225473e407eb00e75408e65311d3c6b8d87578ca"},
+    {"path":"migrations/onepiece-cardgame/visual-comparison-report.json","sha256":"f882a1b8139eb9dae35dbaf205f6df43961644e980b7321896802c9ff4ad93af"},
+    {"path":"migrations/onepiece-cardgame/fidelity-report.json","sha256":"65428975ac52ac3e2ad965919d87d31ad869ba52a7ba196b5940ec6e605d2a23"}
+  ],
+  "proofVerdicts": {
+    "homeSlice": {"evidenceFidelity":"pass","structuralFidelity":"pass","generativeProof":"pass"},
+    "wholeFourPageGoal": {"evidenceFidelity":"fail","structuralFidelity":"fail","generativeProof":"pass","overall":"fail"}
+  },
+  "blockingFindings": [
+    {"code":"CORE_PAGE_UNMAPPED","scope":"news","finding":"No current attempt-2 inventory entry or fresh demo capture."},
+    {"code":"CORE_PAGE_UNMAPPED","scope":"products","finding":"No current attempt-2 inventory entry or fresh demo capture; legacy dispatch screenshots are not current fidelity evidence."},
+    {"code":"CORE_PAGE_UNMAPPED","scope":"events","finding":"No current attempt-2 inventory entry or fresh demo capture."}
+  ]
+}

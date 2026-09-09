@@ -1,0 +1,117 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "3dce3aed-4194-4789-86e8-1b48bb8c1413",
+  "runId": "de142c35-0cfc-400a-8760-b92950ec6d21",
+  "stageId": "visualQA-2",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 2,
+  "goalId": "dango-relearn-home-button-v1",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "mission": "Review the rendered result as a user-facing product, not just a passing build.",
+  "roleContractVersion": "2.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/dango/goal-contract.json",
+      "sha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac"
+    },
+    {
+      "path": "migrations/dango/visual-pattern-inventory.json",
+      "sha256": "3cf3eadc46277c30d1a61c031ad7018a212cb303199b094945f9436de03b2cf7"
+    },
+    {
+      "path": "migrations/dango/generative-proof.json",
+      "sha256": "9d07debf0bee95cb6d08b4ab83360cfaa1c96287753f13b5abd8efb49ec5d8a6"
+    }
+  ],
+  "allowedInputs": [
+    "source interaction captures",
+    "demo interaction captures",
+    "asset provenance manifest"
+  ],
+  "forbiddenInputs": [
+    "implementation rationale",
+    "implementation narrative",
+    "desired verdict",
+    "previous QA verdict",
+    "build pass as fidelity evidence",
+    "translation claims absent from goal contract"
+  ],
+  "tasks": [
+    "compare every source/demo pair",
+    "audit every high-salience section before accepting a full-page verdict",
+    "reject item count or DOM count as a proxy for section structure",
+    "audit every high-salience demo pattern against its evidence refs and source region",
+    "for composition claims verify hero asset identity and variant, then independently match every structural layer such as navigation, campaign copy, controls and cards",
+    "reject whole-page or broad-region evidence as a substitute for layer coverage",
+    "verify source/demo aspect and crop translations against goal-contract.mayTranslate",
+    "operate each declared control and require observable state change plus restoration",
+    "reject token-role expansion such as active color becoming section chrome",
+    "verify the generative variation is produced by learned invariants rather than mirroring, full-frame copying, or asset substitution",
+    "inspect every phone page inside the preserved mockup shell",
+    "for long-page or multi-module target/source evidence require at least two schema sections and probe the phone-screen scrollHeight, clientHeight and reversible scrollTop",
+    "score the fixed fidelity rubric",
+    "verify mustPreserve and mustNotReplace",
+    "attach visual evidence to every score and blocking finding",
+    "recommend pass, fail or insufficient-evidence"
+  ],
+  "requirements": [
+    "fresh independent agent execution id",
+    "every implementation pattern is independently classified supported or unsupported",
+    "unsupported high-salience patterns are blocking and cannot be averaged away",
+    "Evidence Fidelity, Structural Fidelity, and Generative Proof each receive an explicit pass/fail status",
+    "failure of any proof blocks the result and cannot be averaged away",
+    "fixed rubric computes the verdict",
+    "every core page is scored",
+    "missing visual evidence cannot pass",
+    "every standard-demo phone page retains a phone + phone-screen mockup shell",
+    "when target/source evidence is long or multi-module, every page declares at least two sections and the browser gate proves phone-screen scrollHeight > clientHeight, scrollTop changes, and scrollTop is restored",
+    "shared mockup changes produce the complete brand/style/component by tabbar/no-tabbar by normal/proof matrix and pass validate-mockup-matrix.mjs --strict"
+  ],
+  "mustNot": [
+    "modify code",
+    "modify goal or thresholds",
+    "accept post-hoc implementation explanations",
+    "equate schema/browser/build pass with fidelity",
+    "write visual-quality-ready"
+  ],
+  "expectedOutputs": [
+    "visual-qa-assessment.json",
+    "visual-comparison-report.json",
+    "fidelity-report.json",
+    "mockup-state-matrix.json",
+    "three-proof verdict"
+  ],
+  "passCriteria": [
+    "Evidence Fidelity passes",
+    "Structural Fidelity passes",
+    "Generative Proof passes",
+    "computed overall and page thresholds pass",
+    "composition and authentic asset minima pass",
+    "every composition mustPreserve has matching asset identity/variant, structural layer coverage and authorized crop translation",
+    "all mustPreserve pass",
+    "no mustNotReplace violation"
+  ],
+  "failCriteria": [
+    "SCREENSHOT_AS_IMPLEMENTATION",
+    "EVIDENCE_LEAKAGE",
+    "ASSET_PROVENANCE_MISSING",
+    "UNSUPPORTED_VISUAL_PATTERN",
+    "MOCKUP_SHELL_MISSING",
+    "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+    "PAGE_NOT_SCROLLABLE",
+    "PAGE_SCROLL_NOT_RESTORED",
+    "a token or color role is expanded beyond its evidence-backed use",
+    "a mustPreserve item fails",
+    "a forbidden replacement occurs",
+    "a core page or dimension is below threshold",
+    "review is not independent"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"
+  ]
+}

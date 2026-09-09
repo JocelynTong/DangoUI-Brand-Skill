@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 180" role="img" aria-label="ONE PIECE news card">
+  <defs>
+    <linearGradient id="sea" x1="0" x2="1" y1="0" y2="1">
+      <stop stop-color="#00b4ff"/>
+      <stop offset=".55" stop-color="#fff507"/>
+      <stop offset="1" stop-color="#e31f25"/>
+    </linearGradient>
+  </defs>
+  <rect width="320" height="180" rx="8" fill="#111"/>
+  <path d="M0 130c48-30 88 20 138-10s92-22 182 2v58H0z" fill="url(#sea)" opacity=".9"/>
+  <circle cx="245" cy="52" r="42" fill="#fff507"/>
+  <path d="M34 38h136v22H34zm0 36h206v14H34zm0 26h164v14H34z" fill="#fff"/>
+  <text x="34" y="154" font-family="Arial Black,Arial,sans-serif" font-size="22" fill="#070707">EVENT NEWS</text>
+</svg>

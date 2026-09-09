@@ -1,0 +1,50 @@
+{
+  "schema": "heldout-detail-minimal-comparison/v1",
+  "attempt": 14,
+  "scope": "Detail minimum experiment only",
+  "references": [
+    "../../detail-minimal-experiment-direction.json",
+    "../10/visual-qa-assessment.json",
+    "../13/visual-qa-assessment.json",
+    "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png"
+  ],
+  "comparisons": [
+    {
+      "dimension": "surface-and-mass",
+      "status": "PASS",
+      "evidence": "The page is warm paper-dominant at all three widths. Navy/black is confined to rules, the selected view and typography rather than becoming a full-page stage."
+    },
+    {
+      "dimension": "product-framing",
+      "status": "PASS_WITH_ADVISORY",
+      "evidence": "The Pokémon cover is preserved inside a bounded low-radius rectangular product frame paired with title, environment, author and update metadata. At 1280 the cover and metadata occupy opposite halves of a very wide identity panel; the relationship remains legible but is looser than the source Products grid.",
+      "advisory": "If the experiment advances, cap the identity content width or strengthen the cover/title grouping at desktop without enlarging the card into a hero."
+    },
+    {
+      "dimension": "editorial-sequence",
+      "status": "PASS",
+      "evidence": "Identity → restrained description → ruled statistics → two-state view switch → collection content → persistent actions is visible and ordered consistently."
+    },
+    {
+      "dimension": "geometry-and-color",
+      "status": "PASS",
+      "evidence": "Primary panels use approximately 1–4px radii depending on Taro scale, thin 1–2px rules, sparse red/yellow and restrained purple price semantics. No oversized pill language is present."
+    },
+    {
+      "dimension": "masked-structural-recognition",
+      "status": "PASS",
+      "evidence": "After mentally masking Pokémon media, names and explicit hues, recognition still comes from paper mass, product-catalog framing, black ruled sections, compact metadata, high-density collection grid and low-radius geometry."
+    },
+    {
+      "dimension": "source-distance",
+      "status": "PASS",
+      "evidence": "The page translates the source Products system rather than copying its page: bounded product media, editorial labels, ruled metadata and a dense catalog surface are retained while host content and actions remain unchanged."
+    },
+    {
+      "dimension": "interaction-accessibility",
+      "status": "REWORK",
+      "evidence": "All tested pointer/Enter/Space outcomes pass, but the 390px '购齐' button is only 59.17×29.11px. The frozen acceptance requires 44px targets, so this is blocking."
+    }
+  ],
+  "verdict": "REWORK"
+}

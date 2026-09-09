@@ -1,0 +1,737 @@
+{
+  "schema": "heldout-build-minimal-fresh-qa/v1",
+  "attempt": 16,
+  "generatedAt": "2026-09-09T16:49:23.664Z",
+  "producerEvidenceConsumed": false,
+  "readOnlyExternalSystems": true,
+  "renders": [
+    {
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "initial": {
+        "title": "组卡",
+        "scrollWidth": 390,
+        "clientWidth": 390,
+        "overflowX": 0,
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 72.65625,
+          "right": 390,
+          "bottom": 72.65625
+        },
+        "search": {
+          "x": 12.46875,
+          "y": 80.96875,
+          "width": 311,
+          "height": 45.75,
+          "right": 323.46875,
+          "bottom": 126.71875
+        },
+        "filterRows": [
+          {
+            "x": 0,
+            "y": 136.03125,
+            "width": 390,
+            "height": 54.078125,
+            "right": 390,
+            "bottom": 190.109375
+          },
+          {
+            "x": 0,
+            "y": 191.109375,
+            "width": 877.640625,
+            "height": 54.078125,
+            "right": 877.640625,
+            "bottom": 245.1875
+          },
+          {
+            "x": 0,
+            "y": 246.1875,
+            "width": 706.53125,
+            "height": 54.078125,
+            "right": 706.53125,
+            "bottom": 300.265625
+          }
+        ],
+        "pool": {
+          "x": 10.390625,
+          "y": 355.328125,
+          "width": 369.21875,
+          "height": 4773.015625,
+          "right": 379.609375,
+          "bottom": 5128.34375
+        },
+        "firstCard": {
+          "x": 11.390625,
+          "y": 356.328125,
+          "width": 367.21875,
+          "height": 116.390625,
+          "right": 378.609375,
+          "bottom": 472.71875
+        },
+        "tray": {
+          "x": 0,
+          "y": 703.671875,
+          "width": 390,
+          "height": 140.328125,
+          "right": 390,
+          "bottom": 844
+        },
+        "cardCount": 41,
+        "poolMode": "list",
+        "interactiveCount": 289,
+        "under44": [
+          {
+            "role": "input",
+            "label": "搜索卡名 / 编号",
+            "rect": {
+              "x": 54,
+              "y": 90.578125,
+              "width": 253.921875,
+              "height": 21.40625,
+              "right": 307.921875,
+              "bottom": 111.984375
+            }
+          },
+          {
+            "role": "input",
+            "label": "给卡组起个名字",
+            "rect": {
+              "x": 30.09375,
+              "y": 1185.796875,
+              "width": 331.8125,
+              "height": 22.640625,
+              "right": 361.90625,
+              "bottom": 1208.4375
+            }
+          }
+        ],
+        "pillControls": 0,
+        "reducedMotion": true
+      },
+      "interactions": {
+        "filters": {
+          "expandedEnterRows": 5,
+          "collapsedSpaceRows": 3
+        },
+        "view": {
+          "viewBefore": "false",
+          "viewAfterEnter": "true",
+          "viewAfterSpace": "false",
+          "gridMode": "grid",
+          "restoredMode": "list"
+        },
+        "typeFilter": {
+          "cardsBeforeFilter": 41,
+          "cardsAfterEnter": 17,
+          "cardsAfterResetSpace": 41
+        },
+        "search": {
+          "resultCount": 1,
+          "firstResultText": "超梦"
+        },
+        "cardCount": {
+          "countBefore": "",
+          "countAfterEnter": ""
+        },
+        "sheetOpen": 1,
+        "sheet": {
+          "rect": {
+            "x": 0,
+            "y": 242.40625,
+            "width": 390,
+            "height": 601.59375,
+            "right": 390,
+            "bottom": 844
+          },
+          "currentEnvironmentText": "标准赛制-18.0",
+          "currentEnvironmentColor": "rgb(255, 255, 255)",
+          "environmentBackground": "rgb(255, 255, 255)",
+          "environmentTextContrastVisible": false,
+          "publishBackground": "rgb(185, 29, 34)",
+          "publishAriaDisabled": null,
+          "publishDisabledClass": false,
+          "fields": [
+            {
+              "x": 14.546875,
+              "y": 502.984375,
+              "width": 360.90625,
+              "height": 47.828125,
+              "right": 375.453125,
+              "bottom": 550.8125
+            },
+            {
+              "x": 14.546875,
+              "y": 594.46875,
+              "width": 360.90625,
+              "height": 47.828125,
+              "right": 375.453125,
+              "bottom": 642.296875
+            },
+            {
+              "x": 14.546875,
+              "y": 685.953125,
+              "width": 360.90625,
+              "height": 74.875,
+              "right": 375.453125,
+              "bottom": 760.828125
+            }
+          ],
+          "actions": [
+            {
+              "x": 329.703125,
+              "y": 252.0625,
+              "width": 45.75,
+              "height": 45.75,
+              "right": 375.453125,
+              "bottom": 297.8125
+            },
+            {
+              "x": 14.546875,
+              "y": 775.375,
+              "width": 175.25,
+              "height": 49.90625,
+              "right": 189.796875,
+              "bottom": 825.28125
+            },
+            {
+              "x": 200.1875,
+              "y": 775.375,
+              "width": 175.265625,
+              "height": 49.90625,
+              "right": 375.453125,
+              "bottom": 825.28125
+            }
+          ]
+        },
+        "environment": {
+          "envExpandedByEnter": "false",
+          "envWheelVisible": false,
+          "envCollapsedBySpace": "false"
+        },
+        "invalidName": {
+          "sheetStillOpen": true,
+          "feedbackVisible": true
+        },
+        "draftState": {
+          "sheetClosed": true,
+          "storageChanged": true,
+          "feedbackVisible": true
+        },
+        "publishReady": {
+          "coverCount": 1,
+          "name": null,
+          "publishEnabled": true,
+          "disabledSemanticsAvailable": false
+        },
+        "sheetClosedByEnter": true,
+        "focusProbe": {
+          "active": true,
+          "outline": "rgb(255, 245, 7) solid 3px",
+          "boxShadow": "none"
+        }
+      },
+      "externalWrites": []
+    },
+    {
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "initial": {
+        "title": "组卡",
+        "scrollWidth": 536,
+        "clientWidth": 536,
+        "overflowX": 0,
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 536,
+          "height": 71,
+          "right": 536,
+          "bottom": 71
+        },
+        "search": {
+          "x": 12,
+          "y": 79,
+          "width": 441.109375,
+          "height": 44,
+          "right": 453.109375,
+          "bottom": 123
+        },
+        "filterRows": [
+          {
+            "x": 0,
+            "y": 132,
+            "width": 536,
+            "height": 52,
+            "right": 536,
+            "bottom": 184
+          },
+          {
+            "x": 0,
+            "y": 185,
+            "width": 1184.75,
+            "height": 52,
+            "right": 1184.75,
+            "bottom": 237
+          },
+          {
+            "x": 0,
+            "y": 238,
+            "width": 955.046875,
+            "height": 52,
+            "right": 955.046875,
+            "bottom": 290
+          }
+        ],
+        "pool": {
+          "x": 10,
+          "y": 343,
+          "width": 516,
+          "height": 5489.875,
+          "right": 526,
+          "bottom": 5832.875
+        },
+        "firstCard": {
+          "x": 11,
+          "y": 344,
+          "width": 514,
+          "height": 133.875,
+          "right": 525,
+          "bottom": 477.875
+        },
+        "tray": {
+          "x": 0,
+          "y": 729,
+          "width": 536,
+          "height": 135,
+          "right": 536,
+          "bottom": 864
+        },
+        "cardCount": 41,
+        "poolMode": "list",
+        "interactiveCount": 289,
+        "under44": [
+          {
+            "role": "input",
+            "label": "搜索卡名 / 编号",
+            "rect": {
+              "x": 68.71875,
+              "y": 83.78125,
+              "width": 363.390625,
+              "height": 29.421875,
+              "right": 432.109375,
+              "bottom": 113.203125
+            }
+          },
+          {
+            "role": "input",
+            "label": "给卡组起个名字",
+            "rect": {
+              "x": 35,
+              "y": 1294.421875,
+              "width": 468,
+              "height": 30.375,
+              "right": 503,
+              "bottom": 1324.796875
+            }
+          }
+        ],
+        "pillControls": 0,
+        "reducedMotion": true
+      },
+      "interactions": {
+        "filters": {
+          "expandedEnterRows": 5,
+          "collapsedSpaceRows": 3
+        },
+        "view": {
+          "viewBefore": "false",
+          "viewAfterEnter": "true",
+          "viewAfterSpace": "false",
+          "gridMode": "grid",
+          "restoredMode": "list"
+        },
+        "typeFilter": {
+          "cardsBeforeFilter": 41,
+          "cardsAfterEnter": 17,
+          "cardsAfterResetSpace": 41
+        },
+        "search": {
+          "resultCount": 1,
+          "firstResultText": "超梦"
+        },
+        "cardCount": {
+          "countBefore": "",
+          "countAfterEnter": ""
+        },
+        "sheetOpen": 1,
+        "sheet": {
+          "rect": {
+            "x": 0,
+            "y": 118.015625,
+            "width": 536,
+            "height": 745.984375,
+            "right": 536,
+            "bottom": 864
+          },
+          "currentEnvironmentText": "标准赛制-18.0",
+          "currentEnvironmentColor": "rgb(255, 255, 255)",
+          "environmentBackground": "rgb(255, 255, 255)",
+          "environmentTextContrastVisible": false,
+          "publishBackground": "rgb(185, 29, 34)",
+          "publishAriaDisabled": null,
+          "publishDisabledClass": false,
+          "fields": [
+            {
+              "x": 14,
+              "y": 441.65625,
+              "width": 508,
+              "height": 65.734375,
+              "right": 522,
+              "bottom": 507.390625
+            },
+            {
+              "x": 14,
+              "y": 561.375,
+              "width": 508,
+              "height": 65.734375,
+              "right": 522,
+              "bottom": 627.109375
+            },
+            {
+              "x": 14,
+              "y": 681.09375,
+              "width": 508,
+              "height": 102.90625,
+              "right": 522,
+              "bottom": 784
+            }
+          ],
+          "actions": [
+            {
+              "x": 459.109375,
+              "y": 129.515625,
+              "width": 62.890625,
+              "height": 44,
+              "right": 522,
+              "bottom": 173.515625
+            },
+            {
+              "x": 14,
+              "y": 798,
+              "width": 246.859375,
+              "height": 48,
+              "right": 260.859375,
+              "bottom": 846
+            },
+            {
+              "x": 275.140625,
+              "y": 798,
+              "width": 246.859375,
+              "height": 48,
+              "right": 522,
+              "bottom": 846
+            }
+          ]
+        },
+        "environment": {
+          "envExpandedByEnter": "false",
+          "envWheelVisible": false,
+          "envCollapsedBySpace": "false"
+        },
+        "invalidName": {
+          "sheetStillOpen": true,
+          "feedbackVisible": true
+        },
+        "draftState": {
+          "sheetClosed": true,
+          "storageChanged": true,
+          "feedbackVisible": true
+        },
+        "publishReady": {
+          "coverCount": 1,
+          "name": null,
+          "publishEnabled": true,
+          "disabledSemanticsAvailable": false
+        },
+        "sheetClosedByEnter": true,
+        "focusProbe": {
+          "active": true,
+          "outline": "rgb(255, 245, 7) solid 4px",
+          "boxShadow": "none"
+        }
+      },
+      "externalWrites": []
+    },
+    {
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "initial": {
+        "title": "组卡",
+        "scrollWidth": 1280,
+        "clientWidth": 1280,
+        "overflowX": 0,
+        "header": {
+          "x": 2,
+          "y": 0,
+          "width": 1276,
+          "height": 73,
+          "right": 1278,
+          "bottom": 73
+        },
+        "search": {
+          "x": 14,
+          "y": 81,
+          "width": 1156,
+          "height": 44,
+          "right": 1170,
+          "bottom": 125
+        },
+        "filterRows": [
+          {
+            "x": 2,
+            "y": 135,
+            "width": 1276,
+            "height": 52,
+            "right": 1278,
+            "bottom": 187
+          },
+          {
+            "x": 2,
+            "y": 189,
+            "width": 1659.234375,
+            "height": 52,
+            "right": 1661.234375,
+            "bottom": 241
+          },
+          {
+            "x": 2,
+            "y": 243,
+            "width": 1329,
+            "height": 52,
+            "right": 1331,
+            "bottom": 295
+          }
+        ],
+        "pool": {
+          "x": 12,
+          "y": 349,
+          "width": 1256,
+          "height": 6972,
+          "right": 1268,
+          "bottom": 7321
+        },
+        "firstCard": {
+          "x": 14,
+          "y": 351,
+          "width": 1252,
+          "height": 170,
+          "right": 1266,
+          "bottom": 521
+        },
+        "tray": {
+          "x": 2,
+          "y": 584,
+          "width": 1276,
+          "height": 136,
+          "right": 1278,
+          "bottom": 720
+        },
+        "cardCount": 41,
+        "poolMode": "list",
+        "interactiveCount": 289,
+        "under44": [
+          {
+            "role": "input",
+            "label": "搜索卡名 / 编号",
+            "rect": {
+              "x": 94,
+              "y": 78.421875,
+              "width": 1046,
+              "height": 41.171875,
+              "right": 1140,
+              "bottom": 119.59375
+            }
+          },
+          {
+            "role": "input",
+            "label": "给卡组起个名字",
+            "rect": {
+              "x": 376,
+              "y": 1295.25,
+              "width": 532,
+              "height": 43.703125,
+              "right": 908,
+              "bottom": 1338.953125
+            }
+          }
+        ],
+        "pillControls": 0,
+        "reducedMotion": true
+      },
+      "interactions": {
+        "filters": {
+          "expandedEnterRows": 5,
+          "collapsedSpaceRows": 3
+        },
+        "view": {
+          "viewBefore": "false",
+          "viewAfterEnter": "true",
+          "viewAfterSpace": "false",
+          "gridMode": "grid",
+          "restoredMode": "list"
+        },
+        "typeFilter": {
+          "cardsBeforeFilter": 41,
+          "cardsAfterEnter": 17,
+          "cardsAfterResetSpace": 41
+        },
+        "search": {
+          "resultCount": 1,
+          "firstResultText": "超梦"
+        },
+        "cardCount": {
+          "countBefore": "",
+          "countAfterEnter": ""
+        },
+        "sheetOpen": 1,
+        "sheet": {
+          "rect": {
+            "x": 330,
+            "y": 57.609375,
+            "width": 620,
+            "height": 662.390625,
+            "right": 950,
+            "bottom": 720
+          },
+          "currentEnvironmentText": "标准赛制-18.0",
+          "currentEnvironmentColor": "rgb(255, 255, 255)",
+          "environmentBackground": "rgb(255, 255, 255)",
+          "environmentTextContrastVisible": false,
+          "publishBackground": "rgb(185, 29, 34)",
+          "publishAriaDisabled": null,
+          "publishDisabledClass": false,
+          "fields": [
+            {
+              "x": 346,
+              "y": 488.203125,
+              "width": 588,
+              "height": 92,
+              "right": 934,
+              "bottom": 580.203125
+            },
+            {
+              "x": 346,
+              "y": 650.203125,
+              "width": 588,
+              "height": 92,
+              "right": 934,
+              "bottom": 742.203125
+            },
+            {
+              "x": 346,
+              "y": 812.203125,
+              "width": 588,
+              "height": 144,
+              "right": 934,
+              "bottom": 956.203125
+            }
+          ],
+          "actions": [
+            {
+              "x": 846,
+              "y": 76.40625,
+              "width": 88,
+              "height": 44,
+              "right": 934,
+              "bottom": 120.40625
+            },
+            {
+              "x": 346,
+              "y": 970.203125,
+              "width": 284,
+              "height": 48,
+              "right": 630,
+              "bottom": 1018.203125
+            },
+            {
+              "x": 650,
+              "y": 970.203125,
+              "width": 284,
+              "height": 48,
+              "right": 934,
+              "bottom": 1018.203125
+            }
+          ]
+        },
+        "environment": {
+          "envExpandedByEnter": "false",
+          "envWheelVisible": false,
+          "envCollapsedBySpace": "false"
+        },
+        "invalidName": {
+          "sheetStillOpen": true,
+          "feedbackVisible": true
+        },
+        "draftState": {
+          "sheetClosed": true,
+          "storageChanged": true,
+          "feedbackVisible": true
+        },
+        "publishReady": {
+          "coverCount": 1,
+          "name": null,
+          "publishEnabled": true,
+          "disabledSemanticsAvailable": false
+        },
+        "sheetClosedByEnter": true,
+        "focusProbe": {
+          "active": true,
+          "outline": "rgb(255, 245, 7) solid 6px",
+          "boxShadow": "none"
+        }
+      },
+      "externalWrites": []
+    }
+  ],
+  "regression": [
+    {
+      "route": "plaza",
+      "sha256": "c7e08afc4f56a349b86686b2a81d66a7978beea6f0e6d491da6a6ade35378816",
+      "overflowX": 0,
+      "title": "卡组工具"
+    },
+    {
+      "route": "detail",
+      "sha256": "d1c57021d4f05459ae3ee0a1e9c7c0c713e2308ad16f9f06f89554a3078bf89b",
+      "overflowX": 0,
+      "title": "卡组详情"
+    },
+    {
+      "route": "mine",
+      "sha256": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "overflowX": 0,
+      "title": "我的卡组"
+    },
+    {
+      "route": "event",
+      "sha256": "7d28e8a474fadbbbf17588d680fee90d491377dd7a763c4437c472da879f911a",
+      "overflowX": 0,
+      "title": "赛事详情"
+    },
+    {
+      "route": "round",
+      "sha256": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca",
+      "overflowX": 0,
+      "title": "上位卡组"
+    }
+  ]
+}

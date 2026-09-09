@@ -1,0 +1,386 @@
+{
+  "schema": "brand-mod.v0.1",
+  "manifest": {
+    "brand": "dango",
+    "displayName": "DangoUI",
+    "sourceUrl": "https://www.dangoui.com/",
+    "createdAt": "2026-09-06",
+    "version": "0.1.0",
+    "scope": {
+      "for": [
+        "DangoUI documentation identity reference",
+        "learn-brand mapping sample"
+      ],
+      "notFor": [
+        "game-only content mod",
+        "host business rewrite",
+        "generic purple skin"
+      ]
+    },
+    "producer": {
+      "skill": "/brand",
+      "decoupledFrom": [
+        "/qdmp"
+      ],
+      "notes": "Identity-first reference; mapping truth is separated from current demo consumption."
+    }
+  },
+  "tokens": {
+    "mapped": {
+      "--du-bg-2": {
+        "value": "#ffffff",
+        "source": "dango-docs-shell-desktop"
+      },
+      "--du-bg-1": {
+        "value": "#ffffff",
+        "source": "dango-button-page-shell"
+      },
+      "--du-text-1": {
+        "value": "#000000",
+        "source": "dango-docs-type-hierarchy"
+      },
+      "--du-border-1": {
+        "value": "#0000001f",
+        "source": "dango-button-page-shell"
+      },
+      "--du-primary-solid-bg": {
+        "value": "#7C66FF",
+        "source": "dango-primary-button",
+        "status": "identity"
+      }
+    },
+    "styleOnly": {
+      "--style-docs-navigation-current": {
+        "value": "#5854FF",
+        "reason": "Exclusive documentation current-page cue; runtime consumers are restricted to .dango-docs__nav-group > span.is-current."
+      },
+      "--style-primary-button-height": {
+        "value": "32px",
+        "reason": "Frozen normal Primary Button geometry; no universal control-height target proven."
+      },
+      "--style-primary-button-radius": {
+        "value": "4px",
+        "reason": "Frozen normal Primary Button geometry; no universal radius target proven."
+      },
+      "--style-docs-shell-grid": {
+        "value": "header + left nav + reading column + right outline",
+        "reason": "No single DangoUI component owns the documentation shell."
+      }
+    },
+    "evidence": {
+      "sourceFiles": [
+        "migrations/dango/brand-evidence.json",
+        "migrations/dango/brand-intent.json",
+        "migrations/dango/dangoui-adapter.json"
+      ],
+      "method": "screenshot-first, computed validation, identity-first mapping"
+    },
+    "dtcg": {
+      "$description": "DangoUI DTCG token contract generated from Brand MOD token mirrors.",
+      "$extensions": {
+        "echo.brand.schema": "brand-mod.tokens.dtcg/v0.1",
+        "echo.brand.sourceFile": "migrations/dango/brand-mod.json",
+        "echo.brand.note": "DTCG is canonical for reusable token values; mapped/styleOnly are compatibility mirrors for current demo consumers."
+      },
+      "mapped": {
+        "du-bg-2": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dango-docs-shell-desktop",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-2",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-bg-2",
+            "echo.brand.source": "dango-docs-shell-desktop"
+          }
+        },
+        "du-bg-1": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dango-button-page-shell",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-bg-1",
+            "echo.brand.source": "dango-button-page-shell"
+          }
+        },
+        "du-text-1": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "dango-docs-type-hierarchy",
+          "$extensions": {
+            "echo.brand.target": "--du-text-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-text-1",
+            "echo.brand.source": "dango-docs-type-hierarchy"
+          }
+        },
+        "du-border-1": {
+          "$type": "color",
+          "$value": "#0000001f",
+          "$description": "dango-button-page-shell",
+          "$extensions": {
+            "echo.brand.target": "--du-border-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-border-1",
+            "echo.brand.source": "dango-button-page-shell"
+          }
+        },
+        "du-primary-solid-bg": {
+          "$type": "color",
+          "$value": "#7C66FF",
+          "$description": "dango-primary-button",
+          "$extensions": {
+            "echo.brand.target": "--du-primary-solid-bg",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "identity",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-primary-solid-bg",
+            "echo.brand.source": "dango-primary-button"
+          }
+        }
+      },
+      "styleOnly": {
+        "style-docs-navigation-current": {
+          "$type": "color",
+          "$value": "#5854FF",
+          "$description": "Exclusive documentation current-page cue; runtime consumers are restricted to .dango-docs__nav-group > span.is-current.",
+          "$extensions": {
+            "echo.brand.target": "--style-docs-navigation-current",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-docs-navigation-current",
+            "echo.brand.reason": "Exclusive documentation current-page cue; runtime consumers are restricted to .dango-docs__nav-group > span.is-current."
+          }
+        },
+        "style-primary-button-height": {
+          "$type": "dimension",
+          "$value": "32px",
+          "$description": "Frozen normal Primary Button geometry; no universal control-height target proven.",
+          "$extensions": {
+            "echo.brand.target": "--style-primary-button-height",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-primary-button-height",
+            "echo.brand.reason": "Frozen normal Primary Button geometry; no universal control-height target proven."
+          }
+        },
+        "style-primary-button-radius": {
+          "$type": "dimension",
+          "$value": "4px",
+          "$description": "Frozen normal Primary Button geometry; no universal radius target proven.",
+          "$extensions": {
+            "echo.brand.target": "--style-primary-button-radius",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-primary-button-radius",
+            "echo.brand.reason": "Frozen normal Primary Button geometry; no universal radius target proven."
+          }
+        },
+        "style-docs-shell-grid": {
+          "$type": "string",
+          "$value": "header + left nav + reading column + right outline",
+          "$description": "No single DangoUI component owns the documentation shell.",
+          "$extensions": {
+            "echo.brand.target": "--style-docs-shell-grid",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-docs-shell-grid",
+            "echo.brand.reason": "No single DangoUI component owns the documentation shell."
+          }
+        }
+      }
+    }
+  },
+  "semanticRoles": {
+    "surface.page": {
+      "target": "--du-bg-2",
+      "sources": [
+        "dango-docs-shell-desktop"
+      ]
+    },
+    "surface.card": {
+      "target": "--du-bg-1",
+      "sources": [
+        "dango-button-page-shell"
+      ]
+    },
+    "text.primary": {
+      "target": "--du-text-1",
+      "sources": [
+        "dango-docs-type-hierarchy"
+      ]
+    },
+    "border.subtle": {
+      "target": "--du-border-1",
+      "sources": [
+        "dango-button-page-shell"
+      ]
+    },
+    "action.primary.fill": {
+      "target": "--du-primary-solid-bg",
+      "kind": "actionEvidence",
+      "sources": [
+        "dango-primary-button"
+      ],
+      "protocol": {
+        "bucket": "primary-cta",
+        "rule": "Only frozen normal Primary Button solid fill."
+      }
+    },
+    "navigation.current": {
+      "target": "--style-docs-navigation-current",
+      "sources": [
+        "dango-docs-active-navigation"
+      ],
+      "antiScopes": [
+        "Primary Button",
+        "generic selected controls",
+        "Beta badge",
+        "code/import/table",
+        "held-out checklist status"
+      ],
+      "runtimeConsumers": [
+        ".dango-docs__nav-group > span.is-current"
+      ]
+    }
+  },
+  "componentVariants": [
+    {
+      "id": "primary-button-normal",
+      "component": "DuButton",
+      "status": "native-runtime-consumed",
+      "props": {
+        "type": "primary",
+        "size": "normal",
+        "text": "string",
+        "extClass": "dango-docs__primary"
+      },
+      "runtimeSelector": "button.du-button.du-button--normal.du-button--primary.dango-docs__primary",
+      "evidenceRefs": [
+        "dango-primary-button"
+      ]
+    },
+    {
+      "id": "docs-utility-header",
+      "component": "NavigationBar",
+      "status": "composition-candidate",
+      "evidenceRefs": [
+        "dango-docs-shell-desktop"
+      ]
+    },
+    {
+      "id": "docs-current-navigation",
+      "component": null,
+      "status": "style-only",
+      "recipe": "docs-current-navigation",
+      "evidenceRefs": [
+        "dango-docs-active-navigation"
+      ]
+    },
+    {
+      "id": "technical-flow",
+      "component": null,
+      "status": "style-only",
+      "recipe": "technical-flow-surface",
+      "evidenceRefs": [
+        "dango-docs-type-hierarchy"
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "docs-header-utilities",
+      "status": "composition",
+      "implementation": "NavigationBar where API fits; desktop shell remains local composition"
+    },
+    {
+      "id": "docs-reading-column",
+      "status": "style-only",
+      "implementation": "semantic article DOM"
+    },
+    {
+      "id": "docs-page-outline",
+      "status": "style-only",
+      "implementation": "aside navigation"
+    }
+  ],
+  "assets": [
+    {
+      "id": "dango-empty-hero-layer",
+      "role": "hero-background",
+      "sourceKind": "none",
+      "implementation": "CSS none",
+      "reason": "Frozen docs pages have no marketing hero asset; retained only for brand-mod schema compatibility."
+    },
+    {
+      "id": "dango-white-section-canvas",
+      "role": "section-background",
+      "sourceKind": "css-color",
+      "implementation": "background #ffffff",
+      "evidenceRefs": [
+        "dango-docs-shell-desktop"
+      ]
+    }
+  ],
+  "layoutRules": {
+    "sectionBackgroundChain": {
+      "layers": [
+        {
+          "id": "docs-section-canvas",
+          "assetId": "dango-white-section-canvas",
+          "scope": "documentation sections"
+        }
+      ]
+    },
+    "documentationShell": {
+      "status": "style-only-composition",
+      "recipe": "header / left nav / reading column / right outline; mobile single-column reflow"
+    },
+    "overlay": {
+      "inspectorTag": {
+        "mustNotAffectLayout": true
+      }
+    },
+    "bottomBarReserve": {
+      "required": true,
+      "note": "Preview shell/platform reserve only; not source brand evidence."
+    }
+  },
+  "platformOverrides": {
+    "mobile": {
+      "rule": "hide secondary sidebars and retain a readable inset article; never scale desktop as a picture"
+    },
+    "desktop": {
+      "rule": "preserve independently observable header, local navigation, reading column and outline"
+    }
+  },
+  "verification": {
+    "runtimeProof": "migrations/dango/mapping-runtime-proof.json",
+    "componentMapping": "migrations/dango/component-mapping.json",
+    "adapter": "migrations/dango/dangoui-adapter.json",
+    "status": "runtime-repair-complete-pending-fresh-independent-mapping-qa",
+    "runtimeSummary": {
+      "nativeComponentsConsumed": 1,
+      "mappedTokensConsumed": 5,
+      "styleOnlyTokensConsumed": 1,
+      "exactNavigationPurpleRuntimeConsumers": 1,
+      "pageCanvasComputed": "rgb(255, 255, 255)",
+      "pageCanvasBackgroundImage": "none"
+    },
+    "ruleCandidates": []
+  }
+}

@@ -1,0 +1,15 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r4",
+  "verdict": "REWORK",
+  "evidenceFidelity": "PASS",
+  "structuralFidelity": "FAIL",
+  "generativeProof": "FAIL",
+  "blockingIssueCount": 1,
+  "blockingCodes": ["HELD_OUT_ACTION_TYPOGRAPHY_DRIFT"],
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "motion": "UNRESOLVED_UNSCORED",
+  "codeModifiedByQa": false
+}

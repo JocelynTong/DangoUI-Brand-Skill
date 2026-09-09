@@ -1,0 +1,39 @@
+{
+  "schema": "brand-role-receipt/v2",
+  "role": "demoImplementationAgent",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "status": "PASS_TO_BLIND_QA",
+  "startedAt": "2026-09-02T12:35:00+08:00",
+  "completedAt": "2026-09-04T16:36:39.368Z",
+  "cumulativeElapsedMinutes": 64,
+  "timeBudgetStatus": "optional-expansion-stopped-at-60-minutes-mandatory-gates-completed",
+  "inputs": [
+    "goal-contract-v2.json",
+    "brand-intent.json",
+    "approved-visual-patterns.json",
+    "section-fidelity-manifest.json",
+    "interpreter-receipt.json",
+    "canonical evidence captures and independent assets"
+  ],
+  "outputs": [
+    "public/brand-previews/pokemon-tcg-official.json",
+    "visual-pattern-inventory.json",
+    "generative-proof.json",
+    "demo-screenshot-manifest.json",
+    "demo-browser-probes.json"
+  ],
+  "verification": {
+    "previewRegistry": "pass",
+    "build": "pass",
+    "browserLayoutProbe": "pass",
+    "sectionFidelity": "pass",
+    "independentBlindQA": "not-run-by-this-role"
+  },
+  "coldStartAudit": {
+    "forbiddenConclusionSourcesRead": [],
+    "reusedOldBrandAssets": false,
+    "sourceScreenshotsAtRuntime": false,
+    "reduceMotionBehaviorInvented": false
+  }
+}

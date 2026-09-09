@@ -1,0 +1,75 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 6,
+  "route": "http://127.0.0.1:5177/?qa=attempt6#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "viewports": {
+    "351x844": {
+      "hero": {"x": 20.5, "y": 8.5, "width": 310, "height": 416, "bottom": 424.5},
+      "navHeight": 56,
+      "carouselTargets": [{"width": 44, "height": 44}, {"width": 44, "height": 44}],
+      "nextSectionVisible": true,
+      "horizontalOverflow": false
+    },
+    "390x844": {
+      "hero": {"x": 21.5, "y": 9.5, "width": 347, "height": 416, "bottom": 425.5},
+      "nav": {"height": 56, "menuTarget": {"width": 92, "height": 44}, "hamburgerLineCount": 3},
+      "carouselTargets": [{"width": 44, "height": 44}, {"width": 44, "height": 44}],
+      "phoneScreen": {"clientHeight": 802, "scrollHeight": 4141},
+      "scroll": {"before": 0, "after": 1036, "restored": 0},
+      "nextSectionVisible": true,
+      "horizontalOverflow": false
+    },
+    "430x844": {
+      "hero": {"x": 41.5, "y": 9.5, "width": 347, "height": 416, "bottom": 425.5},
+      "navHeight": 56,
+      "carouselTargets": [{"width": 44, "height": 44}, {"width": 44, "height": 44}],
+      "nextSectionVisible": true,
+      "horizontalOverflow": false
+    }
+  },
+  "carousel": {
+    "before": {
+      "background": "booster-art-1.jpg",
+      "title": "Logo-30th.png",
+      "card": "2M6P_EN_23.png",
+      "cta": "Discover the celebration",
+      "disclosure": null
+    },
+    "transition": {
+      "animationName": "pokemon-campaign-swap-in",
+      "animationDuration": "0.36s",
+      "animatedVisibleLayers": ["background", "held-out title", "card", "disclosure"]
+    },
+    "settled": {
+      "background": "championships.jpg",
+      "title": "BUILD YOUR NEXT DECK",
+      "card": "SV06_EN_33.png",
+      "cta": "Explore the Deck Lab",
+      "disclosure": "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN"
+    },
+    "restored": {
+      "matchesBefore": true,
+      "screenshotSha256MatchesBefore": true
+    },
+    "changedVisibleProperties": ["background asset", "title identity", "featured card asset", "CTA text", "truth-boundary disclosure"]
+  },
+  "navigation": {
+    "closedAriaExpanded": "false",
+    "openAriaExpanded": "true",
+    "openItems": ["EXPANSIONS", "CARDS", "HOW TO PLAY", "NEWS"],
+    "closedAgainAriaExpanded": "false"
+  },
+  "cardFlip": {
+    "clickResult": {"ariaPressed": "true", "accessibleName": "Show featured Pokémon card front"},
+    "keyboardRestore": {"key": "Enter", "ariaPressed": "false", "accessibleName": "Show featured Pokémon card back"}
+  },
+  "reducedMotion": {
+    "basis": "allowed demo browser probe plus supplied reduced-motion settled capture",
+    "animationName": "none",
+    "animationDuration": "0s",
+    "settledIdentityVerified": true
+  },
+  "console": {"errors": [], "warnings": []},
+  "build": {"command": "npm run build", "exitCode": 0}
+}

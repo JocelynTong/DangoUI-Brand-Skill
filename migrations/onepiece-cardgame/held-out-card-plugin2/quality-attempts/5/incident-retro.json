@@ -1,0 +1,10 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "trigger": "User observed that the Plaza environment filter row is visibly clipped at a 536px viewport.",
+  "observedMismatch": "The low-radius controls became wider while the inherited single-line horizontal overflow behavior remained, leaving the final environment options cut off without a visible affordance.",
+  "missedBy": ["Host Implementation", "Visual QA Attempt4"],
+  "whyOldGatePassed": "Attempt4 checked document-level horizontal overflow and 390/1280 screenshots, but did not require container-level scrollWidth/clientWidth or the intermediate 536px viewport supplied by the user.",
+  "failureOwnerRole": "Host Implementation Agent",
+  "requiredRepair": "Make the taxonomy rows wrap responsively with automatic panel height, preserve all options and selection behavior, and verify 390/536/1280 container overflow plus keyboard parity.",
+  "gateLearning": "Document overflow=0 cannot substitute for nested container clipping checks on horizontal filter families."
+}

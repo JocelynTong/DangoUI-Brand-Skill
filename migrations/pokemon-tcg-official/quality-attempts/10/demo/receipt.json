@@ -1,0 +1,16 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":10,
+  "role":"Demo Implementation Agent",
+  "executionId":"/root/pokemon_pocket_demo",
+  "scope":"homepage/home-editorial-grid-only",
+  "goalSha256":"2d591b12db9bc717b91dc7840386119054b93ed73fa2f7dc5c29771722a8470a",
+  "inputBindings":{"evidenceSha256":"364a8c8a04fff60038cc8872748206521563ee13417e21e8f73325c5230b9131","intentSha256":"4d474752abfd4a2c4ab9c5a91f7e94dcfe9c93d4d112ace7a0a9f1baed48f55a","patternsSha256":"27976009f017865496b43357e2d0da51cfb047af677f204be8711bed4d08248b","designDirectionSha256":"7eeef503ad3af4001fbc12453cba0b21cee900b1f85ad48dffa0ac558f75e1d1"},
+  "outputs":["src/App.vue","src/styles.css","public/brand-previews/pokemon-tcg-official.json","public/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg","public/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg","migrations/pokemon-tcg-official/quality-attempts/10/demo/browser-probes.json","migrations/pokemon-tcg-official/quality-attempts/10/demo/section-fidelity-manifest.json","migrations/pokemon-tcg-official/quality-attempts/10/demo/visual-pattern-inventory.json","migrations/pokemon-tcg-official/quality-attempts/10/demo/generative-proof.json"],
+  "implementationChecksPass":true,
+  "buildPass":true,
+  "motionDisposition":"unresolved/unscored and omitted",
+  "visualVerdict":"not-assigned-by-implementation-agent",
+  "handoffTo":"fresh Blind QA / TPP"
+}

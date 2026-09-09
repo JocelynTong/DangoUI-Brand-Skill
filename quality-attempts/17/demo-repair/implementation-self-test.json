@@ -1,0 +1,65 @@
+{
+  "schema": "brand-demo-implementation-self-test/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 17,
+  "role": "demoImplementationAgent",
+  "status": "IMPLEMENTATION_SELF_TEST_COMPLETE_AWAITING_BLIND_QA",
+  "qaVerdictClaimed": false,
+  "scope": [
+    "Attempt16 blocker 1: Card Database title and energy-pill contrast",
+    "Attempt16 blocker 2: Learn painted-card contrast",
+    "Attempt16 blocker 3: held-out painted-section contrast",
+    "Attempt16 blocker 4: clipped internal horizontal overflow",
+    "Attempt16 blocker 8: missing mockup-state-matrix.json"
+  ],
+  "frozenInputs": {
+    "goal": {"path":"migrations/pokemon-tcg-official/goal-contract-v2.json","sha256":"73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"},
+    "designDirection": {"path":"migrations/pokemon-tcg-official/design-direction.json","sha256":"3843b8f3a4299751e62eb401f7161c552ab43c91b6969adb90930f781d77bc72"},
+    "intent": {"path":"migrations/pokemon-tcg-official/brand-intent.json","sha256":"d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac"},
+    "approvedPatterns": {"path":"migrations/pokemon-tcg-official/approved-visual-patterns.json","sha256":"6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba"},
+    "attempt16Qa": [
+      "migrations/pokemon-tcg-official/quality-attempts/16/blind-qa/report.md",
+      "migrations/pokemon-tcg-official/quality-attempts/16/blind-qa/probes.json",
+      "migrations/pokemon-tcg-official/quality-attempts/16/blind-qa/verdict.json"
+    ]
+  },
+  "changes": {
+    "source": ["src/styles.css"],
+    "artifacts": ["migrations/pokemon-tcg-official/mockup-state-matrix.json"],
+    "untouchedByContract": ["src/App.vue","goal-contract-v2.json","brand-evidence.json","brand-intent.json","design-direction.json","approved-visual-patterns.json","dangoui-adapter.json","component-mapping.json"]
+  },
+  "rootCauses": [
+    "The later generic source-schema demo skin reintroduced inherited white text on light Pokémon sections.",
+    "Narrow layout rules relied on the outer window media query, so a narrow phone embedded in a desktop inspector retained wide child geometry.",
+    "Three explicit width expansions remained: a fixed 374px TCG Live scene, the Learn lead image with positive offset plus 110% width, and a generic checklist negative margin."
+  ],
+  "contrastProbes": [
+    {"region":"card-database-title","foreground":"rgb(37, 37, 37)","background":"rgb(255, 255, 255)","ratio":15.33},
+    {"region":"card-database-energy-pill","foreground":"rgb(37, 37, 37)","background":"rgb(237, 237, 237)","ratio":13.09},
+    {"region":"learn-card-breakdown","foreground":"rgb(37, 37, 37)","background":"rgb(247, 207, 54)","ratio":10.17},
+    {"region":"held-out-deck-steps-heading","foreground":"rgb(23, 59, 118)","background":"rgb(241, 238, 225)","ratio":9.39},
+    {"region":"held-out-deck-steps-body","foreground":"rgb(37, 37, 37)","background":"rgb(241, 238, 225)","ratio":13.18}
+  ],
+  "responsiveBrowserProbes": {
+    "host390": {"phoneScreenWidth":371,"pages":["home","card-database","learn","held-out"],"allRootScrollWidthEqualsClientWidth":true,"allScreenScrollWidthEqualsClientWidth":true,"descendantsWithScrollWidthGreaterThanClientWidth":0},
+    "host371": {"phoneScreenWidth":353,"pages":["home","card-database","learn","held-out"],"allRootScrollWidthEqualsClientWidth":true,"allScreenScrollWidthEqualsClientWidth":true,"descendantsWithScrollWidthGreaterThanClientWidth":0}
+  },
+  "interactionRegression": {
+    "homeCarousel": {"changedToCampaign2":true,"restoredCampaign1":true},
+    "databaseSearch": {"query":"Pikachu","settledCardCount":4,"resetValue":""},
+    "databaseAdvanced": {"openedState":"triggered-724px","restoredState":"0px"},
+    "learnAccordion": {"opened":"Hit Points","restored":"Name and Type","exclusive":true},
+    "heldOutAccordion": {"opened":"Support the plan","restored":"Choose a lead Pokémon","exclusive":true}
+  },
+  "mockupMatrix": {
+    "path":"migrations/pokemon-tcg-official/mockup-state-matrix.json",
+    "sha256":"165afc6a7eef3d53429048df894740623f388a4b1ada54a483c5f0dc6a3b08aa",
+    "expectedCases":24,
+    "observedCases":24,
+    "strictValidator":"PASS",
+    "blocking":[],
+    "warnings":[]
+  },
+  "build": {"command":"npm run build","status":"PASS","warning":"Existing bundle chunk-size warning only."},
+  "handoff": "Return only these implementation-owned findings to a fresh Blind QA agent. Other Attempt16 blockers remain with their assigned upstream owners."
+}

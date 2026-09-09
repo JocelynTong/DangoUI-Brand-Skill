@@ -1,0 +1,41 @@
+{
+  "schema": "brand-action-evidence/v0.4",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "evidencePackages": [
+    "migrations/onepiece-cardgame/action-evidence-v02.json",
+    "migrations/onepiece-cardgame/home-live-dom-evidence.json"
+  ],
+  "entries": [
+    {
+      "id": "top-menu-open-yellow-label",
+      "sourcePageId": "home",
+      "observedState": "menu-open",
+      "trigger": "click FOR BEGINNERS in the top navigation",
+      "selector": "#top .headerCol.is-top .gnaviCol .js-buttonMenu.is-open",
+      "beforeCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-frame-003.png",
+      "afterCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-frame-008.png",
+      "computedProperty": "color",
+      "beforeComputedValue": "rgb(255, 255, 255)",
+      "computedValue": "rgb(255, 245, 7)",
+      "sourceRule": "#top .headerCol.is-top .gnaviCol .navList .js-buttonMenu.is-open { color:#fff507; }",
+      "evidenceRef": "v4-home-menu-open-color"
+    },
+    {
+      "id": "welcome-cta-hover-scale-shadow",
+      "sourcePageId": "home",
+      "observedState": "hover",
+      "trigger": "move pointer over Begin Your Adventure and hold until the 0.3s transition settles",
+      "selector": ".mainCol .welcomeColBtn:hover",
+      "beforeCapture": "output/visual-qa/onepiece-cardgame/evidence-v5/home-selector-crops/motion-default.png",
+      "transitionCapture": "output/visual-qa/onepiece-cardgame/evidence-v5/home-selector-crops/motion-mid-110ms.png",
+      "afterCapture": "output/visual-qa/onepiece-cardgame/evidence-v5/home-selector-crops/motion-settled.png",
+      "computedProperty": "transform",
+      "beforeComputedValue": "none",
+      "transitionComputedValue": "matrix(1.01406, 0, 0, 1.01406, 0, 0)",
+      "computedValue": "matrix(1.03, 0, 0, 1.03, 0, 0)",
+      "sourceRule": ".mainCol .welcomeColBtn:hover { transform:scale(1.03) translateZ(0); }",
+      "evidenceRef": "home-welcome-cta-hover-motion",
+      "evidencePackage": "migrations/onepiece-cardgame/home-live-dom-evidence.json"
+    }
+  ]
+}

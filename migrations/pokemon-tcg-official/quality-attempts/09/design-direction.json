@@ -1,0 +1,27 @@
+{
+  "schema":"brand-design-direction/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":9,
+  "decisionStatus":"approved",
+  "scope":"page:pokemon-tcg-official-home section:home-product-bands",
+  "demoType":"source-calibration",
+  "sourceTruthBoundary":"Implement only revision2-observed TCG Live structure and CTA states. Chrome-translated wrapping is not authoritative; entry motion is unresolved and old motion frames are rejected.",
+  "designObjective":"Replace the generic pale-blue product band with the evidence-backed layered TCG Live world without turning the section into a solid-red banner.",
+  "inputBindings":{
+    "goal":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/goal-contract.json","sha256":"352f3e39aab1766e2aed0c877808656a6692ed5372669765b21aabbb7046b585"},
+    "evidence":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/evidence-revision2/brand-evidence.json","sha256":"7b9a9b8a69062c45addcd964d41032e3ebcdc3cb451991077b0e1de30c3c5844"},
+    "intent":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/interpreter-revision2/brand-intent.json","sha256":"c79d4562a123bac5eeba0d3b1ab236ca62066a8dbe061e303b41f51d314fa05f"},
+    "patterns":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/interpreter-revision2/pattern-inventory.json","sha256":"bfd659665d1dc7ba0d9589cafc0d44d280f4d1fb4025e3a76b310aced963ac42"}
+  },
+  "visualPriorityOrder":["content visibility and legibility","background and authentic layered assets","responsive composition","entry and CTA interaction","measured geometry","protocol completeness"],
+  "sections":[{"id":"home-product-bands","firstImpressionGoal":"A layered product scene crossing a red-gold threshold into a restrained honeycomb field, explained by a compact black copy panel.","mustPreserve":["actual full-bleed background raster","five independent assets","copy hierarchy without kicker","responsive reading order","hard lower boundary"],"mayChange":["current pale-blue band","existing generic card markup","asset positioning","entry state markup"],"mustNotDo":["fill entire section red","flatten five assets","animate background","invent translated line breaks","reuse generic black card"]}],
+  "highSalienceElements":["background-field","asset-scene","copy-panel","cta"],
+  "responsiveStrategyMatrix":[
+    {"element":"background-field","elementType":"media","strategy":"art-directed-crop","evidenceRefs":["TCGL-DESK-BOUNDARY","TCGL-MOB-BOUNDARY"],"viewports":["1440x900","390x844"],"mustPreserve":["red-gold top V seam","pale honeycomb body","static background","full bleed"]},
+    {"element":"asset-scene","elementType":"media","strategy":"responsive-reflow","evidenceRefs":["TCGL-DESK-ASSETS","TCGL-MOB-ASSETS"],"viewports":["1440x900","390x844"],"mustPreserve":["laptop rear","Pikachu lower-left","phone lower-right","two floating avatars","distinct layers"]},
+    {"element":"copy-panel","elementType":"text","strategy":"structural-substitution","evidenceRefs":["TCGL-DESK-COPY","TCGL-MOB-COPY"],"viewports":["1440x900","390x844"],"mustPreserve":["desktop left translucent panel","mobile second full-width opaque panel","Kanit heading","PT Sans body","no kicker"],"minimumReadableSize":"28px mobile heading / 18px body"},
+    {"element":"cta","elementType":"control","strategy":"responsive-reflow","evidenceRefs":["TCGL-CTA"],"viewports":["1440x900","390x844"],"mustPreserve":["white CTA","black-to-gold foreground hover","navigate to /en-us/tcgl/"],"minimumReadableSize":"51px mobile / 56px desktop height"}
+  ],
+  "proofSurfacePlan":{"desktopCanvas":"independent 1440x900 content viewport","mobileCanvas":"independent 390x844 content viewport without phone chassis/showcase gutter","inspectorPolicy":"exclude inspector and decorative device chrome","sourceComparison":"match settled background, asset and copy regions at equal content viewport widths; do not score exact entry motion"},
+  "unresolved":["entry motion reset, trajectory, timing and stagger; existing Demo motion may remain only as an unscored candidate and must not be labeled source-exact"]
+}

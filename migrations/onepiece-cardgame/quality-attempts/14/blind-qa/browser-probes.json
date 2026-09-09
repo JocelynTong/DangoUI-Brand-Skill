@@ -1,0 +1,172 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 14,
+  "scope": "Home phone chassis home-indicator incident closure",
+  "generatedAt": "2026-09-04T09:53:05+08:00",
+  "url": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+  "browser": "Codex In-app Browser",
+  "normalViewport": {
+    "width": 1440,
+    "height": 1000,
+    "document": {
+      "clientWidth": 1440,
+      "scrollWidth": 1440,
+      "horizontalOverflow": false
+    },
+    "classes": {
+      "phone": "phone template-phone",
+      "screen": "phone-screen phone-screen--home layout-recipe--source-phone-campaign-home phone-screen--no-bottom-actions",
+      "indicator": "mock-home-indicator mock-home-indicator--outer"
+    },
+    "hierarchy": {
+      "indicatorParent": "phone template-phone",
+      "indicatorInsidePhone": true,
+      "indicatorInsideScreen": false,
+      "screenParent": "phone template-phone"
+    },
+    "styles": {
+      "phone": {
+        "position": "relative",
+        "borderTopWidth": "9.5px",
+        "borderRadius": "41.4666px",
+        "overflow": "visible"
+      },
+      "screen": {
+        "position": "relative",
+        "borderRadius": "31.5936px",
+        "clipPath": "inset(0px round 31.5936px)",
+        "overflowX": "hidden",
+        "overflowY": "auto"
+      },
+      "indicator": {
+        "position": "absolute",
+        "display": "flex",
+        "left": "9.873px",
+        "right": "9.873px",
+        "bottom": "9.873px",
+        "height": "33.5625px",
+        "zIndex": "30",
+        "pointerEvents": "none",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "linear-gradient(to top, rgba(247, 244, 233, 0.88), rgba(247, 244, 233, 0.5) 58%, rgba(0, 0, 0, 0))"
+      },
+      "bar": {
+        "display": "block",
+        "width": "132.297px",
+        "height": "4.92969px",
+        "background": "rgb(17, 17, 17)",
+        "opacity": "0.72"
+      }
+    },
+    "scroll": {
+      "clientHeight": 802,
+      "scrollHeight": 6206,
+      "clientWidth": 371,
+      "scrollWidth": 371,
+      "before": 0,
+      "mid": 1900,
+      "bottom": 5404,
+      "restored": 0,
+      "scrollable": true,
+      "horizontalOverflow": false,
+      "restoredSuccessfully": true
+    },
+    "rectsByState": {
+      "top": {
+        "phone": { "x": 755, "y": 89.265625, "width": 390, "height": 821.4609375, "right": 1145, "bottom": 910.7265625 },
+        "screen": { "x": 764.5, "y": 98.765625, "width": 371, "height": 802.4609375, "right": 1135.5, "bottom": 901.2265625 },
+        "indicator": { "x": 774.3671875, "y": 857.796875, "width": 351.265625, "height": 33.5625, "right": 1125.6328125, "bottom": 891.359375 },
+        "bar": { "x": 883.8515625, "y": 871.6171875, "width": 132.296875, "height": 4.9296875, "right": 1016.1484375, "bottom": 876.546875 }
+      },
+      "mid": {
+        "scrollTop": 1900,
+        "indicator": { "x": 774.3671875, "y": 857.796875, "width": 351.265625, "height": 33.5625, "right": 1125.6328125, "bottom": 891.359375 }
+      },
+      "bottom": {
+        "scrollTop": 5404,
+        "indicator": { "x": 774.3671875, "y": 857.796875, "width": 351.265625, "height": 33.5625, "right": 1125.6328125, "bottom": 891.359375 }
+      },
+      "restored": {
+        "scrollTop": 0,
+        "indicator": { "x": 774.3671875, "y": 857.796875, "width": 351.265625, "height": 33.5625, "right": 1125.6328125, "bottom": 891.359375 }
+      }
+    },
+    "geometryAssertions": {
+      "phoneFramePresent": true,
+      "phoneRadiusPresent": true,
+      "screenRadiusPresent": true,
+      "indicatorWithinScreenHorizontalBounds": true,
+      "indicatorWithinScreenVerticalBounds": true,
+      "indicatorRectStableAcrossTopMidBottomAndRestored": true
+    },
+    "footer": {
+      "sectionId": "home-footer",
+      "scrollTopAtBottom": 5404,
+      "rect": { "x": 764.5, "y": -32.4765625, "width": 371, "height": 888.125, "right": 1135.5, "bottom": 855.6484375 },
+      "indicatorTop": 857.796875,
+      "footerToIndicatorClearancePx": 2.1484375,
+      "visibleLegalRect": { "x": 787.8984375, "y": 793.25, "width": 343.1953125, "height": 20.3984375, "right": 1131.09375, "bottom": 813.6484375 },
+      "text": "OFFICIAL ONE PIECE CARD GAME Set sail with your crew For Beginners Cards Rules Events Products News CONTACT COOKIE SETTINGS PRIVACY POLICY GLOBAL ENTRANCE © Eiichiro Oda/Shueisha, Toei Animation · ©BANDAI",
+      "visibleDescendantsOverlappingIndicator": [],
+      "completeAndReachable": true,
+      "obscuredByIndicator": false
+    },
+    "sections": [
+      "home-hero",
+      "home-welcome",
+      "home-news",
+      "home-new-arrival",
+      "home-products",
+      "home-events",
+      "home-schedule",
+      "home-recommend",
+      "home-videos",
+      "home-footer-illustration",
+      "home-footer"
+    ]
+  },
+  "narrowViewport": {
+    "width": 390,
+    "height": 844,
+    "document": {
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "scrollHeight": 7978,
+      "horizontalOverflow": false,
+      "scrollYBefore": 0,
+      "scrollYBottom": 7134,
+      "scrollYRestored": 0
+    },
+    "phone": {
+      "rect": { "x": 0, "y": 0, "width": 390, "height": 7977.953125, "right": 390, "bottom": 7977.953125 },
+      "border": "0px none rgba(0, 0, 0, 0.88)",
+      "borderRadius": "0px",
+      "boxShadow": "none",
+      "aspectRatio": "auto",
+      "overflow": "visible"
+    },
+    "screen": {
+      "width": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "borderRadius": "0px",
+      "clipPath": "none",
+      "overflowX": "visible",
+      "overflowY": "visible"
+    },
+    "indicator": {
+      "display": "none",
+      "rect": { "x": 0, "y": 0, "width": 0, "height": 0, "right": 0, "bottom": 0 }
+    },
+    "assertions": {
+      "shellRemoved": true,
+      "longDocumentPage": true,
+      "indicatorAbsent": true,
+      "horizontalOverflow": false,
+      "documentScrollRestored": true
+    }
+  },
+  "consoleErrors": "not part of the incident gate",
+  "implementationChanges": []
+}

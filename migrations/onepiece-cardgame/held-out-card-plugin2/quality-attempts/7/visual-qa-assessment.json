@@ -1,0 +1,45 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "attempt": 7,
+  "route": "pages/plaza/index",
+  "freshIndependentQa": true,
+  "readOnly": true,
+  "producerScreenshotsReused": false,
+  "verdict": "PASS",
+  "blockingFindings": [],
+  "acceptance": {
+    "initialStateHasNoMisleadingHalfLabel": "PASS",
+    "mobileNativeHorizontalScrollAndAffordance": "PASS",
+    "midNativeHorizontalScrollAndAffordance": "PASS",
+    "environmentKeyboardReachability39Of39": "PASS",
+    "lastOptionPointerEnterSpaceParity": "PASS",
+    "lastOptionAriaState": "PASS",
+    "desktopLabelIntegrity": "PASS",
+    "desktopChipNonIntersection": "PASS",
+    "desktopReasonableWrap": "PASS",
+    "defaultFoldSearchSeasonFirstCard": "PASS",
+    "documentOverflowZero": "PASS",
+    "writeRequestsZero": "PASS",
+    "attempt4VisualDirectionRetained": "PASS",
+    "otherRoutesNoMaterialRegression": "PASS"
+  },
+  "evidence": {
+    "browserProbes": "browser-probes.json",
+    "screenshots": [
+      "fresh-390x844-plaza.png",
+      "fresh-536x864-plaza.png",
+      "fresh-1280x720-plaza.png"
+    ],
+    "freshViewports": ["390x844", "536x864", "1280x720"],
+    "networkWrites": 0,
+    "documentOverflowPx": [0, 0, 0]
+  },
+  "qaNotes": [
+    "At 390 and 536 initial state, only whole labels intersect the visible rail; no option is presented as a clipped fragment.",
+    "A native rightward wheel/trackpad gesture changes scrollLeft without moving the page vertically at both constrained widths.",
+    "All 39 environment options become fully visible when reached in tab order; the last option also passes pointer, Enter and Space parity with aria-pressed=true.",
+    "At desktop width all labels satisfy clientWidth >= scrollWidth, no chip rectangles intersect, and the options wrap into four readable rows.",
+    "The repair remains a Plaza filter-only CSS change, so no non-Plaza route receives a matching selector or material visual change."
+  ],
+  "failureOwnerRole": null
+}

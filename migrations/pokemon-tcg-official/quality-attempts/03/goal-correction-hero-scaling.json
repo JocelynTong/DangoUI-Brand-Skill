@@ -1,0 +1,24 @@
+{
+  "schema": "brand-goal-correction/v1",
+  "brand": "pokemon-tcg-official",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "authority": "explicit-user-correction",
+  "strategy": "proportional-pc-stage-scaling",
+  "sourceCanvas": {"width": 1440, "height": 716},
+  "requirements": [
+    "Preserve the complete PC Hero composition and relative coordinates.",
+    "Scale background, logo, card, copy, CTA, navigation and carousel controls by one uniform factor.",
+    "Use transform-origin top left and a clipped wrapper sized to the scaled canvas.",
+    "Do not switch to flex-column mobile reflow.",
+    "Do not use the source screenshot as runtime content.",
+    "Keep following Home sections directly after the scaled Hero without an artificial tall gap."
+  ],
+  "acceptance": {
+    "formula": "scale = availablePhoneWidth / 1440; renderedHeight = 716 * scale",
+    "uniformScaleRequired": true,
+    "relativeLayerGeometryPreserved": true,
+    "horizontalOverflow": false,
+    "followingSectionGapMaxPx": 8
+  },
+  "sealed": true
+}

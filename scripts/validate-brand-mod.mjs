@@ -146,7 +146,18 @@ function validate(file) {
   const assetIds = new Set(mod.assets.map((asset) => asset.id))
   const requiredAssetRoles = ['hero-background', 'section-background']
   for (const role of requiredAssetRoles) {
-    if (!mod.assets.some((asset) => asset.role === role)) fail(file, `missing asset role: ${role}`)
+    const roleAssets = mod.assets.filter((asset) => asset.role === role)
+    const hasAcceptedAsset = roleAssets.some((asset) => asset.status !== 'rejected')
+    const hasRejectedAudit = roleAssets.some((asset) => asset.status === 'rejected'
+      && asset.target === null
+      && asset.value === null
+      && Array.isArray(asset.evidenceRefs)
+      && asset.evidenceRefs.length > 0
+      && typeof asset.reason === 'string'
+      && asset.reason.trim().length > 0)
+    if (!hasAcceptedAsset && !hasRejectedAudit) {
+      fail(file, `missing asset role or evidence-backed rejected audit: ${role}`)
+    }
   }
 
   const sectionChain = mod.layoutRules.sectionBackgroundChain
@@ -200,9 +211,7 @@ function validateSemanticRoles(file, mod) {
 
   const tokenBackedRoles = {
     'surface.page': '--du-bg-2',
-    'surface.card': '--du-bg-1',
-    'text.primary': '--du-text-1',
-    'border.subtle': '--du-border-1'
+    'surface.card': '--du-bg-1'
   }
 
   for (const [roleKey, target] of Object.entries(tokenBackedRoles)) {
@@ -210,6 +219,32 @@ function validateSemanticRoles(file, mod) {
     if (role.target !== target) {
       fail(file, `semanticRoles.${roleKey}.target must be ${target}`)
     }
+  }
+
+  const textPrimaryRole = mod.semanticRoles['text.primary']
+  const rejectedTextPrimaryRole = textPrimaryRole.kind === 'unresolvedEvidenceRole'
+    && textPrimaryRole.target === null
+    && textPrimaryRole.value === null
+    && textPrimaryRole.status === 'rejected'
+    && Array.isArray(textPrimaryRole.evidenceRefs)
+    && textPrimaryRole.evidenceRefs.length > 0
+    && typeof textPrimaryRole.reason === 'string'
+    && textPrimaryRole.reason.trim().length > 0
+  if (textPrimaryRole.target !== '--du-text-1' && !rejectedTextPrimaryRole) {
+    fail(file, 'semanticRoles.text.primary must map to --du-text-1 or record an evidence-backed rejected unresolved role')
+  }
+
+  const borderRole = mod.semanticRoles['border.subtle']
+  const rejectedBorderRole = borderRole.kind === 'unresolvedEvidenceRole'
+    && borderRole.target === null
+    && borderRole.value === null
+    && borderRole.status === 'rejected'
+    && Array.isArray(borderRole.evidenceRefs)
+    && borderRole.evidenceRefs.length > 0
+    && typeof borderRole.reason === 'string'
+    && borderRole.reason.trim().length > 0
+  if (borderRole.target !== '--du-border-1' && !rejectedBorderRole) {
+    fail(file, 'semanticRoles.border.subtle must map to --du-border-1 or record an evidence-backed rejected unresolved role')
   }
 
   const primaryRole = mod.semanticRoles['action.primary.fill']

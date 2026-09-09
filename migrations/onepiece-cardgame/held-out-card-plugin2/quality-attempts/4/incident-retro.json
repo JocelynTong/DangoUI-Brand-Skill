@@ -1,0 +1,20 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "trigger": "User requested a screenshot comparison and the Design Director found the plaza visually far from the ONE PIECE official site.",
+  "observedMismatch": [
+    "near-full-page black stage instead of warm-white map-paper canvas",
+    "pill controls and heavy outlines instead of rectangular editorial controls",
+    "yellow and red expanded from accents into dominant chrome",
+    "dense control-first composition instead of sectioned content islands and breathing room"
+  ],
+  "missedBy": ["Host Strategist", "Host Implementation", "Visual QA", "Design Director final sign-off"],
+  "whyOldGatePassed": "The masked structural-recognition rubric accepted generic contrast and a large character asset without requiring source-relative surface ratio, radius family, control geometry and editorial whitespace.",
+  "sourceEvidence": [
+    "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png"
+  ],
+  "experimentScope": "pages/plaza/index only",
+  "failureOwnerRole": "Design Director -> Host Implementation -> fresh Visual QA",
+  "oldVerdictDisposition": "Attempt3 remains a business/runtime pass but its visual completion claim is superseded."
+}

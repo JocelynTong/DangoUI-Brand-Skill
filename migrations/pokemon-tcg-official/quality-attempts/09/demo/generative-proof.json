@@ -1,0 +1,12 @@
+{
+  "schema":"brand-generative-proof/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":9,
+  "scope":"home-product-bands",
+  "invariants":["static red/gold threshold over pale honeycomb field","black copy anchor","five-layer product hierarchy","Kanit/PT Sans role split","localized white CTA and gold foreground hover","staggered viewport reveal"],
+  "intentionalChanges":["desktop side-by-side composition structurally becomes scene-first/copy-second at 390px","complete five-layer scene scales proportionally to the narrow proof surface","English copy wraps fluidly rather than copying translated screenshot breaks"],
+  "allowedBecause":"PAT-TCGL-03 and PAT-TCGL-04 explicitly approve proportional scene scaling and breakpoint-specific structural reordering while preserving source asset identities and semantic hierarchy.",
+  "captures":["captures/desktop-1440x900-settled.png","captures/mobile-390x844-settled.png","captures/mobile-390x844-mid.png"],
+  "usesSourceScreenshotAtRuntime":false,
+  "visualVerdict":"reserved-for-blind-qa"
+}

@@ -1,0 +1,192 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-pocket-only",
+  "status": "APPROVED_WITH_CONSTRAINTS",
+  "patterns": [
+    {
+      "id": "PAT-POCKET-01",
+      "name": "Breakpoint-specific Pocket campaign field",
+      "classification": "responsive-background",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket asset field",
+      "intent": "Give the product composite a campaign-specific pale-blue field whose authored crop remains effective at each observed width.",
+      "observableRules": [
+        "desktop uses background.jpg",
+        "mobile uses header_bg-small.jpg",
+        "mobile is an asset swap rather than an arbitrary desktop crop",
+        "the field stays full bleed within its section region"
+      ],
+      "suitableFor": ["the Pocket section asset field at the evidenced desktop and mobile breakpoints"],
+      "notFor": ["global page background", "global mobile header", "unrelated campaign section", "automatic crop recipe"],
+      "allowedRoles": ["Pocket desktop campaign field", "Pocket mobile campaign field"],
+      "forbiddenRoles": ["site-wide background token", "host-project background", "universal responsive image rule"],
+      "assetIdentity": {
+        "desktop": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+        "mobile": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+        "sourceKind": "independent-source-assets"
+      },
+      "evidenceRefs": ["pocket-desktop", "pocket-mobile", "pocket-assets"]
+    },
+    {
+      "id": "PAT-POCKET-02",
+      "name": "Equal-split product and copy handoff",
+      "classification": "section-layout",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket section at desktop",
+      "intent": "Balance campaign recognition and product explanation with equal spatial authority.",
+      "observableRules": [
+        "1440px section splits into two 720px columns",
+        "asset field is left and opaque-black copy field is right",
+        "copy order is H2, paragraph, CTA",
+        "the section has hard full-width boundaries rather than a floating shell"
+      ],
+      "suitableFor": ["the desktop Pocket cross-site product promotion"],
+      "notFor": ["global two-column layout", "all campaign callouts", "mobile geometry", "host utility surfaces"],
+      "allowedRoles": ["Pocket desktop composition"],
+      "forbiddenRoles": ["global 50/50 recipe", "generic product split", "mobile split"],
+      "evidenceRefs": ["pocket-boundary", "pocket-desktop"]
+    },
+    {
+      "id": "PAT-POCKET-03",
+      "name": "Asset-first mobile product handoff",
+      "classification": "responsive-layout",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket section at 390px mobile",
+      "intent": "Lead with immediate campaign recognition, then give copy a dedicated full-width reading field.",
+      "observableRules": [
+        "asset field precedes the copy field",
+        "copy field is full-width opaque black",
+        "the transparent composite has 10px side insets",
+        "the layout is a vertical recomposition rather than a shrunken desktop row"
+      ],
+      "suitableFor": ["the mobile Pocket section at the evidenced narrow width"],
+      "notFor": ["global mobile reorder", "all promotional sections", "desktop composition", "universal black-panel rule"],
+      "allowedRoles": ["Pocket mobile reading order", "Pocket mobile copy-field geometry"],
+      "forbiddenRoles": ["site-wide asset-first rule", "global full-width black surface"],
+      "evidenceRefs": ["pocket-mobile"]
+    },
+    {
+      "id": "PAT-POCKET-04",
+      "name": "Single composite product signature",
+      "classification": "asset-composition",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket campaign composition",
+      "intent": "Express product identity through one authored transparent logo-and-cards composition without requiring a flattened section screenshot.",
+      "observableRules": [
+        "logo-cards.png is one independent transparent raster",
+        "it renders approximately 700x428.4 on desktop and 370x226.44 on mobile",
+        "its internal logo/card relationship stays intrinsic to the asset",
+        "no additional carousel, card tilt, or independent card-layer behavior was observed"
+      ],
+      "suitableFor": ["Pocket campaign identity inside this section"],
+      "notFor": ["generic decoration", "individual interactive cards", "flattened full-section screenshot", "unrelated Pokémon campaign"],
+      "allowedRoles": ["Pocket campaign logo-and-product recognition"],
+      "forbiddenRoles": ["runtime evidence screenshot", "invented card layers", "carousel item", "interactive card component"],
+      "assetIdentity": {
+        "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png",
+        "sourceKind": "independent-transparent-source-asset"
+      },
+      "evidenceRefs": ["pocket-assets", "pocket-desktop", "pocket-mobile"]
+    },
+    {
+      "id": "PAT-POCKET-05",
+      "name": "Black product-copy anchor",
+      "classification": "content-panel",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket copy field",
+      "intent": "Create a decisive, high-contrast explanation and exit point beside or after the pale campaign composition.",
+      "observableRules": [
+        "panel is opaque black and rectangular",
+        "desktop occupies the right half",
+        "mobile spans full width after the asset field",
+        "content is exactly one centered H2, one centered paragraph, and one centered CTA"
+      ],
+      "suitableFor": ["the Pocket section's copy and action group"],
+      "notFor": ["global dark surface", "generic panel", "modal", "navigation", "host-project utility card"],
+      "allowedRoles": ["Pocket copy backdrop", "Pocket contrast field"],
+      "forbiddenRoles": ["global black token", "generic black-panel recipe", "rounded floating card", "extra kicker container"],
+      "evidenceRefs": ["pocket-desktop", "pocket-mobile", "pocket-copy"]
+    },
+    {
+      "id": "PAT-POCKET-06",
+      "name": "Italic product-callout type hierarchy",
+      "classification": "typography",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket copy field",
+      "intent": "Use a compact italic display title for energy while retaining a readable neutral body and direct action label.",
+      "observableRules": [
+        "desktop H2 is Kanit italic 700 at 40/44",
+        "mobile H2 is Kanit italic 700 at 28/30.8 and wraps to two lines",
+        "body is centered PT Sans at 18/28.8 on both widths",
+        "CTA is PT Sans italic 700 at 20/24 desktop and 18/22.5 mobile",
+        "there is no kicker"
+      ],
+      "suitableFor": ["Pocket section H2, paragraph, and CTA label"],
+      "notFor": ["global heading scale", "navigation", "all body copy", "hard-coded screenshot line breaks"],
+      "allowedRoles": ["Pocket H2", "Pocket paragraph", "Pocket CTA label"],
+      "forbiddenRoles": ["global typography token promotion", "invented kicker type", "forced line breaks copied from screenshots"],
+      "evidenceRefs": ["pocket-copy", "pocket-cta"]
+    },
+    {
+      "id": "PAT-POCKET-07",
+      "name": "White external action with localized gold hover",
+      "classification": "component-state",
+      "approval": "approved",
+      "scope": "homepage Pokémon TCG Pocket Play Now CTA",
+      "intent": "Provide a singular high-contrast exit from the black panel and reserve gold for a restrained hover response.",
+      "observableRules": [
+        "resting background is white with black label and arrow",
+        "hover changes label and arrow to rgb(226,186,101)",
+        "hover keeps the white background unchanged",
+        "href is https://tcgpocket.pokemon.com/en-us",
+        "the action is external to the source homepage"
+      ],
+      "suitableFor": ["Pocket Play Now external action"],
+      "notFor": ["global primary button", "all white buttons", "global gold hover", "inert visual control"],
+      "allowedRoles": ["Pocket CTA resting state", "Pocket CTA hover foreground", "Pocket external-site handoff"],
+      "forbiddenRoles": ["global action token", "gold background fill", "internal navigation", "secondary CTA"],
+      "evidenceRefs": ["pocket-cta"]
+    },
+    {
+      "id": "PAT-POCKET-08",
+      "name": "Entry hidden and settled endpoints",
+      "classification": "interaction-motion",
+      "approval": "unresolved",
+      "scope": "homepage Pokémon TCG Pocket viewport entry",
+      "intent": "Record only the two observed render endpoints without pretending the transition choreography was learned.",
+      "observableRules": [
+        "hidden asset endpoint is opacity 0 with translateY(-214.199px)",
+        "hidden heading and body endpoints are opacity 0 with translateX(328px)",
+        "hidden CTA endpoint is opacity 0 with translateX(94.98px)",
+        "settled endpoint is opacity 1 with identity transforms",
+        "no reliable intermediate visual frame was captured"
+      ],
+      "suitableFor": ["diagnostic documentation of Pocket entry endpoints"],
+      "notFor": ["source-faithful animation implementation", "global motion token", "precise stagger", "timing/easing inference"],
+      "allowedRoles": ["unresolved motion evidence", "future recapture target"],
+      "forbiddenRoles": ["approved transition recipe", "invented intermediate frames", "invented duration", "invented easing", "invented stagger or sequence"],
+      "evidenceRefs": ["pocket-entry-motion"]
+    }
+  ],
+  "scopeAudit": {
+    "globalPatternsApproved": [],
+    "sectionLocalApproved": ["PAT-POCKET-01", "PAT-POCKET-02", "PAT-POCKET-03", "PAT-POCKET-04", "PAT-POCKET-05", "PAT-POCKET-06", "PAT-POCKET-07"],
+    "unresolved": ["PAT-POCKET-08", "UNRESOLVED-POCKET-ENTRY-MOTION"],
+    "tokenRoleExpansionDetected": false,
+    "mustNotInvent": [
+      "red Chinese browser-extension overlay",
+      "motion timing/easing/stagger/intermediate sequence",
+      "global black panel",
+      "global 50/50 layout",
+      "global mobile Pocket background behavior",
+      "extra kicker, CTA, carousel, or card interaction"
+    ],
+    "notes": [
+      "The browser-extension overlay is explicitly excluded as polluted evidence.",
+      "Black, equal split, and mobile background swapping remain section-local.",
+      "Gold is approved only for this CTA's foreground hover.",
+      "Motion endpoints are recorded, but no motion recipe is approved."
+    ]
+  }
+}

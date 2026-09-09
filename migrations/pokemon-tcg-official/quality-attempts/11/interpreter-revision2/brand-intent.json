@@ -1,0 +1,428 @@
+{
+  "schema": "brand-intent/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 2,
+  "role": "Brand Interpreter",
+  "scope": "homepage Pokémon Championship Series section only",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "evidenceRoot": "../evidence",
+  "failureInputRoot": "../blind-qa-r2",
+  "status": "PASS",
+  "implementationGate": "open",
+  "revisionCause": {
+    "findingId": "R2-B01-DESKTOP-TYPE-SEMANTIC-OMISSION",
+    "earliestFailureNode": "brandInterpreter",
+    "failureOwnerRole": "designTranslator",
+    "failureInputRefs": [
+      "../blind-qa-r2/visual-qa-assessment.json#blockingFindings/R2-B01-DESKTOP-TYPE-SEMANTIC-OMISSION",
+      "../blind-qa-r2/report.md"
+    ],
+    "correction": "Freeze the archived desktop source-CSS h2/body/CTA sizes as 48/18/18px without promoting desktop child bounding boxes from unresolved to observed."
+  },
+  "revisionDelta": {
+    "changed": [
+      "P11-PCS-04 now includes desktop source-CSS type-role facts h2/body/CTA = 48/18/18px with selector-level references.",
+      "P11-PCS-05 explicitly freezes the CTA 2px inset frame and source shadow 0 16px 24px -16px rgba(0,0,0,0.35)."
+    ],
+    "preservedUnchanged": [
+      "all approved 390px geometry and typography rules",
+      "P11-PCS-01 equal-weight event image and editorial field",
+      "P11-PCS-02 transparent section over a white page canvas",
+      "P11-PCS-03 image-first responsive narrative order",
+      "P11-PCS-06 continuous homepage section boundary",
+      "CTA default black, hover gold full-fill, focus black with outline, and verified destination",
+      "official 1x/2x asset identity and the 390 src/currentSrc distinction"
+    ],
+    "outOfScope": ["Demo changes", "Design Direction changes", "Evidence changes", "full-brand or sitewide typography rules"]
+  },
+  "factInterpretationBoundary": {
+    "facts": [
+      "Desktop type sizes are recoverable from the archived source CSS and supported by the frozen desktop source endpoint.",
+      "At the desktop endpoint the approved role sizes are h2 48px, paragraph/body 18px, and CTA 18px.",
+      "The CTA source recipe includes a 2px inset frame and the shadow 0 16px 24px -16px rgba(0,0,0,0.35).",
+      "All previously approved 390px values remain unchanged."
+    ],
+    "interpretations": [
+      "Desktop and 390 preserve the same family/weight/style role split while changing the heading size from 48px to 32px.",
+      "The inset frame maintains a crisp near-black edge through default and gold-hover surfaces; the shadow supplies separation from the white page canvas."
+    ],
+    "stillUnresolved": [
+      "exact desktop h2, paragraph, and CTA bounding boxes",
+      "exact responsive layout-switch breakpoint",
+      "exact desktop focus-outline computed value",
+      "Dembrandt score"
+    ],
+    "prohibitions": [
+      "Do not use unresolved desktop child bounding boxes as implementation facts.",
+      "Do not replace the 48/18/18 desktop role sizes with a generic or visually preferred scale.",
+      "Do not omit the inset frame or substitute another shadow.",
+      "Do not expand these section-local values into a global typography or button system."
+    ]
+  },
+  "sourceCssEvidence": {
+    "file": "../evidence/captures/assets/global.css",
+    "fileLine": 6,
+    "sha256": "d1748dc7186c8c200975c4d287f35180e8786b108b11a1a3099fe5f52aad6524",
+    "desktopEndpoint": {
+      "capture": "../evidence/captures/desktop/championship-series-settled-region-1440x720.png",
+      "region": [0, 0, 1440, 720],
+      "sha256": "a1b98012b7636347efd13090265522bdd9aa81141b3b9c55733b3d019f2c0908"
+    },
+    "selectors": [
+      {
+        "id": "desktop-h2-48",
+        "selector": "@media only screen and (min-width: 64em) { h2, .h2 }",
+        "declaration": "font-size: calc(48rem / var(--font-base)); letter-spacing: 0.03125em",
+        "supportingSelectors": [
+          ":root { --font-heading: 'Kanit', sans-serif; --font-base: 18; --font-bold: 700 }",
+          "h1,.h1,h2,.h2,h3,.h3,h4,.h4 { font-family: var(--font-heading); font-style: italic; font-weight: var(--font-bold); line-height: 1.1 }"
+        ],
+        "approvedSemanticValue": {"fontSizePx": 48, "family": "Kanit", "weight": 700, "style": "italic", "lineHeight": 1.1}
+      },
+      {
+        "id": "desktop-body-18",
+        "selector": ":root + html + p,.p inheritance chain",
+        "declaration": ":root --font-base:18 and --font-body:'PT Sans'; html font-size:calc(var(--font-base) * 1px), font-family:var(--font-body), font-weight:var(--font-regular), line-height:1.6; p,.p font-size:inherit",
+        "approvedSemanticValue": {"fontSizePx": 18, "family": "PT Sans", "weight": 400, "lineHeightPx": 28.8}
+      },
+      {
+        "id": "desktop-cta-18",
+        "selector": ".button",
+        "declaration": "font-family:var(--font-body); font-size:calc(18rem / var(--font-base)); font-style:italic; font-weight:var(--font-bold); line-height:1.25",
+        "approvedSemanticValue": {"fontSizePx": 18, "family": "PT Sans", "weight": 700, "style": "italic", "lineHeightPx": 22.5},
+        "scopeQualification": "This is the section-local desktop semantic constraint required by the frozen r2 failure input; it is not a global button-system declaration."
+      },
+      {
+        "id": "cta-inset-frame",
+        "selector": ".button__bg::after",
+        "declaration": "box-shadow: inset 0px 0px 0px 2px var(--button-bg)",
+        "approvedSemanticValue": {"insetPx": 2, "colorRole": "cta.surface.default"}
+      },
+      {
+        "id": "cta-frozen-shadow",
+        "selector": ".button",
+        "declaration": "box-shadow: 0 16px 24px -16px rgba(0,0,0,0.35)",
+        "approvedSemanticValue": "0 16px 24px -16px rgba(0,0,0,0.35)"
+      }
+    ]
+  },
+  "tokens": {
+    "typographyRoles": [
+      {
+        "id": "section.heading.desktop-1440",
+        "family": "Kanit",
+        "weight": 700,
+        "style": "italic",
+        "transform": "uppercase",
+        "fontSizePx": 48,
+        "lineHeight": 1.1,
+        "letterSpacingEm": 0.03125,
+        "factStatus": "approved-source-css-fact",
+        "evidenceRefs": [
+          "../evidence/captures/assets/global.css:6#@media(min-width:64em)-h2,.h2",
+          "../evidence/captures/desktop/championship-series-settled-region-1440x720.png#region[0,0,1440,720]"
+        ],
+        "allowedRoles": ["Championship Series h2 at the 1440 source-calibration endpoint"],
+        "forbiddenRoles": ["global h2 scale", "body copy", "CTA label", "unresolved desktop bbox"]
+      },
+      {
+        "id": "section.body.desktop-1440",
+        "family": "PT Sans",
+        "weight": 400,
+        "fontSizePx": 18,
+        "lineHeightPx": 28.8,
+        "factStatus": "approved-source-css-fact",
+        "evidenceRefs": [
+          "../evidence/captures/assets/global.css:6#:root--font-base+html+p-inheritance",
+          "../evidence/captures/desktop/championship-series-settled-region-1440x720.png#region[0,0,720,720]"
+        ],
+        "allowedRoles": ["Championship Series paragraph at the 1440 source-calibration endpoint"],
+        "forbiddenRoles": ["global body scale", "heading", "CTA", "unresolved desktop bbox"]
+      },
+      {
+        "id": "section.cta.desktop-1440",
+        "family": "PT Sans",
+        "weight": 700,
+        "style": "italic",
+        "fontSizePx": 18,
+        "lineHeightPx": 22.5,
+        "factStatus": "approved-source-css-fact",
+        "evidenceRefs": [
+          "../evidence/captures/assets/global.css:6#.button",
+          "../evidence/captures/desktop/championship-series-cta-default-1440x900.png#visible-CTA"
+        ],
+        "allowedRoles": ["Championship Series Learn more CTA at the 1440 source-calibration endpoint"],
+        "forbiddenRoles": ["global button scale", "body copy", "unresolved CTA bbox"]
+      },
+      {
+        "id": "section.heading.mobile-390",
+        "family": "Kanit",
+        "weight": 700,
+        "style": "italic",
+        "transform": "uppercase",
+        "fontSizePx": 32,
+        "lineHeightPx": 32.5,
+        "marginBottomPx": 8,
+        "factStatus": "computed-observed-unchanged",
+        "evidenceRefs": ["../evidence/source-observation-manifest.json#observations.mobile-typography"]
+      },
+      {
+        "id": "section.body.mobile-390",
+        "family": "PT Sans",
+        "weight": 400,
+        "fontSizePx": 18,
+        "lineHeightPx": 28.8,
+        "factStatus": "computed-observed-unchanged",
+        "evidenceRefs": ["../evidence/source-observation-manifest.json#observations.mobile-typography"]
+      },
+      {
+        "id": "section.cta.mobile-390",
+        "family": "PT Sans",
+        "weight": 700,
+        "style": "italic",
+        "fontSizePx": 18,
+        "lineHeightPx": 22.5,
+        "factStatus": "computed-observed-unchanged",
+        "evidenceRefs": ["../evidence/source-observation-manifest.json#observations.mobile-typography"]
+      }
+    ],
+    "colorRoles": {
+      "status": "unchanged-from-approved-390-and-CTA-state-evidence",
+      "canvas": "#FFFFFF",
+      "ctaDefaultSurface": "#131415",
+      "ctaDefaultContent": "#FFFFFF",
+      "ctaHoverSurface": "#E2BA65",
+      "ctaHoverContent": "#131415",
+      "ctaFocusOutline390": "#005FCC",
+      "scopeWarning": "Section-local roles only; asset colors and focus blue are not global palette tokens."
+    },
+    "mappingWarning": "These are source-intent roles, not approved --du-* names."
+  },
+  "recipes": [
+    {
+      "id": "recipe.section.transparent-split-to-stack",
+      "status": "approved-unchanged",
+      "desktop1440": "transparent 1440x720 row-reverse 50/50 split; copy left, official square image right",
+      "mobile390": "transparent 390x829.1719 block flow; 390x390 official image first, 374x439.172 copy second",
+      "forbidden": ["opaque white column fills", "copy-first 390 order", "unobserved exact breakpoint"]
+    },
+    {
+      "id": "recipe.type.centered-editorial-stack",
+      "status": "approved-revised-desktop-type-semantics",
+      "order": ["h2", "paragraph", "Learn more CTA"],
+      "alignment": "centered",
+      "desktop1440": {
+        "contentRect": [12, 171.211, 696, 377.578],
+        "h2": "Kanit 700 italic uppercase 48px, line-height 1.1",
+        "body": "PT Sans 400 18/28.8px",
+        "cta": "PT Sans 700 italic 18/22.5px",
+        "childBoundingBoxes": "unresolved"
+      },
+      "mobile390": {
+        "contentRect": [8, 390, 374, 439.172],
+        "contentPaddingPx": 24,
+        "h2Rect": [32, 414, 326, 97.5],
+        "bodyRect": [32, 519.5, 326, 201.578],
+        "ctaRect": [99.625, 737.078, 190.742, 51.297],
+        "h2": "Kanit 700 italic uppercase 32/32.5px",
+        "body": "PT Sans 400 18/28.8px",
+        "cta": "PT Sans 700 italic 18/22.5px"
+      }
+    },
+    {
+      "id": "recipe.cta.black-to-gold-reveal",
+      "status": "approved-revision2-frame-shadow-explicit",
+      "default": "near-black surface with white label and arrow",
+      "hover": "#E2BA65 overlay fills completely by scaleX(0) to scaleX(1); near-black label and arrow",
+      "focus": "retain near-black surface and white content; show visible outline; do not use gold focus",
+      "insetFrame": {
+        "required": true,
+        "widthPx": 2,
+        "mechanism": ".button__bg::after box-shadow inset 0 0 0 2px var(--button-bg)",
+        "evidenceRef": "../evidence/captures/assets/global.css:6#.button__bg::after"
+      },
+      "shadow": {
+        "required": true,
+        "value": "0 16px 24px -16px rgba(0,0,0,0.35)",
+        "evidenceRef": "../evidence/captures/assets/global.css:6#.button"
+      },
+      "activation": "https://championships.pokemon.com/en-us/",
+      "forbidden": ["missing inset frame", "replacement shadow", "gold focus", "invented pressed/loading/disabled state"]
+    }
+  ],
+  "approvedVisualPatterns": [
+    {
+      "id": "P11-PCS-01",
+      "name": "equal-weight event image and editorial field",
+      "status": "approved-unchanged",
+      "scope": "section pattern at the 1440 endpoint",
+      "evidenceIds": ["section-identity-boundary", "desktop-transparent-two-column-layering", "official-asset-identity"],
+      "sourceRegions": [{"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 1440, 720]}],
+      "suitableFor": ["one event story with one square principal asset and one CTA"],
+      "notFor": ["grids", "image overlays", "generic two-column templates"],
+      "allowedRoles": ["section composition", "principal event image", "editorial copy field"],
+      "forbiddenRoles": ["sitewide layout", "generic card", "global hero"],
+      "invariants": ["1440x720 endpoint", "50/50 split", "copy left", "exact official image right"],
+      "allowedTransformations": ["clearly fictional copy change preserving one heading/paragraph/CTA hierarchy"],
+      "prohibitedTransformations": ["alternate official asset", "asset-palette token extraction", "unobserved frame"]
+    },
+    {
+      "id": "P11-PCS-02",
+      "name": "transparent section over a white page canvas",
+      "status": "approved-unchanged",
+      "scope": "layering pattern at both frozen endpoints",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow"],
+      "sourceRegions": [{"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 390, 390, 454]}],
+      "suitableFor": ["this section inside the continuous white homepage canvas"],
+      "notFor": ["opaque cards", "alternating panel fills", "framed modules"],
+      "allowedRoles": ["page canvas", "transparent section layers"],
+      "forbiddenRoles": ["column fill", "child fill", "pseudo fill"],
+      "invariants": ["white is page-canvas-owned", "section nodes remain transparent"],
+      "allowedTransformations": ["fictional content changes that add no background owner"],
+      "prohibitedTransformations": ["paint either half white", "add a content-card shadow"]
+    },
+    {
+      "id": "P11-PCS-03",
+      "name": "image-first responsive narrative order",
+      "status": "approved-unchanged",
+      "scope": "relationship between 1440 and 390 endpoints",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow", "official-asset-identity"],
+      "sourceRegions": [{"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 56, 390, 788]}],
+      "suitableFor": ["this split-to-stack section"],
+      "notFor": ["sitewide image-first policy", "source reflow as held-out proof"],
+      "allowedRoles": ["source/DOM order", "desktop row direction", "mobile block order"],
+      "forbiddenRoles": ["absolute page Y", "unobserved breakpoint", "global responsive policy"],
+      "invariants": ["image first at 390", "copy-left/image-right at 1440", "same square media role"],
+      "allowedTransformations": ["implementation-derived intermediate breakpoint labelled as such"],
+      "prohibitedTransformations": ["claim an exact source breakpoint", "count source reflow as generative proof"]
+    },
+    {
+      "id": "P11-PCS-04",
+      "name": "centered event-title and explanatory action stack",
+      "status": "approved-revised-desktop-type-semantics",
+      "scope": "copy hierarchy; source-CSS role sizes approved at 1440 and computed geometry approved at 390",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-typography-hierarchy"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-settled-region-1440x720.png", "region": [0, 0, 720, 720]},
+        {"capture": "../evidence/captures/source-mobile-390-content-settled.png", "region": [0, 390, 390, 439.172]}
+      ],
+      "sourceCssRefs": [
+        "../evidence/captures/assets/global.css:6#@media(min-width:64em)-h2,.h2",
+        "../evidence/captures/assets/global.css:6#:root--font-base+html+p-inheritance",
+        "../evidence/captures/assets/global.css:6#.button"
+      ],
+      "facts": {
+        "desktop1440": {"h2Px": 48, "bodyPx": 18, "ctaPx": 18, "childBoundingBoxes": "unresolved"},
+        "mobile390": {"h2": "32/32.5", "body": "18/28.8", "cta": "18/22.5", "geometry": "unchanged from frozen computed evidence"}
+      },
+      "suitableFor": ["one concise title, one explanatory paragraph, one CTA"],
+      "notFor": ["long-form articles", "global type scale", "inferred desktop child geometry"],
+      "allowedRoles": ["section h2", "section paragraph", "section CTA label"],
+      "forbiddenRoles": ["navigation", "forms", "sitewide typography", "desktop bbox claims"],
+      "invariants": ["Kanit heading", "PT Sans body/control", "center alignment", "desktop 48/18/18", "unchanged measured 390 rules"],
+      "allowedTransformations": ["fictional copy change preserving role split and hierarchy"],
+      "prohibitedTransformations": ["unsupported desktop scale", "font substitution", "invented desktop bbox"]
+    },
+    {
+      "id": "P11-PCS-05",
+      "name": "single CTA with gold pointer reveal and distinct keyboard focus",
+      "status": "approved-revision2-frame-shadow-explicit",
+      "scope": "Learn more CTA states and construction only",
+      "evidenceIds": ["desktop-cta-states-and-destination", "mobile-cta-interactions"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-hover-settled-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-focus-390x844.png", "region": "visible CTA"}
+      ],
+      "sourceCssRefs": [
+        "../evidence/captures/assets/global.css:6#.button__bg::after",
+        "../evidence/captures/assets/global.css:6#.button"
+      ],
+      "facts": {
+        "default": "black/near-black surface with white content",
+        "hover": "gold full-fill with near-black content",
+        "focus": "black/near-black surface with white content and visible outline",
+        "insetFrame": "2px inset using var(--button-bg)",
+        "shadow": "0 16px 24px -16px rgba(0,0,0,0.35)",
+        "destination": "https://championships.pokemon.com/en-us/"
+      },
+      "suitableFor": ["the one outbound CTA in this section"],
+      "notFor": ["labels", "tabs", "global focus or action colors"],
+      "allowedRoles": ["default/hover/focus CTA", "CTA frame", "CTA shadow", "verified navigation"],
+      "forbiddenRoles": ["section fill", "selected navigation", "focus-as-hover", "replacement shadow"],
+      "invariants": ["black default", "gold full-fill hover", "black outlined focus", "2px inset frame", "frozen shadow", "verified destination"],
+      "allowedTransformations": ["fictional label change preserving full CTA construction and state machine"],
+      "prohibitedTransformations": ["gold focus", "missing frame", "replacement shadow", "invented pressed/loading/disabled state"]
+    },
+    {
+      "id": "P11-PCS-06",
+      "name": "continuous homepage section boundary",
+      "status": "approved-unchanged",
+      "scope": "placement and reversible-scroll context",
+      "evidenceIds": ["section-identity-boundary", "reversible-scroll"],
+      "sourceRegions": [{"capture": "../evidence/captures/source-mobile-390-scroll-restored.png", "region": "Pocket-to-Championship boundary"}],
+      "suitableFor": ["full-page proof preserving previous and next sections"],
+      "notFor": ["standalone page", "fixed-position reconstruction"],
+      "allowedRoles": ["adjacency", "page flow", "reversible scrolling"],
+      "forbiddenRoles": ["absolute page Y", "scroll timing", "replacement of prior sections"],
+      "invariants": ["Pocket before", "Play! Pokémon after", "reversible scroll", "preceding content preserved"],
+      "allowedTransformations": ["none outside the target section on calibration surface"],
+      "prohibitedTransformations": ["delete/reorder prior sections", "fix section to captured absolute Y"]
+    }
+  ],
+  "compositionContracts": [
+    {
+      "id": "composition.source-calibration",
+      "status": "approved-revision2",
+      "desktop1440": {
+        "sectionRect": [0, 0, 1440, 720],
+        "contentRect": [12, 171.211, 696, 377.578],
+        "imageRect": [720, 0, 720, 720],
+        "typeRoles": {"h2Px": 48, "bodyPx": 18, "ctaPx": 18},
+        "childBoundingBoxes": "unresolved"
+      },
+      "mobile390": {
+        "sectionRect": [0, 0, 390, 829.1719],
+        "imageRect": [0, 0, 390, 390],
+        "contentRect": [8, 390, 374, 439.172],
+        "h2Rect": [32, 414, 326, 97.5],
+        "bodyRect": [32, 519.5, 326, 201.578],
+        "ctaRect": [99.625, 737.078, 190.742, 51.297]
+      },
+      "layers": ["white page canvas", "transparent section nodes", "sibling copy and official image fields", "single framed and shadowed CTA"],
+      "responsiveBreakpoint": "unresolved"
+    }
+  ],
+  "roleBoundaries": {
+    "color": "unchanged: white canvas, near-black default/focus CTA, gold hover CTA only, focus blue not a brand accent",
+    "asset": "unchanged: exact official 1x/2x candidates; no screenshots, recolors, crops, or alternate official art",
+    "motion": "unchanged: CTA hover overlay scaleX reveal only; no inferred section motion",
+    "typography": "48/18/18 is approved only for the Championship Series 1440 calibration endpoint; 32/18/18 plus frozen line heights and geometry remain approved at 390",
+    "frameAndShadow": "2px inset frame and 0 16px 24px -16px rgba(0,0,0,0.35) shadow are mandatory only for this CTA recipe"
+  },
+  "officialAssetUsage": {
+    "status": "approved-unchanged",
+    "src1x": {"url": "https://tcg.pokemon.com/assets/img/home/championship-series/championships.jpg", "sha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d"},
+    "srcset2x": {"url": "https://tcg.pokemon.com/assets/img/home/championship-series/championships-2x.jpg", "sha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db"},
+    "observed390": {"src": "1x candidate", "currentSrc": "2x candidate"},
+    "rule": "Verify src, srcset, and live currentSrc separately; never use a source screenshot as a runtime asset."
+  },
+  "unresolvedClaims": [
+    {"id": "desktop-typography-child-boxes", "status": "unresolved-non-blocking", "reason": "Desktop role sizes are source-CSS facts, but exact h2/paragraph/CTA rectangles were not independently frozen."},
+    {"id": "responsive-breakpoint", "status": "unresolved-non-blocking", "reason": "Only 1440 and 390 layout endpoints are frozen."},
+    {"id": "desktop-focus-outline-computed-value", "status": "unresolved-non-blocking", "reason": "Desktop focus is visually frozen; exact outline computed value is independently recorded only at 390."},
+    {"id": "dembrandt-score", "status": "unresolved-non-blocking", "reason": "Dembrandt was unavailable in the Evidence run."}
+  ],
+  "handoff": {
+    "decision": "PASS",
+    "blockingUnresolved": [],
+    "requiredDownstreamCorrections": [
+      "consume desktop h2/body/CTA 48/18/18px exactly",
+      "retain all frozen 390 rules exactly",
+      "render the CTA 2px inset frame",
+      "render the frozen CTA shadow exactly"
+    ],
+    "mustNotClaim": ["observed desktop child bounding boxes", "observed exact breakpoint", "global typography or button tokens"]
+  }
+}

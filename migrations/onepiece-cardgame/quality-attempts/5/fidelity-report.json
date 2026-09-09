@@ -1,0 +1,101 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v2",
+  "goalSha256": "5d49c96cbb0d9549881922dd66e09d18850f585f9284870ef35d17361659fa5a",
+  "attempt": 5,
+  "status": "protocol-blocked",
+  "overallScore": 97.5,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "score": 97.5,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "score": 97.5,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    }
+  ],
+  "protocolFailures": [
+    {
+      "code": "SCREENSHOT_HASH_MISMATCH",
+      "scope": "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+      "message": "Input path is missing or its sha256 does not match."
+    },
+    {
+      "code": "SCREENSHOT_HASH_MISMATCH",
+      "scope": "migrations/onepiece-cardgame/generative-proof.json",
+      "message": "Input path is missing or its sha256 does not match."
+    },
+    {
+      "code": "GENERATIVE_PROOF_HASH_MISMATCH",
+      "scope": "migrations/onepiece-cardgame/generative-proof.json",
+      "message": "Input path is missing or its sha256 does not match."
+    },
+    {
+      "code": "PATTERN_ATTEMPT_MISMATCH",
+      "scope": "protocol",
+      "message": "Visual pattern inventory attempt must match the QA attempt."
+    }
+  ],
+  "hardFailures": [
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "onepiece-editorial-held-out-v1",
+      "message": "Blind QA must independently approve the held-out generative proof."
+    },
+    {
+      "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+      "scope": "onepiece-editorial-held-out-v1",
+      "message": "Blind QA must review every frozen recipe and confirm rule reuse with visual findings."
+    }
+  ],
+  "blockingFindings": [],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-fail",
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "fail",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "5d49c96cbb0d9549881922dd66e09d18850f585f9284870ef35d17361659fa5a",
+    "qaInputManifest": "95de013a01de2006c0ad5178851ef675aecf6888a0db7caeeeb128229b3292fe",
+    "assessment": "7ecee8d15c594683473c6a5fd3a617335935c8d3318756ecd3b5ce90f9b2d66b",
+    "visualPatternInventory": "3a6f9a41c72bc8299f1dfbc9a2fd493096d135acbd6ad4458dbda4e63b391173",
+    "generativeProof": "3ab6f2c9ab529a71140ca365859ad74f24d31ab14b3cea66bfa5c58e6fec2173"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-08-31T08:05:28.557Z"
+}

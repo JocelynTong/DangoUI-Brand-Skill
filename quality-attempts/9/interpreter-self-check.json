@@ -1,0 +1,42 @@
+{
+  "schema": "brand-interpreter-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 9,
+  "role": "Design Translator",
+  "checkedAt": "2026-09-01T16:45:00+08:00",
+  "verdict": "PASS",
+  "inputBoundary": {
+    "consumedOnly": ["Goal", "18-claim Evidence output", "Home live-DOM source captures", "Evidence-owned rendered asset inventory", "Evidence self-check"],
+    "notConsumed": ["Demo", "Demo screenshots", "implementation rationale", "prior QA verdicts"]
+  },
+  "claimChecks": [
+    {"claimId":"home-font-asset-alfa-slab-one","patternId":"home-display-font-resource","status":"pass","region":[0.03,0.097,0.594,0.861],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png"},
+    {"claimId":"home-font-asset-noto-serif","patternId":"home-editorial-font-resource","status":"pass","region":[0,0.083,1,0.917],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png"},
+    {"claimId":"home-font-asset-poppins","patternId":"home-utility-font-resource","status":"pass","region":[0.108,0.01,0.64,0.075],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"},
+    {"claimId":"home-font-asset-oswald","patternId":"home-condensed-metadata-font-resource","status":"pass","region":[0.025,0.75,0.313,0.07],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"},
+    {"claimId":"home-footer-illustration-organism","patternId":"home-footer-illustration-organism","status":"pass","region":[0,0.069,1,0.861],"captures":["output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-settled.png","output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-late-frame.png"]}
+  ],
+  "blockingRules": {
+    "typography": "CSS family names without delivered or network-loaded font resources, document.fonts.check=true and visible glyph proof do not count as implemented typography.",
+    "fallback": "A disclosed role-matched fallback is permitted only while the exact font-file URL remains unavailable-cross-origin and cannot be reported as exact typography.",
+    "footer": "All seven raster asset identities plus the footerIllustBg CSS layer, their character/text/logo/card hierarchy, placement before .footerColInner and bounded one-shot motion semantics are required; a plain navy band is forbidden."
+  },
+  "footerBoundary": {
+    "assetIdentityCount": 7,
+    "mayChangeResponsively": ["scale", "bounded crop", "overlap offsets", "narrow stacking"],
+    "mustPreserve": ["all asset identities", "character/text/logo/card hierarchy", "placement before the structural navy footer"],
+    "motion": "one-shot reveal/transition or complete settled composition for reduced motion; no invented controls or infinite loop"
+  },
+  "integrity": {
+    "claimRefsFound": 5,
+    "captureFilesExist": true,
+    "normalizedRegionsValid": true,
+    "assetInventoryConsistent": true,
+    "tokenRoleExpansion": false
+  },
+  "outputs": [
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "quality-attempts/9/interpreter-self-check.json"
+  ]
+}

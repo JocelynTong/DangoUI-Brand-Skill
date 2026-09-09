@@ -1,0 +1,71 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r4",
+  "inputManifest": "../demo-revision4/qa-input-manifest.json",
+  "inputManifestSha256": "f7a2627a205884413405a280adf056924d6555dc29f6f9ab60d622cc8b104439",
+  "reviewBoundary": {
+    "freshIndependentContext": true,
+    "priorVerdictsRead": false,
+    "implementationRationaleRead": false,
+    "motion": "unresolved-unscored"
+  },
+  "pages": [
+    {
+      "sourcePageId": "pokemon-tcg-official-home",
+      "demoPageId": "pokemon-tcg-official-home",
+      "status": "pass",
+      "finding": "Pocket source calibration preserves the full-article campaign field, desktop inset right black panel, mobile asset-first/lower-black stack, official composite, source typography and external CTA. Hero, News and TCG Live remain visibly intact.",
+      "sourceRegions": {
+        "desktop": [0, 3212.367, 1440, 476.195],
+        "mobile": [0, 0, 390, 743.023]
+      },
+      "demoRegions": {
+        "desktop": [0, 1793.796875, 1440, 476.1875],
+        "mobile": [0, 0, 390, 743.015625]
+      }
+    },
+    {
+      "sourcePageId": "pokemon-tcg-official-home",
+      "demoPageId": "pokemon-tcg-official-pocket-fixture",
+      "status": "rework",
+      "finding": "The fictional held-out composition and local interaction are valid, but its CTA drops the frozen PT Sans action role: computed Oxanium 12px replaces the source-calibrated PT Sans 20px role.",
+      "sourceRegion": [720, 59.844, 720, 356.5],
+      "demoRegion": [0, 59.84375, 720, 356.5]
+    }
+  ],
+  "threeProofVerdicts": {
+    "evidenceFidelity": {
+      "verdict": "PASS",
+      "finding": "All high-salience Pocket source facts used here trace to frozen evidence and observable page state; the two responsive aliases are correctly treated as byte-identical rather than visually different artwork."
+    },
+    "structuralFidelity": {
+      "verdict": "FAIL",
+      "finding": "Composition, layering, responsive order, assets and CTA behavior pass, but the held-out high-salience action typography violates PAT-POCKET-06."
+    },
+    "generativeProof": {
+      "verdict": "FAIL",
+      "finding": "The fixture genuinely changes content, desktop child order, asset construction and action semantics, but it does not preserve its declared PT Sans body/action invariant."
+    }
+  },
+  "blockingFindings": [
+    {
+      "code": "HELD_OUT_ACTION_TYPOGRAPHY_DRIFT",
+      "severity": "blocking",
+      "region": "pokemon-tcg-official-pocket-fixture .pokemon-pocket__cta",
+      "expected": "PT Sans Official/PT Sans, italic 700, source-calibrated action size (20px desktop)",
+      "observed": "Oxanium/Arial Narrow, italic 700, 12px",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "requiredRework": "Apply the approved PAT-POCKET-06 action typography to the held-out CTA without changing Goal, Evidence, Intent, layout, interaction or motion claims; then dispatch a new fresh Blind QA."
+    }
+  ],
+  "nonBlockingObservations": [
+    "The implementation-authored mobile after-click capture can move when a locator auto-scrolls; a coordinate click proved the real UI keeps phone-screen scrollTop at 0. Independent QA captures use the coordinate-click result.",
+    "Motion intermediate frames, timing, easing, stagger and sequence remain unresolved and were not scored.",
+    "Build emits the existing Vite chunk-size warning; it does not affect this visual verdict."
+  ],
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "reviewerRecommendation": "rework"
+}

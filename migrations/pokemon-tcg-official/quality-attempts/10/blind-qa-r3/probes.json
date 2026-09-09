@@ -1,0 +1,81 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r3",
+  "reviewer": "pokemon_pocket_blind_qa_r3",
+  "calibration": {
+    "desktop1440": {
+      "url": "http://127.0.0.1:5177/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "section": { "x": 0, "y": 1793.796875, "width": 1440, "height": 476.1875 },
+      "background": { "x": 0, "width": 1440, "height": 476.1875, "currentSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg", "objectPosition": "100% 50%" },
+      "assetField": { "x": 0, "width": 720, "height": 476.1875 },
+      "copyPanel": { "x": 720, "yWithinSection": 59.84375, "width": 720, "height": 356.5, "backgroundColor": "rgb(0, 0, 0)" },
+      "backgroundExposure": { "top": 59.84375, "bottom": 59.84375 },
+      "heading": { "fontFamily": "Kanit Official, Kanit, sans-serif", "fontSize": "40px", "fontStyle": "italic", "lineHeight": "44px" },
+      "body": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "18px", "lineHeight": "28.8px" },
+      "cta": { "href": "https://tcgpocket.pokemon.com/en-us", "width": 190, "height": 56, "restColor": "rgb(0, 0, 0)", "hoverColor": "rgb(226, 186, 101)", "restoredColor": "rgb(0, 0, 0)", "backgroundColor": "rgb(255, 255, 255)" },
+      "horizontalOverflow": false
+    },
+    "mobile390": {
+      "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "section": { "x": 0, "width": 390, "height": 743.015625 },
+      "background": { "x": 0, "width": 390, "height": 743.015625, "currentSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg", "objectPosition": "50% 50%" },
+      "assetField": { "x": 0, "width": 390, "height": 334.2265625 },
+      "copyPanel": { "x": 0, "yWithinSection": 334.2265625, "width": 390, "height": 408.7890625, "backgroundColor": "rgb(0, 0, 0)" },
+      "heading": { "fontFamily": "Kanit Official, Kanit, sans-serif", "fontSize": "28px", "fontStyle": "italic", "lineHeight": "30.8px" },
+      "body": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "18px", "lineHeight": "28.8px" },
+      "cta": { "href": "https://tcgpocket.pokemon.com/en-us", "width": 174.0859375, "height": 51.296875, "restColor": "rgb(0, 0, 0)", "hoverColor": "rgb(226, 186, 101)", "restoredColor": "rgb(0, 0, 0)" },
+      "scroll": { "scrollHeight": 2547, "clientHeight": 821, "before": 0, "after": 1725.5, "restored": 0 },
+      "horizontalOverflow": false
+    },
+    "responsiveAssetIdentity": {
+      "desktopSha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "mobileSha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "relationship": "different URL aliases, byte-identical current payload"
+    }
+  },
+  "heldOut": {
+    "desktop1440": {
+      "section": { "x": 0, "y": 0, "width": 1440, "height": 476.1875 },
+      "background": { "width": 1440, "height": 476.1875 },
+      "assetField": { "x": 720, "width": 720, "height": 476.1875 },
+      "copyPanel": { "x": 0, "y": 59.84375, "width": 720, "height": 356.5 },
+      "fixtureArt": { "x": 815.4469604492188, "y": 94.10211944580078, "width": 529.1060180664062, "height": 287.9832763671875 },
+      "label": "GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT",
+      "officialCompositePresent": false,
+      "runtimeImages": ["/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg"]
+    },
+    "mobile390": {
+      "section": { "x": 0, "y": 0, "width": 390, "height": 743.015625 },
+      "assetField": { "x": 0, "width": 390, "height": 334.2265625 },
+      "copyPanel": { "x": 0, "y": 334.2265625, "width": 390, "height": 408.7890625 },
+      "scroll": { "scrollHeight": 1255, "clientHeight": 821, "before": 0, "after": 433, "restored": 0 }
+    },
+    "cta": {
+      "label": "Review the Concept",
+      "restColor": "rgb(0, 0, 0)",
+      "hoverColor": "rgb(226, 186, 101)",
+      "href": "#fictional-pocket-concept",
+      "targetExists": false,
+      "beforeUrl": "http://127.0.0.1:5177/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "afterClickUrl": "http://127.0.0.1:5177/?proof=desktop#fictional-pocket-concept",
+      "afterReloadHeldOutExists": false,
+      "status": "FAIL"
+    }
+  },
+  "regression": {
+    "desktop1440": {
+      "hero": { "width": 1440, "height": 450, "carouselChanged": true, "carouselRestored": true, "cardFlipChanged": true, "cardFlipRestored": true },
+      "news": { "width": 1440, "height": 719.796875, "carouselChanged": true, "carouselRestoredToPage1": true },
+      "tcgl": { "width": 1440, "height": 624, "loadedAssets": 5, "href": "https://tcg.pokemon.com/en-us/tcgl/" }
+    },
+    "mobile390": {
+      "hero": { "width": 390, "height": 416 },
+      "news": { "width": 390, "height": 633.1953125 },
+      "tcgl": { "width": 390, "height": 644.625, "loadedAssets": 5, "href": "https://tcg.pokemon.com/en-us/tcgl/" },
+      "horizontalOverflow": false
+    },
+    "consoleErrorsOrWarnings": []
+  },
+  "motionDisposition": "UNRESOLVED_UNSCORED"
+}

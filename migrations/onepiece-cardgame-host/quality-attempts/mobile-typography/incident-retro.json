@@ -1,0 +1,53 @@
+{
+  "incidentId": "HOST-MOBILE-TYPOGRAPHY-001",
+  "status": "BLOCKED_PENDING_IMPLEMENTATION_AND_FRESH_QA",
+  "trigger": {
+    "source": "user-mobile-visual-review",
+    "observation": "sprite-list mobile Chinese labels, especially tabs and list labels, look coarse and over-bold",
+    "viewportEvidence": [390, 421]
+  },
+  "affectedSurfaces": [
+    "pages/sprite-list",
+    "pages/sprite-detail",
+    "pages/team-create"
+  ],
+  "rootCause": [
+    "English evidence-backed display families (Alfa Slab One and Oswald) were assigned to selectors that also contain Chinese glyphs; those font files do not supply Chinese, so the browser silently falls back per glyph.",
+    "The fallback glyphs inherit English-role weights, letter spacing and compressed line heights, producing synthetic-heavy Chinese and mixed-script texture discontinuity.",
+    "Existing rules repeatedly use font-bold/700/800/900 and some unitless or near-1 line heights as a generic brand signal instead of defining Chinese information roles.",
+    "QA verified layout and interaction but did not record a mobile typography matrix with computed family, weight, size, line-height and letter-spacing for representative Chinese nodes."
+  ],
+  "missedBy": {
+    "DesignTranslator": "did not define a Chinese fallback boundary for each typography role",
+    "HostImplementation": "applied English display/metadata stacks to mixed Chinese-English nodes and generalized heavy weight",
+    "VisualQA": "did not compare representative Chinese glyph rendering at 390px and 421px or block synthetic-heavy fallback"
+  },
+  "evidenceBoundary": {
+    "keep": [
+      "Alfa Slab One 400 for short Latin-only display labels",
+      "Oswald 700 for short Latin-only numeric/date/index metadata",
+      "Poppins 500 for Latin utility copy"
+    ],
+    "doNotGeneralize": [
+      "Do not use Alfa Slab One or Oswald as the leading family for Chinese headings, tabs, filters, list names or body copy.",
+      "Do not treat 700/800/900 weight or condensed tracking as an all-page ONE PIECE signature.",
+      "Do not claim a loaded Latin font proves the Chinese glyph face."
+    ]
+  },
+  "auditBasis": {
+    "sourceInspection": [
+      "spu-common-plugin/src/styles/onepiece-host-theme.css",
+      "spu-common-plugin/src/pages/sprite-list/index.vue",
+      "spu-common-plugin/src/pages/sprite-detail/index.vue",
+      "spu-common-plugin/src/pages/team-create/index.vue"
+    ],
+    "loadedFontFiles": [
+      "poppins-500.ttf",
+      "alfa-slab-one-400.ttf",
+      "oswald-700.ttf"
+    ],
+    "missingHostChineseBrandFace": true,
+    "note": "The host ships no ONE PIECE-specific Chinese font. Chinese text therefore must deliberately use the platform Chinese UI stack; per-glyph fallback is not acceptable evidence of a designed type role."
+  },
+  "releaseRule": "No PASS until implementation is changed, font loading is verified, and a new independent mobile QA records computed typography plus screenshots at both 390px and 421px."
+}

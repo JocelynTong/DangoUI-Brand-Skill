@@ -1,0 +1,100 @@
+{
+  "schema": "brand-demo-implementation-self-test/v1",
+  "attempt": 14,
+  "ownerRole": "Demo Implementation Agent",
+  "scope": "TabBar-aware phone Home Indicator surface",
+  "incident": "TABBAR_INDICATOR_SURFACE_DISCONTINUITY",
+  "implementation": {
+    "structuralState": ".template-phone--bottom-actions is derived from showDemoBottomActions",
+    "withTabBar": "Home Indicator and adjacent .demo-bottom-tabbar consume the same --mockup-tabbar-surface",
+    "withoutTabBar": "Home Indicator remains a transparent absolute chassis overlay",
+    "proofModes": "proof=1, proof=desktop and proof=mobile hide the Home Indicator",
+    "brandBoundary": "No Pokémon-specific selector was introduced; CZN, HPMA and re1999 keep their existing dark or textured surfaces"
+  },
+  "browserChecks": {
+    "normalRoutes": [
+      {
+        "route": "/#/brand/dango/style/color",
+        "tabBar": true,
+        "tabBackground": "color(srgb 1 1 1)",
+        "indicatorBackground": "color(srgb 1 1 1)",
+        "geometrySeamPx": 0,
+        "result": "PASS"
+      },
+      {
+        "route": "/#/brand/pokemon-tcg-official/style/button",
+        "tabBar": true,
+        "tabBackground": "color(srgb 1 1 1)",
+        "indicatorBackground": "color(srgb 1 1 1)",
+        "geometrySeamPx": 0,
+        "result": "PASS"
+      },
+      {
+        "route": "/#/brand/pokemon-tcg-official/components/navigation-bar",
+        "tabBar": true,
+        "tabBackground": "color(srgb 1 1 1)",
+        "indicatorBackground": "color(srgb 1 1 1)",
+        "geometrySeamPx": 0,
+        "result": "PASS"
+      },
+      {
+        "route": "/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+        "tabBar": false,
+        "indicatorBackground": "rgba(0, 0, 0, 0)",
+        "result": "PASS"
+      },
+      {
+        "route": "/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+        "tabBar": false,
+        "indicatorBackground": "rgba(0, 0, 0, 0)",
+        "result": "PASS"
+      }
+    ],
+    "legacyThemeRoutes": [
+      {
+        "brand": "czn",
+        "surface": "dark",
+        "indicatorBar": "rgba(255, 255, 255, 0.72)",
+        "geometrySeamPx": 0,
+        "result": "PASS"
+      },
+      {
+        "brand": "hpma",
+        "surface": "dark-with-linear-texture",
+        "indicatorBackgroundImageMatchesTabBar": true,
+        "geometrySeamPx": 0,
+        "result": "PASS"
+      },
+      {
+        "brand": "re1999",
+        "surface": "dark-with-linear-texture",
+        "indicatorBackgroundImageMatchesTabBar": true,
+        "geometrySeamPx": 0,
+        "result": "PASS"
+      }
+    ],
+    "proofMatrix": {
+      "modes": ["1", "desktop", "mobile"],
+      "routesPerMode": 3,
+      "computedDisplay": "none",
+      "measuredSize": [0, 0],
+      "result": "PASS"
+    },
+    "scrollProbe": {
+      "route": "/#/brand/dango/style/color",
+      "scrollContainer": ".phone .contents",
+      "scrollTop": [0, 456, 0],
+      "indicatorRectBefore": [729.0859375, 670.8671875, 281.828125, 26.90625],
+      "indicatorRectAfter": [729.0859375, 670.8671875, 281.828125, 26.90625],
+      "stable": true,
+      "result": "PASS"
+    }
+  },
+  "build": {
+    "command": "npm run build",
+    "result": "PASS",
+    "note": "Only the pre-existing Vite large-chunk advisory remains."
+  },
+  "implementationResult": "ready-for-independent-qa",
+  "visualVerdict": "reserved-for-independent-qa"
+}

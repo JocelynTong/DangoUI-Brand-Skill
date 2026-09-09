@@ -1,0 +1,68 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 18,
+  "route": "pages/mine/index",
+  "qaRole": "fresh-independent-visual-qa",
+  "verdict": "FAIL",
+  "workflowCompletion": "FAIL_VISUAL_GATE",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "FAIL_RESPONSIVE_CONTENT_LEGIBILITY",
+  "dangoUi": "PARTIAL_STYLE_ONLY",
+  "networkWrites": {
+    "external": 0,
+    "deleteConfirmed": false,
+    "productionContextMutated": false,
+    "note": "The delete-confirm probe created one local-only draft in an isolated disposable browser context, opened the confirmation, cancelled with Enter, retained the draft, and discarded the context."
+  },
+  "blockingFindings": [
+    {
+      "code": "MINE_INTERMEDIATE_CARD_CONTENT_CLIPPED",
+      "severity": "P0",
+      "owner": "Host Implementation Agent",
+      "viewport": "536x864",
+      "evidence": "fresh-536x864-mine.png",
+      "observed": "The min-width:481px two-column inventory activates at 536px, reducing each deck card to 247px. The card's title is truncated, the third lineup tag is visibly clipped, and author/stat content collides into a cramped single line. Page-level overflow remains 0 only because content is clipped inside the card.",
+      "expected": "At the intermediate viewport, inventory content must remain legible. Keep a one-column card until the two-column card can preserve title, all tags, author and stats, or provide an explicitly approved responsive reflow within the card.",
+      "failureRoute": "Return to Host Implementation; do not change data, route, API/store logic or the frozen direction. Fresh QA is required after repair."
+    }
+  ],
+  "advisoryFindings": [
+    {
+      "code": "MINE_DESKTOP_AUTHOR_OVERTRUNCATED",
+      "severity": "P1",
+      "viewport": "1280x720",
+      "evidence": "fresh-1280x720-mine.png",
+      "observed": "The author label is rendered as 'Sab...' even though the two-column desktop card is otherwise wide enough; the card family should allocate identity and metrics more deliberately."
+    }
+  ],
+  "passedChecks": {
+    "directionalComposition": "PASS at 390 and 1280: compact navy identity, red create action, ruled rectangular tabs, warm-paper inventory and bounded modal form a clear identity -> create -> tabs -> inventory -> modal sequence.",
+    "forbiddenTreatments": "PASS: 0 .hero nodes, 0 pill-radius elements, no fluorescent treatment and no full-screen black canvas.",
+    "branches": {
+      "favorite": "PASS: selected and one card visible",
+      "draft": "PASS: selected and a real empty state visible",
+      "published": "PASS: selected and three cards visible",
+      "hidden": "PASS: selected and one card visible"
+    },
+    "inputModes": "PASS: pointer was exercised; Enter and Space independently selected the four tabs and updated aria-selected=true.",
+    "focus": "PASS: focus-visible treatment exists and keyboard focus was retained on selected tabs and modal cancel.",
+    "touchTargets": "PASS: no visible role=button/tab owner was below 44x44 at 390, 536 or 1280; draft edit/delete were 64.38x45.75; modal actions were 144.09x49.91.",
+    "reducedMotion": "PASS: reduced-motion media matched and no active transition or animation remained on checked controls.",
+    "overflow": "PASS_PAGE_LEVEL_ONLY: 0px page-level horizontal overflow at all three viewports; does not compensate for the internal 536px clipping failure.",
+    "deleteConfirmation": "PASS: confirmation text and danger/neutral hierarchy were legible; cancel via Enter closed it; draft count stayed 1; confirm-delete was never invoked.",
+    "businessIntegrity": "PASS: Mine structural diff against the frozen baseline passed with approved accessibility augmentations; source data/conditions/API/store/routes were not changed by Attempt 18.",
+    "otherRouteRegression": "PASS: plaza/build/detail/event/round each had 0px overflow and 0 external network writes; plaza/build/detail hashes match the prior accepted samples."
+  },
+  "freshEvidence": {
+    "browserProbes": "fresh-browser-probes.json",
+    "screenshots": [
+      "fresh-390x844-mine.png",
+      "fresh-536x864-mine.png",
+      "fresh-1280x720-mine.png",
+      "fresh-390x844-mine-delete-confirm.png"
+    ],
+    "structuralGate": "PASS",
+    "themeOrderGate": "PASS"
+  },
+  "summary": "Attempt 18 is not accepted. The business and interaction contract is safe, and the intended component family is visible, but the intermediate-width two-column breakpoint makes real deck content illegible. Repair the responsive inventory layout and submit a new fresh QA attempt."
+}

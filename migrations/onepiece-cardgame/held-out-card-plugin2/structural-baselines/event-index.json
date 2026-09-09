@@ -1,0 +1,379 @@
+{
+  "schema": "brand-host-structural-snapshot/v1",
+  "file": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/pages/event/index.vue",
+  "sourceSha256": "5f31e301c5cf3867aed73e9d2c583639820997a36b87ae133153c081217409dd",
+  "template": [
+    {
+      "id": "n0",
+      "parent": "root",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "event-page",
+        "page",
+        "theme-pokemon-tcg-pitch-black"
+      ]
+    },
+    {
+      "id": "n1",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "event-head",
+        "softcard"
+      ]
+    },
+    {
+      "id": "n2",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "event-title-row"
+      ]
+    },
+    {
+      "id": "n3",
+      "parent": "n2",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{event.n}}",
+      "classes": [
+        "event-title"
+      ]
+    },
+    {
+      "id": "n4",
+      "parent": "n2",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{statusLabel(event.status)}}",
+      "classes": []
+    },
+    {
+      "id": "n5",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "div"
+      ]
+    },
+    {
+      "id": "n6",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "info-grid"
+      ]
+    },
+    {
+      "id": "n7",
+      "parent": "n6",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "it in info",
+        "bind:key": "it.label"
+      },
+      "content": "",
+      "classes": [
+        "info-cell"
+      ]
+    },
+    {
+      "id": "n8",
+      "parent": "n7",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{it.value}}",
+      "classes": [
+        "info-v"
+      ]
+    },
+    {
+      "id": "n9",
+      "parent": "n7",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{it.label}}",
+      "classes": [
+        "info-l"
+      ]
+    },
+    {
+      "id": "n10",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "!hasRounds"
+      },
+      "content": "{{emptyText}}",
+      "classes": [
+        "empty-card"
+      ]
+    },
+    {
+      "id": "n11",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "rounds"
+      ]
+    },
+    {
+      "id": "n12",
+      "parent": "n11",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "赛程",
+      "classes": [
+        "sectitle"
+      ]
+    },
+    {
+      "id": "n13",
+      "parent": "n11",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "item in displayRounds",
+        "bind:key": "item.ri + '-' + item.rd.title"
+      },
+      "content": "",
+      "classes": [
+        "roundcard"
+      ]
+    },
+    {
+      "id": "n14",
+      "parent": "n13",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.rd.title}}",
+      "classes": [
+        "round-title"
+      ]
+    },
+    {
+      "id": "n15",
+      "parent": "n13",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.rd.meta}}",
+      "classes": [
+        "round-meta"
+      ]
+    },
+    {
+      "id": "n16",
+      "parent": "n13",
+      "tag": "template",
+      "tagType": 3,
+      "attrs": {},
+      "directives": {
+        "if": "item.topDeck"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n17",
+      "parent": "n16",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-card",
+        "hover-stay-time": "90"
+      },
+      "directives": {
+        "on:tap": "openDeck(item.topDeck.d)"
+      },
+      "content": "",
+      "classes": [
+        "topdeck"
+      ]
+    },
+    {
+      "id": "n18",
+      "parent": "n17",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.topDeck.r}}",
+      "classes": [
+        "gold",
+        "rank"
+      ]
+    },
+    {
+      "id": "n19",
+      "parent": "n17",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(deckCover(item.topDeck.d).img)"
+      },
+      "content": "",
+      "classes": [
+        "top-cover"
+      ]
+    },
+    {
+      "id": "n20",
+      "parent": "n17",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "top-info"
+      ]
+    },
+    {
+      "id": "n21",
+      "parent": "n20",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{deckTitle(item.topDeck.d)}}",
+      "classes": [
+        "top-name"
+      ]
+    },
+    {
+      "id": "n22",
+      "parent": "n20",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "top-tags"
+      ]
+    },
+    {
+      "id": "n23",
+      "parent": "n22",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{deckAuthor(item.topDeck.d)}}",
+      "classes": [
+        "top-author"
+      ]
+    },
+    {
+      "id": "n24",
+      "parent": "n22",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "tag in deckTags(item.topDeck.d)",
+        "bind:key": "tag"
+      },
+      "content": "{{tag}}",
+      "classes": [
+        "line-tag"
+      ]
+    },
+    {
+      "id": "n25",
+      "parent": "n17",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "›",
+      "classes": [
+        "chev"
+      ]
+    },
+    {
+      "id": "n26",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "if": "item.rankCount",
+        "on:tap": "openRound(item.ri)"
+      },
+      "content": "查看全部卡组 ›",
+      "classes": [
+        "more"
+      ]
+    },
+    {
+      "id": "n27",
+      "parent": "n0",
+      "tag": "DetailOverlay",
+      "tagType": 1,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    }
+  ],
+  "script": {
+    "lang": "js",
+    "semanticSha256": "149e9f03bde75dc1305425a694060481b9e279b58eee633879b1190ce32c16ba",
+    "styleImports": [
+      "./index.scss"
+    ]
+  },
+  "styles": []
+}

@@ -1,0 +1,62 @@
+{
+  "schema": "attempt13-new-arrival-interaction-trace/v1",
+  "sequence": [
+    "initial",
+    "next",
+    "previous"
+  ],
+  "initial": {
+    "activeAriaLabel": "1 / 10",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "previous": {
+      "ariaDisabled": "true",
+      "tabindex": "-1",
+      "disabled": true,
+      "pointerEvents": "none",
+      "opacity": 0.35
+    },
+    "next": {
+      "ariaDisabled": "false",
+      "tabindex": "0",
+      "disabled": false,
+      "pointerEvents": "auto",
+      "opacity": 1
+    }
+  },
+  "afterNext": {
+    "activeAriaLabel": "2 / 10",
+    "transform": "matrix(1, 0, 0, 1, -181.998, 0)",
+    "previous": {
+      "ariaDisabled": "false",
+      "tabindex": "0",
+      "disabled": false,
+      "pointerEvents": "auto",
+      "opacity": 1
+    },
+    "next": {
+      "ariaDisabled": "false",
+      "tabindex": "0",
+      "disabled": false,
+      "pointerEvents": "auto",
+      "opacity": 1
+    }
+  },
+  "restored": {
+    "activeAriaLabel": "1 / 10",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "previous": {
+      "ariaDisabled": "true",
+      "tabindex": "-1",
+      "disabled": true,
+      "pointerEvents": "none",
+      "opacity": 0.35
+    },
+    "next": {
+      "ariaDisabled": "false",
+      "tabindex": "0",
+      "disabled": false,
+      "pointerEvents": "auto",
+      "opacity": 1
+    }
+  }
+}

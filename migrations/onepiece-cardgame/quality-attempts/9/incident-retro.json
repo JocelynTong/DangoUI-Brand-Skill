@@ -1,0 +1,36 @@
+{
+  "schema": "brand-visual-incident-retro/v1",
+  "brand": "onepiece-cardgame",
+  "trigger": "user-feedback",
+  "status": "open",
+  "observedMismatches": [
+    {
+      "id": "HOME_TITLE_FONT_NOT_VISIBLY_LOADED",
+      "userObservation": "Title font does not look like the official site.",
+      "confirmedFacts": [
+        "Demo CSS names Alfa Slab One, Noto Serif, Poppins and Oswald but contains no ONE PIECE @font-face declarations or font asset files.",
+        "The previous QA only checked that roles looked differentiated; it did not prove the requested font faces were actually loaded and shaping pixels."
+      ],
+      "earliestFailureNode": "brandResearcher",
+      "contributingNodes": ["demoImplementationAgent", "visualQA"]
+    },
+    {
+      "id": "HOME_FOOTER_ILLUSTRATION_MISSING",
+      "userObservation": "The large Luffy footer artwork is absent.",
+      "confirmedFacts": [
+        "Official footer contains footerIllustChara, footerIllustTxt, footerIllustLogo and footerIllustCard asset layers before the navy navigation footer.",
+        "Home v5 Evidence captured only .footerColInner #002156 and omitted the high-salience .footerIllust organism.",
+        "Demo home-footer contains only a navy empty editorial section with no image or background asset."
+      ],
+      "earliestFailureNode": "brandResearcher",
+      "contributingNodes": ["designTranslator", "demoImplementationAgent", "visualQA"]
+    }
+  ],
+  "whyOldGatePassed": [
+    "Typography gate accepted a computed font-family string without verifying a loaded FontFace/source asset and without screenshot-level glyph comparison.",
+    "Footer evidence used a selector scoped to .footerColInner, so the gate never asked whether the preceding high-salience .footerIllust layers were covered.",
+    "Blind QA accepted role differentiation and navy color while failing to inventory the complete source footer composition."
+  ],
+  "correctiveAction": "Return to Evidence, collect official font sources/load proof and all footer illustration layers, then re-run Interpreter, Demo and a fresh Blind QA.",
+  "preventiveAction": "Add font-load and high-salience sibling/ancestor coverage checks to Evidence and QA validators; a computed family name or one child selector cannot prove full typography or organism fidelity."
+}

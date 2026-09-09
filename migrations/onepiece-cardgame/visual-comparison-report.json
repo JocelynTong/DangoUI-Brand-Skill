@@ -1,0 +1,136 @@
+{
+  "schema": "brand-visual-comparison-report/v1",
+  "brand": "onepiece-cardgame",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "attempt": 15,
+  "qaExecutionId": "blind-qa-onepiece-final-2026-09-06",
+  "reviewedAt": "2026-09-06T19:20:00+08:00",
+  "verdict": "pass",
+  "machineResult": {
+    "status": "fidelity-pass",
+    "overallScore": 98.13,
+    "pageScores": {
+      "home": 100,
+      "news": 97.5,
+      "products": 97.5,
+      "events": 97.5
+    },
+    "protocolFailures": 0,
+    "hardFailures": 0,
+    "blockingFindings": 0
+  },
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3
+  },
+  "sourceScreenshots": [
+    {
+      "pageId": "home",
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+      "sha256": "a4a27247f174cc816dc8afc17f19335b2c5cd0986d2c009c33aa940b0752c033"
+    },
+    {
+      "pageId": "news",
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png",
+      "sha256": "cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211"
+    },
+    {
+      "pageId": "products",
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+      "sha256": "8960cbe1a67d01f9cf7ad4f8da48988ed269d7fe5e739b91f1aa3de682219acc"
+    },
+    {
+      "pageId": "events",
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+      "sha256": "3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a"
+    }
+  ],
+  "comparisons": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "sourceScreenshot": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+        "sha256": "a4a27247f174cc816dc8afc17f19335b2c5cd0986d2c009c33aa940b0752c033"
+      },
+      "demoScreenshot": {
+        "path": "migrations/onepiece-cardgame/core-pages-rebuild/captures/home-desktop-initial.png",
+        "sha256": "2ac7326c546e33084d7d3a4523b2390d3f83df05b2603952ad0edebf8e9e2fef"
+      },
+      "summary": "ST-36 identity, campaign hierarchy, multi-surface editorial sequence, four bounded font roles and footer organism are visibly preserved.",
+      "blockingFindings": []
+    },
+    {
+      "sourcePageId": "news",
+      "demoPageId": "onepiece-cardgame-news",
+      "sourceScreenshot": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png",
+        "sha256": "cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211"
+      },
+      "demoScreenshot": {
+        "path": "migrations/onepiece-cardgame/core-pages-rebuild/captures/news-desktop-initial.png",
+        "sha256": "6ead8abb0be025f0d03cf59052c629b38158ea8a35a20ffdeca1d11c737c52ee"
+      },
+      "summary": "Source-backed dominant feature, notices, recommendations, taxonomy and dense archive survive the phone reflow.",
+      "blockingFindings": []
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "sourceScreenshot": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+        "sha256": "8960cbe1a67d01f9cf7ad4f8da48988ed269d7fe5e739b91f1aa3de682219acc"
+      },
+      "demoScreenshot": {
+        "path": "migrations/onepiece-cardgame/core-pages-rebuild/captures/products-desktop-initial.png",
+        "sha256": "9aa7d83ed30190a9654f313412d716126d61739ea7a3a4fec1a83b9eeec16a09"
+      },
+      "summary": "Unboxed heading, compact taxonomy, two-column product-first grid and pagination preserve the source catalog composition.",
+      "blockingFindings": []
+    },
+    {
+      "sourcePageId": "events",
+      "demoPageId": "onepiece-cardgame-events",
+      "sourceScreenshot": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+        "sha256": "3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a"
+      },
+      "demoScreenshot": {
+        "path": "migrations/onepiece-cardgame/core-pages-rebuild/captures/events-desktop-initial.png",
+        "sha256": "c59c698ad048f8458cd3ae86d98c23817e7f1e8a09d4960ed7a5ab3cccf3a7af"
+      },
+      "summary": "Discovery-first hierarchy, friend-play grouping and championship band use source-proven media without unsupported reservation actions.",
+      "blockingFindings": []
+    }
+  ],
+  "heldOut": {
+    "demoPageId": "onepiece-cardgame-editorial-held-out",
+    "screenshot": {
+      "path": "migrations/onepiece-cardgame/core-pages-rebuild/captures/editorial-held-out-desktop-initial.png",
+      "sha256": "1c4ddf69960d9207c6f3eb32011265ab68c9f5f65bdbefc0c6703612a0fd46d8"
+    },
+    "summary": "Held-out page changes content and structure while retaining taxonomy, hard-black heading authority and asymmetric editorial rhythm; it is not a source-page mirror."
+  },
+  "protocolChecks": {
+    "approvedPatterns": "12/12",
+    "fontEvidence": "4/4 bounded sourceRegion refs and loaded runtime families",
+    "st36Identity": "pass",
+    "newsSourceBacked": "pass",
+    "eventsProvenance": "pass",
+    "productsComposition": "pass",
+    "mockupShell": "5/5",
+    "multiSectionPages": "5/5",
+    "scrollRestore": "5/5",
+    "assetLoad": "pass",
+    "generativeStructureRules": "3/3"
+  },
+  "proofVerdicts": {
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass",
+    "compensationAllowed": false
+  },
+  "blockingFindings": []
+}

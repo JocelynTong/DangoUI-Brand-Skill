@@ -1,0 +1,57 @@
+{
+  "schema": "heldout-full-host-route-journey-evidence/v1",
+  "attempt": 21,
+  "qaRole": "fresh-independent-full-host-visual-qa",
+  "readOnly": true,
+  "source": "fresh-browser-probes.json",
+  "journeys": {
+    "plazaToDetail": {
+      "pointer": "PASS",
+      "enter": "PASS",
+      "space": "PASS",
+      "from": "/pages/plaza/index",
+      "to": "/pages/detail/index?id=0"
+    },
+    "plazaToBuild": {
+      "status": "PASS",
+      "steps": [
+        "/pages/plaza/index",
+        "/pages/mine/index",
+        "/pages/build/index?mode=new"
+      ],
+      "note": "The host exposes Build through the real Mine create-deck path; no route was invented for QA."
+    },
+    "eventToRoundToDetail": {
+      "status": "PASS",
+      "steps": [
+        "/pages/event/index?id=0",
+        "/pages/round/index?event=0&round=1",
+        "/pages/detail/index?id=2"
+      ]
+    },
+    "mineTabs": {
+      "pointer": "PASS",
+      "enter": "PASS",
+      "space": "PASS",
+      "branches": [
+        "favorite",
+        "draft-empty",
+        "published",
+        "hidden"
+      ]
+    },
+    "mineCreateEditDeleteCancel": {
+      "status": "PASS",
+      "evidence": "mine-safe-actions.json",
+      "isolatedEphemeralFixture": true,
+      "createNavigatesTo": "/pages/build/index?mode=new",
+      "editNavigatesTo": "/pages/build/index",
+      "deleteConfirmationOpened": true,
+      "cancelViaEnterClosed": true,
+      "draftCountPreservedAfterCancel": true,
+      "confirmDeleteInvoked": false
+    }
+  },
+  "externalNetworkWrites": 0,
+  "productionContextMutated": false
+}

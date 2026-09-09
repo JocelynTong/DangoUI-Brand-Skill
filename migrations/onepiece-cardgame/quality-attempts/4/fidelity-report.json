@@ -1,0 +1,107 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v1",
+  "goalSha256": "ca6e00eabab09adb402b16a9a8a8defa0c7e5577d738a76c5e769462244e8389",
+  "attempt": 4,
+  "status": "protocol-blocked",
+  "overallScore": 94.38,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "score": 91.25,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 3,
+        "typographyGraphics": 3,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "score": 97.5,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    }
+  ],
+  "protocolFailures": [
+    {
+      "code": "SCREENSHOT_HASH_MISMATCH",
+      "scope": "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+      "message": "Input path is missing or its sha256 does not match."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "home-source-desktop-campaign-hero",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    }
+  ],
+  "hardFailures": [
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-source-desktop-campaign-hero:top-navigation",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-source-desktop-campaign-hero:left-campaign-copy",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-source-desktop-campaign-hero:right-character-weapon",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-source-desktop-campaign-hero:lower-product-card",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-source-desktop-campaign-hero:carousel-controls",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "scope": "editorial-module-rhythm",
+      "message": "The Interpreter-approved pattern must freeze source hero identity/variant and its required structural layers before implementation."
+    },
+    {
+      "code": "COMPOSITION_STRUCTURE_UNVERIFIED",
+      "scope": "product-density",
+      "message": "products-compact-product-first-grid has no compositionSupport contract."
+    }
+  ],
+  "blockingFindings": [],
+  "inputHashes": {
+    "goal": "ca6e00eabab09adb402b16a9a8a8defa0c7e5577d738a76c5e769462244e8389",
+    "qaInputManifest": "5c6dc0ed9c0ee86187d9b80cb9e4e8877b97857423cf1a709d589f40d7ce6e37",
+    "assessment": "893434ec05edb2a3557181f7a494252047eae6d4269ddb8a32ff2a568c2cf70e",
+    "visualPatternInventory": "5aec480e89ef00ac73a1d82ad7f42b616616c9a133da30cb7e4cf24bf78ad229"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.1"
+  },
+  "generatedAt": "2026-08-31T04:40:45.384Z"
+}

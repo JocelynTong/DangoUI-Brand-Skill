@@ -1,0 +1,27 @@
+{
+  "schema": "visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "assessment": "REWORK",
+  "evidenceFidelity": {
+    "verdict": "PASS",
+    "reason": "Frozen evidence is sufficient and internally specific for section identity, asset hashes, endpoint geometry, typography roles and CTA states. The failures are downstream implementation divergences, not missing source evidence."
+  },
+  "structuralFidelity": {
+    "verdict": "FAIL",
+    "reason": "The visible white surface is recreated by a section-owned absolute pseudo-element and Play! Pokémon is missing after Championship. Both violate frozen structural invariants."
+  },
+  "generativeProof": {
+    "verdict": "FAIL",
+    "reason": "The fixture is independent and directly reachable, but it repeats the forbidden pseudo-fill ownership, lacks a visible focus outline and introduces a pressed toggle state."
+  },
+  "blockingFindingIds": [
+    "B11-01-WHITE-CANVAS-OWNERSHIP",
+    "B11-02-PLAY-POKEMON-MISSING",
+    "B11-03-HELD-OUT-STATE-MACHINE",
+    "B11-04-PREVIEW-REGISTRY-VISIBLE-PAGES"
+  ],
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "qaGateEscape": "The submitted section-fidelity manifest passes the strict validator even though fresh live computed probes contradict its canvas-ownership and successor-section claims. The validator is not accepted as visual proof."
+}

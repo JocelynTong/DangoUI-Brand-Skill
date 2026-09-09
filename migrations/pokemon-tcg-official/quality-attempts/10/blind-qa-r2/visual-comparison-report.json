@@ -1,0 +1,62 @@
+{
+  "schema": "brand-visual-comparison-report/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r2",
+  "comparisons": [
+    {
+      "id": "pocket-desktop-1440",
+      "viewport": [1440, 900],
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "demoUrl": "http://127.0.0.1:5179/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "sourceCapture": "../evidence-revision2/captures/desktop-1440-background-use.png",
+      "demoCapture": "../demo/captures/desktop-1440-settled.png",
+      "status": "FAIL",
+      "matched": [
+        "1440x476 section extent",
+        "720/720 logical columns",
+        "authentic Pocket composite",
+        "inset black copy panel content",
+        "typography roles",
+        "CTA state and destination"
+      ],
+      "differenceRegions": [
+        {
+          "region": [720, 0, 720, 60],
+          "source": "pale background artwork visible behind the right column",
+          "demo": "solid black parent background"
+        },
+        {
+          "region": [720, 417, 720, 59.195],
+          "source": "pale background artwork visible behind the right column",
+          "demo": "solid black parent background"
+        }
+      ]
+    },
+    {
+      "id": "pocket-mobile-390",
+      "viewport": [390, 844],
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "demoUrl": "http://127.0.0.1:5179/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "sourceCapture": "../evidence-revision2/captures/mobile-390-background-use.png",
+      "demoCapture": "../demo/captures/mobile-390-settled.png",
+      "status": "PASS",
+      "matched": [
+        "390x743 section geometry",
+        "334.23px asset-first field",
+        "408.79px full-width black copy field",
+        "authentic logo/card composite",
+        "heading/body/action hierarchy",
+        "CTA hover and destination"
+      ],
+      "differenceRegions": []
+    }
+  ],
+  "responsiveAssetConclusion": {
+    "status": "PASS",
+    "desktopOfficialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+    "mobileOfficialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+    "payloadRelationship": "byte-identical",
+    "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+    "visualSwapScored": false
+  }
+}

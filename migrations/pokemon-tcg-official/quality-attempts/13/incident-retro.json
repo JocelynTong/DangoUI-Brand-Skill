@@ -1,0 +1,45 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 13,
+  "observedMismatches": [
+    {
+      "id": "UNSUPPORTED_DATABASE_ORANGE",
+      "userObservation": "The official site does not visibly use orange as a core or database action color.",
+      "earliestFailureNode": "designTranslator",
+      "failureOwnerRole": "designTranslator",
+      "whyPreviousGatePassed": "An authored approved-pattern phrase, orange search, was treated as evidence even though site-evidence contains no rendered orange observation or computed value.",
+      "evidence": [
+        "migrations/pokemon-tcg-official/site-evidence.json has no orange rendered observation",
+        "migrations/pokemon-tcg-official/approved-visual-patterns.json requiredLayers introduced orange search",
+        "migrations/pokemon-tcg-official/brand-intent.json promoted it to database-orange-action"
+      ],
+      "requiredResolution": "Remove the unsupported role from intent, approved patterns, preview copy, adapter and Brand MOD; do not replace it with a guessed color."
+    },
+    {
+      "id": "STYLE_PAGE_HOME_INDICATOR_IN_FLOW",
+      "userObservation": "The Home Indicator on the Pokémon Button style page appears as a white footer block.",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "whyPreviousGatePassed": "The shared indicator probe covered source-schema pages but not style/component showcase phones.",
+      "computedEvidence": {
+        "selector": ".mock-home-indicator--outer",
+        "position": "relative",
+        "bottom": "0px",
+        "background": "white",
+        "height": 26.90625,
+        "parent": ".phone.template-phone"
+      },
+      "requiredResolution": "Make the outer indicator a transparent absolute chassis overlay for every normal phone preview and add a style-page regression probe."
+    },
+    {
+      "id": "TABBAR_INDICATOR_SURFACE_DISCONTINUITY",
+      "userObservation": "A phone that has a TabBar must not leave the Home Indicator surface transparent; it should visually continue the adjacent TabBar background.",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "whyPreviousGatePassed": "The previous correction asserted one transparent normal-mode surface for every route. Its probe checked indicator position, visibility and transparency, but did not branch on the phone's bottom-action structure or compare the Indicator background with the adjacent TabBar background.",
+      "requiredResolution": "Model bottom actions as an explicit phone chassis state. Keep the Indicator transparent only when there is no TabBar; when a TabBar exists, continue its default or themed background through the Indicator area. Proof modes remain hidden. Add surface-continuity and geometry checks to the implementation test matrix."
+    }
+  ],
+  "status": "rework-dispatched"
+}

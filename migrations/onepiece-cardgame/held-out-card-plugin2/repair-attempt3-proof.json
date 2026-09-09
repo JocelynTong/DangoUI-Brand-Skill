@@ -1,0 +1,49 @@
+{
+  "schema": "brand-host-implementation-repair-proof/v1",
+  "attempt": 3,
+  "goalContractSealSha256": "6374d1a73ee85c07e69b1e17344519c16d3547c11a4710fcbadaab33cd3791fb",
+  "scope": [
+    "DETAIL_INLINE_EXPAND_TARGET_UNDERSIZED",
+    "REDUCED_MOTION_PAGE_ROOT_ANIMATION_REMAINS"
+  ],
+  "repairs": {
+    "detailInlineExpand": {
+      "selector": ".detail :is(.title-toggle-inline, .desc-toggle-inline)",
+      "layout": "inline-flex",
+      "minimumTarget": "44x44 CSS px",
+      "alignment": "vertical-align middle; inline reading order preserved",
+      "desktopComputed": {
+        "viewport": "1920x863",
+        "width": 88,
+        "height": 88,
+        "display": "inline-flex",
+        "text": "展开"
+      },
+      "mobileComputed": {
+        "viewport": "390x844",
+        "width": 45.7578125,
+        "height": 45.7578125,
+        "display": "inline-flex",
+        "horizontalOverflow": false
+      },
+      "tapOutcomeChanged": false,
+      "keyboardDelegationPreserved": ["Enter", "Space"]
+    },
+    "reducedMotion": {
+      "media": "prefers-reduced-motion: reduce",
+      "rootSelectorAdded": ".theme-onepiece-cardgame-heldout .theme-pokemon-tcg-pitch-black",
+      "descendantsPreserved": true,
+      "animation": "none",
+      "transitionDuration": "0s",
+      "routeScope": "all six roots carry theme-pokemon-tcg-pitch-black",
+      "freshEmulatedMediaEvidence": "required from independent QA"
+    }
+  },
+  "regression": {
+    "structuralDiff": "PASS_6_OF_6",
+    "themeOrder": "PASS",
+    "heldOutBuild": "PASS",
+    "businessOrRouteChanges": false
+  },
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT"
+}

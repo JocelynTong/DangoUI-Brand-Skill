@@ -1,0 +1,107 @@
+{
+  "schema": "brand-demo-implementation-self-test/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "role": "demoImplementationAgent",
+  "scope": [
+    "LEARN_HERO_TEXT_UNREADABLE",
+    "HELD_OUT_HEADING_LOW_CONTRAST",
+    "DB_MOBILE_RESULTS_NOT_SINGLE_COLUMN",
+    "SECTION_FIDELITY_REGION_MISMATCH",
+    "UNSUPPORTED_VISUAL_PATTERN"
+  ],
+  "verdictAuthority": "implementation-self-test-only",
+  "qaPassClaimed": false,
+  "goalModified": false,
+  "mapperTargetModified": false,
+  "checks": [
+    {
+      "code": "LEARN_HERO_TEXT_UNREADABLE",
+      "result": "implementation-corrected",
+      "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-learn",
+      "selector": "[data-schema-section-id=learn-getting-started] > header",
+      "browserProbe": {
+        "viewport": [1440, 1000],
+        "headingColor": "rgb(32, 32, 32)",
+        "paragraphColor": "rgb(32, 32, 32)",
+        "sectionBackground": "rgb(255, 255, 255)"
+      },
+      "binding": "approved-pattern:learn-media-entry"
+    },
+    {
+      "code": "HELD_OUT_HEADING_LOW_CONTRAST",
+      "result": "implementation-corrected",
+      "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-held-out",
+      "selector": "[data-schema-section-id=held-out-deck-steps] > header",
+      "browserProbe": {
+        "headingColor": "rgb(23, 59, 118)",
+        "sectionBackground": "rgb(241, 238, 225)"
+      },
+      "binding": "approved-pattern:learn-painted-card-anatomy transfer"
+    },
+    {
+      "code": "DB_MOBILE_RESULTS_NOT_SINGLE_COLUMN",
+      "result": "implementation-corrected",
+      "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database",
+      "selector": ".template-phone .pokemon-db__card-grid",
+      "browserProbes": [
+        {
+          "hostViewport": [1440, 1000],
+          "phoneScreenWidth": 371,
+          "computedGridTemplateColumns": "255.062px",
+          "cardColumnCount": 1
+        },
+        {
+          "hostViewport": [390, 844],
+          "phoneScreenWidth": 371,
+          "computedGridTemplateColumns": "343px",
+          "cardColumnCount": 1,
+          "horizontalOverflow": 0
+        }
+      ],
+      "searchReset": {"queryAfterReset": "", "resultCardCountAfterReset": 0}
+    },
+    {
+      "code": "SECTION_FIDELITY_REGION_MISMATCH",
+      "result": "manifest-corrected-from-live-selector-regions",
+      "hostViewport": [1440, 1000],
+      "regionsRelativeToSchemaSection": {
+        ".pokemon-db__advanced@settled": [41.921875, 1099.546875, 287.15625, 1206.734375],
+        ".pokemon-db__results@search-results": [25.96875, 1149.546875, 319.0625, 1738.2109375]
+      },
+      "advancedRestore": {"ariaExpanded": "false", "height": 0}
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "result": "unsupported-sections-removed-from-frozen-demo-surface",
+      "removedSectionIds": [
+        "homepage-pokemon-championship-series",
+        "homepage-play-pokemon"
+      ],
+      "remainingHomeSectionIds": [
+        "home-campaign-stage",
+        "home-news-grid",
+        "home-product-bands",
+        "home-editorial-grid"
+      ]
+    }
+  ],
+  "runtimeChecks": {
+    "build": "pass",
+    "sectionFidelityStrictGate": "pass",
+    "scroll": {
+      "page": "pokemon-tcg-official-held-out",
+      "observedBefore": 402,
+      "observedAfter": 752.5,
+      "restored": 0
+    },
+    "homeCarousel": {"activeBefore": 0, "activeAfterChange": 1, "activeAfterRestore": 0},
+    "learnAccordion": {"changed": true, "restored": true},
+    "heldOutAccordion": {"changed": true, "restored": true},
+    "assetFailuresObserved": 0
+  },
+  "handoff": {
+    "readyForFreshBlindQa": true,
+    "note": "This receipt records implementation checks only. A fresh isolated Visual QA agent must assign the visual verdict."
+  }
+}

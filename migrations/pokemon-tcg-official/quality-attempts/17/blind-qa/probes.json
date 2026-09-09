@@ -1,0 +1,25 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 17,
+  "baseUrl": "http://127.0.0.1:5177/",
+  "goal": {"path":"migrations/pokemon-tcg-official/goal-contract-v2.json","sha256":"73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"},
+  "hosts": [
+    {"width":390,"height":844,"shellWidth":390,"screenWidth":371,"documentHorizontalOverflow":false,"relevantDescendantHorizontalOverflow":false},
+    {"width":371,"height":844,"shellWidth":371,"screenWidth":353,"documentHorizontalOverflow":false,"relevantDescendantHorizontalOverflow":false}
+  ],
+  "pages": [
+    {"pageId":"pokemon-tcg-official-home","sections":["home-campaign-stage","home-news-grid","home-product-bands","home-editorial-grid"],"host371":{"descendantsChecked":77,"scrollHeight":2459,"clientHeight":763},"host390":{"scrollHeight":2461,"clientHeight":802},"scroll":{"before":0,"after":620,"restored":0,"pass":true},"contrastFailures":[]},
+    {"pageId":"pokemon-tcg-official-card-database","sections":["card-database-search-shell","card-database-search-guidance"],"host371":{"descendantsChecked":43,"scrollHeight":1638,"clientHeight":763},"host390":{"scrollHeight":1638,"clientHeight":802},"scroll":{"before":0,"after":620,"restored":0,"pass":true},"contrastFailures":[{"node":"button Search","color":"rgb(255,255,255)","background":"rgb(228,107,41)","ratio":3.26396,"required":4.5},{"node":"empty-state paragraph","text":"Enter a card name to search the official card database.","color":"rgb(119,119,119)","background":"rgb(246,246,244)","ratio":4.13844,"required":4.5}]},
+    {"pageId":"pokemon-tcg-official-learn","sections":["learn-getting-started","learn-card-breakdown","learn-field-of-play"],"host371":{"descendantsChecked":63,"scrollHeight":3397,"clientHeight":763},"host390":{"scrollHeight":3519,"clientHeight":802},"scroll":{"before":0,"after":620,"restored":0,"pass":true},"contrastFailures":[],"note":"Three white image-overlay labels were not treated as flat-background failures because their painted image backgrounds require pixel sampling; visual capture shows readable image overlays."},
+    {"pageId":"pokemon-tcg-official-held-out","sections":["held-out-deck-entry","held-out-deck-steps"],"host371":{"descendantsChecked":26,"scrollHeight":1644,"clientHeight":763},"host390":{"scrollHeight":1676,"clientHeight":802},"scroll":{"before":0,"after":620,"restored":0,"pass":true},"contrastFailures":[]}
+  ],
+  "interactions": {
+    "homeCarousel":{"before":{"slide1":"active","slide2":"inactive"},"triggered":{"slide1":"inactive","slide2":"active"},"restored":{"slide1":"active","slide2":"inactive"},"pass":true},
+    "databaseSearchReset":{"before":"empty","triggered":"Pikachu; Search Results; 1/12; four card images","restored":"empty","pass":true},
+    "databaseAdvanced":{"states":["expanded","collapsed","expanded","collapsed"],"pass":true},
+    "learnAccordion":{"before":{"nameAndType":true,"hitPoints":false},"triggered":{"nameAndType":false,"hitPoints":true},"restored":{"nameAndType":true,"hitPoints":false},"pass":true}
+  },
+  "mockup": {"normal":{"phone":true,"screen":true,"indicatorDisplay":"flex","indicatorPosition":"absolute","indicatorZIndex":"30","tabbarCount":0},"proof1":{"phone":true,"screen":true,"indicatorDisplay":"none"},"proofDesktop":{"contentWidth":1440,"indicatorDisplay":"none"},"proofMobile":{"contentWidth":371,"indicatorDisplay":"none"},"matrixStrict":"PASS"},
+  "captures":["captures/pokemon-tcg-official-home-host390.png","captures/pokemon-tcg-official-card-database-host390.png","captures/pokemon-tcg-official-learn-host390.png","captures/pokemon-tcg-official-held-out-host390.png","captures/pokemon-tcg-official-home-host371.png","captures/pokemon-tcg-official-card-database-host371.png","captures/pokemon-tcg-official-learn-host371.png","captures/pokemon-tcg-official-held-out-host371.png"]
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "quality-attempt-evidence-manifest/v1",
+  "attempt": 11,
+  "scope": "Home full-page small-screen evidence only",
+  "checklist": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/mobile-responsive-checklist.json",
+  "readme": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/README.md",
+  "fullPageCaptures": [
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg"
+  ],
+  "sourceSectionCaptures": [
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-nav-hero.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-welcome.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-news-newarrival.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-products-events.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-schedule-recommend-videos.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-footer.jpg"
+  ],
+  "supplementalDemoCaptures": [
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-390x844.png",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-viewport-top-390x844.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-viewport-segment-1-390x844.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-viewport-segment-2-390x844.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-viewport-segment-3-390x844.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-viewport-segment-4-390x844.jpg",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-viewport-segment-5-390x844.jpg"
+  ],
+  "verdict": "blocked-by-demo-shell-collapse",
+  "counts": { "pass": 0, "fail": 4, "unresolved": 1 }
+}

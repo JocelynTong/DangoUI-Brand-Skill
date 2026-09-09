@@ -1,0 +1,44 @@
+{
+  "schema": "brand-direction-intent-self-test/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 17,
+  "roles": {
+    "designTranslator": {
+      "status": "PASS",
+      "scope": "Intent and approved-pattern correction only",
+      "decision": "Approve bounded-long-form-sections as a structure-only held-out pattern because three existing evidence refs establish purpose-separated organisms and responsive reading order; forbid transfer of source colors, assets, skins, typography and motion."
+    },
+    "designDirector": {
+      "status": "PASS",
+      "scope": "Direction approval and frozen-goal binding only",
+      "decision": "Rebind design-direction and fidelity canonical resolution to the sealed v2 goal; no Evidence, UI/CSS, Mapper or Goal mutation."
+    }
+  },
+  "canonicalGoal": {
+    "id": "pokemon-tcg-official-cold-start-v2",
+    "path": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+    "sha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"
+  },
+  "artifactHashes": {
+    "designDirection": "3843b8f3a4299751e62eb401f7161c552ab43c91b6969adb90930f781d77bc72",
+    "brandIntent": "d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac",
+    "approvedVisualPatterns": "6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba",
+    "generativeProof": "6d2cbd46d3e5e9485e842ccaccd854b7979aba5c6d5f486973c6fd17d5f7f0b2",
+    "sectionFidelityManifest": "9567e193e62c9eaea59a32839f2a475c3a6a1ec24bd9026162c50194cf30f305"
+  },
+  "gates": [
+    {"name": "validate-design-direction", "status": "PASS", "failures": 0},
+    {"name": "validate-section-fidelity --strict", "status": "PASS", "failures": 0},
+    {"name": "validate-design-direction.test", "status": "PASS"},
+    {"name": "validate-section-fidelity.test", "status": "PASS"},
+    {"name": "intent-pattern-generative-reference-check", "status": "PASS", "approvedPatternId": "bounded-long-form-sections"},
+    {"name": "validate-brand-fidelity canonical-resolution", "status": "PASS", "resolvedGoalId": "pokemon-tcg-official-cold-start-v2", "resolvedGoalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794", "fullVerdict": "DEFERRED_UNTIL_ATTEMPT17_QA_INPUT", "note": "The gate now evaluates v2; full fidelity remains protocol-blocked until the fresh Attempt 17 QA packet exists."}
+  ],
+  "forbiddenWritesChecked": {
+    "evidence": true,
+    "uiCss": true,
+    "mapper": true,
+    "goal": true
+  },
+  "status": "PASS_READY_FOR_DEMO_AND_FRESH_QA"
+}

@@ -1,0 +1,120 @@
+{
+  "schema": "brand-evidence-correction/v1",
+  "brand": "pokemon-tcg-official",
+  "scope": "official home Hero only: desktop 1440x1000 and mobile 390x844",
+  "status": "PASS",
+  "method": "screenshot-first, followed by read-only DOM/currentSrc/computed-style verification on the official site; Demo implementation was not inspected",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "sourceEvidence": {
+    "desktopCapture": {
+      "path": "output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/desktop/frames/desktop-default.png",
+      "sha256": "9daf30d832c902b6064e0e0273e902f0ee51de194a115bf43fa28cfbbce83162"
+    },
+    "mobile390Capture": {
+      "path": "output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/mobile-390/frames/mobile-default.png",
+      "sha256": "b5ac08df53a5014c4b139a9a70330c00d33b9c310a89c658d4fec77ca5700b11"
+    },
+    "priorSectionEvidence": {
+      "path": "migrations/pokemon-tcg-official-home-hero/brand-evidence.json",
+      "sha256": "2b7d93ae9ab515ed4e4a735a77549c03891ea42c343d6d691dba094c6ed15335"
+    },
+    "priorAssetInventory": {
+      "path": "migrations/pokemon-tcg-official-home-hero/rendered-asset-inventory.json",
+      "sha256": "0eb4480d9be512f1661995374cd4be8592153d8de891de6db0cf8dd661a5b005"
+    }
+  },
+  "observations": [
+    {
+      "id": "hero-responsive-source-selection",
+      "status": "PASS_WITH_CORRECTION",
+      "claim": "The official picture element changes the Hero background candidate at the 64em breakpoint. At the observed DPR 1 desktop viewport, currentSrc is booster-art-1-large-up.jpg; at 390px it is booster-art-1.jpg.",
+      "correction": "booster-art-1-large-up-2x.jpg is present as the desktop 2x srcset candidate, but it was not the observed desktop currentSrc because the measured browser DPR was 1. It must not be recorded as the loaded asset without a DPR 2 observation.",
+      "desktop": {
+        "viewport": [1440, 1000],
+        "devicePixelRatio": 1,
+        "currentSrc": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1-large-up.jpg",
+        "naturalSize": [1024, 620],
+        "pictureSourceMedia": "(min-width: 64em)",
+        "srcsetCandidates": [
+          "booster-art-1-large-up.jpg 1x",
+          "booster-art-1-large-up-2x.jpg 2x"
+        ]
+      },
+      "mobile390": {
+        "viewport": [390, 844],
+        "devicePixelRatio": 1,
+        "currentSrc": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1.jpg",
+        "naturalSize": [1024, 760],
+        "srcsetCandidates": [
+          "booster-art-1.jpg 1x",
+          "booster-art-1-2x.jpg 2x"
+        ]
+      }
+    },
+    {
+      "id": "hero-responsive-geometry",
+      "status": "PASS",
+      "claim": "The official Hero changes from a horizontal desktop stage to a tall mobile stage; this is not uniform proportional scaling.",
+      "desktop": {
+        "selector": ".featured-switcher",
+        "boundingBox": {"x": 0, "y": 84, "width": 1440, "height": 710.2421875}
+      },
+      "mobile390": {
+        "selector": ".featured-switcher",
+        "boundingBox": {"x": 0, "y": 56, "width": 390, "height": 1182.65625}
+      },
+      "inference": "Width falls to 27.08% of desktop while height grows to 166.52%; therefore a single uniform scale transform cannot explain the official responsive result."
+    },
+    {
+      "id": "hero-background-art-direction",
+      "status": "PASS",
+      "claim": "Mobile uses an alternate aspect-ratio asset and an art-directed cover crop rather than shrinking the desktop raster.",
+      "mobile390": {
+        "selector": ".featured-switcher__bg img.is-selected",
+        "boundingBox": {"x": -19.5, "y": 25, "width": 429, "height": 682},
+        "computed": {
+          "objectFit": "cover",
+          "objectPosition": "50% 100%",
+          "position": "absolute",
+          "settledTransform": "matrix(1.1, 0, 0, 1.1, 0, 0)"
+        }
+      },
+      "visualCheck": "The 390px capture keeps Pikachu/Mew/Mewtwo as the focal group, then places the campaign mark below the character field."
+    },
+    {
+      "id": "hero-independent-reflow",
+      "status": "PASS",
+      "claim": "Navigation, campaign logo, foreground card, CTA, and carousel controls are separate DOM elements and are re-laid out independently on mobile.",
+      "mobile390": {
+        "nav": {"selector": "#main-nav__inner", "box": {"x": 0, "y": 0, "width": 390, "height": 56}},
+        "campaignLogo": {"selector": ".medium-down.featured-switcher__logo", "renderedSize": [336.59375, 183.6328125]},
+        "foregroundCard": {"currentSrcSuffix": "/2M6P_EN_23.png", "renderedSize": [210.42083740234375, 293.313232421875]},
+        "cta": {"selector": ".featured-switcher__buttons .button_light", "box": {"x": 43.453125, "y": 1133.15625, "width": 303.0859375, "height": 55.5}},
+        "previousControl": {"selector": ".featured-switcher__nav-small--left", "box": {"x": 0, "y": 886.9921875, "width": 56, "height": 56}},
+        "nextControl": {"selector": ".featured-switcher__nav-small--right", "box": {"x": 334, "y": 886.9921875, "width": 56, "height": 56}},
+        "desktopTextNavAtMobile": {"selector": ".featured-switcher__nav-button", "renderedSize": [0, 0]}
+      },
+      "visualCheck": "The source mobile capture shows a vertical reading sequence: compact header, cropped character field, campaign mark, label/card area, then CTA; side controls replace the wide desktop text control."
+    }
+  ],
+  "dispositions": [
+    {
+      "candidate": "desktop currentSrc is booster-art-1-large-up-2x.jpg",
+      "disposition": "REJECTED_FOR_OBSERVED_DPR1",
+      "reason": "It is only the 2x srcset candidate. The measured DPR 1 currentSrc is booster-art-1-large-up.jpg."
+    },
+    {
+      "candidate": "mobile is a proportional desktop shrink",
+      "disposition": "REJECTED",
+      "reason": "The aspect ratio, currentSrc, crop, total Hero height, element order and controls all change."
+    },
+    {
+      "candidate": "mobile uses art-directed responsive composition",
+      "disposition": "VALIDATED",
+      "reason": "Confirmed by source screenshots plus currentSrc, computed object-fit/object-position and independent element boxes."
+    }
+  ],
+  "blocking": [],
+  "handoffDecision": "PASS",
+  "handoffNote": "Interpreter/Design Director may treat art-directed responsive composition as a verified source invariant. They must not claim that the 2x desktop candidate was loaded in the measured DPR 1 run."
+}

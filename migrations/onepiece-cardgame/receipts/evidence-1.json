@@ -1,0 +1,45 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "8cc26da0-f3f0-45ee-a455-05f64419623a",
+  "runId": "672d1d73-774e-4aec-acac-1e75f44b7a54",
+  "stageId": "evidence-1",
+  "stage": "evidence",
+  "role": "brandResearcher",
+  "attempt": 1,
+  "goalId": "onepiece-cardgame-learn-v4",
+  "agentExecutionId": "/root/onepiece_home_v5_evidence_gate",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "startedAt": "2026-09-01T09:20:00Z",
+  "completedAt": "2026-09-01T09:27:24Z",
+  "inputs": [
+    {"path": "migrations/onepiece-cardgame/goal-contract.json", "sha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"},
+    {"path": "migrations/onepiece-cardgame/home-live-dom-evidence.json", "sha256": "1f3b4049141675d8930d753ecf5cc37988c088e1d7011ac35035cdc24dc57ad2"}
+  ],
+  "outputs": [
+    {"path": "migrations/onepiece-cardgame/brand-evidence.json", "sha256": "1cceb545baac48bbf93f226e436c6b489d3a888c0c3c1389b890287cdefca0b3"},
+    {"path": "migrations/onepiece-cardgame/source-observation-manifest.json", "sha256": "c122ee54af9ffb9ee3906ffd00caa5258997cb139ddaf1a54484857621d1099d"},
+    {"path": "migrations/onepiece-cardgame/rendered-asset-inventory.json", "sha256": "f5e5075587b6bab475c1ac0ac7fdb0c95b485a58f3f3b3f2a306a88d2447087a"},
+    {"path": "migrations/onepiece-cardgame/action-evidence.json", "sha256": "7a491ca50b7f0f9046af6f55fc605b218926bd25acd602f473ca0169629c10e9"},
+    {"path": "migrations/onepiece-cardgame/action-evidence-v02.json", "sha256": "a958b3b854abd19677d4931c6d475bf548112d96babd7a365b46486e3030d852"},
+    {"path": "migrations/onepiece-cardgame/third-party-evidence.dembrandt.json", "sha256": "ca86b46e1287c160a4f76b3205f33102cb5532d75e1b2fa59dd4212e860552e8"}
+  ],
+  "verdict": "pass",
+  "failureOwnerRole": null,
+  "blockingFindings": [],
+  "warnings": [
+    "The supplied Home v5 live-DOM package is intentionally PARTIAL at the cross-page level: its self-check covers Home only. This does not block the frozen goal because v4 observation evidence continues to cover Home, News, Products and Events.",
+    "During receipt-format discovery, a broad receipts listing displayed text from a prior QA receipt. It occurred after the Evidence conclusions and edits were complete; no prior QA assertion was used, copied or allowed to alter any claim, goal coverage or verdict."
+  ],
+  "checks": {
+    "goalHashUnchanged": "pass",
+    "homeLiveDomStrictGate": "pass",
+    "homeLiveDomClaimCount": 13,
+    "homeLiveDomAcceptedClaimIndex": "13/13",
+    "evidenceVisibilityStrict": "pass",
+    "requiredPageCoverage": "4/4",
+    "requiredInteractionCoverage": "2/2",
+    "mustPreserveTraceability": "pass",
+    "thirdPartySeedDispositions": "pass"
+  },
+  "notes": "Evidence-owned outputs now explicitly index all 13 accepted Home v5 live-DOM claims without weakening their screenshot, normalized region, visible DOM, computed property, source rule, motion-state or carousel-cycle chains. The Home package supplements rather than replaces the frozen four-page v4 continuous observation set. No Demo file or Demo screenshot was read or modified."
+}

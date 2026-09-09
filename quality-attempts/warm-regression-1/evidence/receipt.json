@@ -1,0 +1,70 @@
+{
+  "schema": "brand-role-receipt/v1",
+  "runId": "warm-regression-1",
+  "role": "Brand Researcher",
+  "brand": "pokemon-tcg-pitch-black",
+  "goalId": "pokemon-tcg-pitch-black-warm-regression-v1",
+  "goalContract": {
+    "path": "migrations/pokemon-tcg-pitch-black/goal-contract.json",
+    "sealed": true,
+    "modified": false
+  },
+  "startedAt": "2026-09-01T23:04:19+08:00",
+  "completedAt": "2026-09-01T23:13:43+08:00",
+  "actualElapsedSeconds": 564,
+  "actualElapsedMinutes": 9.4,
+  "profileTargetMinutes": [30, 45],
+  "status": "NEEDS_EVIDENCE",
+  "reuse": {
+    "checkedExistingRuntimeAssets": 15,
+    "hashValidExistingRuntimeAssets": 15,
+    "reusedValidArtifacts": 15,
+    "newValidSourceCaptures": 4,
+    "reuseRate": 0.789,
+    "formula": "15 reused hash-valid artifacts / (15 reused + 4 new valid source captures)",
+    "invalidNewCapturesExcluded": 4
+  },
+  "captureSummary": {
+    "pages": ["expansion", "gallery"],
+    "viewports": [{"width":1440,"height":900},{"width":390,"height":844}],
+    "validFullPageCaptures": 4,
+    "newCaptureCount": 4,
+    "invalidHeadlessBlankCaptures": 4,
+    "desktopAndPhoneReadingOrderObserved": true,
+    "pageLevelHorizontalOverflowAt390": false,
+    "continuousScrollFrames": 0,
+    "validInteractionTransitions": 0
+  },
+  "outputs": [
+    "migrations/pokemon-tcg-pitch-black/brand-evidence.json",
+    "migrations/pokemon-tcg-pitch-black/source-observation-manifest.json",
+    "migrations/pokemon-tcg-pitch-black/rendered-asset-inventory.json",
+    "migrations/pokemon-tcg-pitch-black/action-evidence-v02.json",
+    "migrations/pokemon-tcg-pitch-black/section-fidelity-manifest.json",
+    "migrations/pokemon-tcg-pitch-black/source-observations/warm-regression-1"
+  ],
+  "gates": {
+    "evidenceVisibility": {
+      "command": "node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand pokemon-tcg-pitch-black --strict",
+      "result": "FAIL",
+      "passed": ["evidence-json", "action-json", "source-observation-manifest", "both required page records", "both page full-page SHA checks", "six screenshot-first claims", "third-party seed dispositions"],
+      "blocking": ["expansion continuous capture/timeline/end coverage", "gallery continuous capture/timeline/end coverage", "readyForInterpreter=false", "zero valid action entries"]
+    },
+    "sectionFidelity": {
+      "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-pitch-black --strict",
+      "result": "FAIL_EXPECTED_SOURCE_INITIAL",
+      "reason": "Source-side manifest fields were intentionally initialized; Demo capture/region/selectors/status are outside this role and remain unset. Two source interaction requirements also remain unresolved."
+    }
+  },
+  "blockers": [
+    {"code":"CONTINUOUS_CAPTURE_UNRESOLVED","detail":"The in-app browser rendered valid full pages, but continuous scroll input timed out twice. Headless Chrome returned an empty anti-automation render and was rejected."},
+    {"code":"INTERACTION_TRANSITION_UNRESOLVED","detail":"No valid default/transition/settled/restored capture was produced for expansion Mega selection or gallery filtering."},
+    {"code":"DEMO_FIELDS_PENDING","detail":"Demo-side section captures, regions, selectors and pass statuses are intentionally untouched."}
+  ],
+  "handoff": {
+    "readyForInterpreter": false,
+    "failureOwnerRole": "Brand Researcher",
+    "nextRequiredEvidence": ["browser-driven continuous frame timeline from scrollTop 0 to settled page end for both pages", "default/transition/settled/restored interaction capture for Mega selection and gallery filter"]
+  },
+  "scopeIntegrity": {"intentModified":false,"demoModified":false,"qaModified":false}
+}

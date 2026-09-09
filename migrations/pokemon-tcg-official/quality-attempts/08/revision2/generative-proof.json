@@ -1,0 +1,12 @@
+{
+  "schema":"brand-generative-proof/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"08-revision2",
+  "proofType":"held-out-non-official-fixture",
+  "fixture":{"title":"Deck Lab: Build Around a Single Energy Type","cta":"Open Deck Lab","asset":"public/assets/brand-assets/pokemon-tcg-official/news/pokemon-news-heldout-fixture.svg","sha256":"edcfa48e08b7f7a6ddb6fe854e6563d4019855469ae8ad6cbbaea7247f212305","official":false,"label":"GENERATIVE PROOF · NON-OFFICIAL FIXTURE"},
+  "preservedPatterns":["PAT-WN-01 open editorial field","PAT-WN-02 display-heading hierarchy","PAT-WN-03 image-headline-CTA reading order","PAT-WN-05 decisive black CTA"],
+  "activeChange":"Uses independent generated artwork, held-out Deck Lab information and a different CTA while preserving the learned story recipe.",
+  "isolation":"The fixture renders only on proof=heldout-news, outside the official gallery viewport. It is not one of the six source stories and does not change the official three-page desktop or six-page mobile model.",
+  "capture":"captures/mobile-heldout-generative-proof.png",
+  "visualVerdict":"reserved-for-fresh-blind-qa"
+}

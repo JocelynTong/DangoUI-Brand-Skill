@@ -1,0 +1,150 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v3",
+  "goalSha256": "03c2fb9ab05ea49dd881f6892a008e1e6ec8642a609fc7faf559e323b17703da",
+  "attempt": 8,
+  "status": "fidelity-fail",
+  "overallScore": 78.75,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "score": 62.5,
+      "ratings": {
+        "composition": 1,
+        "assetAuthenticity": 2,
+        "colorRoles": 4,
+        "informationDensity": 3,
+        "typographyGraphics": 3,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "score": 95,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 3,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    }
+  ],
+  "protocolFailures": [],
+  "hardFailures": [
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "home-campaign-hero-stage",
+      "message": "Frozen source capture shows the yellow Kid campaign, but Demo shows the green Zoro campaign. The inventory labels both as source-home-top-campaign-frame/rendered-live-campaign without matching visual identity or variant."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-campaign-hero-stage:right-character-weapon",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-campaign-hero-stage:lower-product-card",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "COMPOSITION_LAYER_NOT_MATCHED",
+      "scope": "home-campaign-hero-stage:carousel-controls",
+      "message": "Blind QA must independently match every declared composition layer."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "home",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_ASSET_BELOW_MIN",
+      "scope": "home",
+      "message": "Asset authenticity is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "home",
+      "message": "Core page score 62.5 is below 70."
+    },
+    {
+      "code": "HERO_ASSET_VARIANT_MISMATCH",
+      "scope": "home",
+      "message": "Frozen source is the yellow Kid campaign; Demo is the green Zoro ST-32 campaign while both are declared as the same source identity/variant."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "home",
+      "message": "home-campaign-hero-stage lacks source-visible support for the implemented campaign variant."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "hero-composition",
+      "message": "The home preview preserves the official hero's dominant campaign composition, visual weight and asset hierarchy."
+    },
+    {
+      "code": "MUST_NOT_REPLACE_VIOLATED",
+      "scope": "logo-color-substitution",
+      "message": "Logo, official assets and brand colors may not substitute for matching composition, hierarchy and information density."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 78.75 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is fail."
+    }
+  ],
+  "blockingFindings": [
+    {
+      "page": "home",
+      "code": "HERO_ASSET_VARIANT_MISMATCH",
+      "finding": "Frozen source is the yellow Kid campaign; Demo is the green Zoro ST-32 campaign while both are declared as the same source identity/variant.",
+      "earliestFailureNode": "Brand Interpreter",
+      "failureOwnerRole": "designTranslator"
+    },
+    {
+      "page": "home",
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "finding": "home-campaign-hero-stage lacks source-visible support for the implemented campaign variant.",
+      "earliestFailureNode": "Brand Interpreter",
+      "failureOwnerRole": "designTranslator"
+    }
+  ],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-fail",
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "pass",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "03c2fb9ab05ea49dd881f6892a008e1e6ec8642a609fc7faf559e323b17703da",
+    "qaInputManifest": "604a3c53ec5eed603ae5eb5aa4556c6008faa74b10c24e7201937a6cef30f8b6",
+    "assessment": "db03ec5246f4103edeb9969c0a78811dc10b1b0841634b299c4c51821a0dcc3f",
+    "visualPatternInventory": "10e190040026970689b0af3468b1464c8ac58296c8cf3ad696acf4c09bfbc38e",
+    "generativeProof": "32ead272227f5e25a7cf7fb34186e754ce1fde86bfe08182c0edeca911546095"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-09-01T05:48:31.603Z"
+}

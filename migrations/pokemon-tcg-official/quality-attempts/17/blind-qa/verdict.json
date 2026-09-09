@@ -1,0 +1,14 @@
+{
+  "schema":"brand-blind-qa-verdict/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":17,
+  "verdict":"REWORK",
+  "evidenceFidelity":"PASS",
+  "structuralFidelity":"FAIL",
+  "generativeProof":"PASS",
+  "blockingCount":2,
+  "nonCompensationApplied":true,
+  "failureOwnerRole":"demoImplementationAgent",
+  "machineGates":{"evidenceVisibilityStrict":"PASS","designDirection":"PASS","sectionFidelityStrict":"PASS","mockupMatrixStrict":"PASS","brandFidelityWrite":"FAIL(exit 3)","handoffArtifactStrict":"FAIL(exit 2)","npmBuild":"PASS"},
+  "notes":["brand fidelity write did not pass because machine fidelity remains blocked","strict handoff also reports missing/shallow workflow-root QA/fidelity/retro artifacts; Blind QA did not modify those forbidden paths"]
+}

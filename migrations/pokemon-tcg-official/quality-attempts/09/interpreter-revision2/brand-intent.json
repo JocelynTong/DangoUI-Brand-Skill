@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-live-only",
+  "status": "APPROVED_WITH_MOTION_UNRESOLVED",
+  "replaces": "../interpreter/brand-intent.json",
+  "sourceEvidence": [
+    "../evidence-revision2/brand-evidence.json",
+    "../evidence-revision2/section-fidelity-source.json"
+  ],
+  "interpretationPrinciple": "Preserve only the independently frozen TCG Live section structure, background hierarchy, asset identities, responsive order, pre-translation typography, and CTA. Entry motion remains unresolved and cannot become an implementation or acceptance requirement.",
+  "visualIntent": {
+    "summary": "A product-world callout that crosses a red/gold V-shaped threshold into a pale-gray technical field. A five-layer product scene and a local black copy panel divide visual demonstration from explanation and action.",
+    "hierarchy": [
+      "The red/gold V is a top seam embedded in the section background, not a solid-red section fill.",
+      "The pale-gray honeycomb field is the dominant section body.",
+      "The five independent assets form one product scene, with the laptop as the rear plane.",
+      "The black panel locally groups H2, body, and CTA.",
+      "The section ends with a hard cut into the pale-blue Pocket section."
+    ]
+  },
+  "structureRecipe": {
+    "id": "pokemon-tcgl-layered-product-callout-r2",
+    "scope": "section-local",
+    "layers": [
+      {"order": 1, "role": "section-background", "rule": "Use the validated full-bleed TCG Live raster containing the red/gold top seam and pale-gray honeycomb body."},
+      {"order": 2, "role": "copy-panel", "rule": "Desktop uses a translucent-black rectangular panel on the left; mobile uses an opaque-black full-width panel below the assets."},
+      {"order": 3, "role": "asset-scene", "rule": "Preserve laptop rear plane, lower-left Pikachu, lower-right phone, and two avatars above as five independent transparent assets."},
+      {"order": 4, "role": "copy-stack", "rule": "Centered H2, one paragraph, and one white CTA only; no kicker."},
+      {"order": 5, "role": "lower-boundary", "rule": "Use a hard transition to the following pale-blue section without a rounded outer shell."}
+    ],
+    "readingOrder": {
+      "desktop1440": ["red/gold V seam", "left copy panel", "right five-layer asset scene", "Pocket lower boundary"],
+      "mobile390": ["red/gold V seam", "five-layer asset scene", "full-width black copy panel", "Pocket lower boundary"]
+    }
+  },
+  "responsiveMatrix": [
+    {
+      "aspect": "section",
+      "desktop1440": "Full-bleed 1440x624 section.",
+      "mobile390": "Full-bleed 390x644.625 section.",
+      "invariant": "V seam, honeycomb field, asset scene, copy panel, and hard lower boundary remain within one section.",
+      "evidenceRefs": ["desktop-layout", "mobile-layout", "background"]
+    },
+    {
+      "aspect": "layout order",
+      "desktop1440": "Copy-left and assets-right.",
+      "mobile390": "Assets-first and copy-second.",
+      "invariant": "Mobile is a deliberate vertical recomposition, not a miniature desktop row.",
+      "evidenceRefs": ["desktop-layout", "mobile-layout"]
+    },
+    {
+      "aspect": "copy panel",
+      "desktop1440": "696x316.5, rgba(0,0,0,.7), padding 50px 72px.",
+      "mobile390": "390px full width, approximately 314.195px in the translated settled geometry, opaque black, padding 30px.",
+      "invariant": "Rectangular local contrast field containing H2, paragraph, and CTA only.",
+      "evidenceRefs": ["desktop-layout", "mobile-layout", "english-copy"]
+    },
+    {
+      "aspect": "asset group",
+      "desktop1440": "778x538 group with laptop 657x387.633 as rear plane.",
+      "mobile390": "374x258.625 group with the same overlap identities preserved.",
+      "invariant": "Five independent transparent source assets retain their semantic layer roles.",
+      "evidenceRefs": ["desktop-layout", "mobile-layout"]
+    },
+    {
+      "aspect": "heading",
+      "desktop1440": "Kanit 700, 40/44, letter-spacing 1.25px.",
+      "mobile390": "Kanit 700, 28/30.8, letter-spacing approximately 1px.",
+      "invariant": "One English H2; no kicker; wrapping is fluid and cannot be inferred from translated pixels.",
+      "evidenceRefs": ["english-copy"]
+    },
+    {
+      "aspect": "body",
+      "desktop1440": "PT Sans 400, 18/28.8.",
+      "mobile390": "PT Sans 400, 18/28.8; expected English height comes from pre-translation computed evidence.",
+      "invariant": "One paragraph between H2 and CTA.",
+      "evidenceRefs": ["english-copy"]
+    },
+    {
+      "aspect": "CTA",
+      "desktop1440": "PT Sans 700, 20/24, 56px high, padding 16px 40px.",
+      "mobile390": "PT Sans 700, 18/22.5, expected 190.742x51.297, padding 14.4px 36px.",
+      "invariant": "One white Learn More action; do not infer additional CTA states from unavailable evidence.",
+      "evidenceRefs": ["english-copy"]
+    }
+  ],
+  "compositionContracts": [
+    {
+      "id": "pokemon-tcgl-five-layer-product-scene-r2",
+      "scope": "homepage TCG Live section",
+      "mustPreserve": [
+        "validated tcgl-background raster identity",
+        "laptop as the large rear plane",
+        "Pikachu at the lower-left foreground",
+        "phone at the lower-right foreground",
+        "avatar-1 and avatar-2 floating above the laptop",
+        "five independent transparent foreground assets",
+        "desktop copy-left/assets-right order",
+        "mobile assets-first/copy-second order"
+      ],
+      "allowedVariation": [
+        "Scale the complete asset group to fit the observed viewport relationship while preserving overlaps.",
+        "Allow original English copy to wrap naturally within the recorded content width."
+      ],
+      "mustNotReplace": [
+        "Do not flatten the five assets into a screenshot or composite crop.",
+        "Do not substitute unrelated official assets.",
+        "Do not turn the V seam into a solid-red section.",
+        "Do not retain desktop order at 390px.",
+        "Do not add a kicker or rounded outer shell."
+      ],
+      "assetLayers": [
+        {"order": 1, "role": "background", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg", "sourceKind": "independent-source-asset"},
+        {"order": 2, "role": "laptop-back-plane", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png", "sourceKind": "independent-source-asset"},
+        {"order": 3, "role": "pikachu-foreground", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png", "sourceKind": "independent-source-asset"},
+        {"order": 4, "role": "phone-foreground-right", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/phone.png", "sourceKind": "independent-source-asset"},
+        {"order": 5, "role": "avatar-upper-left", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png", "sourceKind": "independent-source-asset"},
+        {"order": 6, "role": "avatar-upper-right", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png", "sourceKind": "independent-source-asset"}
+      ],
+      "evidenceRefs": ["desktop-layout", "mobile-layout", "background"]
+    }
+  ],
+  "interactionRecipes": [
+    {
+      "id": "pokemon-tcgl-entry-motion-candidate-r2",
+      "scope": "homepage TCG Live viewport entry",
+      "status": "unresolved",
+      "observed": "Source classes and initial computed values suggest pop/slide behavior, but no stable same-section before/mid/settled visual sequence was obtained.",
+      "restriction": "Do not prescribe exact transforms, timing, delay order, choreography, trigger behavior, or visual acceptance frames. Omit motion or treat it only as an explicitly non-source-faithful optional experiment pending new Evidence.",
+      "evidenceRefs": ["entry-motion"]
+    }
+  ],
+  "scopeBoundaries": {
+    "sectionLocalRules": [
+      "red/gold V-shaped top seam",
+      "pale-gray honeycomb body",
+      "translucent desktop and opaque mobile black copy panel",
+      "five-layer TCG Live product scene",
+      "Kanit H2 and PT Sans body/CTA roles",
+      "desktop/mobile responsive order"
+    ],
+    "notGlobalTokens": [
+      "Red is not a global page background, primary action, or active-state color.",
+      "Gold is not a global interaction token.",
+      "Black panel styling is not a global section, card, modal, or host surface.",
+      "Honeycomb is not a global page texture.",
+      "The typography roles do not establish unrestricted global type tokens.",
+      "No entry-motion or background-motion recipe is approved."
+    ]
+  },
+  "unresolvedClaims": [
+    {
+      "id": "UNRESOLVED-ENTRY-MOTION-R2",
+      "owner": "Evidence",
+      "impact": "No source-faithful entry animation may be required, implemented as learned behavior, or visually accepted from the invalidated sequences.",
+      "downstreamRule": "Omit exact entry motion and do not use rejected or unstable frames for acceptance."
+    },
+    {
+      "id": "UNRESOLVED-ENGLISH-WRAP-R2",
+      "owner": "Evidence",
+      "impact": "Translated stable screenshots cannot prescribe English line breaks.",
+      "downstreamRule": "Use pre-translation English DOM/computed typography with fluid wrapping."
+    },
+    {
+      "id": "UNRESOLVED-CTA-STATES-R2",
+      "owner": "Evidence",
+      "impact": "Revision 2 does not release hover, click, or focus-state evidence beyond the visible CTA structure and typography.",
+      "downstreamRule": "Preserve a functional accessible action, but do not claim source-exact interaction styling without new Evidence."
+    }
+  ],
+  "handoff": {
+    "verdict": "PASS_WITH_MOTION_UNRESOLVED",
+    "blockers": [],
+    "requirementsForDesignDirection": [
+      "Bind exclusively to evidence-revision2.",
+      "Approve real 1440x900 and 390x844 proof surfaces.",
+      "Freeze the background and five foreground asset identities.",
+      "Require desktop copy-left/assets-right and mobile assets-first/copy-second.",
+      "Use pre-translation English DOM/computed typography and fluid wrapping.",
+      "Mark entry motion unresolved and prohibit exact implementation or acceptance from invalidated frames.",
+      "Reject solid-red fields, invented kickers, flattened screenshots, global token expansion, and background motion."
+    ]
+  }
+}

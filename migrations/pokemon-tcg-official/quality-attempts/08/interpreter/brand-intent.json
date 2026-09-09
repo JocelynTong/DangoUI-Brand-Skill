@@ -1,0 +1,275 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/whats-new-only",
+  "status": "APPROVED_WITH_UNRESOLVED",
+  "sourceEvidence": [
+    "../evidence/brand-evidence.json",
+    "../evidence/section-fidelity-source.json"
+  ],
+  "interpretationPrinciple": "Preserve the section's editorial hierarchy and responsive behavior at the narrowest proved scope. Do not generalize its white field, yellow carousel state, typography, card shadow, or motion into site-wide tokens.",
+  "visualIntent": {
+    "summary": "A clean editorial news stage: generous white space establishes clarity, large media carries recognition, compact black actions create decisive rhythm, and the carousel changes density rather than merely shrinking between desktop and mobile.",
+    "hierarchy": [
+      "Section identity is established by a large italic heading.",
+      "A secondary archive link remains visible but subordinate.",
+      "News assets dominate each card before headline and action.",
+      "Pagination and edge controls communicate that more stories exist without competing with story content.",
+      "The following red section is intentionally exposed as a hard boundary; WHAT'S NEW is not an isolated rounded panel."
+    ],
+    "brandSignals": [
+      "italic, heavy display typography for the section heading",
+      "edge-to-edge 578:325 news imagery",
+      "black rectangular CTAs with italic bold labels",
+      "black edge carousel controls with a localized yellow current/available emphasis",
+      "translate + fade + scale carousel choreography"
+    ]
+  },
+  "structureRecipe": {
+    "id": "pokemon-whats-new-editorial-carousel",
+    "scope": "section-local",
+    "layers": [
+      {
+        "order": 1,
+        "role": "section-field",
+        "rule": "Full-viewport-width white field with no rounded outer shell, inset card background, or framing border."
+      },
+      {
+        "order": 2,
+        "role": "section-header",
+        "rule": "Heading and archive link share one row on desktop; they stack and center on mobile."
+      },
+      {
+        "order": 3,
+        "role": "gallery-viewport",
+        "rule": "Two equal cards per desktop page; one full-width card per mobile page."
+      },
+      {
+        "order": 4,
+        "role": "news-card",
+        "rule": "Strict reading order: uncropped image, centered headline, centered CTA."
+      },
+      {
+        "order": 5,
+        "role": "carousel-controls",
+        "rule": "Edge previous/next controls flank centered pagination; the active page must correspond to visibly changed news content."
+      },
+      {
+        "order": 6,
+        "role": "following-section-boundary",
+        "rule": "End the white field cleanly and allow the next section's contrasting red field to begin directly below."
+      }
+    ],
+    "readingOrder": {
+      "desktop": [
+        "heading",
+        "archive link",
+        "card 1 image",
+        "card 1 headline",
+        "card 1 CTA",
+        "card 2 image",
+        "card 2 headline",
+        "card 2 CTA",
+        "carousel controls"
+      ],
+      "mobile": [
+        "heading",
+        "archive link",
+        "image",
+        "headline",
+        "CTA",
+        "previous control",
+        "pagination",
+        "next control"
+      ]
+    }
+  },
+  "responsiveMatrix": [
+    {
+      "aspect": "section boundary",
+      "desktop1440": "Full viewport width; observed padding 60px 0; source section height 748.59px in captured state.",
+      "mobile390": "Full viewport width; observed padding 32px 0 60px; source section height 628.09px in captured state.",
+      "invariant": "White field is edge-to-edge and has no outer card shell.",
+      "evidenceRefs": ["WN-DESK-BOUNDARY", "WN-MOB-BOUNDARY"]
+    },
+    {
+      "aspect": "heading",
+      "desktop1440": "Kanit 48px/52.8px, 700 italic, left aligned.",
+      "mobile390": "Kanit 32px/32.5px, 700 italic, centered.",
+      "invariant": "Heavy italic display role identifies this section.",
+      "evidenceRefs": ["WN-DESK-HEADER", "WN-MOB-HEADER"]
+    },
+    {
+      "aspect": "archive link",
+      "desktop1440": "PT Sans 18px/28.8px, 800 italic, aligned to the right of the heading row.",
+      "mobile390": "Same observed type role, centered on a separate line below the heading.",
+      "invariant": "Secondary to the heading but visible before story content.",
+      "evidenceRefs": ["WN-DESK-HEADER", "WN-MOB-HEADER"]
+    },
+    {
+      "aspect": "carousel density",
+      "desktop1440": "Two 576px equal cards with 24px gutter; six stories form three pages.",
+      "mobile390": "One 390px full-width card; six stories form six pages.",
+      "invariant": "The mobile layout reflows to one story rather than scaling the two-card desktop composition.",
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD"]
+    },
+    {
+      "aspect": "image",
+      "desktop1440": "Approximately 576x323.88 in each card.",
+      "mobile390": "Approximately 390x219.29 and edge-to-edge.",
+      "invariant": "Preserve the independent asset's 578:325 ratio without crop.",
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD"]
+    },
+    {
+      "aspect": "headline",
+      "desktop1440": "PT Sans 24px/31.2px, 800, centered.",
+      "mobile390": "PT Sans 20px/26px, 800, centered within an observed 325px content width.",
+      "invariant": "Headline follows image and precedes CTA.",
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD"]
+    },
+    {
+      "aspect": "CTA",
+      "desktop1440": "Black rectangular action, 56px observed height; 20px bold italic label.",
+      "mobile390": "Centered 173.4x51.3 action; 18px bold italic label.",
+      "invariant": "High-contrast black action remains centered below the headline.",
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD", "WN-CTA-HOVER"]
+    },
+    {
+      "aspect": "carousel controls",
+      "desktop1440": "Pair-based navigation with centered three-page pagination.",
+      "mobile390": "Single-story navigation with six dots and 60x60 black edge controls; disabled previous is 0.5 opacity.",
+      "invariant": "Pagination count maps to pages at the current breakpoint, and controls sit outside the story reading order.",
+      "evidenceRefs": ["WN-DESK-CAROUSEL", "WN-MOB-CAROUSEL"]
+    }
+  ],
+  "interactionRecipes": [
+    {
+      "id": "pokemon-news-carousel-transition",
+      "scope": "WHAT'S NEW carousel only",
+      "status": "approved",
+      "trigger": "previous or next gallery control",
+      "duration": "0.4s opacity transition observed",
+      "outgoing": "Translate horizontally toward the navigation direction while fading to opacity 0.",
+      "incoming": "Begin slightly below scale 1 while fading in and settle at center, scale 1, opacity 1.",
+      "observedSamples": {
+        "desktop120ms": {
+          "outgoingOpacity": 0.108,
+          "outgoingTranslateX": "-642.4px",
+          "incomingOpacity": 0.892,
+          "incomingScale": 0.989
+        },
+        "mobile120ms": {
+          "outgoingOpacity": 0.198,
+          "outgoingTranslateX": "-156.4px",
+          "incomingOpacity": 0.802,
+          "incomingScale": 0.98
+        }
+      },
+      "acceptance": [
+        "Image, headline, and CTA identity visibly change after navigation.",
+        "The transition includes a visible intermediate state; changing only index, class, or pagination is a failure.",
+        "Desktop advances two stories; mobile advances one story.",
+        "Settled incoming content is opacity 1 and outgoing content is opacity 0."
+      ],
+      "evidenceRefs": ["WN-DESK-CAROUSEL", "WN-MOB-CAROUSEL"]
+    },
+    {
+      "id": "pokemon-news-cta-hover",
+      "scope": "WHAT'S NEW story CTA only",
+      "status": "approved-partial",
+      "rule": "On hover, the label visibly changes from white to black as part of an inversion treatment.",
+      "unresolved": "The exact color and shape of the animated background layer were not captured; do not invent them.",
+      "evidenceRefs": ["WN-CTA-HOVER"]
+    },
+    {
+      "id": "pokemon-news-entry-motion-candidate",
+      "scope": "WHAT'S NEW viewport entry only",
+      "status": "unresolved",
+      "observed": "Settled nodes expose vp-slide/vp-pop behavior, a 0.5s transform transition, a 0.4s opacity transition, title delay 0.6s, and CTA delay 0.8s.",
+      "restriction": "Do not prescribe a start transform, exact trajectory, overshoot amount, or scroll timeline until a clean from-offscreen recording exists.",
+      "evidenceRefs": ["WN-ENTRY-MOTION"]
+    }
+  ],
+  "compositionContracts": [
+    {
+      "id": "pokemon-news-image-first-card",
+      "scope": "WHAT'S NEW story cards",
+      "mustPreserve": [
+        "independent source news image identity",
+        "578:325 media aspect ratio",
+        "image -> centered headline -> centered CTA reading order",
+        "modest card shadow: rgba(0,0,0,0.2) 0 6px 10px",
+        "two cards desktop and one card mobile"
+      ],
+      "allowedVariation": [
+        "story copy and image identity may change per source item",
+        "headline may wrap naturally according to original English content and available width",
+        "desktop groups the same six stories into pairs while mobile presents them individually"
+      ],
+      "mustNotReplace": [
+        "Do not use a screenshot crop as runtime card media.",
+        "Do not crop or cover-fill the 578:325 story image.",
+        "Do not retain two columns at 390px.",
+        "Do not add rounded outer section or card-shell styling unsupported by evidence."
+      ],
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD"]
+    }
+  ],
+  "scopeBoundaries": {
+    "sectionLocalRules": [
+      "white full-width section field",
+      "Kanit heavy italic section heading",
+      "PT Sans headline and action typography",
+      "black story CTA",
+      "yellow current/available carousel emphasis",
+      "news card shadow",
+      "two-up desktop / one-up mobile density",
+      "translate + fade + scale carousel motion"
+    ],
+    "notGlobalTokens": [
+      "White is not inferred as the global site background.",
+      "Black CTA styling is not inferred for every button.",
+      "Yellow is not inferred as a global primary, active, or core-action color.",
+      "Kanit italic is not inferred for all headings.",
+      "The news card shadow is not inferred for all cards.",
+      "The carousel transition is not inferred for Hero, product, or navigation carousels."
+    ]
+  },
+  "unresolvedClaims": [
+    {
+      "id": "UNRESOLVED-ENGLISH-WRAP",
+      "owner": "Evidence",
+      "impact": "Exact line breaks and card-height consequences for original English headlines cannot be prescribed.",
+      "downstreamRule": "Use semantic source copy and responsive width; do not hard-code line breaks from the translated captures."
+    },
+    {
+      "id": "UNRESOLVED-ENTRY-MOTION",
+      "owner": "Evidence",
+      "impact": "Entry-on-scroll may not be implemented as an exact source recreation.",
+      "downstreamRule": "Keep as a candidate or omit; carousel motion remains independently approved."
+    },
+    {
+      "id": "UNRESOLVED-CTA-HOVER-LAYER",
+      "owner": "Evidence",
+      "impact": "Only the text-color inversion is approved.",
+      "downstreamRule": "Do not invent a yellow, white, or shaped hover layer."
+    },
+    {
+      "id": "UNRESOLVED-KEYBOARD-FOCUS",
+      "owner": "Evidence",
+      "impact": "Source-specific focus appearance cannot be claimed.",
+      "downstreamRule": "Provide an accessible focus state, but label it implementation accessibility rather than source fidelity."
+    }
+  ],
+  "handoff": {
+    "verdict": "PASS_WITH_CONSTRAINTS",
+    "recipient": "Design Director",
+    "implementationMayProceed": true,
+    "conditions": [
+      "Design direction must preserve section-local scope.",
+      "Original English wrapping must be verified independently or left fluid.",
+      "Entry-on-scroll motion cannot be an exact-fidelity claim.",
+      "Carousel QA must capture before, transition, and settled states at desktop and mobile."
+    ]
+  }
+}

@@ -1,0 +1,15 @@
+import { chromium } from 'playwright-core'
+import fs from 'node:fs/promises'
+import path from 'node:path'
+import crypto from 'node:crypto'
+
+const out=path.dirname(new URL(import.meta.url).pathname),base='http://127.0.0.1:10092/#/pages/detail/index?id=0'
+const browser=await chromium.launch({headless:true,executablePath:'/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',args:['--no-sandbox']})
+const renders=[]
+for(const viewport of [{width:390,height:844},{width:536,height:864},{width:1280,height:720}]){
+ const context=await browser.newContext({viewport,reducedMotion:'reduce'}),page=await context.newPage(),requests=[];page.on('request',r=>requests.push({method:r.method(),url:r.url()}));await page.goto(base,{waitUntil:'networkidle',timeout:30000})
+ const probe=await page.evaluate(()=>{const q=s=>document.querySelector(s),qa=s=>[...document.querySelectorAll(s)],rect=e=>{const r=e.getBoundingClientRect();return{top:r.top,bottom:r.bottom,left:r.left,right:r.right,width:r.width,height:r.height}};const els={identity:q('.dhead'),description:q('.descwrap'),stats:q('.statcard'),view:q('.secnav'),content:q('.grid'),actions:q('.dbottom')};return{rects:Object.fromEntries(Object.entries(els).map(([k,v])=>[k,rect(v)])),fold:Object.fromEntries(Object.entries(els).map(([k,v])=>[k,rect(v).top<innerHeight&&rect(v).bottom>0])),title:q('.dtitle').textContent.trim(),buttons:qa('[role=button]').map(e=>({cls:e.className,tabIndex:e.tabIndex,w:rect(e).width,h:rect(e).height})),tabs:qa('[role=tab]').map(e=>({selected:e.getAttribute('aria-selected'),tabIndex:e.tabIndex,w:rect(e).width,h:rect(e).height})),overflow:Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth),motion:{root:getComputedStyle(q('.detail')).animationName,card:getComputedStyle(q('.gcard')).transitionDuration}}})
+ const screenshot=`selfcheck-${viewport.width}x${viewport.height}-detail.png`;await page.screenshot({path:path.join(out,screenshot),fullPage:true});renders.push({viewport,screenshot,probe,writes:requests.filter(r=>!['GET','HEAD','OPTIONS'].includes(r.method))});await context.close()
+}
+const otherRoutes=[];for(const route of ['plaza','build','mine','event','round']){const context=await browser.newContext({viewport:{width:390,height:844},reducedMotion:'reduce'}),page=await context.newPage(),suffix=route==='event'?'?id=0':route==='round'?'?event=0&round=1':'';await page.goto(`http://127.0.0.1:10092/#/pages/${route}/index${suffix}`,{waitUntil:'networkidle',timeout:30000});const png=await page.screenshot({fullPage:true});otherRoutes.push({route,sha256:crypto.createHash('sha256').update(png).digest('hex'),overflow:await page.evaluate(()=>Math.max(0,document.documentElement.scrollWidth-document.documentElement.clientWidth))});await context.close()}
+await browser.close();await fs.writeFile(path.join(out,'browser-probes.json'),JSON.stringify({schema:'heldout-detail-minimal-experiment-selfcheck/v1',attempt:14,generatedAt:new Date().toISOString(),readOnly:true,renders,otherRoutes},null,2)+'\n')

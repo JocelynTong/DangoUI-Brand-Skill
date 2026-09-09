@@ -1,0 +1,105 @@
+{
+  "schema": "heldout-plaza-filter-fresh-qa/v3",
+  "attempt": 7,
+  "generatedAt": "2026-09-09T23:08:00+08:00",
+  "fresh": true,
+  "readOnly": true,
+  "base": "http://127.0.0.1:10092/#/pages/plaza/index",
+  "renders": [
+    {
+      "viewport": { "id": "mobile-390x844", "width": 390, "height": 844 },
+      "screenshot": "fresh-390x844-plaza.png",
+      "documentOverflowPx": 0,
+      "environment": {
+        "optionCount": 39,
+        "clientWidth": 273,
+        "scrollWidth": 4301,
+        "initialScrollLeft": 0,
+        "initialFullyVisible": ["全部", "标准赛制-18.0", "标准赛制-17.5"],
+        "initialPartialLabels": [],
+        "nativeHorizontalWheel": { "before": 0, "after": 384.5, "pageScrollY": 0, "pass": true },
+        "affordance": ["native visible horizontal scrollbar", "red scrollbar thumb", "persistent end rail"]
+      },
+      "tabReachability": { "tested": 39, "unique": 39, "fullyVisible": 39, "failures": [] },
+      "fold": { "search": true, "seasonStrip": true, "firstCard": true }
+    },
+    {
+      "viewport": { "id": "mid-536x864", "width": 536, "height": 864 },
+      "screenshot": "fresh-536x864-plaza.png",
+      "documentOverflowPx": 0,
+      "environment": {
+        "optionCount": 39,
+        "clientWidth": 376,
+        "scrollWidth": 5883,
+        "initialScrollLeft": 0,
+        "initialFullyVisible": ["全部", "标准赛制-18.0", "标准赛制-17.5"],
+        "initialPartialLabels": [],
+        "nativeHorizontalWheel": { "before": 0, "after": 525.5, "pageScrollY": 0, "pass": true },
+        "affordance": ["native visible horizontal scrollbar", "red scrollbar thumb", "persistent end rail"]
+      },
+      "tabReachability": { "tested": 39, "unique": 39, "fullyVisible": 39, "failures": [], "lastScrollLeft": 5470 },
+      "fold": { "search": true, "seasonStrip": true, "firstCard": true }
+    },
+    {
+      "viewport": { "id": "desktop-1280x720", "width": 1280, "height": 720 },
+      "screenshot": "fresh-1280x720-plaza.png",
+      "documentOverflowPx": 0,
+      "environment": {
+        "optionCount": 39,
+        "rowCount": 4,
+        "rowTops": [252, 291, 329, 367],
+        "labelsWithClientWidthBelowScrollWidth": [],
+        "intersectingChipPairs": [],
+        "reasonableWrap": true
+      },
+      "fold": { "search": true, "seasonStrip": true, "firstCard": true }
+    }
+  ],
+  "lastOptionParity": [
+    {
+      "mechanism": "pointer",
+      "label": "太阳&月亮-2.0",
+      "role": "button",
+      "ariaPressed": "true",
+      "activePressed": ["太阳&月亮-2.0"],
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 4028,
+      "urlChanged": false,
+      "newNetworkResources": [],
+      "writes": []
+    },
+    {
+      "mechanism": "Enter",
+      "label": "太阳&月亮-2.0",
+      "role": "button",
+      "ariaPressed": "true",
+      "activePressed": ["太阳&月亮-2.0"],
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 4028,
+      "urlChanged": false,
+      "newNetworkResources": [],
+      "writes": []
+    },
+    {
+      "mechanism": "Space",
+      "label": "太阳&月亮-2.0",
+      "role": "button",
+      "ariaPressed": "true",
+      "activePressed": ["太阳&月亮-2.0"],
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 4028,
+      "urlChanged": false,
+      "newNetworkResources": [],
+      "writes": []
+    }
+  ],
+  "regression": {
+    "attempt4VisualDirectionRetained": true,
+    "plazaPaperEditorialCompositionRetained": true,
+    "otherRouteMaterialRegression": false,
+    "basis": "Attempt 7 implementation is scoped to .plaza .filterline.second selectors; fresh Plaza captures retain the approved navigation, paper canvas, season strip and deck-card composition."
+  }
+}

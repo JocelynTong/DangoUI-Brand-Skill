@@ -1,0 +1,32 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "attempt": 15,
+  "observedMismatch": "When the Home Indicator owns an opaque TabBar surface, its lower corners sit inside the phone-screen instead of following the screen's inner rounded edge.",
+  "userVisibleEvidence": {
+    "route": "#/brand/pokemon-tcg-official/style/color",
+    "state": "normal mockup with TabBar",
+    "before": {
+      "phone": { "x": 713.67, "width": 312.66 },
+      "screen": { "x": 721.17, "width": 297.66 },
+      "indicator": { "x": 729.09, "width": 281.83 }
+    }
+  },
+  "failureOwnerRole": "Demo Implementation Agent",
+  "qaMiss": "The previous surface-state QA checked background continuity, bottom anchoring, visibility, and scrolling, but did not assert indicator and phone-screen horizontal geometry equality.",
+  "rootCause": "The outer indicator is an absolute child of the bordered phone. Its containing block already resolves left/right against the padding box, which is the phone-screen edge. Applying --mockup-frame-border-scaled again produced a second inset.",
+  "fix": "Set left and right to 0 while retaining bottom:0 and the screen inner radius token.",
+  "executableRegressionAssertion": {
+    "normal": [
+      "indicator.x === screen.x",
+      "indicator.width === screen.width",
+      "indicator.bottom === screen.bottom",
+      "indicator.borderBottomLeftRadius === screen.borderBottomLeftRadius",
+      "indicator.borderBottomRightRadius === screen.borderBottomRightRadius"
+    ],
+    "withTabBar": "indicator.y === tabbar.bottom and both consume --mockup-tabbar-surface",
+    "withoutTabBar": "indicator background remains transparent",
+    "proof": "proof=1|desktop|mobile keeps indicator display:none"
+  },
+  "ruleScope": "shared mockup chassis; not brand-specific",
+  "visualQaVerdict": "not-assigned-by-implementation-agent"
+}

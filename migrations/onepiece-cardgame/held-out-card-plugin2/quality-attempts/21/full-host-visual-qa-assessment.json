@@ -1,0 +1,173 @@
+{
+  "schema": "brand-host-full-visual-qa-assessment/v1",
+  "attempt": 21,
+  "scope": "held-out-card-plugin2-full-host",
+  "qaRole": "fresh-independent-full-host-visual-qa",
+  "readOnly": true,
+  "verdict": "PASS_ADVISORY",
+  "workflowCompletion": "PASS",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "PASS",
+  "visualSystemConformance": "PASS",
+  "dangoUi": "PARTIAL_STYLE_ONLY",
+  "summary": "Across Plaza, Event, Detail, Build, Mine and Round, the held-out host now reads as one restrained Pokémon TCG Pitch Black editorial system: warm paper provides the common canvas, navy carries local identity, rectangular ruled geometry carries structure, and red/yellow are sparse semantic accents. Each route keeps a task-native composition rather than repeating one template. Fresh 390/536/1280 renders, isolated route journeys and technical gates pass without external writes or production-context mutation.",
+  "blockingFindings": [],
+  "advisoryFindings": [
+    {
+      "code": "MOBILE_MICROCOPY_BELOW_10PX",
+      "owner": "Design Director / Host Implementation Agent",
+      "severity": "advisory",
+      "finding": "At 390px, Plaza season microcopy is 9.36px and compact lineup labels are 9.88px; avatar initials are 8.32px on Plaza, Mine and Round. These are subordinate, short labels and remain visibly legible in the screenshots, but they are the lower bound of the system and should not be reused for longer CJK copy.",
+      "evidence": "type-scale-audit.json",
+      "blocking": false
+    },
+    {
+      "code": "EXPECTED_CONTENT_LENGTH_WHITESPACE",
+      "owner": "QA",
+      "severity": "advisory",
+      "finding": "Mine's default favorite branch has one inventory item, so the remainder of the phone viewport is warm-paper whitespace. It is content-length whitespace rather than a decorative background block, spacing defect or missing card separator; the published branch fills normally and the empty draft branch explicitly says 暂无卡组.",
+      "blocking": false
+    },
+    {
+      "code": "DANGOUI_RUNTIME_NOT_PRESENT",
+      "owner": "Design Director / Orchestrator",
+      "severity": "constraint",
+      "finding": "No real DangoUI runtime/component consumer is present in this held-out host. The result is therefore a conservative style-only host application and must not be represented as full DangoUI component adoption.",
+      "blocking": false
+    }
+  ],
+  "frozenInputs": {
+    "goalContractSeal": "../../goal-contract-seal.json",
+    "preeditBaseline": "../../preedit-baseline-bundle.json",
+    "designDirection": "../../design-direction.json",
+    "pageDirections": [
+      "../../plaza-standard-sample-direction-v2.json",
+      "../../event-minimal-experiment-direction.json",
+      "../../detail-minimal-experiment-direction.json",
+      "../../build-minimal-experiment-direction.json",
+      "../../mine-minimal-experiment-direction.json",
+      "../../round-minimal-experiment-direction.json"
+    ],
+    "acceptedPageQa": [
+      "../10/visual-qa-assessment.json",
+      "../13/visual-qa-assessment.json",
+      "../15/visual-qa-assessment.json",
+      "../17/visual-qa-assessment.json",
+      "../19/visual-qa-assessment.json",
+      "../20/visual-qa-assessment.json"
+    ]
+  },
+  "responsiveCoverage": {
+    "routes": ["plaza", "event", "detail", "build", "mine", "round"],
+    "viewports": ["390x844", "536x864", "1280x720"],
+    "freshScreenshots": 18,
+    "horizontalOverflowFailures": 0,
+    "undersizedRoleOwnerFailures": 0,
+    "nonFocusableRoleOwnerFailures": 0,
+    "activeMotionUnderReducedMotion": 0,
+    "unexplainedBlankBlockFailures": 0,
+    "explicitHeroClassCount": 0,
+    "pillGeometryCount": 0,
+    "duplicateTabLabelFailures": 0
+  },
+  "routeAssessments": {
+    "plaza": {
+      "status": "PASS_ADVISORY",
+      "identity": "navigation/search/taxonomy/season/deck discovery",
+      "systemSignals": "navy local header, ruled search and filters, sparse yellow active state, red season cue, rectangular deck inventory",
+      "baselineDelta": "The former generic card plaza is now a bounded editorial discovery surface with explicit hierarchy and no clipped filter rail or unexplained lower padding.",
+      "note": "Intentional horizontal taxonomy scrolling remains on mobile; desktop wraps into a complete readable set."
+    },
+    "event": {
+      "status": "PASS",
+      "identity": "tournament identity/status/schedule/top-deck action",
+      "systemSignals": "contained navy media identity, ruled metrics, red schedule rail and rectangular action hierarchy",
+      "baselineDelta": "A dark poster-like page became an event-native editorial dossier without copying Plaza composition."
+    },
+    "detail": {
+      "status": "PASS",
+      "identity": "deck identity/author/description/stats/cards/actions",
+      "systemSignals": "product-first card framing, ruled facts and view controls, persistent bounded actions",
+      "baselineDelta": "The page now prioritizes deck identity and scan order while preserving card media and all real actions."
+    },
+    "build": {
+      "status": "PASS",
+      "identity": "dense search/filter/pool/tray/publish workbench",
+      "systemSignals": "compact navy editing bar, rectangular filter matrix, ruled pool rows and clearly separated tray",
+      "baselineDelta": "The tool stays high-density and functional; visual identity comes from component family rather than showcase decoration."
+    },
+    "mine": {
+      "status": "PASS_ADVISORY",
+      "identity": "personal profile/deck inventory/create/edit/delete management",
+      "systemSignals": "contained navy profile identity, red create action, yellow selected inventory tab, rectangular records and explicit danger modal",
+      "baselineDelta": "Management states now share the same hierarchy while retaining four real branches and safe destructive semantics."
+    },
+    "round": {
+      "status": "PASS",
+      "identity": "event context/ranking/deck/player/status scan sheet",
+      "systemSignals": "navy tournament masthead, ruled ranking rows, strong rank numerics and sparse yellow first/live states",
+      "baselineDelta": "The ranking page is now a compact tournament sheet with text-explicit empty, gold and status branches."
+    }
+  },
+  "crossPageConsistency": {
+    "warmPaperCanvas": "PASS",
+    "navyIdentity": "PASS",
+    "rectangularRuledHierarchy": "PASS",
+    "sparseRedYellowSemantics": "PASS",
+    "cjkTypeScale": "PASS_ADVISORY",
+    "taskSpecificPageIdentity": "PASS",
+    "noRepeatedHeroTemplate": "PASS",
+    "noMysteriousBackgroundOrCardBoundaryLoss": "PASS",
+    "noPrematureDesktopColumns": "PASS",
+    "noStickyFixedOcclusion": "PASS",
+    "noFakeAffordance": "PASS"
+  },
+  "interactionAndSafety": {
+    "routeJourneyEvidence": "route-journey-evidence.json",
+    "pointer": "PASS",
+    "enter": "PASS",
+    "space": "PASS",
+    "visibleFocus": "PASS on the first real control of all six routes",
+    "touchOwnership44px": "PASS for every visible role=button/role=tab owner at all three viewports",
+    "reducedMotion": "PASS",
+    "externalNetworkWrites": 0,
+    "deleteConfirmed": false,
+    "publishSubmitted": false,
+    "productionContextMutated": false
+  },
+  "technicalGates": {
+    "structuralDiff": {
+      "status": "PASS",
+      "routes": 6,
+      "failures": 0
+    },
+    "themeOrder": {
+      "status": "PASS",
+      "strategy": "single-global-entry",
+      "importer": "src/app.js"
+    },
+    "productionBuild": {
+      "status": "PASS",
+      "command": "TARO_APP_HELDOUT_THEME=onepiece npm run build:h5",
+      "modulesTransformed": 662
+    },
+    "businessSourceIntegrity": {
+      "status": "PASS",
+      "evidence": "Frozen per-route structural diffs pass; git diff shows no changes to src/store.js or src/data/cards.js; fresh navigation outcomes match the frozen host."
+    },
+    "fixedPortLanPreview": {
+      "status": "PASS",
+      "url": "http://192.168.12.127:10092/",
+      "httpStatus": 200
+    }
+  },
+  "freshEvidence": {
+    "browserProbes": "fresh-browser-probes.json",
+    "typeScaleAudit": "type-scale-audit.json",
+    "mineSafeActions": "mine-safe-actions.json",
+    "routeJourneys": "route-journey-evidence.json",
+    "runner": "run-full-host-fresh-qa.mjs",
+    "screenshotsPattern": "fresh-{390x844|536x864|1280x720}-{plaza|event|detail|build|mine|round}.png"
+  },
+  "failureRoute": null
+}

@@ -1,0 +1,64 @@
+{
+  "schema": "brand-host-build-minimal-comparison/v1",
+  "attempt": 16,
+  "route": "pages/build/index",
+  "freshQa": true,
+  "producerScreenshotsUsed": false,
+  "references": [
+    "build-minimal-experiment-direction.json",
+    "Plaza QA10",
+    "Event QA13",
+    "Detail QA15"
+  ],
+  "comparison": {
+    "warmPaperWorkbench": "PASS",
+    "compactNavyHeader": "PASS",
+    "singleSearch": "PASS",
+    "rectangularComponentFamily": "PASS",
+    "noHeroOrDecorativeMedia": "PASS",
+    "noPillControls": "PASS",
+    "redPublishSemantics": "PASS",
+    "yellowSelectedSemantics": "PASS",
+    "cjkHierarchyAndDensity": "PASS_WITH_DESKTOP_DENSITY_NOTE",
+    "publishingFormLegibility": "FAIL",
+    "keyboardParity": "FAIL",
+    "disabledStateCoverage": "FAIL",
+    "maskedRecognition": "PASS"
+  },
+  "maskedRecognitionEvidence": {
+    "assetIndependent": true,
+    "signals": [
+      "warm-paper work surface",
+      "navy ruled utility header",
+      "low-radius rectangular control family",
+      "sparse yellow active state and red primary action",
+      "editorial rule-based density"
+    ],
+    "finding": "The system remains recognizable with card imagery ignored; recognition comes from component geometry, rules, type hierarchy and semantic color roles."
+  },
+  "blockingDifferences": [
+    {
+      "id": "BUILD_ENV_VALUE_INVISIBLE",
+      "severity": "P0",
+      "finding": "The selected environment value is white text on the white environment field in all three fresh viewports.",
+      "evidence": "browser-probes.json renders[*].interactions.sheet: currentEnvironmentColor and environmentBackground are both rgb(255, 255, 255)."
+    },
+    {
+      "id": "BUILD_ENV_KEYBOARD_DOUBLE_TOGGLE",
+      "severity": "P0",
+      "finding": "The environment selector opens by pointer, but Enter/Space leave aria-expanded=false and the wheel closed in all three fresh viewports.",
+      "evidence": "browser-probes.json renders[*].interactions.environment; fresh CUA pointer probe observed aria-expanded=true."
+    },
+    {
+      "id": "BUILD_DISABLED_STATE_ABSENT",
+      "severity": "P1",
+      "finding": "The publish action is visually active while the form is not ready, and exposes neither aria-disabled nor a disabled class/state.",
+      "evidence": "browser-probes.json renders[*].interactions.sheet and publishReady."
+    }
+  ],
+  "nonBlockingNotes": [
+    "At 1280px the full-width list rows and CJK sizing are substantially looser than the compact 390/536 workbench; this is not the current P0 failure but should be tightened in the repair pass.",
+    "The 1280px publish sheet scrolls internally; fields below the fold remain reachable, so this is not classified as clipping."
+  ],
+  "verdict": "REWORK"
+}

@@ -1,0 +1,16 @@
+{
+  "schema":"brand-demo-implementation-self-check/v1","brand":"onepiece-cardgame","attempt":10,"role":"Demo Implementation Agent","status":"PASS_READY_FOR_BLIND_QA",
+  "inputBoundary":{"consumed":["migrations/onepiece-cardgame/goal-contract.json","migrations/onepiece-cardgame/footer-motion-evidence-v10.json","migrations/onepiece-cardgame/brand-intent.json","migrations/onepiece-cardgame/approved-visual-patterns.json","current Demo runtime/schema"],"excludedAsAuthority":["prior QA verdicts"]},
+  "checks":[
+    {"id":"composition","pass":true,"finding":"Removed pale diagonal poster; responsive organism retains edge-spanning wave, dominant left Luffy, three-card rightward hierarchy, catch over large lower-right logo, and following navy footer."},
+    {"id":"independent-assets","pass":true,"finding":"Seven official independent source assets are used; no screenshot, crop or reference-derived full-frame raster is used at runtime."},
+    {"id":"one-shot-reveal","pass":true,"finding":"IntersectionObserver adds is-in once and disconnects; class persists through settled, late, pause and resume."},
+    {"id":"finite-state-swap","pass":true,"finding":"Composite exposes inCard 0.6s and inItem 0.8s, one iteration each, terminal opacity 0."},
+    {"id":"exact-loops","pass":true,"finding":"Computed durations are card01 5s infinite, card02/card03 8s infinite; late transforms differ from settled."},
+    {"id":"loop-local-control","pass":true,"finding":"After pause, only three card loops report paused and transforms remain byte-identical for 1200ms; reveal remains settled. Resume returns all loops to running without replay."},
+    {"id":"phone-shell-scroll","pass":true,"finding":"phone/phone-screen preserved; scrollHeight 3129 > clientHeight 583; max scrollTop 2545.9089 reached; held-out page and two sections preserved."},
+    {"id":"typography-preserved","pass":true,"finding":"Existing title/font resources and roles were not modified."},
+    {"id":"build","pass":true,"finding":"npm run build passed; only existing bundle-size advisory emitted."}
+  ],
+  "captures":"migrations/onepiece-cardgame/demo-screenshot-manifest.json","patternInventory":"migrations/onepiece-cardgame/visual-pattern-inventory.json","visualFidelitySelfApproved":false,"nextRole":"Blind Visual QA"
+}

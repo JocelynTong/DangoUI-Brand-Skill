@@ -1,0 +1,89 @@
+{
+  "schema": "brand-style-pack-draft/v1",
+  "brand": "onepiece-cardgame",
+  "label": "Onepiece Cardgame",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "sourceHost": "asia-en.onepiece-cardgame.com",
+  "createdAt": "2026-08-28T22:40:59.807Z",
+  "status": "standard-demo-preview-draft",
+  "demoGate": {
+    "passed": true,
+    "reason": "Registered into the maintained demo preview data. Human review is still required before promoting to a maintained style pack."
+  },
+  "standardDemoPreview": {
+    "brand": "onepiece-cardgame",
+    "registry": "public/brand-previews/registry.json",
+    "preview": "public/brand-previews/onepiece-cardgame.json",
+    "route": "/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+    "shell": "reference/style/components/pages inspector + phone mockup"
+  },
+  "coverage": {
+    "dimensions": [
+      "color",
+      "font",
+      "radius",
+      "border",
+      "shadow",
+      "frame-or-asset",
+      "active-state"
+    ],
+    "level": "standard-demo-draft",
+    "gate": "structure-ready-evidence-pending"
+  },
+  "componentCoverage": {
+    "actualUsed": [
+      "NavigationBar",
+      "Search",
+      "HeroHeader",
+      "Grid",
+      "Tabs",
+      "Feed",
+      "Button",
+      "Swiper",
+      "Card",
+      "Tag",
+      "Image",
+      "Avatar",
+      "List",
+      "PriceStatistic",
+      "BottomBar",
+      "Input",
+      "Textarea",
+      "Upload",
+      "Select",
+      "Switch"
+    ],
+    "inheritedBaseline": [
+      "NavigationBar",
+      "Search",
+      "Tabs",
+      "Button",
+      "Tag",
+      "Image",
+      "Avatar",
+      "Popup",
+      "Input",
+      "Textarea",
+      "Select",
+      "Switch",
+      "Upload",
+      "BottomBar"
+    ],
+    "missingOrNeedsUpdate": [
+      "HeroHeader",
+      "Grid",
+      "List",
+      "Feed",
+      "SPU",
+      "FAB",
+      "TabBar",
+      "BottomBar"
+    ],
+    "note": "组件 tab 默认看实际用到的组件；其他未显性使用的组件继承 DangoUI baseline，并在缺口里说明。"
+  },
+  "promoteWhenReady": [
+    "Replace placeholder tokens with sampled evidence.",
+    "Replace generic style recipe rows with verified brand values.",
+    "Add asset evidence and computed diff before business apply."
+  ]
+}

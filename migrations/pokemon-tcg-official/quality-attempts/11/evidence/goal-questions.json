@@ -1,0 +1,60 @@
+{
+  "schema": "brand-evidence-goal-questions/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "goalContract": "../goal-contract.json",
+  "scope": "homepage/first-complete-high-salience-section-after-tcg-pocket",
+  "overallStatus": "PASS",
+  "questions": [
+    {
+      "id": "identity-boundary",
+      "question": "What is the first complete high-salience homepage section after TCG Pocket, and where does it end?",
+      "answer": "POKÉMON CHAMPIONSHIP SERIES; it follows TCG Pocket and ends before Play! Pokémon.",
+      "status": "answered",
+      "evidence": ["source-observation-manifest.json#observations.section-identity", "captures/desktop/championship-series-settled-region-1440x720.png", "captures/mobile/championship-series-settled-top-390x844.png"]
+    },
+    {
+      "id": "desktop-structure",
+      "question": "What are the section-local desktop boundaries, stacking and reading order at 1440?",
+      "answer": "The article is 1440x720. Its row is flex with row-reverse: the 720x720 image is on the right and the 720-wide content column is on the left. The 696x377.578 content box begins at local x=12 and is vertically centered at local y=(720-377.578)/2, approximately 171.211. Article, row, columns and content are transparent; the visible white is the page canvas.",
+      "status": "answered",
+      "evidence": ["source-observation-manifest.json#observations.desktop-geometry", "captures/desktop/championship-series-settled-region-1440x720.png"]
+    },
+    {
+      "id": "mobile-structure",
+      "question": "What changes at 390, including order and geometry?",
+      "answer": "The article is 390x829.1719 and the row becomes block. The 390x390 image is first; content follows at local x=8,y=390,w=374,h=439.172. Backgrounds remain transparent and the white remains page canvas.",
+      "status": "answered",
+      "evidence": ["source-observation-manifest.json#observations.mobile-geometry", "captures/mobile/championship-series-settled-region-390x829-scale50.png"]
+    },
+    {
+      "id": "asset-identity",
+      "question": "Which official image is rendered and can its bytes be frozen?",
+      "answer": "The img declares championships.jpg at 1x and championships-2x.jpg at 2x. Both are archived and hashed. In the observed 390px browser session currentSrc selected championships-2x.jpg; src is not treated as proof of the selected response.",
+      "status": "answered",
+      "evidence": ["rendered-asset-inventory.json#renderedAssets", "captures/assets/championships.jpg", "captures/assets/championships-2x.jpg", "captures/mobile/championship-series-settled-top-390x844.png"]
+    },
+    {
+      "id": "typography-controls",
+      "question": "What typography and CTA rules are directly observed?",
+      "answer": "At 390 the H2 is Kanit 700 at 32/32.5 within local x=32,w=326,h=97.5 and has 8px bottom margin. Body copy is PT Sans 400 at 18/28.8 within local x=32,w=326,h=201.578. CTA is local x=99.625,w=190.742,h=51.297 with 16px top margin, 14.4px by 36px padding, PT Sans 700 at 18/22.5, black background, white content, 2px radius and shadow. Exact desktop typography boxes were not separately frozen.",
+      "status": "answered-with-desktop-type-boxes-unresolved",
+      "evidence": ["source-observation-manifest.json#observations.mobile-typography", "captures/source-mobile-390-content-settled.png", "captures/assets/global.css", "captures/assets/home.css"]
+    },
+    {
+      "id": "interaction",
+      "question": "Are settled, hover, focus, activated/destination and reversible scrolling evidenced?",
+      "answer": "Desktop and 390px mobile default/settled, hover, keyboard focus and destination are independently frozen; the CTA destination is https://championships.pokemon.com/en-us/. Desktop and mobile scrolling also have before/restored captures.",
+      "status": "answered",
+      "evidence": ["interaction-state-matrix.json", "captures/desktop/championship-series-cta-default-1440x900.png", "captures/desktop/championship-series-cta-hover-settled-1440x900.png", "captures/desktop/championship-series-cta-focus-1440x900.png", "captures/desktop/championship-series-cta-destination-1440x900.png", "captures/mobile/championship-series-cta-default-390x844.png", "captures/mobile/championship-series-cta-hover-settled-390x844.png", "captures/mobile/championship-series-cta-focus-390x844.png", "captures/mobile/championship-series-cta-destination-390x844.png", "captures/source-mobile-390-scroll-before.png", "captures/source-mobile-390-scroll-restored.png"]
+    },
+    {
+      "id": "dembrandt",
+      "question": "Is a Dembrandt similarity score available?",
+      "answer": "No. Dembrandt was unavailable in this evidence run; no score or threshold result is claimed.",
+      "status": "not-required",
+      "evidence": ["report.md#unresolved"]
+    }
+  ],
+  "blockingEvidence": []
+}

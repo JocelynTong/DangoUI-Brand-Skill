@@ -1,0 +1,174 @@
+{
+  "schema": "brand-rework-request/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "fromAttempt": 1,
+  "nextAttempt": 2,
+  "blockingFindings": [
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "intro-technical-content-hierarchy",
+      "message": "The title/rule/prose sequence is present, but the cited high-salience technical hierarchy is not: the source's wide monospaced flow model is replaced by a much smaller generic three-card summary, and the downstream long-form hierarchy is collapsed."
+    },
+    {
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "scope": "responsive-documentation-shell",
+      "message": "The Interpreter-approved pattern must freeze its required structural layers before implementation."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:full-width utility header",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:desktop left navigation",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:central reading column",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:desktop right outline",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "intro-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_CROP_TRANSLATION_UNVERIFIED",
+      "scope": "intro-responsive-documentation-shell",
+      "message": "Source/demo composition aspect differs by 1.78x without an authorized crop translation and retained focal points."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "introduction",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "introduction",
+      "message": "Core page score 73.75 is below 75."
+    },
+    {
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "scope": "introduction",
+      "message": "The responsive documentation shell visibly depends on five independent structural layers, but the machine fidelity gate confirms that the approved pattern does not freeze those layers."
+    },
+    {
+      "code": "INTRO_TECHNICAL_HIERARCHY_REPLACED",
+      "scope": "introduction",
+      "message": "The source-calibration page replaces the dominant monospaced technical-flow surface and long-form section rhythm with a generic three-card summary."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:full-width utility header",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:desktop left navigation",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:central reading column",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:desktop right outline",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "button-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_CROP_TRANSLATION_UNVERIFIED",
+      "scope": "button-responsive-documentation-shell",
+      "message": "Source/demo composition aspect differs by 4.65x without an authorized crop translation and retained focal points."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "button",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "button",
+      "message": "Core page score 72.5 is below 75."
+    },
+    {
+      "code": "BUTTON_REFERENCE_DENSITY_COLLAPSE",
+      "scope": "button",
+      "message": "The core Button source is a 4187px multi-module component reference, but the demo collapses it to one Primary example and a short checklist; composition and information density fall below the frozen core-page threshold."
+    },
+    {
+      "code": "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+      "scope": "button",
+      "message": "The Button page's section-fidelity manifest contains only one QA section despite long, multi-module source evidence."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "docs-shell",
+      "message": "A mustPreserve requirement failed."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "content-hierarchy",
+      "message": "A mustPreserve requirement failed."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 73.13 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is rework."
+    },
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "release-checklist-held-out",
+      "message": "Blind QA must independently approve the held-out generative proof."
+    },
+    {
+      "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+      "scope": "release-checklist-held-out",
+      "message": "Blind QA must review every frozen recipe and confirm rule reuse with visual findings."
+    }
+  ],
+  "allowedChanges": [
+    "demo implementation",
+    "demo screenshots"
+  ],
+  "forbiddenChanges": [
+    "goal-contract",
+    "source evidence",
+    "fidelity thresholds"
+  ],
+  "requiredRecaptures": [
+    "dango-introduction-calibration",
+    "dango-button-calibration"
+  ],
+  "maxAttempts": 2
+}

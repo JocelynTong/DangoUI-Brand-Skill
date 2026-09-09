@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "source": "../interpreter/pattern-inventory.json",
+  "implemented": [
+    {"patternId": "P11-PCS-01", "implementation": ".pokemon-championship desktop row-reverse equal split", "scope": "section-local"},
+    {"patternId": "P11-PCS-02", "implementation": "transparent section and children over isolated white canvas layer", "scope": "section-local"},
+    {"patternId": "P11-PCS-03", "implementation": "container <=519px image-first 390 + copy 439.172 stack", "scope": "section-local"},
+    {"patternId": "P11-PCS-04", "implementation": "centered Kanit heading and PT Sans body/control", "scope": "section-local"},
+    {"patternId": "P11-PCS-05", "implementation": "black default, center scaleX gold hover, black outlined keyboard focus", "scope": "CTA-local"},
+    {"patternId": "P11-PCS-06", "implementation": "target appended directly after retained Pocket section; normal shell remains independently scrollable", "scope": "homepage"}
+  ],
+  "notGeneralized": ["desktop unresolved exact child typography boxes", "global brand colors", "unobserved Play! Pokémon section styling"]
+}

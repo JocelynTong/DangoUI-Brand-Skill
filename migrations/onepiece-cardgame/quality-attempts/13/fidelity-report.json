@@ -1,0 +1,416 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalContractPath": "migrations/onepiece-cardgame/goal-contract.json",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "attempt": 13,
+  "status": "fidelity-fail",
+  "overallScore": 75,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "score": 88.75,
+      "ratings": {
+        "composition": 3,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 3,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "news",
+      "demoPageId": "onepiece-cardgame-news",
+      "score": 72.5,
+      "ratings": {
+        "composition": 2,
+        "assetAuthenticity": 3,
+        "colorRoles": 4,
+        "informationDensity": 3,
+        "typographyGraphics": 3,
+        "motionSemantics": 3,
+        "brandRecognition": 3
+      }
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "score": 88.75,
+      "ratings": {
+        "composition": 3,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 3,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "events",
+      "demoPageId": "onepiece-cardgame-events",
+      "score": 50,
+      "ratings": {
+        "composition": 1,
+        "assetAuthenticity": 2,
+        "colorRoles": 2,
+        "informationDensity": 3,
+        "typographyGraphics": 2,
+        "motionSemantics": 3,
+        "brandRecognition": 2
+      }
+    }
+  ],
+  "protocolFailures": [],
+  "hardFailures": [
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-seven-variant-hero",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-seven-variant-hero:/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-seven-variant-hero:/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-seven-variant-hero:/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-welcome-surface",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-welcome-hover",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-module-surfaces-news",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-module-surfaces-arrival",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-module-surfaces-products",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "home-four-type-roles",
+      "message": "High-salience demo pattern lacks an approved pattern id, demo region, or source evidence region."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-four-type-roles",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-four-type-roles:/assets/brand-assets/onepiece-cardgame/fonts/alfa-slab-one-400.ttf",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-four-type-roles:/assets/brand-assets/onepiece-cardgame/fonts/noto-serif-700.ttf",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-four-type-roles:/assets/brand-assets/onepiece-cardgame/fonts/poppins-500.ttf",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-four-type-roles:/assets/brand-assets/onepiece-cardgame/fonts/oswald-700.ttf",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "home-footer-illustration-organism",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/chara.webp",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/catch.webp",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/logo.webp",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/card-composite.webp",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/card-01.png",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/card-02.png",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "ASSET_PROVENANCE_MISSING",
+      "scope": "home-footer-illustration-organism:/assets/brand-assets/onepiece-cardgame/source/footer/card-03.png",
+      "message": "Each high-salience runtime asset needs provenance.sourceUrl, provenance.sourceSha256, provenance.role, and an allowed sourceKind. Screenshot-derived rasters are not valid provenance."
+    },
+    {
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "scope": "home-hero-carousel-full-cycle",
+      "message": "The Interpreter-approved pattern must freeze its required structural layers before implementation."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "home-seven-variant-hero:top-navigation",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "home-seven-variant-hero:campaign-copy",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "home-seven-variant-hero:campaign-media",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "home-seven-variant-hero:carousel-controls",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "home-seven-variant-hero:top-navigation",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "home-seven-variant-hero:campaign-copy",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "home-seven-variant-hero:campaign-media",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "home-seven-variant-hero:carousel-controls",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "news-differentiated-editorial",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "news-differentiated-editorial",
+      "message": "Module names survive but source visual hierarchy does not."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "news-taxonomy",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "COMPOSITION_SUPPORT_MISSING",
+      "scope": "news-editorial-hierarchy",
+      "message": "news has no implementation pattern explicitly bound to news-editorial-hierarchy."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "news",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "products-unboxed-heading-taxonomy",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "products-dense-catalog",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "COMPOSITION_SUPPORT_MISSING",
+      "scope": "product-density",
+      "message": "products has no implementation pattern explicitly bound to product-density."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "events-discovery-banner",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "events-discovery-banner",
+      "message": "Evidence-backed discovery composition is not preserved."
+    },
+    {
+      "code": "UNSUPPORTED_ROLE_EXPANSION",
+      "scope": "events-discovery-banner",
+      "message": "Evidence-backed discovery composition is not preserved."
+    },
+    {
+      "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+      "scope": "events-multi-tier-index",
+      "message": "Implementation self-check did not pass."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "events-multi-tier-index",
+      "message": "Official repeated competitive hierarchy is not matched."
+    },
+    {
+      "code": "COMPOSITION_SUPPORT_MISSING",
+      "scope": "events-editorial-hierarchy",
+      "message": "events has no implementation pattern explicitly bound to events-editorial-hierarchy."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "events",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_ASSET_BELOW_MIN",
+      "scope": "events",
+      "message": "Asset authenticity is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "events",
+      "message": "Core page score 50 is below 70."
+    },
+    {
+      "code": "UNSUPPORTED_ROLE_EXPANSION",
+      "scope": "events",
+      "message": "Large cyan title chrome lacks an approved role."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "news-editorial-hierarchy",
+      "message": "The News preview preserves the official page's filter/header relationship, repeated editorial rows, metadata hierarchy and page density."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "events-editorial-hierarchy",
+      "message": "The Events preview preserves the official event index's actual heading, category/filter controls, event-card hierarchy, metadata and browsing density; unsupported reservation actions are forbidden."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "role-color-system",
+      "message": "Warm story surfaces, hard black typography and black-white taxonomy controls remain distinct roles. Yellow is admissible only for a captured menu-open indicator or inside campaign artwork; it must not become generic active, title or button chrome."
+    },
+    {
+      "code": "MUST_NOT_REPLACE_VIOLATED",
+      "scope": "logo-color-substitution",
+      "message": "Logo, official assets and brand colors may not substitute for matching composition, hierarchy and information density."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 75 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is rework."
+    },
+    {
+      "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+      "scope": "onepiece-editorial-held-out-v1",
+      "message": "Generative proof must reuse at least two named recipes frozen before the held-out challenge."
+    },
+    {
+      "code": "BRAND_CUE_SUBSTITUTION",
+      "scope": "onepiece-cardgame-editorial-held-out",
+      "message": "Logo, brand colors or official wallpaper cannot substitute for applying reusable structural rules."
+    },
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "onepiece-editorial-held-out-v1",
+      "message": "Blind QA must independently approve the held-out generative proof."
+    }
+  ],
+  "blockingFindings": [
+    {
+      "page": "news",
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "finding": "News composition is 2/4.",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "page": "events",
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "finding": "Events composition 1/4 and assets 2/4.",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "page": "events",
+      "code": "UNSUPPORTED_ROLE_EXPANSION",
+      "finding": "Large cyan title chrome lacks an approved role.",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-fail",
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "fail",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+    "qaInputManifest": "e188944e72a12924c9aaef6046efa11055588faa6958a89a94cc9e16da204afb",
+    "assessment": "7d9a46872842436258779c5d383ee6e2899fc6c5fcd129df027f660b43314bfc",
+    "visualPatternInventory": "f88c58219ddfb75182773d84291d7efd78337efd7677ddd7f0b66458448fb515",
+    "generativeProof": "754b1398618a07e42b13ca09fe43b4202f4acfb57b498e013f0d1c7fc9e4e7ce"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-09-06T05:55:20.052Z"
+}

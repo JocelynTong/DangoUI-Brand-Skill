@@ -1,0 +1,83 @@
+{
+  "schema": "brand-methodology-incident/v1",
+  "id": "onepiece-host-goal-drift-2026-09-09",
+  "status": "corrective-rule-landed-candidate-validation-pending",
+  "observedAt": "2026-09-09",
+  "latestProblem": "The reusable two-pipeline objective was displaced by local host styling iterations. Host coverage percentages were presented as program progress, masked recognition became an IP guessing test, and the user had to repeatedly identify unchanged component families, weak hierarchy, arbitrary backgrounds, broken interaction and unstable preview behavior.",
+  "programGoal": {
+    "learn-brand": "Derive an evidence-backed generative brand model.",
+    "design-host": "Apply the frozen model to a real host through business-aware token, component, composition and asset decisions.",
+    "held-out-reuse": "Prove that the two pipelines transfer to a second held-out brand/host case without depending on remembered page solutions."
+  },
+  "causes": [
+    {
+      "ownerRole": "designDirectorOrchestrator",
+      "cause": "The objective hierarchy existed as prose, but no required program goal tree kept learn-brand, design-host and held-out reuse separate in progress reports."
+    },
+    {
+      "ownerRole": "hostStrategist",
+      "cause": "The opportunity map required page capacity and allowed layers, but did not require a concrete four-layer decision or a business justification for Hero eligibility on every page."
+    },
+    {
+      "ownerRole": "designTranslator",
+      "cause": "Structural design-system recognition and explicit-IP recognition were not modeled as different hypotheses with different evidence needs."
+    },
+    {
+      "ownerRole": "hostImplementationAgent",
+      "cause": "Implementation optimized isolated Hero and card treatments before a complete page opportunity map had established their role in the host experience."
+    },
+    {
+      "ownerRole": "visualQA",
+      "cause": "QA enforced a masked recognition result without distinguishing a reusable design-system transfer failure from inability to name the exact IP after identity signals were removed."
+    }
+  ],
+  "whyExistingGatePassed": [
+    "The 570/570 matrix proved every declared host coverage cell had a disposition and evidence; it did not prove that the declared design strategy was coherent or that both pipelines were complete.",
+    "The opportunity-map artifact contract accepted generic allowedLayers and businessPurpose fields, so a page could pass without token, component, composition and asset decisions.",
+    "The distinctiveness gate counted material signals and required masked recognition, but stored a single visualDistinctiveness outcome; it did not encode what recognition was meant to identify.",
+    "Build, route, cascade and runtime gates correctly checked implementation safety but could not detect program-goal substitution.",
+    "Fresh QA prevented implementation self-approval, but its rubric still asked the wrong combined recognition question."
+  ],
+  "resolution": [
+    "Require program-goal-tree.json with separate learn-brand, design-host and held-out-reuse branches, each carrying status, evidence, remaining gap and next action.",
+    "Require every host page to declare token, component, composition and asset mappings plus Hero eligibility and business reason before implementation dispatch.",
+    "Split recognition into designSystemStructuralRecognition and explicitIpRecognition. Structural recognition is the default hard quality track; explicit-IP recognition is diagnostic unless the frozen goal explicitly makes it blocking and authorizes identity-bearing inputs.",
+    "Keep existing quality gates in force. Any post-freeze mode or threshold change needs an explicit supersession record; a failed result cannot trigger a silent downgrade.",
+    "Route a strategy failure back to Host Strategist or Design Director before another implementation attempt."
+  ],
+  "landings": [
+    "skills/brand/workflow-contract.json#programStrategyGate",
+    "skills/brand/scripts/validate-program-strategy.mjs",
+    "skills/brand/roles/design-director.md",
+    "skills/brand/roles/blind-qa-tpp.md"
+  ],
+  "responsibilityNodes": {
+    "designDirectorOrchestrator": "Own the program goal tree, recognition policy and progress wording.",
+    "hostStrategist": "Own the exhaustive page opportunity map and four-layer placement decisions.",
+    "designTranslator": "Supply evidence-backed structural invariants and state whether explicit identity is part of the frozen goal.",
+    "hostImplementationAgent": "Implement the approved map and may not invent a Hero or card metaphor to repair a strategy gap.",
+    "visualQA": "Score both recognition tracks independently and route failure to the earliest owner.",
+    "methodologyKeeper": "Validate the candidate on another host case before promoting further constraints."
+  },
+  "candidateRules": [
+    {
+      "id": "PROGRAM-GOAL-TREE-REQUIRED",
+      "scope": "global-candidate",
+      "validation": "Run program-strategy/v1 on the current host and one held-out host; verify that no coverage percentage is reported as total program completion."
+    },
+    {
+      "id": "HOST-FOUR-LAYER-MAP-REQUIRED",
+      "scope": "global-candidate",
+      "validation": "Reject an opportunity map with any route missing token, component, composition, asset or Hero rationale."
+    },
+    {
+      "id": "RECOGNITION-TRACK-SPLIT",
+      "scope": "global-candidate",
+      "validation": "Use masked examples where structural language is present but explicit IP identity is absent; confirm that the two verdicts remain independent."
+    }
+  ],
+  "nonActions": [
+    "No host production code or prior QA verdict was changed by this methodology incident.",
+    "The previous explicit-IP failure remains valid under its original frozen rubric until an explicit goal supersession is recorded."
+  ]
+}

@@ -1,0 +1,108 @@
+{
+  "attempt": 7,
+  "role": "fresh-blind-qa",
+  "scope": "pokemon-tcg-official-home-full-bleed-proof-surface",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "sourceEvidence": {
+    "capture": "migrations/pokemon-tcg-official/captures/source/home/mobile-390/frames/000.png",
+    "observations": [
+      "The official mobile black navigation bar spans the complete 390px viewport.",
+      "The logo and MENU/hamburger remain inset inside the full-bleed bar."
+    ]
+  },
+  "geometry": {
+    "phone": {
+      "x": 0,
+      "width": 390,
+      "padding": "0px",
+      "border": "0px none"
+    },
+    "phoneScreen": {
+      "x": 0,
+      "width": 390,
+      "clientWidth": 390,
+      "scrollWidth": 390,
+      "clientHeight": 821,
+      "scrollHeight": 4485
+    },
+    "proofRegion": {
+      "x": 0,
+      "width": 390,
+      "margin": "0px"
+    },
+    "hero": {
+      "x": 0,
+      "width": 390,
+      "height": 416,
+      "bottom": 416
+    },
+    "mobileNav": {
+      "x": 0,
+      "width": 390,
+      "height": 56
+    },
+    "logo": {
+      "x": 23,
+      "right": 101,
+      "width": 78,
+      "height": 39.93
+    },
+    "menuButton": {
+      "x": 272,
+      "right": 364,
+      "width": 92,
+      "height": 44,
+      "rightSafeInset": 26
+    },
+    "nextSection": {
+      "x": 0,
+      "y": 416,
+      "width": 390,
+      "visibleInFirstViewport": true
+    },
+    "document": {
+      "innerWidth": 390,
+      "documentScrollWidth": 390,
+      "bodyScrollWidth": 390,
+      "horizontalOverflow": false
+    }
+  },
+  "interactionRegression": {
+    "menu": {
+      "status": "PASS",
+      "probe": "Open campaign navigation -> panel becomes visible with EXPANSIONS, CARDS, HOW TO PLAY, NEWS -> Close campaign navigation"
+    },
+    "carousel": {
+      "status": "PASS",
+      "probe": "campaign 1 -> campaign 2 -> campaign 1",
+      "visibleChange": [
+        "hero variant class changes from variant-1 to variant-2",
+        "background changes to championships.jpg",
+        "featured card changes to SV06_EN_33.png",
+        "campaign title and CTA visibly change",
+        "active slide returns to campaign 1"
+      ]
+    },
+    "cardFlip": {
+      "status": "PASS",
+      "probe": "Show featured Pokemon card back -> visible card back -> Show featured Pokemon card front",
+      "visibleChange": "tcg-card-back.jpg becomes the visible face and restores"
+    }
+  },
+  "checks": {
+    "heroFullBleed390": "PASS",
+    "navFullBleed390": "PASS",
+    "noShowcaseGutter": "PASS",
+    "noPhoneChassis": "PASS",
+    "contentSafeInsets": "PASS",
+    "heroHeight416": "PASS",
+    "nextSectionVisible": "PASS",
+    "noHorizontalOverflow": "PASS",
+    "interactionRegression": "PASS"
+  },
+  "verdict": "PASS",
+  "earliestFailureNode": null
+}

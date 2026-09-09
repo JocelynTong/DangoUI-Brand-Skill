@@ -1,0 +1,39 @@
+{
+  "schema": "independent-mapping-qa/v1",
+  "brand": "onepiece-cardgame",
+  "generatedAt": "2026-09-06T11:09:52Z",
+  "verdict": "FAIL",
+  "summary": "Eight of twelve target-bearing leaves have valid computed consumers. The other four are not safe Implementation work: their value, semantic role, equivalent-state, or asset identity conflicts with the frozen visible runtime contract. Strict mapping closure is therefore false.",
+  "blockingFindings": [
+    {"code":"MAPPING_CONTRACT_VALUE_DRIFT","scope":"color.text.primaryOnLight -> --du-text-1","owner":"Dangoui Mapper","detail":"Contract requires #000000 while the frozen runtime variable and product copy are #111111. Pixel changes are forbidden; correct/remove the contract."},
+    {"code":"MAPPING_NATIVE_ROLE_EXPANSION","scope":"color.text.warmNarrative -> --du-text-2","owner":"Dangoui Mapper","detail":"Welcome-only brown is forbidden as generic secondary text, but --du-text-2 is a native semantic token. Reclassify to bounded style-only or remove."},
+    {"code":"MAPPING_EQUIVALENT_STATE_MISSING","scope":"menuDisclosureOpen","owner":"Dangoui Mapper","detail":"There is no runtime dropdown-open state. Retain it in evidence/intent, not as an all-consumed runtime target."},
+    {"code":"MAPPING_ASSET_IDENTITY_NOT_FROZEN","scope":"asset.welcomeSurface","owner":"Dangoui Mapper","detail":"The accepted Welcome surface is a DOM/CSS reconstruction and does not consume the source raster. Remove or map the evidenced recipe; do not force the raster into Implementation."},
+    {"code":"MAPPING_PROBE_SUMMARY_HARDCODED","scope":"scripts/onepiece-dangoui-mapping-runtime-probe.mjs","owner":"Mapping Tooling","detail":"The reported 8/4 totals and pending reasons are constants, so the probe cannot establish consumption truth independently."},
+    {"code":"CONSOLE_WARNING_NOT_CAPTURED","scope":"fresh Vite runtime","owner":"Demo Implementation Agent","detail":"Fresh runtime emitted Vue warning: Failed to resolve component: scroll-view (inside Tabs/App). The existing probe listens only for console.error, so consoleClean=true is incomplete."},
+    {"code":"BRAND_PREVIEW_CANONICAL_STATUS_STALE","scope":"public/brand-previews/onepiece-cardgame.json","owner":"Design Director / Orchestrator","detail":"validate:brand-preview fails because preview/learningProof/runtime/proofs/generative status labels are stale relative to the canonical fidelity report."}
+  ],
+  "runtimeChecks": {
+    "liveUrl":"http://127.0.0.1:5183/?qa=independent-mapping#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+    "fivePagesDesktopAndPhone":{"status":"pass-with-proof-gap","detail":"Latest runtime proof contains ten captures for Home, News, Products, Events and held-out at desktop and 390px phone, all without broken images or horizontal overflow; representative captures were visually inspected. Desktop scroll is reversible. Phone proof expands .phone-screen to content height and does not independently exercise document scroll, so it must not be overstated as inner-screen reversible-scroll proof."},
+    "assets":{"status":"pass","detail":"No broken images in all ten recorded surfaces; current live Home also reports none."},
+    "console":{"status":"fail","detail":"Latest probe records zero errors but ignores warnings. Fresh Vite runtime emitted repeated Vue warning: Failed to resolve component: scroll-view, at Tabs/App."},
+    "crossBrandIsolation":{"status":"pass","detail":"Dango and Pokémon probes have no ONE PIECE ancestor or yellow token; ONE PIECE token CSS is theme-scoped."},
+    "footerPause":{"status":"pass","detail":"Runtime node is a real BUTTON with du-button classes and source API type=text, size=mini, text, extClass and click emit. Pause toggles aria-pressed false->true, text Ⅱ->▶, adds loops-paused and computes all three card loops paused; resume restores running. Frozen 18px circular geometry and colors remain unchanged."}
+  },
+  "boundaries": {
+    "native":"Only the footer pause/resume atom is proven native DuButton.",
+    "styleOnly":"Welcome image-pill feedback remains a bounded recipe and must not become a generic DuButton claim.",
+    "composition":"Hero, taxonomy, catalog density and editorial information architecture remain page composition; primitive candidates are not runtime adoption."
+  },
+  "commands": [
+    {"command":"node skills/brand/scripts/validate-dangoui-mapping.mjs --brand onepiece-cardgame","status":"PASS","detail":"101/101 non-strict checks"},
+    {"command":"node scripts/validate-brand-mod.mjs migrations/onepiece-cardgame/brand-mod.json","status":"PASS"},
+    {"command":"node skills/brand/scripts/brand-guard.mjs rule-candidate-gate --brand onepiece-cardgame","status":"PASS"},
+    {"command":"npm run validate:brand-preview","status":"FAIL","detail":"five stale canonical status failures"},
+    {"command":"npm run build","status":"PASS","detail":"Vite build passed; non-blocking chunk-size warning"},
+    {"command":"node skills/brand/scripts/validate-dangoui-mapping.mjs --brand onepiece-cardgame --strict","status":"EXPECTED_FAIL","detail":"Formal contract still has four pending tokens and this independent verdict is FAIL."}
+  ],
+  "earliestFailureOwner":"Dangoui Mapper",
+  "requiredNextAction":"Correct the four formal token contracts without changing frozen pixels, then regenerate a derived (not hard-coded) runtime probe and request a new independent Mapping QA. Implementation must not consume the four current pending entries as written."
+}

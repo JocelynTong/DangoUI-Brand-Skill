@@ -1,0 +1,46 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 10,
+  "verdict": "NEEDS_EVIDENCE",
+  "browserChecks": {
+    "mobile390": {
+      "section": { "x": 0, "width": 390, "height": 743.015625 },
+      "assetField": { "x": 0, "width": 390, "height": 334.2265625 },
+      "copyPanel": { "x": 0, "width": 390, "height": 408.7890625 },
+      "composite": { "x": 10, "width": 370, "height": 226.4375, "naturalWidth": 500, "naturalHeight": 306 },
+      "h2": { "fontFamily": "Kanit Official, Kanit, sans-serif", "fontSize": "28px", "lineHeight": "30.8px", "fontStyle": "italic", "fontWeight": "700" },
+      "body": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "18px", "lineHeight": "28.8px" },
+      "cta": { "width": 174.0859375, "height": 51.296875, "href": "https://tcgpocket.pokemon.com/en-us", "defaultForeground": "rgb(0, 0, 0)", "hoverForeground": "rgb(226, 186, 101)", "restoredForeground": "rgb(0, 0, 0)", "background": "rgb(255, 255, 255)" },
+      "documentHorizontalOverflow": false,
+      "redExtensionOverlayCount": 0
+    },
+    "desktop1440FromSubmittedProbe": {
+      "section": { "x": 0, "width": 1440, "height": 476.1875 },
+      "assetField": { "x": 0, "width": 720, "height": 476.1875 },
+      "copyPanel": { "x": 720, "width": 720, "height": 357 },
+      "composite": { "x": 10, "width": 700, "height": 428.390625 },
+      "h2": { "fontSize": "40px", "lineHeight": "44px", "fontStyle": "italic", "fontWeight": "700" },
+      "body": { "fontSize": "18px", "lineHeight": "28.8px" },
+      "cta": { "width": 190, "height": 56, "defaultForeground": "rgb(0, 0, 0)", "hoverForeground": "rgb(226, 186, 101)", "background": "rgb(255, 255, 255)" },
+      "documentHorizontalOverflow": false
+    },
+    "regressionMobile390": {
+      "hero": { "x": 0, "width": 390, "height": 416 },
+      "news": { "x": 0, "width": 390, "height": 633.1953125 },
+      "tcgl": { "x": 0, "width": 390, "height": 644.625 }
+    }
+  },
+  "assetIdentityAudit": {
+    "desktopLocalPath": "public/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+    "mobileLocalPath": "public/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+    "desktopSha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+    "mobileSha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+    "desktopDimensions": "720x464",
+    "mobileDimensions": "720x464",
+    "byteIdentity": "IDENTICAL",
+    "finding": "The runtime changes URL names but the two local files are byte-identical. Evidence contains distinct source URLs but no independently verified source hashes, so authentic mobile asset identity is not established."
+  },
+  "motion": "UNRESOLVED_UNSCORED",
+  "consoleErrors": []
+}

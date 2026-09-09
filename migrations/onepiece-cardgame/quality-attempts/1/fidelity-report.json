@@ -1,0 +1,147 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v2",
+  "goalSha256": "5d49c96cbb0d9549881922dd66e09d18850f585f9284870ef35d17361659fa5a",
+  "attempt": 1,
+  "status": "protocol-blocked",
+  "overallScore": 0,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [],
+  "protocolFailures": [
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "qa-input-manifest.json is missing or invalid."
+    },
+    {
+      "code": "DIMENSION_UNSCORED",
+      "scope": "protocol",
+      "message": "visual-qa-assessment.json must use v2."
+    },
+    {
+      "code": "GOAL_HASH_MISMATCH",
+      "scope": "protocol",
+      "message": "QA input manifest is not bound to the current frozen goal."
+    },
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "Blind QA must explicitly exclude implementationRationale."
+    },
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "Blind QA must explicitly exclude priorVerdict."
+    },
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "Blind QA must explicitly exclude buildPassAsVisualEvidence."
+    },
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "Blind QA must explicitly exclude mainConversation."
+    },
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "Blind QA input must include the hashed visual-pattern-inventory.json."
+    },
+    {
+      "code": "PATTERN_ATTEMPT_MISMATCH",
+      "scope": "protocol",
+      "message": "Visual pattern inventory attempt must match the QA attempt."
+    }
+  ],
+  "hardFailures": [
+    {
+      "code": "CORE_PAGE_UNMAPPED",
+      "scope": "home",
+      "message": "Core source page has no QA assessment."
+    },
+    {
+      "code": "CORE_PAGE_UNMAPPED",
+      "scope": "products",
+      "message": "Core source page has no QA assessment."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "hero-composition",
+      "message": "The home preview preserves the official hero's dominant campaign composition, visual weight and asset hierarchy."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "product-density",
+      "message": "The products preview preserves the official catalog's grid density, product-first hierarchy and browsing rhythm."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "role-color-system",
+      "message": "Cream surfaces, hard black typography, yellow active states and red action emphasis remain distinct roles."
+    },
+    {
+      "code": "MUST_NOT_REPLACE_VIOLATED",
+      "scope": "logo-color-substitution",
+      "message": "Logo, official assets and brand colors may not substitute for matching composition, hierarchy and information density."
+    },
+    {
+      "code": "MUST_NOT_REPLACE_VIOLATED",
+      "scope": "post-hoc-translation-claim",
+      "message": "Implementation may not introduce a new translation justification after seeing the result."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 0 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is missing."
+    },
+    {
+      "code": "GENERATIVE_PROOF_MISSING",
+      "scope": "generative",
+      "message": "Blind QA input must include a hashed generative-proof.json."
+    },
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "onepiece-editorial-held-out-v1",
+      "message": "Blind QA must independently approve the held-out generative proof."
+    },
+    {
+      "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+      "scope": "onepiece-editorial-held-out-v1",
+      "message": "Blind QA must review every frozen recipe and confirm rule reuse with visual findings."
+    }
+  ],
+  "blockingFindings": [],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-fail",
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "fail",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "5d49c96cbb0d9549881922dd66e09d18850f585f9284870ef35d17361659fa5a",
+    "qaInputManifest": "326d0660be7d68f6c1c2bed31ed4232b34932818d92221345cd085cf77b56e47",
+    "assessment": "0e0932238bb0cd4ad22eb34ecf697651401916c07391c60182d6d9cd0d2f5610",
+    "visualPatternInventory": "0e728bc152ef5aa17f12dd5d1ffb569469fd3efe59698984a838a73590b916fd",
+    "generativeProof": "b7800f3be9d1c13d31793f3d8b612874170adf4ee424d41c0376e3f8a11cf9f8"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-08-31T07:38:48.784Z"
+}

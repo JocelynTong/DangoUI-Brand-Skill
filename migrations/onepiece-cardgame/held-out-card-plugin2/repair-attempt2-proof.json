@@ -1,0 +1,45 @@
+{
+  "schema": "brand-host-implementation-repair-proof/v1",
+  "attempt": 2,
+  "goalContractSealSha256": "6374d1a73ee85c07e69b1e17344519c16d3547c11a4710fcbadaab33cd3791fb",
+  "repairs": {
+    "runtimeTheme": {
+      "mechanism": "TARO_APP_HELDOUT_THEME=onepiece fixed H5 preview build",
+      "parent": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+      "keyboardJourneyChild": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=1",
+      "childUrlNeedsThemeQuery": false,
+      "rootOptInAfterNavigation": true,
+      "rootOptInAfterChildColdReload": true,
+      "ordinaryBuildCommandPassed": true,
+      "heldOutBuildCommandPassed": true
+    },
+    "eventTitle": {
+      "text": "宝可梦总冠军赛 2026",
+      "clientWidth": 773,
+      "scrollWidth": 773,
+      "whiteSpace": "normal",
+      "overflow": "visible",
+      "textOverflow": "clip",
+      "verdict": "FULL_IDENTITY_VISIBLE"
+    },
+    "roundContrast": {
+      "card": {"background":"rgb(255, 255, 255)","color":"rgb(9, 13, 18)","borderLeft":"12px solid rgb(185, 29, 34)"},
+      "name": {"color":"rgb(9, 13, 18)"},
+      "metadata": {"color":"rgb(113, 113, 113)"},
+      "verdict": "WARM_CONTENT_SURFACE_AND_SCAN_HIERARCHY_RESTORED"
+    },
+    "accessibility": {
+      "augmentedExistingTapNodes": 68,
+      "newScriptHandlers": 0,
+      "roles": ["button", "tab"],
+      "keyboard": ["Enter", "Space"],
+      "stateSemantics": ["aria-selected", "aria-pressed", "aria-expanded"],
+      "focus": "3px yellow focus-visible outline",
+      "minimumTarget": "44x44 CSS px",
+      "keyboardJourneyObserved": "Enter on 查看全部卡组 navigated to the unchanged round URL",
+      "structuralValidator": "PASS_6_OF_6"
+    }
+  },
+  "businessMutationsDuringProducerProbe": 0,
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT"
+}

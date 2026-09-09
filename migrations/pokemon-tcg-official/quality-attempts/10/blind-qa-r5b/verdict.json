@@ -1,0 +1,46 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision5",
+  "qaExecution": "/root/pokemon_pocket_blind_qa_r5b",
+  "scope": "held-out Pocket fixture CTA typography, interaction safety, responsive overflow, and frozen-code regression",
+  "verdict": "PASS",
+  "evidenceFidelity": {
+    "verdict": "PASS",
+    "reason": "All canonical Goal, Evidence, Intent, Pattern and Direction hashes match the revision5 QA manifest; the CTA values tested live match PAT-POCKET-06/07."
+  },
+  "structuralFidelity": {
+    "verdict": "PASS",
+    "reason": "The fixture is directly reachable at both 1440x900 and 390x844; observed section geometry matches the frozen manifest and creates no horizontal overflow."
+  },
+  "generativeProof": {
+    "verdict": "PASS",
+    "reason": "The isolated fictional fixture remains clearly disclosed, uses a route-safe local button action, updates aria-live, and survives refresh without navigating away."
+  },
+  "interaction": {
+    "verdict": "PASS",
+    "checks": [
+      "CTA computed font-family contains PT Sans Official at both viewports",
+      "CTA computed size/style/weight are 20px, italic and 700",
+      "hover foreground changes from black to rgb(226, 186, 101)",
+      "click changes aria-pressed and aria-live text without changing URL",
+      "refresh retains the held-out fixture route"
+    ]
+  },
+  "regression": {
+    "verdict": "PASS",
+    "reason": "Frozen App.vue and preview hashes match exactly, covering source Pocket, Hero, News and TCG Live; the stylesheet hash matches revision5 and its override is held-out-selector scoped."
+  },
+  "machineGates": {
+    "designDirection": "PASS",
+    "strictSectionFidelity": "PASS",
+    "build": "PASS"
+  },
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "unscored": [
+    "Pocket intermediate motion, duration, easing, stagger and sequence remain outside this frozen revision5 scope."
+  ],
+  "allConditionsPass": true
+}

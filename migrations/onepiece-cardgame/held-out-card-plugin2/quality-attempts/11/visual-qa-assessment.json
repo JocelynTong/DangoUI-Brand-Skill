@@ -1,0 +1,77 @@
+{
+  "schema": "heldout-event-minimal-visual-qa/v1",
+  "attempt": 11,
+  "role": "fresh-independent-brand-visual-business-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Event minimal experiment only; this verdict does not represent the full host",
+  "verdict": "REWORK",
+  "decision": "The event-native layout, hierarchy, responsiveness and business interactions pass, but the approved contained identity-media requirement does not. The large navy region is an empty decorative block rather than identity-bearing event media, so the experiment cannot be signed off yet.",
+  "screenshots": [
+    "fresh-390x844-event.png",
+    "fresh-536x864-event.png",
+    "fresh-1280x720-event.png"
+  ],
+  "blockingFindings": [
+    {
+      "code": "EVENT_IDENTITY_MEDIA_EMPTY",
+      "severity": "blocking",
+      "owner": "Host Implementation Agent",
+      "evidence": "All three fresh screenshots show a blank navy/gradient identity zone: top 126px at 390 and the right ~40% of the event header at 536/1280. It contains no event artwork, event mark or content-bearing host media.",
+      "requiredFix": "Populate the already-contained rectangular zone with appropriate existing Pokémon event media or a host-native event identity composition, preserving the current title/status/metrics and avoiding a full-screen character poster. Re-run fresh QA with art and explicit hues masked."
+    }
+  ],
+  "advisories": [
+    {
+      "code": "TARO_LOADING_REDUCED_MOTION",
+      "severity": "advisory",
+      "evidence": "The hidden/framework taro-navigation-bar-loading node still reports a 2s infinite loading animation under prefers-reduced-motion. No experiment content animation remains and no visible motion was observed.",
+      "recommendation": "Suppress this framework loading animation under reduced motion when the shared shell is next maintained."
+    }
+  ],
+  "findings": {
+    "surfaceAndMass": {
+      "status": "PASS",
+      "evidence": "Warm map-paper and warm-white content surfaces dominate every viewport; dark navy is bounded to the event header media zone rather than used as a global application surface."
+    },
+    "identityMedia": {
+      "status": "FAIL",
+      "evidence": "The correct contained rectangle exists, but it is visually empty and therefore does not perform the required event identity/media function."
+    },
+    "contentIntegrity": {
+      "status": "PASS",
+      "evidence": "The complete title 宝可梦总冠军赛 2026, 进行中 state, date, format, 128-player and 128-deck metrics are visible at 390, 536 and 1280."
+    },
+    "informationHierarchy": {
+      "status": "PASS",
+      "evidence": "The order is identity/title/status, ruled metrics, 赛程, first round, top deck and 查看全部卡组. CJK title and labels are legible with no visible truncation."
+    },
+    "geometryAndColorRoles": {
+      "status": "PASS",
+      "evidence": "Cards/actions use low-radius rectangles and thin rules. Red is limited to archive/round/action markers, yellow to the rank marker, navy to structure, and semantic green to live status. No dominant pill controls appear."
+    },
+    "firstScreenBudget": {
+      "status": "PASS",
+      "evidence": "At all three fixed viewports the event header completes above the fold and the first schedule, top-deck row and round action begin inside the first viewport."
+    },
+    "maskedStructuralRecognition": {
+      "status": "PASS_WITH_BLOCKER",
+      "evidence": "After ignoring character/card art, explicit colors and brand names, composition remains recognizable through paper mass, split identity card geometry, ruled metrics, editorial schedule heading and rectangular islands. The blank media panel remains a separate blocker."
+    },
+    "interactionParity": {
+      "status": "PASS",
+      "evidence": "Round action and top-deck action each navigate correctly by pointer, Enter and Space. Each has role=button, tabindex=0, returns to the same Event URL on Back and remains stable after reload."
+    },
+    "runtimeAndBusinessSafety": {
+      "status": "PASS",
+      "evidence": "All three renders report 0px document overflow. No non-GET request occurred during rendering, navigation, Back or reload. No visible clipping was found; the title probe's subpixel scroll/client rounding is not visible truncation."
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "evidence": "Plaza, Build, Mine, Round and Detail 390px screenshots are byte-identical to Attempt 10/baseline hashes and each reports 0px overflow."
+    }
+  },
+  "codeReworkRequired": true,
+  "failureOwnerRole": "Host Implementation Agent",
+  "source": ["browser-probes.json", "comparison.json", "../../event-minimal-experiment-direction.json"]
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "attempt12-demo-revision-status/v1",
+  "attempt": 12,
+  "revision": 2,
+  "status": "BLOCKED_BEFORE_IMPLEMENTATION",
+  "reason": "The official pageAssets bundle operation was interrupted before the final Demo revision could be implemented and visually compared.",
+  "blindQaInput": "quality-attempts/12/blind-qa/report/report.md",
+  "sourceAssetsLocated": [
+    {
+      "role": "mobile-events-border-image",
+      "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/top/sp/bg_pikup-events.webp",
+      "localCandidate": "public/assets/brand-assets/onepiece-cardgame/source/events-frame.webp",
+      "sha256": "125fab9646339a26713ce07226340c767349d6545b60ddb768e813a5fb0773a0"
+    },
+    {
+      "role": "mobile-recommend-background",
+      "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/top/sp/bg_recommend.webp",
+      "localCandidate": "public/assets/brand-assets/onepiece-cardgame/source/recommend-bg.webp",
+      "sha256": "08c46f7bf784a5016ce49de8f9662eba978b94f8e8b2a9bd4e0f84079d392f51"
+    },
+    {
+      "role": "recommend-poster-frame",
+      "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/top/bg_recommend_item.webp?v1",
+      "localCandidate": "public/assets/brand-assets/onepiece-cardgame/source/recommend-card.webp",
+      "sha256": "943d5d97698894b03e82ec3ce82f3f891e5d983a254b1ce7a28d818df809976f"
+    }
+  ],
+  "unresolvedBlindQaBlockers": ["Welcome field fidelity", "New Arrival control salience", "Events connected frame and thumbnail intrusion", "Recommend wanted-poster fidelity", "Videos thumbnail proportions", "Footer hierarchy and reading order"],
+  "validation": {
+    "previewProtocol": "PASS_WITH_PREEXISTING_WARNINGS",
+    "build": "PASS_WITH_CHUNK_WARNING",
+    "browserRevision2": "NOT_RUN_NO_REVISION2_IMPLEMENTATION"
+  },
+  "finalPassClaimed": false
+}

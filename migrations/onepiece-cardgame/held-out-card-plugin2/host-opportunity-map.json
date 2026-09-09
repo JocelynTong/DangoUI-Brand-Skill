@@ -1,0 +1,129 @@
+{
+  "schema": "host-visual-opportunity-map/v2",
+  "appName": "card-plugin2.0 / 卡组工具",
+  "brand": "onepiece-cardgame",
+  "heldOut": true,
+  "sourceOfTruth": "card-plugin2.0/frontend/src/app.config.js",
+  "routeCount": 6,
+  "recognitionPolicy": {
+    "designSystemStructuralRecognition": {"mode": "blocking", "criteria": ["traceable token roles", "consistent component families", "capacity-aware composition", "assets only in approved semantic slots"]},
+    "explicitIpRecognition": {"mode": "diagnostic", "criteria": ["品牌名、Logo 和显式品牌文字遮蔽后的 exact-IP 猜测仅记录信号，不作为完成门槛"]},
+    "changedAfterFreeze": false
+  },
+  "globalPolicy": {
+    "hostContent": "保留 Pokémon 卡组业务、数据、路由、交互和发布逻辑；ONE PIECE 仅提供视觉系统。",
+    "themeIsolation": "不得覆盖或混入 theme-pokemon-tcg-pitch-black；以独立 opt-in theme scope 验证 held-out reuse。",
+    "semanticProtection": ["赛事状态", "排名", "价格", "收藏状态", "发布校验", "错误/成功/禁用", "卡牌属性与分类"],
+    "componentFamilies": ["navigation", "tabs", "search-input", "filter-chip", "button", "content-card", "status-badge", "rank-row", "publish-sheet", "modal", "bottom-actions", "empty-state"]
+  },
+  "pages": [
+    {
+      "route": "pages/plaza/index",
+      "businessPurpose": "默认入口；浏览、搜索和筛选卡组，并进入赛事、详情与个人中心。",
+      "pageType": "content-consumption + hybrid",
+      "visualCapacity": "high",
+      "allowedLayers": ["atoms", "molecules", "organisms", "templates"],
+      "mapping": {
+        "token": ["黑/暖白主表面", "红色行动强调", "紧凑中文正文字阶", "display/numeric 只用于短标题与数字", "硬边界和低圆角"],
+        "component": ["主 tabs", "search input", "filter chips", "campaign banner", "deck cards", "event rows", "empty state"],
+        "composition": ["compact brand masthead -> tabs/search/filter -> contained campaign moment -> browse list", "event 分支允许 primary showcase，deck 分支保持浏览效率"],
+        "asset": ["source-approved hero background/frame 只进入 event campaign surface", "卡组封面仍用宿主卡牌", "小型 section edge/arrow"]
+      },
+      "heroEligibility": {"eligible": true, "type": "contained-campaign", "businessReason": "赛事分支本来承担活动发现与参与转化，可用 Hero 强化赛季入口；默认卡组分支只保留紧凑 banner，不能把列表推离首屏。", "mobileFirstScreenBudget": 0.34, "desktopFirstScreenBudget": 0.42, "mustKeepVisible": ["一级 tabs", "搜索或首个有效入口", "活动 CTA"]},
+      "assetSlots": ["赛事 Hero", "赛季 banner", "空状态"],
+      "motionSlots": ["Hero card reveal/flip", "tab/filter selected", "card press"],
+      "showcaseFit": "primary-on-event-contained-on-deck",
+      "riskIfOverApplied": "把官网产品文案或 ONE PIECE 卡牌塞进 Pokémon 数据列表会改变业务；大 Hero 会压缩搜索与浏览。"
+    },
+    {
+      "route": "pages/build/index",
+      "businessPurpose": "高频卡组编辑与发布：筛选、增减、预览、保存和提交。",
+      "pageType": "creator-publish + tool-efficiency",
+      "visualCapacity": "low",
+      "allowedLayers": ["atoms", "molecules", "organisms"],
+      "mapping": {
+        "token": ["正文/辅助/数字字阶", "表单表面", "focus/error/disabled", "边界与间距"],
+        "component": ["search/input/textarea", "filters", "stepper", "view toggle", "tray tabs", "publish button", "bottom sheet"],
+        "composition": ["sticky editing header -> search/filter -> pool -> persistent tray", "publish sheet 保持字段顺序和行动稳定"],
+        "asset": ["只允许卡背纹理作低对比 sheet/header accent", "宿主卡面是唯一内容媒体"]
+      },
+      "heroEligibility": {"eligible": false, "businessReason": "编辑器首屏必须服务搜索、卡量和发布，Hero 会降低完成效率。", "maxIntroRatio": 0.1},
+      "assetSlots": ["publish sheet header accent", "empty pool"],
+      "motionSlots": ["filter expand", "sheet open/close", "step feedback", "publish state"],
+      "showcaseFit": "none",
+      "riskIfOverApplied": "展示字体、强纹理、厚圆角或大图会损害密度、表单识别和发布按钮可用性。"
+    },
+    {
+      "route": "pages/mine/index",
+      "businessPurpose": "管理收藏、草稿、发布与隐藏卡组，并处理新建/编辑/删除。",
+      "pageType": "profile-center",
+      "visualCapacity": "medium",
+      "allowedLayers": ["atoms", "molecules", "organisms"],
+      "mapping": {
+        "token": ["身份表面", "统计数字", "危险语义保护", "列表密度"],
+        "component": ["profile header", "primary action", "management tabs", "deck/draft cards", "delete modal"],
+        "composition": ["contained identity masthead -> new build -> management tabs -> list"],
+        "asset": ["身份区可用 source-approved section texture/frame", "卡组封面保留宿主数据"]
+      },
+      "heroEligibility": {"eligible": false, "businessReason": "个人中心需要身份感但核心是资产管理；contained identity masthead 足够，不能使用完整 campaign Hero。", "replacement": "contained identity masthead", "maxHeaderRatio": 0.25},
+      "assetSlots": ["profile masthead", "empty collection"],
+      "motionSlots": ["tabs", "delete modal", "empty-state feedback"],
+      "showcaseFit": "contained",
+      "riskIfOverApplied": "品牌资产会抢占卡组资产和删除/编辑操作优先级。"
+    },
+    {
+      "route": "pages/event/index",
+      "businessPurpose": "理解赛事状态、规模和赛程，进入轮次或优胜卡组。",
+      "pageType": "campaign-showcase + content-consumption",
+      "visualCapacity": "high",
+      "allowedLayers": ["atoms", "molecules", "organisms", "templates", "pages"],
+      "mapping": {
+        "token": ["dark campaign stage", "red action accent", "editorial title/numeric", "status semantics"],
+        "component": ["event masthead", "metric grid", "round cards", "top-deck feature", "status badge", "empty state"],
+        "composition": ["event hero/masthead -> metrics -> editorial round sequence -> top-deck action"],
+        "asset": ["source-approved hero background/frame", "宿主赛事/卡组媒体", "section markers"]
+      },
+      "heroEligibility": {"eligible": true, "type": "event-editorial-hero", "businessReason": "赛事页天然是主题和赛程叙事面，Hero 可帮助建立赛事身份并引导进入轮次。", "mobileFirstScreenBudget": 0.38, "desktopFirstScreenBudget": 0.46, "mustKeepVisible": ["赛事名称", "状态", "关键指标", "第一轮次线索"]},
+      "assetSlots": ["event hero", "top-deck feature", "empty schedule"],
+      "motionSlots": ["hero depth", "round reveal", "top-deck press"],
+      "showcaseFit": "primary",
+      "riskIfOverApplied": "官方 ONE PIECE 文案/商品不可替代宿主赛事；状态色不能被红色统一覆盖。"
+    },
+    {
+      "route": "pages/round/index",
+      "businessPurpose": "快速扫描排名、卡组身份与缺失槽位并进入详情。",
+      "pageType": "content-consumption",
+      "visualCapacity": "medium",
+      "allowedLayers": ["atoms", "molecules", "organisms"],
+      "mapping": {
+        "token": ["排名数字字体", "硬分隔", "内容表面", "金牌/状态语义保护"],
+        "component": ["round summary", "rank row", "deck card", "empty slot"],
+        "composition": ["compact round masthead -> dense ranked list"],
+        "asset": ["只允许小型 section edge/number marker", "卡组封面保留宿主媒体"]
+      },
+      "heroEligibility": {"eligible": false, "businessReason": "排名扫描优先，完整 Hero 会把首批名次推离首屏。", "replacement": "compact round masthead", "maxHeaderRatio": 0.2},
+      "assetSlots": ["masthead edge", "empty slot"],
+      "motionSlots": ["row press", "list entrance with reduced-motion fallback"],
+      "showcaseFit": "contained",
+      "riskIfOverApplied": "厚重卡牌框和动画会破坏名次对齐与快速比较。"
+    },
+    {
+      "route": "pages/detail/index",
+      "businessPurpose": "阅读并操作一套卡组：身份、统计、卡图/文字、收藏、复制、购齐或编辑。",
+      "pageType": "content-consumption + action-detail",
+      "visualCapacity": "high",
+      "allowedLayers": ["atoms", "molecules", "organisms", "templates"],
+      "mapping": {
+        "token": ["detail typography hierarchy", "media frame", "action emphasis", "price/status semantics"],
+        "component": ["identity masthead", "stats", "view tabs", "card grid", "text table", "bottom actions", "viewer"],
+        "composition": ["visual identity masthead -> stats/actions -> view switch -> collection content -> persistent bottom actions"],
+        "asset": ["source-approved frame/background around host cover", "宿主卡牌媒体", "小型 action indicator"]
+      },
+      "heroEligibility": {"eligible": true, "type": "contained-deck-identity", "businessReason": "详情需要明显的卡组身份和封面承载面，但必须保持收藏/复制与首批内容可达。", "mobileFirstScreenBudget": 0.32, "desktopFirstScreenBudget": 0.4, "mustKeepVisible": ["卡组名", "作者/环境", "核心行动", "view tabs"]},
+      "assetSlots": ["identity masthead frame", "viewer stage", "empty content"],
+      "motionSlots": ["card viewer", "view tabs", "favorite/copy feedback"],
+      "showcaseFit": "primary-contained",
+      "riskIfOverApplied": "不能把宿主卡组伪装成 ONE PIECE 商品卡，也不能用品牌红覆盖价格、收藏或分类语义。"
+    }
+  ]
+}

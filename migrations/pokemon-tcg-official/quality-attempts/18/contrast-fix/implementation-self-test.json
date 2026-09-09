@@ -1,0 +1,83 @@
+{
+  "schema": "brand-demo-implementation-self-test/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 18,
+  "role": "demoImplementationAgent",
+  "scope": "Attempt 17 Card Database contrast blockers only",
+  "status": "READY_FOR_INDEPENDENT_QA",
+  "qaVerdictClaimed": false,
+  "inputBindings": {
+    "goal": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+    "designDirection": "migrations/pokemon-tcg-official/design-direction.json",
+    "brandIntent": "migrations/pokemon-tcg-official/brand-intent.json",
+    "attempt17Assessment": "migrations/pokemon-tcg-official/quality-attempts/17/blind-qa/visual-qa-assessment.json"
+  },
+  "changes": [
+    {
+      "selector": ".pokemon-db__submit",
+      "property": "color",
+      "before": "#fff",
+      "after": "#222",
+      "unchangedBackground": "#e46b29",
+      "reason": "Use the database's evidenced dark-neutral text family while changing only the failing foreground color."
+    },
+    {
+      "selector": ".pokemon-db__empty",
+      "property": "color",
+      "before": "#777",
+      "after": "#666",
+      "unchangedBackground": "#f6f6f4",
+      "reason": "Darken the local neutral guidance text only, preserving its hierarchy and surface."
+    }
+  ],
+  "browserComputedChecks": [
+    {
+      "hostViewport": "390x844",
+      "screenWidth": 371,
+      "submit": {
+        "font": "700 12px",
+        "normal": { "foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrastRatio": 4.874 },
+        "hover": { "foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrastRatio": 4.874 },
+        "focus": { "foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrastRatio": 4.874 }
+      },
+      "empty": { "font": "400 12px", "foreground": "rgb(102, 102, 102)", "background": "rgb(246, 246, 244)", "contrastRatio": 5.306 },
+      "searchResultsVisible": true,
+      "resetRestoredEmpty": true,
+      "horizontalOverflow": false
+    },
+    {
+      "hostViewport": "371x844",
+      "screenWidth": 298,
+      "submit": {
+        "font": "700 12px",
+        "normal": { "foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrastRatio": 4.874 },
+        "hover": { "foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrastRatio": 4.874 },
+        "focus": { "foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrastRatio": 4.874 }
+      },
+      "empty": { "font": "400 12px", "foreground": "rgb(102, 102, 102)", "background": "rgb(246, 246, 244)", "contrastRatio": 5.306 },
+      "searchResultsVisible": true,
+      "resetRestoredEmpty": true,
+      "horizontalOverflow": false
+    }
+  ],
+  "constraints": {
+    "layoutChanged": false,
+    "copyChanged": false,
+    "buttonSizeChanged": false,
+    "interactionChanged": false,
+    "otherPagesChanged": false,
+    "goalEvidenceIntentDirectionMapperChanged": false
+  },
+  "gates": {
+    "build": "PASS",
+    "evidenceVisibilityStrict": "PASS_WITH_LEGACY_SCHEMA_WARNING",
+    "designDirection": "PASS",
+    "sectionFidelityStrict": "PASS",
+    "mockupMatrixStrict": "PASS_24_OF_24"
+  },
+  "handoff": {
+    "ready": true,
+    "nextRole": "independentBlindVisualQA",
+    "note": "Implementation self-test only; no independent QA PASS is claimed."
+  }
+}

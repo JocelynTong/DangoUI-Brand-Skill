@@ -1,0 +1,45 @@
+{
+  "schema": "heldout-plaza-standard-sample-comparison/v1",
+  "attempt": 9,
+  "scope": "pages/plaza/index only",
+  "references": {
+    "previous": "../8/fresh-{390x844,536x864,1280x720}-plaza.png",
+    "current": "fresh-{390x844,536x864,1280x720}-plaza.png",
+    "source": [
+      "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+      "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+      "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png"
+    ]
+  },
+  "comparison": {
+    "attempt8To9": {
+      "status": "IMPROVED",
+      "observations": [
+        "Search is now one legible editorial field: one outer rule, a Search label and an unframed native input. The former nested-box reading is gone.",
+        "Card tags and participation state are visually quieter; metadata no longer competes with deck title and card art.",
+        "Header, filter panel, campaign strip and deck cards now share the same low-radius, thin-rule geometry.",
+        "The warm paper canvas and restrained red/yellow accents remain intact."
+      ]
+    },
+    "currentToOfficialSource": {
+      "status": "PARTIAL_MATCH",
+      "matchingSignals": [
+        "warm paper/map field",
+        "navy framing bands",
+        "low-radius editorial content islands",
+        "thin dark rules with sparse red rule accents",
+        "compact title-led metadata hierarchy"
+      ],
+      "remainingDifferences": [
+        "The desktop environment taxonomy expands into a dense multi-row control wall, while the official source generally keeps taxonomy compact and gives more visual mass to content/media.",
+        "The masthead includes a visible ellipsis/ring capsule copied from platform chrome and a down-arrow switch cue although neither communicates a real product action.",
+        "The page still relies on host card imagery rather than the official site's stronger editorial asset compositions; acceptable for this minimal host experiment but not equivalent to source fidelity."
+      ]
+    },
+    "maskedStructuralRecognition": {
+      "method": "Visually ignore card art, logo/brand text and hue; assess mass, borders, spacing and reading order only.",
+      "status": "PASS_WITH_CAVEAT",
+      "evidence": "The navy masthead, paper field, low-radius ruled islands, compact editorial labels and title-first cards remain coherent after explicit imagery/color cues are discounted. The result is recognizably closer to the official editorial system than Attempt 8, but the masthead pseudo-chrome is not supported by that structure."
+    }
+  }
+}

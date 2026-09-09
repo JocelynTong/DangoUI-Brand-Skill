@@ -1,0 +1,86 @@
+{
+  "schema": "brand-host-plaza-minimal-comparison/v1",
+  "attempt": 4,
+  "freshQa": true,
+  "route": "pages/plaza/index",
+  "viewports": ["390x844", "1280x720"],
+  "hostEvidence": {
+    "freshMobile": "mobile-390x844-plaza-fresh.png",
+    "freshDesktop": "desktop-1280x720-plaza-fresh.png",
+    "previousMobile": "../3/mobile-390x844-plaza.png",
+    "previousDesktop": "../3/desktop-1280x720-plaza.png"
+  },
+  "sourceEvidence": {
+    "home": "../../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+    "products": "../../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+    "events": "../../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+    "viewportNote": "Frozen source captures are 1280px wide full pages, so desktop is width-matched; mobile is evaluated as a responsive structural translation, not claimed as a same-viewport source recreation."
+  },
+  "measuredChange": {
+    "warmSurfaceRatio": {
+      "mobile": {"attempt3": 0.298, "attempt4": 0.6965},
+      "desktop": {"attempt3": 0.1108, "attempt4": 0.7014},
+      "sourceRange": [0.813, 0.8787],
+      "finding": "Warm paper is now the dominant host surface in both viewports and moves materially toward the frozen official pages."
+    },
+    "darkSurfaceRatio": {
+      "mobile": {"attempt3": 0.5755, "attempt4": 0.1926},
+      "desktop": {"attempt3": 0.8405, "attempt4": 0.2601},
+      "sourceRange": [0.0851, 0.1116],
+      "finding": "Dark mass is no longer the page canvas; it is concentrated in the masthead/navigation and small labels."
+    },
+    "accentRatios": {
+      "attempt4Mobile": {"red": 0.0207, "yellow": 0.0239},
+      "attempt4Desktop": {"red": 0.0104, "yellow": 0.0078},
+      "sourceRanges": {"red": [0.0073, 0.0112], "yellow": [0.0009, 0.0099]},
+      "finding": "Desktop accents are source-like and sparse. Mobile yellow/red remain slightly denser because selected taxonomy controls and their borders occupy more of the narrow viewport, but no longer dominate."
+    },
+    "geometry": {
+      "attempt4VisibleControlCount": 50,
+      "attempt4PillCount": 0,
+      "attempt4Rounded12PlusCount": 0,
+      "dominantRadius": "2.08px mobile / 4px desktop computed after responsive scaling",
+      "finding": "The previous rounded-pill language has been replaced by rectangular tabs, filters, campaign strip and list islands."
+    },
+    "firstScreen": {
+      "mobile": {"searchVisible": true, "taxonomyVisible": true, "firstCardTop": 402.984375, "firstCardVisible": true, "overflowX": false},
+      "desktop": {"searchVisible": true, "taxonomyVisible": true, "firstCardTop": 388, "firstCardVisible": true, "overflowX": false}
+    },
+    "pixelChangeFromAttempt3": {
+      "mobileStrongChangedPixelRatio": 0.620823,
+      "desktopStrongChangedPixelRatio": 0.744639,
+      "interpretation": "The experiment is a material composition/surface change, not a small palette patch."
+    }
+  },
+  "structuralComparison": {
+    "closerToOfficial": [
+      "warm map-paper visual mass",
+      "navy localized as masthead structure",
+      "low-radius rectangular content islands",
+      "editorial red rails and compact black metadata labels",
+      "yellow limited to selected navigation/taxonomy",
+      "breathing space between search, taxonomy, campaign and list"
+    ],
+    "remainingDifferences": [
+      "The official product page uses a multi-column merchandise grid; the host correctly retains its business-required deck list.",
+      "Official pages have richer source-owned promotional media and display typography; this minimum experiment intentionally adds no hero or borrowed screenshot assets.",
+      "The host CJK hierarchy is restrained and readable but cannot reproduce the source Latin display voice for Chinese labels without a dedicated compatible CJK display face."
+    ],
+    "maskedRecognition": {
+      "explicitCharacterArtPresent": false,
+      "explicitOnePieceLogoPresent": false,
+      "brandColorRelianceExcluded": true,
+      "verdict": "PASS",
+      "reason": "Even discounting navy/red/yellow and ignoring Pokémon card art, the paper-dominant massing, hard editorial geometry, content rails and section rhythm are closer to the frozen ONE PIECE page system than to Attempt3's generic dark gaming UI."
+    }
+  },
+  "siblingRegression": {
+    "routes": ["build", "detail", "event", "mine", "round"],
+    "viewports": ["390x844", "1280x720"],
+    "exactPixelMatches": 4,
+    "nonExactMaximumChangedPixelRatio": 0.010677,
+    "nonExactMaximumMeanRgbAbsSum": 5.199,
+    "structuralAndVisualFinding": "No material sibling-route regression. Non-exact captures differ on at most 1.0677% of pixels and preserve all measured visual-mass ratios; the Plaza-specific structural change is absent from sibling routes.",
+    "evidence": "image-measurements.json"
+  }
+}

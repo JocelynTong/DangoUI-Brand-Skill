@@ -1,0 +1,54 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "03",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "verdict": "FAIL",
+  "goalCorrection": "../goal-correction-hero-scaling.json",
+  "evidenceFidelity": "PASS",
+  "structuralFidelity": "FAIL",
+  "generativeProof": "NOT_ASSESSED_OUT_OF_SCOPE",
+  "acceptance": {
+    "logicalCanvas1440x716": "PASS",
+    "uniformScaleXEqualsScaleY": "PASS",
+    "scaleEqualsAvailableInnerWidthDividedBy1440": "PASS",
+    "renderedHeightApproximately716TimesScale": "PASS",
+    "transformOriginTopLeft": "PASS",
+    "noFlexColumnReflow": "PASS",
+    "relativeLayerGeometryPreservedAndAllRequiredLayersVisible": "FAIL",
+    "noScreenshotRuntime": "PASS",
+    "followingSectionGapMax8Px": "PASS",
+    "noHorizontalOverflow": "PASS_WITH_BLOCKING_VISIBILITY_CAVEAT",
+    "scrollingUsable": "PASS_AT_DESKTOP_PHONE_SHELL",
+    "runtimeConsoleErrors": "PASS"
+  },
+  "blockingFindings": [
+    {
+      "id": "HOME_HERO_REQUIRED_LAYERS_CLIPPED",
+      "severity": "blocking",
+      "description": "At the requested 390x844 browser size, the wrapper is the correct scaled height, but settled slide 1 places required content outside it: the title extends 5.22px below the clip, the CTA starts 10.10px below the clip and has zero visible height, and the carousel controls start 29.13px below the clip and have zero visible height. Navigation and logo are also clipped on the left because the scaled canvas begins about 12px left of its wrapper.",
+      "visibleEvidence": ["browser-probes.json", "captures/demo-phone-390x844-full.png"],
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "id": "HOME_PREVIEW_OFFSCREEN_AT_390",
+      "severity": "blocking",
+      "description": "At the explicit 390x844 browser viewport, the Hero begins at x=598.49 while the visible CSS viewport ends at x=354. The document reports no horizontal scroll range, so the complete Hero cannot be reached or viewed in that viewport.",
+      "visibleEvidence": ["captures/demo-phone-390x844-full.png", "browser-probes.json"],
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "nonBlockingObservations": [
+    "The canvas has a real 1440x716 layout box, matrix scale is uniform, and transform-origin is top left.",
+    "The next Home section follows with effectively zero gap.",
+    "No runtime URL refers to source captures, screenshots, or quality-attempt artifacts.",
+    "The desktop phone-screen scroll changed from 0 to 438.18 and restored to 0.",
+    "No runtime console errors were captured."
+  ],
+  "sourceComparison": {
+    "source": "../../../captures/source/home/desktop/frames/000.png",
+    "finding": "The source desktop Hero presents the complete navigation, logo/title, main character composition, CTA, and carousel bar within one visible stage. The demo's scaled stage does not keep the same completeness at the required mobile viewport because required controls and title are clipped or unreachable."
+  }
+}

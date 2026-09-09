@@ -1,0 +1,26 @@
+{
+  "schema": "brand-host-asset-provenance/v1",
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "assets": [
+    {
+      "id": "campaign-hero-op17",
+      "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/fsIAlbTmSh7C45aU/mv.webp",
+      "sourceSha256": "e8628c5b3aee2a54dc8c85d8071b5b871b694e9628c88b6f5e8c42d4fac34e76",
+      "sourceKind": "original-site-asset",
+      "runtimeUse": ["pages/event/index event-head", "pages/plaza/index existing campaign surfaces"],
+      "businessBoundary": "background/frame only; it does not replace host card, deck, event or user data"
+    },
+    {
+      "id": "editorial-frame-and-markers",
+      "sourceKind": "dom-css-reconstruction",
+      "runtimeUse": ["event campaign frame", "detail identity frame", "contained mine/round mastheads"],
+      "implementation": "CSS border, pseudo-element typography and gradients",
+      "businessBoundary": "non-interactive decoration only"
+    }
+  ],
+  "rejected": [
+    "source screenshots or crops as runtime assets",
+    "ONE PIECE product card art in Pokémon content slots",
+    "ONE PIECE logo or product copy inside host business content"
+  ]
+}

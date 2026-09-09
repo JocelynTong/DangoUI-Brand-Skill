@@ -1,0 +1,12 @@
+{
+  "schema": "blind-qa-gates/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 3,
+  "gates": [
+    {"name": "npm run build", "status": "PASS", "exitCode": 0, "note": "Vite production build completed; chunk-size warning is non-blocking."},
+    {"name": "validate-design-direction", "status": "PASS", "exitCode": 0, "result": {"sections": 1, "strategies": 4, "failures": []}},
+    {"name": "validate-section-fidelity --strict", "status": "PASS", "exitCode": 0, "result": {"checks": 13, "failures": []}},
+    {"name": "revision3 qa-input manifest path audit", "status": "PASS", "exitCode": 0, "result": {"entries": 7, "missing": []}}
+  ]
+}

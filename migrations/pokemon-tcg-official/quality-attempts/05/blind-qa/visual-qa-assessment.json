@@ -1,0 +1,78 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 5,
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "verdict": "REWORK",
+  "isIndependentBlindQA": true,
+  "blockers": [
+    {
+      "code": "HERO_LOGO_NAV_OVERLAP",
+      "severity": "blocking",
+      "finding": "The Pokémon TCG Official logo overlaps the EXPANSIONS navigation item on both the 390x844 proof surface and the 1440 outer viewport with the narrow internal phone.",
+      "evidence": {
+        "mobileOverlapAreaPx2": 269.7314,
+        "outer1440OverlapAreaPx2": 236.2598,
+        "captures": [
+          "captures/mobile-front-390x844.png",
+          "captures/outer-1440-internal-phone.png"
+        ]
+      },
+      "acceptanceViolated": "logo, official front/back card, CTA, and carousel do not overlap",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "Demo Implementation Agent"
+    }
+  ],
+  "warnings": [
+    {
+      "code": "REDUCED_MOTION_RUNTIME_NOT_EMULATED",
+      "finding": "The loaded page contains prefers-reduced-motion rules, but the selected browser reported matchMedia=false and exposed no media emulation. Actual reduce-mode computed behavior was therefore not independently exercised. This cannot be promoted from rule-presence evidence to a verified runtime PASS."
+    },
+    {
+      "code": "CAROUSEL_SECOND_STATE_WEAK_DIFFERENTIATION",
+      "finding": "The second carousel state changes the Hero variant but reuses the same campaign logo and featured card; it is functional but is a weak demonstration of distinct campaign continuity."
+    }
+  ],
+  "checks": {
+    "visibilityAndReadability": {
+      "status": "FAIL",
+      "notes": "Hero and next-section typography are readable, but the top logo/navigation collision is immediately visible and makes the navigation header look compressed."
+    },
+    "officialAssetsAndBrandLayers": {
+      "status": "PASS_WITH_BLOCKING_LAYOUT_DEFECT",
+      "notes": "Official background, campaign mark, TCG logo, card front and card back all load. The TCG logo placement collides with navigation."
+    },
+    "compactComposition": {
+      "status": "PASS",
+      "notes": "Hero height is 415.994px, below the 430px allowance; the following section begins immediately and is visible in the first viewport. The composition reads as a designed compact Hero rather than a uniformly shrunken desktop screenshot."
+    },
+    "cardFlip": {
+      "status": "PASS",
+      "notes": "Pointer and keyboard interactions both complete front-to-back-to-front. CSS rotateY is present. Card bounds, phone scrollTop and Hero overflow remain stable through the captured transition midpoint."
+    },
+    "reducedMotion": {
+      "status": "NEEDS_EVIDENCE",
+      "notes": "Media rules are loaded, but reduce-mode was not active and could not be emulated on this proof surface."
+    },
+    "carousel": {
+      "status": "PASS_WITH_WARNING",
+      "notes": "0-to-1-to-0 works and all states remain nonblank; second-state content differentiation is limited."
+    },
+    "responsiveGeometry": {
+      "status": "PASS",
+      "notes": "No document or Hero horizontal overflow. The 1440 outer viewport still renders the compact internal-phone rule at 415.994px Hero height."
+    },
+    "console": {
+      "status": "PASS",
+      "notes": "No warning or error entries were observed."
+    },
+    "hostTransferability": {
+      "status": "REWORK",
+      "notes": "The 50vh-style compact direction is viable and branded, but the header collision prevents this build from being accepted as a reusable host-ready recipe."
+    }
+  },
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "Demo Implementation Agent",
+  "requiredCorrection": "Give the TCG logo and campaign navigation non-overlapping responsive regions on the compact internal-phone surface, then rerun a fresh Blind QA. Do not solve it by shrinking either item below readability or removing the preserved logo.",
+  "finalVerdict": "REWORK"
+}

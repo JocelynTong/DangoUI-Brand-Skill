@@ -1,0 +1,15 @@
+{
+  "schema": "brand-role-handoff-receipt/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 10,
+  "revision": 3,
+  "role": "Demo Implementation Agent",
+  "status": "official-background-and-normalized-spatial-rework-complete-awaiting-new-blind-qa",
+  "completedAt": "2026-09-01T12:15:00.000Z",
+  "changedScope": ["src/App.vue footer background binding", "src/styles.css footer layer hierarchy, crop, geometry, reveal delays, typography role", "public/brand-previews/onepiece-cardgame.json footer asset schema", "migrations/onepiece-cardgame/visual-pattern-inventory.json", "migrations/onepiece-cardgame/demo-screenshot-manifest.json"],
+  "unchangedScope": ["Goal", "Evidence", "Intent", "QA verdict/report", "phone shell", "held-out page", "page scroll", "footer loop durations", "loop-only pause behavior"],
+  "outputs": ["public/assets/brand-assets/onepiece-cardgame/source/footer/background-wave.webp", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/home-footer-default.png", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/home-footer-120ms.png", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/home-footer-500ms.png", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/home-footer-settled.png", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/home-footer-late.png", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/home-footer-paused.png", "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/source-vs-demo-six-states.png", "migrations/onepiece-cardgame/quality-attempts/10/implementation-self-check-revision-3.json"],
+  "machineReceipt": { "officialBackgroundSha256": "ca48a75f9d0d329f1033cb56b887fccc62ec0fc2036184055c4bf002033d1045", "baseNormalizedGeometry": { "characterWidth": 0.546875, "cardHeights": [0.398795, 0.201205, 0.209566] }, "transition": { "at120ms": { "backgroundOpacity": 0.0948325, "characterOpacity": 0.0000235, "compositeOpacity": 0 }, "at500ms": { "backgroundOpacity": 0.545381, "characterOpacity": 0.840788, "compositeOpacity": 0 } }, "motion": { "finite": ["0.6s", "0.8s"], "loops": ["5s", "8s", "8s"], "pauseFrozen": true } },
+  "build": "pass (vite 8.0.16; 25 modules; 530ms)",
+  "qaVerdict": "not-owned-by-implementation"
+}

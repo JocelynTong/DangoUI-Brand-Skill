@@ -1,0 +1,13 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "trigger": "User identified unexplained bottom whitespace in the Plaza search surface and environment filter rail at 536x864.",
+  "observedMismatch": [
+    "filter rail changed from two-row grid to one-row horizontal flex but retained the old two-row block height",
+    "search shell retained oversized vertical padding while the actual input remained top-aligned"
+  ],
+  "missedBy": ["Host Implementation Attempt7", "Visual QA Attempt7"],
+  "whyOldGatePassed": "The gate checked clipping, reachability and first-content position but not child-to-container vertical occupancy or asymmetric top/bottom whitespace.",
+  "failureOwnerRole": "Host Implementation Agent",
+  "requiredRepair": "Use content-driven heights, vertically center the actual input, remove stale two-row rail space, and verify symmetric vertical spacing at 390/536/1280 without harming scrolling or 44px targets.",
+  "gateLearning": "Responsive mode changes must invalidate inherited fixed/min heights; nested component QA must measure content bounds against owner bounds on both axes."
+}

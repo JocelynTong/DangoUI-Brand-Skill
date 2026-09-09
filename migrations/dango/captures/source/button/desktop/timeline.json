@@ -1,0 +1,83 @@
+{
+  "schema": "brand-continuous-scroll-timeline/v1",
+  "sourcePageId": "button",
+  "viewportId": "desktop",
+  "meta": {
+    "url": "https://dumpling.echo.tech/style/button",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 4187
+  },
+  "frames": [
+    {
+      "index": 0,
+      "label": "initial",
+      "timeMs": 209,
+      "scrollTop": 0,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-00.png",
+      "sha256": "e9a2df8b4c8e1d9afb096c2cd23d7f91777f56d8f755f50cb39a7b9e2c3b69e2"
+    },
+    {
+      "index": 1,
+      "label": "continuous-scroll",
+      "timeMs": 604,
+      "scrollTop": 648,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-01.png",
+      "sha256": "4c63187c7b150de8d4c0ba2e7dbc65ef45f7428bc9dcbc517e7bcec3163c6793"
+    },
+    {
+      "index": 2,
+      "label": "continuous-scroll",
+      "timeMs": 1019,
+      "scrollTop": 1296,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-02.png",
+      "sha256": "ea9bfa617290efecf10ee6fe1a5d167c4dbe3e10032747af6f53971c5a072c70"
+    },
+    {
+      "index": 3,
+      "label": "continuous-scroll",
+      "timeMs": 1396,
+      "scrollTop": 1944,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-03.png",
+      "sha256": "d6d5877bcf59e5acbb6836e33f2bc5142f8feb2c11ee1a1f31ee27842bca6b14"
+    },
+    {
+      "index": 4,
+      "label": "continuous-scroll",
+      "timeMs": 1780,
+      "scrollTop": 2592,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-04.png",
+      "sha256": "062b5055c86f42dc3ec708f84533adf5c19e7e9300f7349af416a621bb678889"
+    },
+    {
+      "index": 5,
+      "label": "continuous-scroll",
+      "timeMs": 2155,
+      "scrollTop": 3240,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-05.png",
+      "sha256": "bf98e5ac7a8a829b8d41c63c8e320bb372faeba0a42e6a380de48585a07bfa36"
+    },
+    {
+      "index": 6,
+      "label": "settled-end",
+      "timeMs": 2560,
+      "scrollTop": 3287,
+      "scrollHeight": 4187,
+      "path": "migrations/dango/captures/source/button/desktop/frame-06.png",
+      "sha256": "a3054e582bac6941d2ab4563a730181743297929ff03b369bd3d76744ab82cbe"
+    }
+  ],
+  "restored": {
+    "scrollTop": 0,
+    "path": "migrations/dango/captures/source/button/desktop/restored.png",
+    "sha256": "575d526005812aaf1d14b4481559ebdbc4bafe61208e65e9c6449919d1273044"
+  }
+}

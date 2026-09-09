@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-live-only",
+  "status": "APPROVED_WITH_MOTION_UNRESOLVED",
+  "sourceEvidenceRevision": "../evidence-revision2",
+  "patterns": [
+    {
+      "id": "PAT-TCGL-R2-01",
+      "name": "V-shaped threshold over honeycomb field",
+      "classification": "section-background",
+      "approval": "approved",
+      "scope": "homepage TCG Live section",
+      "observableRules": ["full-bleed raster", "red/gold V seam at top", "pale-gray honeycomb main field", "hard lower cut to pale-blue Pocket section"],
+      "suitableFor": ["homepage TCG Live product callout"],
+      "notFor": ["global page background", "solid-red section", "global action or active color", "animated background"],
+      "allowedRoles": ["TCG Live background", "TCG Live top seam", "TCG Live lower boundary"],
+      "forbiddenRoles": ["global red token", "global honeycomb texture", "background-motion recipe"],
+      "assetIdentity": {"sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg", "sourceKind": "independent-source-asset"},
+      "evidenceRefs": ["background", "desktop-layout", "mobile-layout"]
+    },
+    {
+      "id": "PAT-TCGL-R2-02",
+      "name": "Responsive local black copy anchor",
+      "classification": "content-panel",
+      "approval": "approved",
+      "scope": "homepage TCG Live copy group",
+      "observableRules": ["desktop translucent-black 696x316.5 panel with 50px 72px padding", "mobile opaque-black 390px full-width panel with 30px padding", "centered H2, paragraph, CTA", "no kicker"],
+      "suitableFor": ["TCG Live copy and action group"],
+      "notFor": ["global dark surface", "generic card", "modal", "host utility panel"],
+      "allowedRoles": ["TCG Live copy backdrop", "TCG Live local contrast field"],
+      "forbiddenRoles": ["global surface token", "generic black panel", "rounded floating card", "kicker container"],
+      "evidenceRefs": ["desktop-layout", "mobile-layout", "english-copy"]
+    },
+    {
+      "id": "PAT-TCGL-R2-03",
+      "name": "Five-layer product-world composition",
+      "classification": "asset-composition",
+      "approval": "approved",
+      "scope": "homepage TCG Live asset group",
+      "observableRules": ["laptop is rear plane", "Pikachu lower-left foreground", "phone lower-right foreground", "two avatars above laptop", "five independent transparent assets", "mobile preserves overlap while scaling group to 374x258.625"],
+      "suitableFor": ["TCG Live product showcase"],
+      "notFor": ["flat screenshot hero", "generic product card", "unrelated Pokémon campaign", "asset collage without layer semantics"],
+      "allowedRoles": ["laptop back plane", "Pikachu foreground", "phone foreground-right", "two upper avatars"],
+      "forbiddenRoles": ["flattened screenshot", "unrelated official asset replacement", "decorative collage"],
+      "assetIdentity": {
+        "sourceKind": "independent-source-assets",
+        "layers": [
+          {"role": "laptop-back-plane", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png"},
+          {"role": "pikachu-foreground", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png"},
+          {"role": "phone-foreground-right", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/phone.png"},
+          {"role": "avatar-upper-left", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png"},
+          {"role": "avatar-upper-right", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png"}
+        ]
+      },
+      "evidenceRefs": ["desktop-layout", "mobile-layout"]
+    },
+    {
+      "id": "PAT-TCGL-R2-04",
+      "name": "Breakpoint-specific scene and copy reorder",
+      "classification": "responsive-layout",
+      "approval": "approved",
+      "scope": "homepage TCG Live section",
+      "observableRules": ["desktop copy-left/assets-right", "mobile assets-first/copy-second", "mobile copy panel spans viewport", "following section begins after panel"],
+      "suitableFor": ["TCG Live desktop and mobile layouts"],
+      "notFor": ["global breakpoint rule", "desktop row miniaturization", "desktop order retained at 390px"],
+      "allowedRoles": ["TCG Live responsive order", "TCG Live panel width translation"],
+      "forbiddenRoles": ["global row reversal", "global full-width black mobile panel"],
+      "evidenceRefs": ["desktop-layout", "mobile-layout"]
+    },
+    {
+      "id": "PAT-TCGL-R2-05",
+      "name": "Pre-translation product callout typography",
+      "classification": "typography",
+      "approval": "approved",
+      "scope": "homepage TCG Live copy panel",
+      "observableRules": ["Kanit 700 H2 at 40/44 desktop and 28/30.8 mobile", "PT Sans 400 body at 18/28.8", "PT Sans 700 CTA at 20/24 desktop and 18/22.5 mobile", "English H2, paragraph, CTA only", "no translated hard breaks"],
+      "suitableFor": ["TCG Live H2, body, and CTA"],
+      "notFor": ["global typography", "navigation", "translated screenshot line breaks", "invented kicker"],
+      "allowedRoles": ["TCG Live H2", "TCG Live paragraph", "TCG Live CTA label"],
+      "forbiddenRoles": ["global type token promotion", "hard-coded translated wrapping", "kicker typography"],
+      "evidenceRefs": ["english-copy"]
+    },
+    {
+      "id": "PAT-TCGL-R2-06",
+      "name": "White Learn More endpoint",
+      "classification": "component",
+      "approval": "approved-static",
+      "scope": "homepage TCG Live CTA",
+      "observableRules": ["one white CTA labeled Learn More", "desktop 56px height with 20/24 PT Sans 700", "mobile expected 190.742x51.297 with 18/22.5 PT Sans 700"],
+      "suitableFor": ["TCG Live Learn More endpoint"],
+      "notFor": ["global primary button", "all white buttons", "source-exact hover/click/focus styling without new evidence"],
+      "allowedRoles": ["TCG Live CTA resting presentation"],
+      "forbiddenRoles": ["global action token", "invented interaction states", "inert control in final implementation"],
+      "evidenceRefs": ["english-copy"]
+    },
+    {
+      "id": "PAT-TCGL-R2-07",
+      "name": "Viewport-entry motion candidate",
+      "classification": "interaction-motion",
+      "approval": "unresolved",
+      "scope": "homepage TCG Live viewport entry",
+      "observableRules": ["classes and candidate initial computed values indicate a possible pop/slide family", "no stable same-section before/mid/settled sequence exists", "asynchronous reflow invalidated attempted captures"],
+      "suitableFor": ["future Evidence recollection only"],
+      "notFor": ["exact implementation", "acceptance requirement", "source-faithful motion claim", "background animation", "reuse of invalidated frames"],
+      "allowedRoles": ["unresolved motion candidate"],
+      "forbiddenRoles": ["approved motion pattern", "exact transforms", "timing or stagger prescription", "visual acceptance from rejected captures"],
+      "evidenceRefs": ["entry-motion"]
+    }
+  ],
+  "scopeAudit": {
+    "globalPatternsApproved": [],
+    "sectionLocalApproved": ["PAT-TCGL-R2-01", "PAT-TCGL-R2-02", "PAT-TCGL-R2-03", "PAT-TCGL-R2-04", "PAT-TCGL-R2-05", "PAT-TCGL-R2-06"],
+    "unresolved": ["PAT-TCGL-R2-07"],
+    "tokenRoleExpansionDetected": false,
+    "invalidatedMotionEvidenceReferenced": false,
+    "notes": [
+      "All approved patterns bind exclusively to evidence-revision2.",
+      "Entry motion is candidate-only and cannot enter implementation or QA acceptance.",
+      "Stable translated screenshots do not determine English wrapping.",
+      "Red, gold, black panel, and honeycomb remain section-local."
+    ]
+  }
+}

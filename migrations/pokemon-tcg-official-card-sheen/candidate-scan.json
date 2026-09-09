@@ -1,0 +1,74 @@
+{
+  "schema": "interaction-candidate-scan/v1",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "viewport": { "width": 1440, "height": 1000 },
+  "scope": {
+    "targetSelector": ".featured-switcher .perspective-card",
+    "boundedTo": "target, descendants, hero ancestors, pseudo-elements, their computed styles, and the single loaded first-party application script",
+    "targetRect": { "x": 1308, "y": 209, "width": 290, "height": 404.2421875 },
+    "visibleIntersection": { "x": 1308, "y": 209, "width": 132, "height": 404.2421875 },
+    "effectiveVisibility": "not-visible",
+    "visibilityReason": "The .vp-slide ancestor is opacity:0 and translated 240px right; the captured viewport shows only the hero background in the target intersection."
+  },
+  "loadedSources": {
+    "stylesheets": [
+      "https://tcg.pokemon.com/global.css",
+      "https://tcg.pokemon.com/home.css",
+      "https://tcg.pokemon.com/header.css"
+    ],
+    "applicationScript": "https://tcg.pokemon.com/osd-no-the-haue-awake-vp-clude-and-yet-hee-euern",
+    "applicationScriptBytes": 807234,
+    "applicationScriptNotes": "Single loaded first-party bundle; obfuscated. Generic requestAnimationFrame text is present, but no readable card-specific listener binding was established."
+  },
+  "candidates": [
+    {
+      "id": "perspective-card-3d",
+      "basis": [
+        "DOM class .perspective-card with data-ambient and data-zoom=20",
+        "computed perspective:1000px",
+        "front/back artwork layers have constant matrix3d transforms",
+        "loaded home.css defines .featured-switcher__card .perspective-card transform transition and swap rotateY(180deg)"
+      ],
+      "eventListenerSignal": "unresolved: no inline/on-property listener on bounded nodes; the obfuscated loaded bundle does not yield a readable card-specific binding",
+      "requestAnimationFrameSignal": "candidate-only: requestAnimationFrame exists in the loaded bundle, without a verified card-specific call chain",
+      "disposition": "unresolved-dormant-unreachable",
+      "reason": "The frozen pointer path produced no computed transform or pixel change while the candidate was suppressed by an opacity-zero ancestor. Attempt 2 used the visible Previous, Next, and selected Pikachu carousel controls, but none activated the owning vp-slide. A hidden-state null result cannot reject behavior that may run only while visible."
+    },
+    {
+      "id": "card-shine-layer",
+      "basis": ["DOM descendant .card__shine.perspective-card__shine"],
+      "computed": {
+        "backgroundImage": "none",
+        "backgroundPosition": "0% 0%",
+        "opacity": "1",
+        "filter": "none",
+        "mixBlendMode": "normal",
+        "transform": "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 2, 1)",
+        "before": { "content": "none", "backgroundImage": "none", "opacity": "1", "mixBlendMode": "normal" },
+        "after": { "content": "none", "backgroundImage": "none", "opacity": "1", "mixBlendMode": "normal" }
+      },
+      "disposition": "unresolved-dormant-unreachable",
+      "reason": "The hidden layer had no rendered gradient or blend effect and did not change at any pointer position; all eight clipped PNGs are byte-identical. Because visible carousel controls could not activate its opacity-zero owner, a visible-state sheen probe was unavailable."
+    },
+    {
+      "id": "hero-card-swap-flip",
+      "basis": ["loaded home.css rule .featured-switcher__card.is-swapping .perspective-card { transform: rotateY(180deg) }"],
+      "disposition": "out-of-scope",
+      "reason": "This is a carousel swap state, not the requested pointer-follow sheen/tilt interaction, and .is-swapping was not active."
+    }
+  ],
+  "reachabilityAttempt": {
+    "controlsUsed": ["visible Next", "visible Previous", "visible selected Pikachu state"],
+    "beforeSelectedIndex": 0,
+    "afterSelectedIndex": 0,
+    "beforeAncestorOpacity": "0",
+    "afterAncestorOpacity": "0",
+    "beforeAncestorTransform": "matrix(1, 0, 0, 1, 240, 0)",
+    "afterAncestorTransform": "matrix(1, 0, 0, 1, 240, 0)",
+    "afterFrame": "frames/09-reachability-after-controls.png",
+    "afterFrameSha256": "9b13eb98e36597c903e695f599ff95740174abd764f917eabe870831eb936cf4",
+    "outcome": "unreachable"
+  },
+  "prohibitedInferenceCheck": "No candidate is promoted from code presence alone, and no hidden-state null result is used as final rejection."
+}

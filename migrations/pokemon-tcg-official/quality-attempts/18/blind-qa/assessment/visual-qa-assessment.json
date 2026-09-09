@@ -1,0 +1,25 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "pokemon-tcg-official",
+  "attempt": 18,
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "reviewerRole": "blindVisualQaTpp",
+  "reviewerRecommendation": "pass",
+  "threeProofVerdicts": {
+    "evidenceFidelity": {"status": "PASS", "independent": true, "reason": "All high-salience Home, database, Learn and held-out patterns observed on the live page remain traceable to the allowed evidence and pattern inventory; no unsupported role expansion was observed."},
+    "structuralFidelity": {"status": "PASS", "independent": true, "reason": "Home campaign hierarchy, dense database search organism, Learn bounded instructional hierarchy, responsive section order, scrolling and reversible controls all passed direct interaction probes."},
+    "generativeProof": {"status": "PASS", "independent": true, "reason": "Held-out Deck Lab changes content and information architecture while retaining bounded teaching sections, authentic-object hierarchy and an exclusive reversible accordion; it is not a source-page mirror."}
+  },
+  "pages": [
+    {"sourcePageId": "home", "demoPageId": "pokemon-tcg-official-home", "status": "PASS", "findings": ["Five visible structural sections; all rendered images loaded; campaign selector and 0→500→0 internal scroll are reversible."], "blockingFindings": []},
+    {"sourcePageId": "card-database", "demoPageId": "pokemon-tcg-official-card-database", "status": "PASS", "findings": ["Search normal/hover/focus contrast is 4.874435:1; empty→Pikachu results→reset is reversible at 390 outer and 371 internal widths; no horizontal overflow."], "blockingFindings": []},
+    {"sourcePageId": "how-to-play", "demoPageId": "pokemon-tcg-official-learn", "status": "PASS", "findings": ["Four visible instructional sections, loaded assets, exclusive accordion transition and scroll restoration."], "blockingFindings": []},
+    {"sourcePageId": null, "demoPageId": "pokemon-tcg-official-held-out", "status": "PASS", "findings": ["Two purpose-separated organisms, loaded authentic card assets, exclusive accordion transition and scroll restoration."], "blockingFindings": []}
+  ],
+  "blockingFindings": [],
+  "warnings": [
+    {"code": "FOCUS_INDICATOR_ABSENT", "severity": "warning", "page": "card-database", "finding": "Search matches :focus-visible but computed outline is none and box-shadow is none. Foreground/background contrast passes 4.5:1 and the frozen goal does not define a focus-appearance threshold, so this is not used to fail any proof.", "earliestFailureNode": "demo", "failureOwnerRole": "demoImplementationAgent"},
+    {"code": "EVIDENCE_LEGACY_SCHEMA", "severity": "warning", "finding": "Strict evidence gate passes with a semantic-claims legacy-schema warning.", "earliestFailureNode": "evidence", "failureOwnerRole": "brandResearcher"}
+  ]
+}

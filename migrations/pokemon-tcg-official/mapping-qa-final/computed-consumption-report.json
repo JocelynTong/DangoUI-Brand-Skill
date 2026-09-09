@@ -1,0 +1,19 @@
+{
+  "schema": "computed-consumption-report/v1",
+  "brand": "pokemon-tcg-official",
+  "generatedAt": "2026-09-06T01:58:50+08:00",
+  "runtimeUrl": "http://127.0.0.1:5180",
+  "summary": {"targetBearingLeaves":6,"computedConsumed":6,"pending":0,"verdict":"pass"},
+  "leaves": [
+    {"path":"mapped.du-bg-1","target":"--du-bg-1","contractValue":"#FFFFFF","computed":"#fff / rgb(255, 255, 255)","consumer":".pokemon-db__title-plate","status":"computed-consumed"},
+    {"path":"mapped.du-bg-2","target":"--du-bg-2","contractValue":"#EDEDED","computed":"#ededed / rgb(237, 237, 237)","consumer":".pokemon-db","status":"computed-consumed"},
+    {"path":"mapped.du-text-1","target":"--du-text-1","contractValue":"#131415","computed":"#131415 / rgb(19, 20, 21)","consumer":".pokemon-db__title-plate h1","status":"computed-consumed"},
+    {"path":"mapped.du-text-2","target":"--du-text-2","contractValue":"#494949","computed":"#494949","consumer":".pokemon-db__empty","status":"computed-consumed"},
+    {"path":"styleOnly.style-font-database","target":"--style-font-database","contractValue":"Flexo-Regular, arial, sans-serif","computed":"Flexo-Regular, Arial, sans-serif","consumer":".pokemon-db","status":"computed-consumed"},
+    {"path":"styleOnly.style-database-results-texture","target":"--style-database-results-texture","contractValue":"url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)","computed":"url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)","consumer":".pokemon-db__results after Search","status":"computed-consumed"}
+  ],
+  "surfaces": {"pages":["pokemon-tcg-official-home","pokemon-tcg-official-card-database","pokemon-tcg-official-learn"],"viewports":[{"id":"desktop","width":1440,"height":1000},{"id":"phone","width":390,"height":844}],"count":6,"brokenAssets":0,"horizontalOverflow":0},
+  "scrollProbe": {"page":"pokemon-tcg-official-home","clientHeight":644,"scrollHeight":2456,"before":0,"after":1812.5,"restored":0,"pass":true},
+  "isolation": {"foreignThemes":["dango","onepiece-cardgame"],"pokemonAncestorLeaks":0,"styleOnlyTokenLeaks":0,"pass":true},
+  "rejectedBorder": {"candidate":"--du-border-1=#5E5E5E","presentInFormalDtcg":false,"presentInAdapter":false,"presentInRuntimeProof":false,"runtimeComputedBorder":"#0000001f","status":"pass"}
+}

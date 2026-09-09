@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "sectionId": "homepage-pokemon-tcg-pocket",
+  "status": "evidence-ready-with-motion-unresolved",
+  "boundary": {
+    "startsAfter": ".tcgl-callout",
+    "selector": "article.tcg-pocket",
+    "endsBefore": ".homepage-grid / Pokémon Championship Series",
+    "selectionReason": "first complete high-salience section after Pokémon TCG Live"
+  },
+  "viewports": [
+    {
+      "id": "desktop-1440",
+      "capture": "captures/tcg-pocket-desktop-1440-settled.png",
+      "sectionRegion": {"x":0,"y":212.34,"width":1440,"height":476.2},
+      "layers": ["desktop background.jpg across the full section","left logo-cards.png composite","right opaque-black copy column","white Play Now CTA"],
+      "readingOrder": ["left campaign logo/cards composition","right title","right paragraph","right Play Now CTA","hard seam to Championship Series"],
+      "composition": "two equal columns: asset left, copy right"
+    },
+    {
+      "id": "mobile-390",
+      "capture": "captures/tcg-pocket-mobile-390-settled.png",
+      "sectionRegion": {"x":0,"y":0,"width":390,"height":743.02},
+      "layers": ["mobile header_bg-small.jpg","370px logo-cards.png composite","full-width black copy panel","white Play Now CTA"],
+      "readingOrder": ["asset field","two-line title","paragraph","Play Now CTA","next section"],
+      "composition": "vertical reflow: asset first, copy panel second"
+    }
+  ],
+  "responsiveTranslation": {
+    "section": "1440x476.195 full-bleed -> 390x743.023 full-bleed",
+    "layout": "desktop 50/50 horizontal split -> mobile vertical stack",
+    "background": "desktop background.jpg -> mobile-specific header_bg-small.jpg",
+    "asset": "700x428.4 desktop -> 370x226.44 mobile with 10px side insets",
+    "type": "H2 40/44 -> 28/30.8; body remains 18/28.8; CTA 20/24 and 56px -> 18/22.5 and 51.297px",
+    "order": "asset-left/copy-right -> asset-first/copy-second"
+  },
+  "interactionStates": [
+    {"id":"cta-hover","capture":"captures/tcg-pocket-mobile-390-settled.png","result":"foreground black -> gold; white .button__bg unchanged"},
+    {"id":"cta-link","href":"https://tcgpocket.pokemon.com/en-us","result":"visible anchor target observed; navigation not executed because evidence only requires target identity"},
+    {"id":"viewport-entry","before":"captures/tcg-pocket-desktop-pre-entry.png","settled":"captures/tcg-pocket-desktop-1440-settled.png","result":"start and settled endpoints observed; intermediate duration/easing unresolved"}
+  ],
+  "mustPreserve": ["full-bleed section","responsive background swap","asset-first on mobile","opaque black copy field","Kanit italic heading","PT Sans body","white CTA with black-to-gold hover","single independent product/logo composite"],
+  "mustNotInvent": ["red browser-extension overlay","extra kicker","multiple CTAs","desktop side-by-side layout on mobile","motion duration/easing not directly observed","Championship Series content inside this section"],
+  "handoffWarnings": ["Motion endpoints are evidence; exact motion timing is not."],
+  "handoffBlockers": []
+}

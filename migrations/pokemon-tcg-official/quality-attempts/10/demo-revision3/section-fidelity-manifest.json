@@ -1,0 +1,47 @@
+{
+  "schema":"brand-section-fidelity/v1",
+  "brand":"pokemon-tcg-official",
+  "goalSha256":"0ae34c4a6666c30cb34e2eddef68edc74628d40a71a5fbc88a6bdd814748d566",
+  "scope":"attempt-10-demo-revision3",
+  "canonicalEvidenceBinding":{"goalContract":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/goal-contract.json","sha256":"0ae34c4a6666c30cb34e2eddef68edc74628d40a71a5fbc88a6bdd814748d566"},"sourceDesktop":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision3/captures/desktop-1440-pocket-layering.png"}},"sourceMobile":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision3/captures/mobile-390-pocket-layering.png"}}},
+  "sections":[
+    {
+      "id":"home-editorial-grid","pageId":"pokemon-tcg-official-home","status":"pass",
+      "sourceCapture":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision3/captures/desktop-1440-pocket-layering.png","demoCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/calibration-desktop-1440-settled.png",
+      "sourceViewport":{"width":1440,"height":900},"demoViewport":{"width":1440,"height":900},"approvedViewportTranslation":"Independent full-width content proof surfaces at 1440 and 390; inspector and extension overlays excluded.",
+      "sourceRegion":[0,0,1440,476.195],"demoRegion":[0,0,1440,476.188],
+      "requiredLayers":[
+        {"id":"full-article-background","sourceSelector":"article.tcg-pocket > .full-width-section__bg","demoSelector":"[data-schema-section-id=home-editorial-grid] > .pokemon-pocket__background","status":"pass"},
+        {"id":"transparent-asset-column","sourceSelector":"article.tcg-pocket .column:first-child","demoSelector":".pokemon-pocket__asset-field","status":"pass"},
+        {"id":"local-copy-panel","sourceSelector":"article.tcg-pocket .column.black","demoSelector":".pokemon-pocket__copy","status":"pass"},
+        {"id":"external-cta","sourceSelector":"article.tcg-pocket a.button--white","demoSelector":".pokemon-pocket__cta","status":"pass"}
+      ],
+      "readingOrder":["desktop asset-left then inset copy-right","mobile asset-first then full-width copy-second","H2","paragraph","Play Now CTA"],
+      "responsiveBehavior":{"status":"pass","desktop":"1440x476.195 full background; 720x476 transparent asset and 720x356.5 copy at y≈59.85","mobile":"390x743.023 full background; 390x334 asset then 390x409 black copy","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/calibration-desktop-1440-settled.png","migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/calibration-mobile-390-settled.png"]},
+      "assetRefs":[
+        {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"pass"},
+        {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"pass"},
+        {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png","sourceSha256":"27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009","status":"pass"}
+      ],
+      "interactionChecks":[{"id":"cta-hover","required":true,"stateChanged":true,"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/calibration-desktop-1440-settled.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/calibration-desktop-1440-hover.png"}],
+      "usesItemCountAsStructureProxy":false,"horizontalOverflow":false,"visualVerdict":"reserved-for-blind-qa"
+    },
+    {
+      "id":"held-out-pocket-family","pageId":"pokemon-tcg-official-pocket-fixture","status":"pass",
+      "sourceCapture":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision3/captures/desktop-1440-pocket-layering.png","demoCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/held-out-desktop-1440-settled.png",
+      "sourceViewport":{"width":1440,"height":900},"demoViewport":{"width":1440,"height":900},"approvedViewportTranslation":"Held-out generative challenge intentionally changes content and swaps the desktop child order while preserving section-local Pocket invariants.",
+      "sourceRegion":[0,0,1440,476.195],"demoRegion":[0,0,1440,476.188],
+      "requiredLayers":[
+        {"id":"full-article-background","sourceSelector":"article.tcg-pocket > .full-width-section__bg","demoSelector":"[data-schema-section-id=held-out-pocket-family] > .pokemon-pocket__background","status":"pass"},
+        {"id":"original-concept-asset","sourceSelector":"approved Pocket asset-region role","demoSelector":".pokemon-pocket__fixture-art","status":"pass"},
+        {"id":"bounded-copy-panel","sourceSelector":"article.tcg-pocket local black copy child","demoSelector":".pokemon-pocket--held-out .pokemon-pocket__copy","status":"pass"},
+        {"id":"fictional-disclosure","sourceSelector":"held-out challenge requirement","demoSelector":".pokemon-pocket__fixture-label","status":"pass"}
+      ],
+      "readingOrder":["fictional disclosure","desktop bounded copy-left then original concept-right","mobile concept-first then copy-second","heading","body","concept CTA"],
+      "responsiveBehavior":{"status":"pass","desktop":"changed internal arrangement: inset black copy-left and original DOM/CSS asset-right","mobile":"asset-first/copy-second Pocket-family invariant retained","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/held-out-desktop-1440-settled.png","migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/held-out-mobile-390-settled.png"]},
+      "assetRefs":[{"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"pass"}],
+      "interactionChecks":[{"id":"fictional-cta-hover","required":true,"stateChanged":true,"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/held-out-desktop-1440-settled.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo-revision3/captures/held-out-desktop-1440-hover.png"}],
+      "usesItemCountAsStructureProxy":false,"horizontalOverflow":false,"visualVerdict":"reserved-for-blind-qa"
+    }
+  ]
+}

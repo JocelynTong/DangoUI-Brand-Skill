@@ -1,0 +1,31 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 10,
+  "status": "closed-after-fresh-qa-pass",
+  "observedMismatch": "The normal user-facing Pokémon Demo lost the configured phone mockup frame because source-calibration viewport CSS was applied to every source-schema Demo, not only an explicit calibration proof mode.",
+  "missedByRole": ["designDirectorOrchestrator", "demoImplementationAgent", "visualQA"],
+  "whyExistingGatePassed": "The DOM still contained .phone and .phone-screen, so the shell-presence check passed even though CSS set the frame border and radius to zero. The proof-surface rule did not explicitly distinguish a normal presentation page from an opt-in calibration capture.",
+  "evidenceRefs": [
+    "user-visible route #/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "src/styles.css Attempt 07 source-calibration selector",
+    "public/brand-previews/pokemon-tcg-official.json shell.device=phone"
+  ],
+  "rootCause": "A calibration concern leaked into the presentation surface. proofRole=source-calibration was treated as permission to remove the user-facing shell rather than as a requirement to expose a second explicit no-shell proof surface.",
+  "correctiveAction": [
+    "Restore the phone frame on normal Demo routes.",
+    "Keep no-shell 390px and 1440px surfaces behind explicit proof query modes only.",
+    "Recapture the normal route and proof routes and run fresh Blind QA."
+  ],
+  "preventiveAction": [
+    "Make the presentation/proof-surface distinction explicit in role contracts and workflow contract.",
+    "Require Visual QA to verify computed frame border/radius and visible shell, not DOM class presence alone."
+  ],
+  "failureOwnerRole": "demoImplementationAgent",
+  "closureEvidence": {
+    "demoRevision": "migrations/pokemon-tcg-official/quality-attempts/10/demo-revision6",
+    "freshQA": "migrations/pokemon-tcg-official/quality-attempts/10/blind-qa-revision6/report.md",
+    "verdict": "PASS",
+    "blockingFindings": []
+  }
+}

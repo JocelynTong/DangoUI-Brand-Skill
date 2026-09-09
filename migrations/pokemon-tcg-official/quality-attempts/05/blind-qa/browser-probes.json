@@ -1,0 +1,41 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 5,
+  "producer": "independent-blind-qa",
+  "mobile390x844": {
+    "reportedContentViewport": {"width": 354, "height": 767},
+    "hero": {"width": 313.28125, "height": 415.9942932128906, "allowedMax": 430, "pass": true},
+    "nextSectionVisible": true,
+    "featuredCard": {"width": 117.99715423583984, "height": 164.83663940429688, "pass": true},
+    "cta": {"height": 43.99857711791992, "minimum": 44, "passWithinSubpixelTolerance": true},
+    "horizontalOverflow": {"document": false, "hero": false, "pass": true},
+    "logoNavigationCollision": {"item": "EXPANSIONS", "overlapAreaPx2": 269.7314, "pass": false}
+  },
+  "outer1440InternalPhone": {
+    "reportedContentViewport": {"width": 1309, "height": 818},
+    "phone": {"width": 356.8465881347656, "height": 782.34375},
+    "phoneScreen": {"width": 339.5738525390625, "height": 734.3607788085938, "scrollHeight": 2476},
+    "hero": {"width": 315.5823669433594, "height": 415.9942932128906, "compactRuleApplied": true},
+    "nextSectionVisible": true,
+    "horizontalOverflow": {"document": false, "hero": false, "pass": true},
+    "logoNavigationCollision": {"item": "EXPANSIONS", "overlapAreaPx2": 236.2598, "pass": false}
+  },
+  "interaction": {
+    "pointer": {"sequence": ["front", "back", "front"], "ariaPressed": ["false", "true", "false"], "pass": true},
+    "keyboard": {"keys": ["Enter", "Space"], "sequence": ["front", "back", "front"], "ariaPressed": ["false", "true", "false"], "pass": true},
+    "threeDimensionalTransform": {"backState": "matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)", "pass": true},
+    "midTransition": {"capturedAtMs": 150, "scrollTopBefore": 0, "scrollTopDuring": 0, "cardRectStable": true, "heroHorizontalOverflow": false, "pass": true},
+    "reducedMotion": {"matchMediaActive": false, "mediaRulesLoaded": true, "actualReducedModeEmulated": false, "status": "NEEDS_EVIDENCE"},
+    "carousel": {"sequence": [0, 1, 0], "allStatesNonBlank": true, "pass": true}
+  },
+  "console": {"errors": [], "warnings": [], "pass": true},
+  "captures": [
+    "captures/mobile-front-390x844.png",
+    "captures/mobile-back-390x844.png",
+    "captures/mobile-flip-mid-390x844.png",
+    "captures/mobile-slide2-390x844.png",
+    "captures/outer-1440-internal-phone.png"
+  ],
+  "finalVerdict": "REWORK"
+}

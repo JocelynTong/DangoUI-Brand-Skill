@@ -1,0 +1,174 @@
+{
+  "schema": "brand-held-out-host-fresh-qa/v1",
+  "attempt": 1,
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "role": "fresh-independent-brand-visual-business-qa",
+  "readOnly": true,
+  "producerEvidenceReused": false,
+  "service": {
+    "port": 10092,
+    "listen": "PASS",
+    "runtime": "PASS_WITH_THEME_CONTINUITY_FAILURE"
+  },
+  "inputs": {
+    "frozenLearnBrandGoal": "migrations/onepiece-cardgame/goal-contract.json",
+    "heldOutGoalContract": "MISSING",
+    "programGoalBranch": "migrations/onepiece-cardgame/held-out-card-plugin2/program-goal-branch.json",
+    "hostOpportunityMap": "migrations/onepiece-cardgame/held-out-card-plugin2/host-opportunity-map.json",
+    "coverageMatrix": "migrations/onepiece-cardgame/held-out-card-plugin2/coverage-matrix.json",
+    "designDirection": "migrations/onepiece-cardgame/held-out-card-plugin2/design-direction.json",
+    "preeditBaselineBundle": "migrations/onepiece-cardgame/held-out-card-plugin2/preedit-baseline-bundle.json",
+    "implementationReceipt": "migrations/onepiece-cardgame/held-out-card-plugin2/implementation-receipt.json"
+  },
+  "routeCoverage": {
+    "configured": [
+      "pages/plaza/index",
+      "pages/build/index",
+      "pages/mine/index",
+      "pages/event/index",
+      "pages/round/index",
+      "pages/detail/index"
+    ],
+    "desktopFreshColdLoad": "6/6",
+    "mobile390x844FreshColdLoad": "NOT_PROVEN",
+    "desktopViewport": "1280x720",
+    "mobileReason": "The independent browser surface did not expose a viewport override; source media rules are not a substitute for rendered evidence."
+  },
+  "verdicts": {
+    "workflowCompletion": "FAIL",
+    "businessSafety": "PASS",
+    "visualSystemConformance": "FAIL",
+    "structuralRecognition": "PASS",
+    "explicitIpRecognition": "PASS_DIAGNOSTIC",
+    "runtimeTheme": "FAIL",
+    "fullHostExperience": "FAIL",
+    "dangoUi": "PARTIAL_STYLE_ONLY",
+    "overall": "FAIL_RETURN_TO_OWNER"
+  },
+  "businessSafety": {
+    "routesPreserved": "PASS_6_OF_6",
+    "templateStructuralDiff": "PASS_6_OF_6",
+    "businessScriptDiff": "PASS_6_OF_6",
+    "pokemonContentAndData": "PASS",
+    "buildHeroForbidden": "PASS",
+    "publishFlowTriggeredDuringQa": false,
+    "externalWritesObserved": 0,
+    "notes": "Fresh QA navigated only read-only routes and did not submit, save, favorite, copy, buy, publish, or delete."
+  },
+  "recognition": {
+    "structuralRecognition": {
+      "verdict": "PASS",
+      "blocking": true,
+      "signals": [
+        "event uses an editorial campaign hero with black stage, hard red baseline, oversized archive typography, and a separate metric block",
+        "detail uses a black deck-identity masthead, red hard edge, editorial DECK FILE marker, and warm-paper content stage",
+        "plaza/build/mine/round use capacity-aware contained treatments instead of duplicating the event hero"
+      ]
+    },
+    "explicitIpRecognition": {
+      "verdict": "PASS_DIAGNOSTIC",
+      "blocking": false,
+      "signals": [
+        "source-approved ONE PIECE campaign art is visibly present on event and campaign surfaces"
+      ]
+    }
+  },
+  "findings": [
+    {
+      "id": "HELDOUT_GOAL_CONTRACT_MISSING",
+      "severity": "P0",
+      "category": "workflowCompletion",
+      "route": "program",
+      "observed": "The held-out case folder has no frozen goal-contract.json and no held-out goal hash. The available goal-contract.json belongs to learn-brand, not this apply-host case.",
+      "expected": "A held-out-host-specific frozen goal/acceptance contract must exist before evidence and implementation dispatch.",
+      "failureOwnerRole": "Design Director / Orchestrator"
+    },
+    {
+      "id": "OPT_IN_THEME_STATE_DIVERGES_FROM_URL",
+      "severity": "P0",
+      "category": "runtimeTheme",
+      "route": "plaza -> detail and event -> round journeys",
+      "observed": "Fresh opt-in plaza navigation to a deck produced /#/pages/detail/index?id=0, dropping heldOutTheme=onepiece. The root class can remain in the current SPA, but a cold reload of that child URL returns to Pokémon. Conversely, removing the query by same-tab navigation can leave the held-out root class active until a cold reload.",
+      "expected": "Theme state must be deterministic from the URL across direct loads, route navigation, back/forward, and reload.",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": [
+        "frontend/src/app.js syncHeldOutTheme runs only at initial setup/onShow and does not subscribe to hash changes",
+        "fresh browser probe: plaza opt-in -> first deck -> detail URL without opt-in"
+      ]
+    },
+    {
+      "id": "ROUND_CONTENT_CONTRAST_COLLAPSE",
+      "severity": "P0",
+      "category": "visualSystemConformance",
+      "route": "pages/round/index",
+      "observed": "At 1280x720 the held-out round page renders rank rows and deck text as near-black content on a near-black stage; names, metadata, stats and row boundaries are difficult to read.",
+      "expected": "The compact ranking composition must keep scanability, legible CJK hierarchy and explicit card separation.",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": [
+        "onepiece-cardgame-heldout-theme.scss resets the round masthead and rank marker but does not reset Pokémon dark deck-card/text surfaces to the approved warm-paper/content-surface roles"
+      ]
+    },
+    {
+      "id": "EVENT_PRIMARY_TITLE_TRUNCATED",
+      "severity": "P1",
+      "category": "visualSystemConformance",
+      "route": "pages/event/index",
+      "observed": "The 1280x720 event hero displays 宝可梦总冠军赛… while the full event name is available in the accessibility tree.",
+      "expected": "The high-capacity proof surface must preserve the full event identity named in the opportunity map's mustKeepVisible list.",
+      "failureOwnerRole": "Host Implementation Agent"
+    },
+    {
+      "id": "INTERACTIVE_VIEWS_NOT_KEYBOARD_CONTROLS",
+      "severity": "P1",
+      "category": "fullHostExperience",
+      "route": "all configured routes",
+      "observed": "Tabs, chips, cards, publish controls, steppers and navigation actions remain Taro view/text nodes with @tap; no role, tabindex, aria-selected/pressed, or keyboard handlers are present. The accessibility tree exposes them as generic containers/text rather than controls.",
+      "expected": "Keyboard focus/activation and state semantics must be verifiable for the component families listed in coverage-matrix.json.",
+      "failureOwnerRole": "Host Strategist / Design Director",
+      "notes": "This is largely pre-existing and not a business-regression failure, but it prevents claiming full-host accessibility acceptance. The exact structural-diff constraint and the keyboard acceptance criterion need an explicit scoped decision before repair."
+    },
+    {
+      "id": "MOBILE_RENDERED_EVIDENCE_MISSING",
+      "severity": "P0",
+      "category": "workflowCompletion",
+      "route": "all configured routes",
+      "observed": "No fresh independent 390x844 rendered captures were obtainable in this QA context; desktop evidence and CSS media rules cannot substitute.",
+      "expected": "Six routes at 390x844 and 1280x720 with fresh cold loads.",
+      "failureOwnerRole": "Visual QA execution environment"
+    }
+  ],
+  "componentFamilyChecks": {
+    "desktopNoHorizontalViewportOverflow": "PASS_VISUAL_6_OF_6",
+    "mobileNoHorizontalViewportOverflow": "NOT_PROVEN",
+    "cjkHierarchy": "FAIL_ROUND_AND_EVENT",
+    "tabs": "VISUAL_PASS_KEYBOARD_FAIL",
+    "input": "VISUAL_PASS_FOCUS_STYLE_PRESENT",
+    "button": "VISUAL_PASS_KEYBOARD_FAIL",
+    "card": "FAIL_ROUND_CONTRAST_AND_KEYBOARD",
+    "bannerHero": "PASS_PLAZA_EVENT_CAPACITY",
+    "formStates": "STYLE_RECIPES_PRESENT_RUNTIME_STATES_NOT_MUTATED_IN_READ_ONLY_QA",
+    "minTarget44": "PASS_FOR_DECLARED_SHARED_CONTROL_SELECTORS",
+    "focus": "PASS_NATIVE_INPUTS_ONLY",
+    "keyboard": "FAIL_CUSTOM_CONTROLS",
+    "reducedMotion": "PASS_CSS_RULE_PRESENT"
+  },
+  "journeys": {
+    "plazaToDetail": "FAIL_THEME_QUERY_CONTINUITY",
+    "plazaToEvent": "STRUCTURE_PRESENT_THEME_QUERY_CONTINUITY_AT_RISK",
+    "eventToRound": "STRUCTURE_PRESENT_THEME_QUERY_CONTINUITY_AT_RISK",
+    "roundToDetail": "STRUCTURE_PRESENT_THEME_QUERY_CONTINUITY_AT_RISK",
+    "mineToBuildOrDetail": "STRUCTURE_PRESERVED_NOT_MUTATED"
+  },
+  "earliestFailureOwner": {
+    "workflow": "Design Director / Orchestrator",
+    "runtimeAndVisual": "Host Implementation Agent",
+    "accessibilityScope": "Host Strategist / Design Director"
+  },
+  "requiredRework": [
+    "Freeze a held-out-host-specific goal contract and acceptance hash; do not reuse the learn-brand goal as the host contract.",
+    "Make heldOutTheme deterministic across initial load, hash navigation, back/forward and reload, and preserve the opt-in on internal host navigation.",
+    "Repair round-page surface/text roles and event-title wrapping without changing business data or route structure.",
+    "Resolve whether keyboard semantics are in scope; if they are required, approve the minimal structural accessibility diff and baseline it explicitly.",
+    "Run a new independent QA attempt with actual 390x844 and 1280x720 cold-load screenshots for all six routes."
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "schema":"independent-mapping-qa-report/v1",
+  "brand":"pokemon-tcg-official",
+  "verdict":"fail",
+  "completion":"PARTIAL",
+  "strictEligible":false,
+  "summary":"Independent computed-first QA finds 5/7 DTCG targets consumed, not the claimed 6/7. Strict mapping completeness requires 7/7 and no blockers.",
+  "earliestBlocker":"MAPPING_DTCG_TARGET_NOT_CONSUMED",
+  "blockingFindings":[
+    {"code":"MAPPING_DTCG_TARGET_NOT_CONSUMED","target":"mapped.du-text-1","owner":"Dangoui Mapper / implementation","finding":"The scoped variable is declared as #131415, but the declared consumer .pokemon-db__title-plate h1 computes to #252525 because a later specificity override hard-codes that value. Declaration is not runtime consumption.","requiredResolution":"Either remove the conflicting override and prove the approved text role computes from --du-text-1, or mark the target pending; rerun independent QA."},
+    {"code":"MAPPING_ROLE_UNAPPROVED","target":"mapped.du-border-1","owner":"Brand Researcher (earliest evidence owner), then Design Translator","finding":"#5E5E5E appears only as source-CSS navigation pseudo-element candidates. Frozen evidence has no computed-visible divider proof, and brand intent / approved patterns do not approve an ordinary-divider role. It must not be promoted merely to reach coverage.","requiredResolution":"Researcher must capture visible computed divider evidence and Translator must approve its semantic role before Mapper may bind a consumer. Otherwise retain it as pending and accept that mapping is incomplete."}
+  ],
+  "nonBlockingChecks":{"scopedTokenIsolation":"pass","nativeDuButtonAndApi":"pass","databaseStateMachine":"pass","desktopPhoneMockups":"pass","scrollRestoration":"pass","horizontalOverflow":"pass","brokenAssets":"pass","nativeStyleCompositionBoundary":"pass","runtimeProbe":"pass-as-diagnostic-only","brandModValidate":"pass","ruleCandidateGate":"pass","build":"pass"},
+  "note":"The supplied runtime probe returns pass because it treats four scoped token declarations as sufficient and positively checks that the border fallback is not promoted. That diagnostic pass cannot override strict per-target consumption or this independent verdict."
+}

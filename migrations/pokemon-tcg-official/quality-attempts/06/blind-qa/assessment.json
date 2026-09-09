@@ -1,0 +1,43 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 6,
+  "role": "Blind QA / TPP",
+  "verdict": "PASS",
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "threeProofs": {
+    "evidenceFidelity": {
+      "verdict": "PASS",
+      "reason": "The official default uses the observed 30th campaign background, logo, card and compact source-like 56px navigation. The held-out state is not misrepresented as official."
+    },
+    "structuralFidelity": {
+      "verdict": "PASS",
+      "reason": "The layered campaign stage, readable hierarchy, navigation cap, authentic card object, CTA and carousel controls remain coherent at 351, 390 and 430 widths."
+    },
+    "generativeProof": {
+      "verdict": "PASS",
+      "reason": "State two visibly changes background, title, featured card, CTA and disclosure while retaining the approved campaign-stage grammar; it is explicitly labeled non-official."
+    }
+  },
+  "blockingFindings": [],
+  "checks": {
+    "officialDefaultState": "PASS",
+    "heldOutTruthBoundary": "PASS",
+    "highSalienceCarouselChange": "PASS",
+    "beforeTransitionSettledRestored": "PASS",
+    "mobileNavigationGeometry": "PASS",
+    "mobileNavigationOperability": "PASS",
+    "carouselHitTargets": "PASS",
+    "compactHeroAndNextSection": "PASS",
+    "cardFlipAndKeyboardRestore": "PASS",
+    "reducedMotion": "PASS",
+    "scrollAndRestore": "PASS",
+    "responsive351_390_430": "PASS",
+    "build": "PASS"
+  },
+  "nonBlockingNotes": [
+    "The official source proves one campaign only; therefore the second state is evaluated solely as Generative Proof, never as source fidelity.",
+    "The source Hero is much taller; the 416px compact translation is accepted because it is explicitly frozen by the approved design direction and keeps the next section visible."
+  ]
+}

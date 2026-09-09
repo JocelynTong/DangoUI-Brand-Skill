@@ -1,0 +1,14 @@
+{
+  "schema":"brand-blind-qa-input/v1","brand":"pokemon-tcg-official","attempt":18,"goalId":"pokemon-tcg-official-cold-start-v2","goalSha256":"73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "qaExecutionId":"/root/pokemon_attempt18_fresh_blind_qa","implementationExecutionId":"/root/pokemon_attempt18_contrast_fix",
+  "forbiddenInputsAbsent":{"implementationRationale":true,"priorVerdict":true,"buildPassAsVisualEvidence":true,"mainConversation":true},
+  "allowedInputs":[
+    {"kind":"visual-pattern-inventory","path":"migrations/pokemon-tcg-official/visual-pattern-inventory.json","sha256":"c7a16925a78d1871e8b347e0ea961c66ea4c6bcded6ac82935b49423db689997"},
+    {"kind":"brand-intent","path":"migrations/pokemon-tcg-official/brand-intent.json","sha256":"d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac"},
+    {"kind":"generative-proof","path":"migrations/pokemon-tcg-official/generative-proof.json","sha256":"6d2cbd46d3e5e9485e842ccaccd854b7979aba5c6d5f486973c6fd17d5f7f0b2"},
+    {"kind":"browser-probes","path":"migrations/pokemon-tcg-official/quality-attempts/18/blind-qa/probes/browser-probes.json","sha256":"77460ca7ce07d0d41b3761c5248a2e97d51eb152da7ae959c9ac41d82c5bbf93"},
+    {"kind":"source-screenshot","path":"migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png","sha256":"66a446457df6de071de9b172b83c09a33f2921c85e5446620bf5b959264e1242"},
+    {"kind":"source-screenshot","path":"migrations/pokemon-tcg-official/captures/source/card-database/desktop/full-page.png","sha256":"59e0bf0e9dbae77c30a7c5e6b9e342bed76473184fb5c67eac356566bb3e1ad1"},
+    {"kind":"source-screenshot","path":"migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png","sha256":"8ac316b87f33e005faecf5bdec58aed38c1a37c3b003f996be0f92d6b834a2be"}
+  ]
+}

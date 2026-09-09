@@ -1,0 +1,26 @@
+{
+  "schema": "mapping-qa-input-manifest/v1",
+  "brand": "pokemon-tcg-official",
+  "qaRole": "independent-final-mapping-qa",
+  "generatedAt": "2026-09-06T01:58:50+08:00",
+  "runtime": {"preferredUrl":"http://127.0.0.1:5180","actualUrl":"http://127.0.0.1:5180","fallbackPortsUsed":[]},
+  "excludedInputs": ["migrations/pokemon-tcg-official/mapping-qa-report.json","migrations/pokemon-tcg-official/mapping-qa/**"],
+  "inputs": [
+    {"path":"migrations/pokemon-tcg-official/goal-contract-v2.json","sha256":"73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"},
+    {"path":"migrations/pokemon-tcg-official/brand-evidence.json","sha256":"8dea8282171124872b9d6efb3c72d132bd56ca64f49ec92e3ffbd815043cb8be"},
+    {"path":"migrations/pokemon-tcg-official/brand-intent.json","sha256":"d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac"},
+    {"path":"migrations/pokemon-tcg-official/approved-visual-patterns.json","sha256":"6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba"},
+    {"path":"migrations/pokemon-tcg-official/border-token-evidence-recheck.json","sha256":"e1736d447bcccff00dd616eb8244c66d2380852fa5159b4740ba5d6fb28bc147"},
+    {"path":"migrations/pokemon-tcg-official/brand-profile.dtcg.json","sha256":"b8abff812289f39f94e921e91fdbb72ebbc22365ac6aac9d47da8b5697bba621"},
+    {"path":"migrations/pokemon-tcg-official/brand-mod.json","sha256":"646ea94b34493ce40866ef644427d1d997540bfd8fe21cdf77c7c13935e39367"},
+    {"path":"migrations/pokemon-tcg-official/dangoui-adapter.json","sha256":"c045d0444c41a7584a0b92ca644670bb82ce4bd0f5ee16430ca03fc8c8a6ba5a"},
+    {"path":"migrations/pokemon-tcg-official/component-mapping.json","sha256":"35f98097939ec5aee867087a946537f7db68f0c1437e744853db92560667f71e"},
+    {"path":"migrations/pokemon-tcg-official/mapping-runtime-proof.json","sha256":"40931e641affc20156de04f0367360b1f8e59859539f058e591a985aaca3040d"},
+    {"path":"migrations/pokemon-tcg-official/mapping-runtime/runtime-probe.json","sha256":"b0ae13a98e01a8754ec3cd4c13c5cdb7ff5c4581b74825ccec156debd006cc74"},
+    {"path":"scripts/validate-brand-mod.mjs","sha256":"5de9ed511348deb36913dec9e2d3c47d98e37ee2fff862949eab637b996c0bde"},
+    {"path":"skills/brand/scripts/validate-dangoui-mapping.mjs","sha256":"3003b3afacbcc70c288d680e4ebb411397f4b855169e781eae104104f4fd615e"},
+    {"path":"src/App.vue","sha256":"a2f0d9c36041515bef0597d348de0f0f996ff47ecc8994147f988c0294c1f4f5"},
+    {"path":"src/styles.css","sha256":"2a877b2e58561f5b026b28dca4a57faaf37a57fc9eb53ef954dbc7eea0d561a7"},
+    {"path":"node_modules/dangoui/src/button/Button.vue","sha256":"621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"}
+  ]
+}

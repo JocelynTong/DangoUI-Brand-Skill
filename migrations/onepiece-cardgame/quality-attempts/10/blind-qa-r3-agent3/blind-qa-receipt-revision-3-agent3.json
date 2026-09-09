@@ -1,0 +1,106 @@
+{
+  "schema": "onepiece-footer-blind-qa-receipt/v1",
+  "brand": "onepiece-cardgame",
+  "page": "home",
+  "component": "footer-illustration-organism",
+  "revision": 3,
+  "qaRole": "third-independent-blind-qa-tpp-agent",
+  "capturedAt": "2026-09-01T20:25:36+08:00",
+  "verdict": "PASS",
+  "threeProof": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "PASS",
+    "generativeInteraction": "PASS"
+  },
+  "userBlockers": {
+    "incorrectBackground": {
+      "status": "closed",
+      "proof": "Live .footerIllustBg .showItem uses /assets/brand-assets/onepiece-cardgame/source/footer/background-wave.webp; computed backgroundImage is a URL and isGradient is false."
+    },
+    "missingMotion": {
+      "status": "closed",
+      "proof": "Six live states captured; finite 0.6s/0.8s bridge, infinite 5s/8s/8s loops, differing settled/late transforms, and loop-only pause with 1200ms transform stability were independently observed."
+    }
+  },
+  "sourceSet": [
+    "migrations/onepiece-cardgame/footer-motion-evidence-v10.json",
+    "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+    "migrations/onepiece-cardgame/brand-evidence.json",
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+    "migrations/onepiece-cardgame/demo-screenshot-manifest.json",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/"
+  ],
+  "liveUrl": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+  "viewport": {
+    "official": [1280, 720],
+    "browserActual": [1164, 655],
+    "normalizedComparison": [1280, 720],
+    "normalization": "uniform near-identical-aspect resample without crop"
+  },
+  "checks": {
+    "officialWaveImageNotGradient": true,
+    "wideCompositionNotVerticalPoster": true,
+    "eightSemanticLayersPresent": true,
+    "leftDominantLuffy": true,
+    "threeCardRightField": true,
+    "catchAboveLogo": true,
+    "finiteDurations": ["0.6s", "0.8s"],
+    "loopDurations": ["5s", "8s", "8s"],
+    "loopIterationCount": "infinite",
+    "pauseLoopOnly": true,
+    "pausedTransformStable1200ms": [true, true, true],
+    "fontResourceChecksAllTrue": true,
+    "typographyRolesCorrect": true,
+    "scrollRoundTrip": true,
+    "outerScrollUnaffected": true,
+    "consoleWarnings": 0,
+    "consoleErrors": 0
+  },
+  "artifacts": [
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/blind-qa-report-revision-3-agent3.md",
+      "sha256": "bd4801bf4906ae99331479ed535423e002d67efab37703b8d977493143d7f49b"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/browser-probes.json",
+      "sha256": "48d2ffab93d588b2ffead300b958e67c49fb1bf13f2c28248043e83778f9eaf6"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/comparisons/source-vs-demo-six-states.svg",
+      "sha256": "30a14b25c15a517838292fa6b5fac816127e5ecd5681b3e05459e8ddf8c04034"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/captures/demo-default-pre-entry-normalized-1280x720.png",
+      "sha256": "5388918b3a0d0b53b66b27761d21985e39128a3627a98736cd4ec2ca4f7f7b98"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/captures/demo-120ms-normalized-1280x720.png",
+      "sha256": "4bd59684c5c507548ec79af1dd2f6a63d0705c7639240dcf12cc0c3b73d8d613"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/captures/demo-500ms-normalized-1280x720.png",
+      "sha256": "c94808525ba15c9ed11e9394764a8ae982f4bf9944a91956b548166c9844a703"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/captures/demo-settled-normalized-1280x720.png",
+      "sha256": "c1137139a38e245b03dd14652e52b26ee172b5f300d95150769b180603530274"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/captures/demo-late-normalized-1280x720.png",
+      "sha256": "54eb76192a9558bb7edec5a9045463a092c3211c73075714dcd9e00d1f104172"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r3-agent3/captures/demo-paused-normalized-1280x720.png",
+      "sha256": "c17c065c6a6f15ad9ee79664b52a239288eec75f7fa21010085bda1d18a79d16"
+    }
+  ],
+  "scopeMutation": {
+    "goal": false,
+    "evidence": false,
+    "intent": false,
+    "demo": false,
+    "qaArtifactsOnly": true
+  }
+}

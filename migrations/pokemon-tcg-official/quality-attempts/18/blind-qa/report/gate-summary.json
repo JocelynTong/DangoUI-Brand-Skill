@@ -1,0 +1,14 @@
+{
+  "schema": "brand-blind-qa-gate-summary/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 18,
+  "gates": [
+    {"name": "evidence-visibility-strict", "status": "PASS", "warnings": ["semantic-claims-legacy-schema"]},
+    {"name": "design-direction", "status": "PASS"},
+    {"name": "section-fidelity-strict", "status": "PASS"},
+    {"name": "mockup-strict", "status": "PASS"},
+    {"name": "npm-build", "status": "PASS", "warnings": ["vite-chunk-size"]},
+    {"name": "handoff-artifact-strict", "status": "FAIL", "blocking": ["canonical visual-qa-assessment shallow", "canonical fidelity-report shallow", "retro-learnings missing"]},
+    {"name": "brand-fidelity-write-isolated", "status": "PROTOCOL_BLOCKED", "output": "fidelity-sandbox/migrations/pokemon-tcg-official/fidelity-report.json", "note": "Run under the authorized Blind QA report subtree because formal migration artifacts were read-only for this review."}
+  ]
+}

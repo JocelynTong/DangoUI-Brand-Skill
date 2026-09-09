@@ -1,0 +1,121 @@
+{
+  "schema": "brand-interpreter-pattern-inventory/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "scope": "homepage Pokémon Championship Series section only",
+  "status": "PASS",
+  "sourceOfTruth": "brand-intent.json#approvedVisualPatterns",
+  "patterns": [
+    {
+      "id": "P11-PCS-01",
+      "name": "equal-weight event image and editorial field",
+      "scope": "section pattern at the 1440 endpoint",
+      "evidenceIds": ["section-identity-boundary", "desktop-transparent-two-column-layering", "official-asset-identity"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 1440, 720]},
+        {"capture": "../evidence/captures/desktop/championship-series-settled-region-1440x720.png", "region": [0, 0, 1440, 720]}
+      ],
+      "suitableFor": ["one high-salience event story with one square principal asset and one CTA"],
+      "notFor": ["grids", "image overlays", "generic two-column templates"],
+      "allowedRoles": ["section composition", "principal event image", "editorial copy field"],
+      "forbiddenRoles": ["sitewide layout", "generic card", "global page hero"],
+      "invariants": ["1440x720 endpoint", "50/50 split", "copy left", "exact official image right"],
+      "allowedTransformations": ["clearly fictional copy change while preserving one heading/paragraph/CTA hierarchy"],
+      "prohibitedTransformations": ["alternate official asset", "asset-palette token extraction", "unobserved decorative frame"]
+    },
+    {
+      "id": "P11-PCS-02",
+      "name": "transparent section over a white page canvas",
+      "scope": "layering pattern at both frozen endpoints",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 720, 720]},
+        {"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 390, 390, 454]}
+      ],
+      "suitableFor": ["this section inside the continuous white homepage canvas"],
+      "notFor": ["opaque cards", "alternating panel fills", "framed modules"],
+      "allowedRoles": ["page canvas", "transparent section layers"],
+      "forbiddenRoles": ["column fill", "child fill", "pseudo fill"],
+      "invariants": ["white is owned by page canvas", "article/row/columns/content remain transparent"],
+      "allowedTransformations": ["fictional content changes that add no new background owner"],
+      "prohibitedTransformations": ["paint either half white", "add a content-card shadow"]
+    },
+    {
+      "id": "P11-PCS-03",
+      "name": "image-first responsive narrative order",
+      "scope": "relationship between 1440 and 390 endpoints",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow", "official-asset-identity"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 1440, 720]},
+        {"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 56, 390, 788]}
+      ],
+      "suitableFor": ["this split-to-stack section"],
+      "notFor": ["sitewide image-first rules", "held-out proof consisting only of source responsive reflow"],
+      "allowedRoles": ["source/DOM order", "desktop row direction", "mobile block order"],
+      "forbiddenRoles": ["absolute page Y", "unobserved breakpoint", "global responsive policy"],
+      "invariants": ["image first at 390", "copy-left/image-right at 1440", "same square principal-image role"],
+      "allowedTransformations": ["an implementation-derived intermediate breakpoint clearly labelled as such"],
+      "prohibitedTransformations": ["claim an exact source breakpoint", "count source reflow as generative proof"]
+    },
+    {
+      "id": "P11-PCS-04",
+      "name": "centered event-title and explanatory action stack",
+      "scope": "copy hierarchy; exact child geometry approved at 390",
+      "evidenceIds": ["mobile-typography-hierarchy"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/source-mobile-390-content-settled.png", "region": [0, 390, 390, 439.172]},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 720, 720]}
+      ],
+      "suitableFor": ["one concise title, one explanatory paragraph, one CTA"],
+      "notFor": ["long-form articles", "multi-level type systems", "generic type defaults"],
+      "allowedRoles": ["section heading", "section body", "section CTA label"],
+      "forbiddenRoles": ["navigation", "forms", "global type scale"],
+      "invariants": ["Kanit heading", "PT Sans body/control", "center alignment", "measured 390 geometry"],
+      "allowedTransformations": ["fictional copy change preserving role split and readable hierarchy"],
+      "prohibitedTransformations": ["claim exact desktop child boxes", "font substitution based only on visual similarity"]
+    },
+    {
+      "id": "P11-PCS-05",
+      "name": "single CTA with gold pointer reveal and distinct keyboard focus",
+      "scope": "Learn more CTA states only",
+      "evidenceIds": ["desktop-cta-states-and-destination", "mobile-cta-interactions"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/mobile/championship-series-cta-default-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-hover-settled-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-focus-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-hover-settled-1440x900.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-focus-1440x900.png", "region": "visible CTA"}
+      ],
+      "suitableFor": ["the one outbound CTA in this section"],
+      "notFor": ["labels", "tabs", "global focus or action colors"],
+      "allowedRoles": ["default surface/content", "pointer-hover overlay/content", "keyboard-focus outline", "verified navigation"],
+      "forbiddenRoles": ["section fill", "selected navigation", "focus-as-hover", "gold default"],
+      "invariants": ["black default", "gold full-fill hover", "black focus with outline", "verified destination"],
+      "allowedTransformations": ["fictional label change preserving the state machine"],
+      "prohibitedTransformations": ["gold focus", "gold default", "missing focus", "invented pressed/loading/disabled state"]
+    },
+    {
+      "id": "P11-PCS-06",
+      "name": "continuous homepage section boundary",
+      "scope": "placement and reversible-scroll context",
+      "evidenceIds": ["section-identity-boundary", "reversible-scroll"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/source-mobile-390-scroll-restored.png", "region": "Pocket-to-Championship boundary"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-default-390x844.png", "region": "Championship-to-Play! Pokémon boundary"}
+      ],
+      "suitableFor": ["full-page proof that preserves previous and next sections"],
+      "notFor": ["standalone page or modal", "fixed-position reconstruction"],
+      "allowedRoles": ["adjacency", "page flow", "reversible scrolling"],
+      "forbiddenRoles": ["absolute page Y", "scroll animation timing", "replacement of prior sections"],
+      "invariants": ["Pocket before", "Play! Pokémon after", "reversible scroll", "preceding content preserved"],
+      "allowedTransformations": ["none outside the target section on the calibration page"],
+      "prohibitedTransformations": ["delete/reorder prior sections", "fix section to captured absolute Y"]
+    }
+  ],
+  "handoff": {
+    "decision": "PASS",
+    "blockingUnresolved": [],
+    "rule": "A downstream implementation may use a pattern only when its source regions, suitableFor, notFor, allowedRoles, forbiddenRoles, invariants, and transformation boundaries are all preserved."
+  }
+}

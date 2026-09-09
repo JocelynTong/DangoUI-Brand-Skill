@@ -1,0 +1,44 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "08-demo",
+  "scope": "page:pokemon-tcg-official-home section:home-news-grid",
+  "route": "http://127.0.0.1:5179/?qa=attempt8#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "desktop": {
+    "proofRoute": "http://127.0.0.1:5179/?proof=desktop&qa=attempt8#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "viewport": {"width": 1440, "height": 900},
+    "section": {"x": 0, "y": 104, "width": 1440, "height": 755.796875},
+    "pageCount": 3,
+    "visibleStories": 2,
+    "cardWidth": 576,
+    "gap": 24,
+    "image": {"renderedWidth": 576, "renderedHeight": 323.875, "naturalWidth": 578, "naturalHeight": 325, "objectFit": "contain"},
+    "controls": {"edgeArrow": "60x60", "dotTarget": "44x44"},
+    "interaction": {
+      "sequence": [0, 1, 0],
+      "transitionObserved": true,
+      "intermediate": {"outgoingOpacity": 0.15909, "outgoingTranslateX": -543.901, "outgoingScale": 0.987386, "incomingOpacity": 0.84091, "incomingTranslateX": 14.9672, "incomingScale": 0.995227},
+      "settledContentChanged": ["image", "headline", "CTA instance"],
+      "restored": true
+    }
+  },
+  "mobile": {
+    "viewport": {"width": 390, "height": 844},
+    "section": {"x": 0, "y": 64, "width": 390, "height": 666.6328125},
+    "pageCount": 6,
+    "visibleStories": 1,
+    "image": {"renderedWidth": 390, "renderedHeight": 219.2890625, "naturalWidth": 578, "naturalHeight": 325, "objectFit": "contain"},
+    "controls": {"edgeArrow": "60x60", "dotTarget": "44x44"},
+    "interaction": {
+      "sequence": [0, 1, 0],
+      "transitionObserved": true,
+      "intermediate": {"outgoingOpacity": 0.159103, "outgoingTranslateX": -180.372, "outgoingScale": 0.987387, "incomingOpacity": 0.840897, "incomingTranslateX": 4.964, "incomingScale": 0.995227},
+      "settledContentChanged": ["image", "headline", "CTA instance"],
+      "restored": true,
+      "restoredScrollTop": 352
+    }
+  },
+  "console": {"errors": [], "warnings": []},
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

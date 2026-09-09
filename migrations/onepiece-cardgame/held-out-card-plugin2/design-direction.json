@@ -1,0 +1,74 @@
+{
+  "schema": "brand-host-design-direction/v2",
+  "brand": "onepiece-cardgame",
+  "host": "card-plugin2.0/frontend",
+  "heldOut": true,
+  "status": "APPROVED_BY_DESIGN_DIRECTOR",
+  "decisionStatus": "approved",
+  "designObjective": "在不改变 Pokémon 卡组业务的前提下，用已冻结的 ONE PIECE 视觉规则证明第二宿主的整站可迁移性，并让强视觉、工具效率和业务语义各自出现在合适页面。",
+  "inputBindings": {
+    "goal": {"path":"migrations/onepiece-cardgame/held-out-card-plugin2/program-goal-branch.json","sha256":"733d419131198b87a2692e56f3ca8894403ae64becb5c1c950344c84653454e3"},
+    "evidence": {"path":"migrations/onepiece-cardgame/held-out-card-plugin2/host-evidence.json","sha256":"9bdbc1b71eff09e82f26d410cfb3d34a9cf7f4fba17e56d7539018c8c5b8c914"},
+    "intent": {"path":"migrations/onepiece-cardgame/brand-intent.json","sha256":"43fcc113a4ba4859444cbca09abeb79fc0f477fa69c4983354833713200c4765"},
+    "patterns": {"path":"migrations/onepiece-cardgame/approved-visual-patterns.json","sha256":"9b72a760b13d979b22a288e8b51e0823bcb45a02e97d2b15f2daa4394f7ad239"}
+  },
+  "visualPriorityOrder": ["正文与操作可见、可读、可点击", "业务状态和任务完成率", "跨页组件家族一致性", "容量匹配的 ONE PIECE 结构辨识", "显式 IP 识别诊断信号"],
+  "directionName": "ONE PIECE editorial campaign system over a Pokémon-native card utility",
+  "designThesis": "不改 Pokémon 卡组业务，以 ONE PIECE 官网已验证的黑/暖白编辑节奏、红色行动强调、硬边界、短标题 display/numeric、product-first 媒体框和受控 campaign stage 重组视觉层级。强表达只进入赛事和详情的天然媒体面；编辑与管理流程保持效率优先。",
+  "sourceContracts": [
+    "migrations/onepiece-cardgame/brand-mod.json",
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/component-mapping.json",
+    "migrations/onepiece-cardgame/held-out-card-plugin2/host-evidence.json",
+    "migrations/onepiece-cardgame/held-out-card-plugin2/host-opportunity-map.json",
+    "migrations/onepiece-cardgame/held-out-card-plugin2/coverage-matrix.json"
+  ],
+  "systemRules": {
+    "tokens": ["保留 DangoUI token 名；仅消费 MOD 已批准 mapped/style-only values", "正文使用 CJK 可读字体，display face 仅限短英文/数字", "业务语义色不由品牌红接管"],
+    "components": ["形成跨页一致的 tabs/input/chip/button/card/status/empty families", "优先宿主真实 DOM 与组件 API，不为换肤替换业务组件", "无 DangoUI dependency 时明确 style-only"],
+    "composition": ["plaza-event/event/detail 承担强视觉", "build/mine/round 使用 compact/contained 结构", "移动首屏预算服从业务行动与首个有效内容"],
+    "assets": ["品牌官网资产只允许 source-approved 独立资产并记录 provenance", "宿主卡牌、封面、赛事和用户数据不替换", "不使用 source screenshot/crop 作 runtime asset"]
+  },
+  "routeDirection": {
+    "pages/plaza/index": "双强度首页：deck 为 compact browse，event 为 campaign showcase。",
+    "pages/build/index": "编辑器工具化；强化焦点、选择、计数、发布状态，不放 Hero。",
+    "pages/mine/index": "contained identity masthead + 资产管理组件家族。",
+    "pages/event/index": "主 proof surface：event editorial hero + metric + rounds。",
+    "pages/round/index": "紧凑排名模板，数字、分隔、卡组行一致。",
+    "pages/detail/index": "次 proof surface：contained deck identity + 媒体/数据双视图 + persistent actions。"
+  },
+  "sections": [
+    {"id":"campaign-surfaces","firstImpressionGoal":"赛事与详情首先呈现清晰、编辑化的主题舞台，同时仍能马上找到业务身份和行动。","mustPreserve":["宿主赛事/卡组身份","状态与主行动","首个有效内容"],"mayChange":["背景/frame","标题与数字层级","区块节奏","受控动效"],"mustNotDo":["移入 ONE PIECE 产品文案","用品牌资产替换宿主卡面","让 Hero 遮挡任务入口"]},
+    {"id":"efficiency-surfaces","firstImpressionGoal":"编辑、管理与排名页先显得可靠、清楚和可操作，再从边界、字阶和状态中识别同一视觉系统。","mustPreserve":["字段顺序","数据密度","发布/删除/排名语义"],"mayChange":["token values","control family styling","分组与间距","轻量反馈"],"mustNotDo":["加入完整 Hero","使用 display face 承载中文正文","用强纹理穿透密集列表"]}
+  ],
+  "highSalienceElements": ["event-campaign-hero","detail-identity-masthead","build-publish-control","cross-route-primary-tabs"],
+  "responsiveStrategyMatrix": [
+    {"element":"event-campaign-hero","elementType":"composition","strategy":"responsive-reflow","evidenceRefs":["host-opportunity-map:pages/event/index","brand-pattern:campaign-hero-stage"],"viewports":["mobile-390","desktop-1280"],"mustPreserve":["赛事名称/状态/关键指标","宿主内容媒体","Hero 首屏预算"]},
+    {"element":"detail-identity-masthead","elementType":"composition","strategy":"responsive-reflow","evidenceRefs":["host-opportunity-map:pages/detail/index","brand-pattern:product-first-catalog-density"],"viewports":["mobile-390","desktop-1280"],"mustPreserve":["卡组名/作者/环境","核心行动","宿主封面"]},
+    {"element":"build-publish-control","elementType":"control","strategy":"independent-scale","minimumReadableSize":"16px text and 44x44 CSS px target","evidenceRefs":["host-evidence:pages/build/index","brand-intent:action-role"],"viewports":["mobile-390","desktop-1280"],"mustPreserve":["可点击外观","disabled/error/success 可区分","sticky reachability"]},
+    {"element":"cross-route-primary-tabs","elementType":"control","strategy":"independent-scale","minimumReadableSize":"16px text and 44x44 CSS px target","evidenceRefs":["host-evidence:routeEvidence","brand-pattern:black-white-taxonomy-control"],"viewports":["mobile-390","desktop-1280"],"mustPreserve":["选中态清晰","中文垂直居中","跨页一致性"]}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas":"1280px fresh full-page captures for all 6 routes; event/detail composition visible without decorative list bleed",
+    "mobileCanvas":"390px fresh captures and interaction states; first-task and safe-area budgets enforced",
+    "inspectorPolicy":"QA markers/diagnostics are overlay-only and excluded from visual verdict screenshots",
+    "sourceComparison":"same-viewport comparison to approved ONE PIECE source/demo evidence, with explicit brand text/logo masked for structural recognition"
+  },
+  "proofSurfaces": [
+    {"route":"pages/event/index","role":"primary structural and asset proof","requiredSignals":["campaign stage","editorial metric/round composition","source-approved asset/frame"]},
+    {"route":"pages/detail/index","role":"media/action detail proof","requiredSignals":["contained identity masthead","product-first media frame","consistent action family"]},
+    {"route":"pages/build/index","role":"constraint proof","requiredSignals":["same token/component system without Hero","clear focus/error/disabled/publish states","density preserved"]}
+  ],
+  "responsiveStrategy": {"mobile":"single-column, sticky actions preserve safe-area and first-task visibility", "desktop":"bounded content width; event/detail may use two-zone composition; no decorative background through dense lists", "reducedMotion":"remove nonessential transforms, flip and entrance transitions"},
+  "mustPreserve": ["6 configured routes", "Pokémon business content/data", "navigation and store", "publish validation and mutations", "existing dirty changes", "default Pokémon theme behavior outside opt-in held-out scope"],
+  "mustNotReplace": ["card media with ONE PIECE product art", "Pokémon labels/content", "event status/rank/price/error semantics", "host controls with invented DangoUI APIs"],
+  "implementationEntryConditions": ["Design Director approval", "all 6 pre-edit structural baselines frozen", "theme isolation mechanism approved", "asset provenance list approved", "selector map generated from real DOM"],
+  "accessibilityRepairApproval": {
+    "status": "approved-before-attempt2-implementation",
+    "trigger": "Attempt 1 exposed pre-existing custom @tap controls without keyboard semantics.",
+    "allowed": ["role/tabindex/aria semantics", "Enter/Space activation delegating to the existing tap outcome", "visible focus and 44x44 CSS px minimum target"],
+    "forbidden": ["new business outcome", "changed route/mutation target", "changed disabled/validation rule", "reordered business content"],
+    "reason": "General host accessibility contract required by the frozen workflow; not a card-plugin2 visual exception."
+  },
+  "acceptance": {"workflowCompletion":"all frozen stages and fresh independent QA complete", "businessSafety":"routes/data/interactions unchanged and no QA side effects", "visualDistinctiveness":"blocking structural recognition passes on high-capacity proof surfaces", "explicitIpRecognition":"diagnostic only", "dangoUi":"PARTIAL_STYLE_ONLY unless real dependency and consumers are proven"}
+}

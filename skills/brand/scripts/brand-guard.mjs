@@ -22,6 +22,7 @@ async function runCommand() {
   if (command === "checkpoint") checkpoint();
   else if (command === "rollback") rollback();
   else if (command === "tpp-test") tppTest();
+  else if (command === "p0-acceptance") p0Acceptance();
   else if (command === "workflow-contract") printWorkflowContractCommand();
   else if (command === "detect-entry") detectEntryCommand();
   else if (command === "validate-intent") validateIntent();
@@ -31,6 +32,10 @@ async function runCommand() {
   else if (command === "scan-css") scanCss();
   else if (command === "coverage-gate") coverageGate();
   else if (command === "asset-usage-gate") assetUsageGate();
+  else if (command === "visual-placement-gate") visualPlacementGate();
+  else if (command === "evidence-visibility-gate") evidenceVisibilityGate();
+  else if (command === "handoff-artifact-gate") handoffArtifactGate();
+  else if (command === "external-goodcase-gate") externalGoodcaseGate();
   else if (command === "rule-candidate-gate") ruleCandidateGate();
   else if (command === "validate-role-replacements") validateRoleReplacements();
   else if (command === "resolve-demo") resolveDemo();
@@ -41,7 +46,9 @@ async function runCommand() {
   else if (command === "parse-dev-server") parseDevServer();
   else if (command === "validate-final") validateFinal();
   else if (command === "record-run") recordRun();
+  else if (command === "tombstone-run") tombstoneRun();
   else if (command === "summarize-runs") summarizeRuns();
+  else if (command === "issue-retro") issueRetro();
   else if (command === "collect-site-evidence") await collectSiteEvidence();
   else if (command === "score-action-evidence") scoreActionEvidence();
   else if (command === "collect-rendered-assets") collectRenderedAssets();
@@ -176,8 +183,16 @@ function validateIntent() {
     const targetPattern = /(默认首页|默认入口|已有路由|现有路由|HomePage|当前业务项目|宿主项目已有页面|targetScope|承接目标|target\s*(?:route|page|entry)|existing\s*(?:route|page|entry)|host\s*(?:route|page|project)|business\s*(?:route|page|project)|root\s*(?:route|entry)|default\s*(?:entry|home|page)|\/#?\/|pages\/)/i;
     const likelyReferenceCopy = /(穿梭暗网|Renoa|蕾诺娅|角色|剧情|栏目|CZN 风格文案|参考站文案|搬进|捏造)/i;
     const previewReasonPattern = /(无法安全改动|风险|preview|预览|对比|保留原版|apply|合并回|回写|原页面)/i;
-    const hasHostTarget = Boolean(structuredPlan?.targetRoute || structuredPlan?.targetPage || structuredPlan?.targetEntry || structuredPlan?.hostTarget) || targetPattern.test(text);
-    const preservesBusiness = structuredPlan?.preserveBusinessContent === true || structuredPlan?.preserveBusiness === true || structuredPlan?.preserveExistingContent === true || preservePattern.test(text);
+    const isHostCoverageMatrix = structuredPlan?.schema === "host-coverage-matrix/v1"
+      && structuredPlan?.mode === "apply-host"
+      && Array.isArray(structuredPlan?.routeInventory);
+    const hasHostTarget = Boolean(structuredPlan?.targetRoute || structuredPlan?.targetPage || structuredPlan?.targetEntry || structuredPlan?.hostTarget)
+      || (isHostCoverageMatrix && structuredPlan.routeInventory.length > 0)
+      || targetPattern.test(text);
+    const matrixPreservesBusiness = isHostCoverageMatrix
+      && Array.isArray(structuredPlan?.protectedSemantics)
+      && structuredPlan.protectedSemantics.some((item) => /business|业务|data|数据|logic|逻辑|route|路由|navigation|交互/i.test(String(item)));
+    const preservesBusiness = structuredPlan?.preserveBusinessContent === true || structuredPlan?.preserveBusiness === true || structuredPlan?.preserveExistingContent === true || matrixPreservesBusiness || preservePattern.test(text);
     const createsBrandRoute = structuredPlan?.createNewBrandRoute === true || structuredPlan?.createPreview === true || structuredPlan?.preview === true;
     const explicitlyNoBrandRoute = structuredPlan?.createNewBrandRoute === false || structuredPlan?.createPreview === false || structuredPlan?.preview === false || negatedNewTargetPattern.test(text);
 
@@ -745,6 +760,812 @@ function assetUsageGate() {
   };
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
   process.exit(result.ok ? 0 : 2);
+}
+
+function visualPlacementGate() {
+  const root = opt("--root", process.cwd());
+  const brand = opt("--brand", "");
+  const planFile = opt("--plan-file", brand ? path.join(root, "migrations", brand, "intent-plan.json") : "");
+  const strict = has("--strict");
+
+  if (!planFile) fail("visual-placement-gate requires --plan-file or --brand.");
+  const resolvedPlanFile = path.resolve(root, planFile);
+  if (!fs.existsSync(resolvedPlanFile)) fail(`Plan file not found: ${resolvedPlanFile}`);
+
+  const plan = readJsonLoose(resolvedPlanFile);
+  if (!plan) fail(`Plan file is not valid JSON: ${resolvedPlanFile}`);
+
+  const policy = plan.visualPlacementPolicy || {};
+  const placements = Array.isArray(policy.pagePlacements) ? policy.pagePlacements : [];
+  const atomicLayers = policy.atomicLayers || policy.layers || {};
+  const layerNames = Object.keys(atomicLayers);
+  const expectedLayers = ["atoms", "molecules", "organisms", "templates", "pages"];
+  const legacyLayerMap = {
+    ambient: "atoms",
+    action: "molecules",
+    asset: "assetSlots",
+    showcase: "showcasePlacement",
+  };
+  const blocking = [];
+  const warnings = [];
+  const checks = [];
+  const add = (id, status, message, fix = "") => {
+    checks.push({ id, status, message, fix });
+    if (status === "fail") blocking.push({ id, message, fix });
+    if (status === "warn") warnings.push({ id, message, fix });
+  };
+
+  add(
+    "policy-present",
+    policy && Object.keys(policy).length ? "pass" : "fail",
+    "Host apply should declare a visual placement policy before injecting strong brand visuals.",
+    "Add visualPlacementPolicy with atomicLayers, pagePlacements, assetSlots, motionSlots and optional showcasePlacement.",
+  );
+
+  for (const name of expectedLayers) {
+    add(
+      `layer-${name}`,
+      layerNames.includes(name) ? "pass" : "fail",
+      `Layer ${name} must be declared so agents do not invent ad-hoc placement categories.`,
+      `Add visualPlacementPolicy.atomicLayers.${name}.`,
+    );
+  }
+  for (const legacyLayer of Object.keys(legacyLayerMap)) {
+    if (layerNames.includes(legacyLayer)) {
+      add(
+        `legacy-layer-${legacyLayer}`,
+        strict ? "fail" : "warn",
+        `Layer ${legacyLayer} is legacy wording and should not remain in the placement policy.`,
+        `Use ${legacyLayerMap[legacyLayer]} instead. Atomic layers are ${expectedLayers.join(", ")}; assets and showcase are placement capabilities, not layers.`,
+      );
+    }
+  }
+
+  add(
+    "placements-present",
+    placements.length ? "pass" : "warn",
+    "At least one page placement should explain which brand layers are allowed on the target route.",
+    "Add visualPlacementPolicy.pagePlacements[] with route, pageType, mode and allowedLayers.",
+  );
+
+  for (const placement of placements) {
+    const route = String(placement.route || "<unknown>");
+    const pageType = String(placement.pageType || "");
+    const mode = String(placement.mode || "");
+    const allowedLayers = Array.isArray(placement.allowedLayers) ? placement.allowedLayers.map(String) : [];
+    const normalizedAllowedLayers = allowedLayers.map((layer) => legacyLayerMap[layer] || layer);
+    const showcase = placement.showcasePlacement || null;
+    const hasShowcase = allowedLayers.includes("showcase") || Boolean(showcase);
+    const isEfficiencyPage = /(tool|list|form|editor|admin|dashboard)/i.test(pageType);
+
+    add(
+      `placement-route-${route}`,
+      placement.route ? "pass" : "fail",
+      "Each placement must name the host route it applies to.",
+      "Set route to the real host route, for example /#/pages/plaza/index.",
+    );
+    add(
+      `placement-page-type-${route}`,
+      pageType ? "pass" : "fail",
+      `Placement ${route} must declare pageType so strong visuals can be judged against business intent.`,
+      "Set pageType such as tool, list, form, campaign, landing, or mixed-list-tool.",
+    );
+    add(
+      `placement-mode-${route}`,
+      /^(efficiency-first|mixed|showcase-first)$/i.test(mode) ? "pass" : "warn",
+      `Placement ${route} should use mode efficiency-first, mixed, or showcase-first.`,
+      "Use efficiency-first for tools, mixed for list pages with featured modules, showcase-first for campaign/display pages.",
+    );
+
+    for (const layer of allowedLayers) {
+      if (legacyLayerMap[layer]) {
+        add(
+          `placement-legacy-layer-${route}-${layer}`,
+          strict ? "fail" : "warn",
+          `Placement ${route} uses legacy layer ${layer}.`,
+          `Use ${legacyLayerMap[layer]} instead. Atomic layers belong in allowedLayers; brand assets and showcase moments belong in assetSlots, motionSlots or showcasePlacement.`,
+        );
+        continue;
+      }
+      add(
+        `placement-layer-${route}-${layer}`,
+        expectedLayers.includes(layer) ? "pass" : "fail",
+        `Placement ${route} uses supported layer ${layer}.`,
+        `Allowed layers are ${expectedLayers.join(", ")}.`,
+      );
+    }
+    add(
+      `placement-atomic-layer-present-${route}`,
+      normalizedAllowedLayers.some((layer) => expectedLayers.includes(layer)) ? "pass" : "fail",
+      `Placement ${route} should allow at least one Atomic Design layer.`,
+      `Set allowedLayers to one or more of ${expectedLayers.join(", ")}.`,
+    );
+
+    if (hasShowcase) {
+      const businessPurpose = String(showcase?.businessPurpose || "");
+      add(
+        `showcase-purpose-${route}`,
+        businessPurpose.trim().length >= 24 ? "pass" : "fail",
+        `Showcase visual on ${route} must have a concrete business purpose, not only visual decoration.`,
+        "Add showcasePlacement.businessPurpose explaining the user task or business action it supports.",
+      );
+      add(
+        `showcase-slot-${route}`,
+        showcase?.slot ? "pass" : "warn",
+        `Showcase visual on ${route} should declare the slot/component it occupies.`,
+        "Add showcasePlacement.slot so reviewers can find the exact DOM/style target.",
+      );
+      if (isEfficiencyPage && !/^(mixed|showcase-first)$/i.test(mode)) {
+        add(
+          `showcase-on-efficiency-page-${route}`,
+          strict ? "fail" : "warn",
+          `Route ${route} is a ${pageType} page but allows showcase visuals without mixed/showcase-first intent.`,
+          "Either change mode to mixed with a compact business purpose, or move showcase to campaign/detail/featured modules.",
+        );
+      }
+      const ratio = Number(showcase?.maxFirstScreenRatio);
+      if (Number.isFinite(ratio)) {
+        const isViewerPage = /(viewer|lightbox|zoom|modal|detail-asset|card-inspection)/i.test(pageType);
+        const isCampaignPage = /(campaign|showcase|event|landing|activity)/i.test(pageType);
+        const maxRatio = isViewerPage ? 0.9 : isCampaignPage ? 0.7 : 0.5;
+        add(
+          `showcase-ratio-${route}`,
+          ratio > 0 && ratio <= maxRatio ? "pass" : "warn",
+          `Showcase visual on ${route} should keep first-screen occupation controlled.`,
+          isViewerPage
+            ? "Detail viewer/lightbox pages may use a larger focused preview, but keep maxFirstScreenRatio <= 0.9."
+            : isCampaignPage
+              ? "Campaign/showcase/event pages may use a larger hero, but keep maxFirstScreenRatio <= 0.7."
+            : "Set showcasePlacement.maxFirstScreenRatio to a value <= 0.5 for efficiency or mixed pages.",
+        );
+      }
+      const notFor = Array.isArray(showcase?.notFor) ? showcase.notFor : [];
+      add(
+        `showcase-not-for-${route}`,
+        notFor.length ? "pass" : "warn",
+        `Showcase visual on ${route} should declare what it must not take over.`,
+        "Add showcasePlacement.notFor, for example: not replacing business structure, not decorative-only animation.",
+      );
+    }
+  }
+
+  const okResult = blocking.length === 0;
+  ok({
+    ok: okResult,
+    brand,
+    planFile: path.relative(root, resolvedPlanFile),
+    policyMode: policy.defaultMode || "",
+    checkedLayers: layerNames,
+    placements: placements.map((item) => ({
+      route: item.route || "",
+      pageType: item.pageType || "",
+      mode: item.mode || "",
+      allowedLayers: item.allowedLayers || [],
+      showcaseSlot: item.showcasePlacement?.slot || "",
+      showcaseStatus: item.showcasePlacement?.status || "",
+    })),
+    checks,
+    blocking,
+    warnings,
+    message: okResult
+      ? "Visual placement gate passed. Strong visuals have declared page intent and business purpose."
+      : "Visual placement gate failed. Fix placement policy before treating strong visuals as reusable host apply behavior.",
+  });
+}
+
+function evidenceVisibilityGate() {
+  const root = path.resolve(opt("--root", process.cwd()));
+  const brand = opt("--brand", "");
+  const strict = has("--strict");
+  if (!brand) fail("evidence-visibility-gate requires --brand.");
+
+  const migrationDir = path.join(root, "migrations", brand);
+  const evidenceFile = path.resolve(root, opt("--evidence-file", path.join(migrationDir, "brand-evidence.json")));
+  const actionFile = path.resolve(root, opt("--action-file", path.join(migrationDir, "action-evidence-v02.json")));
+  const thirdPartyFile = path.resolve(root, opt("--third-party-file", path.join(migrationDir, "third-party-evidence.dembrandt.json")));
+  const observationFile = path.resolve(root, opt("--observation-file", path.join(migrationDir, "source-observation-manifest.json")));
+  const intentFile = path.resolve(root, opt("--intent-file", path.join(migrationDir, "brand-intent.json")));
+  const evidence = readJsonLoose(evidenceFile);
+  const actions = readJsonLoose(actionFile);
+  const thirdParty = readJsonLoose(thirdPartyFile);
+  const explicitGoalFile = opt("--goal-file", "");
+  const goalCandidates = explicitGoalFile
+    ? [path.resolve(root, explicitGoalFile)]
+    : fs.readdirSync(migrationDir)
+      .filter((name) => /^goal-contract(?:-[^.]+)?\.json$/.test(name))
+      .map((name) => path.join(migrationDir, name));
+  const matchingGoalFile = goalCandidates.find((candidate) => readJsonLoose(candidate)?.goalId === evidence?.goalId);
+  const goalFile = matchingGoalFile || path.join(migrationDir, "goal-contract.json");
+  const goal = readJsonLoose(goalFile);
+  const observation = readJsonLoose(observationFile);
+  const intent = readJsonLoose(intentFile);
+  const checks = [];
+  const blocking = [];
+  const warnings = [];
+  const add = (id, status, message, fix = "", extra = {}) => {
+    const item = { id, status, message, fix, ...extra };
+    checks.push(item);
+    if (status === "fail") blocking.push(item);
+    if (status === "warn") warnings.push(item);
+  };
+  const statusForMissing = strict ? "fail" : "warn";
+  const capturePath = (value) => typeof value === "string" ? value : value?.path || value?.screenshot || "";
+  const existingCapture = (value) => {
+    const raw = capturePath(value);
+    if (!raw) return false;
+    const file = path.isAbsolute(raw) ? raw : path.resolve(root, raw);
+    return fs.existsSync(file);
+  };
+  const captureHashMatches = (value) => {
+    const raw = capturePath(value);
+    if (!raw || !value?.sha256) return false;
+    const file = path.isAbsolute(raw) ? raw : path.resolve(root, raw);
+    return fs.existsSync(file) && crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex") === value.sha256;
+  };
+  const regionValid = (region) => Array.isArray(region)
+    && region.length === 4
+    && region.every((value) => Number.isFinite(Number(value)))
+    && Number(region[2]) > 0
+    && Number(region[3]) > 0;
+  const visibleDomValid = (value) => Boolean(value?.selector)
+    && value.visible !== false
+    && (!value.boundingBox || (Number(value.boundingBox.width) > 0 && Number(value.boundingBox.height) > 0));
+
+  add("evidence-json", evidence ? "pass" : "fail", "brand-evidence.json must be valid JSON.", `Create ${path.relative(root, evidenceFile)} from rendered source captures.`);
+  add("action-json", actions ? "pass" : statusForMissing, "Action evidence should be valid JSON when the source has interaction claims.", `Create ${path.relative(root, actionFile)} with before/after captures and exact computed properties.`);
+
+  const evidencePolicy = goal?.evidencePolicy || {};
+  const continuousRequired = evidencePolicy.continuousCaptureRequired === true;
+  if (continuousRequired || observation) {
+    add("source-observation-manifest", observation ? "pass" : "fail", "Continuous source evidence requires source-observation-manifest.json.", "Record each required page with full-page capture, continuous playback, lossless-frame timeline and coverage status.");
+  }
+  if (observation) {
+    const observedPages = toArray(observation.pages);
+    const observedClaims = toArray(evidence?.claims || evidence?.observations || evidence?.renderedClaims);
+    const requiredPageIds = toArray(evidencePolicy.requiredPageIds).length
+      ? toArray(evidencePolicy.requiredPageIds)
+      : toArray(goal?.referencePages).filter((item) => item?.core !== false).map((item) => item.id);
+    requiredPageIds.forEach((pageId) => {
+      const page = observedPages.find((item) => item?.id === pageId);
+      add(`observation-page-${pageId}`, page && ["covered", "unavailable"].includes(page.status) ? "pass" : "fail", `${pageId} must be covered or explicitly unavailable.`, "Capture the real source page or record unavailableReason.");
+      if (!page || page.status !== "covered") {
+        if (page?.status === "unavailable") add(`observation-unavailable-${pageId}`, hasMeaningfulValue(page.unavailableReason) ? "pass" : "fail", `${pageId} unavailable status requires a concrete reason.`, "Record the access or rendering blocker.");
+        return;
+      }
+      const pageClaims = observedClaims.filter((claim) => claim?.sourcePageId === pageId && (claim.status || claim.evidenceStatus || "observed") === "observed");
+      add(`observation-claim-coverage-${pageId}`, pageClaims.length > 0 ? "pass" : "fail", `${pageId} continuous evidence must be extracted into page-scoped screenshot/region/DOM/computed claims.`, "Review the page playback and frames, then add sourcePageId-scoped claims before Interpreter handoff.", { claimCount: pageClaims.length });
+      for (const [kind, value] of [["full-page", page.fullPageCapture], ["continuous", page.continuousCapture], ["timeline", page.timeline]]) {
+        add(`observation-${kind}-${pageId}`, existingCapture(value) && captureHashMatches(value) ? "pass" : "fail", `${pageId} ${kind} evidence must exist and match its frozen sha256.`, "Recapture the page and refresh the observation manifest hash.");
+      }
+      const timelinePath = capturePath(page.timeline);
+      const timeline = timelinePath ? readJsonLoose(path.isAbsolute(timelinePath) ? timelinePath : path.resolve(root, timelinePath)) : null;
+      const frames = toArray(timeline?.frames);
+      const first = frames[0];
+      const last = frames[frames.length - 1];
+      const viewportHeight = Number(timeline?.meta?.viewport?.height || observation?.viewport?.height || 0);
+      const scrollHeight = Number(last?.scrollHeight || timeline?.meta?.scrollHeight || page.timeline?.scrollHeight || 0);
+      const reachesEnd = Number(first?.scrollTop) === 0 && Number(last?.scrollTop) >= Math.max(0, scrollHeight - viewportHeight - 8);
+      add(`observation-scroll-coverage-${pageId}`, frames.length >= 3 && reachesEnd ? "pass" : "fail", `${pageId} timeline must begin at scrollTop 0 and reach the page end.`, "Record stable initial frames, continuous scroll steps and settled end frames.", { frameCount: frames.length, firstScrollTop: first?.scrollTop, lastScrollTop: last?.scrollTop, scrollHeight, viewportHeight });
+    });
+    add("observation-consumer-ready", observation?.coverage?.readyForInterpreter === true ? "pass" : "fail", "Evidence must explicitly mark the observation set ready only after page claims and consumer audit are complete.", "Keep readyForInterpreter=false while any required page still lacks extracted claims or a consumer rejection remains.");
+    const observedInteractions = toArray(observation.interactions);
+    toArray(evidencePolicy.requiredInteractionIds).forEach((interactionId) => {
+      const interaction = observedInteractions.find((item) => item?.id === interactionId && item?.status === "covered");
+      add(`observation-interaction-${interactionId}`, interaction ? "pass" : "fail", `${interactionId} needs continuous interaction evidence.`, "Record default, transition and settled states with a timeline.");
+      if (!interaction) return;
+      add(`observation-interaction-media-${interactionId}`, existingCapture(interaction.continuousCapture) && captureHashMatches(interaction.continuousCapture) && existingCapture(interaction.timeline) && captureHashMatches(interaction.timeline) ? "pass" : "fail", `${interactionId} media and timeline must exist and match frozen hashes.`, "Recapture the interaction and refresh both hashes.");
+      const timelinePath = capturePath(interaction.timeline);
+      const timeline = timelinePath ? readJsonLoose(path.isAbsolute(timelinePath) ? timelinePath : path.resolve(root, timelinePath)) : null;
+      const labels = toArray(timeline?.frames).map((frame) => String(frame?.label || ""));
+      const hasDefault = labels.some((label) => /default|initial/.test(label));
+      const hasTransition = labels.some((label) => /transition|open/.test(label));
+      add(`observation-interaction-states-${interactionId}`, hasDefault && hasTransition ? "pass" : "fail", `${interactionId} timeline must expose default and transition/open frames.`, "Do not replace continuous motion evidence with only an after screenshot.");
+    });
+  }
+
+  const claims = toArray(evidence?.claims || evidence?.observations || evidence?.renderedClaims);
+  add("screenshot-first-claims", claims.length ? "pass" : statusForMissing, "Evidence must expose reviewable screenshot-first claims; palette summaries and CSS scans are not rendered facts.", "Add claims/observations with status, capture, sourceRegion, visibleDom and computed evidence.", { claimCount: claims.length });
+
+  const seedDispositions = toArray(evidence?.thirdPartySeedDispositions);
+  const observedClaimIds = new Set(claims.filter((claim) => (claim?.status || claim?.evidenceStatus || "observed") === "observed").map((claim) => claim?.id).filter(Boolean));
+  if (thirdParty) {
+    add("third-party-seed-dispositions", seedDispositions.length ? "pass" : statusForMissing, "Imported Dembrandt/third-party seeds must be dispositioned by the Evidence Agent; extractor success is not evidence completion.", "Add brand-evidence.json.thirdPartySeedDispositions entries with seedRef, status and evidenceRefs or reason.", { dispositionCount: seedDispositions.length, thirdPartyFile: path.relative(root, thirdPartyFile) });
+  }
+  seedDispositions.forEach((item, index) => {
+    const id = item?.id || item?.seedRef || `seed-${index + 1}`;
+    const status = item?.status || "";
+    add(`seed-disposition-status-${index + 1}`, ["validated", "rejected", "unresolved", "out-of-scope"].includes(status) ? "pass" : "fail", `${id} must use a supported seed disposition status.`, "Use validated, rejected, unresolved or out-of-scope.");
+    if (status === "validated") {
+      const evidenceRefs = toArray(item.evidenceRefs);
+      const refsAreObserved = evidenceRefs.length > 0 && evidenceRefs.every((ref) => observedClaimIds.has(ref));
+      add(`seed-disposition-evidence-${index + 1}`, refsAreObserved ? "pass" : "fail", `${id} is validated only when every evidenceRef resolves to an observed Claim.`, "Add evidenceRefs pointing to screenshot-first observed Claim ids.", { evidenceRefs });
+    }
+    if (["rejected", "unresolved", "out-of-scope"].includes(status)) add(`seed-disposition-reason-${index + 1}`, hasMeaningfulValue(item.reason) ? "pass" : "fail", `${id} needs a reviewable reason for ${status}.`, "Explain the visible contradiction, missing evidence, or why the seed is outside the frozen goal.");
+  });
+
+  claims.forEach((claim, index) => {
+    if (!claim || typeof claim !== "object") return;
+    const id = claim.id || `claim-${index + 1}`;
+    const observed = (claim.status || claim.evidenceStatus || "observed") === "observed";
+    const highSalience = claim.salience === "high" || claim.highSalience === true || claim.required === true;
+    if (!observed || (!strict && !highSalience)) return;
+    const capture = claim.capture || claim.screenshot;
+    const region = claim.sourceRegion || claim.region || capture?.region;
+    add(`claim-capture-${id}`, existingCapture(capture) ? "pass" : "fail", `${id} must begin with a readable rendered screenshot.`, "Capture the real rendered page before reading CSS or naming a brand rule.");
+    add(`claim-region-${id}`, regionValid(region) ? "pass" : "fail", `${id} must point to a screenshot region with positive width and height.`, "Record the exact visible region that supports the claim.");
+    add(`claim-visible-dom-${id}`, visibleDomValid(claim.visibleDom) ? "pass" : "fail", `${id} must map to a visible DOM node/state with a non-zero box.`, "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern.");
+    const needsComputed = !["asset", "composition", "content-density"].includes(claim.kind || claim.type);
+    const computed = claim.computed || {};
+    if (needsComputed) add(`claim-computed-${id}`, Boolean(computed.property && hasMeaningfulValue(computed.value)) ? "pass" : "fail", `${id} must record the exact computed property and value.`, "Store property and value separately; never turn color into backgroundColor or infer semantics from a variable name.");
+  });
+
+  // brand-intent/vNext may declare explicit semanticClaims. These are the only
+  // semantic declarations this gate treats as an authoritative machine
+  // contract. Older intent shapes remain readable and receive warnings rather
+  // than retroactive failures until they are migrated.
+  const semanticClaims = toArray(intent?.semanticClaims);
+  const observedClaimsById = new Map(claims
+    .filter((claim) => (claim?.status || claim?.evidenceStatus || "observed") === "observed" && claim?.id)
+    .map((claim) => [claim.id, claim]));
+  const candidateOnlySource = (value) => /(?:aggregate(?:d)?[-_ ]?palette|palette[-_ ]?frequency|css[-_ ]?var(?:iable)?|dembrandt|third[-_ ]?party[-_ ]?seed|extractor[-_ ]?seed)/i.test(String(value || ""));
+  const semanticKinds = /^(?:color|typography|font|shadow|motion|interaction|radius|border|gradient|layout|asset)$/i;
+
+  if (intent && !semanticClaims.length) {
+    const hasLegacySemanticRoles = toArray(intent.colorRoles).length
+      || toArray(intent?.typography?.observed).length
+      || Object.keys(intent.motionAndInteraction || {}).length
+      || toArray(intent.styleRecipeDetails).length;
+    if (hasLegacySemanticRoles) add(
+      "semantic-claims-legacy-schema",
+      "warn",
+      "Legacy brand intent contains semantic roles but no semanticClaims evidence bindings; it remains readable but cannot prove the new semantic-role contract.",
+      "Migrate promoted color/font/shadow/motion roles into semanticClaims with validated disposition, rendered sourceRegion, visible DOM selector, computed property/value, page and state.",
+      { intentFile: path.relative(root, intentFile) },
+    );
+  }
+
+  semanticClaims.forEach((semantic, index) => {
+    if (!semantic || typeof semantic !== "object") return;
+    const id = semantic.id || `semantic-${index + 1}`;
+    const kind = semantic.kind || semantic.type || "";
+    if (!semanticKinds.test(kind) || !/^(?:approved|promoted|semantic)$/i.test(String(semantic.status || "approved"))) return;
+    const binding = semantic.evidenceBinding || semantic.support || {};
+    const disposition = semantic.disposition || semantic.evidenceDisposition || binding.disposition || "";
+    const refs = toArray(semantic.evidenceRefs || binding.evidenceRefs || binding.evidenceRef);
+    const resolved = refs.map((ref) => observedClaimsById.get(typeof ref === "string" ? ref : ref?.evidenceId)).filter(Boolean);
+    const renderedClaim = resolved.find((claim) => {
+      const capture = claim.capture || claim.screenshot;
+      const region = claim.sourceRegion || claim.region || capture?.region;
+      const computed = claim.computed || {};
+      return existingCapture(capture)
+        && regionValid(region)
+        && visibleDomValid(claim.visibleDom)
+        && Boolean(computed.property && hasMeaningfulValue(computed.value))
+        && hasMeaningfulValue(claim.sourcePageId || claim.page)
+        && hasMeaningfulValue(claim.state || claim.observedState);
+    });
+    const directCapture = binding.capture || binding.screenshot;
+    const directRegion = binding.sourceRegion || binding.region || directCapture?.region;
+    const directDom = binding.visibleDom || (binding.selector ? { selector: binding.selector, visible: true } : null);
+    const directComputed = binding.computed || {};
+    const hasDirectRenderedChain = existingCapture(directCapture)
+      && regionValid(directRegion)
+      && visibleDomValid(directDom)
+      && Boolean((directComputed.property || binding.computedProperty) && hasMeaningfulValue(directComputed.value ?? binding.computedValue))
+      && hasMeaningfulValue(binding.sourcePageId || binding.page)
+      && hasMeaningfulValue(binding.state || binding.observedState);
+    const origin = semantic.origin || semantic.source || binding.origin || binding.sourceType || "";
+    const candidateOnly = candidateOnlySource(origin);
+
+    add(`semantic-disposition-${id}`, disposition === "validated" ? "pass" : "fail", `${id} is a promoted ${kind} role and requires evidenceDisposition/disposition=validated.`, "Keep aggregate palettes, CSS variable names and Dembrandt output as candidate-only until rendered evidence validates the role.", { kind, origin });
+    add(`semantic-rendered-chain-${id}`, renderedClaim || hasDirectRenderedChain ? "pass" : "fail", `${id} must bind a visible screenshot region, DOM selector, computed property/value, page and state.`, "Reference an observed brand-evidence Claim containing the complete rendered chain, or provide that chain in evidenceBinding.", { evidenceRefs: refs });
+    if (candidateOnly) add(`semantic-candidate-source-${id}`, renderedClaim || hasDirectRenderedChain ? "pass" : "fail", `${id} originates from candidate-only source ${origin}; that source cannot independently establish a brand semantic role.`, "Validate the candidate against a visible rendered node/state and bind that observed Claim before promotion.");
+  });
+
+  const entries = toArray(actions?.entries);
+  if (actions) add("action-entries", entries.length ? "pass" : statusForMissing, "Interaction evidence should expose concrete state entries.", "Add one entry per visibly observed interaction state.", { entryCount: entries.length });
+  entries.forEach((entry, index) => {
+    const id = entry.id || entry.selector || `action-${index + 1}`;
+    const before = entry.beforeCapture || entry.captures?.before;
+    const after = entry.afterCapture || entry.captures?.after;
+    add(`action-state-${index + 1}`, Boolean(entry.observedState && entry.trigger) ? "pass" : "fail", `${id} must preserve the actual observed state and reproducible trigger.`, "Record values such as is-open/open-menu; do not rewrite them as active/current.");
+    add(`action-captures-${index + 1}`, existingCapture(before) && existingCapture(after) ? "pass" : "fail", `${id} needs readable before and after captures.`, "Trigger the interaction in the browser and capture both states.");
+    add(`action-property-${index + 1}`, Boolean(entry.computedProperty && hasMeaningfulValue(entry.computedValue)) ? "pass" : "fail", `${id} needs the exact changed computed property and value.`, "Record color as color, background-color as backgroundColor, and retain the source rule.");
+    const selectorHasOpen = /is-open|\[aria-expanded=["']?true/i.test(entry.selector || "");
+    const claimedActive = /\bactive\b|\bcurrent\b/i.test(`${entry.observedState || ""} ${entry.text || ""} ${entry.className || ""}`);
+    if (selectorHasOpen && claimedActive && !/open/i.test(entry.observedState || "")) {
+      add(`action-semantic-drift-${index + 1}`, "fail", `${id} converts an open/expanded source state into active/current semantics.`, "Keep the narrow source state name and let Interpreter decide whether broader reuse is supported by additional screenshots.");
+    }
+  });
+
+  const okResult = blocking.length === 0;
+  process.stdout.write(`${JSON.stringify({
+    ok: okResult,
+    brand,
+    gate: "screenshot-first-evidence",
+    evidenceFile: path.relative(root, evidenceFile),
+    actionFile: path.relative(root, actionFile),
+    thirdPartyFile: thirdParty ? path.relative(root, thirdPartyFile) : null,
+    observationFile: path.relative(root, observationFile),
+    intentFile: intent ? path.relative(root, intentFile) : null,
+    checks,
+    blocking,
+    warnings,
+    message: okResult ? "Evidence visibility gate passed. Interpreter may consume these rendered facts." : "Evidence visibility gate failed. Stop before Interpreter; repair the earliest screenshot/DOM/state/property evidence defects.",
+  }, null, 2)}\n`);
+  process.exit(okResult ? 0 : 2);
+}
+
+function handoffArtifactGate() {
+  const root = opt("--root", process.cwd());
+  const mode = opt("--mode", "learn-brand");
+  const brand = opt("--brand", "");
+  const strict = has("--strict");
+  if (!brand) fail("handoff-artifact-gate requires --brand.");
+
+  const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+  const contract = readJsonLoose(contractFile);
+  if (!contract?.workflows?.[mode]) fail(`Workflow contract missing for mode "${mode}": ${contractFile}`);
+
+  const migrationDir = path.join(root, "migrations", brand);
+  const artifactContracts = contract.artifactContracts || {};
+  const goalContract = readJsonLoose(path.join(migrationDir, "goal-contract.json"));
+  const usesFidelityProtocol = /^brand-goal\/v\d+$/.test(goalContract?.schema || "");
+  const expectedArtifacts = usesFidelityProtocol
+    ? mode === "apply-host"
+      ? ["host-opportunity-map.json", "visual-qa-assessment.json", "fidelity-report.json", "retro-learnings.json"]
+      : ["brand-evidence.json", "source-observation-manifest.json", "action-evidence-v02.json", "brand-intent.json", "visual-qa-assessment.json", "fidelity-report.json", "retro-learnings.json"]
+    : mode === "apply-host"
+    ? ["host-opportunity-map.json", "visual-qa-report.json", "retro-learnings.json"]
+    : ["brand-evidence.json", "source-observation-manifest.json", "action-evidence-v02.json", "brand-intent.json", "visual-qa-report.json", "retro-learnings.json"];
+  const alternatives = {
+    "host-opportunity-map.json": ["host-opportunity-map.json", "intent-plan.json"],
+    "intent-plan.json": ["intent-plan.json", "host-opportunity-map.json"],
+    "visual-qa-report.json": ["visual-qa-report.json", "visual-quality-report.json"],
+  };
+
+  const checks = [];
+  const blocking = [];
+  const warnings = [];
+  const add = (id, status, message, fix = "", extra = {}) => {
+    const check = { id, status, message, fix, ...extra };
+    checks.push(check);
+    if (status === "fail") blocking.push(check);
+    if (status === "warn") warnings.push(check);
+  };
+
+  add(
+    "artifact-contract-present",
+    Object.keys(artifactContracts).length ? "pass" : "fail",
+    "Workflow contract should define minimal schemas for role handoff artifacts.",
+    "Add artifactContracts to skills/brand/workflow-contract.json.",
+  );
+
+  for (const artifactName of expectedArtifacts) {
+    const names = alternatives[artifactName] || [artifactName];
+    const file = names.map((name) => path.join(migrationDir, name)).find((candidate) => fs.existsSync(candidate));
+    const contractName = names.find((name) => artifactContracts[name]) || artifactName;
+    const artifactContract = artifactContracts[contractName] || {};
+    const label = names.join(" or ");
+
+    if (!file) {
+      add(
+        `artifact-present-${artifactName}`,
+        strict ? "fail" : "warn",
+        `${label} is missing, so the ${artifactContract.owner || "role"} handoff is not auditable yet.`,
+        `Create migrations/${brand}/${artifactName} with the required role handoff fields, or run without --strict only while the flow is still in progress.`,
+        { artifact: artifactName },
+      );
+      continue;
+    }
+
+    const json = readJsonLoose(file);
+    if (!json) {
+      add(
+        `artifact-json-${path.basename(file)}`,
+        "fail",
+        `${path.basename(file)} exists but is not valid JSON.`,
+        "Fix the JSON before treating the role handoff as usable.",
+        { artifact: artifactName, file: path.relative(root, file) },
+      );
+      continue;
+    }
+
+    add(
+      `artifact-present-${artifactName}`,
+      "pass",
+      `${path.basename(file)} is present for ${artifactContract.owner || "role"} handoff.`,
+      "",
+      { artifact: artifactName, file: path.relative(root, file) },
+    );
+    validateArtifactContract({
+      artifactName,
+      file,
+      root,
+      json,
+      contract: artifactContract,
+      strict,
+      add,
+    });
+  }
+
+  const okResult = blocking.length === 0;
+  const result = {
+    ok: okResult,
+    mode,
+    brand,
+    migrationDir: path.relative(root, migrationDir),
+    externalGoodcaseAdoption: contract.externalGoodcaseAdoption || {},
+    checks,
+    blocking,
+    warnings,
+    message: okResult
+      ? "Role handoff artifact gate passed. The workflow now has auditable role outputs, not only Markdown intent."
+      : "Role handoff artifact gate failed. Fix missing or shallow role outputs before claiming this workflow is complete.",
+  };
+  process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+  process.exit(okResult ? 0 : 2);
+}
+
+function externalGoodcaseGate() {
+  const root = opt("--root", process.cwd());
+  const brand = opt("--brand", "");
+  const reportFile = opt("--report", brand ? path.join(root, "migrations", brand, "external-goodcase-adoption.json") : "");
+  const strict = has("--strict");
+  if (!reportFile) fail("external-goodcase-gate requires --report or --brand.");
+
+  const resolvedReportFile = path.resolve(root, reportFile);
+  if (!fs.existsSync(resolvedReportFile)) fail(`External goodcase adoption report not found: ${resolvedReportFile}`);
+
+  const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+  const contract = readJsonLoose(contractFile);
+  const policy = contract?.externalGoodcaseAdoption || {};
+  const report = readJsonLoose(resolvedReportFile);
+  if (!report) fail(`External goodcase adoption report is not valid JSON: ${resolvedReportFile}`);
+
+  const allowedDecisions = ["retain", "iterate", "deprecate", "optionalHook"];
+  const protectedGates = [
+    "tpp",
+    "computed-first",
+    "dtcg",
+    "selector-map",
+    "coverage",
+    "asset-usage",
+    "visual-placement",
+    "p0-acceptance",
+    "record-run",
+  ];
+  const adoptions = normalizeExternalGoodcaseItems(report);
+  const checks = [];
+  const blocking = [];
+  const warnings = [];
+  const add = (id, status, message, fix = "", extra = {}) => {
+    const check = { id, status, message, fix, ...extra };
+    checks.push(check);
+    if (status === "fail") blocking.push(check);
+    if (status === "warn") warnings.push(check);
+  };
+
+  add(
+    "policy-present",
+    Object.keys(policy).length ? "pass" : "fail",
+    "workflow-contract.json should define externalGoodcaseAdoption before external projects can affect Brand workflow.",
+    "Add retain/iterate/deprecate/optionalHook policy to skills/brand/workflow-contract.json.",
+  );
+  add(
+    "report-items-present",
+    adoptions.length ? "pass" : "fail",
+    "External goodcase adoption must list concrete overlap decisions.",
+    "Add adoptions[] or decisions[] with source, capability, decision, reason, brandCapability and action.",
+  );
+
+  for (const [index, item] of adoptions.entries()) {
+    const label = String(item.capability || item.name || item.source || `item-${index + 1}`);
+    const decision = String(item.decision || "");
+    const source = String(item.source || item.goodcase || report.source || "");
+    const brandCapability = String(item.brandCapability || item.existingBrandCapability || item.mapsTo || "");
+    const action = String(item.action || item.nextAction || item.landing || "");
+    const reason = String(item.reason || item.rationale || "");
+    const replacesBrandGate = item.replacesBrandGate === true
+      || /replace|替代|接管|supplant/i.test(action)
+      || /replace|替代|接管|supplant/i.test(reason);
+    const protectedGateHits = protectedGates.filter((gate) => {
+      const pattern = new RegExp(escapeRegExp(gate), "i");
+      return pattern.test(brandCapability) || pattern.test(action) || pattern.test(reason);
+    });
+
+    add(
+      `external-source-${index + 1}`,
+      source ? "pass" : "fail",
+      `External adoption item ${index + 1} (${label}) should name the external source.`,
+      "Set source, for example gstack.",
+    );
+    add(
+      `external-decision-${index + 1}`,
+      allowedDecisions.includes(decision) ? "pass" : "fail",
+      `External adoption item ${index + 1} (${label}) should use a supported decision.`,
+      `Use one of ${allowedDecisions.join(", ")}.`,
+      { decision },
+    );
+    add(
+      `external-brand-capability-${index + 1}`,
+      brandCapability ? "pass" : strict ? "fail" : "warn",
+      `External adoption item ${index + 1} (${label}) should map to an existing or proposed Brand capability.`,
+      "Set brandCapability so reviewers know whether to retain, iterate, deprecate, or optional-hook.",
+    );
+    add(
+      `external-reason-${index + 1}`,
+      reason.length >= 16 ? "pass" : strict ? "fail" : "warn",
+      `External adoption item ${index + 1} (${label}) should explain why this decision is safe.`,
+      "Add a concrete reason tied to Brand workflow, not a generic praise of the external project.",
+    );
+    add(
+      `external-action-${index + 1}`,
+      action.length >= 8 ? "pass" : strict ? "fail" : "warn",
+      `External adoption item ${index + 1} (${label}) should declare the landing action.`,
+      "Add action, for example keep Brand gate, improve report wording, or add optional review hook.",
+    );
+
+    if (decision === "deprecate") {
+      add(
+        `external-deprecate-scope-${index + 1}`,
+        !protectedGateHits.length && !replacesBrandGate ? "pass" : "fail",
+        `External adoption item ${index + 1} (${label}) must not deprecate protected Brand gates.`,
+        "Only deprecate Markdown-only duplicates or outdated synonyms. Keep TPP, computed-first, DTCG, selector-map, coverage, asset-usage, visual-placement, P0 acceptance, and record-run gates.",
+        { protectedGateHits },
+      );
+    }
+
+    if (decision === "optionalHook") {
+      add(
+        `external-optional-nonblocking-${index + 1}`,
+        item.blocking === true ? "fail" : "pass",
+        `External optional hook ${index + 1} (${label}) must not become a required dependency for Brand Skill.`,
+        "Keep external orchestrators advisory. Brand Skill must still run without the external project.",
+      );
+    }
+
+    if (replacesBrandGate && protectedGateHits.length) {
+      add(
+        `external-no-gate-replacement-${index + 1}`,
+        "fail",
+        `External adoption item ${index + 1} (${label}) attempts to replace protected Brand domain gates.`,
+        "Classify the external idea as iterate or optionalHook, and keep Brand hard gates as the source of truth.",
+        { protectedGateHits },
+      );
+    }
+  }
+
+  const okResult = blocking.length === 0;
+  ok({
+    ok: okResult,
+    brand,
+    report: path.relative(root, resolvedReportFile),
+    allowedDecisions,
+    protectedGates,
+    decisions: adoptions.map((item) => ({
+      source: item.source || item.goodcase || report.source || "",
+      capability: item.capability || item.name || "",
+      decision: item.decision || "",
+      brandCapability: item.brandCapability || item.existingBrandCapability || item.mapsTo || "",
+      action: item.action || item.nextAction || item.landing || "",
+    })),
+    checks,
+    blocking,
+    warnings,
+    message: okResult
+      ? "External goodcase gate passed. External projects can advise orchestration, but Brand domain gates remain the authority."
+      : "External goodcase gate failed. Fix adoption decisions before replacing or editing Brand workflow capabilities.",
+  });
+  process.exit(okResult ? 0 : 2);
+}
+
+function validateArtifactContract({ artifactName, file, root, json, contract, strict, add }) {
+  const requiredAny = toArray(contract.requiredAny);
+  const matchedTopFields = requiredAny.filter((field) => hasMeaningfulValue(json?.[field]));
+  add(
+    `artifact-shape-${path.basename(file)}`,
+    requiredAny.length === 0 || matchedTopFields.length ? "pass" : "fail",
+    `${path.basename(file)} should contain at least one meaningful top-level handoff field: ${requiredAny.join(", ")}.`,
+    `Add one of ${requiredAny.join(", ")} with concrete role output, not a placeholder.`,
+    { artifact: artifactName, file: path.relative(root, file), matchedTopFields },
+  );
+
+  const items = collectArtifactItems(json, requiredAny);
+  add(
+    `artifact-items-${path.basename(file)}`,
+    items.length ? "pass" : strict ? "fail" : "warn",
+    `${path.basename(file)} should expose reviewable items so the next role can see concrete decisions.`,
+    "Add an array/object of visual patterns, page placements, QA findings, or retro learnings.",
+    { artifact: artifactName, file: path.relative(root, file), itemCount: items.length },
+  );
+
+  const itemRequiredAny = toArray(contract.itemRequiredAny);
+  const itemRecommended = toArray(contract.itemRecommended);
+  const sampleItems = items.slice(0, 8);
+  sampleItems.forEach((item, index) => {
+    if (!item || typeof item !== "object") return;
+    const matchedRequired = itemRequiredAny.filter((field) => hasMeaningfulValue(item[field]));
+    add(
+      `artifact-item-required-${path.basename(file)}-${index + 1}`,
+      itemRequiredAny.length === 0 || matchedRequired.length ? "pass" : "fail",
+      `${path.basename(file)} item ${index + 1} should explain meaning, purpose, route, status, or resolution so the next role can use it.`,
+      `Add one of ${itemRequiredAny.join(", ")} to this item.`,
+      { artifact: artifactName, file: path.relative(root, file), matchedRequired },
+    );
+
+    const matchedRecommended = itemRecommended.filter((field) => hasMeaningfulValue(item[field]));
+    add(
+      `artifact-item-recommended-${path.basename(file)}-${index + 1}`,
+      matchedRecommended.length ? "pass" : "warn",
+      `${path.basename(file)} item ${index + 1} should include usage boundaries or evidence when possible.`,
+      `Consider adding one of ${itemRecommended.join(", ")}.`,
+      { artifact: artifactName, file: path.relative(root, file), matchedRecommended },
+    );
+  });
+}
+
+function collectArtifactItems(json, candidateFields = []) {
+  if (Array.isArray(json?.visualPlacementPolicy?.pagePlacements)) {
+    return json.visualPlacementPolicy.pagePlacements.filter((item) => hasMeaningfulValue(item));
+  }
+  if (Array.isArray(json?.pagePlacements)) {
+    return json.pagePlacements.filter((item) => hasMeaningfulValue(item));
+  }
+  if (Array.isArray(json?.opportunities)) {
+    return json.opportunities.filter((item) => hasMeaningfulValue(item));
+  }
+  const preferred = [
+    ...candidateFields,
+    "patterns",
+    "visualPatterns",
+    "styleRecipeDetails",
+    "interactionRecipes",
+    "pagePlacements",
+    "opportunities",
+    "findings",
+    "checks",
+    "checkedPages",
+    "learnings",
+    "decisions",
+    "adoptions",
+    "externalGoodcaseAdoption",
+    "ruleCandidates",
+  ];
+  const collected = [];
+  for (const field of unique(preferred)) {
+    const value = json?.[field];
+    if (Array.isArray(value)) collected.push(...value);
+    else if (value && typeof value === "object") collected.push(...Object.values(value));
+  }
+  const policyPlacements = json?.visualPlacementPolicy?.pagePlacements;
+  if (Array.isArray(policyPlacements)) collected.push(...policyPlacements);
+  return collected.filter((item) => hasMeaningfulValue(item));
+}
+
+function normalizeExternalGoodcaseItems(report) {
+  if (Array.isArray(report)) return report.filter((item) => item && typeof item === "object");
+  const candidates = [
+    report?.adoptions,
+    report?.decisions,
+    report?.externalGoodcaseAdoption,
+    report?.items,
+  ];
+  for (const value of candidates) {
+    if (Array.isArray(value)) return value.filter((item) => item && typeof item === "object");
+    if (value && typeof value === "object") return Object.values(value).filter((item) => item && typeof item === "object");
+  }
+  return [];
+}
+
+function hasMeaningfulValue(value) {
+  if (Array.isArray(value)) return value.some((item) => hasMeaningfulValue(item));
+  if (value && typeof value === "object") return Object.keys(value).some((key) => hasMeaningfulValue(value[key]));
+  if (typeof value === "string") {
+    const text = value.trim();
+    return text.length >= 2 && !/^(todo|tbd|placeholder|n\/a|null|none)$/i.test(text);
+  }
+  return value !== null && value !== undefined && value !== false;
 }
 
 function ruleCandidateGate() {
@@ -1526,6 +2347,21 @@ function tppTest() {
     blocking,
     warnings,
   });
+  const workflowModeContract = buildWorkflowModeContract({
+    mode,
+    workflow,
+    workflowContract,
+    sourceUrl,
+    hostTarget,
+    planFile,
+    evidence,
+    mod,
+    adapter,
+    actionScore,
+    dembrandt,
+    hasPreviewOutput,
+    blocking,
+  });
 
   const workflowAudit = buildTppWorkflowAudit({
     mode,
@@ -1543,7 +2379,13 @@ function tppTest() {
     mode,
     workflow,
     entryGate,
-    workflowContract,
+    workflowModeContract,
+    workflowContract: {
+      version: workflowContract.version,
+      mode,
+      goal: workflowContract.goal,
+      requiredStageIds: (workflowContract.steps || []).filter((step) => step.required).map((step) => step.id),
+    },
     acceptanceChecklist,
     workflowAudit,
     workflowSteps,
@@ -1578,7 +2420,157 @@ function tppTest() {
   };
 
   ok(result);
-  process.exit(blocking.length ? 2 : 0);
+  process.exitCode = blocking.length ? 2 : 0;
+}
+
+function buildWorkflowModeContract({
+  mode,
+  workflow,
+  workflowContract,
+  sourceUrl,
+  hostTarget,
+  planFile,
+  evidence,
+  mod,
+  adapter,
+  actionScore,
+  dembrandt,
+  hasPreviewOutput,
+  blocking,
+}) {
+  const hasBlocking = (principle) => blocking.some((item) => item.principle === principle);
+  const chain = mode === "learn-brand"
+    ? [
+        {
+          id: "seed-extractor",
+          label: "第三方抽取 seed",
+          expected: "dembrandt 先给一版基础抽取，不直接当最终真相。",
+          status: dembrandt ? "complete" : "missing",
+          evidence: dembrandt ? "third-party-evidence.dembrandt.json" : null,
+        },
+        {
+          id: "dtcg-layer",
+          label: "DTCG 规范层",
+          expected: "抽取结果先归一到 DTCG token / role，再往下游走。",
+          status: mod?.tokens?.dtcg ? "complete" : "missing",
+          evidence: mod?.tokens?.dtcg ? "brand-mod.tokens.dtcg" : null,
+        },
+        {
+          id: "our-evidence",
+          label: "我们自己的证据层",
+          expected: "computed / asset / action evidence 必须补齐，不能只信第三方抽取。",
+          status: evidence && actionScore ? "complete" : "missing",
+          evidence: evidence && actionScore ? "brand-evidence + action-evidence" : null,
+        },
+        {
+          id: "dangoui-mapping",
+          label: "映射到 dangoui",
+          expected: "视觉语言要翻译成 dangoui 可消费的 token / 角色 / 组件语义。",
+          status: adapter ? "complete" : "missing",
+          evidence: adapter ? "dangoui-adapter.json" : null,
+        },
+        {
+          id: "demo-preview",
+          label: "输出 demo 预览",
+          expected: "最终必须能在 demo 里验证，不是只停在 JSON。",
+          status: hasPreviewOutput ? "complete" : "missing",
+          evidence: hasPreviewOutput ? "preview file + registry" : null,
+        },
+      ]
+    : [
+        {
+          id: "load-mod",
+          label: "加载既有 MOD",
+          expected: "apply-host 先消费已有品牌包，不直接在宿主里猜颜色。",
+          status: mod ? "complete" : "missing",
+          evidence: mod ? "brand-mod.json" : null,
+        },
+        {
+          id: "host-target",
+          label: "明确宿主落点",
+          expected: "必须知道要落在哪个宿主页面或计划里。",
+          status: hostTarget || planFile ? "complete" : "missing",
+          evidence: hostTarget || planFile || null,
+        },
+        {
+          id: "host-diagnosis",
+          label: "宿主诊断",
+          expected: "先看路由、选择器、视觉债务，再决定怎么换肤。",
+          status: hostTarget || planFile ? "complete" : "missing",
+          evidence: hostTarget || planFile ? "host target / plan resolved" : null,
+        },
+        {
+          id: "dangoui-mapping",
+          label: "映射到 dangoui",
+          expected: "把学习好的视觉语言翻译成宿主可消费的组件语义层。",
+          status: adapter ? "complete" : "missing",
+          evidence: adapter ? "dangoui-adapter.json" : null,
+        },
+        {
+          id: "host-preview",
+          label: "宿主预览验证",
+          expected: "最后必须回到宿主预览，而不是停在 demo URL。",
+          status: hasPreviewOutput ? "complete" : "pending",
+          evidence: hasPreviewOutput ? "preview / verification artifacts" : null,
+        },
+      ];
+
+  const boundaryChecks = (workflowContract?.boundaries || []).map((boundary) => {
+    let status = "complete";
+    let reason = "当前没有发现违反这条边界的输入。";
+
+    if (/host business project by default/i.test(boundary) && (hostTarget || planFile)) {
+      status = mode === "learn-brand" ? "blocked" : "complete";
+      reason = mode === "learn-brand"
+        ? "品牌学习流里出现了宿主输入，说明两条流程被混用了。"
+        : "当前是宿主换肤流，这条边界不再适用。";
+    } else if (/Brand key is a style identifier/i.test(boundary)) {
+      status = hasBlocking("mixed-workflow-inputs") ? "warning" : "complete";
+      reason = "当前只做输入层检查；真正的 route/page 污染还要继续靠后续 host 诊断脚本兜住。";
+    } else if (/Third-party extraction is seed evidence only/i.test(boundary)) {
+      status = hasBlocking("seed-primary-cannot-ship") ? "blocked" : "complete";
+      reason = hasBlocking("seed-primary-cannot-ship")
+        ? "当前主色仍停留在第三方 seed 层，没有被后续 action evidence 承接。"
+        : "没有发现把第三方抽取直接当最终映射真相的硬冲突。";
+    } else if (/Preserve host route, business content, and component API/i.test(boundary)) {
+      status = mode === "apply-host" ? "complete" : "not-applicable";
+      reason = mode === "apply-host"
+        ? "宿主换肤流会继续由 host 诊断和 apply gate 检查这条边界。"
+        : "当前不是宿主换肤流。";
+    } else if (/Do not create a new brand route by default/i.test(boundary)) {
+      status = mode === "apply-host" ? "warning" : "not-applicable";
+      reason = mode === "apply-host"
+        ? "当前还只能在 contract 层提示；后面要继续补 route diff 的硬校验。"
+        : "当前不是宿主换肤流。";
+    } else if (/Final preview URL must be the host project URL/i.test(boundary)) {
+      status = mode === "apply-host" ? "warning" : "not-applicable";
+      reason = mode === "apply-host"
+        ? "当前会在 apply-preview 阶段继续验证预览出口。"
+        : "当前不是宿主换肤流。";
+    }
+
+    return {
+      boundary,
+      status,
+      reason,
+    };
+  });
+
+  return {
+    mode,
+    decidedBy: workflow.decidedBy,
+    summary: workflow.summary,
+    goal: workflowContract?.goal || "",
+    inputs: {
+      sourceUrl: Boolean(sourceUrl),
+      hostTarget: Boolean(hostTarget),
+      planFile: Boolean(planFile),
+    },
+    requiredInputs: workflowContract?.inputs || {},
+    chain,
+    boundaryChecks,
+    verdict: blocking.length === 0 ? "pass" : "blocked",
+  };
 }
 
 function buildTppAcceptanceChecklist({
@@ -1852,6 +2844,11 @@ function getWorkflowContract(root, mode) {
   return {
     version: contract.version || null,
     mode,
+    orchestration: contract.orchestration || {},
+    externalGoodcaseAdoption: contract.externalGoodcaseAdoption || {},
+    roles: contract.roles || {},
+    handoffArtifacts: contract.handoffArtifacts || {},
+    artifactContracts: contract.artifactContracts || {},
     goal: contract.workflows[mode].goal || "",
     inputs: contract.workflows[mode].inputs || {},
     steps: toArray(contract.workflows[mode].steps),
@@ -1886,18 +2883,38 @@ function inferWorkflowStepStatus({
   const hasPreviewGate = Boolean(brand && fs.existsSync(path.join(root, "migrations", brand, "preview-gate.json")));
   const hasComputedEvidence = Boolean(brand && fs.existsSync(path.join(root, "migrations", brand, "computed-evidence.json")));
   const hasVisualQuality = Boolean(brand && fs.existsSync(path.join(root, "migrations", brand, "visual-quality-report.json")));
+  const fidelityReport = brand
+    ? readJsonLoose(path.join(root, "migrations", brand, "fidelity-report.json"))
+    : null;
+  const fidelityPassed = fidelityReport?.status === "fidelity-pass";
+  const fidelityFailed = Boolean(fidelityReport) && !fidelityPassed;
+  const hasBrandIntent = Boolean(brand && fs.existsSync(path.join(root, "migrations", brand, "brand-intent.json")));
+  const hasHostOpportunity = Boolean(brand && (
+    fs.existsSync(path.join(root, "migrations", brand, "host-opportunity-map.json"))
+    || fs.existsSync(path.join(root, "migrations", brand, "intent-plan.json"))
+  ));
+  const hasVisualQaArtifact = Boolean(brand && (
+    fs.existsSync(path.join(root, "migrations", brand, "visual-qa-report.json"))
+    || hasVisualQuality
+  ));
+  const hasVisualQa = hasVisualQaArtifact && fidelityPassed;
   const hasPreviewOutput = hasPreviewFile && hasPreviewRegistry;
   const hasApplyVerification = hasPreviewGate || hasComputedEvidence || hasVisualQuality;
 
   const statusByStep = {
+    "route-intake": "complete",
     "extract-third-party": hasDembrandt ? "complete" : "pending",
     "normalize-dtcg": hasDtcg ? "complete" : "pending",
     "collect-brand-evidence": hasEvidence && hasActionEvidence ? "complete" : "pending",
-    "tpp-test": hasBlocking ? "blocked" : "complete",
+    "translate-brand-intent": hasBrandIntent ? "complete" : "pending",
+    "tpp-test": hasBlocking || fidelityFailed ? "blocked" : fidelityPassed ? "complete" : "pending",
     "map-to-dangoui": hasAdapter ? "complete" : "pending",
     "emit-demo-preview": hasPreviewOutput ? "complete" : "pending",
-    "load-existing-mod": hasDembrandt || hasEvidence || Boolean(mod) ? "complete" : "pending",
+    "visual-qa": hasVisualQa ? "complete" : fidelityFailed ? "blocked" : "pending",
+    "record-retro": "pending",
+    "load-existing-mod": hasDembrandt || hasEvidence || hasBrandIntent || Boolean(mod) ? "complete" : "pending",
     "diagnose-host": hasHostIntent ? "complete" : "pending",
+    "assess-host-visual-capacity": hasHostOpportunity ? "complete" : "pending",
     "apply-preview": hasPreviewOutput && hasApplyVerification ? "complete" : "pending",
   };
 
@@ -1912,6 +2929,17 @@ function inferWorkflowStepStatus({
     }
     if (step.id === "map-to-dangoui" && !hasAdapter) {
       hints.push("还没有形成可消费的 dangoui 映射层。");
+    }
+    if (step.id === "translate-brand-intent" && !hasBrandIntent) {
+      hints.push("还缺 brand-intent.json，说明 evidence 还没有被翻译成适用场景、禁用场景和动效目的。");
+    }
+    if (step.id === "assess-host-visual-capacity" && !hasHostOpportunity) {
+      hints.push("还缺 host-opportunity-map.json 或 intent-plan.json，不能证明强视觉落点符合业务目标。");
+    }
+    if (step.id === "visual-qa" && !hasVisualQa) {
+      hints.push(fidelityFailed
+        ? "盲审 fidelity gate 已失败；必须按 rework-request 重做并由新的 QA subagent 复审。"
+        : "还缺独立盲审与 fidelity-report.json，不能只用 build/preview 代替设计验收。");
     }
     if (step.id === "emit-demo-preview" || step.id === "apply-preview") {
       if (status === "complete") {
@@ -2438,6 +3466,372 @@ function recordRun() {
   });
 }
 
+function tombstoneRun() {
+  const root = opt("--root", process.cwd());
+  const brand = opt("--brand", "");
+  const runId = opt("--run-id", "");
+  const disposition = opt("--disposition", "retired");
+  const reason = opt("--reason", "").trim();
+  const scope = opt("--scope", "project");
+  if (!brand && !runId) fail("tombstone-run requires --brand or --run-id.");
+  if (!["retired", "invalidated", "superseded"].includes(disposition)) fail("--disposition must be retired, invalidated, or superseded.");
+  if (!reason) fail("tombstone-run requires a non-empty --reason audit note.");
+  if (!["project", "global", "all"].includes(scope)) fail("--scope must be project, global, or all.");
+  const projectLog = opt("--project-log", path.join(root, "migrations", "_brand-runs", "runs.jsonl"));
+  const globalLog = opt("--global-log", path.join(homeDir(), ".codex", "brand-skill", "runs.jsonl"));
+  const event = { recordType: "run-tombstone", tombstoneId: `${new Date().toISOString()}-${crypto.randomBytes(4).toString("hex")}`, createdAt: new Date().toISOString(), disposition, brand, runId, reason };
+  const files = scope === "project" ? [projectLog] : scope === "global" ? [globalLog] : [projectLog, globalLog];
+  for (const file of files) appendJsonl(file, event);
+  ok({ ok: true, event, files, message: "Run history was retained; matching runs are excluded from active summaries and issue retro." });
+}
+
+function p0Acceptance() {
+  const root = opt("--root", process.cwd());
+  const mode = opt("--mode", "apply-host");
+  const brand = opt("--brand", inferBrandKey(opt("--source-url", "")));
+  const sourceUrl = opt("--source-url", "");
+  const hostTarget = opt("--host-target", "");
+  const planFileOpt = opt("--plan-file", "");
+  const previewUrl = opt("--preview-url", "");
+  const fileOpt = opt("--files", "");
+  const allowDemoSource = has("--allow-demo-source");
+  const requireDevPreview = has("--require-dev-preview");
+
+  if (!brand) fail("p0-acceptance requires --brand or a source URL that can infer the brand key.");
+  if (!["learn-brand", "apply-host"].includes(mode)) fail("--mode must be learn-brand or apply-host.");
+
+  const migrationRoot = path.join(root, "migrations", brand);
+  const hostMigrationRoot = findHostMigrationRoot(root, brand, planFileOpt, hostTarget);
+  const planFile = firstExistingFile([
+    planFileOpt ? path.resolve(root, planFileOpt) : "",
+    hostMigrationRoot ? path.join(hostMigrationRoot, "intent-plan.json") : "",
+    path.join(migrationRoot, "intent-plan.json"),
+  ].filter(Boolean));
+  const plan = readJsonLoose(planFile);
+  const runLog = firstExistingFile([
+    hostMigrationRoot ? path.join(path.dirname(hostMigrationRoot), "_brand-runs", "runs.jsonl") : "",
+    path.join(root, "migrations", "_brand-runs", "runs.jsonl"),
+  ].filter(Boolean));
+  const latestRun = readLatestRunForBrand(runLog, brand);
+  const sourceRole = String(plan?.sourceRole || latestRun?.sourceRole || "");
+  const effectiveSourceUrl = sourceUrl || plan?.sourceUrl || latestRun?.sourceUrl || "";
+  const effectivePreviewUrl = previewUrl || latestRun?.previewUrl || plan?.previewUrl || "";
+  const hostFiles = resolveAcceptanceFiles({ root, plan, planFile, fileOpt, hostTarget });
+  const existingModFile = firstExistingFile([
+    path.join(migrationRoot, "brand-mod.json"),
+    hostMigrationRoot ? path.join(hostMigrationRoot, "brand-mod.json") : "",
+  ].filter(Boolean));
+  const existingAdapterFile = firstExistingFile([
+    path.join(migrationRoot, "dangoui-adapter.json"),
+    hostMigrationRoot ? path.join(hostMigrationRoot, "dangoui-adapter.json") : "",
+  ].filter(Boolean));
+  const existingEvidenceFile = firstExistingFile([
+    path.join(migrationRoot, "brand-evidence.json"),
+    hostMigrationRoot ? path.join(hostMigrationRoot, "brand-evidence.json") : "",
+  ].filter(Boolean));
+  const standardPreviewFile = path.join(root, "public", "brand-previews", `${brand}.json`);
+  const registryFile = path.join(root, "public", "brand-previews", "registry.json");
+
+  const blocking = [];
+  const warnings = [];
+  const checks = [];
+  const addCheck = (id, status, message, fix = "") => {
+    checks.push({ id, status, message, fix });
+    if (status === "fail") blocking.push({ id, message, fix });
+    if (status === "partial") warnings.push({ id, message, fix });
+  };
+
+  if (mode === "learn-brand") {
+    addCheck(
+      "standard-learning-artifacts",
+      existingModFile && existingAdapterFile && existingEvidenceFile && fs.existsSync(standardPreviewFile) && registryHasBrand(registryFile, brand)
+        ? "pass"
+        : "fail",
+      "品牌学习必须产出 brand-mod、evidence、dangoui adapter 和已注册 demo preview。",
+      `补齐 ${path.relative(root, migrationRoot)} 下的标准学习产物，并注册 public/brand-previews/${brand}.json。`,
+    );
+  } else {
+    addCheck(
+      "existing-mod-consumed",
+      existingModFile || existingEvidenceFile ? "pass" : "fail",
+      "宿主换肤必须先消费既有 MOD / style pack / evidence，不能直接在宿主项目里猜样式。",
+      "先从标准 demo/registry 或 migrations/{brand} 加载品牌包，再 apply-host。",
+    );
+    addCheck(
+      "host-target-declared",
+      hostTarget || plan?.targetRoute || plan?.targetFiles?.length ? "pass" : "fail",
+      "宿主换肤必须有明确宿主页面或计划文件。",
+      "在 intent-plan.json 里声明 targetRoute/targetFiles，或传 --host-target。",
+    );
+    addCheck(
+      "host-files-exist",
+      hostFiles.length && hostFiles.every((file) => fs.existsSync(file)) ? "pass" : "fail",
+      "宿主目标文件必须真实存在，P0 不能只生成报告文本。",
+      "检查 --files、--host-target 或 intent-plan.targetFiles。",
+    );
+    addCheck(
+      "demo-source-not-final",
+      sourceRole === "demo-style-source" || parseDemoBrandUrl(effectiveSourceUrl)
+        ? allowDemoSource ? "partial" : "fail"
+        : "pass",
+      "P0 端到端不能把 demo 页面当最终来源；demo 只能用于定位既有 style pack，不能证明官网学习链路。",
+      "改为记录原始官网 sourceUrl，或传入 --style-pack/--mod-file 并把 demo URL 仅作为 lookup 线索。",
+    );
+    addCheck(
+      "host-preview-url",
+      effectivePreviewUrl && !parseDemoBrandUrl(effectivePreviewUrl) ? "pass" : "fail",
+      "宿主换肤的最终预览必须是宿主项目地址，不是标准 demo 地址。",
+      "生成并验证宿主项目自己的 previewUrl/defaultUrl。",
+    );
+    addCheck(
+      "preview-tier-truthful",
+      classifyPreviewUrl(effectivePreviewUrl) === "dev-server" || !requireDevPreview
+        ? classifyPreviewUrl(effectivePreviewUrl) === "static-file" ? "partial" : "pass"
+        : "fail",
+      "只有静态 HTML 时不能宣称完整 dev/build 验收。",
+      "正式跑通宿主 dev/build，或把覆盖等级降为 static-host-preview / conservative-application。",
+    );
+  }
+
+  const coverage = scoreAcceptanceCoverage(root, brand, hostFiles, existingEvidenceFile);
+  addCheck(
+    "style-dimensions-covered",
+    coverage.covered.length >= 6 ? "pass" : coverage.covered.length >= 4 ? "partial" : "fail",
+    `视觉维度覆盖 ${coverage.covered.length}/7：${coverage.covered.join(", ") || "none"}。`,
+    "至少覆盖 color、font、radius、border、shadow、frame-or-asset、active-state，并补真实 DOM 验证。",
+  );
+
+  const assetWarnings = findAcceptanceAssetWarnings(root, brand, hostFiles);
+  if (assetWarnings.length) {
+    addCheck(
+      "asset-role-usage",
+      "partial",
+      `发现 ${assetWarnings.length} 个资产/装饰层使用风险，不能直接宣称 complete。`,
+      "把装饰层限制到有 evidence targetScope 的 section/selector，或降级覆盖等级。",
+    );
+  } else {
+    addCheck("asset-role-usage", "pass", "没有发现明显的资产/装饰层误挂风险。");
+  }
+
+  const latestCoverage = String(latestRun?.coverageLevel || "");
+  if (/complete-style-preview/i.test(latestCoverage)) {
+    const completeIsOverstated = checks.some((check) => check.status !== "pass")
+      || classifyPreviewUrl(effectivePreviewUrl) !== "dev-server";
+    addCheck(
+      "coverage-claim-truthful",
+      completeIsOverstated ? "partial" : "pass",
+      completeIsOverstated
+        ? `最新 run log 声称 ${latestCoverage}，但当前验收仍有 partial/fail 项。`
+        : `最新 run log 的 ${latestCoverage} 与当前验收一致。`,
+      "record-run 前先运行 p0-acceptance，并用 acceptance verdict 决定 coverageLevel。",
+    );
+  }
+
+  const failCount = checks.filter((check) => check.status === "fail").length;
+  const partialCount = checks.filter((check) => check.status === "partial").length;
+  const verdict = failCount ? "FAIL" : partialCount ? "PARTIAL" : "PASS";
+  const p0Complete = verdict === "PASS";
+  const recommendedCoverageLevel = p0Complete
+    ? "complete-style-preview"
+    : verdict === "PARTIAL"
+      ? "conservative-application"
+      : "insufficient";
+
+  ok({
+    ok: p0Complete,
+    verdict,
+    p0Complete,
+    mode,
+    brand,
+    sourceUrl: effectiveSourceUrl,
+    sourceRole: sourceRole || null,
+    previewUrl: effectivePreviewUrl || null,
+    previewTier: classifyPreviewUrl(effectivePreviewUrl),
+    recommendedCoverageLevel,
+    files: {
+      planFile: planFile ? path.relative(root, planFile) : null,
+      runLog: runLog ? path.relative(root, runLog) : null,
+      brandMod: existingModFile ? path.relative(root, existingModFile) : null,
+      evidence: existingEvidenceFile ? path.relative(root, existingEvidenceFile) : null,
+      dangouiAdapter: existingAdapterFile ? path.relative(root, existingAdapterFile) : null,
+      hostFiles: hostFiles.map((file) => path.relative(root, file)),
+    },
+    coverage,
+    checks,
+    blocking,
+    warnings: [
+      ...warnings,
+      ...assetWarnings,
+    ],
+    next: p0Complete
+      ? ["P0 acceptance passed. This run can be used as an accepted baseline."]
+      : [
+          "Do not claim P0 complete yet.",
+          "Fix FAIL items first; PARTIAL items must downgrade final wording and run log coverage.",
+        ],
+  });
+  process.exit(p0Complete ? 0 : failCount ? 2 : 3);
+}
+
+function findHostMigrationRoot(root, brand, planFileOpt, hostTarget) {
+  const candidates = [];
+  if (planFileOpt) {
+    const absolutePlan = path.resolve(root, planFileOpt);
+    candidates.push(path.dirname(absolutePlan));
+  }
+  if (hostTarget) {
+    const absoluteTarget = path.resolve(root, hostTarget);
+    const parts = absoluteTarget.split(path.sep);
+    for (let index = parts.length; index > 0; index -= 1) {
+      const dir = parts.slice(0, index).join(path.sep) || path.sep;
+      candidates.push(path.join(dir, "migrations", brand));
+    }
+  }
+  candidates.push(path.join(root, "migrations", brand));
+  return candidates.find((dir) => dir && fs.existsSync(dir)) || "";
+}
+
+function readLatestRunForBrand(runLog, brand) {
+  if (!runLog || !fs.existsSync(runLog)) return null;
+  const lines = fs.readFileSync(runLog, "utf8").split(/\r?\n/).filter(Boolean);
+  for (let index = lines.length - 1; index >= 0; index -= 1) {
+    const item = readJsonLine(lines[index]);
+    if (item?.brand === brand) return item;
+  }
+  return null;
+}
+
+function readJsonLine(line) {
+  try {
+    return JSON.parse(line);
+  } catch {
+    return null;
+  }
+}
+
+function resolveAcceptanceFiles({ root, plan, planFile, fileOpt, hostTarget }) {
+  const values = [];
+  if (fileOpt) values.push(...parseList(fileOpt));
+  if (hostTarget) values.push(hostTarget);
+  if (Array.isArray(plan?.targetFiles)) values.push(...plan.targetFiles);
+  const hostRoot = inferHostRootFromPlanFile(planFile) || root;
+  return unique(values)
+    .map((file) => {
+      const text = String(file || "");
+      if (path.isAbsolute(text)) return text;
+      if (fs.existsSync(path.resolve(root, text))) return path.resolve(root, text);
+      return path.resolve(hostRoot, text);
+    })
+    .filter(Boolean)
+    .filter((file, index, list) => list.indexOf(file) === index);
+}
+
+function inferHostRootFromPlanFile(planFile) {
+  if (!planFile) return "";
+  const parts = path.resolve(planFile).split(path.sep);
+  const migrationsIndex = parts.lastIndexOf("migrations");
+  if (migrationsIndex <= 0) return "";
+  return parts.slice(0, migrationsIndex).join(path.sep) || path.sep;
+}
+
+function classifyPreviewUrl(value) {
+  const text = String(value || "");
+  if (!text) return "missing";
+  if (text.startsWith("file://")) return "static-file";
+  try {
+    const url = new URL(text);
+    if (/\/preview\/[^/]+\.html$/i.test(url.pathname)) return "static-file";
+    if (url.hostname === "127.0.0.1" || url.hostname === "localhost") return "dev-server";
+    return "remote";
+  } catch {
+    if (/\.html(?:$|[?#])/i.test(text)) return "static-file";
+  }
+  return "unknown";
+}
+
+function scoreAcceptanceCoverage(root, brand, files, evidenceFile) {
+  const dimensions = {
+    color: /--du-(?:bg|text|primary|border)|#[0-9a-fA-F]{3,8}|rgba?\(|hsla?\(/i,
+    font: /font-family|@font-face|--style-font|--du-font/i,
+    radius: /border-radius|--style-(?:card|control)-radius|rounded-/i,
+    border: /border(?:-[a-z]+)?\s*:|--style-frame-border|border-image/i,
+    shadow: /box-shadow|--style-card-shadow|text-shadow/i,
+    frameOrAsset: /url\(|mask|clip-path|border-image|background-image|::before|::after|asset|texture|frame|media|image/i,
+    activeState: /active|selected|current|checked|hover|focus|tab|button|switch|--du-primary/i,
+  };
+  const hits = Object.fromEntries(Object.keys(dimensions).map((key) => [key, []]));
+  for (const file of files) {
+    const text = safeRead(file);
+    if (!text) continue;
+    for (const [dimension, pattern] of Object.entries(dimensions)) {
+      if (pattern.test(text)) hits[dimension].push(path.relative(root, file));
+    }
+  }
+  const covered = Object.entries(hits).filter(([, value]) => value.length).map(([key]) => key);
+  const missing = Object.keys(dimensions).filter((key) => !covered.includes(key));
+  const computedMismatches = evidenceFile && fs.existsSync(evidenceFile)
+    ? findComputedToneMismatches(JSON.parse(fs.readFileSync(evidenceFile, "utf8")), root)
+    : [];
+  const previewGateFile = brand ? path.join(root, "migrations", brand, "preview-gate.json") : "";
+  const assetRoleCoverage = previewGateFile && fs.existsSync(previewGateFile)
+    ? readAssetRoleCoverage(previewGateFile)
+    : null;
+  return {
+    covered,
+    missing,
+    computedMismatches,
+    assetRoleCoverage,
+    hits: Object.fromEntries(Object.entries(hits).map(([key, value]) => [key, unique(value).slice(0, 8)])),
+  };
+}
+
+function findAcceptanceAssetWarnings(root, brand, files) {
+  const warnings = [];
+  const inventoryFile = path.join(root, "migrations", brand, "asset-inventory.json");
+  const inventory = fs.existsSync(inventoryFile) ? readJsonLoose(inventoryFile) : null;
+  const assetRecords = normalizeAssetInventoryRecords(inventory);
+  for (const file of files) {
+    const text = safeRead(file);
+    if (!text) continue;
+    const cssTexts = path.extname(file).toLowerCase() === ".vue" ? extractBlocks(text, "style") : [text];
+    for (const cssText of cssTexts) {
+      const cssRules = extractCssRules(cssText);
+      for (const rule of cssRules) {
+        if (!/url\(|::before|::after|mask|clip-path|border-image/i.test(rule.body)) continue;
+        const role = inferCssAssetUsageRole(rule.selector, rule.body, assetRecords);
+        if (role === "decorative-layer" && /tabs-row|filter-panel|deck-card|event-row|card|list|grid/i.test(rule.selector)) {
+          warnings.push({
+            id: "decorative-mounted-on-generic-component",
+            file: path.relative(root, file),
+            selector: rule.selector,
+            role,
+            message: "装饰层挂到了通用组件或业务列表上，容易把品牌视觉误套到不该承接的宿主结构。",
+            fix: "只有 evidence targetScope 命中的 section/selector 才能挂装饰层；否则降级为 conservative-application。",
+          });
+        }
+      }
+    }
+  }
+  return warnings.filter((item, index, list) => {
+    const key = `${item.id}|${item.file}|${item.selector}`;
+    return list.findIndex((entry) => `${entry.id}|${entry.file}|${entry.selector}` === key) === index;
+  });
+}
+
+function extractCssRules(cssText) {
+  const rules = [];
+  const text = String(cssText || "").replace(/\/\*[\s\S]*?\*\//g, "");
+  const pattern = /([^{}@][^{}]*)\{([^{}]*)\}/g;
+  let match;
+  while ((match = pattern.exec(text))) {
+    const selector = match[1].trim();
+    const body = match[2].trim();
+    if (!selector || !body) continue;
+    rules.push({ selector, body });
+  }
+  return rules;
+}
+
 function summarizeRuns() {
   const root = opt("--root", process.cwd());
   const scope = opt("--scope", "global");
@@ -2448,7 +3842,8 @@ function summarizeRuns() {
     : scope === "all"
       ? [globalLog, projectLog]
       : [globalLog];
-  const runs = files.flatMap((file) => readJsonl(file)).filter(Boolean);
+  const resolved = applyRunTombstones(files.flatMap((file) => readJsonl(file)).filter(Boolean));
+  const runs = resolved.activeRuns;
   const byHost = countBy(runs, (run) => run.sourceHost || parseSource(run.sourceUrl).host || "unknown");
   const byCoverage = countBy(runs, (run) => run.coverageLevel || "unknown");
   const byBrand = countBy(runs, (run) => run.brand || "unknown");
@@ -2467,6 +3862,9 @@ function summarizeRuns() {
     scope,
     files,
     totalRuns: runs.length,
+    totalRunRecords: resolved.totalRunRecords,
+    tombstonedRuns: resolved.tombstonedRuns.length,
+    tombstonesByDisposition: sortCountMap(countBy(resolved.tombstonedRuns, (item) => item.tombstone.disposition)),
     byHost: sortCountMap(byHost),
     byBrand: sortCountMap(byBrand),
     byCoverage: sortCountMap(byCoverage),
@@ -2474,6 +3872,162 @@ function summarizeRuns() {
     stylePackCandidates: candidates,
     message: "Use this summary to decide which websites deserve maintained style packs and which dimensions fail most often.",
   });
+}
+
+function issueRetro() {
+  const root = opt("--root", process.cwd());
+  const scope = opt("--scope", "all");
+  const limit = Number(opt("--limit", "12"));
+  const projectLog = opt("--project-log", path.join(root, "migrations", "_brand-runs", "runs.jsonl"));
+  const globalLog = opt("--global-log", path.join(homeDir(), ".codex", "brand-skill", "runs.jsonl"));
+  const files = scope === "project"
+    ? [projectLog]
+    : scope === "global"
+      ? [globalLog]
+      : [globalLog, projectLog];
+  const records = files
+    .flatMap((file) => readJsonl(file).map((run) => ({ ...run, logFile: file })))
+    .filter(Boolean);
+  const resolved = applyRunTombstones(records);
+  const runs = resolved.activeRuns
+    .sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")));
+  const latestRuns = runs.slice(0, limit);
+  const missing = {};
+  const coverage = {};
+  const hosts = {};
+  for (const run of latestRuns) {
+    coverage[run.coverageLevel || "unknown"] = (coverage[run.coverageLevel || "unknown"] || 0) + 1;
+    const host = run.sourceHost || parseSource(run.sourceUrl).host || "unknown";
+    hosts[host] = (hosts[host] || 0) + 1;
+    for (const dim of run.missingDimensions || []) {
+      missing[dim] = (missing[dim] || 0) + 1;
+    }
+  }
+  const recurringIssues = inferRetroIssues(latestRuns, missing);
+  ok({
+    ok: true,
+    type: "brand-issue-retro",
+    status: "needs-human-confirmation",
+    scope,
+    files,
+    totalRunsScanned: runs.length,
+    totalRunRecords: resolved.totalRunRecords,
+    tombstonedRunsExcluded: resolved.tombstonedRuns.length,
+    latestRuns: latestRuns.map((run) => ({
+      createdAt: run.createdAt,
+      brand: run.brand,
+      sourceHost: run.sourceHost || parseSource(run.sourceUrl).host || "unknown",
+      coverageLevel: run.coverageLevel || "unknown",
+      missingDimensions: run.missingDimensions || [],
+      stylePack: run.stylePack,
+      generatedPreview: run.generatedPreview,
+      projectName: run.projectName || run.project?.name || "",
+      targetRoute: run.targetRoute || "",
+      previewUrl: run.previewUrl || "",
+    })),
+    summarySignals: {
+      byHost: sortCountMap(hosts),
+      byCoverage: sortCountMap(coverage),
+      missingDimensions: sortCountMap(missing),
+    },
+    recurringIssues,
+    requiredAssistantProtocol: [
+      "把脚本输出和当前对话/浏览器反馈合并成：最新问题、复盘原因、解决方案、落地点。",
+      "先问用户“这些复盘和落地方向 OK 吗？”",
+      "用户确认前不要改规则、脚本、demo 或宿主项目。",
+      "确认后优先把可自动化问题落到 guard/extractor/validator；只有无法脚本化的判断才写 SKILL.md 或 references。",
+    ],
+    suggestedLandingOrder: [
+      "scripts/brand-guard.mjs 或 extractor/validator：能检查、能阻断、能自动汇总的问题",
+      "skills/brand/SKILL.md：执行顺序、触发词、确认协议",
+      "skills/brand/references/*.md：设计判断、映射口径、人工复盘模板",
+      "migrations/{brand}/：单个品牌证据、style pack、demo 修正",
+    ],
+    message: "This is a pending retro report. Ask the user to confirm before landing fixes.",
+  });
+}
+
+function applyRunTombstones(records) {
+  const tombstones = records.filter((item) => item?.recordType === "run-tombstone");
+  const runs = records.filter((item) => item && item.recordType !== "run-tombstone");
+  const tombstonedRuns = [];
+  const activeRuns = [];
+  for (const run of runs) {
+    const matching = tombstones
+      .filter((item) => (!item.runId || item.runId === run.runId) && (!item.brand || item.brand === run.brand))
+      .filter((item) => !item.createdAt || !run.createdAt || String(item.createdAt) >= String(run.createdAt))
+      .sort((a, b) => String(b.createdAt || "").localeCompare(String(a.createdAt || "")))[0];
+    if (matching) tombstonedRuns.push({ run, tombstone: matching });
+    else activeRuns.push(run);
+  }
+  return { activeRuns, tombstonedRuns, tombstones, totalRunRecords: runs.length };
+}
+
+function inferRetroIssues(runs, missing) {
+  const issues = [];
+  const add = (id, title, cause, solution, landing) => {
+    issues.push({ id, title, cause, solution, landing });
+  };
+  const hasMissing = (name) => Number(missing[name] || 0) > 0;
+  const weakCoverage = runs.some((run) => {
+    const level = run.coverageLevel || "";
+    return /draft|color-layer|conservative|unknown|partial/i.test(level);
+  });
+  if (hasMissing("asset") || hasMissing("frame") || hasMissing("frame-or-asset")) {
+    add(
+      "asset-frame-underfit",
+      "资产、背景、frame 还原不足",
+      "学习链路可能只记录了资产，未验证资产是否进入 Hero/Image/Frame/Background 等真实页面角色。",
+      "用 rendered asset inventory 和 asset-usage gate 校验资源是否被页面消费，并在未消费时降级或阻断。",
+      "scripts/brand-guard.mjs asset-usage-gate / collect-rendered-assets"
+    );
+  }
+  if (hasMissing("cta") || hasMissing("active-state") || hasMissing("action")) {
+    add(
+      "action-color-weak-evidence",
+      "CTA / active 主色证据不足",
+      "主色可能来自全站颜色频次或人工校准，没有从按钮、链接、下载入口、表单提交等 action 节点的 computed style 加权得出。",
+      "强制跑 action evidence，把可点击、首屏、CTA 文案和面积纳入权重；没有客观证据不能写入 --du-primary-color。",
+      "score-action-evidence / tpp-test / validate-tone"
+    );
+  }
+  if (hasMissing("font") || hasMissing("typography")) {
+    add(
+      "font-computed-gap",
+      "字体证据不足",
+      "可能只看了 CSS 文件或品牌印象，没有从 rendered computed font-family 反查 @font-face 和实际资源。",
+      "所有字体判断先读 computed font-family，再记录来源 rule、字体文件和 fallback。",
+      "collect-site-evidence --computed-file / validate-tone --require-computed"
+    );
+  }
+  if (weakCoverage) {
+    add(
+      "final-claim-overstates",
+      "最终说法可能过度宣称",
+      "coverageLevel 低时仍容易说成“已完整套用”，运营会误以为已经达到完整迁移。",
+      "最终话术必须按 coverageLevel 分级：草稿、保守应用、颜色层应用、完整风格预览。",
+      "validate-final / SKILL.md 最终输出口径"
+    );
+  }
+  if (runs.some((run) => run.generatedPreview === false || run.stylePack === false)) {
+    add(
+      "style-pack-or-preview-missing",
+      "style pack 或标准 demo 预览缺失",
+      "无现成 style pack 时可能直接在业务项目里临时拼页面，绕过标准 demo gate。",
+      "学习网站先生成标准 demo/style pack 草稿，通过 demo gate 后再考虑业务 apply。",
+      "run-brand-workflow.mjs / demo-gate / SKILL.md 两路径分流"
+    );
+  }
+  if (!issues.length) {
+    add(
+      "manual-review-needed",
+      "日志没有暴露明确高频问题",
+      "现有 run log 只记录结果维度，不包含全部对话反馈和截图批注。",
+      "把当前对话中的具体失败点补充为本轮 retro，再决定是否新增结构化日志字段。",
+      "SKILL.md retro protocol / record-run 字段扩展"
+    );
+  }
+  return issues;
 }
 
 async function collectSiteEvidence() {
@@ -4940,6 +6494,7 @@ function printHelp() {
 Usage:
   node skills/brand/scripts/run-brand-workflow.mjs tpp --mode learn-brand --brand pokemon30 --source-url "https://pokemon30th.com/"
   node skills/brand/scripts/run-brand-workflow.mjs tpp --mode apply-host --brand pokemon30 --source-url "https://pokemon30th.com/" --host-target src/pages/home/index.vue --plan-file plan.json
+  node skills/brand/scripts/brand-guard.mjs p0-acceptance --mode apply-host --brand pokemon30 --host-target src/pages/home/index.vue --plan-file migrations/pokemon30/intent-plan.json --preview-url http://127.0.0.1:5173/
   node skills/brand/scripts/brand-guard.mjs checkpoint --brand re1999 --command "/brand <url>"
   node skills/brand/scripts/brand-guard.mjs rollback [--execute] [--force]
   node skills/brand/scripts/brand-guard.mjs workflow-contract --mode learn-brand --source-url "https://pokemon30th.com/"
@@ -4952,6 +6507,10 @@ Usage:
   node skills/brand/scripts/brand-guard.mjs validate-role-replacements --brand rocom --css-files src/styles.css
   node skills/brand/scripts/brand-guard.mjs coverage-gate --brand rocom --files src/styles/rocom-theme.css,src/pages/index/index.vue --evidence-file migrations/rocom/site-evidence.json
   node skills/brand/scripts/brand-guard.mjs asset-usage-gate --brand rocom --files src/App.vue,src/styles.css
+  node skills/brand/scripts/brand-guard.mjs visual-placement-gate --brand rocom --plan-file migrations/rocom/intent-plan.json
+  node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand onepiece-cardgame --strict
+  node skills/brand/scripts/brand-guard.mjs handoff-artifact-gate --mode learn-brand --brand rocom --strict
+  node skills/brand/scripts/brand-guard.mjs external-goodcase-gate --brand rocom --report migrations/rocom/external-goodcase-adoption.json --strict
   node skills/brand/scripts/brand-guard.mjs rule-candidate-gate --brand rocom
   node skills/brand/scripts/brand-guard.mjs resolve-demo
   node skills/brand/scripts/brand-guard.mjs collect-site-evidence --brand rocom --source-url "https://rocom.qq.com/"
@@ -4965,7 +6524,10 @@ Usage:
   node skills/brand/scripts/brand-guard.mjs parse-dev-server --log dev.log
   node skills/brand/scripts/brand-guard.mjs validate-final --file final.txt --brand-label "1999" --source-url "<demo-url>" --coverage-level conservative-application
   node skills/brand/scripts/brand-guard.mjs record-run --brand rocom --source-url "https://rocom.qq.com/" --coverage-level complete-style-preview --missing font,asset
+  node skills/brand/scripts/brand-guard.mjs tombstone-run --brand rocom --disposition retired --reason "Deleted for clean relearning" --scope project
+  node skills/brand/scripts/brand-guard.mjs tombstone-run --run-id <run-id> --disposition invalidated --reason "QA verdict invalidated this run" --scope all
   node skills/brand/scripts/brand-guard.mjs summarize-runs --scope global
+  node skills/brand/scripts/brand-guard.mjs issue-retro --scope all --limit 12
   node skills/brand/scripts/brand-guard.mjs score-action-evidence --brand pokemon30 --file migrations/pokemon30/action-evidence-v02.json
 
 Notes:

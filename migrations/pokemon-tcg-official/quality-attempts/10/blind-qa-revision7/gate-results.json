@@ -1,0 +1,16 @@
+{
+  "schema": "brand-blind-qa-gates/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision7",
+  "qaExecutionId": "/root/pokemon_home_indicator_blind_qa",
+  "results": [
+    {"gate": "fresh-browser-home-indicator-probe", "status": "PASS", "normalRoutes": 3, "proofModes": 2},
+    {"gate": "validate-design-direction", "status": "PASS", "exitCode": 0},
+    {"gate": "validate-section-fidelity-strict", "status": "PASS", "exitCode": 0, "failures": []},
+    {"gate": "asset-usage-gate-strict", "status": "PASS", "exitCode": 0, "blocking": [], "warnings": []},
+    {"gate": "validate-brand-preview-registry", "status": "PASS_WITH_PREEXISTING_WARNINGS", "exitCode": 0, "pokemonTcgOfficialBrowserNaturalWidthCoveredByFreshProbe": true},
+    {"gate": "npm-run-build", "status": "PASS_WITH_CHUNK_SIZE_WARNING", "exitCode": 0, "modulesTransformed": 25, "durationMs": 593}
+  ],
+  "blocking": [],
+  "status": "PASS"
+}

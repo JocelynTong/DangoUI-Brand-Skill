@@ -1,0 +1,241 @@
+{
+  "schema": "brand-preview.v0.1",
+  "brand": "dango",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "status": "fidelity-pass",
+  "standardDemo": false,
+  "businessApply": false,
+  "demoPurpose": "brand-learning-capability-test",
+  "preset": {
+    "id": "dango",
+    "label": "DangoUI",
+    "icon": "https://dumpling.echo.tech/favicon.ico",
+    "source": "dumpling.echo.tech · screenshot-first relearn",
+    "hero": "DangoUI",
+    "notice": "Introduction 技术流、Button 多模块参考页与 held-out 页面已通过独立 Blind QA；首页保留性回归也已通过。",
+    "evidenceNote": "#5854FF 只用于文档当前位置，#7C66FF 只用于冻结范围内的 Primary Button；橙色未被提升为核心交互色。",
+    "sectionTitle": "Documentation System",
+    "tabs": ["文档", "组件", "发布"],
+    "cards": [
+      { "title": "响应式文档壳", "copy": "桌面分区、移动端重排，而不是把桌面截图缩进手机。" },
+      { "title": "角色分离的紫色", "copy": "导航当前位置和 Primary Button 使用不同、被证据限定的紫色。" }
+    ],
+    "tokens": [
+      { "name": "--du-bg-2", "value": "#f7f7f9" },
+      { "name": "--du-bg-1", "value": "#ffffff" },
+      { "name": "--du-text-1", "value": "#17171a" },
+      { "name": "--du-text-2", "value": "#57575f" },
+      { "name": "--du-border-1", "value": "#e8e8ed" },
+      { "name": "--du-primary-color", "value": "#7c66ff" },
+      { "name": "--du-primary-border", "value": "#7c66ff" },
+      { "name": "--du-primary-solid-bg", "value": "#7c66ff" }
+    ],
+    "style": {
+      "cardRadius": "8px",
+      "controlRadius": "4px",
+      "pageSpacing": "16px",
+      "cardShadow": "none",
+      "media": "linear-gradient(135deg,#ffffff,#f7f7f9)"
+    },
+    "signals": [
+      { "raw": "rgb(88, 84, 255)", "count": 1, "percent": "observed role", "target": "documentation current-page cue", "value": "navigation only" },
+      { "raw": "rgb(124, 102, 255)", "count": 1, "percent": "observed role", "target": "Primary Button fill", "value": "normal Primary Button only" },
+      { "raw": "36px / 700", "count": 1, "percent": "observed hierarchy", "target": "documentation H1", "value": "page title" }
+    ]
+  },
+  "learningProof": {
+    "status": "fidelity-pass",
+    "evidenceStatus": "通过（冻结范围）",
+    "structureStatus": "通过",
+    "generativeStatus": "通过",
+    "businessApply": false,
+    "blockers": []
+  },
+  "styleRecipeDetails": {
+    "color": [
+      "White reading canvas and black hierarchy dominate.",
+      "#5854FF is scoped to documentation wayfinding.",
+      "#7C66FF is scoped to the observed Primary Button."
+    ],
+    "layout": [
+      "Desktop uses header, left navigation, article and right outline zones.",
+      "Phone removes secondary columns and reflows into one readable article column."
+    ],
+    "button": [
+      "Normal Primary Button is 32px high with 4px radius.",
+      "Hover remains stable; focus stays visibly outlined."
+    ]
+  },
+  "pages": [
+    {
+      "id": "dango-introduction-calibration",
+      "side": "distribution",
+      "tab": "Introduction",
+      "name": "Introduction 校准",
+      "description": "验证文档壳、技术内容层级和移动端响应式重排。",
+      "kind": "documentation",
+      "proofRole": "source-calibration",
+      "layoutRecipe": "dango-docs",
+      "shell": { "navigationBar": false, "statusBar": false, "bottomActions": false, "fab": false },
+      "components": ["NavigationBar", "Divider", "Card"],
+      "sections": [
+        {
+          "id": "dango-introduction-shell",
+          "type": "dango-docs-page",
+          "component": "DocumentationShell",
+          "recipe": "dango-docs-shell",
+          "content": {
+            "page": "introduction",
+            "currentNav": "介绍",
+            "title": "原型即上线",
+            "lead": "DangoUI 帮助团队把设计约束变成可运行、可检查的产品界面。",
+            "description": "任何人自然语言描述需求，经过 Demo、产品评审、设计精调与 AI 翻译，最终沉淀为可复用组件并进入生产。下面的技术流不是装饰卡片，而是这套协作关系的主解释面。",
+            "technicalFlow": [
+              "任何人自然语言描述需求",
+              "          ↓",
+              "Demo HTML 生成（AI 参考上下文，由设计系统维护） ─────────┐",
+              "          ↑                                           │",
+              "产品周会评审                                    飞轮效应：Demo 促进设计系统完善",
+              "          ↓                                           │",
+              "定稿设计精调（设计工具回写）                           │",
+              "          ↓                                           │",
+              "AI 翻译（设计到代码，生产代码由研发维护）               │",
+              "          ↓                                           │",
+              "DangoUI 组件库 ──────────────────────────────────────┘",
+              "          ↓",
+              "生产代码上线"
+            ],
+            "model": [
+              { "index": "01", "title": "Token", "copy": "颜色、排版与空间建立稳定的视觉基础。" },
+              { "index": "02", "title": "Component", "copy": "组件把基础规则转成可复用的交互能力。" },
+              { "index": "03", "title": "Business", "copy": "业务组合在同一语言下保持效率和一致性。" }
+            ],
+            "layerNotes": [
+              { "title": "Token", "copy": "Color / Typography / Icon / Spacing / Radius / Shadow 是稳定的基础约束。" },
+              { "title": "Component", "copy": "Button / Tabs / NavigationBar 把约束转成真实 API 与可操作状态。" },
+              { "title": "Business", "copy": "Grid / Header / Feed 组合基础组件，但不反向污染组件语义。" }
+            ]
+          }
+        },
+        {
+          "id": "dango-introduction-details",
+          "type": "dango-docs-continuation",
+          "component": "Divider",
+          "recipe": "dango-docs-article",
+          "content": {
+            "title": "清晰的协作边界",
+            "description": "每一层只承担自己能够证明的责任，组件能力、业务语义和视觉表达彼此可追踪。",
+            "items": ["多平台兼容：小程序与 Web 使用同一结构语言", "默认即可用，同时保留主题扩展边界", "Token → Component → Business 形成可追踪的维护链路", "技术栈与贡献方式继续作为独立阅读章节"]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dango-button-calibration",
+      "side": "display",
+      "tab": "Button",
+      "name": "Button 校准",
+      "description": "验证 Primary Button 的精确几何、颜色和状态行为。",
+      "kind": "component-reference",
+      "proofRole": "structural-transfer",
+      "layoutRecipe": "dango-docs",
+      "shell": { "navigationBar": false, "statusBar": false, "bottomActions": false, "fab": false },
+      "components": ["NavigationBar", "Button", "Divider"],
+      "sections": [
+        {
+          "id": "dango-button-shell",
+          "type": "dango-docs-page",
+          "component": "Button",
+          "recipe": "dango-docs-shell",
+          "content": {
+            "page": "button",
+            "currentNav": "Button 按钮",
+            "title": "Button 按钮",
+            "lead": "按钮用于触发一个明确动作。Primary 只表达当前上下文中的主要行动。",
+            "description": "提供 Primary / Secondary / Outline / Text 四种类型、五种尺寸和状态能力。示例与代码并列，先说明用途与导入，再进入连续的可执行模块。",
+            "importCode": "import { DuButton } from 'dangoui'",
+            "modules": [
+              { "title": "按钮类型", "specimens": [{ "label": "Primary" }, { "label": "Secondary", "type": "secondary" }, { "label": "Outline", "type": "outline" }, { "label": "Text", "type": "text" }], "code": "<DuButton type=\"primary\">Primary</DuButton>\n<DuButton type=\"secondary\">Secondary</DuButton>\n<DuButton type=\"outline\">Outline</DuButton>\n<DuButton type=\"text\">Text</DuButton>" },
+              { "title": "按钮大小", "specimens": [{ "label": "Mini", "size": "mini" }, { "label": "Small", "size": "small" }, { "label": "Normal" }, { "label": "Medium", "size": "medium" }, { "label": "Large", "size": "large" }], "code": "<DuButton size=\"mini\">Mini</DuButton>\n<DuButton size=\"small\">Small</DuButton>\n<DuButton size=\"normal\">Normal</DuButton>\n<DuButton size=\"medium\">Medium</DuButton>\n<DuButton size=\"large\">Large</DuButton>" },
+              { "title": "加载态 / 禁用态", "specimens": [{ "label": "加载中…", "loading": true }, { "label": "永久禁用", "disabled": true }, { "label": "暂不可用", "type": "secondary", "disabled": true }], "code": "<DuButton loading>加载中…</DuButton>\n<DuButton disabled>永久禁用</DuButton>\n<DuButton type=\"secondary\" disabled>暂不可用</DuButton>" },
+              { "title": "带图标", "specimens": [{ "label": "提醒我", "type": "secondary" }, { "label": "去发帖" }, { "label": "连接 WiFi", "type": "outline" }], "code": "<DuButton type=\"secondary\" icon=\"iconClock\">提醒我</DuButton>\n<DuButton icon=\"iconPlus\">去发帖</DuButton>\n<DuButton type=\"outline\" icon=\"iconWifi\">连接 WiFi</DuButton>" }
+            ]
+          }
+        },
+        {
+          "id": "dango-button-contract",
+          "type": "dango-docs-continuation",
+          "component": "Button",
+          "recipe": "dango-docs-article",
+          "content": {
+            "title": "API 与主题变量",
+            "description": "参考页继续向下提供属性、事件和主题变量，而不是在一个按钮样例后结束。Primary 的已观测状态约束贯穿所有模块。",
+            "items": ["height: 32px", "border-radius: 4px", "background: #7C66FF", "hover: stable", "focus: visible outline"],
+            "apiRows": [
+              { "name": "type", "value": "primary | secondary | outline | text", "description": "按钮类型" },
+              { "name": "size", "value": "normal | mini | small | medium | large", "description": "按钮大小" },
+              { "name": "icon", "value": "string | string[]", "description": "按钮前缀图标" },
+              { "name": "color", "value": "string / primary", "description": "使用色板中的颜色名" },
+              { "name": "disabled", "value": "boolean / false", "description": "是否禁用状态" },
+              { "name": "loading", "value": "boolean / false", "description": "加载中" },
+              { "name": "press", "value": "boolean / false", "description": "点击触发背景效果" }
+            ],
+            "eventRows": [
+              { "name": "click", "value": "(event) => void", "description": "触发按钮动作" },
+              { "name": "getUserInfo", "value": "(event) => void", "description": "开放能力事件" }
+            ],
+            "themeRows": [
+              { "name": "--du-primary-color", "value": "#7C66FF", "description": "Primary Button 默认填充" },
+              { "name": "--du-primary-border", "value": "#7C66FF", "description": "Primary Button 边界" },
+              { "name": "--du-primary-solid-bg", "value": "#7C66FF", "description": "Primary 实心背景" }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "dango-release-checklist-held-out",
+      "side": "publish",
+      "tab": "Release Checklist",
+      "name": "Release Checklist · Held-out",
+      "description": "用未参与校准的发布检查主题证明同一规则可生成新结构。",
+      "kind": "held-out-documentation",
+      "proofRole": "generative-held-out",
+      "layoutRecipe": "dango-docs",
+      "shell": { "navigationBar": false, "statusBar": false, "bottomActions": false, "fab": false },
+      "components": ["NavigationBar", "Button", "Divider", "Steps"],
+      "sections": [
+        {
+          "id": "dango-release-shell",
+          "type": "dango-docs-page",
+          "component": "DocumentationShell",
+          "recipe": "dango-docs-shell",
+          "content": {
+            "page": "release",
+            "currentNav": "发布检查",
+            "title": "发布检查清单",
+            "lead": "在交付前确认结构、可访问性与运行状态，避免把构建成功误当成体验完成。",
+            "description": "这是使用冻结规则生成的新文档主题，不对应官网的某一张页面。",
+            "model": [
+              { "index": "01", "title": "Structure", "copy": "确认信息层级与窄屏阅读顺序。" },
+              { "index": "02", "title": "Interaction", "copy": "确认关键控件可操作、可聚焦、可恢复。" },
+              { "index": "03", "title": "Evidence", "copy": "确认每个高显著度决定都有证据来源。" }
+            ]
+          }
+        },
+        {
+          "id": "dango-release-actions",
+          "type": "dango-docs-continuation",
+          "component": "Button",
+          "recipe": "dango-docs-article",
+          "content": {
+            "title": "准备提交",
+            "description": "所有必要检查完成后，再把实现交给独立 QA。",
+            "items": ["页面可滚动并恢复", "移动端没有横向溢出", "Primary Button 状态与证据一致"],
+            "exampleLabel": "运行检查"
+          }
+        }
+      ]
+    }
+  ]
+}

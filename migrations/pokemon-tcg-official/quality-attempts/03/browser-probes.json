@@ -1,0 +1,194 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 3,
+  "pageId": "pokemon-tcg-official-home",
+  "sectionId": "home-campaign-stage",
+  "generatedAt": "2026-09-02T13:36:48.335Z",
+  "captures": [
+    "migrations/pokemon-tcg-official/quality-attempts/03/home-campaign-stage-current-1440.png",
+    "migrations/pokemon-tcg-official/quality-attempts/03/home-campaign-stage-phone-390.png"
+  ],
+  "probes": [
+    {
+      "viewport": {
+        "name": "current-1440",
+        "width": 1440,
+        "height": 1000
+      },
+      "availableWidth": 348,
+      "scaleX": 0.241667,
+      "scaleY": 0.241667,
+      "expectedScaledHeight": 173.03333333333333,
+      "actualScaledHeight": 173,
+      "logicalCanvas": {
+        "width": 1440,
+        "height": 716
+      },
+      "layerRelativeGeometry": {
+        "background": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 716,
+          "implementation": "canvas-background-image"
+        },
+        "navigation": {
+          "x": 0,
+          "y": 0,
+          "width": 1439.998013795843,
+          "height": 63.99991382891735
+        },
+        "logo": {
+          "x": 63.99994539878221,
+          "y": 81.99988268739241,
+          "width": 149.99979310373365,
+          "height": 76.79679011999855
+        },
+        "title": {
+          "x": 149.99979310373365,
+          "y": 275.59336566189864,
+          "width": 469.9992675387258,
+          "height": 256.4058963366947
+        },
+        "card": {
+          "x": 1019.9985931053889,
+          "y": 261.9996344118728,
+          "width": 229.9993460138331,
+          "height": 349.9994961954686
+        },
+        "cta": {
+          "x": 149.99979310373365,
+          "y": 589.9991651614424,
+          "width": 202.39036267816354,
+          "height": 49.99990998800131
+        },
+        "controls": {
+          "x": 0,
+          "y": 673.9990619274793,
+          "width": 1439.998013795843,
+          "height": 41.99991681315353
+        }
+      },
+      "layerIntersectionRatios": {
+        "background": 1,
+        "navigation": 1,
+        "logo": 1,
+        "title": 1,
+        "card": 1,
+        "cta": 1,
+        "controls": 1
+      },
+      "reachability": {
+        "left": 755,
+        "right": 1145,
+        "viewportWidth": 1440,
+        "intersectsViewport": true
+      },
+      "overflow": {
+        "sectionScrollWidth": 1416,
+        "sectionClientWidth": 348,
+        "pageScrollWidth": 1440,
+        "pageClientWidth": 1440,
+        "horizontal": false
+      },
+      "nextSectionGap": 0,
+      "scroll": {
+        "screenClientHeight": 803,
+        "screenScrollHeight": 2261
+      },
+      "consoleErrors": [],
+      "pass": true
+    },
+    {
+      "viewport": {
+        "name": "phone-390",
+        "width": 390,
+        "height": 844
+      },
+      "availableWidth": 348,
+      "scaleX": 0.241667,
+      "scaleY": 0.241667,
+      "expectedScaledHeight": 173.03333333333333,
+      "actualScaledHeight": 173,
+      "logicalCanvas": {
+        "width": 1440,
+        "height": 716
+      },
+      "layerRelativeGeometry": {
+        "background": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 716,
+          "implementation": "canvas-background-image"
+        },
+        "navigation": {
+          "x": 0,
+          "y": 0,
+          "width": 1439.998013795843,
+          "height": 63.99991382891735
+        },
+        "logo": {
+          "x": 63.99991382891735,
+          "y": 81.99988268739241,
+          "width": 149.99977731880122,
+          "height": 76.79677433506612
+        },
+        "title": {
+          "x": 149.99979310373365,
+          "y": 275.59336566189864,
+          "width": 469.9993306784555,
+          "height": 256.4058963366947
+        },
+        "card": {
+          "x": 1019.9985931053889,
+          "y": 261.9996344118728,
+          "width": 229.99959857275198,
+          "height": 349.9994961954686
+        },
+        "cta": {
+          "x": 149.99979310373365,
+          "y": 589.9991651614424,
+          "width": 202.39033110829868,
+          "height": 49.99990998800131
+        },
+        "controls": {
+          "x": 0,
+          "y": 673.9990619274793,
+          "width": 1439.998013795843,
+          "height": 41.99991681315353
+        }
+      },
+      "layerIntersectionRatios": {
+        "background": 1,
+        "navigation": 1,
+        "logo": 1,
+        "title": 1,
+        "card": 1,
+        "cta": 1,
+        "controls": 1
+      },
+      "reachability": {
+        "left": 0,
+        "right": 390,
+        "viewportWidth": 390,
+        "intersectsViewport": true
+      },
+      "overflow": {
+        "sectionScrollWidth": 1416,
+        "sectionClientWidth": 348,
+        "pageScrollWidth": 390,
+        "pageClientWidth": 390,
+        "horizontal": false
+      },
+      "nextSectionGap": 0,
+      "scroll": {
+        "screenClientHeight": 803,
+        "screenScrollHeight": 3895
+      },
+      "consoleErrors": [],
+      "pass": true
+    }
+  ]
+}

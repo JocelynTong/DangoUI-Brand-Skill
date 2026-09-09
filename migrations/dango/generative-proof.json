@@ -1,0 +1,45 @@
+{
+  "schema": "brand-generative-proof/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "attempt": 2,
+  "challenge": {
+    "id": "release-checklist-held-out",
+    "heldOut": true,
+    "sourceContentIndependent": true,
+    "mapsToSourcePageId": null,
+    "selectedAfterRuleFreeze": true,
+    "contentChange": "The source Introduction and Button subjects were replaced by a release-readiness checklist with a different section order, checklist content and action label.",
+    "structureChange": "The held-out article uses a three-stage delivery checklist followed by a separate readiness action section; it is not a copy of the Introduction diagram or Button example table."
+  },
+  "frozenRules": [
+    { "recipeId": "responsive-documentation-shell", "frozenBeforeChallenge": true, "application": "Retain full-width utility header and single-column phone reflow while removing secondary desktop zones." },
+    { "recipeId": "technical-content-hierarchy", "frozenBeforeChallenge": true, "application": "Reuse title, rule, explanatory copy, restrained support field and section-heading hierarchy for a new technical subject." },
+    { "recipeId": "restrained-current-page-cue", "frozenBeforeChallenge": true, "application": "Move the navigation-only #5854FF current cue to 发布检查 without expanding it into page chrome." },
+    { "recipeId": "compact-primary-action", "frozenBeforeChallenge": true, "application": "Reuse the 32px, 4px-radius #7C66FF Primary Button for 运行检查 with stable hover and visible focus." }
+  ],
+  "allowedVariation": {
+    "basis": "migrations/dango/design-direction.json#sections/release-checklist-held-out",
+    "varied": ["subject matter", "section order", "checklist content", "article length", "Primary Button label"],
+    "preserved": ["content-first white canvas", "technical hierarchy", "role-separated purple", "responsive reading order", "compact Primary Button state system"]
+  },
+  "output": {
+    "demoPageId": "dango-release-checklist-held-out",
+    "route": "/#/brand/dango/pages/dango-release-checklist-held-out",
+    "screenshot": {
+      "path": "migrations/dango/captures/demo/demo-2/dango-release-checklist-held-out-proof-desktop.png",
+      "sha256": "e74f24f1e47140cfc5f40326ae87592369ceb224f44b64f060195cc51dd4b4ae",
+      "viewport": { "width": 1440, "height": 900 }
+    }
+  },
+  "checks": {
+    "brandCueSubstitution": false,
+    "sourceScreenshotAtRuntime": false,
+    "officialAssetSwapOnly": false,
+    "structureRulesApplied": ["responsive-documentation-shell", "technical-content-hierarchy", "restrained-current-page-cue", "compact-primary-action"],
+    "implementationSelfCheck": "pass",
+    "blindQaStatus": "pending"
+  },
+  "implementationConclusion": "The held-out page demonstrates structural rule reuse with independent content. Final Generative Proof approval remains owned by Blind QA."
+}

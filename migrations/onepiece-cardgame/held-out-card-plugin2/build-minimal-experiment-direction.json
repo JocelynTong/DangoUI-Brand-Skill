@@ -1,0 +1,18 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/build/index",
+  "inputStandardSamples": ["Plaza QA10", "Event QA13", "Detail QA15"],
+  "goal": "Prove the same ONE PIECE editorial system can support a dense deck-building and publishing tool without adding showcase decoration or reducing task efficiency.",
+  "mustPreserve": ["search and filters", "list/grid views", "card quantities and tray", "save draft and publish validation", "sheet fields, states and business mutations"],
+  "requiredDirection": {
+    "surface": "warm-white work surface with navy utility header and restrained ruled sections",
+    "composition": "compact editing header -> single search -> compact filters/view mode -> card pool -> persistent deck tray/publish action",
+    "controls": "consistent rectangular input/filter/stepper/button/sheet family with visible default/selected/focus/disabled/error/success states",
+    "geometry": "low radius, 1px rules, no pills and no Hero",
+    "colorRoles": "red only primary publish/error as semantics allow; yellow sparse selection; navy structure; preserve validation and disabled colors",
+    "type": "CJK readable task hierarchy; display styling limited to short numeric counts"
+  },
+  "mustNotDo": ["add Hero or decorative media", "move or rename fields", "change validation/mutation/route outcomes", "hide density behind large cards", "change other routes"],
+  "acceptance": ["390/536/1280 show editing context, search, filters and usable pool/tray without overflow", "publish remains visually obvious and all form states are distinguishable", "pointer/keyboard interactions and business validation are unchanged", "masked system recognition comes from component family/rules/type, not imagery"]
+}

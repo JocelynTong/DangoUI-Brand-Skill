@@ -1,0 +1,1515 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "attempt": 15,
+  "implementationState": "attempt15-runtime-provenance-and-structure-contract-repaired-awaiting-independent-proof",
+  "attempt13Corrections": {
+    "events": {
+      "items": 6,
+      "officialAssetCount": 6,
+      "distinctShaCount": 5,
+      "generatedAssetCount": 0,
+      "soleSharedPositions": [
+        4,
+        5
+      ]
+    },
+    "recommend": {
+      "items": 5,
+      "distinctOfficialAssets": 5,
+      "intrinsic": "640x360",
+      "organization": "clipped horizontal rail with partial-next cue",
+      "objectFit": "cover"
+    },
+    "newArrival": {
+      "transition": "1 / 10 -> 2 / 10 -> 1 / 10",
+      "stepPx": 181.998,
+      "ariaDisabledSynchronized": true
+    },
+    "heldOut": {
+      "demoPageId": "onepiece-cardgame-editorial-held-out",
+      "mapsToSourcePageId": null,
+      "homeInsertion": false
+    },
+    "implementationProbe": "quality-attempts/13/implementation/browser-probes.json",
+    "interactionTrace": "quality-attempts/13/implementation/interaction-trace.json"
+  },
+  "mobileImplementation": {
+    "revision2Density": {
+      "heroHeight": 955,
+      "newsRows": 5,
+      "newArrivalItems": 6,
+      "productRows": 5,
+      "eventRows": 4,
+      "footerNavLegalRows": 6,
+      "documentScrollHeight": 7450
+    },
+    "contract": "quality-attempts/11/interpreter-mobile-contract.json",
+    "hostMode": "full-width inspection at <=480px; reference panel and device shell removed from layout",
+    "homeSections": [
+      "home-hero",
+      "home-welcome",
+      "home-news",
+      "home-new-arrival",
+      "home-products",
+      "home-events",
+      "home-schedule",
+      "home-recommend",
+      "home-videos",
+      "home-footer-illustration",
+      "home-footer"
+    ],
+    "measured": {
+      "viewportWidth": 390,
+      "previewWidth": 390,
+      "canvasWidth": 390,
+      "documentScrollWidth": 390,
+      "documentScrollHeight": 5165,
+      "minimumAction": "44x44"
+    },
+    "desktopRegressionCheck": "390px phone frame retained with 802px internal scroll viewport"
+  },
+  "pages": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "demoSections": [
+        "home-hero",
+        "home-welcome",
+        "home-news",
+        "home-new-arrival",
+        "home-products",
+        "home-events",
+        "home-schedule",
+        "home-recommend",
+        "home-videos",
+        "home-footer-illustration",
+        "home-footer"
+      ],
+      "patterns": [
+        {
+          "id": "home-seven-variant-hero",
+          "salience": "high",
+          "approvedPatternId": "home-hero-carousel-full-cycle",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-hero-carousel-full-cycle",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                0.105
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            0.22
+          ],
+          "implementation": "src/App.vue#SchemaBrandHeroSection + src/styles.css#.schema-recipe--onepiece-campaign-hero-stage + public/brand-previews/onepiece-cardgame.json#home-hero",
+          "preserves": [
+            "hero-composition"
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "official-st36-home-campaign",
+              "variant": "st36-yellow-captain-kid",
+              "path": "/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp",
+              "sourceSha256": "5e22dff028e07880c841d274f82351c54de38d00adda190227c6b93be02a2d7a"
+            },
+            "demoAsset": {
+              "identity": "official-st36-home-campaign",
+              "variant": "st36-yellow-captain-kid",
+              "path": "/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp",
+              "sourceSha256": "5e22dff028e07880c841d274f82351c54de38d00adda190227c6b93be02a2d7a",
+              "sourceKind": "original-site-asset"
+            },
+            "layers": [
+              {
+                "id": "top-navigation",
+                "role": "transparent-overlay-navigation",
+                "sourceRegion": [
+                  0.08,
+                  0.01,
+                  0.84,
+                  0.07
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.02,
+                  0.92,
+                  0.08
+                ],
+                "support": "DOM navigation above campaign copy"
+              },
+              {
+                "id": "campaign-media",
+                "role": "campaign-artwork-and-featured-product-media",
+                "sourceRegion": [
+                  0.23,
+                  0.07,
+                  0.75,
+                  0.81
+                ],
+                "demoRegion": [
+                  0.19,
+                  0.08,
+                  0.79,
+                  0.8
+                ],
+                "support": "bounded ST-36 campaign artwork and ST-36 featured product; never a whole-page region"
+              },
+              {
+                "id": "campaign-copy",
+                "role": "st36-campaign-title-copy-and-date",
+                "sourceRegion": [
+                  0.03,
+                  0.25,
+                  0.34,
+                  0.58
+                ],
+                "demoRegion": [
+                  0.06,
+                  0.34,
+                  0.46,
+                  0.48
+                ],
+                "support": "ST-36 DOM title/copy/date column; ST-32 title asset is not rendered"
+              },
+              {
+                "id": "carousel-controls",
+                "role": "variant-navigation-and-playback-control",
+                "sourceRegion": [
+                  0.02,
+                  0.88,
+                  0.96,
+                  0.11
+                ],
+                "demoRegion": [
+                  0.35,
+                  0.68,
+                  0.58,
+                  0.12
+                ],
+                "support": "seven controls and independent pause"
+              }
+            ],
+            "translation": {
+              "allowedBy": "responsive-phone-layout",
+              "aspectTranslation": "1920x1080 background into 360px phone stage",
+              "cropMode": "center cover with left safe copy band",
+              "rationale": "A bounded mobile crop keeps the ST-36 campaign identity legible without replacing the source variant.",
+              "retainedFocalPoints": [
+                "ST-36 Eustass Kid character",
+                "ST-36 product media",
+                "ST-36 DOM title and date"
+              ]
+            }
+          },
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/top/pc/mv_st36.webp",
+                "sourceSha256": "5e22dff028e07880c841d274f82351c54de38d00adda190227c6b93be02a2d7a",
+                "role": "hero-campaign-background",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/logo.png",
+                "sourceSha256": "b97738711a787610da6959054aa9ffcc89f52b4d99cbe255eedf0711e1d088d2",
+                "role": "hero-brand-mark",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/top/product/st36.webp",
+                "sourceSha256": "8a1eaa0a1acc271dddba4f8885b1aa549bbab03df472c7fa7a6fbd3394b4b564",
+                "role": "hero-product-media",
+                "sourceKind": "original-site-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-welcome-surface",
+          "salience": "high",
+          "approvedPatternId": "nautical-story-surface",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-news-paper-surface",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.105,
+                1,
+                0.19
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.22,
+            1,
+            0.12
+          ],
+          "implementation": "src/styles.css#.source-schema-demo__home-welcome",
+          "preserves": [
+            "role-color-system"
+          ],
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-welcome-hover",
+          "salience": "high",
+          "approvedPatternId": "home-welcome-cta-hover-motion",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-welcome-cta-hover-motion",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0.382,
+                0.6,
+                0.236,
+                0.1
+              ]
+            }
+          ],
+          "demoRegion": [
+            0.08,
+            0.29,
+            0.84,
+            0.04
+          ],
+          "implementation": "src/styles.css#.source-schema-demo__actions--home-welcome",
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-module-surfaces-news",
+          "salience": "high",
+          "approvedPatternId": "home-news-paper-surface",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-news-paper-surface",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.105,
+                1,
+                0.19
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.34,
+            1,
+            0.1
+          ],
+          "implementation": "src/styles.css#Home-v5-scoped-surface-roles",
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-module-surfaces-arrival",
+          "salience": "high",
+          "approvedPatternId": "home-new-arrival-navy",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-new-arrival-navy",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.35,
+                1,
+                0.09
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.44,
+            1,
+            0.1
+          ],
+          "implementation": "src/styles.css#.schema-recipe--home-new-arrival-navy",
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-module-surfaces-products",
+          "salience": "high",
+          "approvedPatternId": "home-products-cool-overlay",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-products-cool-overlay",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.43,
+                1,
+                0.14
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.54,
+            1,
+            0.12
+          ],
+          "implementation": "src/styles.css#.schema-recipe--home-products-cool-overlay",
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-four-type-roles",
+          "salience": "high",
+          "approvedPatternId": "home-display-font-resource",
+          "approvedPatternComponents": [
+            "home-display-font-resource",
+            "home-editorial-font-resource",
+            "home-utility-font-resource",
+            "home-condensed-metadata-font-resource"
+          ],
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-font-asset-alfa-slab-one",
+              "sourcePageId": "home",
+              "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png",
+              "sourceRegion": [
+                0.03,
+                0.097,
+                0.594,
+                0.861
+              ]
+            },
+            {
+              "evidenceId": "home-font-asset-noto-serif",
+              "sourcePageId": "home",
+              "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png",
+              "sourceRegion": [
+                0,
+                0.083,
+                1,
+                0.917
+              ]
+            },
+            {
+              "evidenceId": "home-font-asset-poppins",
+              "sourcePageId": "home",
+              "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png",
+              "sourceRegion": [
+                0.108,
+                0.01,
+                0.64,
+                0.075
+              ]
+            },
+            {
+              "evidenceId": "home-font-asset-oswald",
+              "sourcePageId": "home",
+              "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png",
+              "sourceRegion": [
+                0.025,
+                0.75,
+                0.313,
+                0.07
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.22,
+            1,
+            0.78
+          ],
+          "implementation": "src/styles.css#OPCG-font-face + src/App.vue#SchemaHomeEditorialListSection",
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/fonts/alfa-slab-one-400.ttf",
+              "provenance": {
+                "sourceUrl": "https://fonts.gstatic.com/s/alfaslabone/v21/6NUQ8FmMKwSEKjnm5-4v-4Jh6dU.ttf",
+                "sourceSha256": "0e834ddadca6dc95b5502c01f8911b7a77f50a350ac7400a6e2d9a3bfb1cd02f",
+                "role": "display-heading",
+                  "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/fonts/noto-serif-700.ttf",
+              "provenance": {
+                "sourceUrl": "https://fonts.gstatic.com/s/notoserif/v33/ga6iaw1J5X9T9RW6j9bNVls-hfgvz8JcMofYTa32J4wsL2JAlAhZT1ejwA.ttf",
+                "sourceSha256": "0fb67e6eecf823169409867bdda4fe1b91d6ff1adee5288f233cba0d42dc4734",
+                "role": "editorial-statement",
+                  "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/fonts/poppins-500.ttf",
+              "provenance": {
+                "sourceUrl": "https://fonts.gstatic.com/s/poppins/v24/pxiByp8kv8JHgFVrLGT9V1s.ttf",
+                "sourceSha256": "fcff04f4bec2b3636f05ed894dc1f9a752c4cb587ee49857ec7a82abaf6ca016",
+                "role": "body-utility",
+                  "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/fonts/oswald-700.ttf",
+              "provenance": {
+                "sourceUrl": "https://fonts.gstatic.com/s/oswald/v57/TK3_WkUHHAIjg75cFRf3bXL8LICs1xZogUE.ttf",
+                "sourceSha256": "a6ee8b91ec269a6f48631ba4ba1a3ab7e5039e5482dda8dc9672ee4620d7bd68",
+                "role": "condensed-metadata",
+                  "sourceKind": "original-site-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        },
+        {
+          "id": "home-footer-illustration-organism",
+          "salience": "high",
+          "approvedPatternId": "home-footer-illustration-organism",
+          "evidenceRefs": [
+            {
+              "evidenceId": "footer-v10-transition-120ms",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.768,
+                1,
+                0.232
+              ]
+            },
+            {
+              "evidenceId": "footer-v10-settled",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.159,
+                1,
+                0.769
+              ]
+            },
+            {
+              "evidenceId": "footer-v10-late-loop",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.159,
+                1,
+                0.769
+              ]
+            },
+            {
+              "evidenceId": "footer-v10-paused",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.159,
+                1,
+                0.769
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.78,
+            1,
+            0.16
+          ],
+          "implementation": "src/App.vue#SchemaHomeFooterIllustrationSection + src/styles.css#.source-schema-demo__footer-illustration + public/brand-previews/onepiece-cardgame.json#home-footer-illustration",
+          "compositionSupport": {
+            "layers": [
+              "edge-spanning-background-wave",
+              "dominant-left-character",
+              "finite-card-composite",
+              "show-card-03",
+              "show-card-02",
+              "show-card-01-largest",
+              "catch-over-logo",
+              "structural-navy-footer-after-organism"
+            ],
+            "responsive": "narrow phone stage increases organism height, retains face/torso, rightward three-card hierarchy and catch-over-logo relation",
+            "motion": {
+              "reveal": "fadein→is-in one shot with 2s bg, 0.8s character, 0.5s catch and 0.3s logo",
+              "stateSwap": "finite inCard 0.6s + inItem 0.8s; terminal composite opacity 0",
+              "loops": "card01 5s infinite; card02/card03 8s infinite",
+              "control": "footer-local control pauses/resumes three loops only; is-in persists"
+            }
+          },
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/background-wave.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_bg.webp",
+                "sourceSha256": "ca48a75f9d0d329f1033cb56b887fccc62ec0fc2036184055c4bf002033d1045",
+                "role": "edge-spanning-footer-background-wave",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/chara.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_chara.webp",
+                "sourceSha256": "167e325e625846c718d87176a7d6a6662312c9e5144e889ba513edfc54126efa",
+                "role": "footer-character",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/catch.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_txt.webp",
+                "sourceSha256": "7c8bbe95d12c06d896a8d3fef35624502c5d7c8ffde36db266cb54381f2e3306",
+                "role": "footer-catch-text",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/logo.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_logo.webp",
+                "sourceSha256": "ca4f2539731349a8796630832bf48a32687f56a5cf24e85e734936231a8e0530",
+                "role": "footer-logo",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/card-composite.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_card.webp",
+                "sourceSha256": "52c027bffc6511a3af344f99b07802fda0a28626ee3c36fcca93bf74b588a954",
+                "role": "footer-card-composite-transition-only",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/card-01.png",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_card01.png",
+                "sourceSha256": "2724f2d3a758d6b6c563f773d6b761423fa1d15f2b29280455e8d3e28f1d53e8",
+                "role": "footer-show-card-01-largest-far-right",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/card-02.png",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_card02.png",
+                "sourceSha256": "999d4d3d12e43648886af272d76c20dd71ac4cec92d01392a8f59d4688df4994",
+                "role": "footer-show-card-02-center-right",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/footer/card-03.png",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_card03.png",
+                "sourceSha256": "403f9c9f31d810f2f1ef0e4264acec201e136f0abda9c0955484a868dea63471",
+                "role": "footer-show-card-03-lower-center-right",
+                "sourceKind": "original-site-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "sourcePageId": "news",
+      "demoPageId": "onepiece-cardgame-news",
+      "demoSections": [
+        "news-feature",
+        "news-tabs",
+        "news-list",
+        "news-more"
+      ],
+      "patterns": [
+        {
+          "id": "news-differentiated-editorial",
+          "salience": "high",
+          "approvedPatternId": "editorial-module-rhythm",
+          "evidenceRefs": [
+            {
+              "evidenceId": "v4-news-feature-recommended",
+              "sourcePageId": "news",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                0.3
+              ]
+            }
+          ],
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.3
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            0.47
+          ],
+          "implementation": "src/App.vue#SchemaOnePieceNewsFeatureSection",
+          "preserves": [
+            "news-editorial-hierarchy",
+            "role-color-system"
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "official-home-editorial-system",
+              "variant": "desktop-full-page-capture"
+            },
+            "demoAsset": {
+              "identity": "official-home-editorial-system",
+              "variant": "desktop-full-page-capture",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/css/common.css",
+                "sourceSha256": "cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211",
+                "role": "news-editorial-dom-css-structure",
+                "sourceKind": "dom-css-reconstruction"
+              }
+            },
+            "layers": [
+              {
+                "id": "display-heading",
+                "role": "section-identity",
+                "sourceRegion": [
+                  0,
+                  0.02,
+                  0.1,
+                  0.27
+                ],
+                "demoRegion": [
+                  0.02,
+                  0.02,
+                  0.12,
+                  0.42
+                ]
+              },
+              {
+                "id": "primary-editorial-module",
+                "role": "dominant-content",
+                "sourceRegion": [
+                  0.1,
+                  0.03,
+                  0.38,
+                  0.25
+                ],
+                "demoRegion": [
+                  0.14,
+                  0.03,
+                  0.36,
+                  0.42
+                ]
+              },
+              {
+                "id": "compact-supporting-module",
+                "role": "dense-secondary-information",
+                "sourceRegion": [
+                  0.5,
+                  0.03,
+                  0.45,
+                  0.25
+                ],
+                "demoRegion": [
+                  0.5,
+                  0.03,
+                  0.48,
+                  0.42
+                ]
+              }
+            ],
+            "translation": {
+              "allowedBy": "responsive-phone-layout",
+              "aspectTranslation": "wide asymmetric source composition preserved in the phone mockup as a vertical rail plus dominant source-backed event lead and compact support sequence",
+              "cropMode": "independent media use object-fit cover; no source screenshot crop"
+            }
+          },
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/news/2026/06/08/yGQTl6Gm78Ihs8Nj/thumbnail_en.webp",
+                "sourceSha256": "23c504cb5a807473956309362b1f4641eb3d19a2c0f218b08da915463ea89776",
+                "role": "news-primary-feature-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/news/2026/03/16/TuuGwlKGqmptmtx4/thumbnail.webp",
+                "sourceSha256": "80d5894a4e90e44c534f31aa45deb3a125f54e275778f529811be0850e664f04",
+                "role": "news-recommended-championship-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-decks.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/04/24/VaO68Av53uJuASsA/thumbnai_recommended-decks.webp",
+                "sourceSha256": "ddc5c56bb36329c0dee1bde517dae9063d4667087c582e53f0d651da540675c3",
+                "role": "news-recommended-deck-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-extra-grand-battle.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/04/24/1Uj11GBKgp7aipFL/thumb_extra-grand-battle%201.webp",
+                "sourceSha256": "ffdfd56437ce2b99e5f347b4cf285d2c088f2372aaf6b2d5c2caca2dd1c67cef",
+                "role": "news-recommended-event-media",
+                "sourceKind": "original-site-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        },
+        {
+          "id": "news-taxonomy",
+          "salience": "high",
+          "approvedPatternId": "black-white-taxonomy-control",
+          "evidenceRefs": [
+            {
+              "evidenceId": "v4-news-heading-card-groups",
+              "sourcePageId": "news",
+              "sourceRegion": [
+                0,
+                0.3,
+                1,
+                0.35
+              ]
+            }
+          ],
+          "sourceRegion": [
+            0,
+            0.3,
+            1,
+            0.35
+          ],
+          "demoRegion": [
+            0,
+            0.47,
+            1,
+            0.53
+          ],
+          "implementation": "public/brand-previews/onepiece-cardgame.json#news-tabs+news-list",
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "demoSections": [
+        "product-grid",
+        "product-pagination"
+      ],
+      "patterns": [
+        {
+          "id": "products-unboxed-heading-taxonomy",
+          "salience": "high",
+          "approvedPatternId": "hard-black-unboxed-heading",
+          "evidenceRefs": [
+            {
+              "evidenceId": "products-hard-black-heading-no-color-chrome",
+              "sourcePageId": "products",
+              "sourceRegion": [
+                0.04,
+                0.09,
+                0.32,
+                0.15
+              ]
+            }
+          ],
+          "sourceRegion": [
+            0.04,
+            0.09,
+            0.32,
+            0.15
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            0.15
+          ],
+          "implementation": "public/brand-previews/onepiece-cardgame.json#product-grid",
+          "selfCheck": "pass"
+        },
+        {
+          "id": "products-dense-catalog",
+          "salience": "high",
+          "approvedPatternId": "product-first-catalog-density",
+          "evidenceRefs": [
+            {
+              "evidenceId": "v4-products-card-density",
+              "sourcePageId": "products",
+              "sourceRegion": [
+                0.04,
+                0.22,
+                0.92,
+                0.62
+              ]
+            }
+          ],
+          "sourceRegion": [
+            0.04,
+            0.22,
+            0.92,
+            0.62
+          ],
+          "demoRegion": [
+            0,
+            0.15,
+            1,
+            0.85
+          ],
+          "implementation": "src/App.vue#SchemaContentCardsSection",
+          "preserves": [
+            "product-density"
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "source-products-catalog-page",
+              "variant": "desktop-normal-view"
+            },
+            "demoAsset": {
+              "identity": "source-products-catalog-page",
+              "variant": "desktop-normal-view",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/products/",
+                "sourceSha256": "cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211",
+                "role": "products-catalog-dom-css-structure",
+                "sourceKind": "dom-css-reconstruction"
+              }
+            },
+            "layers": [
+              {
+                "id": "catalog-heading",
+                "role": "unboxed-page-heading",
+                "sourceRegion": [
+                  0.04,
+                  0.09,
+                  0.23,
+                  0.08
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.02,
+                  0.92,
+                  0.1
+                ]
+              },
+              {
+                "id": "category-filters",
+                "role": "compact-catalog-filter-navigation",
+                "sourceRegion": [
+                  0.04,
+                  0.18,
+                  0.32,
+                  0.05
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.12,
+                  0.92,
+                  0.09
+                ]
+              },
+              {
+                "id": "product-grid",
+                "role": "dense-product-first-catalog",
+                "sourceRegion": [
+                  0.04,
+                  0.3,
+                  0.92,
+                  0.65
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.22,
+                  0.92,
+                  0.7
+                ]
+              },
+              {
+                "id": "catalog-pagination",
+                "role": "catalog-page-navigation",
+                "sourceRegion": [
+                  0.4,
+                  0.265,
+                  0.2,
+                  0.035
+                ],
+                "demoRegion": [
+                  0.28,
+                  0.93,
+                  0.44,
+                  0.05
+                ]
+              }
+            ],
+            "translation": {
+              "allowedBy": "responsive-phone-layout",
+              "aspectTranslation": "four source columns reflow to two phone columns while retaining at least eight product cells",
+              "cropMode": "product media remains bounded inside its own cell",
+              "rationale": "The approved responsive translation preserves browse density and layer order while reducing the column count.",
+              "retainedFocalPoints": [
+                "catalog heading and filter navigation",
+                "eight product-first cells",
+                "catalog pagination"
+              ]
+            }
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "sourcePageId": "events",
+      "demoPageId": "onepiece-cardgame-events",
+      "demoSections": [
+        "events-discover",
+        "events-play",
+        "events-championship"
+      ],
+      "patterns": [
+        {
+          "id": "events-discovery-banner",
+          "salience": "high",
+          "approvedPatternId": "editorial-module-rhythm",
+          "evidenceRefs": [
+            {
+              "evidenceId": "v4-events-banner-composition",
+              "sourcePageId": "events",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                0.22
+              ]
+            }
+          ],
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.22
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            0.34
+          ],
+          "implementation": "src/App.vue#SchemaOnePieceEventDiscoverySection",
+          "preserves": [
+            "events-editorial-hierarchy",
+            "role-color-system"
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "official-home-editorial-system",
+              "variant": "desktop-full-page-capture"
+            },
+            "demoAsset": {
+              "identity": "official-home-editorial-system",
+              "variant": "desktop-full-page-capture",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/css/common.css",
+                "sourceSha256": "3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a",
+                "role": "events-discovery-dom-css-structure",
+                "sourceKind": "dom-css-reconstruction"
+              }
+            },
+            "layers": [
+              {
+                "id": "display-heading",
+                "role": "section-identity",
+                "sourceRegion": [
+                  0.08,
+                  0.01,
+                  0.84,
+                  0.08
+                ],
+                "demoRegion": [
+                  0.08,
+                  0.02,
+                  0.84,
+                  0.1
+                ]
+              },
+              {
+                "id": "primary-editorial-module",
+                "role": "dominant-content",
+                "sourceRegion": [
+                  0.17,
+                  0.08,
+                  0.66,
+                  0.08
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.12,
+                  0.92,
+                  0.14
+                ]
+              },
+              {
+                "id": "compact-supporting-module",
+                "role": "dense-secondary-information",
+                "sourceRegion": [
+                  0.17,
+                  0.16,
+                  0.66,
+                  0.06
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.27,
+                  0.92,
+                  0.07
+                ]
+              }
+            ],
+            "translation": {
+              "allowedBy": "responsive-phone-layout",
+              "aspectTranslation": "one wide discovery feature plus two half-width paths reflow without changing dominance",
+              "cropMode": "official independent event thumbnails use object-fit cover"
+            }
+          },
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/news/2026/06/08/yGQTl6Gm78Ihs8Nj/thumbnail_en.webp",
+                "sourceSha256": "23c504cb5a807473956309362b1f4641eb3d19a2c0f218b08da915463ea89776",
+                "role": "events-primary-discovery-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-extra-grand-battle.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/04/24/1Uj11GBKgp7aipFL/thumb_extra-grand-battle%201.webp",
+                "sourceSha256": "ffdfd56437ce2b99e5f347b4cf285d2c088f2372aaf6b2d5c2caca2dd1c67cef",
+                "role": "events-secondary-battle-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/news/2026/03/16/TuuGwlKGqmptmtx4/thumbnail.webp",
+                "sourceSha256": "80d5894a4e90e44c534f31aa45deb3a125f54e275778f529811be0850e664f04",
+                "role": "events-secondary-championship-media",
+                "sourceKind": "original-site-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        },
+        {
+          "id": "events-multi-tier-index",
+          "salience": "high",
+          "approvedPatternId": "editorial-module-rhythm",
+          "evidenceRefs": [
+            {
+              "evidenceId": "v4-events-heading-card-groups",
+              "sourcePageId": "events",
+              "sourceRegion": [
+                0,
+                0.22,
+                1,
+                0.58
+              ]
+            },
+            {
+              "evidenceId": "v4-events-card-density",
+              "sourcePageId": "events",
+              "sourceRegion": [
+                0,
+                0.22,
+                1,
+                0.78
+              ]
+            }
+          ],
+          "sourceRegion": [
+            0,
+            0.22,
+            1,
+            0.78
+          ],
+          "demoRegion": [
+            0,
+            0.34,
+            1,
+            0.66
+          ],
+          "implementation": "public/brand-previews/onepiece-cardgame.json#events-play+events-championship",
+          "preserves": [
+            "events-editorial-hierarchy",
+            "role-color-system"
+          ],
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-meetup.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/04/24/HTvgaEyxxJPIiWTm/thumb_meetup.webp",
+                "sourceSha256": "e0be2c4212b76da630155208e5f2f00b705453c73a08116b6a8263a91447e638",
+                "role": "events-friend-play-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-flame-flame.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/18/s2vQWo28T5zB8FRF/pickup_event_W300xH300_en.webp",
+                "sourceSha256": "e60937474d0ee5d966716e46fa45c902105e8045d01604a59a465af6e61b8736",
+                "role": "events-sealed-play-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-bcgfest-jakarta-manila.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/05/65KtCOT7CmZIW3ct/thumb_bcgfest26-27.webp",
+                "sourceSha256": "aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1",
+                "role": "events-advanced-play-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-flagship-battle.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/23/iGRORj5mATCpgGEo/thumb_flagship-battle.webp",
+                "sourceSha256": "143aab0325b2283d310b34968ca7fc7d5656bbdae029bef382c5577bed85928d",
+                "role": "events-competitive-play-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/news/2026/03/16/TuuGwlKGqmptmtx4/thumbnail.webp",
+                "sourceSha256": "80d5894a4e90e44c534f31aa45deb3a125f54e275778f529811be0850e664f04",
+                "role": "events-championship-primary-media",
+                "sourceKind": "original-site-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp",
+              "provenance": {
+                "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/news/2026/06/08/yGQTl6Gm78Ihs8Nj/thumbnail_en.webp",
+                "sourceSha256": "23c504cb5a807473956309362b1f4641eb3d19a2c0f218b08da915463ea89776",
+                "role": "events-championship-secondary-media",
+                "sourceKind": "original-site-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "sourcePageId": null,
+      "demoPageId": "onepiece-cardgame-editorial-held-out",
+      "demoSections": [
+        "held-out-taxonomy",
+        "held-out-editorial-board"
+      ],
+      "patterns": [
+        {
+          "id": "held-out-taxonomy",
+          "salience": "high",
+          "approvedPatternId": "black-white-taxonomy-control",
+          "evidenceRefs": [
+            {
+              "evidenceId": "black-white-taxonomy-control",
+              "sourcePageId": "news",
+              "sourceRegion": [
+                0,
+                0.08,
+                1,
+                0.1
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            0.08
+          ],
+          "implementation": "public/brand-previews/onepiece-cardgame.json#held-out-taxonomy + src/styles.css#.schema-recipe--black-white-taxonomy-control",
+          "selfCheck": "pass"
+        },
+        {
+          "id": "held-out-field-notes",
+          "salience": "high",
+          "approvedPatternId": "editorial-module-rhythm",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-news-paper-surface",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0.105,
+                1,
+                0.19
+              ]
+            }
+          ],
+          "demoRegion": [
+            0,
+            0.08,
+            1,
+            0.92
+          ],
+          "implementation": "public/brand-previews/onepiece-cardgame.json#held-out-editorial-board + src/styles.css#.schema-recipe--editorial-module-rhythm",
+          "preserves": [
+            "role-color-system"
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "frozen-editorial-module-rhythm",
+              "variant": "dominant-supporting-hierarchy"
+            },
+            "demoAsset": {
+              "identity": "field-notes-independent-fixtures",
+              "variant": "dominant-dispatch-watchlist-poster-strip",
+              "sourceKind": "generated-independent-asset"
+            },
+            "layers": [
+              {
+                "id": "unboxed-heading",
+                "role": "authority-heading",
+                "sourceRegion": [
+                  0,
+                  0.105,
+                  1,
+                  0.08
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.08,
+                  0.92,
+                  0.12
+                ]
+              },
+              {
+                "id": "dominant-dispatch",
+                "role": "dominant-editorial-module",
+                "sourceRegion": [
+                  0,
+                  0.19,
+                  0.65,
+                  0.35
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.2,
+                  0.56,
+                  0.42
+                ]
+              },
+              {
+                "id": "compact-watch-list",
+                "role": "structurally-distinct-support-module",
+                "sourceRegion": [
+                  0.65,
+                  0.19,
+                  0.35,
+                  0.35
+                ],
+                "demoRegion": [
+                  0.62,
+                  0.2,
+                  0.34,
+                  0.42
+                ]
+              },
+              {
+                "id": "recommendation-strip",
+                "role": "detached-next-read-strip",
+                "sourceRegion": [
+                  0,
+                  0.54,
+                  1,
+                  0.18
+                ],
+                "demoRegion": [
+                  0.04,
+                  0.64,
+                  0.92,
+                  0.24
+                ]
+              }
+            ],
+            "translation": {
+              "allowedBy": "source-independent-held-out-content",
+              "cropMode": "none; generated fixtures placed as independent media"
+            }
+          },
+          "assets": [
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-draft.svg",
+              "provenance": {
+                "sourceUrl": "generated://onepiece-cardgame/heldout-event-draft",
+                "sourceSha256": "23e0a29988b5f40af269649b9807c2ad0d6d853bcd00d29919ee325cde82612c",
+                "role": "held-out-dominant-editorial-media",
+                "sourceKind": "generated-independent-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-rookie.svg",
+              "provenance": {
+                "sourceUrl": "generated://onepiece-cardgame/heldout-event-rookie",
+                "sourceSha256": "e1bd9405fd22ee5b223d91a1d02cc184802501e4fe61e23953deb243bd80e50f",
+                "role": "held-out-supporting-editorial-media",
+                "sourceKind": "generated-independent-asset"
+              }
+            },
+            {
+              "path": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-team.svg",
+              "provenance": {
+                "sourceUrl": "generated://onepiece-cardgame/heldout-event-team",
+                "sourceSha256": "c580c71d83cf3af65ca9441f92f91a45754e3957cd760f8b4a3ba4b3de7eb3c2",
+                "role": "held-out-recommendation-media",
+                "sourceKind": "generated-independent-asset"
+              }
+            }
+          ],
+          "selfCheck": "pass"
+        }
+      ]
+    }
+  ],
+  "revision3FooterContract": {
+    "backgroundAsset": {
+      "path": "/assets/brand-assets/onepiece-cardgame/source/footer/background-wave.webp",
+      "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_bg.webp",
+      "sourceSha256": "ca48a75f9d0d329f1033cb56b887fccc62ec0fc2036184055c4bf002033d1045",
+      "role": "edge-spanning-footer-background-wave",
+      "sourceKind": "original-site-asset",
+      "sourceRule": "https://asia-en.onepiece-cardgame.com/renewal/css/common.css?260828#.footerIllustBgItem.showItem::before/::after"
+    },
+    "normalizedBase": {
+      "character": {
+        "x": -0.029685,
+        "width": 0.546875,
+        "height": 1
+      },
+      "card01": {
+        "x": 0.7869,
+        "width": 0.159384,
+        "height": 0.398837
+      },
+      "card02": {
+        "x": 0.579382,
+        "width": 0.086969,
+        "height": 0.201193
+      },
+      "card03": {
+        "x": 0.449075,
+        "width": 0.084881,
+        "height": 0.209573
+      },
+      "catchWidth": 0.16144,
+      "logoWidth": 0.429136
+    },
+    "intermediate": {
+      "at120ms": {
+        "backgroundOpacity": 0.094833,
+        "characterOpacity": 0.000024,
+        "compositeOpacity": 0
+      },
+      "at500ms": {
+        "backgroundOpacity": 0.545381,
+        "characterOpacity": 0.840788,
+        "compositeOpacity": 0
+      }
+    },
+    "typography": {
+      "alfaSlabOne": "short display-title only, weight 400",
+      "longArticleTitle": "OPCG Poppins, weight 700"
+    },
+    "motionPreserved": {
+      "finiteSwap": [
+        "0.6s",
+        "0.8s"
+      ],
+      "loops": [
+        "5s",
+        "8s",
+        "8s"
+      ],
+      "pauseScope": "loops-only"
+    },
+    "visualComparison": "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/source-vs-demo-six-states.png"
+  },
+  "attempt12Organisms": {
+    "contract": "quality-attempts/12/interpreter/section-contract.json",
+    "patterns": [
+      {
+        "id": "welcome-organism",
+        "implementation": "src/App.vue#SchemaHomeWelcomeSection",
+        "layers": 7,
+        "decorations": 11,
+        "action": "a[href=/beginners/]"
+      },
+      {
+        "id": "new-arrival-swiper",
+        "implementation": "src/App.vue#SchemaHomeEditorialListSection",
+        "rail": "clipped horizontal",
+        "links": 10,
+        "controls": 2,
+        "inventedActive": false,
+        "inventedDrag": false
+      },
+      {
+        "id": "events-pickup-organism",
+        "implementation": "src/App.vue#SchemaHomeEditorialListSection + src/styles.css#.opcg-events",
+        "frame": "DOM/CSS conservative reconstruction",
+        "links": 7,
+        "unresolvedExactBorderSlice": true
+      },
+      {
+        "id": "recommend-swiper",
+        "implementation": "src/App.vue#SchemaHomeEditorialListSection",
+        "links": 5,
+        "partialNextCue": true,
+        "mobileControls": "hidden"
+      },
+      {
+        "id": "videos-swiper",
+        "implementation": "src/App.vue#SchemaHomeEditorialListSection",
+        "links": 6,
+        "autoplayControl": "omitted on mobile",
+        "inventedModal": false
+      },
+      {
+        "id": "footer-nav-legal",
+        "implementation": "src/App.vue#SchemaHomeEditorialListSection",
+        "semanticAnchors": 10,
+        "semanticButtons": 7,
+        "accordionAfterState": "unresolved"
+      }
+    ]
+  },
+  "selfCheck": "pass"
+}

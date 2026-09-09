@@ -1,0 +1,13 @@
+{
+  "schema": "independent-mapping-qa-report/v1",
+  "brand": "pokemon-tcg-official",
+  "generatedAt": "2026-09-06T01:58:50+08:00",
+  "verdict": "pass",
+  "blockingFindings": [],
+  "summary": "Independent final QA passed: exactly 6 target-bearing DTCG leaves are computed-consumed 6/6; rejected border evidence remains audit-only; native/style-only/composition boundaries and runtime isolation hold.",
+  "checks": {"exactlySixTargetBearingLeaves":"pass","sixOfSixComputedConsumed":"pass","duText1Actual131415":"pass","rejectedBorderAuditOnly":"pass","brandModValidatorExceptionStrictlyBounded":"pass","scopedTokensNoLeak":"pass","realDuButtonApiAndState":"pass","threePagesDesktopAndPhoneVisual":"pass","scrollReversible":"pass","noHorizontalOverflow":"pass","noBrokenAssets":"pass","nativeStyleOnlyCompositionBoundary":"pass"},
+  "reportPath": "migrations/pokemon-tcg-official/mapping-qa-final/mapping-qa-report.json",
+  "computedConsumptionPath": "migrations/pokemon-tcg-official/mapping-qa-final/computed-consumption-report.json",
+  "inputManifestPath": "migrations/pokemon-tcg-official/mapping-qa-final/qa-input-manifest.json",
+  "runtimeProofStatus": "INDEPENDENT_MAPPING_QA_PASS_6_OF_6"
+}

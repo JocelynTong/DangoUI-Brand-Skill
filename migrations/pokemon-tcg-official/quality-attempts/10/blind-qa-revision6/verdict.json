@@ -1,0 +1,26 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-revision6",
+  "scope": "revision6 presentation-shell/proof-surface incident closure",
+  "verdict": "PASS",
+  "protocol": "PASS",
+  "threeProofs": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "PASS",
+    "generativeProof": "PASS"
+  },
+  "incidentChecks": {
+    "A-normal-routes-retain-visible-phone-shell": "PASS",
+    "B-proofRole-does-not-remove-shell": "PASS",
+    "C-only-explicit-mobile-proof-is-shellless-390x844": "PASS",
+    "D-explicit-desktop-proof-is-shellless-1440": "PASS",
+    "E-shell-restores-after-query-removal": "PASS",
+    "F-no-hero-news-tcgl-pocket-cta-heldout-regression": "PASS"
+  },
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "machineGates": "PASS",
+  "readyForOrchestratorFinalization": true
+}

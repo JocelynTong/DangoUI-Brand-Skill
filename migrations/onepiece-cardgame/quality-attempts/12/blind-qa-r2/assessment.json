@@ -1,0 +1,38 @@
+{
+  "schema": "blind-visual-qa-assessment/v1",
+  "attempt": 12,
+  "revision": 2,
+  "overall": "FAIL",
+  "allProofsMustPass": true,
+  "proofs": {
+    "evidenceFidelity": { "verdict": "FAIL", "codes": ["EVENTS_OFFICIAL_ASSET_AUTHENTICITY", "RECOMMEND_MEDIA_ORGANIZATION_REPLACED"] },
+    "structuralFidelity": { "verdict": "FAIL", "codes": ["NEW_ARRIVAL_CONTROLS_INERT", "RECOMMEND_MEDIA_ORGANIZATION_REPLACED"] },
+    "generativeProof": { "verdict": "FAIL_NOT_DEMONSTRATED", "codes": ["HELD_OUT_PROOF_ABSENT"] }
+  },
+  "sections": {
+    "welcome": "PASS",
+    "newArrival": "FAIL",
+    "events": "FAIL",
+    "recommend": "FAIL",
+    "videos": "PASS_WITH_RESERVATION",
+    "footerNavLegal": "PASS"
+  },
+  "regressions": {
+    "canvas390x844": "PASS",
+    "horizontalOverflow": "PASS",
+    "verticalScroll": "PASS",
+    "hero": "PASS",
+    "news": "PASS",
+    "footerIllustrationWaveMotion": "PASS",
+    "desktopShellAbsent": "PASS",
+    "readingOrder": "PASS",
+    "trueReflow": "PASS"
+  },
+  "blockingFindings": [
+    "EVENTS_OFFICIAL_ASSET_AUTHENTICITY",
+    "RECOMMEND_MEDIA_ORGANIZATION_REPLACED",
+    "NEW_ARRIVAL_CONTROLS_INERT",
+    "HELD_OUT_PROOF_ABSENT"
+  ],
+  "failureOwnerRole": "demoImplementationAgent"
+}

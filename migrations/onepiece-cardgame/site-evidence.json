@@ -1,0 +1,872 @@
+{
+  "schema": "brand-site-evidence/v1",
+  "brand": "onepiece-cardgame",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "createdAt": "2026-08-28T22:41:30.859Z",
+  "collection": {
+    "documents": [
+      {
+        "type": "html",
+        "url": "https://asia-en.onepiece-cardgame.com/",
+        "bytes": 84209
+      },
+      {
+        "type": "css-url",
+        "url": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "bytes": 12797
+      },
+      {
+        "type": "css-url",
+        "url": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "bytes": 6061
+      },
+      {
+        "type": "css-url",
+        "url": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "bytes": 18436
+      },
+      {
+        "type": "css-url",
+        "url": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "bytes": 87597
+      },
+      {
+        "type": "computed-file",
+        "url": "migrations/onepiece-cardgame/computed-evidence.json",
+        "bytes": 1713
+      }
+    ],
+    "sampleCount": 202,
+    "warningCount": 0,
+    "scope": "onepiece-cardgame",
+    "warnings": []
+  },
+  "dominantToneDecision": {
+    "result": "black-gold",
+    "confidence": 0.406,
+    "minConfidence": 0.65,
+    "topFamilies": [
+      {
+        "family": "black",
+        "score": 272
+      },
+      {
+        "family": "white",
+        "score": 216.6
+      },
+      {
+        "family": "neutral",
+        "score": 72.2
+      },
+      {
+        "family": "yellow-gold",
+        "score": 47.4
+      },
+      {
+        "family": "blue",
+        "score": 44
+      },
+      {
+        "family": "brown-orange",
+        "score": 33.6
+      }
+    ],
+    "competingTone": "blue-sky",
+    "competingScore": 119.81,
+    "reason": [
+      "Dark/brown canvas plus yellow/gold action colors outscore blue/cyan evidence.",
+      "Evidence came mainly from cta-active, frame, unknown, surface roles.",
+      "Top color families: black 272, white 216.6, neutral 72.2, yellow-gold 47.4, blue 44, brown-orange 33.6."
+    ],
+    "assetCaveat": "Image/asset colors are intentionally down-weighted. They prove media atmosphere, not UI token dominance."
+  },
+  "familyScores": {
+    "black": 272,
+    "white": 216.6,
+    "neutral": 72.2,
+    "yellow-gold": 47.4,
+    "blue": 44,
+    "brown-orange": 33.6,
+    "red": 29.8,
+    "black-brown": 23,
+    "brown-gold": 11.8,
+    "green": 3.4,
+    "orange": 1.4,
+    "purple": 1.4
+  },
+  "topColors": [
+    {
+      "color": "#000000",
+      "score": 253,
+      "family": "black"
+    },
+    {
+      "color": "#FFFFFF",
+      "score": 202.8,
+      "family": "white"
+    },
+    {
+      "color": "#FFF507",
+      "score": 27.2,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#CCCCCC",
+      "score": 16.4,
+      "family": "neutral"
+    },
+    {
+      "color": "#352115",
+      "score": 16,
+      "family": "brown-orange"
+    },
+    {
+      "color": "#553E30",
+      "score": 10.8,
+      "family": "brown-orange"
+    },
+    {
+      "color": "#717171",
+      "score": 10.2,
+      "family": "neutral"
+    },
+    {
+      "color": "#1E1E1E",
+      "score": 10,
+      "family": "black"
+    },
+    {
+      "color": "#B91D22",
+      "score": 10,
+      "family": "red"
+    },
+    {
+      "color": "#888888",
+      "score": 9.6,
+      "family": "neutral"
+    },
+    {
+      "color": "#DCD6C6",
+      "score": 8.6,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#201300",
+      "score": 8.4,
+      "family": "black-brown"
+    },
+    {
+      "color": "#928157",
+      "score": 7.8,
+      "family": "brown-gold"
+    },
+    {
+      "color": "#291C0D",
+      "score": 7.8,
+      "family": "black-brown"
+    },
+    {
+      "color": "#FF5268",
+      "score": 6.8,
+      "family": "red"
+    },
+    {
+      "color": "#2E2200",
+      "score": 6.8,
+      "family": "black-brown"
+    },
+    {
+      "color": "#DDDDDD",
+      "score": 6.2,
+      "family": "neutral"
+    },
+    {
+      "color": "#3B5998",
+      "score": 5.8,
+      "family": "blue"
+    },
+    {
+      "color": "#344E86",
+      "score": 5.8,
+      "family": "blue"
+    },
+    {
+      "color": "#BD081D",
+      "score": 5.8,
+      "family": "red"
+    },
+    {
+      "color": "#AA0719",
+      "score": 5.8,
+      "family": "red"
+    },
+    {
+      "color": "#1DA1F2",
+      "score": 5.8,
+      "family": "blue"
+    },
+    {
+      "color": "#0D95E8",
+      "score": 5.8,
+      "family": "blue"
+    },
+    {
+      "color": "#CCD6E3",
+      "score": 5.8,
+      "family": "blue"
+    }
+  ],
+  "roleEvidence": {
+    "surface": [
+      {
+        "color": "#1E1E1E",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-bg"
+      },
+      {
+        "color": "#CCCCCC",
+        "family": "neutral",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-infobar"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-slide--video .fancybox-content"
+      },
+      {
+        "color": "#E5E3DF",
+        "family": "yellow-gold",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-slide--map .fancybox-content"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-slide--iframe .fancybox-content"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-error"
+      },
+      {
+        "color": "#444444",
+        "family": "neutral",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-error p"
+      },
+      {
+        "color": "#FF5268",
+        "family": "red",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-progress"
+      },
+      {
+        "color": "#CCCCCC",
+        "family": "neutral",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-close-small"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-close-small:hover"
+      },
+      {
+        "color": "#EEEEEE",
+        "family": "white",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-caption"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-caption"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-caption"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-caption"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-caption"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-caption"
+      }
+    ],
+    "cta-active": [
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-content"
+      },
+      {
+        "color": "#1E1E1E",
+        "family": "black",
+        "weight": 6.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-button"
+      },
+      {
+        "color": "#CCCCCC",
+        "family": "neutral",
+        "weight": 5.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-button,.fancybox-button:link,.fancybox-button:visited"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-button:hover"
+      },
+      {
+        "color": "#888888",
+        "family": "neutral",
+        "weight": 5.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-button[disabled],.fancybox-button[disabled]:hover"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button:link,.fancybox-share__button:visited"
+      },
+      {
+        "color": "#3B5998",
+        "family": "blue",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button--fb"
+      },
+      {
+        "color": "#344E86",
+        "family": "blue",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button--fb:hover"
+      },
+      {
+        "color": "#BD081D",
+        "family": "red",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button--pt"
+      },
+      {
+        "color": "#AA0719",
+        "family": "red",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button--pt:hover"
+      },
+      {
+        "color": "#1DA1F2",
+        "family": "blue",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button--tw"
+      },
+      {
+        "color": "#0D95E8",
+        "family": "blue",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button--tw:hover"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-share__button svg path"
+      },
+      {
+        "color": "#DDDDDD",
+        "family": "neutral",
+        "weight": 6.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-thumbs"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 6.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/jquery.fancybox.min.css",
+        "context": ".fancybox-thumbs"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 5.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-pagination-bullet"
+      }
+    ],
+    "unknown": [
+      {
+        "color": "#AFA384",
+        "family": "yellow-gold",
+        "weight": 2.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": "html ::selection,body * ::selection,[lang=en] ::selection"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": "html ::selection,body * ::selection,[lang=en] ::selection"
+      },
+      {
+        "color": "#00B4FF",
+        "family": "blue",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".catNews"
+      },
+      {
+        "color": "#E30000",
+        "family": "red",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".catProducts"
+      },
+      {
+        "color": "#FF8000",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".catEvents"
+      },
+      {
+        "color": "#1D65E1",
+        "family": "blue",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".catRule"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".catBooks"
+      },
+      {
+        "color": "#53207D",
+        "family": "purple",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".catStream"
+      },
+      {
+        "color": "#B91D22",
+        "family": "red",
+        "weight": 1.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".swiper-option .swiper-scrollbar-drag"
+      },
+      {
+        "color": "#007AFF",
+        "family": "blue",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ":root"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-lazy-preloader-white"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-lazy-preloader-black"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-pagination-progressbar"
+      },
+      {
+        "color": "#AFA384",
+        "family": "yellow-gold",
+        "weight": 2.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "html ::selection,body * ::selection,[lang=en] ::selection"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "html ::selection,body * ::selection,[lang=en] ::selection"
+      },
+      {
+        "color": "#DCD6C6",
+        "family": "yellow-gold",
+        "weight": 1.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .footerCol"
+      }
+    ],
+    "text": [
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": "html"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": "html"
+      },
+      {
+        "color": "#342014",
+        "family": "brown-orange",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .welcomeColTitle"
+      },
+      {
+        "color": "#352115",
+        "family": "brown-orange",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .welcomeColTitle"
+      },
+      {
+        "color": "#352115",
+        "family": "brown-orange",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .welcomeColTxt"
+      },
+      {
+        "color": "#352115",
+        "family": "brown-orange",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .welcomeColTxt"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .introMovieColTitle"
+      },
+      {
+        "color": "#B91D22",
+        "family": "red",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .newsColInner .newsListLink:hover .newsTitle"
+      },
+      {
+        "color": "#C1A626",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .newarrivalColItemLink:hover .newarrivalColItemTitle"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .productsCol .productsTypeCol .productsTypeListCol .productsTypeListTitle::before"
+      },
+      {
+        "color": "#707070",
+        "family": "neutral",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .productsCol .productsTypeCol .productsTypeListCol .productsTypeListLead"
+      },
+      {
+        "color": "#B91D22",
+        "family": "red",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .productsCol .productsTypeCol .productsTypeListCol .productsTypeListItem.is-current .productsTypeListTitle"
+      },
+      {
+        "color": "#553E30",
+        "family": "brown-orange",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .productsCol .productsCategoryCol .titleCol"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .eventsCol .eventsTitCol .titleColTxt"
+      },
+      {
+        "color": "#717171",
+        "family": "neutral",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .eventsColInner .eventsListDetail .eventsDate"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .scheduleCol .scheduleTitCol .titleColEng"
+      }
+    ],
+    "frame": [
+      {
+        "color": "#928157",
+        "family": "brown-gold",
+        "weight": 2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": "a:focus-visible,*:focus-visible"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".swiper-option .swiper-scrollbar"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/layout.css?260828",
+        "context": ".swiper-option .swiper-scrollbar::before"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-top"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-top"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-bottom"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-3d .swiper-slide-shadow-bottom"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-scrollbar-drag"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": ".swiper-cube .swiper-cube-shadow:before"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .firstCol .mvCol .mvDetailTxt,.mainCol .firstCol .mvCol .swiper-option"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .firstCol .mvCol .mvDetailTxt,.mainCol .firstCol .mvCol .swiper-option"
+      }
+    ],
+    "token": [
+      {
+        "color": "#007AFF",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": "--swiper-theme-color"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": "--swiper-preloader-color"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/lib/swiper.css",
+        "context": "--swiper-preloader-color"
+      }
+    ],
+    "navigation": [
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .headerCol.is-top .gnaviCol"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .headerCol.is-top .gnSearchCol .gnfreewords"
+      },
+      {
+        "color": "#FFF507",
+        "family": "yellow-gold",
+        "weight": 5.2,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .headerCol.is-top .gnaviCol .navList .menuColTitIcon"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .headerCol+.mainCol .mvCol .mvItem::before"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .headerCol+.mainCol .mvCol .mvItem::before"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.8,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": "#top .headerCol.is-scroll"
+      }
+    ],
+    "asset": [
+      {
+        "color": "#DCD6C6",
+        "family": "yellow-gold",
+        "weight": 1.4,
+        "source": "https://asia-en.onepiece-cardgame.com/renewal/css/top.css?260828",
+        "context": ".mainCol .recommendCol"
+      }
+    ]
+  },
+  "gate": {
+    "ok": false,
+    "minConfidence": 0.65,
+    "message": "Tone evidence is weak. Keep as draft and ask for screenshot/design confirmation before changing adapter/demo tokens."
+  }
+}

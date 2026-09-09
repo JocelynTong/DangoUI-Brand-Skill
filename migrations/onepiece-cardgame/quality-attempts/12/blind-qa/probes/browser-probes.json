@@ -1,0 +1,60 @@
+{
+  "schema": "attempt12-blind-browser-probes/v1",
+  "attempt": 12,
+  "browser": "fresh in-app browser",
+  "requestedViewport": { "width": 390, "height": 844 },
+  "verifiedContentViewport": { "width": 390, "height": 844 },
+  "mobile": {
+    "document": { "scrollWidth": 390, "clientWidth": 390, "scrollHeight": 8269, "horizontalOverflow": false },
+    "canvasCount": 0,
+    "sectionGeometry": {
+      "welcome": { "y": 955, "width": 390, "height": 586.87 },
+      "newArrival": { "y": 2338.07, "width": 390, "height": 610.49 },
+      "events": { "y": 4068.80, "width": 390, "height": 1238.96 },
+      "recommend": { "y": 5643.47, "width": 390, "height": 577.27 },
+      "videos": { "y": 6220.73, "width": 390, "height": 474.08 },
+      "footerIllustration": { "y": 7160.51, "width": 390, "height": 168.59 },
+      "footerNavLegal": { "y": 7329.10, "width": 390, "height": 940.25 }
+    },
+    "semanticActionsObserved": {
+      "welcomeAnchors": 1,
+      "newArrivalLinks": 10,
+      "newArrivalButtons": 2,
+      "eventsLinks": 7,
+      "recommendLinks": 5,
+      "videosLinks": 6,
+      "footerAnchors": 10,
+      "footerButtons": 7,
+      "note": "Counts are facts only and were not used as acceptance proxies."
+    },
+    "eventsRenderedFrame": {
+      "sectionBackground": "rgb(181, 23, 31) plus repeating diagonal gradient",
+      "sectionBorder": "10px solid rgb(181, 23, 31)",
+      "borderImage": "none",
+      "rowBackground": "white",
+      "rowWidth": 322.81,
+      "rowHeight": 150,
+      "rowBorder": "none"
+    },
+    "footerMotion": {
+      "oneShotDurations": ["2s", "0.8s", "0.6s", "0.8s", "0.5s", "0.3s"],
+      "loops": ["5s infinite", "8s infinite", "8s infinite"],
+      "transformsChangedAcross1200ms": true
+    }
+  },
+  "desktopRegression": {
+    "browserContentViewport": { "width": 1302, "height": 818 },
+    "previewPhoneShell": { "x": 711.12, "width": 339.57 },
+    "horizontalOverflow": false,
+    "canvasCount": 0,
+    "result": "PASS"
+  },
+  "unresolvedNotClaimed": [
+    "new-arrival drag and active slide",
+    "recommend drag and active slide",
+    "videos fancybox and drag/active",
+    "footer accordion expanded state",
+    "cookie settings modal after-state",
+    "touch hover/pressed states"
+  ]
+}

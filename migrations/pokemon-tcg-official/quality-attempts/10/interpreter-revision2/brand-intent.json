@@ -1,0 +1,98 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-pocket-only",
+  "status": "APPROVED_WITH_CONSTRAINTS_CORRECTED",
+  "supersedes": "../interpreter/brand-intent.json",
+  "sourceEvidence": [
+    "../evidence/brand-evidence.json",
+    "../evidence/section-fidelity-source.json",
+    "../evidence-revision2/brand-evidence.json",
+    "../evidence-revision2/responsive-assets.json"
+  ],
+  "correction": {
+    "id": "POCKET-RESPONSIVE-BACKGROUND-SEMANTICS",
+    "previousClaim": "Mobile uses visually distinct dedicated artwork from desktop.",
+    "correctedFact": "The source binds background.jpg at desktop and header_bg-small.jpg at mobile, but both current official responses are byte-identical 720x464 JPEGs with SHA-256 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976.",
+    "interpretation": "This is viewport-specific URL-role binding, not art-directed visual substitution.",
+    "implementationRule": "Implementation may preserve both observed URL roles or reuse the verified identical bytes. It must not claim or simulate a visual artwork change at the breakpoint.",
+    "qaRule": "Do not award responsive fidelity for a visible asset-identity change; validate the binding/provenance semantics and identical rendered artwork instead."
+  },
+  "visualIntent": {
+    "summary": "A section-local Pocket cross-site product promotion: desktop balances asset and copy in a 50/50 split; mobile recomposes to asset-first/copy-second. The responsive artwork remains visually identical in the current official release even though CSS uses different URL aliases.",
+    "invariants": [
+      "desktop 50/50 asset-left/copy-right",
+      "mobile asset-first/copy-second",
+      "one transparent logo-cards.png product composite",
+      "opaque black copy field",
+      "one Kanit italic H2, one PT Sans paragraph, and one PT Sans italic external CTA",
+      "white CTA with localized black-to-gold foreground hover"
+    ]
+  },
+  "responsiveBackgroundContract": {
+    "scope": "homepage Pokémon TCG Pocket campaign field only",
+    "desktopBinding": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+    "mobileBinding": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+    "currentPayload": {
+      "pixelWidth": 720,
+      "pixelHeight": 464,
+      "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "relationship": "byte-identical"
+    },
+    "allowed": [
+      "preserve the two viewport URL bindings as semantic implementation roles",
+      "reuse one verified local byte payload for both roles",
+      "apply layout sizing/cropping required by the observed asset field without describing the artwork as different"
+    ],
+    "forbidden": [
+      "claim mobile-specific visually different artwork",
+      "invent a breakpoint artwork swap",
+      "give QA credit for a visible identity change",
+      "generalize viewport URL aliasing into a site-wide image-art-direction rule"
+    ],
+    "evidenceRefs": ["POCKET-RESPONSIVE-URL-BINDING", "POCKET-RESPONSIVE-BYTES", "POCKET-ART-DIRECTION"]
+  },
+  "preservedApprovedPatterns": [
+    "PAT-POCKET-02",
+    "PAT-POCKET-03",
+    "PAT-POCKET-04",
+    "PAT-POCKET-05",
+    "PAT-POCKET-06",
+    "PAT-POCKET-07"
+  ],
+  "motionBoundary": {
+    "pattern": "PAT-POCKET-08",
+    "status": "UNRESOLVED",
+    "observedOnly": ["hidden endpoint", "settled endpoint"],
+    "mustNotInvent": ["intermediate frames", "duration", "easing", "stagger", "sequence"]
+  },
+  "scopeBoundaries": {
+    "sectionLocalOnly": [
+      "desktop 50/50 split",
+      "mobile asset-first/copy-second",
+      "viewport-specific background URL roles",
+      "black copy panel",
+      "Kanit/PT Sans hierarchy",
+      "white CTA with black-to-gold hover"
+    ],
+    "mustNotGeneralize": [
+      "50/50 split across the site",
+      "black panels across the site or host",
+      "mobile background aliasing as universal art direction",
+      "gold as a global interaction token",
+      "Pocket typography as global type tokens"
+    ],
+    "mustNotInvent": [
+      "red Chinese browser-extension overlay",
+      "visually distinct mobile background artwork",
+      "extra kicker, CTA, carousel, or card interaction",
+      "precise entry-motion choreography"
+    ]
+  },
+  "handoff": {
+    "verdict": "PASS_WITH_CONSTRAINTS",
+    "blockers": [],
+    "requiredDirectionCorrection": "Describe background.jpg/header_bg-small.jpg as different responsive URL bindings whose current official payload is identical, never as an art-directed visual substitution.",
+    "renderChangeRequired": false
+  }
+}

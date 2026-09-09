@@ -1,0 +1,47 @@
+{
+  "assessment": "FAIL",
+  "decision": "REWORK",
+  "route": "onepiece-cardgame-home",
+  "evidenceFidelity": {
+    "verdict": "PASS",
+    "reason": "The user-corrected indicator contract is visibly and computationally present: transparent container, no gradient, black bar only, chassis parent, absolute bottom placement."
+  },
+  "structuralFidelity": {
+    "verdict": "FAIL",
+    "reason": "At the normal 1280x720 QA viewport, footer navigation and legal rows extend 68.9375px beyond the phone-screen right edge and the copyright text is visibly clipped."
+  },
+  "generativeProof": {
+    "verdict": "PASS",
+    "reason": "Revision 3 does not reintroduce unsupported white-gradient or footer-platform styling; the failure is responsive containment in the implementation."
+  },
+  "checks": {
+    "indicatorIsPhoneChild": "PASS",
+    "indicatorAbsoluteBottomZero": "PASS",
+    "indicatorContainerTransparent": "PASS",
+    "blackBarVisible": "PASS",
+    "noFullIndicatorHeightBlankBase": "PASS",
+    "lastVisibleFooterContentClearsBar": "PASS",
+    "footerAndLegalContainedInNormalPhone": "FAIL",
+    "phoneScreenIndicatorStableAcrossScroll": "PASS",
+    "scrollRestoresToTop": "PASS",
+    "mobile390ShellAndIndicatorHidden": "PASS",
+    "mobile390NoHorizontalOverflow": "PASS",
+    "layoutContractTests": "PASS",
+    "build": "PASS",
+    "previewRegistryValidation": "PASS_WITH_UNRELATED_WARNINGS"
+  },
+  "blockingFindings": [
+    {
+      "code": "PHONE_FOOTER_HORIZONTAL_CLIP",
+      "severity": "BLOCKER",
+      "region": "ONE PIECE Home footer navigation/legal",
+      "viewport": "1280x720 normal phone mockup",
+      "observed": "The phone screen ends at x=1018.828125 while footer navigation and legal rows end at x=1087.765625. The 68.9375px excess is clipped; the copyright line is visibly incomplete.",
+      "expected": "All footer/nav/legal content remains wholly inside the phone screen at every supported mockup scale.",
+      "evidence": ["browser-probes.json", "captures/normal-bottom.png"]
+    }
+  ],
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "reroute": "Constrain footer inner children to the footer content box at normal mockup scales, then rerun a new independent Blind QA. Do not restore an opaque indicator background or a full-height reserved band."
+}

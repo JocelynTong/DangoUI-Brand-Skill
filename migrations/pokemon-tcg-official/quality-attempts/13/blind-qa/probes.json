@@ -1,0 +1,97 @@
+{
+  "schema": "brand-incident-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 13,
+  "scope": [
+    "unsupported-database-orange",
+    "shared-outer-home-indicator"
+  ],
+  "orangeClaimProbe": {
+    "status": "PASS",
+    "formalArtifactsChecked": [
+      "site-evidence.json",
+      "brand-evidence.json",
+      "brand-intent.json",
+      "approved-visual-patterns.json",
+      "dangoui-adapter.json",
+      "component-mapping.json",
+      "style.json",
+      "brand-mod.json",
+      "public/brand-previews/pokemon-tcg-official.json"
+    ],
+    "databaseOrangeClaims": 0,
+    "renderedOrComputedOrangeRoleBindings": 0,
+    "siteEvidenceNote": "familyScores.orange=5.8 remains only as an unbound aggregate family score; it is not a rendered/computed role claim.",
+    "brandModActionPrimary": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "missing"
+    },
+    "adapterBoundary": "No source-evidenced action color override is authorized; Button keeps the DangoUI baseline.",
+    "currentPokemonStylePrimaryComputed": {
+      "backgroundColor": "rgb(124, 102, 255)",
+      "borderColor": "rgb(124, 102, 255)",
+      "color": "rgb(255, 255, 255)"
+    }
+  },
+  "normalModeIndicatorProbe": {
+    "status": "PASS",
+    "commonExpected": {
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottom": "0px",
+      "backgroundColor": "rgba(0, 0, 0, 0)",
+      "backgroundImage": "none",
+      "rectStableAcrossScroll": true,
+      "contentEndReachable": true,
+      "scrollRestored": true
+    },
+    "routes": {
+      "styleButton": {
+        "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/style/button",
+        "scrollContainer": "contents template-contents style-phone-contents",
+        "scrollTop": [0, 1630.5, 0],
+        "maxScrollTop": 1631,
+        "indicatorRect": {"x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625}
+      },
+      "componentNavigationBar": {
+        "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/components/navigation-bar",
+        "scrollContainer": "contents template-contents component-phone-contents",
+        "scrollTop": [0, 522.5, 0],
+        "maxScrollTop": 523,
+        "indicatorRect": {"x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625}
+      },
+      "pokemonHome": {
+        "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+        "scrollContainer": "phone-screen phone-screen--home layout-recipe--pokemon-official-home phone-screen--no-bottom-actions",
+        "scrollTop": [0, 3061.5, 0],
+        "maxScrollTop": 3061,
+        "indicatorRect": {"x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625}
+      },
+      "onepieceHome": {
+        "url": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+        "scrollContainer": "phone-screen phone-screen--home layout-recipe--source-phone-campaign-home phone-screen--no-bottom-actions",
+        "scrollTop": [0, 5602, 0],
+        "maxScrollTop": 5602,
+        "indicatorRect": {"x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625}
+      }
+    }
+  },
+  "proofModeIndicatorProbe": {
+    "status": "FAIL",
+    "query": "?proof=1",
+    "expectedVisibleIndicators": 0,
+    "routes": {
+      "styleButton": {"indicatorCount": 1, "visible": 1},
+      "componentNavigationBar": {"indicatorCount": 1, "visible": 1},
+      "pokemonHome": {"indicatorCount": 1, "visible": 1},
+      "onepieceHome": {"indicatorCount": 1, "visible": 1}
+    }
+  },
+  "build": {
+    "command": "npm run build",
+    "status": "PASS",
+    "warning": "Vite reported only the existing large-chunk advisory."
+  }
+}

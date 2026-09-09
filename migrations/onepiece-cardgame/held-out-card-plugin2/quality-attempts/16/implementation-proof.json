@@ -1,0 +1,62 @@
+{
+  "schema": "brand-host-build-minimal-experiment-proof/v1",
+  "attempt": 16,
+  "scope": "held-out pages/build/index scoped visual CSS only",
+  "qaVerdict": null,
+  "direction": "Dense ONE PIECE editorial workbench: warm paper, compact navy utility header, one search, ruled filters and pool, persistent deck tray, rectangular publish sheet.",
+  "sourceIntegrity": {
+    "vueSfcChanged": false,
+    "businessDataChanged": false,
+    "fieldOrderChanged": false,
+    "validationOrMutationChanged": false,
+    "routesApiStoreChanged": false,
+    "otherRoutesStyled": false,
+    "styleSha256": "7252019c8b68f21e58db65fe60a39501aee0e4ec7c2f1dc4164f4dbd787e7888"
+  },
+  "implementedFamilies": [
+    "compact edit header with restrained draft and red publish actions",
+    "single bordered search field and rectangular view switch",
+    "44px rectangular filter controls with sparse yellow selected state",
+    "ruled list/grid card pool with rectangular quantity steppers",
+    "persistent low-occupancy deck tray",
+    "warm-paper publishing sheet with ruled inputs, cover selection, environment selector and red submit action",
+    "visible focus ring and explicit muted disabled publish treatment"
+  ],
+  "browserEvidence": {
+    "artifact": "browser-probes.json",
+    "reducedMotion": true,
+    "viewports": {
+      "390x844": {"overflowX":0,"minimumInteractiveHeight":45.75,"undersizedInteractiveOwners":0,"firstCardTop":356.328125,"trayTop":703.671875,"sheetTop":253.671875,"sheetBottom":844},
+      "536x864": {"overflowX":0,"minimumInteractiveHeight":44,"undersizedInteractiveOwners":0,"firstCardTop":344,"trayTop":729,"sheetTop":132.765625,"sheetBottom":864},
+      "1280x720": {"overflowX":0,"minimumInteractiveHeight":44,"undersizedInteractiveOwners":0,"firstCardTop":351,"trayTop":584,"sheetTop":57.609375,"sheetBottom":720}
+    },
+    "states": {
+      "default": "captured at all three viewports",
+      "expandedFilters": "five rows rendered without document overflow",
+      "listAndGrid": "both exercised and captured",
+      "tray": "visible and usable in every default viewport",
+      "sheet": "open-state captured and wholly contained at every viewport",
+      "invalid": "submit retained the sheet and exposed validation feedback",
+      "readySuccessFailure": "business handlers and outcomes are frozen and structurally unchanged; destructive success mutation was intentionally not executed in self-check"
+    },
+    "networkWrites": 0,
+    "keyboardParity": "Existing pointer, Enter and Space bindings are unchanged and retained by structural validation."
+  },
+  "regression": {
+    "otherRouteOverflowX": {"plaza":0,"detail":0,"mine":0,"event":0,"round":0},
+    "stableScreenshotHashes": {
+      "detail":"d1c57021d4f05459ae3ee0a1e9c7c0c713e2308ad16f9f06f89554a3078bf89b",
+      "mine":"60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "event":"7d28e8a474fadbbbf17588d680fee90d491377dd7a763c4437c472da879f911a",
+      "round":"494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca"
+    },
+    "plazaNote": "Plaza is unedited and overflow-free; its time-varying campaign content is recorded as a fresh capture rather than asserted byte-identical."
+  },
+  "gates": {
+    "productionBuild": "PASS: 662 modules",
+    "hostStructuralDiffBuild": "PASS",
+    "hostThemeOrder": "PASS",
+    "importantForbidden": "PASS",
+    "preview10092": "PASS"
+  }
+}

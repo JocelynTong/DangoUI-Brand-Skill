@@ -1,0 +1,65 @@
+{
+  "schema": "brand-evidence-self-test/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 17,
+  "role": "brandResearcher",
+  "goal": {
+    "goalId": "pokemon-tcg-official-cold-start-v2",
+    "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+    "sealed": true,
+    "requiredPageIds": ["home", "card-database", "how-to-play"]
+  },
+  "repairs": [
+    {
+      "blocker": "EVIDENCE_VISIBILITY_GATE_FAILED: legacy cards page id",
+      "rootCause": "The strict gate hard-coded goal-contract.json even when brand-evidence.json identified the frozen v2 goal.",
+      "resolution": "The gate now resolves the goal contract whose goalId matches brand-evidence.goalId, with goal-contract.json only as fallback.",
+      "result": "PASS",
+      "observedPageIds": ["home", "card-database", "how-to-play"]
+    },
+    {
+      "blocker": "EVIDENCE_VISIBILITY_GATE_FAILED: third-party seeds lacked disposition",
+      "rootCause": "Dembrandt candidates were retained as seed-only input but Evidence Agent review outcomes were absent.",
+      "resolution": "All 52 imported candidates are covered by 11 category-scoped dispositions. Empty/null hints are rejected; aggregate values without a complete rendered chain remain unresolved and are not promoted.",
+      "result": "PASS"
+    }
+  ],
+  "thirdPartyDispositionAudit": {
+    "provider": "dembrandt",
+    "rawCandidateCount": 52,
+    "dispositionCandidateCount": 52,
+    "dispositionEntryCount": 11,
+    "coverage": 1,
+    "allowedStatuses": ["validated", "rejected", "unresolved", "out-of-scope"],
+    "validatedWithoutRenderedEvidence": 0,
+    "policy": "Variable names, aggregate frequency and extractor confidence cannot promote a candidate without screenshot, Region, visible DOM/state and exact computed property/value."
+  },
+  "checks": [
+    {
+      "command": "node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand pokemon-tcg-official --strict",
+      "status": "PASS",
+      "blockingCount": 0,
+      "warningCount": 1,
+      "warning": "semantic-claims-legacy-schema belongs to the downstream Design Translator and was not changed by Evidence Agent."
+    },
+    {
+      "command": "node skills/brand/scripts/evidence-visibility-gate.test.mjs",
+      "status": "PASS",
+      "passed": 8,
+      "failed": 0
+    },
+    {
+      "command": "jq empty migrations/pokemon-tcg-official/brand-evidence.json",
+      "status": "PASS"
+    }
+  ],
+  "scopeGuard": {
+    "uiChanged": false,
+    "intentChanged": false,
+    "directionChanged": false,
+    "mapperChanged": false,
+    "goalChanged": false
+  },
+  "verdict": "PASS",
+  "nextRole": "designTranslator"
+}

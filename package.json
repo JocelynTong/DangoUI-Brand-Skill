@@ -5,19 +5,32 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "vite --host 127.0.0.1",
+    "dev:dangoui-local": "DANGOUI_LOCAL=1 vite --host 127.0.0.1",
     "build": "vite build",
+    "build:dangoui-local": "DANGOUI_LOCAL=1 vite build",
     "create:mapping": "node scripts/create-dangoui-mapping-doc.mjs",
+    "validate:dangoui-mapping": "node skills/brand/scripts/validate-dangoui-mapping.mjs",
     "brand:workflow": "node skills/brand/scripts/run-brand-workflow.mjs run",
     "brand:learn": "node skills/brand/scripts/run-brand-workflow.mjs run --mode learn-brand",
     "brand:apply": "node skills/brand/scripts/run-brand-workflow.mjs run --mode apply-host",
     "brand:status": "node skills/brand/scripts/run-brand-workflow.mjs status",
     "brand:plan": "node skills/brand/scripts/run-brand-workflow.mjs plan",
+    "brand:subagents": "node skills/brand/scripts/brand-subagent-workflow.mjs",
+    "brand:retro": "node skills/brand/scripts/brand-guard.mjs issue-retro",
+    "validate:brand:p0": "node skills/brand/scripts/brand-guard.mjs p0-acceptance",
     "validate:brand:tpp": "node skills/brand/scripts/run-brand-workflow.mjs tpp",
+    "validate:brand:tpp:browser": "node skills/brand/scripts/run-brand-workflow.mjs tpp --require-browser",
     "debug:brand:tpp:raw": "node skills/brand/scripts/brand-guard.mjs tpp-test",
     "validate:brand-mod": "node scripts/validate-brand-mod.mjs",
     "validate:brand-preview": "node scripts/validate-brand-preview-registry.mjs",
+    "validate:brand-preview:browser": "node scripts/validate-brand-preview-browser.mjs",
     "validate:brand-quality": "node scripts/validate-brand-visual-quality.mjs --write",
     "validate:brand-quality:strict": "node scripts/validate-brand-visual-quality.mjs --strict",
+    "validate:brand-fidelity": "node skills/brand/scripts/validate-brand-fidelity.mjs --write",
+    "validate:brand-sections": "node skills/brand/scripts/validate-section-fidelity.mjs --strict",
+    "validate:brand-direction": "node skills/brand/scripts/validate-design-direction.mjs",
+    "validate:brand-program-strategy": "node skills/brand/scripts/validate-program-strategy.mjs",
+    "test:brand-host-preedit": "node skills/brand/scripts/validate-host-preedit-baseline.test.mjs",
     "validate:brand": "npm run validate:brand-mod && npm run validate:brand-preview",
     "sync:skills": "node scripts/sync-agent-skills.mjs"
   },
@@ -26,11 +39,13 @@
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {
+    "agent-browser": "^0.34.0",
     "dangoui": "^3.6.16",
     "vite": "^8.0.16",
     "vue": "^3.5.35"
   },
   "devDependencies": {
-    "@vitejs/plugin-vue": "^6.0.7"
+    "@vitejs/plugin-vue": "^6.0.7",
+    "dembrandt": "^0.28.0"
   }
 }

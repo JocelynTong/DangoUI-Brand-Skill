@@ -1,0 +1,22 @@
+{
+  "schema": "brand-goal-correction/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 6,
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "trigger": "User observed that the carousel did not visibly move and the mobile navigation was not source-like.",
+  "frozenGoal": "Preserve the compact 416px Hero and card flip while making every carousel selection visibly truthful, source-calibrated or explicitly held-out, and making the mobile navigation structurally source-like and operable.",
+  "mustPreserve": [
+    "official 30th state as the default source-calibration state",
+    "416px compact phone Hero",
+    "next section visible in the initial phone viewport",
+    "reversible featured-card flip"
+  ],
+  "acceptance": [
+    "second selector changes at least four high-salience visible identities",
+    "second state is visibly labeled generative and not official",
+    "state replacement has a short visible transition and an immediate reduced-motion fallback",
+    "mobile nav cap is 56px with separate MENU text and three CSS lines",
+    "mobile nav opens and closes real navigation content",
+    "each carousel control has at least a 44x44 hit target"
+  ]
+}

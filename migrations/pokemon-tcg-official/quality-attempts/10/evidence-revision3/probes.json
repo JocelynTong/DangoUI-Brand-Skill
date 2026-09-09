@@ -1,0 +1,24 @@
+{
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "selector": "article.tcg-pocket",
+  "desktop1440": {
+    "article": {"layout":[0,3212.367,1440,476.195],"position":"relative","backgroundColor":"rgba(0, 0, 0, 0)","backgroundImage":"none"},
+    "backgroundLayer": {"parent":"article.tcg-pocket","layout":[0,3212.367,1440,476.195],"position":"absolute","backgroundColor":"rgb(0, 0, 0)","backgroundImage":"url(https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg)","backgroundSize":"cover","backgroundPosition":"100% 50%"},
+    "contentLayer": {"parent":"article.tcg-pocket","layout":[0,3212.367,1440,476.195],"position":"relative","backgroundColor":"transparent"},
+    "row": {"display":"flex","layout":[0,3212.367,1440,476.195]},
+    "assetColumn": {"layoutBox":[0,0,720,476.195],"backgroundColor":"transparent"},
+    "copyPanel": {"layoutBox":[720,59.844,720,356.5],"backgroundColor":"rgb(0, 0, 0)","padding":"40px 32px"},
+    "backgroundExposedAroundCopyPanel": {"top":59.844,"bottom":59.852,"rightHalfWidth":720},
+    "note": "The viewport-entry class was captured in its hidden transform state in one probe; offset/layout boxes freeze the true flex geometry. The settled screenshot independently shows the panel at x=720."
+  },
+  "mobile390": {
+    "article": {"layout":[0,4534.391,390,743.023],"position":"relative","backgroundColor":"transparent","backgroundImage":"none"},
+    "backgroundLayer": {"parent":"article.tcg-pocket","layoutBox":[0,0,390,743],"position":"absolute","backgroundColor":"rgb(0, 0, 0)","backgroundImage":"url(https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg)","backgroundSize":"cover","backgroundPosition":"50% 50%"},
+    "contentLayer": {"parent":"article.tcg-pocket","layoutBox":[0,0,390,743],"position":"relative","backgroundColor":"transparent"},
+    "row": {"display":"block","layoutBox":[0,0,390,743]},
+    "assetColumn": {"layoutBox":[0,0,390,334],"backgroundColor":"transparent","padding":"50px 10px"},
+    "copyPanel": {"layoutBox":[0,334,390,409],"backgroundColor":"rgb(0, 0, 0)","padding":"40px 0"},
+    "backgroundExposedAroundCopyPanel": {"top":0,"bottom":0,"side":0,"meaning":"copy panel fills the entire lower stack width and height; background remains behind it but is fully occluded"}
+  },
+  "responsiveAssetIdentity": {"desktopUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","mobileUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","sha256Both":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","naturalSizeBoth":[720,464],"semantic":"different URL aliases, identical official bytes"}
+}

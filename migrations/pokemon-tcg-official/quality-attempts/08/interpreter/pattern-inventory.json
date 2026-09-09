@@ -1,0 +1,185 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/whats-new-only",
+  "status": "APPROVED_WITH_UNRESOLVED",
+  "patterns": [
+    {
+      "id": "PAT-WN-01",
+      "name": "Full-width editorial section field",
+      "classification": "section-layout",
+      "approval": "approved",
+      "scope": "WHAT'S NEW section",
+      "intent": "Keep the news module open and editorial rather than presenting it as a dashboard card.",
+      "observableRules": [
+        "white field spans the viewport",
+        "no rounded outer shell",
+        "no inset section card",
+        "next contrasting red section begins directly below"
+      ],
+      "suitableFor": ["homepage editorial/news gallery with a strong following-section boundary"],
+      "notFor": ["global page background token", "generic content cards", "host dashboards", "modal or panel shells"],
+      "allowedRoles": ["section background", "section boundary"],
+      "forbiddenRoles": ["site-wide surface token", "card surface token", "dialog surface token"],
+      "evidenceRefs": ["WN-DESK-BOUNDARY", "WN-MOB-BOUNDARY"]
+    },
+    {
+      "id": "PAT-WN-02",
+      "name": "Responsive editorial header",
+      "classification": "section-header",
+      "approval": "approved",
+      "scope": "WHAT'S NEW section header",
+      "intent": "Pair a forceful editorial label with an always-discoverable but secondary archive route.",
+      "observableRules": [
+        "desktop: 48px Kanit 700 italic heading left and archive link right in one row",
+        "mobile: 32px Kanit 700 italic centered heading and centered archive link below",
+        "archive link: PT Sans 18px 800 italic"
+      ],
+      "suitableFor": ["the homepage news section identity", "a faithful generative proof of the same news pattern"],
+      "notFor": ["all site headings", "navigation labels", "body copy", "unrelated section titles"],
+      "allowedRoles": ["news-section title", "news archive link"],
+      "forbiddenRoles": ["global heading typography token", "global link typography token"],
+      "evidenceRefs": ["WN-DESK-HEADER", "WN-MOB-HEADER"]
+    },
+    {
+      "id": "PAT-WN-03",
+      "name": "Image-first news card",
+      "classification": "content-composition",
+      "approval": "approved",
+      "scope": "WHAT'S NEW carousel items",
+      "intent": "Let recognizable campaign/editorial art carry the story before concise title and action copy.",
+      "observableRules": [
+        "reading order is image, centered headline, centered CTA",
+        "source image ratio 578:325 is preserved without crop",
+        "desktop headline is PT Sans 24px/31.2px 800",
+        "mobile headline is PT Sans 20px/26px 800",
+        "card shadow is rgba(0,0,0,0.2) 0 6px 10px"
+      ],
+      "suitableFor": ["source-backed news stories", "editorial campaigns with independent 578:325 media"],
+      "notFor": ["product cards", "character cards", "generic business records", "image assets with incompatible ratios unless separately translated"],
+      "allowedRoles": ["news media", "news headline", "news action", "news-card elevation"],
+      "forbiddenRoles": ["global card shadow", "global card aspect ratio", "screenshot-as-runtime-media"],
+      "assetIdentity": {
+        "approvedSourceAssets": [
+          "https://tcg.pokemon.com/assets/img/news/items/en-us/wcs26-binder-inserts.png",
+          "https://tcg.pokemon.com/assets/img/news/items/en-us/30thYoshirotten_169_EN.png",
+          "https://tcg.pokemon.com/assets/img/news/items/en-us/tcg_30th_pikachu_reveals_169_en.png",
+          "https://tcg.pokemon.com/assets/img/news/items/en-us/30th-pikachu-reveal-169-en.png",
+          "https://tcg.pokemon.com/assets/img/news/items/en-us/product-showcase-169-en.png",
+          "https://tcg.pokemon.com/assets/img/news/items/en-us/PCOM_2027_Season_Refresh-16x9.png"
+        ],
+        "intrinsic": "578x325",
+        "sourceKind": "independent-source-asset"
+      },
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD"]
+    },
+    {
+      "id": "PAT-WN-04",
+      "name": "Breakpoint-specific carousel density",
+      "classification": "responsive-layout",
+      "approval": "approved",
+      "scope": "WHAT'S NEW carousel",
+      "intent": "Preserve editorial readability by changing the number of visible stories, not by proportionally shrinking the desktop pair.",
+      "observableRules": [
+        "desktop shows two equal cards with a 24px gutter and groups six stories into three pages",
+        "mobile shows one edge-to-edge card and maps six stories to six pages",
+        "pagination count corresponds to page count at the active breakpoint"
+      ],
+      "suitableFor": ["responsive news carousel using the same six-story content model"],
+      "notFor": ["all carousels", "Hero carousel", "fixed two-up mobile layout", "proportional desktop miniaturization"],
+      "allowedRoles": ["news carousel viewport", "news pagination model"],
+      "forbiddenRoles": ["global grid breakpoint", "global carousel page-size token"],
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD", "WN-DESK-CAROUSEL", "WN-MOB-CAROUSEL"]
+    },
+    {
+      "id": "PAT-WN-05",
+      "name": "Decisive black news action",
+      "classification": "component-state",
+      "approval": "approved-partial",
+      "scope": "WHAT'S NEW card CTA",
+      "intent": "Provide a compact, high-contrast endpoint after each headline.",
+      "observableRules": [
+        "desktop action has an observed 56px height and 20px 700 italic label",
+        "mobile action is centered at 173.4x51.3 with an 18px 700 italic label",
+        "resting state is black with white text",
+        "hover visibly changes text from white to black"
+      ],
+      "suitableFor": ["news-card detail action in this carousel"],
+      "notFor": ["global primary button", "every call to action", "carousel navigation", "disabled controls"],
+      "allowedRoles": ["news-card CTA resting state", "news-card CTA text hover inversion"],
+      "forbiddenRoles": ["global button token", "yellow hover fill assumption", "invented hover background geometry"],
+      "unresolved": ["exact animated hover background layer color and shape", "source-specific keyboard focus appearance"],
+      "evidenceRefs": ["WN-DESK-CARDS", "WN-MOB-CARD", "WN-CTA-HOVER"]
+    },
+    {
+      "id": "PAT-WN-06",
+      "name": "Directional carousel swap",
+      "classification": "interaction-motion",
+      "approval": "approved",
+      "scope": "WHAT'S NEW carousel previous/next transition",
+      "intent": "Make story replacement unmistakable while retaining directional continuity.",
+      "observableRules": [
+        "opacity changes over 0.4s",
+        "outgoing content translates toward the navigation direction and fades",
+        "incoming content fades in from a slightly reduced scale and settles at center/scale 1",
+        "the final image, headline, and CTA identities are different",
+        "desktop advances a pair; mobile advances one story"
+      ],
+      "suitableFor": ["user-triggered previous/next navigation in the WHAT'S NEW carousel"],
+      "notFor": ["viewport entry motion", "all site transitions", "index-only state changes", "autoplay without separate evidence"],
+      "allowedRoles": ["news slide outgoing state", "news slide incoming state", "news slide settled state"],
+      "forbiddenRoles": ["global motion token", "Hero transition", "entry-on-scroll trajectory"],
+      "acceptanceProof": ["before screenshot", "intermediate screenshot near 120ms", "settled screenshot", "changed content identity"],
+      "evidenceRefs": ["WN-DESK-CAROUSEL", "WN-MOB-CAROUSEL"]
+    },
+    {
+      "id": "PAT-WN-07",
+      "name": "Edge navigation and localized page emphasis",
+      "classification": "carousel-controls",
+      "approval": "approved",
+      "scope": "WHAT'S NEW carousel controls",
+      "intent": "Keep navigation obvious at the content boundary while leaving the story center visually quiet.",
+      "observableRules": [
+        "mobile edge controls are black 60x60 squares",
+        "disabled previous state is 0.5 opacity",
+        "six centered mobile dots represent six single-story pages",
+        "yellow appears as a localized carousel state/control emphasis, not a section or global action color"
+      ],
+      "suitableFor": ["WHAT'S NEW carousel navigation and current-page feedback"],
+      "notFor": ["section title background", "global active state", "core-action token", "all pagination systems"],
+      "allowedRoles": ["news carousel current page", "news carousel available/active navigation emphasis"],
+      "forbiddenRoles": ["brand primary token", "global active token", "news section chrome"],
+      "evidenceRefs": ["WN-DESK-CAROUSEL", "WN-MOB-CAROUSEL"]
+    },
+    {
+      "id": "PAT-WN-08",
+      "name": "Staggered viewport entry candidate",
+      "classification": "interaction-motion",
+      "approval": "unresolved",
+      "scope": "WHAT'S NEW viewport entry",
+      "intent": "Possible progressive reveal of title, cards, and CTA, but the exact visual behavior is not yet proved.",
+      "observableRules": [
+        "settled nodes expose vp-slide and vp-pop states",
+        "computed transform duration is 0.5s with an overshoot cubic-bezier",
+        "computed opacity duration is 0.4s",
+        "title and CTA expose 0.6s and 0.8s delays"
+      ],
+      "suitableFor": ["evidence follow-up only"],
+      "notFor": ["implementation as exact source motion", "global motion recipe", "carousel transition substitution"],
+      "allowedRoles": ["unresolved motion candidate"],
+      "forbiddenRoles": ["approved pattern", "exact transform start", "exact scroll timeline", "claimed source reproduction"],
+      "evidenceRefs": ["WN-ENTRY-MOTION"]
+    }
+  ],
+  "scopeAudit": {
+    "globalPatternsApproved": [],
+    "sectionLocalApproved": ["PAT-WN-01", "PAT-WN-02", "PAT-WN-03", "PAT-WN-04", "PAT-WN-05", "PAT-WN-06", "PAT-WN-07"],
+    "unresolved": ["PAT-WN-08"],
+    "tokenRoleExpansionDetected": false,
+    "notes": [
+      "Yellow is restricted to evidence-backed carousel emphasis.",
+      "Translated Chinese wrapping was not encoded as a typography or layout rule.",
+      "No exact entry-on-scroll trajectory was approved."
+    ]
+  }
+}

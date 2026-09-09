@@ -1,0 +1,25 @@
+{
+  "schema": "quality-attempt-section-evidence-manifest/v1",
+  "attempt": 12,
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "viewport": { "width": 390, "height": 844 },
+  "sourceFullPage": "../../11/evidence-mobile/source-home-full-390x844.png",
+  "artifacts": [
+    { "path": "section-checklist.json", "role": "section-level dispositions and action inventory" },
+    { "path": "dom-computed-probes.json", "role": "DOM hierarchy and 390px winning-layout probes" },
+    { "path": "welcome-390.png", "role": "complete visible Welcome crop", "sha256": "20debbe18a2fc6791f21c8868f9a1dee9da342adb8f1708fea565920427ef864" },
+    { "path": "new-arrival-390.png", "role": "complete visible New Arrival crop", "sha256": "4906479438caf9bdbbc92588283024df3c1fc6301a2364f9c3a7488f279851d2" },
+    { "path": "events-complete-390.jpg", "role": "complete Products-to-Events context proving pickup organism", "sha256": "8c297a36620fa5f86a35fdc2ef9fe8402255ff58f045d839673673b4aba8c02d" },
+    { "path": "events-390.png", "role": "Events lower rows, view-all, Schedule boundary and Recommend entry", "sha256": "cccd07345c8f51cc6a63320fe5cd8b2ce27c40187560702506b675a4f2a1e275" },
+    { "path": "recommend-390.png", "role": "complete Recommend poster rail plus adjacent section boundaries", "sha256": "6dd8c57ea03556a1130479670ba22d7a679e0e4346f500b5606350986fc67caf" },
+    { "path": "videos-390.png", "role": "complete Videos rail and footer-banner boundary", "sha256": "7ad3de5e272cca10760bc5275f10e82717a3ddca63e0657f38b695038e2d3db0" },
+    { "path": "footer-complete-390.jpg", "role": "complete Footer illustration, banner, nav and legal", "sha256": "eea38378a9622ae234d99161cd406316bd0682f8cf8a783d1dc673bd16f8dc5a" },
+    { "path": "recommend-videos-complete-390.jpg", "role": "source context crop retained from attempt 11", "sha256": "6e56c38f396f383aaabadff36e1df521ca3e2c3d473906f92e3d66a630c0f4de" }
+  ],
+  "sourceMaterials": [
+    "official rendered 390×844 full-page capture from attempt 11",
+    "official HTML fetched 2026-09-01",
+    "official top.css?260828 captured under output/extractor-benchmark/onepiece-cardgame/rendered/css/04-top-css.css"
+  ],
+  "disposition": "Static layout, content organization, decoration sources and default actions are sufficient. Runtime drag/active/open/modal states remain explicitly unresolved."
+}

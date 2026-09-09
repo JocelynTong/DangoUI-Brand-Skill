@@ -1,0 +1,98 @@
+{
+  "brand": "pokemon-tcg-official",
+  "surface": "home-compact-hero",
+  "attempt": "06",
+  "reviewRole": "independent-design-review-blind-qa",
+  "verdict": "FAIL",
+  "blocking": true,
+  "reviewedAt": "2026-09-03",
+  "sources": [
+    "captures/source/home/mobile-390/frames/000.png",
+    "action-evidence/home-carousel-default.png",
+    "action-evidence/home-carousel-triggered.png",
+    "action-evidence/home-carousel-settled.png",
+    "quality-attempts/05/captures/compact-hero-front-390x844.png",
+    "live:http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home"
+  ],
+  "measurements": {
+    "proofSurface": "mobile compact layout",
+    "reportedViewport": { "width": 390, "height": 844 },
+    "runtimeInnerViewport": { "width": 354, "height": 767 },
+    "heroHeightPx": 415.9943,
+    "navHeightPx": 37.9972,
+    "brandLogo": { "widthPx": 70, "heightPx": 25 },
+    "cta": { "widthPx": 151.2855, "heightPx": 43.9986 },
+    "carouselControl": { "widthPx": 23.9986, "heightPx": 5.9943, "gapPx": 7.9972 }
+  },
+  "findings": [
+    {
+      "id": "CAROUSEL_CONTENT_STATE_NOT_DISTINCT",
+      "priority": "P0",
+      "blocking": true,
+      "visibleEvidence": "After activating campaign 2 and waiting 700ms, active index changes but background, Logo-30th.png, 2M6P_EN_23.png, CTA copy and visible composition remain identical.",
+      "earliestOwner": "Brand Researcher / Evidence",
+      "downstreamOwner": "Demo Implementation Agent",
+      "recommendedFix": "Freeze a second evidenced official campaign state, or have the Design Director explicitly approve a visually distinct held-out fictional campaign. Bind each slide to distinct background, campaign mark/title, featured subject/card and CTA; never claim held-out content is official."
+    },
+    {
+      "id": "MOBILE_NAV_SOURCE_STRUCTURE_DRIFT",
+      "priority": "P1",
+      "blocking": false,
+      "visibleEvidence": "Source mobile capture shows an approximately 56px black cap with brand logo left and MENU plus a separate three-line hamburger right. Current runtime nav is approximately 38px high and uses a text glyph hamburger, producing a cramped toolbar-like result.",
+      "earliestOwner": "Brand Interpreter / Design Director",
+      "downstreamOwner": "Demo Implementation Agent",
+      "recommendedFix": "Freeze and implement a dedicated 56px mobile header recipe with source-proportioned logo, MENU, CSS/SVG three-line hamburger and a 44px control hit target; hide desktop links from layout and hit testing."
+    },
+    {
+      "id": "CAROUSEL_CONTROL_HIT_TARGET_TOO_SMALL",
+      "priority": "P1",
+      "blocking": false,
+      "visibleEvidence": "Each slide control measures approximately 24x6px with approximately 8px gap.",
+      "earliestOwner": "Demo Implementation Agent",
+      "recommendedFix": "Keep the short visual rail but expand each actual button to at least 44x44px using padding or a transparent pseudo-element without overlapping CTA/card targets."
+    },
+    {
+      "id": "CAROUSEL_TRANSITION_PROOF_MISSING",
+      "priority": "P1",
+      "blocking": false,
+      "visibleEvidence": "Source evidence proves arrow pressed treatment but not a second settled campaign. Current demo shows no asset, text, opacity or transform change after activation and settlement.",
+      "earliestOwner": "Brand Researcher / Evidence",
+      "downstreamOwner": "Demo Implementation Agent",
+      "recommendedFix": "Capture and compare default, triggered, mid-transition, settled and restored states. Use a short nonblank cross-fade/directional transition; reduced-motion must switch immediately."
+    },
+    {
+      "id": "HERO_TO_NEXT_SECTION_SEAM_ABRUPT",
+      "priority": "P2",
+      "blocking": false,
+      "visibleEvidence": "The compact black Hero ends directly against the white News section, while the source uses a clearer black carousel label/control rail as visual closure.",
+      "earliestOwner": "Design Director",
+      "downstreamOwner": "Demo Implementation Agent",
+      "recommendedFix": "Use a compact black footer/control rail or a more deliberate transition while preserving the approximately half-screen Hero limit."
+    },
+    {
+      "id": "CAMPAIGN_PROVENANCE_LABEL_REQUIRED",
+      "priority": "P2",
+      "blocking": false,
+      "visibleEvidence": "A future second campaign may need held-out content because current source evidence does not establish a second official settled visual state.",
+      "earliestOwner": "Design Director / Methodology Keeper",
+      "recommendedFix": "Expose official-source versus held-out-fictional provenance in inspector and QA artifacts; do not visually or textually label held-out work as official."
+    }
+  ],
+  "passes": [
+    "FIRST_IMPRESSION_HIERARCHY",
+    "BACKGROUND_ART_DIRECTED_CROP",
+    "CAMPAIGN_LOGO_VISIBILITY",
+    "FLIP_CARD_REVERSIBLE_INTERACTION",
+    "CTA_READABILITY_AND_HEIGHT",
+    "HERO_HALF_SCREEN_BOUNDARY",
+    "NEXT_SECTION_VISIBLE",
+    "NO_HIGH_SALIENCE_OVERLAP"
+  ],
+  "releaseConditions": [
+    "Two visually distinct campaign states with explicit provenance",
+    "Default-triggered-mid-transition-settled-restored proof",
+    "Mobile navigation matches the source 56px black cap structure",
+    "Carousel controls have at least 44x44px effective hit targets",
+    "Fresh independent Blind QA confirms no regression in card flip, half-screen boundary or next-section visibility"
+  ]
+}

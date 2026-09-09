@@ -1,0 +1,14 @@
+{
+  "schema": "onepiece-attempt13-blind-qa-r2-receipt/v1",
+  "attempt": 13,
+  "revision": 2,
+  "role": "independent Blind QA",
+  "inputsRead": ["migrations/onepiece-cardgame/goal-contract.json","migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json","migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json","migrations/onepiece-cardgame/quality-attempts/13/evidence/checklist.json","migrations/onepiece-cardgame/quality-attempts/13/evidence/rail-state-probes.json","migrations/onepiece-cardgame/quality-attempts/13/evidence/strict-evidence-gate.json","current live Demo"],
+  "excluded": ["implementation messages","implementation self-check","old verdicts","prior blind QA artifacts"],
+  "mutated": ["quality-attempts/13/blind-qa-r2 only"],
+  "threeProofGate": {"evidenceFidelity":"PASS","structuralFidelity":"PASS","generativeProof":"PASS"},
+  "overall": "PASS",
+  "report": "report.md",
+  "probes": "probes.json",
+  "assessment": "assessment.json"
+}

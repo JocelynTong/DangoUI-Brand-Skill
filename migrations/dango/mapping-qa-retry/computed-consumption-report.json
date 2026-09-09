@@ -1,0 +1,21 @@
+{
+  "schema": "dango-computed-consumption-report/v1",
+  "status": "PASS",
+  "mappedTokenSummary": {"declared":5,"catalogExists":5,"runtimeConsumed":5,"missing":0},
+  "tokens": [
+    {"token":"--du-bg-2","exists":true,"expected":"#ffffff","consumerSelector":".source-schema-demo--dango","routesMeasured":3,"consumerElements":3,"computedValues":["rgb(255, 255, 255)"],"backgroundImageValues":["none"],"status":"pass"},
+    {"token":"--du-bg-1","exists":true,"expected":"#ffffff","consumerSelector":".dango-docs__example-table","routesMeasured":3,"consumerElements":3,"computedValues":["rgb(255, 255, 255)"],"status":"pass"},
+    {"token":"--du-text-1","exists":true,"expected":"#000000","consumerSelector":".dango-docs__article","routesMeasured":3,"consumerElements":3,"computedValues":["rgb(0, 0, 0)"],"status":"pass"},
+    {"token":"--du-border-1","exists":true,"expected":"#0000001f","consumerSelector":".dango-docs__title-rule","routesMeasured":3,"consumerElements":3,"computedValues":["rgba(0, 0, 0, 0.12)"],"status":"pass"},
+    {"token":"--du-primary-solid-bg","exists":true,"expected":"#7C66FF","consumerSelector":"button.du-button.du-button--normal.du-button--primary.dango-docs__primary","routesMeasured":3,"consumerElements":5,"computedValues":["rgb(124, 102, 255)"],"tokenChain":["DuButton .du-button--primary","--du-bt-solid-bg","--du-primary-solid-bg"],"status":"pass"}
+  ],
+  "routeMatrix": [
+    {"route":"dango-introduction-calibration","counts":{"root":1,"bg1Tables":0,"textArticles":1,"borderRules":1,"primaryButtons":0,"currentNavigation":1}},
+    {"route":"dango-button-calibration","counts":{"root":1,"bg1Tables":3,"textArticles":1,"borderRules":1,"primaryButtons":4,"currentNavigation":1}},
+    {"route":"dango-release-checklist-held-out","counts":{"root":1,"bg1Tables":0,"textArticles":1,"borderRules":1,"primaryButtons":1,"currentNavigation":1}}
+  ],
+  "navigationRoleIsolation": {"value":"#5854FF","exactConsumerElementsPerRoute":1,"allowedSelector":".dango-docs__nav-group > span.is-current","unexpectedRoleConsumers":0,"inactiveComputedBorderAndOutlineHitsOnSameElement":true,"heldOutChecklistMarkColors":["rgb(104, 104, 113)"],"status":"pass"},
+  "duButton": {"nativeComponent":"DuButton","source":"node_modules/dangoui/src/button/Button.vue","runtimeClass":"du-button du-button--normal du-button--primary du-c-primary-bt dango-docs__primary","default":{"height":"32px","borderRadius":"4px","backgroundColor":"rgb(124, 102, 255)","actionState":"default"},"hover":{"pointerHoverObserved":true,"backgroundColor":"rgb(124, 102, 255)"},"focusAndActivation":{"focused":true,"outline":"rgb(0, 95, 204) auto 1px","actionState":"activated-focus-retained"},"restore":{"focused":false,"outline":"rgb(255, 255, 255) none 0px","actionState":"default"},"status":"pass"},
+  "boundaries": {"native":"DuButton structure, documented props, emitted click, and component token chain","styleOnly":"documentation shell/grid/reflow, local navigation cue, document modules and presentation CSS","composition":"DuButton specimens embedded in documentation-specific modules","inventedComponentsOrApis":[],"status":"pass"},
+  "heldOut": {"route":"dango-release-checklist-held-out","sections":2,"currentNavigation":"发布检查","primaryButtonText":"运行检查","sameRootAndRecipes":true,"roleExpansion":false,"status":"pass"}
+}

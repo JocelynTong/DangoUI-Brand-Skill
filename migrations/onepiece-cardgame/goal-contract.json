@@ -1,0 +1,189 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "brand": "onepiece-cardgame",
+  "mode": "learn-brand",
+  "goalType": "brand-learning-capability-test",
+  "createdAt": "2026-09-01T00:00:00+08:00",
+  "sealed": true,
+  "goal": "First prove page-by-page visual understanding of the official ONE PIECE CARD GAME Home, News, Products and Events pages from complete source observation; only then prove generative reuse on a separate held-out page.",
+  "nonGoals": [
+    "website-mirror",
+    "host-apply",
+    "branded-asset-template"
+  ],
+  "implementationPolicy": {
+    "allowSourceScreenshotAsRuntimeAsset": false,
+    "requireIndependentRuntimeAssetsOrDomCssReconstruction": true,
+    "requireHighSalienceEvidenceTrace": true
+  },
+  "evidencePolicy": {
+    "continuousCaptureRequired": true,
+    "observationManifest": "migrations/onepiece-cardgame/source-observation-manifest.json",
+    "requiredPageIds": ["home", "news", "products", "events"],
+    "requiredInteractionIds": ["top-menu-open-yellow-label", "welcome-cta-hover-scale-shadow"],
+    "requiredPageStates": ["initial", "continuous-scroll", "settled-end"],
+    "requiredInteractionStates": ["default", "transition", "settled"],
+    "consumerRule": "Interpreter is blocked until every required page has frozen full-page capture, continuous playback, lossless frames, timeline coverage and extracted screenshot/region/DOM/computed claims."
+  },
+  "learningProofContract": {
+    "evidenceFidelity": {
+      "required": true,
+      "claim": "Every high-salience visual decision must trace to observed evidence and its approved semantic role."
+    },
+    "structuralFidelity": {
+      "required": true,
+      "claim": "Composition, hierarchy, information density and interaction semantics must survive translation."
+    },
+    "generativeProof": {
+      "required": true,
+      "claim": "At least one held-out page must reuse frozen recipes with source-independent content and no one-to-one source page mapping."
+    },
+    "compensationPolicy": "A pass in one proof cannot compensate for a failure in another."
+  },
+  "referencePages": [
+    {
+      "id": "home",
+      "url": "https://asia-en.onepiece-cardgame.com/",
+      "screenshot": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+      "continuousCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/source-home-scroll.gif",
+      "core": true
+    },
+    {
+      "id": "news",
+      "url": "https://asia-en.onepiece-cardgame.com/news/",
+      "screenshot": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png",
+      "continuousCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/source-news-scroll.gif",
+      "core": true
+    },
+    {
+      "id": "products",
+      "url": "https://asia-en.onepiece-cardgame.com/products/?view=normal",
+      "screenshot": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+      "continuousCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/source-products-scroll.gif",
+      "core": true
+    },
+    {
+      "id": "events",
+      "url": "https://asia-en.onepiece-cardgame.com/events/",
+      "screenshot": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+      "continuousCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/source-events-scroll.gif",
+      "core": true
+    }
+  ],
+  "demoPages": [
+    {
+      "id": "onepiece-cardgame-home",
+      "mapsToSourcePageId": "home",
+      "screenshot": "output/visual-qa/onepiece-cardgame/demo-home.png"
+    },
+    {
+      "id": "onepiece-cardgame-news",
+      "mapsToSourcePageId": "news",
+      "screenshot": null,
+      "status": "awaiting-v4-evidence"
+    },
+    {
+      "id": "onepiece-cardgame-products",
+      "mapsToSourcePageId": "products",
+      "screenshot": "output/visual-qa/onepiece-cardgame/demo-products.png"
+    },
+    {
+      "id": "onepiece-cardgame-events",
+      "mapsToSourcePageId": "events",
+      "screenshot": null,
+      "status": "awaiting-v4-evidence"
+    },
+    {
+      "id": "onepiece-cardgame-editorial-held-out",
+      "proofRole": "generative-held-out",
+      "mapsToSourcePageId": null,
+      "screenshot": null,
+      "status": "not-started"
+    }
+  ],
+  "generativeChallenge": {
+    "id": "onepiece-editorial-held-out-v1",
+    "status": "pending",
+    "demoPageId": "onepiece-cardgame-editorial-held-out",
+    "heldOut": true,
+    "sourceContentIndependent": true,
+    "contentChange": "Create a representative event announcement fixture chosen after the reusable recipes are frozen.",
+    "mapsToSourcePageId": null,
+    "requiredRecipeIds": [
+      "editorial-module-rhythm",
+      "black-white-taxonomy-control",
+      "hard-black-unboxed-heading"
+    ],
+    "forbiddenShortcuts": [
+      "source screenshot or crop as runtime asset",
+      "one-to-one recreation of an official Events page",
+      "logo, brand colors or official wallpaper as the only recognizable brand cues"
+    ]
+  },
+  "mustPreserve": [
+    {
+      "id": "hero-composition",
+      "description": "The home preview preserves the official hero's dominant campaign composition, visual weight and asset hierarchy.",
+      "dimensions": ["composition", "assetAuthenticity"],
+      "requiredOn": ["home"]
+    },
+    {
+      "id": "news-editorial-hierarchy",
+      "description": "The News preview preserves the official page's filter/header relationship, repeated editorial rows, metadata hierarchy and page density.",
+      "dimensions": ["composition", "informationDensity", "typographyGraphics"],
+      "requiredOn": ["news"]
+    },
+    {
+      "id": "product-density",
+      "description": "The products preview preserves the official catalog's grid density, product-first hierarchy and browsing rhythm.",
+      "dimensions": ["composition", "informationDensity"],
+      "requiredOn": ["products"]
+    },
+    {
+      "id": "events-editorial-hierarchy",
+      "description": "The Events preview preserves the official event index's actual heading, category/filter controls, event-card hierarchy, metadata and browsing density; unsupported reservation actions are forbidden.",
+      "dimensions": ["composition", "informationDensity", "interactionSemantics"],
+      "requiredOn": ["events"]
+    },
+    {
+      "id": "role-color-system",
+      "description": "Warm story surfaces, hard black typography and black-white taxonomy controls remain distinct roles. Yellow is admissible only for a captured menu-open indicator or inside campaign artwork; it must not become generic active, title or button chrome.",
+      "dimensions": ["colorRoles"],
+      "requiredOn": ["home", "news", "products", "events"]
+    }
+  ],
+  "mayTranslate": [
+    {
+      "id": "responsive-phone-layout",
+      "description": "Desktop columns may be compressed into a phone layout without removing the defining composition or density pattern."
+    },
+    {
+      "id": "representative-catalog-items",
+      "description": "The full catalog may use representative items, but the result must still read as a merchandise catalog rather than a generic card list."
+    }
+  ],
+  "mustNotReplace": [
+    {
+      "id": "code-first-color-semantics",
+      "description": "Unused CSS, token names and asset filenames may not establish a visible semantic role without a matching rendered capture and observed state."
+    },
+    {
+      "id": "logo-color-substitution",
+      "description": "Logo, official assets and brand colors may not substitute for matching composition, hierarchy and information density."
+    },
+    {
+      "id": "post-hoc-translation-claim",
+      "description": "Implementation may not introduce a new translation justification after seeing the result."
+    }
+  ],
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "dimensionMin": {
+      "composition": 3,
+      "assetAuthenticity": 3
+    },
+    "maxAttempts": 2
+  }
+}

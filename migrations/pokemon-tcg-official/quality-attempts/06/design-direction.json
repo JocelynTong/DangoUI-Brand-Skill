@@ -1,0 +1,48 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 6,
+  "decisionStatus": "approved",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "demoType": "source-calibration-plus-labeled-generative-held-out",
+  "sourceTruthBoundary": "Current source evidence proves only one official 30th campaign. State one may calibrate to it. State two is a labeled generative capability test and must never be described as a second official campaign.",
+  "designObjective": "Repair carousel truth, visible state change, mobile navigation structure and control usability without regressing the approved compact Hero.",
+  "inputBindings": {
+    "goal": {"path": "migrations/pokemon-tcg-official/quality-attempts/06/goal-correction.json", "sha256": "81efe7da08e4a77d729cae3bebbcda716c6c229d3790e70791b1b28ed48dcd98"},
+    "evidence": {"path": "migrations/pokemon-tcg-official/quality-attempts/06/evidence/carousel-evidence.json", "sha256": "028c96f9272aabfaef45a1c24d1e37e6fd36e8d28672308b4388f0c8d439464f"},
+    "intent": {"path": "migrations/pokemon-tcg-official/brand-intent.json", "sha256": "bb73a547abe6a0aa50d77315f12c96125886d9536e40bf68928fba3d630f0021"},
+    "patterns": {"path": "migrations/pokemon-tcg-official/approved-visual-patterns.json", "sha256": "01cf9955b79ac666879709f6a8bb92342310eaac3302c3df34bf05f177978fe8"}
+  },
+  "visualPriorityOrder": [
+    "visible and legible state identity",
+    "visible interaction feedback",
+    "source-like mobile navigation",
+    "control operability",
+    "compact composition",
+    "protocol completeness"
+  ],
+  "sections": [{
+    "id": "home-campaign-stage",
+    "firstImpressionGoal": "A compact official 30th campaign surface with clear navigation and a visibly real second-state capability test.",
+    "mustPreserve": ["official default assets", "card flip", "next-section exposure", "compact height"],
+    "mayChange": ["second-state content and assets", "nav markup", "carousel control hit boxes", "state transition"],
+    "mustNotDo": ["invent a second official campaign", "use an index/class-only carousel pass", "use a hamburger glyph", "hide the held-out disclosure"]
+  }],
+  "highSalienceElements": ["campaign-state-identity", "background", "title", "featured-card", "cta", "mobile-navigation", "carousel-controls"],
+  "responsiveStrategyMatrix": [
+    {"element":"campaign-state-identity","elementType":"content","strategy":"structural-substitution","evidenceRefs":["hero-one-campaign","hero-card-variants-not-campaigns"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["official default","visible non-official held-out disclosure"]},
+    {"element":"background","elementType":"media","strategy":"art-directed-crop","evidenceRefs":["hero-one-campaign"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["recognizable campaign subject","legible foreground"]},
+    {"element":"title","elementType":"text","strategy":"structural-substitution","evidenceRefs":["hero-one-campaign","downstreamBoundary.allowedWithDirectorApproval"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["official image title in default","disclosed held-out text title"],"minimumReadableSize":"28px held-out title / source logo legible"},
+    {"element":"featured-card","elementType":"control","strategy":"independent-scale","evidenceRefs":["hero-one-campaign"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["authentic card identity","reversible flip"],"minimumReadableSize":"110px card width / 44px target"},
+    {"element":"cta","elementType":"control","strategy":"responsive-reflow","evidenceRefs":["hero-one-campaign"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["readable label","primary action hierarchy"],"minimumReadableSize":"44px height"},
+    {"element":"state-transition","elementType":"motion","strategy":"motion-degradation","evidenceRefs":["action-evidence-next-unresolved"],"viewports":["pointer","prefers-reduced-motion"],"mustPreserve":["multiple visible identities change","instant reduced-motion settled state"]},
+    {"element":"mobile-navigation","elementType":"control","strategy":"structural-substitution","evidenceRefs":["mobile-navigation-geometry"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["56px black cap","left logo","MENU plus three independent lines","real open and close"],"minimumReadableSize":"44px menu target / 13px label"},
+    {"element":"carousel-controls","elementType":"control","strategy":"structural-substitution","evidenceRefs":["user-carousel-control-correction"],"viewports":["390x844","outer-1440-internal-phone"],"mustPreserve":["short visual bars","44x44 target","reversible selection"],"minimumReadableSize":"44x44px target"}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "outer desktop viewport containing the narrow phone proof surface",
+    "mobileCanvas": "independent 390x844 viewport",
+    "inspectorPolicy": "exclude inspector chrome from fidelity crops",
+    "sourceComparison": "compare only the default state to official source; evaluate state two solely as labeled Generative Proof"
+  }
+}

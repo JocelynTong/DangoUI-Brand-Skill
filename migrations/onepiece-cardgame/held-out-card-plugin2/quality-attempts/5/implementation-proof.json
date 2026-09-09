@@ -1,0 +1,57 @@
+{
+  "schema": "brand-host-filter-wrap-repair-proof/v1",
+  "attempt": 5,
+  "route": "pages/plaza/index",
+  "scope": "filter-panel only",
+  "incidentRetro": "quality-attempts/5/incident-retro.json",
+  "implementation": {
+    "editedFiles": [
+      "frontend/src/styles/onepiece-cardgame-heldout-theme.scss"
+    ],
+    "styleSha256": "0bd0690eea497dc6425c0ae45fe8ef131d16d0f3f190e5ba6807077d75ccd443",
+    "vueSfcEdited": false,
+    "repair": "taxonomy scroll containers now have auto height and visible content flow; chip groups wrap to available width",
+    "overflowHiddenWorkaroundUsed": false,
+    "optionsRemoved": false,
+    "businessBehaviorChanged": false,
+    "attempt4DirectionPreserved": true,
+    "otherRoutesChanged": false
+  },
+  "viewportChecks": {
+    "390x844": {
+      "rowScrollWidthClientWidth": [[281, 281], [281, 281]],
+      "panelHeight": 853,
+      "lastOption": "太阳&月亮-2.0",
+      "lastOptionInsidePanel": true,
+      "documentOverflow": 0
+    },
+    "536x900": {
+      "rowScrollWidthClientWidth": [[387, 387], [387, 387]],
+      "panelHeight": 1171,
+      "lastOption": "太阳&月亮-2.0",
+      "lastOptionInsidePanel": true,
+      "documentOverflow": 0
+    },
+    "1280x720": {
+      "rowScrollWidthClientWidth": [[2146, 2146], [2146, 2146]],
+      "panelHeight": 220,
+      "lastOption": "太阳&月亮-2.0",
+      "lastOptionInsidePanel": true,
+      "documentOverflow": 0
+    }
+  },
+  "interactionParity": {
+    "pointerSelection": "PASS",
+    "enterSelection": "PASS",
+    "spaceSelection": "PASS",
+    "ariaPressedUpdated": true
+  },
+  "verification": {
+    "heldOutBuild": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER",
+    "plazaStructuralDiff": "PASS",
+    "preview": "http://localhost:10092/#/pages/plaza/index",
+    "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT"
+  },
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

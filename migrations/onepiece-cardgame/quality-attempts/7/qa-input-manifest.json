@@ -1,0 +1,104 @@
+{
+  "schema": "brand-blind-qa-input/v3",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v3",
+  "goalSha256": "03c2fb9ab05ea49dd881f6892a008e1e6ec8642a609fc7faf559e323b17703da",
+  "attempt": 7,
+  "qaExecutionId": "blind-qa-onepiece-cardgame-v3-20260901-001",
+  "capturedAt": "2026-09-01T03:00:13.251Z",
+  "forbiddenInputsAbsent": {
+    "implementationRationale": true,
+    "priorVerdict": true,
+    "oldQaScreenshotsAsEvidence": true,
+    "mainConversation": true
+  },
+  "allowedInputs": [
+    {
+      "kind": "goal-contract",
+      "path": "migrations/onepiece-cardgame/goal-contract.json",
+      "sha256": "03c2fb9ab05ea49dd881f6892a008e1e6ec8642a609fc7faf559e323b17703da"
+    },
+    {
+      "kind": "brand-evidence",
+      "path": "migrations/onepiece-cardgame/brand-evidence.json",
+      "sha256": "6036efe422e8ccaaf5c85cc338536ed39d2fcc643f5cf9e7030351d19ba1a60b"
+    },
+    {
+      "kind": "action-evidence",
+      "path": "migrations/onepiece-cardgame/action-evidence-v02.json",
+      "sha256": "a632fa2f67b2162783b90920cfca61943a8493f40f8afed4cf63e93bdc8b2529"
+    },
+    {
+      "kind": "brand-intent",
+      "path": "migrations/onepiece-cardgame/brand-intent.json",
+      "sha256": "7447c445a51d86f6311bb1436715a6363eb3c15108499634045ca93a920eed22"
+    },
+    {
+      "kind": "preview-gate",
+      "path": "migrations/onepiece-cardgame/preview-gate.json",
+      "sha256": "3403036c6a7ec38e54da9ebb26b198c4f6649ad8ba6e3d3a4c053a4f1cb6e08d"
+    }
+  ],
+  "pageTargets": [
+    "http://127.0.0.1:5177/?qa=blind-v3#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+    "http://127.0.0.1:5177/?qa=blind-v3#/brand/onepiece-cardgame/pages/onepiece-cardgame-news",
+    "http://127.0.0.1:5177/?qa=blind-v3#/brand/onepiece-cardgame/pages/onepiece-cardgame-products",
+    "http://127.0.0.1:5177/?qa=blind-v3#/brand/onepiece-cardgame/pages/onepiece-cardgame-events"
+  ],
+  "freshEvidence": [
+    {
+      "pageId": "onepiece-cardgame-home",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-top.png",
+      "sha256": "8985d5d52bee8a2a80caac912a284903479a35bdc56a28166c23406f5255c02e"
+    },
+    {
+      "pageId": "onepiece-cardgame-home",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-scroll.png",
+      "sha256": "46869d1a5f1fbabda4d5742253d5d2cb61796a51e1f6411d12759a189ed7ad6f"
+    },
+    {
+      "pageId": "onepiece-cardgame-home",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-welcome-default-precise.png",
+      "sha256": "ec35c13222a4fb7222d5a5749dd2a4a4e01351f03817310514a571ed21f7dbea"
+    },
+    {
+      "pageId": "onepiece-cardgame-home",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-welcome-hover-precise.png",
+      "sha256": "de5b482e3910a1dcc807e5260e1e9f87065d04fc00b2914b04248b8212919a12"
+    },
+    {
+      "pageId": "onepiece-cardgame-news",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-news-blind-v3-top.png",
+      "sha256": "ef7474d8bec9f9c8b3ca16bdceba2a260228a130c95b0026b6aadd8a12a3eda9"
+    },
+    {
+      "pageId": "onepiece-cardgame-news",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-news-blind-v3-scroll.png",
+      "sha256": "e4f8ae171c03f5aee475332033dcca7d014f6b172575205aa6588e738ca3487b"
+    },
+    {
+      "pageId": "onepiece-cardgame-products",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-top.png",
+      "sha256": "62e50f704fbafa496c5573ef18d4df06c8b7f48e45954dfca310fa87feb41fd8"
+    },
+    {
+      "pageId": "onepiece-cardgame-products",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-scroll.png",
+      "sha256": "d4a0542ca9c6ccbee956e604876f3cdef724b22597c538a602f7d24183d8ae31"
+    },
+    {
+      "pageId": "onepiece-cardgame-events",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-top.png",
+      "sha256": "1f2619d6baf692d34b46525b995e036b8271036a4327ef78253557066a9ccc20"
+    },
+    {
+      "pageId": "onepiece-cardgame-events",
+      "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-scroll.png",
+      "sha256": "b1a4be94fafae182c8d945849e101766d395d408014b6baa5c23ade7d51c6c62"
+    }
+  ],
+  "notes": [
+    "Old v8 verdict, old screenshots and all prior QA conclusions were treated as untrusted history.",
+    "Fresh screenshots, scroll probes and computed-style checks were taken on September 1, 2026 from the local page routes only."
+  ]
+}

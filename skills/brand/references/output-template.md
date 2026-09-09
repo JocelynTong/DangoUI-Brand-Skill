@@ -16,6 +16,7 @@
 
 ```text
 migrations/{brand}/
+  goal-contract.json
   preview-gate.json
   brand-evidence.json
   brand-profile.dtcg.json
@@ -25,6 +26,16 @@ migrations/{brand}/
   component-mapping.json
   README.md
 ```
+
+learn-brand 的 Demo 是学习能力测试，不是官网镜像、品牌素材模板或宿主 apply 成果。交付说明必须分别报告 `Evidence Proof / Structure Proof / Generative Proof`；任一项 blocked 时，不能用综合观感或 build pass 宣称完成。
+
+apply-host 另需 `brand-distinctiveness-assessment.json`，包含同视口 source/host 截图对、遮蔽品牌名/Logo/显式文字后的 blind recognition、visual mass / asset / composition / type / motion 五维评分、可见 signal 的 viewportAreaRatio 和 Evidence refs。最终状态必须分列：
+
+```json
+{"workflowCompletion":"PASS|BLOCKED","businessSafety":"PASS|FAIL","visualDistinctiveness":"PASS|FAIL"}
+```
+
+禁止输出把三者混合的 `overallScore` / `overallPercent`。技术或业务 Gate 通过不补偿 `visualDistinctiveness: FAIL`。
 
 ## 2. JSON 文件职责
 
@@ -40,6 +51,13 @@ migrations/{brand}/
 - 进入正式 DTCG / Echo / dangoui 迁移的决策。
 
 preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索证据，不能直接成为正式 token。
+
+页面应分成两组，不能混为“2-3 个看起来不同的 demo”：
+
+- `reference calibration`：参与证据抽取、规则解释和构图校准的官网页面，用于证明 evidence 与 structure。
+- `held-out generative challenge`：在规则冻结后才进入实现与 Blind QA 的新页面类型或新内容集，用于证明规则可生成，而不是记住 reference。
+
+同一个页面不能同时充当 calibration 和 held-out。直接复制 source screenshot、裁切官网长图或仅更换官方壁纸，均不能计入 Generative Proof。
 
 必须避免的 preview 记录：
 
@@ -101,6 +119,10 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 不要把 `tailwind.config.js` 作为 Echo / dangoui 工作流的默认 token 输出。外部 Tailwind 项目只能作为兼容产物单独标记。
 
 ### `component-mapping.json`
+
+### `mapping-runtime-proof.json`
+
+记录 mapping 的真实消费证据，而不是“计划应用”：每条 proof 至少包含 route、selector、expected token/component/recipe、computed 或 actual runtime、evidence refs 与非 pending status。正式交付把独立结论保存为品牌根目录的 canonical `mapping-qa-report.json`，详细输入与 computed report 可放在独立运行目录；然后运行 `validate-dangoui-mapping.mjs --brand <brand> --strict`。
 
 保存组件模式映射：
 
@@ -238,6 +260,16 @@ DOM class
 - 已校准效果的回归清单：字体包、icon/asset、边框、圆角、阴影、选中态。
 - 正例：目标 demo 元素确实应用品牌样式。
 - 反例：证据区、mapping 区、频次表等非目标容器没有被误套。
+
+追加三证结论：
+
+| Proof | 输入 | 必须证明 | Blocking 示例 | 结论 |
+|---|---|---|---|---|
+| Evidence | DOM / computed / asset / motion / source region | 高显著度模式有来源且语义未扩张 | `UNSUPPORTED_VISUAL_PATTERN` | pass / blocked |
+| Structure | reference 与 demo 对照 | 构图、层级、密度、节奏保留决定性特征 | Hero 只换官方壁纸 | pass / blocked |
+| Generative | 冻结规则 + held-out challenge | 新内容仍可生成同品牌页面 | 截图复用、固定模板换素材 | pass / blocked |
+
+宿主项目的 URL、业务保真、承载力与效率验收单列在 `apply-host` 交付中，不写进 learn-brand Demo 的通过结论。
 - 若用伪元素表达边框，说明是贴边外沿还是内框；默认不接受“容器里又套一层框”作为替代。
 - 若使用风格化 Frame，优先说明它如何替代父容器 border；只有源站证据明确存在内框时才接受 inset 伪元素。
 

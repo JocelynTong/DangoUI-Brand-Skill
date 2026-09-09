@@ -1,0 +1,21 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/plaza/index",
+  "goal": "Test whether the host feels closer to the official ONE PIECE visual system through surface ratio, geometry and editorial rhythm rather than palette imitation.",
+  "mustPreserve": ["all plaza content, search/filter behavior, deck/event branches, navigation targets and Pokémon media"],
+  "mustChange": {
+    "surface": "warm-white map-paper canvas dominates; dark color is limited to masthead/navigation and selected editorial moments",
+    "geometry": "low-radius or square content cards and controls; remove dominant pill language",
+    "colorRoles": "navy/black structure, warm-white content, yellow as sparse active accent, red as sparse action/section marker",
+    "composition": "clear masthead, compact taxonomy, breathing space, rectangular content islands and visible first content item",
+    "type": "strong short headings with restrained readable CJK controls/body"
+  },
+  "mustNotDo": ["add or replace business content", "add a full hero above browsing", "reuse screenshot crops", "change other routes", "use generic black-red-yellow presence as acceptance evidence"],
+  "acceptance": [
+    "same-viewport source/host comparison shows source-relative surface ratio and rectangular geometry",
+    "masked comparison remains recognizable without relying on logo or character art",
+    "390x844 and 1280x720 show search, taxonomy and first content without overflow",
+    "all existing plaza interactions and keyboard behavior remain unchanged"
+  ]
+}

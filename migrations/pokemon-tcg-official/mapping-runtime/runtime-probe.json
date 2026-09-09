@@ -1,0 +1,275 @@
+{
+  "schema": "pokemon-dangoui-mapping-runtime-probe/v1",
+  "generatedAt": "2026-09-05T17:57:32.207Z",
+  "base": "http://127.0.0.1:5180",
+  "verdict": "pass",
+  "summary": {
+    "dtcgTargets": 6,
+    "consumed": 6,
+    "pending": 0,
+    "nativeComponentTypes": 1,
+    "nativeComponentInstances": 1
+  },
+  "checks": {
+    "sixScreenshots": true,
+    "fourNativeTokensScoped": true,
+    "rejectedBorderCandidateAbsent": true,
+    "nativeDuButton": true,
+    "primaryTextTokenConsumed": true,
+    "databaseFontConsumed": true,
+    "resultsTextureConsumed": true,
+    "foreignThemesClean": true,
+    "noBrokenImages": true,
+    "noHorizontalOverflow": true,
+    "noRuntimeErrors": true
+  },
+  "pages": [
+    {
+      "pageId": "pokemon-tcg-official-home",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/pokemon-tcg-official/mapping-runtime/captures/home-desktop.png",
+      "demo": {
+        "x": 764,
+        "y": 98.265625,
+        "width": 372,
+        "height": 2436.828125
+      },
+      "screen": {
+        "x": 764,
+        "y": 98.265625,
+        "width": 372,
+        "height": 803.453125
+      },
+      "tokens": {
+        "bg1": "#fff",
+        "bg2": "#ededed",
+        "text1": "#131415",
+        "text2": "#494949",
+        "border1": "#0000001f"
+      },
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 2461,
+        "scrollTop": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": []
+    },
+    {
+      "pageId": "pokemon-tcg-official-home",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/pokemon-tcg-official/mapping-runtime/captures/home-phone.png",
+      "demo": {
+        "x": 9,
+        "y": 9,
+        "width": 372,
+        "height": 2436.828125
+      },
+      "screen": {
+        "x": 9,
+        "y": 9,
+        "width": 372,
+        "height": 803.453125
+      },
+      "tokens": {
+        "bg1": "#fff",
+        "bg2": "#ededed",
+        "text1": "#131415",
+        "text2": "#494949",
+        "border1": "#0000001f"
+      },
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 2461,
+        "scrollTop": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": []
+    },
+    {
+      "pageId": "pokemon-tcg-official-card-database",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/pokemon-tcg-official/mapping-runtime/captures/database-desktop.png",
+      "demo": {
+        "x": 764,
+        "y": 98.265625,
+        "width": 372,
+        "height": 1628.25
+      },
+      "screen": {
+        "x": 764,
+        "y": 98.265625,
+        "width": 372,
+        "height": 803.453125
+      },
+      "tokens": {
+        "bg1": "#fff",
+        "bg2": "#ededed",
+        "text1": "#131415",
+        "text2": "#494949",
+        "border1": "#0000001f"
+      },
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1628,
+        "scrollTop": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": []
+    },
+    {
+      "pageId": "pokemon-tcg-official-card-database",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/pokemon-tcg-official/mapping-runtime/captures/database-phone.png",
+      "demo": {
+        "x": 9,
+        "y": 9,
+        "width": 372,
+        "height": 1628.25
+      },
+      "screen": {
+        "x": 9,
+        "y": 9,
+        "width": 372,
+        "height": 803.453125
+      },
+      "tokens": {
+        "bg1": "#fff",
+        "bg2": "#ededed",
+        "text1": "#131415",
+        "text2": "#494949",
+        "border1": "#0000001f"
+      },
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1628,
+        "scrollTop": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": []
+    },
+    {
+      "pageId": "pokemon-tcg-official-learn",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/pokemon-tcg-official/mapping-runtime/captures/learn-desktop.png",
+      "demo": {
+        "x": 764,
+        "y": 98.265625,
+        "width": 372,
+        "height": 3498.484375
+      },
+      "screen": {
+        "x": 764,
+        "y": 98.265625,
+        "width": 372,
+        "height": 803.453125
+      },
+      "tokens": {
+        "bg1": "#fff",
+        "bg2": "#ededed",
+        "text1": "#131415",
+        "text2": "#494949",
+        "border1": "#0000001f"
+      },
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 3498,
+        "scrollTop": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": []
+    },
+    {
+      "pageId": "pokemon-tcg-official-learn",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/pokemon-tcg-official/mapping-runtime/captures/learn-phone.png",
+      "demo": {
+        "x": 9,
+        "y": 9,
+        "width": 372,
+        "height": 3522.484375
+      },
+      "screen": {
+        "x": 9,
+        "y": 9,
+        "width": 372,
+        "height": 803.453125
+      },
+      "tokens": {
+        "bg1": "#fff",
+        "bg2": "#ededed",
+        "text1": "#131415",
+        "text2": "#494949",
+        "border1": "#0000001f"
+      },
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 3522,
+        "scrollTop": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": []
+    }
+  ],
+  "nativeButton": {
+    "tag": "BUTTON",
+    "className": "du-button du-button--normal du-button--primary du-c-primary-bt pokemon-db__submit",
+    "text": "Search",
+    "backgroundColor": "rgb(228, 107, 41)",
+    "color": "rgb(34, 34, 34)",
+    "height": 32
+  },
+  "databaseTokens": {
+    "font": "Flexo-Regular, Arial, sans-serif",
+    "fontToken": "\"Flexo-Regular\", Arial, sans-serif",
+    "backgroundColor": "rgb(237, 237, 237)"
+  },
+  "databaseTitle": {
+    "token": "#131415",
+    "color": "rgb(19, 20, 21)",
+    "surface": "rgb(255, 255, 255)"
+  },
+  "resultsToken": {
+    "token": "url(\"https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png\")",
+    "backgroundImage": "url(\"https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png\")"
+  },
+  "foreign": [
+    {
+      "brand": "dango",
+      "pokemonThemeAncestor": false,
+      "databaseFontToken": "",
+      "resultsTextureToken": ""
+    },
+    {
+      "brand": "onepiece-cardgame",
+      "pokemonThemeAncestor": false,
+      "databaseFontToken": "",
+      "resultsTextureToken": ""
+    }
+  ],
+  "errors": []
+}

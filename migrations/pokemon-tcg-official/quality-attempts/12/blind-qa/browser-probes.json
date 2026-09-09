@@ -1,0 +1,75 @@
+{
+  "schema": "cross-brand-home-indicator-blind-qa/v1",
+  "status": "PASS",
+  "scope": [
+    "pokemon-tcg-official/pokemon-tcg-official-home",
+    "onepiece-cardgame/onepiece-cardgame-home"
+  ],
+  "source": "fresh browser render; no prior QA verdict used",
+  "viewports": {
+    "normal": [
+      { "width": 1184, "height": 933 },
+      { "width": 1280, "height": 720 }
+    ],
+    "noShell": { "width": 390, "height": 844, "query": "proof=mobile" }
+  },
+  "results": {
+    "pokemon-tcg-official": {
+      "1184x933": {
+        "screen": { "clientWidth": 371, "clientHeight": 802, "scrollWidth": 371, "scrollHeight": 3710, "bottomScrollTop": 2907, "restoredScrollTop": 0 },
+        "indicator": { "directPhoneChild": true, "position": "absolute", "bottom": "0px", "backgroundColor": "rgba(0, 0, 0, 0)", "backgroundImage": "none", "rect": { "x": 646.3671875, "y": 834.1640625, "width": 351.265625, "height": 33.5625 } },
+        "bar": { "backgroundColor": "rgb(17, 17, 17)", "height": 4.9296875 },
+        "contentPaddingBottom": 23.6952,
+        "lastContentClearanceToBar": 3.7109375,
+        "horizontalOverflow": 0,
+        "indicatorStableAfterScroll": true
+      },
+      "1280x720": {
+        "screen": { "clientWidth": 298, "clientHeight": 644, "scrollWidth": 298, "scrollHeight": 3705, "bottomScrollTop": 3061.5, "restoredScrollTop": 0 },
+        "indicator": { "directPhoneChild": true, "position": "absolute", "bottom": "0px", "backgroundColor": "rgba(0, 0, 0, 0)", "backgroundImage": "none", "rect": { "x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625 } },
+        "bar": { "backgroundColor": "rgb(17, 17, 17)", "height": 3.953125 },
+        "contentPaddingBottom": 18.996,
+        "lastContentClearanceToBar": 3.21875,
+        "horizontalOverflow": 0,
+        "indicatorStableAfterScroll": true
+      },
+      "390x844-no-shell": { "indicatorDisplay": "none", "screenClientWidth": 390, "screenScrollWidth": 390, "documentHorizontalOverflow": 0 },
+      "legacy110PaddingPresentOnHome": false
+    },
+    "onepiece-cardgame": {
+      "1184x933": {
+        "screen": { "clientWidth": 371, "clientHeight": 802, "scrollWidth": 371, "scrollHeight": 6183, "bottomScrollTop": 5380, "restoredScrollTop": 0 },
+        "indicator": { "directPhoneChild": true, "position": "absolute", "bottom": "0px", "backgroundColor": "rgba(0, 0, 0, 0)", "backgroundImage": "none", "rect": { "x": 646.3671875, "y": 834.1640625, "width": 351.265625, "height": 33.5625 } },
+        "bar": { "backgroundColor": "rgb(17, 17, 17)", "height": 4.9296875 },
+        "contentPaddingBottom": 21.7206,
+        "lastContentClearanceToBar": 1.8359375,
+        "horizontalOverflow": 0,
+        "indicatorStableAfterScroll": true
+      },
+      "1280x720": {
+        "screen": { "clientWidth": 298, "clientHeight": 644, "scrollWidth": 298, "scrollHeight": 6246, "bottomScrollTop": 5602, "restoredScrollTop": 0 },
+        "indicator": { "directPhoneChild": true, "position": "absolute", "bottom": "0px", "backgroundColor": "rgba(0, 0, 0, 0)", "backgroundImage": "none", "rect": { "x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625 } },
+        "bar": { "backgroundColor": "rgb(17, 17, 17)", "height": 3.953125 },
+        "contentPaddingBottom": 17.413,
+        "lastContentClearanceToBar": 1.4453125,
+        "horizontalOverflow": 0,
+        "indicatorStableAfterScroll": true
+      },
+      "390x844-no-shell": { "indicatorDisplay": "none", "screenClientWidth": 390, "screenScrollWidth": 390, "documentHorizontalOverflow": 0 },
+      "legacy110PaddingPresentOnHome": false
+    }
+  },
+  "checks": {
+    "directPhoneChild": true,
+    "absoluteBottomZero": true,
+    "transparentContainerNoImage": true,
+    "blackBarOnly": true,
+    "noLegacy110HomePadding": true,
+    "contentClearsBar": true,
+    "noLargeIndicatorTail": true,
+    "scrollStableAndRestored": true,
+    "noHorizontalOverflow": true,
+    "noShellIndicatorHidden": true
+  },
+  "earliestFailureNode": null
+}

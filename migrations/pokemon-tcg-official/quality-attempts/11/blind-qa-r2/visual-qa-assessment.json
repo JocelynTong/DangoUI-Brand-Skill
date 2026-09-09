@@ -1,0 +1,123 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 2,
+  "role": "Blind QA / TPP",
+  "independence": {
+    "freshContext": true,
+    "priorVerdictsRead": false,
+    "priorReportsRead": false,
+    "priorBlindQaProbesRead": false,
+    "implementationModified": false
+  },
+  "verdict": "REWORK",
+  "overallStatus": "FAIL",
+  "threeProofVerdicts": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "PASS"
+  },
+  "earliestFailureNode": "brandInterpreter",
+  "failureOwnerRole": "designTranslator",
+  "blockingFindings": [
+    {
+      "id": "R2-B01-DESKTOP-TYPE-SEMANTIC-OMISSION",
+      "severity": "blocking",
+      "proof": "evidenceFidelity",
+      "earliestFailureNode": "brandInterpreter",
+      "failureOwnerRole": "designTranslator",
+      "finding": "The archived source CSS fixes desktop h2/body/CTA roles at 48/18/18px at the 1440 endpoint, but brand-intent only carries the 390 type sizes and labels desktop child boxes unresolved. The Demo then renders unsupported 56/20/20px values.",
+      "sourceEvidence": [
+        "../evidence/captures/assets/global.css",
+        "../evidence/captures/desktop/championship-series-settled-region-1440x720.png"
+      ],
+      "demoEvidence": [
+        "captures/desktop-championship-play-1440x900.png",
+        "browser-probes.json#desktopCalibration.typography"
+      ],
+      "whyEarliestHere": "The desktop values are recoverable from frozen archived source CSS and the visible endpoint. Interpreter preserved only the mobile values and did not convert the desktop source rules into an approved semantic constraint. Direction did not approve 56/20/20, so the omission precedes the Demo deviation."
+    },
+    {
+      "id": "R2-B02-MOBILE-COPY-STACK-OFFSET",
+      "severity": "blocking",
+      "proof": "structuralFidelity",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "finding": "At the 390 section-local endpoint the Demo h2, paragraph and CTA are all 8.398-8.399px lower than the frozen geometry. Demo local y values are 422.398, 527.898 and 745.477; source values are 414, 519.5 and 737.078.",
+      "sourceEvidence": [
+        "../evidence/source-observation-manifest.json#observations.mobile-typography",
+        "../evidence/section-fidelity-source.json#viewports/mobile-390"
+      ],
+      "demoEvidence": [
+        "captures/mobile-championship-aligned-390x844.png",
+        "browser-probes.json#mobileCalibration.geometry"
+      ],
+      "whyEarliestHere": "Interpreter and Design Direction both preserve the measured 390 geometry; the rendered offset is introduced by the Demo layout."
+    },
+    {
+      "id": "R2-B03-CTA-FRAME-SHADOW-DEVIATION",
+      "severity": "blocking",
+      "proof": "evidenceFidelity",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "finding": "The approved CTA recipe requires a 2px inset frame and source shadow 0 16px 24px -16px rgba(0,0,0,.35). The rendered CTA has no ::after frame and uses 0 8px 16px -10px rgba(0,0,0,.55).",
+      "sourceEvidence": [
+        "../interpreter/brand-intent.json#recipes/recipe.cta.black-to-gold-reveal",
+        "../evidence/captures/assets/global.css"
+      ],
+      "demoEvidence": [
+        "browser-probes.json#desktopCalibration.cta"
+      ]
+    },
+    {
+      "id": "R2-B04-REVISION2-MANIFEST-PROVENANCE",
+      "severity": "blocking",
+      "proof": "evidenceFidelity",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "finding": "The Revision2 section manifest is not self-contained or provenance-accurate: responsiveBehavior.demoEvidence points to quality-attempts/11/demo/captures rather than demo-revision2; assetRefs.sourceUrl omits /championship-series/; the 2x required asset provenance is absent; and aria-live output is named as a changedVisibleProperty even though it is clipped to a 1x1 visually-hidden node.",
+      "sourceEvidence": [
+        "../evidence/rendered-asset-inventory.json",
+        "../interpreter/brand-intent.json#officialAssetUsage"
+      ],
+      "demoEvidence": [
+        "../demo-revision2/section-fidelity-manifest.json",
+        "browser-probes.json#heldOut.interaction"
+      ],
+      "gateBlindSpot": "validate-section-fidelity only checks field presence, file existence and self-declared pass flags; it does not validate revision freshness, URL/hash binding, 2x completeness or visibility truth."
+    }
+  ],
+  "passedChecks": [
+    "Normal user route visibly retains phone chassis, rounded phone-screen and fixed Home Indicator.",
+    "Normal phone-screen scrolls from 0 to 2460 and restores to 0; Home Indicator rect is unchanged.",
+    "Hero, What's New, TCG Live, TCG Pocket, Championship Series and Play! Pokémon remain in page order.",
+    "Desktop target is 1440x720 with 720/720 copy-left and image-right fields.",
+    "390 target is 390x829.172 with 390x390 image first and 374x439.172 content second.",
+    "Section, media and copy backgrounds are transparent; their ::before/::after have no content or background image; white is page-canvas-owned.",
+    "Play! Pokémon starts immediately at target-local y=720 desktop and y=829.172 mobile.",
+    "CTA default, gold hover, black outlined focus and external destination were reproduced on desktop and 390 surfaces.",
+    "Calibration CTA and held-out CTA have no aria-pressed attribute.",
+    "Both local official image candidates byte-match the frozen source hashes; src, srcset and live currentSrc were recorded separately.",
+    "Held-out fixture uses source-independent CSS-native media and fictional content while retaining split-to-stack, transparent ownership, type-role and CTA state-machine invariants.",
+    "Held-out focus is visibly outlined; activation changes aria-live text; reload restores the initial state and scroll position.",
+    "Build, preview registry, design direction and strict section machine gates exited 0."
+  ],
+  "minimalRollbackScope": {
+    "start": "brandInterpreter",
+    "end": "demoImplementation",
+    "preserve": [
+      "frozen goal-contract",
+      "all Evidence captures and asset hashes",
+      "Hero, What's New, TCG Live and Pocket implementations",
+      "held-out fictional concept and CSS-native media"
+    ],
+    "redo": [
+      "Interpret and freeze the archived desktop typography/spacing rules without claiming unresolved desktop bounding boxes.",
+      "Refresh Design Direction only where needed to carry those desktop rules.",
+      "Correct desktop type/spacing, 390 copy-stack position, CTA inset frame and shadow.",
+      "Regenerate Revision2-only captures and provenance-correct section-fidelity manifest.",
+      "Run a new independent Blind QA."
+    ]
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "brand-demo-implementation-receipt/v1",
+  "brand": "dango",
+  "stage": "demo-1",
+  "role": "demoImplementationAgent",
+  "goalId": "dango-relearn-home-button-v1",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "verdict": "pass",
+  "visualVerdict": "not-assigned-by-implementation-agent",
+  "implemented": [
+    "Introduction source-calibration page",
+    "Button structural-transfer page",
+    "Release Checklist generative held-out page",
+    "normal phone mockup routes",
+    "independent desktop and mobile proof surfaces",
+    "Primary Button default, stable hover, visible focus, activated-focus and restored states"
+  ],
+  "missing": ["independent Blind QA verdict", "public registry registration"],
+  "preAuthorizedTransformations": [
+    "replace documentation subject and copy",
+    "hide secondary sidebars at narrow widths",
+    "change article length while preserving zone hierarchy",
+    "change button label while retaining role",
+    "reconstruct technical diagram with independent DOM/CSS"
+  ],
+  "selfTest": "migrations/dango/demo-1/implementation-self-test.json",
+  "screenshotManifest": "migrations/dango/demo-1/demo-screenshot-manifest.json",
+  "sectionManifest": "migrations/dango/demo-1/section-fidelity-implementation-manifest.json",
+  "registrationState": "intentionally-unregistered-pending-blind-qa",
+  "inputsPreserved": true,
+  "outputs": [
+    { "path": "public/brand-previews/dango.json", "sha256": "b6e792cc43ac6087fbb39b79b7b5d173f865552f642c1becc1b071786dee2514" },
+    { "path": "migrations/dango/visual-pattern-inventory.json", "sha256": "d0aa3f6f9c20060b2ad6e2fa6ac3af6ebd9a1aef253b455763af226956ba6a16" },
+    { "path": "migrations/dango/generative-proof.json", "sha256": "5f0d1ceab49d84e3b9dbc8652a4d68200619b11356e7527bbfc3e1f959a88b05" },
+    { "path": "migrations/dango/demo-1/implementation-self-test.json", "sha256": "746bbcdeb8da8a29a60dc9b193f390e243221e3b3e5dcdb63ca1ddcbdb26ebb8" },
+    { "path": "migrations/dango/demo-1/demo-screenshot-manifest.json", "sha256": "c95c2ed059f292aa93040bcb845983a22921780a2d99eb67df41df59ba16694b" },
+    { "path": "migrations/dango/demo-1/section-fidelity-implementation-manifest.json", "sha256": "a2bf23b1c707b28dec124234bb7fa3834fea480ab0262275c67ea57366081013" },
+    { "path": "src/App.vue", "sha256": "72abaa87ec185a08b932d2149df73fa3afe6e0280085e3d475f8a011db9fcf4a" },
+    { "path": "src/styles.css", "sha256": "d713ad4fb1ca42f5dfdff2c6391bcc02259fbe05b6019c579c64583df48a1549" },
+    { "path": "scripts/dango-demo-1-probe.mjs", "sha256": "e21567976ae9662b25c4f84ffc73a3f7ed87b5c0764eac87ee581e62c0cd7899" }
+  ]
+}

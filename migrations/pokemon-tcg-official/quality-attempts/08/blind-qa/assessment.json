@@ -1,0 +1,64 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "scope": "homepage/whats-new-only",
+  "verdict": "REWORK",
+  "earliestFailureNode": "Demo Implementation Agent",
+  "failureOwnerRole": "demoImplementationAgent",
+  "threeProofs": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "FAIL"
+  },
+  "blockingFindings": [
+    {
+      "id": "MOBILE_CAROUSEL_UNEXPECTED_SCROLL",
+      "priority": "P0",
+      "owner": "demoImplementationAgent",
+      "finding": "At the normal mobile section alignment, activating Next changes .phone-screen.scrollTop from 352.5 to 582 and restoration leaves it at 582. The section title/archive link disappear and the reading context jumps.",
+      "requiredFix": "Preserve and restore the inner proof-surface scrollTop during carousel interaction; verify click, keyboard activation and restore without viewport movement."
+    },
+    {
+      "id": "APPROVED_TYPOGRAPHY_NOT_IMPLEMENTED",
+      "priority": "P0",
+      "owner": "demoImplementationAgent",
+      "finding": "The approved Pattern requires Kanit for the 48/32 title and PT Sans 18px/20px for archive/CTA. Demo renders the title in Oxanium, archive in Oxanium 12px and CTA in Oxanium 12px. Headline PT Sans sizing is correct.",
+      "requiredFix": "Use the approved section-local font roles and sizes; do not substitute the broader campaign type system."
+    },
+    {
+      "id": "NEXT_SECTION_SEAM_WRONG",
+      "priority": "P0",
+      "owner": "demoImplementationAgent",
+      "finding": "The frozen goal and direction explicitly require the clean red following-section seam. Demo ends into rgb(217,239,247) light blue.",
+      "requiredFix": "Restore a source-supported red boundary immediately below WHAT'S NEW. This is a current-scope structural blocker, not a deferred downstream-section styling issue."
+    },
+    {
+      "id": "REDUCED_MOTION_NOT_PROVEN",
+      "priority": "P1",
+      "owner": "demoImplementationAgent",
+      "finding": "No allowed runtime capture/probe demonstrates the required instant reduced-motion settled state, and the live page exposes no observable prefers-reduced-motion media rule.",
+      "requiredFix": "Provide a fresh reduced-motion runtime probe/capture showing immediate settled content with no translate/fade/scale timeline."
+    },
+    {
+      "id": "GENERATIVE_PROOF_NOT_HELD_OUT",
+      "priority": "P1",
+      "owner": "demoImplementationAgent",
+      "finding": "The submitted proof only reproduces the six source stories and the source's own desktop/mobile regrouping. It does not actively change content or structure beyond the official carousel, so it proves calibration but not regeneration.",
+      "requiredFix": "Add a clearly labeled held-out, non-official story/content fixture or another permitted structural variation while preserving PAT-WN invariants."
+    }
+  ],
+  "passes": [
+    "full-bleed white section is x=0 and true viewport width at both viewports",
+    "48px desktop and 32px mobile title sizes and desktop/mobile archive-link reflow",
+    "two desktop stories / one mobile story and three / six page counts",
+    "all six source asset identities load at natural 578x325",
+    "rendered images retain 578:325 ratio with object-fit contain and no crop",
+    "image-headline-CTA reading order",
+    "60x60 edge arrows and 44x44 dot targets",
+    "carousel visibly changes image/headline/CTA and uses translate/fade/scale",
+    "Hero remains 390x416 on mobile",
+    "no horizontal overflow at either viewport",
+    "no browser console errors or warnings"
+  ]
+}

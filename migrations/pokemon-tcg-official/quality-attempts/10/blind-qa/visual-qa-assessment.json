@@ -1,0 +1,52 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 10,
+  "verdict": "NEEDS_EVIDENCE",
+  "earliestFailureNode": "evidence",
+  "failureOwnerRole": "brandResearcher",
+  "blockingFindings": [
+    {
+      "id": "POCKET_MOBILE_BACKGROUND_IDENTITY_UNVERIFIED",
+      "severity": "BLOCKER",
+      "observed": "The submitted manifest claims desktop background.jpg and mobile header_bg-small.jpg, but both runtime files are 720x464 JPEGs with the same SHA-256 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976.",
+      "expected": "Evidence must verify the fetched source bytes and SHA-256 for both official URLs. The mobile runtime must then bind to the verified header_bg-small source asset, not a renamed duplicate of the desktop file.",
+      "earliestFailureNode": "evidence",
+      "failureOwnerRole": "brandResearcher",
+      "whyBlocking": "Dedicated mobile background identity is frozen in the Goal and Design Direction and cannot be established from URL/file naming alone."
+    }
+  ],
+  "threeProofs": {
+    "evidenceFidelity": {
+      "verdict": "NEEDS_EVIDENCE",
+      "basis": "Source screenshots and computed URL selection support the visual endpoint, but source asset bytes/hashes were not frozen. The two submitted runtime background files are byte-identical, so the high-salience mobile asset identity remains unproved."
+    },
+    "structuralFidelity": {
+      "verdict": "PASS",
+      "basis": "Desktop is 1440x476.19 with equal 720/720 fields; mobile is 390x743.02 with 334.23px asset-first and 408.79px copy-second fields. Composite geometry, type, CTA, full bleed and prior-section regression match the frozen measurements with no horizontal overflow."
+    },
+    "generativeProof": {
+      "verdict": "PASS",
+      "basis": "For this source-calibration slice, responsive structural translation is demonstrated by DOM/CSS reflow and an independent transparent composite rather than a flattened screenshot. This does not upgrade the unresolved entry motion into an exact claim."
+    }
+  },
+  "checks": {
+    "desktopSection1440x476": "PASS",
+    "desktopEqual720Halves": "PASS",
+    "mobileSection390x743": "PASS",
+    "mobileAssetFirstCopySecond": "PASS",
+    "backgroundRegionVsCompositeGeometry": "PASS",
+    "mobileDedicatedBackgroundIdentity": "NEEDS_EVIDENCE",
+    "logoCardsIdentityAndNoFlatten": "PASS",
+    "typography40To28AndBody18": "PASS",
+    "cta56To51HoverAndTarget": "PASS",
+    "noExtensionOverlay": "PASS",
+    "entryMotion": "UNRESOLVED_UNSCORED",
+    "heroNewsTcglRegression": "PASS",
+    "horizontalOverflow": "PASS"
+  },
+  "warnings": [
+    "The source mobile screenshot contains a red browser-extension overlay; the Demo correctly omits it.",
+    "Entry motion remains unresolved and unscored; the Demo does not claim exact timing, easing, stagger, or intermediate frames."
+  ]
+}

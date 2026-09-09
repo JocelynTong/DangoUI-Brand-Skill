@@ -1,0 +1,85 @@
+{
+  "schema": "brand-generative-proof/v1",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "implementationState": "attempt-15-runtime-provenance-and-structural-rule-repair-awaiting-independent-proof",
+  "attempt13BoundaryProof": {
+    "demoPageId": "onepiece-cardgame-editorial-held-out",
+    "mapsToSourcePageId": null,
+    "directRoute": "#/brand/onepiece-cardgame/pages/onepiece-cardgame-editorial-held-out",
+    "homeHeldOutSectionCount": 0,
+    "capture": "quality-attempts/13/implementation/captures/held-out-route.png",
+    "probe": "quality-attempts/13/implementation/browser-probes.json",
+    "verdictBoundary": "implementation proof only; independent generative proof remains pending"
+  },
+  "mobileTransferCheck": {
+    "attempt11Revision2Preserved": true,
+    "viewport": {"width":390,"height":843},
+    "heldOutSectionWidth": 390,
+    "heldOutLayout": "desktop asymmetric columns reflow to a readable single-column editorial sequence",
+    "documentHorizontalOverflow": false,
+    "capture": "quality-attempts/11/implementation/captures/demo-mobile-segment-6-y3661.png",
+    "verdictBoundary": "implementation self-check only; independent generative proof remains pending"
+  },
+  "challenge": {
+    "id": "onepiece-editorial-held-out-v1",
+    "heldOut": true,
+    "frozenBeforeChallenge": true,
+    "rulesFrozenBeforeContentSelection": true,
+    "sourceContentIndependent": true,
+    "demoPageId": "onepiece-cardgame-editorial-held-out",
+    "demoSectionIds": ["held-out-taxonomy", "held-out-editorial-board"],
+    "mapsToSourcePageId": null,
+    "contentChange": "A fictional Captain's Field Notes briefing was selected after rule freeze and has no source-page counterpart.",
+    "structureChange": "A separate taxonomy rail precedes an asymmetric dominant dispatch, detached watch list and three-poster next-read strip."
+  },
+  "frozenRules": [
+    {"recipeId": "editorial-module-rhythm", "frozenBeforeChallenge": true, "invariants": ["one dominant editorial module", "one structurally distinct compact support module", "terse subordinate metadata", "no identical generic shells"], "visibleAt": "held-out-editorial-board"},
+    {"recipeId": "hard-black-unboxed-heading", "frozenBeforeChallenge": true, "invariants": ["authority from weight and contrast", "no colored title pill"], "visibleAt": "FIELD NOTES heading"},
+    {"recipeId": "black-white-taxonomy-control", "frozenBeforeChallenge": true, "invariants": ["compact outlined taxonomy controls", "black active state", "no yellow active expansion"], "visibleAt": "held-out-taxonomy"}
+  ],
+  "deliberatelyVariedInput": {
+    "content": "fictional tactical field notes rather than official news, products or events",
+    "structure": "taxonomy + 1.36fr dispatch/.84fr watch list + detached three-poster strip",
+    "media": "three independently generated SVG fixtures"
+  },
+  "whyInSystem": "The output keeps the frozen differentiated editorial pacing, hard unboxed heading, compact black-white taxonomy and terse metadata while changing subject, page identity and arrangement. It does not mirror a complete source page or rely on logo/color substitution.",
+  "checks": {
+    "separateDemoPageVisible": true,
+    "sourceScreenshotUsedAtRuntime": false,
+    "sourceCropUsedAtRuntime": false,
+    "officialPageCopied": false,
+    "logoOrColorOnlyProof": false,
+    "brandCueSubstitution": false,
+    "requiredRecipesRendered": ["editorial-module-rhythm", "hard-black-unboxed-heading", "black-white-taxonomy-control"],
+    "structureRulesApplied": ["editorial-module-rhythm", "hard-black-unboxed-heading", "black-white-taxonomy-control"],
+    "structureRuleApplications": [
+      {"recipeId":"editorial-module-rhythm","visibleImplementation":"held-out-editorial-board","finding":"One dominant dispatch, a structurally distinct compact watch list, terse metadata and a detached three-item recommendation strip replace any source-page mirror or repeated generic shell."},
+      {"recipeId":"hard-black-unboxed-heading","visibleImplementation":"CAPTAIN'S FIELD NOTES","finding":"Heading authority comes from weight, scale and a black rule without colored title chrome."},
+      {"recipeId":"black-white-taxonomy-control","visibleImplementation":"held-out-taxonomy","finding":"Compact outlined taxonomy controls use a black active state; campaign yellow and official wallpaper are not promoted into navigation semantics."}
+    ],
+    "browserProbe": {"pageId": "onepiece-cardgame-editorial-held-out", "sections": 2, "taxonomyControls": 3, "heldOutHeadingVisible": true, "scrollTopAtCapture": 0}
+  },
+  "output": {
+    "demoPageId": "onepiece-cardgame-editorial-held-out",
+    "screenshot": {"path": "migrations/onepiece-cardgame/core-pages-rebuild/captures/editorial-held-out-desktop-initial.png", "sha256": "1c4ddf69960d9207c6f3eb32011265ab68c9f5f65bdbefc0c6703612a0fd46d8", "width": 1280, "height": 720}
+  },
+  "assets": [
+    {"path": "public/assets/brand-assets/onepiece-cardgame/generated/heldout-event-draft.svg", "sha256": "23e0a29988b5f40af269649b9807c2ad0d6d853bcd00d29919ee325cde82612c", "sourceKind": "generated-independent-asset"},
+    {"path": "public/assets/brand-assets/onepiece-cardgame/generated/heldout-event-rookie.svg", "sha256": "e1bd9405fd22ee5b223d91a1d02cc184802501e4fe61e23953deb243bd80e50f", "sourceKind": "generated-independent-asset"},
+    {"path": "public/assets/brand-assets/onepiece-cardgame/generated/heldout-event-team.svg", "sha256": "c580c71d83cf3af65ca9441f92f91a45754e3957cd760f8b4a3ba4b3de7eb3c2", "sourceKind": "generated-independent-asset"}
+  ],
+  "visualFidelitySelfApproved": false,
+  "evidenceFidelityVerdict": "pending-independent-proof",
+  "structuralFidelityVerdict": "pending-independent-proof",
+  "generativeProofVerdict": "pending-independent-proof",
+  "qaStatus": "ready-for-independent-proof",
+  "attempt12OrganismPreservation": {
+    "invariants": ["semantic actions remain operable","media sections retain clipped rails","section-specific frames do not become global chrome","unresolved drag/active/modal/accordion states are not invented"],
+    "deliberateChanges": ["390px responsive reflow","DOM/CSS event-frame reconstruction when the verified independent asset could not be fetched","repeated independent media fixtures used only to prove rail structure"],
+    "runtimeScreenshotLeakage": false,
+    "capture": "output/visual-qa/onepiece-cardgame/demo-v12/home-full-390.png",
+    "verdictBoundary": "implementation proof only"
+  }
+}

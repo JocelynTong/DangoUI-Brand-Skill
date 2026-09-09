@@ -1,0 +1,35 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "pokemon-tcg-official-card-sheen-backfill-v1",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "mode": "learn-brand",
+  "profile": "fast",
+  "goalType": "interaction-evidence-backfill-test",
+  "runPurpose": "code-discovered-visual-evidence-backfill",
+  "createdAt": "2026-09-02T16:00:00+08:00",
+  "sealed": true,
+  "goal": "Determine whether the visible foreground card in the official Pokémon TCG Home Hero has a pointer-follow sheen or 3D transform by discovering runtime code/DOM signals first and then automatically backfilling visual evidence.",
+  "nonGoals": ["full-hero-rebuild", "full-site-code-crawl", "demo-implementation", "manual-random-exploration"],
+  "scope": {
+    "unit": "interaction-micro-case",
+    "sourcePageId": "home",
+    "sourceSectionId": "home-hero-header",
+    "target": "visible foreground card and its bounded ancestors, descendants, pseudo-elements, bound listeners and loaded rules"
+  },
+  "referencePages": [{"id":"home","url":"https://tcg.pokemon.com/en-us/","core":true}],
+  "evidencePolicy": {
+    "discoveryOrder": ["visible-target", "bounded-runtime-code-scan", "candidate", "automatic-pointer-probe", "visual-backfill", "disposition"],
+    "requiredViewports": [{"width":1440,"height":1000,"label":"desktop-pointer"}],
+    "requiredPointerPath": ["outside", "center", "top-left", "top-right", "bottom-right", "bottom-left", "center", "outside-restored"],
+    "requiredSignals": ["event listeners", "inline/CSS custom properties", "transform/perspective", "pseudo-element gradient/background-position", "opacity/filter/mix-blend-mode", "requestAnimationFrame or transition"],
+    "requiredOutputs": ["candidate list", "pointer-coordinate timeline", "computed-style timeline", "lossless local frames", "visual pixel/hash delta", "validated/rejected/unresolved disposition"]
+  },
+  "mustPreserve": [{"id":"candidate-to-visual-backfill-chain","requiredOn":["home-hero-header"],"dimensions":["interactionSemantics","motion"]}],
+  "mustNotReplace": [
+    {"id":"no-code-only-proof","description":"Code presence alone cannot validate a visible effect."},
+    {"id":"no-random-pointer-proof","description":"Use the frozen normalized path and record coordinates/timestamps."},
+    {"id":"no-unbounded-crawl","description":"Do not crawl unrelated site code or invisible components."}
+  ],
+  "thresholds": {"maxAttempts":2},
+  "timeBudget": {"profile":"fast","targetMinutes":[5,8],"stopOptionalExpansionAtMinutes":8,"blockAtMinutes":12}
+}

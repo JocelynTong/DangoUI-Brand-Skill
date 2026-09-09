@@ -1,0 +1,57 @@
+{
+  "schema": "brand-host-plaza-standard-sample-proof/v1",
+  "attempt": 9,
+  "route": "pages/plaza/index",
+  "direction": "plaza-standard-sample-direction-v2.json",
+  "scope": "Plaza held-out scoped visual CSS only",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "33d64bec1d9f32fba639f185cb4b1f5bb7297d52207bb5cea6b78ad851b476a5",
+    "vueSfcEdited": false,
+    "masthead": "red square now carries a concise card identity mark; system chrome is visually subordinated",
+    "search": "one integrated field with an explicit search label; the nested native input no longer draws a second frame",
+    "rules": "header, taxonomy, campaign and cards use unified 1px editorial rules and low-radius geometry",
+    "metadata": "deck tags and metadata are quieter; campaign participation is outlined rather than a dominant red fill",
+    "paperCanvasPreserved": true,
+    "compactEnvironmentRailPreserved": true,
+    "businessOrA11yChanged": false,
+    "writes": 0,
+    "otherRoutesChanged": false
+  },
+  "viewportChecks": {
+    "390x844": {
+      "searchTopBottomGaps": [1.04, 1.04],
+      "minimumChipHeight": 45.76,
+      "firstDeckTop": 454.17,
+      "firstDeckVisible": true,
+      "documentOverflow": 0
+    },
+    "536x864": {
+      "searchGapDelta": 0.01,
+      "minimumChipHeight": 62.89,
+      "chipCollisions": 0,
+      "firstDeckTop": 622.85,
+      "firstDeckVisible": true,
+      "documentOverflow": 0
+    },
+    "1280x720": {
+      "searchGapDelta": 0,
+      "minimumChipHeight": 44,
+      "chipCollisions": 0,
+      "firstDeckTop": 577.39,
+      "firstDeckVisible": true,
+      "documentOverflow": 0
+    }
+  },
+  "regression": {
+    "nativeHorizontalScroll": "PRESERVED_FROM_ATTEMPT_8",
+    "environmentFocusAutoScroll": "PRESERVED_39_OF_39",
+    "pointerEnterSpaceParity": "PRESERVED",
+    "heldOutBuild": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER",
+    "plazaStructuralDiff": "PASS"
+  },
+  "preview": "http://localhost:10092/#/pages/plaza/index",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

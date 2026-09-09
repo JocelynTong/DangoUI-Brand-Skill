@@ -1,0 +1,25 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/plaza/index",
+  "goal": "Promote the successful Plaza surface experiment into a coherent standard sample without expanding scope to other routes.",
+  "reviewFindings": [
+    "The red square and dotted capsule in the masthead read as unexplained decoration rather than navigation or identity.",
+    "The search leading-icon cell appears empty and creates a false secondary input.",
+    "Header, taxonomy and content cards use unrelated stroke weights and vertical rhythm.",
+    "The first content card is readable but metadata and action hierarchy can be quieter and more editorial."
+  ],
+  "requiredDirection": [
+    "Make every masthead element communicate identity, navigation or status; remove or visually subordinate unexplained chrome without deleting business controls.",
+    "Make search read as one input with a visible search affordance, not two adjacent boxes.",
+    "Unify 1px rules, low-radius geometry, section spacing and CJK hierarchy across taxonomy, campaign strip and deck cards.",
+    "Keep the paper canvas dominant and keep yellow/red sparse.",
+    "Preserve all content, data, interactions, accessibility semantics and the successful compact environment rail."
+  ],
+  "acceptance": [
+    "390/536/1280 screenshots read as one editorial system",
+    "no unexplained empty input cell or dominant decorative control",
+    "search, taxonomy, season strip and first card remain visible and ordered",
+    "all previous interaction, overflow, accessibility and business gates remain PASS"
+  ]
+}

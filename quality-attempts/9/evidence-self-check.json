@@ -1,0 +1,25 @@
+{
+  "schema": "brand-evidence-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 9,
+  "role": "Evidence Agent",
+  "checkedAt": "2026-09-01T17:05:00+08:00",
+  "verdict": "NEEDS_EVIDENCE",
+  "summary": "Footer recapture passes visual inspection. Exact font target-glyph recapture remains unavailable because both browser surfaces translated official English text nodes and no translation-disable control was available.",
+  "accepted": [
+    {"claimRef":"home-footer-illustration-organism","settledCapture":"output/visual-qa/onepiece-cardgame/evidence-v9-recapture/footer-organism/footer-illustration-settled-visible.png","lateCapture":"output/visual-qa/onepiece-cardgame/evidence-v9-recapture/footer-organism/footer-illustration-late-visible.png","visualInspection":"Both 1280x720 images visibly contain the full footerIllust organism: large Luffy, catch/logo, three card layers, wave/background and the boundary above footerColInner."}
+  ],
+  "unavailable": [
+    {"claimRefs":["home-font-asset-alfa-slab-one","home-font-asset-noto-serif","home-font-asset-poppins","home-font-asset-oswald"],"reason":"Official English text nodes were browser-translated. The visible Alfa node reads 消息 instead of NEWS; equivalent exact English glyph proof for the other roles is therefore not accepted."},
+    {"capability":"reduced-motion","reason":"No reduced-motion emulation or preference control is exposed by the browser runtime; no dependent motion claim passes from it."}
+  ],
+  "invalidatedFiles": [
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-settled.png","reason":"Shows Hero/Welcome, not footerIllust."},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-late-frame.png","reason":"Shows Hero/Welcome, not footerIllust."},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png","reason":"Does not visibly contain NEWS."},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png","reason":"Was not visually verified before acceptance."},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png","reason":"Was not visually verified against both exact target glyph nodes before acceptance."},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v9-recapture/font-glyphs/alfa-slab-news-visible.png","reason":"Visibly contains browser-translated 消息, not NEWS; may use fallback glyphs."}
+  ],
+  "machineGate": {"command":"node skills/brand/scripts/validate-live-dom-evidence.mjs --input migrations/onepiece-cardgame/home-live-dom-evidence.json","ok":true,"claimCount":18,"failureCount":0,"unavailableClaimCount":4,"interpretation":"Structural PASS with unavailable claims explicitly non-consumable; overall evidence verdict remains NEEDS_EVIDENCE."}
+}

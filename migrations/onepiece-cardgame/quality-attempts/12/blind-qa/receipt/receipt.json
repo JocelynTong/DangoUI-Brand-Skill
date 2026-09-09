@@ -1,0 +1,30 @@
+{
+  "schema": "attempt12-blind-qa-receipt/v1",
+  "attempt": 12,
+  "role": "fresh blind visual QA / TPP",
+  "overall": "FAIL",
+  "failureOwner": "Demo",
+  "readBoundary": [
+    "sealed goal-contract",
+    "attempt12 evidence screenshots/checklist/probes/manifest",
+    "attempt12 interpreter section-contract",
+    "approved visual patterns",
+    "current visual inventory and demo screenshot manifest",
+    "live Demo"
+  ],
+  "excluded": [
+    "implementation messages",
+    "implementation self-check",
+    "implementation receipt",
+    "micro-gates",
+    "old verdicts"
+  ],
+  "artifacts": {
+    "report": "report/report.md",
+    "comparison": "comparisons/index.html",
+    "captures": "captures/",
+    "probes": "probes/browser-probes.json",
+    "assessment": "assessment/assessment.json"
+  },
+  "finalProofs": { "Evidence": "FAIL", "Structural": "FAIL", "Generative": "PASS" }
+}

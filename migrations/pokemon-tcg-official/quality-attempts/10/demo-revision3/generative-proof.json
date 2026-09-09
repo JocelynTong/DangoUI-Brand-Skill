@@ -1,0 +1,15 @@
+{
+  "schema":"brand-generative-proof/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"10-demo-revision3",
+  "proofType":"independent-held-out-content-and-arrangement",
+  "sourceCalibration":{"pageId":"pokemon-tcg-official-home","sectionId":"home-editorial-grid","captures":["captures/calibration-desktop-1440-settled.png","captures/calibration-mobile-390-settled.png"]},
+  "heldOut":{"pageId":"pokemon-tcg-official-pocket-fixture","sectionId":"held-out-pocket-family","directRoute":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture","label":"GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT","captures":["captures/held-out-desktop-1440-settled.png","captures/held-out-mobile-390-settled.png","captures/held-out-desktop-1440-hover.png","captures/held-out-mobile-390-hover.png"]},
+  "invariants":["light campaign field spans the complete section","black remains a bounded local copy child","desktop content remains a logical 720/720 split","mobile remains asset-first/copy-second","Kanit italic heading and PT Sans body/action roles","white CTA with localized gold foreground hover"],
+  "intentionalChanges":["official Pocket product copy becomes explicit fictional Pocket Deck Studio copy","desktop black copy child moves from the right logical half to the left logical half","official logo-cards.png is not reused; a source-independent DOM/CSS concept tile occupies the asset half","CTA becomes a local fictional concept anchor and does not impersonate the official Pocket destination"],
+  "notCountedAsGeneration":["the source-observed desktop-to-mobile responsive reflow","desktop/mobile background URL alias selection","official logo-cards asset identity"],
+  "contentIndependence":"The held-out page is not present on the source site, is visibly labelled fictional, uses no source screenshot and makes no official-product claim.",
+  "usesSourceScreenshotAtRuntime":false,
+  "entryMotionClaim":"unresolved/unscored and omitted",
+  "visualVerdict":"reserved-for-blind-qa"
+}

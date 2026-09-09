@@ -1,0 +1,64 @@
+{
+  "schema": "brand-demo-implementation-probe/v1",
+  "attempt": 13,
+  "scope": "PROOF_MODE_HOME_INDICATOR_VISIBLE only",
+  "ownerRole": "Demo Implementation Agent",
+  "change": {
+    "queryContract": ["proof=1", "proof=desktop", "proof=mobile"],
+    "phoneClass": "template-phone--proof-mode",
+    "selector": ".phone.template-phone:is(.template-phone--source-desktop, .template-phone--source-mobile-proof, .template-phone--proof-mode) > .mock-home-indicator--outer",
+    "proofDisplay": "none",
+    "normalModeContract": "one chassis-owned absolute indicator remains visible with a transparent container"
+  },
+  "browserProbe": {
+    "baseUrl": "http://127.0.0.1:5177",
+    "routes": [
+      "/#/brand/pokemon-tcg-official/style/button",
+      "/#/brand/pokemon-tcg-official/components/navigation-bar",
+      "/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home"
+    ],
+    "normalMode": {
+      "result": "PASS",
+      "routesChecked": 4,
+      "indicatorCountPerRoute": 1,
+      "visiblePerRoute": true,
+      "positionPerRoute": "absolute",
+      "backgroundColorPerRoute": "rgba(0, 0, 0, 0)",
+      "backgroundImagePerRoute": "none",
+      "measuredSize": { "width": 281.828125, "height": 26.90625 }
+    },
+    "proofModes": {
+      "result": "PASS",
+      "modesChecked": ["1", "desktop", "mobile"],
+      "routesPerMode": 4,
+      "indicatorCountPerRoute": 1,
+      "visiblePerRoute": false,
+      "computedDisplayPerRoute": "none",
+      "measuredSizePerRoute": { "width": 0, "height": 0 }
+    }
+  },
+  "build": {
+    "command": "npm run build",
+    "result": "PASS",
+    "note": "Only the existing Vite large-chunk advisory remained."
+  },
+  "files": [
+    {
+      "path": "src/App.vue",
+      "sha256": "20a2d7a181395b0cd0f3be904e1e4ab9ce0f4d97ca068cab791f3e2e5358a957"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "e155b3c4fc3f5f0df6e345548839eb67ed6116549dc249c624241929a701027f"
+    }
+  ],
+  "excluded": [
+    "orange mapping and artifacts",
+    "brand page structure",
+    "all unrelated visual styling",
+    "QA verdict"
+  ],
+  "implementationResult": "ready-for-independent-qa",
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

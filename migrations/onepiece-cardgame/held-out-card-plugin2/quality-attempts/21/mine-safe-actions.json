@@ -1,0 +1,45 @@
+{
+  "schema": "heldout-full-host-safe-mine-actions/v1",
+  "attempt": 21,
+  "isolatedEphemeralContext": true,
+  "localFixtureCreated": true,
+  "productionContextUntouched": true,
+  "draftBefore": 1,
+  "actionRects": {
+    "edit": {
+      "width": 64.375,
+      "height": 45.75
+    },
+    "delete": {
+      "width": 64.375,
+      "height": 45.75
+    }
+  },
+  "modal": {
+    "visible": true,
+    "text": "您确定要删除卡组吗？删除后无法恢复",
+    "box": {
+      "width": 340.09375,
+      "height": 214.53125,
+      "top": 327.203125,
+      "left": 24.953125
+    },
+    "cancel": {
+      "width": 144.09375,
+      "height": 49.90625,
+      "top": 472.109375,
+      "left": 46.75
+    },
+    "danger": {
+      "width": 144.09375,
+      "height": 49.90625,
+      "top": 472.109375,
+      "left": 199.15625
+    }
+  },
+  "cancelViaEnterClosed": true,
+  "draftAfterCancel": 1,
+  "confirmDeleteInvoked": false,
+  "editNavigationUrl": "http://127.0.0.1:10092/#/pages/build/index",
+  "networkWrites": []
+}

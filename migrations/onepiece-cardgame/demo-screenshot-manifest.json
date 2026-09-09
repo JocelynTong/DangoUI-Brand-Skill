@@ -1,0 +1,83 @@
+{
+  "schema": "brand-demo-screenshot-manifest/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 15,
+  "revision": 1,
+  "corePagesRebuild": {
+    "scope": ["onepiece-cardgame-home", "onepiece-cardgame-news", "onepiece-cardgame-products", "onepiece-cardgame-events", "onepiece-cardgame-editorial-held-out"],
+    "captureRoot": "migrations/onepiece-cardgame/core-pages-rebuild/captures",
+    "browserProbe": "migrations/onepiece-cardgame/core-pages-rebuild/browser-probe.json",
+    "sectionManifest": "migrations/onepiece-cardgame/core-pages-rebuild/section-fidelity-implementation-manifest.json",
+    "states": ["desktop-initial", "desktop-scrolled", "phone-initial", "phone-scrolled"],
+    "captures": [
+      {"pageId":"onepiece-cardgame-home","state":"desktop-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/home-desktop-initial.png","sha256":"2ac7326c546e33084d7d3a4523b2390d3f83df05b2603952ad0edebf8e9e2fef"},
+      {"pageId":"onepiece-cardgame-home","state":"desktop-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/home-desktop-scrolled.png","sha256":"b443ad0a316c3150374ac03c0d070ab5192708c2d7109b6d197f3f7414afd765"},
+      {"pageId":"onepiece-cardgame-home","state":"phone-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/home-phone-initial.png","sha256":"6d61c70843d35508afbe0d00df2ba53fd1653b3ab47ece64e55700ba5655ef91"},
+      {"pageId":"onepiece-cardgame-home","state":"phone-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/home-phone-scrolled.png","sha256":"993194d1f6e60f8dbe9fb62a28e218227a4ba89939602eb61f2a14798eb0056d"},
+      {"pageId":"onepiece-cardgame-news","state":"desktop-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/news-desktop-initial.png","sha256":"6ead8abb0be025f0d03cf59052c629b38158ea8a35a20ffdeca1d11c737c52ee"},
+      {"pageId":"onepiece-cardgame-news","state":"desktop-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/news-desktop-scrolled.png","sha256":"8c070917df18adae75ffee16a05e3b330aea54a7e030fd99d6532c548ad6e043"},
+      {"pageId":"onepiece-cardgame-news","state":"phone-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/news-phone-initial.png","sha256":"953caa7aac991e9d3975c94c5054fd64a6678af84bffa5cb2c4eb2310c92f53b"},
+      {"pageId":"onepiece-cardgame-news","state":"phone-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/news-phone-scrolled.png","sha256":"5ae0ae18635f7e88f62f7bb5ac7bdd7cd789da6fd74cec6d15f4e519508a0742"},
+      {"pageId":"onepiece-cardgame-products","state":"desktop-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/products-desktop-initial.png","sha256":"9aa7d83ed30190a9654f313412d716126d61739ea7a3a4fec1a83b9eeec16a09"},
+      {"pageId":"onepiece-cardgame-products","state":"desktop-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/products-desktop-scrolled.png","sha256":"1bf117b72f5de25662ea5f75f8450669ecf4ce7e6752b095fba17fe51c1fa3bf"},
+      {"pageId":"onepiece-cardgame-products","state":"phone-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/products-phone-initial.png","sha256":"5bf07cf34583cf905d81c598d6d4d14def64d1314106ea232b4ad4b6cb9cc8dd"},
+      {"pageId":"onepiece-cardgame-products","state":"phone-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/products-phone-scrolled.png","sha256":"add9a29ed12419ff54ea8832a54b04d27f6e09838afd712e8ca293a5095746b2"},
+      {"pageId":"onepiece-cardgame-events","state":"desktop-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/events-desktop-initial.png","sha256":"c59c698ad048f8458cd3ae86d98c23817e7f1e8a09d4960ed7a5ab3cccf3a7af"},
+      {"pageId":"onepiece-cardgame-events","state":"desktop-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/events-desktop-scrolled.png","sha256":"f730ff43f0e5540a7055ef59b87809bdb23c82e94a5c3361b81fe4243df447fd"},
+      {"pageId":"onepiece-cardgame-events","state":"phone-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/events-phone-initial.png","sha256":"bf2d024968769fa225cbb9ef9a993107233e9db4d9ac05ffdf3d6a336c50ee99"},
+      {"pageId":"onepiece-cardgame-events","state":"phone-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/events-phone-scrolled.png","sha256":"310e2c220f50409064fe94d0e3da8e38d2f9bc30e8343154ec15f30b05c18451"},
+      {"pageId":"onepiece-cardgame-editorial-held-out","state":"desktop-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/editorial-held-out-desktop-initial.png","sha256":"1c4ddf69960d9207c6f3eb32011265ab68c9f5f65bdbefc0c6703612a0fd46d8"},
+      {"pageId":"onepiece-cardgame-editorial-held-out","state":"desktop-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/editorial-held-out-desktop-scrolled.png","sha256":"70b0432ec4b69f336328e2c255775c2c673b7e9a0d9fb5aa9b3230adba23cf6c"},
+      {"pageId":"onepiece-cardgame-editorial-held-out","state":"phone-initial","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/editorial-held-out-phone-initial.png","sha256":"54fadb06b50334930a4150f05e1e1e1afa96783e2b9b719233639988f69a57ef"},
+      {"pageId":"onepiece-cardgame-editorial-held-out","state":"phone-scrolled","path":"migrations/onepiece-cardgame/core-pages-rebuild/captures/editorial-held-out-phone-scrolled.png","sha256":"54fadb06b50334930a4150f05e1e1e1afa96783e2b9b719233639988f69a57ef"}
+    ],
+    "verdictBoundary": "implementation evidence only; independent QA not run"
+  },
+  "attempt13Implementation": {
+    "captureRoot": "migrations/onepiece-cardgame/quality-attempts/13/implementation/captures",
+    "manifest": "migrations/onepiece-cardgame/quality-attempts/13/implementation/captures/manifest.json",
+    "captures": ["events-390.png","recommend-390.png","new-arrival-before.png","new-arrival-after-next.png","held-out-route.png"],
+    "browserProbe": "migrations/onepiece-cardgame/quality-attempts/13/implementation/browser-probes.json",
+    "interactionTrace": "migrations/onepiece-cardgame/quality-attempts/13/implementation/interaction-trace.json",
+    "verdictBoundary": "implementation evidence only; not an independent QA PASS"
+  },
+  "attempt12Implementation": {
+    "viewportRequested": {"width":390,"height":844},
+    "capture": "output/visual-qa/onepiece-cardgame/demo-v12/home-full-390.png",
+    "sections": ["home-welcome","home-new-arrival","home-events","home-recommend","home-videos","home-footer-illustration","home-footer"],
+    "comparisonSources": ["quality-attempts/12/evidence/welcome-390.png","quality-attempts/12/evidence/new-arrival-390.png","quality-attempts/12/evidence/events-complete-390.jpg","quality-attempts/12/evidence/recommend-390.png","quality-attempts/12/evidence/videos-390.png","quality-attempts/12/evidence/footer-complete-390.jpg"],
+    "verdictBoundary": "implementation evidence only; not an independent QA PASS"
+  },
+  "attempt11Revision2": {"captureRoot":"migrations/onepiece-cardgame/quality-attempts/11/revision-2/captures","viewport":{"width":390,"height":844},"reviewStatus":"awaiting-new-independent-QA"},
+  "implementationCaptureSet": {
+    "root": "migrations/onepiece-cardgame/quality-attempts/11/implementation/captures",
+    "mobileViewport": {"width":390,"height":843,"fullPage":"demo-home-mobile-full-390x843.png","segments":7},
+    "desktopViewport": {"width":1308,"height":895,"capture":"demo-home-desktop-phone-shell.png"},
+    "probe": "migrations/onepiece-cardgame/quality-attempts/11/implementation/browser-probes.json",
+    "reviewStatus": "awaiting-independent-review"
+  },
+  "viewport": { "width": 1164, "height": 655, "deviceScaleFactor": 1 },
+  "captureRoot": "output/visual-qa/onepiece-cardgame/demo-v10-revision-3",
+  "officialBackground": {
+    "runtimePath": "/assets/brand-assets/onepiece-cardgame/source/footer/background-wave.webp",
+    "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/common/pc/footer_illust_bg.webp",
+    "sourceCss": "https://asia-en.onepiece-cardgame.com/renewal/css/common.css?260828",
+    "sourceSelector": ".footerCol .footerIllustBgItem.showItem::before, .footerCol .footerIllustBgItem.showItem::after",
+    "dimensions": [2160, 830],
+    "sha256": "ca48a75f9d0d329f1033cb56b887fccc62ec0fc2036184055c4bf002033d1045",
+    "sourceKind": "official-independent-asset"
+  },
+  "captures": [
+    { "state": "default", "timestamp": "2026-09-01T12:11:34.261Z", "path": "home-footer-default.png", "sha256": "10a69f8f3f9e7f351b9c27acc552d88d8e432230424ec4617d2dcc54e3ea67d5", "scrollTop": 1400.5, "revealClass": "fadein" },
+    { "state": "120ms", "timestamp": "2026-09-01T12:11:34.680Z", "path": "home-footer-120ms.png", "sha256": "38ced9ccfbd2c7ded2101763f8a8e224c254ca7875369c9798795fd64c0e10f8", "scrollTop": 1796.5, "footerTop": 625.398, "layers": { "backgroundOpacity": 0.0948325, "characterOpacity": 0.0000235, "compositeOpacity": 0 } },
+    { "state": "500ms", "timestamp": "2026-09-01T12:11:35.120Z", "path": "home-footer-500ms.png", "sha256": "18fa3e58ba44d829ac4990a952075b2688c21c5cc725c5e52c6c4e10c5f19131", "scrollTop": 1796.5, "footerTop": 625.398, "layers": { "backgroundOpacity": 0.545381, "characterOpacity": 0.840788, "compositeOpacity": 0 } },
+    { "state": "settled", "timestamp": "2026-09-01T12:09:14.113Z", "path": "home-footer-settled.png", "sha256": "c4e4e4d885cb15f3cfca24ca07538d116fb0b93e8115c8931b6bacbe14fd1a40", "scrollTop": 2318, "baseNormalizedGeometry": { "character": { "x": -0.029664, "width": 0.546875, "height": 1 }, "card01": { "width": 0.159375, "height": 0.398795 }, "card02": { "width": 0.087037, "height": 0.201205 }, "card03": { "width": 0.084884, "height": 0.209566 }, "catchWidth": 0.16144, "logoWidth": 0.42914 }, "computedAnimatedBoxes": { "card01": { "width": 0.1673, "height": 0.4157 }, "card02": { "width": 0.0985, "height": 0.2279 }, "card03": { "width": 0.096, "height": 0.2335 } } },
+    { "state": "late", "path": "home-footer-late.png", "sha256": "c9fbae81741a8ba4de1444198924fbc424f8269a631bbb472724869912c1f283", "assertion": "loop transforms differ from settled" },
+    { "state": "paused", "path": "home-footer-paused.png", "sha256": "2ec10adbfa6bbd57e7cd1878fc26a2aee963018644b297f9879a269dcf6bece8", "assertion": "three footer loop transforms remain identical over 1200ms; reveal remains settled" }
+  ],
+  "motion": { "finiteComposite": { "durations": ["0.6s", "0.8s"], "iterations": [1, 1], "delays": ["1.5s", "2.2s"], "terminalOpacity": 0 }, "loops": { "card01": "5s infinite", "card02": "8s infinite", "card03": "8s infinite" }, "controlScope": "footer loops only" },
+  "typography": { "longStarterTitle": "OPCG Poppins 700", "shortDisplayTitle": "OPCG Alfa Slab One 400" },
+  "scrollProbe": { "scrollHeight": 2901, "clientHeight": 583, "restoredScrollTop": 0 },
+  "console": { "warnings": 0, "errors": 0 },
+  "visualComparison": { "html": "source-vs-demo-six-states.html", "png": "source-vs-demo-six-states.png", "sha256": "ae9fbbcd2b94fdde568aede6de980846ecaccfdc5730bdf75d764e4678d0d4ed", "directlyInspected": true }
+}

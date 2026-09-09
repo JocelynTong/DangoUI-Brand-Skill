@@ -1,0 +1,34 @@
+{
+  "schema": "brand-goal-contract/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "mode": "learn-brand",
+  "scope": "homepage/first-complete-high-salience-section-after-tcg-pocket",
+  "objective": "Identify, evidence and reproduce the first complete high-salience homepage section after TCG Pocket as an independently testable source-calibration surface, then prove its learned section-local rules with one isolated held-out variation.",
+  "mustPreserve": [
+    "the next section identity and boundary as actually rendered",
+    "visible parent/background/child stacking rather than inferred column fills",
+    "desktop 1440 and mobile 390 reading order and geometry",
+    "official asset identities and source hashes",
+    "observed typography roles and interaction states",
+    "page scroll continuity and prior Hero, What's New, TCG Live and Pocket sections"
+  ],
+  "mustNot": [
+    "choose a section from source-code naming or asset filenames before screenshot confirmation",
+    "treat hidden or dormant DOM as visible evidence",
+    "invent motion timing or interaction states",
+    "use source screenshots as runtime implementation assets",
+    "count source-observed responsive reflow as held-out generation",
+    "modify any Demo before Evidence, Interpreter and Design Direction gates pass"
+  ],
+  "referenceViewports": ["1440x900", "390x844"],
+  "requiredStates": ["settled", "hover", "focus", "activated-or-destination", "scroll-before-after-restored"],
+  "acceptance": {
+    "evidence": "Every high-salience claim has a visible screenshot region, live DOM bounding box, computed fact and source/asset trace; unresolved behavior stays unresolved.",
+    "structure": "Desktop/mobile section boundaries, stacking, reading order and responsive strategy are explicitly measured.",
+    "visual": "Background, principal assets, typography hierarchy and controls match the source at the same content viewport.",
+    "interaction": "Every visible control has a reproducible before/after or verified destination; page scrolling remains reversible.",
+    "generative": "A separate clearly labelled fictional fixture changes content or internal arrangement while preserving approved section-local invariants."
+  },
+  "decisionStatus": "frozen"
+}

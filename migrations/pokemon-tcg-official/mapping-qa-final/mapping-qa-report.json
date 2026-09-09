@@ -1,0 +1,46 @@
+{
+  "schema": "independent-mapping-qa-report/v1",
+  "brand": "pokemon-tcg-official",
+  "generatedAt": "2026-09-06T01:58:50+08:00",
+  "verdict": "pass",
+  "blockingFindings": [],
+  "summary": "Independent final QA passed: exactly 6 target-bearing DTCG leaves are computed-consumed 6/6; rejected border evidence remains audit-only; native/style-only/composition boundaries and runtime isolation hold.",
+  "checks": {
+    "exactlySixTargetBearingLeaves": "pass",
+    "sixOfSixComputedConsumed": "pass",
+    "duText1Actual131415": "pass",
+    "rejectedBorderAuditOnly": "pass",
+    "brandModValidatorExceptionStrictlyBounded": "pass",
+    "scopedTokensNoLeak": "pass",
+    "realDuButtonApiAndState": "pass",
+    "threePagesDesktopAndPhoneVisual": "pass",
+    "scrollReversible": "pass",
+    "noHorizontalOverflow": "pass",
+    "noBrokenAssets": "pass",
+    "nativeStyleOnlyCompositionBoundary": "pass"
+  },
+  "findings": [
+    {"id":"DTCG-6-OF-6","status":"pass","detail":"brand-profile.dtcg.json has exactly four mapped and two style-only target-bearing leaves; each has matching adapter and live computed consumer."},
+    {"id":"TEXT-1","status":"pass","detail":"--du-text-1 is declared #131415 and .pokemon-db__title-plate h1 computes rgb(19, 20, 21) on rgb(255, 255, 255)."},
+    {"id":"REJECTED-BORDER","status":"pass","detail":"#5E5E5E/--du-border-1 is absent from formal DTCG, adapter and runtime proof. brand-mod keeps only target:null, value:null, status:rejected, evidenceRefs and reason audit data."},
+    {"id":"VALIDATOR-BOUNDARY","status":"pass","detail":"validate-brand-mod.mjs removes only border.subtle from unconditional token-backed roles and accepts only unresolvedEvidenceRole + null target/value + rejected status + non-empty evidenceRefs/reason; all other required roles and token targets remain unchanged."},
+    {"id":"DANGOUI-NATIVE","status":"pass","detail":"node_modules/dangoui/src/button/Button.vue confirms type primary, size normal and text props; runtime Search is BUTTON.du-button.du-button--normal.du-button--primary and submits into results state."},
+    {"id":"BOUNDARIES","status":"pass","detail":"Only Search uses native DuButton; database font/texture remain scoped style-only; hero/editorial/advanced/results/learn structures remain recorded composition or page logic."},
+    {"id":"VISUAL","status":"pass","detail":"Fresh captures for home/database/learn at desktop and phone were visually inspected; all six have no broken image, horizontal overflow or runtime error, and home phone-screen scroll changed then restored."}
+  ],
+  "commands": [
+    {"command":"curl probe 5180,5179,5181","result":"all initially unavailable; runtime subsequently started on preferred 5180"},
+    {"command":"npm run dev -- --port 5180","result":"pass; Vite ready at http://127.0.0.1:5180"},
+    {"command":"node scripts/pokemon-dangoui-mapping-runtime-probe.mjs http://127.0.0.1:5180","result":"pass; 6/6, no leaks/overflow/broken assets/errors"},
+    {"command":"node scripts/validate-brand-mod.mjs migrations/pokemon-tcg-official/brand-mod.json","result":"pass"},
+    {"command":"node skills/brand/scripts/brand-guard.mjs rule-candidate-gate --brand pokemon-tcg-official","result":"pass"},
+    {"command":"node scripts/brand-preview-layout-contract.test.mjs","result":"7/7 pass"},
+    {"command":"node skills/brand/scripts/evidence-visibility-gate.test.mjs","result":"8/8 pass"},
+    {"command":"node skills/brand/scripts/validate-design-direction.test.mjs","result":"pass"},
+    {"command":"node skills/brand/scripts/validate-mockup-matrix.test.mjs","result":"pass"},
+    {"command":"node skills/brand/scripts/validate-section-fidelity.test.mjs","result":"pass"},
+    {"command":"npm run build","result":"pass; bundle-size warning only"},
+    {"command":"node skills/brand/scripts/validate-dangoui-mapping.mjs --brand pokemon-tcg-official --strict","result":"pass; 81/81 checks, 6 target-bearing leaves"}
+  ],
+  "runtimeProofStatus": "INDEPENDENT_MAPPING_QA_PASS_6_OF_6"
+}

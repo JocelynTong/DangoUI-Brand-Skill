@@ -1,0 +1,22 @@
+{
+  "schema":"brand-visual-qa-assessment/v2",
+  "brand":"pokemon-tcg-official",
+  "attempt":17,
+  "role":"blindVisualQA",
+  "status":"REWORK",
+  "goalId":"pokemon-tcg-official-cold-start-v2",
+  "goalSha256":"73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "inputHashes":{"brandEvidence":"8dea8282171124872b9d6efb3c72d132bd56ca64f49ec92e3ffbd815043cb8be","brandIntent":"d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac","approvedPatterns":"6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba","designDirection":"3843b8f3a4299751e62eb401f7161c552ab43c91b6969adb90930f781d77bc72","patternInventory":"6ff1b65d415416a7d075dd04ad364b310ec85edf2b4a77e491ac43f716f0585b","generativeProof":"6d2cbd46d3e5e9485e842ccaccd854b7979aba5c6d5f486973c6fd17d5f7f0b2"},
+  "proofs":{"evidenceFidelity":{"status":"PASS","reason":"All high-salience runtime patterns in inventory bind to approved pattern IDs, concrete Evidence refs and source regions; runtime assets declare official independent provenance and no source screenshot is used as implementation."},"structuralFidelity":{"status":"FAIL","reason":"Section hierarchy, order, responsive single-column behavior, shell, scrolling and reversible controls pass, but Card Database contains two ordinary-text contrast failures, so visible/readable content fails independently."},"generativeProof":{"status":"PASS","reason":"Held-out Deck Lab changes information architecture and copy while preserving bounded entry-to-instruction hierarchy and authentic-object proof; it is visibly distinct from the three source-calibrated pages."}},
+  "pages":[
+    {"pageId":"pokemon-tcg-official-home","status":"PASS","sections":4,"shell":"PASS","scroll":"PASS","overflow":"PASS","interaction":"PASS","patternBindings":["home-layered-campaign-stage","home-banded-editorial-journey"]},
+    {"pageId":"pokemon-tcg-official-card-database","status":"FAIL","sections":2,"shell":"PASS","scroll":"PASS","overflow":"PASS","interaction":"PASS","patternBindings":["database-dark-search-organism","database-reversible-search-results","database-advanced-drawer"]},
+    {"pageId":"pokemon-tcg-official-learn","status":"PASS","sections":3,"shell":"PASS","scroll":"PASS","overflow":"PASS","interaction":"PASS","patternBindings":["learn-media-entry","learn-painted-card-anatomy","learn-painted-field-pairs"]},
+    {"pageId":"pokemon-tcg-official-held-out","status":"PASS","sections":2,"shell":"PASS","scroll":"PASS","overflow":"PASS","interaction":"PASS","patternBindings":["learn-media-entry","learn-painted-card-anatomy"]}
+  ],
+  "blockingFindings":[
+    {"code":"TEXT_CONTRAST_BELOW_THRESHOLD","pageId":"pokemon-tcg-official-card-database","region":"card-database-search-shell","node":"Search button","observed":"white on rgb(228,107,41), 3.26396:1 at 12px/700","required":"4.5:1","earliestFailureNode":"demoImplementation","failureOwnerRole":"demoImplementationAgent"},
+    {"code":"TEXT_CONTRAST_BELOW_THRESHOLD","pageId":"pokemon-tcg-official-card-database","region":"card-database-search-shell","node":"empty-state guidance","observed":"rgb(119,119,119) on rgb(246,246,244), 4.13844:1 at 12px/400","required":"4.5:1","earliestFailureNode":"demoImplementation","failureOwnerRole":"demoImplementationAgent"}
+  ],
+  "nonCompensationApplied":true
+}

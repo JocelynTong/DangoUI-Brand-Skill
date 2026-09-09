@@ -1,0 +1,26 @@
+{
+  "schema": "blind-visual-qa-receipt/v1",
+  "attempt": 11,
+  "page": "onepiece-cardgame-home",
+  "auditorRole": "Blind Visual QA / TPP",
+  "independent": true,
+  "liveBrowserFreshSession": true,
+  "sameViewport": { "width": 390, "height": 844, "verified": true },
+  "verdicts": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "PASS",
+    "overall": "FAIL"
+  },
+  "earliestFailingRegion": "navigation-hero",
+  "earliestOwner": "Demo implementation owner — Home responsive content",
+  "hostPreviewCollapseClosed": true,
+  "criticalFailures": [
+    "Hero hierarchy/composition is materially shallower than source mobile evidence",
+    "News/New Arrival browsing density and rail structure are not preserved",
+    "Products/Events are simplified into sparse feature cards instead of source browsing organisms",
+    "Footer structural navigation/legal organism is missing"
+  ],
+  "regressionsChecked": ["desktop phone shell", "phone internal scrolling", "footer wave", "footer card motion"],
+  "modifiedFrozenInputs": false
+}

@@ -1,0 +1,107 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/whats-new-only",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "method": "screenshot-first-visible-render-then-dom-computed-backtrace",
+  "status": "PASS_WITH_UNRESOLVED",
+  "observationWarning": "Chrome's user translation layer translated visible English copy into Chinese during the settled captures. Geometry, asset identity, layout and computed font families are valid; exact English line wrapping is unresolved and must not be inferred from these translated captures.",
+  "goalCoverage": [
+    {"goal":"desktop section boundary and composition","verdict":"proved","claims":["WN-DESK-BOUNDARY","WN-DESK-HEADER","WN-DESK-CARDS"]},
+    {"goal":"390px section boundary and composition","verdict":"proved","claims":["WN-MOB-BOUNDARY","WN-MOB-HEADER","WN-MOB-CARD"]},
+    {"goal":"visible carousel state change","verdict":"proved","claims":["WN-DESK-CAROUSEL","WN-MOB-CAROUSEL"]},
+    {"goal":"exact original English wrapping","verdict":"unresolved","reason":"browser translation layer modified visible text nodes"},
+    {"goal":"entry-on-scroll motion","verdict":"partially-proved","claims":["WN-ENTRY-MOTION"],"reason":"settled computed transitions and viewport classes were observed; a clean untranslated from-offscreen continuous recording was not captured"},
+    {"goal":"card CTA hover","verdict":"proved","claims":["WN-CTA-HOVER"]}
+  ],
+  "claims": [
+    {
+      "id":"WN-DESK-BOUNDARY","status":"observed","viewport":{"width":1440,"height":900},
+      "capture":"captures/source-whats-new-desktop-1440x900-settled.png","region":{"x":0,"y":104.24,"width":1440,"height":748.59},
+      "visibleDom":{"selector":"article.whats-new","state":"vp--onscreen","box":{"x":0,"y":104.24,"width":1440,"height":748.59}},
+      "computed":{"display":"block","padding":"60px 0px","backgroundColor":"rgba(0, 0, 0, 0)"},
+      "fact":"The section is full-viewport width on a white page. The next red TCG Live section begins immediately below at y=852.84 without a card-shell seam."
+    },
+    {
+      "id":"WN-DESK-HEADER","status":"observed","viewport":{"width":1440,"height":900},
+      "capture":"captures/source-whats-new-desktop-1440x900-settled.png","region":{"x":120,"y":164.24,"width":1188,"height":52.8},
+      "visibleDom":{"selector":"h2.whats-new__title + .whats-new__link a","state":"settled visible"},
+      "computed":{"title":{"fontFamily":"Kanit, sans-serif","fontSize":"48px","fontWeight":"700","fontStyle":"italic","lineHeight":"52.8px","color":"rgb(0, 0, 0)","box":{"x":132,"y":164.24,"width":576,"height":52.8}},"moreLink":{"fontFamily":"PT Sans, sans-serif","fontSize":"18px","fontWeight":"800","fontStyle":"italic","lineHeight":"28.8px","box":{"x":1179.45,"y":184.74,"width":128.55,"height":23.5}}},
+      "fact":"Desktop uses a left title and right-aligned See more News link in one row."
+    },
+    {
+      "id":"WN-DESK-CARDS","status":"observed","viewport":{"width":1440,"height":900},
+      "capture":"captures/source-whats-new-desktop-1440x900-settled.png","region":{"x":132,"y":229.02,"width":1176,"height":511.05},
+      "visibleDom":{"selector":".news-gallery--medium-up .gallery__item.is-active .news__item","state":"slide 0 settled","visibleCount":2},
+      "computed":{"cardBoxes":[{"x":132,"y":229.02,"width":576,"height":511.05},{"x":732,"y":229.02,"width":576,"height":511.05}],"imageBoxes":[{"x":132,"y":229.02,"width":575.99,"height":323.88},{"x":732,"y":229.02,"width":575.99,"height":323.88}],"imageObjectFit":"fill","shadow":"rgba(0, 0, 0, 0.2) 0px 6px 10px 0px","title":{"fontFamily":"PT Sans, sans-serif","fontSize":"24px","fontWeight":"800","lineHeight":"31.2px"},"cta":{"height":56,"fontSize":"20px","fontWeight":"700","fontStyle":"italic"}},
+      "assets":["https://tcg.pokemon.com/assets/img/news/items/en-us/wcs26-binder-inserts.png","https://tcg.pokemon.com/assets/img/news/items/en-us/30thYoshirotten_169_EN.png"],
+      "fact":"Desktop shows two equal-width 16:9 image-first cards per slide; reading order is image, centered headline, centered black CTA."
+    },
+    {
+      "id":"WN-MOB-BOUNDARY","status":"observed","viewport":{"width":390,"height":844},
+      "capture":"captures/source-whats-new-mobile-390x844-settled.png","region":{"x":0,"y":64.16,"width":390,"height":628.09},
+      "visibleDom":{"selector":"article.whats-new","state":"vp--onscreen","box":{"x":0,"y":64.16,"width":390,"height":628.09}},
+      "computed":{"display":"block","padding":"32px 0 60px","backgroundColor":"rgba(0, 0, 0, 0)"},
+      "fact":"At 390px the section and media are edge-to-edge. The red next section starts directly after the 60px carousel control row."
+    },
+    {
+      "id":"WN-MOB-HEADER","status":"observed","viewport":{"width":390,"height":844},
+      "capture":"captures/source-whats-new-mobile-390x844-settled.png","region":{"x":8,"y":96.16,"width":374,"height":66.5},
+      "visibleDom":{"selector":"h2.whats-new__title, .whats-new__link a","state":"settled visible; stacked"},
+      "computed":{"title":{"fontFamily":"Kanit, sans-serif","fontSize":"32px","fontWeight":"700","fontStyle":"italic","lineHeight":"32.5px","box":{"x":8,"y":96.16,"width":374,"height":32.5}},"moreLink":{"fontFamily":"PT Sans, sans-serif","fontSize":"18px","fontWeight":"800","fontStyle":"italic","lineHeight":"28.8px","box":{"x":130.72,"y":139.16,"width":128.55,"height":23.5}}},
+      "fact":"Mobile centers the title and puts See more News on its own centered line below."
+    },
+    {
+      "id":"WN-MOB-CARD","status":"observed","viewport":{"width":390,"height":844},
+      "capture":"captures/source-whats-new-mobile-390x844-settled.png","region":{"x":0,"y":181.43,"width":390,"height":390.04},
+      "visibleDom":{"selector":".news-gallery--small .gallery__item.is-active .news__item","state":"slide 0 settled","visibleCount":1,"totalSlides":6},
+      "computed":{"cardBox":{"x":0,"y":181.43,"width":390,"height":390.04},"imageBox":{"x":0,"y":181.43,"width":389.99,"height":219.29},"imageObjectFit":"fill","title":{"x":32.49,"y":420.72,"width":325.02,"height":52,"fontFamily":"PT Sans, sans-serif","fontSize":"20px","fontWeight":"800","lineHeight":"26px"},"cta":{"x":108.3,"y":492.38,"width":173.4,"height":51.3,"fontSize":"18px","fontWeight":"700","fontStyle":"italic"}},
+      "asset":{"url":"https://tcg.pokemon.com/assets/img/news/items/en-us/wcs26-binder-inserts.png","naturalWidth":578,"naturalHeight":325},
+      "fact":"Mobile reflows to one full-width card per slide and preserves the source image's 578:325 ratio without crop."
+    },
+    {
+      "id":"WN-DESK-CAROUSEL","status":"observed","viewport":{"width":1440,"height":900},
+      "capture":"captures/source-whats-new-desktop-next-transition-120ms.png","afterCapture":"captures/source-whats-new-desktop-slide2-settled.png","region":{"x":0,"y":229,"width":1440,"height":511},
+      "visibleDom":{"selector":".news-gallery--medium-up .gallery__item","trigger":"button.gallery__nav-next","before":"index 0 is-active","transition":"index 0 backward; index 1 center","settled":"index 1 is-active"},
+      "computed":{"duration":"opacity 0.4s","transition120ms":{"outgoingOpacity":"0.108","outgoingTranslateX":"-642.4px","incomingOpacity":"0.892","incomingScale":"0.989"},"settled":{"outgoingOpacity":"0","incomingOpacity":"1"}},
+      "fact":"Next visibly slides the outgoing pair left while the incoming pair scales/fades to center; it is not an index-only state change."
+    },
+    {
+      "id":"WN-MOB-CAROUSEL","status":"observed","viewport":{"width":390,"height":844},
+      "capture":"captures/source-whats-new-mobile-next-transition-120ms.png","afterCapture":"captures/source-whats-new-mobile-slide2-settled.png","region":{"x":0,"y":181,"width":390,"height":466},
+      "visibleDom":{"selector":".news-gallery--small .gallery__item","trigger":"button.gallery__nav-next","before":"index 0 is-active","transition":"index 0 backward; index 1 center","settled":"index 1 is-active"},
+      "computed":{"duration":"opacity 0.4s","transition120ms":{"outgoingOpacity":"0.198","outgoingTranslateX":"-156.4px","incomingOpacity":"0.802","incomingScale":"0.980"}},
+      "fact":"Mobile advances one card at a time through six slides. Controls are black 60x60 edge buttons with six center dots; disabled previous is 0.5 opacity."
+    },
+    {
+      "id":"WN-CTA-HOVER","status":"observed","viewport":{"width":1440,"height":900},
+      "capture":"captures/source-whats-new-desktop-card-cta-hover.png","region":{"x":324.84,"y":621.77,"width":190.32,"height":56},
+      "visibleDom":{"selector":".news-gallery--medium-up .gallery__item.is-active a.button","state":"pointer hover"},
+      "computed":{"before":{"textColor":"rgb(255, 255, 255)","background":"rgb(0, 0, 0)"},"hover":{"textColor":"rgb(0, 0, 0)"}},
+      "fact":"The CTA has a visible hover inversion. The exact animated background layer color was not captured by computed style and remains unresolved."
+    },
+    {
+      "id":"WN-ENTRY-MOTION","status":"observed-partial","viewport":{"width":1440,"height":900},
+      "capture":"captures/source-whats-new-desktop-1440x900-settled.png","region":{"x":132,"y":164,"width":1176,"height":576},
+      "visibleDom":{"selector":"article.whats-new.vp--initialised.vp--onscreen; .vp-slide; .vp-pop","state":"settled only"},
+      "computed":{"cardTransition":"transform 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.35), opacity 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.35)","titleDelay":"0.6s","ctaDelay":"0.8s"},
+      "fact":"A staggered pop/slide entry mechanism is active on the visible nodes, but no clean transition frame was retained; downstream may use it only as a motion candidate, not an exact observed trajectory."
+    }
+  ],
+  "assetInventory": [
+    {"role":"news-image-1","url":"https://tcg.pokemon.com/assets/img/news/items/en-us/wcs26-binder-inserts.png","intrinsic":"578x325","observed":true},
+    {"role":"news-image-2","url":"https://tcg.pokemon.com/assets/img/news/items/en-us/30thYoshirotten_169_EN.png","intrinsic":"578x325","observed":true},
+    {"role":"news-image-3","url":"https://tcg.pokemon.com/assets/img/news/items/en-us/tcg_30th_pikachu_reveals_169_en.png","intrinsic":"578x325","observed":true},
+    {"role":"news-image-4","url":"https://tcg.pokemon.com/assets/img/news/items/en-us/30th-pikachu-reveal-169-en.png","intrinsic":"578x325","observed":true},
+    {"role":"news-image-5","url":"https://tcg.pokemon.com/assets/img/news/items/en-us/product-showcase-169-en.png","intrinsic":"578x325","observed":true},
+    {"role":"news-image-6","url":"https://tcg.pokemon.com/assets/img/news/items/en-us/PCOM_2027_Season_Refresh-16x9.png","intrinsic":"578x325","observed":true}
+  ],
+  "thirdPartySeedDispositions": [],
+  "unresolved": [
+    "Exact original-English line breaks because the connected browser translated the rendered copy.",
+    "Exact entry-on-scroll transition frames and scrollTop timeline.",
+    "Keyboard focus appearance for CTA and carousel controls.",
+    "Exact hover background-layer color/shape during inversion.",
+    "Click destination pages were not opened because this Evidence scope concerns the homepage section and visible interaction, not destination content."
+  ]
+}

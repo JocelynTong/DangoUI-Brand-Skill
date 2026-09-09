@@ -1,0 +1,69 @@
+{
+  "schema": "brand-demo-implementation-revision-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 12,
+  "revision": 2,
+  "role": "demoImplementationAgent",
+  "scope": "visual-qa-assessment blockingFindings only",
+  "status": "ready-for-fresh-blind-qa",
+  "goalChanged": false,
+  "evidenceChanged": false,
+  "brandIntentChanged": false,
+  "dangouiMapperChanged": false,
+  "resolvedFindings": [
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "implementation": "Removed Pocket Fixture and Championship Fixture from sourceNavigation and pages; the standard learning surface now exposes Home, Card Database, Learn, and the frozen Deck Lab challenge only."
+    },
+    {
+      "code": "FAKE_ENABLED_CONTROL",
+      "implementation": "Out-of-goal fixture proof-note pages are no longer exposed. Grass now has visible is-selected styling, aria-pressed semantics, toggle behavior, and reset behavior."
+    },
+    {
+      "code": "RESPONSIVE_STRUCTURE_MISMATCH",
+      "implementation": "Phone mockup Card Database keyword fields and Energy options use a single-column grid independent of the outer desktop host viewport."
+    },
+    {
+      "code": "SECTION_FIDELITY_REGION_INVALID",
+      "implementation": "Replaced every 1x1 placeholder with a fresh section screenshot path and measured current section geometry."
+    },
+    {
+      "code": "PATTERN_SCOPE_EXPANSION",
+      "implementation": "Restricted Home, Database, and Learn calibrated inventory entries to their approved sections; recorded Deck Lab transfer in separate generative-transfer entries."
+    }
+  ],
+  "regressionProtection": {
+    "homeVisualChanged": false,
+    "phoneShellChanged": false,
+    "homeIndicatorChanged": false,
+    "scrollResetChanged": false,
+    "carouselOrCardFlipChanged": false
+  },
+  "browserProbe": "migrations/pokemon-tcg-official/quality-attempts/12/revision2/browser-probes.json",
+  "capturesRoot": "migrations/pokemon-tcg-official/quality-attempts/12/revision2/captures",
+  "validation": {
+    "jsonParse": "PASS",
+    "strictSectionGate": "PASS",
+    "build": "PASS",
+    "browser": {
+      "formalPageCount": 4,
+      "excludedPageCount": 2,
+      "excludedRoutesFallbackToHome": true,
+      "allFormalPagesScrollableAndRestored": true,
+      "brokenImages": 0,
+      "databaseFieldColumns": "single",
+      "databaseEnergyColumns": "single",
+      "grassStateSequence": ["false", "true", "false"]
+    }
+  },
+  "outputHashes": {
+    "src/App.vue": "96cb3ee31f6779d2f157431866f379e243a7f0163c27de483abae0909e894281",
+    "src/styles.css": "90edfffd327068c756985907336aa70a77d61e072cdc995a46d224e7296871bc",
+    "public/brand-previews/pokemon-tcg-official.json": "36a8f3d0dbc314ea44cceca2bcaba6cdd628291a548e7b5ea1be9f60bc74c0d9",
+    "visual-pattern-inventory.json": "9c57f0d8143d7e4ad00515f1a032475c5862d2f599b5bc703534fa37a4798f4e",
+    "section-fidelity-manifest.json": "9b2cc27f64f9187c416b99f38b5078adbf9fbac69dfef944dd989a1ae83fe23f",
+    "generative-proof.json": "6d2cbd46d3e5e9485e842ccaccd854b7979aba5c6d5f486973c6fd17d5f7f0b2"
+  },
+  "qaVerdict": null,
+  "handoff": "Dispatch a fresh Blind Visual QA with only the frozen goal, allowed evidence, updated inventory/proof/manifest, runtime URL, and this implementation receipt."
+}

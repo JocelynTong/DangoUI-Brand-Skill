@@ -1,0 +1,99 @@
+{
+  "attempt": 8,
+  "brand": "onepiece-cardgame",
+  "mode": "blind-v3",
+  "assessmentDate": "2026-09-01T03:12:45.395Z",
+  "cacheKey": "blind-v3-attempt8-20260901c",
+  "overallRecommendation": "pass",
+  "toolBlocker": null,
+  "verdicts": {
+    "evidenceFidelity": {
+      "status": "PASS",
+      "summary": "Fresh visual and computed evidence support both formerly blocked CTA states and all sampled page-level regressions.",
+      "checks": [
+        "Home FOR BEGINNERS CTA loads /assets/brand-assets/onepiece-cardgame/source/welcome-button-bg.webp in default and hover states.",
+        "Events Reserve a test seat CTA loads the same evidence-backed background asset in default and hover states.",
+        "Home CTA width is 257.656px inside a 321.656px phone shell, consistent with the constrained 280px source recipe rather than a full-width fallback.",
+        "Events CTA width is 257.656px inside the same shell geometry and visually matches the Home CTA treatment."
+      ]
+    },
+    "structuralFidelity": {
+      "status": "PASS",
+      "summary": "All four pages remain inside the phone shell, expose expected sections, scroll with overflow:auto, change scrollTop, and restore to top.",
+      "checks": [
+        "Home: scrollHeight 1089 > clientHeight 662, scrollTop 0→307→0 restored; top and scroll screenshot hashes differ.",
+        "News: scrollHeight 856 > clientHeight 662, scrollTop 0→140→0 restored; top and scroll screenshot hashes differ.",
+        "Products: scrollHeight 1095 > clientHeight 662, scrollTop 0→312→0 restored; top and scroll screenshot hashes differ.",
+        "Events: scrollHeight 723 > clientHeight 662, scrollTop 0→44→0 restored; top and scroll screenshot hashes differ."
+      ]
+    },
+    "generativeProof": {
+      "status": "PASS",
+      "summary": "Fresh blind review found no remaining blocker-level deviations in the recheck scope.",
+      "checks": [
+        "Home hero navigation is complete and visually white/transparent; no yellow pseudo-active state observed.",
+        "Home CTA hover preserves the wood-grain background image and adds scale(1.03) with warm-brown #352115 glow blur(10px).",
+        "News contains real editorial list content at top and after scroll; it is not an empty spacer page.",
+        "Products filter tabs render as black/white rectangular chips rather than rounded colored pills.",
+        "Events shows no unsupported red emphasis; CTA hover matches the evidence-backed treatment."
+      ]
+    }
+  },
+  "pageChecks": {
+    "home": {
+      "status": "PASS",
+      "findings": [
+        "Hero nav labels present: FOR BEGINNERS, RULES, Q&A, NEWS, PRODUCTS, EVENTS, CARDS.",
+        "Fresh top/scroll screenshots differ: 6d6d3b5a… vs d779c1df…",
+        "CTA default and hover screenshots visually confirm the same background image with hover-only glow increase."
+      ],
+      "evidence": [
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-home-blind-v3-top.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-home-blind-v3-scroll.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-home-blind-v3-cta-default.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-home-blind-v3-cta-hover.png"
+      ]
+    },
+    "news": {
+      "status": "PASS",
+      "findings": [
+        "Visible content includes LATEST INFORMATION plus multiple dated items at both top and scrolled positions.",
+        "Fresh top/scroll screenshots differ: ef7474d8… vs 8c3f83f0…"
+      ],
+      "evidence": [
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-news-blind-v3-top.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-news-blind-v3-scroll.png"
+      ]
+    },
+    "products": {
+      "status": "PASS",
+      "findings": [
+        "Top screenshot shows black active ALL tab, white inactive tabs, and straight-edged rectangular controls.",
+        "Scroll screenshot reveals additional products and pagination, confirming content density beyond the fold."
+      ],
+      "evidence": [
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-products-blind-v3-top.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-products-blind-v3-scroll.png"
+      ]
+    },
+    "events": {
+      "status": "PASS",
+      "findings": [
+        "No unsupported red emphasis observed in the current Events page content.",
+        "CTA default and hover states visually match the Home CTA treatment; hover differs from default.",
+        "Default CTA screenshot hash matches the top screenshot because both captures were taken in the same unscrolled default viewport; computed hover evidence and distinct hover hash still confirm the interactive state change."
+      ],
+      "evidence": [
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-events-blind-v3-top.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-events-blind-v3-scroll.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-events-blind-v3-cta-default.png",
+        "/Users/jocelyn/Downloads/vibecoding-docs-demo/output/visual-qa/onepiece-cardgame/attempt-8-blind-v3/qa-events-blind-v3-cta-hover.png"
+      ]
+    }
+  },
+  "blockingFindings": [],
+  "artifacts": {
+    "captureRecord": "/Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/onepiece-cardgame/quality-attempts/8/captures-v3.json",
+    "manifest": "/Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/onepiece-cardgame/quality-attempts/8/qa-input-manifest.json"
+  }
+}

@@ -1,0 +1,49 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "onepiece-cardgame-apply-host-card-plugin2-held-out-v1",
+  "brand": "onepiece-cardgame",
+  "mode": "apply-host",
+  "goalType": "second-host-held-out-generalization-test",
+  "createdAt": "2026-09-09T00:00:00+08:00",
+  "sealed": true,
+  "restartAfterAttempt": 1,
+  "goal": "Reuse the frozen ONE PIECE CARD GAME MOD and the same two-pipeline role model on all six configured card-plugin2 routes, preserving Pokémon business content and behavior while proving capacity-aware, structurally recognizable visual-system transfer.",
+  "host": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend",
+  "requiredRoutes": [
+    "pages/plaza/index",
+    "pages/build/index",
+    "pages/mine/index",
+    "pages/event/index",
+    "pages/round/index",
+    "pages/detail/index"
+  ],
+  "mustPreserve": [
+    "Pokémon business content and data",
+    "routes, stores, APIs, mutations and navigation outcomes",
+    "existing user changes",
+    "default Pokémon presentation outside the explicit held-out preview mode"
+  ],
+  "mayTranslate": [
+    "token values and component-family styling",
+    "capacity-approved composition and non-interactive decoration",
+    "source-approved independent visual assets with provenance",
+    "accessibility semantics that do not change business outcomes"
+  ],
+  "mustNotDo": [
+    "relearn or modify the frozen brand MOD for this host",
+    "add card-plugin2-specific workflow rules",
+    "replace Pokémon content with ONE PIECE products or copy",
+    "add Hero treatment to the build route",
+    "claim real DangoUI component consumption without dependency and runtime proof"
+  ],
+  "acceptance": {
+    "workflowCompletion": "all frozen stages and a fresh independent QA attempt pass",
+    "businessSafety": "all six routes and parent-child journeys retain business behavior with zero QA side effects",
+    "visualSystemConformance": "capacity-aware component families and responsive hierarchy pass on mobile and desktop",
+    "structuralRecognition": "blocking recognition passes after explicit brand text and logos are masked",
+    "explicitIpRecognition": "diagnostic only",
+    "runtimeTheme": "preview theme state is deterministic across cold load and navigation while default Pokémon mode remains intact",
+    "dangoUi": "PARTIAL_STYLE_ONLY unless dependency, consumer and runtime evidence prove otherwise"
+  },
+  "compensationPolicy": "No acceptance track can compensate for another failed track."
+}

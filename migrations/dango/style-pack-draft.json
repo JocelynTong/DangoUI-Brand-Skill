@@ -1,0 +1,89 @@
+{
+  "schema": "brand-style-pack-draft/v1",
+  "brand": "dango",
+  "label": "Dango",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "sourceHost": "dumpling.echo.tech",
+  "createdAt": "2026-09-04T16:40:22.770Z",
+  "status": "invalidated-evidence-incomplete",
+  "demoGate": {
+    "passed": false,
+    "reason": "Invalidated: the automatic collector registered this draft before screenshot-first Evidence, Interpreter and Design Direction gates passed."
+  },
+  "standardDemoPreview": {
+    "brand": "dango",
+    "registry": null,
+    "preview": null,
+    "route": null,
+    "shell": "reference/style/components/pages inspector + phone mockup"
+  },
+  "coverage": {
+    "dimensions": [
+      "color",
+      "font",
+      "radius",
+      "border",
+      "shadow",
+      "frame-or-asset",
+      "active-state"
+    ],
+    "level": "standard-demo-draft",
+    "gate": "structure-ready-evidence-pending"
+  },
+  "componentCoverage": {
+    "actualUsed": [
+      "NavigationBar",
+      "Search",
+      "HeroHeader",
+      "Grid",
+      "Tabs",
+      "Feed",
+      "Button",
+      "Swiper",
+      "Card",
+      "Tag",
+      "Image",
+      "Avatar",
+      "List",
+      "PriceStatistic",
+      "BottomBar",
+      "Input",
+      "Textarea",
+      "Upload",
+      "Select",
+      "Switch"
+    ],
+    "inheritedBaseline": [
+      "NavigationBar",
+      "Search",
+      "Tabs",
+      "Button",
+      "Tag",
+      "Image",
+      "Avatar",
+      "Popup",
+      "Input",
+      "Textarea",
+      "Select",
+      "Switch",
+      "Upload",
+      "BottomBar"
+    ],
+    "missingOrNeedsUpdate": [
+      "HeroHeader",
+      "Grid",
+      "List",
+      "Feed",
+      "SPU",
+      "FAB",
+      "TabBar",
+      "BottomBar"
+    ],
+    "note": "组件 tab 默认看实际用到的组件；其他未显性使用的组件继承 DangoUI baseline，并在缺口里说明。"
+  },
+  "promoteWhenReady": [
+    "Replace placeholder tokens with sampled evidence.",
+    "Replace generic style recipe rows with verified brand values.",
+    "Add asset evidence and computed diff before business apply."
+  ]
+}

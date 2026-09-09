@@ -1,0 +1,11 @@
+{
+  "schema": "blind-qa-receipt/v1",
+  "attempt": 9,
+  "role": "blindVisualQA",
+  "status": "completed",
+  "verdict": "NEEDS_EVIDENCE",
+  "inputsConsumed": ["migrations/onepiece-cardgame/goal-contract.json", "migrations/onepiece-cardgame/qa-input-manifest.json", "migrations/onepiece-cardgame/brand-evidence.json", "migrations/onepiece-cardgame/brand-intent.json", "migrations/onepiece-cardgame/visual-pattern-inventory.json", "migrations/onepiece-cardgame/demo-screenshot-manifest.json", "migrations/onepiece-cardgame/rendered-asset-inventory.json", "official evidence-v9 captures", "live local Demo"],
+  "forbiddenInputsNotConsumed": ["previous QA verdicts", "implementation rationale", "desired score", "implementation agent messages/self-check"],
+  "outputs": ["quality-attempts/9/visual-qa-assessment.json", "quality-attempts/9/visual-comparison-report.json", "quality-attempts/9/fidelity-report.json", "quality-attempts/9/qa-receipt.json"],
+  "notes": "No code, Evidence, Intent, or threshold files were modified."
+}

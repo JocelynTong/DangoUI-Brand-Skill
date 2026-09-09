@@ -1,0 +1,18 @@
+{
+  "schema":"brand-visual-pattern-inventory/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":9,
+  "scope":"home-product-bands",
+  "patterns":[
+    {"demoRegion":"full section background","patternId":"PAT-TCGL-01","evidenceRefs":["live-background","live-layout-desktop","live-layout-mobile"],"sourceRegion":"TCG Live section field","implementation":"static tcgl-background raster, full bleed"},
+    {"demoRegion":"copy panel","patternId":"PAT-TCGL-02","evidenceRefs":["live-copy-desktop","live-copy-mobile"],"sourceRegion":"TCG Live black content field","implementation":"696px translucent desktop panel / full-width opaque mobile panel"},
+    {"demoRegion":"product scene","patternId":"PAT-TCGL-03","evidenceRefs":["live-assets"],"sourceRegion":"five TCG Live transparent image layers","implementation":"independent laptop, Pikachu, phone, avatar 1, avatar 2"},
+    {"demoRegion":"responsive order","patternId":"PAT-TCGL-04","evidenceRefs":["live-layout-desktop","live-layout-mobile"],"sourceRegion":"desktop and mobile TCG Live layouts","implementation":"copy-left/scene-right to scene-first/copy-second"},
+    {"demoRegion":"copy typography","patternId":"PAT-TCGL-05","evidenceRefs":["live-copy-desktop","live-copy-mobile"],"sourceRegion":"TCG Live H2, paragraph, CTA","implementation":"Kanit H2 and PT Sans paragraph/CTA; no kicker"},
+    {"demoRegion":"CTA","patternId":"PAT-TCGL-06","evidenceRefs":["live-cta-hover","live-cta-click"],"sourceRegion":"TCG Live Learn More action","implementation":"white CTA, localized gold foreground hover, real tcgl href"},
+    {"demoRegion":"viewport entry","patternId":"PAT-TCGL-07","evidenceRefs":["live-entry-motion"],"sourceRegion":"TCG Live entry controller","implementation":"laptop pop, copy slide/fade, staggered companions, static background"}
+  ],
+  "unsupportedPatternsAdded":[],
+  "unresolvedOmitted":["background motion","translated hard line breaks"],
+  "visualVerdict":"reserved-for-blind-qa"
+}

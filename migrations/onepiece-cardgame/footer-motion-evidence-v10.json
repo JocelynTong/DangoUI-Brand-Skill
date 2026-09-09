@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "brand": "onepiece-cardgame",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "observedAt": "2026-09-01T11:24:17.676Z/2026-09-01T11:25:22.928Z",
+  "viewport": {"width": 1280, "height": 720},
+  "selector": ".footerIllust",
+  "verdict": "observed",
+  "rawTelemetry": [
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/pre-state.json",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/sequence-v10.json",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/visible-settled-late.json",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/control-state.json"
+  ],
+  "sequence": [
+    {"state":"default-before-entry","wallClock":"2026-09-01T11:24:17.676Z","scrollY":5000,"class":"footerIllust fadein","capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-00-before-entry.png","visualInspection":"Footer organism is below the viewport; Videos and the preceding page field are directly visible.","directlyVisible":true},
+    {"state":"transition-120ms","wallClock":"2026-09-01T11:25:00.934Z","scrollY":5250,"class":"footerIllust fadein is-in","capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png","visualInspection":"The footer field has begun entering at the bottom while its background is only partially opaque; character and type remain absent.","directlyVisible":true},
+    {"state":"transition-500ms","wallClock":"2026-09-01T11:25:01.397Z","scrollY":5250,"class":"footerIllust fadein is-in","capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png","visualInspection":"The top of Luffy and yellow energy marks are directly visible entering from the lower edge; catch/logo remain delayed.","directlyVisible":true},
+    {"state":"settled-full","wallClock":"2026-09-01T11:25:19.862Z","scrollY":5550,"class":"footerIllust fadein is-in","capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png","visualInspection":"The full layered composition is visible: dominant Luffy left, wave/background across, three overlapping cards right, catch and large logo at lower right.","directlyVisible":true},
+    {"state":"late-loop","wallClock":"2026-09-01T11:25:22.928Z","scrollY":5550,"class":"footerIllust fadein is-in","capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png","visualInspection":"The settled spatial hierarchy remains, while the three cards visibly change perspective/rotation relative to the settled frame.","directlyVisible":true},
+    {"state":"paused","wallClock":"2026-09-01T11:23:26.359Z","scrollY":5500,"class":"footerIllust fadein is-in","capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png","visualInspection":"The same full organism remains visible and the control icon has changed from pause to play.","directlyVisible":true}
+  ],
+  "layers": {
+    "footerIllustChara": {"selector":".footerIllustChara","default":{"normalized":{"x":-0.029685,"y":1.161737,"width":0.546875,"height":0.768511},"opacity":"0","transform":"matrix(1, 0, 0, 1, -33.3333, 33.3333)"},"transition500ms":{"opacity":"0.857834"},"settled":{"opacity":"1","transform":"matrix(1, 0, 0, 1, 0, 0)"}},
+    "footerIllustTxtCatch": {"selector":".footerIllustTxt .catch","default":{"normalized":{"x":0.773964,"y":1.578299,"width":0.161456,"height":0.045475},"opacity":"0","transform":"matrix(1, 0, 0, 1, -33.3333, 0)"},"settled":{"opacity":"1","transform":"matrix(1, 0, 0, 1, 0, 0)"},"transition":"0.5s with observed delayed reveal"},
+    "footerIllustTxtLogo": {"selector":".footerIllustTxt .logo","default":{"normalized":{"x":0.527091,"y":1.638582,"width":0.429163,"height":0.197222},"opacity":"0","transform":"matrix(1, 0, 0, 1, -6.66667, -6.66667)"},"settled":{"opacity":"1","transform":"matrix(1, 0, 0, 1, 0, 0)"},"transition":"0.3s with observed delayed reveal"},
+    "footerIllustCardComposite": {"selector":".footerIllustCard .inItem","default":{"normalized":{"x":0.424481,"y":1.238585,"width":0.559375,"height":0.5037},"opacity":"0","animationName":"none"},"transition2300ms":{"opacity":"0.295805","animationName":"inCard, inItem","duration":"0.6s, 0.8s"},"late":{"opacity":"0"}},
+    "footerIllustCards": {"selectors":[".footerIllustCard .showItem .card01",".footerIllustCard .showItem .card02",".footerIllustCard .showItem .card03"],"default":{"animationName":"none","iterationCount":"infinite"},"settled":{"opacity":"1","animationNames":["card01","card02","card03"],"durations":["5s","8s","8s"],"iterationCount":"infinite","animationPlayState":"running"},"late":"Transforms differ from settled for all three cards; the loop continues after reveal settlement."},
+    "footerIllustBg": {"selector":".footerIllustBg","default":{"normalized":{"x":-0.003644,"y":1.116829,"width":1.125,"height":0.768511},"opacity":"0","animationName":"none"},"transition120ms":{"opacity":"0.12837","animationName":"inBg","duration":"2s"},"transition500ms":{"opacity":"0.455015"},"settled":{"opacity":"1"}}
+  },
+  "motionClassification": {
+    "scrollReveal": "one-shot class swap from `footerIllust fadein` to `footerIllust fadein is-in`; the class remained set through settled and late observations",
+    "ongoingLoop": "card01 runs infinitely for 5s; card02 and card03 run infinitely for 8s; their late transforms differ from settled",
+    "stateSwap": "the composite `.inItem` runs finite `inCard, inItem`, fades away, and yields visually to `.showItem` cards",
+    "playPause": {"present":true,"selector":"footer .js-bgAnimeBtn","runningClass":"autoBtn js-bgAnimeBtn","pausedClass":"autoBtn js-bgAnimeBtn is-pause","controls":"the three showItem card loops","proof":"after click, all three animationPlayState values became paused and transforms were identical after 1200ms; reveal layers stayed settled"},
+    "reducedMotion": {"status":"unavailable","reason":"The browser runtime exposed no reduced-motion emulation or preference control."}
+  },
+  "spatialComposition": "At 1280x720 and scrollY 5550, the organism occupies the lower 0.7685 viewport heights: Luffy dominates the left 0.5469 viewport width, the 1.125-width background/wave spans edge-to-edge, catch/logo anchor lower right, and three cards overlap from center-right to far-right.",
+  "visualInspection": {"allReferencedCapturesInspected":true,"acceptedStates":["default-before-entry","transition-120ms","transition-500ms","settled-full","late-loop","paused"]}
+}

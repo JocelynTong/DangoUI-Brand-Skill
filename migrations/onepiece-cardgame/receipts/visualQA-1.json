@@ -1,0 +1,44 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "f7d27758-3f6a-4426-a6ab-8589a5b9400b",
+  "runId": "672d1d73-774e-4aec-acac-1e75f44b7a54",
+  "stageId": "visualQA-1",
+  "role": "visualQA",
+  "attempt": 1,
+  "agentExecutionId": "/root/onepiece_home_v5_blind_qa",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "scope": "Home v5 slice only",
+  "verdict": "fail",
+  "threeProof": {
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "fail"
+  },
+  "earliestFailureNode": "demoImplementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "inputs": [
+    {"path":"migrations/onepiece-cardgame/goal-contract.json","sha256":"1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png","sha256":"a4a27247f174cc816dc8afc17f19335b2c5cd0986d2c009c33aa940b0752c033"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png","sha256":"cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png","sha256":"8960cbe1a67d01f9cf7ad4f8da48988ed269d7fe5e739b91f1aa3de682219acc"},
+    {"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png","sha256":"3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a"},
+    {"path":"output/visual-qa/onepiece-cardgame/demo-home.png","sha256":"d6de2e7a8a2bc23bc64e6b2738ce7b776cf3364a8d43b92a17d90599e0e79d61"},
+    {"path":"output/visual-qa/onepiece-cardgame/demo-products.png","sha256":"be89751df2d52b732f8a002790d1397eebbbb0f291a9a194a778986b58ec265f"},
+    {"path":"migrations/onepiece-cardgame/visual-pattern-inventory.json","sha256":"a886df017c179100ed347227b0b4b47447869776ac31bbfba3a0c81d07fdc097"},
+    {"path":"migrations/onepiece-cardgame/generative-proof.json","sha256":"984ee59b7aa0b28d94a7d38aae9bf108688f860d24a44e93a44bf053cf1eed20"}
+  ],
+  "outputs": [
+    {"path":"migrations/onepiece-cardgame/visual-qa-assessment.json","sha256":"30908eda096f00dca0e86fdda273970a26d6527dd000195c54e42710d027c0cc"},
+    {"path":"migrations/onepiece-cardgame/visual-comparison-report.json","sha256":"00944004ba47c993a00bc25d13b66875efccb6f38b6a9a29d9ab3c5b087693c6"},
+    {"path":"migrations/onepiece-cardgame/fidelity-report.json","sha256":"43f8bcc2c6d25c63a1e98c61361701ca1120cae543b1a4de01747bee127fb647"}
+  ],
+  "blockingCodes": [
+    "HERO_ASSET_VARIANT_MISMATCH",
+    "COMPOSITION_STRUCTURE_UNVERIFIED",
+    "UNSUPPORTED_VISUAL_PATTERN",
+    "GENERATIVE_OUTPUT_MISSING",
+    "GENERATIVE_RULE_REUSE_UNPROVEN"
+  ],
+  "wholeWorkflowComplete": false
+}

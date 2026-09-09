@@ -56,16 +56,44 @@ function categoryColors(evidence) {
 
 function assetRoles(evidence, preview) {
   const roles = new Set()
-  for (const asset of evidence?.assets || []) {
+  for (const asset of arrayFromMaybe(evidence?.assets)) {
     if (asset?.role) roles.add(asset.role)
   }
-  for (const asset of evidence?.assetEvidence || []) {
+  for (const asset of arrayFromMaybe(evidence?.assetEvidence)) {
     if (asset?.role) roles.add(asset.role)
   }
   for (const asset of Object.values(preview?.preset?.assets || {})) {
     if (asset?.role) roles.add(asset.role)
   }
   return roles
+}
+
+function arrayFromMaybe(value) {
+  if (Array.isArray(value)) return value
+  if (value && typeof value === 'object') return Object.values(value)
+  return []
+}
+
+function collectPreviewAssetRefs(value, refs = []) {
+  if (typeof value === 'string') {
+    refs.push(value)
+    return refs
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectPreviewAssetRefs(item, refs)
+    return refs
+  }
+  if (value && typeof value === 'object') {
+    for (const key of ['src', 'url', 'image', 'logo', 'background', 'backgroundImage']) {
+      if (typeof value[key] === 'string') refs.push(value[key])
+    }
+    for (const item of Object.values(value)) collectPreviewAssetRefs(item, refs)
+  }
+  return refs
+}
+
+function unique(values) {
+  return Array.from(new Set(values.filter(Boolean)))
 }
 
 function pageRoles(preview) {
@@ -78,12 +106,36 @@ function buildReport(entry) {
   const migrationRoot = path.resolve(root, entry.migrationRoot || `migrations/${entry.id}`)
   const evidence = readJson(path.resolve(migrationRoot, 'brand-evidence.json')) || {}
   const inventory = readJson(path.resolve(migrationRoot, 'asset-inventory.json')) || {}
+  const renderedInventory = readJson(path.resolve(migrationRoot, 'rendered-asset-inventory.json')) || {}
   const mod = readJson(path.resolve(migrationRoot, 'brand-mod.json')) || {}
+  const comparison = readJson(path.resolve(migrationRoot, 'visual-comparison-report.json'))
+  const goalContract = readJson(path.resolve(migrationRoot, 'goal-contract.json'))
+  const fidelityReport = readJson(path.resolve(migrationRoot, 'fidelity-report.json'))
+  const requiresLearningProof = goalContract?.goalType === 'brand-learning-capability-test'
   const issues = []
 
   if (!preview) {
     issue(issues, 'blocking', 'missing-preview-json', `Cannot read preview JSON at ${entry.path}`)
     return { brand: entry.id, level: 'protocol-blocked', issues }
+  }
+
+  if (goalContract && fidelityReport?.status !== 'fidelity-pass') {
+    issue(
+      issues,
+      'blocking',
+      'fidelity-gate-not-passed',
+      'A frozen goal exists, so visual-quality-ready requires the machine-computed Blind QA fidelity gate to pass.',
+      { status: fidelityReport?.status || 'missing', hardFailures: fidelityReport?.hardFailures || [] }
+    )
+  }
+  if (requiresLearningProof && fidelityReport?.learningProof?.status !== 'learning-proof-pass') {
+    issue(
+      issues,
+      'blocking',
+      'learning-proof-gate-not-passed',
+      'A learning-capability Demo is ready only when Evidence Fidelity, Structural Fidelity, and Generative Proof all pass independently.',
+      { learningProof: fidelityReport?.learningProof || { status: 'missing' } }
+    )
   }
 
   const primary = normalizeColor(tokenValue(preview, '--du-primary-color'))
@@ -166,6 +218,72 @@ function buildReport(entry) {
     )
   }
 
+  const comparisonText = collectText(comparison).toLowerCase()
+  if (!comparison) {
+    issue(
+      issues,
+      'warning',
+      'missing-visual-comparison-report',
+      'Missing visual-comparison-report.json; browser/schema gates prove rendering, but not whether the demo looks like the source site.'
+    )
+  } else {
+    const sourceScreenshots = arrayFromMaybe(comparison.sourceScreenshots)
+    const comparisons = arrayFromMaybe(comparison.comparisons || comparison.checkedPages || comparison.pages)
+    if (sourceScreenshots.length < 2) {
+      issue(
+        issues,
+        'warning',
+        'insufficient-source-screenshot-comparison',
+        'Visual comparison should include at least two source screenshots or source page crops before the demo is considered visually ready.',
+        { sourceScreenshots: sourceScreenshots.length }
+      )
+    }
+    if (comparisons.length < 2) {
+      issue(
+        issues,
+        'warning',
+        'insufficient-demo-source-comparisons',
+        'Visual comparison should compare at least two source/demo page pairs and record matched patterns plus gaps.',
+        { comparisons: comparisons.length }
+      )
+    }
+    const placeholderComparisons = comparisons.filter((item) => {
+      const authenticity = String(item?.assetAuthenticity || item?.assetStatus || '').toLowerCase()
+      if (includesAny(authenticity, ['placeholder', 'fake', 'not-official', 'not-source', 'non-source', '待替换', '占位'])) {
+        return true
+      }
+      const nextFix = String(item?.nextFix || '').toLowerCase()
+      return includesAny(nextFix, ['replace placeholder', 'replace fake', '替换占位'])
+    })
+    if (placeholderComparisons.length) {
+      issue(
+        issues,
+        'warning',
+        'visual-comparison-identifies-placeholder-assets',
+        'Visual comparison says the preview still uses placeholder or non-source assets; keep the preview as draft.',
+        { comparisons: placeholderComparisons.length }
+      )
+    }
+  }
+
+  const previewAssetRefs = unique(collectPreviewAssetRefs({
+    presetAssets: preview.preset?.assets,
+    sectionAssets: preview.pages?.map((page) => page.sections?.map((section) => section.assets || {})),
+  }))
+  const localBrandAssets = previewAssetRefs.filter((asset) => asset.startsWith(`/assets/brand-assets/${entry.id}/`))
+  const renderedText = collectText(renderedInventory).toLowerCase()
+  const previewAssetMetadataText = collectText(preview.preset?.assets).toLowerCase()
+  const unprovenLocalAssets = localBrandAssets.filter((asset) => !renderedText.includes(path.basename(asset).toLowerCase()))
+  if (unprovenLocalAssets.length && !includesAny(previewAssetMetadataText, ['downloaded source asset', 'official source asset', 'source-localized'])) {
+    issue(
+      issues,
+      'warning',
+      'local-demo-assets-not-proven-as-source-assets',
+      'Preview uses local brand assets that are not proven to be downloaded/localized source assets. They may be placeholders and cannot make the demo visually ready.',
+      { assets: unprovenLocalAssets.slice(0, 8) }
+    )
+  }
+
   const mustVerifyText = collectText(preview.mustVerifyBeforeApply).toLowerCase()
   if (!includesAny(mustVerifyText, ['screenshot', 'computed', '截图', '渲染', 'crop', '比例'])) {
     issue(
@@ -193,7 +311,9 @@ function buildReport(entry) {
     ? 'protocol-blocked'
     : warningCount
       ? 'draft-visual-preview'
-      : 'visual-quality-ready'
+      : requiresLearningProof
+        ? 'learning-proof-ready'
+        : 'visual-quality-ready'
 
   return {
     brand: entry.id,

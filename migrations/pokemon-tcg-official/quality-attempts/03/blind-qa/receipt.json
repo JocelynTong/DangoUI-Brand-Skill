@@ -1,0 +1,24 @@
+{
+  "schema": "brand-blind-qa-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "03",
+  "role": "blindVisualQA",
+  "independence": {
+    "freshContext": true,
+    "implementationRationaleRead": false,
+    "oldQAVerdictRead": false,
+    "implementationEdited": false
+  },
+  "inputs": [
+    {"path": "../goal-correction-hero-scaling.json", "sha256": "730b15ee66c0a5fc0e8740b4aa9480e7732505e6f89c0cb2608d4974d863df02"},
+    {"path": "../../../captures/source/home/desktop/frames/000.png", "sha256": "d9f8da50c0975bf68238b7f1ca5002a8bf88e8cf616525246aa53b39e5ed0a97"}
+  ],
+  "freshCaptures": [
+    {"path": "captures/demo-current-desktop-full.png", "sha256": "c5f5f586deeb43886bc6826b124e8838d759d98b878566129d1dfa323e05eabe"},
+    {"path": "captures/demo-current-desktop-forced-slide1-full.png", "sha256": "dcef20197e33eba9d9d11ca29c10e3e831c012c1a31a8514498a945833b73bf9"},
+    {"path": "captures/demo-phone-390x844-full.png", "sha256": "35a34971444f64a4a8ed971dac706f31abf4907cf2b816f9dce8919839618878"}
+  ],
+  "outputs": ["browser-probes.json", "visual-qa-assessment.json", "report.md", "receipt.json"],
+  "verdict": "FAIL",
+  "blockingFindingIds": ["HOME_HERO_REQUIRED_LAYERS_CLIPPED", "HOME_PREVIEW_OFFSCREEN_AT_390"]
+}

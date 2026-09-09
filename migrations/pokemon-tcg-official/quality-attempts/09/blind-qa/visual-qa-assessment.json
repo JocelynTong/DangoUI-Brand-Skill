@@ -1,0 +1,70 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 9,
+  "overallVerdict": "REWORK",
+  "earliestFailureNode": "evidence",
+  "failureOwnerRole": "brandResearcher",
+  "threeProofVerdicts": {
+    "evidenceFidelity": "NEEDS_EVIDENCE",
+    "structuralFidelity": "REWORK",
+    "generativeProof": "NEEDS_EVIDENCE"
+  },
+  "blockingFindings": [
+    {
+      "id": "A09-EVIDENCE-MOTION-CAPTURES-INVALID",
+      "severity": "P0",
+      "owner": "brandResearcher",
+      "finding": "The source before/transition/settled motion captures do not visibly contain the TCG Live target section in the claimed states. They cannot support the entry-motion claim.",
+      "requiredFix": "Recapture source TCG Live before, genuine intermediate, and settled states in one 390x844 content viewport with the target section continuously identifiable."
+    },
+    {
+      "id": "A09-DEMO-MOBILE-MOTION-CAPTURES-INVALID",
+      "severity": "P0",
+      "owner": "demoImplementationAgent",
+      "finding": "Submitted mobile-before shows preceding content and mobile-mid shows Hero/WHAT'S NEW; neither is a TCG Live animation frame.",
+      "requiredFix": "Replace the trio with target-section captures from the same real content viewport. Keep the red/gold threshold or another stable target landmark visible across all frames."
+    },
+    {
+      "id": "A09-DESKTOP-PROOF-SURFACE-IS-390",
+      "severity": "P0",
+      "owner": "demoImplementationAgent",
+      "finding": "At a 1440x900 browser viewport, the live target section remains 390px wide inside the phone/showcase shell (x=755). The submitted desktop screenshots therefore do not prove the required 1440px copy-left/assets-right composition.",
+      "requiredFix": "Provide a genuine independent 1440px content proof surface with a 1440px full-bleed target section, excluding inspector and phone shell."
+    },
+    {
+      "id": "A09-MOBILE-TYPOGRAPHY-DIVERGES",
+      "severity": "P0",
+      "owner": "demoImplementationAgent",
+      "finding": "The live mobile heading computes to Oxanium rather than Kanit, and body copy is 12px/18.6px instead of the evidenced 18px/28.8px. The copy is visibly too small and compressed.",
+      "requiredFix": "Use the evidenced Kanit heading role and PT Sans 18px/28.8px mobile body geometry, then recapture."
+    },
+    {
+      "id": "A09-SETTLED-SEAM-NOT-IN-PROOF",
+      "severity": "P1",
+      "owner": "demoImplementationAgent",
+      "finding": "The mobile settled capture begins in the honeycomb body; the required red/gold V seam is not visible. The actual page contains the seam, but the submitted settled proof does not establish it.",
+      "requiredFix": "Frame settled evidence so the full top threshold, complete five-layer scene, and copy boundary are visibly attributable to the same section."
+    },
+    {
+      "id": "A09-REDUCED-MOTION-NOT-BLIND-PROVED",
+      "severity": "P1",
+      "owner": "demoImplementationAgent",
+      "finding": "Reduced-motion is asserted only in implementation-authored probe data; no allowed visual or independently emulated state proves immediate settlement.",
+      "requiredFix": "Supply independent reduced-motion browser evidence showing the target section immediately settled without a hidden intermediate state."
+    }
+  ],
+  "passingChecks": [
+    "The live mobile page contains the static tcgl-background raster and the red/gold seam can be seen when the target section first enters the viewport.",
+    "Five independent assets are present with the expected laptop/Pikachu/phone/avatar identities and distinct z-order.",
+    "The mobile layout is scene-first and full-width black copy-second.",
+    "A real browser scroll shows laptop opacity 0 and scale .5 before entry, an observable intermediate state, staggered copy/companion opacity, and a static background.",
+    "CTA is 51px high, links to the official /en-us/tcgl/ destination, and changes black foreground to gold on hover while remaining white.",
+    "No mobile horizontal overflow was observed.",
+    "Hero and WHAT'S NEW remain visible and operable on the mobile route; no obvious mobile regression was observed."
+  ],
+  "notes": [
+    "The real Demo motion mechanism exists, but the submitted proof package does not capture it validly.",
+    "The source motion evidence gap is earlier than the Demo proof gap, so the workflow must first return to Evidence; unrelated static facts need not be recollected."
+  ]
+}

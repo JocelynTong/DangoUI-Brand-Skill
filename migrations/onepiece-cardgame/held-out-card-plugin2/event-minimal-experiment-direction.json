@@ -1,0 +1,18 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/event/index",
+  "inputStandardSample": "quality-attempts/10 Plaza PASS_ADVISORY",
+  "goal": "Translate the frozen Plaza visual rules into an event-native editorial page resembling the official ONE PIECE event system without copying Plaza layout.",
+  "mustPreserve": ["event name/status/date/format/player and deck metrics", "round navigation", "top-deck action", "Pokémon business media and data"],
+  "requiredDirection": {
+    "surface": "warm-white map-paper page with dark navy limited to masthead or contained promotional media",
+    "hero": "contained rectangular event identity/banner; title and status remain immediately legible and do not become a full-screen dark poster",
+    "composition": "event identity -> key metrics -> rectangular round schedule/content islands -> top-deck action",
+    "geometry": "low-radius 1px rules; no dominant pill controls",
+    "colorRoles": "yellow sparse selection/attention; red event/action marker; navy structure; preserve semantic status colors",
+    "type": "strong event title and numeric hierarchy with restrained CJK labels/body"
+  },
+  "mustNotDo": ["replace Pokémon event content with ONE PIECE copy", "use a source screenshot crop", "repeat the Plaza layout", "let character art carry recognition alone", "change other routes or business behavior"],
+  "acceptance": ["390/536/1280 show event identity, status and first useful schedule/action within a sensible first-screen budget", "masked recognition passes through surface/composition/geometry/type", "event and round navigation pointer/keyboard behavior remains unchanged", "zero overflow, clipping and external writes"]
+}

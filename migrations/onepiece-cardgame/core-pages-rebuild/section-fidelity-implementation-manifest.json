@@ -1,0 +1,287 @@
+{
+  "schema": "brand-section-fidelity/v1",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "stage": "core-pages-rebuild",
+  "sections": [
+    {
+      "id": "home-hero-st36",
+      "pageId": "onepiece-cardgame-home",
+      "sourceCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+      "demoCapture": "migrations/onepiece-cardgame/core-pages-rebuild/captures/home-desktop-initial.png",
+      "sourceViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "demoViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.105
+      ],
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "top-navigation",
+          "sourceSelector": ".headerNav",
+          "demoSelector": "[data-schema-section-id=home-hero] .source-schema-demo__hero-nav",
+          "status": "pass"
+        },
+        {
+          "id": "campaign-media",
+          "sourceSelector": ".mvItem",
+          "demoSelector": "[data-schema-section-id=home-hero] .source-schema-demo__hero-cards",
+          "status": "pass"
+        },
+        {
+          "id": "campaign-copy",
+          "sourceSelector": ".mvItemTxt",
+          "demoSelector": "[data-schema-section-id=home-hero] .source-schema-demo__hero-heldout-title",
+          "status": "pass"
+        },
+        {
+          "id": "carousel-controls",
+          "sourceSelector": ".mvPager",
+          "demoSelector": "[data-schema-section-id=home-hero] .source-schema-demo__hero-controls",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "transparent navigation",
+        "ST-36 campaign art and product",
+        "ST-36 title/copy/date",
+        "seven carousel controls"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "finding": "The frozen ST-36 artwork, DOM title and product remain bounded in the phone stage; ST-32 title media is absent."
+      },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [
+        {"path":"/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp","sourceUrl":"https://asia-en.onepiece-cardgame.com/renewal/images/top/pc/mv_st36.webp","sourceSha256":"5e22dff028e07880c841d274f82351c54de38d00adda190227c6b93be02a2d7a","status":"pass"},
+        {"path":"/assets/brand-assets/onepiece-cardgame/source/product-st36.webp","sourceUrl":"https://asia-en.onepiece-cardgame.com/renewal/images/top/product/st36.webp","sourceSha256":"8a1eaa0a1acc271dddba4f8885b1aa549bbab03df472c7fa7a6fbd3394b4b564","status":"pass"}
+      ],
+      "interactionChecks": [
+        {
+          "id": "initial-active-control",
+          "status": "pass",
+          "finding": "Initial active control is 07 and its visible background/product/title identity is ST-36."
+        }
+      ],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "news-page-hierarchy",
+      "pageId": "onepiece-cardgame-news",
+      "sourceCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png",
+      "demoCapture": "migrations/onepiece-cardgame/core-pages-rebuild/captures/news-desktop-initial.png",
+      "sourceViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "demoViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.66
+      ],
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "dominant-feature",
+          "sourceSelector": ".contentColLeft",
+          "demoSelector": ".opcg-news-feature__lead",
+          "status": "pass"
+        },
+        {
+          "id": "important-notices",
+          "sourceSelector": ".importantCol",
+          "demoSelector": ".opcg-news-feature__notices",
+          "status": "pass"
+        },
+        {
+          "id": "recommended-grid",
+          "sourceSelector": ".recommendCol",
+          "demoSelector": ".opcg-news-feature__recommended",
+          "status": "pass"
+        },
+        {
+          "id": "archive",
+          "sourceSelector": ".latestCol",
+          "demoSelector": "[data-schema-section-id=news-list]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "latest feature",
+        "important notice",
+        "recommended",
+        "taxonomy",
+        "dense archive"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "finding": "Two source columns become one phone sequence while retaining four module roles."
+      },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [],
+      "interactionChecks": [],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "products-page-density",
+      "pageId": "onepiece-cardgame-products",
+      "sourceCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+      "demoCapture": "migrations/onepiece-cardgame/core-pages-rebuild/captures/products-desktop-initial.png",
+      "sourceViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "demoViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.58
+      ],
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "unboxed-heading",
+          "sourceSelector": "h1",
+          "demoSelector": "[data-schema-section-id=product-grid] > strong",
+          "status": "pass"
+        },
+        {
+          "id": "taxonomy",
+          "sourceSelector": ".categoryCol",
+          "demoSelector": ".source-schema-demo__catalog-filters",
+          "status": "pass"
+        },
+        {
+          "id": "product-grid",
+          "sourceSelector": ".productList",
+          "demoSelector": ".source-schema-demo__product-grid",
+          "status": "pass"
+        },
+        {
+          "id": "pagination",
+          "sourceSelector": ".pager",
+          "demoSelector": "[data-schema-section-id=product-pagination]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "PRODUCTS",
+        "category filters",
+        "product-first grid",
+        "pagination"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "finding": "Four source columns reflow to two phone columns with eight products and terse metadata."
+      },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [],
+      "interactionChecks": [],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "events-page-hierarchy",
+      "pageId": "onepiece-cardgame-events",
+      "sourceCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+      "demoCapture": "migrations/onepiece-cardgame/core-pages-rebuild/captures/events-desktop-initial.png",
+      "sourceViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "demoViewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.66
+      ],
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "discovery-title",
+          "sourceSelector": ".mainTitle",
+          "demoSelector": "[data-schema-section-id=events-discover] .opcg-event-discovery__heading",
+          "status": "pass"
+        },
+        {
+          "id": "first-event-feature",
+          "sourceSelector": ".beginnerCol",
+          "demoSelector": "[data-schema-section-id=events-discover] article.is-primary",
+          "status": "pass"
+        },
+        {
+          "id": "friend-play-group",
+          "sourceSelector": ".friendsCol",
+          "demoSelector": "[data-schema-section-id=events-play]",
+          "status": "pass"
+        },
+        {
+          "id": "championship-band",
+          "sourceSelector": ".championshipCol",
+          "demoSelector": "[data-schema-section-id=events-championship]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "discover your event",
+        "first event",
+        "two event paths",
+        "play with friends",
+        "championship"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "finding": "Wide source groups stack into three bounded phone sections without losing primary/secondary hierarchy."
+      },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [],
+      "interactionChecks": [],
+      "horizontalOverflow": false,
+      "status": "pass"
+    }
+  ]
+}

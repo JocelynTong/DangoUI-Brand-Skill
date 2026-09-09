@@ -1,0 +1,1866 @@
+{
+  "schema": "heldout-full-host-fresh-integration-qa/v1",
+  "attempt": 21,
+  "generatedAt": "2026-09-09T17:28:33.756Z",
+  "qaRole": "fresh-independent-full-host-visual-qa",
+  "readOnly": true,
+  "origin": "http://127.0.0.1:10092",
+  "routes": {
+    "plaza": "/#/pages/plaza/index",
+    "event": "/#/pages/event/index?id=0",
+    "detail": "/#/pages/detail/index?id=0",
+    "build": "/#/pages/build/index",
+    "mine": "/#/pages/mine/index",
+    "round": "/#/pages/round/index?event=0&round=0"
+  },
+  "viewports": [
+    {
+      "width": 390,
+      "height": 844
+    },
+    {
+      "width": 536,
+      "height": 864
+    },
+    {
+      "width": 1280,
+      "height": 720
+    }
+  ],
+  "renders": [
+    {
+      "route": "plaza",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index",
+      "screenshot": "fresh-390x844-plaza.png",
+      "screenshotSha256": "147e09aca04fa1e1748b2e9f997991b47a4d19fe920d0428a36e79455ffe2ed6",
+      "visual": {
+        "title": "卡组工具",
+        "bodyTextHead": "宝可梦集换式卡牌\n卡组广场\n赛事\n我的\n分类\n全部\n玩家发布\n参赛卡组\n环境\n全部\n标准赛制-18.0\n标准赛制-17.5\n标准赛制-17.0\n标准赛制-16.0\n标准赛制-15.0\n开放赛制-15.0\n标准赛制-14.0\n开放赛制-14.0\n标准赛制-13.0\n开放赛制-13.0\n标准赛制-12.0\n开放赛制-12.0\n标准赛制-11.0\n开放赛制-11.0\n标准赛制-10.0\n开放赛制-10.0\n标准赛制-9.0\n开放赛制-9.0\n标准赛制-8.5\n开放赛制-8.5\n标准赛制-8.0\n开放赛制-8.0\n标准赛制-7.5\n开放赛制-7.5\n标准赛制-7.0\n开放赛制-7.0\n标准赛制-6.5\n开放赛制-6.5\n标准赛制-6.0\n开放赛制-6.0\n标准赛制-5.5\n标准赛制-5.0\n标准赛制-4.5\n标准赛制-4.0\n标准赛制-3.5\n标准赛制-3.0\n太阳&月亮-2.5\n太阳&月亮-2.0\n赛季活动 · 08.26 - 09.15\nPitch Black 赛季挑战\n喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n耿鬼｜超能",
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          8.3,
+          9.4,
+          9.9,
+          10.4,
+          12,
+          12.5,
+          13.5,
+          14.6,
+          15.6,
+          17.7
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 24, 47)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 245, 7)",
+          "rgb(206, 81, 190)",
+          "rgba(255, 255, 255, 0.84)",
+          "rgba(255, 255, 255, 0.74)",
+          "rgba(255, 255, 255, 0.88)",
+          "rgb(236, 232, 220)",
+          "rgb(243, 240, 231)",
+          "rgb(224, 101, 74)",
+          "rgb(20, 20, 20)",
+          "rgb(168, 107, 196)",
+          "rgb(74, 143, 208)"
+        ],
+        "clippedText": [
+          {
+            "text": "赛季活动 · 08.26 - 09.15",
+            "className": "pitch-season-kicker",
+            "clientWidth": 289,
+            "scrollWidth": 289,
+            "clientHeight": 9,
+            "scrollHeight": 11
+          },
+          {
+            "text": "Pitch Black 赛季挑战",
+            "className": "pitch-season-title",
+            "clientWidth": 289,
+            "scrollWidth": 289,
+            "clientHeight": 16,
+            "scrollHeight": 18
+          }
+        ],
+        "controlCount": 49,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "plaza",
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index",
+      "screenshot": "fresh-536x864-plaza.png",
+      "screenshotSha256": "7e8f7e4be9bf6c56126bd145b8799ac90504d95c74bc5b5422d5d50d6c2a09e5",
+      "visual": {
+        "title": "卡组工具",
+        "bodyTextHead": "宝可梦集换式卡牌\n卡组广场\n赛事\n我的\n分类\n全部\n玩家发布\n参赛卡组\n环境\n全部\n标准赛制-18.0\n标准赛制-17.5\n标准赛制-17.0\n标准赛制-16.0\n标准赛制-15.0\n开放赛制-15.0\n标准赛制-14.0\n开放赛制-14.0\n标准赛制-13.0\n开放赛制-13.0\n标准赛制-12.0\n开放赛制-12.0\n标准赛制-11.0\n开放赛制-11.0\n标准赛制-10.0\n开放赛制-10.0\n标准赛制-9.0\n开放赛制-9.0\n标准赛制-8.5\n开放赛制-8.5\n标准赛制-8.0\n开放赛制-8.0\n标准赛制-7.5\n开放赛制-7.5\n标准赛制-7.0\n开放赛制-7.0\n标准赛制-6.5\n开放赛制-6.5\n标准赛制-6.0\n开放赛制-6.0\n标准赛制-5.5\n标准赛制-5.0\n标准赛制-4.5\n标准赛制-4.0\n标准赛制-3.5\n标准赛制-3.0\n太阳&月亮-2.5\n太阳&月亮-2.0\n赛季活动 · 08.26 - 09.15\nPitch Black 赛季挑战\n喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n耿鬼｜超能",
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          11.4,
+          12.9,
+          13.6,
+          14.3,
+          16.4,
+          17.2,
+          18.6,
+          20,
+          21.4,
+          24.3
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 24, 47)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 245, 7)",
+          "rgb(206, 81, 190)",
+          "rgba(255, 255, 255, 0.84)",
+          "rgba(255, 255, 255, 0.74)",
+          "rgba(255, 255, 255, 0.88)",
+          "rgb(236, 232, 220)",
+          "rgb(243, 240, 231)",
+          "rgb(224, 101, 74)",
+          "rgb(20, 20, 20)",
+          "rgb(168, 107, 196)",
+          "rgb(74, 143, 208)"
+        ],
+        "clippedText": [
+          {
+            "text": "赛季活动 · 08.26 - 09.15",
+            "className": "pitch-season-kicker",
+            "clientWidth": 398,
+            "scrollWidth": 398,
+            "clientHeight": 13,
+            "scrollHeight": 15
+          },
+          {
+            "text": "Pitch Black 赛季挑战",
+            "className": "pitch-season-title",
+            "clientWidth": 398,
+            "scrollWidth": 398,
+            "clientHeight": 22,
+            "scrollHeight": 25
+          }
+        ],
+        "controlCount": 49,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "plaza",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:10092/#/pages/plaza/index",
+      "screenshot": "fresh-1280x720-plaza.png",
+      "screenshotSha256": "432110f28cbb6851d3bd9611f56992e075a8b30dde002eabf86fc810521c24e5",
+      "visual": {
+        "title": "卡组工具",
+        "bodyTextHead": "宝可梦集换式卡牌\n卡组广场\n赛事\n我的\n分类\n全部\n玩家发布\n参赛卡组\n环境\n全部\n标准赛制-18.0\n标准赛制-17.5\n标准赛制-17.0\n标准赛制-16.0\n标准赛制-15.0\n开放赛制-15.0\n标准赛制-14.0\n开放赛制-14.0\n标准赛制-13.0\n开放赛制-13.0\n标准赛制-12.0\n开放赛制-12.0\n标准赛制-11.0\n开放赛制-11.0\n标准赛制-10.0\n开放赛制-10.0\n标准赛制-9.0\n开放赛制-9.0\n标准赛制-8.5\n开放赛制-8.5\n标准赛制-8.0\n开放赛制-8.0\n标准赛制-7.5\n开放赛制-7.5\n标准赛制-7.0\n开放赛制-7.0\n标准赛制-6.5\n开放赛制-6.5\n标准赛制-6.0\n开放赛制-6.0\n标准赛制-5.5\n标准赛制-5.0\n标准赛制-4.5\n标准赛制-4.0\n标准赛制-3.5\n标准赛制-3.0\n太阳&月亮-2.5\n太阳&月亮-2.0\n赛季活动 · 08.26 - 09.15\nPitch Black 赛季挑战\n喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n耿鬼｜超能",
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          16,
+          18,
+          19,
+          20,
+          23,
+          24,
+          26,
+          28,
+          30,
+          34
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 24, 47)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 245, 7)",
+          "rgb(206, 81, 190)",
+          "rgba(255, 255, 255, 0.84)",
+          "rgba(255, 255, 255, 0.74)",
+          "rgba(255, 255, 255, 0.88)",
+          "rgb(236, 232, 220)",
+          "rgb(243, 240, 231)",
+          "rgb(224, 101, 74)",
+          "rgb(20, 20, 20)",
+          "rgb(168, 107, 196)",
+          "rgb(74, 143, 208)"
+        ],
+        "clippedText": [
+          {
+            "text": "赛季活动 · 08.26 - 09.15",
+            "className": "pitch-season-kicker",
+            "clientWidth": 2162,
+            "scrollWidth": 2162,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          },
+          {
+            "text": "Pitch Black 赛季挑战",
+            "className": "pitch-season-title",
+            "clientWidth": 2162,
+            "scrollWidth": 2162,
+            "clientHeight": 31,
+            "scrollHeight": 34
+          }
+        ],
+        "controlCount": 49,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "event",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+      "screenshot": "fresh-390x844-event.png",
+      "screenshotSha256": "c90fdbfe485997024c9dab0623aa2d885748a69b989c7ca3e8befca3cbff2ffe",
+      "visual": {
+        "title": "赛事详情",
+        "bodyTextHead": "宝可梦总冠军赛 2026\n● 进行中\n2026-06-01\n时间\n标准｜G规则\n赛制\n128 人\n参赛\n128套卡组\n卡组\n赛程\n大师组｜决赛圈\n2026-06-05｜标准｜G规则｜16人\n1\n暴鲤龙｜水系节奏\nMistyWater\n水系\n节奏\n›\n查看全部卡组 ›\n大师组｜预赛\n2026-06-01｜标准｜G规则｜128人\n2\n耿鬼｜超能控制\nSabrinaPSY\n超能\n控制\n›\n查看全部卡组 ›",
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10.4,
+          10.9,
+          11.4,
+          12.5,
+          13,
+          14,
+          15.6,
+          17.7,
+          20.8,
+          27
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgba(255, 255, 255, 0.96)",
+          "rgb(231, 243, 232)",
+          "rgb(9, 13, 18)",
+          "rgb(255, 255, 255)",
+          "rgb(243, 241, 234)",
+          "rgb(255, 225, 122)"
+        ],
+        "clippedText": [
+          {
+            "text": "宝可梦总冠军赛 2026",
+            "className": "event-title",
+            "clientWidth": 241,
+            "scrollWidth": 241,
+            "clientHeight": 61,
+            "scrollHeight": 64
+          }
+        ],
+        "controlCount": 4,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "event",
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+      "screenshot": "fresh-536x864-event.png",
+      "screenshotSha256": "1a6bd716e989aeed729085d68becba2029c6ae7b4ae8648e13c900454e61388c",
+      "visual": {
+        "title": "赛事详情",
+        "bodyTextHead": "宝可梦总冠军赛 2026\n● 进行中\n2026-06-01\n时间\n标准｜G规则\n赛制\n128 人\n参赛\n128套卡组\n卡组\n赛程\n大师组｜决赛圈\n2026-06-05｜标准｜G规则｜16人\n1\n暴鲤龙｜水系节奏\nMistyWater\n水系\n节奏\n›\n查看全部卡组 ›\n大师组｜预赛\n2026-06-01｜标准｜G规则｜128人\n2\n耿鬼｜超能控制\nSabrinaPSY\n超能\n控制\n›\n查看全部卡组 ›",
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10,
+          10.5,
+          11,
+          15,
+          15.7,
+          17,
+          17.2,
+          17.9,
+          19.3,
+          26,
+          28,
+          28.6
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgba(255, 255, 255, 0.96)",
+          "rgb(231, 243, 232)",
+          "rgb(9, 13, 18)",
+          "rgb(255, 255, 255)",
+          "rgb(243, 241, 234)",
+          "rgb(255, 225, 122)"
+        ],
+        "clippedText": [
+          {
+            "text": "宝可梦总冠军赛 2026",
+            "className": "event-title",
+            "clientWidth": 232,
+            "scrollWidth": 232,
+            "clientHeight": 63,
+            "scrollHeight": 66
+          }
+        ],
+        "controlCount": 4,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "event",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+      "screenshot": "fresh-1280x720-event.png",
+      "screenshotSha256": "cfff988f214f2d944a6b23d54d3742a525616a7f3a4770f02e3ca1dd84b6c188",
+      "visual": {
+        "title": "赛事详情",
+        "bodyTextHead": "宝可梦总冠军赛 2026\n● 进行中\n2026-06-01\n时间\n标准｜G规则\n赛制\n128 人\n参赛\n128套卡组\n卡组\n赛程\n大师组｜决赛圈\n2026-06-05｜标准｜G规则｜16人\n1\n暴鲤龙｜水系节奏\nMistyWater\n水系\n节奏\n›\n查看全部卡组 ›\n大师组｜预赛\n2026-06-01｜标准｜G规则｜128人\n2\n耿鬼｜超能控制\nSabrinaPSY\n超能\n控制\n›\n查看全部卡组 ›",
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10,
+          10.5,
+          11,
+          15,
+          17,
+          22,
+          24,
+          25,
+          26,
+          27,
+          38,
+          40
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgba(255, 255, 255, 0.96)",
+          "rgb(231, 243, 232)",
+          "rgb(9, 13, 18)",
+          "rgb(255, 255, 255)",
+          "rgb(243, 241, 234)",
+          "rgb(255, 225, 122)"
+        ],
+        "clippedText": [
+          {
+            "text": "宝可梦总冠军赛 2026",
+            "className": "event-title",
+            "clientWidth": 546,
+            "scrollWidth": 546,
+            "clientHeight": 43,
+            "scrollHeight": 48
+          }
+        ],
+        "controlCount": 4,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "detail",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+      "screenshot": "fresh-390x844-detail.png",
+      "screenshotSha256": "d1c57021d4f05459ae3ee0a1e9c7c0c713e2308ad16f9f06f89554a3078bf89b",
+      "visual": {
+        "title": "卡组详情",
+        "bodyTextHead": "喷火龙 烈焰速攻\n标准赛制 18.0\n火系\n速攻\nA\nAshKetchum\n2026.07.27更新\n核心思路：这套喷火龙烈焰速攻以快速铺场和稳定进化为主，前期通过基础宝可梦站场争取节奏，中期利用训练家检索关键组件，尽...展开\n2,340\n收藏\n3.1万\n浏览\n¥420\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训练家 34\n能量 14\n3\n3\n2\n2\n2\n4\n3\n4\n4\n4\n3\n4\n2\n2\n10\n4\n2\n2\n收藏卡组\n复制卡组\nBlaine's Charizard\n收录于 Gym Challenge\n闪R\n火系\n宝可梦\nHP\n100\nex\n对对方造成 20+ 点伤害。若这只宝可梦身上有额外能量，本次攻击追加 20 点伤害。\nG\n¥29\n去购买\n‹ 上一张\n下一张 ›",
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10.4,
+          10.9,
+          11.2,
+          11.4,
+          12,
+          12.5,
+          13,
+          13.5,
+          14,
+          14.6,
+          15.1,
+          18.7,
+          19.8,
+          22.9,
+          23.9
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgba(255, 255, 255, 0.96)",
+          "rgb(236, 238, 242)",
+          "rgb(243, 241, 234)",
+          "rgb(224, 101, 74)",
+          "rgb(255, 255, 255)",
+          "rgb(220, 214, 198)",
+          "rgb(107, 79, 211)",
+          "rgb(9, 13, 18)",
+          "rgb(255, 245, 7)",
+          "rgb(46, 46, 54)",
+          "rgba(246, 241, 229, 0.97)",
+          "rgb(185, 29, 34)",
+          "rgba(21, 20, 27, 0.78)",
+          "rgb(248, 248, 250)",
+          "rgb(124, 92, 255)"
+        ],
+        "clippedText": [
+          {
+            "text": "喷火龙 烈焰速攻",
+            "className": "dtitle full-title",
+            "clientWidth": 180,
+            "scrollWidth": 180,
+            "clientHeight": 26,
+            "scrollHeight": 29
+          },
+          {
+            "text": "Blaine's Charizard",
+            "className": "cvname",
+            "clientWidth": 188,
+            "scrollWidth": 230,
+            "clientHeight": 26,
+            "scrollHeight": 26
+          }
+        ],
+        "controlCount": 24,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [
+          {
+            "className": "dbottom",
+            "text": "收藏卡组复制卡组",
+            "top": 777.453125,
+            "bottom": 844,
+            "height": 66.546875
+          }
+        ],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "detail",
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+      "screenshot": "fresh-536x864-detail.png",
+      "screenshotSha256": "e497f9059d09b6f0cc9d7d76cf1b8f7e157868093b9e8a7226baa127b4e6448c",
+      "visual": {
+        "title": "卡组详情",
+        "bodyTextHead": "喷火龙 烈焰速攻\n标准赛制 18.0\n火系\n速攻\nA\nAshKetchum\n2026.07.27更新\n核心思路：这套喷火龙烈焰速攻以快速铺场和稳定进化为主，前期通过基础宝可梦站场争取节奏，中期利用训练家检索关键组件，尽...展开\n2,340\n收藏\n3.1万\n浏览\n¥420\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训练家 34\n能量 14\n3\n3\n2\n2\n2\n4\n3\n4\n4\n4\n3\n4\n2\n2\n10\n4\n2\n2\n收藏卡组\n复制卡组\nBlaine's Charizard\n收录于 Gym Challenge\n闪R\n火系\n宝可梦\nHP\n100\nex\n对对方造成 20+ 点伤害。若这只宝可梦身上有额外能量，本次攻击追加 20 点伤害。\nG\n¥29\n去购买\n‹ 上一张\n下一张 ›",
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          14.3,
+          15,
+          15.4,
+          15.7,
+          16.4,
+          17.2,
+          17.9,
+          18.6,
+          19,
+          19.3,
+          20,
+          20.7,
+          25.7,
+          31.4,
+          32.9,
+          38
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgba(255, 255, 255, 0.96)",
+          "rgb(236, 238, 242)",
+          "rgb(243, 241, 234)",
+          "rgb(224, 101, 74)",
+          "rgb(255, 255, 255)",
+          "rgb(220, 214, 198)",
+          "rgb(107, 79, 211)",
+          "rgb(9, 13, 18)",
+          "rgb(255, 245, 7)",
+          "rgb(46, 46, 54)",
+          "rgba(246, 241, 229, 0.97)",
+          "rgb(185, 29, 34)",
+          "rgba(21, 20, 27, 0.78)",
+          "rgb(248, 248, 250)",
+          "rgb(124, 92, 255)"
+        ],
+        "clippedText": [
+          {
+            "text": "喷火龙 烈焰速攻",
+            "className": "dtitle full-title",
+            "clientWidth": 334,
+            "scrollWidth": 334,
+            "clientHeight": 44,
+            "scrollHeight": 48
+          },
+          {
+            "text": "Blaine's Charizard",
+            "className": "cvname",
+            "clientWidth": 272,
+            "scrollWidth": 317,
+            "clientHeight": 36,
+            "scrollHeight": 36
+          }
+        ],
+        "controlCount": 24,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [
+          {
+            "className": "dbottom",
+            "text": "收藏卡组复制卡组",
+            "top": 800,
+            "bottom": 864,
+            "height": 64
+          }
+        ],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "detail",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+      "screenshot": "fresh-1280x720-detail.png",
+      "screenshotSha256": "1ce5b3db5986837c4f7295a90e1faefd412a9aea106d11e3e5b1c12a6ca48560",
+      "visual": {
+        "title": "卡组详情",
+        "bodyTextHead": "喷火龙 烈焰速攻\n标准赛制 18.0\n火系\n速攻\nA\nAshKetchum\n2026.07.27更新\n核心思路：这套喷火龙烈焰速攻以快速铺场和稳定进化为主，前期通过基础宝可梦站场争取节奏，中期利用训练家检索关键组件，尽...展开\n2,340\n收藏\n3.1万\n浏览\n¥420\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训练家 34\n能量 14\n3\n3\n2\n2\n2\n4\n3\n4\n4\n4\n3\n4\n2\n2\n10\n4\n2\n2\n收藏卡组\n复制卡组\nBlaine's Charizard\n收录于 Gym Challenge\n闪R\n火系\n宝可梦\nHP\n100\nex\n对对方造成 20+ 点伤害。若这只宝可梦身上有额外能量，本次攻击追加 20 点伤害。\nG\n¥29\n去购买\n‹ 上一张\n下一张 ›",
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          19,
+          20,
+          21,
+          21.6,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          36,
+          38,
+          44,
+          46
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgba(255, 255, 255, 0.96)",
+          "rgb(236, 238, 242)",
+          "rgb(243, 241, 234)",
+          "rgb(224, 101, 74)",
+          "rgb(255, 255, 255)",
+          "rgb(220, 214, 198)",
+          "rgb(107, 79, 211)",
+          "rgb(9, 13, 18)",
+          "rgb(255, 245, 7)",
+          "rgb(46, 46, 54)",
+          "rgba(246, 241, 229, 0.97)",
+          "rgb(185, 29, 34)",
+          "rgba(21, 20, 27, 0.78)",
+          "rgb(248, 248, 250)",
+          "rgb(124, 92, 255)"
+        ],
+        "clippedText": [
+          {
+            "text": "喷火龙 烈焰速攻",
+            "className": "dtitle full-title",
+            "clientWidth": 1070,
+            "scrollWidth": 1070,
+            "clientHeight": 44,
+            "scrollHeight": 48
+          },
+          {
+            "text": "Blaine's Charizard",
+            "className": "cvname",
+            "clientWidth": 404,
+            "scrollWidth": 443,
+            "clientHeight": 50,
+            "scrollHeight": 50
+          }
+        ],
+        "controlCount": 24,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [
+          {
+            "className": "dbottom",
+            "text": "收藏卡组复制卡组",
+            "top": 656,
+            "bottom": 720,
+            "height": 64
+          }
+        ],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "build",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://127.0.0.1:10092/#/pages/build/index",
+      "screenshot": "fresh-390x844-build.png",
+      "screenshotSha256": "3f1dc90595bb9d9562b8cfa12cceb555c3eaf9e2b81c54d6e0c560b8a509496e",
+      "visual": {
+        "title": "组卡",
+        "bodyTextHead": "未命名卡组\n存草稿\n发布\n分类\n全部\n宝可梦\n训练家\n能量\n类型\n全部\n基础\n1阶进化\n2阶进化\nV进化\n物品\n竞技场\n支援者\n宝可梦道具\n基本能量\n特殊能量\n属性\n全部\n草\n火\n水\n电\n超\n斗\n恶\n钢\n无色\n妖精\n龙属\n查看更多筛选项\nBlaine's Charizard\n宝可梦\n火系\n古代\n+\nDetective Pikachu\n宝可梦\n电系\nR\n+\n超梦\n宝可梦\n超系\n闪R\n+\n耿鬼\n宝可梦\n超系\n闪R\n+\n沙奈朵\n宝可梦\n超系\n闪R\n+\n路卡利欧\n宝可梦\n斗系\nR\n+\nDragonite δ\n宝可梦\n电系\n古代\n+\n暴鲤龙\n宝可梦\n水系\n未来\n+\n卡比兽\n宝可梦\n无色系\n闪R\n+\nSylveon-GX\n宝可梦\n妖精系\nRar\n+\n月亮伊布\n宝可梦\n恶系\n闪R\n+\n烈空坐\n宝可梦\n无色系\nR\n+\n烈咬陆鲨\n宝可梦\n无色系\n古代\n+\nDark Tyranitar\n宝可梦\n斗系\n闪R\n+\n伊布\n宝可梦\n无色系\n未来\n+\n水箭龟\n宝可梦\n水系\n闪R\n+\nCelebi & Venusaur-GX\n宝可梦\n草系\nGX\n+\n博士的研究\n训练家\n支援者\n闪R\n+\n老大的命令\n训练家\n支援者\n古",
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          11.4,
+          12.5,
+          13,
+          13.5,
+          14,
+          14.6,
+          15.6,
+          16.6,
+          18.7,
+          20.8,
+          22.9,
+          23.9
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(243, 241, 234)",
+          "rgb(7, 26, 44)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 255, 255)",
+          "rgb(255, 245, 7)",
+          "rgb(17, 17, 17)",
+          "rgb(20, 20, 20)",
+          "rgb(177, 231, 157)",
+          "rgba(21, 20, 27, 0.78)",
+          "rgb(236, 238, 242)",
+          "rgb(248, 248, 250)",
+          "rgb(124, 92, 255)"
+        ],
+        "clippedText": [
+          {
+            "text": "Blaine's Charizard",
+            "className": "cvname",
+            "clientWidth": 210,
+            "scrollWidth": 230,
+            "clientHeight": 26,
+            "scrollHeight": 26
+          }
+        ],
+        "controlCount": 285,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [
+          {
+            "className": "build theme-pokemon-tcg-pitch-black",
+            "text": "未命名卡组存草稿发布分类全部宝可梦训练家能量类型全部基础1阶进化2阶进化V进化物品竞技场支援者宝可梦道具基本能量特殊能量属性全部草火水电超斗恶钢无色妖精龙属查看",
+            "top": 0,
+            "bottom": 844,
+            "height": 844
+          },
+          {
+            "className": "cv",
+            "text": "Blaine's Charizard收录于 Gym Challenge闪R火系宝可梦HP100ex对对方造成 20+ 点伤害。若这只宝可梦身上有额外能量，本次攻",
+            "top": 0,
+            "bottom": 844,
+            "height": 844
+          },
+          {
+            "className": "sheet",
+            "text": "发布卡组×* 封面从卡组里挑一张作封面请先添加卡牌* 环境标准赛制-18.0⌄* 卡组名简介存草稿发布",
+            "top": 844,
+            "bottom": 1434.328125,
+            "height": 590.328125
+          }
+        ],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "build",
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "url": "http://127.0.0.1:10092/#/pages/build/index",
+      "screenshot": "fresh-536x864-build.png",
+      "screenshotSha256": "f3beb7a0f35b441d273ef4e4e66c484c79b12304c9ae6d336243c013969d4105",
+      "visual": {
+        "title": "组卡",
+        "bodyTextHead": "未命名卡组\n存草稿\n发布\n分类\n全部\n宝可梦\n训练家\n能量\n类型\n全部\n基础\n1阶进化\n2阶进化\nV进化\n物品\n竞技场\n支援者\n宝可梦道具\n基本能量\n特殊能量\n属性\n全部\n草\n火\n水\n电\n超\n斗\n恶\n钢\n无色\n妖精\n龙属\n查看更多筛选项\nBlaine's Charizard\n宝可梦\n火系\n古代\n+\nDetective Pikachu\n宝可梦\n电系\nR\n+\n超梦\n宝可梦\n超系\n闪R\n+\n耿鬼\n宝可梦\n超系\n闪R\n+\n沙奈朵\n宝可梦\n超系\n闪R\n+\n路卡利欧\n宝可梦\n斗系\nR\n+\nDragonite δ\n宝可梦\n电系\n古代\n+\n暴鲤龙\n宝可梦\n水系\n未来\n+\n卡比兽\n宝可梦\n无色系\n闪R\n+\nSylveon-GX\n宝可梦\n妖精系\nRar\n+\n月亮伊布\n宝可梦\n恶系\n闪R\n+\n烈空坐\n宝可梦\n无色系\nR\n+\n烈咬陆鲨\n宝可梦\n无色系\n古代\n+\nDark Tyranitar\n宝可梦\n斗系\n闪R\n+\n伊布\n宝可梦\n无色系\n未来\n+\n水箭龟\n宝可梦\n水系\n闪R\n+\nCelebi & Venusaur-GX\n宝可梦\n草系\nGX\n+\n博士的研究\n训练家\n支援者\n闪R\n+\n老大的命令\n训练家\n支援者\n古",
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          15.7,
+          17.2,
+          17.9,
+          18.6,
+          19.3,
+          20,
+          21.4,
+          22.9,
+          25.7,
+          28.6,
+          31.4,
+          32.9
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(243, 241, 234)",
+          "rgb(7, 26, 44)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 255, 255)",
+          "rgb(255, 245, 7)",
+          "rgb(17, 17, 17)",
+          "rgb(20, 20, 20)",
+          "rgb(177, 231, 157)",
+          "rgba(21, 20, 27, 0.78)",
+          "rgb(236, 238, 242)",
+          "rgb(248, 248, 250)",
+          "rgb(124, 92, 255)"
+        ],
+        "clippedText": [
+          {
+            "text": "Blaine's Charizard",
+            "className": "cvname",
+            "clientWidth": 289,
+            "scrollWidth": 317,
+            "clientHeight": 36,
+            "scrollHeight": 36
+          },
+          {
+            "text": "×",
+            "className": "sheet-close",
+            "clientWidth": 61,
+            "scrollWidth": 61,
+            "clientHeight": 42,
+            "scrollHeight": 44
+          }
+        ],
+        "controlCount": 285,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [
+          {
+            "className": "build theme-pokemon-tcg-pitch-black",
+            "text": "未命名卡组存草稿发布分类全部宝可梦训练家能量类型全部基础1阶进化2阶进化V进化物品竞技场支援者宝可梦道具基本能量特殊能量属性全部草火水电超斗恶钢无色妖精龙属查看",
+            "top": 0,
+            "bottom": 864,
+            "height": 864
+          },
+          {
+            "className": "cv",
+            "text": "Blaine's Charizard收录于 Gym Challenge闪R火系宝可梦HP100ex对对方造成 20+ 点伤害。若这只宝可梦身上有额外能量，本次攻",
+            "top": 0,
+            "bottom": 864,
+            "height": 864
+          },
+          {
+            "className": "sheet",
+            "text": "发布卡组×* 封面从卡组里挑一张作封面请先添加卡牌* 环境标准赛制-18.0⌄* 卡组名简介存草稿发布",
+            "top": 864,
+            "bottom": 1595.234375,
+            "height": 731.234375
+          }
+        ],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "build",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:10092/#/pages/build/index",
+      "screenshot": "fresh-1280x720-build.png",
+      "screenshotSha256": "5e9f0402475b76631cb45ec4c947fb2f4a0b28740766972d756d0b1bec096305",
+      "visual": {
+        "title": "组卡",
+        "bodyTextHead": "未命名卡组\n存草稿\n发布\n分类\n全部\n宝可梦\n训练家\n能量\n类型\n全部\n基础\n1阶进化\n2阶进化\nV进化\n物品\n竞技场\n支援者\n宝可梦道具\n基本能量\n特殊能量\n属性\n全部\n草\n火\n水\n电\n超\n斗\n恶\n钢\n无色\n妖精\n龙属\n查看更多筛选项\nBlaine's Charizard\n宝可梦\n火系\n古代\n+\nDetective Pikachu\n宝可梦\n电系\nR\n+\n超梦\n宝可梦\n超系\n闪R\n+\n耿鬼\n宝可梦\n超系\n闪R\n+\n沙奈朵\n宝可梦\n超系\n闪R\n+\n路卡利欧\n宝可梦\n斗系\nR\n+\nDragonite δ\n宝可梦\n电系\n古代\n+\n暴鲤龙\n宝可梦\n水系\n未来\n+\n卡比兽\n宝可梦\n无色系\n闪R\n+\nSylveon-GX\n宝可梦\n妖精系\nRar\n+\n月亮伊布\n宝可梦\n恶系\n闪R\n+\n烈空坐\n宝可梦\n无色系\nR\n+\n烈咬陆鲨\n宝可梦\n无色系\n古代\n+\nDark Tyranitar\n宝可梦\n斗系\n闪R\n+\n伊布\n宝可梦\n无色系\n未来\n+\n水箭龟\n宝可梦\n水系\n闪R\n+\nCelebi & Venusaur-GX\n宝可梦\n草系\nGX\n+\n博士的研究\n训练家\n支援者\n闪R\n+\n老大的命令\n训练家\n支援者\n古",
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          22,
+          24,
+          25,
+          26,
+          27,
+          28,
+          30,
+          32,
+          36,
+          40,
+          44,
+          46
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(243, 241, 234)",
+          "rgb(7, 26, 44)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 255, 255)",
+          "rgb(255, 245, 7)",
+          "rgb(17, 17, 17)",
+          "rgb(20, 20, 20)",
+          "rgb(177, 231, 157)",
+          "rgba(21, 20, 27, 0.78)",
+          "rgb(236, 238, 242)",
+          "rgb(248, 248, 250)",
+          "rgb(124, 92, 255)"
+        ],
+        "clippedText": [
+          {
+            "text": "Blaine's Charizard",
+            "className": "cvname",
+            "clientWidth": 404,
+            "scrollWidth": 443,
+            "clientHeight": 50,
+            "scrollHeight": 50
+          },
+          {
+            "text": "×",
+            "className": "sheet-close",
+            "clientWidth": 84,
+            "scrollWidth": 84,
+            "clientHeight": 40,
+            "scrollHeight": 52
+          },
+          {
+            "text": "发布",
+            "className": "sheet-publish",
+            "clientWidth": 280,
+            "scrollWidth": 280,
+            "clientHeight": 44,
+            "scrollHeight": 46
+          }
+        ],
+        "controlCount": 285,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [
+          {
+            "className": "build theme-pokemon-tcg-pitch-black",
+            "text": "未命名卡组存草稿发布分类全部宝可梦训练家能量类型全部基础1阶进化2阶进化V进化物品竞技场支援者宝可梦道具基本能量特殊能量属性全部草火水电超斗恶钢无色妖精龙属查看",
+            "top": 0,
+            "bottom": 720,
+            "height": 720
+          },
+          {
+            "className": "cv",
+            "text": "Blaine's Charizard收录于 Gym Challenge闪R火系宝可梦HP100ex对对方造成 20+ 点伤害。若这只宝可梦身上有额外能量，本次攻",
+            "top": 0,
+            "bottom": 720,
+            "height": 720
+          },
+          {
+            "className": "sheet",
+            "text": "发布卡组×* 封面从卡组里挑一张作封面请先添加卡牌* 环境标准赛制-18.0⌄* 卡组名简介存草稿发布",
+            "top": 720,
+            "bottom": 1382.390625,
+            "height": 662.390625
+          }
+        ],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "mine",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://127.0.0.1:10092/#/pages/mine/index",
+      "screenshot": "fresh-390x844-mine.png",
+      "screenshotSha256": "5c5c203fed2c6ab371d6fb39f8dcfe1f1e7e9c22d0b0342b969f4ea0a0585756",
+      "visual": {
+        "title": "我的卡组",
+        "bodyTextHead": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万",
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          8.3,
+          10.4,
+          10.9,
+          11.4,
+          12.5,
+          15.6,
+          18.7,
+          20.8
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 26, 44)",
+          "rgb(255, 245, 7)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 255, 255)",
+          "rgb(22, 22, 22)",
+          "rgb(243, 241, 234)",
+          "rgb(168, 107, 196)"
+        ],
+        "clippedText": [],
+        "controlCount": 6,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "mine",
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "url": "http://127.0.0.1:10092/#/pages/mine/index",
+      "screenshot": "fresh-536x864-mine.png",
+      "screenshotSha256": "fce9e097c9aede708eac57f79d39830dbf90072fd62712742d74c38f04b6e732",
+      "visual": {
+        "title": "我的卡组",
+        "bodyTextHead": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万",
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10.5,
+          11,
+          11.4,
+          15,
+          17.2,
+          18,
+          21.4,
+          28.6
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 26, 44)",
+          "rgb(255, 245, 7)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 255, 255)",
+          "rgb(22, 22, 22)",
+          "rgb(243, 241, 234)",
+          "rgb(168, 107, 196)"
+        ],
+        "clippedText": [],
+        "controlCount": 6,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "mine",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:10092/#/pages/mine/index",
+      "screenshot": "fresh-1280x720-mine.png",
+      "screenshotSha256": "4c88035e13a79add5cd96b441d83bc003b3f54d9793dfbbfe41c1b57992e8289",
+      "visual": {
+        "title": "我的卡组",
+        "bodyTextHead": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万",
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10.5,
+          11,
+          15,
+          16,
+          18,
+          24,
+          30,
+          40
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 26, 44)",
+          "rgb(255, 245, 7)",
+          "rgb(185, 29, 34)",
+          "rgb(255, 255, 255)",
+          "rgb(22, 22, 22)",
+          "rgb(243, 241, 234)",
+          "rgb(168, 107, 196)"
+        ],
+        "clippedText": [
+          {
+            "text": "我",
+            "className": "ring",
+            "clientWidth": 50,
+            "scrollWidth": 50,
+            "clientHeight": 50,
+            "scrollHeight": 57
+          },
+          {
+            "text": "+ 新建卡组",
+            "className": "newbtn",
+            "clientWidth": 916,
+            "scrollWidth": 916,
+            "clientHeight": 44,
+            "scrollHeight": 46
+          },
+          {
+            "text": "S",
+            "className": "mini-avatar",
+            "clientWidth": 18,
+            "scrollWidth": 18,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          }
+        ],
+        "controlCount": 6,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "round",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=0",
+      "screenshot": "fresh-390x844-round.png",
+      "screenshotSha256": "76d49a598cb908319fd4af45b61447bdcfbe806d4eb244b1a6b2800b36b36b5b",
+      "visual": {
+        "title": "上位卡组",
+        "bodyTextHead": "宝可梦总冠军赛 2026\n● 进行中\n大师组｜预赛\n2026-06-01｜标准｜G规则｜128人\n1\n?\n卡组暂未收录\n2\n耿鬼｜超能控制\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万\n3\n暴鲤龙｜水系节奏\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200\n3\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n3\n耿鬼｜超能控制\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万\n6\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万",
+        "document": {
+          "clientWidth": 390,
+          "scrollWidth": 390,
+          "clientHeight": 844,
+          "scrollHeight": 844,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          8.3,
+          10.9,
+          11.4,
+          15.6,
+          16.6,
+          18.7,
+          22.9,
+          27
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 26, 44)",
+          "rgb(255, 245, 7)",
+          "rgba(255, 255, 255, 0.34)",
+          "rgb(243, 241, 234)",
+          "rgb(255, 255, 255)",
+          "rgb(250, 249, 244)",
+          "rgb(168, 107, 196)",
+          "rgb(74, 143, 208)",
+          "rgb(224, 101, 74)"
+        ],
+        "clippedText": [],
+        "controlCount": 5,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "round",
+      "viewport": {
+        "width": 536,
+        "height": 864
+      },
+      "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=0",
+      "screenshot": "fresh-536x864-round.png",
+      "screenshotSha256": "d9d0be56ecd14d9f96fd19eb8f81b5c10059cbf039da7d3b81815d0ca1101314",
+      "visual": {
+        "title": "上位卡组",
+        "bodyTextHead": "宝可梦总冠军赛 2026\n● 进行中\n大师组｜预赛\n2026-06-01｜标准｜G规则｜128人\n1\n?\n卡组暂未收录\n2\n耿鬼｜超能控制\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万\n3\n暴鲤龙｜水系节奏\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200\n3\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n3\n耿鬼｜超能控制\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万\n6\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万",
+        "document": {
+          "clientWidth": 536,
+          "scrollWidth": 536,
+          "clientHeight": 864,
+          "scrollHeight": 864,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10.5,
+          11,
+          11.4,
+          15,
+          15.7,
+          16,
+          20,
+          28,
+          31.4
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 26, 44)",
+          "rgb(255, 245, 7)",
+          "rgba(255, 255, 255, 0.34)",
+          "rgb(243, 241, 234)",
+          "rgb(255, 255, 255)",
+          "rgb(250, 249, 244)",
+          "rgb(168, 107, 196)",
+          "rgb(74, 143, 208)",
+          "rgb(224, 101, 74)"
+        ],
+        "clippedText": [],
+        "controlCount": 5,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    },
+    {
+      "route": "round",
+      "viewport": {
+        "width": 1280,
+        "height": 720
+      },
+      "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=0",
+      "screenshot": "fresh-1280x720-round.png",
+      "screenshotSha256": "5b798aa918b29450957b7bded232e2c878b108b096b90725c027ca5dae021d7a",
+      "visual": {
+        "title": "上位卡组",
+        "bodyTextHead": "宝可梦总冠军赛 2026\n● 进行中\n大师组｜预赛\n2026-06-01｜标准｜G规则｜128人\n1\n?\n卡组暂未收录\n2\n耿鬼｜超能控制\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万\n3\n暴鲤龙｜水系节奏\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200\n3\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n3\n耿鬼｜超能控制\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万\n6\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万",
+        "document": {
+          "clientWidth": 1280,
+          "scrollWidth": 1280,
+          "clientHeight": 720,
+          "scrollHeight": 720,
+          "overflowX": 0
+        },
+        "root": {
+          "className": "taro_router",
+          "backgroundColor": "rgb(0, 0, 0)",
+          "color": "rgb(35, 35, 42)"
+        },
+        "fontSizes": [
+          10.5,
+          11,
+          15,
+          16,
+          20,
+          22,
+          28,
+          44
+        ],
+        "backgrounds": [
+          "rgb(0, 0, 0)",
+          "rgb(7, 26, 44)",
+          "rgb(255, 245, 7)",
+          "rgba(255, 255, 255, 0.34)",
+          "rgb(243, 241, 234)",
+          "rgb(255, 255, 255)",
+          "rgb(250, 249, 244)",
+          "rgb(168, 107, 196)",
+          "rgb(74, 143, 208)",
+          "rgb(224, 101, 74)"
+        ],
+        "clippedText": [
+          {
+            "text": "S",
+            "className": "mini-avatar",
+            "clientWidth": 18,
+            "scrollWidth": 18,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          },
+          {
+            "text": "M",
+            "className": "mini-avatar",
+            "clientWidth": 18,
+            "scrollWidth": 18,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          },
+          {
+            "text": "A",
+            "className": "mini-avatar",
+            "clientWidth": 18,
+            "scrollWidth": 18,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          },
+          {
+            "text": "S",
+            "className": "mini-avatar",
+            "clientWidth": 18,
+            "scrollWidth": 18,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          },
+          {
+            "text": "A",
+            "className": "mini-avatar",
+            "clientWidth": 18,
+            "scrollWidth": 18,
+            "clientHeight": 18,
+            "scrollHeight": 22
+          }
+        ],
+        "controlCount": 5,
+        "undersizedControls": [],
+        "nonFocusableControls": [],
+        "activeMotion": [],
+        "fixedOrSticky": [],
+        "extremeBlankBlocks": [],
+        "pillCount": 0,
+        "heroClassCount": 0,
+        "duplicateTabLabels": [],
+        "reducedMotion": true
+      },
+      "networkWrites": []
+    }
+  ],
+  "journeys": [
+    {
+      "name": "plaza-to-detail-pointer",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+        },
+        {
+          "action": "open first deck",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".plaza .deck-card[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+          "visibleText": "喷火龙 烈焰速攻\n标准赛制 18.0\n火系\n速攻\nA\nAshKetchum\n2026.07.27更新\n核心思路：这套喷火龙烈焰速攻以快速铺场和稳定进化为主，前期通过基础宝可梦站场争取节奏，中期利用训练家检索关键组件，尽...展开\n2,340\n收藏\n3.1万\n浏览\n¥420\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+      "networkWrites": []
+    },
+    {
+      "name": "plaza-to-detail-enter",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+        },
+        {
+          "action": "open first deck",
+          "mode": "Enter",
+          "status": "DONE",
+          "selector": ".plaza .deck-card[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+          "visibleText": "喷火龙 烈焰速攻\n标准赛制 18.0\n火系\n速攻\nA\nAshKetchum\n2026.07.27更新\n核心思路：这套喷火龙烈焰速攻以快速铺场和稳定进化为主，前期通过基础宝可梦站场争取节奏，中期利用训练家检索关键组件，尽...展开\n2,340\n收藏\n3.1万\n浏览\n¥420\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+      "networkWrites": []
+    },
+    {
+      "name": "plaza-to-detail-space",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+        },
+        {
+          "action": "open first deck",
+          "mode": "Space",
+          "status": "DONE",
+          "selector": ".plaza .deck-card[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+          "visibleText": "喷火龙 烈焰速攻\n标准赛制 18.0\n火系\n速攻\nA\nAshKetchum\n2026.07.27更新\n核心思路：这套喷火龙烈焰速攻以快速铺场和稳定进化为主，前期通过基础宝可梦站场争取节奏，中期利用训练家检索关键组件，尽...展开\n2,340\n收藏\n3.1万\n浏览\n¥420\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=0",
+      "networkWrites": []
+    },
+    {
+      "name": "plaza-to-build-via-mine",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/plaza/index"
+        },
+        {
+          "action": "open mine",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mine-entry[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览 1.8万"
+        },
+        {
+          "action": "create deck",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".newbtn[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/build/index?mode=new",
+          "visibleText": "未命名卡组\n存草稿\n发布\n分类\n全部\n宝可梦\n训练家\n能量\n类型\n全部\n基础\n1阶进化\n2阶进化\nV进化\n物品\n竞技场\n支援者\n宝可梦道具\n基本能量\n特殊能量\n属性\n全部\n草\n火\n水\n电\n超\n斗\n恶\n钢\n无色\n妖精\n龙属\n查看更多筛选项\nBlaine's Charizard\n宝可梦\n火系\n古代\n+\nDetective "
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/build/index?mode=new",
+      "networkWrites": []
+    },
+    {
+      "name": "event-to-round-to-detail",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/event/index?id=0"
+        },
+        {
+          "action": "open round",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".more[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/round/index?event=0&round=1",
+          "visibleText": "宝可梦总冠军赛 2026\n● 进行中\n大师组｜决赛圈\n2026-06-05｜标准｜G规则｜16人\n1\n暴鲤龙｜水系节奏\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200\n2\n喷火龙 烈焰速攻\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n3\n耿鬼｜超能控"
+        },
+        {
+          "action": "open ranked deck",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".round-page .deck-card[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/detail/index?id=2",
+          "visibleText": "暴鲤龙｜水系节奏\n标准赛制 17.5\n水系\n节奏\nM\nMistyWater\n2026.07.20更新\n以暴鲤龙为核心输出，水箭龟提供能量加速，伊布灵活应对不同属性对手。\n960\n收藏\n9,200\n浏览\n¥360\n购齐\n卡图\n文字\n总数 60\n宝可梦 12\n训练家 34\n能量 14\n2\n2\n3\n2\n3\n4\n3\n4\n4\n4"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/detail/index?id=2",
+      "networkWrites": []
+    },
+    {
+      "name": "mine-tabs-pointer",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        },
+        {
+          "action": "select draft tab",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        },
+        {
+          "action": "select published tab",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(3)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览"
+        },
+        {
+          "action": "select hidden tab",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(4)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暴鲤龙｜水系节奏\n玩家发布\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200"
+        },
+        {
+          "action": "return draft tab",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/mine/index",
+      "networkWrites": []
+    },
+    {
+      "name": "mine-tabs-enter",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        },
+        {
+          "action": "select draft tab",
+          "mode": "Enter",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        },
+        {
+          "action": "select published tab",
+          "mode": "Enter",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(3)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览"
+        },
+        {
+          "action": "select hidden tab",
+          "mode": "Enter",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(4)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暴鲤龙｜水系节奏\n玩家发布\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200"
+        },
+        {
+          "action": "return draft tab",
+          "mode": "Enter",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/mine/index",
+      "networkWrites": []
+    },
+    {
+      "name": "mine-tabs-space",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        },
+        {
+          "action": "select draft tab",
+          "mode": "Space",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        },
+        {
+          "action": "select published tab",
+          "mode": "Space",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(3)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n喷火龙 烈焰速攻\n参赛卡组\n喷火龙\n超梦\n卡比兽\nA\nAshKetchum\n收藏 2,340\n浏览 3.1万\n耿鬼｜超能控制\n玩家发布\n耿鬼\n超梦\n沙奈朵\nS\nSabrinaPSY\n收藏 1,180\n浏览"
+        },
+        {
+          "action": "select hidden tab",
+          "mode": "Space",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(4)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暴鲤龙｜水系节奏\n玩家发布\n暴鲤龙\n水箭龟\n伊布\nM\nMistyWater\n收藏 960\n浏览 9,200"
+        },
+        {
+          "action": "return draft tab",
+          "mode": "Space",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/mine/index",
+      "networkWrites": []
+    },
+    {
+      "name": "mine-edit",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        },
+        {
+          "action": "select draft tab",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        },
+        {
+          "action": "edit draft",
+          "status": "MISSING",
+          "selector": ".smallbtn.edit[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/mine/index",
+      "networkWrites": []
+    },
+    {
+      "name": "mine-delete-confirm-cancel",
+      "log": [
+        {
+          "action": "start",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        },
+        {
+          "action": "select draft tab",
+          "mode": "pointer",
+          "status": "DONE",
+          "selector": ".mtab[role=\"tab\"]:nth-child(2)",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index",
+          "visibleText": "我\n卡组谱玩家\n8 发布\n1.2k 被收藏\n860 获赞\n+ 新建卡组\n收藏 1\n草稿 0\n已发布 3\n已隐藏 1\n暂无卡组"
+        },
+        {
+          "action": "open delete confirmation",
+          "status": "MISSING",
+          "selector": ".smallbtn.danger[role=\"button\"]",
+          "url": "http://127.0.0.1:10092/#/pages/mine/index"
+        }
+      ],
+      "finalUrl": "http://127.0.0.1:10092/#/pages/mine/index",
+      "networkWrites": []
+    }
+  ],
+  "focusChecks": [
+    {
+      "route": "plaza",
+      "retained": true,
+      "className": "pt on",
+      "outlineStyle": "solid",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "route": "event",
+      "retained": true,
+      "className": "topdeck",
+      "outlineStyle": "solid",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "route": "detail",
+      "retained": true,
+      "className": "desc-toggle-inline",
+      "outlineStyle": "solid",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "route": "build",
+      "retained": true,
+      "className": "tl-name-row",
+      "outlineStyle": "solid",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "route": "mine",
+      "retained": true,
+      "className": "newbtn",
+      "outlineStyle": "solid",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    },
+    {
+      "route": "round",
+      "retained": true,
+      "className": "deck-card",
+      "outlineStyle": "solid",
+      "outlineWidth": "3px",
+      "boxShadow": "none"
+    }
+  ]
+}

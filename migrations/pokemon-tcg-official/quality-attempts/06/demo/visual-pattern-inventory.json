@@ -1,0 +1,12 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 6,
+  "scope": "pokemon-tcg-official-home/home-campaign-stage",
+  "patterns": [
+    {"id":"official-default-campaign","demoRegion":"Hero default","approvedPatternId":"home-layered-campaign-stage","evidenceRefs":["hero-one-campaign"],"sourceRegion":"source mobile x0 y56 w390 h788","runtimeAssets":["booster-art-1.jpg","Logo-30th.png","2M6P_EN_23.png"]},
+    {"id":"held-out-campaign-proof","demoRegion":"Hero selector state 2","approvedPatternId":"home-layered-campaign-stage","evidenceRefs":["downstreamBoundary.allowedWithDirectorApproval"],"sourceRegion":"not a source mirror; Director-approved held-out proof","runtimeAssets":["championships.jpg","SV06_EN_33.png"],"disclosure":"GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN"},
+    {"id":"mobile-nav-cap","demoRegion":"Hero y0-56","approvedPatternId":"home-responsive-reflow","evidenceRefs":["mobile-navigation-geometry"],"sourceRegion":"source x0 y0 w390 h56"},
+    {"id":"visible-state-swap","demoRegion":"background/title/card/CTA","approvedPatternId":"home-layered-campaign-stage","evidenceRefs":["actionEvidence"],"sourceRegion":"interaction capability proof, not source motion claim"}
+  ]
+}

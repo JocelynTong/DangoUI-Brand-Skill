@@ -1,0 +1,418 @@
+{
+  "schema": "brand-intent/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "role": "designTranslator",
+  "status": "APPROVED_FOR_FROZEN_SCOPE",
+  "evidenceBoundary": {
+    "consumed": [
+      "migrations/dango/goal-contract.json",
+      "migrations/dango/brand-evidence.json",
+      "migrations/dango/source-observation-manifest.json",
+      "migrations/dango/rendered-asset-inventory.json",
+      "migrations/dango/action-evidence-v02.json",
+      "migrations/dango/third-party-evidence.dembrandt.json",
+      "migrations/dango/section-fidelity-manifest.json",
+      "migrations/dango/evidence-question-matrix.json",
+      "migrations/dango/captures/source/**"
+    ],
+    "demoInputsConsumed": false,
+    "forbiddenConclusionSourcesRead": [],
+    "rule": "Rendered screenshots establish the visual fact; visible DOM and computed values validate the narrow semantic role. Aggregate palettes, CSS variable names and Dembrandt output remain candidates until a rendered claim validates them."
+  },
+  "brandThesis": "DangoUI presents a pragmatic technical system through a quiet white documentation canvas, strong black information hierarchy, restrained lavender navigation feedback and compact component-scale controls. Its identity comes from clear system structure and precise role separation, not from a loud global brand wash.",
+  "mustPreserveMappings": [
+    {
+      "mustPreserveId": "docs-shell",
+      "patternIds": [
+        "responsive-documentation-shell"
+      ]
+    },
+    {
+      "mustPreserveId": "content-hierarchy",
+      "patternIds": [
+        "technical-content-hierarchy",
+        "multi-module-button-reference"
+      ]
+    },
+    {
+      "mustPreserveId": "accent-semantics",
+      "patternIds": [
+        "restrained-current-page-cue",
+        "compact-primary-action"
+      ]
+    },
+    {
+      "mustPreserveId": "button-state-system",
+      "patternIds": [
+        "compact-primary-action"
+      ]
+    }
+  ],
+  "invariants": [
+    {
+      "id": "content-first-canvas",
+      "fact": "The frozen documentation pages are predominantly white with black typography and low-emphasis supporting surfaces.",
+      "interpretation": "Information architecture carries more identity than decorative imagery.",
+      "recommendation": "Keep the reading canvas quiet and use contrast for hierarchy before adding decoration.",
+      "evidenceRefs": [
+        "dango-docs-shell-desktop",
+        "dango-docs-type-hierarchy",
+        "dango-button-page-shell"
+      ]
+    },
+    {
+      "id": "role-separated-purple",
+      "fact": "The documentation current-page cue uses rgb(88, 84, 255), while the frozen Primary Button uses rgb(124, 102, 255).",
+      "interpretation": "The two purple values have different observed jobs and are not interchangeable palette swatches.",
+      "recommendation": "Map each purple only to its validated role; do not collapse them into one universal accent without new evidence.",
+      "evidenceRefs": [
+        "dango-docs-active-navigation",
+        "dango-primary-button"
+      ]
+    },
+    {
+      "id": "responsive-reflow-not-scale",
+      "fact": "At 390px the sidebars disappear and the article occupies a single inset column while typography remains readable.",
+      "interpretation": "The shell changes structure at narrow widths rather than scaling the desktop composition as a picture.",
+      "recommendation": "Preserve reading order and hierarchy while removing secondary navigation columns on phone.",
+      "evidenceRefs": [
+        "dango-docs-shell-mobile-reflow"
+      ]
+    },
+    {
+      "id": "component-demo-not-marketing-card",
+      "fact": "The Button page presents live controls beside code in a technical preview/code structure.",
+      "interpretation": "Component proof favors implementation clarity over promotional card composition.",
+      "recommendation": "Keep component examples explicit, inspectable and subordinate to the documentation hierarchy.",
+      "evidenceRefs": [
+        "dango-button-page-shell"
+      ]
+    },
+    {
+      "id": "reference-density-is-structural",
+      "fact": "The frozen Button main column is 4186.765625px tall and its verified reading order includes title, purpose, import, examples, API and theme variables.",
+      "interpretation": "A DangoUI component reference is a multi-module technical document; one isolated control example cannot stand in for the page's reference density.",
+      "recommendation": "Preserve at least two independently reviewable Button-page sections and retain the progression from usage context through live preview/code to reference material.",
+      "evidenceRefs": [
+        "dango-button-page-shell"
+      ]
+    },
+    {
+      "id": "bounded-layer-proof-not-whole-page",
+      "fact": "The mobile evidence separately observes a full-width 390px header and a 358px inset article inside the 390px viewport.",
+      "interpretation": "Single-column reflow is a relationship between distinct header and reading-column layers; the entire screenshot is not a layer.",
+      "recommendation": "Record bounded source and Demo regions for the mobile utility header and inset reading column. Reject [0,0,1,1] as layer-level proof.",
+      "evidenceRefs": [
+        "dango-docs-shell-mobile-reflow"
+      ]
+    },
+    {
+      "id": "button-composition-translation-boundary",
+      "fact": "The frozen Evidence establishes the Button main reading column and its ordered modules, but the frozen goal contains no mayTranslate authorization for aspect, crop, or asset-variant replacement.",
+      "interpretation": "A calibration run label is not a visual variant, and responsive implementation alone does not authorize a materially different comparison crop.",
+      "recommendation": "Use stable variant multi-module-preview-code-api-theme on both source and Demo. Compare like-for-like bounded regions at the same normalized aspect; otherwise return to Demo rather than inventing crop permission.",
+      "evidenceRefs": [
+        "dango-button-page-shell",
+        "dango-primary-button"
+      ]
+    }
+  ],
+  "semanticClaims": [
+    {
+      "id": "docs-current-page-purple",
+      "kind": "color",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "value": "rgb(88, 84, 255)",
+      "meaning": "Restrained current-page navigation emphasis in the documentation shell.",
+      "allowedRoles": [
+        "documentation current-page text",
+        "documentation current-page pale supporting fill derived from the same state"
+      ],
+      "forbiddenRoles": [
+        "Primary Button fill",
+        "page-wide background",
+        "generic call-to-action",
+        "unrelated selected controls"
+      ],
+      "evidenceRefs": [
+        "dango-docs-active-navigation"
+      ]
+    },
+    {
+      "id": "component-primary-purple",
+      "kind": "color",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "value": "rgb(124, 102, 255)",
+      "meaning": "Solid fill for the frozen normal Primary Button component.",
+      "allowedRoles": [
+        "normal Primary Button fill on the Button calibration surface"
+      ],
+      "forbiddenRoles": [
+        "documentation current-page navigation",
+        "global page accent",
+        "orange or warning actions",
+        "all button variants without additional evidence"
+      ],
+      "evidenceRefs": [
+        "dango-primary-button"
+      ]
+    },
+    {
+      "id": "documentation-title-scale",
+      "kind": "typography",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "meaning": "A strong technical reading hierarchy led by a 36px/700 H1 and supported by 24px/600 H2 headings.",
+      "allowedRoles": [
+        "documentation page title",
+        "documentation section heading"
+      ],
+      "forbiddenRoles": [
+        "button label scale",
+        "marketing display type",
+        "claiming an exact custom font family"
+      ],
+      "evidenceRefs": [
+        "dango-docs-type-hierarchy"
+      ]
+    },
+    {
+      "id": "primary-button-compact-geometry",
+      "kind": "radius",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "meaning": "The normal Primary Button is a compact 32px-high control with a 4px radius, not a large pill.",
+      "allowedRoles": [
+        "normal Primary Button geometry"
+      ],
+      "forbiddenRoles": [
+        "all containers",
+        "all controls",
+        "pill controls",
+        "documentation navigation row radius"
+      ],
+      "evidenceRefs": [
+        "dango-primary-button"
+      ]
+    },
+    {
+      "id": "primary-button-hover-stability",
+      "kind": "motion",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "meaning": "The captured default, hover-transition and settled hover frames retain identical pixels, purple fill and no transform.",
+      "allowedRoles": [
+        "normal Primary Button hover behavior for the frozen calibration"
+      ],
+      "forbiddenRoles": [
+        "invented hover color",
+        "hover lift or scale",
+        "applying no-change behavior to other component types"
+      ],
+      "evidenceRefs": [
+        "dango-primary-button-hover-no-change"
+      ]
+    },
+    {
+      "id": "primary-button-focus-visibility",
+      "kind": "interaction",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "meaning": "Focus adds a thin browser-visible outline while preserving the Primary Button fill; click settles into the same retained-focus appearance.",
+      "allowedRoles": [
+        "keyboard focus visibility",
+        "activated-settled focus retention"
+      ],
+      "forbiddenRoles": [
+        "brand-colored activation fill",
+        "orange or red selected state",
+        "removing visible focus"
+      ],
+      "evidenceRefs": [
+        "dango-primary-button-focus",
+        "dango-primary-button-activated"
+      ]
+    },
+    {
+      "id": "documentation-mobile-reflow",
+      "kind": "layout",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "origin": "rendered-observed-claim",
+      "meaning": "The 390px documentation layout hides secondary sidebars and reflows the article into a full-width single column with inset content.",
+      "allowedRoles": [
+        "documentation shell phone translation"
+      ],
+      "forbiddenRoles": [
+        "uniform desktop scale-down",
+        "preserving desktop sidebars on phone",
+        "treating source header/title occlusion as a desirable invariant"
+      ],
+      "evidenceRefs": [
+        "dango-docs-shell-mobile-reflow"
+      ]
+    }
+  ],
+  "styleRecipeDetails": {
+    "documentationShell": {
+      "scope": "Introduction and Button documentation surfaces",
+      "desktop": "56px full-width header above a left navigation, central reading area and right outline.",
+      "mobile": "Full-width header and single reading column; secondary sidebars are absent.",
+      "density": "Dense navigation and long-form technical reading remain separate zones.",
+      "notFor": [
+        "marketing campaign pages",
+        "generic application dashboards",
+        "phone-sized screenshot scaling"
+      ],
+      "evidenceRefs": [
+        "dango-docs-shell-desktop",
+        "dango-docs-shell-mobile-reflow",
+        "dango-button-page-shell"
+      ]
+    },
+    "contentHierarchy": {
+      "scope": "Documentation article hierarchy",
+      "recipe": "Lead with 36px/700 H1, then preserve a wide monospaced technical-flow surface as the Introduction's dominant explanatory graphic. Continue with dense prose, layer explanation and multiple 24px/600 H2 sections so the page retains a long-form title-to-model-to-detail rhythm.",
+      "notFor": [
+        "oversized campaign typography",
+        "flattening all information into cards"
+      ],
+      "evidenceRefs": [
+        "dango-docs-type-hierarchy"
+      ]
+    },
+    "buttonReference": {
+      "scope": "Frozen Button component-reference page",
+      "recipe": "Retain the technical-document progression title → purpose → import → multiple live preview/code modules → API → theme variables. Expose at least two independently reviewable sections; one must prove preview/code structure and another must prove downstream reference density.",
+      "notFor": [
+        "single marketing card",
+        "one-button-only specimen",
+        "generic component gallery without code or reference material"
+      ],
+      "evidenceRefs": [
+        "dango-button-page-shell"
+      ]
+    },
+    "currentPageNavigation": {
+      "scope": "Documentation current-page state only",
+      "recipe": "Use rgb(88, 84, 255) text over the observed pale-purple 8px-radius row treatment.",
+      "notFor": [
+        "primary action fill",
+        "global accent background"
+      ],
+      "evidenceRefs": [
+        "dango-docs-active-navigation"
+      ]
+    },
+    "primaryButton": {
+      "scope": "Normal Primary Button calibration only",
+      "recipe": "Use white text on rgb(124, 102, 255), 32px height and 4px radius; preserve compact control density.",
+      "notFor": [
+        "all button variants",
+        "large pill CTA",
+        "orange action emphasis"
+      ],
+      "evidenceRefs": [
+        "dango-primary-button"
+      ]
+    }
+  },
+  "interactionRecipes": [
+    {
+      "id": "primary-button-state-sequence",
+      "scope": "Normal Primary Button on frozen Button page",
+      "states": [
+        {
+          "id": "default",
+          "visual": "rgb(124, 102, 255) fill, white text, no transform and no shadow"
+        },
+        {
+          "id": "hover-transition",
+          "visual": "pixel-identical to default in the capture"
+        },
+        {
+          "id": "hover",
+          "visual": "pixel-identical to default; no observed color or transform change"
+        },
+        {
+          "id": "focus",
+          "visual": "same fill with auto 1px browser-visible outline"
+        },
+        {
+          "id": "activated-settled",
+          "visual": "pixel-identical to focus because focus remains retained"
+        }
+      ],
+      "suitableFor": [
+        "Primary Button calibration and generative proof of the same component role"
+      ],
+      "notFor": [
+        "other button variants without evidence",
+        "navigation selection",
+        "invented pressed color"
+      ],
+      "evidenceRefs": [
+        "dango-primary-button",
+        "dango-primary-button-hover-no-change",
+        "dango-primary-button-focus",
+        "dango-primary-button-activated"
+      ]
+    }
+  ],
+  "assetRoleBoundaries": {
+    "approvedRuntimeAssets": [],
+    "rule": "The frozen pages are primarily DOM/CSS documentation compositions. The header logomark/text may be reconstructed as a documented shell identity, but no captured screenshot may be used as a runtime asset.",
+    "inventoryFinding": "The rendered inventory is dominated by icon-font and network-resource candidates; none is promoted as a high-salience composition asset for this scope."
+  },
+  "unresolvedClaims": [
+    {
+      "id": "supporting-surface-exact-role",
+      "reason": "#F7F7F9 is visible in the technical diagram claim, but the frozen claim does not bind that exact background value to its own visible DOM selector as a promoted reusable semantic role.",
+      "owner": "brandResearcher",
+      "impact": "Use a restrained light supporting surface structurally, but do not publish #F7F7F9 as a general surface token from this run."
+    },
+    {
+      "id": "orange-component-theme-roles",
+      "reason": "Orange exists as a candidate in extracted code/theme data but has no high-salience rendered role on the frozen Introduction and Primary Button evidence.",
+      "owner": "brandResearcher",
+      "impact": "Orange is not a DangoUI core accent or action color in this scope."
+    },
+    {
+      "id": "global-font-family",
+      "reason": "The frozen rendered claim proves title sizes and weights but does not establish one exact custom family as a system-wide brand invariant.",
+      "owner": "brandResearcher",
+      "impact": "Use readable system sans hierarchy; do not claim a proprietary brand face."
+    },
+    {
+      "id": "other-button-variants-and-states",
+      "reason": "Only the normal Primary Button state sequence was captured and validated.",
+      "owner": "brandResearcher",
+      "impact": "Do not extrapolate secondary, outline, disabled, loading or destructive button behavior."
+    },
+    {
+      "id": "mobile-header-title-occlusion",
+      "reason": "The source capture visibly shows the fixed header occluding the first title, but this is treated as an observed source defect rather than desired brand behavior.",
+      "owner": "designDirectorOrchestrator",
+      "impact": "Do not encode the overlap as an invariant; the design direction must explicitly decide whether a calibration demo reproduces or corrects it and disclose the choice."
+    }
+  ],
+  "globalForbiddenExpansions": [
+    "Orange as a core action or interaction accent",
+    "#5854FF documentation navigation purple as Primary Button fill",
+    "#7C66FF Primary Button purple as universal documentation selection color",
+    "The mobile fixed-header/title overlap as intentional brand behavior",
+    "Hover recolor, lift, scale or shadow on the frozen Primary Button",
+    "A CSS variable, palette count, filename or Dembrandt label as semantic proof",
+    "Source screenshots as Demo runtime assets",
+    "Website mirror as generative proof"
+  ]
+}

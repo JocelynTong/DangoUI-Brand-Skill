@@ -9,6 +9,7 @@
             :key="preset.id"
             class="style-button"
             :class="{ active: selectedStyleId === preset.id }"
+            :title="preset.label"
             type="button"
             @click="selectStyle(preset.id)"
           >
@@ -24,6 +25,39 @@
           <button type="button" :class="{ active: selectedInspectorTab === 'components' }" @click="showComponentMenu">组件</button>
           <button type="button" :class="{ active: selectedInspectorTab === 'pages' }" @click="showPageMenu">页面</button>
         </nav>
+
+        <details
+          v-if="selectedInspectorTab === 'pages'"
+          open
+          aria-label="brand learning proof status"
+          style="margin: 10px 8px; padding: 10px; border: 1px solid rgba(127,127,127,.28); border-radius: 10px; background: rgba(127,127,127,.06); font-size: 11px; line-height: 1.45;"
+        >
+          <summary style="cursor: pointer; font-weight: 700;">Demo 学习证明 · {{ selectedLearningProof.overall }}</summary>
+          <p style="margin: 7px 0; opacity: .76;">不是官网镜像、宿主成果或品牌素材模板。</p>
+          <div style="display: flex; flex-wrap: wrap; gap: 5px;">
+            <span
+              v-for="proof in selectedLearningProof.proofs"
+              :key="proof.id"
+              :title="proof.note"
+              :style="{
+                padding: '3px 6px',
+                borderRadius: '999px',
+                border: '1px solid currentColor',
+                opacity: proof.state === 'pass' ? 1 : .68,
+                color: proof.state === 'pass' ? '#18794e' : proof.state === 'blocked' ? '#b42318' : 'inherit',
+              }"
+            >
+              {{ proof.label }} · {{ proof.status }}
+            </span>
+          </div>
+          <div v-if="selectedLearningProof.blockers.length" style="margin-top: 8px; color: #b42318;">
+            <strong>内部 blocker</strong>
+            <ul style="margin: 4px 0 0; padding-left: 16px;">
+              <li v-for="blocker in selectedLearningProof.blockers" :key="blocker">{{ blocker }}</li>
+            </ul>
+          </div>
+          <p style="margin: 8px 0 0; opacity: .72;">宿主 apply：{{ selectedLearningProof.hostApply }}</p>
+        </details>
 
         <template v-if="selectedInspectorTab === 'style'">
           <div class="token-category-list rail-list" aria-label="token categories">
@@ -107,7 +141,18 @@
       <div class="demo-stage">
         <article class="component-showcase" aria-label="dangoui component showcase">
           <section class="template-preview">
-            <div class="phone template-phone" ref="phoneRef" :style="{ ...mockupScaleVars, ...phoneBrandVars }">
+            <div
+              class="phone template-phone"
+              :class="{
+                'template-phone--source-desktop': selectedTemplateShell.device === 'desktop' || isDesktopHeroProofSurface,
+                'template-phone--source-mobile-proof': isMobileProofSurface,
+                'template-phone--proof-mode': isExplicitProofSurface,
+                'template-phone--bottom-actions': showDemoBottomActions,
+              }"
+              ref="phoneRef"
+              :style="{ ...mockupScaleVars, ...phoneBrandVars }"
+              @wheel="handleMockupWheel"
+            >
               <div
                 class="phone-screen"
                 :class="{
@@ -125,6 +170,7 @@
                 @mouseleave="clearMockupHoverLabel"
               >
                 <div
+                  v-if="showPreviewNavigationBar || showPreviewStatusBar"
                   class="click-target"
                   :class="{ selected: selectedInstanceId === pageNodeId('NavigationBar') }"
                   :data-node-id="pageNodeId('NavigationBar')"
@@ -134,7 +180,7 @@
                   @keydown.enter.prevent="selectInstance(pageNodeId('NavigationBar'), $event)"
                 >
                   <span class="tag">NavigationBar</span>
-                  <div class="mock-statusbar" :class="mockStatusbarClass" aria-hidden="true">
+                  <div v-if="showPreviewStatusBar" class="mock-statusbar" :class="mockStatusbarClass" aria-hidden="true">
                     <span class="mock-statusbar-time">9:41</span>
                     <span class="mock-statusbar-camera"></span>
                     <span class="mock-statusbar-icons">
@@ -143,7 +189,7 @@
                       <i class="mock-statusbar-battery"><b></b></i>
                     </span>
                   </div>
-                  <DuNavigationBar platform="miniprogram" color="default" :back="showNavigationBack" :share="false">
+                  <DuNavigationBar v-if="showPreviewNavigationBar" platform="miniprogram" color="default" :back="showNavigationBack" :share="false">
                     <template v-if="showNavigationLogo" #left>
                       <div class="nav-logo-mark" aria-label="brand logo">
                         <span>{{ navigationLogoText }}</span>
@@ -1248,9 +1294,30 @@
                     </section>
                   </template>
 
+                  <template v-else-if="isSourceSchemaTemplate">
+                    <section
+                      class="source-schema-demo"
+                      :class="[
+                        `source-schema-demo--${runtimePreviewPageKind}`,
+                        `source-schema-demo--${selectedStyleId}`,
+                      ]"
+                      aria-label="source-derived brand preview"
+                      :data-page-id="selectedTemplate.id"
+                    >
+                      <component
+                        v-for="(section, sectionIndex) in runtimeSchemaSections"
+                        :is="sectionRendererRegistry[section.type] || UnsupportedSchemaSection"
+                        :key="schemaSectionKey(section, sectionIndex)"
+                        :section="section"
+                        :section-index="sectionIndex"
+                      />
+                    </section>
+                  </template>
+
                   <template v-else-if="isRuntimePreviewTemplate">
                     <section class="runtime-brand-preview" :class="`runtime-brand-preview--${runtimePreviewPageKind}`" aria-label="runtime brand preview">
                       <div
+                        v-if="runtimePreviewPageKind === 'home' || runtimePreviewPageKind === 'campaign'"
                         class="click-target runtime-brand-hero"
                         :class="{ selected: selectedInstanceId === pageNodeId('HeroHeader') }"
                         :data-node-id="pageNodeId('HeroHeader')"
@@ -1280,6 +1347,7 @@
                       </div>
 
                       <div
+                        v-if="runtimePreviewPageKind !== 'publish'"
                         class="click-target runtime-brand-filter"
                         :class="{ selected: selectedInstanceId === pageNodeId('Tabs') }"
                         :data-node-id="pageNodeId('Tabs')"
@@ -1311,6 +1379,7 @@
                       </div>
 
                       <div
+                        v-if="runtimePreviewPageKind !== 'publish'"
                         class="click-target runtime-brand-card-grid"
                         :class="{ selected: selectedInstanceId === pageNodeId('Card') }"
                         :data-node-id="pageNodeId('Card')"
@@ -1329,6 +1398,16 @@
                           <strong>{{ card.title }}</strong>
                           <p>{{ card.copy }}</p>
                         </article>
+                      </div>
+
+                      <div v-if="runtimePreviewPageKind === 'publish'" class="click-target runtime-brand-publish" :data-node-id="pageNodeId('Input')" @click="selectInstance(pageNodeId('Input'), $event)">
+                        <span class="tag">Input · Textarea · Select · Switch · BottomBar</span>
+                        <strong>发布卡牌收藏</strong>
+                        <label>标题<input value="稀有卡牌收藏记录" /></label>
+                        <label>分类<select><option>卡牌图鉴</option><option>收藏资讯</option></select></label>
+                        <label>说明<textarea>补充卡牌状态、来源与交换说明。</textarea></label>
+                        <label class="runtime-brand-publish__switch"><input type="checkbox" checked /> 允许交换意向</label>
+                        <button type="button">发布收藏</button>
                       </div>
 
                       <div
@@ -1599,7 +1678,7 @@
                     </div>
                   </template>
 
-                  <template v-else-if="selectedTemplateId === 'czn-publish' || selectedTemplateId === 'hpma-publish' || selectedTemplateId === 'rocom-publish'">
+                  <template v-else-if="selectedTemplateId === 'czn-publish' || selectedTemplateId === 'hpma-publish'">
                     <div class="form-demo brand-publish-form">
                       <div class="publish-template-tip">
                         <strong>TIPS</strong>
@@ -1666,281 +1745,17 @@
                     </div>
                   </template>
 
-                  <template v-else-if="selectedTemplateId === 'rocom-home'">
-                    <section class="rocom-home-section" aria-label="洛克王国官网首页 section 背景">
-                      <picture class="rocom-hero-cover" aria-hidden="true">
-                        <source srcset="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/20260513/bg.avif" type="image/avif" />
-                        <source srcset="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/20260513/bg.webp" type="image/webp" />
-                        <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/20260513/bg.jpg" alt="" />
-                      </picture>
-                      <div class="click-target rocom-hero" :class="{ selected: selectedInstanceId === pageNodeId('HeroHeader') }" :data-node-id="pageNodeId('HeroHeader')" @click="selectInstance(pageNodeId('HeroHeader'), $event)">
-                        <span class="tag">HeroHeader · 官网首屏图层</span>
-                        <div class="rocom-hero-nav">
-                          <img src="https://game.gtimg.cn/images/rocom/web202409/logo.png" alt="洛克王国" />
-                        </div>
-                        <div class="rocom-hero-copy">
-                          <img class="rocom-hero-logo" src="/assets/rocom-logo.svg" alt="洛克王国" />
-                          <strong>ROCO KINGDOM</strong>
-                          <span>{{ selectedStyle.notice }}</span>
-                        </div>
-                        <div class="rocom-hero-cta-cluster" aria-label="官网首屏 CTA 资产组">
-                          <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/icon-gift.png" alt="注册福利" />
-                          <div class="rocom-hero-downloads">
-                            <button type="button">扫码下载</button>
-                            <button type="button">官网 PC 下载</button>
-                            <button type="button">Android 下载</button>
-                            <button type="button">App Store</button>
-                          </div>
-                          <div class="rocom-hero-star-strip" aria-label="官网星星装饰资产组">
-                            <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1-avif/star/1.avif" alt="" />
-                            <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1-avif/star/2.avif" alt="" />
-                            <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1-avif/star/3.avif" alt="" />
-                            <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1-avif/star/4.avif" alt="" />
-                            <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1-avif/star/5.avif" alt="" />
-                            <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1-avif/star/6.avif" alt="" />
-                          </div>
-                        </div>
-                      </div>
-                      <section class="rocom-home-part rocom-home-part--distribution" aria-label="洛克王国官网第二屏背景">
-                        <div class="click-target rocom-home-distribution" :class="{ selected: selectedInstanceId === pageNodeId('Button') }" :data-node-id="pageNodeId('Button')" @click="selectInstance(pageNodeId('Button'), $event)">
-                          <span class="tag">Button</span>
-                          <button type="button" :class="{ active: rocomHomePanel === 'news' }" @click.stop="openRocomHomePanel('news')">
-                            <b>NEWS</b>
-                            <small>魔法情报</small>
-                          </button>
-                          <button type="button" :class="{ active: rocomHomePanel === 'pet' }" @click.stop="openRocomHomePanel('pet')">
-                            <b>PET</b>
-                            <small>精灵图鉴</small>
-                          </button>
-                          <button type="button" :class="{ active: rocomHomePanel === 'media' }" @click.stop="openRocomHomePanel('media')">
-                            <b>MEDIA</b>
-                            <small>旅途影像</small>
-                          </button>
-                        </div>
-                        <div class="click-target rocom-home-gallery" :class="[{ selected: selectedInstanceId === pageNodeId('Image') }, `rocom-home-gallery--${rocomHomePanel}`]" :data-node-id="pageNodeId('Image')" data-style-hover-label="风格 - Image - 明亮幻想世界图层，可用于首页分发入口 / 活动专题卡片" @click="selectInstance(pageNodeId('Image'), $event)">
-                          <span class="tag">Image</span>
-                          <i></i>
-                          <div>
-                            <p>{{ rocomHomePanels[rocomHomePanel].galleryKicker }}</p>
-                            <strong>{{ rocomHomePanels[rocomHomePanel].galleryTitle }}</strong>
-                            <span>{{ rocomHomePanels[rocomHomePanel].galleryBody }}</span>
-                          </div>
-                        </div>
-                        <div class="rocom-home-feed" aria-label="洛克王国首页双列 feed">
-                          <article>
-                            <figure class="rocom-feed-media">
-                              <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2/20260513/slide-1.avif" alt="" />
-                            </figure>
-                            <div>
-                              <p>EXCLUSIVE BONUS</p>
-                              <strong>官网专属奖励</strong>
-                              <span>活动图、奖励说明和下载入口在首页下方继续承接。</span>
-                            </div>
-                          </article>
-                          <article>
-                            <figure class="rocom-feed-media">
-                              <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-1.png" alt="" />
-                            </figure>
-                            <div>
-                              <p>WORLD PREVIEW</p>
-                              <strong>开放世界预览</strong>
-                              <span>用真实资源图承接后续内容，验证页面滚动与背景衔接。</span>
-                            </div>
-                          </article>
-                          <article>
-                            <figure class="rocom-feed-media">
-                              <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part4/20260513/card.avif" alt="" />
-                            </figure>
-                            <div>
-                              <p>ACTIVITY</p>
-                              <strong>活动日历</strong>
-                              <span>用图片资产承接活动模块，不退化为普通列表。</span>
-                            </div>
-                          </article>
-                          <article>
-                            <figure class="rocom-feed-media">
-                              <img src="https://static.gametalk.qq.com/image/467/1782973919_ba1bc92566891e4ed0fc052de99a62ee.png" alt="" />
-                            </figure>
-                            <div>
-                              <p>MONTHLY</p>
-                              <strong>皮卡月刊</strong>
-                              <span>角色资源位继续验证滚动内容和页面背景。</span>
-                            </div>
-                          </article>
-                        </div>
-                      </section>
-                    </section>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'rocom-benefit'">
-                    <div class="click-target rocom-benefit-hero" :class="{ selected: selectedInstanceId === pageNodeId('HeroHeader') }" :data-node-id="pageNodeId('HeroHeader')" data-style-hover-label="组件 - 数据输出 - HeroHeader；用于专属福利首屏，不是普通卡片" @click="selectInstance(pageNodeId('HeroHeader'), $event)">
-                      <span class="tag">HeroHeader · 福利氛围首屏</span>
-                      <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2/20260513/slide-1.avif" alt="上线奖励领取" />
-                      <div class="rocom-benefit-caption">
-                        <p>EXCLUSIVE BONUS</p>
-                        <strong>上线奖励领取</strong>
-                        <span>官网的福利页更像活动落地页：先给强图，再给行动按钮，最后露出奖品条。</span>
-                      </div>
-                    </div>
-                    <div class="click-target rocom-benefit-actions" :class="{ selected: selectedInstanceId === pageNodeId('Button') }" :data-node-id="pageNodeId('Button')" data-style-hover-label="组件 - 数据输入 - Button；用于点击即玩 / 下载 / 领取动作" @click="selectInstance(pageNodeId('Button'), $event)">
-                      <span class="tag">Button</span>
-                      <DuButton text="上线奖励领取" type="primary" />
-                      <button type="button">点击即玩</button>
-                      <button type="button">WIN 端</button>
-                      <button type="button">MAC 端</button>
-                    </div>
-                    <div class="click-target rocom-reward-strip" :class="{ selected: selectedInstanceId === pageNodeId('Image') }" :data-node-id="pageNodeId('Image')" data-style-hover-label="组件 - 数据输出 - Image；奖品条是活动资产层，不拆成普通 List" @click="selectInstance(pageNodeId('Image'), $event)">
-                      <span class="tag">Image · 奖励条</span>
-                      <div class="rocom-reward-strip-images" aria-label="官网奖励资产">
-                        <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2-avif/lottery-1.avif" alt="官网奖励机器 1" />
-                        <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2-avif/lottery-2.avif" alt="官网奖励机器 2" />
-                        <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2-avif/lottery-3.avif" alt="官网奖励机器 3" />
-                      </div>
-                      <div>
-                        <strong>官网专属奖励</strong>
-                        <span>奖品资产用一张完整图承接，不拆成重复列表。</span>
-                      </div>
-                    </div>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'rocom-calendar'">
-                    <div class="click-target rocom-calendar-hero" :class="{ selected: selectedInstanceId === pageNodeId('Image') }" :data-node-id="pageNodeId('Image')" data-style-hover-label="组件 - 数据输出 - Image；活动日历先用整图表达，不误拆成 List" @click="selectInstance(pageNodeId('Image'), $event)">
-                      <span class="tag">Image · 活动日历整图</span>
-                      <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part4/20260513/card.avif" alt="活动日历" />
-                    </div>
-                    <div class="click-target rocom-calendar-summary" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" data-style-hover-label="组件 - 数据输出 - Card；只承载日历说明和状态，不替代主视觉" @click="selectInstance(pageNodeId('Card'), $event)">
-                      <span class="tag">Card</span>
-                      <p>ACTIVITY CALENDAR</p>
-                      <strong>活动日历</strong>
-                      <span>官网里的日历是一个强视觉模块。当前 DangoUI 没有正式 Calendar 业务组件，所以先以 Image 承接，再用 Card 做说明。</span>
-                    </div>
-                    <div class="click-target rocom-calendar-tags" :class="{ selected: selectedInstanceId === pageNodeId('Tag') }" :data-node-id="pageNodeId('Tag')" @click="selectInstance(pageNodeId('Tag'), $event)">
-                      <span class="tag">Tag</span>
-                      <div class="tag-row">
-                        <DuTag color="primary" round>限时</DuTag>
-                        <DuTag color="default" round>奖励</DuTag>
-                        <DuTag color="default" round>版本</DuTag>
-                      </div>
-                    </div>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'rocom-news'">
-                    <div class="click-target rocom-news-feature" :class="{ selected: selectedInstanceId === pageNodeId('Swiper') }" :data-node-id="pageNodeId('Swiper')" data-style-hover-label="风格 - Swiper - 云朵蓝天活动主图，用于公告头图 / 运营专题" @click="selectInstance(pageNodeId('Swiper'), $event)">
-                      <span class="tag">Swiper</span>
-                      <div class="rocom-news-poster">
-                        <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2/20260513/slide-2.avif" alt="测试招募活动图" />
-                        <strong>魔法学院开放日</strong>
-                        <span>七月测试招募 · 开放世界冒险</span>
-                      </div>
-                    </div>
-                    <div class="click-target rocom-news-tabs" :class="{ selected: selectedInstanceId === pageNodeId('Tabs') }" :data-node-id="pageNodeId('Tabs')" @click="selectInstance(pageNodeId('Tabs'), $event)">
-                      <span class="tag">Tabs</span>
-                      <DuTabs :value="rocomNewsTab" type="tag" size="normal" @update:value="rocomNewsTab = $event">
-                        <DuTab name="notice">公告</DuTab>
-                        <DuTab name="event">活动</DuTab>
-                        <DuTab name="guide">攻略</DuTab>
-                      </DuTabs>
-                    </div>
-                    <div class="click-target rocom-news-list" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" data-style-hover-label="风格 - Card - 软圆角资讯列表，可用于公告列表 / 任务日程" @click="selectInstance(pageNodeId('Card'), $event)">
-                      <span class="tag">Card</span>
-                      <article v-for="item in rocomNewsCopy[rocomNewsTab].items" :key="item.title">
-                        <time>{{ item.date }}</time>
-                        <div>
-                          <strong>{{ item.title }}</strong>
-                          <p>{{ item.body }}</p>
-                        </div>
-                      </article>
-                    </div>
-                    <div class="click-target rocom-news-actions" :class="{ selected: selectedInstanceId === pageNodeId('Tag') }" :data-node-id="pageNodeId('Tag')" @click="selectInstance(pageNodeId('Tag'), $event)">
-                      <span class="tag">Tag</span>
-                      <div class="tag-row">
-                        <DuTag color="primary" round>测试招募</DuTag>
-                        <DuTag color="default" round>精灵图鉴</DuTag>
-                        <DuTag color="default" round>家园建设</DuTag>
-                      </div>
-                    </div>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'rocom-media'">
-                    <div class="click-target rocom-media-hero" :class="{ selected: selectedInstanceId === pageNodeId('Swiper') }" :data-node-id="pageNodeId('Swiper')" data-style-hover-label="风格 - Swiper - 明亮大图影像区，可用于 PV / 截图 / 世界展示" @click="selectInstance(pageNodeId('Swiper'), $event)">
-                      <span class="tag">Swiper</span>
-                      <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-1.png" alt="旅途影像" />
-                      <div class="rocom-media-title">
-                        <p>WORLD PREVIEW</p>
-                        <strong>{{ rocomMediaCopy[rocomMediaTab].title }}</strong>
-                        <span>{{ rocomMediaCopy[rocomMediaTab].noteBody }}</span>
-                      </div>
-                    </div>
-                    <div class="click-target rocom-media-tabs" :class="{ selected: selectedInstanceId === pageNodeId('Tabs') }" :data-node-id="pageNodeId('Tabs')" @click="selectInstance(pageNodeId('Tabs'), $event)">
-                      <span class="tag">Tabs</span>
-                      <DuTabs :value="rocomMediaTab" type="tag" size="normal" @update:value="rocomMediaTab = $event">
-                        <DuTab name="world">世界</DuTab>
-                        <DuTab name="pet">精灵</DuTab>
-                        <DuTab name="home">家园</DuTab>
-                      </DuTabs>
-                    </div>
-                    <div class="click-target rocom-media-grid" :class="{ selected: selectedInstanceId === pageNodeId('Image') }" :data-node-id="pageNodeId('Image')" data-style-hover-label="风格 - Image - 云朵边界图库，用于截图墙 / 精灵展示" @click="selectInstance(pageNodeId('Image'), $event)">
-                      <span class="tag">Image</span>
-                      <article class="featured"><img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-1.png" alt="世界图库 1" /><strong>{{ rocomMediaCopy[rocomMediaTab].items[0] }}</strong></article>
-                      <article><img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-2.avif" alt="世界图库 2" /><strong>{{ rocomMediaCopy[rocomMediaTab].items[1] }}</strong></article>
-                      <article><img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-3.avif" alt="世界图库 3" /><strong>{{ rocomMediaCopy[rocomMediaTab].items[2] }}</strong></article>
-                    </div>
-                    <div class="click-target rocom-rendered-asset-stage" :class="{ selected: selectedInstanceId === pageNodeId('Asset') }" :data-node-id="pageNodeId('Asset')" data-style-hover-label="风格 - Asset - Rendered asset crawl；来自 ::before background 与 DOM img/currentSrc" @click="selectInstance(pageNodeId('Asset'), $event)">
-                      <span class="tag">Asset · rendered crawl</span>
-                      <div class="rocom-rendered-asset-art">
-                        <img src="https://static.gametalk.qq.com/image/467/1782973919_ba1bc92566891e4ed0fc052de99a62ee.png" alt="月刊-女" />
-                        <img src="https://static.gametalk.qq.com/image/467/1782973892_26fe3188ad7b204f9c61a6228e7135e6.png" alt="月刊-男" />
-                      </div>
-                      <div class="rocom-rendered-asset-copy">
-                        <p>RENDERED ASSET</p>
-                        <strong>月刊角色资源位</strong>
-                        <span>背景来自 .part5-con::before，角色图来自 DOM img/currentSrc；这是 Image + decorative-layer，不是普通卡片边框。</span>
-                      </div>
-                    </div>
-                    <div class="click-target rocom-media-notes" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" @click="selectInstance(pageNodeId('Card'), $event)">
-                      <span class="tag">Card</span>
-                      <strong>{{ rocomMediaCopy[rocomMediaTab].noteTitle }}</strong>
-                      <p>{{ rocomMediaCopy[rocomMediaTab].noteBody }}</p>
-                    </div>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'rocom-pet'">
-                    <section class="rocom-pet-stage rocom-pet-stage--profile" aria-label="洛克王国精灵图鉴舞台">
-                      <div class="rocom-pet-stage__content">
-                        <div class="click-target rocom-pet-panel" :class="{ selected: selectedInstanceId === pageNodeId('Image') }" :data-node-id="pageNodeId('Image')" data-style-hover-label="风格 - Image - 精灵图鉴展示卡，用于角色/宠物/商品详情主视觉" @click="selectInstance(pageNodeId('Image'), $event)">
-                          <span class="tag">Image · 精灵图鉴</span>
-                          <img src="https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-4.avif" alt="精灵图鉴资源图" />
-                        </div>
-                        <div class="rocom-pet-copy">
-                          <p>PET FILE</p>
-                          <strong>迪莫</strong>
-                          <span>暖黄色行动入口、云朵白面板和厚圆角按钮共同承接洛克王国的轻幻想气质。</span>
-                        </div>
-                      </div>
-                    </section>
-                    <section class="rocom-pet-stage rocom-pet-stage--stats" aria-label="洛克王国精灵图鉴属性层">
-                      <div class="rocom-pet-stage__content">
-                        <div class="click-target rocom-file-grid" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" @click="selectInstance(pageNodeId('Card'), $event)">
-                          <span class="tag">Card</span>
-                          <article><b>属性</b><small>光 / 魔法</small></article>
-                          <article><b>伙伴</b><small>开放世界随行</small></article>
-                          <article><b>场景</b><small>王国城堡</small></article>
-                          <article><b>状态</b><small>预约招募中</small></article>
-                        </div>
-                      </div>
-                    </section>
-                    <section class="rocom-pet-stage rocom-pet-stage--archive" aria-label="洛克王国精灵图鉴状态层">
-                      <div class="rocom-pet-stage__content">
-                        <div class="click-target rocom-archive-tabs" :class="{ selected: selectedInstanceId === pageNodeId('Badge') }" :data-node-id="pageNodeId('Badge')" @click="selectInstance(pageNodeId('Badge'), $event)">
-                          <span class="tag">Badge</span>
-                          <DuBadge value="NEW" color="primary" always-show>
-                            <span class="badge-anchor">图鉴状态</span>
-                          </DuBadge>
-                          <p class="demo-interaction-feedback">展示侧可以强风格化；发布侧只继承 token 与基础控件形态。</p>
-                        </div>
-                      </div>
-                    </section>
-                  </template>
+                  
 
                   <template v-else-if="selectedTemplateId === 'hpma-home'">
                     <div class="click-target hpma-hero" :class="{ selected: selectedInstanceId === pageNodeId('HeroHeader') }" :data-node-id="pageNodeId('HeroHeader')" @click="selectInstance(pageNodeId('HeroHeader'), $event)">
@@ -2242,82 +2057,11 @@
                     </div>
                   </template>
 
-                  <template v-else-if="selectedTemplateId === 'notion-home'">
-                    <div class="click-target notion-hero" :class="{ selected: selectedInstanceId === pageNodeId('HeroHeader') }" :data-node-id="pageNodeId('HeroHeader')" @click="selectInstance(pageNodeId('HeroHeader'), $event)">
-                      <span class="tag">HeroHeader · 图片层 Image</span>
-                      <p>Write, plan, organize</p>
-                      <strong>Your team's calm operating system</strong>
-                      <span>白纸感画布、近黑大字和单一蓝色行动入口，彩色贴纸只负责人格。</span>
-                      <div class="button-row">
-                        <DuButton text="Start building" type="primary" />
-                        <DuButton text="Browse templates" type="outline" />
-                      </div>
-                    </div>
-                    <div class="click-target notion-sticker-row" :class="{ selected: selectedInstanceId === pageNodeId('Tag') }" :data-node-id="pageNodeId('Tag')" @click="selectInstance(pageNodeId('Tag'), $event)">
-                      <span class="tag">Tag</span>
-                      <DuTag color="primary" round>docs</DuTag>
-                      <DuTag color="default" round>wiki</DuTag>
-                      <DuTag color="default" round>projects</DuTag>
-                    </div>
-                    <div class="click-target notion-doc-card" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" @click="selectInstance(pageNodeId('Card'), $event)">
-                      <span class="tag">Card</span>
-                      <DuCard title="Company home" guide-text="" size="large">
-                        <p class="card-copy">用 dangoui Card 承接 Notion 的文档卡片模式；纸面、圆角和 --du-border-1 是 demo 视觉控制。</p>
-                      </DuCard>
-                    </div>
-                    <div class="click-target" :class="{ selected: selectedInstanceId === pageNodeId('Button') }" :data-node-id="pageNodeId('Button')" @click="selectInstance(pageNodeId('Button'), $event)">
-                      <span class="tag">Button</span>
-                      <div class="button-row">
-                        <DuButton text="Get Notion free" type="primary" />
-                        <DuButton text="Request demo" type="outline" />
-                      </div>
-                    </div>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'notion-wiki'">
-                    <div class="click-target notion-doc-card" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" @click="selectInstance(pageNodeId('Card'), $event)">
-                      <span class="tag">Card</span>
-                      <DuCard title="Team wiki" guide-text="" size="large">
-                        <div class="notion-list">
-                          <span>Getting started</span>
-                          <span>Product roadmap</span>
-                          <span>Design system notes</span>
-                        </div>
-                      </DuCard>
-                    </div>
-                    <div class="click-target notion-doc-card" :class="{ selected: selectedInstanceId === pageNodeId('NoticeBar') }" :data-node-id="pageNodeId('NoticeBar')" @click="selectInstance(pageNodeId('NoticeBar'), $event)">
-                      <span class="tag">NoticeBar</span>
-                      <DuNoticeBar text="新成员已加入工作区，建议先阅读 onboarding 页面。" link-text="打开" />
-                    </div>
-                    <div class="click-target notion-sticker-panel" :class="{ selected: selectedInstanceId === pageNodeId('Image') }" :data-node-id="pageNodeId('Image')" @click="selectInstance(pageNodeId('Image'), $event)">
-                      <span class="tag">Image</span>
-                      <i></i><i></i><i></i><i></i>
-                    </div>
-                  </template>
+                  
 
-                  <template v-else-if="selectedTemplateId === 'notion-pricing'">
-                    <div class="click-target notion-plan-card" :class="{ selected: selectedInstanceId === pageNodeId('Card') }" :data-node-id="pageNodeId('Card')" @click="selectInstance(pageNodeId('Card'), $event)">
-                      <span class="tag">Card</span>
-                      <strong>Plus</strong>
-                      <p>For small teams and professionals.</p>
-                      <b>$10 <small>/ seat</small></b>
-                      <DuButton text="Get started" type="primary" />
-                    </div>
-                    <div class="click-target notion-plan-card featured" :class="{ selected: selectedInstanceId === pageNodeId('Badge') }" :data-node-id="pageNodeId('Badge')" @click="selectInstance(pageNodeId('Badge'), $event)">
-                      <span class="tag">Badge</span>
-                      <strong>Business</strong>
-                      <p>Advanced permissions, SSO and shared teamspaces.</p>
-                      <b>$20 <small>/ seat</small></b>
-                      <DuTag color="primary" round>Recommended</DuTag>
-                    </div>
-                    <div class="click-target" :class="{ selected: selectedInstanceId === pageNodeId('Button') }" :data-node-id="pageNodeId('Button')" @click="selectInstance(pageNodeId('Button'), $event)">
-                      <span class="tag">Button</span>
-                      <div class="button-row">
-                        <DuButton text="Contact sales" type="primary" />
-                        <DuButton text="Compare plans" type="outline" />
-                      </div>
-                    </div>
-                  </template>
+                  
 
                   <template v-else-if="selectedTemplate?.side === 'distribution'">
                     <div class="click-target mock-hero-header" :class="{ selected: selectedInstanceId === pageNodeId('HeroHeader') }" :data-node-id="pageNodeId('HeroHeader')" @click="selectInstance(pageNodeId('HeroHeader'), $event)">
@@ -2949,7 +2693,7 @@
                             <span>›</span>
                             <small>Cascader 多级选择</small>
                           </div>
-                          <DuSelect v-else-if="name === 'Select'" title="选择器" :options="selectOptions" value="figma" />
+                          <DuSelect v-else-if="name === 'Select'" title="选择器" :options="selectOptions" value="option-a" />
                           <DuUpload v-else-if="name === 'Upload'" :value="[]" upload-text="上传" />
                           <div v-else-if="name === 'Tips'" class="mock-tips-card">
                             <strong>字段辅助提示</strong>
@@ -3009,7 +2753,6 @@
                   <span class="tag">FAB</span>
                   <DuIcon :icon="iconPlusHeavy" :size="20" />
                 </button>
-                <div class="mock-home-indicator" :class="{ 'mock-home-indicator--transparent': !showDemoBottomActions }" aria-hidden="true"><span></span></div>
                 <DuSnackbar
                   v-if="snackbarMessage"
                   :show="true"
@@ -3023,6 +2766,7 @@
                   {{ snackbarMessage }}
                 </DuSnackbar>
               </div>
+              <div class="mock-home-indicator mock-home-indicator--outer" aria-hidden="true"><span></span></div>
               <div
                 v-if="mockupHoverLabel"
                 class="mockup-hover-label"
@@ -3055,7 +2799,7 @@
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import dayjs from "dayjs";
 import {
   DuActionButton,
@@ -3116,12 +2860,12 @@ const docsBaseUrl = "https://dumpling.echo.tech";
 const introductionUrl = `${docsBaseUrl}/get-started/introduction`;
 const tokenDocsUrl = `${docsBaseUrl}/guide/theme`;
 const tokenPreviewLimit = 5;
-const selectedStyleId = ref("rocom");
+const selectedStyleId = ref("dango");
 const publishSyncOn = ref(true);
 const publishWaitlistOn = ref(true);
 const publishLimitOn = ref(false);
 const publishSelectValue = ref("notice");
-const genericSelectValue = ref("figma");
+const genericSelectValue = ref("option-a");
 const calendarDateTimeVisible = ref(false);
 const calendarSelectedDate = ref(dayjs("2026-06-29 20:00"));
 const calendarDateTimeText = computed(() => calendarSelectedDate.value.format("YYYY-MM-DD HH:mm"));
@@ -3364,234 +3108,14 @@ const baseStylePresets = [
       { raw: "paper / role / first visual assets", count: 5, percent: "图片资产", target: "demoOnlyVisualControls", value: "档案纸张、角色图和首屏插画只作为页面 CSS" },
     ],
   },
-  {
-    id: "rocom",
-    label: "洛克王国",
-    icon: "/assets/rocom-logo.svg",
-    source: "rocom.qq.com / 官网截图 + HTML CSS 口径",
-    hero: "Roco Kingdom",
-    notice: "洛克王国官网风格：黄黑主视觉、金黄 CTA、厚圆角按钮、轻幻想游戏 UI 和活动/精灵图片层。",
-    evidenceNote: "人工校准后以黄黑/金黄为主识别：黑金首屏、活动日历和奖励模块比浅蓝天空更能代表官网观感；蓝色只作为天空/幻想辅助氛围。",
-    sectionTitle: "Magic Adventure",
-    tabs: ["首页", "情报", "图鉴"],
-    cards: [
-      { title: "开放世界首屏", copy: "NavigationBar、HeroHeader、Button 和 Image 保持 dangoui 结构，首屏必须用官网图层或等价视觉资产承接。" },
-      { title: "精灵图鉴", copy: "展示侧允许使用强插画、黑金边界、撕纸边缘和厚圆角；发布侧只继承 token 与基础控件形态。" },
-    ],
-    tokens: [
-      { name: "--du-bg-2", value: "#1f160b" },
-      { name: "--du-bg-1", value: "#fff4c9" },
-      { name: "--du-text-1", value: "#251807" },
-      { name: "--du-text-2", value: "#5c4320" },
-      { name: "--du-text-3", value: "#8a6530" },
-      { name: "--du-border-1", value: "#6c3c16" },
-      { name: "--du-primary-color", value: "#f5b537" },
-      { name: "--du-primary-border", value: "#6c3c16" },
-      { name: "--du-primary-outline-color", value: "#ffe16a" },
-      { name: "--du-primary-soft-bg", value: "#fff0b2" },
-      { name: "--du-primary-solid-bg", value: "#f5b537" },
-      { name: "--du-default-6", value: "#8a6530" },
-      { name: "--du-default-8", value: "#fff4c9" },
-    ],
-    style: {
-      cardRadius: "18px",
-      controlRadius: "999px",
-      pageSpacing: "14px",
-      cardShadow: "0 14px 30px rgba(66, 38, 8, .2), inset 0 0 0 1px rgba(255,239,174,.72)",
-      media: "radial-gradient(circle at 22% 16%, rgba(255,225,106,.34), transparent 18%), radial-gradient(circle at 80% 18%, rgba(255,255,255,.62), transparent 16%), linear-gradient(180deg,#201307,#f1b947 58%,#fff2b8)",
-      fontDisplay: "MIANFEIZITI / official computed font",
-      iconSystem: "cloud badge + pet adventure icons",
-      borderFrame: "black-gold frame / torn paper edge / warm yellow CTA",
-    },
-    signals: [
-      { raw: "#1f160b / black-brown", count: 8, percent: "人工校准", target: "--du-bg-2", value: "官网首屏和活动模块的黑金底色" },
-      { raw: "#fff4c9 / warm cream", count: 8, percent: "人工校准", target: "--du-bg-1", value: "亮面内容区和卡片承载面" },
-      { raw: "#f5b537 / #ffe16a", count: 7, percent: "人工校准", target: "--du-primary-color / --du-primary-solid-bg", value: "预约、下载、领取奖励等金黄行动入口" },
-      { raw: "#251807", count: 5, percent: "人工校准", target: "--du-text-1", value: "黑棕标题与正文主文字" },
-      { raw: "#6c3c16 / #8a6530", count: 5, percent: "人工校准", target: "--du-border-1 / --du-text-3", value: "黑金边框、弱标签和活动状态" },
-      { raw: "logo / bg / slide / pet art", count: 6, percent: "图片资产", target: "demoOnlyVisualControls", value: "开放世界大图、精灵角色和活动图片只作为页面 CSS" },
-      { raw: "MIANFEIZITI", count: 8, percent: "官网 computed", target: "demoOnlyVisualControls/font", value: "官网 nav-item、活动卡和弹窗按钮使用的字体；已按 @font-face 接入 demo" },
-      { raw: "ticket / torn paper edge", count: 3, percent: "风格化边缘", target: "demoOnlyVisualControls", value: "用于活动卡、资讯卡、媒体标题等少量重点容器，不包裹所有组件" },
-    ],
-  },
-  {
-    id: "apple",
-    label: "Apple",
-    icon: "https://www.apple.com/apple-touch-icon.png",
-    source: "组件引用口径 / 46 次",
-    hero: "Apple Gallery",
-    notice: "按 DESIGN-apple.md 的组件颜色引用统计，把行动蓝、近黑文字、白/羊皮纸表面写入 dangoui token value。",
-    evidenceNote: "频次来自上游 DESIGN 文档 components: 对 colors.* 的引用次数，共 46 次；百分比 = 该颜色引用次数 / 46。圆角、阴影、摄影质感只作为 demo 视觉控制，不写入 dangoui token。",
-    sectionTitle: "Museum Feed",
-    tabs: ["产品", "故事", "购买"],
-    cards: [
-      { title: "产品展陈", copy: "Card 仍然是 dangoui 组件，但表面、文字和行动入口已经换成 Apple 迁移稿里的 token value。" },
-      { title: "安静控件", copy: "白色/羊皮纸表面承担主要氛围，行动蓝只负责链接、按钮和可点击信号。" },
-    ],
-    tokens: [
-      { name: "--du-bg-2", value: "#f5f5f7" },
-      { name: "--du-bg-1", value: "#ffffff" },
-      { name: "--du-text-1", value: "#1d1d1f" },
-      { name: "--du-text-3", value: "#7a7a7a" },
-      { name: "--du-primary-color", value: "#0066cc" },
-      { name: "--du-primary-border", value: "#0066cc" },
-      { name: "--du-primary-outline-color", value: "#0066cc" },
-      { name: "--du-primary-soft-bg", value: "#eaf3ff" },
-      { name: "--du-primary-solid-bg", value: "#0066cc" },
-    ],
-    style: {
-      cardRadius: "28px",
-      controlRadius: "999px",
-      pageSpacing: "20px",
-      cardShadow: "0 18px 48px rgba(0,0,0,.08)",
-      media: "linear-gradient(145deg,#ffffff,#f5f5f7 48%,#d7e8ff)",
-    },
-    signals: [
-      { raw: "#1d1d1f", count: 10, percent: "21.7%", target: "--du-text-1", value: "文字层级 / colors.ink" },
-      { raw: "#ffffff", count: 6, percent: "13%", target: "--du-bg-1", value: "中性表面 / colors.canvas" },
-      { raw: "#ffffff", count: 6, percent: "13%", target: "--du-white-*", value: "暗底文字 / colors.on-dark" },
-      { raw: "#0066cc", count: 6, percent: "13%", target: "--du-primary-color", value: "品牌行动入口 / colors.primary" },
-      { raw: "#f5f5f7", count: 4, percent: "8.7%", target: "--du-bg-2", value: "羊皮纸表面 / colors.canvas-parchment" },
-      { raw: "#ffffff", count: 4, percent: "8.7%", target: "--du-white-*", value: "主按钮文字 / colors.on-primary" },
-      { raw: "#333333", count: 2, percent: "4.3%", target: "--du-text-2", value: "弱化文字 / colors.ink-muted-80" },
-      { raw: "#272729", count: 2, percent: "4.3%", target: "--du-bg-4", value: "暗色产品区块 / colors.surface-tile-1" },
-    ],
-  },
-  {
-    id: "figma",
-    label: "Figma",
-    icon: "https://static.figma.com/app/icon/1/favicon.ico",
-    source: "官网/品牌书口径",
-    hero: "Design Systems",
-    notice: "Figma 官网的白底黑字、清晰界面边界和多色协作资产，被拆成 dangoui token 与 demo 视觉控制两层。",
-    evidenceNote: "频次来自官网首页与官方品牌/开发者资料的 UI 颜色口径推演；黑白中性进入 dangoui token，多色品牌图形和协作画布色只作为品牌资产或 demo 视觉控制。",
-    sectionTitle: "Team Workspace",
-    tabs: ["设计", "组件", "变量"],
-    cards: [
-      { title: "协作画布", copy: "同一张 Card 保持 dangoui 结构，换成更像 Figma 的白色画布、黑色行动入口和清晰边框。" },
-      { title: "变量系统", copy: "品牌多色不污染 primary，而是作为图形资产留在 demo 视觉控制里。" },
-    ],
-    tokens: [
-      { name: "--du-bg-2", value: "#f5f5f5" },
-      { name: "--du-bg-1", value: "#ffffff" },
-      { name: "--du-text-1", value: "#1e1e1e" },
-      { name: "--du-text-3", value: "#757575" },
-      { name: "--du-border-1", value: "#d9d9d9" },
-      { name: "--du-primary-color", value: "#1e1e1e" },
-      { name: "--du-primary-border", value: "#1e1e1e" },
-      { name: "--du-primary-outline-color", value: "#1e1e1e" },
-      { name: "--du-primary-soft-bg", value: "#f2f2f2" },
-      { name: "--du-primary-solid-bg", value: "#1e1e1e" },
-    ],
-    style: {
-      cardRadius: "14px",
-      controlRadius: "8px",
-      pageSpacing: "16px",
-      cardShadow: "0 10px 0 rgba(30,30,30,.04), 0 0 0 1px rgba(30,30,30,.10)",
-      media: "conic-gradient(from 180deg at 50% 50%, #ff3737 0 20%, #ff7237 0 40%, #24cb71 0 60%, #00b6ff 0 80%, #874fff 0 100%)",
-    },
-    signals: [
-      { raw: "#ffffff", count: 36, percent: "32%", target: "--du-bg-1", value: "页面/画布表面" },
-      { raw: "#1e1e1e", count: 24, percent: "21%", target: "--du-text-1 / --du-primary-color", value: "文字与主要行动入口" },
-      { raw: "#f5f5f5", count: 16, percent: "14%", target: "--du-bg-2", value: "弱区块背景" },
-      { raw: "#757575", count: 12, percent: "11%", target: "--du-text-3", value: "二级文字" },
-      { raw: "#d9d9d9", count: 9, percent: "8%", target: "--du-border-1", value: "清晰界面边界" },
-      { raw: "#874fff", count: 8, percent: "7%", target: "承接缺口", value: "品牌图形/协作色" },
-      { raw: "#ff3737 / #24cb71 / #00b6ff", count: 8, percent: "7%", target: "承接缺口", value: "多色品牌资产" },
-    ],
-  },
-  {
-    id: "notion",
-    label: "Notion",
-    icon: "https://www.notion.so/images/favicon.ico",
-    source: "DESIGN-notion.md / 组件引用口径",
-    hero: "Notion Workspace",
-    notice: "暖白纸面、近黑 Inter 字体、蓝色 primary action 和多色贴纸被拆成 dangoui token 与 demo-only 视觉控制。",
-    evidenceNote: "频次来自 DESIGN-notion.md 的 components: 对 colors.* 的引用统计；#0075de 出现 3/33 次，占 9.1%，只承接 primary CTA、badge 和 active indicator，不代表整体主题色。",
-    sectionTitle: "Paper-Calm Docs",
-    tabs: ["文档", "知识库", "团队"],
-    cards: [
-      { title: "安静文档壳", copy: "大面积白和暖灰承接页面节奏，按钮只保留一个清晰蓝色行动入口。" },
-      { title: "贴纸人格层", copy: "紫、粉、橙、绿等品牌色只作为插画/贴纸资产，不污染 dangoui 语义 token。" },
-    ],
-    tokens: [
-      { name: "--du-bg-2", value: "#f6f5f4" },
-      { name: "--du-bg-1", value: "#ffffff" },
-      { name: "--du-text-1", value: "#000000" },
-      { name: "--du-text-2", value: "#31302e" },
-      { name: "--du-text-3", value: "#615d59" },
-      { name: "--du-border-1", value: "#e6e6e6" },
-      { name: "--du-primary-color", value: "#0075de" },
-      { name: "--du-primary-border", value: "#0075de" },
-      { name: "--du-primary-outline-color", value: "#0075de" },
-      { name: "--du-primary-soft-bg", value: "#edf6ff" },
-      { name: "--du-primary-solid-bg", value: "#0075de" },
-    ],
-    style: {
-      cardRadius: "12px",
-      controlRadius: "999px",
-      pageSpacing: "16px",
-      cardShadow: "0 1px 0 rgba(0,0,0,.08), 0 14px 34px rgba(33,49,131,.08)",
-      media: "radial-gradient(circle at 20% 26%, #62aef0 0 15%, transparent 16%), radial-gradient(circle at 68% 22%, #d6b6f6 0 13%, transparent 14%), radial-gradient(circle at 44% 68%, #ff64c8 0 12%, transparent 13%), radial-gradient(circle at 78% 72%, #1aae39 0 10%, transparent 11%), linear-gradient(135deg,#ffffff,#f6f5f4)",
-    },
-    signals: [
-      { raw: "#ffffff", count: 8, percent: "24.2%", target: "--du-bg-1 / --du-white-*", value: "canvas、surface、on-primary" },
-      { raw: "#000000", count: 7, percent: "21.2%", target: "--du-text-1", value: "标题、正文、次级按钮文字" },
-      { raw: "#f6f5f4", count: 3, percent: "9.1%", target: "--du-bg-2", value: "canvas-soft、featured pricing、footer" },
-      { raw: "#0075de", count: 3, percent: "9.1%", target: "--du-primary-color", value: "primary CTA、badge、app-shell active indicator" },
-      { raw: "#e6e6e6", count: 2, percent: "6.1%", target: "--du-border-1", value: "Divider、table row、drawer divider" },
-      { raw: "#213183", count: 1, percent: "3%", target: "demoOnlyVisualControls", value: "hero-band dark island" },
-      { raw: "贴纸多色 palette", count: 9, percent: "27.3%", target: "demoOnlyVisualControls", value: "accent-sky/purple/pink/orange/teal/green/brown" },
-    ],
-  },
-  {
-    id: "spotify",
-    label: "Spotify",
-    icon: "/assets/style-icons/spotify-square.svg",
-    source: "DTCG 测试资产 / 108 次",
-    hero: "Daily Mix",
-    notice: "深色媒体界面、强品牌绿和更厚重卡片被填入同一套 token value。",
-    evidenceNote: "第三个 demo 例子：频次来自当前 Spotify-ish 抽样，共 108 次 UI color 统计；color 映射到 dangoui --du-*，radius/shadow/component pattern 进入 DTCG 迁移资产和 adapter。",
-    sectionTitle: "Made For You",
-    tabs: ["播放", "收藏", "新歌"],
-    cards: [
-      { title: "Midnight Signal", copy: "同一组 Card 在深色底、强阴影和高饱和主色下，变成音乐内容推荐风格。" },
-      { title: "Release Radar", copy: "这证明风格可以被数据化，而不是让 AI 每次自由发挥硬编码。" },
-    ],
-    tokens: [
-      { name: "--du-bg-2", value: "#121212" },
-      { name: "--du-bg-1", value: "#181818" },
-      { name: "--du-text-1", value: "#ffffff" },
-      { name: "--du-text-3", value: "#b3b3b3" },
-      { name: "--du-primary-color", value: "#1ed760" },
-      { name: "--du-primary-border", value: "#1ed760" },
-      { name: "--du-primary-outline-color", value: "#1ed760" },
-      { name: "--du-primary-soft-bg", value: "#153b25" },
-      { name: "--du-primary-solid-bg", value: "#1ed760" },
-    ],
-    style: {
-      cardRadius: "12px",
-      controlRadius: "999px",
-      pageSpacing: "18px",
-      cardShadow: "0 18px 42px rgba(0,0,0,.36)",
-      media: "linear-gradient(135deg,#1ed760,#1db954 32%,#302f6f)",
-    },
-    signals: [
-      { raw: "#121212", count: 28, percent: "25.9%", target: "--du-bg-2", value: "#121212" },
-      { raw: "#181818", count: 22, percent: "20.4%", target: "--du-bg-1", value: "#181818" },
-      { raw: "#ffffff", count: 19, percent: "17.6%", target: "--du-text-1", value: "#ffffff" },
-      { raw: "#b3b3b3", count: 16, percent: "14.8%", target: "--du-text-3", value: "#b3b3b3" },
-      { raw: "#1ed760", count: 14, percent: "13%", target: "--du-primary-color", value: "#1ed760" },
-      { raw: "#153b25", count: 9, percent: "8.3%", target: "--du-primary-soft-bg", value: "#153b25" },
-    ],
-  },
 ];
 const runtimeBrandPreviews = ref([]);
 const runtimeStyleRecipeDetails = ref({});
 const runtimeDemoPagesByStyle = ref({});
+
 const stylePresets = computed(() => {
   const seen = new Set();
-  return [...baseStylePresets, ...runtimeBrandPreviews.value]
+  return [...runtimeBrandPreviews.value, ...baseStylePresets]
     .filter((preset) => {
       if (!preset?.id || seen.has(preset.id)) return false;
       seen.add(preset.id);
@@ -4013,7 +3537,7 @@ const selectedComponent = ref("");
 const selectedComponentCategoryId = ref("bar");
 const selectedTokenName = ref("");
 const tokensExpanded = ref(false);
-const selectedTemplateId = ref("rocom-home");
+const selectedTemplateId = ref("home");
 const templateHistory = ref([]);
 const selectedInspectorTab = ref("pages");
 const selectedWorkspaceMode = ref("components");
@@ -4032,9 +3556,9 @@ const re1999NewsTag = ref("notice");
 const re1999ArchiveTab = ref("profile");
 const re1999HomePanel = ref("news");
 const re1999MediaTab = ref("pv");
-const rocomHomePanel = ref("news");
-const rocomNewsTab = ref("notice");
-const rocomMediaTab = ref("world");
+
+
+
 const hpmaHomePanel = ref("news");
 const hpmaNewsTab = ref("event");
 const hpmaNewsTag = ref("event");
@@ -4201,68 +3725,11 @@ const re1999NewsTagCopy = {
   event: "筛选活动：列表更偏任务、签到和限时奖励。",
 };
 
-const rocomHomePanels = {
-  news: {
-    galleryKicker: "MAGIC NEWS",
-    galleryTitle: "魔法情报站",
-    galleryBody: "首页入口优先进入公告、测试招募和活动日历，保持轻快明亮的信息分发。",
-  },
-  pet: {
-    galleryKicker: "PET GUIDE",
-    galleryTitle: "精灵图鉴",
-    galleryBody: "用圆润白卡和插画层承接宠物/角色介绍，不把图鉴做成普通列表。",
-  },
-  media: {
-    galleryKicker: "ADVENTURE VIEW",
-    galleryTitle: "王国旅途影像",
-    galleryBody: "蓝天、草地、城堡和精灵素材作为展示侧资产，强化开放世界预览。",
-  },
-};
 
-const rocomNewsCopy = {
-  notice: {
-    items: [
-      { date: "07.05", title: "《洛克王国》测试招募开启", body: "预约、资格、平台和下载说明集中进入公告分发侧。" },
-      { date: "07.02", title: "开放世界玩法说明", body: "展示探索、家园、精灵捕捉与伙伴随行机制。" },
-      { date: "06.28", title: "客户端资源更新", body: "修复部分场景、角色动作和图鉴显示问题。" },
-    ],
-  },
-  event: {
-    items: [
-      { date: "07.05", title: "王国冒险签到开放", body: "连续登录可领取预约奖励和精灵培养材料。" },
-      { date: "07.01", title: "学院委托限时开启", body: "完成每日委托可解锁活动称号和家具。" },
-      { date: "06.25", title: "好友组队挑战预告", body: "多人探索与副本挑战将在后续测试开启。" },
-    ],
-  },
-  guide: {
-    items: [
-      { date: "07.05", title: "新手精灵选择指南", body: "从属性、技能和探索能力三个维度介绍初始伙伴。" },
-      { date: "06.30", title: "家园建设入门", body: "说明采集、摆放、家具和访客互动的基础流程。" },
-      { date: "06.26", title: "地图探索笔记", body: "整理城堡、森林、海岸和秘境入口的探索线索。" },
-    ],
-  },
-};
 
-const rocomMediaCopy = {
-  world: {
-    title: "王国开放世界",
-    items: ["城堡广场", "森林秘境", "海岸日落"],
-    noteTitle: "世界展示承接方式",
-    noteBody: "使用明亮大图、云朵边界和轻量信息块承接场景预览，不退化为普通轮播。",
-  },
-  pet: {
-    title: "精灵伙伴图鉴",
-    items: ["迪莫伙伴", "属性技能", "随行互动"],
-    noteTitle: "图鉴承接方式",
-    noteBody: "图鉴页需要角色/宠物主视觉和属性徽章，厚圆角白卡比硬边框更贴近源站。",
-  },
-  home: {
-    title: "家园与社交",
-    items: ["家具工坊", "好友拜访", "派对玩法"],
-    noteTitle: "家园承接方式",
-    noteBody: "家园页面强调温暖、轻社交和可收集内容，行动入口使用暖黄按钮。",
-  },
-};
+
+
+
 
 const hpmaNewsCopy = {
   event: {
@@ -4931,272 +4398,6 @@ const styleRecipeDetails = {
       },
     ],
   },
-  rocom: {
-    asset: [
-      {
-        title: "官网首屏大图",
-        kind: "style",
-        visualKey: "hero-image",
-        affiliation: "洛克王国风格化样式 · 官网首屏资产",
-        operatorLabel: "官网首屏大图：先用真实首屏图撑住第一眼，不要只换背景色",
-        value: "part1/bg.avif",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/20260513/bg.avif",
-        usage: "首页 Hero、活动专题首屏、世界观入口。",
-        anti: "不要用两张普通 Card 或纯渐变假装首屏背景；强 IP 官网第一眼主要靠主视觉资产。",
-        note: "当前证据只抓到一张首屏背景图，足够验证黄黑/金黄方向，但还不够做完整官网还原。",
-        role: "hero-kv",
-        scope: "home hero background",
-        placement: "background-image / Image layer",
-        fallback: "black-gold gradient + approved fantasy image",
-      },
-      {
-        title: "首屏 CTA 资产组",
-        kind: "style",
-        visualKey: "hero-cta-cluster",
-        affiliation: "洛克王国风格化样式 · 首屏下载/福利入口",
-        operatorLabel: "首屏 CTA 资产组：注册福利、平台下载、二维码入口要作为转化区一起看",
-        value: "icon-gift.png + qrcode/download buttons",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/icon-gift.png",
-        usage: "游戏官网首页、预约下载页、活动落地页首屏行动区。",
-        anti: "不要只放一个普通 Button；官网证据是一组下载/福利/平台入口。",
-        note: "来自 main#mainPage 首屏：注册福利票、二维码、PC/Android/AppStore/点击即玩入口共同构成 CTA cluster。",
-        role: "hero-cta-cluster",
-        scope: "home hero conversion area",
-        placement: "HeroHeader bottom action cluster / Image + Button",
-        fallback: "tokenized CTA buttons plus approved gift ticket image",
-      },
-      {
-        title: "首屏撕纸分隔",
-        kind: "style",
-        visualKey: "torn-section-divider",
-        affiliation: "洛克王国风格化样式 · 页面分隔资产",
-        operatorLabel: "首屏撕纸分隔：用来连接 KV 和下一区块，不是普通 Divider 线",
-        value: "white torn edge between hero and benefit section",
-        usage: "首页首屏下缘、活动落地页分段、强运营模块之间。",
-        anti: "不要用普通 1px border 或大圆角 card 替代；它是 section edge / decorative-layer。",
-        note: "来自官网首屏 KV 底部的白色撕纸边缘。当前 demo 用 CSS clip-path/伪元素近似，后续应从 computed style 抓取实际背景或 mask。",
-        role: "section-edge",
-        scope: "hero bottom / section transition",
-        placement: "pseudo-element decorative layer",
-        fallback: "CSS torn edge approximation",
-      },
-      {
-        title: "奖励活动图",
-        kind: "style",
-        visualKey: "campaign-banner",
-        affiliation: "洛克王国风格化样式 · 活动图片资产",
-        operatorLabel: "奖励活动图：福利页要先像活动落地页，再考虑拆成组件",
-        value: "part2/slide-1.avif",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2/20260513/slide-1.avif",
-        usage: "专属福利、奖励模块、活动轮播、精灵/礼包展示。",
-        anti: "不要把它拆成一堆普通标签或列表；这类图是活动内容本体。",
-        note: "当前只有一张奖励活动图，后续应继续抓更多活动图例做横滑或瀑布流验证。",
-        role: "campaign-banner",
-        scope: "benefit landing / reward section",
-        placement: "Image / Swiper / media card",
-        fallback: "campaign card with tokenized CTA",
-      },
-      {
-        title: "活动日历整图",
-        kind: "style",
-        visualKey: "calendar-card",
-        affiliation: "洛克王国风格化样式 · 日历模块资产",
-        operatorLabel: "活动日历整图：先保留官方日历图，不要误拆成小 Tag",
-        value: "part4/card.avif",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part4/20260513/card.avif",
-        usage: "活动日历、运营排期、版本活动聚合页。",
-        anti: "不要给 Tag 外面套一张大 Card 来冒充日历；日历证据是一整块视觉模块。",
-        note: "日历是完整视觉模块，当前 demo 应优先用 Image 承接，组件只辅助解释状态。",
-        role: "activity-calendar",
-        scope: "calendar / schedule module",
-        placement: "full-width Image block",
-        fallback: "Schedule/List only after asset missing is confirmed",
-      },
-      {
-        title: "媒体/图库图",
-        kind: "style",
-        visualKey: "media-gallery-image",
-        affiliation: "洛克王国风格化样式 · 媒体图片资产",
-        operatorLabel: "媒体/图库图：旅途影像要看到真实世界图，不是空卡片",
-        value: "part3/picture-1.png",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part3/20260513/picture-1.png",
-        usage: "旅途影像、媒体资料、截图墙、首页媒体入口。",
-        anti: "不要把媒体页降级成只有文字说明；图片数量不足时要标缺口。",
-        note: "当前只抓到一张媒体图，后续至少需要多张图例才能验证 Gallery / Swiper 的真实表现。",
-        role: "media-gallery",
-        scope: "media gallery / image grid",
-        placement: "Image / Swiper / grid item",
-        fallback: "approved screenshot placeholder",
-      },
-      {
-        title: "月刊角色图",
-        kind: "style",
-        visualKey: "rendered-illustration",
-        affiliation: "洛克王国风格化样式 · DOM Image 证据",
-        operatorLabel: "月刊角色图：资源位图片要按真实比例展示，不要塞进固定卡片裁切",
-        value: "static.gametalk picture-inner",
-        assetPath: "https://static.gametalk.qq.com/image/467/1782973919_ba1bc92566891e4ed0fc052de99a62ee.png",
-        usage: "旅途影像、角色展示、媒体图库、精灵/伙伴介绍。",
-        anti: "不要继承通用 card/control 圆角；图片圆角和裁切必须来自 computed 证据。",
-        note: "由 rendered asset crawl 从 DOM img.src 抓到，roleGuess=illustration，默认用 Image/currentSrc 保持真实比例。",
-        role: "illustration",
-        scope: "media image / character illustration",
-        placement: "Image slot / img currentSrc / contain",
-        fallback: "approved illustration placeholder",
-      },
-      {
-        title: "Part5 装饰背景",
-        kind: "style",
-        visualKey: "rendered-decorative-layer",
-        affiliation: "洛克王国风格化样式 · ::before background",
-        operatorLabel: "Part5 装饰背景：伪元素背景是装饰层，不是 Image，也不是普通边框",
-        value: "part5/bg.png · .part5-con::before",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part5/20260513/bg.png",
-        usage: "媒体展示区、角色/世界观资源位的背景装饰层。",
-        anti: "不要把它写成 --du-border-*；也不要拿来当内容图。",
-        note: "由 rendered asset crawl 从 ::before background 抓到，并保留 width/height/position/z-index/pointer-events。",
-        role: "decorative-layer",
-        scope: "part5 module background / pseudo layer",
-        placement: "style-only pseudo-element / background layer",
-        fallback: "tokenized soft background only",
-      },
-      {
-        title: "奖励条/抽奖图",
-        kind: "style",
-        visualKey: "reward-strip",
-        affiliation: "洛克王国风格化样式 · 奖励条资产",
-        operatorLabel: "奖励条/抽奖图：用于表达玩法奖励，不要当普通背景",
-        value: "part2-avif/lottery-1.avif",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part2-avif/lottery-1.avif",
-        usage: "抽奖、礼包、奖励横滑、活动入口下方的素材条。",
-        anti: "不要套到 NavigationBar、表单或普通按钮里；它只服务活动奖励语境。",
-        note: "奖励条适合横滑或局部媒体坑位，和 Hero 背景、日历整图职责不同。",
-        role: "reward-strip",
-        scope: "reward carousel / prize strip",
-        placement: "horizontal Image strip",
-        fallback: "repeatable reward cards",
-      },
-      {
-        title: "官网字体",
-        kind: "style",
-        visualKey: "font-pack",
-        affiliation: "洛克王国风格化样式 · computed 字体证据",
-        operatorLabel: "官网字体：标题和按钮气质主要靠这套字形撑住",
-        value: "MIANFEIZITI.ttf",
-        assetPath: "https://game.gtimg.cn/images/rocom/act/a20250812preview/font/MIANFEIZITI.ttf",
-        usage: "NavigationBar、Tabs、Button、活动标题和重要卡片标题。",
-        anti: "不要只靠品牌印象猜字体；先看 computed style，再决定是否 vendor 字体。",
-        note: "这是从官网 computed style 反查出的字体，不是本地随便猜的字体名。",
-        role: "font",
-        scope: "theme typography",
-        placement: "@font-face / font-family",
-        fallback: "Arial Rounded MT Bold / PingFang SC",
-      },
-      {
-        title: "菜单/入口图例缺口",
-        kind: "review",
-        visualKey: "asset-gap",
-        affiliation: "洛克王国待补证据 · Menu / entry assets",
-        operatorLabel: "菜单/入口图例缺口：现在还不能证明 Menu 应该长什么样",
-        value: "missing official menu / entrance asset",
-        usage: "Menu、TabBar、入口按钮、官网活动直通车。",
-        anti: "不要凭感觉画云朵菜单或套通用圆角；没有 computed/截图/资产证据就标待补。",
-        note: "当前 evidence 只覆盖 Hero、奖励、媒体、日历、字体；Menu/入口/更多图例需要下一轮从官网 computed style、截图和 CSS 继续抓。",
-        role: "evidence-gap",
-        scope: "menu / navigation entry",
-        placement: "ReviewQueue before production use",
-        fallback: "DangoUI baseline Menu with rocom token only",
-      },
-    ],
-  },
-  apple: {
-    typography: [
-      { title: "Display", value: "28-34px / 760", note: "大标题留白充分，语气像产品展陈，不靠重描边制造冲击。" },
-      { title: "Body", value: "13-15px / 500", note: "正文清爽，行高更松，适合产品说明和故事型卡片。" },
-      { title: "Link", value: "12-13px / 650", note: "行动文字保持蓝色清晰入口，避免过多粗体。" },
-    ],
-    spacing: [
-      { title: "Page", value: "20px", note: "页面留白更松，给产品图和大标题呼吸感。" },
-      { title: "Section", value: "20-28px", note: "模块之间用明显间距，而不是依赖分割线。" },
-      { title: "Card inner", value: "16-20px", note: "卡片内部留白偏大，承接产品展陈气质。" },
-    ],
-    divider: [
-      { title: "Divider", value: "rgba(0,0,0,.08) / 1px", note: "分割线极弱，主要依靠留白和模块节奏建立层级。" },
-      { title: "Frame", value: "none / spacing-led", note: "不需要装饰框；卡片形态来自大圆角和留白。" },
-      { title: "Selection", value: "blue text link", note: "选中/行动更多依赖蓝色文字入口，不把 divider 做成强样式。" },
-    ],
-    radius: [
-      { title: "Card", value: "28px", note: "大圆角是主要识别点，只作为 demo 视觉控制，不强行写入 dangoui token。" },
-      { title: "Control", value: "999px", note: "主要行动和标签倾向 pill 形态。" },
-      { title: "Media", value: "24-28px", note: "产品图容器跟随大圆角，形成柔和展示面。" },
-    ],
-  },
-  figma: {
-    typography: [
-      { title: "Display", value: "24-30px / 760", note: "标题清晰但不过度品牌化，适合工具和协作页面。" },
-      { title: "Body", value: "12-14px / 520", note: "正文偏理性，强调说明、状态和团队协作语境。" },
-      { title: "Label", value: "10-12px / 700", note: "标签、变量名、组件名需要更清楚的扫描性。" },
-    ],
-    spacing: [
-      { title: "Page", value: "16px", note: "中等密度，贴近设计工具工作区。" },
-      { title: "Grid", value: "8px", note: "控件和标签之间使用 8px 基准，便于形成系统感。" },
-      { title: "Panel", value: "12-16px", note: "面板内距清楚但不松散，适合属性面板与列表。" },
-    ],
-    divider: [
-      { title: "Divider", value: "#d9d9d9 / 1px", note: "工具面板、列表和属性区使用清晰 Divider，映射到 --du-border-1。" },
-      { title: "Frame", value: "plain panel border", note: "边框是普通面板线，不需要图片或角线 CSS。" },
-      { title: "Selection", value: "#1e1e1e focus border", note: "焦点态强调边框清晰度，不靠装饰。" },
-    ],
-    radius: [
-      { title: "Card", value: "14px", note: "卡片圆角中等，配合清晰边界。" },
-      { title: "Control", value: "8px", note: "按钮、输入和 tab 更像工具控件，避免过强拟物。" },
-      { title: "Asset", value: "8-14px", note: "协作图形可保留更丰富形状，但不进入正式 token。" },
-    ],
-  },
-  notion: {
-    typography: [
-      { title: "Display", value: "24-30px / 760", note: "近黑 Inter 风格，标题清楚但保持文档气质。" },
-      { title: "Body", value: "13-14px / 500", note: "正文可读性优先，适合知识库、说明和列表。" },
-      { title: "Caption", value: "11-12px / 520", note: "辅助文字偏中性，避免让蓝色 primary 过度扩散。" },
-    ],
-    spacing: [
-      { title: "Page", value: "16px", note: "页面密度适中，像文档工作区而不是营销页。" },
-      { title: "Row", value: "8-12px", note: "列表、表格、卡片行之间保持清楚但不松散。" },
-      { title: "Block", value: "12-16px", note: "内容块之间用稳定留白承接文档节奏。" },
-    ],
-    divider: [
-      { title: "Divider", value: "#e6e6e6 / 1px", note: "文档表格、抽屉和列表使用低对比 Divider，映射到 --du-border-1。" },
-      { title: "Frame", value: "paper card border", note: "卡片是纸面 border，不需要装饰框 CSS。" },
-      { title: "Selection", value: "#0075de underline", note: "蓝色行动入口是选中/链接信号，divider 维持安静。" },
-    ],
-    radius: [
-      { title: "Card", value: "12px", note: "卡片圆角温和，贴近纸面容器。" },
-      { title: "Control", value: "999px", note: "按钮和 badge 可用 pill，作为轻量行动入口。" },
-      { title: "Surface", value: "8-12px", note: "表格、抽屉、文档块可保持较小圆角。" },
-    ],
-  },
-  spotify: {
-    typography: [
-      { title: "Display", value: "24-32px / 850", note: "标题更厚重，服务媒体封面和播放场景。" },
-      { title: "Body", value: "12-14px / 650", note: "正文高对比，暗底上保持清晰扫描。" },
-      { title: "Meta", value: "10-12px / 700", note: "歌单、状态和辅助信息可更紧凑。" },
-    ],
-    spacing: [
-      { title: "Page", value: "18px", note: "页面内距略大于常规，给深色卡片和封面留空间。" },
-      { title: "Media gap", value: "12-16px", note: "封面、标题、按钮之间保持清晰分组。" },
-      { title: "Stack", value: "8-12px", note: "列表和推荐流使用紧凑堆叠，保留音乐 App 密度。" },
-    ],
-    divider: [
-      { title: "Divider", value: "rgba(255,255,255,.12) / 1px", note: "暗色页面使用弱白分隔线，避免破坏封面图和品牌绿。" },
-      { title: "Frame", value: "dark elevated media card", note: "卡片边界主要由暗色表面和阴影形成，不需要装饰框。" },
-      { title: "Selection", value: "#1ed760 underline", note: "选中态使用品牌绿线条或文字，不加无证据阴影。" },
-    ],
-    radius: [
-      { title: "Card", value: "12px", note: "暗色卡片保持中等圆角，主要质感来自阴影和表面色。" },
-      { title: "Control", value: "999px", note: "播放、收藏、筛选等控件倾向 pill。" },
-      { title: "Media", value: "8-12px", note: "封面图圆角克制，不抢品牌绿。" },
-    ],
-  },
 };
 
 const fallbackStyleRecipeDetails = {
@@ -5298,9 +4499,9 @@ const cascaderExampleOptions = [
   },
 ];
 const selectOptions = [
-  { label: "Figma", value: "figma" },
-  { label: "Apple", value: "apple" },
-  { label: "Spotify", value: "spotify" },
+  { label: "方案 A", value: "option-a" },
+  { label: "方案 B", value: "option-b" },
+  { label: "方案 C", value: "option-c" },
 ];
 const re1999PublishOptions = [
   { label: "公告", value: "notice" },
@@ -5330,15 +4531,6 @@ const brandPublishCopy = {
     inputValue: "学院活动公告",
     textareaValue: "填写活动说明、赛季公告或媒体摘要。发布侧默认不启用展示侧装饰框。",
     switchLabel: "同步到首页分发侧",
-  },
-  rocom: {
-    title: "保留 DangoUI 发布链路，只继承 Roco token",
-    body: "发布侧不默认套云朵大图、精灵插画或活动首屏；只保留明亮底色、暖黄按钮和圆润控件。",
-    groupTitle: "王国情报发布",
-    groupBody: "面向运营录入公告、测试招募、图鉴和媒体资料，优先保证可读性与提交效率。",
-    inputValue: "测试招募公告",
-    textareaValue: "填写公告正文、活动说明或精灵图鉴摘要。发布侧默认不启用展示侧云朵主视觉。",
-    switchLabel: "同步到官网首页分发侧",
   },
 };
 const avatarImages = [imagePreviewSrc, imagePreviewSrc, imagePreviewSrc, imagePreviewSrc];
@@ -5730,96 +4922,12 @@ const re1999TemplatePages = [
     components: ["NavigationBar", "Card", "Input", "Textarea", "Select", "Switch", "Button"],
   },
 ];
-const rocomTemplatePages = [
-  {
-    id: "rocom-home",
-    side: "distribution",
-    tab: "官网首页",
-    name: "首页",
-    description: "对应官网首页：蓝天主视觉、暖黄 CTA、三入口分发和开放世界素材露出。",
-    components: ["NavigationBar", "HeroHeader", "Button", "Image"],
-  },
-  {
-    id: "rocom-benefit",
-    side: "distribution",
-    tab: "专属福利",
-    name: "专属福利",
-    description: "对应官网专属福利：上线奖励、点击即玩、下载入口和奖品资产条，属于活动落地页。",
-    components: ["NavigationBar", "HeroHeader", "Button", "Image"],
-  },
-  {
-    id: "rocom-calendar",
-    side: "distribution",
-    tab: "活动日历",
-    name: "活动日历",
-    description: "对应官网活动日历：整张日历视觉优先用 Image 承接，再用标签说明活动状态。",
-    components: ["NavigationBar", "Image", "Card", "Tag"],
-  },
-  {
-    id: "rocom-news",
-    side: "distribution",
-    tab: "资讯公告",
-    name: "资讯公告",
-    description: "分发侧：公告头图、分类 tabs、日期列表和查看更多，使用明亮软圆角。",
-    components: ["NavigationBar", "Swiper", "Tabs", "Card", "Tag", "Button"],
-  },
-  {
-    id: "rocom-media",
-    side: "display",
-    tab: "旅途影像",
-    name: "旅途影像",
-    description: "展示侧：世界大图、精灵/家园图库和素材说明，允许强图层和云朵边界。",
-    components: ["NavigationBar", "Swiper", "Tabs", "Image", "Card"],
-  },
-  {
-    id: "rocom-pet",
-    side: "display",
-    tab: "精灵图鉴",
-    name: "精灵图鉴",
-    description: "展示侧：宠物/角色图鉴，承接插画、属性徽章和圆润白卡。",
-    components: ["NavigationBar", "Image", "Card", "Badge"],
-  },
-  {
-    id: "rocom-publish",
-    side: "publish",
-    tab: "发布器",
-    name: "发布器",
-    description: "发布侧：表单、选择、开关和提交动作只继承 Roco token，默认不套展示侧云朵大图。",
-    components: ["NavigationBar", "Card", "Input", "Textarea", "Select", "Switch", "Button"],
-  },
-];
-const notionTemplatePages = [
-  {
-    id: "notion-home",
-    side: "distribution",
-    tab: "文档首页",
-    name: "首页",
-    description: "对应 Notion 首页：暖白画布、近黑大标题、蓝色 CTA 和贴纸人格层。",
-    components: ["NavigationBar", "HeroHeader", "Tag", "Card", "Button"],
-  },
-  {
-    id: "notion-wiki",
-    side: "distribution",
-    tab: "知识库",
-    name: "团队知识库",
-    description: "对应 Notion 文档/知识库：搜索、文档列表、轻提示和多色插画块。",
-    components: ["NavigationBar", "Search", "Card", "NoticeBar", "Image"],
-  },
-  {
-    id: "notion-pricing",
-    side: "display",
-    tab: "团队计划",
-    name: "团队计划页",
-    description: "对应 Notion pricing card：白卡、--du-border-1、少量蓝色行动入口和 featured 反相卡。",
-    components: ["NavigationBar", "Card", "Badge", "Button"],
-  },
-];
+
+
 const demoPagesByStyle = {
   czn: cznTemplatePages,
   hpma: hpmaTemplatePages,
   re1999: re1999TemplatePages,
-  rocom: rocomTemplatePages,
-  notion: notionTemplatePages,
 };
 const allDemoPagesByStyle = computed(() => ({
   ...demoPagesByStyle,
@@ -5858,26 +4966,52 @@ const currentScenarioTabs = computed(() => {
 });
 const currentPageTabs = computed(() => {
   const pages = currentDemoPages.value.length ? [...currentDemoPages.value] : [...fallbackTemplatePages];
-  const hasPublishPage = pages.some((page) => /发布|publish|发布器/i.test(`${page.id || ""} ${page.tab || ""} ${page.name || ""}`));
-  if (currentDemoPages.value.length && !hasPublishPage) {
-    const genericPublishPage = fallbackTemplatePages.find((page) => page.id === "publish");
-    if (genericPublishPage) pages.push(genericPublishPage);
-  }
-  return [...pages].sort((a, b) => pageDemoRank(a) - pageDemoRank(b));
+  const visiblePages = pages.filter(
+    (page) => page.nav !== false && page.secondary !== true && page.evidenceOnly !== true,
+  );
+  return [...(visiblePages.length ? visiblePages : pages)].sort((a, b) => pageDemoRank(a) - pageDemoRank(b));
 });
 const activeScenarioTab = computed(() =>
   currentScenarioTabs.value.find((tab) => tab.sourceIds.includes(selectedTemplateId.value)),
 );
 const publishTemplateId = computed(() =>
-  currentDemoPages.value.find((template) => template.side === "publish")?.id || "publish",
+  currentDemoPages.value.find((template) => template.side === "publish")?.id || fallbackTemplatePages.find((page) => page.id === "publish")?.id || "",
 );
 const activeSide = computed(() => activeScenarioTab.value?.side || selectedTemplate.value?.side || "");
 const activeSideSpec = computed(() => sideComponentSpecs.find((spec) => spec.id === activeSide.value));
 const selectedTemplateLayoutRecipe = computed(() => selectedTemplate.value?.layoutRecipe || "");
 const isDistributionTemplate = computed(() => activeSide.value === "distribution");
 const isDisplayTemplate = computed(() => activeSide.value === "display");
-const showDemoBottomActions = computed(() => isDistributionTemplate.value);
-const showPublishFab = computed(() => selectedInspectorTab.value === "pages" && isDistributionTemplate.value);
+const selectedTemplateShell = computed(() => {
+  const shell = selectedTemplate.value?.shell;
+  return shell && typeof shell === "object" && !Array.isArray(shell) ? shell : {};
+});
+const isExplicitProofSurface = computed(() =>
+  ["1", "desktop", "mobile"].includes(new URLSearchParams(window.location.search).get("proof")),
+);
+const isDesktopHeroProofSurface = computed(() =>
+  (selectedTemplate.value?.id === "pokemon-tcg-official-home" || selectedStyleId.value === "dango")
+    && new URLSearchParams(window.location.search).get("proof") === "desktop",
+);
+const isMobileProofSurface = computed(() =>
+  (selectedTemplate.value?.id === "pokemon-tcg-official-home" || selectedStyleId.value === "dango")
+    && new URLSearchParams(window.location.search).get("proof") === "mobile",
+);
+const selectedTemplateHasSchemaSections = computed(() =>
+  Array.isArray(selectedTemplate.value?.sections) && selectedTemplate.value.sections.length > 0,
+);
+const isRuntimePagePreview = computed(() => selectedInspectorTab.value === "pages" && isRuntimePreviewTemplate.value);
+const shellBoolean = (field, fallback) => {
+  if (!isRuntimePagePreview.value) return fallback;
+  if (selectedTemplateHasSchemaSections.value) return selectedTemplateShell.value[field] === true;
+  return Object.prototype.hasOwnProperty.call(selectedTemplateShell.value, field)
+    ? selectedTemplateShell.value[field] === true
+    : fallback;
+};
+const showPreviewNavigationBar = computed(() => shellBoolean("navigationBar", true));
+const showPreviewStatusBar = computed(() => shellBoolean("statusBar", true));
+const showDemoBottomActions = computed(() => shellBoolean("bottomActions", isDistributionTemplate.value));
+const showPublishFab = computed(() => shellBoolean("fab", selectedInspectorTab.value === "pages" && isDistributionTemplate.value));
 const isPublishTemplate = computed(() => selectedTemplate.value?.side === "publish");
 const isHomeTemplate = computed(() => {
   const homeId = currentDemoPages.value[0]?.id || templatePages[0]?.id;
@@ -5923,14 +5057,9 @@ const searchExamplePlaceholder = computed(() => {
 const navigationSearchPlaceholder = computed(() => {
   const placeholders = {
     hpma: "搜索魔咒、伙伴、回响",
-    notion: "搜索文档、项目、成员",
     czn: "搜索角色、情报、影像",
     re1999: "搜索档案、暴雨、角色",
-    rocom: "搜索精灵、活动、地图",
     dango: "搜索组件、token、文档",
-    apple: "搜索产品、服务",
-    figma: "搜索文件、组件",
-    spotify: "搜索歌单、播客",
   };
   return placeholders[selectedStyleId.value] || "搜索内容";
 });
@@ -5984,14 +5113,1411 @@ const missingByName = computed(() =>
 );
 const uniqueComponentCount = computed(() => new Set(pageInstances.value.map((item) => item.name)).size);
 const selectedStyle = computed(() => stylePresets.value.find((preset) => preset.id === selectedStyleId.value) || stylePresets.value[0]);
+const selectedLearningProof = computed(() => {
+  const style = selectedStyle.value || {};
+  const report = style.learningProof || {};
+  const isRuntime = Boolean(style.runtimePreview);
+  const status = report.status || (isRuntime ? "unreported" : "reference-pack");
+  const declaredPass = ["fidelity-pass", "learning-pass", "pass"].includes(status);
+  const evidenceStatus = report.evidenceStatus || (style.evidenceNote ? "已校准" : "未报告");
+  const structureStatus = report.structureStatus || (declaredPass ? "通过" : isRuntime ? "待独立 QA" : "参考样本");
+  const generativeStatus = report.generativeStatus || "缺 held-out challenge";
+  const generativePass = ["pass", "通过", "已通过"].includes(generativeStatus);
+  const generativePending = /待.*(复验|QA|proof)/i.test(generativeStatus);
+  const blockers = Array.isArray(report.blockers) ? [...report.blockers] : [];
+  if (isRuntime && !declaredPass) blockers.unshift(`当前机器状态：${status}`);
+  if (!generativePass && !generativePending) blockers.push("尚未用冻结规则通过 held-out generative challenge");
+  return {
+    overall: declaredPass && generativePass && blockers.length === 0 ? "可验收" : generativePending ? "待独立复验" : "未完成",
+    proofs: [
+      { id: "evidence", label: "Evidence", status: evidenceStatus, state: evidenceStatus === "未报告" ? "blocked" : "pass", note: "显著设计决定可追溯到源站证据。" },
+      { id: "structure", label: "Structure", status: structureStatus, state: structureStatus === "通过" ? "pass" : "pending", note: "构图、层级、密度和节奏保留决定性特征。" },
+      { id: "generative", label: "Generative", status: generativeStatus, state: generativePass ? "pass" : generativePending ? "pending" : "blocked", note: "冻结规则在未参与校准的新页面上仍成立。" },
+    ],
+    blockers: [...new Set(blockers)],
+    hostApply: report.businessApply ? "已独立执行" : "未执行（不计入 Demo 三证）",
+  };
+});
 const runtimePreviewAssets = computed(() => selectedStyle.value?.assets || {});
 const runtimePreviewPalette = computed(() =>
   Array.isArray(selectedStyle.value?.categoryPalette) ? selectedStyle.value.categoryPalette : [],
 );
 const runtimePreviewCards = computed(() => (Array.isArray(selectedStyle.value?.cards) ? selectedStyle.value.cards : []));
 const runtimePreviewPageKind = computed(() => selectedTemplate.value?.kind || "home");
+const runtimeSchemaSections = computed(() =>
+  Array.isArray(selectedTemplate.value?.sections) ? selectedTemplate.value.sections : [],
+);
+const isSourceSchemaTemplate = computed(() => isRuntimePreviewTemplate.value && runtimeSchemaSections.value.length > 0);
+const schemaSectionKey = (section, index) => `${section?.id || section?.type || "section"}-${index}`;
+const schemaSectionTypeName = (section, fallback = "section") => {
+  const raw = String(section?.type || section?.id || fallback);
+  return raw
+    .trim()
+    .replace(/([a-z])([A-Z])/g, "$1-$2")
+    .replace(/[^a-zA-Z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .toLowerCase() || fallback;
+};
+const schemaContent = (section) => (section?.content && typeof section.content === "object" ? section.content : {});
+const schemaAssets = (section) => (section?.assets && typeof section.assets === "object" ? section.assets : {});
+const schemaText = (...values) => {
+  for (const value of values) {
+    if (typeof value === "string" && value.trim()) return value;
+    if (Array.isArray(value)) {
+      const text = value.find((item) => typeof item === "string" && item.trim());
+      if (text) return text;
+    }
+  }
+  return "";
+};
+const schemaAssetSrc = (value) => {
+  if (typeof value === "string") return value;
+  if (!value || typeof value !== "object") return "";
+  return value.src || value.front || value.image || value.logo || value.background || value.backgroundImage || value.url || "";
+};
+const normalizeSchemaAssetList = (items = []) =>
+  (Array.isArray(items) ? items : [items])
+    .map((item) => {
+      const src = schemaAssetSrc(item);
+      if (!src) return null;
+      return typeof item === "string"
+        ? { src, front: src, alt: selectedStyle.value?.label || "asset" }
+        : { ...item, src, front: item.front || src, alt: item.alt || item.title || selectedStyle.value?.label || "asset" };
+    })
+    .filter(Boolean);
+const schemaAssetList = (section, key) => normalizeSchemaAssetList(schemaAssets(section)[key]);
+const schemaAsset = (section, ...keys) => {
+  const assets = schemaAssets(section);
+  for (const key of keys) {
+    const src = schemaAssetSrc(assets[key]);
+    if (src) return src;
+  }
+  return "";
+};
+const schemaItems = (section) => {
+  const content = schemaContent(section);
+  const items = content.items || content.links || content.tabs;
+  return Array.isArray(items) ? items : [];
+};
+const schemaPlaceholderActionLabels = new Set(["action", "actions", "button", "cta"]);
+const normalizeSchemaActionLabel = (label) => {
+  const normalized = typeof label === "string" ? label.trim() : "";
+  if (!normalized) return "";
+  const compact = normalized.replace(/\s+/g, "");
+  const lowerCompact = compact.toLowerCase();
+  if (schemaPlaceholderActionLabels.has(normalized.toLowerCase()) || schemaPlaceholderActionLabels.has(lowerCompact)) return "";
+  if (/^(action|actions|button|cta){2,}$/i.test(lowerCompact)) return "";
+  return normalized;
+};
+const schemaActionLabel = (action) => {
+  if (typeof action === "string") return normalizeSchemaActionLabel(action);
+  if (!action || typeof action !== "object") return "";
+  return normalizeSchemaActionLabel(schemaText(action.label, action.text, action.title, action.name));
+};
+const normalizeSchemaAction = (action) => {
+  const label = schemaActionLabel(action);
+  if (!label) return null;
+  return typeof action === "object" && action !== null ? { ...action, label } : { label };
+};
+const schemaActions = (section) => {
+  const content = schemaContent(section);
+  if (Array.isArray(content.actions)) {
+    return content.actions.map(normalizeSchemaAction).filter(Boolean);
+  }
+  if (Array.isArray(content.items)) {
+    return content.items.map(normalizeSchemaAction).filter(Boolean);
+  }
+  if (content.cta && typeof content.cta === "object") {
+    const action = normalizeSchemaAction(content.cta);
+    return action ? [action] : [];
+  }
+  if (typeof content.cta === "string") {
+    const label = normalizeSchemaActionLabel(content.cta);
+    return label ? [{ label }] : [];
+  }
+  if (typeof content.label === "string") {
+    const label = normalizeSchemaActionLabel(content.label);
+    return label ? [{ label }] : [];
+  }
+  return [];
+};
+const recipeClass = (section) => (section?.recipe ? `schema-recipe--${section.recipe}` : "");
+const renderMissing = (label) => h("div", { class: "source-schema-demo__missing" }, `${label} missing`);
+const renderImage = (asset, className) =>
+  asset?.src ? h("img", { class: className, src: asset.src, alt: asset.alt || asset.title || selectedStyle.value?.label || "asset" }) : renderMissing("asset");
+const renderActionButton = (action, className = "source-schema-demo__cta") => {
+  const label = schemaActionLabel(action);
+  if (!label) return null;
+  const href = action?.href || action?.url;
+  return href
+    ? h("a", { class: className, href, target: action?.target || undefined, rel: action?.target === "_blank" ? "noreferrer" : undefined }, label)
+    : h("button", { type: "button", class: className, disabled: action?.disabled === true, "aria-disabled": action?.disabled === true ? "true" : undefined }, label);
+};
+const renderSchemaSection = (section, className, children, attrs = {}) =>
+  h(
+    "section",
+    {
+      ...attrs,
+      class: [className, recipeClass(section), attrs.class].filter(Boolean),
+      "data-schema-section-id": section?.id || "",
+      "data-schema-section-type": section?.type || "",
+      "data-schema-recipe": section?.recipe || "",
+      "data-schema-component": section?.component || "",
+    },
+    children,
+  );
+
+const UnsupportedSchemaSection = defineComponent({
+  name: "UnsupportedSchemaSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () =>
+      h("section", { class: "source-schema-demo__unsupported" }, [
+        h("strong", "Unsupported section"),
+        h("code", props.section?.type || "<missing>"),
+      ]);
+  },
+});
+
+const SchemaBrandHeroSection = defineComponent({
+  name: "SchemaBrandHeroSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    const scaleViewport = ref(null);
+    const scale = ref(1);
+    let scaleObserver = null;
+    const initialControls = Array.isArray(schemaContent(props.section).controls) ? schemaContent(props.section).controls : [];
+    const declaredActiveIndex = initialControls.indexOf(schemaContent(props.section).activeControl);
+    const activeVariant = ref(declaredActiveIndex >= 0 ? declaredActiveIndex : 0);
+    const featuredCardFlipped = ref(false);
+    const mobileMenuOpen = ref(false);
+    const toggleFeaturedCard = (event) => {
+      event?.stopPropagation?.();
+      featuredCardFlipped.value = !featuredCardFlipped.value;
+    };
+    const toggleFeaturedCardFromKeyboard = (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      toggleFeaturedCard(event);
+    };
+    const autoplaying = ref(true);
+    let cycleTimer = null;
+    const startCycle = () => {
+      if (cycleTimer || !autoplaying.value) return;
+      cycleTimer = window.setInterval(() => {
+        const variants = schemaContent(props.section).variants || [];
+        if (variants.length) activeVariant.value = (activeVariant.value + 1) % variants.length;
+      }, 5000);
+    };
+    const stopCycle = () => {
+      if (cycleTimer) window.clearInterval(cycleTimer);
+      cycleTimer = null;
+    };
+    onMounted(() => {
+      const isPokemonOfficialHomeHero = props.section?.id === "home-campaign-stage" && props.section?.recipe === "pokemon-home-stage";
+      if (!isPokemonOfficialHomeHero) startCycle();
+      scaleObserver = new ResizeObserver(([entry]) => { scale.value = entry.contentRect.width / 1440; });
+      if (scaleViewport.value) scaleObserver.observe(scaleViewport.value);
+    });
+    onBeforeUnmount(() => { stopCycle(); scaleObserver?.disconnect(); });
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const variants = Array.isArray(content.variants) ? content.variants : [];
+      const variant = variants[activeVariant.value] || {};
+      const isPokemonOfficialHomeHero = section?.id === "home-campaign-stage" && section?.recipe === "pokemon-home-stage";
+      const approvedCampaignVariant = isPokemonOfficialHomeHero ? (variants[0] || {}) : {};
+      const logo = schemaAsset(section, "logo");
+      const titleImage = variant.titleImage || (!isPokemonOfficialHomeHero ? approvedCampaignVariant.titleImage : null) || schemaAsset(section, "title", "titleImage");
+      const background = variant.background || schemaAsset(section, "background", "backgroundImage");
+      const cards = variant.product
+        ? normalizeSchemaAssetList([variant.product])
+        : !isPokemonOfficialHomeHero && approvedCampaignVariant.product
+          ? normalizeSchemaAssetList([approvedCampaignVariant.product])
+          : schemaAssetList(section, "cards");
+      const responsiveBackground = background && typeof background === "object"
+        ? background
+        : isPokemonOfficialHomeHero
+          ? { desktop: background, mobile: background }
+          : null;
+      const backgroundSrc = responsiveBackground ? schemaAssetSrc(responsiveBackground) : background;
+      const actions = Array.isArray(variant.actions)
+        ? variant.actions.map(normalizeSchemaAction).filter(Boolean)
+        : schemaActions(section);
+      const navigation = Array.isArray(content.navigation) ? content.navigation.filter(Boolean) : [];
+      const controls = Array.isArray(content.controls) ? content.controls.filter(Boolean) : [];
+      const assetOnly = content.assetOnly === true;
+      const actionButtons = actions.map((action) => renderActionButton(action)).filter(Boolean);
+      const heroChildren = [
+        navigation.length ? h("nav", { class: "source-schema-demo__hero-nav", "aria-label": "Campaign navigation" }, [
+          ...navigation.map((item) => h("span", { class: item === content.activeNavigation ? "is-active" : "" }, item)),
+          isPokemonOfficialHomeHero ? h("button", {
+            type: "button",
+            class: "source-schema-demo__mobile-menu-trigger",
+            "aria-label": mobileMenuOpen.value ? "Close campaign navigation" : "Open campaign navigation",
+            "aria-expanded": mobileMenuOpen.value ? "true" : "false",
+            onClick: () => { mobileMenuOpen.value = !mobileMenuOpen.value; },
+          }, [
+            h("span", { class: "source-schema-demo__mobile-menu-label" }, "MENU"),
+            h("span", { class: "source-schema-demo__mobile-menu-icon", "aria-hidden": "true" }, [h("i"), h("i"), h("i")]),
+          ]) : null,
+        ]) : null,
+        isPokemonOfficialHomeHero && mobileMenuOpen.value ? h("div", { class: "source-schema-demo__mobile-menu-panel" }, navigation.map((item) => h("button", {
+          type: "button",
+          class: item === content.activeNavigation ? "is-active" : "",
+          onClick: () => { mobileMenuOpen.value = false; },
+        }, item))) : null,
+        assetOnly ? null : h("span", { class: "tag" }, section.component ? `${section.component} · schema` : "Section · schema"),
+        !assetOnly && logo ? h("img", { class: "source-schema-demo__logo", src: logo, alt: `${selectedStyle.value?.label || "brand"} logo` }) : null,
+        !assetOnly && (variant.eyebrow || content.eyebrow) ? h("span", { class: "source-schema-demo__hero-eyebrow" }, variant.eyebrow || content.eyebrow) : null,
+        !assetOnly && titleImage ? h("img", { key: `title-image-${activeVariant.value}`, class: "source-schema-demo__hero-title-image source-schema-demo__campaign-swap", src: titleImage, alt: content.titleImageAlt || content.title || "Campaign title" }) : null,
+        assetOnly || (content.hideTextTitle === true && !variant.showTextTitle) ? null : h("strong", { key: `title-text-${activeVariant.value}`, class: "source-schema-demo__hero-heldout-title source-schema-demo__campaign-swap" }, schemaText(variant.title, content.title, content.headline, selectedStyle.value?.hero, selectedStyle.value?.label)),
+        isPokemonOfficialHomeHero && variant.proofRole === "generative-held-out" ? h("span", { class: "source-schema-demo__hero-proof-label source-schema-demo__campaign-swap" }, "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN") : null,
+        assetOnly || content.hideDescription === true || isPokemonOfficialHomeHero ? null : h("p", schemaText(variant.description, content.description, content.body, selectedStyle.value?.notice)),
+        !assetOnly && (variant.meta || content.meta) ? h("span", { class: "source-schema-demo__hero-meta" }, variant.meta || content.meta) : null,
+        cards.length
+          ? h("div", { class: "source-schema-demo__hero-cards" }, isPokemonOfficialHomeHero
+            ? [h("button", {
+                key: `featured-card-${activeVariant.value}`,
+                type: "button",
+                class: ["pokemon-featured-card", "source-schema-demo__campaign-swap", featuredCardFlipped.value ? "is-flipped" : ""],
+                "aria-label": featuredCardFlipped.value ? "Show featured Pokémon card front" : "Show featured Pokémon card back",
+                "aria-pressed": featuredCardFlipped.value ? "true" : "false",
+                onClick: toggleFeaturedCard,
+                onKeydown: toggleFeaturedCardFromKeyboard,
+              }, [
+                h("span", { class: "pokemon-featured-card__inner" }, [
+                  h("img", {
+                    class: "pokemon-featured-card__face pokemon-featured-card__face--front",
+                    src: cards[0]?.src,
+                    alt: cards[0]?.alt || "Featured Pokémon card front",
+                  }),
+                  h("img", {
+                    class: "pokemon-featured-card__face pokemon-featured-card__face--back",
+                    src: "/assets/brand-assets/pokemon-tcg-official/tcg-card-back.jpg",
+                    alt: "Pokémon card back",
+                  }),
+                ]),
+              ])]
+            : cards.slice(0, 3).map((asset) => renderImage(asset, "source-schema-demo__card-art")))
+          : null,
+        !assetOnly && actionButtons.length ? h("div", { class: "source-schema-demo__actions source-schema-demo__actions--brand-hero" }, actionButtons) : null,
+        controls.length ? h("div", { class: "source-schema-demo__hero-controls", "aria-label": "Campaign slides" }, [
+          ...controls.map((item, index) => h("button", { type: "button", class: index === activeVariant.value ? "is-active" : "", "aria-label": `Show campaign ${item}`, onClick: () => { activeVariant.value = index; } }, item)),
+          content.playControl === true ? h("button", { type: "button", class: "source-schema-demo__hero-play", "aria-label": autoplaying.value ? "Pause campaign carousel" : "Play campaign carousel", onClick: () => { autoplaying.value = !autoplaying.value; autoplaying.value ? startCycle() : stopCycle(); } }, autoplaying.value ? "Ⅱ" : "▶") : null,
+        ]) : null,
+        responsiveBackground ? h("picture", { key: `background-${activeVariant.value}`, class: "source-schema-demo__hero-responsive-bg source-schema-demo__campaign-swap", "aria-hidden": "true" }, [
+          responsiveBackground.desktop ? h("source", { media: "(min-width: 520px)", srcset: responsiveBackground.desktop }) : null,
+          h("img", { src: responsiveBackground.mobile || responsiveBackground.desktop || backgroundSrc, alt: "" }),
+        ]) : null,
+      ];
+      const heroAttrs = {
+        class: [assetOnly ? "source-schema-demo__hero--asset-only" : "", isPokemonOfficialHomeHero ? "source-schema-demo__hero--compact-interactive" : "", variants.length ? `source-schema-demo__hero--variant-${activeVariant.value + 1}` : ""],
+        ...(backgroundSrc && !responsiveBackground ? { style: { "--schema-hero-bg": `url("${backgroundSrc}")` } } : {}),
+      };
+      return renderSchemaSection(section, "click-target source-schema-demo__hero", heroChildren, heroAttrs);
+    };
+  },
+});
+
+const SchemaActionClusterSection = defineComponent({
+  name: "SchemaActionClusterSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const actions = schemaActions(props.section);
+      const actionButtons = actions.map((action) => renderActionButton(action)).filter(Boolean);
+      const assets = props.section?.assets || {};
+      const decorativeLayer = (key, className, alt) => assets[key]
+        ? h("img", { src: assets[key], class: className, alt, "aria-hidden": "true" })
+        : null;
+      return (
+      renderSchemaSection(
+        props.section,
+        `click-target source-schema-demo__actions source-schema-demo__actions--${schemaSectionTypeName(props.section, "action-cluster")}`,
+        [
+          decorativeLayer("divider", "source-schema-demo__frame-divider", ""),
+          decorativeLayer("frameLeft", "source-schema-demo__frame-wave source-schema-demo__frame-wave--left", ""),
+          decorativeLayer("frameRight", "source-schema-demo__frame-wave source-schema-demo__frame-wave--right", ""),
+          decorativeLayer("corner", "source-schema-demo__frame-corner", ""),
+          assets.cardArt ? h("img", { src: assets.cardArt, class: "source-schema-demo__frame-card-art", alt: assets.cardArtAlt || "Featured card" }) : null,
+          ...(actionButtons.length ? actionButtons : [renderMissing("actions")]),
+        ],
+      )
+      );
+    };
+  },
+});
+
+const SchemaAssetStripSection = defineComponent({
+  name: "SchemaAssetStripSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const cards = schemaAssetList(section, "cards");
+      const visibleCards = cards.slice(0, Number.isFinite(Number(section.limit)) ? Number(section.limit) : 3);
+      return renderSchemaSection(
+        section,
+        `click-target source-schema-demo__card-strip source-schema-demo__card-strip--${section.type || "asset-strip"}`,
+        [
+        h("span", { class: "tag" }, `${section.component || "Image"} · schema asset`),
+          visibleCards.length
+            ? h(
+                "div",
+                { class: "source-schema-demo__card-strip-track" },
+                visibleCards.map((asset) => renderImage(asset, "source-schema-demo__strip-card-art")),
+              )
+            : renderMissing("cards"),
+        ],
+      );
+    };
+  },
+});
+
+const SchemaTabsSection = defineComponent({
+  name: "SchemaTabsSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    const pressedIndex = ref(-1);
+    let feedbackTimer = null;
+    const restoreFeedback = () => {
+      if (feedbackTimer) window.clearTimeout(feedbackTimer);
+      feedbackTimer = null;
+      pressedIndex.value = -1;
+    };
+    const settleFeedback = () => {
+      if (feedbackTimer) window.clearTimeout(feedbackTimer);
+      feedbackTimer = window.setTimeout(restoreFeedback, 650);
+    };
+    onBeforeUnmount(restoreFeedback);
+    return () => {
+      const items = schemaItems(props.section);
+      const hasDeclaredActiveItem = items.some((item) => item && typeof item === "object" && item.active === true);
+      const visualFeedbackOnly = props.section?.interaction?.type === "text-color-feedback-only";
+      const staticLabels = props.section?.interaction?.type === "static-labels";
+      return renderSchemaSection(
+        props.section,
+        "click-target source-schema-demo__tabs",
+        [
+          schemaContent(props.section).title ? h("h1", { class: "source-schema-demo__tabs-title" }, schemaContent(props.section).title) : null,
+          ...items.map((item, index) =>
+          h("button", {
+            type: "button",
+            class: [
+              !visualFeedbackOnly && !staticLabels && (item?.active || (!hasDeclaredActiveItem && index === 0)) ? "active" : "",
+              visualFeedbackOnly && pressedIndex.value === index ? "is-feedback" : "",
+            ],
+            "aria-disabled": staticLabels ? "true" : undefined,
+            tabindex: staticLabels ? "-1" : undefined,
+            onPointerdown: visualFeedbackOnly ? () => { pressedIndex.value = index; } : undefined,
+            onPointerup: visualFeedbackOnly ? settleFeedback : undefined,
+            onPointercancel: visualFeedbackOnly ? restoreFeedback : undefined,
+            onPointerleave: visualFeedbackOnly ? restoreFeedback : undefined,
+            onBlur: visualFeedbackOnly ? restoreFeedback : undefined,
+          }, item?.label || item?.text || item?.title || String(item)),
+          ),
+        ],
+        {
+          "data-interaction-boundary": visualFeedbackOnly
+            ? "text-color-only-no-filter"
+            : staticLabels ? "static-labels-no-selection" : undefined,
+        },
+      );
+    };
+  },
+});
+
+const SchemaFlipCardGallerySection = defineComponent({
+  name: "SchemaFlipCardGallerySection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const cards = schemaAssetList(section, "cards");
+      const cardBack = schemaAsset(section, "cardBack");
+      return renderSchemaSection(section, "click-target source-schema-demo__gallery", [
+        h("span", { class: "tag" }, "Card · flip schema"),
+        cards.length
+          ? cards.map((asset) =>
+              h("article", { class: "source-schema-demo__card", tabindex: section?.interaction?.type === "static-card-grid" ? "-1" : "0" }, [
+                h("div", { class: "source-schema-demo__card-transformer" }, [
+                  renderImage(asset, "source-schema-demo__card-front"),
+                  cardBack
+                    ? h("img", { class: "source-schema-demo__card-back", src: cardBack, alt: "card back" })
+                    : null,
+                  h("span", { class: "source-schema-demo__shine", "aria-hidden": "true" }),
+                ]),
+              ]),
+            )
+          : renderMissing("cards"),
+      ], {
+        "data-interaction-boundary": section?.interaction?.type === "static-card-grid" ? "static-card-grid-no-flip" : undefined,
+      });
+    };
+  },
+});
+
+const SchemaMegaEvolveSection = defineComponent({
+  name: "SchemaMegaEvolveSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const cards = schemaAssetList(section, "cards");
+      return renderSchemaSection(section, "source-schema-demo__mega", [
+        h("strong", schemaText(content.title, "Mega Evolve")),
+        h("p", schemaText(content.description, content.body)),
+        h("div", { class: "source-schema-demo__mega-cards" }, cards.length ? cards.map((asset) => renderImage(asset, "source-schema-demo__card-art")) : renderMissing("cards")),
+      ]);
+    };
+  },
+});
+
+const SchemaContentCardsSection = defineComponent({
+  name: "SchemaContentCardsSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const cards = schemaAssetList(section, "cards");
+      const products = schemaAssetList(section, "products");
+      const assets = products.length ? products : cards;
+      const filters = Array.isArray(content.filters) ? content.filters : [];
+      const sectionType = schemaSectionTypeName(section, "content-cards");
+      const assetKind = products.length ? "products" : "card-assets";
+      const sectionClass = [
+        "click-target source-schema-demo__content-cards",
+        `source-schema-demo__content-cards--${sectionType}`,
+        `source-schema-demo__content-cards--${assetKind}`,
+      ].join(" ");
+      const gridClass = [
+        "source-schema-demo__product-grid",
+        `source-schema-demo__product-grid--${sectionType}`,
+        `source-schema-demo__product-grid--${assetKind}`,
+      ].join(" ");
+      const cardClass = [
+        "source-schema-demo__product-card",
+        `source-schema-demo__product-card--${sectionType}`,
+        `source-schema-demo__product-card--${assetKind}`,
+      ].join(" ");
+      const imageClass = [
+        "source-schema-demo__product-art",
+        `source-schema-demo__product-art--${sectionType}`,
+        `source-schema-demo__product-art--${assetKind}`,
+      ].join(" ");
+      return renderSchemaSection(section, sectionClass, [
+        h("span", { class: "tag" }, `${section.component || "Card"} · schema`),
+        h("strong", schemaText(content.title, section.type)),
+        h("p", schemaText(content.description, content.body)),
+        filters.length
+          ? h("div", { class: "source-schema-demo__catalog-filters" }, filters.map((item, index) =>
+              h("button", { type: "button", class: index === 0 || item?.active ? "active" : "" }, item?.label || String(item)),
+            ))
+          : null,
+        h("div", { class: gridClass }, assets.length ? assets.map((asset) =>
+          h("article", { class: cardClass }, [
+            renderImage(asset, imageClass),
+            asset.category || asset.code
+              ? h("div", { class: "source-schema-demo__product-meta" }, [
+                  asset.category ? h("span", asset.category) : null,
+                  asset.code ? h("small", asset.code) : null,
+                ])
+              : null,
+            h("strong", asset.title || asset.alt || "Asset"),
+            asset.release ? h("small", { class: "source-schema-demo__product-release" }, asset.release) : null,
+            asset.cta ? h("span", asset.cta) : null,
+          ]),
+        ) : renderMissing("assets")),
+      ]);
+    };
+  },
+});
+
+const SchemaHomeWelcomeSection = defineComponent({
+  name: "SchemaHomeWelcomeSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const background = schemaAsset(section, "background", "backgroundImage");
+      const actions = schemaActions(section).map((action) => renderActionButton(action)).filter(Boolean);
+      return renderSchemaSection(section, "click-target source-schema-demo__home-welcome", [
+        h("div", { class: "opcg-welcome__cards", "aria-hidden": "true" }, Array.from({ length: 11 }, (_, index) => h("span", { class: `opcg-welcome__card opcg-welcome__card--${index + 1}` }, [
+          h("img", { src: "/assets/brand-assets/onepiece-cardgame/source/welcome-card01.webp", alt: "" }),
+        ]))),
+        h("div", { class: "opcg-welcome__inner" }, [
+        h("span", { class: "source-schema-demo__module-kicker" }, schemaText(content.kicker, "WELCOME")),
+        h("strong", schemaText(content.title, "BEGIN YOUR ADVENTURE")),
+        h("p", schemaText(content.description, content.body)),
+        actions.length ? h("div", { class: "source-schema-demo__actions source-schema-demo__actions--home-welcome" }, actions) : null,
+        ]),
+      ], background ? { style: { "--schema-welcome-bg": `url("${background}")` } } : {});
+    };
+  },
+});
+
+const SchemaHomeEditorialListSection = defineComponent({
+  name: "SchemaHomeEditorialListSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    const arrivalIndex = ref(0);
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const cards = section.id === "home-footer"
+        ? (Array.isArray(section.assets?.cards) ? section.assets.cards : [])
+        : schemaAssetList(section, "cards");
+      const actions = schemaActions(section).map((action) => renderActionButton(action)).filter(Boolean);
+      const hrefSets = {
+        "home-new-arrival": ["/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/", "/products/decks/"],
+        "home-events": ["/events/championship-26-27.html", "/events/", "/events/", "/events/", "/events/", "/events/"],
+        "home-recommend": ["/events/championship-26-27.html", "/feature/deck/", "https://tutorial.onepiece-cardgame.com/en", "https://app.onepiece-cardgame.com/en/", "/events/friendship-meetup-st31-36.html"],
+        "home-videos": ["https://www.youtube-nocookie.com/embed/9ZcW4RZKf4U", "https://www.youtube-nocookie.com/embed/oS7G8bVQn8A", "https://www.youtube-nocookie.com/embed/2YvQ4w0P2kI", "https://www.youtube-nocookie.com/embed/e3n7h1S9Y7Q", "https://www.youtube-nocookie.com/embed/5dVw8wZQ3uE"],
+      };
+      const sectionHrefs = hrefSets[section.id] || [];
+      const linkedCard = (asset, index, className = "source-schema-demo__home-editorial-item") => h("a", {
+        class: className,
+        href: sectionHrefs[index] || asset.href || "/",
+        target: /^https:\/\//.test(sectionHrefs[index] || "") ? "_blank" : undefined,
+        rel: /^https:\/\//.test(sectionHrefs[index] || "") ? "noreferrer" : undefined,
+      }, [
+        renderImage(asset, "source-schema-demo__home-editorial-image"),
+        h("div", [
+          h("span", asset.category || "NEWS"),
+          h("strong", asset.title || asset.alt || "Official update"),
+          asset.release ? h("small", asset.release) : null,
+        ]),
+      ]);
+
+      if (["home-new-arrival", "home-events", "home-recommend", "home-videos", "home-footer"].includes(section.id)) {
+        const cardsForContract = [...cards];
+        while (section.id === "home-events" && cardsForContract.length < 6) cardsForContract.push(cards[cardsForContract.length % cards.length]);
+        while (["home-recommend", "home-videos"].includes(section.id) && cardsForContract.length < 5) cardsForContract.push(cards[cardsForContract.length % cards.length]);
+        while (section.id === "home-new-arrival" && cardsForContract.length < 10) cardsForContract.push(cards[cardsForContract.length % cards.length]);
+        if (section.id === "home-footer") {
+          const nav = ["For Beginners", "Cards", "Rules", "Events", "Products", "News"];
+          return renderSchemaSection(section, "click-target source-schema-demo__home-editorial opcg-footer", [
+            h("div", { class: "opcg-footer__banners" }, [h("strong", "OFFICIAL ONE PIECE CARD GAME"), h("span", "Set sail with your crew")]),
+            h("nav", { class: "opcg-footer__nav", "aria-label": "Footer navigation" }, nav.map((label, index) => h("div", { class: "opcg-footer__nav-row" }, [
+              h("a", { href: index === 0 ? "/beginners/" : `/${label.toLowerCase()}/` }, label),
+              h("button", { type: "button", "aria-label": `Show ${label} links` }, "+"),
+            ]))),
+            h("div", { class: "opcg-footer__actions" }, [
+              h("a", { href: "https://sec.carddass.com/en/contact/" }, "CONTACT"),
+              h("button", { id: "ot-sdk-btn", type: "button" }, "COOKIE SETTINGS"),
+              h("a", { href: "/", class: "opcg-footer__home" }, [h("img", { src: "/assets/brand-assets/onepiece-cardgame/source/logo-op.png", alt: "ONE PIECE CARD GAME home" })]),
+              h("a", { href: "https://www.bandai.co.jp/en/site/privacy/" }, "PRIVACY POLICY"),
+              h("a", { href: "https://www.onepiece-cardgame.com/global/" }, "GLOBAL ENTRANCE"),
+            ]),
+            h("small", { class: "opcg-footer__legal" }, "© Eiichiro Oda/Shueisha, Toei Animation · ©BANDAI"),
+          ]);
+        }
+        return renderSchemaSection(section, `click-target source-schema-demo__home-editorial opcg-${section.id.replace("home-", "")}`, [
+          h("header", { class: "source-schema-demo__module-heading" }, [
+            h("span", schemaText(content.kicker, section.id.replace("home-", "").toUpperCase())),
+            h("h2", { class: "source-schema-demo__display-title" }, schemaText(content.title, content.kicker)),
+          ]),
+          h("div", {
+            class: "source-schema-demo__home-editorial-list",
+            role: "list",
+            ...(section.id === "home-new-arrival" ? {
+              "aria-label": `${arrivalIndex.value + 1} / ${cardsForContract.length}`,
+              style: { transform: `translateX(${-181.998 * arrivalIndex.value}px)` },
+            } : {}),
+          }, cardsForContract.map((asset, index) => linkedCard(asset, index))),
+          section.id === "home-new-arrival" ? h("div", { class: "opcg-arrival-controls" }, [
+            h("button", {
+              type: "button", "aria-label": "Previous products", disabled: arrivalIndex.value === 0,
+              "aria-disabled": arrivalIndex.value === 0 ? "true" : "false", tabindex: arrivalIndex.value === 0 ? -1 : 0,
+              onClick: () => { if (arrivalIndex.value > 0) arrivalIndex.value -= 1; },
+            }, "←"),
+            h("button", {
+              type: "button", "aria-label": "Next products", disabled: arrivalIndex.value >= cardsForContract.length - 1,
+              "aria-disabled": arrivalIndex.value >= cardsForContract.length - 1 ? "true" : "false", tabindex: arrivalIndex.value >= cardsForContract.length - 1 ? -1 : 0,
+              onClick: () => { if (arrivalIndex.value < cardsForContract.length - 1) arrivalIndex.value += 1; },
+            }, "→"),
+          ]) : null,
+          section.id === "home-events" ? h("a", { class: "source-schema-demo__cta opcg-events__all", href: "/events/" }, "VIEW ALL EVENTS") : null,
+          section.id === "home-videos" ? h("a", { class: "source-schema-demo__cta opcg-videos__channel", href: "https://www.youtube.com/channel/UCMhxrrst-3oDFY2oWJGd29Q", target: "_blank", rel: "noreferrer" }, "OFFICIAL YouTube CHANNEL") : null,
+        ]);
+      }
+      return renderSchemaSection(section, "click-target source-schema-demo__home-editorial", [
+        h("header", { class: "source-schema-demo__module-heading" }, [
+          h("span", schemaText(content.kicker, "NEWS")),
+          h("h2", { class: "source-schema-demo__display-title" }, schemaText(content.title, "LATEST NEWS")),
+        ]),
+        h("div", { class: "source-schema-demo__home-editorial-list" }, cards.map((asset, index) => linkedCard(asset, index))),
+        actions.length ? h("div", { class: "source-schema-demo__actions source-schema-demo__actions--home-editorial" }, actions) : null,
+      ]);
+    };
+  },
+});
+
+const SchemaHomeFooterIllustrationSection = defineComponent({
+  name: "SchemaHomeFooterIllustrationSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    const root = ref(null);
+    const isIn = ref(false);
+    const loopsPaused = ref(false);
+    let observer = null;
+
+    onMounted(() => {
+      observer = new IntersectionObserver((entries) => {
+        if (!isIn.value && entries.some((entry) => entry.isIntersecting)) {
+          isIn.value = true;
+          observer?.disconnect();
+        }
+      }, { threshold: 0.08 });
+      if (root.value) observer.observe(root.value);
+    });
+    onBeforeUnmount(() => observer?.disconnect());
+
+    return () => {
+      const section = props.section;
+      const assets = section.assets || {};
+      const layer = (key, className, alt) => assets[key]
+        ? h("img", { src: assets[key], class: className, alt, loading: "eager" })
+        : null;
+      return renderSchemaSection(section, `click-target source-schema-demo__footer-illustration footerIllust fadein${isIn.value ? " is-in" : ""}${loopsPaused.value ? " loops-paused" : ""}`, [
+        h("div", { ref: root, class: "source-schema-demo__footer-observer", "aria-hidden": "true" }),
+        h("div", { class: "source-schema-demo__footer-bg footerIllustItem footerIllustBg", "aria-hidden": "true" }, [
+          h("div", {
+            class: "source-schema-demo__footer-wave footerIllustBgItem showItem",
+            style: assets.backgroundWave ? { backgroundImage: `url(${assets.backgroundWave})` } : null,
+          }),
+        ]),
+        h("div", { class: "source-schema-demo__footer-character-wrap footerIllustItem footerIllustChara" }, [
+          layer("character", "source-schema-demo__footer-character", "Monkey D. Luffy footer illustration"),
+        ]),
+        h("div", { class: "source-schema-demo__footer-card-stage footerIllustItem footerIllustCard" }, [
+          h("div", { class: "source-schema-demo__footer-card-composite-wrap footerIllustCardItem inItem" }, [
+            layer("cardComposite", "source-schema-demo__footer-card-composite", "ONE PIECE CARD GAME card composition"),
+          ]),
+          h("ul", { class: "source-schema-demo__footer-show-cards footerIllustCardItem showItem", "aria-label": "Featured cards" }, [
+            h("li", { class: "cardItem card01" }, [layer("card01", "source-schema-demo__footer-card source-schema-demo__footer-card--01", "Featured card 01")]),
+            h("li", { class: "cardItem card02" }, [layer("card02", "source-schema-demo__footer-card source-schema-demo__footer-card--02", "Featured card 02")]),
+            h("li", { class: "cardItem card03" }, [layer("card03", "source-schema-demo__footer-card source-schema-demo__footer-card--03", "Featured card 03")]),
+          ]),
+        ]),
+        h("div", { class: "source-schema-demo__footer-text footerIllustItem footerIllustTxt" }, [
+          h("div", { class: "catch" }, [layer("catch", "source-schema-demo__footer-catch", "Set sail")]),
+          h("div", { class: "logo" }, [layer("logo", "source-schema-demo__footer-logo", "ONE PIECE CARD GAME")]),
+        ]),
+        h("div", { class: "source-schema-demo__footer-control autoBtnCol" }, [
+          h(DuButton, {
+            type: "text",
+            size: "mini",
+            text: loopsPaused.value ? "▶" : "Ⅱ",
+            extClass: "autoBtn js-bgAnimeBtn onepiece-footer-motion-control",
+            class: `autoBtn js-bgAnimeBtn${loopsPaused.value ? " is-pause" : ""}`,
+            "aria-label": loopsPaused.value ? "Resume footer card animation" : "Pause footer card animation",
+            "aria-pressed": loopsPaused.value ? "true" : "false",
+            onClick: (event) => { event.stopPropagation(); loopsPaused.value = !loopsPaused.value; },
+          }),
+        ]),
+      ]);
+    };
+  },
+});
+
+const SchemaChecklistSection = defineComponent({
+  name: "SchemaChecklistSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const items = Array.isArray(content.items) ? content.items : [];
+      const actions = schemaActions(section);
+      const actionButtons = actions.map((action) => renderActionButton(action)).filter(Boolean);
+      return renderSchemaSection(section, "click-target source-schema-demo__checklist", [
+        h("span", { class: "tag" }, `${section.component || "Card"} · schema`),
+        h("strong", schemaText(content.title, "Checklist")),
+        h("p", schemaText(content.description, content.body, content.summary)),
+        items.length ? h("ul", items.map((item) => h("li", item?.label || item?.text || item?.title || String(item)))) : null,
+        actionButtons.length ? h("div", { class: "source-schema-demo__actions source-schema-demo__actions--checklist-download" }, actionButtons) : null,
+      ]);
+    };
+  },
+});
+
+const SchemaEventEditorialBoardSection = defineComponent({
+  name: "SchemaEventEditorialBoardSection",
+  props: {
+    section: { type: Object, required: true },
+  },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const events = Array.isArray(content.events) ? content.events : [];
+      const schedule = Array.isArray(content.schedule) ? content.schedule : events;
+      const recommendations = Array.isArray(content.recommendations) ? content.recommendations : events;
+      const action = normalizeSchemaAction(content.action || content.cta);
+      return renderSchemaSection(section, "click-target source-schema-demo__event-editorial-board", [
+        h("header", { class: "source-schema-demo__event-board-heading" }, [
+          h("strong", schemaText(content.title, "EVENTS")),
+          h("span", schemaText(content.kicker, "CURRENT CREW CALLS")),
+        ]),
+        h("div", { class: "source-schema-demo__event-board-main" }, [
+          h("section", { class: "source-schema-demo__event-rail", "aria-label": "Current fictional events" }, [
+            h("div", { class: "source-schema-demo__event-rail-label" }, [
+              h("strong", "CURRENT"),
+              h("span", "EVENTS"),
+            ]),
+            h("div", { class: "source-schema-demo__event-rail-items" }, events.map((event) =>
+              h("article", { class: "source-schema-demo__event-rail-item" }, [
+                event.poster ? h("img", { src: event.poster, alt: event.title || "fictional event poster" }) : renderMissing("poster"),
+                h("div", [
+                  h("time", event.date || ""),
+                  h("strong", event.title || "Fictional crew event"),
+                  h("span", event.venue || ""),
+                ]),
+              ]),
+            )),
+          ]),
+          h("aside", { class: "source-schema-demo__event-schedule", "aria-label": "Fictional event schedule" }, [
+            h("div", { class: "source-schema-demo__event-schedule-heading" }, [
+              h("strong", schemaText(content.scheduleTitle, "SCHEDULE")),
+              h("span", schemaText(content.scheduleNote, "SEPTEMBER")),
+            ]),
+            h("ol", schedule.map((item) =>
+              h("li", [
+                h("time", item.date || ""),
+                h("strong", item.title || "Fictional event"),
+                h("span", item.time || item.venue || ""),
+              ]),
+            )),
+            h("p", schemaText(content.scheduleFooter, "Fictional schedule · original test fixture")),
+          ]),
+        ]),
+        h("section", { class: "source-schema-demo__event-wanted", "aria-label": "Fictional event recommendations" }, [
+          h("div", { class: "source-schema-demo__event-wanted-heading" }, [
+            h("strong", schemaText(content.recommendationTitle, "RECOMMEND")),
+            h("span", "WANTED"),
+          ]),
+          h("div", { class: "source-schema-demo__event-wanted-strip" }, recommendations.slice(0, 3).map((event) =>
+            h("figure", { class: "source-schema-demo__event-wanted-poster" }, [
+              event.poster ? h("img", { src: event.poster, alt: `${event.title || "Fictional event"} recommendation poster` }) : renderMissing("poster"),
+              h("figcaption", event.title || "Fictional event"),
+            ]),
+          )),
+        ]),
+        action ? h("div", { class: "source-schema-demo__event-board-action" }, [
+          renderActionButton(action, "source-schema-demo__cta source-schema-demo__event-board-utility"),
+        ]) : null,
+      ]);
+    };
+  },
+});
+
+const SchemaOnePieceNewsFeatureSection = defineComponent({
+  name: "SchemaOnePieceNewsFeatureSection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const cards = schemaAssetList(section, "cards");
+      const lead = cards[0];
+      const recommended = cards.slice(1);
+      return renderSchemaSection(section, "click-target opcg-news-feature", [
+        h("article", { class: "opcg-news-feature__lead" }, [
+          h("div", { class: "opcg-news-feature__rail", "aria-hidden": "true" }, "NEWS"),
+          h("div", { class: "opcg-news-feature__lead-body" }, [
+            h("b", "LATEST NEWS"),
+            lead ? renderImage(lead, "opcg-news-feature__lead-image") : renderMissing("lead"),
+            h("div", { class: "opcg-news-feature__lead-copy" }, [
+              h("small", lead?.category || "PRODUCTS"),
+              h("h1", lead?.title || content.title || "LATEST INFORMATION"),
+              h("p", lead?.description || content.description || "Latest ONE PIECE CARD GAME information."),
+            ]),
+          ]),
+        ]),
+        h("aside", { class: "opcg-news-feature__aside" }, [
+          h("h2", "IMPORTANT NOTICE"),
+          h("div", { class: "opcg-news-feature__notices" }, (content.notices || []).map((notice) => h("article", [
+            h("time", notice.date), h("strong", notice.title),
+          ]))),
+          h("h2", "RECOMMENDED"),
+          h("div", { class: "opcg-news-feature__recommended" }, recommended.map((card) => h("article", [
+            renderImage(card, "opcg-news-feature__thumb"),
+            h("small", `${card.release || ""} · ${card.category || "NEWS"}`),
+            h("strong", card.title || "Official update"),
+          ]))),
+        ]),
+      ]);
+    };
+  },
+});
+
+const SchemaOnePieceEventDiscoverySection = defineComponent({
+  name: "SchemaOnePieceEventDiscoverySection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const cards = schemaAssetList(section, "cards");
+      return renderSchemaSection(section, `click-target opcg-event-discovery opcg-event-discovery--${section.id}`, [
+        h("header", { class: "opcg-event-discovery__heading" }, [
+          content.kicker ? h("span", content.kicker) : null,
+          h("h2", content.title),
+          content.description ? h("p", content.description) : null,
+        ]),
+        h("div", { class: "opcg-event-discovery__grid" }, cards.map((card, index) => h("article", { class: index === 0 ? "is-primary" : "" }, [
+          renderImage(card, "opcg-event-discovery__image"),
+          h("div", { class: "opcg-event-discovery__copy" }, [
+            card.category ? h("small", card.category) : null,
+            h("strong", card.title || "Find an event"),
+            card.description ? h("p", card.description) : null,
+            card.cta ? h("span", card.cta) : null,
+          ]),
+        ]))),
+      ]);
+    };
+  },
+});
+
+const SchemaPokemonDatabaseSection = defineComponent({
+  name: "SchemaPokemonDatabaseSection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    const query = ref("");
+    const searched = ref(false);
+    const selectedEnergy = ref("");
+    const advanced = ref(false);
+    const advancedPhase = ref("closed");
+    let advancedTimer = null;
+    const submit = () => { if (query.value.trim()) searched.value = true; };
+    const reset = () => { query.value = ""; searched.value = false; selectedEnergy.value = ""; };
+    const toggleAdvanced = () => {
+      if (advanced.value) {
+        advanced.value = false;
+        advancedPhase.value = "closed";
+        if (advancedTimer) window.clearTimeout(advancedTimer);
+        return;
+      }
+      advanced.value = true;
+      advancedPhase.value = "triggered";
+      advancedTimer = window.setTimeout(() => { advancedPhase.value = "settled"; }, 420);
+    };
+    onBeforeUnmount(() => { if (advancedTimer) window.clearTimeout(advancedTimer); });
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const cards = schemaAssetList(section, "cards");
+      const energy = Array.isArray(content.energyTypes) ? content.energyTypes : [];
+      return renderSchemaSection(section, "pokemon-db", [
+        h("header", { class: "pokemon-db__title-plate" }, [
+          h("img", { src: "/assets/brand-assets/pokemon-tcg-official/tcg-logo.png", alt: "Pokémon Trading Card Game" }),
+          h("h1", schemaText(content.title, "Pokémon TCG Card Database")),
+        ]),
+        h("form", { class: "pokemon-db__search", onSubmit: (event) => { event.preventDefault(); submit(); } }, [
+          h("div", { class: "pokemon-db__field-grid" }, [
+            h("label", [h("span", "Card Name"), h("input", { id: "pokemon-card-name", value: query.value, placeholder: "Enter a card name", onInput: (event) => { query.value = event.target.value; searched.value = false; } })]),
+            h("label", [h("span", "Card Text"), h("input", { placeholder: "Search card text" })]),
+            h("label", [h("span", "Evolves From"), h("input", { placeholder: "Enter a Pokémon name" })]),
+          ]),
+          h("fieldset", { class: "pokemon-db__energy" }, [h("legend", "Energy Type"), ...energy.map((item) => h("button", {
+            type: "button",
+            class: selectedEnergy.value === item ? "is-selected" : "",
+            "aria-pressed": selectedEnergy.value === item ? "true" : "false",
+            onClick: () => { selectedEnergy.value = selectedEnergy.value === item ? "" : item; },
+          }, item))]),
+          h("div", { class: "pokemon-db__actions" }, [
+            h("button", { type: "button", class: "pokemon-db__reset", onClick: reset }, "Reset"),
+            h(DuButton, { type: "primary", size: "normal", text: "Search", class: "pokemon-db__submit" }),
+          ]),
+          h("button", { type: "button", class: "pokemon-db__advanced-toggle", "aria-expanded": advanced.value ? "true" : "false", onClick: toggleAdvanced }, advanced.value ? "Hide Advanced Search" : "Show Advanced Search"),
+          h("div", { class: ["pokemon-db__advanced", advanced.value ? "is-open" : ""], "data-height-state": advancedPhase.value === "triggered" ? "triggered-724px" : advancedPhase.value === "settled" ? "settled-1206.73px" : "0px" }, advanced.value ? [
+            h("section", [h("h2", "Card Type"), h("div", ["Pokémon", "Trainer", "Energy"].map((item) => h("label", [h("input", { type: "checkbox" }), item])))]),
+            h("section", [h("h2", "Rarity"), h("div", ["Common", "Uncommon", "Rare", "Double Rare"].map((item) => h("label", [h("input", { type: "checkbox" }), item])))]),
+            h("section", [h("h2", "Expansion"), h("select", [h("option", "All Expansions")])]),
+            h("div", { class: "pokemon-db__actions" }, [h("button", { type: "button", class: "pokemon-db__reset" }, "Reset"), h("button", { type: "button", class: "pokemon-db__submit", onClick: submit }, "Search")]),
+          ] : []),
+        ]),
+        searched.value ? h("section", { class: "pokemon-db__results", "aria-live": "polite" }, [
+          h("header", [h("h2", "Search Results"), h("select", [h("option", "Sort by: Number")])]),
+          h("p", { class: "pokemon-db__page-count" }, "1/12"),
+          h("div", { class: "pokemon-db__card-grid" }, cards.map((asset) => renderImage(asset, "pokemon-db__card"))),
+          h("nav", { class: "pokemon-db__pagination", "aria-label": "Results pages" }, [h("button", { type: "button" }, "Previous"), h("strong", "1"), h("button", { type: "button" }, "Next")]),
+        ]) : h("p", { class: "pokemon-db__empty" }, "Enter a card name to search the official card database."),
+      ], { "data-search-state": searched.value ? "results" : query.value ? "pikachu-entered" : "empty" });
+    };
+  },
+});
+
+const SchemaPokemonLearnSection = defineComponent({
+  name: "SchemaPokemonLearnSection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    const openIndex = ref(0);
+    const tcglRoot = ref(null);
+    const tcglEntryState = ref("settled");
+    const newsRoot = ref(null);
+    const newsPage = ref(0);
+    const newsOutgoingPage = ref(null);
+    const newsDirection = ref(1);
+    const newsCompact = ref(false);
+    const pocketFixtureReviewed = ref(false);
+    const championshipFixtureReviewed = ref(false);
+    let newsResizeObserver = null;
+    let newsTransitionTimer = null;
+    let newsScrollRestoreTimer = null;
+    let newsScrollContainer = null;
+    let newsScrollSettleTimer = null;
+    let newsLastStableScrollTop = 0;
+    const rememberNewsScroll = () => {
+      if (newsScrollSettleTimer) window.clearTimeout(newsScrollSettleTimer);
+      newsScrollSettleTimer = window.setTimeout(() => {
+        newsLastStableScrollTop = newsScrollContainer?.scrollTop || 0;
+      }, 120);
+    };
+    const newsPageSize = () => newsCompact.value ? 1 : 2;
+    const newsPages = () => Math.max(1, Math.ceil((schemaContent(props.section).stories || []).length / newsPageSize()));
+    const changeNewsPage = (nextPage) => {
+      const pageCount = newsPages();
+      const target = Math.max(0, Math.min(pageCount - 1, nextPage));
+      if (target === newsPage.value || newsOutgoingPage.value !== null) return;
+      const scrollContainer = newsRoot.value?.closest?.(".phone-screen");
+      const stableScrollTop = Number.isFinite(newsLastStableScrollTop) ? newsLastStableScrollTop : scrollContainer?.scrollTop;
+      const restoreReadingPosition = () => {
+        if (scrollContainer && Number.isFinite(stableScrollTop)) scrollContainer.scrollTop = stableScrollTop;
+      };
+      const reduceMotion = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
+        || new URLSearchParams(window.location.search).get("reducedMotion") === "1";
+      newsDirection.value = target > newsPage.value ? 1 : -1;
+      if (reduceMotion) {
+        newsPage.value = target;
+        nextTick(restoreReadingPosition);
+        return;
+      }
+      newsOutgoingPage.value = newsPage.value;
+      newsPage.value = target;
+      nextTick(() => {
+        restoreReadingPosition();
+        window.requestAnimationFrame(restoreReadingPosition);
+      });
+      newsTransitionTimer = window.setTimeout(() => {
+        newsOutgoingPage.value = null;
+        nextTick(restoreReadingPosition);
+      }, 420);
+      newsScrollRestoreTimer = window.setTimeout(restoreReadingPosition, 460);
+    };
+    onMounted(() => {
+      if (props.section?.id !== "home-news-grid") return;
+      newsResizeObserver = new ResizeObserver(([entry]) => {
+        const wasCompact = newsCompact.value;
+        newsCompact.value = entry.contentRect.width < 700;
+        if (wasCompact !== newsCompact.value) {
+          newsPage.value = 0;
+          newsOutgoingPage.value = null;
+          if (newsTransitionTimer) window.clearTimeout(newsTransitionTimer);
+        }
+      });
+      if (newsRoot.value) newsResizeObserver.observe(newsRoot.value);
+      newsScrollContainer = newsRoot.value?.closest?.(".phone-screen");
+      if (newsScrollContainer) {
+        newsLastStableScrollTop = newsScrollContainer.scrollTop;
+        newsScrollContainer.addEventListener("scroll", rememberNewsScroll, { passive: true });
+      }
+    });
+    onBeforeUnmount(() => {
+      newsResizeObserver?.disconnect();
+      if (newsTransitionTimer) window.clearTimeout(newsTransitionTimer);
+      if (newsScrollRestoreTimer) window.clearTimeout(newsScrollRestoreTimer);
+      if (newsScrollSettleTimer) window.clearTimeout(newsScrollSettleTimer);
+      newsScrollContainer?.removeEventListener("scroll", rememberNewsScroll);
+    });
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const items = Array.isArray(content.items) ? content.items : [];
+      const cards = schemaAssetList(section, "cards");
+      const hero = schemaAsset(section, "hero", "image", "video");
+      const stories = Array.isArray(content.stories) ? content.stories : [];
+      if (section?.id === "home-product-bands" && section?.recipe === "pokemon-product-band") {
+        const asset = (key, fallback) => section.assets?.[key]?.src || section.assets?.[key] || fallback;
+        const destination = content.href || "https://tcg.pokemon.com/en-us/tcgl/";
+        return renderSchemaSection(section, "pokemon-tcgl", [
+          h("div", { class: "pokemon-tcgl__scene", "aria-label": "Pokémon TCG Live on desktop and mobile" }, [
+            h("img", { class: "pokemon-tcgl__asset pokemon-tcgl__laptop", src: asset("laptop", "/assets/brand-assets/pokemon-tcg-official/laptop.png"), alt: "Pokémon TCG Live laptop" }),
+            h("img", { class: "pokemon-tcgl__asset pokemon-tcgl__pikachu", src: asset("pikachu", "/assets/brand-assets/pokemon-tcg-official/pikachu.png"), alt: "Pikachu" }),
+            h("img", { class: "pokemon-tcgl__asset pokemon-tcgl__phone", src: asset("phone", "/assets/brand-assets/pokemon-tcg-official/phone.png"), alt: "Pokémon TCG Live phone" }),
+            h("img", { class: "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--one", src: asset("avatar1", "/assets/brand-assets/pokemon-tcg-official/avatar-1.png"), alt: "Pokémon TCG Live avatar" }),
+            h("img", { class: "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--two", src: asset("avatar2", "/assets/brand-assets/pokemon-tcg-official/avatar-2.png"), alt: "Pokémon TCG Live avatar" }),
+          ]),
+          h("div", { class: "pokemon-tcgl__copy" }, [
+            h("h2", schemaText(content.title, "Pokémon TCG Live")),
+            h("p", schemaText(content.description, "Experience the fun and strategy of the Pokémon Trading Card Game in a new way.")),
+            h("a", { class: "pokemon-tcgl__cta", href: destination, onClick: (event) => { if (window.location.hostname === "127.0.0.1" || window.location.hostname === "localhost") event.preventDefault(); } }, [
+              h("span", schemaText(content.cta, "Learn More")), h("b", { "aria-hidden": "true" }, "›"),
+            ]),
+          ]),
+        ], { ref: tcglRoot, "data-entry-state": tcglEntryState.value, "data-cta-target": destination });
+      }
+      if (section?.recipe === "pokemon-tcg-pocket") {
+        const asset = (key, fallback) => section.assets?.[key]?.src || section.assets?.[key] || fallback;
+        const destination = content.href || "https://tcgpocket.pokemon.com/en-us";
+        const fictionalFixture = content.fictional === true;
+        return renderSchemaSection(section, fictionalFixture ? "pokemon-pocket pokemon-pocket--held-out" : "pokemon-pocket", [
+          h("picture", { class: "pokemon-pocket__background", "aria-hidden": "true" }, [
+            h("source", { media: "(max-width: 519px)", srcset: asset("mobileBackground", "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg") }),
+            h("img", { src: asset("desktopBackground", "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg"), alt: "" }),
+          ]),
+          fictionalFixture ? h("p", { class: "pokemon-pocket__fixture-label" }, content.fixtureLabel || "GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT") : null,
+          h("div", { class: "pokemon-pocket__asset-field" }, [
+            fictionalFixture
+              ? h("div", { class: "pokemon-pocket__fixture-art", "aria-label": "Fictional Pocket Deck Studio concept" }, [
+                  h("span", { class: "pokemon-pocket__fixture-disc" }, "P"),
+                  h("strong", "POCKET DECK STUDIO"),
+                  h("span", "CONCEPT 01"),
+                ])
+              : h("img", { class: "pokemon-pocket__composite", src: asset("composite", "/assets/brand-assets/pokemon-tcg-official/logo-cards.png"), alt: "Pokémon Trading Card Game Pocket logo and featured digital cards" }),
+          ]),
+          h("div", { class: "pokemon-pocket__copy" }, [
+            h("h2", schemaText(content.title, "POKÉMON TRADING CARD GAME POCKET")),
+            h("p", schemaText(content.description, "Experience the fun of collecting Pokémon TCG cards with Pokémon Trading Card Game Pocket.")),
+            fictionalFixture
+              ? h("button", {
+                  class: "pokemon-pocket__cta",
+                  type: "button",
+                  "aria-pressed": pocketFixtureReviewed.value ? "true" : "false",
+                  onClick: () => { pocketFixtureReviewed.value = !pocketFixtureReviewed.value; },
+                }, [
+                  h("span", schemaText(content.cta, "Review the Concept")),
+                  h("b", { "aria-hidden": "true" }, "›"),
+                ])
+              : h("a", { class: "pokemon-pocket__cta", href: destination, target: "_blank", rel: "noreferrer" }, [
+                  h("span", schemaText(content.cta, "Play Now")),
+                  h("b", { "aria-hidden": "true" }, "›"),
+                ]),
+            fictionalFixture ? h("p", { class: "pokemon-pocket__fixture-status", "aria-live": "polite" }, pocketFixtureReviewed.value
+              ? "Concept review noted locally. This fictional fixture route remains open."
+              : "Concept review is ready.") : null,
+          ]),
+        ], { "data-motion-fidelity": "unresolved-unscored", "data-cta-target": fictionalFixture ? "local-state" : destination, "data-proof-role": fictionalFixture ? "generative-held-out-fictional" : "source-calibration" });
+      }
+      if (section?.recipe === "pokemon-championship-series") {
+        const asset = (key, fallback) => section.assets?.[key]?.src || section.assets?.[key] || fallback;
+        const destination = content.href || "https://championships.pokemon.com/en-us/";
+        const fictionalFixture = content.fictional === true;
+        const ctaChildren = [h("span", schemaText(content.cta, fictionalFixture ? "Review the Program" : "Learn more")), h("b", { "aria-hidden": "true" }, "›")];
+        return renderSchemaSection(section, fictionalFixture ? "pokemon-championship pokemon-championship--held-out" : "pokemon-championship", [
+          h("div", { class: "pokemon-championship__media" }, [
+            fictionalFixture
+              ? h("div", { class: "pokemon-championship__fixture-art", "aria-label": "Original fictional arena-program visual" }, [
+                  h("span", { class: "pokemon-championship__fixture-orbit", "aria-hidden": "true" }),
+                  h("strong", "ARENA 04"),
+                  h("small", "FIELD PROGRAM"),
+                ])
+              : h("img", {
+                  src: asset("image", "/assets/brand-assets/pokemon-tcg-official/championships.jpg"),
+                  srcset: `${asset("image", "/assets/brand-assets/pokemon-tcg-official/championships.jpg")} 1x, ${asset("image2x", "/assets/brand-assets/pokemon-tcg-official/championships-2x.jpg")} 2x`,
+                  alt: "Pokémon International Championships players and trophy",
+                }),
+          ]),
+          h("div", { class: "pokemon-championship__copy" }, [
+            fictionalFixture ? h("p", { class: "pokemon-championship__fixture-label" }, content.fixtureLabel || "GENERATIVE FIXTURE · FICTIONAL · NOT A POKÉMON EVENT") : null,
+            h("h2", schemaText(content.title, "POKÉMON CHAMPIONSHIP SERIES")),
+            h("p", schemaText(content.description, "The Pokémon Championship Series is a competitive circuit of tournaments where Trainers from around the world gather to test their skills. Check out the Championship Series website to stay up to date on upcoming tournaments and tune in to watch the amazing battles online.")),
+            fictionalFixture
+              ? h("button", {
+                  type: "button",
+                  class: "pokemon-championship__cta",
+                  onClick: () => { championshipFixtureReviewed.value = true; },
+                }, ctaChildren)
+              : h("a", { class: "pokemon-championship__cta", href: destination, target: "_blank", rel: "noreferrer" }, ctaChildren),
+            fictionalFixture ? h("p", { class: "pokemon-championship__fixture-status", "aria-live": "polite" }, championshipFixtureReviewed.value ? "Fictional program review noted locally." : "Fictional program review is ready.") : null,
+          ]),
+        ], {
+          "data-cta-target": fictionalFixture ? "local-state" : destination,
+          "data-proof-role": fictionalFixture ? "generative-held-out-fictional" : "source-calibration",
+        });
+      }
+      if (section?.recipe === "pokemon-play-pokemon-successor") {
+        const image = section.assets?.image?.src || section.assets?.image || "/assets/brand-assets/pokemon-tcg-official/play-pokemon.jpg";
+        return renderSchemaSection(section, "pokemon-play-successor", [
+          h("img", { src: image, alt: "Play! Pokémon organized play" }),
+          h("h2", schemaText(content.title, "Play! Pokémon")),
+        ], { "data-boundary-role": "championship-successor" });
+      }
+      if (section?.id === "home-news-grid" && section?.recipe === "pokemon-home-news" && stories.length) {
+        const heldOutProof = content.heldOutProof;
+        const showHeldOutProof = new URLSearchParams(window.location.search).get("proof") === "heldout-news";
+        const reducedMotionProof = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
+          || new URLSearchParams(window.location.search).get("reducedMotion") === "1";
+        const pageSize = newsPageSize();
+        const pageCount = Math.max(1, Math.ceil(stories.length / pageSize));
+        const pageStories = (page) => stories.slice(page * pageSize, page * pageSize + pageSize);
+        const renderStory = (story) => h("article", { class: "pokemon-news__story", "data-story-src": story.sourceUrl || story.src }, [
+          h("img", { class: "pokemon-news__image", src: story.src, alt: "" }),
+          h("h3", story.title),
+          h("button", { type: "button", class: "pokemon-news__cta" }, [h("span", story.cta || "Learn More"), h("b", { "aria-hidden": "true" }, "›")]),
+        ]);
+        const renderPage = (page, role) => h("div", {
+          key: `${role}-${page}-${pageSize}`,
+          class: ["pokemon-news__page", `is-${role}`, newsDirection.value > 0 ? "is-forward" : "is-backward"],
+          "data-news-page": page,
+        }, pageStories(page).map(renderStory));
+        return renderSchemaSection(section, "pokemon-news", [
+          h("header", { class: "pokemon-news__header" }, [
+            h("h2", content.kicker || "WHAT'S NEW!"),
+            h("button", { type: "button", class: "pokemon-news__more" }, [content.moreLabel || "See More News", h("span", { "aria-hidden": "true" }, "›")]),
+          ]),
+          h("div", { class: "pokemon-news__viewport", "aria-live": "polite" }, [
+            newsOutgoingPage.value !== null ? renderPage(newsOutgoingPage.value, "outgoing") : null,
+            renderPage(newsPage.value, newsOutgoingPage.value !== null ? "incoming" : "settled"),
+          ]),
+          h("div", { class: "pokemon-news__controls", "aria-label": "News carousel" }, [
+            h("button", { type: "button", class: "pokemon-news__arrow pokemon-news__arrow--previous", disabled: newsPage.value === 0, "aria-label": "Previous news page", onMousedown: (event) => event.preventDefault(), onClick: () => changeNewsPage(newsPage.value - 1) }, "‹"),
+            h("div", { class: "pokemon-news__dots" }, Array.from({ length: pageCount }, (_, index) => h("button", { type: "button", class: index === newsPage.value ? "is-active" : "", "aria-label": `Show news page ${index + 1}`, "aria-current": index === newsPage.value ? "true" : undefined, onMousedown: (event) => event.preventDefault(), onClick: () => changeNewsPage(index) }, h("span")))),
+            h("button", { type: "button", class: "pokemon-news__arrow pokemon-news__arrow--next", disabled: newsPage.value === pageCount - 1, "aria-label": "Next news page", onMousedown: (event) => event.preventDefault(), onClick: () => changeNewsPage(newsPage.value + 1) }, "›"),
+          ]),
+          h("div", { class: "pokemon-news__source-seam", "aria-hidden": "true" }),
+          showHeldOutProof && heldOutProof ? h("aside", { class: "pokemon-news__heldout", "aria-label": "Non-official generative proof fixture" }, [
+            h("strong", "GENERATIVE PROOF · NON-OFFICIAL FIXTURE"),
+            h("article", { class: "pokemon-news__story" }, [
+              h("img", { class: "pokemon-news__image", src: heldOutProof.src, alt: "Abstract independent deck lab fixture" }),
+              h("h3", heldOutProof.title),
+              h("button", { type: "button", class: "pokemon-news__cta" }, [h("span", heldOutProof.cta), h("b", { "aria-hidden": "true" }, "›")]),
+            ]),
+          ]) : null,
+        ], { ref: newsRoot, "data-page-count": pageCount, "data-active-page": newsPage.value, "data-transitioning": newsOutgoingPage.value !== null ? "true" : "false", "data-reduced-motion": reducedMotionProof ? "true" : "false" });
+      }
+      return renderSchemaSection(section, `pokemon-learn pokemon-learn--${schemaSectionTypeName(section)}`, [
+        h("header", [h("span", content.kicker || "LEARN TO PLAY"), h("h2", schemaText(content.title, section.id)), content.description ? h("p", content.description) : null]),
+        hero ? h("img", { class: "pokemon-learn__lead", src: hero, alt: content.title || "Pokémon TCG lesson" }) : null,
+        items.length ? h("div", { class: "pokemon-learn__lessons" }, items.map((item, index) => h("article", { class: index === openIndex.value ? "is-open" : "" }, [
+          h("button", { type: "button", "aria-expanded": index === openIndex.value ? "true" : "false", onClick: () => { openIndex.value = index; } }, [h("strong", item.title || item.label), h("span", index === openIndex.value ? "−" : "+")]),
+          index === openIndex.value ? h("p", item.description || item.body || "Learn how this part of the game works.") : null,
+          index === openIndex.value && cards[index % cards.length] ? renderImage(cards[index % cards.length], "pokemon-learn__diagram") : null,
+        ]))) : null,
+        !items.length && cards.length ? h("div", { class: "pokemon-learn__resource-grid" }, cards.map((asset) => h("article", [renderImage(asset, "pokemon-learn__resource"), h("strong", asset.title || asset.alt)]))) : null,
+      ]);
+    };
+  },
+});
+
+const dangoDocsNavigationGroups = [
+  { label: "GET STARTED", items: ["介绍", "安装", "快速开始"] },
+  { label: "STYLE", items: ["Color 颜色", "Typography 字体", "Button 按钮"] },
+  { label: "DELIVERY", items: ["发布检查", "迁移规范"] },
+];
+
+const dangoDocsHeader = () => h("header", { class: "dango-docs__utility-header" }, [
+  h("div", { class: "dango-docs__identity", "aria-label": "Dango UI" }, [
+    h("strong", "Dango UI"),
+    h("small", "Beta"),
+  ]),
+  h("div", { class: "dango-docs__search", "aria-label": "Search documentation" }, [
+    h("span", { "aria-hidden": "true" }, "⌕"),
+    h("span", "搜索组件、token、文档"),
+    h("kbd", "⌘ K"),
+  ]),
+  h("div", { class: "dango-docs__utilities", "aria-label": "Documentation utilities" }, [
+    h("span", "设计系统"),
+    h("span", "组件库"),
+    h("span", "◐"),
+  ]),
+]);
+
+const dangoDocsSidebar = (currentNav) => h("aside", { class: "dango-docs__sidebar", "aria-label": "Documentation navigation" },
+  dangoDocsNavigationGroups.map((group) => h("section", { class: "dango-docs__nav-group" }, [
+    h("strong", group.label),
+    ...group.items.map((item) => h("span", {
+      class: item === currentNav ? "is-current" : "",
+      "aria-current": item === currentNav ? "page" : undefined,
+    }, item)),
+  ])),
+);
+
+const dangoDocsOutline = (content) => h("aside", { class: "dango-docs__outline", "aria-label": "On this page" }, [
+  h("strong", "本页内容"),
+  h("span", content.title || "概览"),
+  h("span", content.exampleLabel ? "组件示例" : "结构说明"),
+  h("span", "相关规范"),
+]);
+
+const dangoButtonSpecimen = (specimen, activated) => {
+  const spec = typeof specimen === "string" ? { label: specimen } : specimen;
+  const isPrimaryReference = (spec.type || "primary") === "primary" && (spec.size || "normal") === "normal" && !spec.disabled;
+  return h(DuButton, {
+  type: spec.type || "primary",
+  size: spec.size || "normal",
+  text: spec.label || "主要按钮",
+  disabled: Boolean(spec.disabled),
+  loading: Boolean(spec.loading),
+  extClass: isPrimaryReference ? "dango-docs__primary" : "dango-docs__specimen",
+  "data-action-state": activated.value ? "activated-focus-retained" : "default",
+  onClick: () => { activated.value = true; },
+  onBlur: () => { activated.value = false; },
+});
+};
+
+const dangoPrimaryButton = (label, activated) => dangoButtonSpecimen({ label }, activated);
+
+const dangoDocsModel = (items = []) => h("div", { class: "dango-docs__model", "aria-label": "System model" },
+  items.map((item, index) => h("article", { class: "dango-docs__model-item" }, [
+    h("span", item.index || String(index + 1).padStart(2, "0")),
+    h("div", [h("strong", item.title), h("p", item.copy)]),
+  ])),
+);
+
+const dangoTechnicalFlow = (lines = []) => h("pre", { class: "dango-docs__technical-flow", "aria-label": "Technical flow model" }, [
+  h("code", lines.join("\n")),
+]);
+
+const dangoExampleModule = (module, activated) => h("section", { class: "dango-docs__reference-module" }, [
+  h("h3", module.title),
+  h("div", { class: "dango-docs__example-table" }, [
+    h("div", { class: "dango-docs__example-preview" }, [
+      ...(module.specimens || module.labels || ["主要按钮"]).map((specimen) => dangoButtonSpecimen(specimen, activated)),
+    ]),
+    h("pre", { class: "dango-docs__example-code" }, [h("code", module.code)]),
+  ]),
+]);
+
+const dangoReferenceTable = (title, rows = []) => h("section", { class: "dango-docs__reference-table" }, [
+  h("h3", title),
+  h("div", { class: "dango-docs__table" }, [
+    h("div", { class: "dango-docs__table-row dango-docs__table-head" }, [h("strong", "名称"), h("strong", "类型 / 默认值"), h("strong", "说明")]),
+    ...rows.map((row) => h("div", { class: "dango-docs__table-row" }, [h("code", row.name), h("code", row.value), h("span", row.description)])),
+  ]),
+]);
+
+const SchemaDangoDocsPageSection = defineComponent({
+  name: "SchemaDangoDocsPageSection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    const activated = ref(false);
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const articleChildren = [
+        h("span", { class: "dango-docs__eyebrow" }, content.page === "release" ? "DELIVERY" : content.page === "button" ? "COMPONENT" : "GET STARTED"),
+        h("h1", content.title),
+        h("div", { class: "dango-docs__title-rule", "aria-hidden": "true" }),
+        h("p", { class: "dango-docs__lead" }, content.lead),
+        h("p", { class: "dango-docs__body" }, content.description),
+      ];
+      if (Array.isArray(content.model) && content.model.length) {
+        articleChildren.push(h("h2", content.page === "release" ? "交付前的三层检查" : "从基础规则到业务表达"));
+        if (Array.isArray(content.technicalFlow)) articleChildren.push(dangoTechnicalFlow(content.technicalFlow));
+        else articleChildren.push(dangoDocsModel(content.model));
+        if (Array.isArray(content.layerNotes)) articleChildren.push(h("div", { class: "dango-docs__layer-notes" }, content.layerNotes.map((item) => h("p", [h("strong", item.title), " — ", item.copy]))));
+      }
+      if (content.importCode) articleChildren.push(h("pre", { class: "dango-docs__import" }, [h("code", content.importCode)]));
+      if (Array.isArray(content.modules)) {
+        articleChildren.push(h("h2", "示例"));
+        articleChildren.push(...content.modules.map((module) => dangoExampleModule(module, activated)));
+      }
+      if (content.exampleLabel) {
+        articleChildren.push(h("h2", "基础用法"));
+        articleChildren.push(h("div", { class: "dango-docs__example-table" }, [
+          h("div", { class: "dango-docs__example-preview" }, [dangoPrimaryButton(content.exampleLabel, activated)]),
+          h("pre", { class: "dango-docs__example-code" }, [h("code", content.code || "<DuButton type=\"primary\" />")]),
+        ]));
+      }
+      return renderSchemaSection(section, "dango-docs", [
+        dangoDocsHeader(),
+        h("div", { class: "dango-docs__layout" }, [
+          dangoDocsSidebar(content.currentNav),
+          h("main", { class: "dango-docs__article" }, articleChildren),
+          dangoDocsOutline(content),
+        ]),
+      ], { "data-dango-page": content.page || "documentation" });
+    };
+  },
+});
+
+const SchemaDangoDocsContinuationSection = defineComponent({
+  name: "SchemaDangoDocsContinuationSection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    const activated = ref(false);
+    return () => {
+      const section = props.section;
+      const content = schemaContent(section);
+      const items = Array.isArray(content.items) ? content.items : [];
+      const referenceBlocks = [];
+      if (Array.isArray(content.apiRows)) referenceBlocks.push(dangoReferenceTable("API · 属性", content.apiRows));
+      if (Array.isArray(content.eventRows)) referenceBlocks.push(dangoReferenceTable("事件", content.eventRows));
+      if (Array.isArray(content.themeRows)) referenceBlocks.push(dangoReferenceTable("主题变量", content.themeRows));
+      return renderSchemaSection(section, "dango-docs-continuation", [
+        h("div", { class: "dango-docs-continuation__main" }, [
+          h("h2", content.title),
+          h("p", content.description),
+          items.length ? h("ul", items.map((item) => h("li", [h("span", { "aria-hidden": "true" }, "✓"), h("span", item)]))) : null,
+          content.exampleLabel ? h("div", { class: "dango-docs-continuation__action" }, [
+            dangoPrimaryButton(content.exampleLabel, activated),
+            h("small", activated.value ? "检查已运行；按钮保持焦点样式。" : "点击后可通过移出焦点恢复默认状态。"),
+          ]) : null,
+          ...referenceBlocks,
+        ]),
+      ]);
+    };
+  },
+});
+
+const sectionRendererRegistry = {
+  "brand-hero": SchemaBrandHeroSection,
+  "action-cluster": SchemaActionClusterSection,
+  "featured-card-strip": SchemaAssetStripSection,
+  "filter-tabs": SchemaTabsSection,
+  "anchor-navigation": SchemaTabsSection,
+  "flip-card-gallery": SchemaFlipCardGallerySection,
+  "center-cta": SchemaActionClusterSection,
+  "mega-evolve-dual-card": SchemaMegaEvolveSection,
+  "expansion-highlights": SchemaContentCardsSection,
+  "product-gallery": SchemaContentCardsSection,
+  "home-welcome": SchemaHomeWelcomeSection,
+  "home-editorial-list": SchemaHomeEditorialListSection,
+  "home-footer-illustration": SchemaHomeFooterIllustrationSection,
+  "retailer-cta": SchemaActionClusterSection,
+  "checklist-download": SchemaChecklistSection,
+  "event-editorial-board": SchemaEventEditorialBoardSection,
+  "onepiece-news-feature": SchemaOnePieceNewsFeatureSection,
+  "onepiece-event-discovery": SchemaOnePieceEventDiscoverySection,
+  "database-card-strip": SchemaAssetStripSection,
+  "database-cta": SchemaActionClusterSection,
+  "pokemon-database": SchemaPokemonDatabaseSection,
+  "pokemon-learn-section": SchemaPokemonLearnSection,
+  "dango-docs-page": SchemaDangoDocsPageSection,
+  "dango-docs-continuation": SchemaDangoDocsContinuationSection,
+};
 const isRuntimePreviewTemplate = computed(() =>
-  Boolean(selectedStyle.value?.runtimePreview && selectedTemplate.value?.id?.startsWith(`${selectedStyle.value.id}-`)),
+  Boolean(selectedStyle.value?.runtimePreview && (selectedTemplate.value?.id === selectedStyle.value.id || selectedTemplate.value?.id?.startsWith(`${selectedStyle.value.id}-`))),
 );
 const currentBrandPublishCopy = computed(() =>
   brandPublishCopy[selectedStyleId.value] || brandPublishCopy.czn,
@@ -6056,66 +6582,7 @@ const currentStyleCapabilityNote = computed(() => {
   };
   return notes[selectedStyleCategoryId.value] || null;
 });
-const computedEvidenceEntries = {
-  rocom: [
-    {
-      role: "navigation",
-      selector: ".theme-rocom .du-navigation-bar__wrapper",
-      styles: {
-        color: "rgb(37, 24, 7)",
-        backgroundColor: "rgba(0, 0, 0, 0)",
-        borderColor: "rgb(37, 24, 7)",
-      },
-    },
-    {
-      role: "hero",
-      selector: ".rocom-hero",
-      styles: {
-        color: "rgb(37, 24, 7)",
-        fontFamily: 'MIANFEIZITI, "Arial Rounded MT Bold", "PingFang SC", "Microsoft YaHei", sans-serif',
-        backgroundImage: 'linear-gradient(...), url("https://game.gtimg.cn/images/rocom/act/a20250812preview/web/part1/20260513/bg.avif")',
-        borderColor: "rgb(37, 24, 7)",
-        boxShadow: "rgba(66, 38, 8, 0.2) 0px 18px 36px 0px",
-      },
-    },
-    {
-      role: "cta-active",
-      selector: ".rocom-home-distribution button.active",
-      styles: {
-        color: "rgb(37, 24, 7)",
-        backgroundColor: "rgb(255, 240, 178)",
-        backgroundImage: "none",
-        borderColor: "rgb(37, 24, 7)",
-      },
-    },
-    {
-      role: "torn-paper-edge",
-      selector: ".rocom-home-gallery::after",
-      styles: {
-        backgroundImage: "radial-gradient(circle at 6px 7px, transparent 0 4px, rgba(108, 60, 22, 0.46) 4.5px 5px, transparent 5.5px)",
-      },
-    },
-    {
-      role: "surface",
-      selector: ".rocom-home-gallery",
-      styles: {
-        color: "rgb(37, 24, 7)",
-        backgroundImage: "linear-gradient(rgba(255, 244, 201, 0.96), rgba(255, 240, 178, 0.88))",
-        borderColor: "rgba(255, 255, 255, 0.74)",
-        boxShadow: "rgba(66, 38, 8, 0.2) 0px 14px 30px 0px, rgba(255, 239, 174, 0.72) 0px 0px 0px 1px inset",
-      },
-    },
-    {
-      role: "frame",
-      selector: ".theme-rocom .phone",
-      styles: {
-        color: "rgb(37, 24, 7)",
-        borderColor: "rgb(43, 26, 12)",
-        boxShadow: "rgba(66, 38, 8, 0.28) 0px 24px 58px 0px, rgba(255, 225, 106, 0.5) 0px 0px 0px 1px",
-      },
-    },
-  ],
-};
+const computedEvidenceEntries = {};
 const evidenceRolesByCategory = {
   color: ["hero", "cta-active", "surface", "navigation"],
   typography: ["hero"],
@@ -8572,6 +9039,24 @@ function restoreMockupSelection(event) {
   clearCanvasSelection();
 }
 
+function handleMockupWheel(event) {
+  if (!isSourceSchemaTemplate.value) return;
+  const screen = phoneRef.value?.querySelector?.(".phone-screen");
+  if (!screen || screen.scrollHeight <= screen.clientHeight) return;
+  event.preventDefault();
+  event.stopPropagation();
+  screen.scrollTop += event.deltaY;
+}
+
+function restorePhoneScreenScroll() {
+  nextTick(() => {
+    const screen = phoneRef.value?.querySelector?.(".phone-screen");
+    if (!screen) return;
+    screen.scrollTop = 0;
+    screen.scrollLeft = 0;
+  });
+}
+
 function selectTemplate(templateId, options = {}) {
   const { inspectorTab = "components" } = options;
   selectedInspectorTab.value = inspectorTab;
@@ -8746,15 +9231,7 @@ function openRe1999HomePanel(panel) {
   if (routes[panel]) selectTemplate(routes[panel], { inspectorTab: "pages" });
 }
 
-function openRocomHomePanel(panel) {
-  rocomHomePanel.value = panel;
-  const routes = {
-    news: "rocom-news",
-    pet: "rocom-pet",
-    media: "rocom-media",
-  };
-  if (routes[panel]) selectTemplate(routes[panel], { inspectorTab: "pages" });
-}
+
 
 function openHpmaHomePanel(panel) {
   hpmaHomePanel.value = panel;
@@ -8890,7 +9367,8 @@ function defaultTemplateForStyle(styleId = selectedStyleId.value) {
 }
 
 function templateExistsForCurrentStyle(templateId) {
-  return currentTemplatePages.value.some((template) => template.id === templateId);
+  const scopedPages = currentDemoPages.value.length ? currentDemoPages.value : currentTemplatePages.value;
+  return scopedPages.some((template) => template.id === templateId);
 }
 
 function routeForCurrentState() {
@@ -9016,7 +9494,12 @@ async function loadRuntimeBrandPreviews() {
     const contentType = response.headers.get("content-type") || "";
     if (!contentType.includes("application/json")) return;
     const registry = await response.json();
-    const entries = Array.isArray(registry.brands) ? registry.brands : [];
+    const entries = Array.isArray(registry.brands) ? [...registry.brands] : [];
+    // Dango is intentionally loaded as an implementation draft while it remains
+    // outside the public registry. Blind QA decides whether it may be registered.
+    if (!entries.some((entry) => entry?.id === "dango")) {
+      entries.unshift({ id: "dango", path: "/brand-previews/dango.json", draftOnly: true });
+    }
     const previews = [];
     const recipes = {};
     const pagesByStyle = {};
@@ -9086,6 +9569,13 @@ function normalizeRuntimePreset(preset, preview = {}) {
       ...(preset.style || {}),
     },
     signals: Array.isArray(preset.signals) ? preset.signals : [],
+    learningProof: {
+      status: preview.status || "unreported",
+      standardDemo: Boolean(preview.standardDemo),
+      businessApply: Boolean(preview.businessApply),
+      blockers: Array.isArray(preview.mustVerifyBeforeApply) ? preview.mustVerifyBeforeApply : [],
+      ...(preview.learningProof || {}),
+    },
     runtimePreview: true,
   };
 }
@@ -9101,16 +9591,26 @@ function normalizeRuntimeRecipe(recipe = {}) {
 
 function normalizeRuntimePages(styleId, pages = []) {
   const input = Array.isArray(pages) && pages.length ? pages : [];
-  const normalized = input.map((page, index) => ({
-    id: page.id || `${styleId}-${index === 0 ? "home" : `page-${index + 1}`}`,
-    side: page.side || (index === 0 ? "distribution" : index === input.length - 1 ? "publish" : "display"),
-    tab: page.tab || page.name || "页面",
-    name: page.name || page.tab || "页面",
-    description: page.description || "标准 demo 预览页：用真实页面结构承接风格能力，不等同业务项目临时 preview。",
-    kind: page.kind,
-    layoutRecipe: page.layoutRecipe || "",
-    components: Array.isArray(page.components) && page.components.length ? page.components : ["NavigationBar", "HeroHeader", "Card", "Button"],
-  }));
+  const normalized = input.map((page, index) => {
+    const sectionComponents = Array.isArray(page.sections)
+      ? page.sections
+          .map((section) => section?.component)
+          .filter((component) => typeof component === "string" && component.trim())
+      : [];
+    return {
+      ...page,
+      id: page.id || `${styleId}-${index === 0 ? "home" : `page-${index + 1}`}`,
+      side: page.side || (index === 0 ? "distribution" : index === input.length - 1 ? "publish" : "display"),
+      tab: page.tab || page.name || "页面",
+      name: page.name || page.tab || "页面",
+      description: page.description || "标准 demo 预览页：用真实页面结构承接风格能力，不等同业务项目临时 preview。",
+      kind: page.kind,
+      layoutRecipe: page.layoutRecipe || "",
+      shell: page.shell && typeof page.shell === "object" ? page.shell : {},
+      sections: Array.isArray(page.sections) ? page.sections : [],
+      components: Array.isArray(page.components) && page.components.length ? page.components : [...new Set(sectionComponents)],
+    };
+  });
   if (normalized.length) return normalized;
   return [
     { id: `${styleId}-home`, side: "distribution", tab: "首页", name: "首页", description: "官网/品牌首页预览：检查首屏、分发入口和主行动。", components: ["NavigationBar", "HeroHeader", "Grid", "Tabs", "Feed", "Button"] },
@@ -9154,4 +9654,6 @@ watch([selectedTemplateId, selectedInspectorTab, selectedStyleId, selectedStyleC
   syncRouteToLocation();
   nextTick(syncMockupHoverLabels);
 });
+
+watch([selectedStyleId, selectedTemplateId], restorePhoneScreenScroll);
 </script>

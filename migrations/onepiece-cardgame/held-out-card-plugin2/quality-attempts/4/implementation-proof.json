@@ -1,0 +1,72 @@
+{
+  "schema": "brand-host-minimal-visual-experiment-proof/v1",
+  "attempt": 4,
+  "route": "pages/plaza/index",
+  "direction": "plaza-minimal-experiment-direction.json",
+  "incidentRetro": "quality-attempts/4/incident-retro.json",
+  "implementation": {
+    "editedFiles": [
+      "frontend/src/styles/onepiece-cardgame-heldout-theme.scss"
+    ],
+    "vueSfcEdited": false,
+    "styleSha256": "559c966efea09b717dbad806d388a6f3a740051de9a59fa6d4a55f41c7da49e1",
+    "surface": "warm-white map-paper pseudo-surface dominates the browse canvas; navy is confined to masthead/navigation",
+    "geometry": "square/2px content islands, search, taxonomy, campaign strip, event rows and campaign controls",
+    "colorRoles": {
+      "navy": "masthead, navigation and structural card rail",
+      "warmWhite": "canvas and content islands",
+      "yellow": "selected tabs and selected taxonomy only",
+      "red": "masthead rule, section rail, live/action markers only"
+    },
+    "composition": "compact masthead and taxonomy followed by an editorial campaign strip and immediately visible first content item",
+    "businessContentChanged": false,
+    "pokemonDataOrMediaChanged": false,
+    "otherRoutesChanged": false,
+    "heroAdded": false,
+    "screenshotCropUsed": false
+  },
+  "structural": {
+    "baselineSha256": "289ada8d12b6bd8cc95742648485942675fafd593c842d4ce6bc5d72c4efd8b8",
+    "manifestSha256": "4f39aca5f1dc243a2e250d9117816575a2bc1a4449b542719f238f31c6b88449",
+    "plazaStructuralDiff": "PASS",
+    "templateAndScriptUnchanged": true
+  },
+  "runtimeSelfCheck": {
+    "preview": "http://localhost:10092/#/pages/plaza/index",
+    "mobile390x844": {
+      "searchVisible": true,
+      "taxonomyPresent": true,
+      "firstDeckTop": 422,
+      "firstDeckVisible": true,
+      "bodyHorizontalOverflow": 0,
+      "rootHorizontalOverflow": 0
+    },
+    "desktop1280x720": {
+      "searchTop": 150,
+      "firstDeckTop": 407,
+      "firstDeckVisible": true,
+      "bodyHorizontalOverflow": 0,
+      "wideViewportScale": 0.5
+    },
+    "eventBranch": {
+      "mobileCampaignIslandHeight": 294,
+      "firstEventTop": 459,
+      "firstEventVisible": true,
+      "largeHeroIntroduced": false
+    },
+    "interactions": {
+      "enterSwitchToEvent": "PASS",
+      "spaceSwitchToDeck": "PASS",
+      "searchQuery": "喷火龙",
+      "searchResultCount": 1,
+      "existingNavigationAndTapHandlersChanged": false
+    }
+  },
+  "verification": {
+    "heldOutBuild": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER",
+    "previewPort": 10092,
+    "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT"
+  },
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

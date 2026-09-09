@@ -1,0 +1,70 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "goalContractPath": "migrations/dango/goal-contract.json",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "attempt": 2,
+  "status": "fidelity-pass",
+  "overallScore": 98.75,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 75,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "introduction",
+      "demoPageId": "dango-introduction-calibration",
+      "score": 97.5,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "button",
+      "demoPageId": "dango-button-calibration",
+      "score": 100,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 4,
+        "brandRecognition": 4
+      }
+    }
+  ],
+  "protocolFailures": [],
+  "hardFailures": [],
+  "blockingFindings": [],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-pass",
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+    "qaInputManifest": "87721a7a4de8111bdcf3b96db7aa05182f6067170c68892159de2efc87ba07a4",
+    "assessment": "05a07182a0e0d4e6588983b4d5bded76253ff9bfca9dcc2a09fbe06559a0a588",
+    "visualPatternInventory": "108aae35963e46518afc542e24ae9b8a784bed0949e0190322113734dfa11cf4",
+    "generativeProof": "52c0d6e706119c3c37c9c89b701bd0dd322587df606c58ad9469c52958d27333"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-09-05T17:12:18.826Z"
+}

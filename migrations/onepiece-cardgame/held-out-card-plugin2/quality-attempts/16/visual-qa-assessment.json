@@ -1,0 +1,76 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 16,
+  "route": "pages/build/index",
+  "role": "fresh-independent-brand-visual-business-qa",
+  "readOnly": true,
+  "producerEvidenceConsumed": false,
+  "viewports": [
+    "390x844",
+    "536x864",
+    "1280x720"
+  ],
+  "verdict": "REWORK",
+  "workflowCompletion": "REWORK",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "PASS",
+  "visualSystemConformance": "REWORK",
+  "summary": "The Build minimal experiment establishes the intended ONE PIECE editorial workbench and preserves the deck-building flow, but it cannot pass while the required environment value is invisible, the same selector lacks keyboard parity, and the requested disabled publish state is absent.",
+  "passes": [
+    "All three viewports render with zero document horizontal overflow.",
+    "Warm paper, compact navy header, single search, ruled rectangular filters/pool/tray/sheet, red publish and yellow selected states are visually coherent.",
+    "No pill controls, Hero, or unsupported decorative media were detected.",
+    "List/grid switches restore correctly with Enter and Space.",
+    "Filters expand/collapse with Enter and Space; type filtering changes 41 cards to 17 and resets to 41.",
+    "Search for 超梦 returns one matching card.",
+    "Card quantity can be reduced from 60/60 to 59/60 with Enter and restored to 60/60 with Space.",
+    "Invalid publish retains the sheet and exposes visible validation feedback.",
+    "Draft save changes only isolated local storage, closes the sheet, and exposes success feedback.",
+    "Publish sheet opens and closes; pointer opens the environment wheel.",
+    "Visible focus ring is present on primary publish controls.",
+    "Reduced-motion media query is active in every fresh context.",
+    "No external non-GET request was observed; all five other routes have zero horizontal overflow.",
+    "detail, mine, event and round fresh hashes match the frozen implementation proof; Plaza is fresh-captured and unedited."
+  ],
+  "blockingFindings": [
+    {
+      "id": "BUILD_ENV_VALUE_INVISIBLE",
+      "owner": "Host Implementation Agent",
+      "severity": "P0",
+      "observed": "标准赛制-18.0 is present but not visible inside the environment field at 390, 536 and 1280.",
+      "measured": "Text rgb(255,255,255) on field rgb(255,255,255).",
+      "requiredFix": "Restore readable navy/dark environment text in default, expanded, selected and focus states without changing field content/order."
+    },
+    {
+      "id": "BUILD_ENV_KEYBOARD_DOUBLE_TOGGLE",
+      "owner": "Host Implementation Agent",
+      "severity": "P0",
+      "observed": "Pointer opens the environment wheel, but Enter and Space immediately finish with aria-expanded=false and no visible wheel across all viewports.",
+      "requiredFix": "Provide one activation path per gesture so pointer, Enter and Space each open/close exactly once; fresh-test selection and confirmation."
+    },
+    {
+      "id": "BUILD_DISABLED_STATE_ABSENT",
+      "owner": "Host Implementation Agent",
+      "severity": "P1",
+      "observed": "The red publish action remains fully active before required fields are valid and exposes no disabled semantics or visible disabled state.",
+      "requiredFix": "Implement the approved disabled/readiness state while preserving existing validation outcomes, then verify invalid, ready, success and failure states."
+    }
+  ],
+  "freshArtifacts": {
+    "browserProbes": "browser-probes.json",
+    "screenshots": [
+      "fresh-390x844-build-default.png",
+      "fresh-536x864-build-default.png",
+      "fresh-1280x720-build-default.png",
+      "fresh-390x844-build-sheet.png",
+      "fresh-536x864-build-sheet.png",
+      "fresh-1280x720-build-sheet.png"
+    ],
+    "comparison": "comparison.json"
+  },
+  "failureRoute": {
+    "returnTo": "Host Implementation Agent",
+    "freshQaRequired": true,
+    "reuseThisVerdict": false
+  }
+}

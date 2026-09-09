@@ -1,0 +1,37 @@
+{
+  "schema": "mockup-indicator-implementation-probe/v1",
+  "attempt": 15,
+  "change": {
+    "file": "src/styles.css",
+    "selector": ".phone.template-phone:not(.template-phone--source-desktop):not(.template-phone--source-mobile-proof) > .mock-home-indicator--outer",
+    "before": { "left": "var(--mockup-frame-border-scaled)", "right": "var(--mockup-frame-border-scaled)" },
+    "after": { "left": "0", "right": "0" }
+  },
+  "browserProbes": {
+    "viewports": [
+      { "width": 1184, "height": 933, "screenWidths": [371], "geometryDeltaPx": { "x": 0, "width": 0, "bottom": 0, "tabGap": 0 } },
+      { "width": 777, "height": 848, "screenWidths": [244], "geometryDeltaPx": { "x": 0, "width": 0, "bottom": 0, "tabGap": 0 } }
+    ],
+    "routes": [
+      "#/brand/pokemon-tcg-official/style/color",
+      "#/brand/pokemon-tcg-official/style/button",
+      "#/brand/pokemon-tcg-official/components/navigation-bar",
+      "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "#/brand/onepiece-cardgame/pages/onepiece-cardgame-home"
+    ],
+    "tabBarState": "Style and Component routes retain a continuous opaque surface with 0px seam.",
+    "noTabBarState": "Pokémon and ONE PIECE home routes retain rgba(0,0,0,0) and background-image:none.",
+    "radius": {
+      "wide": "0px 0px 31.5936px 31.5936px",
+      "narrow": "0px 0px 20.8192px 20.8192px",
+      "source": "--mockup-screen-radius-scaled"
+    },
+    "proofModes": {
+      "proof=1": { "display": "none", "width": 0, "height": 0 },
+      "proof=desktop": { "display": "none", "width": 0, "height": 0 },
+      "proof=mobile": { "display": "none", "width": 0, "height": 0 }
+    }
+  },
+  "implementationStatus": "ready-for-independent-visual-qa",
+  "visualQaVerdict": "not-assigned-by-implementation-agent"
+}

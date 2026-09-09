@@ -1,0 +1,135 @@
+{
+  "schema": "onepiece-footer-blind-qa-receipt/v1",
+  "attempt": 10,
+  "agentRole": "Blind QA / TPP",
+  "observedAt": "2026-09-01T19:44:23+08:00",
+  "liveUrl": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+  "verdict": "FAIL",
+  "blockingOwner": "Home footer responsive geometry / spatial-composition owner",
+  "firstFail": {
+    "check": "spatial composition and normalized layer hierarchy",
+    "reason": "The phone translation becomes a tall pale field with compressed foreground cards and a lowered character; the visible source hierarchy is not preserved."
+  },
+  "inputsRead": [
+    "migrations/onepiece-cardgame/footer-motion-evidence-v10.json",
+    "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+    "migrations/onepiece-cardgame/brand-evidence.json",
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+    "migrations/onepiece-cardgame/demo-screenshot-manifest.json",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-00-before-entry.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png",
+    "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png"
+  ],
+  "viewports": {
+    "source": { "width": 1280, "height": 720 },
+    "demoCapture": { "width": 1164, "height": 655 },
+    "phone": { "width": 243.8707, "height": 528 }
+  },
+  "checks": {
+    "noPaleDiagonalPoster": "fail",
+    "eightLayerSpatialHierarchy": "fail",
+    "allRequiredVisualStates": "fail-at-500ms-spatial-visibility",
+    "finiteInItemSwap": "pass",
+    "loopDurations": "pass",
+    "loopOnlyPause": "pass",
+    "phoneScrollAndFonts": "pass"
+  },
+  "spatialMetrics": {
+    "sourceRelativeToOrganism": {
+      "card01Height": 0.3988,
+      "card02Height": 0.2012,
+      "card03Height": 0.2096,
+      "characterTop": 0.0,
+      "characterHeight": 1.0,
+      "catchWidth": 0.1615,
+      "logoWidth": 0.4292
+    },
+    "liveRelativeToOrganism": {
+      "card01Height": 0.1156,
+      "card02Height": 0.0605,
+      "card03Height": 0.0616,
+      "characterTop": 0.22,
+      "characterHeight": 0.78,
+      "catchWidth": 0.32,
+      "logoWidth": 0.66
+    }
+  },
+  "motionTelemetry": {
+    "at120ms": {
+      "footerHasIsIn": true,
+      "backgroundOpacity": 0.0507649,
+      "characterOpacity": 0,
+      "inItemAnimations": ["opcg-footer-in-card", "opcg-footer-in-item"],
+      "inItemDurations": ["0.6s", "0.8s"],
+      "inItemIterationCounts": ["1", "1"]
+    },
+    "at500ms": {
+      "backgroundOpacity": 0.513705,
+      "characterOpacity": 0.802895,
+      "characterVisuallyPresentInPhoneSlice": false
+    },
+    "loops": {
+      "durations": ["5s", "8s", "8s"],
+      "iterationCounts": ["infinite", "infinite", "infinite"],
+      "lateTransformsDiffer": true
+    },
+    "pause": {
+      "frozenForMs": 1200,
+      "allThreeTransformsIdentical": true,
+      "revealLayersStayedSettled": true,
+      "inItemStayedTerminal": true
+    }
+  },
+  "regressionProbe": {
+    "phoneScrollHeight": 3223,
+    "phoneClientHeight": 528,
+    "returnedToScrollTop": 0,
+    "documentFontsStatus": "loaded",
+    "fontChecks": {
+      "Alfa Slab One": true,
+      "Noto Serif": true,
+      "Poppins": true,
+      "Oswald": true
+    },
+    "consoleWarningsOrErrors": 0
+  },
+  "artifacts": [
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-seq-pre-entry.png",
+      "sha256": "723bf6c5fd789d92f24f73ab97cc2ca3796ddc770cb2d62bd82ab2c85e8b8b0d"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-seq-120ms.png",
+      "sha256": "9c72dafa584dea427393e183319664e8ff9ececf60f5b5d4c307ff7ef7dfe45d"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-seq-500ms.png",
+      "sha256": "ef55bfdab8f20ee6d4cd83cb5945b9e906fbe57b3f7f2c7a0ddddf9a189d590e"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-settled-comparable.png",
+      "sha256": "e062ab5e92269e3b92e724e0e596ca34c12f180fc0af83f19131a578ccebe1b0"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-late.png",
+      "sha256": "3a91b4170d6a32249145e509e636d1d83666d273d52ab226e4f19214c6e1fade"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-paused.png",
+      "sha256": "a3d0617f47187ca9a7673039fa501b9c01220693d36ab5d844aeffe01d4e56f2"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/captures/live-home-top.png",
+      "sha256": "297df4d6e362da8b099a7c2c52d6b2fb1ae403972231c6cafb088b4b6f218aab"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/quality-attempts/10/comparisons/footer-spatial.png",
+      "sha256": "31c27561d2ade8dd3288c2b718cac2294e5fc2bc8ec2569648c335f247e0bdb2"
+    }
+  ]
+}

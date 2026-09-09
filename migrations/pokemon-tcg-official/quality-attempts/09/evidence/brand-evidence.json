@@ -1,0 +1,126 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "scope": "homepage Pokémon TCG Live section only",
+  "method": "screenshot-first -> continuous scroll frames -> visible DOM -> computed style -> loaded asset identity",
+  "status": "PASS_WITH_WARNINGS",
+  "goalCoverage": [
+    {"id":"section-boundary","status":"proved","claimRefs":["live-layout-desktop","live-layout-mobile","live-background"]},
+    {"id":"background-and-seams","status":"proved","claimRefs":["live-background"]},
+    {"id":"copy-and-cta","status":"proved","claimRefs":["live-copy-desktop","live-copy-mobile","live-cta-hover","live-cta-click"]},
+    {"id":"visible-assets","status":"proved","claimRefs":["live-assets"]},
+    {"id":"responsive-order","status":"proved","claimRefs":["live-layout-desktop","live-layout-mobile"]},
+    {"id":"entry-motion","status":"proved","claimRefs":["live-entry-motion"]},
+    {"id":"background-motion","status":"not-observed","claimRefs":["live-background"]}
+  ],
+  "claims": [
+    {
+      "id": "live-layout-desktop",
+      "status": "observed",
+      "fact": "At 1440px the section is a 624px-high full-bleed band. The reading order is copy panel on the left and a layered device/character composition on the right; the DOM row is row--reverse.",
+      "capture": "captures/tcg-live-desktop-1440x1000-stable.png",
+      "captureSha256": "cd1c3fd8eac13167209d0969ecd351b21f2831fb635078c1d88c07e23a1006bc",
+      "region": {"x":0,"y":0,"width":1440,"height":624},
+      "visibleDomState": {"selector":".tcgl-callout","state":"settled, vp classes initialized; .row.row--vertical-center.row--reverse"},
+      "computed": {"section":{"width":"1440px","height":"624px","padding":"32px 0 54px"},"content":{"x":12,"y":142.59,"width":696,"height":316.5,"padding":"50px 72px","backgroundColor":"rgba(0, 0, 0, 0.7)"},"imageGroup":{"x":612,"y":31.84,"width":778,"height":538,"margin":"0 38px 0 -120px"}}
+    },
+    {
+      "id": "live-layout-mobile",
+      "status": "observed",
+      "fact": "At 390px the same section is 644.625px high and remains full-bleed. The asset composition is first, followed by a full-width opaque-black copy panel. The next Pocket section is visible immediately after the black panel.",
+      "capture": "captures/tcg-live-mobile-390x844-stable.png",
+      "captureSha256": "37b814b2bbb0e447da2699aee8870acffa6bc0c2268124454ede275ae7862d2f",
+      "region": {"x":0,"y":2.75,"width":390,"height":644.625},
+      "visibleDomState": {"selector":".tcgl-callout","state":"settled and onscreen; image group before absolutely positioned content panel"},
+      "computed": {"section":{"width":"390px","height":"644.625px","padding":"32px 0 54px"},"imageGroup":{"x":8,"width":374,"height":258.625,"marginBottom":"300px"},"content":{"x":0,"width":390,"height":"312.195px English / 314.195px translated capture","position":"absolute","padding":"30px","backgroundColor":"rgb(0, 0, 0)"}}
+    },
+    {
+      "id": "live-background",
+      "status": "observed",
+      "fact": "The section is not a pure red field. Its own full-width background is the tcgl-background raster: light gray hexagonal texture plus a red-and-gold chevron/header seam at the top. No background animation or computed transform was observed. The lower seam is a hard transition into the pale-blue Pocket section.",
+      "capture": "captures/tcg-live-desktop-1440x1000-stable.png",
+      "captureSha256": "cd1c3fd8eac13167209d0969ecd351b21f2831fb635078c1d88c07e23a1006bc",
+      "region": {"x":0,"y":0,"width":1440,"height":624},
+      "visibleDomState": {"selector":".tcgl-callout","state":"settled; background visibly fills section"},
+      "computed": {"backgroundColor":"rgba(0, 0, 0, 0)","backgroundImage":"image-set(url(https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg) 1dppx, url(https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background-2x.jpg) 2dppx)","transform":"none"}
+    },
+    {
+      "id": "live-copy-desktop",
+      "status": "observed",
+      "fact": "Desktop copy is a centered H2, one paragraph, and one white CTA inside a 70%-black rectangular panel. There is no separate visible kicker.",
+      "capture": "captures/tcg-live-desktop-1440x1000-stable.png",
+      "captureSha256": "cd1c3fd8eac13167209d0969ecd351b21f2831fb635078c1d88c07e23a1006bc",
+      "region": {"x":12,"y":142.59,"width":696,"height":316.5},
+      "visibleDomState": {"selector":".tcgl-callout__content","state":"settled; h2 + p + a.button--white visible"},
+      "computed": {"h2":{"fontFamily":"Kanit, sans-serif","fontSize":"40px","fontWeight":"700","lineHeight":"44px","letterSpacing":"1.25px","color":"rgb(255, 255, 255)"},"paragraph":{"fontFamily":"PT Sans, sans-serif","fontSize":"18px","fontWeight":"400","lineHeight":"28.8px","color":"rgb(255, 255, 255)"},"cta":{"fontFamily":"PT Sans, sans-serif","fontSize":"20px","fontWeight":"700","lineHeight":"24px","letterSpacing":"0.83px","height":"56px","padding":"16px 40px","borderRadius":"2px"}}
+    },
+    {
+      "id": "live-copy-mobile",
+      "status": "observed",
+      "fact": "At 390px English source copy remains centered. H2 is one line at 28px, paragraph is five 28.8px lines in a 330px content width, and CTA is 51.297px high.",
+      "capture": "captures/tcg-live-mobile-390x844-stable.png",
+      "captureSha256": "37b814b2bbb0e447da2699aee8870acffa6bc0c2268124454ede275ae7862d2f",
+      "region": {"x":0,"y":330,"width":390,"height":317.375},
+      "visibleDomState": {"selector":".tcgl-callout__content","state":"settled; stable screenshot was browser-translated, English DOM/computed frozen before translation"},
+      "computed": {"h2":{"text":"POKÉMON TCG LIVE","width":"330px","height":"30.797px","fontFamily":"Kanit, sans-serif","fontSize":"28px","fontWeight":"700","lineHeight":"30.8px","letterSpacing":"0.99988px"},"paragraph":{"width":"330px","height":"143.984px","fontFamily":"PT Sans, sans-serif","fontSize":"18px","lineHeight":"28.8px"},"cta":{"text":"Learn More","width":"190.742px","height":"51.297px","fontSize":"18px","lineHeight":"22.5px","padding":"14.4px 36px"}}
+    },
+    {
+      "id": "live-assets",
+      "status": "observed",
+      "fact": "Five independently loaded transparent raster assets form the composition: laptop is the large back plane; Pikachu overlaps its lower-left edge; phone overlaps the lower-right; two avatar hexagons float above the laptop. They are not one flattened screenshot.",
+      "capture": "captures/tcg-live-desktop-1440x1000-stable.png",
+      "captureSha256": "cd1c3fd8eac13167209d0969ecd351b21f2831fb635078c1d88c07e23a1006bc",
+      "region": {"x":612,"y":31.84,"width":778,"height":538},
+      "visibleDomState": {"selector":".image-group--tcgl img","state":"five complete visible IMG nodes; opacity 1 settled"},
+      "computed": {"desktop":{"laptop":{"rect":[730,153.84,657,387.63],"src":"/assets/img/home/tcgl/laptop.png","natural":[661,390]},"pikachu":{"rect":[612,291.84,279,275.01],"src":"/assets/img/home/tcgl/pikachu.png","natural":[280,276]},"phone":{"rect":[1211.99,287.84,132,274],"src":"/assets/img/home/tcgl/phone.png","natural":[132,274]},"avatar1":{"rect":[1077,78.84,134,115.14],"src":"/assets/img/home/tcgl/avatar-1.png","natural":[135,116]},"avatar2":{"rect":[1211.99,31.84,169,146.87],"src":"/assets/img/home/tcgl/avatar-2.png","natural":[168,146]}},"mobile":{"groupWidth":"374px","laptop":"315.828x186.336","pikachu":"134.117x132.195","phone":"63.453x131.711","avatar1":"64.414x55.344","avatar2":"81.234x70.594"}}
+    },
+    {
+      "id": "live-entry-motion",
+      "status": "observed",
+      "fact": "Default offscreen state hides the child content. On viewport entry, laptop uses pop (opacity 0, scale .5 -> opacity 1, scale 1); heading uses downward slide (opacity 0, translateY 15.398px -> opacity 1, 0); paragraph and CTA use the same slide with staggered delays and larger initial translate values. Pikachu, phone and avatars also carry stagger classes. Incremental scroll—not a direct jump—was required to trigger the viewport controller reliably.",
+      "capture": "captures/tcg-live-mobile-motion-before.png",
+      "captureSha256": "521ea43497d939bb92917ae11743b0a936883fb53a52f80920ba6fdfc1600535",
+      "region": {"x":0,"y":0,"width":390,"height":844},
+      "visibleDomState": {"selector":".tcgl-callout","state":"before-entry class absent -> initialized/onscreen after incremental scroll; child classes vp-pop, vp-slide, vp-delay-2/4/5/6"},
+      "computed": {"before":{"heading":{"opacity":"0","transform":"translateY(15.3984px)"},"paragraph":{"opacity":"0","transform":"translateY(71.9922px)"},"cta":{"opacity":"0","transform":"translateY(25.6484px)"},"laptop":{"opacity":"0","transform":"scale(0.5)"}},"settled":{"heading":{"opacity":"1","transform":"matrix(1,0,0,1,0,0)"},"paragraph":{"opacity":"1","transform":"matrix(1,0,0,1,0,0)"},"cta":{"opacity":"1","transform":"matrix(1,0,0,1,0,0)"},"laptop":{"opacity":"1","transform":"matrix(1,0,0,1,0,0)"}}},
+      "additionalCaptures":["captures/tcg-live-mobile-motion-transition.png","captures/tcg-live-mobile-motion-transition-250ms.png","captures/tcg-live-mobile-motion-settled.png"]
+    },
+    {
+      "id": "live-cta-hover",
+      "status": "observed",
+      "fact": "CTA hover changes the text/icon foreground from black to gold while its white background layer remains white.",
+      "capture": "captures/tcg-live-mobile-390x844-stable.png",
+      "captureSha256": "37b814b2bbb0e447da2699aee8870acffa6bc0c2268124454ede275ae7862d2f",
+      "region": {"x":108.3,"y":558.28,"width":173.4,"height":51.3},
+      "visibleDomState": {"selector":".tcgl-callout .button--white","state":"pointer default -> hover"},
+      "computed": {"default":{"color":"rgb(0, 0, 0)","backgroundLayer":"rgb(255, 255, 255)"},"hover":{"color":"rgb(226, 186, 101)","backgroundLayer":"rgb(255, 255, 255)"}}
+    },
+    {
+      "id": "live-cta-click",
+      "status": "observed",
+      "fact": "Clicking Learn More navigates to the official TCG Live overview at /en-us/tcgl/.",
+      "capture": "captures/tcg-live-mobile-390x844-stable.png",
+      "captureSha256": "37b814b2bbb0e447da2699aee8870acffa6bc0c2268124454ede275ae7862d2f",
+      "region": {"x":108.3,"y":558.28,"width":173.4,"height":51.3},
+      "visibleDomState": {"selector":"a.button.button--white","state":"before URL https://tcg.pokemon.com/en-us/ -> after URL https://tcg.pokemon.com/en-us/tcgl/"},
+      "computed": {"href":"../en-us/tcgl/","display":"inline-block","pointerTargetHeight":"51.296875px mobile / 56px desktop"}
+    }
+  ],
+  "renderedAssetInventory": [
+    {"role":"section-background-and-top-seam","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg","highDpiUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background-2x.jpg","observed":"validated"},
+    {"role":"primary-device-back-plane","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png","highDpiUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/laptop-2x.png","naturalSize":[661,390],"observed":"validated"},
+    {"role":"foreground-character","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png","highDpiUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/pikachu-2x.png","naturalSize":[280,276],"observed":"validated"},
+    {"role":"secondary-device","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/phone.png","highDpiUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/phone-2x.png","naturalSize":[132,274],"observed":"validated"},
+    {"role":"floating-avatar-left","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png","highDpiUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1-2x.png","naturalSize":[135,116],"observed":"validated"},
+    {"role":"floating-avatar-right","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png","highDpiUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2-2x.png","naturalSize":[168,146],"observed":"validated"}
+  ],
+  "thirdPartySeedDispositions": [],
+  "warnings": [
+    "Chrome auto-translation changed the stable screenshot copy to Chinese after initial English capture. Structural/asset evidence remains valid; exact English copy geometry is taken from the pre-translation visible DOM/computed snapshot, not inferred from the translated pixels.",
+    "The requested label 'red TCG Live section' is visually misleading: red is only the top chevron portion of the section background asset; the dominant field is light gray honeycomb and the copy panel is black.",
+    "No separate kicker was visible. Do not invent one.",
+    "No background motion was observed."
+  ],
+  "handoffBlockers": []
+}

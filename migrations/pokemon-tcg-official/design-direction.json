@@ -1,0 +1,43 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "pokemon-tcg-official",
+  "scope": "goal:pokemon-tcg-official-cold-start-v2 pages:home|card-database|how-to-play|held-out",
+  "designObjective": "Preserve the purpose-specific Home campaign, Card Database task, and Learn instructional systems across desktop and phone, then prove the learned structural language on a source-independent held-out page without inventing unsupported brand roles.",
+  "decisionStatus": "approved",
+  "inputBindings": {
+    "goal": {"id": "pokemon-tcg-official-cold-start-v2", "path": "migrations/pokemon-tcg-official/goal-contract-v2.json", "sha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"},
+    "evidence": {"path": "migrations/pokemon-tcg-official/brand-evidence.json", "sha256": "ef8123934f5cc4fc76113db18a0141ab0e373436755581b284297fd6969e6771"},
+    "intent": {"path": "migrations/pokemon-tcg-official/brand-intent.json", "sha256": "d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac"},
+    "patterns": {"path": "migrations/pokemon-tcg-official/approved-visual-patterns.json", "sha256": "6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba"}
+  },
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "official background and high-salience asset identity",
+    "layered campaign composition",
+    "interaction truth and operability",
+    "responsive geometry",
+    "protocol completeness"
+  ],
+  "sections": [{
+    "id": "home-campaign-stage",
+    "firstImpressionGoal": "A tall, cinematic Pokémon campaign fills the phone width; the focal Pokémon artwork dominates while the logo, featured card, CTA and controls remain separately readable.",
+    "mustPreserve": ["black navigation cap", "official mobile campaign artwork", "campaign logo", "authentic featured card", "CTA", "carousel controls", "layered reading order"],
+    "mayChange": ["crop window", "layer coordinates", "desktop-to-mobile ordering", "decorative overflow"],
+    "mustNotDo": ["uniformly shrink the complete PC canvas", "use source screenshots as runtime assets", "hide required layers", "leave white text on a missing background", "create horizontal page overflow"]
+  }],
+  "highSalienceElements": ["hero navigation", "hero background", "campaign logo", "featured card", "primary CTA", "carousel controls"],
+  "responsiveStrategyMatrix": [
+    {"element": "hero navigation", "elementType": "control", "strategy": "structural-substitution", "evidenceRefs": ["home-responsive-reflow"], "viewports": ["desktop", "390x844"], "mustPreserve": ["black cap", "brand entry", "menu access"], "minimumReadableSize": "14px / 44px target"},
+    {"element": "hero background", "elementType": "media", "strategy": "art-directed-crop", "evidenceRefs": ["home-stage-composition", "home-responsive-reflow"], "viewports": ["desktop", "390x844"], "mustPreserve": ["official asset identity", "central focal Pokémon", "vertical mobile crop"]},
+    {"element": "campaign logo", "elementType": "media", "strategy": "independent-scale", "evidenceRefs": ["home-stage-composition", "home-responsive-reflow"], "viewports": ["desktop", "390x844"], "mustPreserve": ["logo identity", "legibility", "separate layer"]},
+    {"element": "featured card", "elementType": "media", "strategy": "responsive-reflow", "evidenceRefs": ["home-stage-composition", "home-responsive-reflow"], "viewports": ["desktop", "390x844"], "mustPreserve": ["authentic full-card identity", "separate foreground layer"]},
+    {"element": "primary CTA", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["home-stage-composition", "home-responsive-reflow"], "viewports": ["desktop", "390x844"], "mustPreserve": ["campaign action hierarchy", "visible label", "operability"], "minimumReadableSize": "14px / 44px height"},
+    {"element": "carousel controls", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["home-carousel-next", "home-responsive-reflow"], "viewports": ["desktop", "390x844"], "mustPreserve": ["previous/next or equivalent navigation", "active campaign truth", "reversible state"], "minimumReadableSize": "14px / 44px target"}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "independent 1440x900 source/demo comparison",
+    "mobileCanvas": "independent 390x844 source/demo capture with full Hero scroll coverage",
+    "inspectorPolicy": "exclude sidebar, phone shell selection outline and inspector markers from fidelity crops",
+    "sourceComparison": "same-viewport side-by-side source and Demo, plus full-Hero mobile scroll sequence"
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision7",
+  "qaExecutionId": "/root/pokemon_home_indicator_blind_qa",
+  "status": "PASS",
+  "protocol": "PASS",
+  "incidentClosure": {
+    "code": "HOME_INDICATOR_LAYOUT_LEAK",
+    "status": "PASS",
+    "normalRoutes": "PASS",
+    "scrollGeometry": "PASS",
+    "bottomReachability": "PASS",
+    "proofModeIsolation": "PASS",
+    "shellPreservation": "PASS"
+  },
+  "threeProofVerdict": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "PASS",
+    "generativeProof": "PASS"
+  },
+  "regression": {
+    "hero": "PASS",
+    "news": "PASS",
+    "tcgLive": "PASS",
+    "pocket": "PASS",
+    "heldOut": "PASS"
+  },
+  "gates": "PASS",
+  "build": "PASS_WITH_NON_BLOCKING_CHUNK_SIZE_WARNING",
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "routing": "none"
+}

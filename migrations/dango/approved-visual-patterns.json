@@ -1,0 +1,463 @@
+{
+  "schema": "brand-approved-visual-patterns/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "status": "APPROVED_FOR_FROZEN_SCOPE",
+  "patterns": [
+    {
+      "id": "responsive-documentation-shell",
+      "status": "approved",
+      "scope": "Introduction and Button documentation pages",
+      "salience": "high",
+      "kind": "composition-layout",
+      "sourceAsset": {
+        "identity": "dango-docs-shell-dom-css",
+        "variant": "desktop-three-column-and-mobile-single-column"
+      },
+      "requiredLayers": [
+        {"id": "full-width utility header", "role": "global utilities"},
+        {"id": "desktop left navigation", "role": "local wayfinding"},
+        {"id": "central reading column", "role": "primary article"},
+        {"id": "desktop right outline", "role": "article scan"},
+        {"id": "mobile utility header", "role": "phone global utilities"},
+        {"id": "mobile inset reading column", "role": "phone primary article and reading order"}
+      ],
+      "preserves": [
+        "docs-shell"
+      ],
+      "observedFact": "Desktop uses a 56px full-width header plus left navigation, central reading area and right outline; at 390px the sidebars disappear and the article becomes a single inset reading column.",
+      "interpretation": "DangoUI documentation identity is a responsive technical reading system, not a desktop canvas scaled into a phone.",
+      "recommendation": "Reflow by information priority: retain header and article, remove secondary columns on phone, and preserve reading order.",
+      "visualFunction": "Separate global utilities, local navigation, primary reading and outline scanning into stable zones.",
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "evidenceRefs": [
+        "dango-docs-shell-desktop",
+        "dango-docs-shell-mobile-reflow",
+        "dango-button-page-shell"
+      ],
+      "suitableFor": [
+        "technical documentation",
+        "component reference",
+        "long-form system explanation"
+      ],
+      "notFor": [
+        "campaign landing page",
+        "generic business dashboard",
+        "desktop screenshot scaling"
+      ],
+      "allowedTransformations": [
+        "replace documentation subject and copy",
+        "hide secondary sidebars at narrow widths",
+        "change article length while preserving zone hierarchy"
+      ],
+      "forbiddenTransformations": [
+        "retain desktop sidebars through uniform scale-down",
+        "turn all zones into floating cards",
+        "treat mobile header/title occlusion as a required brand cue"
+      ],
+      "informationDensity": {
+        "desktop": "Dense navigation at the edges with a broad long-form reading column.",
+        "mobile": "One readable content column with secondary navigation removed, not miniaturized."
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "dango-docs-shell-dom-css",
+          "variant": "desktop-three-column-and-mobile-single-column",
+          "sourceKind": "dom-css-reconstruction"
+        },
+        "requiredLayers": [
+          {
+            "id": "full-width utility header",
+            "role": "global utilities",
+            "sourceRegion": [0, 0, 1, 0.062222],
+            "evidenceRefs": ["dango-docs-shell-desktop", "dango-docs-shell-mobile-reflow"]
+          },
+          {
+            "id": "desktop left navigation",
+            "role": "local wayfinding",
+            "sourceRegion": [0, 0.062222, 0.138889, 0.937778],
+            "evidenceRefs": ["dango-docs-shell-desktop", "dango-docs-active-navigation"]
+          },
+          {
+            "id": "central reading column",
+            "role": "primary article",
+            "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778],
+            "evidenceRefs": ["dango-docs-shell-desktop", "dango-button-page-shell"]
+          },
+          {
+            "id": "desktop right outline",
+            "role": "article scan",
+            "sourceRegion": [0.875, 0.062222, 0.125, 0.937778],
+            "evidenceRefs": ["dango-docs-shell-desktop"]
+          },
+          {
+            "id": "mobile utility header",
+            "role": "phone global utilities",
+            "sourceRegion": [0, 0, 1, 0.066351],
+            "evidenceRefs": ["dango-docs-shell-mobile-reflow"]
+          },
+          {
+            "id": "mobile inset reading column",
+            "role": "phone primary article and reading order",
+            "sourceRegion": [0.041026, 0.066351, 0.917949, 0.899],
+            "evidenceRefs": ["dango-docs-shell-mobile-reflow"]
+          }
+        ],
+        "responsiveContract": {
+          "desktop": "Keep header, left navigation, broad reading column and right outline as four independently observable zones.",
+          "mobile": "Hide both secondary sidebars and reflow the article into one 390px column with 16px content insets; do not uniformly scale the desktop shell.",
+          "sourceDefectBoundary": "The captured fixed-header/title occlusion is observed but is not an invariant and must not be used as a fidelity requirement."
+        },
+        "layerEvidencePolicy": "Each mobile source/demo layer must use its own bounded header or inset-article region. A whole-page [0,0,1,1] rectangle cannot prove mobile reflow.",
+        "forbiddenSubstitutions": [
+          "source screenshot as runtime asset",
+          "generic marketing hero",
+          "mobile desktop-scale replica"
+        ]
+      }
+    },
+    {
+      "id": "technical-content-hierarchy",
+      "status": "approved",
+      "scope": "Introduction article and held-out technical article structure",
+      "salience": "high",
+      "kind": "typography-density-surface",
+      "sourceAsset": {
+        "identity": "dango-introduction-technical-hierarchy",
+        "variant": "dom-text-and-diagram-surface"
+      },
+      "requiredLayers": [
+        {"id": "page-title", "role": "36px-document-title"},
+        {"id": "technical-flow-surface", "role": "wide-monospaced-process-model"},
+        {"id": "layer-explanation", "role": "dense-prose-and-layer-list"},
+        {"id": "continuation-sections", "role": "long-form-24px-section-rhythm"}
+      ],
+      "preserves": [
+        "content-hierarchy"
+      ],
+      "observedFact": "The Introduction article is led by a 36px/700 H1 and 24px/600 H2 headings. Its first high-salience explanatory object is a broad light-gray technical-flow surface containing monospaced process text; dense prose, a layer explanation and further sections continue below it.",
+      "interpretation": "The wide technical-flow object and the long title-to-model-to-detail rhythm are structural teaching devices, not optional decoration or a generic card-summary opportunity.",
+      "recommendation": "Keep the technical-flow surface horizontally dominant inside the reading column and preserve downstream long-form section rhythm; do not replace it with a small row of summary cards.",
+      "visualFunction": "Turn a long technical explanation into a wide process model followed by layered, multi-section reading.",
+      "sourceRegion": [
+        0.161111,
+        0.088889,
+        0.691667,
+        0.786
+      ],
+      "evidenceRefs": [
+        "dango-docs-type-hierarchy"
+      ],
+      "suitableFor": [
+        "documentation introduction",
+        "architecture explanation",
+        "held-out release or implementation guidance"
+      ],
+      "notFor": [
+        "marketing display page",
+        "visual asset gallery",
+        "uniform generic-card feed"
+      ],
+      "allowedTransformations": [
+        "change subject matter",
+        "change list length",
+        "reconstruct technical diagram with independent DOM/CSS"
+      ],
+      "forbiddenTransformations": [
+        "replace hierarchy with same-sized text",
+        "replace the wide monospaced technical-flow surface with generic cards",
+        "collapse the long-form article into a short summary",
+        "use a screenshot of the source diagram",
+        "claim an exact custom font family"
+      ],
+      "informationDensity": {
+        "mode": "long-form technical",
+        "readingOrder": [
+          "page title",
+          "proposition",
+          "technical model",
+          "layer explanation",
+          "detail sections"
+        ]
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "dango-introduction-technical-hierarchy",
+          "variant": "dom-text-and-diagram-surface",
+          "sourceKind": "dom-css-reconstruction"
+        },
+        "variantContract": {
+          "stableVariant": "multi-module-preview-code-api-theme",
+          "namingRule": "Source and calibration Demo must use this same DOM/CSS structural variant name; run, attempt and capture labels are provenance metadata and must never be embedded in variant.",
+          "allowsVariantReplacement": false
+        },
+        "translationPolicy": {
+          "authorization": "not-authorized-by-frozen-goal",
+          "reason": "goal-contract.json contains no mayTranslate entry for Button composition aspect or crop changes.",
+          "requiredDemoBehavior": "Use the same normalized aspect for the source and Demo comparison regions. If the full Demo region cannot match, select bounded like-for-like module regions without changing reading order or omitting required layers.",
+          "cropMode": "none",
+          "retainedFocalAndReadingOrder": ["purpose and import", "preview/code modules", "API reference", "theme reference"]
+        },
+        "requiredLayers": [
+          {
+            "id": "page-title",
+            "role": "36px-document-title",
+            "sourceRegion": [0.161111, 0.088889, 0.691667, 0.066875],
+            "evidenceRefs": ["dango-docs-type-hierarchy"]
+          },
+          {
+            "id": "technical-flow-surface",
+            "role": "wide-monospaced-process-model",
+            "sourceRegion": [0.161111, 0.22, 0.691667, 0.396667],
+            "evidenceRefs": ["dango-docs-type-hierarchy"]
+          },
+          {
+            "id": "layer-explanation",
+            "role": "dense-prose-and-layer-list",
+            "sourceRegion": [0.161111, 0.616667, 0.691667, 0.18],
+            "evidenceRefs": ["dango-docs-type-hierarchy"]
+          },
+          {
+            "id": "continuation-sections",
+            "role": "long-form-24px-section-rhythm",
+            "sourceRegion": [0.161111, 0.796667, 0.691667, 0.18],
+            "evidenceRefs": ["dango-docs-type-hierarchy"]
+          }
+        ],
+        "forbiddenSubstitutions": [
+          "source screenshot",
+          "campaign imagery",
+          "identical card wrappers around every layer"
+        ]
+      }
+    },
+    {
+      "id": "multi-module-button-reference",
+      "status": "approved",
+      "scope": "Frozen Button component-reference page",
+      "salience": "high",
+      "kind": "composition-density",
+      "sourceAsset": {
+        "identity": "dango-button-reference-dom-css",
+        "variant": "multi-module-preview-code-api-theme"
+      },
+      "requiredLayers": [
+        {"id": "purpose-and-import", "role": "component-context-and-setup"},
+        {"id": "preview-code-modules", "role": "multiple-live-preview-and-code-examples"},
+        {"id": "api-reference", "role": "downstream-component-api-reference"},
+        {"id": "theme-reference", "role": "downstream-theme-variable-reference"}
+      ],
+      "preserves": ["docs-shell", "content-hierarchy", "button-state-system"],
+      "observedFact": "The Button reading column is 4186.765625px tall and proceeds through title, purpose, import, live two-column preview/code examples, API and theme-variable material.",
+      "interpretation": "Reference-page identity depends on multiple technical modules and sustained vertical density; a single Primary Button specimen is insufficient structural evidence.",
+      "recommendation": "Build a multi-module calibration page and declare at least two independently reviewable QA sections: preview/code usage and downstream API/theme reference density.",
+      "visualFunction": "Progress from component purpose to executable examples and then to implementation reference material.",
+      "sourceRegion": [0.138889, 0, 0.736111, 1],
+      "evidenceRefs": ["dango-button-page-shell", "dango-primary-button"],
+      "suitableFor": ["DangoUI component reference", "technical component calibration"],
+      "notFor": ["single marketing card", "one-control-only specimen", "generic button gallery"],
+      "allowedTransformations": ["change component subject", "change example copy", "reflow preview/code columns on phone while retaining both"],
+      "forbiddenTransformations": ["collapse to one button example", "omit code context", "omit all downstream API/theme reference material", "replace modules with promotional cards"],
+      "informationDensity": {
+        "sourceMainHeight": "4186.765625px",
+        "requiredReadingOrder": ["title", "purpose", "import", "multiple examples", "API", "theme variables"],
+        "minimumIndependentQaSections": 2
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "dango-button-reference-dom-css",
+          "variant": "multi-module-preview-code-api-theme",
+          "sourceKind": "dom-css-reconstruction"
+        },
+        "requiredLayers": [
+          {
+            "id": "purpose-and-import",
+            "role": "component-context-and-setup",
+            "sourceRegion": [0.161111, 0.013378, 0.691667, 0.10],
+            "evidenceRefs": ["dango-button-page-shell"]
+          },
+          {
+            "id": "preview-code-modules",
+            "role": "multiple-live-preview-and-code-examples",
+            "sourceRegion": [0.161111, 0.113378, 0.691667, 0.50],
+            "evidenceRefs": ["dango-button-page-shell", "dango-primary-button"]
+          },
+          {
+            "id": "api-reference",
+            "role": "downstream-component-api-reference",
+            "sourceRegion": [0.161111, 0.613378, 0.691667, 0.19],
+            "evidenceRefs": ["dango-button-page-shell"]
+          },
+          {
+            "id": "theme-reference",
+            "role": "downstream-theme-variable-reference",
+            "sourceRegion": [0.161111, 0.803378, 0.691667, 0.18],
+            "evidenceRefs": ["dango-button-page-shell"]
+          }
+        ],
+        "acceptanceContract": {
+          "minimumIndependentQaSections": 2,
+          "requiredSectionRoles": ["preview-code-usage", "api-or-theme-reference-density"]
+        },
+        "forbiddenSubstitutions": ["source screenshot", "single-example summary", "marketing component cards"]
+      }
+    },
+    {
+      "id": "restrained-current-page-cue",
+      "status": "approved",
+      "scope": "Documentation left-navigation current-page state",
+      "salience": "high",
+      "kind": "color-state",
+      "preserves": [
+        "accent-semantics"
+      ],
+      "observedFact": "The current page is marked by rgb(88, 84, 255) text over a pale-purple rounded row with an 8px radius.",
+      "interpretation": "Purple is used as quiet wayfinding feedback here, not as a page-wide decorative field.",
+      "recommendation": "Keep the cue local to navigation and subordinate to content hierarchy.",
+      "visualFunction": "Show location without turning navigation into a dominant call-to-action.",
+      "sourceRegion": [
+        0.008333,
+        0.114444,
+        0.121528,
+        0.036111
+      ],
+      "evidenceRefs": [
+        "dango-docs-active-navigation"
+      ],
+      "suitableFor": [
+        "documentation current-page row"
+      ],
+      "notFor": [
+        "Primary Button",
+        "global page background",
+        "section title chrome",
+        "generic selected state"
+      ],
+      "allowedTransformations": [
+        "change navigation labels",
+        "move the current state to another row"
+      ],
+      "forbiddenTransformations": [
+        "use #7C66FF as an assumed substitute",
+        "expand purple across the whole sidebar",
+        "promote orange as current-page emphasis"
+      ],
+      "informationDensity": {
+        "mode": "one restrained current row among dense navigation"
+      }
+    },
+    {
+      "id": "compact-primary-action",
+      "status": "approved",
+      "scope": "Normal Primary Button component calibration",
+      "salience": "high",
+      "kind": "component-interaction",
+      "sourceAsset": {
+        "identity": "dango-primary-button-live-dom",
+        "variant": "normal-primary"
+      },
+      "requiredLayers": [
+        {"id": "solid-purple-control-surface", "role": "primary-action-fill"},
+        {"id": "white-label", "role": "control-label"},
+        {"id": "compact-32px-geometry", "role": "component-density"},
+        {"id": "visible-focus-outline", "role": "keyboard-focus"}
+      ],
+      "preserves": [
+        "accent-semantics",
+        "button-state-system"
+      ],
+      "observedFact": "The Primary Button is 77.15625×32px with white text, rgb(124, 102, 255) fill and 4px radius. Hover remains pixel-identical with no transform; focus adds an auto 1px outline, and click settles into the retained-focus state.",
+      "interpretation": "Primary action emphasis is compact and stable. State clarity comes from focus visibility rather than invented hover spectacle or activated recoloring.",
+      "recommendation": "Preserve component-scale geometry and the observed state sequence exactly for calibration; do not infer behavior for other variants.",
+      "visualFunction": "Provide a clear but compact primary action inside a technical component system.",
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "evidenceRefs": [
+        "dango-primary-button",
+        "dango-primary-button-hover-no-change",
+        "dango-primary-button-focus",
+        "dango-primary-button-activated"
+      ],
+      "suitableFor": [
+        "normal Primary Button",
+        "held-out action requiring the same component role"
+      ],
+      "notFor": [
+        "secondary or outline buttons",
+        "large marketing CTA",
+        "navigation selection",
+        "warning or destructive action"
+      ],
+      "allowedTransformations": [
+        "change button label while retaining role",
+        "change intrinsic width to fit a new short label"
+      ],
+      "forbiddenTransformations": [
+        "hover color shift",
+        "hover scale, lift or shadow",
+        "orange or red activation",
+        "pill radius",
+        "remove visible focus"
+      ],
+      "informationDensity": {
+        "mode": "compact inline control",
+        "height": "32px",
+        "radius": "4px"
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "dango-primary-button-live-dom",
+          "variant": "normal-primary",
+          "sourceKind": "dom-css-reconstruction"
+        },
+        "requiredLayers": [
+          {
+            "id": "solid-purple-control-surface",
+            "role": "primary-action-fill",
+            "sourceRegion": [0.008333, 0.058889, 0.053581, 0.035556],
+            "evidenceRefs": ["dango-primary-button"]
+          },
+          {
+            "id": "white-label",
+            "role": "control-label",
+            "sourceRegion": [0.015, 0.068, 0.04, 0.018],
+            "evidenceRefs": ["dango-primary-button"]
+          },
+          {
+            "id": "compact-32px-geometry",
+            "role": "component-density",
+            "sourceRegion": [0.008333, 0.058889, 0.053581, 0.035556],
+            "evidenceRefs": ["dango-primary-button"]
+          },
+          {
+            "id": "visible-focus-outline",
+            "role": "keyboard-focus",
+            "sourceRegion": [0.008, 0.058, 0.055, 0.037],
+            "evidenceRefs": ["dango-primary-button-focus", "dango-primary-button-activated"]
+          }
+        ],
+        "forbiddenSubstitutions": [
+          "image of the source button",
+          "different DangoUI button variant",
+          "global navigation accent"
+        ]
+      }
+    }
+  ],
+  "globalForbiddenExpansions": [
+    "Orange as a core action/accent",
+    "Interchange #5854FF and #7C66FF",
+    "Mobile header/title occlusion as a desired invariant",
+    "Uncaptured button variants or interactions",
+    "Source screenshots as implementation assets"
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "schema": "onepiece-attempt11-blind-browser-probes/v1",
+  "session": "fresh-onepiece-home-attempt11-blind-qa-mobile",
+  "url": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+  "mobile": {
+    "actualViewportCssPx": { "width": 390, "height": 844 },
+    "hostCollapseReproduced": false,
+    "templatePreviewVisible": true,
+    "homeCanvasVisible": true,
+    "documentScrollWidthEqualsViewport": true,
+    "documentScrollHeightCssPx": 5165,
+    "fullPageVerticalScroll": true,
+    "sectionOrder": ["navigation-hero", "welcome", "news", "new-arrival", "products", "events", "schedule", "recommend", "videos", "held-out-editorial", "footer-illustration", "footer-navy"],
+    "representativeGeometryCssPx": {
+      "heroHeight": 600,
+      "welcomeHeight": 520,
+      "newsRows": 2,
+      "newArrivalItems": 1,
+      "productItems": 2,
+      "eventItems": 1,
+      "visibleTouchFloor": 44
+    },
+    "touch": {
+      "welcomeCta": { "height": 44, "pass": true },
+      "viewAllNews": { "height": 44, "pass": true },
+      "campaignButtons": { "width": 44, "height": 44, "boundedRailHasClippedLeadingControls": true },
+      "footerPause": { "width": 44, "height": 44, "pass": true }
+    }
+  },
+  "desktop": {
+    "actualViewportCssPx": { "width": 1432, "height": 900 },
+    "phoneShellRetained": true,
+    "phoneScreen": { "clientHeight": 802, "scrollHeight": 3199, "overflowY": "auto", "scrollTopReached": 2396.36, "maxScrollTop": 2397 },
+    "document": { "scrollWidth": 1432, "scrollHeight": 900 },
+    "footerMotion": {
+      "waveVisible": true,
+      "backgroundEntrance": "opcg-footer-in-bg 2s",
+      "characterEntrance": "opcg-footer-in-character 0.8s",
+      "cards": ["opcg-footer-card01 5s", "opcg-footer-card02 8s", "opcg-footer-card03 8s"],
+      "dynamicTransformsObserved": true
+    }
+  }
+}
+

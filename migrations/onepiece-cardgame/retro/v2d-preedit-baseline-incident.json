@@ -1,0 +1,31 @@
+{
+  "schema": "brand-methodology-subincident/v1",
+  "id": "v2d-host-preedit-baseline-missed-2026-09-09",
+  "parentIncident": "onepiece-host-goal-drift-2026-09-09",
+  "status": "preventive-gate-landed-current-run-evidence-unrecoverable",
+  "observedProblem": "V2-D Host Implementation was dispatched before the orchestrator generated an immediate pre-edit structural baseline. The producer discovered the omission after editing, and the older Batch F snapshot cannot establish an unbroken provenance chain for the current target files.",
+  "whyExistingGatePassed": [
+    "The structural diff validator checked baseline versus current content but did not prove who captured the baseline or when.",
+    "The apply-host sequence assigned baseline creation to the Host Implementation role during diagnosis, allowing the producer to control its own evidence.",
+    "The receipt gate ran after edits and had no dispatch-time source hash check."
+  ],
+  "earliestFailureNode": "designDirectorOrchestrator",
+  "affectedNode": "hostImplementationAgent dispatch",
+  "currentRunDisposition": "BLOCKED_FOR_PREEDIT_PROVENANCE",
+  "evidencePolicy": "Do not manufacture or backdate a current baseline. Batch F may remain historical evidence, but cannot be chained into V2-D unless its recorded source SHA is independently proven identical to the exact pre-edit V2-D target.",
+  "correctiveAction": [
+    "Added orchestrator-only prepare-bundle with route, source file, source SHA-256, baseline file, baseline SHA-256 and timestamp.",
+    "Added dispatch verification that blocks when a target changed after capture.",
+    "Added receipt verification that baseline artifacts and source identity still match the frozen bundle.",
+    "Moved baseline ownership out of Host Implementation in the workflow sequence.",
+    "Explicitly prohibited producer-authored or post-edit refreshed baselines."
+  ],
+  "preventiveGate": {
+    "prepare": "validate-host-structural-diff.mjs prepare-bundle",
+    "dispatch": "validate-host-structural-diff.mjs verify-preedit --targets structural-targets.json --phase dispatch",
+    "receipt": "validate-host-structural-diff.mjs verify-preedit --targets structural-targets.json --phase receipt",
+    "blockingCodes": ["PREEDIT_BASELINE_TARGET_MISSING", "PREEDIT_BASELINE_METADATA_MISSING", "PREEDIT_BASELINE_OWNER_INVALID", "PREEDIT_BASELINE_ARTIFACT_MISSING", "PREEDIT_BASELINE_ARTIFACT_CHANGED", "PREEDIT_BASELINE_SOURCE_MISMATCH", "SOURCE_EDITED_BEFORE_DISPATCH"]
+  },
+  "candidateValidation": "Promote after a fresh apply-host run proves that dispatch is blocked both for edited-before-dispatch sources and producer-owned bundles, then receipt succeeds using the original frozen artifacts.",
+  "nonActions": ["No host production file was changed.", "No baseline was fabricated for V2-D.", "No previous QA verdict was changed."]
+}

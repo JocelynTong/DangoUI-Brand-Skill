@@ -1,0 +1,91 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision7",
+  "qaExecutionId": "/root/pokemon_home_indicator_blind_qa",
+  "reviewType": "fresh-blind-home-indicator-incident-closure",
+  "inputManifest": "../demo-revision7/qa-input-manifest.json",
+  "inputIntegrity": {
+    "status": "PASS",
+    "canonicalHashesMatched": 7,
+    "priorQaVerdictsUsed": false,
+    "implementationRationaleUsed": false
+  },
+  "protocolReview": {
+    "status": "PASS",
+    "normalRoutesChecked": [
+      "pokemon-tcg-official-home",
+      "pokemon-tcg-official-pocket-fixture",
+      "pokemon-tcg-official-held-out"
+    ],
+    "proofModesChecked": ["proof=desktop", "proof=mobile"],
+    "scrollSequence": ["0", "middle", "max", "0 restored"],
+    "browserErrors": [],
+    "findings": []
+  },
+  "pages": [
+    {
+      "demoPageId": "pokemon-tcg-official-home",
+      "status": "PASS",
+      "captures": ["captures/home-before.png", "captures/home-middle.png", "captures/home-max.png", "captures/home-restored.png"],
+      "observations": [
+        "phone, phone-screen and indicator rectangles remain identical across scrollTop 0, 700, 1790 and restored 0",
+        "indicator is an absolute transparent chassis layer and does not form a footer",
+        "last real section ends 2.20px above the indicator overlay",
+        "phone border and 41.4666px radius remain visibly present"
+      ],
+      "blockingFindings": []
+    },
+    {
+      "demoPageId": "pokemon-tcg-official-pocket-fixture",
+      "status": "PASS",
+      "captures": ["captures/pocket-fixture-before.png", "captures/pocket-fixture-middle.png", "captures/pocket-fixture-max.png", "captures/pocket-fixture-restored.png"],
+      "observations": [
+        "rectangles remain identical across scrollTop 0, 249, 497.5 and restored 0",
+        "last real section ends 2.02px above the indicator overlay",
+        "fictional held-out content remains readable and explicitly labelled"
+      ],
+      "blockingFindings": []
+    },
+    {
+      "demoPageId": "pokemon-tcg-official-held-out",
+      "status": "PASS",
+      "captures": ["captures/deck-lab-before.png", "captures/deck-lab-middle.png", "captures/deck-lab-max.png", "captures/deck-lab-restored.png", "captures/regression-deck-lab-accordion.png"],
+      "observations": [
+        "rectangles remain identical across scrollTop 0, 399, 798.5 and restored 0",
+        "last real section ends 2.30px above the indicator overlay",
+        "accordion state changes from the first item to Support the plan without moving the chassis or indicator"
+      ],
+      "blockingFindings": []
+    }
+  ],
+  "proofSurfaceReview": {
+    "status": "PASS",
+    "desktop": "1440px no-shell canvas; border 0; radius 0; indicator display none",
+    "mobile": "390x844 no-shell canvas; border 0; radius 0; indicator display none"
+  },
+  "regressionReview": {
+    "status": "PASS",
+    "hero": "flip state changes false to true",
+    "news": "active page changes 1 to 2 with headline update",
+    "tcgLive": "five key images load and the evidence-backed product band remains intact",
+    "pocket": "mobile stack, official composite, external link and black-to-gold CTA hover remain intact",
+    "heldOut": "Pocket Fixture and Deck Lab remain distinct generative surfaces; Deck Lab accordion changes state"
+  },
+  "evidenceFidelityReview": {
+    "status": "PASS",
+    "finding": "Canonical evidence/intent/pattern/direction hashes match the QA manifest; source Pocket layering, asset identity, typography and CTA roles remain visibly represented after the system-layer change."
+  },
+  "structuralFidelityReview": {
+    "status": "PASS",
+    "finding": "Normal routes retain the phone chassis, clipped scroll screen and fixed system indicator while explicit proof modes alone remove the shell. Hero, News, TCG Live and Pocket reading order and high-salience composition remain intact."
+  },
+  "generativeProofReview": {
+    "status": "PASS",
+    "finding": "Pocket Fixture and Deck Lab change message, asset construction and internal arrangement while preserving the approved bounded black child, campaign field, type hierarchy and system-shell behavior."
+  },
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "reviewerRecommendation": "pass"
+}

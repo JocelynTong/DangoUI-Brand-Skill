@@ -1,0 +1,93 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 5,
+  "generatedAt": "2026-09-09T14:24:13.000Z",
+  "freshIndependentQa": true,
+  "readOnly": true,
+  "preview": "http://127.0.0.1:10092/#/pages/plaza/index",
+  "verdict": "REWORK",
+  "workflowCompletion": "REWORK",
+  "businessSafety": "PASS",
+  "visualDirectionRegression": "PASS",
+  "checks": {
+    "threeFreshViewports": {
+      "status": "PASS",
+      "viewports": ["390x844", "536x864", "1280x720"]
+    },
+    "documentOverflow": {
+      "status": "PASS",
+      "observed": [0, 0, 0]
+    },
+    "filterPanelContainerWidth": {
+      "status": "PASS",
+      "note": "真实 .filter-panel 与两条 .filterline 均满足 scrollWidth <= clientWidth。"
+    },
+    "overflowMasking": {
+      "status": "PASS",
+      "note": "filter panel、rows 与内部 filter scroll 均为 visible，没有依靠 hidden 掩盖。"
+    },
+    "lastEnvironmentOption": {
+      "status": "PASS",
+      "label": "太阳&月亮-2.0",
+      "fullyInsidePanelAtAllViewports": true,
+      "clippedChipCount": 0
+    },
+    "adaptiveHeight": {
+      "status": "TECHNICAL_PASS_VISUAL_FAIL",
+      "panelHeights": {
+        "390x844": 852.578125,
+        "536x864": 1170.84375,
+        "1280x720": 220
+      }
+    },
+    "scanabilityAndViewportEconomy": {
+      "status": "FAIL",
+      "blocking": true,
+      "observed": {
+        "390x844": {"environmentLines": 19, "panelViewportRatio": 1.0102, "firstCardAboveFold": false},
+        "536x864": {"environmentLines": 19, "panelViewportRatio": 1.3551, "firstCardAboveFold": false},
+        "1280x720": {"environmentLines": 4, "panelViewportRatio": 0.3056, "firstCardAboveFold": true}
+      },
+      "finding": "修复从横向裁切转成了全量平铺：移动端环境筛选形成 19 行按钮长墙，面板本身占 1.01–1.36 个首屏，赛季条与首张卡被推到首屏之外；这是信息架构和可扫读性回退，不能以无 overflow 放行。"
+    },
+    "interactionParity": {
+      "status": "PASS",
+      "mechanisms": ["pointer", "Enter", "Space"],
+      "targets": ["分类/全部", "环境/太阳&月亮-2.0"],
+      "ariaPressed": "correct after activation",
+      "writes": 0
+    },
+    "searchAndFirstCardReachability": {
+      "status": "PASS_WITH_FOLD_REGRESSION",
+      "searchTabIndex": 0,
+      "firstCardTabIndexWhenPresent": 0,
+      "note": "两者仍可键盘到达；但移动端首卡已被 19 行筛选墙推离首屏。末项筛选没有匹配卡时 firstCard 不存在，符合当前数据结果。"
+    },
+    "attempt4Direction": {
+      "status": "PASS",
+      "note": "暖白纸张、低圆角、硬边编辑式目录方向仍在；本次失败只针对筛选信息密度与呈现机制。"
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "note": "build、mine、event、round 的 390px fresh screenshot SHA-256 与 Attempt 4 完全一致；修复选择器仅限定 plaza filter。detail 存在截图 hash 波动，但无 plaza filter selector 影响，且无横向 overflow。"
+    }
+  },
+  "blockingFindings": [
+    {
+      "code": "FILTER_OPTION_WALL_OVERSIZED",
+      "severity": "blocking",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": [
+        "mobile-390x844-plaza-filter-fresh.png",
+        "user-536x864-plaza-filter-fresh.png",
+        "desktop-1280x720-plaza-filter-fresh.png",
+        "browser-probes.json"
+      ],
+      "requiredOutcome": "移动端保留完整选项可访问能力，但默认态不能把 39 个环境选项全部平铺。需采用可发现、可展开/收起或明确横向滚动提示的紧凑结构；默认首屏应仍能看到赛季条及首张卡，展开态也不得裁切最后一项。"
+    }
+  ],
+  "nonBlockingNotes": [
+    "技术裁切本身已消失：三视口 clippedChipCount=0，末项均位于 panel bounds 内。",
+    "所有 fresh 页面请求均为 GET/HEAD/OPTIONS；业务写请求为 0。"
+  ]
+}

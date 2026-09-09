@@ -1,0 +1,43 @@
+{
+  "schema": "heldout-plaza-standard-sample-comparison/v1",
+  "attempt": 10,
+  "scope": "pages/plaza/index only",
+  "references": {
+    "previous": "../9/fresh-{390x844,536x864,1280x720}-plaza.png",
+    "current": "fresh-{390x844,536x864,1280x720}-plaza.png",
+    "source": [
+      "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+      "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png"
+    ]
+  },
+  "comparison": {
+    "attempt9To10": {
+      "status": "BLOCKER_CLOSED",
+      "observations": [
+        "The visible ellipsis/separator/ring system capsule has disappeared at all three fixed viewports.",
+        "The title no longer includes a visible chevron, circular C motif, hover response, hand cursor, focus stop or switching affordance.",
+        "Removing pseudo chrome leaves a simpler, balanced identity lockup aligned with the left edge of navigation and content."
+      ]
+    },
+    "currentToFrozenHomeProducts": {
+      "status": "STRUCTURAL_MATCH_FOR_MINIMAL_HOST_EXPERIMENT",
+      "matchingSignals": [
+        "paper-dominant background mass rather than a globally dark application surface",
+        "navy used as a bounded framing band",
+        "thin black/red rules and low-radius rectangular controls",
+        "compact taxonomy followed by media-led editorial entries",
+        "sparse accent color with title-first reading order"
+      ],
+      "boundedDifferences": [
+        "The host retains deck-tool content and card imagery instead of copying source merchandise or hero art.",
+        "At desktop width the host exposes a denser taxonomy than Products; this is acceptable functional density for the scoped Plaza experiment.",
+        "The sample does not attempt the source Home page's large campaign/media compositions."
+      ]
+    },
+    "maskedStructuralRecognition": {
+      "method": "Ignore card art, logos, explicit brand/product strings and hue; compare visual mass, boundaries, density, typography roles and reading order.",
+      "status": "PASS",
+      "evidence": "The navy frame, warm open field, compact ruled controls, low-radius editorial islands and image/title/metadata hierarchy remain coherent without explicit IP cues. The unsupported platform-chrome silhouette that weakened Attempt 9 is absent."
+    }
+  }
+}

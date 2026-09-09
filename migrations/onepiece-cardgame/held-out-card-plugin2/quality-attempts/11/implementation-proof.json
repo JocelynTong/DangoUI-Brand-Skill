@@ -1,0 +1,53 @@
+{
+  "schema": "brand-host-event-minimal-experiment-proof/v1",
+  "attempt": 11,
+  "route": "pages/event/index",
+  "direction": "event-minimal-experiment-direction.json",
+  "sourceStandardSample": "quality-attempts/10 Plaza PASS_ADVISORY",
+  "scope": "Event held-out scoped visual CSS only",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "65b1b9e21ae3a825373afb010d94de847637926c6a5bf3f838bb293b83cc9a96",
+    "vueSfcEdited": false,
+    "surface": "warm-white map-paper main canvas",
+    "identity": "contained low-radius event panel with bounded navy identity field, complete title, status and metrics",
+    "composition": "event identity, metrics, schedule, rectangular round islands and top-deck action",
+    "geometry": "1px rules, 2px radii and restrained rectangular actions",
+    "colorRoles": "navy structure, sparse red archive/action markers, preserved green live status and sparse yellow rank",
+    "pokemonCopyDataAndMediaPreserved": true,
+    "plazaAndOtherRoutesEdited": false,
+    "businessOrDomChanged": false,
+    "writes": 0
+  },
+  "viewportChecks": {
+    "390x844": {"titleComplete": true, "scheduleVisible": true, "firstRoundVisible": true, "topDeckVisible": true, "documentOverflow": 0},
+    "536x864": {"titleComplete": true, "scheduleVisible": true, "firstRoundVisible": true, "topDeckVisible": true, "documentOverflow": 0},
+    "1280x720": {"titleComplete": true, "scheduleVisible": true, "firstRoundVisible": true, "topDeckVisible": true, "documentOverflow": 0}
+  },
+  "regression": {
+    "reducedMotion": "PASS_ANIMATION_NONE_TRANSITION_0S",
+    "roundAndTopDeckKeyboardBindings": "PRESERVED_BY_FROZEN_STRUCTURAL_DIFF",
+    "roundEnterNavigationProbe": "PASS",
+    "headlessSpaceAndOverlayProbe": "INCONCLUSIVE_REQUIRES_FRESH_QA",
+    "nonGetRequests": 0,
+    "build": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER_NO_IMPORTANT",
+    "eventStructuralDiff": "PASS",
+    "otherRouteOverflow": "PASS_5_OF_5",
+    "unchangedRouteHashes": {
+      "build": "aacf2ad9aeb5e0a9c1581c48d4538cf30ffde8b7e0f1a6b422a70688a5cdb51f",
+      "mine": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "round": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca",
+      "detail": "b30a4bcb032970d6a323159ce31a3df2039468157964a9a37c242dc28ab42008"
+    }
+  },
+  "evidence": [
+    "browser-probes.json",
+    "selfcheck-390x844-event.png",
+    "selfcheck-536x864-event.png",
+    "selfcheck-1280x720-event.png"
+  ],
+  "preview": "http://localhost:10092/#/pages/event/index?id=0",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

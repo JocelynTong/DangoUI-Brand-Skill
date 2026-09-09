@@ -1,0 +1,75 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "04",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "verdict": "REWORK",
+  "goalCorrection": "../goal-correction-hero-responsive.json",
+  "evidenceFidelity": "PASS",
+  "structuralFidelity": "FAIL",
+  "generativeProof": "NOT_ASSESSED_OUT_OF_SCOPE",
+  "earliestFailureNode": "demoImplementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "acceptance": {
+    "mobileViewport390x844": "PASS",
+    "mobileHeroHeight900To1280": "PASS_1183PX",
+    "defaultStateSixRequiredLayers": "PASS",
+    "allCarouselStatesPreserveRequiredLayers": "FAIL",
+    "minimumCTAHeight44": "PASS_56PX",
+    "sourceShapedCTA": "FAIL",
+    "sourceShapedReadableCarouselControls": "FAIL",
+    "artDirectedMobileAssetAndCrop": "PASS",
+    "logoCardControlsDoNotObscureEachOther": "PASS_DEFAULT_FAIL_CHANGED_STATE",
+    "nextSectionReachable": "PASS",
+    "noHorizontalOverflow": "PASS_MOBILE_FAIL_DESKTOP_HERO_INTERNAL",
+    "scrollChangeAndRestore": "PASS",
+    "carouselChangeAndRestore": "FAIL_VISUAL_STATE_DESPITE_INDEX_REVERSIBILITY",
+    "desktopRegression": "FAIL",
+    "runtimeConsoleErrors": "PASS"
+  },
+  "blockingFindings": [
+    {
+      "id": "HOME_HERO_CAROUSEL_STATE_DROPS_REQUIRED_LAYERS",
+      "severity": "blocking",
+      "description": "Activating campaign 2 removes the campaign-title and featured-card image nodes. The active index changes, but the required campaign identity and card layer disappear.",
+      "visibleEvidence": ["browser-probes.json"],
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "id": "HOME_HERO_MOBILE_CONTROLS_VISUALLY_BROKEN",
+      "severity": "blocking",
+      "description": "At 390px the carousel controls are 56px targets but their text is transparent. The active control renders as a blank white square, unlike the official source's readable arrow controls.",
+      "visibleEvidence": ["../demo/captures/mobile-390-viewport-middle.png", "browser-probes.json"],
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "id": "HOME_HERO_CTA_SOURCE_LANGUAGE_MISSING",
+      "severity": "blocking",
+      "description": "The Demo uses a flat square white CTA without the official gold outline, rounded silhouette or arrow, and it visually merges into the next white section.",
+      "visibleEvidence": ["../demo/captures/mobile-390-viewport-bottom.png", "browser-probes.json"],
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "id": "HOME_HERO_DESKTOP_PROOF_SURFACE_BREAKPOINT_MISMATCH",
+      "severity": "blocking",
+      "description": "At a 1440px outer viewport desktop rules activate inside a roughly 347px phone proof surface, clipping navigation and overlapping the campaign title, card, CTA and controls. Hero scrollWidth is 506px against a 347px client width; active control text is white on white and targets are only about 42px high.",
+      "visibleEvidence": ["../demo/captures/desktop-1440-viewport-top.png", "browser-probes.json"],
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "nonBlockingObservations": [
+    "The default mobile crop and campaign mark are substantially closer to the official mobile source than Attempt 03.",
+    "The default mobile featured card uses the evidence-bound 2M6P_EN_23.png asset.",
+    "Machine geometry and active-index probes previously passed but did not detect the visually empty active control or missing slide-2 layers."
+  ],
+  "sourceComparison": {
+    "mobileSource": "../../../../output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/mobile-390/frames/mobile-default.png",
+    "desktopSource": "../../../../output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/desktop/frames/desktop-default.png",
+    "finding": "Default mobile art direction is credible, but control styling, changed-state completeness and the actual desktop proof surface diverge materially from the official source."
+  }
+}
+

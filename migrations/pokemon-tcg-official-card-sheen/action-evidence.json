@@ -1,0 +1,56 @@
+{
+  "schema": "brand-action-evidence/v1",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "actionId": "foreground-card-frozen-pointer-path",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "targetSelector": ".featured-switcher .perspective-card",
+  "beforeCapture": "frames/01-outside.png",
+  "afterCapture": "frames/08-outside-restored.png",
+  "timeline": "pointer-probe-timeline.json",
+  "actualState": {
+    "hero": "Pokémon TCG: 30th Celebration",
+    "targetAncestorClass": "column column--10 column-large--4 column-xxlarge--3 vp-slide vp-slide--right",
+    "targetAncestorOpacity": "0",
+    "targetAncestorTransform": "matrix(1, 0, 0, 1, 240, 0)",
+    "targetVisible": false
+  },
+  "computedPropertyResult": {
+    "rootTransform": { "before": "matrix(1, 0, 0, 1, 0, 0)", "after": "matrix(1, 0, 0, 1, 0, 0)", "distinctValues": 1 },
+    "transformerTransform": { "before": "none", "after": "none", "distinctValues": 1 },
+    "shineTransform": { "before": "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 2, 1)", "after": "matrix3d(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 2, 1)", "distinctValues": 1 },
+    "shineBackgroundImage": { "before": "none", "after": "none", "distinctValues": 1 },
+    "shineBackgroundPosition": { "before": "0% 0%", "after": "0% 0%", "distinctValues": 1 },
+    "shineOpacity": { "before": "1", "after": "1", "distinctValues": 1 },
+    "shineFilter": { "before": "none", "after": "none", "distinctValues": 1 },
+    "shineMixBlendMode": { "before": "normal", "after": "normal", "distinctValues": 1 },
+    "customProperties": "No card-specific inline or CSS custom property changed across the timeline."
+  },
+  "pixelResult": {
+    "captureClip": { "x": 1308, "y": 209, "width": 132, "height": 404.2421875 },
+    "frameCount": 8,
+    "uniqueSha256Count": 1,
+    "sha256": "3feb9ccae68acdf0c020a36ab7412ce03a185ff016b96e2b37635439f3ba353a",
+    "changedPixels": 0,
+    "visibleDelta": false
+  },
+  "sourceRule": {
+    "url": "https://tcg.pokemon.com/home.css",
+    "relevantRules": [
+      ".featured-switcher__content .card { max-width: 290px; margin: 0 70px 0 auto; }",
+      ".featured-switcher__card .perspective-card { transform: translateY(0); transition: transform 0.4s ease; }",
+      ".featured-switcher__card.is-swapping .perspective-card { transform: rotateY(180deg); }"
+    ]
+  },
+  "reachability": {
+    "attempt": 2,
+    "controls": ["Next", "Previous", "Pikachu selected state"],
+    "selectedIndexBefore": 0,
+    "selectedIndexAfter": 0,
+    "ancestorOpacityAfter": "0",
+    "ancestorTransformAfter": "matrix(1, 0, 0, 1, 240, 0)",
+    "viewportIntersectionBecameVisible": false,
+    "capture": "frames/09-reachability-after-controls.png"
+  },
+  "disposition": "unresolved-dormant-unreachable",
+  "conclusion": "No pointer-follow delta occurred in the dormant hidden state, but the visible carousel controls could not activate the owning vp-slide. A valid visible-state probe was therefore unavailable and the candidate cannot be rejected."
+}

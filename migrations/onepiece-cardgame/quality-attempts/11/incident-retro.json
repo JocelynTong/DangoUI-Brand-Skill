@@ -1,0 +1,21 @@
+{
+  "attempt": 11,
+  "observedMismatch": "Home footer adapts convincingly to the phone viewport, while the remaining Home sections appear scaled or clipped rather than responsively recomposed for a small screen.",
+  "userEvidence": "User visually compared the live phone preview and identified inconsistent small-screen adaptation between the footer organism and the rest of Home.",
+  "earliestSuspectedFailureOwner": "Brand Researcher",
+  "missedBy": [
+    "Brand Researcher",
+    "Design Translator",
+    "Demo Implementation Agent",
+    "Visual QA"
+  ],
+  "whyPreviousGatePassed": "Attempt 10 was scoped to the footer composition and motion regression. QA verified footer geometry and global scroll but did not audit every Home section against source mobile breakpoints and source screenshots.",
+  "requiredClosure": [
+    "Capture and compare every high-salience Home section at the same narrow viewport.",
+    "Distinguish true responsive recomposition from proportional scaling, clipping, and overflow.",
+    "Freeze per-section mobile layout contracts before implementation.",
+    "Rebuild failing sections without regressing the approved footer.",
+    "Run a new independent full-Home narrow-screen Blind QA."
+  ],
+  "status": "in-progress"
+}

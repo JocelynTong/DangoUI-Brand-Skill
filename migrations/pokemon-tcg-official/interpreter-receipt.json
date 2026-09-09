@@ -1,0 +1,65 @@
+{
+  "schema": "brand-role-receipt/v2",
+  "role": "designTranslator",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "executionMode": "cold-start",
+  "startedAt": "2026-09-02T12:30:51+08:00",
+  "completedAt": "2026-09-02T12:34:59+08:00",
+  "roleElapsedMinutes": 4.13,
+  "cumulativeElapsedMinutes": 24.78,
+  "timeBudgetStatus": "within-full-profile-target-window",
+  "status": "PASS_WITH_UNRESOLVED",
+  "inputHashes": {
+    "goal-contract-v2.json": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+    "brand-evidence.json": "ef8123934f5cc4fc76113db18a0141ab0e373436755581b284297fd6969e6771",
+    "source-observation-manifest.json": "574c34dba2b4687bfcbdf3faaef702f1435c28ab0cf7c151538f4953cffe25d0",
+    "rendered-asset-inventory.json": "ebb8e14e2c151479c174424144f931df67ccac8d5db97826208d33bf339f8955",
+    "action-evidence-v02.json": "faacd8e514904ca8ca3daa758bdde4cd05f801bd5bae8e9bd3c053c59ffcfa1d"
+  },
+  "outputHashes": {
+    "brand-intent.json": "bb73a547abe6a0aa50d77315f12c96125886d9536e40bf68928fba3d630f0021",
+    "approved-visual-patterns.json": "01cf9955b79ac666879709f6a8bb92342310eaac3302c3df34bf05f177978fe8",
+    "section-fidelity-manifest.json": "be780efc9dd2bbcf38ec49c18668818b5cc47adadebd71e8acd172b83e57c103"
+  },
+  "outputs": [
+    "brand-intent.json",
+    "approved-visual-patterns.json",
+    "section-fidelity-manifest.json",
+    "interpreter-receipt.json"
+  ],
+  "coldStartAudit": {
+    "forbiddenConclusionSources": ["pokemon-tcg-pitch-black", "pokemon30"],
+    "forbiddenConclusionSourcesRead": [],
+    "demoArtifactsRead": false,
+    "oldGoalContractConsumed": false,
+    "sealedGoalModified": false
+  },
+  "coverage": {
+    "pages": ["home", "card-database", "how-to-play"],
+    "sourceSections": 10,
+    "approvedSectionContracts": 10,
+    "approvedPatterns": 8,
+    "colorRoles": 6,
+    "interactionSequencesPreserved": [
+      "empty-to-Pikachu-to-results-to-reset",
+      "advanced-show-to-settled-to-hide",
+      "home-carousel-change-and-restore",
+      "learn-exclusive-accordion-change-and-restore"
+    ]
+  },
+  "unresolved": [
+    "Reduce Motion produced no observable change; no behavior or styling invented.",
+    "Exact Home/Learn font families lack computed evidence.",
+    "Most exact color values lack computed evidence and remain screenshot-supported role descriptions.",
+    "Two failed background assets remain unavailable and were not invented."
+  ],
+  "scopeControl": {
+    "demoDesigned": false,
+    "demoModified": false,
+    "goalModified": false,
+    "evidenceModified": false,
+    "qualityThresholdLowered": false
+  },
+  "consumerDecision": "PASS to Demo Implementation Agent with unresolved claims retained as prohibitions, not inferred design behavior."
+}

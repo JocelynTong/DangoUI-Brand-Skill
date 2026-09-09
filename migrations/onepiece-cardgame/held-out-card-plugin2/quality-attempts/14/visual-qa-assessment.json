@@ -1,0 +1,80 @@
+{
+  "schema": "heldout-detail-minimal-visual-business-qa/v1",
+  "attempt": 14,
+  "role": "fresh-independent-brand-visual-business-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Detail minimum experiment only; this verdict does not represent the full host",
+  "verdict": "REWORK",
+  "decision": "The visual direction is materially successful and structurally closer to the frozen ONE PIECE Products evidence, but Detail cannot pass because the 390px purchase action misses the frozen 44px target requirement.",
+  "screenshots": [
+    "fresh-390x844-detail.png",
+    "fresh-536x864-detail.png",
+    "fresh-1280x720-detail.png"
+  ],
+  "blockingFindings": [
+    {
+      "code": "DETAIL_BUY_TARGET_BELOW_44",
+      "severity": "blocking",
+      "owner": "Host Implementation Agent",
+      "evidence": "At 390×844, .buybtn computes to 59.171875×29.109375px although it is a focusable role=button control. The required minimum is 44×44px.",
+      "requiredFix": "Increase the purchase action's compact-width hit area to at least 44px high without turning it into a dominant pill or changing onBuy behavior; then run a new fresh QA attempt."
+    }
+  ],
+  "advisories": [
+    {
+      "code": "DETAIL_DESKTOP_IDENTITY_GROUPING_LOOSE",
+      "owner": "Design Director / Host Implementation Agent",
+      "evidence": "At 1280, the 116px cover sits at x=38 while title metadata begins at x=682 inside a 1244px identity panel, creating a large inactive center gap.",
+      "recommendation": "For promotion beyond the minimum experiment, cap the identity composition width or tighten the cover/title pairing while keeping the card a contained product frame rather than a hero."
+    },
+    {
+      "code": "DETAIL_EDIT_FIXTURE_NA",
+      "owner": "QA",
+      "evidence": "No visible edit action exists for fixture deck id=0, so edit parity is honestly marked N/A rather than inferred."
+    }
+  ],
+  "findings": {
+    "visualSystem": {
+      "status": "PASS",
+      "evidence": "Warm paper is the dominant canvas; bounded rectangular product framing, restrained navy/black structure, low radii, thin rules and sparse red/yellow are present at 390/536/1280."
+    },
+    "contentPreservation": {
+      "status": "PASS",
+      "evidence": "Title, author, environment, update time, description, three statistics, image/text views, 60-card composition, favorite/copy/buy actions and card viewer content remain present."
+    },
+    "composition": {
+      "status": "PASS_WITH_ADVISORY",
+      "evidence": "The frozen editorial sequence is preserved and readable. Desktop cover/title pairing is looser than ideal but does not break reading order or content."
+    },
+    "interactionParity": {
+      "status": "PASS",
+      "evidence": "Expand, favorite, copy, buy, text view and first card viewer each pass isolated pointer, Enter and Space activation. Copy navigates to Build, favorite toggles aria-pressed, buy shows the expected local toast, text view selects the text tab, and the card opens CardViewer."
+    },
+    "accessibility": {
+      "status": "FAIL",
+      "evidence": "Focus semantics exist and keyboard outcomes pass, but .buybtn is under 44px high at the 390px viewport. Other focus targets meet 44×44."
+    },
+    "responsiveAndMotion": {
+      "status": "PASS",
+      "evidence": "All three viewports report 0px document overflow, no failed requests and no visible animation under reduced motion. The apparent dtitle clipping record is a subpixel equality (scrollWidth=clientWidth) rather than visible truncation."
+    },
+    "businessSafety": {
+      "status": "PASS",
+      "evidence": "All interactions ran in isolated fresh contexts. Zero non-GET/HEAD/OPTIONS requests were observed. Favorite/copy mutations were local test-context storage only."
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "evidence": "Fresh 390px Plaza, Build, Mine, Event and Round renders retain their accepted content, report 0px overflow and issue zero writes. Build/Mine/Round hashes match QA13; Plaza matches the later accepted QA10 state; Event matches the accepted QA13 implementation."
+    },
+    "maskedStructuralRecognition": {
+      "status": "PASS",
+      "evidence": "Without Pokémon art, names or explicit hues, the paper-dominant product catalog structure, ruled metadata, low-radius panels, compact editorial density and collection grid still carry the intended source-system relationship."
+    }
+  },
+  "codeReworkRequired": true,
+  "evidenceReworkRequired": false,
+  "detailCompletion": "REWORK",
+  "fullHostCompletion": "NOT_EVALUATED",
+  "sources": ["browser-probes.json", "comparison.json", "../../detail-minimal-experiment-direction.json"]
+}

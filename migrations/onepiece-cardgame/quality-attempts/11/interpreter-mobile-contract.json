@@ -1,0 +1,164 @@
+{
+  "schema": "brand-interpreter-mobile-contract/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 11,
+  "status": "approved-for-implementation-rework",
+  "scope": "Home at a 390px-class true browser viewport",
+  "evidenceBoundary": {
+    "observedSourceViewportCssPx": { "width": 390, "height": 844 },
+    "observedSourceDocumentCssPx": { "width": 390, "height": 7576 },
+    "observedDemoViewportCssPx": { "width": 387, "height": 800 },
+    "observedBlockingFact": "The live Demo preview measured 10px wide and the Home canvas measured 0px wide, so no Home section was auditable at the true narrow viewport.",
+    "touchTargetEvidence": "unavailable because the Demo canvas collapsed; the minimum below is an implementation acceptance requirement, not an observed source measurement",
+    "evidenceRefs": [
+      "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/mobile-responsive-checklist.json",
+      "migrations/onepiece-cardgame/quality-attempts/11/evidence-manifest.json",
+      "migrations/onepiece-cardgame/source-observation-manifest.json",
+      "migrations/onepiece-cardgame/goal-contract.json"
+    ]
+  },
+  "contractLayers": {
+    "A_demoHostPreview": {
+      "id": "true-narrow-preview-exposure",
+      "scope": "Demo host and preview integration only; this is inspection infrastructure, not ONE PIECE brand content",
+      "trigger": "true browser viewport width <= 480px",
+      "requirements": [
+        "Switch to full-width mobile inspection mode before the reference navigation and workspace can consume the preview width.",
+        "The preview and Home canvas must each expose a non-zero usable width; at the audited 390px class they must fill the available viewport width after only intentional outer safe insets.",
+        "Reference-site navigation, left rails, inspectors and split panes must move above, collapse, become overlays, or be hidden; they must never leave the preview at 10px or the canvas at 0px.",
+        "The page document must be vertically scrollable when content exceeds the viewport; the host must not lock the full Home page into an 800px shell.",
+        "Desktop may retain the phone mockup shell. At a true narrow viewport the mockup shell must be removed from layout or made dimension-neutral so the content is inspected full-width.",
+        "Device bezel, speaker, notch, shadow and shell chrome are presentation aids only and must never be interpreted, inventoried or scored as brand content."
+      ],
+      "measurableAcceptance": {
+        "viewportClass": "390px +/- 3px calibration",
+        "previewWidth": "greater than 0 and no less than viewport width minus 32px total intentional inset",
+        "homeCanvasWidth": "greater than 0 and equal to preview content width",
+        "documentScrollWidth": "must not exceed viewport width",
+        "documentScrollHeight": "must exceed viewport height for the full Home page",
+        "sectionVisibility": "navigation/Hero, Welcome, News/New Arrival, Products/Events/mid-page and Footer must each yield visible same-viewport pixels",
+        "touchTargetMinimum": "44x44 CSS px for actionable controls unless later source measurement proves a different accessible geometry"
+      },
+      "forbidden": [
+        "10px preview",
+        "0px Home canvas",
+        "horizontal document overflow",
+        "desktop split layout preserved at the cost of preview usability",
+        "scaled desktop phone shell treated as proof of true responsive behavior",
+        "device shell counted as source composition or brand asset"
+      ]
+    },
+    "B_homeMobileReflow": {
+      "id": "home-390-responsive-reflow",
+      "scope": "Home content inside the exposed preview canvas",
+      "globalRules": {
+        "width": "Every section owns the 390px content viewport; section backgrounds may be full bleed, while readable content uses evidence-aligned insets.",
+        "columnReorder": "Desktop multi-column arrangements must become readable vertical stacks or mobile rows without deleting the defining hierarchy or density pattern.",
+        "crop": "Crop is allowed only for explicitly masked media/rails; it must not create document-level horizontal overflow or clip copy and controls.",
+        "typography": "Preserve the approved display/editorial/body/metadata role separation; responsive sizing and wrapping may change, but roles may not collapse into one face or one level.",
+        "touch": "All interactive controls require at least 44x44 CSS px hit area pending exact same-viewport source measurements.",
+        "overflowForbidden": [
+          "document scrollWidth greater than viewport width",
+          "section content escaping its clipping boundary",
+          "text, navigation or controls clipped to simulate desktop composition",
+          "scale-only treatment where the evidence classifies true-reflow",
+          "hidden sections used to shorten the page"
+        ]
+      },
+      "sections": [
+        {
+          "id": "navigation-hero",
+          "sourceBehavior": ["true-reflow", "crop"],
+          "widthAndGeometry": "Use a compact approximately 64.5px full-width header with an approximately 141.4x36.5px logo, followed by a full-width Hero.",
+          "columnReorder": "Desktop navigation must collapse into a mobile control pattern without shrinking the Hero canvas; the active campaign remains the dominant first content.",
+          "crop": "Inactive carousel slides may be masked off-viewport inside the Hero rail; the active slide and its essential campaign hierarchy remain legible.",
+          "typography": "Hero catch target is approximately 19.76px while retaining campaign hierarchy and condensed metadata separation.",
+          "touch": "Menu and carousel actions expose >=44x44 CSS px hit areas.",
+          "forbidden": ["horizontal document overflow", "cropped active-slide copy", "desktop navigation compressing content", "scale-only whole-page miniature"]
+        },
+        {
+          "id": "welcome",
+          "sourceBehavior": ["true-reflow"],
+          "widthAndGeometry": "Full-width section; primary heading wraps in an approximately 332.8px box with approximately 28.6px side insets.",
+          "columnReorder": "Narrative, supporting media and CTA become a readable vertical flow while preserving the onboarding invitation hierarchy.",
+          "crop": "No copy or CTA crop; decorative media may use bounded crop only if text remains unaffected.",
+          "typography": "Editorial heading approximately 32.24px and movie heading approximately 20.8px; keep serif narrative prominence distinct from utility text.",
+          "touch": "Welcome CTA hit area >=44px high and >=44px wide; hover-only feedback cannot be the sole mobile affordance.",
+          "forbidden": ["single-line forced heading", "scaled desktop block", "clipped CTA", "generic yellow CTA chrome"]
+        },
+        {
+          "id": "news-new-arrival",
+          "sourceBehavior": ["true-reflow", "crop"],
+          "widthAndGeometry": "News rows reflow within the viewport; New Arrival is a bounded full-width rail containing approximately 166.4px items.",
+          "columnReorder": "News metadata, title and media reorder into scan-friendly mobile rows; New Arrival preserves horizontal item sequencing rather than becoming an unrelated grid.",
+          "crop": "The New Arrival rail may mask its next/previous items at its own boundary; the document itself must remain 390px wide.",
+          "typography": "News titles remain approximately 14.04-16.64px; the New Arrival section title remains approximately 34.32px and visually dominant.",
+          "touch": "Row links and rail controls expose >=44x44 CSS px targets; adjacent items must not create overlapping hit areas.",
+          "forbidden": ["accidental body overflow", "desktop multi-column miniature", "metadata/title hierarchy reversal", "unbounded horizontal rail"]
+        },
+        {
+          "id": "products-events-mid-page",
+          "sourceBehavior": ["true-reflow"],
+          "widthAndGeometry": "Products categories stack as mobile rows. Event rows stack vertically at approximately 373.4px width, leaving an approximately 8.3px side inset at 390px.",
+          "columnReorder": "Preserve product-first scanning; Events keep image/text composition inside each vertical row. Schedule, Recommend and Videos continue as visible vertically ordered modules rather than being omitted.",
+          "crop": "Product and event media may use bounded object-fit crop while keeping the merchandise/event subject and adjacent text legible; mid-page controls and text may not crop.",
+          "typography": "Products display title approximately 53.04px, product row titles approximately 16.64px, event titles approximately 15.6px; short display type remains distinct from row titles and metadata.",
+          "touch": "Each row/card action and any carousel/video control exposes >=44x44 CSS px hit area.",
+          "forbidden": ["desktop columns merely scaled down", "event cards wider than viewport", "missing Schedule/Recommend/Videos", "image overlap obscuring text", "unsupported reservation actions"]
+        },
+        {
+          "id": "footer",
+          "sourceBehavior": ["true-reflow"],
+          "widthAndGeometry": "Footer fills the mobile viewport; structural footer navigation is approximately 343.2px wide with approximately 23.4px side insets.",
+          "columnReorder": "Footer navigation and legal/utility groups stack into readable mobile order; the approved page-closing illustration remains before, and distinct from, the navy structural footer.",
+          "crop": "Only bounded outer decorative overscan may crop; navigation, legal copy, logo and semantic illustration layers may not be lost.",
+          "typography": "Observed footer base is approximately 8.32px, but implementation must preserve legibility and hierarchy; do not enlarge it into a competing display role or treat this observation as permission for inaccessible controls.",
+          "touch": "Footer links require >=44px hit-area height even when visible glyphs remain compact.",
+          "forbidden": ["footer as plain navy substitute for the illustration organism", "navigation crop", "document overflow", "device shell merged into footer artwork"]
+        }
+      ]
+    }
+  },
+  "allowedTransformations": [
+    "desktop mockup shell retained above the true-narrow breakpoint",
+    "vertical stacking and mobile row reordering",
+    "responsive type size/line-height within the observed hierarchy",
+    "bounded media crop and masked New Arrival/Hero rails",
+    "safe inset adjustment within the evidence tolerances"
+  ],
+  "forbiddenTransformations": [
+    "claiming source fidelity from a desktop phone mockup alone",
+    "treating host chrome or a device shell as ONE PIECE brand content",
+    "using scale-only compression for source sections classified true-reflow",
+    "removing content to avoid vertical scrolling",
+    "inventing exact source touch-target measurements before recapture"
+  ],
+  "downstreamVerification": {
+    "required": true,
+    "steps": [
+      "Recapture source and Demo at the exact same 390x844 CSS viewport after the host canvas is exposed.",
+      "Record preview, canvas, section and interactive bounding boxes.",
+      "Prove document scrollWidth <= viewport width and full-page vertical scrolling works.",
+      "Classify every section as true-reflow, scale, crop or overflow and reject any accidental overflow.",
+      "Measure touch targets; replace the provisional 44px acceptance floor only with captured source evidence plus an accessibility-safe decision."
+    ]
+  },
+  "selfCheck": {
+    "factsSeparatedFromRequirements": true,
+    "narrowestScopeRecorded": true,
+    "demoImplementationUntouched": true,
+    "goalUntouched": true,
+    "evidenceUntouched": true,
+    "desktopMockupShellAllowedButNotBranded": true,
+    "trueNarrowFullWidthInspectionRequired": true,
+    "allRequestedHomeRegionsCovered": true,
+    "widthColumnCropTypographyTouchOverflowCoveredPerRegion": true,
+    "unmeasuredTouchTargetsDisclosedAsProvisionalAcceptance": true,
+    "tokenRoleExpansionIntroduced": false,
+    "unresolved": [
+      "Exact source touch-target boxes remain unresolved until same-viewport recapture.",
+      "Footer same-viewport Demo parity remains unresolved until the host collapse is fixed."
+    ],
+    "result": "PASS_WITH_DOWNSTREAM_RECAPTURE_REQUIRED"
+  }
+}

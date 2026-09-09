@@ -1,0 +1,129 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v1",
+  "goalSha256": "ca6e00eabab09adb402b16a9a8a8defa0c7e5577d738a76c5e769462244e8389",
+  "attempt": 2,
+  "status": "protocol-blocked",
+  "overallScore": 85.63,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "onepiece-cardgame-home",
+      "score": 73.75,
+      "ratings": {
+        "composition": 3,
+        "assetAuthenticity": 4,
+        "colorRoles": 2,
+        "informationDensity": 2,
+        "typographyGraphics": 4,
+        "motionSemantics": 2,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "products",
+      "demoPageId": "onepiece-cardgame-products",
+      "score": 97.5,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    }
+  ],
+  "protocolFailures": [
+    {
+      "code": "BLIND_INPUT_VIOLATION",
+      "scope": "protocol",
+      "message": "Blind QA input must include the hashed visual-pattern-inventory.json."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "home-official-mobile-hero",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "products-large-black-heading",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "products-black-white-rectangular-filters",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "products-compact-product-first-grid",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "products-authentic-product-assets",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "products-blue-current-pagination",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    },
+    {
+      "code": "VISUAL_PATTERN_NOT_REVIEWED",
+      "scope": "products-cream-catalog-surface",
+      "message": "Blind QA omitted a high-salience implementation pattern."
+    }
+  ],
+  "hardFailures": [
+    {
+      "code": "HOME_ROLE_COLOR_SYSTEM",
+      "scope": "home",
+      "message": "The home screenshot does not visibly preserve the complete required role-color system: cream surfaces and red action emphasis are absent."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "role-color-system",
+      "message": "Cream surfaces, hard black typography, yellow active states and red action emphasis remain distinct roles."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is fail."
+    }
+  ],
+  "blockingFindings": [
+    {
+      "page": "home",
+      "code": "HOME_ROLE_COLOR_SYSTEM",
+      "dimension": "colorRoles",
+      "finding": "The home screenshot does not visibly preserve the complete required role-color system: cream surfaces and red action emphasis are absent.",
+      "fix": "Expose cream as a visible content surface and red as a distinct action emphasis in the Home capture.",
+      "evidence": [
+        "source-home.png",
+        "demo-home.png"
+      ]
+    }
+  ],
+  "inputHashes": {
+    "goal": "ca6e00eabab09adb402b16a9a8a8defa0c7e5577d738a76c5e769462244e8389",
+    "qaInputManifest": "9e009c4bf5a22885fffdd85a5204f228bea34f7251c5ec11a331c4384abae6c7",
+    "assessment": "d29c8573ffe0480ee1fd70ea21ad5d92dc3c611b4bbb42238e699b975f901d2e",
+    "visualPatternInventory": "a9d3b2cff545d373496ff19358f43b08989efef2c0b377a4c15ccb7e52a3036a"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.1"
+  },
+  "generatedAt": "2026-08-30T06:27:49.970Z"
+}

@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "scope": "Pokémon TCG Pocket responsive background asset identity only",
+  "status": "PASS_CORRECTED",
+  "claims": [
+    {
+      "id": "pocket-responsive-background-url-selection",
+      "status": "validated",
+      "fact": "At 1440px computed background-image uses background.jpg; at 390px it uses header_bg-small.jpg.",
+      "evidence": "responsive-assets.json",
+      "captures": ["captures/desktop-1440-background-use.png","captures/mobile-390-background-use.png"]
+    },
+    {
+      "id": "pocket-responsive-background-art-direction",
+      "status": "rejected",
+      "fact": "The two official URLs are not different visual assets: both downloaded files are 720x464 and SHA256 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976.",
+      "evidence": "responsive-assets.json"
+    }
+  ],
+  "earliestCorrectedClaim": "Attempt 10 Evidence pocket-mobile claimed a mobile-specific/dedicated background. Corrected to viewport-specific URL aliases with identical current bytes.",
+  "handoffBlockers": []
+}

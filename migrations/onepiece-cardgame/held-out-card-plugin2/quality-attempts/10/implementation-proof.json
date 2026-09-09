@@ -1,0 +1,61 @@
+{
+  "schema": "brand-host-plaza-false-affordance-repair-proof/v1",
+  "attempt": 10,
+  "route": "pages/plaza/index",
+  "sourceAssessment": "quality-attempts/9/visual-qa-assessment.json",
+  "scope": "Plaza held-out masthead CSS only",
+  "implementation": {
+    "editedFiles": [
+      "frontend/src/styles/onepiece-cardgame-heldout-theme.scss"
+    ],
+    "styleSha256": "bb09467f11365a28c9a467a4184e7856c375b2a5da54f6ec14782c7a0551e3f4",
+    "vueSfcEdited": false,
+    "systemCapsule": "aria-hidden non-functional capsule is display:none",
+    "switchArrow": "non-functional down-arrow is display:none",
+    "brandIdentity": "real card mark and Pokémon Trading Card Game identity remain visible",
+    "falsePointerCue": "miniapp-switch uses cursor:default and pointer-events:none",
+    "newDecorationOrFunction": false,
+    "businessOrA11yChanged": false,
+    "otherVisualSurfacesChanged": false,
+    "writes": 0
+  },
+  "viewportChecks": {
+    "390x844": {
+      "systemCapsuleDisplay": "none",
+      "switchArrowDisplay": "none",
+      "miniappSwitchPointerEvents": "none",
+      "documentOverflow": 0,
+      "headerBalance": "PASS"
+    },
+    "536x864": {
+      "systemCapsuleDisplay": "none",
+      "switchArrowDisplay": "none",
+      "documentOverflow": 0,
+      "headerBalance": "PASS"
+    },
+    "1280x720": {
+      "systemCapsuleDisplay": "none",
+      "switchArrowDisplay": "none",
+      "documentOverflow": 0,
+      "headerBalance": "PASS"
+    }
+  },
+  "accessibility": {
+    "axTopIdentity": [
+      "牌",
+      "宝可梦集换式卡牌"
+    ],
+    "fakeHeaderInteractionExposed": false,
+    "realTabsAndMyDeckButtonRemainExposed": true
+  },
+  "regression": {
+    "attempt9SearchTaxonomyCampaignCards": "UNCHANGED",
+    "pointerEnterSpaceParity": "UNCHANGED",
+    "heldOutBuild": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER",
+    "plazaStructuralDiff": "PASS"
+  },
+  "preview": "http://localhost:10092/#/pages/plaza/index",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

@@ -1,0 +1,21 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r2",
+  "executionId": "/root/pokemon_pocket_blind_qa_r2",
+  "verdict": "REWORK",
+  "blocking": true,
+  "proofs": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "FAIL"
+  },
+  "blockerCodes": [
+    "POCKET_DESKTOP_BACKGROUND_STACKING_MISMATCH",
+    "GENERATIVE_PROOF_CIRCULAR"
+  ],
+  "primaryFailureOwnerRole": "brandResearcher",
+  "secondaryFailureOwnerRole": "designDirectorOrchestrator",
+  "motion": "UNRESOLVED_UNSCORED",
+  "mayFinalize": false
+}

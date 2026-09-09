@@ -1,0 +1,142 @@
+{
+  "schema": "approved-visual-patterns/v2",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "status": "APPROVED_WITH_UNRESOLVED",
+  "patterns": [
+    {
+      "id": "home-layered-campaign-stage",
+      "scope": "page:home section:home-campaign-stage",
+      "visualFunction": "Make one campaign the dominant entry point through a black stage containing distinct identity, CTA, collectible, art, and controls layers.",
+      "evidenceRefs": ["home-stage-composition", "home-carousel-next"],
+      "sourceRegion": [0, 84, 1440, 710],
+      "requiredLayers": ["black-navigation", "campaign-art", "campaign identity", "CTA", "featured full card", "carousel-controls"],
+      "assetIdentity": ["home-booster-art@c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "home-30-logo@15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d", "home-feature-card@07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83"],
+      "responsive": "Desktop is layered horizontally; 390px stacks art/logo/card/CTA while preserving the reading order and full card identity.",
+      "suitableFor": ["Home campaign stage"],
+      "notFor": ["database shell", "learning section", "generic held-out hero"],
+      "allowedTransforms": ["viewport reflow", "crop translation documented in asset inventory"],
+      "forbiddenTransforms": ["replace source asset variant", "flatten into one raster", "remove carousel state truth"]
+    },
+    {
+      "id": "home-banded-editorial-journey",
+      "scope": "page:home sections:home-news-grid|home-product-bands|home-editorial-grid",
+      "visualFunction": "Move from campaign to discovery using discrete editorial and ecosystem bands, then alternating image/copy squares.",
+      "evidenceRefs": ["home-responsive-reflow"],
+      "sourceRegions": [[0, 794, 1440, 1794], [0, 2588, 1440, 1156], [0, 3745, 1440, 2160]],
+      "requiredLayers": ["section title and CTA", "editorial cards", "overlapping device/character composition", "alternating square image/copy grid"],
+      "responsive": "Two-column and wide-band structures become single-column sequences; observed mobile news uses a single-card viewport with controls.",
+      "suitableFor": ["Home editorial discovery", "Home product ecosystem"],
+      "notFor": ["search form", "dense instructional definitions"],
+      "allowedTransforms": ["column collapse", "full-width square media"],
+      "forbiddenTransforms": ["item count as structure", "turn every module into identical cards"]
+    },
+    {
+      "id": "database-dark-search-organism",
+      "scope": "page:card-database section:card-database-search-shell",
+      "visualFunction": "Contain a dense search task within a charcoal organism preceded by a light title plate and concluded by reset/search actions plus a drawer tab.",
+      "evidenceRefs": ["card-db-search-shell", "card-db-responsive", "card-db-search-state"],
+      "sourceRegion": [80, 114, 1280, 724],
+      "requiredLayers": ["light title plate", "keyword fields", "evolves-from field", "energy pills", "reset", "search action", "advanced-search tab"],
+      "responsive": "Desktop uses keyword grid and three pill columns; 390px preserves the same reading order in one vertical flow.",
+      "density": "High within the bounded organism; whitespace belongs outside the task shell.",
+      "suitableFor": ["Card database query construction"],
+      "notFor": ["generic settings form", "Home navigation", "Learn accordion"],
+      "allowedTransforms": ["stack fields and pills", "reduce columns"],
+      "forbiddenTransforms": ["omit Reset", "fake enabled controls", "promote an unverified action color into a brand accent"]
+    },
+    {
+      "id": "database-reversible-search-results",
+      "scope": "page:card-database state-machine:search",
+      "visualFunction": "Reveal authentic card results only after a query, while keeping the transition visibly reversible.",
+      "evidenceRefs": ["card-db-search-state", "card-db-results", "card-database-search"],
+      "states": [
+        {"id": "empty", "capture": "action-evidence/v2/search-default.png"},
+        {"id": "pikachu", "capture": "action-evidence/v2/search-triggered.png"},
+        {"id": "results", "capture": "action-evidence/v2/search-settled.png", "mustShow": ["Search Results", "1/12", "sort", "authentic card grid", "pagination"]},
+        {"id": "reset", "capture": "action-evidence/v2/search-restored.png"}
+      ],
+      "resultComposition": "Light textured mosaic; four columns on desktop, reduced-column/stacked flow on phone.",
+      "suitableFor": ["Pikachu database search reproduction"],
+      "notFor": ["pre-populated default results", "static gallery without state"],
+      "forbiddenTransforms": ["skip typed state", "show results before submit", "reset without restoring empty state", "use non-result cards"]
+    },
+    {
+      "id": "database-advanced-drawer",
+      "scope": "page:card-database state-machine:advanced-filter",
+      "visualFunction": "Progressively disclose dense filter groups below the simple search without changing their semantic order.",
+      "evidenceRefs": ["card-db-advanced-state", "card-database-advanced-filter"],
+      "states": [
+        {"id": "show", "label": "Show Advanced Search", "height": "0px", "capture": "action-evidence/v2/advanced-default.png"},
+        {"id": "open", "label": "Hide Advanced Search", "height": "724px", "capture": "action-evidence/v2/advanced-triggered.png"},
+        {"id": "settled", "label": "Hide Advanced Search", "height": "1206.73px", "capture": "action-evidence/v2/advanced-settled.png"},
+        {"id": "hide", "label": "Show Advanced Search", "height": "0px", "capture": "action-evidence/v2/advanced-restored.png"}
+      ],
+      "requiredLayers": ["drawer trigger", "card type groups", "rarity/expansion groups", "advanced reset/search"],
+      "responsive": "Multi-column filter groups become stacked groups.",
+      "suitableFor": ["Card database progressive filtering"],
+      "notFor": ["site navigation", "generic accordion styling"],
+      "forbiddenTransforms": ["drop settled state", "leave label unchanged", "fail to restore collapsed state"]
+    },
+    {
+      "id": "learn-media-entry",
+      "scope": "page:how-to-play section:learn-getting-started",
+      "visualFunction": "Introduce learning with a partial card fan, oversized title, then a 16:9 starter-media blade and three resources.",
+      "evidenceRefs": ["learn-hierarchy"],
+      "sourceRegion": [0, 84, 1440, 1875],
+      "requiredLayers": ["air-card hero", "hero title", "getting-started title", "video blade", "resource cards"],
+      "assetIdentity": ["learn-header-card@70c404722e9479b0204aaae420482fce43d77378ca356e162ec834424758b758", "learn-video-thumbnail@ecb137f9c0462465cb3288bab34d1e59c3dafc3c437f9f41680a39ab45d6be0b"],
+      "responsive": "Two-column media and three resources become a single column; hero card becomes a cropped top band.",
+      "suitableFor": ["Learning entry and resources"],
+      "notFor": ["Home campaign", "database result"]
+    },
+    {
+      "id": "learn-painted-card-anatomy",
+      "scope": "page:how-to-play section:learn-card-breakdown",
+      "visualFunction": "Bind definitions to an authentic full card inside a warm painted instructional field.",
+      "evidenceRefs": ["learn-hierarchy", "learn-accordion"],
+      "sourceRegion": [0, 1959, 1440, 3335],
+      "requiredLayers": ["yellow paint boundary", "oversized heading", "exclusive definitions", "authentic full card", "hotspots"],
+      "assetIdentity": ["learn-card@9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95"],
+      "interaction": "Only one definition panel is open; change and restoration are required.",
+      "responsive": "Desktop pairs one accordion with one card; phone pairs/repeats the card beside each definition to preserve explanatory proximity.",
+      "suitableFor": ["Card anatomy instruction"],
+      "notFor": ["global yellow section", "database filters", "decorative card gallery"],
+      "forbiddenTransforms": ["yellow as global active role", "replace authentic card", "multi-open accordion without evidence"]
+    },
+    {
+      "id": "learn-painted-field-pairs",
+      "scope": "page:how-to-play section:learn-field-of-play",
+      "visualFunction": "Teach play locations by pairing ordered definitions with exact diagram variants inside a navy painted field.",
+      "evidenceRefs": ["learn-hierarchy"],
+      "sourceRegion": [0, 5294, 1440, 3329],
+      "requiredLayers": ["navy paint boundary", "oversized heading", "ordered location definitions", "matching diagrams"],
+      "assetIdentity": ["field-diagrams@e7593a3bfe70f9ab0a26a1fea6c52ab73fcff808d80644b5f4a888d56f60e6b0"],
+      "responsive": "Definition and diagram columns become ordered definition/diagram pairs.",
+      "suitableFor": ["Field-of-play instruction"],
+      "notFor": ["generic blue band", "Home product ecosystem", "database shell"],
+      "forbiddenTransforms": ["unlabeled diagrams", "one generic diagram for all definitions", "navy as sitewide background"]
+    },
+    {
+      "id": "bounded-long-form-sections",
+      "scope": "generative-held-out structure-only",
+      "visualFunction": "Preserve a long page as a sequence of purpose-separated organisms with an explicit entry-to-instruction reading order, without copying any source page's colors, assets, or section skin.",
+      "evidenceRefs": ["home-responsive-reflow", "card-db-search-shell", "learn-hierarchy"],
+      "sourceRegions": [[0, 794, 1440, 5111], [80, 114, 1280, 724], [0, 84, 1440, 8539]],
+      "requiredLayers": ["purpose-specific entry organism", "purpose-specific instruction or task organism", "explicit reading order between organisms"],
+      "responsive": "Desktop and phone may reflow each organism independently, but must retain organism boundaries and entry-to-instruction order.",
+      "suitableFor": ["Held-out long-form generative proof with source-independent content"],
+      "notFor": ["copying Home, Card Database, or Learn composition", "inventing a shared color or decorative treatment", "using section count as fidelity evidence"],
+      "allowedTransforms": ["source-independent content", "organism-specific responsive reflow"],
+      "forbiddenTransforms": ["reuse source screenshots or official campaign assets", "flatten different purposes into identical cards", "claim color, type, frame, or motion rules not separately approved"]
+    }
+  ],
+  "globalForbiddenExpansions": [
+    "Source screenshots as runtime assets",
+    "Pitch Black or Pokémon 30th conclusions as seeds",
+    "Exact unsupported hex colors or Home/Learn font names",
+    "Reduce Motion state or visual effect",
+    "A single universal page skin",
+    "Enabled controls without captured reversible behavior"
+  ]
+}

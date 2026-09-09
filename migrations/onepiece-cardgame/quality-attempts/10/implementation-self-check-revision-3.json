@@ -1,0 +1,20 @@
+{
+  "schema": "brand-demo-implementation-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 10,
+  "revision": 3,
+  "role": "Demo Implementation Agent",
+  "status": "PASS_READY_FOR_NEW_BLIND_QA",
+  "blockingFindingsClosed": [
+    { "finding": "CSS gradients substituted for footer illustration", "closure": "Removed the generated gradients and mapped the official independent footer_illust_bg.webp identified by the Evidence-linked official common.css selector." },
+    { "finding": "Luffy and cards were approximately four times official scale", "closure": "Restored official normalized base geometry: Luffy width 0.546875 viewport; card heights 0.398795/0.201205/0.209566." },
+    { "finding": "120ms/500ms composite timing diverged", "closure": "Continuous capture shows faint background/near-zero character at 120ms and character opacity 0.840788 at 500ms; composite remains hidden until its official 1.5s/2.2s finite swap." },
+    { "finding": "Alfa Slab One expanded to unsupported long titles", "closure": "Long starter title computes as OPCG Poppins 700; Alfa Slab One is restricted to the approved short display-title role." }
+  ],
+  "visualSelfCheck": { "comparison": "output/visual-qa/onepiece-cardgame/demo-v10-revision-3/source-vs-demo-six-states.png", "directlyInspected": true, "result": "wide wave/character/card hierarchy present across six states; no pale vertical poster composition" },
+  "preservedPasses": { "finiteSwap": { "durations": ["0.6s", "0.8s"], "iterations": [1, 1] }, "loops": { "durations": ["5s", "8s", "8s"], "iterations": "infinite" }, "pause": { "scope": "three footer loops only", "transformsFrozenForMs": 1200, "revealReset": false }, "phone": { "scrollHeight": 2901, "clientHeight": 583, "restoredScrollTop": 0 }, "heldOutSections": 2 },
+  "browser": { "viewport": [1164, 655], "consoleWarnings": 0, "consoleErrors": 0, "captures": "output/visual-qa/onepiece-cardgame/demo-v10-revision-3" },
+  "build": "pass (vite 8.0.16; 25 modules; 530ms)",
+  "visualFidelitySelfApproved": false,
+  "nextRole": "new Blind Visual QA"
+}

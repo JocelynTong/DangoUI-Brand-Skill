@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-pocket-only",
+  "status": "APPROVED_WITH_CONSTRAINTS_CORRECTED",
+  "supersedes": "../interpreter/pattern-inventory.json",
+  "patterns": [
+    {
+      "id": "PAT-POCKET-01",
+      "name": "Viewport-specific Pocket background alias binding",
+      "classification": "responsive-asset-binding",
+      "approval": "approved-corrected",
+      "scope": "homepage Pokémon TCG Pocket asset field",
+      "intent": "Preserve the source's viewport-specific URL roles without inventing an artwork difference that the published bytes do not contain.",
+      "observableRules": [
+        "desktop computed style binds background.jpg",
+        "mobile computed style binds header_bg-small.jpg",
+        "both official responses are 720x464",
+        "both responses share SHA-256 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+        "current desktop and mobile artwork is byte-identical"
+      ],
+      "suitableFor": ["Pocket section responsive provenance and URL-role mapping"],
+      "notFor": ["art-directed visual substitution", "global responsive image rule", "invented mobile artwork", "QA credit for visible asset change"],
+      "allowedRoles": ["Pocket desktop background binding", "Pocket mobile background binding", "shared verified local payload"],
+      "forbiddenRoles": ["visually distinct breakpoint asset", "site-wide mobile header", "universal art-direction recipe"],
+      "assetIdentity": {
+        "desktopUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+        "mobileUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+        "pixelSize": [720, 464],
+        "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+        "relationship": "same-bytes-alias"
+      },
+      "evidenceRefs": ["POCKET-RESPONSIVE-URL-BINDING", "POCKET-RESPONSIVE-BYTES", "POCKET-ART-DIRECTION"]
+    },
+    {
+      "id": "PAT-POCKET-02",
+      "name": "Equal-split product and copy handoff",
+      "classification": "section-layout",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket desktop section",
+      "rules": ["two equal columns", "asset left", "opaque-black copy right", "hard full-width section boundary"],
+      "evidenceRefs": ["pocket-boundary", "pocket-desktop"]
+    },
+    {
+      "id": "PAT-POCKET-03",
+      "name": "Asset-first mobile product handoff",
+      "classification": "responsive-layout",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket mobile section",
+      "rules": ["asset first", "copy second", "full-width black copy panel", "vertical recomposition rather than desktop shrink"],
+      "evidenceRefs": ["pocket-mobile"]
+    },
+    {
+      "id": "PAT-POCKET-04",
+      "name": "Single composite product signature",
+      "classification": "asset-composition",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket product composition",
+      "rules": ["one independent transparent logo-cards.png", "intrinsic logo/card relationship", "no invented card layers or interactions"],
+      "evidenceRefs": ["pocket-assets", "pocket-desktop", "pocket-mobile"]
+    },
+    {
+      "id": "PAT-POCKET-05",
+      "name": "Black product-copy anchor",
+      "classification": "content-panel",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket copy field",
+      "rules": ["opaque rectangular black field", "one H2", "one paragraph", "one CTA", "no kicker"],
+      "evidenceRefs": ["pocket-desktop", "pocket-mobile", "pocket-copy"]
+    },
+    {
+      "id": "PAT-POCKET-06",
+      "name": "Italic product-callout type hierarchy",
+      "classification": "typography",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket copy field",
+      "rules": ["Kanit italic 700 H2", "PT Sans 18/28.8 body", "PT Sans italic 700 CTA", "fluid wrapping"],
+      "evidenceRefs": ["pocket-copy", "pocket-cta"]
+    },
+    {
+      "id": "PAT-POCKET-07",
+      "name": "White external action with localized gold hover",
+      "classification": "component-state",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket Play Now CTA",
+      "rules": ["white background", "black resting foreground", "gold hover foreground", "external Pocket destination"],
+      "evidenceRefs": ["pocket-cta"]
+    },
+    {
+      "id": "PAT-POCKET-08",
+      "name": "Entry hidden and settled endpoints",
+      "classification": "interaction-motion",
+      "approval": "unresolved-unchanged",
+      "scope": "homepage Pocket viewport entry",
+      "observedOnly": ["hidden endpoint", "settled endpoint"],
+      "forbiddenRoles": ["approved motion recipe", "intermediate-frame inference", "duration", "easing", "stagger", "sequence"],
+      "evidenceRefs": ["pocket-entry-motion"]
+    }
+  ],
+  "scopeAudit": {
+    "globalPatternsApproved": [],
+    "sectionLocalApproved": ["PAT-POCKET-01", "PAT-POCKET-02", "PAT-POCKET-03", "PAT-POCKET-04", "PAT-POCKET-05", "PAT-POCKET-06", "PAT-POCKET-07"],
+    "unresolved": ["PAT-POCKET-08"],
+    "tokenRoleExpansionDetected": false,
+    "correctedMisinterpretation": "PAT-POCKET-01 no longer describes mobile artwork as visually distinct.",
+    "mustNotInvent": ["red browser-extension overlay", "visually distinct mobile background", "motion intermediate/timing/easing/stagger", "global 50/50 or black-panel recipe"]
+  }
+}

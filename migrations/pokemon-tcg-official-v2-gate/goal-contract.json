@@ -1,0 +1,5 @@
+{
+  "schema":"brand-goal/v2","goalId":"pokemon-tcg-official-cold-start-v2","brand":"pokemon-tcg-official","sealed":true,
+  "evidencePolicy":{"continuousCaptureRequired":true,"requiredPageIds":["home","card-database","how-to-play"],"requiredPageStates":["initial","continuous-scroll","settled-end"],"requiredInteractionStates":["default","triggered","settled","restored"]},
+  "referencePages":[{"id":"home","core":true},{"id":"card-database","core":true},{"id":"how-to-play","core":true}]
+}

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "sectionId": "homepage-pokemon-tcg-live",
+  "status": "evidence-ready",
+  "viewports": [
+    {
+      "id": "desktop-1440x1000",
+      "capture": "captures/tcg-live-desktop-1440x1000-stable.png",
+      "sectionRegion": {"x":0,"y":0,"width":1440,"height":624},
+      "layers": ["tcgl-background raster with red/gold top chevron and gray honeycomb","70%-black copy panel","Kanit heading + PT Sans body + white CTA","five independently positioned transparent assets"],
+      "readingOrder": ["top red/gold seam","left copy panel: heading, paragraph, CTA","right laptop","Pikachu foreground","phone foreground","two avatars above laptop","hard seam to Pocket section"],
+      "composition": "two equal grid columns; DOM row--reverse; left copy panel overlaps visually against right asset group"
+    },
+    {
+      "id": "mobile-390x844",
+      "capture": "captures/tcg-live-mobile-390x844-stable.png",
+      "sectionRegion": {"x":0,"y":2.75,"width":390,"height":644.625},
+      "layers": ["full-bleed raster background","374x258.625 layered asset group","full-width opaque-black copy panel","following Pocket section"],
+      "readingOrder": ["top red/gold seam","avatar/laptop/Pikachu/phone composition","heading","paragraph","CTA","Pocket section"],
+      "composition": "vertical reflow; asset composition first; content panel fills full width below"
+    }
+  ],
+  "responsiveTranslation": {
+    "section": "1440x624 -> 390x644.625 full-bleed",
+    "copyPanel": "696x316.5 rgba(0,0,0,.7) with 50x72 padding -> 390x~312 opaque black with 30px padding",
+    "type": "H2 40/44 -> 28/30.8; body remains 18/28.8; CTA 20/24 and 56px -> 18/22.5 and 51.297px",
+    "assetGroup": "778x538 desktop -> 374x258.625 mobile, approximately proportional scale; internal overlap identities preserved",
+    "readingOrder": "desktop copy-left/assets-right -> mobile assets-first/copy-second"
+  },
+  "interactionStates": [
+    {"id":"viewport-entry","before":"captures/tcg-live-mobile-motion-before.png","transition":"captures/tcg-live-mobile-motion-transition-250ms.png","settled":"captures/tcg-live-mobile-motion-settled.png","result":"observed opacity + pop/slide transform with stagger classes"},
+    {"id":"cta-hover","capture":"captures/tcg-live-mobile-390x844-stable.png","result":"foreground black -> gold; white background unchanged"},
+    {"id":"cta-click","beforeUrl":"https://tcg.pokemon.com/en-us/","afterUrl":"https://tcg.pokemon.com/en-us/tcgl/","result":"observed navigation"}
+  ],
+  "mustNotInvent": ["pure-red full section","separate kicker","single flattened device screenshot","background animation","desktop order retained on mobile"],
+  "handoffBlockers": [],
+  "handoffWarnings": ["Stable proof screenshots were auto-translated by Chrome; use recorded English DOM/computed values for copy geometry and use screenshots for structure/assets only."]
+}

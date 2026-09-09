@@ -1,0 +1,241 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-live-only",
+  "status": "APPROVED_WITH_WARNINGS",
+  "sourceEvidence": [
+    "../evidence/brand-evidence.json",
+    "../evidence/section-fidelity-source.json"
+  ],
+  "interpretationPrinciple": "Preserve the TCG Live section's proved visual hierarchy, responsive reordering, layered asset identities, and entry choreography at section-local scope. Do not promote its red/gold seam, honeycomb field, black panel, white CTA, or motion into site-wide tokens or generic recipes.",
+  "visualIntent": {
+    "summary": "A product-world callout that moves from a branded red/gold threshold into a restrained light-gray technical field. A layered device-and-character scene demonstrates the product visually, while a black copy panel creates a decisive, readable endpoint.",
+    "hierarchy": [
+      "The red/gold chevron is an entry seam embedded in the section background, not the dominant section fill.",
+      "The pale gray honeycomb field supports the product composition without competing with it.",
+      "The five-layer product scene carries recognition before the copy on mobile and alongside it on desktop.",
+      "The black panel groups heading, body, and CTA as one local callout, not as a generic site surface.",
+      "The hard lower boundary hands off directly to the pale-blue Pocket section."
+    ],
+    "brandSignals": [
+      "red/gold V-shaped top threshold over a pale gray honeycomb field",
+      "five independently layered transparent product assets",
+      "Kanit heavy display heading paired with PT Sans body and CTA",
+      "white rectangular CTA with black-to-gold foreground hover",
+      "viewport-entry pop for the laptop and staggered slide/fade for copy and companion assets"
+    ]
+  },
+  "structureRecipe": {
+    "id": "pokemon-tcgl-layered-product-callout",
+    "scope": "section-local",
+    "layers": [
+      {
+        "order": 1,
+        "role": "section-background",
+        "rule": "Use the independently loaded TCG Live background raster as one full-bleed field: red/gold chevron at the top, pale gray honeycomb through the body, and no inferred background motion."
+      },
+      {
+        "order": 2,
+        "role": "copy-panel",
+        "rule": "Desktop places a translucent-black rectangular panel on the left; mobile places an opaque-black full-width panel below the asset composition."
+      },
+      {
+        "order": 3,
+        "role": "layered-product-scene",
+        "rule": "Keep laptop as the large rear plane; Pikachu at lower left, phone at lower right, and two avatar hexagons floating above. Preserve five independent image identities and overlaps."
+      },
+      {
+        "order": 4,
+        "role": "copy-stack",
+        "rule": "Use exactly the proved visible hierarchy: centered H2, one centered paragraph, and one centered white CTA. Do not add a kicker."
+      },
+      {
+        "order": 5,
+        "role": "following-section-boundary",
+        "rule": "End with a hard boundary into the following pale-blue section; do not wrap this callout in a floating card or rounded shell."
+      }
+    ],
+    "readingOrder": {
+      "desktop": [
+        "red/gold top seam",
+        "left copy panel: heading, paragraph, CTA",
+        "right layered scene: laptop, Pikachu, phone, avatars",
+        "hard lower section boundary"
+      ],
+      "mobile": [
+        "red/gold top seam",
+        "layered scene: avatars, laptop, Pikachu, phone",
+        "full-width black panel: heading, paragraph, CTA",
+        "following pale-blue section"
+      ]
+    }
+  },
+  "responsiveMatrix": [
+    {
+      "aspect": "section field",
+      "desktop1440": "Full-bleed 1440x624 band with 32px top and 54px bottom padding.",
+      "mobile390": "Full-bleed 390x644.625 band with the same observed section padding family.",
+      "invariant": "The background remains one full-width raster field with a top red/gold seam and pale gray honeycomb body.",
+      "evidenceRefs": ["live-layout-desktop", "live-layout-mobile", "live-background"]
+    },
+    {
+      "aspect": "reading order",
+      "desktop1440": "Copy panel left and layered product scene right.",
+      "mobile390": "Layered product scene first, then full-width copy panel.",
+      "invariant": "Mobile is a deliberate reorder, not a proportionally shrunken desktop row.",
+      "evidenceRefs": ["live-layout-desktop", "live-layout-mobile"]
+    },
+    {
+      "aspect": "copy panel",
+      "desktop1440": "696x316.5, rgba(0,0,0,.7), padding 50px 72px.",
+      "mobile390": "390px full width, approximately 312px high in English geometry, opaque black, padding 30px.",
+      "invariant": "Rectangular black local content field containing only H2, paragraph, and CTA.",
+      "evidenceRefs": ["live-layout-desktop", "live-layout-mobile", "live-copy-desktop", "live-copy-mobile"]
+    },
+    {
+      "aspect": "heading",
+      "desktop1440": "Kanit 700, 40/44, letter-spacing 1.25px, centered white.",
+      "mobile390": "Kanit 700, 28/30.8, letter-spacing approximately 1px, centered white.",
+      "invariant": "One H2 with no separate kicker.",
+      "evidenceRefs": ["live-copy-desktop", "live-copy-mobile"]
+    },
+    {
+      "aspect": "body",
+      "desktop1440": "PT Sans 400, 18/28.8, centered white.",
+      "mobile390": "PT Sans 400, 18/28.8 in a 330px content width; wrapping remains fluid.",
+      "invariant": "One paragraph between heading and CTA; translated screenshot wrapping is not authoritative.",
+      "evidenceRefs": ["live-copy-desktop", "live-copy-mobile"]
+    },
+    {
+      "aspect": "CTA",
+      "desktop1440": "PT Sans 700, 20/24, 56px high, 16px 40px padding, 2px radius.",
+      "mobile390": "PT Sans 700, 18/22.5, approximately 190.742x51.297, 14.4px 36px padding.",
+      "invariant": "White rectangular action with black resting foreground and gold hover foreground.",
+      "evidenceRefs": ["live-copy-desktop", "live-copy-mobile", "live-cta-hover", "live-cta-click"]
+    },
+    {
+      "aspect": "asset composition",
+      "desktop1440": "778x538 group; laptop 657x387.63 rear plane with Pikachu, phone, and avatars overlapping.",
+      "mobile390": "374x258.625 group, approximately proportionally scaled while preserving internal overlaps.",
+      "invariant": "All five source assets remain independent and retain their semantic layer roles.",
+      "evidenceRefs": ["live-assets", "live-layout-desktop", "live-layout-mobile"]
+    }
+  ],
+  "interactionRecipes": [
+    {
+      "id": "pokemon-tcgl-viewport-entry",
+      "scope": "TCG Live callout entry only",
+      "status": "approved",
+      "trigger": "section entering the viewport through normal incremental scrolling",
+      "rules": [
+        "Laptop changes from opacity 0 and scale .5 to opacity 1 and scale 1.",
+        "Heading changes from opacity 0 and translateY 15.398px to its settled position.",
+        "Paragraph and CTA use the same slide/fade family with staggered delays and their evidenced initial translate values.",
+        "Pikachu, phone, and avatars participate as staggered companion layers.",
+        "The background itself remains static."
+      ],
+      "acceptance": [
+        "Capture before-entry, intermediate, and settled visual states.",
+        "The laptop scale change and copy opacity/translation must be visibly observable, not only represented by classes.",
+        "The final layered composition must settle at opacity 1 without losing overlap relationships.",
+        "Do not convert the entry effect into continuous scroll-linked motion."
+      ],
+      "evidenceRefs": ["live-entry-motion"]
+    },
+    {
+      "id": "pokemon-tcgl-white-cta-hover",
+      "scope": "TCG Live Learn More CTA only",
+      "status": "approved",
+      "rule": "Keep the white background unchanged while changing the label/icon foreground from black to gold on pointer hover.",
+      "evidenceRefs": ["live-cta-hover"]
+    },
+    {
+      "id": "pokemon-tcgl-white-cta-navigation",
+      "scope": "TCG Live Learn More CTA only",
+      "status": "approved",
+      "rule": "Activate navigation to the TCG Live overview destination; a visual-only inert button is not equivalent.",
+      "evidenceRefs": ["live-cta-click"]
+    }
+  ],
+  "compositionContracts": [
+    {
+      "id": "pokemon-tcgl-five-layer-product-scene",
+      "scope": "homepage TCG Live section",
+      "mustPreserve": [
+        "tcgl-background raster identity including red/gold top seam and gray honeycomb body",
+        "laptop as the large rear plane",
+        "Pikachu overlapping the lower-left laptop edge",
+        "phone overlapping the lower-right laptop edge",
+        "two avatar hexagons floating above the laptop",
+        "five independent transparent assets rather than one flattened screenshot",
+        "desktop copy-left/assets-right and mobile assets-first/copy-second ordering"
+      ],
+      "allowedVariation": [
+        "The complete group may scale proportionally to fit the available width.",
+        "Small positional translation is allowed only to preserve the evidenced overlap and visual balance across widths.",
+        "English text may wrap naturally at the available width without hard-coded breaks."
+      ],
+      "mustNotReplace": [
+        "Do not use a screenshot crop or flattened composite as runtime artwork.",
+        "Do not substitute unrelated device, character, or avatar assets.",
+        "Do not turn the red/gold top seam into a solid-red section.",
+        "Do not retain the desktop side-by-side order on mobile.",
+        "Do not add a kicker, rounded outer shell, or animated background."
+      ],
+      "assetLayers": [
+        {"order": 1, "role": "section-background-and-top-seam", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg", "sourceKind": "independent-source-asset"},
+        {"order": 2, "role": "primary-device-back-plane", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png", "sourceKind": "independent-source-asset"},
+        {"order": 3, "role": "foreground-character", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png", "sourceKind": "independent-source-asset"},
+        {"order": 4, "role": "secondary-device", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/phone.png", "sourceKind": "independent-source-asset"},
+        {"order": 5, "role": "floating-avatar-left", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png", "sourceKind": "independent-source-asset"},
+        {"order": 6, "role": "floating-avatar-right", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png", "sourceKind": "independent-source-asset"}
+      ],
+      "evidenceRefs": ["live-background", "live-assets", "live-layout-desktop", "live-layout-mobile"]
+    }
+  ],
+  "scopeBoundaries": {
+    "sectionLocalRules": [
+      "red/gold top chevron seam",
+      "pale gray honeycomb section field",
+      "translucent-black desktop copy panel and opaque-black mobile copy panel",
+      "five-layer TCG Live product composition",
+      "Kanit heading and PT Sans copy/CTA roles",
+      "white CTA with black-to-gold foreground hover",
+      "laptop pop plus staggered copy/asset entry"
+    ],
+    "notGlobalTokens": [
+      "Red is not inferred as the global page background, primary action, or interaction emphasis.",
+      "Gold is not inferred as a global active or primary color; it is proved only for the seam asset and this CTA hover foreground.",
+      "Black panel styling is not inferred for all sections, cards, modals, or host surfaces.",
+      "The honeycomb texture is not inferred as a global page background.",
+      "Kanit and PT Sans roles here do not create unrestricted global typography tokens.",
+      "The entry motion is not a global animation recipe and does not authorize background motion."
+    ]
+  },
+  "unresolvedClaims": [
+    {
+      "id": "UNRESOLVED-TRANSLATED-WRAP",
+      "owner": "Evidence",
+      "impact": "The translated screenshot cannot prescribe original-English line breaks or exact copy height.",
+      "downstreamRule": "Use the recorded English DOM/computed typography and fluid layout; do not hard-code wrapping from the Chinese capture."
+    },
+    {
+      "id": "UNRESOLVED-BACKGROUND-MOTION",
+      "owner": "Evidence",
+      "impact": "No background animation was observed.",
+      "downstreamRule": "Implement the background as static and do not claim learned background motion."
+    }
+  ],
+  "handoff": {
+    "verdict": "PASS_WITH_CONSTRAINTS",
+    "blockers": [],
+    "requirementsForDesignDirection": [
+      "Approve both 1440px and 390px proof surfaces.",
+      "Freeze all six source asset identities and the five foreground-layer relationships.",
+      "Require mobile assets-first/copy-second reordering.",
+      "Require before/intermediate/settled viewport-entry proof.",
+      "Require an active CTA destination and hover foreground change.",
+      "Reject solid-red fields, invented kickers, flattened screenshots, translated hard breaks, and background animation."
+    ]
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "schema": "brand-demo-browser-probes/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 11,
+  "mobile": {
+    "requestedViewport": { "width": 390, "height": 844 },
+    "measuredViewport": { "width": 390, "height": 843 },
+    "document": { "clientWidth": 390, "scrollWidth": 390, "scrollHeight": 5165 },
+    "host": { "panelDisplay": "none", "workspaceWidth": 390, "previewWidth": 390, "phoneWidth": 390, "homeCanvasWidth": 390 },
+    "scroll": { "owner": "document", "bodyOverflowY": "auto", "phoneOverflowY": "visible" },
+    "minimumMeasuredAction": { "width": 44, "height": 44 },
+    "sectionWidths": {
+      "home-hero": 390,
+      "home-welcome": 390,
+      "home-news": 390,
+      "home-new-arrival": 390,
+      "home-products": 390,
+      "home-events": 390,
+      "home-schedule": 390,
+      "home-recommend": 390,
+      "home-videos": 390,
+      "home-held-out": 390,
+      "home-footer-illustration": 390,
+      "home-footer": 390
+    },
+    "horizontalDocumentOverflow": false
+  },
+  "desktop": {
+    "measuredViewport": { "width": 1308, "height": 895 },
+    "panelWidth": 460,
+    "workspaceWidth": 848.18,
+    "phoneFrame": { "width": 390, "height": 821.46 },
+    "phoneScreen": { "width": 370.91, "height": 802.37, "scrollHeight": 3199, "clientHeight": 802, "overflowY": "auto" },
+    "bodyOverflow": "hidden",
+    "desktopPhoneShellRetained": true
+  }
+}

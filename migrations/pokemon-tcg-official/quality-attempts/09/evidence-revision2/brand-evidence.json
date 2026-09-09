@@ -1,0 +1,79 @@
+{
+  "schemaVersion":"1.0",
+  "brand":"pokemon-tcg-official",
+  "sourceUrl":"https://tcg.pokemon.com/en-us/",
+  "scope":"homepage TCG Live section only",
+  "status":"PASS_WITH_MOTION_UNRESOLVED",
+  "replaces":"../evidence/brand-evidence.json",
+  "claims":[
+    {
+      "id":"desktop-layout",
+      "status":"observed",
+      "fact":"In an independently frozen 1440x900 content viewport, the complete source section is 1440x624 at x=0. Copy occupies the left half and the five-asset composition occupies the right half.",
+      "capture":"captures/source-tcgl-desktop-1440x900-settled.png",
+      "captureSha256":"99fef18147274c98caa5232f90d297c6637d1b380e1d794a4c61a7aa0ce367fd",
+      "region":{"x":0,"y":120.336,"width":1440,"height":624},
+      "visibleDomState":{"selector":".tcgl-callout","viewport":{"width":1440,"height":900},"state":"settled; all child opacity=1 and transform=identity"},
+      "computed":{"copy":{"rect":[12,263.086,696,316.5],"backgroundColor":"rgba(0,0,0,.7)","padding":"50px 72px"},"assets":{"rect":[612,152.336,778,538]},"laptop":[730,274.336,657,387.633],"pikachu":[612,412.336,279,275.008],"phone":[1211.992,408.336,132,274],"avatar1":[1077,199.336,134,115.141],"avatar2":[1211.992,152.336,169,146.867]}
+    },
+    {
+      "id":"mobile-layout",
+      "status":"observed",
+      "fact":"In an independently frozen 390x844 content viewport, the complete source section is 390x644.625 at x=0. The red/gold V seam and layered asset composition come first; an opaque full-width black copy panel follows.",
+      "capture":"captures/source-tcgl-mobile-390x844-settled.png",
+      "captureSha256":"657ef01e3b9c26b46e60e626153e5063567b00be07a0c83310c81b19ba768cc1",
+      "region":{"x":0,"y":100.25,"width":390,"height":644.625},
+      "visibleDomState":{"selector":".tcgl-callout","viewport":{"width":390,"height":844},"state":"settled; target section fully visible; all target children opacity=1"},
+      "computed":{"assetGroup":{"rect":[8,132.25,374,258.625]},"copy":{"rect":[0,430.68,390,314.195],"backgroundColor":"rgb(0,0,0)","padding":"30px"},"laptop":[64.719,190.891,315.828,186.336],"pikachu":[8,257.234,134.117,132.195],"phone":[296.43,255.313,63.453,131.711],"avatar1":[231.531,154.836,64.414,55.344],"avatar2":[296.43,132.25,81.234,70.594]}
+    },
+    {
+      "id":"background",
+      "status":"observed",
+      "fact":"The section is not a solid-red block. It uses one full-bleed raster containing a red/gold V-shaped top seam and pale gray honeycomb field. The lower boundary is a hard cut to the pale-blue Pocket section.",
+      "capture":"captures/source-tcgl-desktop-1440x900-settled.png",
+      "captureSha256":"99fef18147274c98caa5232f90d297c6637d1b380e1d794a4c61a7aa0ce367fd",
+      "region":{"x":0,"y":120.336,"width":1440,"height":624},
+      "visibleDomState":{"selector":".tcgl-callout","state":"settled background visible"},
+      "computed":{"backgroundImage":"image-set(url(https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg) 1dppx, url(https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background-2x.jpg) 2dppx)","backgroundColor":"transparent"}
+    },
+    {
+      "id":"english-copy",
+      "status":"observed-pre-translation-computed",
+      "fact":"English visible DOM before Chrome translation was H2 'POKÉMON TCG LIVE', one body paragraph, and CTA 'Learn More'. No kicker exists.",
+      "capture":"captures/source-tcgl-desktop-1440x900-settled.png",
+      "captureSha256":"99fef18147274c98caa5232f90d297c6637d1b380e1d794a4c61a7aa0ce367fd",
+      "region":{"x":12,"y":263.086,"width":696,"height":316.5},
+      "visibleDomState":{"selector":".tcgl-callout__content","state":"English DOM recorded before automatic translation; stable screenshots are not copy authority"},
+      "computed":{"desktop":{"h2":{"fontFamily":"Kanit, sans-serif","fontSize":"40px","fontWeight":"700","lineHeight":"44px","letterSpacing":"1.25px"},"body":{"fontFamily":"PT Sans, sans-serif","fontSize":"18px","fontWeight":"400","lineHeight":"28.8px"},"cta":{"fontFamily":"PT Sans, sans-serif","fontSize":"20px","fontWeight":"700","lineHeight":"24px","letterSpacing":".83px","height":"56px","padding":"16px 40px"}},"mobile":{"h2":{"fontFamily":"Kanit, sans-serif","fontSize":"28px","fontWeight":"700","lineHeight":"30.8px","letterSpacing":"~1px","englishExpectedHeight":"30.797px"},"body":{"fontFamily":"PT Sans, sans-serif","fontSize":"18px","fontWeight":"400","lineHeight":"28.8px","englishExpectedHeight":"143.984px"},"cta":{"fontFamily":"PT Sans, sans-serif","fontSize":"18px","fontWeight":"700","lineHeight":"22.5px","letterSpacing":"~1px","englishExpectedSize":"190.742x51.297","padding":"14.4px 36px"}}}
+    },
+    {
+      "id":"entry-motion",
+      "status":"unresolved",
+      "fact":"Source classes and initial computed values indicate pop/slide candidates, but the source viewport controller could not be reliably reset or retriggered in a stable same-section 390x844 capture. During repeated attempts the asynchronous page reflow moved the target section out of frame between 0ms and 120ms. Therefore no before/mid/settled motion claim is released downstream.",
+      "capture":"captures/source-tcgl-mobile-390x844-entry-0ms.png",
+      "captureSha256":"89dd39f0e1c60ec85fce06ca5f7b9f9658716845ef1e8231cb96b4689600e528",
+      "region":{"x":0,"y":0,"width":390,"height":844},
+      "visibleDomState":{"selector":".tcgl-callout","state":"attempted reset/retrigger; sequence invalidated by target section leaving viewport"},
+      "computed":{"candidateInitial":{"h2":{"opacity":"0","transform":"translateY(15.3984px)"},"body":{"opacity":"0","transform":"translateY(71.9922px)"},"cta":{"opacity":"0","transform":"translateY(25.6484px)"},"laptop":{"opacity":"0","transform":"scale(.5)"}},"disposition":"unresolved; candidate-only; must not become implementation requirement"}
+    }
+  ],
+  "assets":[
+    {"role":"background","url":"https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg","status":"validated"},
+    {"role":"laptop back plane","url":"https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png","status":"validated"},
+    {"role":"Pikachu foreground","url":"https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png","status":"validated"},
+    {"role":"phone foreground-right","url":"https://tcg.pokemon.com/assets/img/home/tcgl/phone.png","status":"validated"},
+    {"role":"avatar upper-left","url":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png","status":"validated"},
+    {"role":"avatar upper-right","url":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png","status":"validated"}
+  ],
+  "rejectedEvidence":[
+    {"path":"../evidence/captures/tcg-live-desktop-1440x1000-stable.png","reason":"old revision mixed viewport/session evidence; not authoritative"},
+    {"path":"../evidence/captures/tcg-live-mobile-motion-before.png","reason":"old motion frame did not prove the target transition"},
+    {"path":"../evidence/captures/tcg-live-mobile-motion-transition.png","reason":"old frame did not maintain the same target region"},
+    {"path":"../evidence/captures/tcg-live-mobile-motion-transition-250ms.png","reason":"old frame did not maintain the same target region"},
+    {"path":"../evidence/captures/tcg-live-mobile-motion-settled.png","reason":"old frame did not maintain the same target region"},
+    {"path":"captures/source-tcgl-mobile-390x844-entry-120ms.png","reason":"revision2 retry was invalidated by asynchronous reflow; target section left the viewport"},
+    {"path":"captures/source-tcgl-mobile-390x844-entry-settled.png","reason":"revision2 retry was invalidated by asynchronous reflow; target section left the viewport"}
+  ],
+  "handoffBlockers":[],
+  "handoffWarnings":["Entry motion is unresolved and must be omitted or treated as optional candidate.","Stable screenshots were automatically translated; use them only for geometry/composition. English DOM/computed records are copy authority."]
+}

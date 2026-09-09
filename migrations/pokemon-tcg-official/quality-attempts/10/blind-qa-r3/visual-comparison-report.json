@@ -1,0 +1,65 @@
+{
+  "schema": "brand-visual-comparison/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r3",
+  "comparisons": [
+    {
+      "viewport": "1440x900",
+      "sourceCapture": "../evidence-revision3/captures/desktop-1440-pocket-layering.png",
+      "demoCapture": "captures/demo-calibration-desktop-1440.png",
+      "matched": [
+        "full-width light campaign background",
+        "transparent 720px asset half",
+        "720x356.5 black copy panel inset by about 59.84px above and below",
+        "logo-cards composite identity",
+        "Kanit italic heading and PT Sans copy",
+        "white 190x56 CTA"
+      ],
+      "excludedFromScoring": [
+        "source navigation and adjacent TCG Live/Championship sections",
+        "red capture-extension overlay"
+      ],
+      "status": "PASS"
+    },
+    {
+      "viewport": "390x844",
+      "sourceCapture": "../evidence-revision3/captures/mobile-390-pocket-layering.png",
+      "demoCapture": "captures/demo-calibration-mobile-390.png",
+      "matched": [
+        "390x743 full background",
+        "asset-first region about 334px high",
+        "full-width lower black panel about 409px high",
+        "mobile logo-cards scale",
+        "28/30.8 Kanit heading, 18/28.8 PT Sans body",
+        "white CTA with black-to-gold hover"
+      ],
+      "excludedFromScoring": [
+        "red capture-extension overlay",
+        "source scroll-to-top overlay and cropped neighboring content"
+      ],
+      "status": "PASS"
+    },
+    {
+      "viewport": "held-out desktop/mobile",
+      "sourceCapture": "../evidence-revision3/captures/desktop-1440-pocket-layering.png",
+      "demoCapture": "captures/demo-heldout-desktop-1440.png",
+      "secondaryDemoCapture": "captures/demo-heldout-mobile-390.png",
+      "matchedInvariants": [
+        "shared light campaign field",
+        "bounded black copy child",
+        "desktop 720/720 logic",
+        "mobile asset-first/copy-second order",
+        "Kanit/PT Sans hierarchy",
+        "white CTA and localized gold hover"
+      ],
+      "intentionalDifferences": [
+        "fictional Pocket Deck Studio copy",
+        "desktop copy-left / original DOM-CSS concept-right arrangement",
+        "no official logo-cards composite",
+        "clear fictional/non-official label"
+      ],
+      "interactionGap": "Review the Concept points at a missing hash target and destroys the direct SPA route on click.",
+      "status": "REWORK"
+    }
+  ]
+}

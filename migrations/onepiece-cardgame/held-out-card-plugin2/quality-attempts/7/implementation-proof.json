@@ -1,0 +1,64 @@
+{
+  "schema": "brand-host-native-filter-track-repair-proof/v1",
+  "attempt": 7,
+  "route": "pages/plaza/index",
+  "scope": "filter-panel CSS only",
+  "sourceQa": "quality-attempts/6/visual-qa-assessment.json",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "641d33376b434ebc6fc0a1c67b3cf1050087eebbda83baf97ef9b7df2943c97f",
+    "vueSfcEdited": false,
+    "mobileAndMid": "single-row intrinsic-width flex track with native overflow-x auto",
+    "desktop": "intrinsic-width flex-wrap; no fixed columns and no compressed labels",
+    "focusTreatment": "CSS scroll padding and scroll margins keep focused options fully visible",
+    "businessBehaviorChanged": false,
+    "optionsRemovedOrAbbreviated": false,
+    "writes": 0,
+    "otherRoutesChanged": false
+  },
+  "runtimeChecks": {
+    "390x844": {
+      "environmentClientWidth": 273,
+      "environmentScrollWidth": 4255,
+      "environmentHeight": 56.16,
+      "firstDeckTop": 446.77,
+      "firstDeckTitleVisible": true,
+      "documentOverflow": 0,
+      "nativeHorizontalWheelDelta": 728.5,
+      "keyboardFocusFullyVisible": "39/39"
+    },
+    "536x864": {
+      "environmentClientWidth": 376,
+      "environmentScrollWidth": 5883,
+      "environmentHeight": 77.18,
+      "panelHeight": 170.64,
+      "firstDeckTop": 612.2,
+      "firstDeckTitleVisible": true,
+      "documentOverflow": 0
+    },
+    "1280x720": {
+      "optionCount": 39,
+      "labelCollisions": [],
+      "chipTextOverflow": [],
+      "panelHeight": 220,
+      "firstDeckTop": 530,
+      "firstDeckVisible": true,
+      "documentOverflow": 0
+    }
+  },
+  "interactionParity": {
+    "lastOption": "太阳&月亮-2.0",
+    "pointerAriaPressed": true,
+    "enterAriaPressed": true,
+    "spaceAriaPressed": true,
+    "filterResultLogicChanged": false
+  },
+  "verification": {
+    "heldOutBuild": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER",
+    "plazaStructuralDiff": "PASS",
+    "preview": "http://localhost:10092/#/pages/plaza/index",
+    "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT"
+  },
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

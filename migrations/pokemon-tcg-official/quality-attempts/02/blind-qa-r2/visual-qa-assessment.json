@@ -1,0 +1,43 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "attempt": 2,
+  "qaExecutionId": "blind-qa-r2-20260902-pokemon-official",
+  "reviewerRecommendation": "rework",
+  "scores": {"evidenceFidelity": 88, "structuralFidelity": 76, "generativeProof": 86, "visibleLearning": 74, "requiredMinimum": 80},
+  "proofs": {
+    "evidenceFidelity": {"status": "pass", "score": 88},
+    "structuralFidelity": {"status": "fail", "score": 76},
+    "generativeProof": {"status": "fail", "score": 86, "reason": "Content proof passes, but strict protocol cannot validate the revision inventory/goal binding."},
+    "visibleLearning": {"status": "fail", "score": 74}
+  },
+  "pages": [
+    {"sourcePageId": "home", "demoPageId": "pokemon-tcg-official-home", "score": 78, "desktop": "pass", "mobile390": "fail", "finding": "Campaign layers and official assets are recognizable, but at CSS 390 the shell begins at y=640.53 and extends to x=431.45, clipping 41.45 px."},
+    {"sourcePageId": "card-database", "demoPageId": "pokemon-tcg-official-card-database", "score": 86, "desktop": "pass", "mobile390": "partial", "finding": "Search organism, orange action, stacking, result authenticity and both reversible state machines are strong; route-first 390 visibility is still obstructed by the inspector above the shell."},
+    {"sourcePageId": "how-to-play", "demoPageId": "pokemon-tcg-official-learn", "score": 82, "desktop": "pass", "mobile390": "partial", "finding": "Authentic card/diagram assets, painted yellow/navy boundaries and hierarchical teaching organisms are present; route-first 390 visibility is still obstructed."}
+  ],
+  "generativeProofReview": {
+    "status": "pass",
+    "visualFinding": "Deck Lab changes information architecture and copy while retaining an oversized instructional entry, bounded organisms, authentic-object teaching and exclusive step rhythm; it is not a source-page mirror or a logo/color-only swap.",
+    "ruleChecks": [
+      {"recipeId": "learn-media-entry", "status": "reused", "finding": "Oversized entry heading and authentic card object form a new deck-building entry."},
+      {"recipeId": "learn-painted-card-anatomy", "status": "reused", "finding": "A separate instructional organism pairs definitions with an authentic card object."},
+      {"recipeId": "bounded-long-form-sections", "status": "reused", "finding": "Two purpose-separated organisms preserve entry-to-instruction order."}
+    ]
+  },
+  "mustNotReplace": [
+    {"id": "no-pitch-black-conclusion-reuse", "violated": false},
+    {"id": "no-screenshot-runtime", "violated": false},
+    {"id": "no-item-count-proxy", "violated": false},
+    {"id": "no-fake-controls", "violated": false}
+  ],
+  "blockingFindings": [
+    {"code": "SECTION_HORIZONTAL_OVERFLOW", "scope": "home@css390", "earliestFailureNode": "demoImplementationAgent", "failureOwnerRole": "demoImplementationAgent", "finding": "Home phone shell right edge is x=431.45 in a 390 CSS px viewport, visibly clipping 41.45 px."},
+    {"code": "MOBILE_ROUTE_PREVIEW_OBSTRUCTED", "scope": "all-pages@css390", "earliestFailureNode": "demoImplementationAgent", "failureOwnerRole": "demoImplementationAgent", "finding": "All phone shells start around y=640.53 in an 843 px viewport below the inspector/navigation, leaving only ~202 px of the page preview visible initially."},
+    {"code": "CANONICAL_GOAL_GATE_MISMATCH", "scope": "evidence/protocol", "earliestFailureNode": "orchestrator", "failureOwnerRole": "orchestrator", "finding": "Strict Evidence gate reads stale goal-contract.json v1 and fails on superseded cards instead of consuming sealed goal-contract-v2.json."},
+    {"code": "VISUAL_PATTERN_INVENTORY_PROTOCOL_MISMATCH", "scope": "generative/fidelity protocol", "earliestFailureNode": "demoImplementationAgent", "failureOwnerRole": "demoImplementationAgent", "finding": "Revision inventory cannot be consumed by current fidelity validator because pages/attempt/normalized regions/evidence objects/composition bindings are absent."}
+  ],
+  "notes": {"reduceMotion": "No Reduce Motion control or effect was invented in the Demo.", "oldBrandContamination": "No pokemon-tcg-pitch-black or pokemon30 runtime asset was found inside active source-schema-demo content; sidebar entries are global inspector chrome."}
+}

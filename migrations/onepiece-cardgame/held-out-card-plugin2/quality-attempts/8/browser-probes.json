@@ -1,0 +1,984 @@
+{
+  "schema": "heldout-plaza-spacing-fresh-qa/v1",
+  "attempt": 8,
+  "generatedAt": "2026-09-09T15:25:33.746Z",
+  "fresh": true,
+  "readOnly": true,
+  "base": "http://127.0.0.1:10092/#/pages/plaza/index",
+  "renders": [
+    {
+      "viewport": {
+        "id": "fresh-390x844-plaza",
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "fresh-390x844-plaza.png",
+      "probe": {
+        "document": {
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "overflowPx": 0
+        },
+        "search": {
+          "wrap": {
+            "left": 0,
+            "right": 390,
+            "top": 135.984375,
+            "bottom": 202.53125,
+            "width": 390,
+            "height": 66.546875
+          },
+          "outer": {
+            "left": 18.71875,
+            "right": 371.28125,
+            "top": 154.703125,
+            "bottom": 202.53125,
+            "width": 352.5625,
+            "height": 47.828125
+          },
+          "input": {
+            "left": 60.265625,
+            "right": 356.765625,
+            "top": 155.734375,
+            "bottom": 201.484375,
+            "width": 296.5,
+            "height": 45.75
+          },
+          "wrapTopInset": 18.71875,
+          "wrapBottomInset": 0,
+          "inputTopInset": 1.03125,
+          "inputBottomInset": 1.046875,
+          "computed": {
+            "wrap": {
+              "display": "block",
+              "height": "66.5469px",
+              "lineHeight": "33.28px",
+              "paddingTop": "18.72px",
+              "paddingBottom": "0px",
+              "alignItems": "normal",
+              "overflowX": "visible",
+              "overflowY": "visible"
+            },
+            "outer": {
+              "display": "flex",
+              "height": "47.8281px",
+              "lineHeight": "33.28px",
+              "paddingTop": "0px",
+              "paddingBottom": "0px",
+              "alignItems": "center",
+              "overflowX": "visible",
+              "overflowY": "visible"
+            },
+            "input": {
+              "display": "block",
+              "height": "45.75px",
+              "lineHeight": "normal",
+              "paddingTop": "0px",
+              "paddingBottom": "0px",
+              "alignItems": "normal",
+              "overflowX": "clip",
+              "overflowY": "clip"
+            }
+          }
+        },
+        "verticalGaps": {
+          "navToSearch": 0,
+          "searchToPanel": 14.546875,
+          "panelToSeason": 16.625
+        },
+        "panel": {
+          "rect": {
+            "left": 18.71875,
+            "right": 371.28125,
+            "top": 217.078125,
+            "bottom": 352.15625,
+            "width": 352.5625,
+            "height": 135.078125
+          },
+          "computed": {
+            "display": "block",
+            "height": "135.078px",
+            "lineHeight": "33.28px",
+            "paddingTop": "12.48px",
+            "paddingBottom": "10.4px",
+            "alignItems": "normal",
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          "lines": [
+            {
+              "left": 35.1875,
+              "right": 357.8125,
+              "top": 230.546875,
+              "bottom": 276.296875,
+              "width": 322.625,
+              "height": 45.75
+            },
+            {
+              "left": 35.1875,
+              "right": 357.8125,
+              "top": 284.609375,
+              "bottom": 340.765625,
+              "width": 322.625,
+              "height": 56.15625
+            }
+          ],
+          "lineGap": 8.3125,
+          "contentBottomGap": 11.390625
+        },
+        "environment": {
+          "rect": {
+            "left": 76.765625,
+            "right": 357.8125,
+            "top": 284.609375,
+            "bottom": 340.765625,
+            "width": 281.046875,
+            "height": 56.15625
+          },
+          "computed": {
+            "display": "block",
+            "height": "56.1562px",
+            "lineHeight": "33.28px",
+            "paddingTop": "0px",
+            "paddingBottom": "10.4px",
+            "alignItems": "normal",
+            "overflowX": "auto",
+            "overflowY": "hidden"
+          },
+          "scrollWidth": 4299,
+          "clientWidth": 273,
+          "scrollLeft": 0,
+          "optionCount": 39,
+          "visibleCount": 3,
+          "partial": [],
+          "chipTopInset": 0,
+          "chipBottomInset": 10.40625,
+          "scrollable": true
+        },
+        "fold": {
+          "season": true,
+          "firstCard": true,
+          "seasonTop": 368.78125,
+          "firstCardTop": 457.078125
+        },
+        "interactiveCount": 42
+      },
+      "writes": []
+    },
+    {
+      "viewport": {
+        "id": "fresh-536x864-plaza",
+        "width": 536,
+        "height": 864
+      },
+      "screenshot": "fresh-536x864-plaza.png",
+      "probe": {
+        "document": {
+          "scrollWidth": 536,
+          "clientWidth": 536,
+          "overflowPx": 0
+        },
+        "search": {
+          "wrap": {
+            "left": 0,
+            "right": 536,
+            "top": 186.046875,
+            "bottom": 277.5,
+            "width": 536,
+            "height": 91.453125
+          },
+          "outer": {
+            "left": 25.71875,
+            "right": 510.28125,
+            "top": 211.765625,
+            "bottom": 277.5,
+            "width": 484.5625,
+            "height": 65.734375
+          },
+          "input": {
+            "left": 82.453125,
+            "right": 490.703125,
+            "top": 213.1875,
+            "bottom": 276.078125,
+            "width": 408.25,
+            "height": 62.890625
+          },
+          "wrapTopInset": 25.71875,
+          "wrapBottomInset": 0,
+          "inputTopInset": 1.421875,
+          "inputBottomInset": 1.421875,
+          "computed": {
+            "wrap": {
+              "display": "block",
+              "height": "91.4531px",
+              "lineHeight": "45.7387px",
+              "paddingTop": "25.728px",
+              "paddingBottom": "0px",
+              "alignItems": "normal",
+              "overflowX": "visible",
+              "overflowY": "visible"
+            },
+            "outer": {
+              "display": "flex",
+              "height": "65.7344px",
+              "lineHeight": "45.7387px",
+              "paddingTop": "0px",
+              "paddingBottom": "0px",
+              "alignItems": "center",
+              "overflowX": "visible",
+              "overflowY": "visible"
+            },
+            "input": {
+              "display": "block",
+              "height": "62.8906px",
+              "lineHeight": "normal",
+              "paddingTop": "0px",
+              "paddingBottom": "0px",
+              "alignItems": "normal",
+              "overflowX": "clip",
+              "overflowY": "clip"
+            }
+          }
+        },
+        "verticalGaps": {
+          "navToSearch": 0,
+          "searchToPanel": 20,
+          "panelToSeason": 22.859375
+        },
+        "panel": {
+          "rect": {
+            "left": 25.71875,
+            "right": 510.28125,
+            "top": 297.5,
+            "bottom": 482.40625,
+            "width": 484.5625,
+            "height": 184.90625
+          },
+          "computed": {
+            "display": "block",
+            "height": "184.906px",
+            "lineHeight": "45.7387px",
+            "paddingTop": "17.152px",
+            "paddingBottom": "14.2933px",
+            "alignItems": "normal",
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          "lines": [
+            {
+              "left": 47.859375,
+              "right": 492.140625,
+              "top": 315.640625,
+              "bottom": 378.53125,
+              "width": 444.28125,
+              "height": 62.890625
+            },
+            {
+              "left": 47.859375,
+              "right": 492.140625,
+              "top": 389.953125,
+              "bottom": 467.125,
+              "width": 444.28125,
+              "height": 77.171875
+            }
+          ],
+          "lineGap": 11.421875,
+          "contentBottomGap": 15.28125
+        },
+        "environment": {
+          "rect": {
+            "left": 105.015625,
+            "right": 492.140625,
+            "top": 389.953125,
+            "bottom": 467.125,
+            "width": 387.125,
+            "height": 77.171875
+          },
+          "computed": {
+            "display": "block",
+            "height": "77.1719px",
+            "lineHeight": "45.7387px",
+            "paddingTop": "0px",
+            "paddingBottom": "14.2933px",
+            "alignItems": "normal",
+            "overflowX": "auto",
+            "overflowY": "hidden"
+          },
+          "scrollWidth": 5881,
+          "clientWidth": 376,
+          "scrollLeft": 0,
+          "optionCount": 39,
+          "visibleCount": 3,
+          "partial": [],
+          "chipTopInset": 0,
+          "chipBottomInset": 14.28125,
+          "scrollable": true
+        },
+        "fold": {
+          "season": true,
+          "firstCard": true,
+          "seasonTop": 505.265625,
+          "firstCardTop": 625.859375
+        },
+        "interactiveCount": 42
+      },
+      "writes": []
+    },
+    {
+      "viewport": {
+        "id": "fresh-1280x720-plaza",
+        "width": 1280,
+        "height": 720
+      },
+      "screenshot": "fresh-1280x720-plaza.png",
+      "probe": {
+        "document": {
+          "scrollWidth": 1280,
+          "clientWidth": 1280,
+          "overflowPx": 0
+        },
+        "search": {
+          "wrap": {
+            "left": 51,
+            "right": 1229,
+            "top": 131,
+            "bottom": 195,
+            "width": 1178,
+            "height": 64
+          },
+          "outer": {
+            "left": 69,
+            "right": 1211,
+            "top": 149,
+            "bottom": 195,
+            "width": 1142,
+            "height": 46
+          },
+          "input": {
+            "left": 109,
+            "right": 1197,
+            "top": 150,
+            "bottom": 194,
+            "width": 1088,
+            "height": 44
+          },
+          "wrapTopInset": 18,
+          "wrapBottomInset": 0,
+          "inputTopInset": 1,
+          "inputBottomInset": 1,
+          "computed": {
+            "wrap": {
+              "display": "block",
+              "height": "128px",
+              "lineHeight": "64px",
+              "paddingTop": "36px",
+              "paddingBottom": "0px",
+              "alignItems": "normal",
+              "overflowX": "visible",
+              "overflowY": "visible"
+            },
+            "outer": {
+              "display": "flex",
+              "height": "92px",
+              "lineHeight": "64px",
+              "paddingTop": "0px",
+              "paddingBottom": "0px",
+              "alignItems": "center",
+              "overflowX": "visible",
+              "overflowY": "visible"
+            },
+            "input": {
+              "display": "block",
+              "height": "88px",
+              "lineHeight": "normal",
+              "paddingTop": "0px",
+              "paddingBottom": "0px",
+              "alignItems": "normal",
+              "overflowX": "clip",
+              "overflowY": "clip"
+            }
+          }
+        },
+        "verticalGaps": {
+          "navToSearch": 0,
+          "searchToPanel": 14,
+          "panelToSeason": 16
+        },
+        "panel": {
+          "rect": {
+            "left": 69,
+            "right": 1211,
+            "top": 209,
+            "bottom": 479,
+            "width": 1142,
+            "height": 270
+          },
+          "computed": {
+            "display": "block",
+            "height": "540px",
+            "lineHeight": "64px",
+            "paddingTop": "24px",
+            "paddingBottom": "20px",
+            "alignItems": "normal",
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          "lines": [
+            {
+              "left": 85,
+              "right": 1198,
+              "top": 222,
+              "bottom": 266,
+              "width": 1113,
+              "height": 44
+            },
+            {
+              "left": 85,
+              "right": 1198,
+              "top": 274,
+              "bottom": 468,
+              "width": 1113,
+              "height": 194
+            }
+          ],
+          "lineGap": 8,
+          "contentBottomGap": 11
+        },
+        "environment": {
+          "rect": {
+            "left": 125,
+            "right": 1198,
+            "top": 274,
+            "bottom": 468,
+            "width": 1073,
+            "height": 194
+          },
+          "computed": {
+            "display": "block",
+            "height": "388px",
+            "lineHeight": "64px",
+            "paddingTop": "0px",
+            "paddingBottom": "0px",
+            "alignItems": "normal",
+            "overflowX": "visible",
+            "overflowY": "visible"
+          },
+          "scrollWidth": 2146,
+          "clientWidth": 2146,
+          "scrollLeft": 0,
+          "optionCount": 39,
+          "visibleCount": 39,
+          "partial": [],
+          "chipTopInset": 0,
+          "chipBottomInset": 0,
+          "scrollable": false
+        },
+        "fold": {
+          "season": true,
+          "firstCard": true,
+          "seasonTop": 495,
+          "firstCardTop": 580
+        },
+        "interactiveCount": 42
+      },
+      "writes": []
+    }
+  ],
+  "reachability": [
+    {
+      "index": 0,
+      "text": "全部",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "true",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 0
+    },
+    {
+      "index": 1,
+      "text": "玩家发布",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 0
+    },
+    {
+      "index": 2,
+      "text": "参赛卡组",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 0
+    },
+    {
+      "index": 3,
+      "text": "全部",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "true",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 0
+    },
+    {
+      "index": 4,
+      "text": "标准赛制-18.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 0
+    },
+    {
+      "index": 5,
+      "text": "标准赛制-17.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 0
+    },
+    {
+      "index": 6,
+      "text": "标准赛制-17.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 270
+    },
+    {
+      "index": 7,
+      "text": "标准赛制-16.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 270
+    },
+    {
+      "index": 8,
+      "text": "标准赛制-15.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 499
+    },
+    {
+      "index": 9,
+      "text": "开放赛制-15.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 499
+    },
+    {
+      "index": 10,
+      "text": "标准赛制-14.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 728
+    },
+    {
+      "index": 11,
+      "text": "开放赛制-14.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 728
+    },
+    {
+      "index": 12,
+      "text": "标准赛制-13.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 958
+    },
+    {
+      "index": 13,
+      "text": "开放赛制-13.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 958
+    },
+    {
+      "index": 14,
+      "text": "标准赛制-12.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1187
+    },
+    {
+      "index": 15,
+      "text": "开放赛制-12.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1187
+    },
+    {
+      "index": 16,
+      "text": "标准赛制-11.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1416
+    },
+    {
+      "index": 17,
+      "text": "开放赛制-11.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1416
+    },
+    {
+      "index": 18,
+      "text": "标准赛制-10.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1646
+    },
+    {
+      "index": 19,
+      "text": "开放赛制-10.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1646
+    },
+    {
+      "index": 20,
+      "text": "标准赛制-9.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1875
+    },
+    {
+      "index": 21,
+      "text": "开放赛制-9.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 1875
+    },
+    {
+      "index": 22,
+      "text": "标准赛制-8.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2087
+    },
+    {
+      "index": 23,
+      "text": "开放赛制-8.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2087
+    },
+    {
+      "index": 24,
+      "text": "标准赛制-8.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2300
+    },
+    {
+      "index": 25,
+      "text": "开放赛制-8.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2300
+    },
+    {
+      "index": 26,
+      "text": "标准赛制-7.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2512
+    },
+    {
+      "index": 27,
+      "text": "开放赛制-7.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2512
+    },
+    {
+      "index": 28,
+      "text": "标准赛制-7.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2724
+    },
+    {
+      "index": 29,
+      "text": "开放赛制-7.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2724
+    },
+    {
+      "index": 30,
+      "text": "标准赛制-6.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2936
+    },
+    {
+      "index": 31,
+      "text": "开放赛制-6.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 2936
+    },
+    {
+      "index": 32,
+      "text": "标准赛制-6.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3149
+    },
+    {
+      "index": 33,
+      "text": "开放赛制-6.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3149
+    },
+    {
+      "index": 34,
+      "text": "标准赛制-5.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3361
+    },
+    {
+      "index": 35,
+      "text": "标准赛制-5.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3361
+    },
+    {
+      "index": 36,
+      "text": "标准赛制-4.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3573
+    },
+    {
+      "index": 37,
+      "text": "标准赛制-4.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3573
+    },
+    {
+      "index": 38,
+      "text": "标准赛制-3.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3785
+    },
+    {
+      "index": 39,
+      "text": "标准赛制-3.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3785
+    },
+    {
+      "index": 40,
+      "text": "太阳&月亮-2.5",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3998
+    },
+    {
+      "index": 41,
+      "text": "太阳&月亮-2.0",
+      "role": "button",
+      "tabIndex": 0,
+      "ariaPressed": "false",
+      "focused": true,
+      "fullyVisible": true,
+      "scrollLeft": 3998
+    }
+  ],
+  "interactions": [
+    {
+      "mechanism": "pointer",
+      "before": "false",
+      "after": "true",
+      "focused": true,
+      "text": "太阳&月亮-2.0"
+    },
+    {
+      "mechanism": "Enter",
+      "before": "false",
+      "after": "true",
+      "focused": true,
+      "text": "太阳&月亮-2.0"
+    },
+    {
+      "mechanism": "Space",
+      "before": "false",
+      "after": "true",
+      "focused": true,
+      "text": "太阳&月亮-2.0"
+    }
+  ],
+  "horizontalWheel": {
+    "scrollLeft": 0,
+    "moved": false
+  },
+  "verticalWheel": {
+    "scrollLeft": 500,
+    "moved": true
+  },
+  "pointerReveal": {
+    "text": "太阳&月亮-2.0",
+    "selected": "true",
+    "fullyVisible": true,
+    "scrollLeft": 4026
+  },
+  "writes": [],
+  "regression": [
+    {
+      "route": "build",
+      "sha256": "aacf2ad9aeb5e0a9c1581c48d4538cf30ffde8b7e0f1a6b422a70688a5cdb51f",
+      "attempt4Sha256": "aacf2ad9aeb5e0a9c1581c48d4538cf30ffde8b7e0f1a6b422a70688a5cdb51f",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "mine",
+      "sha256": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "attempt4Sha256": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "event",
+      "sha256": "4b10611cfd672e55a784a7da2cff0f6a975bcd4b3aeddee2d05c8b9d528d0982",
+      "attempt4Sha256": "4b10611cfd672e55a784a7da2cff0f6a975bcd4b3aeddee2d05c8b9d528d0982",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "round",
+      "sha256": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca",
+      "attempt4Sha256": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca",
+      "exactMatch": true,
+      "overflowPx": 0
+    },
+    {
+      "route": "detail",
+      "sha256": "b30a4bcb032970d6a323159ce31a3df2039468157964a9a37c242dc28ab42008",
+      "attempt4Sha256": "b30a4bcb032970d6a323159ce31a3df2039468157964a9a37c242dc28ab42008",
+      "exactMatch": true,
+      "overflowPx": 0
+    }
+  ]
+}

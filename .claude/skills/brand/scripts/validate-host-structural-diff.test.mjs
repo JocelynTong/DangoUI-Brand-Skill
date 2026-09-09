@@ -1,0 +1,26 @@
+#!/usr/bin/env node
+import fs from "node:fs";import os from "node:os";import path from "node:path";import assert from "node:assert/strict";import {spawnSync} from "node:child_process";
+const dir=fs.mkdtempSync(path.join(os.tmpdir(),"brand-struct-")),script=new URL("./validate-host-structural-diff.mjs",import.meta.url).pathname;
+const base=`<template><view class="page"><button @tap="save" v-if="ready" v-for="x in items" :key="x.id">Save</button></view></template><script setup>import {ref} from 'vue'; const ready=ref(true),items=ref([]); function save(){}</script>`;
+const write=(n,s)=>{const p=path.join(dir,n);fs.writeFileSync(p,s);return p},run=a=>spawnSync(process.execPath,[script,...a],{encoding:"utf8"});const b=write("base.vue",base),snap=path.join(dir,"base.json");assert.equal(run(["snapshot","--file",b,"--out",snap]).status,0);
+const manifest=x=>write(`m${Math.random()}.json`,JSON.stringify({schema:"brand-host-structural-manifest/v1",allowedStyleImports:["./theme.css"],decorativeNodes:[],primitiveSubstitutions:[],accessibilityAugmentations:[],...x}));
+const check=(name,s,code=null,m={})=>{const f=write(name,s),r=run(["validate","--baseline",snap,"--current",f,"--manifest",manifest(m)]);if(code){assert.equal(r.status,1,name);assert.match(r.stdout,new RegExp(code),name)}else assert.equal(r.status,0,`${name}: ${r.stdout}${r.stderr}`)};
+check("class.vue",base.replace('class="page"','class="page host-theme"').replace("<script setup>","<script setup>import './theme.css';"));
+check("handler.vue",base.replace('@tap="save"','@tap="remove"'),"EVENT_HANDLER_CHANGED");
+check("route.vue",base.replace("function save(){}","function save(){Taro.navigateTo({url:'/x'})}"),"BUSINESS_SCRIPT_CHANGED");
+check("api.vue",base.replace("function save(){}","function save(){fetch('/api/x')}"),"BUSINESS_SCRIPT_CHANGED");
+check("for.vue",base.replace("x in items","x in filtered"),"LOOP_DATA_SOURCE_CHANGED");
+check("if.vue",base.replace('v-if="ready"','v-if="enabled"'),"CONDITIONAL_RENDERING_CHANGED");
+check("content.vue",base.replace("Save</button>","Delete</button>"),"TEMPLATE_CONTENT_CHANGED");
+check("data.vue",base.replace("items=ref([])","items=ref([1])"),"BUSINESS_SCRIPT_CHANGED");
+check("decor.vue",base.replace('<view class="page">','<view class="page"><view class="brand-spark">*</view>'),null,{decorativeNodes:[{currentNodeId:"n1",interactive:false,reason:"Approved brand ornament",evidenceRef:"pattern#spark"}]});
+check("button.vue",base.replace("<button ","<view ").replace("</button>","</view>"),"COMPONENT_PRIMITIVE_SUBSTITUTION_UNAPPROVED");
+check("button-approved.vue",base.replace("<button ","<view ").replace("</button>","</view>"),null,{primitiveSubstitutions:[{baselineNodeId:"n1",from:"button",to:"view",approved:true,reason:"Approved host primitive compatibility",approvalRef:"design-direction#primitive-1"}]});
+const a11yTemplate=base.replace('@tap="save"','@tap="save" role="button" tabindex="0" aria-label="Save item" :aria-pressed="ready" @keydown.enter="save" @keydown.space.prevent="save"');
+const a11yApproval={baselineNodeId:"n1",approved:true,reason:"Expose the existing tap control to keyboard and assistive technology",approvalRef:"design-direction#a11y-save",addedAttributes:{role:"button",tabindex:"0","aria-label":"Save item"},addedBindings:{"aria-pressed":"ready"},keydownDelegation:{sameOutcomeAs:"tap",keys:["Enter","Space"]}};
+check("a11y-unapproved.vue",a11yTemplate,"TEMPLATE_STATIC_CONTENT_OR_API_CHANGED");
+check("a11y-approval-metadata-missing.vue",a11yTemplate,"ACCESSIBILITY_AUGMENTATION_NOT_APPROVED",{accessibilityAugmentations:[{...a11yApproval,approved:false}]});
+check("a11y-arbitrary-attr.vue",base.replace('@tap="save"','@tap="save" title="Save"'),"ACCESSIBILITY_ATTRIBUTE_NOT_ALLOWED",{accessibilityAugmentations:[{baselineNodeId:"n1",approved:true,reason:"Attempted semantic augmentation",approvalRef:"design-direction#a11y-save",addedAttributes:{title:"Save"}}]});
+check("a11y-different-handler.vue",a11yTemplate.replace('@keydown.space.prevent="save"','@keydown.space.prevent="remove"'),"ACCESSIBILITY_KEYDOWN_HANDLER_INVALID",{accessibilityAugmentations:[a11yApproval]});
+check("a11y-approved-same-outcome.vue",a11yTemplate,null,{accessibilityAugmentations:[a11yApproval]});
+console.log("host structural diff fixtures: PASS");

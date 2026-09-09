@@ -1,0 +1,68 @@
+{
+  "schema": "blind-visual-qa-assessment/v1",
+  "attempt": 9,
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "verdict": "NEEDS_EVIDENCE",
+  "reviewMode": "fresh-blind-tpp",
+  "scope": ["home-display-typography", "home-footer-illustration-organism", "motion", "reduced-motion", "phone-scroll"],
+  "demoRuntime": {
+    "url": "http://127.0.0.1:4173/",
+    "viewportObserved": [1164, 655],
+    "phoneScroller": {"clientHeight": 583, "scrollHeight": 3004, "maxScrollTop": 2421, "observedEndScrollTop": 2420.908935546875, "verdict": "PASS"},
+    "displayTypography": {
+      "visibleText": "LATEST NEWS",
+      "computed": {"fontFamily": "OPCG Alfa Slab One, Alfa Slab One, Arial Black, Impact, sans-serif", "fontWeight": "400", "fontSize": "22px", "lineHeight": "22px"},
+      "resourceObserved": "http://127.0.0.1:4173/assets/brand-assets/onepiece-cardgame/fonts/alfa-slab-one-400.ttf",
+      "documentFontsCheck": true,
+      "verdict": "PASS"
+    },
+    "fourTypographyRoles": [
+      {"role": "display", "sample": "LATEST NEWS", "resource": "alfa-slab-one-400.ttf", "computedFamily": "OPCG Alfa Slab One", "computedWeight": "400", "computedSize": "22px"},
+      {"role": "editorial", "sample": "BEGIN YOUR ADVENTURE", "resource": "noto-serif-700.ttf", "computedFamily": "OPCG Noto Serif", "computedWeight": "700", "computedSize": "26px"},
+      {"role": "utility-body", "sample": "Home body/navigation", "resource": "poppins-500.ttf", "computedFamily": "OPCG Poppins", "computedWeight": "400", "computedSize": "12px"},
+      {"role": "condensed-metadata", "sample": "WELCOME", "resource": "oswald-700.ttf", "computedFamily": "OPCG Oswald", "computedWeight": "800", "computedSize": "12px"}
+    ],
+    "footer": {
+      "normalizedDemoRegion": [0.0, 0.844, 1.0, 0.102],
+      "phonePixelRect": {"width": 269.56, "height": 305},
+      "visibleLayers": ["CSS illustrated background", "Monkey D. Luffy/chara", "catch text", "brand logo", "card composite", "card-01", "card-02", "card-03"],
+      "resourceCount": 7,
+      "allNaturalSizesNonZero": true,
+      "pixelVerdict": "PASS_WITH_SOURCE_COMPARISON_BLOCKED",
+      "note": "The live phone pixels show a large lower-left Luffy focal layer, centered catch/logo, and a right-side card cluster before the separate navy footer. Card layers are partially bounded/cropped by the phone edge but remain visible."
+    },
+    "motion": {"footerBackground": {"duration": "0.9s", "iterationCount": "1"}, "footerAssetLayers": {"duration": "0.8s", "iterationCount": "1"}, "settledOpacity": "1", "verdict": "PASS"},
+    "reducedMotion": {"verdict": "NOT_INDEPENDENTLY_OBSERVED", "reason": "The selected browser surface exposed no media-emulation control; current runtime reports no-preference. A code claim or implementation self-check was not accepted as runtime proof."}
+  },
+  "blockingFindings": [
+    {
+      "id": "B1-source-footer-captures-do-not-show-footer",
+      "severity": "blocker",
+      "expected": "Official settled and late-frame captures visibly show the 1280x553 footer illustration organism and its character/text/logo/card hierarchy.",
+      "actual": "Both output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-settled.png and footer-illustration-late-frame.png visibly show the Home hero/welcome boundary, not the footer organism.",
+      "normalizedSourceRegionClaimed": [0.0, 0.069, 1.0, 0.861],
+      "normalizedDemoRegion": [0.0, 0.844, 1.0, 0.102],
+      "earliestFailureNode": "Evidence/source observation",
+      "failureOwnerRole": "brandResearcher"
+    },
+    {
+      "id": "B2-font-glyph-captures-mislabeled",
+      "severity": "blocker",
+      "expected": "Each official glyph crop visibly contains the named typography-role sample.",
+      "actual": "The Alfa Slab file does not visibly show NEWS; the Noto Serif and Poppins/Oswald files show broad hero/welcome scenes rather than tight, unambiguous role glyph proof.",
+      "earliestFailureNode": "Evidence/source observation",
+      "failureOwnerRole": "brandResearcher"
+    },
+    {
+      "id": "B3-reduced-motion-runtime-proof-unavailable",
+      "severity": "blocker",
+      "expected": "A live prefers-reduced-motion run shows the complete settled footer and usable phone scrolling.",
+      "actual": "Only the normal-motion runtime could be independently exercised in the available browser surface.",
+      "earliestFailureNode": "QA input/runtime observability",
+      "failureOwnerRole": "brandResearcher"
+    }
+  ],
+  "issueClosure": {"approvedLargeDisplayTitle": "VISIBLE_IN_DEMO_BUT_OFFICIAL_ROLE_CROP_BLOCKED", "footerIllustrationOrganism": "VISIBLE_IN_DEMO_BUT_OFFICIAL_PIXEL_HIERARCHY_BLOCKED", "bothUserReportedIssuesVisiblyClosed": false},
+  "passRule": "PASS withheld because both user-reported issues require a valid official-to-demo visible comparison and reduced-motion runtime evidence."
+}

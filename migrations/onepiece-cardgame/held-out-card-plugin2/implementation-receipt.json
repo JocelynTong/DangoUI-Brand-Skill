@@ -1,0 +1,55 @@
+{
+  "schema": "brand-host-implementation-receipt/v2",
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "role": "Host Implementation Agent",
+  "attempt": 3,
+  "goalContractSealSha256": "6374d1a73ee85c07e69b1e17344519c16d3547c11a4710fcbadaab33cd3791fb",
+  "status": "REPAIRED_AWAITING_FRESH_INDEPENDENT_QA_ATTEMPT_3",
+  "inputs": {
+    "brandMod": {"path":"migrations/onepiece-cardgame/brand-mod.json","sha256":"a54095c856e8c68f1c2c7c3f473f76166f1469fe64b19ef251645c1e1dad1b04"},
+    "designDirection": "migrations/onepiece-cardgame/held-out-card-plugin2/design-direction.json",
+    "hostOpportunityMap": "migrations/onepiece-cardgame/held-out-card-plugin2/host-opportunity-map.json",
+    "coverageMatrix": "migrations/onepiece-cardgame/held-out-card-plugin2/coverage-matrix.json",
+    "baselineBundle": "migrations/onepiece-cardgame/held-out-card-plugin2/preedit-baseline-bundle.json"
+  },
+  "sourceChanges": [
+    {"file":"card-plugin2.0/frontend/config/index.js","sha256":"b52887b54a3d645cb1c5dbccf4769df4fa3f1746a988b5372959b2b782b81366","purpose":"explicit ordinary-build versus fixed held-out-preview build constant"},
+    {"file":"card-plugin2.0/frontend/src/app.js","sha256":"a05b36e6a441a007379e9de73ca6b1be6bc1e3bc68e7aa2e7b300c028d1c67ac","purpose":"single global style import and deterministic preview-build root scope"},
+    {"file":"card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss","sha256":"7476b419f161b6a2ecd25de4bf42f93ac18ce50a7ad322daa3919d1e00c8ea7a","purpose":"capacity-aware six-route visual layer; repaired event title, round contrast, inline 44px controls, focus and root reduced-motion coverage"},
+    {"file":"card-plugin2.0/frontend/src/pages/{plaza,build,mine,event,round,detail}/index.vue","purpose":"approved additive role/tabindex/ARIA and same-outcome Enter/Space delegation only; manifests resolve every edited baseline node"}
+  ],
+  "routeImplementation": [
+    {"route":"pages/plaza/index","intensity":"compact deck / campaign event","hero":"contained existing event branch only"},
+    {"route":"pages/build/index","intensity":"efficiency","hero":"forbidden"},
+    {"route":"pages/mine/index","intensity":"contained identity","hero":"none"},
+    {"route":"pages/event/index","intensity":"primary proof surface","hero":"event editorial"},
+    {"route":"pages/round/index","intensity":"contained ranking","hero":"none"},
+    {"route":"pages/detail/index","intensity":"primary-contained proof surface","hero":"deck identity"}
+  ],
+  "businessSafety": {
+    "routesChanged": false,
+    "apiOrStoreChanged": false,
+    "eventsOrConditionalsChanged": "business tap/condition/loop unchanged; approved keyboard delegates repeat exact tap outcomes",
+    "businessCopyOrDataChanged": false,
+    "vueSfcStructuralDiff": "6/6 PASS",
+    "existingPokemonThemeDefault": "preserved in ordinary build"
+  },
+  "dangoUi": "PARTIAL_STYLE_ONLY",
+  "verification": {
+    "buildH5": "PASS",
+    "themeOrder": "PASS",
+    "structuralDiff": "PASS_6_OF_6_WITH_APPROVED_ACCESSIBILITY_AUGMENTATIONS",
+    "computedCascade": "PASS_EVENT_DETAIL_ROUND_AND_DETAIL_INLINE_TARGET",
+    "freshVisualQa": "NOT_RUN_BY_IMPLEMENTATION_AGENT"
+  },
+  "preview": {
+    "fixedPort": 10092,
+    "desktopBase": "http://127.0.0.1:10092/",
+    "lanBase": "http://192.168.12.127:10092/",
+    "example": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+    "build": "cd /Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend && TARO_APP_HELDOUT_THEME=onepiece npm run build:h5",
+    "start": "cd /Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend && ./node_modules/.bin/vite preview --host 0.0.0.0 --port 10092 --strictPort"
+  },
+  "failureRoute": "fresh Blind Visual QA findings return to earliest responsible role",
+  "coveragePromotion": false
+}

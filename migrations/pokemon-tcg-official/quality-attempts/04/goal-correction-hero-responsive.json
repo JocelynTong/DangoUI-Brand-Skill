@@ -1,0 +1,27 @@
+{
+  "schema": "brand-goal-correction/v1",
+  "brand": "pokemon-tcg-official",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "authority": "explicit-user-correction-plus-source-responsive-evidence",
+  "supersedes": "quality-attempts/03/goal-correction-hero-scaling.json",
+  "strategy": "source-derived-art-directed-mobile-composition",
+  "reason": "Uniformly scaling a 1440x716 PC stage to 390px made the interactive Hero unreadably small, while the official source uses a distinct mobile image asset, a tall cropped stage and independent layer reflow.",
+  "requirements": [
+    "Preserve the source Hero's layered identity: black navigation, campaign art, campaign logo, authentic featured card, CTA and carousel controls.",
+    "At phone width use the source mobile campaign asset variant and art-directed vertical crop rather than the desktop image uniformly scaled down.",
+    "Reflow logo, featured card, CTA and controls independently so they remain readable and operable.",
+    "Do not use a source screenshot as runtime content.",
+    "Keep the next Home section directly reachable after the complete Hero."
+  ],
+  "acceptance": {
+    "mobileViewport": "390x844",
+    "heroMinHeightPx": 900,
+    "heroMaxHeightPx": 1280,
+    "mobileBackgroundAsset": "booster-art-1.jpg",
+    "desktopBackgroundAsset": "booster-art-1-large-up.jpg at DPR 1; large-up-2x.jpg remains a srcset candidate only",
+    "minimumCTAHeightPx": 44,
+    "horizontalOverflow": false,
+    "requiredVisibleLayers": ["navigation", "campaign-art", "campaign-logo", "featured-card", "cta", "carousel-controls"]
+  },
+  "sealed": true
+}

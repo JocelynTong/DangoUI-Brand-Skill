@@ -1,0 +1,30 @@
+{
+  "schema": "dango-independent-mapping-qa-report/v1",
+  "verdict": "FAIL",
+  "mappingChecks": "PASS",
+  "releaseGate": "FAIL",
+  "summary": "All requested DangoUI mapping/runtime checks pass, but repository-required strict section fidelity and brand fidelity validators fail, so the independent final verdict cannot be PASS.",
+  "consumptionCounts": {"mappedTokensDeclared":5,"mappedTokensExisting":5,"mappedTokensRuntimeConsumed":5,"mappedTokenConsumerElementsAcrossThreeRoutes":17,"styleOnlyNavigationTokensRuntimeConsumed":1,"exact5854FFAllowedConsumerElementsPerRoute":1,"exact5854FFUnexpectedRoleConsumers":0,"nativeDuButtonInstancesAcrossThreeRoutes":5},
+  "checks": [
+    {"id":"five-du-tokens-exist-and-consume","status":"pass","evidence":"computed-consumption-report.json"},
+    {"id":"white-canvas-no-black-texture","status":"pass","evidence":"Three roots computed rgb(255,255,255) and background-image none."},
+    {"id":"5854ff-navigation-only","status":"pass","evidence":"One exact-purple element per route; all hits belong to the current navigation span; inactive border/outline colors are currentColor on that same element."},
+    {"id":"real-dubutton-chain-and-states","status":"pass","evidence":"Native DuButton class/API/source verified; 32px, 4px, #7C66FF; hover stable; focus visible; click activated; blur restored."},
+    {"id":"composition-style-only-boundary","status":"pass","evidence":"Documentation shell/modules remain style-only composition; only live button specimens claim DuButton."},
+    {"id":"held-out-reuse","status":"pass","evidence":"Held-out release checklist reuses the shell, isolated navigation cue and native primary button without checklist role expansion."},
+    {"id":"no-invented-component-api","status":"pass","evidence":"DuButton props/classes match installed source; no invented DangoUI component or API found in the reviewed mapping."},
+    {"id":"strict-section-fidelity-validator","status":"fail","evidence":"validate-section-fidelity.mjs --brand dango --strict exited 1."},
+    {"id":"brand-fidelity-validator","status":"fail","evidence":"validate-brand-fidelity.mjs --brand dango exited 3 with protocol-blocked / learning-proof-fail."},
+    {"id":"brand-mod-validator","status":"pass","evidence":"brand-mod ok."},
+    {"id":"preview-registry-validator","status":"pass","evidence":"2 previews ok; warnings concern other brands' remote assets."},
+    {"id":"design-direction-validator","status":"pass","evidence":"ok=true, sections=3, strategies=6."},
+    {"id":"vite-build","status":"pass","evidence":"24 modules transformed; build completed successfully."}
+  ],
+  "blockers": [
+    {"code":"SECTION_FIDELITY_MANIFEST_INVALID","source":"validate-section-fidelity.mjs","details":"Dango section entries lack required pageId, readable source/demo captures, normalized bounded regions, required layers, responsive probes, and pass status."},
+    {"code":"BRAND_FIDELITY_PROTOCOL_BLOCKED","source":"validate-brand-fidelity.mjs","details":"Screenshot hash mismatches remain; mobile composition layers are unmatched or whole-page; button source/demo variant and crop translation are unverified; reviewer recommendation is fail."}
+  ],
+  "validatorResults": {"brandMod":{"exitCode":0},"previewRegistry":{"exitCode":0,"unrelatedWarnings":true},"designDirection":{"exitCode":0},"sectionFidelityStrict":{"exitCode":1},"brandFidelity":{"exitCode":3},"build":{"exitCode":0,"chunkSizeWarning":true}},
+  "artifactReferences": {"manifest":"migrations/dango/mapping-qa-retry/qa-input-manifest.json","computed":"migrations/dango/mapping-qa-retry/computed-consumption-report.json"},
+  "workspaceHead": "feef2d8f2207c39d1a0f58db40cc8ed50d85c642"
+}

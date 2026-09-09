@@ -1,0 +1,43 @@
+{
+  "schemaVersion":"1.0",
+  "brand":"pokemon-tcg-official",
+  "sourceUrl":"https://tcg.pokemon.com/en-us/",
+  "sectionId":"homepage-whats-new",
+  "status":"evidence-ready-with-unresolved-copy-wrap",
+  "viewports":[
+    {
+      "id":"desktop-1440x900",
+      "capture":"captures/source-whats-new-desktop-1440x900-settled.png",
+      "sectionRegion":{"x":0,"y":104.24,"width":1440,"height":748.59},
+      "layers":["white full-width section","header row","two-card gallery viewport","edge previous/next controls","following red TCG Live section"],
+      "readingOrder":["What's new title","See more News","card 1 image","card 1 headline","card 1 CTA","card 2 image","card 2 headline","card 2 CTA","carousel controls"],
+      "visibleItemsPerSlide":2,
+      "slideCount":3,
+      "sourceItems":6
+    },
+    {
+      "id":"mobile-390x844",
+      "capture":"captures/source-whats-new-mobile-390x844-settled.png",
+      "sectionRegion":{"x":0,"y":64.16,"width":390,"height":628.09},
+      "layers":["white full-width section","centered stacked header","single full-width card","60px control row","following red TCG Live section"],
+      "readingOrder":["What's new title","See more News","image","headline","CTA","previous button","six pagination dots","next button"],
+      "visibleItemsPerSlide":1,
+      "slideCount":6,
+      "sourceItems":6
+    }
+  ],
+  "responsiveTranslation":{
+    "title":"48px left-aligned desktop -> 32px centered mobile",
+    "secondaryLink":"right side of same row -> centered second row",
+    "cards":"two 576px cards with 24px gutter -> one edge-to-edge 390px card",
+    "image":"source 578:325 ratio preserved at both widths; no observed crop",
+    "navigation":"desktop pair advances per slide; mobile one item advances per slide; 60px black edge controls remain"
+  },
+  "interactionStates":[
+    {"id":"carousel-desktop-next","before":"captures/source-whats-new-desktop-1440x900-settled.png","transition":"captures/source-whats-new-desktop-next-transition-120ms.png","settled":"captures/source-whats-new-desktop-slide2-settled.png","result":"observed-visible-change"},
+    {"id":"carousel-mobile-next","before":"captures/source-whats-new-mobile-390x844-settled.png","transition":"captures/source-whats-new-mobile-next-transition-120ms.png","settled":"captures/source-whats-new-mobile-slide2-settled.png","result":"observed-visible-change"},
+    {"id":"cta-hover","capture":"captures/source-whats-new-desktop-card-cta-hover.png","result":"observed-text-color-inversion; background layer unresolved"}
+  ],
+  "handoffBlockers":[],
+  "handoffWarnings":["Do not derive exact English wrapping from translated screenshots.","Do not claim the exact entry animation trajectory from settled styles alone."]
+}

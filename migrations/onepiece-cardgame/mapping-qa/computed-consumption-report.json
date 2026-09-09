@@ -1,0 +1,32 @@
+{
+  "schema": "computed-consumption-report/v1",
+  "brand": "onepiece-cardgame",
+  "generatedAt": "2026-09-06T11:09:52Z",
+  "verdict": "FAIL",
+  "declaredSummary": {"total":12,"consumed":8,"pending":4},
+  "qaSummary": {"total":12,"validConsumed":8,"pendingImplementationGap":0,"invalidOrOutOfScopeContract":4},
+  "probeIntegrity": {
+    "status": "FAIL",
+    "finding": "scripts/onepiece-dangoui-mapping-runtime-probe.mjs hard-codes total/consumed/pending and the four pending reasons instead of deriving them from contract and computed observations. Its per-node computed values remain usable, but its 8/4 summary is not independent proof."
+  },
+  "tokens": [
+    {"source":"color.surface.content","target":"--du-bg-1","value":"#FFFFFF","status":"valid-runtime-consumed","computed":"rgb(255, 255, 255)","consumer":".opcg-events .source-schema-demo__home-editorial-item","roleCheck":"pass"},
+    {"source":"color.text.primaryOnLight","target":"--du-text-1","value":"#000000","status":"invalid-contract-value","computed":"runtime custom property #111111; product text rgb(17, 17, 17)","consumer":"none at the declared #000000 value","roleCheck":"value conflicts with the frozen visible product heading/copy","route":{"owner":"Dangoui Mapper","action":"Correct the formal value to the evidence-backed frozen value if exact source computed evidence supports it, otherwise remove this target-bearing leaf. Do not ask Implementation to change #111 pixels."}},
+    {"source":"color.text.warmNarrative","target":"--du-text-2","value":"#352115","status":"invalid-native-role-mapping","computed":"theme custom property #000000a6, while Welcome copy/glow computes rgb(53, 33, 21) through bounded existing rules","consumer":"no verified consumption of --du-text-2=#352115","roleCheck":"the evidence permits Welcome-only narrative brown and forbids generic secondary text; mapping it to global DangoUI secondary text expands the role","route":{"owner":"Dangoui Mapper","action":"Reclassify as a bounded style-only Welcome text/glow token or remove it from the formal runtime profile; a pixel-identical local style-only consumer is safe only after that correction."}},
+    {"source":"color.interaction.menuDisclosureOpen","target":"--style-top-menu-open-color","value":"#FFF507","status":"no-equivalent-runtime-state","computed":"declared only; zero var() consumers; yellow pixels belong to other evidenced roles","consumer":"none","roleCheck":"correctly avoids expansion, but cannot remain a formal all-consumed runtime target without a dropdown-open state","route":{"owner":"Dangoui Mapper","action":"Keep the evidence/intent decision, but remove it from this runtime-consumption contract until an equivalent menu-disclosure-open state exists."}},
+    {"source":"fontFamily.utility","target":"--style-font-body","value":["OPCG Poppins","Poppins","Arial","sans-serif"],"status":"valid-runtime-consumed","computed":"OPCG Poppins, Poppins, Arial, sans-serif","consumer":".source-schema-demo","roleCheck":"pass"},
+    {"source":"fontFamily.display","target":"--style-font-display","value":["Alfa Slab One","Arial Black","sans-serif"],"status":"valid-runtime-consumed","computed":"OPCG Alfa Slab One, Alfa Slab One, Arial Black, sans-serif","consumer":"display headings","roleCheck":"pass; loaded-face alias is compatible"},
+    {"source":"fontFamily.narrative","target":"--style-font-narrative","value":["OPCG Noto Serif","Noto Serif","Georgia","serif"],"status":"valid-runtime-consumed","computed":"OPCG Noto Serif, Noto Serif, Georgia, serif","consumer":"Welcome title","roleCheck":"pass"},
+    {"source":"fontFamily.metadata","target":"--style-font-numeric","value":["OPCG Oswald","Oswald","Arial Narrow","sans-serif"],"status":"valid-runtime-consumed","computed":"OPCG Oswald, Oswald, Arial Narrow, sans-serif","consumer":"hero/editorial metadata","roleCheck":"pass"},
+    {"source":"dimension.welcomeControlRadius","target":"--style-welcome-control-radius","value":"999px","status":"valid-runtime-consumed","computed":"999px","consumer":"Welcome CTA and pseudo-element","roleCheck":"pass; bounded"},
+    {"source":"dimension.editorialMediaRadius","target":"--style-editorial-media-radius","value":"0px","status":"valid-runtime-consumed","computed":"0px","consumer":"product/editorial media","roleCheck":"pass"},
+    {"source":"duration.welcomeHover","target":"--style-welcome-hover-duration","value":"300ms","status":"valid-runtime-consumed","computed":"0.3s","consumer":"Welcome CTA","roleCheck":"pass; bounded"},
+    {"source":"asset.welcomeSurface","target":"--style-parchment-surface","value":"source bg_welcome.webp URL","status":"unsupported-runtime-contract","computed":"Welcome background is a radial/linear-gradient DOM/CSS reconstruction; the asset variable has no consumer","consumer":"none","roleCheck":"role is bounded correctly, but the asset identity/value is not frozen as required composition and would change the accepted pixels","route":{"owner":"Dangoui Mapper","action":"Remove the asset leaf from the runtime contract or replace it with the currently evidenced style-only reconstruction recipe; do not make Implementation consume the source raster."}}
+  ],
+  "componentBoundary": {
+    "native": [{"pattern":"home-footer-illustration-organism","component":"DuButton","scope":"pause/resume atom only","status":"pass"}],
+    "styleOnly": ["image-pill-hover-feedback"],
+    "composition": ["campaign-hero-stage","black-white-taxonomy-control","product-first-catalog-density","editorial-module-rhythm"],
+    "finding":"The component map does not falsely present the larger organisms as native DangoUI components."
+  }
+}

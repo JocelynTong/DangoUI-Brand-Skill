@@ -1,0 +1,87 @@
+{
+  "schema": "brand-generative-proof/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "status": "ready-for-blind-qa",
+  "goalContractPath": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "targetPageId": "pokemon-tcg-official-held-out",
+  "challengeId": "pokemon-tcg-official-deck-lab-v1",
+  "challenge": {
+    "id": "pokemon-tcg-official-deck-lab-v1",
+    "heldOut": true,
+    "sourceContentIndependent": true,
+    "selectedAfterRulesFrozen": true,
+    "mapsToSourcePageId": null,
+    "contentChange": "Generate a new Deck Lab teaching route with original deck-building content and a two-organism entry-to-instruction sequence that is not mapped one-to-one to Home, Card Database, or Learn."
+  },
+  "frozenRules": [
+    {
+      "recipeId": "learn-media-entry",
+      "name": "Oversized instructional entry hierarchy",
+      "frozenBeforeChallenge": true,
+      "appliedAt": "held-out-deck-entry"
+    },
+    {
+      "recipeId": "learn-painted-card-anatomy",
+      "name": "Bounded definition-to-authentic-object teaching rhythm",
+      "frozenBeforeChallenge": true,
+      "appliedAt": "held-out-deck-steps"
+    },
+    {
+      "recipeId": "bounded-long-form-sections",
+      "name": "Purpose-separated organisms preserve reading order",
+      "frozenBeforeChallenge": true,
+      "appliedAt": "pokemon-tcg-official-held-out"
+    }
+  ],
+  "output": {
+    "demoPageId": "pokemon-tcg-official-held-out",
+    "screenshot": {
+      "path": "migrations/pokemon-tcg-official/captures/demo/held-out/desktop/full-page.png",
+      "sha256": "37ef16bd6f0bef8a7c96173fc49d16e1cc8c0c99622b2cd2a82aec5e907d0efb"
+    }
+  },
+  "checks": {
+    "brandCueSubstitution": false,
+    "structureRulesApplied": [
+      {
+        "ruleId": "learn-media-entry",
+        "selector": "[data-schema-section-id='held-out-deck-entry']",
+        "finding": "Oversized entry heading precedes a full authentic card object in a bounded dark organism."
+      },
+      {
+        "ruleId": "learn-painted-card-anatomy",
+        "selector": "[data-schema-section-id='held-out-deck-steps']",
+        "finding": "Exclusive definitions remain paired with an authentic card visual inside a separate instructional organism."
+      },
+      {
+        "ruleId": "bounded-long-form-sections",
+        "selector": ".source-schema-demo[data-page-id='pokemon-tcg-official-held-out'] > section",
+        "finding": "Two differently purposed organisms preserve entry-to-instruction reading order at desktop host and 390px."
+      }
+    ]
+  },
+  "invariants": [
+    "purpose-specific-color-role",
+    "authentic-object-as-proof",
+    "hierarchy-preserved-on-phone",
+    "bounded-long-form-sections"
+  ],
+  "deliberateChanges": [
+    "New Deck Lab information architecture",
+    "New deck-building copy and three-step accordion",
+    "Black entry organism followed by a bounded pale instructional organism"
+  ],
+  "allowedBecause": "The held-out page changes content and section purpose while retaining approved authentic-object hierarchy, oversized instructional heading, bounded organisms, exclusive accordion, and phone reading order.",
+  "prohibitedShortcuts": [
+    "source screenshot runtime",
+    "one-to-one source page copy",
+    "logo/color substitution as sole proof"
+  ],
+  "screenshots": [
+    "migrations/pokemon-tcg-official/captures/demo/held-out/desktop/full-page.png",
+    "migrations/pokemon-tcg-official/captures/demo/held-out/mobile-390/full-page.png"
+  ],
+  "implementationDecision": "PASS_TO_BLIND_QA_NOT_SELF_APPROVED"
+}

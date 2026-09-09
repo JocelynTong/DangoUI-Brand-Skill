@@ -1,0 +1,40 @@
+{
+  "schema": "heldout-event-provenance-verification/v1",
+  "attempt": 13,
+  "role": "fresh-independent-qa",
+  "readOnly": true,
+  "verifiedAt": "2026-09-10T00:16:02+08:00",
+  "asset": {
+    "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/pitch-black/en-us/KD5B_EN_116.png",
+    "localPath": "card-plugin2.0/frontend/src/assets/brand-assets/pokemon-tcg-pitch-black/KD5B_EN_116.png",
+    "sourceSha256": "e4b59f83713045deb5eb8d84590533188c4392c3c5543839cd5af2f9018daf41",
+    "localSha256": "e4b59f83713045deb5eb8d84590533188c4392c3c5543839cd5af2f9018daf41",
+    "sourceBytes": 386826,
+    "localBytes": 386826,
+    "intrinsicSize": {"width": 330, "height": 460},
+    "byteIdentical": true,
+    "freshNetworkVerification": "PASS",
+    "sourceKind": "original-site DOM image",
+    "role": "contained expansion/event identity media",
+    "alt": "Mega Darkrai ex",
+    "frozenInventory": {
+      "path": "card-plugin2.0/frontend/migrations/pokemon-tcg-pitch-black/rendered-asset-inventory.json",
+      "matchingRecords": [
+        {"lines": "838-853", "property": "src", "sourceType": "dom-image", "rawSrcExact": true, "resolvedUrlExact": true, "altExact": true, "shouldMigrate": true},
+        {"lines": "856-871", "property": "srcset", "sourceType": "dom-srcset", "rawSrcExact": true, "resolvedUrlExact": true, "altExact": true, "shouldMigrate": true}
+      ]
+    },
+    "implementationIntegrity": {
+      "screenshotOrCrop": false,
+      "referenceDerivedFullFrameRaster": false,
+      "reason": "The runtime file is byte-identical to the exact upstream standalone PNG and retains its 330x460 intrinsic dimensions; it is placed with CSS background containment rather than captured from a screenshot."
+    },
+    "runtime": {
+      "path": "/static/images/KD5B_EN_116.png",
+      "loadedAtViewports": [390, 536, 1280],
+      "failedRequests": 0
+    }
+  },
+  "verdict": "PASS",
+  "blockingFindings": []
+}

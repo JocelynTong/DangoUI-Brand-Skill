@@ -1,0 +1,136 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "0b908cee-3c1e-4415-beb4-3722de737894",
+  "runId": "672d1d73-774e-4aec-acac-1e75f44b7a54",
+  "stageId": "visualQA-2",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 2,
+  "goalId": "onepiece-cardgame-learn-v4",
+  "goalSha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb",
+  "mission": "Review the rendered result as a user-facing product, not just a passing build.",
+  "roleContractVersion": "2.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/onepiece-cardgame/goal-contract.json",
+      "sha256": "1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"
+    },
+    {
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+      "sha256": "a4a27247f174cc816dc8afc17f19335b2c5cd0986d2c009c33aa940b0752c033"
+    },
+    {
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png",
+      "sha256": "cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211"
+    },
+    {
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+      "sha256": "8960cbe1a67d01f9cf7ad4f8da48988ed269d7fe5e739b91f1aa3de682219acc"
+    },
+    {
+      "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+      "sha256": "3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a"
+    },
+    {
+      "path": "output/visual-qa/onepiece-cardgame/demo-home.png",
+      "sha256": "d6de2e7a8a2bc23bc64e6b2738ce7b776cf3364a8d43b92a17d90599e0e79d61"
+    },
+    {
+      "path": "output/visual-qa/onepiece-cardgame/demo-products.png",
+      "sha256": "be89751df2d52b732f8a002790d1397eebbbb0f291a9a194a778986b58ec265f"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+      "sha256": "5fd445468cb9e83affa959680d75bca34f9d49df6ec52029c707a3796b6c0c19"
+    },
+    {
+      "path": "migrations/onepiece-cardgame/generative-proof.json",
+      "sha256": "97a9b9d8d11175fd047e0f7364c6679fc2bfffa15ba275ec524084ca767af4dd"
+    }
+  ],
+  "allowedInputs": [
+    "source interaction captures",
+    "demo interaction captures",
+    "asset provenance manifest"
+  ],
+  "forbiddenInputs": [
+    "implementation rationale",
+    "implementation narrative",
+    "desired verdict",
+    "previous QA verdict",
+    "build pass as fidelity evidence",
+    "translation claims absent from goal contract"
+  ],
+  "tasks": [
+    "compare every source/demo pair",
+    "audit every high-salience demo pattern against its evidence refs and source region",
+    "for composition claims verify hero asset identity and variant, then independently match every structural layer such as navigation, campaign copy, controls and cards",
+    "reject whole-page or broad-region evidence as a substitute for layer coverage",
+    "verify source/demo aspect and crop translations against goal-contract.mayTranslate",
+    "reject token-role expansion such as active color becoming section chrome",
+    "verify the generative variation is produced by learned invariants rather than mirroring, full-frame copying, or asset substitution",
+    "inspect every phone page inside the preserved mockup shell",
+    "for long-page or multi-module target/source evidence require at least two schema sections and probe the phone-screen scrollHeight, clientHeight and reversible scrollTop",
+    "score the fixed fidelity rubric",
+    "verify mustPreserve and mustNotReplace",
+    "attach visual evidence to every score and blocking finding",
+    "recommend pass, fail or insufficient-evidence"
+  ],
+  "requirements": [
+    "fresh independent agent execution id",
+    "every implementation pattern is independently classified supported or unsupported",
+    "unsupported high-salience patterns are blocking and cannot be averaged away",
+    "Evidence Fidelity, Structural Fidelity, and Generative Proof each receive an explicit pass/fail status",
+    "failure of any proof blocks the result and cannot be averaged away",
+    "fixed rubric computes the verdict",
+    "every core page is scored",
+    "missing visual evidence cannot pass",
+    "every standard-demo phone page retains a phone + phone-screen mockup shell",
+    "when target/source evidence is long or multi-module, every page declares at least two sections and the browser gate proves phone-screen scrollHeight > clientHeight, scrollTop changes, and scrollTop is restored"
+  ],
+  "mustNot": [
+    "modify code",
+    "modify goal or thresholds",
+    "accept post-hoc implementation explanations",
+    "equate schema/browser/build pass with fidelity",
+    "write visual-quality-ready"
+  ],
+  "expectedOutputs": [
+    "visual-qa-assessment.json",
+    "visual-comparison-report.json",
+    "fidelity-report.json",
+    "three-proof verdict"
+  ],
+  "passCriteria": [
+    "Evidence Fidelity passes",
+    "Structural Fidelity passes",
+    "Generative Proof passes",
+    "computed overall and page thresholds pass",
+    "composition and authentic asset minima pass",
+    "every composition mustPreserve has matching asset identity/variant, structural layer coverage and authorized crop translation",
+    "all mustPreserve pass",
+    "no mustNotReplace violation"
+  ],
+  "failCriteria": [
+    "SCREENSHOT_AS_IMPLEMENTATION",
+    "EVIDENCE_LEAKAGE",
+    "ASSET_PROVENANCE_MISSING",
+    "UNSUPPORTED_VISUAL_PATTERN",
+    "MOCKUP_SHELL_MISSING",
+    "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+    "PAGE_NOT_SCROLLABLE",
+    "PAGE_SCROLL_NOT_RESTORED",
+    "a token or color role is expanded beyond its evidence-backed use",
+    "a mustPreserve item fails",
+    "a forbidden replacement occurs",
+    "a core page or dimension is below threshold",
+    "review is not independent"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, or demoImplementationAgent"
+  ]
+}

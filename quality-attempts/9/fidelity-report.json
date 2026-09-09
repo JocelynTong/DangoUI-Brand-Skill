@@ -1,0 +1,15 @@
+{
+  "schema": "brand-fidelity-report/v2",
+  "attempt": 9,
+  "verdict": "NEEDS_EVIDENCE",
+  "proofs": {
+    "evidenceFidelity": {"verdict": "NEEDS_EVIDENCE", "reason": "High-salience footer and font glyph source captures do not visibly contain the claimed regions."},
+    "structuralFidelity": {"verdict": "NEEDS_EVIDENCE", "reason": "Demo hierarchy is visibly coherent and complete, but official footer hierarchy cannot be compared from the supplied captures."},
+    "generativeProof": {"verdict": "NOT_REASSESSED", "reason": "Incident scope is Home title/footer plus motion and phone scrolling."}
+  },
+  "nonCompensationApplied": true,
+  "runtimeChecks": {"fontResourcesLoaded": "PASS", "fourRolesVisible": "PASS", "footerSevenRasterAssetsVisible": "PASS", "footerBackgroundVisible": "PASS", "normalMotionBounded": "PASS", "phoneScrollToEnd": "PASS", "reducedMotion": "NOT_PROVEN"},
+  "blockingFindingIds": ["B1-source-footer-captures-do-not-show-footer", "B2-font-glyph-captures-mislabeled", "B3-reduced-motion-runtime-proof-unavailable"],
+  "earliestFailureNode": "Evidence/source observation",
+  "failureOwnerRole": "brandResearcher"
+}

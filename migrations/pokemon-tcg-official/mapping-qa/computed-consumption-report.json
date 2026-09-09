@@ -1,0 +1,37 @@
+{
+  "schema": "computed-consumption-report/v1",
+  "brand": "pokemon-tcg-official",
+  "baseUrl": "http://127.0.0.1:5181",
+  "summary": {"dtcgTargets":7,"runtimeConsumed":5,"declaredButNotConsumed":1,"pendingUnapproved":1,"strictCoverage":"5/7"},
+  "targets": [
+    {"path":"mapped.du-bg-1","target":"--du-bg-1","expected":"#FFFFFF","selector":".pokemon-db__title-plate","computed":"rgb(255, 255, 255)","status":"runtime-consumed"},
+    {"path":"mapped.du-bg-2","target":"--du-bg-2","expected":"#EDEDED","selector":".pokemon-db","computed":"rgb(237, 237, 237)","status":"runtime-consumed"},
+    {"path":"mapped.du-text-1","target":"--du-text-1","expected":"#131415","selector":".pokemon-db__title-plate h1","declared":"#131415","computed":"rgb(37, 37, 37)","matchedOverride":".source-schema-demo--pokemon-tcg-official [data-schema-section-id=card-database-search-shell] .pokemon-db__title-plate h1 { color: #252525; }","status":"declared-not-consumed"},
+    {"path":"mapped.du-text-2","target":"--du-text-2","expected":"#494949","selector":".pokemon-db__empty","computed":"rgb(73, 73, 73)","status":"runtime-consumed"},
+    {"path":"mapped.du-border-1","target":"--du-border-1","expected":"#5E5E5E","selector":".source-schema-demo--pokemon-tcg-official","computed":"#0000001f","status":"pending-unapproved","roleFinding":"Frozen site evidence contains CSS candidate contexts for navigation pseudo-elements, but no computed-visible evidence, brand-intent role, or approved visual pattern authorizes an ordinary divider consumer."},
+    {"path":"styleOnly.style-font-database","target":"--style-font-database","expected":"Flexo-Regular, arial, sans-serif","selector":".pokemon-db","declared":"\"Flexo-Regular\", Arial, sans-serif","computed":"Flexo-Regular, Arial, sans-serif","status":"runtime-consumed"},
+    {"path":"styleOnly.style-database-results-texture","target":"--style-database-results-texture","expected":"content_bg.png","selector":".pokemon-db__results","computed":"url(\"https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png\")","status":"runtime-consumed"}
+  ],
+  "isolation": {
+    "status":"pass",
+    "dango":{"bg1":"#ffffff","bg2":"#ffffff","text1":"#000000","text2":"#57575f","border1":"#0000001f","pokemonStyleTokens":"absent"},
+    "onepiece":{"bg1":"#ffffff","bg2":"#0b0b0b","text1":"#111111","text2":"#000000a6","border1":"#d8c49a","pokemonStyleTokens":"absent"}
+  },
+  "search": {
+    "status":"pass",
+    "source":"node_modules/dangoui/src/button/Button.vue",
+    "runtime":"BUTTON.du-button.du-button--normal.du-button--primary.du-c-primary-bt.pokemon-db__submit",
+    "props":{"type":"primary","size":"normal","text":"Search"},
+    "stateProbe":{"afterSubmit":{"searchState":"results","results":true,"page":"1/12"},"afterReset":{"searchState":"empty","results":false,"value":""}},
+    "databaseCompositionPreserved":true
+  },
+  "mockups": {
+    "status":"pass",
+    "pages":[
+      {"id":"home","desktopAndPhoneCaptured":true,"shell":true,"clientHeight":644,"scrollHeight":2456,"scrollTopAfter":720,"restored":0,"horizontalOverflow":false,"brokenAssets":[]},
+      {"id":"card-database","desktopAndPhoneCaptured":true,"shell":true,"clientHeight":644,"scrollHeight":1657,"scrollTopAfter":1013.5,"restored":0,"horizontalOverflow":false,"brokenAssets":[]},
+      {"id":"learn","desktopAndPhoneCaptured":true,"shell":true,"clientHeight":644,"scrollHeight":3027,"scrollTopAfter":720,"restored":0,"horizontalOverflow":false,"brokenAssets":[]}
+    ]
+  },
+  "boundaries":{"status":"pass","native":"Only database submit is verified native DuButton.","styleOnly":"Database font and results texture remain locally scoped and do not impersonate --du-*.","composition":"Hero, database organism/drawer/results, and learn structures remain page composition or pending candidates; no generic DangoUI component claim is made."}
+}

@@ -1,0 +1,52 @@
+{
+  "schema": "brand-evidence/v2",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "capturedAt": "2026-09-02T12:35:29.015Z",
+  "viewport": { "width": 1440, "height": 1000 },
+  "status": "NEEDS_EVIDENCE",
+  "claims": [
+    {
+      "id": "claim-current-hero-has-no-visible-foreground-card",
+      "status": "observed",
+      "fact": "The current 30th Celebration hero contains a card component in DOM, but its vp-slide ancestor is opacity:0 and translated right; no foreground card is visible in the viewport capture.",
+      "capture": "frames/00-initial.png",
+      "region": { "x": 1308, "y": 209, "width": 132, "height": 404.2421875 },
+      "visibleDom": ".featured-switcher .perspective-card",
+      "computed": { "ancestorOpacity": "0", "ancestorTransform": "matrix(1, 0, 0, 1, 240, 0)", "targetPerspective": "1000px" }
+    },
+    {
+      "id": "claim-pointer-path-no-style-or-pixel-delta",
+      "status": "observed",
+      "fact": "Across the exact outside→center→TL→TR→BR→BL→center→outside-restored path, card/transformer/shine computed signals remain invariant and all eight lossless region captures have the same SHA-256.",
+      "capture": "frames/01-outside.png",
+      "region": { "x": 1308, "y": 209, "width": 132, "height": 404.2421875 },
+      "state": "frozen-pointer-path",
+      "computed": "action-evidence.json#computedPropertyResult",
+      "timeline": "pointer-probe-timeline.json"
+    }
+  ],
+  "goalCoverage": [
+    {
+      "goalItem": "candidate-to-visual-backfill-chain",
+      "section": "home-hero-header",
+      "dimensions": ["interactionSemantics", "motion"],
+      "conclusion": "unresolved",
+      "claimRefs": ["claim-current-hero-has-no-visible-foreground-card", "claim-pointer-path-no-style-or-pixel-delta"],
+      "reason": "Runtime card/perspective/shine code creates candidates, but the component is dormant. Visible carousel controls did not activate its owning vp-slide, so the zero-delta hidden-state probe cannot disprove a visibility-gated effect."
+    }
+  ],
+  "thirdPartySeedDispositions": [],
+  "candidateDispositions": "candidate-scan.json",
+  "actionEvidence": "action-evidence.json",
+  "sourceObservationManifest": "source-observation-manifest.json",
+  "renderedAssetInventory": "rendered-asset-inventory.json",
+  "passiveRecordingAssessment": {
+    "missedRealEffect": null,
+    "statement": "Unresolved. The original passive recording did not show a real currently visible pointer-follow effect, but the dormant candidate could not be activated through visible carousel controls, so current evidence cannot determine whether a reachable historical or alternate state was missed."
+  },
+  "limitations": [
+    "The first-party application bundle is obfuscated; a readable card-specific listener binding could not be established.",
+    "The target named by the frozen goal is not currently visible and could not be activated through visible carousel controls; the candidate remains unresolved-dormant-unreachable rather than rejected."
+  ]
+}

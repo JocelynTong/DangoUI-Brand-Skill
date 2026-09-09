@@ -1,0 +1,39 @@
+{
+  "schema": "brand-distinctiveness-assessment/v1",
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "attempt": 3,
+  "qaExecution": "heldout_host_fresh_qa3",
+  "fresh": true,
+  "policy": {
+    "designSystemStructuralRecognition": "blocking",
+    "explicitIpRecognition": "diagnostic"
+  },
+  "maskedEvidence": [
+    "quality-attempts/3/masked-plaza-desktop.png",
+    "quality-attempts/3/masked-event-desktop.png",
+    "quality-attempts/3/masked-detail-desktop.png"
+  ],
+  "dimensionScores": {
+    "visualMass": { "score": 4, "max": 4, "evidence": "black editorial fields, white utility fields and red separator bands create a stable high-mass hierarchy across plaza, event and detail" },
+    "asset": { "score": 4, "max": 4, "evidence": "event uses the approved independent campaign artwork as a viewport-scale stage rather than a small logo or screenshot" },
+    "composition": { "score": 4, "max": 4, "evidence": "event editorial stage, detail identity masthead and plaza archive/filter framing remain recognizable after masking" },
+    "type": { "score": 3, "max": 4, "evidence": "condensed display hierarchy, oversized archive labeling and dense utility typography are visible on all proof surfaces" },
+    "motion": { "score": 1, "max": 4, "evidence": "motion is intentionally subordinate; reduced-motion removes all page-root animation and transition rather than serving as a strong recognition signal" }
+  },
+  "highCapacitySignals": [
+    { "route": "pages/event/index", "signal": "campaign stage plus artwork", "dimensions": ["asset", "composition", "visualMass"], "viewportShare": ">5%" },
+    { "route": "pages/detail/index", "signal": "identity masthead plus split action family", "dimensions": ["composition", "type", "visualMass"], "viewportShare": ">5%" },
+    { "route": "pages/plaza/index", "signal": "archive navigation/filter frame plus campaign strip", "dimensions": ["composition", "type", "visualMass"], "viewportShare": ">5%" }
+  ],
+  "designSystemStructuralRecognition": {
+    "verdict": "PASS",
+    "blocking": true,
+    "reason": "The masked surfaces retain the learned black/red editorial framing, yellow selection grammar, oversized archive typography, hard separators and capacity-aware composition without relying on a brand label or logo."
+  },
+  "explicitIpRecognition": {
+    "verdict": "PASS_DIAGNOSTIC",
+    "blocking": false,
+    "reason": "The approved event artwork remains an explicit ONE PIECE signal, but this diagnostic result does not substitute for the independently passing structural result."
+  },
+  "verdict": "PASS"
+}

@@ -1,0 +1,12 @@
+{
+  "schema":"brand-demo-implementation-receipt/v1",
+  "brand":"onepiece-cardgame",
+  "attempt":12,
+  "agentExecutionId":"/root/onepiece_home_sections_demo",
+  "inputs":["goal-contract.json","quality-attempts/12/evidence/manifest.json","quality-attempts/12/interpreter/section-contract.json","approved-visual-patterns.json"],
+  "outputs":["src/App.vue","src/styles.css","public/brand-previews/onepiece-cardgame.json","visual-pattern-inventory.json","demo-screenshot-manifest.json","generative-proof.json","output/visual-qa/onepiece-cardgame/demo-v12/home-full-390.png"],
+  "build":"PASS_WITH_CHUNK_WARNING",
+  "previewProtocol":"PASS_WITH_PREEXISTING_WARNINGS",
+  "implementationVerdict":"READY_FOR_INDEPENDENT_QA",
+  "finalPassClaimed":false
+}

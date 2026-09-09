@@ -1,0 +1,74 @@
+{
+  "schema": "onepiece-mobile-responsive-evidence/v1",
+  "attempt": 11,
+  "capturedAt": "2026-09-01T00:00:00+08:00",
+  "source": {
+    "url": "https://asia-en.onepiece-cardgame.com/",
+    "viewportCssPx": { "width": 390, "height": 844 },
+    "document": { "scrollWidth": 390, "scrollHeight": 7576 },
+    "fullPageCapture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png"
+  },
+  "demo": {
+    "url": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+    "viewportCssPx": { "width": 387, "height": 800 },
+    "document": { "scrollWidth": 387, "scrollHeight": 800 },
+    "shellBox": { "x": 0, "y": 0, "width": 387.27, "height": 681.04 },
+    "workspaceBox": { "x": 0, "y": 560, "width": 387.27, "height": 121.04 },
+    "templatePreviewBox": { "x": 188.64, "y": 609.99, "width": 10, "height": 21.06 },
+    "homeCanvasBox": { "x": 193.64, "y": 614.99, "width": 0, "height": 3106.11 },
+    "fullPageCapture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg",
+    "sameViewportComparability": "valid-with-3px-width-calibration-difference",
+    "blockingObservation": "At a true narrow browser viewport, the live Demo shell collapses the preview to 10px and the Home canvas to 0px; section-level Demo pixels are therefore not visible or honestly crop-able."
+  },
+  "classificationLegend": {
+    "true-reflow": "layout geometry changes and content remains readable inside the viewport",
+    "scale": "desktop composition is proportionally reduced without semantic rearrangement",
+    "crop": "off-viewport content is intentionally masked",
+    "overflow": "content exceeds its section or viewport bounds",
+    "collapsed": "available width is reduced to zero or near-zero"
+  },
+  "checks": [
+    {
+      "id": "navigation-hero",
+      "status": "FAIL",
+      "source": { "box": { "x": 0, "y": 0, "width": 390, "height": 954.7 }, "behavior": ["true-reflow", "crop"], "fontPx": { "heroCatch": 19.76 }, "notes": "Compact 64.5px header, 141.4×36.5 logo, full-width hero; inactive carousel slides are cropped while the document remains 390px wide.", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-nav-hero.jpg" },
+      "demo": { "box": null, "behavior": ["collapsed"], "overflowClipping": "Home canvas width is 0px", "touchTargets": "unavailable at same viewport", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg" },
+      "reason": "No visible Demo navigation or Hero exists at the audited narrow viewport."
+    },
+    {
+      "id": "welcome",
+      "status": "FAIL",
+      "source": { "box": { "x": 0, "y": 954.7, "width": 390, "height": 679 }, "behavior": ["true-reflow"], "fontPx": { "heading": 32.24, "movieHeading": 20.8 }, "notes": "Heading wraps within a 332.8px box with 28.6px side inset; content remains full-width and readable.", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-welcome.jpg" },
+      "demo": { "box": null, "behavior": ["collapsed"], "touchTargets": "unavailable at same viewport", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg" },
+      "reason": "The desktop-shell phone mockup shows a scaled Welcome, but the same narrow browser viewport collapses it completely."
+    },
+    {
+      "id": "news-new-arrival",
+      "status": "FAIL",
+      "source": { "box": { "x": 0, "y": 1633.2, "width": 390, "height": 1199.4 }, "behavior": ["true-reflow", "crop"], "fontPx": { "newsTitle": [14.04, 16.64], "sectionTitle": 34.32 }, "notes": "News rows reflow to mobile geometry; New Arrival remains a masked horizontal rail with 166.4px items, not an accidental document overflow.", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-news-newarrival.jpg" },
+      "demo": { "box": null, "behavior": ["collapsed"], "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg" },
+      "reason": "No same-viewport visible News or New Arrival pixels; column-to-row and touch-target behavior cannot be compared."
+    },
+    {
+      "id": "products-and-mid-page",
+      "status": "FAIL",
+      "source": { "box": { "x": 0, "y": 2832.6, "width": 390, "height": 2155.5 }, "behavior": ["true-reflow"], "fontPx": { "productsTitle": 53.04, "productRowTitle": 16.64, "eventTitle": 15.6 }, "notes": "Products categories become stacked rows; Events become vertically stacked 373.4px-wide rows with image/text composition and mobile spacing.", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-products-events.jpg" },
+      "demo": { "box": null, "behavior": ["collapsed"], "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg" },
+      "reason": "No same-viewport visible Products, Events, Schedule, Recommend, or Videos; true reflow versus scale/crop cannot be demonstrated."
+    },
+    {
+      "id": "footer",
+      "status": "UNRESOLVED",
+      "source": { "box": { "x": 0, "y": 5951.8, "width": 390, "height": 1624.7 }, "behavior": ["true-reflow"], "fontPx": { "base": 8.32 }, "notes": "Footer fills the mobile viewport and navigation is 343.2px wide with 23.4px side inset.", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-section-footer.jpg" },
+      "demo": { "box": null, "behavior": ["collapsed"], "supplementalDesktopShellPhonePreview": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-390x844.png", "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/demo-home-full-actual390x844.jpg" },
+      "reason": "Prior phone-mockup evidence suggests the Footer adapts, but the live Demo at the same narrow browser viewport exposes zero-width Home content, so this run cannot award a same-viewport PASS."
+    }
+  ],
+  "earliestEvidenceGap": {
+    "owner": "Brand Researcher / Demo host integration",
+    "status": "FAIL",
+    "gap": "The live Demo has no auditable Home surface at a true narrow browser viewport because the preview collapses before any section breakpoint can be observed.",
+    "requiredClosure": "Expose the Home canvas at non-zero width in a 390px-class viewport, then recapture all sections at the exact same CSS viewport and measure touch targets and per-section overflow."
+  },
+  "summary": { "pass": 0, "fail": 4, "unresolved": 1 }
+}

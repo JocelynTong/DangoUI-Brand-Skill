@@ -1,0 +1,18 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/detail/index",
+  "inputStandardSamples": ["Plaza QA10", "Event QA13"],
+  "goal": "Translate the learned ONE PIECE product-first editorial system into the deck detail page while keeping Pokémon deck identity and actions intact.",
+  "mustPreserve": ["deck title/author/environment/description", "cover and card media", "stats and image/text views", "favorite/copy/buy/edit actions", "viewer and navigation outcomes"],
+  "requiredDirection": {
+    "surface": "warm-white map-paper page; navy/black as contained identity and data accents rather than full-page stage",
+    "identity": "product-first rectangular deck cover frame paired with title, author, environment and update information",
+    "composition": "identity -> restrained description -> ruled stats -> view switch -> collection content -> persistent actions",
+    "geometry": "low-radius rectangular panels, 1px rules and bounded media; remove oversized pill/action language",
+    "colorRoles": "red primary action, navy structure, yellow sparse attention, preserve purple/price/status semantics",
+    "type": "strong short title/numeric values with readable restrained Chinese body"
+  },
+  "mustNotDo": ["replace Pokémon cards or copy", "use source screenshots", "turn the cover into a ONE PIECE product", "let the bottom actions dominate the viewport", "change business behavior or other routes"],
+  "acceptance": ["390/536/1280 show identity, description/stats and view/actions in a coherent hierarchy", "masked recognition passes through product framing, paper mass, rules and editorial density", "all detail actions/viewer/expand controls retain pointer and keyboard outcomes", "zero clipping, overflow, external writes or other-route regression"]
+}

@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ONE PIECE footer revision 2 — Blind QA source/demo comparison</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #111318; color: #f7f7f7; font: 15px/1.45 Arial, sans-serif; }
+    main { width: 1280px; margin: 0 auto; padding: 28px; }
+    h1 { margin: 0 0 6px; font-size: 28px; }
+    .note { margin: 0 0 24px; color: #c9ced8; }
+    .head, .row { display: grid; grid-template-columns: 96px 1fr 1fr; gap: 14px; align-items: start; }
+    .head { margin-bottom: 8px; color: #f6c94c; font-weight: 700; }
+    .row { margin-bottom: 20px; }
+    .state { padding-top: 8px; font-weight: 700; color: #fff; }
+    figure { margin: 0; background: #20242c; border: 1px solid #3b414d; }
+    img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: contain; background: #fff; }
+    figcaption { min-height: 42px; padding: 8px 10px; color: #cfd4df; }
+    .fail { color: #ff8181; }
+    .pass { color: #72e0a7; }
+  </style>
+</head>
+<body>
+  <main>
+    <h1>ONE PIECE Home footer — revision 2 Blind QA</h1>
+    <p class="note">Both columns are normalized to the same 16:9 viewport frame. Official source is 1280×720; live Demo is 1164×655.</p>
+    <div class="head"><div>State</div><div>Official v10</div><div>Live Demo revision 2</div></div>
+
+    <div class="row">
+      <div class="state">Default / pre-entry</div>
+      <figure><img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-00-before-entry.png"><figcaption>Footer organism is still below the viewport.</figcaption></figure>
+      <figure><img src="/migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-default-pre-entry-live.png"><figcaption>Pre-entry state is present.</figcaption></figure>
+    </div>
+
+    <div class="row">
+      <div class="state">120ms</div>
+      <figure><img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png"><figcaption>Only the background field begins to enter; character and cards are absent.</figcaption></figure>
+      <figure><img src="/migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-120ms-live.png"><figcaption class="fail">Oversized cards already occupy the lower-right phone edge.</figcaption></figure>
+    </div>
+
+    <div class="row">
+      <div class="state">500ms</div>
+      <figure><img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png"><figcaption>The top of Luffy enters; cards/catch/logo remain delayed.</figcaption></figure>
+      <figure><img src="/migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-500ms-live.png"><figcaption class="fail">All three enlarged cards are already staged over Luffy.</figcaption></figure>
+    </div>
+
+    <div class="row">
+      <div class="state">Settled</div>
+      <figure><img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png"><figcaption>Edge-spanning wave, dominant-left Luffy, right card field, catch/logo lower right.</figcaption></figure>
+      <figure><img src="/migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-settled-live.png"><figcaption class="fail">Pale vertical poster: Luffy and cards fill/occlude the phone; wave and horizontal hierarchy are lost.</figcaption></figure>
+    </div>
+
+    <div class="row">
+      <div class="state">Late loop</div>
+      <figure><img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png"><figcaption>Card rotations change while the full composition stays intact.</figcaption></figure>
+      <figure><img src="/migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-late-live.png"><figcaption><span class="pass">Loop exists</span>, but the same poster hierarchy remains.</figcaption></figure>
+    </div>
+
+    <div class="row">
+      <div class="state">Paused</div>
+      <figure><img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png"><figcaption>Loop-only pause; settled organism remains.</figcaption></figure>
+      <figure><img src="/migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-paused-live.png"><figcaption><span class="pass">Loop-only pause works</span>, but spatial/crop blocker is unchanged.</figcaption></figure>
+    </div>
+  </main>
+</body>
+</html>

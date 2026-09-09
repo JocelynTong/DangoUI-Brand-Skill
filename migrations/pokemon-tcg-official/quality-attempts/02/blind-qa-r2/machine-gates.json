@@ -1,0 +1,30 @@
+{
+  "schema": "brand-blind-qa-machine-gates/v1",
+  "brand": "pokemon-tcg-official",
+  "results": [
+    {"gate": "validate-section-fidelity --strict", "status": "pass", "exitCode": 0, "failures": []},
+    {"gate": "validate:brand-preview", "status": "pass", "exitCode": 0, "brandSpecificFailures": []},
+    {"gate": "npm run build", "status": "pass", "exitCode": 0, "warnings": ["bundle chunk larger than 500 kB"]},
+    {"gate": "evidence-visibility-gate --strict", "status": "fail", "exitCode": 2, "blocking": [{"id": "observation-page-cards", "reason": "Gate resolves stale goal-contract.json (cold-start-v1) rather than the sealed goal-contract-v2.json and therefore requires the superseded official 404 cards route."}]},
+    {"gate": "validate-brand-fidelity --write", "status": "not-run-against-canonical-tree", "reason": "The validator is hard-coded to goal-contract.json and root QA artifacts. Running --write would consume the forbidden/stale v1 contract and overwrite root fidelity outputs, violating the isolated QA write boundary."}
+  ],
+  "protocolAudit": {
+    "goalV2Sha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+    "rootGoalContractSha256": "b5152200227683c47e1da0d6fa8fad9ae3be4be6535ba081f276ea725d7d28c1",
+    "rootGoalId": "pokemon-tcg-official-cold-start-v1",
+    "revisionPatternInventoryCompatibleWithCurrentValidator": false,
+    "incompatibilities": ["missing pages[]", "missing attempt", "patterns use highSalience instead of salience=high", "demoRegion is selector-bearing demoRegions[] instead of normalized [x,y,w,h]", "evidenceRefs are ids rather than evidence objects", "composition preserves/compositionSupport absent"]
+  },
+  "generativeProofAudit": {
+    "status": "content-pass-protocol-blocked",
+    "goalShaMatches": true,
+    "heldOut": true,
+    "sourceContentIndependent": true,
+    "selectedAfterRulesFrozen": true,
+    "namedFrozenRules": 3,
+    "outputShaMatches": true,
+    "outputSha256": "37ef16bd6f0bef8a7c96173fc49d16e1cc8c0c99622b2cd2a82aec5e907d0efb",
+    "structureRulesApplied": 3,
+    "brandCueSubstitution": false
+  }
+}

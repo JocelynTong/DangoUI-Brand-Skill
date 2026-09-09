@@ -1,0 +1,13 @@
+{
+  "schema": "brand-program-goal-tree/v2",
+  "program": "two-pipeline-generalization",
+  "progressBasis": "separate learn-brand, first design-host, and held-out-reuse evidence; design-host coverage is never the total program proxy",
+  "pipelines": {
+    "learn-brand": {"status":"PASS_FROZEN","evidence":["migrations/onepiece-cardgame/brand-mod.json","migrations/onepiece-cardgame/generative-proof.json"],"remainingGap":[],"nextAction":"Do not change learned rules for this held-out host unless the case exposes a genuine cross-case methodology defect."},
+    "design-host": {"status":"FIRST_HOST_RUNTIME_VISUAL_BUSINESS_PASS_WITH_HISTORICAL_EVIDENCE_GAP","evidence":["/Users/jocelyn/Downloads/spu-common-plugin/quality-attempts/102/canonical.json"],"remainingGap":["V2-D prechange structural baseline is historically unrecoverable"],"nextAction":"Keep first-host result frozen; do not use second host to rewrite its history."},
+    "held-out-reuse": {"status":"PASS_FRESH_INDEPENDENT_QA_ATTEMPT3","evidence":["migrations/onepiece-cardgame/held-out-card-plugin2/host-evidence.json","migrations/onepiece-cardgame/held-out-card-plugin2/host-opportunity-map.json","migrations/onepiece-cardgame/held-out-card-plugin2/coverage-matrix.json","migrations/onepiece-cardgame/held-out-card-plugin2/design-direction.json","migrations/onepiece-cardgame/held-out-card-plugin2/preedit-baseline-bundle.json","migrations/onepiece-cardgame/held-out-card-plugin2/implementation-receipt.json","migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/3/canonical.json"],"remainingGap":[],"nextAction":"Keep the frozen MOD and held-out evidence unchanged; use a new unrelated host for any future generalization claim."}
+  },
+  "heldOutExitCriterion": "同一冻结 ONE PIECE MOD 与角色能力模型，在不新增 card-plugin2 专用流程规则的情况下，6/6 配置路由通过 structural diff、business safety、runtime/theme、visual-system conformance 与 fresh independent QA。",
+  "caseSpecificRuleBudget": {"allowed":false,"handling":"若出现缺失的一般规则，先判 held-out FAIL；只有跨 case 合理且经 Methodology Keeper 验证后才能更新方法并从头重跑。"},
+  "currentDecision": "HELD_OUT_REUSE_COMPLETE"
+}

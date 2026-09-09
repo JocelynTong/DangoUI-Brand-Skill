@@ -1,0 +1,41 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 9,
+  "revision": 2,
+  "verdict": "PASS",
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "blockingFindings": [],
+  "threeProofs": {
+    "evidenceFidelity": {
+      "verdict": "PASS",
+      "basis": "Equal-width settled source/demo captures and pre-translation computed records support every scored high-salience decision. Rejected motion frames were not used."
+    },
+    "structuralFidelity": {
+      "verdict": "PASS",
+      "basis": "The 1440 full-bleed copy-left/assets-right composition and 390 assets-first/full-width-black-copy-second recomposition match, including five independent asset identities and overlap roles."
+    },
+    "generativeProof": {
+      "verdict": "PASS",
+      "basis": "The page retains the independently established Hero and WHAT'S NEW generative states while adding this source-calibration section as DOM/CSS plus independent assets; the TCG Live source section itself is not misrepresented as held-out generation."
+    }
+  },
+  "checks": {
+    "desktopFullBleed1440": "PASS",
+    "desktopCopyLeftAssetsRight": "PASS",
+    "mobileFullSection390": "PASS",
+    "mobileVSeamAndHoneycomb": "PASS",
+    "mobileAssetsFirstCopySecond": "PASS",
+    "fiveIndependentAssetsAndZOrder": "PASS",
+    "typography": "PASS",
+    "noKicker": "PASS",
+    "ctaRestHoverAndTarget": "PASS",
+    "horizontalOverflow": "PASS",
+    "heroAndWhatsNewRegression": "PASS",
+    "entryMotion": "UNRESOLVED_UNSCORED"
+  },
+  "warnings": [
+    "Entry motion remains unresolved and unscored. No exact trajectory, timing, stagger, or source-faithful motion claim is accepted."
+  ]
+}

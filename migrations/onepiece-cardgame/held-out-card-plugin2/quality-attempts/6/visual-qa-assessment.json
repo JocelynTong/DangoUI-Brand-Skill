@@ -1,0 +1,94 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 6,
+  "generatedAt": "2026-09-09T22:45:00+08:00",
+  "freshIndependentQa": true,
+  "readOnly": true,
+  "preview": "http://127.0.0.1:10092/#/pages/plaza/index",
+  "verdict": "REWORK",
+  "workflowCompletion": "REWORK",
+  "businessSafety": "PASS",
+  "visualDirectionRegression": "PASS",
+  "checks": {
+    "threeFreshViewports": {
+      "status": "PASS",
+      "viewports": ["390x844", "536x864", "1280x720"]
+    },
+    "initialBoundaryClarity": {
+      "status": "PASS",
+      "note": "390 与 536 新鲜截图初始态没有露出半个文字或半个 chip；右侧红色 rail 构成清晰终止边界。DOM 中后续两列与视口相交，但被 scroll viewport 完整裁切，最终渲染未产生误裁感。"
+    },
+    "compactMobileAndMid": {
+      "status": "PASS",
+      "observed": {
+        "390x844": {"environmentRows": 2, "panelHeight": 155.890625, "panelViewportRatio": 0.1847},
+        "536x864": {"environmentRows": 2, "panelHeight": 213.5, "panelViewportRatio": 0.2471}
+      }
+    },
+    "scrollAffordance": {
+      "status": "VISUAL_PASS_BEHAVIOR_FAIL",
+      "note": "移动与中宽截图可见常驻浅红滚动条/右侧 rail，但真实 Chromium 水平 wheel/trackpad 探针 scrollLeft 仍为 0，未证明非拖拽用户可以横滚。"
+    },
+    "pointerKeyboardParity": {
+      "status": "PARTIAL_PASS",
+      "note": "末项太阳&月亮-2.0 的 pointer、Enter、Space 均得到同一 active 结果，aria-pressed=true，scrollLeft=2389，写请求为 0。"
+    },
+    "all39OptionsReachable": {
+      "status": "FAIL",
+      "blocking": true,
+      "observed": {
+        "optionCount": 39,
+        "tabIndexZeroCount": 39,
+        "fullyVisibleAfterSequentialFocusCount": 21,
+        "notFullyVisibleAfterSequentialFocusCount": 18
+      },
+      "finding": "全部 39 项都有键盘节点，但顺序 Tab/focus 时有 18 项未完整滚入可视轨道；仅证明末项可达不足以满足全量可达验收。"
+    },
+    "foldEconomy": {
+      "status": "PASS",
+      "note": "三档均能在首屏看到搜索、赛季条和第一张卡标题；firstCardTop 分别为 477.89、654.45、496。"
+    },
+    "desktop1280": {
+      "status": "FAIL",
+      "blocking": true,
+      "finding": "1280 宽截图把 39 个环境选项压成三行极密网格，多个长标签文字越出自身 chip 并与相邻文字重叠。虽无 document overflow，也没有几何裁掉选项，但形成比裁切更严重的不可读状态。"
+    },
+    "documentOverflow": {
+      "status": "PASS",
+      "observedPx": [0, 0, 0]
+    },
+    "networkWrites": {
+      "status": "PASS",
+      "observed": 0
+    },
+    "attempt4Direction": {
+      "status": "PASS",
+      "note": "暖白纸张、低圆角、编辑式硬边与克制红色 rail 仍在；失败集中于筛选轨道响应式与可操作性。"
+    },
+    "otherRoutesRegression": {
+      "status": "PASS_WITH_DYNAMIC_DETAIL_NOTE",
+      "note": "build、mine、event、round 的 390px fresh screenshot 与 Attempt 4 SHA-256 完全一致且 overflow=0；detail hash 有动态差异但 overflow=0，未发现 plaza filter 样式外泄。"
+    }
+  },
+  "blockingFindings": [
+    {
+      "code": "DESKTOP_FILTER_LABEL_COLLISION",
+      "severity": "blocking",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": ["desktop-1280x720-plaza-filter-fresh.png", "browser-probes.json"],
+      "requiredOutcome": "1280 宽必须给每个长标签足够宽度，文字不得越出 chip 或与邻项相撞；不要求一次展示全部 39 项，可使用与移动一致的清晰横向轨道。"
+    },
+    {
+      "code": "FILTER_TRACK_INPUT_REACHABILITY_INCOMPLETE",
+      "severity": "blocking",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": ["browser-probes.json"],
+      "requiredOutcome": "39 项逐项通过键盘焦点时均完整滚入；真实水平 wheel/trackpad 可使轨道 scrollLeft 改变，同时保留 pointer、Enter、Space 和 aria-pressed 一致性。"
+    }
+  ],
+  "nonBlockingNotes": [
+    "Attempt 5 的移动端 19 行选项墙已被修复。",
+    "初始移动与中宽截图已不再出现用户指出的半截标签。",
+    "所有验证请求均为 GET/HEAD/OPTIONS。"
+  ]
+}

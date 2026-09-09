@@ -1,0 +1,307 @@
+{
+  "schema": "brand-evidence/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "status": "evidence-pass-for-frozen-scope",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "observationManifest": "migrations/dango/source-observation-manifest.json",
+  "evidenceOrder": [
+    "rendered screenshot",
+    "visible DOM",
+    "computed property",
+    "source rule",
+    "third-party candidate disposition"
+  ],
+  "claims": [
+    {
+      "id": "dango-docs-shell-desktop",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "At 1440×900, a 56px full-width header sits above a 200px left navigation, a 1060px reading area and a 180px right outline. White is the dominant canvas; gray is confined to supporting surfaces.",
+      "visibleDom": {
+        "selector": "header",
+        "visible": true,
+        "boundingBox": {"x": 0, "y": 0, "width": 1440, "height": 56}
+      },
+      "computed": {"property": "height", "value": "56px"},
+      "supportingComputed": [
+        {"selector": "aside:first-of-type", "property": "width", "value": "200px"},
+        {"selector": "main", "property": "width", "value": "1060px"},
+        {"selector": "aside:last-of-type", "property": "width", "value": "180px"}
+      ],
+      "timelineRef": "migrations/dango/captures/source/introduction/desktop/timeline.json"
+    },
+    {
+      "id": "dango-docs-shell-mobile-reflow",
+      "status": "observed",
+      "kind": "layout",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango/captures/source/introduction/mobile-390/frame-00.png",
+        "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "At 390×844 the sidebars are absent, the header remains full width, and the article reflows into a 390px single column with 16px inset content. The source does not uniformly scale its desktop shell. The first title is partially occluded by the fixed header in the captured source and must not be normalized into a cleaner behavior by Evidence.",
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {"x": 0, "y": 0, "width": 390, "height": 1660.6875}
+      },
+      "computed": {"property": "width", "value": "390px"},
+      "supportingComputed": [
+        {"selector": "header", "property": "width", "value": "390px"},
+        {"selector": "h1", "property": "width", "value": "358px"}
+      ],
+      "timelineRef": "migrations/dango/captures/source/introduction/mobile-390/timeline.json"
+    },
+    {
+      "id": "dango-docs-active-navigation",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "current-page",
+      "capture": {
+        "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      },
+      "sourceRegion": [0.008333, 0.114444, 0.121528, 0.036111],
+      "visibleFact": "The documentation shell uses purple as a restrained current-page cue: purple text over a pale-purple rounded row. It is not a page-wide canvas or a dominant call-to-action fill.",
+      "visibleDom": {
+        "selector": "a[aria-current=\"page\"]",
+        "state": "current-page",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 103, "width": 175, "height": 32.5}
+      },
+      "computed": {"property": "color", "value": "rgb(88, 84, 255)"},
+      "supportingComputed": [
+        {"property": "background-color", "value": "rgba(88, 84, 255, 0.08)"},
+        {"property": "border-radius", "value": "8px"}
+      ]
+    },
+    {
+      "id": "dango-docs-type-hierarchy",
+      "status": "observed",
+      "kind": "typography",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      },
+      "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786],
+      "visibleFact": "The Introduction page is led by black system typography: the H1 is 36px/700, H2 is 24px/600, and dense explanatory content is separated by a thin rule and a #F7F7F9 technical-diagram surface.",
+      "visibleDom": {
+        "selector": "main h1",
+        "visible": true,
+        "boundingBox": {"x": 232, "y": 80, "width": 996, "height": 60.1875}
+      },
+      "computed": {"property": "font-size", "value": "36px"},
+      "supportingComputed": [
+        {"selector": "main h1", "property": "font-weight", "value": "700"},
+        {"selector": "main h2", "property": "font-size", "value": "24px"},
+        {"selector": "main h2", "property": "font-weight", "value": "600"}
+      ]
+    },
+    {
+      "id": "dango-button-page-shell",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango/captures/source/button/desktop/frame-00.png",
+        "sha256": "e9a2df8b4c8e1d9afb096c2cd23d7f91777f56d8f755f50cb39a7b9e2c3b69e2"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "The Button reference keeps the same three-column documentation shell. Component examples use a two-column preview/code table rather than a marketing card grid.",
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {"x": 200, "y": 0, "width": 1060, "height": 4186.765625}
+      },
+      "computed": {"property": "width", "value": "1060px"},
+      "timelineRef": "migrations/dango/captures/source/button/desktop/timeline.json"
+    },
+    {
+      "id": "dango-primary-button",
+      "status": "observed",
+      "kind": "component",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "default",
+      "capture": {
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+        "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "The normal Primary button is a compact 77.15625×32px control with white text, rgb(124, 102, 255) solid fill and a 4px radius.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+        "state": "default",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "computed": {"property": "background-color", "value": "rgb(124, 102, 255)"},
+      "supportingComputed": [
+        {"property": "color", "value": "rgb(255, 255, 255)"},
+        {"property": "height", "value": "32px"},
+        {"property": "border-radius", "value": "4px"},
+        {"property": "transform", "value": "none"}
+      ],
+      "actionEvidenceRefs": ["dango-primary-button-hover", "dango-primary-button-focus", "dango-primary-button-activated"]
+    },
+    {
+      "id": "dango-primary-button-hover-no-change",
+      "status": "observed",
+      "kind": "interaction",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "hover",
+      "capture": {
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
+        "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "The captured hover-transition and settled hover frames are pixel-identical to default and preserve the same computed background color. No hover color or transform effect is observed.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:hover",
+        "state": "hover",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "computed": {"property": "background-color", "value": "rgb(124, 102, 255)"},
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png"
+    },
+    {
+      "id": "dango-primary-button-focus",
+      "status": "observed",
+      "kind": "interaction",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "focus",
+      "capture": {
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+        "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "Programmatic focus produces a thin browser-visible outline around the otherwise unchanged purple button. The computed outline is auto 1px and the action fill remains purple.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:focus",
+        "state": "focus",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "computed": {"property": "outline-style", "value": "auto"},
+      "supportingComputed": [
+        {"property": "outline-width", "value": "1px"},
+        {"property": "background-color", "value": "rgb(124, 102, 255)"}
+      ],
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png"
+    },
+    {
+      "id": "dango-primary-button-activated",
+      "status": "observed",
+      "kind": "interaction",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "activated",
+      "capture": {
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/activated.png",
+        "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
+      },
+      "sourceRegion": [0, 0, 1, 1],
+      "visibleFact": "After click settles, the button remains focused and is pixel-identical to the focus frame. No red or orange activated fill is observed.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+        "state": "activated-settled-focus-retained",
+        "visible": true,
+        "boundingBox": {"x": 12, "y": 53, "width": 77.15625, "height": 32}
+      },
+      "computed": {"property": "background-color", "value": "rgb(124, 102, 255)"},
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/activated.png"
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "id": "seed-primary-7c66ff",
+      "seedRef": "Dembrandt primary candidate #7C66FF",
+      "status": "validated",
+      "evidenceRefs": ["dango-primary-button"],
+      "scope": "Primary Button component fill in the frozen Button page"
+    },
+    {
+      "id": "seed-accent-5854ff",
+      "seedRef": "Dembrandt accent candidate #5854FF",
+      "status": "validated",
+      "evidenceRefs": ["dango-docs-active-navigation"],
+      "scope": "Documentation current-page text and pale supporting fill"
+    },
+    {
+      "id": "seed-warning-ff812c",
+      "seedRef": "Dembrandt orange candidate #FF812C",
+      "status": "out-of-scope",
+      "evidenceRefs": [],
+      "reason": "The color may exist in the component theme palette, but it is not visibly used as the shell's dominant accent or the Primary Button action color on the frozen Introduction and Button surfaces. Code presence cannot promote it to a rendered role."
+    },
+    {
+      "id": "seed-surface-f7f7f9",
+      "seedRef": "Dembrandt surface candidate #F7F7F9",
+      "status": "validated",
+      "evidenceRefs": ["dango-docs-type-hierarchy"],
+      "scope": "Supporting technical-diagram and example surfaces"
+    }
+  ],
+  "goalCoverage": [
+    {
+      "goal": "docs-shell",
+      "status": "proved",
+      "evidenceRefs": ["dango-docs-shell-desktop", "dango-docs-shell-mobile-reflow", "dango-button-page-shell"]
+    },
+    {
+      "goal": "content-hierarchy",
+      "status": "proved",
+      "evidenceRefs": ["dango-docs-type-hierarchy"]
+    },
+    {
+      "goal": "accent-semantics",
+      "status": "proved-for-frozen-pages",
+      "evidenceRefs": ["dango-docs-active-navigation", "dango-primary-button", "dango-primary-button-hover-no-change"]
+    },
+    {
+      "goal": "button-state-system",
+      "status": "proved-for-primary-calibration",
+      "evidenceRefs": ["dango-primary-button", "dango-primary-button-hover-no-change", "dango-primary-button-focus", "dango-primary-button-activated"]
+    }
+  ],
+  "unresolved": [],
+  "consumerGate": {
+    "interpreterMayProceed": true,
+    "scope": "Introduction shell and Primary Button calibration only",
+    "reason": "Strict screenshot-first evidence visibility gate passed with no blockers or warnings."
+  }
+}

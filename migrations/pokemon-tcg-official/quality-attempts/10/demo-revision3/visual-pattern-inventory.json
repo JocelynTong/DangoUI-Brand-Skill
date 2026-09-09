@@ -1,0 +1,32 @@
+{
+  "schema":"brand-visual-pattern-inventory/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"10-demo-revision3",
+  "scope":"home-editorial-grid plus held-out-pocket-family",
+  "patterns":[
+    {"demoRegion":"full Pocket article background","patternId":"PAT-POCKET-01","evidenceRefs":["desktop-background-layering","mobile-layering","responsive-alias-identity"],"sourceRegion":"article.tcg-pocket > full-width background child","implementation":"picture is the first rendered section layer and spans the complete article at both viewports; URL roles differ but current bytes remain identical"},
+    {"demoRegion":"desktop calibration content row","patternId":"PAT-POCKET-02","evidenceRefs":["desktop-background-layering","desktop-copy-panel-geometry"],"sourceRegion":"transparent 720/720 content row over shared background","implementation":"asset child occupies left 720x476.195; black copy child occupies right 720x356.5 centered at y≈59.85"},
+    {"demoRegion":"mobile calibration stack","patternId":"PAT-POCKET-03","evidenceRefs":["mobile-layering"],"sourceRegion":"transparent asset row followed by full-width black copy row","implementation":"390x334.23 asset row and 390x408.793 black copy row over a 390x743.023 full background"},
+    {"demoRegion":"calibration recognition composite","patternId":"PAT-POCKET-04","evidenceRefs":["pocket-assets"],"sourceRegion":"independent logo-cards.png","implementation":"official transparent composite remains a separate runtime asset on source calibration only"},
+    {"demoRegion":"calibration and held-out copy panels","patternId":"PAT-POCKET-05","evidenceRefs":["desktop-copy-panel-geometry","mobile-layering","pocket-copy"],"sourceRegion":"local opaque black copy child","implementation":"black belongs only to bounded copy children; article and content parent remain transparent over the light campaign field"},
+    {"demoRegion":"copy hierarchy","patternId":"PAT-POCKET-06","evidenceRefs":["pocket-copy","pocket-cta"],"sourceRegion":"Pocket heading/body/action roles","implementation":"Kanit italic heading, PT Sans body and CTA on both calibration and held-out"},
+    {"demoRegion":"localized CTA","patternId":"PAT-POCKET-07","evidenceRefs":["pocket-cta"],"sourceRegion":"white action with black-to-gold foreground hover","implementation":"source calibration retains real external URL; fictional fixture uses an inert local concept anchor and makes no official-product claim"},
+    {"demoRegion":"viewport entry","patternId":"PAT-POCKET-08","evidenceRefs":["pocket-entry-motion"],"sourceRegion":"hidden and settled endpoints only","implementation":"omitted; unresolved and unscored"}
+  ],
+  "heldOut": {
+    "pageId":"pokemon-tcg-official-pocket-fixture",
+    "sectionId":"held-out-pocket-family",
+    "proofRole":"generative-held-out-fictional",
+    "changed":["fictional Pocket Deck Studio content","desktop black copy panel moves from right to left","official logo-cards composite is replaced by an original DOM/CSS concept tile"],
+    "preserved":["full-width light campaign base field","bounded local black copy child","Kanit/PT Sans hierarchy","white CTA and localized gold hover","mobile asset-first/copy-second order"],
+    "officialClaim":false
+  },
+  "runtimeAssets":[
+    {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","role":"full-article desktop Pocket background","sourceKind":"independent-source-asset"},
+    {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","role":"full-article mobile Pocket background alias with identical current payload","sourceKind":"independent-source-asset"},
+    {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png","sourceSha256":"27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009","role":"source-calibration product recognition composite only","sourceKind":"independent-transparent-source-asset"}
+  ],
+  "unsupportedPatternsAdded":[],
+  "unresolvedOmitted":["entry timing","entry easing","entry stagger","entry intermediate frames"],
+  "visualVerdict":"reserved-for-blind-qa"
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "mockup-state-matrix/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 17,
+  "ownerRole": "demoImplementationAgent",
+  "scope": "shared phone shell regression exercised with Pokémon long-page fixtures",
+  "viewport": { "width": 1184, "height": 933 },
+  "normalFixture": {
+    "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "phoneScreen": { "width": 371, "clientHeight": 802, "scrollHeight": 2461 },
+    "scrollProbe": { "before": 0, "after": 500, "restored": 0 },
+    "geometry": { "screenX": 636, "screenWidth": 372, "indicatorX": 636, "indicatorWidth": 372, "bottom": 868.21875, "bottomRadius": "31.5936px" }
+  },
+  "notes": [
+    "The three page types exercise the same shared phone-shell owner; pageType identifies the consumer surface, not a separate indicator implementation.",
+    "Proof modes intentionally hide the indicator, so bottom surface semantics are ignored by the strict validator in those cases.",
+    "Normal tabbar and no-tabbar observations use the same long-page scroll fixture while asserting the two supported surface semantics."
+  ],
+  "observations": [
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1184,"height":933},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"matches-tabbar"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":802,"scrollHeight":2461,"beforeScrollTop":0,"afterScrollTop":500,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1184,"height":933},"indicator":{"hidden":true}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"indicator":{"hidden":true}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"indicator":{"hidden":true}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1184,"height":933},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"transparent"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":802,"scrollHeight":2461,"beforeScrollTop":0,"afterScrollTop":500,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1184,"height":933},"indicator":{"hidden":true}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"indicator":{"hidden":true}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"indicator":{"hidden":true}},
+
+    {"pageType":"style","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1184,"height":933},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"matches-tabbar"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":802,"scrollHeight":2461,"beforeScrollTop":0,"afterScrollTop":500,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1184,"height":933},"indicator":{"hidden":true}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"indicator":{"hidden":true}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"indicator":{"hidden":true}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1184,"height":933},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"transparent"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":802,"scrollHeight":2461,"beforeScrollTop":0,"afterScrollTop":500,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1184,"height":933},"indicator":{"hidden":true}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"indicator":{"hidden":true}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"indicator":{"hidden":true}},
+
+    {"pageType":"component","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1184,"height":933},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"matches-tabbar"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":802,"scrollHeight":2461,"beforeScrollTop":0,"afterScrollTop":500,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1184,"height":933},"indicator":{"hidden":true}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"indicator":{"hidden":true}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"indicator":{"hidden":true}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1184,"height":933},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"transparent"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":802,"scrollHeight":2461,"beforeScrollTop":0,"afterScrollTop":500,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1184,"height":933},"indicator":{"hidden":true}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"indicator":{"hidden":true}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"indicator":{"hidden":true}}
+  ]
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "brand-section-fidelity/v1",
+  "brand": "pokemon-tcg-official",
+  "goalSha256": "db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5",
+  "canonicalEvidenceBinding": {
+    "goalContract": {"path":"migrations/pokemon-tcg-official/quality-attempts/08/goal-contract.json","sha256":"db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5"},
+    "sourceDesktop": {"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/08/evidence/captures/source-whats-new-desktop-1440x900-settled.png"}},
+    "sourceMobile": {"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/08/evidence/captures/source-whats-new-mobile-390x844-settled.png"}}
+  },
+  "scope": "attempt-08-demo-home-news-grid",
+  "sections": [{
+    "id": "home-news-grid",
+    "pageId": "pokemon-tcg-official-home",
+    "status": "pass",
+    "sourceCapture": "migrations/pokemon-tcg-official/quality-attempts/08/evidence/captures/source-whats-new-desktop-1440x900-settled.png",
+    "demoCapture": "migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-desktop-1440x900-before.png",
+    "sourceViewport": {"width":1440,"height":900},
+    "demoViewport": {"width":1440,"height":900},
+    "approvedViewportTranslation": "Independent content viewport without inspector or phone chassis; separate 390x844 evidence verifies mobile reflow.",
+    "sourceRegion": [0,104,1440,748.59],
+    "demoRegion": [0,104,1440,755.796875],
+    "requiredLayers": [
+      {"id":"section-boundary","sourceSelector":"article.whats-new","demoSelector":"[data-schema-section-id=home-news-grid]","status":"pass"},
+      {"id":"section-header","sourceSelector":"h2.whats-new__title + .whats-new__link","demoSelector":".pokemon-news__header","status":"pass"},
+      {"id":"news-gallery","sourceSelector":".news-gallery .news__item","demoSelector":".pokemon-news__story","status":"pass"},
+      {"id":"carousel-controls","sourceSelector":".gallery__nav-next,.gallery__nav-prev","demoSelector":".pokemon-news__controls","status":"pass"}
+    ],
+    "readingOrder": ["heading","archive link","image","headline","CTA","carousel controls"],
+    "responsiveBehavior": {"status":"pass","desktop":"two 576px cards with 24px gap; three pages","mobile":"one 390px card; six pages","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-desktop-1440x900-before.png","migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-mobile-390x844-before.png"]},
+    "assetRefs": [
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/news/items/en-us/wcs26-binder-inserts.png","sourceSha256":"cf2e55712219520d624a7c22e68c8825fe6245b4c5d5abb296f29862fb339514","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/news/items/en-us/30thYoshirotten_169_EN.png","sourceSha256":"d5a1423b0587ca15eb4f95953cb8b84678d35f112fd395515034cdabfd902d03","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/news/items/en-us/tcg_30th_pikachu_reveals_169_en.png","sourceSha256":"60e0b070c45612b9db2dc425a07b87f6b2e4d2c842605d847cffccc576657ee8","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/news/items/en-us/30th-pikachu-reveal-169-en.png","sourceSha256":"1da4fc8c170e2afa67d26f3cb3d80deeee89af75a2111332cb59c9fcfb26179d","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/news/items/en-us/product-showcase-169-en.png","sourceSha256":"6e65737966cf73dfb98a866d1f4453e67443d3c1cb676a3016238bedf8ca8697","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/news/items/en-us/PCOM_2027_Season_Refresh-16x9.png","sourceSha256":"fdd9f7ccf67646585cfa8d426092af80b6bb36462f4c971a2d76e2fbb2fc0224","status":"pass"}
+    ],
+    "interactionChecks": [{"id":"news-carousel-next-restore","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["image identity","headline identity","CTA instance","translate","opacity","scale"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-desktop-1440x900-before.png","transitionCapture":"migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-desktop-1440x900-transition-120ms.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-desktop-1440x900-settled.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/08/demo/captures/demo-whats-new-desktop-1440x900-restored.png"}],
+    "usesItemCountAsStructureProxy": false,
+    "horizontalOverflow": false
+  }]
+}

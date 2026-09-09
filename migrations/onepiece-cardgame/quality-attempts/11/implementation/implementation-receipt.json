@@ -1,0 +1,19 @@
+{
+  "schema": "brand-demo-implementation-receipt/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 11,
+  "status": "implemented-awaiting-independent-review",
+  "captures": [
+    {"path":"captures/demo-home-mobile-full-390x843.png","sha256":"c13f3943690abb8789abacc88ba6cb2ba0b396be767a53a52fa3bf55bad199ab"},
+    {"path":"captures/demo-mobile-segment-1-y61.png","sha256":"30d65991c66a31c7c03ffd8b8586415c6c1748da1fc3e8966ce26801e439f396"},
+    {"path":"captures/demo-mobile-segment-2-y781.png","sha256":"106042439908f69f1686d43a66be905fd75ed8029283a8c19ebbb64d9ed1bc75"},
+    {"path":"captures/demo-mobile-segment-3-y1501.png","sha256":"bb0d9262167859f0462e360997bc9856cd309ad4cf192e9cafa97684c040dd24"},
+    {"path":"captures/demo-mobile-segment-4-y2221.png","sha256":"e6f0f19fd04ad7828d5fe36f11eab8af4b85d7af94a514738e589a5c9d96804d"},
+    {"path":"captures/demo-mobile-segment-5-y2941.png","sha256":"1ebbfed6eaf569331dcf5d4e07a9a16393a9a95d847c3d5a9621de65b2042561"},
+    {"path":"captures/demo-mobile-segment-6-y3661.png","sha256":"b8104b8086371aa2db0bc06d63cc589703cebf776491f4f6b4e01daa00dea801"},
+    {"path":"captures/demo-mobile-segment-7-y4322.png","sha256":"18bbe070ccb8c1bf281d99ed20a5e90fe2974042c65aa00485ee5d6e3ad42c85"},
+    {"path":"captures/demo-home-desktop-phone-shell.png","sha256":"c912c65b8e198db9b13b294398e6f3c1f694737937119a1f9b1a9a5a659ec2db"}
+  ],
+  "build": {"command":"npm run build","result":"success","css":"dist/assets/index-Dis_LC15.css","js":"dist/assets/index-BFDa2cuX.js"},
+  "assertionBoundary": "Implementation receipt only; no final PASS claim."
+}

@@ -1,0 +1,73 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "url": "http://127.0.0.1:5179/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "capturedAt": "2026-09-02T21:35:10+08:00",
+  "desktopCurrent": {
+    "browserCssViewport": {"width": 1163, "height": 654, "devicePixelRatio": 2.200000047683716},
+    "heroViewport": {"width": 245.56817626953125, "height": 122.0951690673828},
+    "canvas": {
+      "logicalWidth": 1440,
+      "logicalHeight": 716,
+      "renderedWidth": 245.56251525878903,
+      "renderedHeight": 122.09815979003906,
+      "computedTransform": "matrix(0.17053, 0, 0, 0.17053, 0, 0)",
+      "computedTransformOrigin": "0px 0px"
+    },
+    "expectedScale": 0.17053345572916667,
+    "expectedHeight": 122.101554296875,
+    "followingSectionGapPx": -0.000003814697265625,
+    "documentHorizontalOverflow": false
+  },
+  "requestedBrowserViewport390x844": {
+    "observedBrowserCssViewport": {"width": 354, "height": 767, "devicePixelRatio": 1.100000023841858},
+    "heroViewport": {"x": 598.4871826171875, "y": 597.0809326171875, "width": 351.0085144042969, "height": 174.52413940429688},
+    "canvas": {
+      "x": 586.491455078125,
+      "y": 597.0809326171875,
+      "logicalWidth": 1440,
+      "logicalHeight": 716,
+      "renderedWidth": 350.9999694824219,
+      "renderedHeight": 174.52359008789062,
+      "computedTransform": "matrix(0.24375, 0, 0, 0.24375, 0, 0)",
+      "computedTransformOrigin": "0px 0px",
+      "expectedScaleFromHeroInnerWidth": 0.24375591278076172,
+      "expectedHeight": 174.52923355102538
+    },
+    "followingSectionGapPx": 0.000030517578125,
+    "document": {"clientWidth": 354, "scrollWidth": 354, "horizontalOverflow": false},
+    "pageVisibility": {
+      "heroLeftPx": 598.4871826171875,
+      "viewportRightPx": 354,
+      "heroVisibleInRequestedViewport": false,
+      "horizontalRecoveryAvailable": false
+    },
+    "settledSlide1LayerBounds": {
+      "clip": {"left": 598.4871826171875, "top": 597.0809326171875, "right": 949.4956970214844, "bottom": 771.6050720214844},
+      "campaignNavigation": {"left": 588.928955078125, "right": 935.052215576172, "top": 597.0809326171875, "bottom": 607.9388647079468, "fullyInside": false},
+      "logo": {"left": 591.366455078125, "right": 609.8900699615479, "top": 608.7802734375, "bottom": 618.2636384963989, "fullyInside": false},
+      "campaignTitle": {"left": 616.4044799804688, "right": 801.1126098632812, "top": 676.0538940429688, "bottom": 776.8258209228516, "fullyInside": false},
+      "featuredCard": {"left": 843.8963623046875, "right": 887.814151763916, "top": 615.447998046875, "bottom": 672.3239936828613, "fullyInside": true},
+      "copy": {"left": 668.5389404296875, "right": 748.976448059082, "top": 662.696044921875, "bottom": 671.1788215637207, "fullyInside": true},
+      "cta": {"left": 684.0936279296875, "right": 733.4235725402832, "top": 781.7008056640625, "bottom": 791.4715909957886, "fullyInside": false, "visibleHeightPx": 0},
+      "carouselControls": {"left": 752.1203002929688, "right": 771.8608617782593, "top": 800.7333984375, "bottom": 802.6826947927475, "fullyInside": false, "visibleHeightPx": 0}
+    }
+  },
+  "scrollProbe": {
+    "container": ".phone-screen",
+    "clientHeight": 583,
+    "scrollHeight": 2155,
+    "before": 0,
+    "after": 438.1818237304687,
+    "restored": 0,
+    "reversible": true
+  },
+  "runtimeAssetProbe": {
+    "screenshotReferenceMatches": [],
+    "heroBackground": "assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+    "heroImages": ["tcg-logo.png", "Logo-30th.png", "2M6P_EN_23.png"],
+    "screenshotUsedAtRuntime": false
+  },
+  "console": {"errorCount": 0, "errors": []}
+}

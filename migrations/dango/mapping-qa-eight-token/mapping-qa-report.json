@@ -1,0 +1,33 @@
+{
+  "schema": "dango-eight-token-mapping-qa-report/v1",
+  "brand": "dango",
+  "qaExecutionId": "/root/dango_eight_token_mapping_qa",
+  "verdict": "PASS",
+  "summary": {
+    "targetBearingLeaves":8,
+    "verifiedLeaves":8,
+    "mappedNativeColorTokens":"5/5",
+    "styleOnlyTokens":"3/3",
+    "earliestBlocker":null
+  },
+  "checks": [
+    {"id":"complete-dtcg-chain","status":"PASS","evidence":"All 8 target-bearing DTCG leaves have one adapter entry with identical target, non-empty evidenceRefs, allowedRoles, consumerLocations and runtime-consumed status."},
+    {"id":"five-native-token-targets","status":"PASS","evidence":"All five mapped color targets exist as --du-* tokens in the DangoUI theme/catalog/source chain and resolve at declared consumers on 5179."},
+    {"id":"three-style-only-boundaries","status":"PASS","evidence":"Navigation current, normal-height and radius declare targetExists=false and mappingType=style-only; none impersonates a DangoUI token."},
+    {"id":"navigation-role-isolation","status":"PASS","evidence":"Fresh 5179 scan found one exact rgb(88, 84, 255) element, .dango-docs__nav-group > span.is-current; inactive currentColor border/outline fields belong to that same element."},
+    {"id":"dimension-consumer-isolation","status":"PASS","evidence":"The only height/radius variable property consumer is .phone .source-schema-demo--dango button.dango-docs__primary; its four live matches are real DuButton primary/normal specimens. Other types, sizes, document modules and phone shell do not match."},
+    {"id":"native-component-proof","status":"PASS","evidence":"App.vue renders imported DuButton; runtime tag/classes and node_modules/dangoui/src/button/Button.vue plus style.scss prove native API, normal geometry and primary token chain."},
+    {"id":"native-style-only-composition-boundary","status":"PASS","evidence":"Only live button specimens are native DuButton. Current navigation, desktop/mobile documentation shell, technical article flow, page outline and reference-document composition remain style-only/composition; no invented component is asserted."},
+    {"id":"runtime-proof-freshness","status":"PASS","evidence":"Fresh mapping runtime probe against actual 5179 passed every check; independent live CSSOM/computed scan separately covered all 8 leaves."},
+    {"id":"strict-general-gate","status":"PASS","evidence":"validate-dangoui-mapping --strict: 102/102 checks passed and reported 8 target-bearing DTCG tokens. Its QA lookup used the pre-existing final-pass report, so it is recorded only as a platform gate, not as this verdict's evidence."},
+    {"id":"brand-mod-validation","status":"PASS","evidence":"node scripts/validate-brand-mod.mjs migrations/dango/brand-mod.json exited 0."},
+    {"id":"build","status":"PASS","evidence":"npm run build exited 0; Vite built 24 modules. The >500 kB chunk message is a non-blocking size warning."}
+  ],
+  "commands": [
+    {"command":"node scripts/dango-mapping-runtime-probe.mjs http://127.0.0.1:5179 (temporary-output rewrite only)","exitCode":0,"status":"PASS"},
+    {"command":"node skills/brand/scripts/validate-dangoui-mapping.mjs --brand dango --strict","exitCode":0,"status":"PASS","note":"Existing final-pass QA was read by the gate itself; this independent report does not rely on that verdict."},
+    {"command":"node scripts/validate-brand-mod.mjs migrations/dango/brand-mod.json","exitCode":0,"status":"PASS"},
+    {"command":"npm run build","exitCode":0,"status":"PASS"}
+  ],
+  "blockingFindings": []
+}

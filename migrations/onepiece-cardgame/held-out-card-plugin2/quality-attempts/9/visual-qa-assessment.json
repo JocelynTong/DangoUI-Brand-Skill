@@ -1,0 +1,66 @@
+{
+  "schema": "heldout-plaza-standard-sample-visual-qa/v1",
+  "attempt": 9,
+  "role": "fresh-independent-brand-visual-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Plaza standard sample only; this verdict does not represent the full host",
+  "verdict": "REWORK",
+  "decision": "The standard sample is materially improved and all tested behavior passes, but it cannot be signed off while the masthead presents decorative platform chrome and a switch affordance with no corresponding action.",
+  "screenshots": [
+    "fresh-390x844-plaza.png",
+    "fresh-536x864-plaza.png",
+    "fresh-1280x720-plaza.png"
+  ],
+  "blockingFindings": [
+    {
+      "code": "PSEUDO_CHROME_AND_FALSE_AFFORDANCE",
+      "severity": "blocking",
+      "owner": "Host Implementation Agent",
+      "evidence": [
+        "The masthead's visible ellipsis/separator/ring capsule is aria-hidden and has no user-facing function, so it reads as copied system chrome rather than useful navigation.",
+        "The product identity includes a downward chevron and switch-like grouping, but .miniapp-switch has no role, focusability or activation handler. The visual promise and behavior disagree at all three viewports."
+      ],
+      "requiredOutcome": "Remove the pseudo system capsule and inactive switch cue, or replace them with one real, labelled, keyboard-operable host action whose function is evident without brand familiarity. Preserve the restrained editorial masthead rather than adding new decoration."
+    }
+  ],
+  "findings": {
+    "search": {
+      "status": "PASS",
+      "evidence": "One outer 1–2px rule contains an explicit Search label and one borderless native input. Computed input border is 0; there is no double frame or phantom lower gap."
+    },
+    "systemCoherence": {
+      "status": "PASS",
+      "evidence": "Header bands are square; search, taxonomy, campaign and card islands consistently use 2–4px radii, thin editorial rules, warm translucent surfaces and a title-first type hierarchy."
+    },
+    "brandDirection": {
+      "status": "PASS",
+      "evidence": "Warm paper remains the dominant canvas. Yellow is restricted to selected controls, red to rules/kickers/actions, and navy to framing. Masked structural recognition passes with the masthead caveat recorded as blocking."
+    },
+    "metadataNoise": {
+      "status": "PASS",
+      "evidence": "Deck tags use quiet neutral fills; author and stats are subordinate; the participation state is an outlined red label instead of a dominant fill."
+    },
+    "responsiveLayout": {
+      "status": "PASS",
+      "evidence": "390x844, 536x864 and 1280x720 have 0px document overflow. Campaign and first deck card remain in the initial viewport. Compact widths use the native environment rail; desktop wraps without collisions."
+    },
+    "interactionRegression": {
+      "status": "PASS",
+      "evidence": [
+        "39/39 environment controls receive focus and become fully visible.",
+        "Pointer, Enter and Space select the last environment option.",
+        "Search input accepts 耿鬼 and filters the deck list to one visible card.",
+        "Pointer, Enter and Space activate the event tab.",
+        "The first deck card navigates to /pages/detail/index?id=0.",
+        "No non-GET request was observed."
+      ]
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "evidence": "Build, mine, event, round and detail mobile screenshots are byte-for-byte identical to Attempt 4 reference captures and each has 0px overflow."
+    }
+  },
+  "codeReworkRequired": true,
+  "source": ["browser-probes.json", "comparison.json"]
+}

@@ -1,0 +1,63 @@
+{
+  "schema": "brand-host-vertical-occupancy-repair-proof/v1",
+  "attempt": 8,
+  "route": "pages/plaza/index",
+  "scope": ["search surface CSS", "environment filter rail CSS"],
+  "incidentRetro": "quality-attempts/8/incident-retro.json",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "6d0ab7504fef8ea9f028f92490e7d41dd42ea229c9791b4ef62384e72019cc0f",
+    "vueSfcEdited": false,
+    "searchRepair": "the Taro input owner is a 44px flex alignment owner and the native input fills it without block padding",
+    "filterRepair": "all taxonomy chips are 44px; the mobile rail's remaining bottom occupancy is only its explicit 10px scrollbar affordance",
+    "businessBehaviorChanged": false,
+    "writes": 0,
+    "otherRoutesChanged": false
+  },
+  "computedGeometry": {
+    "390x844": {
+      "searchOwnerInputHeights": [47.84, 45.76],
+      "searchTopBottomGaps": [1.04, 1.04],
+      "searchGapDelta": 0,
+      "railOwnerChipHeights": [56.16, 45.76],
+      "railTopBottomGaps": [0, 10.4],
+      "railBottomReservedForScrollbar": true,
+      "firstDeckTop": 457.41,
+      "documentOverflow": 0,
+      "keyboardFocusFullyVisible": "39/39"
+    },
+    "536x864": {
+      "searchOwnerInputHeights": [65.74, 62.89],
+      "searchTopBottomGaps": [1.42, 1.43],
+      "searchGapDelta": 0.01,
+      "railOwnerChipHeights": [77.18, 62.89],
+      "railTopBottomGaps": [0, 14.29],
+      "railBottomReservedForScrollbar": true,
+      "firstDeckTop": 627.35,
+      "firstDeckTitleVisible": true,
+      "documentOverflow": 0
+    },
+    "1280x720": {
+      "searchOwnerInputHeights": [46, 44],
+      "searchTopBottomGaps": [1, 1],
+      "searchGapDelta": 0,
+      "railOwnerGridUnionHeights": [194, 194, 194],
+      "railTopBottomGaps": [0, 0],
+      "allChipsAtLeast44": true,
+      "firstDeckTop": 580,
+      "firstDeckVisible": true,
+      "documentOverflow": 0
+    }
+  },
+  "regression": {
+    "attempt7NativeHorizontalScrollPreserved": true,
+    "all39FocusAutoScrollPreserved": true,
+    "pointerEnterSpaceAndAriaPreserved": true,
+    "heldOutBuild": "PASS",
+    "themeOrder": "PASS_SINGLE_GLOBAL_IMPORTER",
+    "plazaStructuralDiff": "PASS"
+  },
+  "preview": "http://localhost:10092/#/pages/plaza/index",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

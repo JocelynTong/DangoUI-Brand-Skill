@@ -1,0 +1,115 @@
+{
+  "schema": "dembrandt-candidate-validation/v1",
+  "brand": "onepiece-cardgame",
+  "page": "home",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "extractor": {
+    "provider": "dembrandt",
+    "version": "0.28.0",
+    "distribution": "official npm release",
+    "command": "node_modules/.bin/dembrandt https://asia-en.onepiece-cardgame.com/ --json-only --slow --raw-colors",
+    "rawResult": "output/extractor-benchmark/onepiece-cardgame-home-qa/dembrandt/result.json",
+    "snapshotId": "0230ebaf-ec7a-43d0-8c69-f694613bf1b8"
+  },
+  "verdict": "REWORK",
+  "reason": "The extraction is useful as a candidate inventory, but several semantic labels are heuristic, some candidates are third-party UI noise, and motion durations are modified by the extractor itself.",
+  "candidates": [
+    {
+      "candidateRef": "colors.semantic.accent",
+      "value": "#E30000",
+      "extractorLabel": "accent",
+      "rawFacts": { "count": 8, "usageFrac": 0.005294506949040371, "sources": ["newscategory"] },
+      "visibleNode": ".newscategory.catProducts",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/dembrandt-e30000-source.png",
+      "disposition": "rejected",
+      "validatedRole": "Products category label",
+      "reason": "Small category metadata, not a global accent or core action. Dembrandt chose it by chroma and hue distance, not interaction semantics or pixel area."
+    },
+    {
+      "candidateRef": "colors.palette.#FF8000",
+      "value": "#FF8000",
+      "extractorLabel": "accent",
+      "rawFacts": { "count": 8, "usageFrac": 0.005294506949040371, "sources": ["newscategory"] },
+      "visibleNode": ".newscategory.catEvents",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/dembrandt-e30000-source.png",
+      "disposition": "rejected",
+      "validatedRole": "Events category label",
+      "reason": "Small category metadata; not a global action color."
+    },
+    {
+      "candidateRef": "colors.semantic.primary",
+      "value": "#291C0D",
+      "extractorLabel": "primary",
+      "rawFacts": { "count": 80, "usageFrac": 0.05294506949040371, "sources": ["recommendlistlink", "recommendlistthumb", "recommendlisttxt"] },
+      "visibleNode": ".recommendListLink and descendants",
+      "disposition": "rejected",
+      "validatedRole": "Recommend/Wanted card surface and text",
+      "reason": "Localized recommendation-module brown; insufficient evidence for a global primary or core action."
+    },
+    {
+      "candidateRef": "colors.palette.#717171",
+      "value": "#717171",
+      "extractorLabel": "neutral",
+      "rawFacts": { "count": 26, "usageFrac": 0.017207147584381206, "sources": ["eventslead", "eventsdate"] },
+      "visibleNode": ".eventsLead, .eventsDate",
+      "disposition": "validated",
+      "validatedRole": "Events secondary metadata",
+      "reason": "The source names and visible context agree on a secondary text role."
+    },
+    {
+      "candidateRef": "colors.palette.#007AFF",
+      "value": "#007AFF",
+      "extractorLabel": "accent",
+      "rawFacts": { "count": 8, "usageFrac": 0.005294506949040371, "sources": ["swiper-button"] },
+      "visibleNode": "Swiper library controls",
+      "disposition": "out-of-scope",
+      "validatedRole": "Third-party Swiper default/theme candidate",
+      "reason": "Library implementation color is not sufficient brand evidence and no high-salience visible role was established."
+    },
+    {
+      "candidateRef": "typography",
+      "value": "Alfa Slab One / Noto Serif / Poppins / Oswald",
+      "extractorLabel": "typography styles",
+      "disposition": "unresolved",
+      "reason": "Families and computed sizes were extracted, but the result does not retain selectors for each style. Representative visible nodes must be measured and screenshot separately before recipes are written."
+    },
+    {
+      "candidateRef": "borderRadius",
+      "value": "1px–9999px",
+      "extractorLabel": "radius scale",
+      "disposition": "unresolved",
+      "reason": "The set mixes business content, search input, Cookie preference UI and generic controls. It cannot be promoted as a brand radius scale without selector-level filtering."
+    },
+    {
+      "candidateRef": "shadows",
+      "value": "5 low-confidence shadows",
+      "extractorLabel": "shadow candidates",
+      "disposition": "unresolved",
+      "reason": "No selectors or visible-node references are retained, so the shadows cannot yet be visually audited."
+    },
+    {
+      "candidateRef": "motion.durations",
+      "value": "0.001s",
+      "extractorLabel": "motion duration",
+      "disposition": "rejected",
+      "reason": "Dembrandt injects animation-duration and transition-duration 1ms for deterministic extraction. This is extractor-induced data, not website motion evidence."
+    },
+    {
+      "candidateRef": "motion.interactiveDeltas.scale",
+      "value": "scale(1.07)",
+      "extractorLabel": "interactive transform delta",
+      "visibleNode": "FOR BEGINNERS, RULES, Q&A and image links",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/interactions/source-welcome-hover.gif",
+      "disposition": "partial",
+      "validatedRole": "Desktop hover enlargement candidate",
+      "reason": "The delta matches source CSS and existing hover playback, but broader link coverage still needs selector-scoped captures."
+    },
+    {
+      "candidateRef": "components.buttons",
+      "value": [],
+      "extractorLabel": "no button variants",
+      "disposition": "rejected",
+      "reason": "This does not mean the site has no buttons. The same extraction reports button interaction deltas, so the component detector has incomplete coverage for image/reset-style controls."
+    }
+  ]
+}

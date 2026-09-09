@@ -1,0 +1,26 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "brand": "dango",
+  "observedMismatch": "The existing hand-authored DangoUI baseline home page disappeared, but restoring it mixed legacy hardcoded demo content into the newly learned Dango preview.",
+  "reportedBy": "user",
+  "missedBy": ["demoImplementationAgent", "visualQA"],
+  "whyOldGatePassed": [
+    "Demo validation checked that all new target pages rendered but did not compare the pre-run and post-run reachable page inventory.",
+    "Blind QA inspected only the frozen calibration and held-out proof pages, so preservation of existing demo routes was outside its page matrix."
+  ],
+  "rootCause": "The first response treated every old route as content that must be preserved. The user clarified that hand-authored legacy demo pages may be removed; preservation applies to validated learned outputs and user-approved product behavior, not obsolete fixtures.",
+  "correction": {
+    "owner": "demoImplementationAgent",
+    "change": "Remove the legacy distribution page from the Dango runtime preview and keep only Evidence-driven calibration and held-out pages.",
+    "verification": [
+      "Dango page navigation contains no legacy distribution fixture.",
+      "The three learn-brand proof pages remain reachable.",
+      "Core DangoUI style/component catalog remains available because it is product reference data, not a generated demo page."
+    ]
+  },
+  "ruleCandidate": {
+    "level": "candidate-warning",
+    "abstractMechanism": "Before preserving an existing page, classify it as validated product behavior, learned output, or disposable hand-authored fixture; obsolete fixtures should not contaminate a relearned preview.",
+    "promotion": "Keep as a candidate until another relearn demonstrates the same legacy-fixture ambiguity."
+  }
+}

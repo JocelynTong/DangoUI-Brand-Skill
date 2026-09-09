@@ -1,0 +1,134 @@
+{
+  "schema": "onepiece-footer-blind-qa-browser-probes/v1",
+  "brand": "onepiece-cardgame",
+  "revision": 2,
+  "qaRun": "blind-r2",
+  "capturedAt": "2026-09-01T19:57:34+08:00",
+  "liveUrl": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+  "viewport": {
+    "outerCaptureWidth": 1164,
+    "outerCaptureHeight": 655,
+    "phoneWidth": 269.5596618652344,
+    "phoneHeight": 582.8621826171875
+  },
+  "states": {
+    "defaultPreEntry": {
+      "scrollTop": 1800,
+      "footerClassContains": ["footerIllust", "fadein"],
+      "footerClassExcludes": ["is-in"],
+      "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-default-pre-entry-live.png"
+    },
+    "transition120ms": {
+      "scrollTop": 2100,
+      "footerClassContains": ["footerIllust", "fadein", "is-in"],
+      "backgroundOpacity": 0.0329768,
+      "characterOpacity": 0,
+      "catchOpacity": 0,
+      "logoOpacity": 0,
+      "cardCompositeOpacity": 1,
+      "cardCompositeAnimationDuration": ["0.6s", "0.8s"],
+      "cardCompositeIterationCount": [1, 1],
+      "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-120ms-live.png"
+    },
+    "transition500ms": {
+      "scrollTop": 2100,
+      "backgroundOpacity": 0.444851,
+      "characterOpacity": 0.70576,
+      "catchOpacity": 0,
+      "logoOpacity": 0,
+      "cardCompositeOpacity": 1,
+      "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-500ms-live.png"
+    },
+    "settled": {
+      "scrollTop": 2545.908935546875,
+      "backgroundOpacity": 1,
+      "characterOpacity": 1,
+      "catchOpacity": 1,
+      "logoOpacity": 1,
+      "cardCompositeOpacity": 0,
+      "cardLoops": [
+        {"layer": "card01", "animationName": "opcg-footer-card01", "duration": "5s", "iterationCount": "infinite", "playState": "running"},
+        {"layer": "card02", "animationName": "opcg-footer-card02", "duration": "8s", "iterationCount": "infinite", "playState": "running"},
+        {"layer": "card03", "animationName": "opcg-footer-card03", "duration": "8s", "iterationCount": "infinite", "playState": "running"}
+      ],
+      "livePhoneNormalizedHorizontalGeometry": {
+        "backgroundWave": {"x": -0.003583, "width": 1.125},
+        "character": {"x": -0.579992, "width": 2.22999},
+        "card01": {"x": 0.470245, "width": 0.6925},
+        "card02": {"x": 0.454626, "width": 0.38151},
+        "card03": {"x": 0.178306, "width": 0.36273},
+        "catch": {"x": 0.788533, "width": 0.161485},
+        "logo": {"x": 0.54084, "width": 0.4292}
+      },
+      "officialViewportNormalizedHorizontalGeometry": {
+        "backgroundWave": {"x": -0.003644, "width": 1.125},
+        "character": {"x": -0.029685, "width": 0.546875},
+        "card01": {"x": 0.786981, "width": 0.159375},
+        "card02": {"x": 0.579169, "width": 0.086975},
+        "card03": {"x": 0.448956, "width": 0.084894},
+        "catch": {"x": 0.773964, "width": 0.161456},
+        "logo": {"x": 0.527091, "width": 0.429163}
+      },
+      "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-settled-live.png"
+    },
+    "lateLoop": {
+      "allThreeTransformsDifferFromSettled": true,
+      "allThreePlayStates": "running",
+      "revealRemainsSettled": true,
+      "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-late-live.png"
+    },
+    "paused": {
+      "controlLabelAfterClick": "Resume footer card animation",
+      "allThreePlayStates": "paused",
+      "allThreeTransformsStableAfter1200ms": true,
+      "revealRemainsSettled": true,
+      "cardCompositeOpacity": 0,
+      "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-paused-live.png"
+    }
+  },
+  "scrollProbe": {
+    "home": {"scrollHeight": 3129, "clientHeight": 583, "sectionCount": 11, "sequence": [0, 480, 0], "verdict": "PASS"},
+    "heldOut": {"scrollHeight": 687, "clientHeight": 583, "sectionCount": 5, "sequence": [0, 104.09090423583984, 0], "verdict": "PASS"}
+  },
+  "fontProbe": {
+    "fontSetStatus": "loaded",
+    "documentFontsCheck": {
+      "OPCG Alfa Slab One": true,
+      "OPCG Noto Serif": true,
+      "OPCG Poppins": true,
+      "OPCG Oswald": true
+    },
+    "roleBoundaryFinding": {
+      "verdict": "FAIL",
+      "observed": "OPCG Alfa Slab One at weight 700 is used on long article titles including 'Starter Deck -Green Roronoa Zoro- arrives soon'.",
+      "contract": "home-display-font-resource is scoped to short oversized English section labels at weight 400 and explicitly lists long title under notFor."
+    }
+  },
+  "footerAssetProbe": {
+    "backgroundWave": {
+      "selector": ".footerIllustBg",
+      "tag": "DIV",
+      "loadedImageSource": null,
+      "computedBackgroundImage": "linear-gradient(rgba(250, 249, 244, 0.86), rgba(250, 249, 244, 0.86)), repeating-linear-gradient(-16deg, rgba(0, 33, 86, 0.07) 0px, rgba(0, 33, 86, 0.07) 2px, rgba(0, 0, 0, 0) 2px, rgba(0, 0, 0, 0) 38px), radial-gradient(circle at 35% 10%, rgb(255, 255, 255) 0px, rgb(255, 255, 255) 18%, rgb(239, 238, 231) 72%)",
+      "verdict": "FAIL",
+      "reason": "The frozen background-wave layer is replaced by a pale generic CSS-gradient surface."
+    },
+    "officialForegroundAssetsLoaded": {
+      "character": {"naturalWidth": 1050, "naturalHeight": 830},
+      "catch": {"naturalWidth": 385, "naturalHeight": 61},
+      "logo": {"naturalWidth": 824, "naturalHeight": 213},
+      "cardComposite": {"naturalWidth": 1074, "naturalHeight": 544},
+      "card01": {"naturalWidth": 306, "naturalHeight": 331},
+      "card02": {"naturalWidth": 167, "naturalHeight": 167},
+      "card03": {"naturalWidth": 163, "naturalHeight": 174}
+    }
+  },
+  "heldOutProbe": {
+    "route": "onepiece-cardgame-editorial-held-out",
+    "images": 5,
+    "allImagesCompleteAndNonZero": true,
+    "sections": 5,
+    "scrollableAndRestored": true,
+    "capture": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/held-out-live.png"
+  }
+}

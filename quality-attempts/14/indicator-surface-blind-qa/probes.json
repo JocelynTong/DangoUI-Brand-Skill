@@ -1,0 +1,127 @@
+{
+  "attempt": 14,
+  "scope": "home-indicator three-state platform contract",
+  "independence": {
+    "readPriorQa": false,
+    "readImplementationReport": false,
+    "readAgentMessages": false,
+    "implementationChanged": false
+  },
+  "runtime": "http://127.0.0.1:5177",
+  "tabbarSurfaces": [
+    {
+      "route": "/#/brand/dango/style/color",
+      "hasTabbar": true,
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottomPx": 0,
+      "indicatorSurface": { "color": "color(srgb 1 1 1)", "image": "none" },
+      "tabbarSurface": { "color": "color(srgb 1 1 1)", "image": "none" },
+      "seamPx": 0,
+      "result": "PASS"
+    },
+    {
+      "route": "/#/brand/pokemon-tcg-official/style/button",
+      "hasTabbar": true,
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottomPx": 0,
+      "indicatorSurface": { "color": "color(srgb 1 1 1)", "image": "none" },
+      "tabbarSurface": { "color": "color(srgb 1 1 1)", "image": "none" },
+      "seamPx": 0,
+      "result": "PASS"
+    },
+    {
+      "route": "/#/brand/pokemon-tcg-official/components/navigation-bar",
+      "hasTabbar": true,
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottomPx": 0,
+      "indicatorSurface": { "color": "color(srgb 1 1 1)", "image": "none" },
+      "tabbarSurface": { "color": "color(srgb 1 1 1)", "image": "none" },
+      "seamPx": 0,
+      "result": "PASS"
+    },
+    {
+      "route": "/#/brand/czn/style/color",
+      "hasTabbar": true,
+      "indicatorSurface": { "color": "rgba(13, 8, 16, 0.94)", "image": "none" },
+      "tabbarSurface": { "color": "rgba(13, 8, 16, 0.94)", "image": "none" },
+      "seamPx": 0,
+      "result": "PASS"
+    },
+    {
+      "route": "/#/brand/hpma/style/color",
+      "hasTabbar": true,
+      "indicatorSurface": {
+        "color": "rgba(47, 36, 27, 0.96)",
+        "image": "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(200, 176, 139, 0.12), rgba(0, 0, 0, 0)), none"
+      },
+      "tabbarSurface": {
+        "color": "rgba(47, 36, 27, 0.96)",
+        "image": "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(200, 176, 139, 0.12), rgba(0, 0, 0, 0)), none"
+      },
+      "seamPx": 0,
+      "result": "PASS"
+    },
+    {
+      "route": "/#/brand/1999/style/color",
+      "hasTabbar": true,
+      "indicatorSurface": {
+        "color": "rgba(47, 36, 27, 0.96)",
+        "image": "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(200, 176, 139, 0.12), rgba(0, 0, 0, 0)), none"
+      },
+      "tabbarSurface": {
+        "color": "rgba(47, 36, 27, 0.96)",
+        "image": "linear-gradient(90deg, rgba(0, 0, 0, 0), rgba(200, 176, 139, 0.12), rgba(0, 0, 0, 0)), none"
+      },
+      "seamPx": 0,
+      "result": "PASS"
+    }
+  ],
+  "noTabbarSurfaces": [
+    {
+      "route": "/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "hasTabbar": false,
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottomPx": 0,
+      "surface": { "color": "rgba(0, 0, 0, 0)", "image": "none" },
+      "scroll": {
+        "scrollHeight": 3705,
+        "clientHeight": 644,
+        "maxScrollTop": 3061.5,
+        "indicatorRectDeltaPx": 0,
+        "contentEndReached": true
+      },
+      "result": "PASS"
+    },
+    {
+      "route": "/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+      "hasTabbar": false,
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottomPx": 0,
+      "surface": { "color": "rgba(0, 0, 0, 0)", "image": "none" },
+      "scroll": {
+        "scrollHeight": 6246,
+        "clientHeight": 644,
+        "maxScrollTop": 5602,
+        "indicatorRectDeltaPx": 0,
+        "contentEndReached": true
+      },
+      "result": "PASS"
+    }
+  ],
+  "proofModes": [
+    { "mode": "1", "display": "none", "rect": { "width": 0, "height": 0 }, "result": "PASS" },
+    { "mode": "desktop", "display": "none", "rect": { "width": 0, "height": 0 }, "result": "PASS" },
+    { "mode": "mobile", "display": "none", "rect": { "width": 0, "height": 0 }, "result": "PASS" }
+  ],
+  "build": {
+    "command": "npm run build",
+    "result": "PASS",
+    "durationMs": 431,
+    "note": "Vite emitted only the existing large-chunk advisory."
+  }
+}

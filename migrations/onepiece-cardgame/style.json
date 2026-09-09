@@ -1,0 +1,449 @@
+{
+  "name": "onepiece-cardgame",
+  "displayName": "ONE PIECE CARD GAME",
+  "schemaVersion": 1,
+  "source": {
+    "type": "web",
+    "url": "https://asia-en.onepiece-cardgame.com/"
+  },
+  "document": {
+    "id": "style:onepiece-cardgame",
+    "name": "ONE PIECE CARD GAME Brand Style",
+    "type": "DOCUMENT",
+    "children": [
+      {
+        "id": "web:campaign-home",
+        "name": "Campaign Home",
+        "type": "FRAME",
+        "cornerRadius": 0,
+        "children": []
+      },
+      {
+        "id": "web:product-gallery",
+        "name": "Product Gallery",
+        "type": "FRAME",
+        "cornerRadius": 0,
+        "children": []
+      },
+      {
+        "id": "web:event-news",
+        "name": "Event & News",
+        "type": "FRAME",
+        "cornerRadius": 0,
+        "children": []
+      }
+    ]
+  },
+  "components": {},
+  "componentSets": {},
+  "styles": {},
+  "tokens": {
+    "mapped": {
+      "du-bg-1": {
+        "$type": "color",
+        "$value": "#FFFFFF",
+        "$extensions": {
+          "echo.brand.target": "--du-bg-1",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-bg-2": {
+        "$type": "color",
+        "$value": "#F3F1EA",
+        "$extensions": {
+          "echo.brand.target": "--du-bg-2",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-text-1": {
+        "$type": "color",
+        "$value": "#000000",
+        "$extensions": {
+          "echo.brand.target": "--du-text-1",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-text-2": {
+        "$type": "color",
+        "$value": "#352115",
+        "$extensions": {
+          "echo.brand.target": "--du-text-2",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-text-3": {
+        "$type": "color",
+        "$value": "#717171",
+        "$extensions": {
+          "echo.brand.target": "--du-text-3",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-border-1": {
+        "$type": "color",
+        "$value": "#DCD6C6",
+        "$extensions": {
+          "echo.brand.target": "--du-border-1",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-primary-color": {
+        "$type": "color",
+        "$value": "#FFF507",
+        "$extensions": {
+          "echo.brand.target": "--du-primary-color",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-primary-border": {
+        "$type": "color",
+        "$value": "#FFF507",
+        "$extensions": {
+          "echo.brand.target": "--du-primary-border",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-primary-soft-bg": {
+        "$type": "color",
+        "$value": "#FFFBD0",
+        "$extensions": {
+          "echo.brand.target": "--du-primary-soft-bg",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-primary-solid-bg": {
+        "$type": "color",
+        "$value": "#B91D22",
+        "$extensions": {
+          "echo.brand.target": "--du-primary-solid-bg",
+          "echo.brand.channel": "mapped"
+        }
+      },
+      "du-secondary-color": {
+        "$type": "color",
+        "$value": "#AFA384",
+        "$extensions": {
+          "echo.brand.target": "--du-secondary-color",
+          "echo.brand.channel": "mapped"
+        }
+      }
+    },
+    "styleOnly": {
+      "style-font-body": {
+        "$type": "string",
+        "$value": "Poppins, YuGothic, -apple-system, sans-serif",
+        "$extensions": {
+          "echo.brand.target": "--style-font-body",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-font-display": {
+        "$type": "string",
+        "$value": "Alfa Slab One, Poppins, sans-serif",
+        "$extensions": {
+          "echo.brand.target": "--style-font-display",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-font-numeric": {
+        "$type": "string",
+        "$value": "Oswald, Poppins, sans-serif",
+        "$extensions": {
+          "echo.brand.target": "--style-font-numeric",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-control-radius": {
+        "$type": "string",
+        "$value": "999px",
+        "$extensions": {
+          "echo.brand.target": "--style-control-radius",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-card-radius": {
+        "$type": "string",
+        "$value": "0px",
+        "$extensions": {
+          "echo.brand.target": "--style-card-radius",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-hero-shadow": {
+        "$type": "string",
+        "$value": "drop-shadow(2px 2px 3.33px rgba(0,0,0,.6))",
+        "$extensions": {
+          "echo.brand.target": "--style-hero-shadow",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-motion-hover": {
+        "$type": "string",
+        "$value": "transform .3s, scale(1.07)",
+        "$extensions": {
+          "echo.brand.target": "--style-motion-hover",
+          "echo.brand.channel": "styleOnly"
+        }
+      },
+      "style-parchment-surface": {
+        "$type": "string",
+        "$value": "url(https://asia-en.onepiece-cardgame.com/renewal/images/top/pc/bg_welcome.webp)",
+        "$extensions": {
+          "echo.brand.target": "--style-parchment-surface",
+          "echo.brand.channel": "styleOnly"
+        }
+      }
+    }
+  },
+  "assets": {
+    "campaign-hero-op17": {
+      "id": "campaign-hero-op17",
+      "role": "hero-background",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/fsIAlbTmSh7C45aU/mv.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-current-op17.webp",
+      "sourceSha256": "e8628c5b3aee2a54dc8c85d8071b5b871b694e9628c88b6f5e8c42d4fac34e76",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "campaign hero",
+      "antiScopes": [
+        "ordinary card",
+        "dense form"
+      ]
+    },
+    "onepiece-logo": {
+      "id": "onepiece-logo",
+      "role": "brand-mark",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/logo_op.png",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+      "sourceSha256": "b97738711a787610da6959054aa9ffcc89f52b4d99cbe255eedf0711e1d088d2",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "navigation/brand",
+      "antiScopes": [
+        "ordinary card",
+        "form control"
+      ]
+    },
+    "product-st31": {
+      "id": "product-st31",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/product/2026/06/01/yvlQOGQN87hClKlB/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st31.webp",
+      "sourceSha256": "678912604f6af3bd08eff2e71599d200bfa32c25f3ee65ab923012c8bec41443",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-31",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "product-st32": {
+      "id": "product-st32",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/b42jY1zyAMuNXKBa/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st32.webp",
+      "sourceSha256": "e118f4f6ba17676f6b082c232308e31f97f92b5f353920c47591e7760ad0a33f",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-32",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "product-st33": {
+      "id": "product-st33",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/weP4WcvMyAX5VOR7/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st33.webp",
+      "sourceSha256": "d876da27f0351287b8ec84acdea1a6fa23a87adb28df164babca79fe15efadca",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-33",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "product-st34": {
+      "id": "product-st34",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/t5LIBWX0muRucLKS/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st34.webp",
+      "sourceSha256": "c98f50b00961905558fe98572b092ea093a283f410c84928c1307128c183bb64",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-34",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "product-st35": {
+      "id": "product-st35",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/XrIHnR2RnQclTTEn/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st35.webp",
+      "sourceSha256": "533ab56d7931fcbbb6a399bcfb76df7f845c0fbae6609e969346624ff3fd32b7",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-35",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "product-st36": {
+      "id": "product-st36",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/sjtHEth2Ti1WlWrg/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+      "sourceSha256": "8a1eaa0a1acc271dddba4f8885b1aa549bbab03df472c7fa7a6fbd3394b4b564",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-36",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "campaign-product-op17": {
+      "id": "campaign-product-op17",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/P0PAbumTLGIP8iis/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-product.webp",
+      "sourceSha256": "70c2bfe4d1605a7504cebf0cc6626b25a52d43ba217a50905f2d24a2827ee0ec",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog OP-17",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "product-sleeve16": {
+      "id": "product-sleeve16",
+      "role": "accessory-product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/product/2026/08/05/jULsJjZKqpplffIg/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-sleeve.webp",
+      "sourceSha256": "ac8f9ae78dd52d2759c797a678ceacf87637da1ae0048612fd77e5ba69d702ad",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog accessories",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    "campaign-hero-st32-green": {
+      "id": "campaign-hero-st32-green",
+      "role": "hero-background",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/jo3RRrqUeatmAZEU/st32_mv.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-st32-green.webp",
+      "sourceSha256": "615b9721008a395c4e88b53a72948cee3b2e840f131c150fdf06b5e1790ec6a1",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "frozen green campaign hero",
+      "antiScopes": [
+        "ordinary card",
+        "dense form"
+      ]
+    },
+    "campaign-title-st32": {
+      "id": "campaign-title-st32",
+      "role": "campaign-title",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/plHBojzYSunkjzSs/st32_logo_jp.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-st32-title.webp",
+      "sourceSha256": "41032a68dcd6f404fe41e0a732016a5573ec9416a6bf9982bf8c5987370be8db",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "frozen green campaign copy",
+      "antiScopes": [
+        "global navigation",
+        "section heading"
+      ]
+    },
+    "campaign-product-st32": {
+      "id": "campaign-product-st32",
+      "role": "featured-product-card",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/24/YNTN5GWtqPWF9aOl/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-st32-product.webp",
+      "sourceSha256": "e118f4f6ba17676f6b082c232308e31f97f92b5f353920c47591e7760ad0a33f",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "frozen green campaign product callout",
+      "antiScopes": [
+        "background",
+        "navigation"
+      ]
+    },
+    "welcome-parchment": {
+      "id": "welcome-parchment",
+      "role": "section-background",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/top/pc/bg_welcome.webp",
+      "status": "style-only",
+      "targetScope": "intro/storytelling section",
+      "antiScopes": [
+        "table",
+        "dense form",
+        "every card"
+      ]
+    },
+    "dot-arrow": {
+      "id": "dot-arrow",
+      "role": "action-indicator",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/ico-dot.png",
+      "status": "style-only",
+      "targetScope": "more links",
+      "antiScopes": [
+        "primary nav",
+        "decorative-only text"
+      ]
+    },
+    "rudder-date": {
+      "id": "rudder-date",
+      "role": "metadata-icon",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/ico_rudder.png",
+      "status": "style-only",
+      "targetScope": "date metadata",
+      "antiScopes": [
+        "button",
+        "hero background"
+      ]
+    },
+    "movie-play": {
+      "id": "movie-play",
+      "role": "media-action",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/ico-movie.png",
+      "status": "style-only",
+      "targetScope": "video thumbnail",
+      "antiScopes": [
+        "non-video image"
+      ]
+    }
+  },
+  "brandMetadata": {
+    "targets": [
+      "dangoui",
+      "vue",
+      "unocss"
+    ],
+    "status": "draft-visual-preview",
+    "demoWorkflow": {
+      "pages": [
+        "campaign-home",
+        "product-gallery",
+        "event-news"
+      ]
+    }
+  }
+}

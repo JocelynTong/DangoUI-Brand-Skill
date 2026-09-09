@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ONE PIECE Evidence Review Board</title>
+  <style>
+    :root { color-scheme: light dark; --bg:#f5f4ef; --panel:#fff; --text:#171717; --muted:#666; --line:#d7d5cf; --ok:#16784a; --partial:#996000; --bad:#bc2b20; --false:#7a35a5; }
+    @media (prefers-color-scheme:dark){:root{--bg:#151515;--panel:#202020;--text:#f3f3f3;--muted:#aaa;--line:#444;--ok:#65cf98;--partial:#f2bd5b;--bad:#ff786e;--false:#d49aff}}
+    *{box-sizing:border-box} body{margin:0;background:var(--bg);color:var(--text);font:14px/1.5 system-ui,-apple-system,sans-serif} button,select{font:inherit}
+    header{padding:20px 24px 12px;border-bottom:1px solid var(--line);background:var(--panel);position:sticky;top:0;z-index:3} h1{font-size:20px;margin:0 0 4px} .subtitle{color:var(--muted)}
+    .summary{display:flex;gap:14px;flex-wrap:wrap;margin-top:12px}.metric{display:flex;gap:6px;align-items:baseline}.metric strong{font-size:18px}.complete{color:var(--ok)}.partial{color:var(--partial)}.missing{color:var(--bad)}.false-pass{color:var(--false)}
+    main{padding:20px 24px 40px;max-width:1500px;margin:auto}.tabs,.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:14px}.tabs button,.filters button{border:1px solid var(--line);background:var(--panel);color:var(--text);padding:7px 11px;cursor:pointer}.tabs button[aria-pressed="true"],.filters button[aria-pressed="true"]{border-color:var(--text);font-weight:700}
+    .compare{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(300px,.8fr);gap:16px;margin-bottom:24px}.visual,.facts{background:var(--panel);border:1px solid var(--line);padding:14px}.visual img{width:100%;max-height:580px;object-fit:contain;background:#111;display:block}.visual-head,.facts-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.visual-head strong,.facts-head strong{font-size:16px}.tag{font-size:12px;color:var(--muted)}
+    .facts dl{display:grid;grid-template-columns:130px 1fr;gap:8px 10px;margin:0}.facts dt{color:var(--muted)}.facts dd{margin:0}.candidate{padding:9px 0;border-top:1px solid var(--line)}.candidate:first-of-type{border-top:0}.swatch{display:inline-block;width:13px;height:13px;vertical-align:-2px;border:1px solid var(--line);margin-right:6px}
+    .table-wrap{overflow:auto;background:var(--panel);border:1px solid var(--line)}table{width:100%;border-collapse:collapse;min-width:900px}th,td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}th{position:sticky;top:0;background:var(--panel);z-index:1}.status{font-weight:700;white-space:nowrap}.group{white-space:nowrap;color:var(--muted)}.next{min-width:240px}.hidden{display:none!important}
+    .verdict{font-weight:800;color:var(--bad)}
+    @media(max-width:850px){header{position:static}.compare{grid-template-columns:1fr}main{padding:14px}.facts dl{grid-template-columns:105px 1fr}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>ONE PIECE Evidence Review Board</h1>
+    <div class="subtitle">官网连续视觉 × Dembrandt 客观候选 × Evidence Claim/处置结论</div>
+    <div class="summary" id="summary"></div>
+  </header>
+  <main>
+    <div class="tabs" id="page-tabs" aria-label="选择官网页面"></div>
+    <section class="compare">
+      <div class="visual">
+        <div class="visual-head"><strong id="visual-title">官网录屏</strong><span class="tag">连续滚动证据</span></div>
+        <img id="source-recording" alt="所选官网页面连续滚动录屏" />
+      </div>
+      <div class="facts">
+        <div class="facts-head"><strong id="facts-heading">Evidence 对照</strong><span class="tag" id="page-status"></span></div>
+        <dl>
+          <dt>页面 Claims</dt><dd id="claim-count"></dd>
+          <dt>Dembrandt 覆盖</dt><dd id="dembrandt-coverage"></dd>
+          <dt>客观代码候选</dt><dd id="candidate-scope"></dd>
+          <dt>当前结论</dt><dd id="page-conclusion"></dd>
+        </dl>
+        <div id="candidates"></div>
+      </div>
+    </section>
+    <div class="filters" id="filters" aria-label="筛选检查状态"></div>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>类别</th><th>检查项</th><th>状态</th><th>当前证据</th><th>下一步</th></tr></thead>
+        <tbody id="checklist"></tbody>
+      </table>
+    </div>
+  </main>
+  <script>
+    const pageFacts = {
+      home: {
+        scope: 'Dembrandt 仅作为旁路候选；首页已切换为录屏优先、代码反查。',
+        conclusion: '录屏显示稳定系统是黑白骨架、纸张灰白画布与深海军蓝结构区；红/橙/棕均为局部模块或元数据，不能作为全局主色。',
+        candidates: [
+          ['黑 / 白', '稳定信息骨架', '#000000', '已绑定 .eventsTitCol，同帧 computed backgroundColor=rgb(0,0,0) 与可见区域。', 'source-media/home/live-dom/events.png'],
+          ['纸张灰白', '稳定页面画布', null, '已绑定 .newsCol：::before 为 pc/bg.webp，::after 为 rgba(211,214,224,.3)；不是单一 hex。', 'source-media/home/live-dom/news.png'],
+          ['#0F1331 / #002156', '两个结构区色值', '#002156', '已分别绑定 .newarrivalCol 与 .footerColInner；代码值成立，跨页验证前不合并。', 'source-media/home/live-dom/footer.png'],
+          ['Events 红色背景资产', '局部 organism 配方', null, '已绑定 .eventsColInner，computed backgroundImage 指向 bg_pikup-events.jpg；不是 #B91D22。', 'source-media/home/live-dom/events.png'],
+          ['#291C0D', 'Dembrandt primary seed', '#291C0D', '已定位到 Recommend/Wanted 卡片表面与文字；拒绝作为全局 primary / core action。'],
+          ['#E30000', 'Dembrandt 自动命名的 accent seed', '#E30000', '已定位：8 个 .newscategory.catProducts 分类文字，元素计数占比约 0.529%；应归为 Products 分类语义色，拒绝作为全局 accent / core action。', 'source-media/home/dembrandt-e30000-source.png'],
+          ['#FF8000', 'Dembrandt accent candidate', '#FF8000', '已定位到 Events 分类文字；拒绝作为全局 accent。', 'source-media/home/dembrandt-e30000-source.png'],
+          ['#007AFF', 'Swiper candidate', '#007AFF', '第三方 Swiper 控件实现色；缺少高显著可见角色，标记 out-of-scope。'],
+          ['999px', 'control radius seed', null, '混有搜索输入框、Cookie UI 和控件；未完成 selector 过滤，保持 unresolved。'],
+          ['motion: 0.001s', 'extractor artifact', null, 'Dembrandt 为稳定抓取主动把 animation/transition 改成 1ms；拒绝作为官网动效证据。'],
+          ['buttonVariants: 0', 'detector false negative', null, '同一结果又发现 button hover scale(1.07)，因此不能解释成官网没有按钮。'],
+          ['Alfa Slab One', '超大 Section display', null, '已绑定 NEWS 竖排标题：113.333px / 400 / 113.333px；仅用于高显著展示。', 'source-media/home/live-dom/typography-display.png'],
+          ['Noto Serif', 'Welcome editorial statement', null, '已绑定 Welcome 标题：48.6667px / 700 / 62.2933px；不扩散到工具 UI。', 'source-media/home/live-dom/typography-editorial.png'],
+          ['Oswald', '紧凑日期元数据', null, '已绑定 Events 日期：10px / 400 / 12.5px / #717171。', 'source-media/home/live-dom/typography-metadata.png'],
+          ['Poppins', '密集资讯标题 / UI baseline', null, '已绑定 News 标题：10.6667px / 600 / 13.8667px；与 display、editorial、metadata 字体职责分开。', 'source-media/home/live-dom/typography-body-poppins.png'],
+          ['none → 1.01406 → 1.03', 'Welcome CTA hover', null, '真实官网鼠标采样：all 0.3s ease；110ms 中间态，537ms 稳定态。没有红色 active/click 证据。', 'source-media/home/live-dom/motion-mid-110ms.png']
+          ,['1→2→3→4→5→6→7→1', 'Hero 完整轮播周期', null, '42 秒静止观测覆盖 7 个 campaign 变体并闭环；前景与背景 aria-label 每帧一致，停留时间约 5 秒。', 'hero-cycle.html']
+          ,['Pause 4→4 / Resume 4→5', 'Hero 播放控制', null, '暂停 6.5 秒保持第 4 帧；恢复 5.6 秒后进入第 5 帧。控制图标同步由 Stop 切成 Play，再恢复 Stop。', 'source-media/home/hero-cycle/paused-after-6500ms.png']
+        ]
+      },
+      news: {
+        scope: '缺失 page-scoped Dembrandt extraction。',
+        conclusion: '录屏和 4 条视觉 Claim 完成；分类色、字体、缩略图比例与列表边界仍未通过代码候选校验。',
+        candidates: [
+          ['#E30000', 'news category candidate', '#E30000', '可能是分类语义色，不能提升为全局 accent'],
+          ['#FF8000', 'news category candidate', '#FF8000', '需要定位具体分类节点与 computed color'],
+          ['Poppins / Oswald', 'typography candidates', null, '需要标题、日期、分类、正文分别实测']
+        ]
+      },
+      products: {
+        scope: '缺失 page-scoped Dembrandt extraction。',
+        conclusion: '录屏和 4 条结构 Claim 完成；四列密度已观察，但筛选、视图切换、字体和媒体框样式未完成代码校验。',
+        candidates: [
+          ['1px', 'card radius seed', null, '需验证是否真正属于商品媒体/卡片而非噪声'],
+          ['Poppins / Oswald', 'typography candidates', null, '商品标题、分类与日期需分别实测'],
+          ['grid/list control', 'interaction candidate', null, '尚无 default/selected/switch 连续录制']
+        ]
+      },
+      events: {
+        scope: '缺失 page-scoped Dembrandt extraction。',
+        conclusion: '录屏证明大型 Banner 与分组卡片结构；活动筛选、纹理背景链、字体和交互仍未完成。',
+        candidates: [
+          ['#717171', 'events text candidate', '#717171', '可能用于 lead/date 次级信息，需 computed 验证'],
+          ['section backgrounds', 'asset/pseudo candidate', null, '当前 sectionBackgroundChain 仍为空'],
+          ['event controls', 'interaction candidate', null, '没有证据支持预约按钮；实际页面控制仍待采集']
+        ]
+      }
+    };
+
+    const stateLabels = { complete:'已完成', partial:'部分完成', missing:'未完成', 'false-pass':'错误放行' };
+    let data, selectedPage = 'home', selectedFilter = 'all';
+    fetch('./checklist.json').then(r => r.json()).then(json => { data = json; render(); });
+
+    function render(){
+      document.getElementById('summary').innerHTML = `
+        <span class="metric"><span>总体</span><strong class="verdict">${data.verdict}</strong></span>
+        <span class="metric complete"><strong>${data.summary.complete}</strong><span>已完成</span></span>
+        <span class="metric partial"><strong>${data.summary.partial}</strong><span>部分完成</span></span>
+        <span class="metric missing"><strong>${data.summary.missing}</strong><span>未完成</span></span>
+        <span class="metric false-pass"><strong>${data.summary.falsePass}</strong><span>错误放行</span></span>`;
+      document.getElementById('page-tabs').innerHTML = data.pages.map(p => `<button type="button" data-page="${p.id}" aria-pressed="${p.id===selectedPage}">${p.id.toUpperCase()}</button>`).join('');
+      document.querySelectorAll('[data-page]').forEach(b => b.onclick = () => { selectedPage=b.dataset.page; renderPage(); document.querySelectorAll('[data-page]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.page===selectedPage)); });
+      const filters = ['all','complete','partial','missing','false-pass'];
+      document.getElementById('filters').innerHTML = filters.map(s => `<button type="button" data-filter="${s}" aria-pressed="${s===selectedFilter}">${s==='all'?'全部':stateLabels[s]}</button>`).join('');
+      document.querySelectorAll('[data-filter]').forEach(b => b.onclick = () => { selectedFilter=b.dataset.filter; renderChecks(); document.querySelectorAll('[data-filter]').forEach(x=>x.setAttribute('aria-pressed',x.dataset.filter===selectedFilter)); });
+      renderPage(); renderChecks();
+    }
+
+    function renderPage(){
+      const page = data.pages.find(p => p.id===selectedPage), facts=pageFacts[selectedPage];
+      document.getElementById('visual-title').textContent = `${selectedPage.toUpperCase()} 官网连续录屏`;
+      document.getElementById('facts-heading').textContent = selectedPage==='home' ? '录屏结论 / 代码反查' : 'Dembrandt / Evidence 对照';
+      document.getElementById('source-recording').src = page.sourceRecording;
+      document.getElementById('claim-count').textContent = `${page.claimCount} 条`;
+      document.getElementById('dembrandt-coverage').textContent = page.dembrandtCoverage;
+      document.getElementById('candidate-scope').textContent = facts.scope;
+      document.getElementById('page-conclusion').textContent = facts.conclusion;
+      document.getElementById('page-status').textContent = page.dembrandtCoverage==='missing'?'Dembrandt 未覆盖':'仅 Home 抽取';
+      document.getElementById('candidates').innerHTML = facts.candidates.map(c => `<div class="candidate">${c[2]?`<span class="swatch" style="background:${c[2]}"></span>`:''}<strong>${c[0]}</strong> · ${c[1]}<br><span class="tag">${c[3]}</span>${c[4]?`<br><a href="${c[4]}" target="_blank">查看对应官网截图</a>`:''}</div>`).join('');
+    }
+
+    function renderChecks(){
+      const rows = selectedFilter==='all' ? data.checks : data.checks.filter(c=>c.status===selectedFilter);
+      document.getElementById('checklist').innerHTML = rows.map(c => `<tr><td class="group">${c.group}</td><td>${c.check}</td><td class="status ${c.status}">${stateLabels[c.status]}</td><td>${c.evidence}</td><td class="next">${c.next}</td></tr>`).join('');
+    }
+  </script>
+</body>
+</html>

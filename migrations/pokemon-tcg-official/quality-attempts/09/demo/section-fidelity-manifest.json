@@ -1,0 +1,34 @@
+{
+  "schema":"brand-section-fidelity/v1",
+  "brand":"pokemon-tcg-official",
+  "goalSha256":"4d5ddc793ed75ef4a3b25839cc121f4108de89ff4385533ae957afd8563170f3",
+  "scope":"attempt-09-home-product-bands",
+  "canonicalEvidenceBinding":{"goalContract":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/goal-contract.json","sha256":"4d5ddc793ed75ef4a3b25839cc121f4108de89ff4385533ae957afd8563170f3"},"sourceDesktop":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/evidence/captures/tcg-live-desktop-1440x1000-stable-en.png"}},"sourceMobile":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/09/evidence/captures/tcg-live-mobile-390x844-stable.png"}}},
+  "sections":[{
+    "id":"home-product-bands","pageId":"pokemon-tcg-official-home","status":"pass",
+    "sourceCapture":"migrations/pokemon-tcg-official/quality-attempts/09/evidence/captures/tcg-live-desktop-1440x1000-stable-en.png","demoCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/desktop-1440x900-settled.png",
+    "sourceViewport":{"width":1440,"height":1000},"demoViewport":{"width":1440,"height":900},"approvedViewportTranslation":"Independent 1440px and 390px content proof surfaces without inspector or device chassis.",
+    "sourceRegion":[0,0,1440,616],"demoRegion":[0,0,1440,616],
+    "requiredLayers":[
+      {"id":"background-and-threshold","sourceSelector":".tcgl background image-set","demoSelector":"[data-schema-section-id=home-product-bands]","status":"pass"},
+      {"id":"five-layer-product-scene","sourceSelector":"laptop + pikachu + phone + avatar-1 + avatar-2","demoSelector":".pokemon-tcgl__scene","status":"pass"},
+      {"id":"copy-panel","sourceSelector":"TCG Live copy group","demoSelector":".pokemon-tcgl__copy","status":"pass"},
+      {"id":"cta","sourceSelector":"TCG Live Learn More link","demoSelector":".pokemon-tcgl__cta","status":"pass"}
+    ],
+    "readingOrder":["red/gold threshold","desktop copy-left / mobile scene-first","laptop rear plane","Pikachu and phone overlap","floating avatars","heading","paragraph","CTA"],
+    "responsiveBehavior":{"status":"pass","desktop":"696px translucent copy left and approximately 778x538 scene right","mobile":"374px scene first and 390x312 opaque copy second; 645px total","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/desktop-1440x900-settled.png","migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-settled.png"]},
+    "assetRefs":[
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg","sourceSha256":"f456c2048adcb98fcaf5541a3e6943324dd390766d28b3f60661348e82fcf817","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png","sourceSha256":"0a92717e2868b3e6c2f76a87ef7343c2a576ef0b012833eefb8214468e609529","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png","sourceSha256":"d412d9f56e5ff3c16ef849c6334498da0da8695b4285bdd2e876c6572e13a89d","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/phone.png","sourceSha256":"ebef514a19dbecc3609728617f0d2f5806ffdc5d78f5a88bd6b29a4aabbb19bb","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png","sourceSha256":"e4e3446458900ca15d63edd8297d4c8534e2aacc04b4a1c07df442b28cb3b19f","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png","sourceSha256":"88b5b4de56bfa4aada9abea085646bd1b61bf88f40c332682264d0a9afe49df5","status":"pass"}
+    ],
+    "interactionChecks":[
+      {"id":"viewport-entry","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["laptop opacity and scale","copy opacity and translation","companion opacity and translation"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-before.png","transitionCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-mid.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-settled.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-settled.png"},
+      {"id":"cta-hover-and-target","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["foreground black to gold","href /en-us/tcgl/"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-settled.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-hover.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/09/demo/captures/mobile-390x844-settled.png"}
+    ],
+    "usesItemCountAsStructureProxy":false,"horizontalOverflow":false
+  }]
+}

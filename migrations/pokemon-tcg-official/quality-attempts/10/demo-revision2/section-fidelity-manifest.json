@@ -1,0 +1,35 @@
+{
+  "schema":"brand-section-fidelity/v1",
+  "brand":"pokemon-tcg-official",
+  "goalSha256":"47e1b1dcb8134640dcf08735aa557c47f652f1b6d74d699aa813a17e22808351",
+  "scope":"attempt-10-demo-revision2-home-editorial-grid",
+  "canonicalEvidenceBinding":{
+    "goalContract":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/goal-contract.json","sha256":"47e1b1dcb8134640dcf08735aa557c47f652f1b6d74d699aa813a17e22808351"},
+    "sourceDesktop":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision2/captures/desktop-1440-background-use.png"}},
+    "sourceMobile":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision2/captures/mobile-390-background-use.png"}}
+  },
+  "sections":[{
+    "id":"home-editorial-grid","pageId":"pokemon-tcg-official-home","status":"pass",
+    "sourceCapture":"migrations/pokemon-tcg-official/quality-attempts/10/evidence-revision2/captures/desktop-1440-background-use.png",
+    "demoCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/desktop-1440-settled.png",
+    "sourceViewport":{"width":1440,"height":900},"demoViewport":{"width":1440,"height":900},
+    "approvedViewportTranslation":"Independent 1440px and 390px content proof surfaces; responsive URL roles differ but current verified bytes and visible artwork do not.",
+    "sourceRegion":[0,212.34,1440,476.2],"demoRegion":[0,0,1440,476.195],
+    "requiredLayers":[
+      {"id":"responsive-background","sourceSelector":"article.tcg-pocket responsive background","demoSelector":".pokemon-pocket__background","status":"pass"},
+      {"id":"independent-composite","sourceSelector":"article.tcg-pocket img logo-cards.png","demoSelector":".pokemon-pocket__composite","status":"pass"},
+      {"id":"copy-panel","sourceSelector":"article.tcg-pocket black copy column","demoSelector":".pokemon-pocket__copy","status":"pass"},
+      {"id":"external-cta","sourceSelector":"article.tcg-pocket a.button--white","demoSelector":".pokemon-pocket__cta","status":"pass"}
+    ],
+    "readingOrder":["desktop asset-left then copy-right","mobile asset-first then copy-second","H2","paragraph","Play Now CTA","next section"],
+    "responsiveBehavior":{"status":"pass","desktop":"1440x476.195 with equal halves and desktop URL role","mobile":"390x743.023 asset-first stack and mobile URL role; byte-identical current artwork","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/desktop-1440-settled.png","migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-settled.png"]},
+    "assetRefs":[
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","status":"pass"},
+      {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png","sourceSha256":"27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009","status":"pass"}
+    ],
+    "interactionChecks":[{"id":"cta-hover-and-target","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["foreground rgb(0,0,0) to rgb(226,186,101)","real external href"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-settled.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-hover.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/10/demo/captures/mobile-390-settled.png"}],
+    "unresolvedInteractions":[{"id":"viewport-entry","status":"unresolved-unscored","reason":"only hidden and settled source endpoints are supported; implementation omits invented choreography"}],
+    "usesItemCountAsStructureProxy":false,"horizontalOverflow":false,"visualVerdict":"reserved-for-blind-qa"
+  }]
+}

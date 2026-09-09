@@ -1,0 +1,85 @@
+{
+  "brand": "onepiece-cardgame",
+  "page": "onepiece-cardgame-home",
+  "revision": 4,
+  "scope": "home-indicator-and-footer-containment",
+  "verdict": "PASS",
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "evidenceFidelity": "PASS",
+  "structuralFidelity": "PASS",
+  "generativeProof": "NOT_REASSESSED_OUTSIDE_TARGETED_REVISION_SCOPE",
+  "blockingFindings": [],
+  "checks": {
+    "normal1280x720": {
+      "indicatorDirectPhoneChild": true,
+      "position": "absolute",
+      "bottom": "0px",
+      "containerBackgroundColor": "rgba(0, 0, 0, 0)",
+      "containerBackgroundImage": "none",
+      "onlyVisibleSystemMark": "black bar",
+      "blackBar": {
+        "top": 681.9453125,
+        "bottom": 685.8984375,
+        "width": 106.0546875,
+        "height": 3.953125,
+        "color": "rgb(17, 17, 17)"
+      },
+      "screen": {
+        "left": 721.171875,
+        "right": 1018.828125,
+        "clientWidth": 298,
+        "scrollWidth": 298,
+        "clientHeight": 644,
+        "scrollHeight": 6246
+      },
+      "scrollTopSequence": [0, 2600, 5602, 0],
+      "indicatorRectStableAcrossScroll": true,
+      "blackBarRectStableAcrossScroll": true,
+      "footerBottomAtEnd": 680.5,
+      "footerToBarClearance": 1.4453125,
+      "lastVisibleFooterContentBottom": 638.5,
+      "lastVisibleContentToBarClearance": 43.4453125,
+      "footerContainedByScreen": true,
+      "navContainedByScreen": true,
+      "legalContainedByScreen": true,
+      "allVisibleFooterChildrenContainedByScreen": true,
+      "horizontalOverflowPx": 0,
+      "fullHeightBlankBandObserved": false
+    },
+    "mobile390x844": {
+      "phoneShellHidden": true,
+      "indicatorDisplay": "none",
+      "documentScrollTopSequence": [0, 7134, 0],
+      "documentScrollHeight": 7978,
+      "documentClientWidth": 390,
+      "documentScrollWidth": 390,
+      "horizontalOverflowPx": 0,
+      "footerContainedByViewport": true,
+      "navContainedByViewport": true,
+      "legalContainedByViewport": true,
+      "allVisibleFooterChildrenContainedByViewport": true
+    },
+    "machine": {
+      "layoutContractTests": "PASS (5/5)",
+      "build": "PASS",
+      "previewRegistry": "PASS (5 previews; unrelated remote-asset warnings only)",
+      "previewBrowserValidator": "PASS (5 ONE PIECE pages)"
+    }
+  },
+  "evidence": {
+    "browserProbe": "browser-probes.json",
+    "captures": [
+      "captures/top.png",
+      "captures/middle.png",
+      "captures/bottom.png",
+      "captures/restored.png",
+      "captures/mobile-top.png",
+      "captures/mobile-bottom.png"
+    ]
+  },
+  "notes": [
+    "This is a targeted revision-4 acceptance, not a new whole-brand fidelity verdict.",
+    "The footer navy surface ends 1.4453125px above the black bar while the last visible legal content ends 43.4453125px above it; the remaining system-safe area is transparent, not a white gradient or an opaque footer band."
+  ]
+}

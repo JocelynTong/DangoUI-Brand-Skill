@@ -1,0 +1,24 @@
+{
+  "schema": "brand-demo-proof-reuse/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision2",
+  "sourceAttempt": "../demo",
+  "reason": "Revision 2 corrects responsive-background provenance semantics only. Evidence explicitly states that no rendered pixel change is required, and the implementation source plus all runtime asset hashes are unchanged at handoff.",
+  "implementationAtHandoff": {
+    "src/App.vue": "c3794e563ae4cb38c8749e44212313fef6a548e04e7ba2e92f22fe1e4839da7f",
+    "src/styles.css": "e7d6e5b9e844d2ed999bf2ac41a6d7c32509d9d50afb13c5b0cc04b33c5e47da",
+    "public/brand-previews/pokemon-tcg-official.json": "abb242e2f2159c8ce42f4237efd32d3c472ef1410e4e18c80d1b74601877a43d"
+  },
+  "reusedCaptures": [
+    {"path": "../demo/captures/desktop-1440-settled.png", "sha256": "00e7332a7ca1a3b840cd0cb399dce5a9bcae1dc7c348f9cad2cd206e7af01712", "viewport": "1440x900", "state": "settled"},
+    {"path": "../demo/captures/mobile-390-settled.png", "sha256": "dca7c55238628253d5ffc908f39d8c0cd31f25a29fb3bf15187c8056222ded71", "viewport": "390x844", "state": "settled"},
+    {"path": "../demo/captures/desktop-1440-hover.png", "sha256": "56152a386504521a194e29b5bc9d26bbfda647d4d07a6655b717334cca23ab7f", "viewport": "1440x900", "state": "cta-hover"},
+    {"path": "../demo/captures/mobile-390-hover.png", "sha256": "14066987219716bfc477088a3c2a6efd9a2802825642c6916df30de6b108d55f", "viewport": "390x844", "state": "cta-hover"}
+  ],
+  "reusedBrowserProbe": {"path": "../demo/browser-probes.json", "sha256": "bfd42990af3f51800105208ea3ed810d12f8cdfa6bf5424439474dd471efb7f9"},
+  "evidenceRevisionCaptures": [
+    {"path": "../evidence-revision2/captures/desktop-1440-background-use.png", "sha256": "aa704b489343446ffd951881cc3739bdb84e95f4ce7ed17cc905ea60044db7e5"},
+    {"path": "../evidence-revision2/captures/mobile-390-background-use.png", "sha256": "4358419005cec35fdad68c5047b8599ad9b4733e6bc7e7d2cc2da17b13c2c812"}
+  ],
+  "claimBoundary": "Capture reuse proves unchanged implementation rendering and interaction surfaces; it does not claim that desktop and mobile background artwork differ."
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/round/index",
+  "experiment": "round-ranking-minimal-sample",
+  "inputs": {
+    "frozenBaseline": "structural-baselines/round-index.json",
+    "acceptedSamples": [
+      "quality-attempts/10/visual-qa-assessment.json",
+      "quality-attempts/13/visual-qa-assessment.json",
+      "quality-attempts/15/visual-qa-assessment.json",
+      "quality-attempts/17/visual-qa-assessment.json",
+      "quality-attempts/19/visual-qa-assessment.json"
+    ]
+  },
+  "goal": "Turn the round page into a restrained, highly scannable tournament ranking sheet whose identity comes from composition, ruled hierarchy, rank numerics, and semantic status rather than a decorative hero.",
+  "preserve": [
+    "event and round identity",
+    "ranking data and ordering",
+    "deck and player identity",
+    "gold-rank and status semantics",
+    "existing navigation and empty-slot behavior",
+    "all routes, stores, requests, and business handlers"
+  ],
+  "requiredDirection": {
+    "canvas": "warm paper canvas with one contained navy tournament masthead",
+    "hierarchy": "event/round context -> ranking summary -> ruled ranking rows -> deck/player detail and status",
+    "geometry": "low-radius rectangular islands and ruled rows; no pill clouds or floating decorative panels",
+    "color": "navy for tournament identity, yellow used sparsely for first-place or current selection, red only for meaningful competitive/status accents",
+    "type": "restrained CJK hierarchy with strong tabular rank numerics and readable secondary metadata",
+    "responsive": "preserve row scan order at 390 and 536; use additional desktop width for legibility, not premature dense columns"
+  },
+  "mustNot": [
+    "add a decorative hero or unrelated database-driven artwork",
+    "change ranking order, scores, deck/player data, or navigation behavior",
+    "encode status by color alone",
+    "hide clipping with overflow",
+    "change any other route"
+  ],
+  "acceptance": [
+    "390, 536, and 1280 show event context, round identity, ranking hierarchy, and the first meaningful rows without accidental dead space",
+    "rank, player, deck, score, and status remain legible with zero internal clipping",
+    "empty slots and gold/current/status branches remain distinguishable in text as well as color",
+    "all real controls pass pointer, Enter, Space, visible focus, 44px ownership where applicable, and reduced-motion checks",
+    "zero horizontal page overflow, zero external writes, zero cross-route regression"
+  ]
+}

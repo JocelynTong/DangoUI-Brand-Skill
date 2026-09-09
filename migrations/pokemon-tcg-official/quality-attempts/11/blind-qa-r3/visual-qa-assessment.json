@@ -1,0 +1,64 @@
+{
+  "schema": "visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 3,
+  "role": "Blind QA / TPP",
+  "status": "PASS",
+  "independence": {
+    "freshContext": true,
+    "implementationModified": false,
+    "forbiddenInputsConsumed": [],
+    "inputs": [
+      "goal-contract.json",
+      "evidence/",
+      "interpreter-revision2/brand-intent.json",
+      "interpreter-revision2/pattern-inventory.json",
+      "design-direction.json",
+      "demo-revision3/qa-input-manifest.json",
+      "live rendered page and implementation source probes"
+    ]
+  },
+  "tripleProof": {
+    "evidenceFidelity": {
+      "status": "PASS",
+      "basis": "Official Championship Series 1x and 2x runtime files match the frozen SHA-256 identities; rendered src/srcset/currentSrc are truthful for DPR 1, typography and CTA recipes match frozen evidence."
+    },
+    "structuralFidelity": {
+      "status": "PASS",
+      "basis": "1440 proof is a 1440x720 50/50 copy-left/image-right section; 390 proof is a 390x829.171875 image-first stack. Section/media/copy remain transparent over the page canvas and Pocket/Play successor continuity is retained."
+    },
+    "generativeProof": {
+      "status": "PASS",
+      "basis": "The isolated Championship Fixture uses independent fictional copy and CSS-native arena art, no source image, preserves split-to-stack/type/action invariants, uses a local button without aria-pressed, and exposes its changed local result through a polite visually-hidden live region."
+    }
+  },
+  "requiredChecks": {
+    "desktopTypography48_18_18": "PASS",
+    "mobileLocalGeometry414_519_5_737_078": "PASS",
+    "normalPhoneMockup": "PASS",
+    "homeIndicatorFixedOutsideContentFlow": "PASS",
+    "phoneScreenScrollableAndRestored": "PASS",
+    "adjacencyAndRegressionContinuity": "PASS",
+    "backgroundOwnership": "PASS",
+    "officialAssetIdentityAndHashes": "PASS",
+    "ctaDefaultHoverFocusDestination": "PASS",
+    "ctaInsetFrame2px": "PASS",
+    "ctaExactShadow": "PASS",
+    "heldOutIndependence": "PASS",
+    "heldOutKeyboardFocus": "PASS",
+    "heldOutNoAriaPressed": "PASS",
+    "heldOutAssistiveAriaLive": "PASS",
+    "revision3ManifestNoStaleEntries": "PASS",
+    "build": "PASS",
+    "designDirectionGate": "PASS",
+    "strictSectionGate": "PASS"
+  },
+  "blockingFindings": [],
+  "nonBlockingNotes": [
+    "At browser DPR 1, currentSrc correctly selects the 1x candidate; both 1x/2x declarations and files retain the frozen official hashes.",
+    "The held-out focus rule intentionally removes the decorative drop shadow while retaining the 2px inset frame and visible blue outline; the exact frozen shadow was verified on the source-calibration CTA across default, hover and focus."
+  ],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null
+}

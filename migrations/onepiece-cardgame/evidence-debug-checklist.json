@@ -1,0 +1,50 @@
+{
+  "schema": "brand-evidence-debug-checklist/v1",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "reviewedAt": "2026-09-01T15:00:00+08:00",
+  "reviewer": "orchestrator-evidence-audit",
+  "verdict": "REWORK",
+  "statusLegend": {
+    "complete": "Evidence exists and was independently checked.",
+    "partial": "Some evidence exists, but the acceptance condition is not fully met.",
+    "missing": "Required evidence has not been collected.",
+    "false-pass": "A machine gate passed even though the intended requirement was not satisfied."
+  },
+  "summary": { "complete": 7, "partial": 6, "missing": 9, "falsePass": 1, "total": 23 },
+  "pages": [
+    { "id": "home", "sourceRecording": "source-media/home/source-home-scroll.gif", "fullPage": "source-media/full-pages/source-home-full.png", "dembrandtCoverage": "home-only", "claimCount": 6 },
+    { "id": "news", "sourceRecording": "source-media/news/source-news-scroll.gif", "fullPage": "source-media/full-pages/source-news-full.png", "dembrandtCoverage": "missing", "claimCount": 4 },
+    { "id": "products", "sourceRecording": "source-media/products/source-products-scroll.gif", "fullPage": "source-media/full-pages/source-products-full.png", "dembrandtCoverage": "missing", "claimCount": 4 },
+    { "id": "events", "sourceRecording": "source-media/events/source-events-scroll.gif", "fullPage": "source-media/full-pages/source-events-full.png", "dembrandtCoverage": "missing", "claimCount": 4 }
+  ],
+  "checks": [
+    { "id": "page-recordings", "group": "Rendered source", "check": "Four required pages have continuous visual playback", "status": "complete", "evidence": "source-observation-manifest.json", "next": "Keep hashes frozen." },
+    { "id": "scroll-coverage", "group": "Rendered source", "check": "Each recording starts at scrollTop 0 and reaches page end", "status": "complete", "evidence": "Home 0→6151; News 0→2146.5; Products 0→1979; Events 0→3456", "next": "Keep lossless frames and timelines." },
+    { "id": "page-claims", "group": "Rendered source", "check": "Every page has composition, control, density and asset Claims", "status": "complete", "evidence": "Home 6; News 4; Products 4; Events 4", "next": "Consumer must still verify the live DOM measurements." },
+    { "id": "interaction-media", "group": "Rendered source", "check": "Menu-open and Welcome-hover have continuous playback", "status": "complete", "evidence": "source-menu-open.gif; source-welcome-hover.gif", "next": "Add exact settled state and wall-clock timestamps." },
+    { "id": "narrow-yellow", "group": "Rendered source", "check": "Yellow is proven only for the actual menu-open color state", "status": "complete", "evidence": "rgb(255,245,7), transparent background, is-open", "next": "Keep global-yellow unresolved." },
+
+    { "id": "live-dom-recheck", "group": "Rendered source", "check": "Every v4 selector and bounding box was remeasured in the live browser", "status": "partial", "evidence": "Fields exist, but the extraction pass primarily reviewed recordings and v3 seeds.", "next": "Remeasure News, Products and Events in the live DOM." },
+    { "id": "interaction-settled", "group": "Motion", "check": "Default, transition and settled states are explicitly captured", "status": "partial", "evidence": "Welcome final frames remain labeled hover-transition.", "next": "Capture a verified post-300ms settled frame." },
+    { "id": "home-motion-cycle", "group": "Motion", "check": "Hero carousel/background video is recorded for a complete stationary cycle", "status": "partial", "evidence": "Scroll recording exists but does not isolate a full carousel cycle.", "next": "Record stationary carousel and play/pause states." },
+    { "id": "actual-timestamps", "group": "Motion", "check": "Timeline uses measured wall-clock timestamps", "status": "partial", "evidence": "Current atMs values are derived from frame index.", "next": "Record performance.now timestamps per frame." },
+
+    { "id": "dembrandt-four-pages", "group": "Dembrandt", "check": "Dembrandt extraction covers Home, News, Products and Events separately", "status": "missing", "evidence": "Current result.url is Home only.", "next": "Produce page-scoped extraction artifacts without overwriting results." },
+    { "id": "dembrandt-dispositions", "group": "Dembrandt", "check": "Every goal-relevant Dembrandt candidate has a disposition", "status": "false-pass", "evidence": "Current five dispositions point to v3 manual Claims, not Dembrandt candidate paths.", "next": "Disposition actual color/type/radius/shadow/motion candidates." },
+    { "id": "typography-computed", "group": "Dembrandt", "check": "Alfa Slab One, Noto Serif, Poppins and Oswald candidates are visibly verified", "status": "missing", "evidence": "Attempt-9 recapture browsers translated the exact English target nodes; NEWS became 消息. Computed-family and font-load checks remain insufficient without exact glyph screenshots.", "next": "Recapture in an untranslated official English rendering and visually inspect every target node." },
+    { "id": "validator-font-resource-proof", "group": "Machine validator", "check": "A font claim cannot pass from computed font-family alone", "status": "complete", "evidence": "home-live-dom-evidence.json.fontResourceEvidence.acceptanceRule", "next": "Validator must require capture + sourceRegion + visible non-zero DOM + computed family + sourceStylesheet/importUrl + fontSetStatus loaded + documentFontsCheck true; an unavailable exact font-file URL must remain explicitly unavailable." },
+    { "id": "validator-footer-organism-completeness", "group": "Machine validator", "check": "High-salience footer evidence includes the complete organism before .footerColInner", "status": "complete", "evidence": "home-footer-illustration-organism inventories chara, catch text, logo, composite card, three revealed cards and background/motion state.", "next": "Validator must reject a footer claim missing any required layer, settled/transition capture, geometry, current asset URL, or play/pause disposition." },
+    { "id": "color-candidates", "group": "Dembrandt", "check": "#291C0D, #E30000, #FF8000 and #007AFF are assigned or rejected by visible role", "status": "partial", "evidence": "#E30000 is now located on 8 .newscategory.catProducts labels (usageFrac 0.0052945); validated as Products category semantics and rejected as global accent/core action. Other candidates remain unresolved.", "next": "Verify brown surface, Events category orange and swiper-control blue separately." },
+    { "id": "radius-candidates", "group": "Dembrandt", "check": "1px and 999px radius candidates are separated from Cookie/UI noise", "status": "missing", "evidence": "Dembrandt mixes content, input and cookie elements.", "next": "Validate only visible business nodes; reject cookie candidates." },
+    { "id": "shadow-candidates", "group": "Dembrandt", "check": "Low-confidence shadows map to visible business nodes", "status": "missing", "evidence": "Five shadows have no page-scoped disposition.", "next": "Locate or reject each goal-relevant shadow." },
+    { "id": "button-negative-evidence", "group": "Dembrandt", "check": "buttonVariants:0 is recorded as negative evidence", "status": "missing", "evidence": "Not present in goalCoverage or dispositions.", "next": "Use it to prevent invented global CTA recipes." },
+    { "id": "omitted-dembrandt-dimensions", "group": "Dembrandt", "check": "Motion, spacing, borders, gradients, components, breakpoints and icons are imported", "status": "missing", "evidence": "third-party evidence currently retains only color/type/radius/shadow subsets.", "next": "Upgrade importer and disposition relevant candidates." },
+
+    { "id": "four-page-asset-inventory", "group": "Assets", "check": "Rendered asset inventory is page-scoped across all four pages", "status": "missing", "evidence": "Current inventory sourceUrl is Home and predates v4.", "next": "Recollect loaded currentSrc/background/poster/font assets per page." },
+    { "id": "section-background-chain", "group": "Assets", "check": "Section backgrounds and pseudo-element geometry form a reconstructable chain", "status": "missing", "evidence": "sectionBackgroundChain.items is empty.", "next": "Capture textured bands, backgrounds, masks and pseudo-elements with geometry." },
+    { "id": "asset-role-completeness", "group": "Assets", "check": "Font and illustration roles are covered", "status": "partial", "evidence": "The visually inspected seven-layer footer organism is covered; font remains in missingCoreRoles because exact target-glyph recapture is unavailable.", "next": "Keep the font role blocking until untranslated captures exist." },
+
+    { "id": "consumer-review", "group": "Handoff", "check": "A separate Evidence Consumer Reviewer has independently accepted the package", "status": "missing", "evidence": "Only producer self-check and structural machine gate ran.", "next": "Run a fresh reviewer after all preceding gaps close." }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "brand-blind-qa-gates/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-revision6",
+  "results": [
+    {
+      "gate": "validate-design-direction",
+      "command": "node skills/brand/scripts/validate-design-direction.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/10/design-direction.json",
+      "status": "PASS",
+      "exitCode": 0,
+      "sections": 1,
+      "strategies": 4,
+      "failures": []
+    },
+    {
+      "gate": "validate-section-fidelity-strict",
+      "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/10/demo-revision5/section-fidelity-manifest.json --strict",
+      "manifestSha256": "66df9d474128d0e3da96d6a256934c68683bdcda76cc358d519490a20b4da275",
+      "status": "PASS",
+      "exitCode": 0,
+      "section": "held-out-pocket-family",
+      "checks": 13,
+      "failures": []
+    },
+    {
+      "gate": "build",
+      "command": "npm run build",
+      "status": "PASS",
+      "exitCode": 0,
+      "summary": "vite v8.0.16; 25 modules transformed; built in 521ms",
+      "nonBlockingWarnings": ["main bundle exceeds Vite's 500 kB advisory threshold"]
+    }
+  ],
+  "overall": "PASS"
+}

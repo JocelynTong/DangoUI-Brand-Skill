@@ -1,0 +1,43 @@
+{
+  "schema": "brand-demo-provenance/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision2",
+  "scope": "homepage/home-editorial-grid-only",
+  "inputBindings": {
+    "goalContract": {"path": "../goal-contract.json", "sha256": "47e1b1dcb8134640dcf08735aa557c47f652f1b6d74d699aa813a17e22808351"},
+    "evidence": {"path": "../evidence-revision2/brand-evidence.json", "sha256": "7b02f1870a6d7edc25baf34e6bb7fb1a3785a7f40565d66158d5d9e9188de28f"},
+    "responsiveAssets": {"path": "../evidence-revision2/responsive-assets.json", "sha256": "d62ccb08f5d0c9d55d02b887bf4e6783f9d0b207b3f444f32632482025bbc11b"},
+    "intent": {"path": "../interpreter-revision2/brand-intent.json", "sha256": "e2a7f8f558d55b2866305b97182b0749b4c8800421f16e329d993306ab0ad3cd"},
+    "patterns": {"path": "../interpreter-revision2/pattern-inventory.json", "sha256": "b6011c88e224bbd7f8b84aa8d99883cd78cee181e54da7a76dae3a4cffe988fa"},
+    "designDirection": {"path": "../design-direction.json", "sha256": "692c8dbf0566bfcb3901bd7bdbce77736791be9eeb384599c5d65c6b83c3b2b1"}
+  },
+  "runtimeAssets": [
+    {
+      "role": "desktop Pocket background binding",
+      "officialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+      "pixelSize": [720, 464],
+      "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976"
+    },
+    {
+      "role": "mobile Pocket background binding",
+      "officialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+      "pixelSize": [720, 464],
+      "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976"
+    },
+    {
+      "role": "Pocket logo and card recognition composite",
+      "officialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/logo-cards.png",
+      "sha256": "27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009"
+    }
+  ],
+  "responsiveConclusion": {
+    "binding": "desktop and mobile retain separate observed URL roles",
+    "payloadRelationship": "byte-identical",
+    "visualDifferenceClaim": "rejected",
+    "renderChangeRequired": false
+  },
+  "codeChange": {"required": false, "performed": false, "reason": "Existing picture bindings and both verified local payloads already satisfy corrected Evidence and Direction."}
+}

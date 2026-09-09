@@ -1,0 +1,57 @@
+{
+  "schema": "brand-evidence-question-matrix/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "questions": [
+    {
+      "id": "q-docs-shell-introduction",
+      "goalItem": "docs-shell",
+      "sourcePageId": "introduction",
+      "question": "Does the rendered Introduction page use the same header/sidebar/reading-column/outline composition at desktop, and what actually happens at 390px?",
+      "requiredEvidence": ["desktop full-page and continuous scroll", "390px full-page and continuous scroll", "visible header/main/sidebar boxes", "computed widths and height"],
+      "stopCondition": "Both viewports reach the page end, restore to top, and page-scoped claims bind screenshot regions to non-zero DOM boxes and exact computed properties.",
+      "verdict": "proved",
+      "evidenceRefs": ["dango-docs-shell-desktop", "dango-docs-shell-mobile-reflow"]
+    },
+    {
+      "id": "q-docs-shell-button",
+      "goalItem": "docs-shell",
+      "sourcePageId": "button",
+      "question": "Does the Button reference preserve the documentation shell while presenting live examples in a preview/code structure?",
+      "requiredEvidence": ["full-page capture", "continuous scroll to API and theme variables", "main DOM box and computed width"],
+      "stopCondition": "The long page reaches its true end and its structural claim is traceable to a visible capture and DOM.",
+      "verdict": "proved",
+      "evidenceRefs": ["dango-button-page-shell"]
+    },
+    {
+      "id": "q-content-hierarchy",
+      "goalItem": "content-hierarchy",
+      "sourcePageId": "introduction",
+      "question": "Which visible hierarchy, density and supporting surfaces organize the Introduction content?",
+      "requiredEvidence": ["visible H1/H2/prose", "technical diagram surface", "exact computed font sizes and weights"],
+      "stopCondition": "The claim identifies the rendered title and supporting hierarchy without inferring a brand font from filenames or CSS variable names.",
+      "verdict": "proved",
+      "evidenceRefs": ["dango-docs-type-hierarchy"]
+    },
+    {
+      "id": "q-accent-semantics",
+      "goalItem": "accent-semantics",
+      "sourcePageId": "introduction,button",
+      "question": "Where are #5854FF and #7C66FF visibly used, and is orange a core action/accent on the frozen pages?",
+      "requiredEvidence": ["current-page navigation screenshot and computed color", "Primary Button screenshot and computed fill", "orange visible counterexample review"],
+      "stopCondition": "Purple candidates are scoped to observed roles and orange remains out-of-scope unless a high-salience rendered region proves it.",
+      "verdict": "proved-for-frozen-pages",
+      "evidenceRefs": ["dango-docs-active-navigation", "dango-primary-button"]
+    },
+    {
+      "id": "q-button-state-system",
+      "goalItem": "button-state-system",
+      "sourcePageId": "button",
+      "question": "What visibly and computationally changes between Primary Button default, hover transition, hover settled, focus and activated-settled states?",
+      "requiredEvidence": ["before/transition/after captures", "actual trigger", "class and state", "exact computed background/outline/transform values"],
+      "stopCondition": "Every required state is captured; unchanged states are explicitly reported as no-change rather than assigned an invented highlight.",
+      "verdict": "proved-for-primary-calibration",
+      "evidenceRefs": ["dango-primary-button", "dango-primary-button-hover-no-change", "dango-primary-button-focus", "dango-primary-button-activated"]
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "mapping-qa-input-manifest/v1",
+  "brand": "pokemon-tcg-official",
+  "qaRole": "fresh-independent-mapping-qa",
+  "baseUrl": "http://127.0.0.1:5181",
+  "constraints": {
+    "priorMappingVerdictsRead": false,
+    "implementationRationaleAccepted": false,
+    "runtimeOrFrozenArtifactsModified": false
+  },
+  "inputs": [
+    {"path":"migrations/pokemon-tcg-official/brand-profile.dtcg.json","sha256":"9a2325594d291ea1471d954f22c1254acbf6a7c156bf2baf37f6e4162ea1132f"},
+    {"path":"migrations/pokemon-tcg-official/dangoui-adapter.json","sha256":"9a3c1665bc5566ae29db783579ce201814be1e75820f930249fb67f73a395079"},
+    {"path":"migrations/pokemon-tcg-official/component-mapping.json","sha256":"35f98097939ec5aee867087a946537f7db68f0c1437e744853db92560667f71e"},
+    {"path":"migrations/pokemon-tcg-official/mapping-runtime-proof.json","sha256":"dfef070b538c4dc23e40b5024d92e41df90fe933ba01158c25adeda418681685"},
+    {"path":"migrations/pokemon-tcg-official/site-evidence.json","sha256":"2e4a55e0dc07bfe8f3a27458ce7c8d97527f5aa0d8a64dd7af0a3978b6a8b99e"},
+    {"path":"migrations/pokemon-tcg-official/brand-intent.json","sha256":"d849a372648063f689ea6b42465e7204e0ac4bc13185f32b6054201c3937d5ac"},
+    {"path":"migrations/pokemon-tcg-official/approved-visual-patterns.json","sha256":"6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba"},
+    {"path":"src/App.vue","sha256":"a2f0d9c36041515bef0597d348de0f0f996ff47ecc8994147f988c0294c1f4f5"},
+    {"path":"src/styles.css","sha256":"600096c6cdb62560915265d4a328c56f636cc7e89184e0d3032905811fbe383b"},
+    {"path":"node_modules/dangoui/src/button/Button.vue","sha256":"621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"},
+    {"path":"scripts/pokemon-dangoui-mapping-runtime-probe.mjs","sha256":"5d048173d2d08a397e3b1a1a4ea331f3c28d255cd01c5c932cbec4b84b778d85"}
+  ],
+  "observations": [
+    "migrations/pokemon-tcg-official/mapping-runtime/runtime-probe.json",
+    "migrations/pokemon-tcg-official/mapping-runtime/captures/home-desktop.png",
+    "migrations/pokemon-tcg-official/mapping-runtime/captures/home-phone.png",
+    "migrations/pokemon-tcg-official/mapping-runtime/captures/database-desktop.png",
+    "migrations/pokemon-tcg-official/mapping-runtime/captures/database-phone.png",
+    "migrations/pokemon-tcg-official/mapping-runtime/captures/learn-desktop.png",
+    "migrations/pokemon-tcg-official/mapping-runtime/captures/learn-phone.png"
+  ]
+}

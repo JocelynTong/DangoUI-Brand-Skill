@@ -1,0 +1,96 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-revision6",
+  "inputManifest": {
+    "path": "../demo-revision6/qa-input-manifest.json",
+    "sha256": "cff4c770a5882686edea9f1dbc17e5c346ca2f3d46c6619f5556d877474f8c7e"
+  },
+  "baseUrl": "http://127.0.0.1:5177/",
+  "checks": {
+    "A-normal-home": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "viewport": { "width": 1440, "height": 900 },
+      "phone": { "rect": { "x": 755, "y": 51.3984375, "width": 390, "height": 855.0234375 }, "borderTopWidth": "9.5px", "borderTopStyle": "solid", "borderRadius": "41.4666px", "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px" },
+      "screen": { "rect": { "x": 764.5, "y": 60.8984375, "width": 371, "height": 802.4609375 }, "borderRadius": "31.5936px", "overflowY": "auto", "scrollHeight": 2547, "clientHeight": 802 },
+      "scroll": { "before": 0, "after": 700, "restored": 0 },
+      "capture": "captures/normal-home.png"
+    },
+    "A-normal-pocket-fixture": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "viewport": { "width": 1440, "height": 900 },
+      "phone": { "rect": { "x": 755, "y": 51.3984375, "width": 390, "height": 855.0234375 }, "borderTopWidth": "9.5px", "borderTopStyle": "solid", "borderRadius": "41.4666px", "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px" },
+      "screen": { "rect": { "x": 764.5, "y": 60.8984375, "width": 371, "height": 802.4609375 }, "borderRadius": "31.5936px", "overflowY": "auto", "scrollHeight": 1255, "clientHeight": 802 },
+      "scroll": { "before": 0, "after": 452, "restored": 0 },
+      "sections": 2,
+      "capture": "captures/normal-pocket-fixture.png"
+    },
+    "A-normal-held-out": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-held-out",
+      "viewport": { "width": 1440, "height": 900 },
+      "phone": { "rect": { "x": 755, "y": 51.3984375, "width": 390, "height": 855.0234375 }, "borderTopWidth": "9.5px", "borderTopStyle": "solid", "borderRadius": "41.4666px", "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px" },
+      "screen": { "rect": { "x": 764.5, "y": 60.8984375, "width": 371, "height": 802.4609375 }, "borderRadius": "31.5936px", "overflowY": "auto", "scrollHeight": 1555, "clientHeight": 802 },
+      "scroll": { "before": 0, "after": 520, "restored": 0 },
+      "sections": 2,
+      "capture": "captures/normal-held-out.png"
+    },
+    "B-proof-role-isolation": {
+      "status": "PASS",
+      "fact": "The frozen direction labels the Home calibration target as source-calibration, while the normal no-query Home still renders the measured phone chassis and clipped screen. Descriptive proofRole metadata does not select shell removal."
+    },
+    "C-proof-mobile": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5177/?proof=mobile#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "viewport": { "innerWidth": 390, "innerHeight": 844, "documentElementClientWidth": 390, "documentElementClientHeight": 844 },
+      "phone": { "rect": { "x": 0, "y": 0, "width": 390, "height": 844 }, "borderTopWidth": "0px", "borderTopStyle": "none", "borderRadius": "0px", "pseudoContent": "none" },
+      "screen": { "rect": { "x": 0, "y": 0, "width": 390, "height": 844 }, "borderRadius": "0px" },
+      "section": { "rect": { "x": 0, "y": 0, "width": 390, "height": 743.015625 } },
+      "asset": { "rect": { "x": 0, "y": 0, "width": 390, "height": 334.2265625 } },
+      "copy": { "rect": { "x": 0, "y": 334.2265625, "width": 390, "height": 408.7890625 }, "backgroundColor": "rgb(0, 0, 0)" },
+      "body": { "scrollWidth": 390, "margin": "0px" },
+      "visibleInspector": 0,
+      "capture": "captures/proof-mobile-pocket.png"
+    },
+    "D-proof-desktop": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5177/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "viewport": { "innerWidth": 1440, "innerHeight": 900, "documentElementClientWidth": 1440, "documentElementClientHeight": 900 },
+      "phone": { "rect": { "x": 0, "y": 0, "width": 1440, "height": 874.6875 }, "borderTopWidth": "0px", "borderRadius": "0px", "pseudoContent": "none" },
+      "screen": { "rect": { "x": 0, "y": 0, "width": 1440, "height": 840.6875 }, "borderRadius": "0px" },
+      "section": { "rect": { "x": 0, "y": 0, "width": 1440, "height": 476.1875 } },
+      "background": { "rect": { "x": 0, "y": 0, "width": 1440, "height": 476.1875 } },
+      "copy": { "rect": { "x": 0, "y": 59.84375, "width": 720, "height": 356.5 }, "backgroundColor": "rgb(0, 0, 0)" },
+      "asset": { "rect": { "x": 720, "y": 0, "width": 720, "height": 476.1875 } },
+      "visibleInspector": 0,
+      "capture": "captures/proof-desktop-pocket.png"
+    },
+    "E-query-removal-restores-shell": {
+      "status": "PASS",
+      "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "phoneClass": "phone template-phone",
+      "borderTopWidth": "9.5px",
+      "borderTopStyle": "solid",
+      "borderRadius": "41.4666px",
+      "pseudoShadow": "rgba(0, 0, 0, 0.04) 0px 14px 42px 0px",
+      "screenBorderRadius": "31.5936px",
+      "screenOverflowY": "auto",
+      "capture": "captures/query-left-shell-restored.png"
+    },
+    "F-regression": {
+      "status": "PASS",
+      "hero": { "before": { "ariaPressed": "false", "label": "Show featured Pokémon card back" }, "after": { "ariaPressed": "true", "label": "Show featured Pokémon card front", "classIncludes": "is-flipped" }, "restored": { "ariaPressed": "false", "label": "Show featured Pokémon card back" }, "capture": "captures/hero-flipped.png" },
+      "news": { "beforeHeading": "Get Ready to Celebrate 30 Years of the Pokémon Trading Card Game", "afterHeading": "Discover the Artists Behind the Pokémon TCG 30th Celebration", "afterActivePage": 2, "restoredHeading": "Get Ready to Celebrate 30 Years of the Pokémon Trading Card Game", "screenScrollTopStable": 620, "capture": "captures/news-after-next.png" },
+      "tcgl": { "assetsLoaded": 5, "href": "https://tcg.pokemon.com/en-us/tcgl/", "restColor": "rgb(0, 0, 0)", "hoverColor": "rgb(225, 185, 101)", "restoredColor": "rgb(0, 0, 0)", "capture": "captures/tcgl.png" },
+      "pocket": { "backgroundAsset": "pocket-background.jpg", "backgroundNaturalSize": [720, 464], "logoCardsAsset": "logo-cards.png", "logoCardsNaturalSize": [500, 306], "mobileOrder": ["asset", "copy"], "desktopSourceGeometry": { "section": [0, 1793.796875, 1440, 476.1875], "asset": [0, 1793.796875, 720, 476.1875], "copy": [720, 1853.640625, 720, 356.5] }, "captures": ["captures/pocket-home.png", "captures/source-pocket-home-proof-desktop.png"] },
+      "cta": { "href": "https://tcgpocket.pokemon.com/en-us", "target": "_blank", "rel": "noreferrer", "rest": { "background": "rgb(255, 255, 255)", "color": "rgb(0, 0, 0)" }, "hover": { "background": "rgb(255, 255, 255)", "color": "rgb(226, 186, 101)" }, "restored": { "background": "rgb(255, 255, 255)", "color": "rgb(0, 0, 0)" }, "focusOutline": "rgb(0, 95, 204) auto 1px", "captures": ["captures/pocket-cta-hover.png", "captures/pocket-cta-focus.png"] },
+      "pocketHeldOut": { "before": { "ariaPressed": "false", "status": "Concept review is ready." }, "after": { "ariaPressed": "true", "status": "Concept review noted locally. This fictional fixture route remains open." }, "restored": { "ariaPressed": "false", "status": "Concept review is ready." }, "capture": "captures/held-out-interaction.png" },
+      "deckHeldOut": { "beforeExpanded": "Choose a lead Pokémon", "afterExpanded": "Support the plan", "restoredExpanded": "Choose a lead Pokémon", "capture": "captures/held-out-accordion.png" },
+      "imageFailures": [],
+      "consoleWarningsOrErrors": []
+    }
+  },
+  "overall": "PASS"
+}

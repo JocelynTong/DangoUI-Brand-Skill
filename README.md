@@ -133,6 +133,20 @@ src/pages/BrandPreview.vue
 - 生成 `migrations/{brand}/` 下的 DTCG、Echo mapping、dangoui adapter、component mapping 和 README。
 - 把已确认方向应用到 demo，同时区分正式 `--du-*` token 和 `demoOnlyVisualControls`。
 
+## Demo 的目标：品牌学习能力测试
+
+`learn-brand` 的 Demo 不是官网镜像、宿主项目成果，也不是把 Logo、品牌色和官方素材装进固定模板。它只回答一个问题：**Brand Skill 是否从证据中学会了可迁移的视觉语言，并能用这些规律重新组织页面。**
+
+完成 Demo 必须同时给出三类证明：
+
+- `Evidence Proof`：每个高显著度设计决定都能追溯到源站 DOM、computed style、独立资产、动效或截图区域；没有证据的标题栏、底色、边框和装饰必须阻断。
+- `Structure Proof`：构图、信息层级、密度、页面类型和浏览节奏保留了品牌决定性特征，不以“用了官方素材”代替结构还原。
+- `Generative Proof`：先用 reference pages 校准规则，再用未参与校准的 `held-out generative challenge` 验证同一规则能生成新的同类页面；不得复制整张官网截图或只替换素材。
+
+Reference page 用于校准和回归，不单独证明泛化。Held-out challenge 在规则冻结后才揭示给实现/验收链路；失败必须回到 Evidence / Interpreter / Demo 的实际责任角色修正，再由新的 Blind QA 复验。
+
+`apply-host` 是独立工作流：它验证视觉语言在真实业务中的可迁移性、效率和边界，不计入 learn-brand Demo 的三证，也不能用 Demo 地址冒充宿主交付。
+
 ## Claude 试用话术
 
 给 Claude Code 或 Claude.ai 测试时，不要讲内部实现。让它扮演第一次使用 skill 的运营/vibecoder，直接从一句话开始。URL 可以是任意品牌官网，也可以是未来 demo/registry 站点地址：

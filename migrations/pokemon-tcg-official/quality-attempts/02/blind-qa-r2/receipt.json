@@ -1,0 +1,12 @@
+{
+  "schema": "brand-blind-qa-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "qaExecutionId": "blind-qa-r2-20260902-pokemon-official",
+  "freshIndependentContext": true,
+  "forbiddenInputsAbsent": {"implementationRationale": true, "priorVerdict": true, "buildPassAsVisualEvidence": true, "pokemonPitchBlackConclusions": true, "pokemon30Conclusions": true},
+  "reviewedInputs": ["goal-contract-v2.json", "canonical source captures and timelines", "brand-evidence.json", "brand-intent.json", "approved-visual-patterns.json", "rendered-asset-inventory.json", "action-evidence-v02.json", "revision-1 manifests/proof", "live routes"],
+  "verdict": "REWORK",
+  "artifacts": ["visual-qa-assessment.json", "visual-comparison-report.json", "browser-probes.json", "machine-gates.json", "blind-qa-report.md"]
+}

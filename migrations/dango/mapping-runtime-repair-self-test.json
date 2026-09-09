@@ -1,0 +1,73 @@
+{
+  "schema": "mapping-runtime-repair-self-test/v0.1",
+  "brand": "dango",
+  "scope": [
+    "Dango page canvas computed consumption of --du-bg-2",
+    "exclusive runtime role for #5854FF documentation current-navigation cue"
+  ],
+  "verdict": "pass-pending-fresh-independent-mapping-qa",
+  "checks": [
+    {
+      "id": "dango-root-canvas",
+      "selector": ".source-schema-demo--dango",
+      "expected": {
+        "token": "#ffffff",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "backgroundImage": "none"
+      },
+      "actualReport": "migrations/dango/mapping-runtime-probe.json#tokens.rootCanvas",
+      "status": "pass"
+    },
+    {
+      "id": "navigation-purple-exclusive",
+      "allowedSelector": ".dango-docs__nav-group > span.is-current",
+      "runtimeComputedConsumers": 1,
+      "removedRoles": [
+        "Beta badge",
+        "import/code text",
+        "table code",
+        "held-out checklist status mark"
+      ],
+      "actualReport": "migrations/dango/mapping-runtime-probe.json#purpleConsumers",
+      "status": "pass"
+    },
+    {
+      "id": "primary-button-preserved",
+      "selector": "button.du-button.du-button--normal.du-button--primary.dango-docs__primary",
+      "expected": {
+        "component": "DuButton",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "height": 32,
+        "borderRadius": "4px",
+        "interactionLifecycle": true
+      },
+      "actualReport": "migrations/dango/mapping-runtime-probe.json#button",
+      "status": "pass"
+    },
+    {
+      "id": "runtime-source-search",
+      "command": "rg -n -i '#5854ff|rgba\\(88,\\s*84,\\s*255' src --glob '*.{css,vue,js,ts,json}'",
+      "result": [
+        "src/styles.css: --style-docs-navigation-current declaration only"
+      ],
+      "variableConsumers": [
+        ".dango-docs__nav-group > span.is-current color",
+        ".dango-docs__nav-group > span.is-current navigation-only soft background"
+      ],
+      "status": "pass"
+    }
+  ],
+  "commands": [
+    { "command": "npm run build", "status": "pass" },
+    { "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand dango --file migrations/dango/demo-2/section-fidelity-implementation-manifest.json --strict", "status": "pass" },
+    { "command": "node scripts/dango-mapping-runtime-probe.mjs http://127.0.0.1:5179", "status": "pass" },
+    { "command": "node scripts/validate-brand-mod.mjs migrations/dango/brand-mod.json", "status": "pass" },
+    { "command": "node skills/brand/scripts/brand-guard.mjs rule-candidate-gate --brand dango", "status": "pass" }
+  ],
+  "screenshots": [
+    { "path": "migrations/dango/mapping-qa/runtime-repair/dango-button-runtime.png", "sha256": "04d01db3e4e97295f728a73d1cc0f20cf588d31093ff1bb8cf813bc4e210db2c" },
+    { "path": "migrations/dango/mapping-qa/runtime-repair/dango-introduction-runtime.png", "sha256": "412e8a2da63875822536211c24bf06d5f0e2a6f634a8bc332ca5704a52c53a5c" },
+    { "path": "migrations/dango/mapping-qa/runtime-repair/dango-release-held-out-runtime.png", "sha256": "859b021b3498d027bf518c182309257032020ccd0de75a8dc2febb6ef8e5b912" }
+  ],
+  "boundary": "Implementation self-test only. It does not modify or supersede the independent mapping QA report."
+}

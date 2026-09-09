@@ -1,0 +1,4485 @@
+{
+  "schema": "onepiece-dangoui-mapping-runtime-probe/v2",
+  "generatedAt": "2026-09-06T11:20:37.717Z",
+  "base": "http://127.0.0.1:5181",
+  "sourceArtifacts": [
+    "migrations/onepiece-cardgame/brand-profile.dtcg.json",
+    "migrations/onepiece-cardgame/dangoui-adapter.json"
+  ],
+  "verdict": "pass",
+  "status": "PENDING_INDEPENDENT_QA",
+  "summary": {
+    "dtcgTargets": 8,
+    "consumed": 8,
+    "pending": 0,
+    "nativeComponentTypes": 1,
+    "nativeComponentInstances": 1,
+    "unexpectedConsoleMessages": 0
+  },
+  "pending": [],
+  "contractErrors": [],
+  "checks": {
+    "contractComplete": true,
+    "tenScreenshots": true,
+    "primaryRegionsPresent": true,
+    "sectionsPresent": true,
+    "phoneScrollTargetsInspected": true,
+    "phoneScrollablePagesReversible": true,
+    "assetsLoaded": true,
+    "noHorizontalOverflow": true,
+    "allCanonicalTokensConsumed": true,
+    "nativeDuButtonStates": true,
+    "foreignThemesClean": true,
+    "consoleClean": true
+  },
+  "tokenCoverage": [
+    {
+      "sourceToken": "color.surface.content",
+      "targetToken": "--du-bg-1",
+      "expected": "#FFFFFF",
+      "type": "color",
+      "declaredStatus": "runtime-consumed",
+      "selectors": [
+        ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+        ".theme-onepiece-cardgame .opcg-news-feature__lead-copy"
+      ],
+      "observedConsumerCount": 14,
+      "matchedConsumerCount": 14,
+      "consumed": true,
+      "sample": {
+        "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+        "tag": "A",
+        "className": "source-schema-demo__home-editorial-item",
+        "resolvedCustomProperty": "#FFFFFF",
+        "computed": {
+          "color": "rgb(17, 17, 17)",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+          "borderRadius": "0px",
+          "transitionDuration": "0s"
+        }
+      }
+    },
+    {
+      "sourceToken": "fontFamily.utility",
+      "targetToken": "--style-font-body",
+      "expected": [
+        "OPCG Poppins",
+        "Poppins",
+        "Arial",
+        "sans-serif"
+      ],
+      "type": "fontFamily",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".theme-onepiece-cardgame .source-schema-demo"
+      ],
+      "observedConsumerCount": 10,
+      "matchedConsumerCount": 10,
+      "consumed": true,
+      "sample": {
+        "selector": ".theme-onepiece-cardgame .source-schema-demo",
+        "tag": "SECTION",
+        "className": "source-schema-demo source-schema-demo--campaign-home source-schema-demo--onepiece-cardgame",
+        "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+        "computed": {
+          "color": "rgb(17, 17, 17)",
+          "backgroundColor": "rgb(247, 244, 233)",
+          "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+          "borderRadius": "0px",
+          "transitionDuration": "0s"
+        }
+      }
+    },
+    {
+      "sourceToken": "fontFamily.display",
+      "targetToken": "--style-font-display",
+      "expected": [
+        "Alfa Slab One",
+        "Arial Black",
+        "sans-serif"
+      ],
+      "type": "fontFamily",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".source-schema-demo__display-title",
+        ".opcg-news-feature__lead-copy h1"
+      ],
+      "observedConsumerCount": 18,
+      "matchedConsumerCount": 18,
+      "consumed": true,
+      "sample": {
+        "selector": ".source-schema-demo__display-title",
+        "tag": "H2",
+        "className": "source-schema-demo__display-title",
+        "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+        "computed": {
+          "color": "rgb(17, 17, 17)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+          "borderRadius": "0px",
+          "transitionDuration": "0s"
+        }
+      }
+    },
+    {
+      "sourceToken": "fontFamily.narrative",
+      "targetToken": "--style-font-narrative",
+      "expected": [
+        "OPCG Noto Serif",
+        "Noto Serif",
+        "Georgia",
+        "serif"
+      ],
+      "type": "fontFamily",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".opcg-welcome__inner > strong"
+      ],
+      "observedConsumerCount": 2,
+      "matchedConsumerCount": 2,
+      "consumed": true,
+      "sample": {
+        "selector": ".opcg-welcome__inner > strong",
+        "tag": "STRONG",
+        "className": "",
+        "resolvedCustomProperty": "\"OPCG Noto Serif\", \"Noto Serif\", Georgia, serif",
+        "computed": {
+          "color": "rgb(53, 33, 21)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "fontFamily": "\"OPCG Noto Serif\", \"Noto Serif\", Georgia, serif",
+          "borderRadius": "0px",
+          "transitionDuration": "0s"
+        }
+      }
+    },
+    {
+      "sourceToken": "fontFamily.metadata",
+      "targetToken": "--style-font-numeric",
+      "expected": [
+        "OPCG Oswald",
+        "Oswald",
+        "Arial Narrow",
+        "sans-serif"
+      ],
+      "type": "fontFamily",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".source-schema-demo__hero-meta",
+        ".source-schema-demo__home-editorial-item small"
+      ],
+      "observedConsumerCount": 88,
+      "matchedConsumerCount": 88,
+      "consumed": true,
+      "sample": {
+        "selector": ".source-schema-demo__hero-meta",
+        "tag": "SPAN",
+        "className": "source-schema-demo__hero-meta",
+        "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+        "computed": {
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgba(0, 0, 0, 0.66)",
+          "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+          "borderRadius": "0px",
+          "transitionDuration": "0s"
+        }
+      }
+    },
+    {
+      "sourceToken": "dimension.welcomeControlRadius",
+      "targetToken": "--style-welcome-control-radius",
+      "expected": "999px",
+      "type": "dimension",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".opcg-welcome__inner .source-schema-demo__cta"
+      ],
+      "observedConsumerCount": 2,
+      "matchedConsumerCount": 2,
+      "consumed": true,
+      "sample": {
+        "selector": ".opcg-welcome__inner .source-schema-demo__cta",
+        "tag": "A",
+        "className": "source-schema-demo__cta",
+        "resolvedCustomProperty": "999px",
+        "computed": {
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(8, 8, 8)",
+          "fontFamily": "Poppins, sans-serif",
+          "borderRadius": "999px",
+          "transitionDuration": "0.3s"
+        }
+      }
+    },
+    {
+      "sourceToken": "dimension.editorialMediaRadius",
+      "targetToken": "--style-editorial-media-radius",
+      "expected": "0px",
+      "type": "dimension",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".source-schema-demo__product-art",
+        ".source-schema-demo__home-editorial-image"
+      ],
+      "observedConsumerCount": 102,
+      "matchedConsumerCount": 102,
+      "consumed": true,
+      "sample": {
+        "selector": ".source-schema-demo__home-editorial-image",
+        "tag": "IMG",
+        "className": "source-schema-demo__home-editorial-image",
+        "resolvedCustomProperty": "0px",
+        "computed": {
+          "color": "rgb(17, 17, 17)",
+          "backgroundColor": "rgb(233, 228, 215)",
+          "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+          "borderRadius": "0px",
+          "transitionDuration": "0s"
+        }
+      }
+    },
+    {
+      "sourceToken": "duration.welcomeHover",
+      "targetToken": "--style-welcome-hover-duration",
+      "expected": "300ms",
+      "type": "duration",
+      "declaredStatus": "runtime-consumed-style-only",
+      "selectors": [
+        ".opcg-welcome__inner .source-schema-demo__cta"
+      ],
+      "observedConsumerCount": 2,
+      "matchedConsumerCount": 2,
+      "consumed": true,
+      "sample": {
+        "selector": ".opcg-welcome__inner .source-schema-demo__cta",
+        "tag": "A",
+        "className": "source-schema-demo__cta",
+        "resolvedCustomProperty": "300ms",
+        "computed": {
+          "color": "rgb(255, 255, 255)",
+          "backgroundColor": "rgb(8, 8, 8)",
+          "fontFamily": "Poppins, sans-serif",
+          "borderRadius": "999px",
+          "transitionDuration": "0.3s"
+        }
+      }
+    }
+  ],
+  "nativeButton": {
+    "tag": "BUTTON",
+    "className": "du-button du-button--mini du-button--text du-c-primary-bt autoBtn js-bgAnimeBtn onepiece-footer-motion-control autoBtn js-bgAnimeBtn",
+    "text": "Ⅱ",
+    "ariaPressed": "false",
+    "width": 18,
+    "height": 18,
+    "borderRadius": "50%",
+    "hover": {
+      "color": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(0, 33, 86, 0.58)"
+    },
+    "focus": {
+      "focused": true,
+      "outline": "rgb(255, 255, 255) none 0px"
+    },
+    "afterClick": {
+      "text": "▶",
+      "ariaPressed": "true"
+    }
+  },
+  "pages": [
+    {
+      "pageId": "onepiece-cardgame-home",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/home-desktop.png",
+      "hero": {
+        "width": 372,
+        "height": 360
+      },
+      "primaryRegion": {
+        "tag": "SECTION",
+        "className": "click-target source-schema-demo__hero schema-recipe--onepiece-campaign-hero-stage source-schema-demo__hero--variant-7",
+        "width": 372,
+        "height": 360
+      },
+      "sectionCount": 11,
+      "imageCount": 58,
+      "scroll": {
+        "target": "phone-screen",
+        "clientHeight": 803,
+        "scrollHeight": 6187,
+        "before": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--campaign-home source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".opcg-welcome__inner > strong",
+              "tag": "STRONG",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Noto Serif\", \"Noto Serif\", Georgia, serif",
+              "computed": {
+                "color": "rgb(53, 33, 21)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Noto Serif\", \"Noto Serif\", Georgia, serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__hero-meta",
+              "tag": "SPAN",
+              "className": "source-schema-demo__hero-meta",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0.66)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": [
+            {
+              "selector": ".opcg-welcome__inner .source-schema-demo__cta",
+              "tag": "A",
+              "className": "source-schema-demo__cta",
+              "resolvedCustomProperty": "999px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(8, 8, 8)",
+                "fontFamily": "Poppins, sans-serif",
+                "borderRadius": "999px",
+                "transitionDuration": "0.3s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": [
+            {
+              "selector": ".opcg-welcome__inner .source-schema-demo__cta",
+              "tag": "A",
+              "className": "source-schema-demo__cta",
+              "resolvedCustomProperty": "300ms",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(8, 8, 8)",
+                "fontFamily": "Poppins, sans-serif",
+                "borderRadius": "999px",
+                "transitionDuration": "0.3s"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-home",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/home-phone.png",
+      "hero": {
+        "width": 390,
+        "height": 955
+      },
+      "primaryRegion": {
+        "tag": "SECTION",
+        "className": "click-target source-schema-demo__hero schema-recipe--onepiece-campaign-hero-stage source-schema-demo__hero--variant-7",
+        "width": 390,
+        "height": 955
+      },
+      "sectionCount": 11,
+      "imageCount": 58,
+      "scroll": {
+        "target": "document",
+        "clientHeight": 844,
+        "scrollHeight": 7981,
+        "before": 0,
+        "after": 280,
+        "restored": 0,
+        "scrollable": true
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-events .source-schema-demo__home-editorial-item",
+              "tag": "A",
+              "className": "source-schema-demo__home-editorial-item",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--campaign-home source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".opcg-welcome__inner > strong",
+              "tag": "STRONG",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Noto Serif\", \"Noto Serif\", Georgia, serif",
+              "computed": {
+                "color": "rgb(53, 33, 21)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Noto Serif\", \"Noto Serif\", Georgia, serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__hero-meta",
+              "tag": "SPAN",
+              "className": "source-schema-demo__hero-meta",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0.66)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": [
+            {
+              "selector": ".opcg-welcome__inner .source-schema-demo__cta",
+              "tag": "A",
+              "className": "source-schema-demo__cta",
+              "resolvedCustomProperty": "999px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(8, 8, 8)",
+                "fontFamily": "Poppins, sans-serif",
+                "borderRadius": "999px",
+                "transitionDuration": "0.3s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgba(255, 255, 255, 0.06)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(22, 16, 10)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": [
+            {
+              "selector": ".opcg-welcome__inner .source-schema-demo__cta",
+              "tag": "A",
+              "className": "source-schema-demo__cta",
+              "resolvedCustomProperty": "300ms",
+              "computed": {
+                "color": "rgb(255, 255, 255)",
+                "backgroundColor": "rgb(8, 8, 8)",
+                "fontFamily": "Poppins, sans-serif",
+                "borderRadius": "999px",
+                "transitionDuration": "0.3s"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-news",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/news-desktop.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "H1",
+        "className": "",
+        "width": 185.03125,
+        "height": 49.96875
+      },
+      "sectionCount": 4,
+      "imageCount": 10,
+      "scroll": {
+        "target": "phone-screen",
+        "clientHeight": 803,
+        "scrollHeight": 1886,
+        "before": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-news-feature__lead-copy",
+              "tag": "DIV",
+              "className": "opcg-news-feature__lead-copy",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--editorial-list source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".opcg-news-feature__lead-copy h1",
+              "tag": "H1",
+              "className": "",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-news",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/news-phone.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "H1",
+        "className": "",
+        "width": 199.078125,
+        "height": 49.96875
+      },
+      "sectionCount": 4,
+      "imageCount": 10,
+      "scroll": {
+        "target": "document",
+        "clientHeight": 844,
+        "scrollHeight": 2195,
+        "before": 0,
+        "after": 280,
+        "restored": 0,
+        "scrollable": true
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .opcg-news-feature__lead-copy",
+              "tag": "DIV",
+              "className": "opcg-news-feature__lead-copy",
+              "resolvedCustomProperty": "#FFFFFF",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(255, 255, 255)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--editorial-list source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__display-title",
+              "tag": "H2",
+              "className": "source-schema-demo__display-title",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".opcg-news-feature__lead-copy h1",
+              "tag": "H1",
+              "className": "",
+              "resolvedCustomProperty": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Alfa Slab One\", \"Alfa Slab One\", \"Arial Black\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-item small",
+              "tag": "SMALL",
+              "className": "",
+              "resolvedCustomProperty": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+              "computed": {
+                "color": "rgb(113, 104, 88)",
+                "backgroundColor": "rgba(0, 0, 0, 0)",
+                "fontFamily": "\"OPCG Oswald\", Oswald, \"Arial Narrow\", sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__home-editorial-image",
+              "tag": "IMG",
+              "className": "source-schema-demo__home-editorial-image",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(233, 228, 215)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-products",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/products-desktop.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "STRONG",
+        "className": "",
+        "width": 340,
+        "height": 34.1875
+      },
+      "sectionCount": 2,
+      "imageCount": 8,
+      "scroll": {
+        "target": "phone-screen",
+        "clientHeight": 803,
+        "scrollHeight": 1091,
+        "before": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--product-gallery source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-products",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/products-phone.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "STRONG",
+        "className": "",
+        "width": 358,
+        "height": 34.1875
+      },
+      "sectionCount": 2,
+      "imageCount": 8,
+      "scroll": {
+        "target": "document",
+        "clientHeight": 844,
+        "scrollHeight": 1118,
+        "before": 0,
+        "after": 274,
+        "restored": 0,
+        "scrollable": true
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--product-gallery source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": [
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            },
+            {
+              "selector": ".source-schema-demo__product-art",
+              "tag": "IMG",
+              "className": "source-schema-demo__product-art source-schema-demo__product-art--product-gallery source-schema-demo__product-art--products",
+              "resolvedCustomProperty": "0px",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(232, 232, 228)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-events",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/events-desktop.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "HEADER",
+        "className": "opcg-event-discovery__heading",
+        "width": 316,
+        "height": 96.28125
+      },
+      "sectionCount": 3,
+      "imageCount": 9,
+      "scroll": {
+        "target": "phone-screen",
+        "clientHeight": 803,
+        "scrollHeight": 2192,
+        "before": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--event-list source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(244, 241, 230)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-events",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/events-phone.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "HEADER",
+        "className": "opcg-event-discovery__heading",
+        "width": 334,
+        "height": 98.875
+      },
+      "sectionCount": 3,
+      "imageCount": 9,
+      "scroll": {
+        "target": "document",
+        "clientHeight": 844,
+        "scrollHeight": 2229,
+        "before": 0,
+        "after": 280,
+        "restored": 0,
+        "scrollable": true
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--event-list source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(244, 241, 230)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-editorial-held-out",
+      "surface": "desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/held-out-desktop.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "HEADER",
+        "className": "source-schema-demo__event-board-heading",
+        "width": 324,
+        "height": 25.515625
+      },
+      "sectionCount": 2,
+      "imageCount": 5,
+      "scroll": {
+        "target": "phone-screen",
+        "clientHeight": 803,
+        "scrollHeight": 803,
+        "before": 0
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--editorial-held-out source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    },
+    {
+      "pageId": "onepiece-cardgame-editorial-held-out",
+      "surface": "phone",
+      "viewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/onepiece-cardgame/mapping-runtime/captures/held-out-phone.png",
+      "hero": null,
+      "primaryRegion": {
+        "tag": "HEADER",
+        "className": "source-schema-demo__event-board-heading",
+        "width": 342,
+        "height": 26.828125
+      },
+      "sectionCount": 2,
+      "imageCount": 5,
+      "scroll": {
+        "target": "document",
+        "clientHeight": 844,
+        "scrollHeight": 844,
+        "before": 0,
+        "after": 0,
+        "restored": 0,
+        "scrollable": false
+      },
+      "horizontalOverflow": false,
+      "brokenImages": [],
+      "observations": [
+        {
+          "sourceToken": "color.surface.content",
+          "targetToken": "--du-bg-1",
+          "type": "color",
+          "expected": "#FFFFFF",
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.utility",
+          "targetToken": "--style-font-body",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Poppins",
+            "Poppins",
+            "Arial",
+            "sans-serif"
+          ],
+          "consumers": [
+            {
+              "selector": ".theme-onepiece-cardgame .source-schema-demo",
+              "tag": "SECTION",
+              "className": "source-schema-demo source-schema-demo--editorial-held-out source-schema-demo--onepiece-cardgame",
+              "resolvedCustomProperty": "'OPCG Poppins', Poppins, Arial, sans-serif",
+              "computed": {
+                "color": "rgb(17, 17, 17)",
+                "backgroundColor": "rgb(247, 244, 233)",
+                "fontFamily": "\"OPCG Poppins\", Poppins, Arial, sans-serif",
+                "borderRadius": "0px",
+                "transitionDuration": "0s"
+              }
+            }
+          ]
+        },
+        {
+          "sourceToken": "fontFamily.display",
+          "targetToken": "--style-font-display",
+          "type": "fontFamily",
+          "expected": [
+            "Alfa Slab One",
+            "Arial Black",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.narrative",
+          "targetToken": "--style-font-narrative",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Noto Serif",
+            "Noto Serif",
+            "Georgia",
+            "serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "fontFamily.metadata",
+          "targetToken": "--style-font-numeric",
+          "type": "fontFamily",
+          "expected": [
+            "OPCG Oswald",
+            "Oswald",
+            "Arial Narrow",
+            "sans-serif"
+          ],
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.welcomeControlRadius",
+          "targetToken": "--style-welcome-control-radius",
+          "type": "dimension",
+          "expected": "999px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "dimension.editorialMediaRadius",
+          "targetToken": "--style-editorial-media-radius",
+          "type": "dimension",
+          "expected": "0px",
+          "consumers": []
+        },
+        {
+          "sourceToken": "duration.welcomeHover",
+          "targetToken": "--style-welcome-hover-duration",
+          "type": "duration",
+          "expected": "300ms",
+          "consumers": []
+        }
+      ]
+    }
+  ],
+  "foreign": [
+    {
+      "brand": "dango",
+      "onepieceAncestor": false,
+      "onepieceThemeNodes": 0,
+      "computedFontFamily": "Inter, ui-sans-serif, -apple-system, \"system-ui\", \"Segoe UI\", sans-serif"
+    },
+    {
+      "brand": "pokemon-tcg-official",
+      "onepieceAncestor": false,
+      "onepieceThemeNodes": 0,
+      "computedFontFamily": "\"PT Sans\", sans-serif"
+    }
+  ],
+  "consoleMessages": []
+}

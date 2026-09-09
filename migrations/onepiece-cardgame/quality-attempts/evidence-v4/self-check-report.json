@@ -1,0 +1,69 @@
+{
+  "schema": "brand-evidence-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": "evidence-v4",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "executedAt": "2026-09-01T14:30:00+08:00",
+  "inputBoundary": {
+    "used": [
+      "official source pages named by the frozen goal",
+      "migrations/onepiece-cardgame/goal-contract.json",
+      "migrations/onepiece-cardgame/source-observation-manifest.json",
+      "output/visual-qa/onepiece-cardgame/evidence-v4",
+      "existing v3 brand-evidence.json and action-evidence-v02.json as seed-only inputs"
+    ],
+    "excluded": [
+      "Demo implementation",
+      "public/brand-previews",
+      "src",
+      "demo screenshots",
+      "brand-intent",
+      "old QA verdicts"
+    ]
+  },
+  "steps": [
+    {"step": 1, "name": "contract-read", "status": "pass", "result": "Read the complete brand skill, Evidence Agent contract, learn-brand workflow and sealed goal contract."},
+    {"step": 2, "name": "capture-integrity", "status": "pass", "result": "All four required pages have frozen full-page captures, continuous media, lossless frames and timelines whose hashes pass the strict gate."},
+    {"step": 3, "name": "scroll-coverage", "status": "pass", "result": "Home 0→6151/6871, News 0→2146.5/2866, Products 0→1979/2699, Events 0→3456/4176 with a 720px viewport; each reaches the page end."},
+    {"step": 4, "name": "page-claim-extraction", "status": "pass", "result": "Each required page has high-salience composition, heading/control composition, content-density and asset claims tied to v4 captures and timelines."},
+    {"step": 5, "name": "claim-structure-audit", "status": "pass", "result": "All 18 observed claims have sourcePageId, readable v4 capture, positive normalized region, selector, visible=true and non-zero boundingBox; interaction claims include exact computed property/value."},
+    {"step": 6, "name": "interaction-upgrade", "status": "pass", "result": "Both action entries now reference v4 continuous capture and timeline, preserve menu-open/hover-transition labels, and retain before/after computed values and source rules."},
+    {"step": 7, "name": "seed-disposition", "status": "pass", "result": "Relevant v3 seeds were validated against v4 claims; the broad global-yellow seed remains explicitly unresolved rather than promoted to a semantic rule."},
+    {"step": 8, "name": "consumer-readiness", "status": "pass", "result": "readyForInterpreter was set true only after the page-by-page self-check completed with no missing required claim category."},
+    {"step": 9, "name": "strict-gate", "status": "pass", "result": "evidence-visibility-gate exited 0 with no blocking items and no warnings."}
+  ],
+  "pageClaimCounts": {
+    "home": {"observed": 6, "composition": 2, "contentDensity": 1, "asset": 1, "interaction": 2},
+    "news": {"observed": 4, "composition": 2, "contentDensity": 1, "asset": 1, "interaction": 0},
+    "products": {"observed": 4, "composition": 2, "contentDensity": 1, "asset": 1, "interaction": 0},
+    "events": {"observed": 4, "composition": 2, "contentDensity": 1, "asset": 1, "interaction": 0}
+  },
+  "gaps": [
+    {
+      "id": "global-yellow-semantics",
+      "severity": "non-blocking-evidence-boundary",
+      "status": "unresolved",
+      "detail": "v4 evidence proves only the actual menu-open color change and yellow contained in artwork. Evidence Agent does not name or approve a broader semantic role."
+    },
+    {
+      "id": "hover-timeline-label",
+      "severity": "non-blocking",
+      "status": "recorded-as-captured",
+      "detail": "The final stable hover frames retain the source timeline label hover-transition; action evidence does not rename them to an invented settled state."
+    }
+  ],
+  "gate": {
+    "command": "node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand onepiece-cardgame --strict",
+    "exitCode": 0,
+    "ok": true,
+    "gateName": "screenshot-first-evidence",
+    "claimCount": 18,
+    "pageClaimCounts": {"home": 6, "news": 4, "products": 4, "events": 4},
+    "actionEntryCount": 2,
+    "blockingCount": 0,
+    "warningCount": 0,
+    "summary": "All required capture/hash/scroll/page-claim/interaction/region/DOM/computed checks passed."
+  },
+  "verdict": "PASS",
+  "readyForInterpreter": true
+}

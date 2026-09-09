@@ -1,0 +1,63 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 4,
+  "freshQa": true,
+  "scope": "minimal experiment: pages/plaza/index only",
+  "verdict": "PASS",
+  "workflowCompletion": "PASS_FOR_MINIMAL_EXPERIMENT_ONLY",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "PASS_FOR_DIRECTION_TEST",
+  "wholeHostCompletion": "NOT_EVALUATED_AND_NOT_CLAIMED",
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "evidence": [
+    "comparison.json",
+    "fresh-browser-probes.json",
+    "filter-parity.json",
+    "image-measurements.json",
+    "mobile-390x844-plaza-fresh.png",
+    "desktop-1280x720-plaza-fresh.png"
+  ],
+  "criteria": {
+    "warmWhiteDominates": "PASS",
+    "darkIsLocal": "PASS",
+    "pillAndRadiusReduction": "PASS",
+    "redYellowSparseRoles": "PASS_WITH_MOBILE_DENSITY_NOTE",
+    "searchTaxonomyFirstCardAboveFold": "PASS",
+    "rectangularContentIslandsAndEditorialSpacing": "PASS",
+    "cjkHierarchy": {
+      "verdict": "PASS",
+      "evidence": "Mobile controls are 11.96–13.52px with 19.14–21.63px line heights, campaign title is 14.56px/900, and body/meta remain visually subordinate. CJK-capable Yu Gothic/Hiragino/Microsoft YaHei fallbacks are present for controls; no Latin display face is claimed as the CJK renderer."
+    },
+    "horizontalOverflow": "PASS_0_OVERFLOW",
+    "maskedStructuralRecognition": "PASS",
+    "explicitIpRecognition": "DIAGNOSTIC_NOT_REQUIRED_FOR_THIS_HOST_EXPERIMENT"
+  },
+  "interactionRegression": {
+    "deckEventTabs": "PASS",
+    "filter": "PASS_POINTER_ENTER_SPACE_PARITY",
+    "search": "PASS_QUERY_FILTERED",
+    "cardNavigation": "PASS_POINTER_ENTER_SPACE_TO_EXISTING_DETAIL_ROUTE",
+    "externalWrites": 0,
+    "storageMutation": false
+  },
+  "siblingRouteRegression": {
+    "verdict": "PASS_NO_MATERIAL_CHANGE",
+    "routesChecked": 5,
+    "capturesChecked": 10,
+    "exactPixelMatches": 4,
+    "nonExactDeltaRange": "0.004235–0.010677 strong changed-pixel ratio",
+    "note": "Six captures are not byte-identical to Attempt3, but deltas are confined below 1.1% and do not change structure or measured mass roles; this is recorded rather than misreported as hash identity."
+  },
+  "differenceImprovement": {
+    "qualitative": "Material improvement. The page has moved from palette-led generic dark gaming UI to a source-relative paper/editorial system while preserving the deck-browsing job.",
+    "measuredEvidence": [
+      "Warm surface rose from 29.8% to 69.65% mobile and 11.08% to 70.14% desktop.",
+      "Dark surface fell from 57.55% to 19.26% mobile and 84.05% to 26.01% desktop.",
+      "Fresh DOM contains 0 pill controls and 0 controls with radius >=12px.",
+      "62.08% mobile and 74.46% desktop pixels changed strongly versus Attempt3."
+    ],
+    "nonClaim": "No scalar visual-similarity percentage is asserted. This PASS validates the Plaza direction and does not certify the remaining five routes or the full host as visually complete."
+  }
+}

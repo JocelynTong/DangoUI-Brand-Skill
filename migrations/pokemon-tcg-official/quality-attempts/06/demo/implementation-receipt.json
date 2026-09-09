@@ -1,0 +1,21 @@
+{
+  "schema": "brand-implementation-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 6,
+  "role": "Demo Implementation Agent",
+  "status": "ready-for-independent-visual-qa",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "evidenceInput": "../evidence/carousel-evidence.json",
+  "outputs": {
+    "src/App.vue": "7075d307701aaf5df25b042aa3c4691b8036512712e51b6e88cd44b2e670968d",
+    "src/styles.css": "d31e0c2ce7ed5442fbdbda82a85903a6a8a4aefd429e7d15874d04c983523133",
+    "public/brand-previews/pokemon-tcg-official.json": "52a8a388b6ba26c8562491f9fb2e0191a0c49af7ccdafa96c0d3e2be2a28eea3",
+    "browser-probes.json": "ad52763ec663a7bb6a4e6f91ecde5f372b1ce3caabbb456e1404ee8cd5d975d5"
+  },
+  "selfTest": {
+    "result": "PASS",
+    "visualVerdict": "not-assigned-by-implementation-agent",
+    "changedVisibleIdentities": ["background", "titleImage/titleText", "featured card", "CTA", "held-out disclosure"],
+    "capturedStates": ["default", "transition", "settled held-out", "menu open", "restored", "reduced-motion settled"]
+  }
+}

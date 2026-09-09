@@ -1,0 +1,107 @@
+{
+  "schema": "brand-source-observation/v1",
+  "brand": "onepiece-cardgame",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "capturedAt": "2026-09-01T14:03:00+08:00",
+  "viewport": { "width": 1280, "height": 720 },
+  "capturePolicy": {
+    "screenshotFirst": true,
+    "continuousCaptureRequired": true,
+    "continuousCaptureFormat": "image/gif",
+    "continuousCaptureNote": "Animated source playback plus lossless PNG frames and a machine-readable scroll timeline. Frames are the audit source; playback is the review convenience layer.",
+    "requiredPageStates": ["initial", "continuous-scroll", "settled-end"],
+    "requiredInteractionStates": ["default", "transition", "settled"]
+  },
+  "supplementalLiveDomEvidence": [
+    {
+      "pageId": "home",
+      "path": "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+      "status": "accepted",
+      "claimCount": 13,
+      "coverage": ["same-frame selector crops", "computed styles", "source rules", "Welcome CTA default/transition/settled", "Hero seven-slide closed cycle", "Hero autoplay pause/resume"]
+    },
+    {
+      "pageId": "home-mobile-attempt-11",
+      "path": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/mobile-responsive-checklist.json",
+      "status": "blocked-by-demo-shell-collapse",
+      "viewport": { "source": [390, 844], "demo": [387, 800] },
+      "coverage": ["full-page screenshots", "per-section source crops", "bounding boxes", "overflow and clipping", "font scaling", "reflow classification", "touch-target availability"],
+      "evidenceManifest": "migrations/onepiece-cardgame/quality-attempts/11/evidence-manifest.json"
+    }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://asia-en.onepiece-cardgame.com/",
+      "status": "covered",
+      "fullPageCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png", "sha256": "a4a27247f174cc816dc8afc17f19335b2c5cd0986d2c009c33aa940b0752c033" },
+      "continuousCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/source-home-scroll.gif", "sha256": "8dba7d475f4f52a86f4c3864be895885eae1846ed0361574f00aec4bab545c43", "frameCount": 34, "fps": 4 },
+      "timeline": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json", "sha256": "01fc127c5e2e5a2e51fa475a373799f45168797165a5a2e279cb65ee43d10a99", "startScrollTop": 0, "endScrollTop": 6151, "scrollHeight": 6871 },
+      "footerAnimatedOrganism": {"status":"covered","evidence":"migrations/onepiece-cardgame/footer-motion-evidence-v10.json","viewport":[1280,720],"states":["default-before-entry","transition-120ms","transition-500ms","settled-full","late-loop","paused"],"timeline":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/sequence-v10.json","spatialCompositionDirectlyVisible":true,"allReferencedCapturesVisuallyInspected":true}
+    },
+    {
+      "id": "news",
+      "url": "https://asia-en.onepiece-cardgame.com/news/",
+      "status": "covered",
+      "fullPageCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png", "sha256": "cbe979fdfebc41189cf909bc7d7913ef638000d0429822288f67c29a7dde0211" },
+      "continuousCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/source-news-scroll.gif", "sha256": "5f6bab551bfa52036299a97037c582cadc7b01a2fce5965ae8710e023639a545", "frameCount": 18, "fps": 4 },
+      "timeline": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json", "sha256": "c428deba204a110ce1eab974a6ac30a661c2083b8db9362e79ed08fa03a539ed", "startScrollTop": 0, "endScrollTop": 2146.5, "scrollHeight": 2866 }
+    },
+    {
+      "id": "products",
+      "url": "https://asia-en.onepiece-cardgame.com/products/?view=normal",
+      "status": "covered",
+      "fullPageCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png", "sha256": "8960cbe1a67d01f9cf7ad4f8da48988ed269d7fe5e739b91f1aa3de682219acc" },
+      "continuousCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/source-products-scroll.gif", "sha256": "94be2ed7be271a58ae67fe3ec970152110e6f4622a815daf2683595db37961b4", "frameCount": 18, "fps": 4 },
+      "timeline": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json", "sha256": "a6af2b0caa7d86dfe25090bd98036b41b5ceceb09b38296da9bf3a8656b0f628", "startScrollTop": 0, "endScrollTop": 1979, "scrollHeight": 2699 }
+    },
+    {
+      "id": "events",
+      "url": "https://asia-en.onepiece-cardgame.com/events/",
+      "status": "covered",
+      "fullPageCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png", "sha256": "3b21e9774d3b16a645f5cfe4fb7090d619841022fc494a0dcf90bc760d30818a" },
+      "continuousCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/source-events-scroll.gif", "sha256": "21cbc73089a49550645d06ffa2f4744d9bf8845d2f85aba565738d2b463840a7", "frameCount": 24, "fps": 4 },
+      "timeline": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json", "sha256": "8efcb9aefc754bc32d4ee183b5d5bc90401670f68abe75ab6e983b8f311f57d7", "startScrollTop": 0, "endScrollTop": 3456, "scrollHeight": 4176 }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "top-menu-open-yellow-label",
+      "pageId": "home",
+      "status": "covered",
+      "continuousCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/source-menu-open.gif", "sha256": "648bd8ddac50bb18de019d3c4e747809813c586f7cb11ea622b50de42f2d89dc", "frameCount": 9, "fps": 4 },
+      "timeline": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-timeline.json", "sha256": "988087bc54e1a5ce8e776ddab4402a8ea3fcf194af582ec743a8ffb4f2573023" }
+    },
+    {
+      "id": "welcome-cta-hover-scale-shadow",
+      "pageId": "home",
+      "status": "covered",
+      "continuousCapture": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/source-welcome-hover.gif", "sha256": "b15ac5352ef1d57ab54a4fb9fa82f6b3c3d34dd75b11b834306eba1ca173eba2", "frameCount": 12, "fps": 8 },
+      "timeline": { "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/hover-timeline.json", "sha256": "655a8802c3dc6e8245d78fdc72f1b8bc58711089e156ca6ceaf10f912743c4a4" }
+    }
+  ],
+  "coverage": {
+    "requiredPageIds": ["home", "news", "products", "events"],
+    "coveredPageIds": ["home", "news", "products", "events"],
+    "pageCoverage": 1,
+    "interactionCoverage": 1,
+    "readyForClaimExtraction": true,
+    "pageClaimCounts": {
+      "home": 6,
+      "news": 4,
+      "products": 4,
+      "events": 4
+    },
+    "claimSelfCheck": {
+      "requiredPageKinds": ["composition", "heading/control composition", "content-density", "asset"],
+      "capturePathsReadable": true,
+      "normalizedRegionsValid": true,
+      "visibleDomSelectorsPresent": true,
+      "visibleDomBoundingBoxesNonZero": true,
+      "exactComputedRequiredClaimsComplete": true,
+      "actionEvidenceReferencesV4ContinuousCapture": true
+    },
+    "readyForInterpreter": true,
+    "blockingReason": null
+  }
+}

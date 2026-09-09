@@ -1,0 +1,94 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "scope": "homepage Pokémon Championship Series section only",
+  "status": "PASS",
+  "evidencePolicy": {
+    "source": "Attempt 11 frozen captures, archived source assets, live-DOM observations reported during the same run, and computed-style facts from that run only",
+    "networkUsedForArchive": true,
+    "absolutePageY": "non-structural only; page-level Y drift was observed and is not used as a fidelity invariant",
+    "geometryBasis": "section-local coordinates"
+  },
+  "claims": [
+    {
+      "id": "section-identity-boundary",
+      "status": "validated",
+      "claim": "The first complete high-salience section after TCG Pocket is POKÉMON CHAMPIONSHIP SERIES and the next section is Play! Pokémon.",
+      "visual": {"capture": "captures/desktop/championship-series-settled-region-1440x720.png", "region": [0, 0, 1440, 720]},
+      "dom": {"subject": "live article.championships and adjacent rendered articles", "fact": "Championship Series is rendered after TCG Pocket and before Play! Pokémon."},
+      "computed": {"articleLocalRect": [0, 0, 1440, 720]},
+      "sourceTrace": "source-observation-manifest.json#observations.section-identity"
+    },
+    {
+      "id": "desktop-transparent-two-column-layering",
+      "status": "validated",
+      "claim": "At 1440 the section is a transparent 1440x720 row-reverse composition: content left and a 720x720 official image right; no observed pseudo-element or child background creates the white field.",
+      "visual": {"capture": "captures/desktop/championship-series-settled-region-1440x720.png", "region": [0, 0, 1440, 720]},
+      "dom": {"subject": "article, row, image column, content column, content box", "fact": "row display:flex; flex-direction:row-reverse; article/row/columns/content backgrounds transparent; no pseudo fill observed"},
+      "computed": {"article": [0, 0, 1440, 720], "imageColumn": [720, 0, 720, 720], "contentColumn": [0, 0, 720, 720], "content": [12, 171.211, 696, 377.578], "canvasColorRole": "white page canvas"},
+      "sourceTrace": "source-observation-manifest.json#observations.desktop-geometry"
+    },
+    {
+      "id": "mobile-image-first-reflow",
+      "status": "validated",
+      "claim": "At 390 the row becomes block and reading order is image first, then copy and CTA; the section remains transparent over the white page canvas.",
+      "visual": {"capture": "captures/mobile/championship-series-settled-region-390x829-scale50.png", "region": [0, 0, 195, 414], "scale": 0.5},
+      "dom": {"subject": "article.championships row and children", "fact": "display:block; image DOM/visual first, content second; all inspected backgrounds transparent"},
+      "computed": {"article": [0, 0, 390, 829.1719], "image": [0, 0, 390, 390], "content": [8, 390, 374, 439.172]},
+      "sourceTrace": "source-observation-manifest.json#observations.mobile-geometry"
+    },
+    {
+      "id": "official-asset-identity",
+      "status": "validated",
+      "claim": "Both official square candidates are archived: championships.jpg is 696x696 with SHA-256 0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d, and championships-2x.jpg is 1392x1392 with SHA-256 862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db. In the observed 390px browser session src declared the 1x URL while currentSrc selected the 2x URL.",
+      "visual": {"capture": "captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 0, 390, 390]},
+      "dom": {"subject": "Championship Series img", "fact": "src ends championships.jpg; srcset declares 1x and 2x; observed mobile currentSrc ends championships-2x.jpg; naturalWidth/naturalHeight=696/696"},
+      "computed": {"desktopRenderedRect": [720, 0, 720, 720], "mobileRenderedRect": [0, 0, 390, 390]},
+      "sourceTrace": "rendered-asset-inventory.json#renderedAssets"
+    },
+    {
+      "id": "mobile-typography-hierarchy",
+      "status": "validated",
+      "claim": "The 390px copy stack uses a three-line Kanit heading, PT Sans body copy and a centered black CTA with the frozen dimensions and spacing.",
+      "visual": {"capture": "captures/source-mobile-390-content-settled.png", "region": [0, 390, 390, 439.172]},
+      "dom": {"subject": "content h2, p and a.button", "fact": "heading then paragraph then Learn more CTA"},
+      "computed": {"h2": {"rect": [32, 414, 326, 97.5], "fontFamily": "Kanit", "fontWeight": 700, "fontSize": 32, "lineHeight": 32.5, "marginBottom": 8}, "paragraph": {"rect": [32, 519.5, 326, 201.578], "fontFamily": "PT Sans", "fontWeight": 400, "fontSize": 18, "lineHeight": 28.8}, "cta": {"rect": [99.625, 737.078, 190.742, 51.297], "marginTop": 16, "paddingBlock": 14.4, "paddingInline": 36, "fontFamily": "PT Sans", "fontWeight": 700, "fontSize": 18, "lineHeight": 22.5, "background": "black", "contentColor": "white", "borderRadius": 2, "shadow": "observed"}},
+      "sourceTrace": "source-observation-manifest.json#observations.mobile-typography"
+    },
+    {
+      "id": "desktop-cta-states-and-destination",
+      "status": "validated",
+      "claim": "Desktop default, hover transition, hover settled, keyboard focus and activated destination are independently frozen; href/destination is https://championships.pokemon.com/en-us/.",
+      "visual": {"captures": ["captures/desktop/championship-series-cta-default-1440x900.png", "captures/desktop/championship-series-cta-hover-transition-1440x900.png", "captures/desktop/championship-series-cta-hover-settled-1440x900.png", "captures/desktop/championship-series-cta-focus-1440x900.png", "captures/desktop/championship-series-cta-destination-1440x900.png"], "region": "CTA and resulting destination viewport"},
+      "dom": {"subject": "a.button", "fact": "href=https://championships.pokemon.com/en-us/"},
+      "computed": {"hoverMechanism": ".button__bg::before scales on hover", "cssTransition": "transform 0.2s ease-in-out", "note": "The CSS rule is archived; captures freeze endpoints/transition but do not establish capture timestamps."},
+      "sourceTrace": "interaction-state-matrix.json#desktop-1440"
+    },
+    {
+      "id": "reversible-scroll",
+      "status": "validated-endpoints",
+      "claim": "Before/after/restored page-scroll continuity is evidenced on desktop and mobile; absolute page Y is deliberately excluded from structural claims.",
+      "visual": {"captures": ["captures/source-desktop-scroll-before.png", "captures/source-desktop-section-settled-visible.png", "captures/continuous/desktop-restored.png", "captures/source-mobile-390-scroll-before.png", "captures/source-mobile-390-content-settled.png", "captures/source-mobile-390-scroll-restored.png"], "region": "full viewport endpoints"},
+      "dom": {"subject": "document scrolling element", "fact": "same homepage context was scrolled to the target and restored"},
+      "computed": {"structuralMetric": "none from absolute pageY", "invariant": "section-local geometry only"},
+      "sourceTrace": "interaction-state-matrix.json#scroll"
+    },
+    {
+      "id": "mobile-cta-interactions",
+      "status": "validated",
+      "claim": "Mobile default, hover-settled, keyboard focus and activated destination are independently frozen at 390x844.",
+      "visual": {"captures": ["captures/mobile/championship-series-cta-default-390x844.png", "captures/mobile/championship-series-cta-hover-settled-390x844.png", "captures/mobile/championship-series-cta-focus-390x844.png", "captures/mobile/championship-series-cta-destination-390x844.png"], "region": "CTA viewport and destination viewport"},
+      "dom": {"subject": "mobile a.button", "fact": "href and activated final URL both equal https://championships.pokemon.com/en-us/"},
+      "computed": {"defaultPseudoScaleX": 0, "hoverPseudoScaleX": 1, "hoverFill": "rgb(226,186,101)", "focusOutline": "rgb(0,95,204) auto 1px"},
+      "sourceTrace": "interaction-state-matrix.json#mobile-390"
+    }
+  ],
+  "unresolved": [
+    "Exact desktop typography bounding boxes (non-blocking; mobile type and desktop section geometry are frozen)",
+    "Dembrandt result (tool unavailable; non-blocking because screenshot-first evidence plus DOM/computed reverse lookup is complete)"
+  ],
+  "handoffBlockers": [],
+  "implementationGate": "open"
+}

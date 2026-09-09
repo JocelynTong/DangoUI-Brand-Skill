@@ -1,0 +1,37 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"10-demo-revision3",
+  "role":"Demo Implementation Agent",
+  "executionId":"/root/pokemon_compact_flip_hero_demo_r2",
+  "scope":"homepage/home-editorial-grid plus isolated held-out-pocket-family",
+  "decision":"ready-for-fresh-independent-blind-qa",
+  "inputBindings":{
+    "goalSha256":"0ae34c4a6666c30cb34e2eddef68edc74628d40a71a5fbc88a6bdd814748d566",
+    "evidenceSha256":"cc4ddec316461de05ed51dfe2bbba65e7357f7c0857e733cc00b2328ad44bc40",
+    "intentSha256":"2f16e1b4bc7dfe6495343e8c0e76780e39719290509e7c98823ca5addb2a1c26",
+    "patternsSha256":"c75427463a9e867fc1b87cc949c9d9d932c8a4d85f20827c312f5e4ec12507c0",
+    "designDirectionSha256":"75d1b24f68a5e36c223661462816bceea948f561f6c29a79b5cb3e837c85f475"
+  },
+  "codeChanges":[
+    {"path":"src/App.vue","sha256":"7d6cd9564dfbdb89ff4f0041d6642ad668d32d49dee80260aadddd81bc5ea246","change":"promote Pocket background to full-section sibling; support explicitly fictional Pocket held-out rendering and its independent desktop proof surface"},
+    {"path":"src/styles.css","sha256":"a9e4508d7e2813c38ac77d7c8cf5f21936442cf16254a38da7c325c7f0f137ed","change":"full-article background, exact inset copy geometry, preserved mobile occlusion, and held-out arrangement/styles"},
+    {"path":"public/brand-previews/pokemon-tcg-official.json","sha256":"30763c0ee95700bc3b0796198caddf7e560d387ce9073e55cbf74588785b3f4b","change":"directly reachable Pocket Fixture page with explicit held-out metadata and two schema sections"},
+    {"path":"scripts/pokemon-home-attempt10-revision3-probe.mjs","sha256":"c6fbdd49b36041d12f80e472aa2bd43c256c8f005b1abab5a673ff9e4eea5410","change":"calibration, held-out and prior-section regression probes"}
+  ],
+  "outputs":[
+    {"path":"browser-probes.json","sha256":"d4ff77c0d0095566d2eb5d5606228697f9594811d15e562858b16f952da70383"},
+    {"path":"visual-pattern-inventory.json","sha256":"e89ce5757993d11314e4fea18de85842b9a1a17272caa20feab932c742edd9a7"},
+    {"path":"generative-proof.json","sha256":"3f16dfbef6781dd355abca6b46316fd60a84651e405f70d0c675ee7cff1c57cb"},
+    {"path":"section-fidelity-manifest.json","sha256":"90e836ffda418951f1d58bcb98feadb75f2238f020b6281fc5594c03368af9dc"},
+    {"path":"provenance.json","sha256":"ba3f7076c52ad2947295afe9d1d889543ef689eb7df422a3572c3ab8343ed93a"},
+    {"path":"gate-results.json","sha256":"e5aa98427c45089e8ae0cd09a4fa2db4711fe56c2ad448fa621c45dc09107eaf"},
+    {"path":"report.md","sha256":"f5b5b01aff138471362a15f28f86e9c6a3504ac009579428bb394b88e53002f4"}
+  ],
+  "captures":["captures/calibration-desktop-1440-settled.png","captures/calibration-desktop-1440-hover.png","captures/calibration-mobile-390-settled.png","captures/calibration-mobile-390-hover.png","captures/held-out-desktop-1440-settled.png","captures/held-out-desktop-1440-hover.png","captures/held-out-mobile-390-settled.png","captures/held-out-mobile-390-hover.png"],
+  "implementationChecksPass":true,
+  "buildPass":true,
+  "motionDisposition":"unresolved/unscored and omitted",
+  "visualVerdict":"not-assigned-by-implementation-agent",
+  "handoffTo":"fresh Blind QA / TPP"
+}

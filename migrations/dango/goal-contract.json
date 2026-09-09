@@ -1,0 +1,52 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "dango-relearn-home-button-v1",
+  "brand": "dango",
+  "mode": "learn-brand",
+  "profile": "fast",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "replace-hand-authored-baseline-with-observed-learning",
+  "sealed": true,
+  "goal": "Use screenshot-first evidence to learn the DangoUI documentation site's Introduction and Button surfaces, then prove the learned rules on a source-calibration demo and a held-out DangoUI documentation scenario.",
+  "nonGoals": ["host-apply", "branded-asset-template", "pokemon-host-apply", "full-component-library-coverage", "website-mirror"],
+  "implementationPolicy": {
+    "allowSourceScreenshotAsRuntimeAsset": false,
+    "requireIndependentRuntimeAssetsOrDomCssReconstruction": true,
+    "requireHighSalienceEvidenceTrace": true
+  },
+  "evidencePolicy": {
+    "continuousCaptureRequired": true,
+    "requiredPageIds": ["introduction", "button"],
+    "requiredPageStates": ["initial", "continuous-scroll", "settled-end", "restored"],
+    "requiredInteractionStates": ["default", "hover", "focus", "activated"],
+    "consumerRule": "Interpreter remains blocked until visible regions are bound to live DOM and computed values; Dembrandt and CSS variables remain seed-only."
+  },
+  "referencePages": [
+    {"id": "introduction", "url": "https://dumpling.echo.tech/get-started/introduction", "core": true},
+    {"id": "button", "url": "https://dumpling.echo.tech/style/button", "core": true}
+  ],
+  "demoPages": [
+    {"id": "dango-introduction-calibration", "mapsToSourcePageId": "introduction", "proofRole": "source-calibration"},
+    {"id": "dango-button-calibration", "mapsToSourcePageId": "button", "proofRole": "structural-transfer"},
+    {"id": "dango-release-checklist-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out"}
+  ],
+  "mustPreserve": [
+    {"id": "docs-shell", "requiredOn": ["introduction", "button"], "dimensions": ["composition", "informationDensity", "responsiveStructure"]},
+    {"id": "content-hierarchy", "requiredOn": ["introduction"], "dimensions": ["typographyGraphics", "spacing", "surfaceHierarchy"]},
+    {"id": "accent-semantics", "requiredOn": ["introduction", "button"], "dimensions": ["colorRole", "interactionSemantics"]},
+    {"id": "button-state-system", "requiredOn": ["button"], "dimensions": ["componentGeometry", "interactionSemantics", "colorRole"]}
+  ],
+  "mustNotReplace": [
+    {"id": "no-code-only-color-role", "description": "A CSS variable, palette frequency or Dembrandt label cannot establish a visible semantic role."},
+    {"id": "no-premature-registry", "description": "The brand remains outside the public preview registry until Demo Gate passes."},
+    {"id": "no-host-adaptation", "description": "This run learns DangoUI; it does not apply DangoUI to Pokémon or another host."}
+  ],
+  "learningProofContract": {
+    "evidenceFidelity": {"required": true},
+    "structuralFidelity": {"required": true},
+    "generativeProof": {"required": true},
+    "visibleLearningProof": {"required": true},
+    "compensationPolicy": "No proof can compensate for another."
+  },
+  "thresholds": {"overall": 80, "corePage": 75, "maxAttempts": 2}
+}

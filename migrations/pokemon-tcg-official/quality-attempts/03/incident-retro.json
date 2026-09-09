@@ -1,0 +1,20 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "attempt": 3,
+  "brand": "pokemon-tcg-official",
+  "observedMismatch": "The Home Hero was translated into a tall mobile reflow, while the user expects the PC Hero composition to be proportionally scaled inside the phone mockup.",
+  "userCorrection": "Use proportional PC-stage scaling; do not create an independent mobile reflow for this Hero.",
+  "missedBy": ["router-goal", "design-translator", "demo-implementation", "visual-qa"],
+  "whyPreviousGatePassedOrFocusedElsewhere": "The original goal allowed responsive reflow and QA checked visibility/overflow without first confirming the intended adaptation strategy.",
+  "evidenceRefs": [
+    "migrations/pokemon-tcg-official-home-hero/brand-evidence.json#hero-layer-stack-desktop",
+    "migrations/pokemon-tcg-official-home-hero/brand-evidence.json#hero-layer-stack-mobile"
+  ],
+  "failureOwnerRole": "demoImplementationAgent",
+  "status": "implementation-complete",
+  "implementation": {
+    "strategy": "fixed-1440x716-logical-canvas-with-uniform-clipped-scale",
+    "probe": "quality-attempts/03/browser-probes.json",
+    "qaStatus": "pending-independent-blind-qa"
+  }
+}

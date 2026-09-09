@@ -1,0 +1,62 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 1,
+  "previewBase": "http://127.0.0.1:5174/#/brand/pokemon-tcg-official/pages/",
+  "executionContext": "fresh-blind-qa",
+  "desktop": {
+    "requestedViewport": [1440, 1000],
+    "pages": {
+      "home": {"phoneShell": true, "sections": 4, "clientHeight": 802, "scrollHeight": 2749, "scrollProbe": {"before": 0, "after": 649.09, "restored": 0}, "brokenAssets": 0, "forbiddenThemeRefsInsideDemo": 0},
+      "card-database": {"phoneShell": true, "sections": 2, "clientHeight": 802, "scrollHeight": 1551, "brokenAssets": 0, "forbiddenThemeRefsInsideDemo": 0},
+      "learn": {"phoneShell": true, "sections": 3, "clientHeight": 802, "scrollHeight": 2772, "scrollProbe": {"before": 0, "after": 500, "restored": 0}, "brokenAssets": 0, "forbiddenThemeRefsInsideDemo": 0},
+      "held-out": {"phoneShell": true, "sections": 2, "clientHeight": 803, "scrollHeight": 1556, "brokenAssets": 0, "forbiddenThemeRefsInsideDemo": 0}
+    }
+  },
+  "responsive390": {
+    "requestedViewport": [390, 844],
+    "browserContentViewport": [354, 767],
+    "horizontalOverflow": false,
+    "pages": {
+      "home": {"phoneShell": true, "sections": 4, "clientHeight": 797, "scrollHeight": 4558, "brokenAssets": 0},
+      "card-database": {"phoneShell": true, "sections": 2, "clientHeight": 675, "scrollHeight": 1663, "brokenAssets": 0},
+      "learn": {"phoneShell": true, "sections": 3, "clientHeight": 648, "scrollHeight": 3070, "brokenAssets": 0},
+      "held-out": {"phoneShell": true, "sections": 2, "clientHeight": 549, "scrollHeight": 1480, "brokenAssets": 0}
+    }
+  },
+  "interactions": {
+    "search": {
+      "status": "pass",
+      "trace": ["empty", "Pikachu typed", "SEARCH RESULTS / 1/12 with four authentic card images", "reset to empty"],
+      "resultsRemovedOnReset": true
+    },
+    "advancedFilter": {
+      "status": "fail",
+      "requiredTrace": ["SHOW / 0px", "HIDE / 724px", "HIDE / 1206.73px", "SHOW / 0px"],
+      "observedDemoTrace": ["SHOW / 0px", "HIDE / 520px", "HIDE / 520px", "SHOW / 0px"],
+      "stateChanged": true,
+      "restored": true
+    },
+    "learnAccordion": {
+      "status": "pass",
+      "trace": ["Name and Type expanded", "Hit Points exclusively expanded", "Name and Type restored"]
+    },
+    "reduceMotion": {
+      "status": "pass",
+      "demoControlCount": 0,
+      "demoTextMatch": false
+    },
+    "homeCarousel": {
+      "status": "pass",
+      "stateChanged": true,
+      "restored": true,
+      "note": "Auto-advance was observed; explicit campaign buttons changed and restored active class and stage background."
+    }
+  },
+  "computedRoles": {
+    "homeCampaign": {"background": "rgb(5, 5, 5)", "font": "PT Sans", "borderRadius": "0px"},
+    "learnCardBreakdown": {"background": "rgb(247, 207, 54)", "font": "PT Sans", "borderRadius": "0px"},
+    "learnFieldOfPlay": {"background": "rgb(23, 59, 118)", "font": "PT Sans", "borderRadius": "0px"},
+    "heldOutEntry": {"background": "rgb(17, 17, 17)", "font": "PT Sans", "borderRadius": "0px"}
+  }
+}

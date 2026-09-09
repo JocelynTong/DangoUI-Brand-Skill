@@ -1,0 +1,174 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision5",
+  "qaExecution": "/root/pokemon_pocket_blind_qa_r5b",
+  "inputBoundary": {
+    "manifest": "../demo-revision5/qa-input-manifest.json",
+    "priorQaRead": false,
+    "implementationCodeModified": false
+  },
+  "manifestIntegrity": {
+    "status": "PASS",
+    "allFrozenHashesMatch": true,
+    "canonicalInputs": [
+      {
+        "path": "../goal-contract.json",
+        "expectedSha256": "0ae34c4a6666c30cb34e2eddef68edc74628d40a71a5fbc88a6bdd814748d566",
+        "actualSha256": "0ae34c4a6666c30cb34e2eddef68edc74628d40a71a5fbc88a6bdd814748d566"
+      },
+      {
+        "path": "../evidence-revision3/brand-evidence.json",
+        "expectedSha256": "cc4ddec316461de05ed51dfe2bbba65e7357f7c0857e733cc00b2328ad44bc40",
+        "actualSha256": "cc4ddec316461de05ed51dfe2bbba65e7357f7c0857e733cc00b2328ad44bc40"
+      },
+      {
+        "path": "../interpreter-revision3/brand-intent.json",
+        "expectedSha256": "2f16e1b4bc7dfe6495343e8c0e76780e39719290509e7c98823ca5addb2a1c26",
+        "actualSha256": "2f16e1b4bc7dfe6495343e8c0e76780e39719290509e7c98823ca5addb2a1c26"
+      },
+      {
+        "path": "../interpreter-revision3/pattern-inventory.json",
+        "expectedSha256": "c75427463a9e867fc1b87cc949c9d9d932c8a4d85f20827c312f5e4ec12507c0",
+        "actualSha256": "c75427463a9e867fc1b87cc949c9d9d932c8a4d85f20827c312f5e4ec12507c0"
+      },
+      {
+        "path": "../design-direction.json",
+        "expectedSha256": "75d1b24f68a5e36c223661462816bceea948f561f6c29a79b5cb3e837c85f475",
+        "actualSha256": "75d1b24f68a5e36c223661462816bceea948f561f6c29a79b5cb3e837c85f475"
+      }
+    ]
+  },
+  "browser": {
+    "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+    "surfaces": [
+      {
+        "id": "desktop-1440",
+        "viewport": { "width": 1440, "height": 900 },
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5-r5b&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "before": {
+          "tagName": "BUTTON",
+          "type": "button",
+          "ariaPressed": "false",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "20px",
+          "fontStyle": "italic",
+          "fontWeight": "700",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "height": 56
+        },
+        "hover": {
+          "color": "rgb(226, 186, 101)",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "20px",
+          "fontStyle": "italic",
+          "fontWeight": "700"
+        },
+        "afterClick": {
+          "urlUnchanged": true,
+          "fixtureVisible": true,
+          "ariaPressed": "true",
+          "ariaLiveText": "Concept review noted locally. This fictional fixture route remains open."
+        },
+        "afterReload": {
+          "routePreserved": true,
+          "fixtureVisible": true
+        },
+        "layout": {
+          "section": { "width": 1440, "height": 476.1875 },
+          "documentScrollWidth": 1440,
+          "documentClientWidth": 1440,
+          "horizontalOverflow": false
+        },
+        "status": "PASS"
+      },
+      {
+        "id": "mobile-390",
+        "viewport": { "width": 390, "height": 844 },
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5-r5b&proof=mobile#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "before": {
+          "tagName": "BUTTON",
+          "type": "button",
+          "ariaPressed": "false",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "20px",
+          "fontStyle": "italic",
+          "fontWeight": "700",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)",
+          "height": 51.296875
+        },
+        "hover": {
+          "color": "rgb(226, 186, 101)",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "20px",
+          "fontStyle": "italic",
+          "fontWeight": "700"
+        },
+        "afterClick": {
+          "urlUnchanged": true,
+          "fixtureVisible": true,
+          "ariaPressed": "true",
+          "ariaLiveText": "Concept review noted locally. This fictional fixture route remains open."
+        },
+        "afterReload": {
+          "routePreserved": true,
+          "fixtureVisible": true
+        },
+        "layout": {
+          "section": { "width": 390, "height": 743.015625 },
+          "documentScrollWidth": 390,
+          "documentClientWidth": 390,
+          "horizontalOverflow": false
+        },
+        "status": "PASS"
+      }
+    ],
+    "consoleErrorsOrWarnings": []
+  },
+  "regressionAudit": {
+    "status": "PASS",
+    "basis": "Revision-5 receipt freezes the shared runtime and preview payload. Exact current hashes match, so Pocket source plus Hero, News and TCG Live code/data did not regress in this revision.",
+    "files": [
+      {
+        "path": "../../../../../src/App.vue",
+        "expectedSha256": "924786723fb6862ab692cd1eb79bd260ed4207386f53738d7e46273c76037c9d",
+        "actualSha256": "924786723fb6862ab692cd1eb79bd260ed4207386f53738d7e46273c76037c9d",
+        "covers": ["Pocket", "Hero", "News", "TCG Live"]
+      },
+      {
+        "path": "../../../../../public/brand-previews/pokemon-tcg-official.json",
+        "expectedSha256": "e2ef71ef377588f8beecab810870e12337fa850d7f49cf232d58308ce6a98a94",
+        "actualSha256": "e2ef71ef377588f8beecab810870e12337fa850d7f49cf232d58308ce6a98a94",
+        "covers": ["Pocket", "Hero", "News", "TCG Live"]
+      },
+      {
+        "path": "../../../../../src/styles.css",
+        "expectedSha256": "f2cb0bfc80b405f23a3e154f7d7d942dd9414f4f11082491ca038e2995f1db05",
+        "actualSha256": "f2cb0bfc80b405f23a3e154f7d7d942dd9414f4f11082491ca038e2995f1db05",
+        "scopeCheck": "new typography override is restricted to [data-schema-section-id=held-out-pocket-family] button.pokemon-pocket__cta"
+      }
+    ]
+  },
+  "gates": [
+    {
+      "command": "node skills/brand/scripts/validate-design-direction.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/10/design-direction.json",
+      "exitCode": 0,
+      "status": "PASS"
+    },
+    {
+      "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/10/demo-revision5/section-fidelity-manifest.json --strict",
+      "exitCode": 0,
+      "checks": 13,
+      "status": "PASS"
+    },
+    {
+      "command": "npm run build",
+      "exitCode": 0,
+      "modulesTransformed": 25,
+      "status": "PASS"
+    }
+  ],
+  "allChecksPass": true
+}

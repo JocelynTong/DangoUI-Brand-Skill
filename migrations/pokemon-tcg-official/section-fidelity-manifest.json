@@ -1,0 +1,994 @@
+{
+  "schema": "brand-section-fidelity/v1",
+  "brand": "pokemon-tcg-official",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "canonicalEvidenceBinding": {
+    "goalContract": {
+      "path": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+      "sha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794"
+    },
+    "homeDesktop": {
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png",
+        "sha256": "66a446457df6de071de9b172b83c09a33f2921c85e5446620bf5b959264e1242"
+      },
+      "timeline": {
+        "path": "migrations/pokemon-tcg-official/captures/source/home/desktop/timeline.json",
+        "sha256": "27b6023fe353dff0f7dcf59aaad91e06cbde4f5b341780ff5910e4ec5bbdd9a2"
+      }
+    },
+    "homeMobile390": {
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/home/mobile-390/full-page.png",
+        "sha256": "44b1ac0a3c653af1ba7d77e6dc37c1061534051c563030a05fd7a26f390da51e"
+      },
+      "timeline": {
+        "path": "migrations/pokemon-tcg-official/captures/source/home/mobile-390/timeline.json",
+        "sha256": "4bd5961a7ec1fcaf761a86b67bbfb00f0e3b6814fc64b8f68b02a3f5a8179835"
+      }
+    },
+    "learnDesktop": {
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png",
+        "sha256": "8ac316b87f33e005faecf5bdec58aed38c1a37c3b003f996be0f92d6b834a2be"
+      },
+      "timeline": {
+        "path": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/timeline.json",
+        "sha256": "a3a7d253627a05d10e9bae33408277c9a8b7cb28fac531a605c3b7d0181e85ab"
+      }
+    },
+    "learnMobile390": {
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/how-to-play/mobile-390/full-page.png",
+        "sha256": "a8bb7edb545359be34b443352d60a7f3635347cdb2cb15c2134821de9f35fd22"
+      },
+      "timeline": {
+        "path": "migrations/pokemon-tcg-official/captures/source/how-to-play/mobile-390/timeline.json",
+        "sha256": "bbbe37cb60ea38eb9bf8d819000096deceb74c28c830592db8a8bf44dbbc0b3f"
+      }
+    }
+  },
+  "scope": "source-side-only",
+  "interpreterApproval": {
+    "goalId": "pokemon-tcg-official-cold-start-v2",
+    "status": "APPROVED_WITH_UNRESOLVED",
+    "brandIntentFile": "brand-intent.json",
+    "approvedPatternsFile": "approved-visual-patterns.json",
+    "demoDesigned": false,
+    "evidenceStandardsLowered": false
+  },
+  "sections": [
+    {
+      "id": "home-campaign-stage",
+      "pageId": "home",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        710
+      ],
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "black-navigation",
+          "sourceSelector": "nav.main-nav",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-campaign-stage\"]",
+          "status": "pass"
+        },
+        {
+          "id": "campaign-art",
+          "sourceSelector": "header.main-header img",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-campaign-stage\"]",
+          "status": "pass"
+        },
+        {
+          "id": "logo-cta",
+          "sourceSelector": "header.main-header h1 + a",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-campaign-stage\"]",
+          "status": "pass"
+        },
+        {
+          "id": "carousel-controls",
+          "sourceSelector": "button[aria-label='Previous'],button[aria-label='Next']",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-campaign-stage\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "navigation",
+        "campaign identity",
+        "CTA",
+        "featured card",
+        "carousel controls"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "layered horizontal stage",
+        "mobile": "stacked logo/art/card/CTA",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/home/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1.jpg",
+          "sourceSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca",
+          "status": "pass"
+        },
+        {
+          "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/en-us/Logo-30th.png",
+          "sourceSha256": "15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [
+        {
+          "id": "carousel-next",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/pokemon-tcg-official/action-evidence/home-carousel-default.png",
+          "afterCapture": "migrations/pokemon-tcg-official/action-evidence/home-carousel-settled.png"
+        }
+      ],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false
+    },
+    {
+      "id": "home-news-grid",
+      "pageId": "home",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        794,
+        1440,
+        1794
+      ],
+      "requiredLayers": [
+        {
+          "id": "section-title",
+          "sourceSelector": "article.whats-new h2",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-news-grid\"]",
+          "status": "pass"
+        },
+        {
+          "id": "editorial-cards",
+          "sourceSelector": "article.whats-new li",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-news-grid\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "title",
+        "more-news CTA",
+        "two-column editorial cards"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "two columns",
+        "mobile": "single card viewport with carousel controls",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/home/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [],
+      "interactionChecks": [],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "home-product-bands",
+      "pageId": "home",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        2588,
+        1440,
+        1156
+      ],
+      "requiredLayers": [
+        {
+          "id": "tcgl-composite",
+          "sourceSelector": ".tcgl-callout",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-product-bands\"]",
+          "status": "pass"
+        },
+        {
+          "id": "pocket-band",
+          "sourceSelector": "article.tcg-pocket",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-product-bands\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "TCG Live copy",
+        "overlapping device/character cutouts",
+        "Pocket band"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "wide bands",
+        "mobile": "stacked centered bands",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/home/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png",
+          "sourceSha256": "d412d9f56e5ff3c16ef849c6334498da0da8695b4285bdd2e876c6572e13a89d",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "home-editorial-grid",
+      "pageId": "home",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        3745,
+        1440,
+        2160
+      ],
+      "requiredLayers": [
+        {
+          "id": "alternating-images",
+          "sourceSelector": ".homepage-grid img",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-editorial-grid\"]",
+          "status": "pass"
+        },
+        {
+          "id": "alternating-copy",
+          "sourceSelector": ".homepage-grid article",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"home-editorial-grid\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "championship copy/image",
+        "community image/copy",
+        "product copy/image"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "alternating 2-column squares",
+        "mobile": "single-column sequence",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/home/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/home/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://tcg.pokemon.com/assets/img/home/championship-series/championships.jpg",
+          "sourceSha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "learn-getting-started",
+      "pageId": "how-to-play",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/learn/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        1875
+      ],
+      "requiredLayers": [
+        {
+          "id": "air-card-hero",
+          "sourceSelector": "header.main-header",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-getting-started\"]",
+          "status": "pass"
+        },
+        {
+          "id": "video-blade",
+          "sourceSelector": ".getting-started__video-blade",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-getting-started\"]",
+          "status": "pass"
+        },
+        {
+          "id": "resource-cards",
+          "sourceSelector": ".getting-started__cards",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-getting-started\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "hero title/card",
+        "getting started title/video",
+        "three resources"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "two-column media and 3 cards",
+        "mobile": "single column",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/learn/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/learn/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/hero/card-header-asset_en-2x.png",
+          "sourceSha256": "70c404722e9479b0204aaae420482fce43d77378ca356e162ec834424758b758",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "learn-card-breakdown",
+      "pageId": "how-to-play",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/learn/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        1959,
+        1440,
+        3335
+      ],
+      "requiredLayers": [
+        {
+          "id": "yellow-paint-boundary",
+          "sourceSelector": "article.tcg-card-breakdown",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]",
+          "status": "pass"
+        },
+        {
+          "id": "exclusive-accordion",
+          "sourceSelector": "details.hotspot-gallery-accordion__panel",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]",
+          "status": "pass"
+        },
+        {
+          "id": "authentic-card",
+          "sourceSelector": "article.tcg-card-breakdown img[src*='SV06_EN_33']",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]",
+          "status": "pass"
+        },
+        {
+          "id": "hotspots",
+          "sourceSelector": "article.tcg-card-breakdown img[src*='hotspot-gallery']",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "oversized title",
+        "accordion definitions",
+        "card anatomy visual"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "accordion plus one card",
+        "mobile": "definition then repeated card visual",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/learn/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/learn/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/twilight-masquerade/en-us/SV06_EN_33.png",
+          "sourceSha256": "9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [
+        {
+          "id": "accordion",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/pokemon-tcg-official/action-evidence/learn-accordion-default.png",
+          "afterCapture": "migrations/pokemon-tcg-official/action-evidence/learn-accordion-settled.png"
+        }
+      ],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "learn-field-of-play",
+      "pageId": "how-to-play",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/learn/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        0,
+        5294,
+        1440,
+        3329
+      ],
+      "requiredLayers": [
+        {
+          "id": "navy-paint-boundary",
+          "sourceSelector": "article.field-of-play",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-field-of-play\"]",
+          "status": "pass"
+        },
+        {
+          "id": "ordered-definitions",
+          "sourceSelector": ".field-of-play details",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-field-of-play\"]",
+          "status": "pass"
+        },
+        {
+          "id": "field-diagrams",
+          "sourceSelector": ".field-of-play img",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"learn-field-of-play\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "oversized title",
+        "location definitions",
+        "matching field diagrams"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "definitions and diagram column",
+        "mobile": "definition/diagram pairs",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/learn/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/learn/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/field-of-play/field-breakdown-prize-cards.png",
+          "sourceSha256": "e7593a3bfe70f9ab0a26a1fea6c52ab73fcff808d80644b5f4a888d56f60e6b0",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "card-database-search-shell",
+      "pageId": "card-database",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/captures/source/card-database/desktop/full-page.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/card-database/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        80,
+        114,
+        1280,
+        724
+      ],
+      "requiredLayers": [
+        {
+          "id": "title-plate",
+          "sourceSelector": "h1.section-title",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]",
+          "status": "pass"
+        },
+        {
+          "id": "keyword-fields",
+          "sourceSelector": "#cardName,#cardText,#evolvesFrom",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]",
+          "status": "pass"
+        },
+        {
+          "id": "energy-pills",
+          "sourceSelector": "input.pill-control__input[id^='card-'] + label",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]",
+          "status": "pass"
+        },
+        {
+          "id": "search-actions",
+          "sourceSelector": "#simpleReset,#simpleSubmit",
+          "demoSelector": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "database title",
+        "keyword fields",
+        "evolves-from field",
+        "energy type pills",
+        "reset/search",
+        "advanced-search tab"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "keyword grid and 3-column pills",
+        "mobile": "single-column fields and pills",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/card-database/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/card-database/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [],
+      "interactionChecks": [
+        {
+          "id": "search",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/pokemon-tcg-official/action-evidence/v2/search-default.png",
+          "afterCapture": "migrations/pokemon-tcg-official/action-evidence/v2/search-settled.png"
+        }
+      ],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ]
+    },
+    {
+      "id": "card-database-advanced-filter",
+      "pageId": "card-database",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/action-evidence/v2/advanced-settled.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/card-database/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        80,
+        806,
+        1280,
+        1207
+      ],
+      "requiredLayers": [
+        {
+          "id": "drawer-trigger",
+          "sourceSelector": ".content-drawer-toggle[data-drawer='filtersAdvanced']",
+          "demoSelector": ".pokemon-db__advanced",
+          "status": "pass"
+        },
+        {
+          "id": "advanced-groups",
+          "sourceSelector": "#filtersAdvanced",
+          "demoSelector": ".pokemon-db__advanced",
+          "status": "pass"
+        },
+        {
+          "id": "advanced-actions",
+          "sourceSelector": "#advancedReset,#advancedSubmit",
+          "demoSelector": ".pokemon-db__advanced",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "drawer trigger",
+        "card type groups",
+        "rarity/expansion groups",
+        "advanced actions"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "multi-column groups",
+        "mobile": "stacked groups",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/card-database/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/card-database/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [],
+      "interactionChecks": [
+        {
+          "id": "advanced-toggle",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/pokemon-tcg-official/action-evidence/v2/advanced-default.png",
+          "afterCapture": "migrations/pokemon-tcg-official/action-evidence/v2/advanced-triggered.png"
+        }
+      ],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "demoRegionState": "settled",
+      "demoRegionSelector": ".pokemon-db__advanced"
+    },
+    {
+      "id": "card-database-results",
+      "pageId": "card-database",
+      "status": "pass",
+      "sourceCapture": "migrations/pokemon-tcg-official/action-evidence/v2/search-settled.png",
+      "demoCapture": "migrations/pokemon-tcg-official/captures/demo/card-database/desktop/full-page.png",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "approvedViewportTranslation": "Standard Demo renders the approved page inside the phone mockup at a 1440x1000 host viewport; a separate 390x844 capture proves phone reflow.",
+      "sourceRegion": [
+        208,
+        790,
+        1024,
+        1250
+      ],
+      "requiredLayers": [
+        {
+          "id": "results-title-sort",
+          "sourceSelector": "section.card-results h1,section.card-results select",
+          "demoSelector": ".pokemon-db__results",
+          "status": "pass"
+        },
+        {
+          "id": "authentic-card-grid",
+          "sourceSelector": "section.card-results img",
+          "demoSelector": ".pokemon-db__results",
+          "status": "pass"
+        },
+        {
+          "id": "pagination",
+          "sourceSelector": "section.card-results .pagination",
+          "demoSelector": ".pokemon-db__results",
+          "status": "pass"
+        }
+      ],
+      "readingOrder": [
+        "results title",
+        "sort",
+        "card grid",
+        "pagination"
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktop": "4-column card grid",
+        "mobile": "narrow stacked/reduced-column result flow",
+        "demoEvidence": [
+          "migrations/pokemon-tcg-official/captures/demo/card-database/desktop/full-page.png",
+          "migrations/pokemon-tcg-official/captures/demo/card-database/mobile-390/full-page.png"
+        ]
+      },
+      "assetRefs": [
+        {
+          "sourceUrl": "https://assets.pokemon.com/static-assets/content-assets/cms2/img/cards/web/SVP/SVP_EN_27.png",
+          "sourceSha256": "409209950e8519c533e2d0840cfd25cc0b956c5d6b8a77a96fd25330ab778283",
+          "status": "pass"
+        },
+        {
+          "sourceUrl": "https://assets.pokemon.com/static-assets/content-assets/cms2/img/cards/web/SVP/SVP_EN_85.png",
+          "sourceSha256": "402ce224e23ba2935aaf1c178be6eca698c60945e90e2417dafe3e5f86d1600a",
+          "status": "pass"
+        }
+      ],
+      "interactionChecks": [],
+      "usesItemCountAsStructureProxy": false,
+      "horizontalOverflow": false,
+      "demoViewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "demoRegionState": "search-results",
+      "demoRegionSelector": ".pokemon-db__results"
+    }
+  ],
+  "approvedSectionContracts": {
+    "home-campaign-stage": {
+      "patternRefs": [
+        "home-layered-campaign-stage"
+      ],
+      "composition": "Black navigation cap plus separate art, campaign identity, CTA, full-card and carousel-control layers.",
+      "color": "Black is limited to navigation/stage/control surround.",
+      "assets": "Frozen booster-art, 30th-logo and feature-card identities; no screenshot or variant substitution.",
+      "typography": "Preserve visible identity/CTA hierarchy; exact family unresolved.",
+      "density": "One low-density dominant campaign stage.",
+      "frame": "Black cap and carousel strip bound the stage.",
+      "responsive": "1440 layered horizontal; 390 stacked art/logo/card/CTA with reading order and asset weight retained.",
+      "interaction": "Carousel pixels must change and restore."
+    },
+    "home-news-grid": {
+      "patternRefs": [
+        "home-banded-editorial-journey"
+      ],
+      "composition": "Title, more-news CTA, editorial cards.",
+      "color": "No reusable section color inferred.",
+      "assets": "Independent editorial assets only.",
+      "typography": "Title leads CTA/cards; exact family unresolved.",
+      "density": "Editorial scan density distinct from hero.",
+      "frame": "Independent Home band.",
+      "responsive": "Two columns to one-card phone viewport with controls.",
+      "interaction": "Controls only if reversible state is implemented."
+    },
+    "home-product-bands": {
+      "patternRefs": [
+        "home-banded-editorial-journey"
+      ],
+      "composition": "TCGL copy, overlapping device/character cutouts, separate Pocket band.",
+      "color": "No reusable color inferred.",
+      "assets": "Transparent TCGL assets must remain an overlapping ecosystem composition.",
+      "typography": "Copy subordinate to product composite; exact family unresolved.",
+      "density": "Wide showcase bands.",
+      "frame": "Each product is separately bounded.",
+      "responsive": "Wide bands become centered stacks.",
+      "interaction": "No interaction approved."
+    },
+    "home-editorial-grid": {
+      "patternRefs": [
+        "home-banded-editorial-journey"
+      ],
+      "composition": "Alternating championship copy/image, community image/copy, product copy/image squares.",
+      "color": "No reusable color inferred.",
+      "assets": "Frozen square editorial images in editorial roles only.",
+      "typography": "Copy hierarchy follows paired image; exact family unresolved.",
+      "density": "Three large paired beats, not uniform cards.",
+      "frame": "Square media/copy cells form boundaries.",
+      "responsive": "Alternating two-column to ordered single column.",
+      "interaction": "No interaction approved."
+    },
+    "learn-getting-started": {
+      "patternRefs": [
+        "learn-media-entry"
+      ],
+      "composition": "Hero title/card fan, starter title/video, three resources.",
+      "color": "No reusable color inferred.",
+      "assets": "Frozen header card as partial fan and thumbnail as 16:9 media only.",
+      "typography": "Oversized headings over compact resource copy; exact family unresolved.",
+      "density": "Spacious entry into discrete resources.",
+      "frame": "Hero and media/resource blade remain distinct.",
+      "responsive": "Two-column/three-card desktop becomes one column; card fan becomes cropped top band.",
+      "interaction": "Do not invent Reduce Motion behavior."
+    },
+    "learn-card-breakdown": {
+      "patternRefs": [
+        "learn-painted-card-anatomy"
+      ],
+      "composition": "Oversized title, exclusive definitions, authentic card and hotspots.",
+      "color": "Yellow paint/cream field only for this organism.",
+      "assets": "Frozen SV06_EN_33; phone repetition only to preserve definition proximity.",
+      "typography": "Oversized title contrasts compact explanations; exact family unresolved.",
+      "density": "High explanatory density segmented by panels.",
+      "frame": "Irregular yellow paint boundary.",
+      "responsive": "Accordion plus one card becomes definition/card pairs.",
+      "interaction": "Exclusive accordion must change and restore."
+    },
+    "learn-field-of-play": {
+      "patternRefs": [
+        "learn-painted-field-pairs"
+      ],
+      "composition": "Oversized title, ordered location definitions, matching diagrams.",
+      "color": "Navy paint only for field-of-play instruction.",
+      "assets": "Exact diagram variant paired with each definition.",
+      "typography": "Oversized title over compact ordered definitions; exact family unresolved.",
+      "density": "Repeated definition-to-diagram teaching rhythm.",
+      "frame": "Irregular navy painted boundary.",
+      "responsive": "Columns become ordered definition/diagram pairs.",
+      "interaction": "No additional motion approved."
+    },
+    "card-database-search-shell": {
+      "patternRefs": [
+        "database-dark-search-organism",
+        "database-reversible-search-results"
+      ],
+      "composition": "Light title plate, keyword fields, evolves-from, energy pills, reset/search, advanced tab.",
+      "color": "Charcoal organism with light inputs/title; Search uses the neutral component baseline because no source-evidenced action color override is approved.",
+      "assets": "Result cards absent before results.",
+      "typography": "Computed Flexo-Regular, arial, sans-serif for controls.",
+      "density": "Dense controls inside one organism.",
+      "frame": "Light clipped title, charcoal form, grey drawer tab.",
+      "responsive": "Grid/three pill columns become one ordered column.",
+      "interaction": "empty → Pikachu → settled results → reset/empty required."
+    },
+    "card-database-advanced-filter": {
+      "patternRefs": [
+        "database-advanced-drawer"
+      ],
+      "composition": "Trigger, card-type groups, rarity/expansion groups, advanced actions.",
+      "color": "Continuation of charcoal database organism.",
+      "assets": "No high-salience raster approved.",
+      "typography": "Database control family evidence only.",
+      "density": "Progressively disclosed dense groups.",
+      "frame": "Drawer continues the search organism.",
+      "responsive": "Multi-column to stacked without reorder.",
+      "interaction": "Show/0px → Hide/724px → settled Hide/1206.73px → restored Show/0px."
+    },
+    "card-database-results": {
+      "patternRefs": [
+        "database-reversible-search-results"
+      ],
+      "composition": "Results title/sort, authentic card mosaic, pagination.",
+      "color": "Light textured result surface; computed background-image evidence.",
+      "assets": "Frozen Pikachu result identities as full cards.",
+      "typography": "Result heading family unresolved beyond supplied control evidence.",
+      "density": "Four-column reduced-chrome desktop mosaic; reduced-column phone flow.",
+      "frame": "Separate from charcoal search organism.",
+      "responsive": "Four columns to reduced-column/stacked flow.",
+      "interaction": "Exists only in settled results and disappears on Reset."
+    }
+  },
+  "sourceCaptureCoverage": {
+    "home": {
+      "desktopTimelineFrames": 10,
+      "mobile390TimelineFrames": 16,
+      "loadedImages": "41/41",
+      "actualWindowFrameGlob": "migrations/pokemon-tcg-official/captures/source/home/desktop/loaded-*.png",
+      "actualWindowFrames": 12,
+      "highSalienceVisible": [
+        "hero",
+        "whats-new",
+        "tcg-live",
+        "competitive-play",
+        "product-editorial",
+        "learn-cta",
+        "footer"
+      ]
+    },
+    "how-to-play": {
+      "desktopTimelineFrames": 16,
+      "mobile390TimelineFrames": 22,
+      "loadedImages": "55/55",
+      "actualWindowFrameGlob": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/loaded-*.png",
+      "actualWindowFrames": 20,
+      "highSalienceVisible": [
+        "hero",
+        "card-anatomy",
+        "play-area",
+        "prize-active-bench-deck-discard",
+        "footer"
+      ]
+    },
+    "captureSurfaceNote": "Browser-extension fullPage retained as canonical geometry; actual-window cropped frames are the compositor-visible source of truth for lazy/animated sections."
+  },
+  "routerCorrectionHistory": {
+    "pageId": "cards",
+    "url": "https://tcg.pokemon.com/en-us/cards/",
+    "status": "official-404",
+    "required": false,
+    "capture": "migrations/pokemon-tcg-official/captures/source/cards/desktop/full-page.png"
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "heldout-detail-target-and-pairing-visual-business-qa/v1",
+  "attempt": 15,
+  "role": "fresh-independent-brand-visual-business-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Detail target/pairing repair only; this verdict does not represent the full host",
+  "verdict": "PASS",
+  "decision": "The Attempt 14 blocking buy-target defect and desktop grouping advisory are both closed without visual, interaction, business or cross-route regression.",
+  "screenshots": ["fresh-390x844-detail.png", "fresh-536x864-detail.png", "fresh-1280x720-detail.png"],
+  "blockingFindings": [],
+  "advisories": [
+    {"code":"DETAIL_EDIT_FIXTURE_NA","owner":"QA","evidence":"Fixture deck id=0 exposes no visible edit action, so edit parity remains N/A rather than inferred."}
+  ],
+  "findings": {
+    "buyTarget":{"status":"PASS","evidence":"Real .buybtn height is 45.75/44/49.59px at 390/536/1280; center hit resolves to its owner, with role=button, tabindex=0 and focusability preserved."},
+    "interactionParity":{"status":"PASS","evidence":"Pointer, Enter and Space pass independently for buy, expand, favorite, copy, text view and CardViewer. Buy preserves the expected local toast, copy navigates to Build, and no tested outcome diverges by input mode."},
+    "persistentActions":{"status":"PASS","evidence":"Favorite/copy actions retain the accepted rectangular visual family, safe-area padding and do not obscure grid content at any tested viewport."},
+    "desktopPairing":{"status":"PASS","evidence":"The 1280 cover-title gap is 18px. Product media, title, metadata and author now form one bounded identity group without clipping, compression or inactive center void."},
+    "visualSystem":{"status":"PASS","evidence":"Warm paper/product frame/title/meta/description/statistics/views/content/actions remain coherent and retain masked recognition through composition, rules, editorial density and geometry rather than explicit IP alone."},
+    "responsiveAndMotion":{"status":"PASS","evidence":"390/536/1280 show zero document overflow, zero failed requests and zero visible animations under reduced motion. No visible title truncation is present in the screenshots; the DOM clipping flag is a line-box/subpixel measurement artifact."},
+    "businessSafety":{"status":"PASS","evidence":"All interaction probes ran in isolated fresh contexts and observed zero non-GET/HEAD/OPTIONS requests."},
+    "otherRoutes":{"status":"PASS","evidence":"Plaza, Build, Mine, Event and Round fresh hashes exactly match Attempt 14, with zero overflow and writes."}
+  },
+  "codeReworkRequired": false,
+  "evidenceReworkRequired": false,
+  "detailCompletion": "PASS",
+  "fullHostCompletion": "NOT_EVALUATED",
+  "sources": ["browser-probes.json", "comparison.json", "../14/visual-qa-assessment.json", "../../detail-minimal-experiment-direction.json"]
+}

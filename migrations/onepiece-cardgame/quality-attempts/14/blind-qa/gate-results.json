@@ -1,0 +1,70 @@
+{
+  "schema": "brand-blind-qa-gates/v1",
+  "generatedAt": "2026-09-04T09:53:05+08:00",
+  "overall": "PASS",
+  "gates": [
+    {
+      "id": "normal-phone-shell",
+      "status": "PASS",
+      "evidence": "phone border 9.5px; phone radius 41.4666px; screen radius 31.5936px; screenshot captures/normal-phone-top.jpg"
+    },
+    {
+      "id": "indicator-chassis-overlay",
+      "status": "PASS",
+      "evidence": "indicator is a direct child of .phone.template-phone, outside .phone-screen, position absolute, and fully inside screen bounds"
+    },
+    {
+      "id": "indicator-transparent-fade",
+      "status": "PASS",
+      "evidence": "computed background-color is transparent and background-image fades from rgba beige to transparent upward; it is not a solid document-flow footer"
+    },
+    {
+      "id": "indicator-bar-visible",
+      "status": "PASS",
+      "evidence": "bar is display:block, 132.297px x 4.92969px, rgb(17,17,17), opacity .72, visible in top/mid/bottom captures"
+    },
+    {
+      "id": "scroll-and-restore",
+      "status": "PASS",
+      "evidence": "phone-screen scrollHeight/clientHeight 6206/802; scrollTop 0 -> 1900 -> 5404 -> 0"
+    },
+    {
+      "id": "indicator-scroll-stability",
+      "status": "PASS",
+      "evidence": "indicator rect exactly unchanged at top, mid, bottom, and restored states"
+    },
+    {
+      "id": "footer-reachable-unobscured",
+      "status": "PASS",
+      "evidence": "full footer and legal text reached at scrollTop 5404; no visible footer descendant overlaps indicator; footer bottom 855.6484 < indicator top 857.7969"
+    },
+    {
+      "id": "true-narrow-no-shell",
+      "status": "PASS",
+      "evidence": "at 390x844 phone width is 390px with zero border/radius/shadow, page document height is 7978px, and indicator display is none"
+    },
+    {
+      "id": "horizontal-overflow",
+      "status": "PASS",
+      "evidence": "normal document 1440/1440 and screen 371/371; narrow document 390/390 and screen 390/390"
+    },
+    {
+      "id": "build",
+      "status": "PASS",
+      "command": "npm run build",
+      "exitCode": 0,
+      "evidence": "Vite 8.0.16 built 25 modules in 642ms; non-blocking chunk-size advisory only"
+    },
+    {
+      "id": "layout-contract-test",
+      "status": "PASS",
+      "command": "node --test scripts/brand-preview-layout-contract.test.mjs",
+      "exitCode": 0,
+      "evidence": "5 tests passed, including home indicator cannot become an opaque document footer"
+    }
+  ],
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "minimumFixScope": null
+}

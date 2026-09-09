@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "sectionSelector": "article.tcg-pocket",
+  "verdict": "SAME_BYTES_RESPONSIVE_ALIASES",
+  "assets": [
+    {
+      "viewport": "desktop-1440",
+      "officialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+      "naturalSize": {"width":720,"height":464},
+      "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "computedSelector": "article.tcg-pocket .full-width-section__bg",
+      "computedBackgroundImage": "url(https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg)",
+      "pageAssetsEvidence": "resource + computedStyle node 421",
+      "capture": "captures/desktop-1440-background-use.png"
+    },
+    {
+      "viewport": "mobile-390",
+      "officialUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+      "naturalSize": {"width":720,"height":464},
+      "sha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "computedSelector": "article.tcg-pocket .full-width-section__bg",
+      "computedBackgroundImage": "url(https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg)",
+      "pageAssetsEvidence": "resource + computedStyle node 421",
+      "capture": "captures/mobile-390-background-use.png"
+    }
+  ],
+  "byteComparison": {
+    "sameSha256": true,
+    "sameNaturalDimensions": true,
+    "sameContent": true,
+    "semanticConclusion": "The CSS selects different official URL aliases by viewport, but the current server responses are byte-identical. This is not an art-directed different mobile image."
+  },
+  "previousClaimDisposition": {
+    "claim": "mobile uses a dedicated/different background asset instead of the desktop artwork",
+    "status": "rejected",
+    "correction": "desktop and mobile select different official URL aliases whose current bytes, dimensions and pixels are identical"
+  }
+}

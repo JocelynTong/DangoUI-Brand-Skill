@@ -1,0 +1,16 @@
+{
+  "schemaVersion":"1.0",
+  "brand":"pokemon-tcg-official",
+  "sectionId":"homepage-pokemon-tcg-live",
+  "status":"evidence-ready-with-motion-unresolved",
+  "sourceUrl":"https://tcg.pokemon.com/en-us/",
+  "viewports":[
+    {"id":"desktop-1440x900","capture":"captures/source-tcgl-desktop-1440x900-settled.png","sha256":"99fef18147274c98caa5232f90d297c6637d1b380e1d794a4c61a7aa0ce367fd","sectionRegion":{"x":0,"y":120.336,"width":1440,"height":624},"readingOrder":["red/gold V seam","copy-left: H2, body, CTA","assets-right: avatars, laptop, Pikachu, phone","Pocket lower seam"],"layers":["full-bleed raster background","rgba-black copy panel","five independent transparent assets"]},
+    {"id":"mobile-390x844","capture":"captures/source-tcgl-mobile-390x844-settled.png","sha256":"657ef01e3b9c26b46e60e626153e5063567b00be07a0c83310c81b19ba768cc1","sectionRegion":{"x":0,"y":100.25,"width":390,"height":644.625},"readingOrder":["red/gold V seam","asset composition","opaque black copy panel: H2, body, CTA","Pocket lower seam"],"layers":["full-bleed raster background","374x258.625 asset composition","390px opaque-black copy panel"]}
+  ],
+  "responsiveTranslation":{"layout":"copy-left/assets-right -> assets-first/copy-second","copyPanel":"696x316.5 translucent -> 390x~312 English opaque","assetGroup":"778x538 -> 374x258.625 with overlap identities preserved","type":"H2 40/44 -> 28/30.8; body 18/28.8 unchanged; CTA 20/24/56px -> 18/22.5/51.297px"},
+  "interactionStates":[{"id":"viewport-entry","status":"unresolved","reason":"could not obtain a resettable same-section before/120ms/settled sequence; asynchronous source reflow moved target section; old and retry frames rejected"}],
+  "mustNotInvent":["solid-red section","kicker","flattened composition screenshot","required entry motion","background motion"],
+  "handoffBlockers":[],
+  "handoffWarnings":["Interpreter and Direction must rebind to this revision; entry motion is not an approved fact."]
+}

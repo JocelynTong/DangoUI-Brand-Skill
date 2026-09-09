@@ -1,0 +1,650 @@
+{
+  "schema": "brand-third-party-computed-evidence/v1",
+  "provider": "dembrandt",
+  "brand": "dango",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "input": "output/extractor-benchmark/dango/dembrandt/result.json",
+  "createdAt": "2026-09-04T16:40:21.831Z",
+  "counts": {
+    "semanticColors": 4,
+    "palette": 11,
+    "buttonVariants": 1,
+    "radii": 5,
+    "shadows": 2
+  },
+  "computedEvidence": {
+    "semanticColors": {
+      "primary": {
+        "value": "rgb(124, 102, 255)",
+        "hex": "#7C66FF",
+        "family": "blue",
+        "hue": 248.627,
+        "saturation": 1,
+        "lightness": 0.7
+      },
+      "secondary": {
+        "value": "rgb(247, 247, 249)",
+        "hex": "#F7F7F9",
+        "family": "white",
+        "hue": 240,
+        "saturation": 0.143,
+        "lightness": 0.973
+      },
+      "background": {
+        "value": "rgb(255, 255, 255)",
+        "hex": "#FFFFFF",
+        "family": "white",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 1
+      },
+      "text": {
+        "value": "rgb(0, 0, 0)",
+        "hex": "#000000",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0
+      }
+    },
+    "palette": [
+      {
+        "value": "#f7f7f9",
+        "hex": "#F7F7F9",
+        "family": "white",
+        "hue": 240,
+        "saturation": 0.143,
+        "lightness": 0.973,
+        "role": "surface",
+        "count": 6,
+        "confidence": "high",
+        "sources": [
+          "doc-search",
+          "flex",
+          "doc-nav-next"
+        ],
+        "onColor": "#000000",
+        "hover": "#d2d2d4"
+      },
+      {
+        "value": "#000000",
+        "hex": "#000000",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0,
+        "role": "surface",
+        "count": 292,
+        "confidence": "high",
+        "sources": [
+          "logo",
+          "min-h-100vh",
+          "fixed",
+          "flex"
+        ],
+        "onColor": "#ffffff",
+        "hover": "#000000"
+      },
+      {
+        "value": "#5854ff",
+        "hex": "#5854FF",
+        "family": "blue",
+        "hue": 241.404,
+        "saturation": 1,
+        "lightness": 0.665,
+        "role": "accent",
+        "count": 5,
+        "confidence": "high",
+        "sources": [
+          "text-10px",
+          "router-link-active",
+          "doc-nav-title"
+        ],
+        "onColor": "#ffffff",
+        "hover": "#6a65ff"
+      },
+      {
+        "value": "#ff812c",
+        "hex": "#FF812C",
+        "family": "orange",
+        "hue": 24.171,
+        "saturation": 1,
+        "lightness": 0.586,
+        "role": "supporting",
+        "count": 1,
+        "confidence": "low",
+        "sources": [
+          "du-theme-basic"
+        ],
+        "onColor": "#000000",
+        "hover": "#d96e25"
+      },
+      {
+        "value": "#1677ff",
+        "hex": "#1677FF",
+        "family": "blue",
+        "hue": 215.021,
+        "saturation": 1,
+        "lightness": 0.543,
+        "role": "supporting",
+        "count": 1,
+        "confidence": "low",
+        "sources": [
+          "du-theme-basic"
+        ],
+        "onColor": "#000000",
+        "hover": "#1365d9"
+      },
+      {
+        "value": "#aef056",
+        "hex": "#AEF056",
+        "family": "green",
+        "hue": 85.714,
+        "saturation": 0.837,
+        "lightness": 0.639,
+        "role": "supporting",
+        "count": 1,
+        "confidence": "low",
+        "sources": [
+          "du-theme-basic"
+        ],
+        "onColor": "#000000",
+        "hover": "#94cc49"
+      },
+      {
+        "value": "#b2d600",
+        "hex": "#B2D600",
+        "family": "green",
+        "hue": 70.093,
+        "saturation": 1,
+        "lightness": 0.42,
+        "role": "",
+        "count": 10,
+        "confidence": "high",
+        "sources": [
+          "logo"
+        ],
+        "onColor": "",
+        "hover": ""
+      },
+      {
+        "value": "#ffffff",
+        "hex": "#FFFFFF",
+        "family": "white",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 1,
+        "role": "",
+        "count": 10,
+        "confidence": "high",
+        "sources": [
+          "logo"
+        ],
+        "onColor": "",
+        "hover": ""
+      },
+      {
+        "value": "#2b263b",
+        "hex": "#2B263B",
+        "family": "blue",
+        "hue": 254.286,
+        "saturation": 0.216,
+        "lightness": 0.19,
+        "role": "",
+        "count": 10,
+        "confidence": "high",
+        "sources": [
+          "logo"
+        ],
+        "onColor": "",
+        "hover": ""
+      },
+      {
+        "value": "#7c66ff",
+        "hex": "#7C66FF",
+        "family": "blue",
+        "hue": 248.627,
+        "saturation": 1,
+        "lightness": 0.7,
+        "role": "",
+        "count": 10,
+        "confidence": "high",
+        "sources": [
+          "logo"
+        ],
+        "onColor": "",
+        "hover": ""
+      },
+      {
+        "value": "#ededf2",
+        "hex": "#EDEDF2",
+        "family": "white",
+        "hue": 240,
+        "saturation": 0.161,
+        "lightness": 0.939,
+        "role": "",
+        "count": 1,
+        "confidence": "medium",
+        "sources": [
+          "hover/focus"
+        ],
+        "onColor": "",
+        "hover": ""
+      }
+    ],
+    "buttonVariants": [
+      {
+        "text": "千岛",
+        "role": "unknown",
+        "confidence": "high",
+        "backgroundColor": {
+          "value": "rgb(255, 255, 255)",
+          "hex": "#FFFFFF",
+          "family": "white",
+          "hue": 0,
+          "saturation": 0,
+          "lightness": 1
+        },
+        "color": {
+          "value": "rgb(0, 0, 0)",
+          "hex": "#000000",
+          "family": "black",
+          "hue": 0,
+          "saturation": 0,
+          "lightness": 0
+        },
+        "border": "0px none rgb(229, 231, 235)",
+        "borderColors": [
+          {
+            "value": "rgb(229, 231, 235)",
+            "hex": "#E5E7EB",
+            "family": "blue",
+            "hue": 220,
+            "saturation": 0.13,
+            "lightness": 0.91
+          }
+        ],
+        "borderRadius": "6px",
+        "padding": "0px 8px",
+        "fontSize": "16px",
+        "fontWeight": "400",
+        "boxShadow": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px"
+      }
+    ],
+    "radii": [
+      {
+        "value": "4px",
+        "count": 3,
+        "confidence": "low",
+        "elements": [
+          "kbd",
+          "pre"
+        ],
+        "numericValue": 4
+      },
+      {
+        "value": "6px",
+        "count": 11,
+        "confidence": "high",
+        "elements": [
+          "span",
+          "button",
+          "code",
+          "a"
+        ],
+        "numericValue": 6
+      },
+      {
+        "value": "8px",
+        "count": 59,
+        "confidence": "high",
+        "elements": [
+          "div",
+          "button",
+          "a"
+        ],
+        "numericValue": 8
+      },
+      {
+        "value": "12px",
+        "count": 2,
+        "confidence": "low",
+        "elements": [
+          "div",
+          "a"
+        ],
+        "numericValue": 12
+      },
+      {
+        "value": "9999px",
+        "count": 5,
+        "confidence": "medium",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 9999
+      }
+    ],
+    "shadows": [
+      {
+        "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px",
+        "count": 1,
+        "confidence": "low",
+        "elements": [],
+        "colors": [
+          {
+            "value": "rgb(0, 0, 0, 0)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          },
+          {
+            "value": "rgb(0, 0, 0, 0)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          },
+          {
+            "value": "rgb(0, 0, 0, 0.1)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          },
+          {
+            "value": "rgb(0, 0, 0, 0.1)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          }
+        ]
+      },
+      {
+        "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.05) 0px 1px 2px 0px",
+        "count": 1,
+        "confidence": "low",
+        "elements": [],
+        "colors": [
+          {
+            "value": "rgb(0, 0, 0, 0)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          },
+          {
+            "value": "rgb(0, 0, 0, 0)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          },
+          {
+            "value": "rgb(0, 0, 0, 0.05)",
+            "hex": "#000000",
+            "family": "black",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 0
+          }
+        ]
+      }
+    ],
+    "typography": {
+      "styles": [
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "36px (2.25rem)",
+          "fontWeight": 700,
+          "lineHeight": "1.20",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "24px (1.50rem)",
+          "fontWeight": 600,
+          "lineHeight": "1.30",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "24px (1.50rem)",
+          "fontWeight": 500,
+          "lineHeight": "1.30",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 3,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 6,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "15px (0.94rem)",
+          "fontWeight": 600,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "15px (0.94rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.75",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "15px (0.94rem)",
+          "fontWeight": 500,
+          "lineHeight": "1.75",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "14px (0.88rem)",
+          "fontWeight": 500,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "13px (0.81rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "11px (0.69rem)",
+          "fontWeight": 500,
+          "lineHeight": "1.50",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "11px (0.69rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 82,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "11px (0.69rem)",
+          "fontWeight": 500,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "11px (0.69rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 54,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "11px (0.69rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "10px (0.63rem)",
+          "fontWeight": 500,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "-apple-system",
+          "fontSize": "10px (0.63rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "10px (0.63rem)",
+          "fontWeight": 600,
+          "lineHeight": "1.50",
+          "count": 12,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "ui-sans-serif",
+          "fontSize": "10px (0.63rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        }
+      ],
+      "sources": [
+        "[object Object]"
+      ]
+    }
+  },
+  "candidateHints": {
+    "primaryColorSeed": {
+      "value": "#7C66FF",
+      "source": "dembrandt.colors.semantic.primary",
+      "confidence": "seed-only"
+    },
+    "accentColorSeed": {
+      "value": "",
+      "source": "",
+      "confidence": "seed-only"
+    },
+    "primaryActionFillSeed": null,
+    "activeStateFillSeed": null,
+    "cardRadiusSeed": {
+      "value": "4px",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "controlRadiusSeed": {
+      "value": "9999px",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "shadowSeed": {
+      "value": "rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0) 0px 0px 0px 0px, rgba(0, 0, 0, 0.1) 0px 10px 15px -3px, rgba(0, 0, 0, 0.1) 0px 4px 6px -4px",
+      "source": "dembrandt.shadows highest count",
+      "confidence": "seed-only"
+    }
+  },
+  "requiredBrandGuards": [
+    "score-action-evidence",
+    "collect-rendered-assets",
+    "asset-usage-gate",
+    "create-selector-map",
+    "coverage-gate",
+    "demo-gate"
+  ],
+  "mappingBoundary": {
+    "canSeed": [
+      "raw palette evidence",
+      "button computed styles",
+      "radius/shadow/typography hints"
+    ],
+    "mustNotOverwriteDirectly": [
+      "--du-* tokens",
+      "componentVariants",
+      "slots",
+      "assets",
+      "layoutRules",
+      "platformOverrides",
+      "businessApply"
+    ],
+    "decisionRule": "Use third-party extraction only as raw computed evidence; rerun Brand action/asset/selector/coverage gates before changing style.json, demo presets, or business pages."
+  },
+  "limitations": [
+    "Global color frequency can over-rank decorative, text, or manifest colors.",
+    "CTA color requires action-node scoring from real clickable/download/submit elements.",
+    "Assets, pseudo-elements, masks, section background stacking, and DOM selector mapping still require Brand rendered asset guards.",
+    "This import does not mutate style.json or generated demo files."
+  ]
+}

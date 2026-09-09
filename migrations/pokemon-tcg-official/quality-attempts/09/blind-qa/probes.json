@@ -1,0 +1,85 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 9,
+  "testedUrl": "http://127.0.0.1:5174/?qa=attempt09#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "testedIndependently": true,
+  "forbiddenInputsRead": false,
+  "mobile390x844": {
+    "beforeEntry": {
+      "sectionY": 1049.1953125,
+      "entryState": "before",
+      "laptopOpacity": 0,
+      "laptopTransform": "matrix(0.5, 0, 0, 0.5, 0, 0)"
+    },
+    "realImmediateEntry": {
+      "sectionY": 249.1953125,
+      "entryState": "entering",
+      "laptopOpacity": 0.282507,
+      "laptopTransform": "matrix(0.796655, 0, 0, 0.796655, 0, 0)",
+      "headingOpacity": 0.0199651,
+      "headingTranslateY": 25.5753,
+      "paragraphOpacity": 0,
+      "pikachuOpacity": 0,
+      "backgroundOpacity": 1,
+      "backgroundTransform": "none"
+    },
+    "settled": {
+      "section": { "x": 0, "width": 390, "height": 645 },
+      "entryState": "settled",
+      "laptopOpacity": 1,
+      "laptopTransform": "matrix(1, 0, 0, 1, 0, 0)",
+      "headingOpacity": 1,
+      "paragraphOpacity": 1,
+      "backgroundStatic": true,
+      "horizontalOverflow": false
+    },
+    "typography": {
+      "heading": {
+        "computedFamily": "Oxanium, Arial Narrow, sans-serif",
+        "computedSize": "28px",
+        "expectedFamily": "Kanit, sans-serif",
+        "expectedSize": "28px"
+      },
+      "paragraph": {
+        "computedFamily": "PT Sans Official, sans-serif",
+        "computedSize": "12px",
+        "computedLineHeight": "18.6px",
+        "expectedSize": "18px",
+        "expectedLineHeight": "28.8px"
+      }
+    },
+    "cta": {
+      "width": 191,
+      "height": 51,
+      "restColor": "rgb(0, 0, 0)",
+      "hoverColor": "rgb(226, 186, 101)",
+      "background": "rgb(255, 255, 255)",
+      "href": "https://tcg.pokemon.com/en-us/tcgl/"
+    },
+    "fiveLayers": [
+      { "asset": "laptop.png", "zIndex": 1 },
+      { "asset": "pikachu.png", "zIndex": 3 },
+      { "asset": "phone.png", "zIndex": 4 },
+      { "asset": "avatar-1.png", "zIndex": 5 },
+      { "asset": "avatar-2.png", "zIndex": 6 }
+    ]
+  },
+  "desktop1440x900": {
+    "viewport": [1440, 900],
+    "actualContentShell": { "x": 755, "width": 390, "height": 821.4609375 },
+    "actualTargetSection": { "x": 755, "width": 390, "height": 645 },
+    "expectedTargetSectionWidth": 1440,
+    "independentDesktopProofSurface": false
+  },
+  "submittedCaptureAudit": {
+    "mobileBefore": "INVALID: screenshot contains the preceding page tail and no TCG Live target section",
+    "mobileMid": "INVALID: screenshot contains Hero/WHAT'S NEW and no TCG Live intermediate state",
+    "mobileSettled": "PARTIAL: target section is visible but the red/gold V seam is outside the captured frame",
+    "desktopBeforeMidSettled": "INVALID AS DESKTOP PROOF: 1440 browser screenshots contain inspector/showcase chrome and a 390px phone content surface"
+  },
+  "reducedMotion": {
+    "status": "NOT_INDEPENDENTLY_PROVED",
+    "reason": "No allowed capture or browser-emulated reduced-motion proof was supplied to Blind QA. An implementation-authored boolean is not visual evidence."
+  }
+}

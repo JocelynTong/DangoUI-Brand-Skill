@@ -1,0 +1,9 @@
+{
+  "command": "node --test scripts/brand-preview-layout-contract.test.mjs",
+  "exitCode": 0,
+  "tests": 5,
+  "passed": 5,
+  "failed": 0,
+  "status": "PASS",
+  "qaFinding": "The machine contract accepts a 12px minimum inset, but the real rendered footer still overlaps the bar by 3.15625px; machine PASS does not override browser-visible failure."
+}

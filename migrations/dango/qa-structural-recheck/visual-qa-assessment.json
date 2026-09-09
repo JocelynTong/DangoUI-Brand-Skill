@@ -1,0 +1,63 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "qaRun": "structural-recheck",
+  "verdict": "PASS",
+  "scores": {
+    "overall": 88,
+    "corePages": {
+      "dango-introduction-calibration": 90,
+      "dango-button-calibration": 84
+    },
+    "heldOut": 88
+  },
+  "proofs": {
+    "evidenceFidelity": { "verdict": "PASS", "score": 94 },
+    "structuralFidelity": { "verdict": "PASS", "score": 84 },
+    "generativeProof": { "verdict": "PASS", "score": 88 }
+  },
+  "liveChecks": {
+    "distributionRoutes": {
+      "home": "PASS",
+      "dango-introduction-calibration": "PASS",
+      "dango-button-calibration": "PASS",
+      "dango-release-checklist-held-out": "PASS"
+    },
+    "mobileCompositionLayersBounded": "PASS",
+    "horizontalOverflow": "none observed",
+    "scroll": {
+      "introduction": { "scrollHeight": 1535, "clientHeight": 745, "before": 0, "after": 789.5, "restored": 0 },
+      "button": { "scrollHeight": 3352, "clientHeight": 745, "before": 0, "after": 830, "restored": 0 },
+      "heldOut": { "scrollHeight": 1222, "clientHeight": 745, "before": 0, "after": 477, "restored": 0 }
+    },
+    "homeIndicator": "PASS: absolute outer system layer retained identical rect before and after held-out scrolling",
+    "button": {
+      "sourceIdentity": "dango-primary-button-live-dom",
+      "demoIdentity": "dango-primary-button-live-dom",
+      "sourceVariant": "normal-primary",
+      "demoVariant": "normal-primary",
+      "identityAndVariant": "PASS",
+      "liveGeometry": { "width": 77.15625, "height": 32, "radius": 4 },
+      "colors": { "background": "rgb(124, 102, 255)", "text": "rgb(255, 255, 255)" },
+      "hoverStable": "PASS by capture hash equality",
+      "focus": "PASS: rgb(0, 95, 204) auto 1px",
+      "activatedSettled": "PASS: focus retained, fill and transform unchanged"
+    }
+  },
+  "blockingFindings": [],
+  "nonBlockingFindings": [
+    {
+      "id": "BUTTON_DENSITY_REDUCED_BUT_CONTRACT_RETAINED",
+      "finding": "The calibration uses fewer and taller preview/code examples than the source, but preserves multiple modules, live-preview then code order, and downstream API/events/theme references.",
+      "earliestFailureNode": null,
+      "failureOwnerRole": null
+    },
+    {
+      "id": "CODE_SURFACE_TONAL_VARIATION",
+      "finding": "Demo code panels are dark while the source reference uses a light code field; this is visible but does not replace the required module structure or the frozen Primary color role.",
+      "earliestFailureNode": null,
+      "failureOwnerRole": null
+    }
+  ]
+}

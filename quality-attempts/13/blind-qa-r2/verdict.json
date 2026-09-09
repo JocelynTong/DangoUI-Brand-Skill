@@ -1,0 +1,21 @@
+{
+  "schema": "brand-incident-blind-qa-verdict/v1",
+  "attempt": 13,
+  "review": "blind-qa-r2",
+  "verdict": "PASS",
+  "checks": {
+    "unsupportedDatabaseOrangeRemoved": "PASS",
+    "normalRouteIndicatorStructure": "PASS",
+    "normalRouteIndicatorTransparency": "PASS",
+    "normalRouteScrollStability": "PASS",
+    "normalRouteEndReachability": "PASS",
+    "proofOneIndicatorHidden": "PASS",
+    "proofDesktopIndicatorHidden": "PASS",
+    "proofMobileIndicatorHidden": "PASS",
+    "build": "PASS"
+  },
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "designDirectorRecommendation": "close-incident-13"
+}

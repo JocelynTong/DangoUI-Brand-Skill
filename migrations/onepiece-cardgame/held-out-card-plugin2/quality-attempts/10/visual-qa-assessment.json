@@ -1,0 +1,70 @@
+{
+  "schema": "heldout-plaza-standard-sample-visual-qa/v1",
+  "attempt": 10,
+  "role": "fresh-independent-brand-visual-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Plaza standard sample only; this verdict does not represent the full host",
+  "verdict": "PASS_ADVISORY",
+  "decision": "Attempt 9's only blocking masthead mismatch is closed. The system capsule, chevron and inner C motif all render at 0x0/display:none; the title has no focus target, role, cursor, hover delta or pointer behavior. The remaining hidden legacy nodes are non-blocking cleanup debt because they create neither visual nor accessibility affordance.",
+  "screenshots": [
+    "fresh-390x844-plaza.png",
+    "fresh-536x864-plaza.png",
+    "fresh-1280x720-plaza.png"
+  ],
+  "blockingFindings": [],
+  "advisories": [
+    {
+      "code": "HIDDEN_LEGACY_MASTHEAD_DOM",
+      "severity": "advisory",
+      "owner": "Host Implementation Agent",
+      "evidence": "The aria-hidden .system-capsule, .switch-arrow and .ball-c nodes remain in source DOM, but computed display:none gives each a 0x0 rect. The masthead has zero focusable descendants, and the title has no role, aria state or tabindex.",
+      "recommendation": "Remove the dead legacy nodes when this experiment is promoted into a maintained host theme; no visual rework is required for the current sample."
+    }
+  ],
+  "findings": {
+    "attempt9Blocker": {
+      "status": "PASS",
+      "evidence": [
+        "At 390, 536 and 1280 the system capsule is display:none with a 0x0 rectangle.",
+        "The switch arrow and inner C motif are display:none with 0x0 rectangles.",
+        "The miniapp title has role=null, tabindex=-1, pointer-events:none, cursor:default, transparent background, no border or shadow.",
+        "Forced hover produces no computed color, fill, border, shadow or transform change; header focusable-descendant count is zero."
+      ]
+    },
+    "search": {
+      "status": "PASS",
+      "evidence": "Exactly one native search input remains inside one thin low-radius editorial field; no nested input border or phantom spacing returned."
+    },
+    "visualSystem": {
+      "status": "PASS",
+      "evidence": "Fresh screenshots preserve warm paper as the dominant mass, sparse red/yellow accents, navy framing, consistent thin rules, low radii, title-led editorial cards and restrained metadata."
+    },
+    "responsiveLayout": {
+      "status": "PASS",
+      "evidence": "390x844, 536x864 and 1280x720 each report 0px document overflow. Campaign and first card remain above the fold. Compact widths keep a scroll rail; desktop wraps taxonomy without collisions."
+    },
+    "filterInteraction": {
+      "status": "PASS",
+      "evidence": "All 39 environment choices accept focus and auto-scroll fully into the rail. Pointer, Enter and Space select the last choice."
+    },
+    "hostInteraction": {
+      "status": "PASS",
+      "evidence": "Search filters to one card for 耿鬼; pointer, Enter and Space activate the event tab; the first deck card navigates to detail."
+    },
+    "businessSafety": {
+      "status": "PASS",
+      "evidence": "No non-GET request was observed during fresh rendering and interaction probes."
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "evidence": "Build, mine, event, round and detail fresh 390px captures retain exactly the same SHA-256 values as Attempt 9 and each reports 0px overflow."
+    },
+    "maskedStructuralRecognition": {
+      "status": "PASS",
+      "evidence": "With explicit card art, brand strings and hue mentally masked, the page still carries the source family's paper-dominant field, dark bounded masthead, thin-rule taxonomy, compact metadata and rectangular editorial content islands. No decorative fake platform chrome remains visible."
+    }
+  },
+  "codeReworkRequired": false,
+  "source": ["browser-probes.json", "comparison.json"]
+}

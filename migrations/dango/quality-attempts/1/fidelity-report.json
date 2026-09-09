@@ -1,0 +1,322 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "goalContractPath": "migrations/dango/goal-contract.json",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "attempt": 1,
+  "status": "fidelity-fail",
+  "overallScore": 73.13,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 75,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "introduction",
+      "demoPageId": "dango-introduction-calibration",
+      "score": 73.75,
+      "ratings": {
+        "composition": 2,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 2,
+        "typographyGraphics": 2,
+        "motionSemantics": 4,
+        "brandRecognition": 3
+      }
+    },
+    {
+      "sourcePageId": "button",
+      "demoPageId": "dango-button-calibration",
+      "score": 72.5,
+      "ratings": {
+        "composition": 2,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 1,
+        "typographyGraphics": 3,
+        "motionSemantics": 4,
+        "brandRecognition": 3
+      }
+    }
+  ],
+  "protocolFailures": [],
+  "hardFailures": [
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "intro-technical-content-hierarchy",
+      "message": "The title/rule/prose sequence is present, but the cited high-salience technical hierarchy is not: the source's wide monospaced flow model is replaced by a much smaller generic three-card summary, and the downstream long-form hierarchy is collapsed."
+    },
+    {
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "scope": "responsive-documentation-shell",
+      "message": "The Interpreter-approved pattern must freeze its required structural layers before implementation."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:full-width utility header",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:desktop left navigation",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:central reading column",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:desktop right outline",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "intro-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "intro-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_CROP_TRANSLATION_UNVERIFIED",
+      "scope": "intro-responsive-documentation-shell",
+      "message": "Source/demo composition aspect differs by 1.78x without an authorized crop translation and retained focal points."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "introduction",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "introduction",
+      "message": "Core page score 73.75 is below 75."
+    },
+    {
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "scope": "introduction",
+      "message": "The responsive documentation shell visibly depends on five independent structural layers, but the machine fidelity gate confirms that the approved pattern does not freeze those layers."
+    },
+    {
+      "code": "INTRO_TECHNICAL_HIERARCHY_REPLACED",
+      "scope": "introduction",
+      "message": "The source-calibration page replaces the dominant monospaced technical-flow surface and long-form section rhythm with a generic three-card summary."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:full-width utility header",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:desktop left navigation",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:central reading column",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:desktop right outline",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_UNAPPROVED_LAYER",
+      "scope": "button-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern."
+    },
+    {
+      "code": "COMPOSITION_LAYER_EVIDENCE_INVALID",
+      "scope": "button-responsive-documentation-shell:mobile single-column reflow",
+      "message": "Each structural layer needs a role and bounded source/demo regions; whole-page regions are not layer evidence."
+    },
+    {
+      "code": "COMPOSITION_CROP_TRANSLATION_UNVERIFIED",
+      "scope": "button-responsive-documentation-shell",
+      "message": "Source/demo composition aspect differs by 4.65x without an authorized crop translation and retained focal points."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "button",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "button",
+      "message": "Core page score 72.5 is below 75."
+    },
+    {
+      "code": "BUTTON_REFERENCE_DENSITY_COLLAPSE",
+      "scope": "button",
+      "message": "The core Button source is a 4187px multi-module component reference, but the demo collapses it to one Primary example and a short checklist; composition and information density fall below the frozen core-page threshold."
+    },
+    {
+      "code": "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+      "scope": "button",
+      "message": "The Button page's section-fidelity manifest contains only one QA section despite long, multi-module source evidence."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "docs-shell",
+      "message": "A mustPreserve requirement failed."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "content-hierarchy",
+      "message": "A mustPreserve requirement failed."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 73.13 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is rework."
+    },
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "release-checklist-held-out",
+      "message": "Blind QA must independently approve the held-out generative proof."
+    },
+    {
+      "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+      "scope": "release-checklist-held-out",
+      "message": "Blind QA must review every frozen recipe and confirm rule reuse with visual findings."
+    }
+  ],
+  "blockingFindings": [
+    {
+      "page": "introduction",
+      "code": "COMPOSITION_APPROVAL_INCOMPLETE",
+      "severity": "blocking",
+      "finding": "The responsive documentation shell visibly depends on five independent structural layers, but the machine fidelity gate confirms that the approved pattern does not freeze those layers.",
+      "visualEvidence": {
+        "sourceScreenshot": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+        "sourceRegion": [
+          0,
+          0,
+          1440,
+          900
+        ],
+        "demoScreenshot": "migrations/dango/captures/demo/demo-1/dango-introduction-calibration-proof-desktop.png",
+        "demoRegion": [
+          0,
+          0,
+          1440,
+          900
+        ]
+      },
+      "earliestFailureNode": "Design Translator",
+      "failureOwnerRole": "designTranslator",
+      "requiredRework": "Freeze source-backed utility-header, left-navigation, reading-column, right-outline and bounded mobile-reflow layers before implementation is revised."
+    },
+    {
+      "page": "introduction",
+      "code": "INTRO_TECHNICAL_HIERARCHY_REPLACED",
+      "severity": "blocking",
+      "finding": "The source-calibration page replaces the dominant monospaced technical-flow surface and long-form section rhythm with a generic three-card summary.",
+      "visualEvidence": {
+        "sourceScreenshot": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+        "sourceRegion": [
+          232,
+          198,
+          996,
+          357
+        ],
+        "demoScreenshot": "migrations/dango/captures/demo/demo-1/dango-introduction-calibration-proof-desktop.png",
+        "demoRegion": [
+          286,
+          323,
+          688,
+          153
+        ]
+      },
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "requiredRework": "Rebuild the Introduction calibration around the observed wide technical-flow surface and long-form hierarchy while preserving the already-correct shell, color roles and responsive behavior."
+    },
+    {
+      "page": "button",
+      "code": "BUTTON_REFERENCE_DENSITY_COLLAPSE",
+      "severity": "blocking",
+      "finding": "The core Button source is a 4187px multi-module component reference, but the demo collapses it to one Primary example and a short checklist; composition and information density fall below the frozen core-page threshold.",
+      "visualEvidence": {
+        "sourceScreenshot": "migrations/dango/captures/source/button/desktop/full-page.png",
+        "sourceRegion": [
+          232,
+          352,
+          996,
+          3835
+        ],
+        "demoScreenshot": "migrations/dango/captures/demo/demo-1/dango-button-calibration-proof-desktop.png",
+        "demoRegion": [
+          286,
+          323,
+          688,
+          884
+        ]
+      },
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "requiredRework": "Restore multiple independently reviewable component-reference modules and their desktop/mobile density while preserving the already-correct Primary Button state system."
+    },
+    {
+      "page": "button",
+      "code": "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+      "severity": "blocking",
+      "finding": "The Button page's section-fidelity manifest contains only one QA section despite long, multi-module source evidence.",
+      "visualEvidence": {
+        "sourceScreenshot": "migrations/dango/captures/source/button/desktop/full-page.png",
+        "sourceRegion": [
+          232,
+          352,
+          996,
+          3835
+        ],
+        "demoScreenshot": "migrations/dango/captures/demo/demo-1/dango-button-calibration-proof-desktop.png",
+        "demoRegion": [
+          286,
+          323,
+          688,
+          884
+        ]
+      },
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "requiredRework": "Declare and independently audit at least two real Button schema sections; item or DOM counts may not substitute for section structure."
+    }
+  ],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-fail",
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "fail",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+    "qaInputManifest": "207ba63b2fa8f5888071633f3d26be6e64f997ffd1d99454aeeeaec0885e3501",
+    "assessment": "7bbfc241dde1b49ae2d0dcf2a502e8c613e53d796229a774daff656899574b38",
+    "visualPatternInventory": "d0aa3f6f9c20060b2ad6e2fa6ac3af6ebd9a1aef253b455763af226956ba6a16",
+    "generativeProof": "5f0d1ceab49d84e3b9dbc8652a4d68200619b11356e7527bbfc3e1f959a88b05"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-09-04T17:31:48.013Z"
+}

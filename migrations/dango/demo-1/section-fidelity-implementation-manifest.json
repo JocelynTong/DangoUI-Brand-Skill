@@ -1,0 +1,86 @@
+{
+  "schema": "brand-section-fidelity/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "stage": "demo-1",
+  "sections": [
+    {
+      "id": "introduction-docs-shell",
+      "pageId": "dango-introduction-calibration",
+      "sourceCapture": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+      "demoCapture": "migrations/dango/captures/demo/demo-1/dango-introduction-calibration-proof-desktop.png",
+      "sourceViewport": { "width": 1440, "height": 900 },
+      "demoViewport": { "width": 1440, "height": 900 },
+      "sourceRegion": [0, 0, 1, 1],
+      "demoRegion": [0, 0, 1, 1],
+      "requiredLayers": [
+        { "id": "header", "sourceSelector": "header", "demoSelector": ".dango-docs__utility-header", "status": "pass" },
+        { "id": "left-navigation", "sourceSelector": "aside:first-of-type", "demoSelector": ".dango-docs__sidebar", "status": "pass" },
+        { "id": "reading-column", "sourceSelector": "main", "demoSelector": ".dango-docs__article", "status": "pass" },
+        { "id": "right-outline", "sourceSelector": "aside:last-of-type", "demoSelector": ".dango-docs__outline", "status": "pass" }
+      ],
+      "readingOrder": ["utility header", "page title", "introductory copy", "technical model", "continuation section"],
+      "responsiveBehavior": { "status": "pass", "finding": "At 390px secondary sidebars are hidden, the article is 16px inset, H1 remains 32px and the header does not obscure it." },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [],
+      "interactionChecks": [],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "introduction-content-hierarchy",
+      "pageId": "dango-introduction-calibration",
+      "sourceCapture": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+      "demoCapture": "migrations/dango/captures/demo/demo-1/dango-introduction-calibration-proof-desktop.png",
+      "sourceViewport": { "width": 1440, "height": 900 },
+      "demoViewport": { "width": 1440, "height": 900 },
+      "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786],
+      "demoRegion": [0.198611, 0.062222, 0.478472, 0.48],
+      "requiredLayers": [
+        { "id": "title", "sourceSelector": "main h1", "demoSelector": ".dango-docs__article h1", "status": "pass" },
+        { "id": "divider", "sourceSelector": "main hr", "demoSelector": ".dango-docs__title-rule", "status": "pass" },
+        { "id": "technical-surface", "sourceSelector": "main .prose-diagram", "demoSelector": ".dango-docs__model", "status": "pass" },
+        { "id": "section-heading", "sourceSelector": "main h2", "demoSelector": ".dango-docs__article h2", "status": "pass" }
+      ],
+      "readingOrder": ["36px title", "divider", "lead", "body", "24px heading", "technical model"],
+      "responsiveBehavior": { "status": "pass", "finding": "The model reflows from three columns to one and text remains readable instead of uniformly scaling down." },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [],
+      "interactionChecks": [],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "button-docs-shell-and-preview",
+      "pageId": "dango-button-calibration",
+      "sourceCapture": "migrations/dango/captures/source/button/desktop/frame-00.png",
+      "demoCapture": "migrations/dango/captures/demo/demo-1/dango-button-calibration-proof-desktop.png",
+      "sourceViewport": { "width": 1440, "height": 900 },
+      "demoViewport": { "width": 1440, "height": 900 },
+      "sourceRegion": [0, 0, 1, 1],
+      "demoRegion": [0, 0, 1, 1],
+      "requiredLayers": [
+        { "id": "shared-shell", "sourceSelector": "main", "demoSelector": ".dango-docs__layout", "status": "pass" },
+        { "id": "preview", "sourceSelector": ".du-button", "demoSelector": ".dango-docs__example-preview", "status": "pass" },
+        { "id": "code", "sourceSelector": "pre", "demoSelector": ".dango-docs__example-code", "status": "pass" },
+        { "id": "primary-button", "sourceSelector": ".du-button--primary", "demoSelector": ".dango-docs__primary", "status": "pass" }
+      ],
+      "readingOrder": ["title", "purpose", "component example", "code", "state constraints"],
+      "responsiveBehavior": { "status": "pass", "finding": "At 390px preview and code stack vertically; the 32px Primary Button remains independently scaled and readable." },
+      "usesItemCountAsStructureProxy": false,
+      "assetRefs": [],
+      "interactionChecks": [
+        {
+          "id": "primary-button-sequence",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/dango/captures/demo/demo-1/dango-button-calibration-normal-initial.png",
+          "afterCapture": "migrations/dango/captures/demo/demo-1/dango-button-primary-activated.png"
+        }
+      ],
+      "horizontalOverflow": false,
+      "status": "pass"
+    }
+  ]
+}

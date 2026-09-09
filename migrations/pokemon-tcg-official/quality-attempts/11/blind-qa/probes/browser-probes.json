@@ -1,0 +1,75 @@
+{
+  "schema": "blind-browser-probes/v1",
+  "browser": "Chrome extension browser",
+  "baseUrl": "http://127.0.0.1:4173/",
+  "normalHome": {
+    "url": "http://127.0.0.1:4173/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "viewport": [1440, 900],
+    "phone": {"rect": [755, 51.3984375, 390, 821.4609375], "border": "9.5px solid rgba(0,0,0,0.08)", "borderRadius": "41.4666px"},
+    "screen": {"rect": [764.5, 60.8984375, 371, 802.4609375], "clientHeight": 802, "scrollHeight": 3422, "scrollSequence": [0, 1560, 0]},
+    "homeIndicator": {"position": "absolute", "rectBefore": [774.3671875, 819.9296875, 351.265625, 33.5625], "rectAfter": [774.3671875, 819.9296875, 351.265625, 33.5625], "rectRestored": [774.3671875, 819.9296875, 351.265625, 33.5625]},
+    "horizontalOverflow": false
+  },
+  "championshipDesktop": {
+    "url": "http://127.0.0.1:4173/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "viewport": [1440, 900],
+    "sectionRect": [0, 2269.984375, 1440, 720],
+    "copyRect": [0, 2269.984375, 720, 720],
+    "imageRect": [720, 2269.984375, 720, 720],
+    "imageFirstInDom": true,
+    "layout": "row-reverse => copy left, image right",
+    "canvasOwnership": {"sectionBackground": "transparent", "sectionBeforeBackground": "rgb(255,255,255)", "sectionBeforePosition": "absolute", "parentBackground": "rgb(0,0,0)"},
+    "previousSibling": ".pokemon-pocket",
+    "nextSibling": null,
+    "typography": {"heading": "Kanit Official 700 italic 56px/57.12px", "body": "PT Sans Official 400 20px/32px", "cta": "PT Sans Official 700 italic 20px/24px"},
+    "horizontalOverflow": false
+  },
+  "championshipMobile": {
+    "url": "http://127.0.0.1:4173/?proof=mobile#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+    "viewport": [390, 844],
+    "devicePixelRatio": 1,
+    "sectionRect": [0, 2436.8359375, 390, 829.171875],
+    "imageRect": [0, 2436.8359375, 390, 390],
+    "copyRect": [8, 2826.8359375, 374, 439.171875],
+    "order": ["image", "copy"],
+    "typography": {"heading": "Kanit Official 700 italic 32px/32.5px", "body": "PT Sans Official 400 18px/28.8px", "cta": "PT Sans Official 700 italic 18px/22.5px"},
+    "cta": {
+      "rect": [99.6328125, 3182.3125, 190.734375, 51.296875],
+      "default": {"surface": "rgb(0,0,0)", "content": "rgb(255,255,255)", "goldLayerTransform": "scaleX(0)"},
+      "hover": {"surfaceLayer": "rgb(226,186,101)", "content": "rgb(0,0,0)", "goldLayerTransform": "scaleX(1)", "transformOriginPx": [95.3672, 25.6484]},
+      "focus": {"surface": "rgb(0,0,0)", "content": "rgb(255,255,255)", "outline": "rgb(0,95,204) auto 1px", "outlineOffset": "2px"},
+      "destination": "https://championships.pokemon.com/en-us/",
+      "activatedTabTitle": "Pokémon Championship Series"
+    },
+    "horizontalOverflow": false
+  },
+  "officialAsset": {
+    "src": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+    "srcset": "/assets/brand-assets/pokemon-tcg-official/championships.jpg 1x, /assets/brand-assets/pokemon-tcg-official/championships-2x.jpg 2x",
+    "currentSrcAtDpr1": "http://127.0.0.1:4173/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+    "naturalSizeAtDpr1": [696, 696],
+    "oneX": {"sha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d", "matchesFrozen": true},
+    "twoX": {"sha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db", "matchesFrozen": true},
+    "note": "The live QA browser had DPR=1, so currentSrc correctly selected the 1x candidate. The frozen source observation selected 2x in a different device-density context; src, srcset, selected currentSrc and both hashes remain separately recorded."
+  },
+  "regression": {
+    "orderedDirectSections": ["Hero", "What's New", "Pokémon TCG Live", "Pokémon TCG Pocket", "Pokémon Championship Series"],
+    "principalImagesLoaded": true,
+    "positiveGeometry": true,
+    "missingExpectedSuccessor": "Play! Pokémon"
+  },
+  "heldOut": {
+    "desktopUrl": "http://127.0.0.1:4173/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-championship-fixture",
+    "mobileUrl": "http://127.0.0.1:4173/?proof=mobile#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-championship-fixture",
+    "directlyReachable": true,
+    "desktop": {"section": [0, 0, 1440, 720], "copy": [0, 0, 720, 720], "media": [720, 0, 720, 720]},
+    "mobile": {"section": [0, 0, 390, 829.171875], "media": [0, 0, 390, 390], "copy": [8, 390, 374, 439.171875]},
+    "contentIndependent": true,
+    "officialChampionshipAssetReused": false,
+    "mediaKind": "CSS-native original visual; zero img elements",
+    "defaultAndHoverStateReused": true,
+    "focus": {"focusVisible": true, "outline": "none 0px", "boxShadow": "none", "passes": false},
+    "activation": {"stateChanged": true, "ariaPressed": true, "inventedPressedState": true, "passes": false},
+    "canvasOwnershipPasses": false
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "brand-heldout-quality-canonical/v3",
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "attempt": 3,
+  "qaExecution": "heldout_host_fresh_qa3",
+  "fresh": true,
+  "verdict": "PASS",
+  "workflowCompletion": "PASS",
+  "businessSafety": "PASS",
+  "visualSystemConformance": "PASS",
+  "visualDistinctiveness": "PASS",
+  "designSystemStructuralRecognition": "PASS_BLOCKING",
+  "explicitIpRecognition": "PASS_DIAGNOSTIC",
+  "runtime": "PASS",
+  "theme": "PASS_SINGLE_GLOBAL_ENTRY",
+  "dangoUi": "PARTIAL_STYLE_ONLY",
+  "blockingFindings": [],
+  "acceptanceEvidence": {
+    "routesViewports": "6 routes x 2 viewports fresh cold loads PASS",
+    "detailToggleRepair": "PASS_POINTER_ENTER_SPACE_BOTH_VIEWPORTS",
+    "reducedMotionRepair": "PASS_PAGE_ROOT_AND_DESCENDANTS_6_OF_6",
+    "zeroExternalWrites": true,
+    "horizontalOverflow": "PASS_12_OF_12",
+    "accessibilityAugmentations": "PASS_68_OF_68",
+    "visibleControlFocus": "PASS_744_INSTANCES",
+    "structuralDiff": "PASS_6_OF_6",
+    "goalSeal": "PASS",
+    "themeOrder": "PASS",
+    "ordinaryBuild": "PASS",
+    "heldOutBuild": "PASS",
+    "maskedRecognition": "PASS"
+  },
+  "artifacts": [
+    "quality-attempts/3/browser-probes.json",
+    "quality-attempts/3/supplemental-probes.json",
+    "quality-attempts/3/visual-qa-assessment.json",
+    "quality-attempts/3/brand-distinctiveness-assessment.json"
+  ],
+  "preview": {
+    "fixedPort": 10092,
+    "local": "http://127.0.0.1:10092/",
+    "lan": "http://192.168.12.127:10092/",
+    "status": "HTTP_200_AFTER_HELDOUT_REBUILD"
+  }
+}

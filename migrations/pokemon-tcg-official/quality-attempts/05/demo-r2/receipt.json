@@ -1,0 +1,54 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "05-demo-r2",
+  "role": "demoImplementationAgent",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "decision": "ready-for-new-independent-blind-qa",
+  "inputs": [
+    {
+      "path": "migrations/pokemon-tcg-official/quality-attempts/05/goal-correction.json",
+      "sha256": "986498b5ef0a85c60946591e3398d0d563a30fc8cb3ac539f8865d0a7b262c50"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official/quality-attempts/05/design-direction-compact.json",
+      "sha256": "68682d4ef1da20782e20502355db1d738afd4d25c878b7c58878a941bf29decd"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official/quality-attempts/05/blind-qa/visual-qa-assessment.json",
+      "sha256": "5cae4881aab2a4cd6c0831e94f14b9a989d275d748cb98af90c18b61dce90e0d"
+    }
+  ],
+  "implementation": [
+    {
+      "path": "src/App.vue",
+      "sha256": "0f31b4d6ecadaadce329f84c82325f3125984a39cb61a3e436aa0fd2121a2229"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "36440143b8f56d31da601f657b4d7aff4707abf6e1cb7d44782ac7afcc88b6b9"
+    },
+    {
+      "path": "scripts/pokemon-home-attempt05-r2-probe.mjs",
+      "sha256": "0ee049cb933a05d0e7f3fb462c0779da0a7801a8dba5e009441e7cdd716b2273"
+    }
+  ],
+  "proof": {
+    "browserProbes": {
+      "path": "migrations/pokemon-tcg-official/quality-attempts/05/demo-r2/browser-probes.json",
+      "sha256": "67a2d130c68f3847fa4a49a2855a05cd282e9a3b24f30bd008d6d08d5886f75c"
+    },
+    "captures": [
+      "captures/mobile-390x844-front.png",
+      "captures/mobile-390x844-flip-mid.png",
+      "captures/mobile-390x844-back.png",
+      "captures/outer-1440-internal-phone-front.png",
+      "captures/outer-1440-internal-phone-flip-mid.png",
+      "captures/outer-1440-internal-phone-back.png",
+      "captures/reduced-motion-back-immediate.png"
+    ],
+    "build": "pass",
+    "implementationChecks": "pass"
+  },
+  "selfVerdict": "implementation-checks-pass-no-visual-fidelity-verdict"
+}

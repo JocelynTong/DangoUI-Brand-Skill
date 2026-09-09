@@ -1,0 +1,19 @@
+{
+  "schema": "brand-evidence-debug-checklist/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "status": "strict-gate-pass-for-frozen-scope",
+  "checks": [
+    {"item": "Goal frozen before interpretation", "status": "pass", "evidence": "migrations/dango/goal-contract.json"},
+    {"item": "Desktop and mobile source screenshots", "status": "pass", "evidence": "migrations/dango/source-observation-manifest.json"},
+    {"item": "Hashed continuous video, lossless timeline frames, settled page end and restored state", "status": "pass", "evidence": "migrations/dango/source-observation-manifest.json"},
+    {"item": "Visible DOM plus computed style", "status": "pass", "evidence": "migrations/dango/captures/source/*/*/visible-computed.json"},
+    {"item": "Primary button default/hover-transition/hover/focus/activated with before-after and computed values", "status": "pass", "evidence": "migrations/dango/action-evidence-v02.json"},
+    {"item": "Goal questions are falsifiable and have explicit stop conditions", "status": "pass", "evidence": "migrations/dango/evidence-question-matrix.json"},
+    {"item": "High-salience sections have desktop/mobile structure manifests", "status": "pass", "evidence": "migrations/dango/section-fidelity-manifest.json"},
+    {"item": "Dembrandt candidates dispositioned", "status": "pass", "evidence": "migrations/dango/brand-evidence.json#thirdPartySeedDispositions"},
+    {"item": "Full DangoUI component library coverage", "status": "not-in-frozen-scope", "evidence": "goal-contract nonGoals"},
+    {"item": "Strict evidence visibility gate", "status": "pass", "evidence": "node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand dango --strict"},
+    {"item": "Interpreter, Design Direction, Demo and Blind QA", "status": "pending-downstream", "evidence": "Evidence role has completed its frozen scope and did not create downstream artifacts."}
+  ]
+}

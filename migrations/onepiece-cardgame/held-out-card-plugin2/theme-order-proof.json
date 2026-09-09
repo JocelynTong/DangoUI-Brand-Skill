@@ -1,0 +1,31 @@
+{
+  "schema": "brand-host-theme-order-proof/v1",
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "strategy": "single-global-entry",
+  "globalImporter": "frontend/src/app.js",
+  "loadOrder": [
+    "frontend/src/app.scss",
+    "frontend/src/styles/pokemon-tcg-pitch-black-theme.scss",
+    "frontend/src/styles/onepiece-cardgame-heldout-theme.scss"
+  ],
+  "themeEntryImportCount": 1,
+  "scope": "html.theme-onepiece-cardgame-heldout",
+  "optIn": "TARO_APP_HELDOUT_THEME=onepiece fixed H5 preview build",
+  "defaultIsolationProof": {
+    "freshUrl": "ordinary build at any route URL",
+    "rootOptIn": false,
+    "pokemonHeroBackgroundPreserved": true,
+    "pokemonRouteTextPreserved": true
+  },
+  "heldOutComputedProof": {
+    "url": "http://127.0.0.1:10092/#/pages/event/index?id=0",
+    "rootOptIn": true,
+    "heroBackgroundUsesApprovedAsset": true,
+    "heroBorderBottom": "8px solid rgb(185, 29, 34)",
+    "roundCardBorderLeft": "7px solid rgb(185, 29, 34)",
+    "primaryAction": {"background":"rgb(185, 29, 34)","borderRadius":"999px","minTarget":"44px"},
+    "hostTextPreserved": true,
+    "themeContinuity": "build-time preview mode is invariant across child navigation, back/forward and cold reload"
+  },
+  "validator": {"gate":"host-theme-order/v1","ok":true,"failures":[]}
+}

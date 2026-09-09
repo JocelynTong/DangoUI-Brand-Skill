@@ -1,0 +1,15 @@
+{
+  "schema": "onepiece-attempt13-blind-qa-assessment/v1",
+  "attempt": 13,
+  "independent": true,
+  "verdict": "FAIL",
+  "rule": "All four scoped contracts must pass; no compensation across proofs.",
+  "contracts": {
+    "eventsAssetIdentity": {"verdict":"FAIL","code":"EVENT_ASSET_IDENTITY_MISMATCH","reason":"Identity/provenance, generated=0, sole [4,5] duplicate, cover behavior and red frame pass; however all six live media boxes are approximately 104x126, not the frozen 104x104 display contract."},
+    "recommendDistinctMediaRail": {"verdict":"PASS","reason":"Five positional official SHA-256 identities are pairwise distinct; 640x360 intrinsic media, cover crop, clipped horizontal rail and partial-next discovery cue are present."},
+    "newArrivalReversibleControls": {"verdict":"PASS","reason":"Real click changes 1/10 at 0px to 2/10 at -181.998px, enables Previous consistently in ARIA/visual/computed state, and Previous completely restores the initial state."},
+    "heldOutIndependentDemoPage": {"verdict":"PASS","reason":"Home has zero held-out organisms; direct distinct route resolves; registry mapsToSourcePageId is null; independent fictional content and generated fixtures have a separate live screenshot."}
+  },
+  "regression": {"verdict":"PASS","scope":"attempt12 mobile sections, full scroll, no horizontal overflow, Hero/Footer motion and desktop phone shell"},
+  "blockingFindings": [{"code":"EVENT_ASSET_IDENTITY_MISMATCH","scope":"Home Events six rows","expected":"104x104 display box per official item","actual":"approximately 104x126 for each of six items"}]
+}

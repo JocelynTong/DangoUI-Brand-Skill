@@ -1,0 +1,925 @@
+{
+  "schema": "brand-standard-demo-preview.v0.1",
+  "brand": "onepiece-cardgame",
+  "displayName": "ONE PIECE CARD GAME",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "sourceHost": "asia-en.onepiece-cardgame.com",
+  "status": "fidelity-pass",
+  "standardDemo": true,
+  "businessApply": false,
+  "migrationRoot": "migrations/onepiece-cardgame",
+  "demoPurpose": "brand-learning-capability-test",
+  "nonGoals": [
+    "pixel-perfect mirroring of every official page",
+    "proving fidelity by reusing a full-page or cropped source screenshot at runtime",
+    "producing a generic template that is recognizable only through logos, colors or official artwork",
+    "validating host-project business usability"
+  ],
+  "proofs": {
+    "evidenceFidelity": {
+      "claim": "Every high-salience visual decision is traceable to an observed source pattern and its semantic role.",
+      "status": "pass",
+      "requiredEvidence": [
+        "brand-evidence.json",
+        "brand-intent.json",
+        "visual-pattern-inventory.json"
+      ],
+      "finding": "Canonical fidelity report records evidence fidelity pass."
+    },
+    "structuralFidelity": {
+      "claim": "Source composition, hierarchy, density and interaction roles survive the responsive translation without unsupported visual invention.",
+      "status": "pass",
+      "requiredEvidence": [
+        "source/demo screenshot comparison",
+        "page recipeIds",
+        "region-level evidenceTrace"
+      ],
+      "finding": "Canonical fidelity report records structural fidelity pass."
+    },
+    "generativeProof": {
+      "claim": "The learned recipes can generate a recognizably on-brand page from held-out content that is not copied page-for-page from the source.",
+      "status": "pass",
+      "requiredEvidence": [
+        "one generative-held-out page",
+        "held-out content manifest",
+        "new blind QA assessment"
+      ],
+      "finding": "Canonical fidelity report records generative proof pass."
+    }
+  },
+  "generativeChallenge": {
+    "challengeId": "onepiece-editorial-held-out-v1",
+    "status": "pass",
+    "targetPageId": "onepiece-cardgame-editorial-held-out",
+    "heldOutContentRule": "Use new representative event content and source-independent composition inputs while applying only approved recipes and assets; do not map the page one-to-one from an official Events screenshot.",
+    "successCriteria": [
+      "recognizable brand language without a copied source page composition",
+      "all high-salience patterns trace to approved recipeIds",
+      "blind QA can distinguish generative transfer from logo/color substitution"
+    ]
+  },
+  "createdAt": "2026-08-28T22:40:59.807Z",
+  "previewIntent": "Brand-learning capability test: prove evidence fidelity, structural fidelity and generative transfer. It is neither a source mirror nor a host apply result.",
+  "sourceNavigation": {
+    "visiblePageIds": [
+      "onepiece-cardgame-home",
+      "onepiece-cardgame-news",
+      "onepiece-cardgame-products",
+      "onepiece-cardgame-events",
+      "onepiece-cardgame-editorial-held-out"
+    ],
+    "items": [
+      {
+        "label": "Home",
+        "pageId": "onepiece-cardgame-home"
+      },
+      {
+        "label": "News",
+        "pageId": "onepiece-cardgame-news"
+      },
+      {
+        "label": "Products",
+        "pageId": "onepiece-cardgame-products"
+      },
+      {
+        "label": "Events",
+        "pageId": "onepiece-cardgame-events"
+      },
+      {
+        "label": "Field Notes",
+        "pageId": "onepiece-cardgame-editorial-held-out"
+      }
+    ]
+  },
+  "summary": "ONE PIECE CARD GAME uses large campaign imagery, hard black-and-white navigation and taxonomy controls, warm nautical paper surfaces, and narrowly scoped interaction feedback verified from rendered states.",
+  "preset": {
+    "id": "onepiece-cardgame",
+    "label": "ONE PIECE CARD GAME",
+    "icon": "/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+    "source": "https://asia-en.onepiece-cardgame.com/",
+    "hero": "ONE PIECE CARD GAME",
+    "notice": "多色活动官网的草稿预览：先检查 Hero、资讯节奏、产品卡和亮黄 active 状态是否能被 schema 表达。",
+    "evidenceNote": "Canonical fidelity report is fidelity-pass; Evidence、Structure 与 held-out Generative Proof 已通过。宿主 apply 仍是独立工作流。",
+    "sectionTitle": "ONE PIECE Preview",
+    "tabs": [
+      "HOME",
+      "NEWS",
+      "PRODUCTS"
+    ],
+    "tokens": [
+      {
+        "name": "--du-bg-2",
+        "value": "#0b0b0b"
+      },
+      {
+        "name": "--du-bg-1",
+        "value": "#ffffff"
+      },
+      {
+        "name": "--du-text-1",
+        "value": "#111111"
+      },
+      {
+        "name": "--du-text-3",
+        "value": "#6f6457"
+      },
+      {
+        "name": "--du-border-1",
+        "value": "#d8c49a"
+      },
+      {
+        "name": "--du-primary-color",
+        "value": "#fff507"
+      },
+      {
+        "name": "--du-primary-border",
+        "value": "#e2b900"
+      },
+      {
+        "name": "--du-primary-outline-color",
+        "value": "#fff507"
+      },
+      {
+        "name": "--du-primary-soft-bg",
+        "value": "#fff7c2"
+      },
+      {
+        "name": "--du-primary-solid-bg",
+        "value": "#fff507"
+      },
+      {
+        "name": "--du-secondary-color",
+        "value": "#e31f25"
+      }
+    ],
+    "style": {
+      "cardRadius": "4px",
+      "controlRadius": "999px",
+      "pageSpacing": "16px",
+      "cardShadow": "0 10px 24px rgba(0,0,0,.22)",
+      "media": "linear-gradient(180deg, #111111 0%, #f7e8b8 58%, #ffffff 100%)",
+      "fontBody": "'OPCG Poppins', Poppins, Arial, sans-serif",
+      "fontDisplay": "'OPCG Alfa Slab One', 'Alfa Slab One', 'Arial Black', sans-serif"
+    },
+    "assets": {
+      "eventFrame": {
+        "src": "/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp",
+        "role": "hero-background",
+        "evidence": "independent official 1920x1080 campaign asset captured from the source site's current carousel"
+      },
+      "newsThumb": {
+        "src": "/assets/brand-assets/onepiece-cardgame/source/news-singapore.webp",
+        "role": "content-image",
+        "evidence": "source-localized from rendered news thumbnail"
+      },
+      "productBox": {
+        "src": "/assets/brand-assets/onepiece-cardgame/source/hero-product.webp",
+        "role": "product-image",
+        "evidence": "source-localized from rendered homepage product image"
+      },
+      "navIcon": {
+        "src": "/assets/brand-assets/onepiece-cardgame/source/product-decks.png",
+        "role": "active-navigation-icon",
+        "evidence": "source-localized from rendered products type item"
+      },
+      "footerIllustration": {
+        "src": "/assets/brand-assets/onepiece-cardgame/source/footer/chara.webp",
+        "role": "home-footer-illustration-organism",
+        "evidence": "lead layer of the frozen seven-asset official footer composition; runtime section includes all required siblings"
+      }
+    },
+    "signals": [
+      {
+        "raw": "#fff507",
+        "count": 1,
+        "percent": "active",
+        "target": "--du-primary-color",
+        "value": "亮黄来自 active navigation / open state，不是大面积背景。"
+      },
+      {
+        "raw": "#e31f25",
+        "count": 1,
+        "percent": "action",
+        "target": "--du-secondary-color",
+        "value": "红色更适合活动提醒、重点按钮或品牌强调。"
+      },
+      {
+        "raw": "bg_pikup-events.webp",
+        "count": 1,
+        "percent": "asset",
+        "target": "style-only asset-frame",
+        "value": "官网事件模块边框/纸张感素材，需要作为 section asset 使用。"
+      }
+    ]
+  },
+  "styleRecipeDetails": {
+    "color": [
+      "Yellow is limited to the captured top-menu open indicator and campaign artwork; it is not a global active token.",
+      "Catalog taxonomy uses black-white rectangular controls; no red action role is promoted without a rendered state.",
+      "Warm paper neutrals support editorial and beginner content."
+    ],
+    "asset": [
+      "Use rendered event frame assets as section-level decoration, not global page chrome.",
+      "Use product and news images with intrinsic ratio until browser naturalWidth is verified."
+    ],
+    "motion": [
+      "Navigation and button interactions should use short press/hover feedback before any large showcase animation."
+    ]
+  },
+  "mustVerifyBeforeApply": [
+    "Re-run browser screenshot and asset naturalWidth checks after any preview or dependency change.",
+    "Confirm no current-page, tab, section-title or button-fill semantics are inferred from the narrow yellow menu-open state.",
+    "Run a separate apply-host workflow before changing any business project."
+  ],
+  "learningProof": {
+    "status": "fidelity-pass",
+    "evidenceStatus": "pass",
+    "structureStatus": "pass",
+    "generativeStatus": "pass",
+    "blockers": [],
+    "businessApply": false,
+    "fidelityScore": null,
+    "qaAttempt": null
+  },
+  "pages": [
+    {
+      "id": "onepiece-cardgame-home",
+      "mapsToSourcePageId": "home",
+      "proofRole": "source-calibration",
+      "recipeIds": [
+        "home-seven-variant-hero-system",
+        "campaign-hero-stage",
+        "nautical-story-surface",
+        "editorial-module-rhythm",
+        "home-news-paper-surface",
+        "home-new-arrival-navy",
+        "home-products-cool-overlay",
+        "home-events-black-title-bar",
+        "home-videos-warm-overlay",
+        "home-display-font-resource",
+        "home-editorial-font-resource",
+        "home-utility-font-resource",
+        "home-condensed-metadata-font-resource",
+        "home-footer-illustration-organism",
+        "home-footer-navy"
+      ],
+      "evidenceTrace": [
+        "brand-intent.json#campaign-hero-stage",
+        "brand-intent.json#nautical-story-surface",
+        "brand-intent.json#editorial-module-rhythm",
+        "brand-evidence.json#home-full-viewport-campaign-hero",
+        "brand-evidence.json#welcome-button-image-pill"
+      ],
+      "contentIndependence": {
+        "mode": "source-content",
+        "status": "pass",
+        "reason": "Blind QA verified the source-calibration page is rebuilt from independent official assets and DOM/CSS rather than a screenshot crop."
+      },
+      "side": "distribution",
+      "tab": "Home",
+      "name": "Home",
+      "kind": "campaign-home",
+      "layoutRecipe": "source-phone-campaign-home",
+      "description": "在完整 phone mockup 内重建官网 campaign Hero，并继续呈现 Welcome 与 News 的低显著度首页结构；所有视觉由独立官方资产与 DOM/CSS 语义构成，不使用官网截图或 crop。",
+      "components": [
+        "HeroHeader",
+        "Button",
+        "Image",
+        "Card",
+        "List"
+      ],
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "sections": [
+        {
+          "id": "home-hero",
+          "type": "brand-hero",
+          "component": "HeroHeader",
+          "recipe": "onepiece-campaign-hero-stage",
+          "assets": {
+            "background": "/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp",
+            "logo": "/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+            "title": null,
+            "cards": [
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+                "alt": "Official ST-36 starter deck product"
+              }
+            ]
+          },
+          "content": {
+            "assetOnly": false,
+            "navigation": [
+              "FOR BEGINNERS",
+              "RULES",
+              "Q&A",
+              "NEWS",
+              "PRODUCTS",
+              "EVENTS",
+              "CARDS"
+            ],
+            "hideTextTitle": false,
+            "titleImageAlt": "STARTER DECK -Yellow Eustass Captain Kid- [ST-36]",
+            "title": "STARTER DECK -Yellow Eustass Captain Kid- [ST-36]",
+            "description": "A yellow deck led by Eustass Kid, presented in the frozen campaign composition.",
+            "meta": "ST-36",
+            "controls": [
+              "01",
+              "02",
+              "03",
+              "04",
+              "05",
+              "06",
+              "07"
+            ],
+            "activeControl": "07"
+            ,"variants": [
+              {"title":"4TH ANNIVERSARY SET","description":"The ONE PIECE Card Game celebrates four years at sea.","meta":"ANNIVERSARY · 01","eyebrow":"SPECIAL CAMPAIGN","background":"/assets/brand-assets/onepiece-cardgame/source/hero-current-op17.webp","product":"/assets/brand-assets/onepiece-cardgame/source/hero-product.webp"},
+              {"title":"RED AGGRO DECK","description":"A fast-paced mono-red aggro deck!","meta":"STARTER DECK · 02","eyebrow":"RUSH FORWARD","background":"/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp","product":"/assets/brand-assets/onepiece-cardgame/source/product-st31.webp"},
+              {"title":"GREEN BATTLE DECK","description":"A high-speed mono-green battle-focused deck.","meta":"STARTER DECK · 03","eyebrow":"CUT THROUGH","background":"/assets/brand-assets/onepiece-cardgame/source/hero-st32-green.webp","product":"/assets/brand-assets/onepiece-cardgame/source/product-st32.webp"},
+              {"title":"BLUE CONTROL DECK","description":"A mono-blue control deck!","meta":"STARTER DECK · 04","eyebrow":"COMMAND THE TIDE","background":"/assets/brand-assets/onepiece-cardgame/source/hero-mv-sp.webp","product":"/assets/brand-assets/onepiece-cardgame/source/product-st33.webp"},
+              {"title":"PURPLE FUTURE-SIGHT","description":"A mono-purple future-sight control deck!","meta":"STARTER DECK · 05","eyebrow":"SEE THE NEXT MOVE","background":"/assets/brand-assets/onepiece-cardgame/source/products-slide-sp.webp","product":"/assets/brand-assets/onepiece-cardgame/source/product-st34.webp"},
+              {"title":"RED × BLACK MIDRANGE","description":"A red-black midrange combat deck!","meta":"STARTER DECK · 06","eyebrow":"TAKE THE FIELD","background":"/assets/brand-assets/onepiece-cardgame/source/hero-current-op17.webp","product":"/assets/brand-assets/onepiece-cardgame/source/product-st35.webp"},
+              {"title":"YELLOW CAPTAIN KID","description":"A midrange deck that excels in both offense and defense!","meta":"STARTER DECK · 07","eyebrow":"DEFY THE ODDS","background":"/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp","product":"/assets/brand-assets/onepiece-cardgame/source/product-st36.webp"}
+            ]
+          }
+        },
+        {
+          "id": "home-welcome",
+          "type": "home-welcome",
+          "component": "Card",
+          "recipe": "nautical-story-surface",
+          "content": {
+            "kicker": "WELCOME",
+            "title": "BEGIN YOUR ADVENTURE",
+            "description": "Learn the basics, discover the crew and set sail with the ONE PIECE CARD GAME.",
+            "actions": [{"label":"Begin Your Adventure","href":"/beginners/"}]
+          }
+        },
+        {
+          "id": "home-news",
+          "type": "home-editorial-list",
+          "component": "List",
+          "recipe": "editorial-module-rhythm",
+          "assets": {
+            "cards": [
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/news-singapore.webp",
+                "category": "NEWS",
+                "title": "Starter Deck -Green Roronoa Zoro- arrives soon",
+                "release": "2026.06.25"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-sleeve.webp",
+                "category": "PRODUCTS",
+                "title": "New card accessories join the crew",
+                "release": "2026.06.18"
+              },
+              {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st36.webp","category":"DECK","title":"Yellow Captain Kid starter deck strategy guide","release":"2026.06.12"},
+              {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st35.webp","category":"EVENT","title":"Regional Championship applications now open","release":"2026.06.06"},
+              {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st34.webp","category":"CARD LIST","title":"Latest card list and rules update","release":"2026.05.30"}
+            ]
+          },
+          "content": {
+            "kicker": "NEWS",
+            "title": "LATEST NEWS",
+            "cta": "VIEW ALL NEWS"
+          }
+        },
+        {
+          "id":"home-new-arrival","type":"home-editorial-list","component":"List","recipe":"home-new-arrival-navy",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st31.webp","category":"NEW ARRIVAL","title":"Red Monkey D. Luffy","release":"ST-31"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st32.webp","category":"NEW ARRIVAL","title":"Green Roronoa Zoro","release":"ST-32"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st33.webp","category":"NEW ARRIVAL","title":"Blue Nami","release":"ST-33"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st34.webp","category":"NEW ARRIVAL","title":"Purple Sanji","release":"ST-34"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st35.webp","category":"NEW ARRIVAL","title":"Black Marshall.D.Teach","release":"ST-35"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st36.webp","category":"NEW ARRIVAL","title":"Yellow Eustass Kid","release":"ST-36"}
+          ]},
+          "content":{"kicker":"NEW ARRIVAL","title":"STARTER DECK SERIES"}
+        },
+        {
+          "id":"home-products","type":"home-editorial-list","component":"List","recipe":"home-products-cool-overlay",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-decks.png","category":"STARTER DECKS","title":"Ready-to-play decks for every captain","release":"DECKS"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-boosters.png","category":"BOOSTER PACKS","title":"Expand the crew and discover new leaders","release":"BOOSTERS"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st32.webp","category":"LATEST DECK","title":"Green Roronoa Zoro","release":"ST-32"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-sleeve.webp","category":"ACCESSORIES","title":"Official sleeves and storage","release":"SUPPLIES"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/product-other.png","category":"OTHER","title":"Premium collections and play goods","release":"MORE"}
+          ]},
+          "content":{"kicker":"PRODUCTS","title":"FIND YOUR CREW"}
+        },
+        {
+          "id":"home-events","type":"home-editorial-list","component":"List","recipe":"home-events-black-title-bar",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-extra-grand-battle.webp","category":"EVENT","title":"Extra Grand Battle","release":"OFFICIAL EVENT"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-flagship-battle.webp","category":"EVENT","title":"Flagship Battle","release":"OFFICIAL EVENT"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-meetup.webp","category":"EVENT","title":"Meet-Up Event","release":"OFFICIAL EVENT"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-bcgfest-jakarta-manila.webp","category":"FEST","title":"BANDAI CARD GAMES Fest · Jakarta","release":"2026–27"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-bcgfest-jakarta-manila.webp","category":"FEST","title":"BANDAI CARD GAMES Fest · Manila","release":"2026–27"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-flame-flame.webp","category":"EVENT","title":"Flame-Flame Fruit Tournament","release":"OFFICIAL EVENT"}
+          ]},
+          "content":{"kicker":"EVENTS","title":"MEET ACROSS THE SEA"}
+        },
+        {
+          "id":"home-schedule","type":"home-editorial-list","component":"List","recipe":"editorial-module-rhythm",
+          "assets":{"cards":[{"src":"/assets/brand-assets/onepiece-cardgame/source/news-singapore.webp","category":"SCHEDULE","title":"Store tournament and release calendar","release":"JUL—SEP"}]},
+          "content":{"kicker":"SCHEDULE","title":"PLAN YOUR VOYAGE"}
+        },
+        {
+          "id":"home-recommend","type":"home-editorial-list","component":"List","recipe":"home-products-cool-overlay",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp","category":"RECOMMEND","title":"Championship 26–27","release":"OFFICIAL"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-decks.webp","category":"RECOMMEND","title":"Recommended Decks","release":"OFFICIAL"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-beginners-guide.webp","category":"RECOMMEND","title":"Quick Beginner's Guide","release":"OFFICIAL"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-teaching-app.webp","category":"RECOMMEND","title":"Teaching App","release":"OFFICIAL"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp","category":"RECOMMEND","title":"Friendship Meet-Up","release":"OFFICIAL"}
+          ]},
+          "content":{"kicker":"RECOMMEND","title":"YOUR NEXT DECK"}
+        },
+        {
+          "id":"home-videos","type":"home-editorial-list","component":"List","recipe":"home-videos-warm-overlay",
+          "assets":{"cards":[{"src":"/assets/brand-assets/onepiece-cardgame/source/news-singapore.webp","category":"VIDEO","title":"Deck introduction and match highlights","release":"WATCH"}]},
+          "content":{"kicker":"VIDEOS","title":"WATCH THE BATTLE"}
+        },
+        {
+          "id":"home-footer-illustration","type":"home-footer-illustration","component":"Image","recipe":"home-footer-illustration-organism",
+          "assets":{
+            "backgroundWave":"/assets/brand-assets/onepiece-cardgame/source/footer/background-wave.webp",
+            "character":"/assets/brand-assets/onepiece-cardgame/source/footer/chara.webp",
+            "catch":"/assets/brand-assets/onepiece-cardgame/source/footer/catch.webp",
+            "logo":"/assets/brand-assets/onepiece-cardgame/source/footer/logo.webp",
+            "cardComposite":"/assets/brand-assets/onepiece-cardgame/source/footer/card-composite.webp",
+            "card01":"/assets/brand-assets/onepiece-cardgame/source/footer/card-01.png",
+            "card02":"/assets/brand-assets/onepiece-cardgame/source/footer/card-02.png",
+            "card03":"/assets/brand-assets/onepiece-cardgame/source/footer/card-03.png"
+          },
+          "content":{"title":"ONE PIECE CARD GAME footer illustration organism"},
+          "motion":{"trigger":"intersection-once","classSequence":["fadein","fadein is-in"],"reveal":{"backgroundMs":2000,"character":{"durationMs":800,"delayMs":200},"catch":{"durationMs":500,"delayMs":1500},"logo":{"durationMs":300,"delayMs":1800}},"stateSwap":{"compositeAnimations":[{"name":"inCard","durationMs":600,"iterations":1},{"name":"inItem","durationMs":800,"iterations":1}],"terminalOpacity":0},"loops":[{"layer":"card01","durationMs":5000,"iterations":"infinite"},{"layer":"card02","durationMs":8000,"iterations":"infinite"},{"layer":"card03","durationMs":8000,"iterations":"infinite"}],"control":{"scope":"footer-local-card-loops-only","preservesReveal":true}}
+        },
+        {
+          "id":"home-footer","type":"home-editorial-list","component":"List","recipe":"home-footer-navy",
+          "assets":{"cards":[
+            {"category":"PLAY","title":"For Beginners","release":"RULES · TUTORIAL · Q&A"},
+            {"category":"CARDS","title":"Products & Card List","release":"DECKS · BOOSTERS · ACCESSORIES"},
+            {"category":"COMMUNITY","title":"Events & Shops","release":"EVENTS · STORE LOCATOR"},
+            {"category":"NEWS","title":"News & Topics","release":"LATEST INFORMATION"},
+            {"category":"SUPPORT","title":"Official Rule Manual","release":"CONTACT · POLICY"},
+            {"category":"LEGAL","title":"Terms of Use · Privacy Policy","release":"© BANDAI"}
+          ]},"content":{"kicker":"ONE PIECE CARD GAME","title":"SET SAIL WITH YOUR CREW"}
+        }
+      ]
+    },
+    {
+      "id": "onepiece-cardgame-news",
+      "proofRole": "structural-transfer",
+      "recipeIds": [
+        "editorial-module-rhythm",
+        "black-white-taxonomy-control",
+        "nautical-story-surface"
+      ],
+      "evidenceTrace": [
+        "brand-intent.json#editorial-module-rhythm",
+        "brand-intent.json#black-white-taxonomy-control"
+      ],
+      "contentIndependence": {
+        "mode": "representative-content",
+        "status": "pass",
+        "reason": "Representative copy is carried by the frozen source News hierarchy: one dominant feature, compact notices, recommended media cards and a dense archive."
+      },
+      "side": "distribution",
+      "tab": "News",
+      "name": "News",
+      "kind": "editorial-list",
+      "layoutRecipe": "Editorial list page with filter tabs, news cards and section-level thumbnail rhythm.",
+      "description": "资讯页以可读性为主，用黑白分类控件、缩略图列表和纸张式信息面组织内容。",
+      "components": [
+        "Tabs",
+        "Card",
+        "Image",
+        "List",
+        "Button"
+      ],
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "sections": [
+        {
+          "id": "news-feature",
+          "type": "onepiece-news-feature",
+          "component": "Card",
+          "recipe": "editorial-module-rhythm",
+          "assets": {"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp","category":"EVENTS","title":"Friendship Meet-Up event information","description":"Official event information leads the latest notices and recommended links.","release":"JUN 08, 2026"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp","category":"EVENTS","title":"Championship information","release":"MAR 16, 2026"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-decks.webp","category":"CARDS","title":"Recommended decks updated","release":"APR 24, 2026"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-extra-grand-battle.webp","category":"EVENTS","title":"Extra Grand Battle information","release":"APR 24, 2026"}
+          ]},
+          "content": {
+            "notices":[
+              {"date":"JUL 10, 2026","title":"Regulations and tournament policy update"},
+              {"date":"MAR 31, 2026","title":"Banned and restricted cards notice"}
+            ]
+          }
+        },
+        {"id":"news-tabs","type":"filter-tabs","component":"Tabs","recipe":"black-white-taxonomy-control","content":{"title":"LATEST INFORMATION","items":["ALL","NEWS","PRODUCTS","EVENTS","RULES","CARDS"]}},
+        {
+          "id": "news-list",
+          "type": "home-editorial-list",
+          "component": "List",
+          "recipe": "editorial-module-rhythm",
+          "assets": {
+            "cards": [
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/news-singapore.webp",
+                "category": "NEWS",
+                "title": "Regional tournament information and schedule update",
+                "release": "2026.08.27"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-sleeve.webp",
+                "category": "PRODUCTS",
+                "title": "New official card accessories announced",
+                "release": "2026.08.18"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st32.webp",
+                "category": "DECKS",
+                "title": "Starter Deck product information updated",
+                "release": "2026.08.05"
+              },
+              {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st33.webp","category":"CARDS","title":"New deck list and card details published","release":"2026.07.29"},
+              {"src":"/assets/brand-assets/onepiece-cardgame/source/product-st34.webp","category":"RULES","title":"Official rules and tournament documents updated","release":"2026.07.18"},
+              {"src":"/assets/brand-assets/onepiece-cardgame/source/hero-product.webp","category":"PRODUCTS","title":"Booster pack release information","release":"2026.07.10"}
+            ]
+          },
+          "content": {
+            "kicker": "NEWS",
+            "title": "LATEST INFORMATION"
+          }
+        },
+        {
+          "id": "news-more",
+          "type": "center-cta",
+          "component": "Button",
+          "recipe": "image-pill-hover-feedback",
+          "content": {
+            "label": "ARCHIVE"
+          }
+        }
+      ]
+    },
+    {
+      "id": "onepiece-cardgame-products",
+      "proofRole": "source-calibration",
+      "recipeIds": [
+        "hard-black-unboxed-heading",
+        "black-white-taxonomy-control",
+        "product-first-catalog-density"
+      ],
+      "evidenceTrace": [
+        "brand-intent.json#hard-black-unboxed-heading",
+        "brand-intent.json#black-white-taxonomy-control",
+        "brand-intent.json#product-first-catalog-density",
+        "brand-evidence.json#products-hard-black-heading-no-color-chrome",
+        "brand-evidence.json#products-black-white-rectangular-filter"
+      ],
+      "contentIndependence": {
+        "mode": "representative-content",
+        "status": "pass",
+        "reason": "Blind QA verified the source-calibration catalog hierarchy, density, pagination and asset provenance."
+      },
+      "side": "distribution",
+      "tab": "Products",
+      "name": "Products",
+      "kind": "product-gallery",
+      "layoutRecipe": "Dense merchandise catalog with active filters, compact SKU metadata, repeated product instances and visible pagination.",
+      "description": "产品页承接官网商品陈列，不把产品图塞进通用圆角 SaaS 卡片。",
+      "components": [
+        "Card",
+        "Image",
+        "Button"
+      ],
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "sections": [
+        {
+          "id": "product-grid",
+          "type": "product-gallery",
+          "component": "Card",
+          "recipe": "product-first-catalog-density",
+          "assets": {
+            "products": [
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st31.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/product/2026/06/01/yvlQOGQN87hClKlB/img_item01.webp",
+                  "sourceSha256": "678912604f6af3bd08eff2e71599d200bfa32c25f3ee65ab923012c8bec41443",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "DECKS",
+                "code": "ST-31",
+                "title": "Red Monkey D. Luffy",
+                "release": "Starter Deck"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st32.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/b42jY1zyAMuNXKBa/img_item01.webp",
+                  "sourceSha256": "e118f4f6ba17676f6b082c232308e31f97f92b5f353920c47591e7760ad0a33f",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "DECKS",
+                "code": "ST-32",
+                "title": "Green Roronoa Zoro",
+                "release": "Starter Deck"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st33.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/weP4WcvMyAX5VOR7/img_item01.webp",
+                  "sourceSha256": "d876da27f0351287b8ec84acdea1a6fa23a87adb28df164babca79fe15efadca",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "DECKS",
+                "code": "ST-33",
+                "title": "Blue Kuzan",
+                "release": "Starter Deck"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st34.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/t5LIBWX0muRucLKS/img_item01.webp",
+                  "sourceSha256": "c98f50b00961905558fe98572b092ea093a283f410c84928c1307128c183bb64",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "DECKS",
+                "code": "ST-34",
+                "title": "Purple Charlotte Katakuri",
+                "release": "Starter Deck"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st35.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/XrIHnR2RnQclTTEn/img_item01.webp",
+                  "sourceSha256": "533ab56d7931fcbbb6a399bcfb76df7f845c0fbae6609e969346624ff3fd32b7",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "DECKS",
+                "code": "ST-35",
+                "title": "Red/Black Sabo",
+                "release": "Starter Deck"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/sjtHEth2Ti1WlWrg/img_item01.webp",
+                  "sourceSha256": "8a1eaa0a1acc271dddba4f8885b1aa549bbab03df472c7fa7a6fbd3394b4b564",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "DECKS",
+                "code": "ST-36",
+                "title": "Yellow Kid",
+                "release": "Starter Deck"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/hero-product.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/P0PAbumTLGIP8iis/img_item01.webp",
+                  "sourceSha256": "70c2bfe4d1605a7504cebf0cc6626b25a52d43ba217a50905f2d24a2827ee0ec",
+                  "role": "product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "BOOSTERS",
+                "code": "OP-17",
+                "title": "The Will of D.",
+                "release": "Latest booster pack"
+              },
+              {
+                "src": "/assets/brand-assets/onepiece-cardgame/source/product-sleeve.webp",
+                "provenance": {
+                  "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/product/2026/08/05/jULsJjZKqpplffIg/img_item01.webp",
+                  "sourceSha256": "ac8f9ae78dd52d2759c797a678ceacf87637da1ae0048612fd77e5ba69d702ad",
+                  "role": "accessory-product-media",
+                  "sourceKind": "original-site-asset"
+                },
+                "category": "OTHER",
+                "code": "SLEEVE-16",
+                "title": "Official Card Sleeves 16",
+                "release": "Accessories"
+              }
+            ]
+          },
+          "content": {
+            "title": "Products",
+            "description": "8 official products",
+            "filters": [
+              {
+                "label": "ALL",
+                "active": true
+              },
+              {
+                "label": "BOOSTERS"
+              },
+              {
+                "label": "DECKS"
+              },
+              {
+                "label": "OTHER"
+              }
+            ]
+          }
+        },
+        {
+          "id": "product-pagination",
+          "type": "filter-tabs",
+          "component": "Tabs",
+          "recipe": "product-first-catalog-density",
+          "content": {
+            "items": [
+              {
+                "label": "‹"
+              },
+              {
+                "label": "1",
+                "active": true
+              },
+              {
+                "label": "2"
+              },
+              {
+                "label": "3"
+              },
+              {
+                "label": "›"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "onepiece-cardgame-events",
+      "proofRole": "source-calibration",
+      "recipeIds": [
+        "editorial-module-rhythm",
+        "hard-black-unboxed-heading",
+        "nautical-story-surface"
+      ],
+      "evidenceTrace": [
+        "brand-intent.json#editorial-module-rhythm",
+        "brand-intent.json#black-white-taxonomy-control"
+      ],
+      "contentIndependence": {
+        "mode": "representative-content",
+        "status": "pass",
+        "reason": "Representative labels preserve the captured official Events page hierarchy without claiming official listings."
+      },
+      "side": "distribution",
+      "tab": "Events",
+      "name": "Events",
+      "kind": "event-list",
+      "layoutRecipe": "Source-calibration Events index: immersive discovery banner, first-event decision panel, friend-play cards, competitive groups and a bounded championship band.",
+      "description": "Events page structural calibration using representative copy and source-proven media roles.",
+      "components": [
+        "Tabs",
+        "Card",
+        "Image",
+        "Button"
+      ],
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "sections": [
+        {
+          "id":"events-discover","type":"onepiece-event-discovery","component":"Card","recipe":"editorial-module-rhythm",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp","category":"START HERE","title":"Set sail for your first event!","description":"Choose how you want to play, then find the right event.","cta":"TRY PLAYING"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-extra-grand-battle.webp","category":"SERIOUS BATTLE EVENTS","title":"Sharpen your skills and aim for victory!"},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp","category":"CHAMPIONSHIP","title":"Battle to decide the champion"}
+          ]},
+          "content":{"kicker":"FIND AN EVENT TO JOIN","title":"DISCOVER YOUR EVENT","description":"From your first friendly match to competitive play."}
+        },
+        {
+          "id":"events-play","type":"onepiece-event-discovery","component":"Card","recipe":"editorial-module-rhythm",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-meetup.webp","category":"CASUAL PLAY","title":"Store meetup","description":"Play with friends and learn together."},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-flame-flame.webp","category":"SEALED PLAY","title":"Deck-limited battle","description":"Build on the spot and battle it out."},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-bcgfest-jakarta-manila.webp","category":"ADVANCED PLAY","title":"Extra regulation","description":"Experience advanced card battles."},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/event-flagship-battle.webp","category":"COMPETITIVE","title":"Flagship battle","description":"Compete for exclusive rewards."}
+          ]},
+          "content":{"title":"PLAY WITH FRIENDS","description":"Enjoy the game and connect with other players."}
+        },
+        {
+          "id":"events-championship","type":"onepiece-event-discovery","component":"Card","recipe":"editorial-module-rhythm",
+          "assets":{"cards":[
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-championship.webp","category":"TOURNAMENT","title":"Championship 26–27","description":"The curtain is now rising."},
+            {"src":"/assets/brand-assets/onepiece-cardgame/source/home-mobile/items/recommend-friendship-meetup.webp","category":"TOURNAMENT","title":"Extra Championship 26–27","description":"Advanced regulation event series."}
+          ]},
+          "content":{"kicker":"PLAY TO WIN","title":"CHAMPIONSHIP","description":"Competitive battles for those who play to win."}
+        }
+      ]
+    },
+    {
+      "id": "onepiece-cardgame-editorial-held-out",
+      "mapsToSourcePageId": null,
+      "proofRole": "generative-held-out",
+      "recipeIds": [
+        "editorial-module-rhythm",
+        "black-white-taxonomy-control",
+        "hard-black-unboxed-heading"
+      ],
+      "evidenceTrace": [
+        "brand-intent.json#editorial-module-rhythm",
+        "brand-intent.json#black-white-taxonomy-control",
+        "brand-intent.json#hard-black-unboxed-heading"
+      ],
+      "contentIndependence": {
+        "mode": "held-out-content",
+        "status": "pending",
+        "reason": "A separate fictional crew-intelligence page varies both subject and layout after the reusable rules were frozen."
+      },
+      "side": "distribution",
+      "tab": "Field Notes",
+      "name": "Field Notes",
+      "kind": "editorial-held-out",
+      "layoutRecipe": "Source-independent asymmetric briefing page: taxonomy rail, dominant dispatch, detached watch list and recommendation posters.",
+      "description": "Held-out generation using original fictional content and independent SVG fixtures; it has no one-to-one source page mapping.",
+      "components": ["Tabs", "Card", "Image"],
+      "shell": {
+        "device": "phone",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "sections": [
+        {
+          "id": "held-out-taxonomy",
+          "type": "filter-tabs",
+          "component": "Tabs",
+          "recipe": "black-white-taxonomy-control",
+          "content": {
+            "items": [
+              {"label": "ALL WATERS", "active": true},
+              {"label": "TACTICS"},
+              {"label": "CREW LOG"}
+            ]
+          }
+        },
+        {
+          "id": "held-out-editorial-board",
+          "type": "event-editorial-board",
+          "component": "Card",
+          "recipe": "editorial-module-rhythm",
+          "content": {
+            "title": "FIELD NOTES",
+            "kicker": "CAPTAIN'S DISPATCH",
+            "scheduleTitle": "WATCH LIST",
+            "scheduleNote": "ISSUE 01",
+            "scheduleFooter": "Original fictional briefing · independent fixture",
+            "recommendationTitle": "NEXT READ",
+            "events": [
+              {"poster": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-draft.svg", "date": "LOG 01 · EAST BLUE", "title": "Read the Field Before the First Draw", "venue": "Tactical briefing"},
+              {"poster": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-rookie.svg", "date": "LOG 02 · GRAND LINE", "title": "Signals Between Two Captains", "venue": "Crew communication"}
+            ],
+            "schedule": [
+              {"date": "01", "title": "Opponent rhythm", "time": "OBSERVE"},
+              {"date": "02", "title": "Resource window", "time": "PLAN"},
+              {"date": "03", "title": "Closing route", "time": "COMMIT"}
+            ],
+            "recommendations": [
+              {"poster": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-team.svg", "title": "Two-Captain Signals"},
+              {"poster": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-draft.svg", "title": "Draft Table Reading"},
+              {"poster": "/assets/brand-assets/onepiece-cardgame/generated/heldout-event-rookie.svg", "title": "First Voyage Checklist"}
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

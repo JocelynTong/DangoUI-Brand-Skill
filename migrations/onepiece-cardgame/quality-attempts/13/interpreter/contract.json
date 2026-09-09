@@ -1,0 +1,66 @@
+{
+  "schema": "onepiece-attempt13-design-translator-contract/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 13,
+  "role": "Design Translator",
+  "status": "FROZEN_FOR_IMPLEMENTATION",
+  "scope": "Four corrective acceptance surfaces: Home Events asset identity, Home Recommend media identity/rail, Home New Arrival reversible control state, and the separate held-out Demo page boundary.",
+  "inputs": {
+    "goal": "migrations/onepiece-cardgame/goal-contract.json",
+    "assetEvidence": "migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json",
+    "interactionEvidence": "migrations/onepiece-cardgame/quality-attempts/13/evidence/rail-state-probes.json",
+    "captureManifest": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/manifest.json",
+    "evidenceGate": "migrations/onepiece-cardgame/quality-attempts/13/evidence/strict-evidence-gate.json"
+  },
+  "contracts": {
+    "eventsAssetIdentity": {
+      "scope": "Home Events six linked rows at the observed 390px viewport",
+      "requiredItemCount": 6,
+      "identitySource": "asset-manifest.json#events",
+      "requiredByItem": [
+        {"item":1,"identity":"Extra Grand Battle official pickup thumbnail","sha256":"ffdfd56437ce2b99e5f347b4cf285d2c088f2372aaf6b2d5c2caca2dd1c67cef"},
+        {"item":2,"identity":"Flagship Battle official pickup thumbnail","sha256":"143aab0325b2283d310b34968ca7fc7d5656bbdae029bef382c5577bed85928d"},
+        {"item":3,"identity":"Meet-up event official pickup thumbnail","sha256":"e0be2c4212b76da630155208e5f2f00b705453c73a08116b6a8263a91447e638"},
+        {"item":4,"identity":"BANDAI CARD GAMES Fest 26-27 official pickup thumbnail (Jakarta)","sha256":"aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1"},
+        {"item":5,"identity":"BANDAI CARD GAMES Fest 26-27 official pickup thumbnail (Manila; source-shared)","sha256":"aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1"},
+        {"item":6,"identity":"Flame-Flame Fruit Tournament official pickup thumbnail","sha256":"e60937474d0ee5d966716e46fa45c902105e8045d01604a59a465af6e61b8736"}
+      ],
+      "render": {"intrinsicPx":[300,300],"displayPx":[104,104],"objectFit":"cover","objectPosition":"50% 50%"},
+      "sharingPolicy": "Only items 4 Jakarta and 5 Manila may share an identity, because the official source DOM shares that exact URL and SHA-256. Every other pair must differ.",
+      "forbidden": ["generated image or SVG for any source event item","placeholder or repeated generic artwork","any shared identity except items 4 and 5","source screenshot/crop as runtime asset"],
+      "acceptance": {"code":"EVENT_ASSET_IDENTITY_MISMATCH","passWhen":"six item positions match requiredByItem; unique SHA count is exactly 5; the sole duplicate group is [4,5]; generatedAssetCount is 0"}
+    },
+    "recommendDistinctMediaRail": {
+      "scope": "Home Recommend five-item wanted-poster rail at the observed 390px viewport",
+      "requiredItemCount": 5,
+      "identitySource": "asset-manifest.json#recommend",
+      "requiredByItemSha256": ["80d5894a4e90e44c534f31aa45deb3a125f54e275778f529811be0850e664f04","ddc5c56bb36329c0dee1bde517dae9063d4667087c582e53f0d651da540675c3","41bd7233ad389059ead4c9df75d8ebf924fcfd69ca5215f0dbff05099caa346a","4bfea04b6403abdb06985bd272034f8e418b3108a16a73809f7cb40523402b24","23c504cb5a807473956309362b1f4641eb3d19a2c0f218b08da915463ea89776"],
+      "mediaContract": {"intrinsicPx":[640,360],"renderApproxPx":[243.367,137.273],"objectFit":"cover","objectPosition":"50% 50%"},
+      "organization": ["five semantic linked poster cards in source order","clipped horizontal rail","wanted-poster card surfaces","partial-next-card discovery cue","each item retains its own Evidence-matched 640x360 image"],
+      "forbidden": ["one image reused across multiple cards","generated substitute","static grid or vertical list","uncropped contain/letterbox treatment","item count used instead of rail structure","source screenshot/crop as runtime asset"],
+      "acceptance": {"code":"RECOMMEND_MEDIA_OR_RAIL_MISMATCH","passWhen":"five displayed media SHA-256 values are pairwise distinct and positionally equal to requiredByItemSha256; every intrinsic dimension is 640x360; cover crop and clipped rail organization are present"}
+    },
+    "newArrivalReversibleControls": {
+      "scope": "Home New Arrival previous/next buttons and rail wrapper at 390px",
+      "initial": {"activeAriaLabel":"1 / 10","translateXpx":0,"previous":{"ariaDisabled":"true","tabindex":"-1","pointerEvents":"none","opacity":0.35},"next":{"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1}},
+      "afterNext": {"activeAriaLabel":"2 / 10","translateXpx":-181.998,"translateTolerancePx":2,"previous":{"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1},"next":{"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1}},
+      "afterPrevious": "Restores the complete initial state, including active 1 / 10, translateX approximately 0, and previous disabled semantics.",
+      "semantics": "Buttons must execute a real reversible state transition. Visual-only arrows, no-op handlers, direct screenshot swapping and fake enabled/disabled styling are forbidden.",
+      "acceptance": {"code":"NEW_ARRIVAL_CONTROL_NOT_REVERSIBLE","probeSequence":["capture initial state","click Next slide once","assert afterNext","click Previous slide once","assert complete initial restoration"],"passWhen":"all active identity, transform, ARIA, tabindex, pointer-events and opacity assertions pass in both directions"}
+    },
+    "heldOutIndependentDemoPage": {
+      "scope": "Generative proof only",
+      "demoPageId": "onepiece-cardgame-editorial-held-out",
+      "mapsToSourcePageId": null,
+      "required": ["a distinct Demo page/route is directly navigable","held-out content remains source-independent","the route consumes the frozen generative recipes named by goal-contract.json"],
+      "forbidden": ["inserting the held-out section into source-mapped Home","claiming held-out as official Home evidence","setting mapsToSourcePageId to home or another source page","using a hidden/unreachable fragment as the page"],
+      "acceptance": {"code":"HELD_OUT_PAGE_BOUNDARY_VIOLATION","passWhen":"route resolves independently; route/page registry mapsToSourcePageId is null; Home contains no held-out organism; direct navigation and separate capture succeed"}
+    }
+  },
+  "crossCuttingAcceptance": {
+    "sourceCapturesEvidenceOnly": true,
+    "generatedSourceItemAssetsAllowed": false,
+    "itemCountIsDiagnosticOnly": true,
+    "blockingCodes": ["EVENT_ASSET_IDENTITY_MISMATCH","RECOMMEND_MEDIA_OR_RAIL_MISMATCH","NEW_ARRIVAL_CONTROL_NOT_REVERSIBLE","HELD_OUT_PAGE_BOUNDARY_VIOLATION"]
+  }
+}

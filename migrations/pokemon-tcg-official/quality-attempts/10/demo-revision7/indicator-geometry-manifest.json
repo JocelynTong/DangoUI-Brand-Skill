@@ -1,0 +1,7 @@
+{
+  "schema":"brand-mockup-system-overlay/v1","brand":"pokemon-tcg-official","attempt":"10-demo-revision7","systemLayer":"home-indicator",
+  "normalRoutes":[{"pageId":"pokemon-tcg-official-home","before":"captures/normal-home-before.png","scroll":"captures/normal-home-scroll.png"},{"pageId":"pokemon-tcg-official-pocket-fixture","before":"captures/normal-pocket-fixture-before.png","scroll":"captures/normal-pocket-fixture-scroll.png"},{"pageId":"pokemon-tcg-official-held-out","before":"captures/normal-deck-lab-before.png","scroll":"captures/normal-deck-lab-scroll.png"}],
+  "computed":{"position":"absolute","indicatorHeight":33.5625,"contentSafeInset":45.5682,"screenOverflowY":"auto","stableRects":["phone","phone-screen","indicator"],"scrollSequence":[0,240,0,"maximum"]},
+  "bottomReachability":"At maximum screen scroll, the final content bottom is 2.2–3.0px above the indicator overlay top on all three normal routes.",
+  "proofModes":[{"query":"proof=desktop","indicatorDisplay":"none","capture":"captures/proof-desktop-before.png"},{"query":"proof=mobile","indicatorDisplay":"none","capture":"captures/proof-mobile-before.png"}],"visualVerdict":"not-assigned-by-implementation-agent"
+}

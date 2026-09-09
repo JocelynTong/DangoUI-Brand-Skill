@@ -1,0 +1,131 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision5",
+  "scope": "held-out Pocket CTA frozen typography, approved states, and route-safe local behavior",
+  "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+  "results": [
+    {
+      "surface": {
+        "id": "desktop-1440",
+        "width": 1440,
+        "height": 900,
+        "query": "?qa=attempt10-revision5&proof=desktop"
+      },
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "tagName": "BUTTON",
+        "type": "button",
+        "href": null,
+        "pressed": "false",
+        "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+        "fontSize": "20px",
+        "fontStyle": "italic",
+        "fontWeight": "700",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "matchedFontRules": [],
+        "ancestorZooms": [],
+        "section": {
+          "width": 1440,
+          "height": 476.1875
+        },
+        "copy": {
+          "x": 0,
+          "y": 59.84375,
+          "width": 720,
+          "height": 356.5
+        },
+        "overflow": false
+      },
+      "hover": {
+        "color": "rgb(226, 186, 101)",
+        "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+        "fontSize": "20px",
+        "fontStyle": "italic",
+        "fontWeight": "700"
+      },
+      "afterClick": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true,
+        "pressed": "true",
+        "liveText": "Concept review noted locally. This fictional fixture route remains open."
+      },
+      "afterReload": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "surface": {
+        "id": "mobile-390",
+        "width": 390,
+        "height": 844,
+        "query": "?qa=attempt10-revision5"
+      },
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "tagName": "BUTTON",
+        "type": "button",
+        "href": null,
+        "pressed": "false",
+        "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+        "fontSize": "20px",
+        "fontStyle": "italic",
+        "fontWeight": "700",
+        "color": "rgb(0, 0, 0)",
+        "backgroundColor": "rgb(255, 255, 255)",
+        "matchedFontRules": [],
+        "ancestorZooms": [],
+        "section": {
+          "width": 390,
+          "height": 743.015625
+        },
+        "copy": {
+          "x": 0,
+          "y": 334.21875,
+          "width": 390,
+          "height": 408.78125
+        },
+        "overflow": false
+      },
+      "hover": {
+        "color": "rgb(226, 186, 101)",
+        "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+        "fontSize": "20px",
+        "fontStyle": "italic",
+        "fontWeight": "700"
+      },
+      "afterClick": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true,
+        "pressed": "true",
+        "liveText": "Concept review noted locally. This fictional fixture route remains open."
+      },
+      "afterReload": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision5#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "checks": {
+    "frozenCtaTypography": true,
+    "approvedCtaStates": true,
+    "semanticLocalAction": true,
+    "localStateAndLiveRegion": true,
+    "routeSafeAcrossClickAndReload": true,
+    "geometryPreserved": true,
+    "noOverflow": true,
+    "consoleClean": true
+  },
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

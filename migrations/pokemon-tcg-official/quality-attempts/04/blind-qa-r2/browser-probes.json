@@ -1,0 +1,86 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "04-blind-qa-r2",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "capturedAt": "2026-09-02T23:08:41+08:00",
+  "method": "fresh independent in-app browser run; visual inspection plus read-only DOM/computed geometry probes",
+  "sourceComparison": {
+    "mobile": {
+      "path": "../../../../../output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/mobile-390/frames/mobile-default.png",
+      "sha256": "b5ac08df53a5014c4b139a9a70330c00d33b9c310a89c658d4fec77ca5700b11"
+    },
+    "desktop": {
+      "path": "../../../../../output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/desktop/frames/desktop-default.png",
+      "sha256": "9daf30d832c902b6064e0e0273e902f0ee51de194a115bf43fa28cfbbce83162"
+    }
+  },
+  "mobile390x844": {
+    "browserViewportOverride": {"width": 390, "height": 844},
+    "observedCssViewport": {"width": 354, "height": 767},
+    "phoneScreen": {"clientWidth": 337, "scrollWidth": 337, "clientHeight": 730, "scrollHeight": 4672},
+    "hero": {"heightPx": 1183, "acceptedRangePx": [900, 1280]},
+    "background": {
+      "src": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+      "visualFinding": "PASS: source mobile asset and vertical focal crop retain Pikachu, Mew, Mewtwo and the celebration mark in the source reading order."
+    },
+    "carouselSequence": {
+      "indices": [0, 1, 0],
+      "state0": {"campaignLogoVisible": true, "featuredCardVisible": true},
+      "state1": {"campaignLogoVisible": true, "featuredCardVisible": true},
+      "restoredState0": {"campaignLogoVisible": true, "featuredCardVisible": true},
+      "campaignLogoSrc": "/assets/brand-assets/pokemon-tcg-official/Logo-30th.png",
+      "featuredCardSrc": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png",
+      "pass": true
+    },
+    "carouselControls": [
+      {"label": "Show campaign 1", "widthPx": 55.99, "heightPx": 55.99, "arrowVisible": true, "border": "1.82px solid rgb(202, 167, 74)", "background": "rgba(0, 0, 0, 0.92)"},
+      {"label": "Show campaign 2", "widthPx": 55.99, "heightPx": 55.99, "arrowVisible": true, "border": "1.82px solid rgb(202, 167, 74)", "background": "rgba(0, 0, 0, 0.92)"}
+    ],
+    "activeState": {"state1Class": "is-active", "state0RestoredClass": "is-active", "visibleWithoutBlankOrWhiteOnWhiteControl": true},
+    "cta": {
+      "heightPx": 55.99,
+      "background": "rgb(255, 255, 255)",
+      "border": "2.73px solid rgb(202, 167, 74)",
+      "borderRadius": "999px",
+      "darkLabelVisible": true,
+      "rightArrowVisible": true,
+      "blackSeparationBeforeNextSectionVisible": true,
+      "pass": true
+    },
+    "scroll": {
+      "sequence": [0, 690, 1694.09, 3942.73, 0],
+      "maximum": 3942,
+      "nextSectionReached": true,
+      "restored": true,
+      "pass": true
+    },
+    "horizontalOverflow": false,
+    "minimumControlTargetPx": 55.99,
+    "consoleErrors": []
+  },
+  "outer1440InternalPhone": {
+    "browserViewportOverride": {"width": 1440, "height": 1000},
+    "observedCssViewport": {"width": 1309, "height": 909},
+    "phoneScreen": {"clientWidth": 371, "scrollWidth": 371, "clientHeight": 802, "scrollHeight": 3243},
+    "heroBackground": {"widthPx": 346.92, "heightPx": 681.996},
+    "responsiveMode": "mobile art-directed layout inside narrow proof surface",
+    "campaignLogo": {"visible": true, "widthPx": 308.91, "heightPx": 168.53},
+    "featuredCard": {"visible": true, "widthPx": 210.99, "heightPx": 293.99},
+    "cta": {"heightPx": 55.99, "border": "2.73px solid rgb(202, 167, 74)", "borderRadius": "999px"},
+    "carouselControls": {"eachWidthPx": 55.99, "eachHeightPx": 55.99, "arrowsVisible": true},
+    "carouselSequence": {
+      "indices": [0, 1, 0],
+      "state1CampaignLogoVisible": true,
+      "state1FeaturedCardVisible": true,
+      "restored": true
+    },
+    "navigationClipped": false,
+    "compositionOverlap": false,
+    "horizontalOverflow": false,
+    "consoleErrors": [],
+    "pass": true
+  },
+  "overallPass": true
+}

@@ -1,0 +1,29 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ONE PIECE footer spatial comparison</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 28px; background: #111722; color: #f7f3e8; font: 15px/1.45 system-ui, sans-serif; }
+  h1 { margin: 0 0 8px; font-size: 26px; }
+  p { margin: 0 0 20px; color: #bfc8d6; }
+  main { display: grid; grid-template-columns: 1fr 300px; gap: 22px; align-items: start; }
+  figure { margin: 0; border: 1px solid #3b4659; background: #202838; padding: 10px; }
+  figcaption { margin-bottom: 8px; color: #e8c55a; font-weight: 750; }
+  img { display: block; width: 100%; height: auto; background: white; }
+  .demo img { width: 260px; margin: 0 auto; }
+  aside { margin-top: 18px; padding: 14px; border-left: 5px solid #d94848; background: #202838; }
+  strong { color: white; }
+</style>
+<h1>Settled spatial state · official v10 vs live Demo</h1>
+<p>The live phone translation keeps all eight DOM layers, but the foreground scale balance is not preserved.</p>
+<main>
+  <figure>
+    <figcaption>Official v10 source · 1280×720</figcaption>
+    <img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png">
+  </figure>
+  <figure class="demo">
+    <figcaption>Live Demo · phone viewport</figcaption>
+    <img src="../captures/live-settled-phone.png">
+  </figure>
+</main>
+<aside><strong>Blocking difference:</strong> live card heights are only 0.116 / 0.060 / 0.062 of the organism, versus source 0.399 / 0.201 / 0.210. The cards become small decoration in a tall pale field, while the character begins 22% down and no longer spans the organism height.</aside>

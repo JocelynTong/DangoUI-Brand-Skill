@@ -1,0 +1,27 @@
+{
+  "schema":"brand-section-fidelity/v1",
+  "brand":"pokemon-tcg-official",
+  "goalSha256":"db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5",
+  "scope":"attempt-08-revision2-home-news-grid",
+  "canonicalEvidenceBinding":{"goalContract":{"path":"migrations/pokemon-tcg-official/quality-attempts/08/goal-contract.json","sha256":"db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5"},"sourceDesktop":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/08/evidence/captures/source-whats-new-desktop-1440x900-settled.png"}},"sourceMobile":{"capture":{"path":"migrations/pokemon-tcg-official/quality-attempts/08/evidence/captures/source-whats-new-mobile-390x844-settled.png"}}},
+  "sections":[{
+    "id":"home-news-grid","pageId":"pokemon-tcg-official-home","status":"pass",
+    "sourceCapture":"migrations/pokemon-tcg-official/quality-attempts/08/evidence/captures/source-whats-new-desktop-1440x900-settled.png","demoCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/desktop-before.png",
+    "sourceViewport":{"width":1440,"height":900},"demoViewport":{"width":1440,"height":900},"approvedViewportTranslation":"Independent content viewport plus a separate 390x844 mobile proof surface.",
+    "sourceRegion":[0,104,1440,748.59],"demoRegion":[0,104,1440,719.796875],
+    "requiredLayers":[
+      {"id":"section-boundary-and-red-seam","sourceSelector":"article.whats-new + red TCG Live boundary","demoSelector":"[data-schema-section-id=home-news-grid],.pokemon-news__source-seam","status":"pass"},
+      {"id":"approved-typography","sourceSelector":"h2.whats-new__title,.whats-new__link,a.button","demoSelector":".pokemon-news__header h2,.pokemon-news__more,.pokemon-news__cta","status":"pass"},
+      {"id":"official-carousel","sourceSelector":".news-gallery","demoSelector":".pokemon-news__viewport,.pokemon-news__controls","status":"pass"},
+      {"id":"held-out-proof","sourceSelector":"approved PAT-WN recipe invariants","demoSelector":".pokemon-news__heldout","status":"pass"}
+    ],
+    "readingOrder":["heading","archive link","image","headline","CTA","carousel controls","red seam"],
+    "responsiveBehavior":{"status":"pass","desktop":"two source stories / three pages / 48px Kanit / 20px PT Sans CTA","mobile":"one source story / six pages / 32px Kanit / 18px PT Sans CTA","demoEvidence":["migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/desktop-before.png","migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-before.png"]},
+    "assetRefs":[{"sourceUrl":"generated://pokemon-news-heldout-fixture","sourceSha256":"edcfa48e08b7f7a6ddb6fe854e6563d4019855469ae8ad6cbbaea7247f212305","status":"pass"}],
+    "interactionChecks":[
+      {"id":"mobile-scroll-stability","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["image","headline","CTA"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-before.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-next-settled.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-restored.png"},
+      {"id":"reduced-motion-instant-settle","required":true,"stateChanged":true,"visualStateChanged":true,"changedVisibleProperties":["content identity","animation-name none","duration 0s"],"restored":true,"beforeCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-before.png","afterCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-reduced-motion-settled.png","restoredCapture":"migrations/pokemon-tcg-official/quality-attempts/08/revision2/captures/mobile-before.png"}
+    ],
+    "usesItemCountAsStructureProxy":false,"horizontalOverflow":false
+  }]
+}

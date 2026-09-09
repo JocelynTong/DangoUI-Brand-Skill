@@ -1,0 +1,42 @@
+{
+  "schema": "brand-site-evidence/v1",
+  "brand": "dango",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "status": "invalidated-meta-refresh-shell",
+  "supersededBy": "migrations/dango/brand-evidence.json",
+  "doNotConsume": true,
+  "createdAt": "2026-09-04T16:40:22.006Z",
+  "collection": {
+    "documents": [
+      {
+        "type": "html",
+        "url": "https://dumpling.echo.tech/",
+        "bytes": 111
+      }
+    ],
+    "sampleCount": 0,
+    "warningCount": 0,
+    "scope": "dango",
+    "warnings": []
+  },
+  "dominantToneDecision": {
+    "result": "",
+    "confidence": 0,
+    "minConfidence": 0.65,
+    "topFamilies": [],
+    "competingTone": "blue-sky",
+    "competingScore": 0,
+    "reason": [
+      "Dark/brown canvas plus yellow/gold action colors outscore blue/cyan evidence."
+    ],
+    "assetCaveat": "Image/asset colors are intentionally down-weighted. They prove media atmosphere, not UI token dominance."
+  },
+  "familyScores": {},
+  "topColors": [],
+  "roleEvidence": {},
+  "gate": {
+    "ok": false,
+    "minConfidence": 0.65,
+    "message": "Invalidated: this collector sampled the 111-byte meta-refresh shell. Consume screenshot-first brand-evidence.json instead."
+  }
+}

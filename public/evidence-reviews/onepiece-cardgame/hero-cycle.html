@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ONE PIECE Home Hero Cycle Evidence</title>
+  <style>
+    *{box-sizing:border-box}body{margin:0;background:#111;color:#f5f5f5;font:14px/1.5 system-ui,-apple-system,sans-serif}header{position:sticky;top:0;z-index:2;padding:16px 20px;background:#181818;border-bottom:1px solid #444}h1{font-size:19px;margin:0 0 4px}.meta{color:#bbb}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:14px;padding:16px}.card{background:#1d1d1d;border:1px solid #444;padding:10px}.card img{display:block;width:100%;aspect-ratio:16/9;object-fit:cover;background:#000}.label{display:flex;justify-content:space-between;gap:12px;margin-top:8px}.ok{color:#67d39a;font-weight:700}.control{border-color:#735}.control img{object-fit:cover}</style>
+</head>
+<body>
+  <header>
+    <h1>Home Hero：完整周期与播放控制</h1>
+    <div class="meta">官网真实页面 · 1280×720 · 42 秒静止观测 · 约 5 秒/帧 · active 变化后等待 850ms 稳定 · 前景/背景编号同步</div>
+  </header>
+  <main class="grid">
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-3-7-0.png" alt="Settled Hero slide 3"><div class="label"><strong>3 / 7</strong><span>稳定态起点</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-4-7-1.png" alt="Settled Hero slide 4"><div class="label"><strong>4 / 7</strong><span>+4684ms</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-5-7-2.png" alt="Settled Hero slide 5"><div class="label"><strong>5 / 7</strong><span>+5090ms</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-6-7-3.png" alt="Settled Hero slide 6"><div class="label"><strong>6 / 7</strong><span>+4905ms</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-7-7-4.png" alt="Settled Hero slide 7"><div class="label"><strong>7 / 7</strong><span>+5093ms</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-1-7-5.png" alt="Settled Hero slide 1"><div class="label"><strong>1 / 7</strong><span>+4966ms</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-2-7-6.png" alt="Settled Hero slide 2"><div class="label"><strong>2 / 7</strong><span>+4937ms</span></div></article>
+    <article class="card"><img src="source-media/home/hero-cycle-settled/settled-3-7-7.png" alt="Settled Hero returns to slide 3"><div class="label"><strong>3 / 7</strong><span class="ok">闭环 +5079ms</span></div></article>
+    <article class="card control"><img src="source-media/home/hero-cycle/paused-after-6500ms.png" alt="Hero remains paused on slide 4"><div class="label"><strong>暂停</strong><span class="ok">4→4，保持 6500ms</span></div></article>
+    <article class="card control"><img src="source-media/home/hero-cycle/resumed-after-5600ms.png" alt="Hero advances after resume"><div class="label"><strong>恢复</strong><span class="ok">4→5，经过 5600ms</span></div></article>
+  </main>
+</body>
+</html>

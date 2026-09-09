@@ -1,0 +1,52 @@
+{
+  "schemaVersion": 1,
+  "role": "demo-implementation-self-check",
+  "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "sourceCalibration": {
+    "desktop": {
+      "viewport": [1440, 900],
+      "section": [0, 2269.984375, 1440, 720],
+      "copy": [0, 2269.984375, 720, 720],
+      "media": [720, 2269.984375, 720, 720],
+      "overflowX": 0,
+      "sectionBackground": "transparent over white canvas pseudo-layer",
+      "heading": {"fontFamily": "Kanit Official, Kanit", "fontSize": "56px", "fontWeight": "700", "lineHeight": "57.12px"},
+      "body": {"fontFamily": "PT Sans Official, PT Sans", "fontSize": "20px", "fontWeight": "400", "lineHeight": "32px"}
+    },
+    "mobile": {
+      "proofWidth": 390,
+      "section": [0, 0, 390, 829.171875],
+      "media": [0, 0, 390, 390],
+      "copy": [8, 390, 374, 439.171875],
+      "overflowX": 0,
+      "heading": {"fontFamily": "Kanit Official, Kanit", "fontSize": "32px", "fontWeight": "700", "lineHeight": "32.5px"},
+      "body": {"fontFamily": "PT Sans Official, PT Sans", "fontSize": "18px", "fontWeight": "400", "lineHeight": "28.8px"},
+      "cta": {"rect": [99.6328125, 745.4765625, 190.734375, 51.296875], "fontSize": "18px", "fontWeight": "700", "lineHeight": "22.5px"}
+    },
+    "asset": {
+      "src": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+      "srcset2x": "/assets/brand-assets/pokemon-tcg-official/championships-2x.jpg",
+      "oneXNaturalSize": [696, 696],
+      "oneXSha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+      "twoXSha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db"
+    },
+    "ctaStates": {
+      "default": {"background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "pseudoTransform": "matrix(0, 0, 0, 1, 0, 0)"},
+      "hoverSettled": {"color": "rgb(0, 0, 0)", "pseudoTransform": "matrix(1, 0, 0, 1, 0, 0)"},
+      "keyboardFocus": {"background": "rgb(0, 0, 0)", "color": "rgb(255, 255, 255)", "outline": "rgb(0, 95, 204) auto 1px", "pseudoTransform": "matrix(0, 0, 0, 1, 0, 0)"},
+      "destination": "https://championships.pokemon.com/en-us/"
+    }
+  },
+  "normalMockupRegression": {
+    "phone": [635, 51.3984375, 390, 821.4609375],
+    "screen": [644.5, 60.8984375, 371, 802.4609375],
+    "scrollTopBefore": 0,
+    "scrollTopAfter": 2500,
+    "phoneScreenIndicatorGeometryFixedDuringScroll": true,
+    "screenOverflowX": 0,
+    "indicatorPosition": "absolute",
+    "priorSectionOrder": ["home-campaign-stage", "home-news-grid", "home-product-bands", "home-editorial-grid"],
+    "targetImmediatelyAfterPocket": true
+  },
+  "console": {"errors": [], "warnings": []}
+}

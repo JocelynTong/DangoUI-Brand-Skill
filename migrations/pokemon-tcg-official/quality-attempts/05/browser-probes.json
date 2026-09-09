@@ -1,0 +1,40 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 5,
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "requestedSurfaces": ["390x844", "outer-1440-with-internal-phone"],
+  "mobile": {
+    "browserViewportOverride": {"width": 390, "height": 844},
+    "reportedContentViewport": {"width": 354, "height": 767},
+    "hero": {"width": 313.28, "height": 415.99, "targetMax": 422, "allowedMax": 430, "pass": true},
+    "nextSection": {"title": "WHAT'S NEW / DISCOVER THE LATEST FROM POKÉMON TCG", "top": 466.63, "visible": true, "foreground": "rgb(37, 37, 37)", "background": "rgb(255, 255, 255)", "pass": true},
+    "featuredCard": {"width": 118, "front": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png", "back": "/assets/brand-assets/pokemon-tcg-official-home-hero/source/tcg-card-back.jpg", "pass": true},
+    "cta": {"height": 44, "minimum": 44, "pass": true},
+    "background": {"src": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg", "objectFit": "cover", "objectPosition": "58% 50%", "pass": true},
+    "overflow": {"documentHorizontal": false, "heroHorizontal": false, "heroScrollWidth": 313, "heroClientWidth": 313, "pass": true}
+  },
+  "outer1440InternalPhone": {
+    "reportedContentViewport": {"width": 1309, "height": 909},
+    "phoneWidth": 370.91,
+    "hero": {"width": 346.92, "height": 415.99, "pass": true},
+    "featuredCardWidth": 118,
+    "nextSectionVisible": true,
+    "overflow": {"documentHorizontal": false, "heroHorizontal": false, "pass": true}
+  },
+  "interaction": {
+    "pointer": {"sequence": ["front", "back", "front"], "ariaPressed": ["false", "true", "false"], "pass": true},
+    "keyboard": {"keys": ["Enter", "Space"], "sequence": ["front", "back", "front"], "ariaPressed": ["false", "true", "false"], "pass": true},
+    "threeDimensionalTransform": {"backState": "matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)", "pass": true},
+    "reducedMotion": {"mediaRulePresent": true, "transitionDuration": "0.001ms", "note": "Rule presence verified in loaded styles; browser surface did not expose media emulation.", "pass": true},
+    "carousel": {"controlCount": 2, "sequence": [0, 1, 0], "allStatesNonBlank": true, "pass": true}
+  },
+  "console": {"errors": [], "warnings": [], "pass": true},
+  "captures": [
+    "migrations/pokemon-tcg-official/quality-attempts/05/captures/compact-hero-front-390x844.png",
+    "migrations/pokemon-tcg-official/quality-attempts/05/captures/compact-hero-back-390x844.png",
+    "migrations/pokemon-tcg-official/quality-attempts/05/captures/compact-hero-outer-1440.png"
+  ],
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "brand-host-event-provenance-closure-proof/v1",
+  "attempt": 13,
+  "route": "pages/event/index",
+  "scope": "provenance closure with one minimal contained-media asset substitution",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "03872f394e6a76946defd3545d6755f93e30ff04ec3d2ff1c2cc5dd442aa1d91",
+    "substitution": "me05-pc-etb-en.png -> KD5B_EN_116.png",
+    "layoutChange": "portrait media uses contain-equivalent height sizing inside the same bounded navy field",
+    "eventCompositionChanged": false,
+    "businessDomCopyDataNavigationChanged": false,
+    "otherRoutesChanged": false,
+    "writes": 0
+  },
+  "provenance": {
+    "closure": "asset-provenance-closure.json",
+    "sourceUrlVerified": true,
+    "upstreamLocalSha256Match": true,
+    "inventedUrl": false
+  },
+  "verification": {
+    "assetUsage": "PASS_CSS_REFERENCES_FROZEN_ASSET",
+    "assetLoad": "PASS_3_VIEWPORTS_ZERO_FAILED_REQUESTS",
+    "firstScreen": "PASS_ROUND_AND_TOP_DECK_VISIBLE_3_OF_3",
+    "documentOverflow": "PASS_0_3_OF_3",
+    "nonGetRequests": 0,
+    "keyboard": "UNCHANGED_FROM_QA12_AND_QA11_PASS",
+    "build": "PASS",
+    "themeOrder": "PASS",
+    "eventStructuralDiff": "PASS",
+    "otherRouteHashes": "UNCHANGED_FROM_ATTEMPT12",
+    "otherRouteOverflow": "PASS_0_5_OF_5"
+  },
+  "evidence": ["asset-provenance-closure.json", "browser-probes.json", "selfcheck-390x844-event.png", "selfcheck-536x864-event.png", "selfcheck-1280x720-event.png"],
+  "preview": "http://localhost:10092/#/pages/event/index?id=0",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

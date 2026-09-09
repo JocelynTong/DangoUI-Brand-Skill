@@ -1,0 +1,27 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "15a03c63-1e98-4470-8d7f-b4a0e6547db0",
+  "stageId": "visualQA-1",
+  "role": "visualQA",
+  "agentExecutionId": "/root/dango_blind_qa",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "verdict": "fail",
+  "failureOwnerRole": "designTranslator",
+  "inputs": [
+    {"path":"migrations/dango/goal-contract.json","sha256":"07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac"},
+    {"path":"migrations/dango/visual-pattern-inventory.json","sha256":"d0aa3f6f9c20060b2ad6e2fa6ac3af6ebd9a1aef253b455763af226956ba6a16"},
+    {"path":"migrations/dango/generative-proof.json","sha256":"5f0d1ceab49d84e3b9dbc8652a4d68200619b11356e7527bbfc3e1f959a88b05"}
+  ],
+  "outputs": [
+    {"path":"migrations/dango/qa-input-manifest.json","sha256":"207ba63b2fa8f5888071633f3d26be6e64f997ffd1d99454aeeeaec0885e3501"},
+    {"path":"migrations/dango/visual-qa-assessment.json","sha256":"7bbfc241dde1b49ae2d0dcf2a502e8c613e53d796229a774daff656899574b38"},
+    {"path":"migrations/dango/visual-comparison-report.json","sha256":"5d77d8f062969292349fee36d73b38f751421c2c740a208332a87972c8ca6f0c"},
+    {"path":"migrations/dango/fidelity-report.json","sha256":"bb16e65cbe444a9159828a07a95efaf2d0972fac059a69597768a2d564c757b1"}
+  ],
+  "blockingFindings": [
+    {"code":"COMPOSITION_APPROVAL_INCOMPLETE","failureOwnerRole":"designTranslator","message":"Freeze source-backed utility-header, left-navigation, reading-column, right-outline and bounded mobile-reflow layers."},
+    {"code":"INTRO_TECHNICAL_HIERARCHY_REPLACED","failureOwnerRole":"demoImplementationAgent","message":"Rebuild the wide monospaced technical-flow surface and long-form hierarchy."},
+    {"code":"BUTTON_REFERENCE_DENSITY_COLLAPSE","failureOwnerRole":"demoImplementationAgent","message":"Restore multiple independently reviewable component-reference modules."},
+    {"code":"MULTI_MODULE_PAGE_SECTIONS_MISSING","failureOwnerRole":"demoImplementationAgent","message":"Declare and audit at least two real Button sections."}
+  ]
+}

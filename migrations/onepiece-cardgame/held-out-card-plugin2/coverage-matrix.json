@@ -1,0 +1,29 @@
+{
+  "schema": "host-strategy-coverage-matrix/v1",
+  "defaultEntry": "pages/plaza/index",
+  "stage": "PRE_IMPLEMENTATION_FROZEN_SCOPE",
+  "dimensions": ["route", "branch", "state", "componentFamily", "viewport", "atomicLayer"],
+  "viewports": ["mobile-390", "desktop-1280"],
+  "routes": [
+    {"route":"pages/plaza/index","branches":["deck","event"],"states":["default","search","filtered","empty","hero-front","hero-back"],"componentFamilies":["navigation","tabs","search-input","filter-chip","campaign-surface","content-card","status-badge","empty-state"],"layers":["atoms","molecules","organisms","templates"],"journeyParents":[]},
+    {"route":"pages/build/index","branches":["list","grid","publish-sheet"],"states":["default","scrolled","filter-expanded","empty","sheet-open","env-open","invalid","publish-ready","success","failure"],"componentFamilies":["navigation","search-input","filter-chip","view-toggle","stepper","tray","input","textarea","button","bottom-sheet","state-feedback"],"layers":["atoms","molecules","organisms"],"journeyParents":["pages/plaza/index","pages/mine/index"]},
+    {"route":"pages/mine/index","branches":["fav","draft","pub","hidden"],"states":["default","empty","delete-confirm"],"componentFamilies":["identity-masthead","button","tabs","content-card","modal","empty-state"],"layers":["atoms","molecules","organisms"],"journeyParents":["pages/plaza/index","pages/build/index"]},
+    {"route":"pages/event/index","branches":["rounds","empty"],"states":["open","live","ended","empty"],"componentFamilies":["event-masthead","status-badge","metric-grid","round-card","top-deck-feature","empty-state"],"layers":["atoms","molecules","organisms","templates","pages"],"journeyParents":["pages/plaza/index"]},
+    {"route":"pages/round/index","branches":["complete","partial"],"states":["standard-rank","gold-rank","empty-slot"],"componentFamilies":["round-masthead","rank-row","content-card","empty-state"],"layers":["atoms","molecules","organisms"],"journeyParents":["pages/event/index"]},
+    {"route":"pages/detail/index","branches":["image","text"],"states":["default","expanded","favorite","viewer-open"],"componentFamilies":["identity-masthead","status-tag","metric-grid","tabs","media-grid","data-table","bottom-actions","viewer"],"layers":["atoms","molecules","organisms","templates"],"journeyParents":["pages/plaza/index","pages/event/index","pages/round/index","pages/mine/index"]}
+  ],
+  "mandatoryQaProbes": [
+    "default entry and every configured route",
+    "mobile and desktop fresh captures",
+    "every interactive state reversible on real target",
+    "44x44 touch targets, focus visibility and keyboard parity on H5",
+    "CJK body typography resolves to readable system/CJK face, display face restricted to short Latin/numeric headings",
+    "reduced motion removes nonessential transition/animation",
+    "long text, empty and missing media",
+    "no external POST or destructive store mutation during read-only QA",
+    "parent-child navigation and back-state restoration",
+    "structural design-system recognition blocking; explicit-IP recognition diagnostic"
+  ],
+  "coverageComputation": {"plannedRouteCount":6,"configuredRouteCoverage":"6/6","implementationCells":"NOT_YET_GENERATED","qaCells":"NOT_YET_EXECUTED"},
+  "verdict": "READY_FOR_PREEDIT_BASELINE_NOT_IMPLEMENTED"
+}

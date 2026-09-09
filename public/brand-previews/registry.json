@@ -3,14 +3,30 @@
   "updatedAt": "2026-08-08",
   "brands": [
     {
-      "id": "pokemon30",
-      "displayName": "Pokemon 30th",
-      "sourceUrl": "https://www.pokemon.co.jp/30th/",
-      "path": "/brand-previews/pokemon30.json",
-      "migrationRoot": "migrations/pokemon30",
-      "status": "draft-style-pack",
+      "id": "onepiece-cardgame",
+      "displayName": "ONE PIECE CARD GAME",
+      "path": "/brand-previews/onepiece-cardgame.json",
+      "migrationRoot": "migrations/onepiece-cardgame",
+      "demoPurpose": "brand-learning-capability-test",
+      "status": "fidelity-pass",
       "standardDemo": true,
-      "businessApply": false
+      "businessApply": false,
+      "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+      "sourceHost": "asia-en.onepiece-cardgame.com",
+      "updatedAt": "2026-09-01T00:00:00.000Z"
+    },
+    {
+      "id": "pokemon-tcg-official",
+      "displayName": "Pokémon TCG Official",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "sourceHost": "tcg.pokemon.com",
+      "path": "/brand-previews/pokemon-tcg-official.json",
+      "migrationRoot": "migrations/pokemon-tcg-official",
+      "demoPurpose": "brand-learning-capability-test",
+      "status": "fidelity-pass",
+      "standardDemo": true,
+      "businessApply": false,
+      "updatedAt": "2026-09-04T16:36:39.368Z"
     }
   ]
 }

@@ -1,0 +1,111 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "decisionStatus": "approved",
+  "scope": "page:pokemon-tcg-official-home section:homepage-pokemon-championship-series",
+  "demoType": "source-calibration",
+  "designObjective": "Append the evidence-backed Pokémon Championship Series section immediately after the already-approved TCG Pocket section, preserve every previously approved homepage section and the formal phone mockup, and prove the learned rules in a separate fictional fixture.",
+  "inputBindings": {
+    "goal": {"path": "migrations/pokemon-tcg-official/quality-attempts/11/goal-contract.json", "sha256": "1c2b9d10bce010976ce3db8316ab2bdbbc25a1a066b730ff1175a4a0167be0cb"},
+    "evidence": {"path": "migrations/pokemon-tcg-official/quality-attempts/11/evidence/brand-evidence.json", "sha256": "81f66f39bc7b28cf279e874f0873c9d0aa10ae7d085f62c2405027098ff3e144"},
+    "intent": {"path": "migrations/pokemon-tcg-official/quality-attempts/11/interpreter-revision2/brand-intent.json", "sha256": "e3e5d166cfba9e725bbf11b85dc44b7b6a3909e5f6018625a3024c0ed060edce"},
+    "patterns": {"path": "migrations/pokemon-tcg-official/quality-attempts/11/interpreter-revision2/pattern-inventory.json", "sha256": "c8a0d9a83d8b5ba969e7b486968930b41a390b311ac02cf9b24919cdf373965a"}
+  },
+  "sourceTruthBoundary": "At 1440 the transparent section is 1440x720 with equal 720px fields, copy left and the exact official square image right. At 390 it becomes image-first, then a centered editorial stack. White belongs to the page canvas. The CTA is black by default, gold only on pointer hover, black with outline on keyboard focus, and navigates to the verified Championship URL. The observed mobile src is 1x while currentSrc selected 2x; do not confuse declaration with selected response.",
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "official image identity and section order",
+    "white-canvas/transparent-layer ownership",
+    "desktop equal split and mobile image-first reflow",
+    "readable Kanit/PT Sans editorial hierarchy",
+    "CTA default-hover-focus-destination state separation",
+    "formal phone mockup and prior-section regression",
+    "protocol completeness"
+  ],
+  "highSalienceElements": ["principal-event-image", "section-structure", "editorial-copy", "learn-more-cta"],
+  "sections": [
+    {
+      "id": "homepage-pokemon-championship-series",
+      "firstImpressionGoal": "A restrained editorial event gateway in which the exact square Championship image and the centered explanation have equal authority.",
+      "mustPreserve": [
+        "Pocket immediately before and Play! Pokémon immediately after",
+        "transparent section nodes over a white page canvas",
+        "1440 endpoint: 1440x720, copy-left/image-right equal split",
+        "390 endpoint: 390x390 image first, content second",
+        "exact official Championship image identity and 1:1 composition",
+        "Kanit heading, PT Sans body and CTA roles",
+        "one Learn more CTA with verified destination",
+        "black default, gold hover reveal, black focus with visible outline"
+      ],
+      "mayChange": [
+        "the current placeholder/next homepage section after Pocket",
+        "an implementation-selected intermediate breakpoint clearly documented as an implementation decision"
+      ],
+      "mustNotDo": [
+        "use a source screenshot or crop as runtime content",
+        "paint either content column white as a separate panel",
+        "derive UI colors from the event image",
+        "make gold the default CTA or keyboard-focus fill",
+        "invent pressed, loading, disabled, entrance, or scroll motion",
+        "remove or alter the phone mockup on normal user-facing routes",
+        "regress Hero, What's New, TCG Live, Pocket, scrolling, or Home Indicator"
+      ]
+    }
+  ],
+  "responsiveStrategyMatrix": [
+    {
+      "element": "principal-event-image",
+      "elementType": "media",
+      "strategy": "responsive-reflow",
+      "evidenceRefs": ["P11-PCS-01", "P11-PCS-03"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["exact official asset", "1:1 composition", "right 720x720 desktop field", "first 390x390 mobile block", "src/srcset/currentSrc separately probeable"]
+    },
+    {
+      "element": "section-structure",
+      "elementType": "container",
+      "strategy": "structural-substitution",
+      "evidenceRefs": ["P11-PCS-02", "P11-PCS-03", "P11-PCS-06"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["transparent layer ownership", "desktop equal split", "mobile block stack", "image-first mobile order"]
+    },
+    {
+      "element": "editorial-copy",
+      "elementType": "text",
+      "strategy": "responsive-reflow",
+      "evidenceRefs": ["P11-PCS-04"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["center alignment", "Kanit heading", "PT Sans body", "single CTA", "desktop source CSS 48px heading / 18px body / 18px CTA", "390 measured geometry"],
+      "minimumReadableSize": "48px heading / 18px body at 1440; 32px heading / 18px body at 390"
+    },
+    {
+      "element": "learn-more-cta",
+      "elementType": "control",
+      "strategy": "independent-scale",
+      "evidenceRefs": ["P11-PCS-05"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["black default", "gold #E2BA65 scaleX hover reveal", "black keyboard focus with visible outline", "2px inset frame", "shadow 0 16px 24px -16px rgba(0,0,0,0.35)", "verified outbound destination", "about 51.3px height at 390"],
+      "minimumReadableSize": "51px control height / 18px label at 390"
+    }
+  ],
+  "proofSurfacePlan": {
+    "presentationCanvas": "Normal user-facing Demo route retains the visible phone chassis, rounded screen and Home Indicator.",
+    "desktopCanvas": "Explicit ?proof=desktop renders an independent 1440x900 no-shell content viewport.",
+    "mobileCanvas": "Explicit ?proof=mobile renders an independent 390x844 no-shell content viewport.",
+    "inspectorPolicy": "Exclude inspector gutters, browser-extension overlays, annotation markers and phone chassis from source-comparison viewport geometry.",
+    "sourceComparison": "Freeze default, hover, focus, destination, section boundaries, scroll restoration and computed src/srcset/currentSrc. Compare section-local geometry; never use absolute pageY.",
+    "heldOutChallenge": "Create a separate directly reachable, clearly fictional event-program fixture using an original non-Pokémon square visual or CSS-native abstract media. It must reuse transparent-canvas ownership, desktop split/mobile image-first reflow, centered heading-body-single-CTA hierarchy, and the black/gold/focus state machine. It must not reuse the Championship asset, official copy, source screenshot, or the observed responsive reflow alone as proof."
+  },
+  "handoff": {
+    "decision": "PASS_TO_DEMO",
+    "blockingUnresolved": [],
+    "implementationScope": "target section plus isolated held-out fixture only"
+  },
+  "unresolved": [
+    "exact desktop child typography boxes",
+    "exact source breakpoint",
+    "desktop focus outline computed value",
+    "Dembrandt score"
+  ]
+}

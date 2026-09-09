@@ -1,0 +1,24 @@
+{
+  "schema": "host-opportunity-map/v2",
+  "recognitionPolicy": {
+    "designSystemStructuralRecognition": { "mode": "blocking", "threshold": "evidence-backed four-layer coherence" },
+    "explicitIpRecognition": { "mode": "diagnostic", "threshold": "reported independently" },
+    "changedAfterFreeze": false
+  },
+  "pagePlacements": [
+    {
+      "route": "/fixture/index",
+      "pageType": "discovery",
+      "mode": "APPLY",
+      "businessPurpose": "Help users discover and filter host records.",
+      "allowedLayers": ["organism", "template"],
+      "mapping": {
+        "token": { "decision": "apply semantic surface and type roles" },
+        "component": { "decision": "map search, tabs, cards and buttons" },
+        "composition": { "decision": "preserve search-first journey and establish branded section hierarchy" },
+        "asset": { "decision": "use an independent header asset only when it supports discovery context" }
+      },
+      "heroEligibility": { "eligible": true, "businessReason": "The default discovery entry has enough visual capacity to introduce the collection before search controls." }
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "03",
+  "qaRun": "blind-qa-r2",
+  "verdict": "FAIL",
+  "inputIsolation": {
+    "read": [
+      "quality-attempts/03/goal-correction-hero-scaling.json",
+      "captures/source/home/desktop/loaded-000.png",
+      "captures/source/home/desktop/full-page.png",
+      "live route http://127.0.0.1:5179/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home"
+    ],
+    "notRead": ["prior QA report", "prior QA verdict", "implementation rationale"]
+  },
+  "captures": {
+    "desktopViewport": "captures/demo-desktop-1440x900-viewport.png",
+    "desktopFullPage": "captures/demo-desktop-1440x900-full.png",
+    "phoneViewport": "captures/demo-phone-browser-390x844-viewport.png",
+    "phoneFullPage": "captures/demo-phone-browser-390x844-full.png",
+    "phoneSlide2": "captures/demo-phone-browser-390x844-slide2.png"
+  },
+  "measurements": {
+    "desktopBrowserOverridePx": {"width": 1440, "height": 900},
+    "desktopCssViewportPx": {"width": 1309, "height": 818, "devicePixelRatio": 2.200000047683716},
+    "phoneWholeBrowserPx": {"width": 390, "height": 844},
+    "phoneCssViewportPx": {"width": 354, "height": 767, "devicePixelRatio": 1.100000023841858},
+    "availableHeroWidthPx": 346.9176025390625,
+    "sourceCanvasPx": {"width": 1440, "height": 716},
+    "expectedUniformScale": 0.240914,
+    "computedScaleX": 0.240907,
+    "computedScaleY": 0.240907,
+    "expectedRenderedHeightPx": 172.493474,
+    "actualRenderedCanvasPx": {"width": 346.9062194824219, "height": 172.4881134033203},
+    "scaleAbsoluteError": 0.000007,
+    "heroClipRectPx": {"x": 3.813920259475708, "y": 9.545454025268556, "width": 346.9176025390625, "height": 172.49288940429688},
+    "canvasRectBeforeInteractionPx": {"x": -8.181818008422852, "y": 9.545454025268556, "width": 346.9062194824219, "height": 172.4881134033203},
+    "canvasLeftClipPx": 11.99573826789856,
+    "canvasRightUnusedPx": 12.007121324539185,
+    "canvasVisibleIntersectionBeforeInteractionPx": {"width": 334.9104812145233, "height": 172.4881134033203},
+    "followingSectionGapPx": 0.0000019073486328125,
+    "documentHorizontalOverflowPx": 0,
+    "phoneScreenHorizontalOverflowPx": 0,
+    "phoneScreenScroll": {"scrollHeight": 3891, "clientHeight": 802, "before": 0, "after": 480, "restored": 0},
+    "heroInternalScrollAfterCarouselFocusPx": 75.90908813476562,
+    "runtimeConsoleErrors": 0
+  },
+  "acceptance": {
+    "logicalCanvas1440x716": "PASS",
+    "uniformScale": "PASS",
+    "transformOriginTopLeft": "PASS",
+    "noMobileReflow": "PASS",
+    "relativeLayerGeometryPreserved": "PASS",
+    "heroReachableAt390": "PASS",
+    "noHorizontalOverflow": "PASS",
+    "followingSectionGapMax8Px": "PASS",
+    "pageScrollUsableAndRestorable": "PASS",
+    "noRuntimeConsoleError": "PASS",
+    "allRequiredLayersFullyWithinClip": "FAIL",
+    "carouselInteractionPreservesComposition": "FAIL"
+  },
+  "layerChecksAt390": {
+    "background": {"visible": true, "fullyWithinClip": false, "reason": "left edge is 11.996 px outside clip"},
+    "navigation": {"visible": true, "fullyWithinClip": false, "reason": "layer bounds share the left-offset canvas"},
+    "logo": {"visible": true, "fullyWithinClip": true},
+    "title": {"visible": true, "fullyWithinClip": true, "observedInCaptured campaign-1 state": true},
+    "card": {"visible": true, "fullyWithinClip": true, "observedInCaptured campaign-1 state": true},
+    "cta": {"visible": true, "fullyWithinClip": true},
+    "carouselControls": {"visible": true, "fullyWithinClip": false, "reason": "control-row bounds share the left-offset canvas"}
+  },
+  "blockingFindings": [
+    {
+      "id": "HERO_CANVAS_NOT_FULLY_WITHIN_CLIP",
+      "severity": "blocking",
+      "evidence": "At the 390x844 whole-browser capture, the clip starts at x=3.814 while the scaled 1440px canvas starts at x=-8.182. Exactly 11.996px of the canvas, navigation row, and carousel control row lie outside the clip; only 334.910px of the 346.906px canvas width intersects it.",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "id": "HERO_CLIP_BECOMES_INTERNALLY_SCROLLABLE_ON_CONTROL_FOCUS",
+      "severity": "blocking",
+      "evidence": "After activating a carousel control, the clipped Hero wrapper changed from scrollTop=0 to scrollTop=75.909px although it uses overflow:hidden. The canvas then moved from y=9.545 to y=-66.364 and its visible vertical intersection fell to 96.579px of 172.488px.",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "threeProofVerdicts": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "PASS"
+  },
+  "notes": [
+    "The scale matrix is uniform and numerically matches availableHeroWidth/1440 within 0.000007.",
+    "The failure is not mobile reflow: the 1440x716 PC canvas remains intact in layout coordinates.",
+    "The page-level phone-screen scroller was independently moved 0 -> 480 -> 0.",
+    "No console errors were returned by the browser runtime during this run."
+  ]
+}

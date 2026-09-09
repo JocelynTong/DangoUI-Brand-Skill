@@ -1,0 +1,116 @@
+{
+  "schema": "brand-interpreter-pattern-inventory/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 2,
+  "scope": "homepage Pokémon Championship Series section only",
+  "status": "PASS",
+  "sourceOfTruth": "brand-intent.json#approvedVisualPatterns",
+  "revisionDelta": {
+    "P11-PCS-04": "desktop type-role source facts 48/18/18 added; desktop child bboxes remain unresolved",
+    "P11-PCS-05": "2px inset frame and frozen CTA shadow made explicit",
+    "unchanged": ["P11-PCS-01", "P11-PCS-02", "P11-PCS-03", "P11-PCS-06", "all 390 rules"]
+  },
+  "patterns": [
+    {
+      "id": "P11-PCS-01",
+      "name": "equal-weight event image and editorial field",
+      "status": "approved-unchanged",
+      "evidenceIds": ["section-identity-boundary", "desktop-transparent-two-column-layering", "official-asset-identity"],
+      "sourceRegions": [{"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 1440, 720]}],
+      "suitableFor": ["one event story with one square principal asset and one CTA"],
+      "notFor": ["grids", "overlays", "generic two-column templates"],
+      "allowedRoles": ["section composition", "principal image", "copy field"],
+      "forbiddenRoles": ["sitewide layout", "generic card", "global hero"],
+      "invariants": ["1440x720", "50/50", "copy left", "exact official image right"],
+      "allowedTransformations": ["fictional copy change preserving hierarchy"],
+      "prohibitedTransformations": ["alternate official asset", "asset-palette tokens", "unobserved frame"]
+    },
+    {
+      "id": "P11-PCS-02",
+      "name": "transparent section over a white page canvas",
+      "status": "approved-unchanged",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow"],
+      "sourceRegions": [{"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 390, 390, 454]}],
+      "suitableFor": ["this section on the white homepage canvas"],
+      "notFor": ["opaque cards", "panel fills"],
+      "allowedRoles": ["page canvas", "transparent section nodes"],
+      "forbiddenRoles": ["column fill", "child fill", "pseudo fill"],
+      "invariants": ["canvas owns white", "nodes remain transparent"],
+      "allowedTransformations": ["fictional content change without new background owner"],
+      "prohibitedTransformations": ["paint halves white", "content-card shadow"]
+    },
+    {
+      "id": "P11-PCS-03",
+      "name": "image-first responsive narrative order",
+      "status": "approved-unchanged",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow", "official-asset-identity"],
+      "sourceRegions": [{"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 56, 390, 788]}],
+      "suitableFor": ["this split-to-stack section"],
+      "notFor": ["sitewide image-first policy", "source reflow as generative proof"],
+      "allowedRoles": ["source order", "desktop row-reverse", "mobile block"],
+      "forbiddenRoles": ["absolute page Y", "unobserved breakpoint", "global policy"],
+      "invariants": ["image first at 390", "copy-left/image-right at 1440", "same square media role"],
+      "allowedTransformations": ["labelled implementation-derived intermediate breakpoint"],
+      "prohibitedTransformations": ["claim exact source breakpoint", "count reflow as held-out proof"]
+    },
+    {
+      "id": "P11-PCS-04",
+      "name": "centered event-title and explanatory action stack",
+      "status": "approved-revised-desktop-type-semantics",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-typography-hierarchy"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-settled-region-1440x720.png", "region": [0, 0, 720, 720]},
+        {"capture": "../evidence/captures/source-mobile-390-content-settled.png", "region": [0, 390, 390, 439.172]}
+      ],
+      "sourceCssRefs": [
+        "../evidence/captures/assets/global.css:6#@media(min-width:64em)-h2,.h2",
+        "../evidence/captures/assets/global.css:6#:root--font-base+html+p-inheritance",
+        "../evidence/captures/assets/global.css:6#.button"
+      ],
+      "facts": {"desktop1440": "h2/body/CTA = 48/18/18px; child bboxes unresolved", "mobile390": "approved type and geometry unchanged"},
+      "suitableFor": ["one title, one paragraph, one CTA"],
+      "notFor": ["global type scale", "desktop bbox inference"],
+      "allowedRoles": ["section h2", "paragraph", "CTA label"],
+      "forbiddenRoles": ["navigation", "forms", "sitewide type"],
+      "invariants": ["desktop 48/18/18", "Kanit heading", "PT Sans body/CTA", "unchanged 390 rules"],
+      "allowedTransformations": ["fictional copy preserving role split"],
+      "prohibitedTransformations": ["unsupported desktop scale", "invented desktop bbox", "font substitution"]
+    },
+    {
+      "id": "P11-PCS-05",
+      "name": "single CTA with gold pointer reveal and distinct keyboard focus",
+      "status": "approved-revision2-frame-shadow-explicit",
+      "evidenceIds": ["desktop-cta-states-and-destination", "mobile-cta-interactions"],
+      "sourceRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-hover-settled-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-focus-390x844.png", "region": "visible CTA"}
+      ],
+      "sourceCssRefs": ["../evidence/captures/assets/global.css:6#.button__bg::after", "../evidence/captures/assets/global.css:6#.button"],
+      "facts": {"insetFrame": "2px inset var(--button-bg)", "shadow": "0 16px 24px -16px rgba(0,0,0,0.35)"},
+      "suitableFor": ["the one outbound CTA in this section"],
+      "notFor": ["labels", "tabs", "global button tokens"],
+      "allowedRoles": ["CTA states", "CTA frame", "CTA shadow", "navigation"],
+      "forbiddenRoles": ["section fill", "focus-as-hover", "replacement shadow"],
+      "invariants": ["black default", "gold hover", "black outlined focus", "2px inset frame", "frozen shadow"],
+      "allowedTransformations": ["fictional label change preserving complete state/construction recipe"],
+      "prohibitedTransformations": ["gold focus", "missing frame", "replacement shadow", "invented state"]
+    },
+    {
+      "id": "P11-PCS-06",
+      "name": "continuous homepage section boundary",
+      "status": "approved-unchanged",
+      "evidenceIds": ["section-identity-boundary", "reversible-scroll"],
+      "sourceRegions": [{"capture": "../evidence/captures/source-mobile-390-scroll-restored.png", "region": "Pocket-to-Championship boundary"}],
+      "suitableFor": ["full-page proof preserving adjacent sections"],
+      "notFor": ["standalone page", "fixed reconstruction"],
+      "allowedRoles": ["adjacency", "page flow", "reversible scroll"],
+      "forbiddenRoles": ["absolute page Y", "scroll timing", "prior-section replacement"],
+      "invariants": ["Pocket before", "Play! Pokémon after", "reversible scroll"],
+      "allowedTransformations": ["none outside target section on calibration surface"],
+      "prohibitedTransformations": ["delete/reorder prior sections", "fixed captured Y"]
+    }
+  ],
+  "handoff": {"decision": "PASS", "blockingUnresolved": []}
+}

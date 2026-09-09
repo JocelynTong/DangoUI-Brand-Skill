@@ -1,0 +1,23 @@
+{
+  "attempt": 10,
+  "brand": "onepiece-cardgame",
+  "role": "Evidence Agent",
+  "scope": ".footerIllust animated organism",
+  "verdict": "PASS",
+  "sourceOnly": true,
+  "demoInspected": false,
+  "checks": {
+    "defaultDirectlyVisible": {"pass":true,"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-00-before-entry.png","inspection":"The footer is still below the viewport; the preceding Videos region is visible."},
+    "transitionDirectlyVisible": {"pass":true,"captures":["output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png","output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png"],"inspection":"The 120ms frame shows the partially entering field; the 500ms frame visibly shows Luffy/energy entering while delayed text is absent."},
+    "settledDirectlyVisible": {"pass":true,"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png","inspection":"Luffy, wave/background, three cards, catch and logo are all directly visible in one viewport."},
+    "lateDirectlyVisible": {"pass":true,"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png","inspection":"The same composition remains and card perspectives differ visibly."},
+    "spatialComposition": {"pass":true,"observation":"Dominant Luffy at left; edge-spanning wave/background; catch/logo lower right; three overlapping cards from center-right to far-right."},
+    "layerTelemetry": {"pass":true,"path":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/sequence-v10.json","fields":["normalized geometry","opacity","transform","visibility","display","state class","animation name/duration/iteration/play state","wall-clock timestamp"]},
+    "motionClassification": {"pass":true,"oneShotReveal":"fadein -> fadein is-in","ongoingLoop":"card01 5s infinite; card02/card03 8s infinite","stateSwap":"finite inItem composite fades out while showItem remains","control":"footer .js-bgAnimeBtn pauses the three loops and exposes the play icon; it does not reset reveal state"},
+    "playPauseProof": {"pass":true,"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png","telemetry":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/control-state.json","inspection":"Full organism remains visible and pause icon has become play."},
+    "allAcceptedScreenshotsVisuallyInspected": true,
+    "assetCountOnlyRejectedByValidator": {"pass":true,"validator":"skills/brand/scripts/validate-live-dom-evidence.mjs","requiredFields":["default/transition/settled/late captures","directlyVisible flags","spatial composition","8+ layer selectors with telemetry","motion classification"]}
+  },
+  "evidencePackage": "migrations/onepiece-cardgame/footer-motion-evidence-v10.json",
+  "remainingUnavailable": [{"item":"prefers-reduced-motion emulation","reason":"No browser runtime capability exposed it; no reduced-motion behavior is claimed."}]
+}

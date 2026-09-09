@@ -1,0 +1,75 @@
+{
+  "schema": "visual-first-evidence/v1",
+  "brand": "onepiece-cardgame",
+  "page": "home",
+  "method": "recording-first-code-second",
+  "verdict": "PARTIAL",
+  "methodSteps": [
+    "Review representative frames and continuous playback without Dembrandt semantic labels.",
+    "Identify visually dominant and repeated regions, not merely frequent DOM values.",
+    "Assign provisional visual roles from screenshots.",
+    "Locate the corresponding selectors, assets and computed declarations.",
+    "Keep page-local and asset-local colors out of global brand tokens."
+  ],
+  "visualSystem": {
+    "stableSkeleton": "High-contrast black and white navigation, oversized section titles, white content cards and black title bars.",
+    "stableCanvas": "Paper/map-like off-white backgrounds with very light gray, cool gray or warm beige overlays.",
+    "stableAnchor": "Deep navy bands in New Arrival and the footer provide the strongest recurring chromatic structural anchor.",
+    "localModules": "Events uses a large red illustrated/background asset; Products uses a local blue rail; Recommend uses brown wanted-poster styling.",
+    "campaignLayer": "Hero color is artwork-driven and changes with campaign slides; the current yellow image is not a stable system token.",
+    "microSemantics": "Red and orange News category labels are metadata colors, not core actions."
+  },
+  "observations": [
+    {
+      "id": "hero-artwork-color",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/visual-first/hero.png",
+      "visibleObservation": "The first viewport is dominated by campaign artwork and its yellow/gold field.",
+      "codeMapping": "Hero slide image/assets under .mvCol; navigation overlays with white/black state rules.",
+      "disposition": "page-content",
+      "rule": "Do not promote the current slide hue to a global token."
+    },
+    {
+      "id": "paper-black-white-skeleton",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/visual-first/news.png",
+      "visibleObservation": "News is visually governed by a pale paper/map canvas, black oversized slab title, white image cards and compact black metadata.",
+      "codeMapping": ".newsCol::before uses common pc/bg.webp; .newsCol::after uses rgba(211,214,224,.3); headings use Alfa Slab One; cards use white surfaces.",
+      "disposition": "validated",
+      "rule": "This composition and contrast system is more stable than the category colors."
+    },
+    {
+      "id": "events-local-red",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/visual-first/events.png",
+      "visibleObservation": "Red has high visual weight only inside the Events pickup board; the surrounding structure remains black, white and paper gray.",
+      "codeMapping": ".eventsTitCol uses #000; .eventsColInner uses the image ../images/top/pc/bg_pikup-events.jpg; cards are #fff; metadata is #717171.",
+      "disposition": "validated-page-local",
+      "rule": "Treat red as an Events organism recipe/background asset, not global primary or core action."
+    },
+    {
+      "id": "video-neutral-canvas",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/visual-first/videos.png",
+      "visibleObservation": "Videos returns to the pale paper canvas, black slab heading and image-led content. A yellow border is confined to one promotional banner.",
+      "codeMapping": ".movieCol uses rgba(220,214,198,.3); the isolated banner border candidate is associated with footer/banner content rather than actions.",
+      "disposition": "validated",
+      "rule": "Do not infer a global yellow interaction system from a promotional border or campaign asset."
+    },
+    {
+      "id": "navy-structural-anchor",
+      "screenshot": "public/evidence-reviews/onepiece-cardgame/source-media/home/visual-first/footer.png",
+      "visibleObservation": "The footer is a large deep-navy structural field with white logo, navigation and legal text.",
+      "codeMapping": ".footerColInner resolves to #002156; New Arrival separately uses #0F1331 with white text.",
+      "disposition": "validated",
+      "rule": "Deep navy is a recurring structural section color, but the two page-local shades should remain distinct until cross-page verification."
+    }
+  ],
+  "rejectedDembrandtStarts": [
+    { "value": "#E30000", "reason": "Products category metadata, not visual-system accent." },
+    { "value": "#FF8000", "reason": "Events category metadata, not visual-system accent." },
+    { "value": "#291C0D", "reason": "Recommend module text/surface, not global primary." }
+  ],
+  "nextChecks": [
+    "Capture and measure representative nodes for the black/white/paper/navy system.",
+    "Trace the Events red background asset and its geometry rather than reducing it to a flat hex.",
+    "Compare all carousel slides to separate campaign artwork hues from stable UI colors.",
+    "Repeat the same recording-first procedure on News, Products and Events pages before defining cross-page tokens."
+  ]
+}

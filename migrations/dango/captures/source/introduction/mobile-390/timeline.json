@@ -1,0 +1,47 @@
+{
+  "schema": "brand-continuous-scroll-timeline/v1",
+  "sourcePageId": "introduction",
+  "viewportId": "mobile-390",
+  "meta": {
+    "url": "https://dumpling.echo.tech/get-started/introduction",
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "scrollHeight": 1661
+  },
+  "frames": [
+    {
+      "index": 0,
+      "label": "initial",
+      "timeMs": 191,
+      "scrollTop": 0,
+      "scrollHeight": 1661,
+      "path": "migrations/dango/captures/source/introduction/mobile-390/frame-00.png",
+      "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+    },
+    {
+      "index": 1,
+      "label": "continuous-scroll",
+      "timeMs": 552,
+      "scrollTop": 608,
+      "scrollHeight": 1661,
+      "path": "migrations/dango/captures/source/introduction/mobile-390/frame-01.png",
+      "sha256": "2a4df12d89151c28d18ef92044b26cdcb255f43de1fc05396748947680762aad"
+    },
+    {
+      "index": 2,
+      "label": "settled-end",
+      "timeMs": 968,
+      "scrollTop": 817,
+      "scrollHeight": 1661,
+      "path": "migrations/dango/captures/source/introduction/mobile-390/frame-02.png",
+      "sha256": "9af4e5382edbf492f92eaca06dc3121f13b4361a7f2d5369e2f6b50a4bfe0085"
+    }
+  ],
+  "restored": {
+    "scrollTop": 0,
+    "path": "migrations/dango/captures/source/introduction/mobile-390/restored.png",
+    "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+  }
+}

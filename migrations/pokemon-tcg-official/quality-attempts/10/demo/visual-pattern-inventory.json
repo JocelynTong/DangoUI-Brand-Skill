@@ -1,0 +1,24 @@
+{
+  "schema":"brand-visual-pattern-inventory/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":10,
+  "scope":"home-editorial-grid",
+  "patterns":[
+    {"demoRegion":"responsive asset field","patternId":"PAT-POCKET-01","evidenceRefs":["pocket-desktop","pocket-mobile","pocket-assets"],"sourceRegion":"article.tcg-pocket asset column","implementation":"desktop and mobile authored background URLs selected with picture source"},
+    {"demoRegion":"desktop full section","patternId":"PAT-POCKET-02","evidenceRefs":["pocket-boundary","pocket-desktop"],"sourceRegion":"1440x476.195 Pocket band","implementation":"equal 720px asset-left and copy-right grid"},
+    {"demoRegion":"mobile full section","patternId":"PAT-POCKET-03","evidenceRefs":["pocket-mobile"],"sourceRegion":"390x743.023 Pocket stack","implementation":"334.23px asset-first plus 408.793px copy-second"},
+    {"demoRegion":"campaign composition","patternId":"PAT-POCKET-04","evidenceRefs":["pocket-assets","pocket-desktop","pocket-mobile"],"sourceRegion":"Pocket logo and cards","implementation":"independent transparent logo-cards.png at 700x428.4 / 370x226.44"},
+    {"demoRegion":"copy field","patternId":"PAT-POCKET-05","evidenceRefs":["pocket-desktop","pocket-mobile","pocket-copy"],"sourceRegion":"opaque black content field","implementation":"local rectangular black panel containing only H2, paragraph, CTA"},
+    {"demoRegion":"copy typography","patternId":"PAT-POCKET-06","evidenceRefs":["pocket-copy","pocket-cta"],"sourceRegion":"Pocket H2/body/action","implementation":"Kanit italic H2 and PT Sans body/CTA at frozen responsive sizes"},
+    {"demoRegion":"Play Now CTA","patternId":"PAT-POCKET-07","evidenceRefs":["pocket-cta"],"sourceRegion":"Pocket external action","implementation":"white CTA, local black-to-gold foreground hover, real external href"},
+    {"demoRegion":"viewport entry","patternId":"PAT-POCKET-08","evidenceRefs":["pocket-entry-motion"],"sourceRegion":"hidden and settled endpoints only","implementation":"omitted; marked unresolved/unscored"}
+  ],
+  "runtimeAssets":[
+    {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","role":"desktop Pocket campaign field","sourceKind":"independent-source-asset"},
+    {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","sourceSha256":"4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976","role":"mobile Pocket campaign field","sourceKind":"independent-source-asset"},
+    {"sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png","sourceSha256":"27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009","role":"Pocket logo and card recognition composite","sourceKind":"independent-transparent-source-asset"}
+  ],
+  "unsupportedPatternsAdded":[],
+  "unresolvedOmitted":["entry timing","entry easing","entry stagger","entry intermediate frames"],
+  "visualVerdict":"reserved-for-blind-qa"
+}

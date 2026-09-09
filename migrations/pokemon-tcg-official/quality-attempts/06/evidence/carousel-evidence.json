@@ -1,0 +1,140 @@
+{
+  "schemaVersion": "1.0.0",
+  "brand": "pokemon-tcg-official",
+  "attempt": "06",
+  "role": "Evidence Agent",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "capturedAt": "2026-09-03",
+  "method": [
+    "screenshot-first at 390x844",
+    "visible DOM localization",
+    "computed-style and asset identity backtrace",
+    "real pointer/control attempt with before/after state capture"
+  ],
+  "verdict": "NEEDS_EVIDENCE_FOR_SECOND_OFFICIAL",
+  "summary": {
+    "officialCampaignsObserved": 1,
+    "campaignIdentity": "Pokemon TCG: 30th Celebration",
+    "internalCardStatesDeclaredInDom": 4,
+    "secondOfficialCampaignObserved": false,
+    "safeDownstreamInterpretation": "The source proves one official campaign shell. The four named choices are card variants inside that campaign, not four independent campaigns. A second official campaign must not be invented."
+  },
+  "goalQuestions": [
+    {
+      "question": "Does the current homepage visibly prove at least two independent official Hero campaigns?",
+      "result": "disproved",
+      "reason": "Only one campaign heading, one background family, one campaign logo, one expansion CTA and one expansion destination were observed."
+    },
+    {
+      "question": "Does the current homepage expose multiple Hero states?",
+      "result": "partially-proved",
+      "reason": "The DOM declares four card-state controls (Pikachu, Mew ex, Pikachu ex, Mewtwo ex), but they remain within the single 30th Celebration campaign. In this capture session the visible Next control did not settle into a different selected state, so the rendered transition is unresolved rather than claimed."
+    },
+    {
+      "question": "What is the rendered narrow-screen navigation structure?",
+      "result": "proved",
+      "reason": "A 56px black navigation cap contains a left brand logo and a right Menu button with a separate three-line hamburger built from a span plus pseudo-elements."
+    }
+  ],
+  "captures": [
+    {
+      "id": "mobile-initial-top",
+      "path": "captures/source-mobile-initial-top.png",
+      "viewport": { "width": 390, "height": 844 },
+      "scrollTop": 0,
+      "sha256": "0bf228ba7790b5a9f139a934cdbce4398c34e72105e662fcc86158c239ac7bbc",
+      "state": "default"
+    },
+    {
+      "id": "mobile-after-next-top",
+      "path": "captures/source-mobile-after-next-top.png",
+      "viewport": { "width": 390, "height": 844 },
+      "scrollTop": 0,
+      "sha256": "a6e67396b1f9c888f4c771b80639b21c4a4dc3058ce24fd4309d176d18b759e8",
+      "state": "after Next attempt; selected label still Pikachu"
+    }
+  ],
+  "observedClaims": [
+    {
+      "id": "hero-one-campaign",
+      "status": "observed",
+      "capture": "mobile-initial-top",
+      "region": { "x": 0, "y": 56, "width": 390, "height": 788 },
+      "visibleDom": "header.main-header[aria-label='Main Header']",
+      "facts": {
+        "heading": "Pokemon TCG: 30th Celebration",
+        "heroBox": { "x": 0, "y": 56, "width": 390, "height": 1182.65625 },
+        "campaignBackground": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1.jpg",
+        "campaignLogo": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/en-us/Logo-30th.png",
+        "campaignCtaHref": "../en-us/expansions/30th-celebration/",
+        "campaignCtaAccessibleName": "Go to the Expansion Page"
+      }
+    },
+    {
+      "id": "hero-card-variants-not-campaigns",
+      "status": "observed-dom-unresolved-rendered-transition",
+      "capture": "mobile-initial-top",
+      "visibleDom": ".featured-switcher__nav",
+      "facts": {
+        "declaredControls": [
+          { "label": "Pikachu", "cardId": "2M6P_EN_23", "index": 0 },
+          { "label": "Mew ex", "cardId": "2M6P_EN_158", "index": 1 },
+          { "label": "Pikachu ex", "cardId": "2M6P_EN_53", "index": 2 },
+          { "label": "Mewtwo ex", "cardId": "2M6P_EN_157", "index": 3 }
+        ],
+        "selectedBefore": "Pikachu",
+        "selectedAfterNextAttempt": "Pikachu",
+        "unchangedHighSalienceIdentities": [
+          "Pokemon TCG: 30th Celebration heading",
+          "booster-art-1 campaign background",
+          "Logo-30th campaign logo",
+          "2M6P_EN_23 foreground card",
+          "30th Celebration expansion destination"
+        ],
+        "disposition": "Do not treat the four DOM choices as four campaigns. Do not claim their transition behavior as validated from this session."
+      }
+    },
+    {
+      "id": "mobile-navigation-geometry",
+      "status": "observed",
+      "capture": "mobile-initial-top",
+      "region": { "x": 0, "y": 0, "width": 390, "height": 56 },
+      "visibleDom": "nav",
+      "computed": {
+        "height": "56px",
+        "backgroundColor": "rgb(0, 0, 0)",
+        "position": "absolute",
+        "logoBox": { "x": 23, "y": 8.03125, "width": 77.984375, "height": 39.9296875 },
+        "menuButtonBox": { "x": 309, "y": 0, "width": 66, "height": 56 },
+        "menuFontSize": "18px",
+        "menuColor": "rgb(255, 255, 255)",
+        "hamburgerBox": { "width": 24, "height": 11 },
+        "hamburgerLines": [
+          { "source": "icon::before", "width": 24, "height": 1, "top": 0 },
+          { "source": "icon > span", "width": 24, "height": 1, "top": 5 },
+          { "source": "icon::after", "width": 24, "height": 1, "top": 10 }
+        ]
+      }
+    }
+  ],
+  "actionEvidence": [
+    {
+      "control": "button.featured-switcher__nav-small--right",
+      "accessibleName": "Next",
+      "beforeCapture": "mobile-initial-top",
+      "afterCapture": "mobile-after-next-top",
+      "beforeState": { "selectedName": "Pikachu" },
+      "afterState": { "selectedName": "Pikachu" },
+      "result": "unresolved",
+      "reason": "The enabled visible control accepted the interaction, but no different settled selected state or high-salience asset identity was observed. Evidence does not upgrade the declared alternate card nodes to a validated visible transition."
+    }
+  ],
+  "downstreamBoundary": {
+    "prohibited": [
+      "Calling Mew ex, Pikachu ex or Mewtwo ex separate official campaigns",
+      "Inventing a second official campaign",
+      "Claiming a source-faithful carousel merely because an index or selected class changes in the Demo"
+    ],
+    "allowedWithDirectorApproval": "A clearly labeled held-out generative state may be used to test learned rules, but it must say it is not an official campaign and cannot count as source fidelity evidence."
+  }
+}

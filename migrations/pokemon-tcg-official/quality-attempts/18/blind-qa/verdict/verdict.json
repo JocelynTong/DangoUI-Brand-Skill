@@ -1,0 +1,14 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 18,
+  "visualVerdict": "PASS",
+  "workflowVerdict": "PROTOCOL_BLOCKED",
+  "threeProofVerdicts": {"evidenceFidelity": "PASS", "structuralFidelity": "PASS", "generativeProof": "PASS"},
+  "blockingFindings": [
+    {"code": "HANDOFF_ARTIFACT_GATE_FAILED", "scope": "workflow", "finding": "Strict handoff gate rejects the canonical handoff because canonical visual-qa-assessment.json and fidelity-report.json are shallow placeholders and retro-learnings.json is absent.", "earliestFailureNode": "handoff", "failureOwnerRole": "designDirectorOrchestrator"},
+    {"code": "FIDELITY_WRITE_INPUT_NOT_DISPATCHED", "scope": "protocol", "finding": "No current root qa-input-manifest.json exists, and the current visual-pattern-inventory has no validator-required pages/attempt shape. The isolated fidelity --write run therefore cannot produce fidelity-pass without changing formal artifacts outside the authorized Blind QA directory.", "earliestFailureNode": "qaDispatch", "failureOwnerRole": "designDirectorOrchestrator"}
+  ],
+  "nonBlockingWarnings": ["Search focus-visible has no visible outline or box-shadow; contrast and frozen reversible-interaction requirements still pass."],
+  "compensationPolicy": "No proof compensates for another; all three independently pass. Workflow completion remains blocked by protocol gates."
+}

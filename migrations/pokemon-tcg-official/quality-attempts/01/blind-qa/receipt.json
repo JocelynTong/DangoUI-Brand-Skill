@@ -1,0 +1,41 @@
+{
+  "schema": "brand-blind-qa-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "attempt": 1,
+  "qaExecutionId": "blind-qa-pokemon-tcg-official-20260902-01",
+  "role": "Blind QA / TPP",
+  "verdict": "FAIL",
+  "isolation": {
+    "freshContext": true,
+    "implementationRationaleAccepted": false,
+    "priorVerdictRead": false,
+    "pitchBlackMigrationRead": false,
+    "pokemon30MigrationRead": false,
+    "forbiddenThemeConclusionsConsumed": false
+  },
+  "inputHashes": {
+    "goal-contract-v2.json": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+    "source-observation-manifest.json": "574c34dba2b4687bfcbdf3faaef702f1435c28ab0cf7c151538f4953cffe25d0",
+    "action-evidence-v02.json": "faacd8e514904ca8ca3daa758bdde4cd05f801bd5bae8e9bd3c053c59ffcfa1d",
+    "approved-visual-patterns.json": "01cf9955b79ac666879709f6a8bb92342310eaac3302c3df34bf05f177978fe8",
+    "brand-intent.json": "bb73a547abe6a0aa50d77315f12c96125886d9536e40bf68928fba3d630f0021",
+    "visual-pattern-inventory.json": "1aff0fa551d13b67b00b0454d7659fdc1830fcf2c3ac9e5e168a26889ceb6f66",
+    "generative-proof.json": "126f814b54a4b694dcf9f5adcd1a3a281c94cca6f4ea1f8e0ae64347e25d9fac",
+    "demo-screenshot-manifest.json": "04fd199e2f4348f7da1d9f1d1fdc481b74927f80a9d7456c89f8266fb77d015f",
+    "public-preview.json": "36f4a95ed9cbfb84fdd98e644e05e0f34f07b90dda0aaba6cfead1c2f0b65542"
+  },
+  "outputHashes": {
+    "blind-qa-report.md": "820e63eeaf1671f2e5d80e2660309f41aef6c9679f5be51dfc9de4939a3606c2",
+    "visual-qa-assessment.json": "40529e26f9a4e219ae52214e42d5a4dd2239ab4c7071db4839c5fbac33cc4532",
+    "browser-probes.json": "853039f2488a63236abaa28c893d6cdb9cf49cb3eef6adf00539a7b3f13a1f79",
+    "machine-gates.json": "89e699e420954d0693d86c324f37936491e0c5b68a33e60ac08919cbfac23c12"
+  },
+  "captureCount": 10,
+  "captureDirectory": "migrations/pokemon-tcg-official/quality-attempts/01/blind-qa/captures",
+  "blockingCodes": [
+    "ADVANCED_DRAWER_GEOMETRY_MISMATCH",
+    "GENERATIVE_PROOF_CONTRACT_INCOMPLETE",
+    "SCREENSHOT_FIRST_SOURCE_COVERAGE_WEAK"
+  ]
+}

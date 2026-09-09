@@ -1,0 +1,29 @@
+{
+  "schema": "brand-role-handoff-receipt/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 9,
+  "fromRole": "Demo Implementation Agent",
+  "toRole": "Blind Visual QA",
+  "status": "ready",
+  "incidentRootsRepaired": ["HOME_TITLE_FONT_NOT_VISIBLY_LOADED", "HOME_FOOTER_ILLUSTRATION_MISSING"],
+  "outputs": [
+    "public/brand-previews/onepiece-cardgame.json",
+    "src/App.vue",
+    "src/styles.css",
+    "migrations/onepiece-cardgame/rendered-asset-inventory.json",
+    "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+    "migrations/onepiece-cardgame/demo-screenshot-manifest.json",
+    "migrations/onepiece-cardgame/quality-attempts/9/implementation-self-check.json",
+    "output/visual-qa/onepiece-cardgame/demo-v9/browser-probe.json"
+  ],
+  "verification": {
+    "build":"pass",
+    "browserPages":"5/5 pass",
+    "fontsLoaded":"4/4",
+    "displayTitleExists":true,
+    "footerRasterLayersLoaded":"7/7",
+    "homeScroll":"pass-and-restored",
+    "heldOutPage":"preserved-pass"
+  },
+  "qaBoundary": "Fresh Blind Visual QA must assess fidelity independently; no prior QA verdict or implementation rationale is part of the verdict input."
+}

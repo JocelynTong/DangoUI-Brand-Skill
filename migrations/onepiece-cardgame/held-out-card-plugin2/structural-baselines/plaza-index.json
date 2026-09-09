@@ -1,0 +1,1304 @@
+{
+  "schema": "brand-host-structural-snapshot/v1",
+  "file": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/pages/plaza/index.vue",
+  "sourceSha256": "ccfb345f64d4aa5898fc341d1349769fdf5b0b3a13d3d4107bb2f6aa7ab348e9",
+  "template": [
+    {
+      "id": "n0",
+      "parent": "root",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "plaza",
+        "theme-pokemon-tcg-pitch-black"
+      ]
+    },
+    {
+      "id": "n1",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "ghead"
+      ]
+    },
+    {
+      "id": "n2",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "navline"
+      ]
+    },
+    {
+      "id": "n3",
+      "parent": "n2",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "brand-row",
+        "miniapp-switch"
+      ]
+    },
+    {
+      "id": "n4",
+      "parent": "n3",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "ball"
+      ]
+    },
+    {
+      "id": "n5",
+      "parent": "n4",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "ball-c"
+      ]
+    },
+    {
+      "id": "n6",
+      "parent": "n5",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "ball-dot"
+      ]
+    },
+    {
+      "id": "n7",
+      "parent": "n3",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "brand-text"
+      ]
+    },
+    {
+      "id": "n8",
+      "parent": "n7",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "brand-line"
+      ]
+    },
+    {
+      "id": "n9",
+      "parent": "n8",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "宝可梦集换式卡牌",
+      "classes": [
+        "brand"
+      ]
+    },
+    {
+      "id": "n10",
+      "parent": "n8",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "⌄",
+      "classes": [
+        "switch-arrow"
+      ]
+    },
+    {
+      "id": "n11",
+      "parent": "n2",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "aria-hidden": "true"
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "system-capsule"
+      ]
+    },
+    {
+      "id": "n12",
+      "parent": "n11",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "•••",
+      "classes": [
+        "system-more"
+      ]
+    },
+    {
+      "id": "n13",
+      "parent": "n11",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "system-sep"
+      ]
+    },
+    {
+      "id": "n14",
+      "parent": "n11",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "system-dot"
+      ]
+    },
+    {
+      "id": "n15",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "tabs-row"
+      ]
+    },
+    {
+      "id": "n16",
+      "parent": "n15",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "ptabs"
+      ]
+    },
+    {
+      "id": "n17",
+      "parent": "n16",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "activeTab = 'deck'"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n18",
+      "parent": "n17",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "卡组广场",
+      "classes": []
+    },
+    {
+      "id": "n19",
+      "parent": "n17",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "u"
+      ]
+    },
+    {
+      "id": "n20",
+      "parent": "n16",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "activeTab = 'event'"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n21",
+      "parent": "n20",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "赛事",
+      "classes": []
+    },
+    {
+      "id": "n22",
+      "parent": "n20",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "u"
+      ]
+    },
+    {
+      "id": "n23",
+      "parent": "n15",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "openMine"
+      },
+      "content": "",
+      "classes": [
+        "mine-entry"
+      ]
+    },
+    {
+      "id": "n24",
+      "parent": "n23",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "if": "mineAvatar",
+        "bind:src": "mineAvatar"
+      },
+      "content": "",
+      "classes": [
+        "mine-avatar",
+        "mine-avatar-img"
+      ]
+    },
+    {
+      "id": "n25",
+      "parent": "n23",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "mine-avatar"
+      ]
+    },
+    {
+      "id": "n26",
+      "parent": "n23",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "我的",
+      "classes": []
+    },
+    {
+      "id": "n27",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "activeTab === 'deck'"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n28",
+      "parent": "n27",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "search-wrap"
+      ]
+    },
+    {
+      "id": "n29",
+      "parent": "n28",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "search"
+      ]
+    },
+    {
+      "id": "n30",
+      "parent": "n29",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "icSearch"
+      },
+      "content": "",
+      "classes": [
+        "search-ic"
+      ]
+    },
+    {
+      "id": "n31",
+      "parent": "n29",
+      "tag": "input",
+      "tagType": 0,
+      "attrs": {
+        "placeholder": "搜索卡组 / 卡牌 / 玩家"
+      },
+      "directives": {
+        "model": "query"
+      },
+      "content": "",
+      "classes": [
+        "search-input"
+      ]
+    },
+    {
+      "id": "n32",
+      "parent": "n27",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-panel"
+      ]
+    },
+    {
+      "id": "n33",
+      "parent": "n32",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filterline"
+      ]
+    },
+    {
+      "id": "n34",
+      "parent": "n33",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "分类",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n35",
+      "parent": "n33",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-scroll"
+      ]
+    },
+    {
+      "id": "n36",
+      "parent": "n35",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filterchips"
+      ]
+    },
+    {
+      "id": "n37",
+      "parent": "n36",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "cat in categories",
+        "bind:key": "cat",
+        "on:tap": "selectCategory(cat)"
+      },
+      "content": "{{cat}}",
+      "classes": []
+    },
+    {
+      "id": "n38",
+      "parent": "n32",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filterline",
+        "second"
+      ]
+    },
+    {
+      "id": "n39",
+      "parent": "n38",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "环境",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n40",
+      "parent": "n38",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-scroll"
+      ]
+    },
+    {
+      "id": "n41",
+      "parent": "n40",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filterchips"
+      ]
+    },
+    {
+      "id": "n42",
+      "parent": "n41",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "env in envs",
+        "bind:key": "env",
+        "on:tap": "toggleEnvFilter(env)"
+      },
+      "content": "{{env}}",
+      "classes": []
+    },
+    {
+      "id": "n43",
+      "parent": "n27",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "openCampaignEvents"
+      },
+      "content": "",
+      "classes": [
+        "pitch-season-strip"
+      ]
+    },
+    {
+      "id": "n44",
+      "parent": "n43",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-season-copy"
+      ]
+    },
+    {
+      "id": "n45",
+      "parent": "n44",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "赛季活动 · {{pitchCampaign.period}}",
+      "classes": [
+        "pitch-season-kicker"
+      ]
+    },
+    {
+      "id": "n46",
+      "parent": "n44",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{pitchCampaign.title}}",
+      "classes": [
+        "pitch-season-title"
+      ]
+    },
+    {
+      "id": "n47",
+      "parent": "n43",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "pitchCardBack"
+      },
+      "content": "",
+      "classes": [
+        "pitch-season-card"
+      ]
+    },
+    {
+      "id": "n48",
+      "parent": "n27",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "glist"
+      ]
+    },
+    {
+      "id": "n49",
+      "parent": "n48",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-card",
+        "hover-stay-time": "90"
+      },
+      "directives": {
+        "for": "item in shownDecks",
+        "bind:key": "item.i",
+        "on:tap": "onDeck(item.i)"
+      },
+      "content": "",
+      "classes": [
+        "deck-card"
+      ]
+    },
+    {
+      "id": "n50",
+      "parent": "n49",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(deckCover(item.d).img)"
+      },
+      "content": "",
+      "classes": [
+        "cover"
+      ]
+    },
+    {
+      "id": "n51",
+      "parent": "n49",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "deck-info"
+      ]
+    },
+    {
+      "id": "n52",
+      "parent": "n51",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "line1"
+      ]
+    },
+    {
+      "id": "n53",
+      "parent": "n52",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.d.t || '未命名卡组'}}",
+      "classes": [
+        "dname"
+      ]
+    },
+    {
+      "id": "n54",
+      "parent": "n52",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.d.pub || '玩家发布'}}",
+      "classes": []
+    },
+    {
+      "id": "n55",
+      "parent": "n51",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "line2"
+      ]
+    },
+    {
+      "id": "n56",
+      "parent": "n55",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "tag in deckLineTags(item.d)",
+        "bind:key": "tag"
+      },
+      "content": "{{tag}}",
+      "classes": [
+        "line-tag"
+      ]
+    },
+    {
+      "id": "n57",
+      "parent": "n51",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "line3"
+      ]
+    },
+    {
+      "id": "n58",
+      "parent": "n57",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "author"
+      ]
+    },
+    {
+      "id": "n59",
+      "parent": "n58",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.d.av || '?'}}",
+      "classes": [
+        "mini-avatar"
+      ]
+    },
+    {
+      "id": "n60",
+      "parent": "n58",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.d.au || '未知玩家'}}",
+      "classes": [
+        "au"
+      ]
+    },
+    {
+      "id": "n61",
+      "parent": "n57",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "stats"
+      ]
+    },
+    {
+      "id": "n62",
+      "parent": "n61",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "收藏 ",
+      "classes": [
+        "stat"
+      ]
+    },
+    {
+      "id": "n63",
+      "parent": "n62",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.d.favs || '--'}}",
+      "classes": [
+        "stat-b"
+      ]
+    },
+    {
+      "id": "n64",
+      "parent": "n61",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "浏览 ",
+      "classes": [
+        "stat"
+      ]
+    },
+    {
+      "id": "n65",
+      "parent": "n64",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.d.views || '--'}}",
+      "classes": [
+        "stat-b"
+      ]
+    },
+    {
+      "id": "n66",
+      "parent": "n48",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "shownDecks.length === 0"
+      },
+      "content": "{{query ? '没有找到相关卡组' : '该分类暂无卡组'}}",
+      "classes": [
+        "empty"
+      ]
+    },
+    {
+      "id": "n67",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "event-list",
+        "glist"
+      ]
+    },
+    {
+      "id": "n68",
+      "parent": "n67",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-card",
+        "hover-stay-time": "90"
+      },
+      "directives": {
+        "on:tap": "toggleHeroFlip"
+      },
+      "content": "",
+      "classes": [
+        "pitch-strong-hero"
+      ]
+    },
+    {
+      "id": "n69",
+      "parent": "n68",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "pitchLogo"
+      },
+      "content": "",
+      "classes": [
+        "pitch-hero-logo"
+      ]
+    },
+    {
+      "id": "n70",
+      "parent": "n68",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-hero-copy"
+      ]
+    },
+    {
+      "id": "n71",
+      "parent": "n70",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-campaign-status"
+      ]
+    },
+    {
+      "id": "n72",
+      "parent": "n71",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "赛季活动",
+      "classes": []
+    },
+    {
+      "id": "n73",
+      "parent": "n71",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{pitchCampaign.period}}",
+      "classes": []
+    },
+    {
+      "id": "n74",
+      "parent": "n70",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "MEGA EVOLUTION SEASON",
+      "classes": [
+        "pitch-hero-eyebrow"
+      ]
+    },
+    {
+      "id": "n75",
+      "parent": "n70",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{pitchCampaign.title}}",
+      "classes": [
+        "pitch-hero-title"
+      ]
+    },
+    {
+      "id": "n76",
+      "parent": "n70",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{pitchCampaign.desc}}",
+      "classes": [
+        "pitch-hero-desc"
+      ]
+    },
+    {
+      "id": "n77",
+      "parent": "n68",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n78",
+      "parent": "n77",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-hero-face",
+        "pitch-hero-front"
+      ]
+    },
+    {
+      "id": "n79",
+      "parent": "n78",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "pitchCardDarkrai"
+      },
+      "content": "",
+      "classes": [
+        "pitch-card-art",
+        "pitch-card-art--darkrai"
+      ]
+    },
+    {
+      "id": "n80",
+      "parent": "n78",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "pitchCardChandelure"
+      },
+      "content": "",
+      "classes": [
+        "pitch-card-art",
+        "pitch-card-art--chandelure"
+      ]
+    },
+    {
+      "id": "n81",
+      "parent": "n77",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-hero-back",
+        "pitch-hero-face"
+      ]
+    },
+    {
+      "id": "n82",
+      "parent": "n81",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "pitchCardBack"
+      },
+      "content": "",
+      "classes": [
+        "pitch-card-back"
+      ]
+    },
+    {
+      "id": "n83",
+      "parent": "n68",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-campaign-meta"
+      ]
+    },
+    {
+      "id": "n84",
+      "parent": "n83",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "item in pitchCampaign.stats",
+        "bind:key": "item.label"
+      },
+      "content": "",
+      "classes": [
+        "pitch-campaign-stat"
+      ]
+    },
+    {
+      "id": "n85",
+      "parent": "n84",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.value}}",
+      "classes": [
+        "pitch-campaign-stat-value"
+      ]
+    },
+    {
+      "id": "n86",
+      "parent": "n84",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.label}}",
+      "classes": [
+        "pitch-campaign-stat-label"
+      ]
+    },
+    {
+      "id": "n87",
+      "parent": "n68",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "pitch-campaign-actions"
+      ]
+    },
+    {
+      "id": "n88",
+      "parent": "n87",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "openCampaignEvents"
+      },
+      "content": "",
+      "classes": [
+        "pitch-campaign-btn",
+        "pitch-campaign-btn--primary"
+      ]
+    },
+    {
+      "id": "n89",
+      "parent": "n88",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "查看赛季任务",
+      "classes": []
+    },
+    {
+      "id": "n90",
+      "parent": "n87",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "filterCampaignDecks"
+      },
+      "content": "",
+      "classes": [
+        "pitch-campaign-btn"
+      ]
+    },
+    {
+      "id": "n91",
+      "parent": "n90",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "筛选参赛卡组",
+      "classes": []
+    },
+    {
+      "id": "n92",
+      "parent": "n67",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-card",
+        "hover-stay-time": "90"
+      },
+      "directives": {
+        "for": "item in sortedEvents",
+        "bind:key": "item.e.n",
+        "on:tap": "onEvent(item.i)"
+      },
+      "content": "",
+      "classes": [
+        "event-row"
+      ]
+    },
+    {
+      "id": "n93",
+      "parent": "n92",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "event-main"
+      ]
+    },
+    {
+      "id": "n94",
+      "parent": "n93",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.e.n}}",
+      "classes": [
+        "event-title"
+      ]
+    },
+    {
+      "id": "n95",
+      "parent": "n93",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "event-meta"
+      ]
+    },
+    {
+      "id": "n96",
+      "parent": "n95",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{item.e.date}} ｜ {{item.e.decks}}套卡组",
+      "classes": [
+        "event-date"
+      ]
+    },
+    {
+      "id": "n97",
+      "parent": "n92",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{statusLabel(item.e.status)}}",
+      "classes": []
+    },
+    {
+      "id": "n98",
+      "parent": "n0",
+      "tag": "DetailOverlay",
+      "tagType": 1,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    }
+  ],
+  "script": {
+    "lang": "js",
+    "semanticSha256": "ab1a32e1c2c28ca7df12d3da0509946e4564f3e0f1b6dfce13396f6b99d4c39e",
+    "styleImports": [
+      "./index.scss"
+    ]
+  },
+  "styles": []
+}

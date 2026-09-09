@@ -1,0 +1,70 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>ONE PIECE footer — official v10 vs live demo</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 28px; background: #111722; color: #f7f3e8; font: 15px/1.45 system-ui, sans-serif; }
+  h1 { margin: 0 0 8px; font-size: 26px; }
+  .dek { margin: 0 0 24px; color: #bfc8d6; }
+  .row { display: grid; grid-template-columns: 1fr 300px; gap: 22px; margin: 0 0 26px; align-items: start; }
+  figure { margin: 0; border: 1px solid #3b4659; background: #202838; padding: 10px; }
+  figcaption { margin-bottom: 8px; color: #e8c55a; font-weight: 750; }
+  img { display: block; width: 100%; height: auto; background: white; }
+  .demo img { width: 260px; margin: 0 auto; }
+  .metrics { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .metric { padding: 10px; border-left: 4px solid #d94848; background: #202838; }
+  .metric strong { display: block; font-size: 18px; }
+  .pass { border-color: #50b97a; }
+</style>
+<h1>ONE PIECE Home footer · Blind QA visual comparison</h1>
+<p class="dek">Official v10 source capture at 1280×720 versus the live Demo phone viewport. Images are shown as captured; no screenshot crop is used as runtime UI.</p>
+
+<section class="row">
+  <figure>
+    <figcaption>Official source · pre-entry</figcaption>
+    <img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-00-before-entry.png">
+  </figure>
+  <figure class="demo">
+    <figcaption>Live Demo · pre-entry</figcaption>
+    <img src="../captures/live-pre-entry-phone.png">
+  </figure>
+</section>
+
+<section class="row">
+  <figure>
+    <figcaption>Official source · 120ms</figcaption>
+    <img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png">
+  </figure>
+  <figure class="demo">
+    <figcaption>Live Demo · 120ms</figcaption>
+    <img src="../captures/live-120ms-phone.png">
+  </figure>
+</section>
+
+<section class="row">
+  <figure>
+    <figcaption>Official source · 500ms</figcaption>
+    <img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png">
+  </figure>
+  <figure class="demo">
+    <figcaption>Live Demo · 500ms</figcaption>
+    <img src="../captures/live-500ms-phone.png">
+  </figure>
+</section>
+
+<section class="row">
+  <figure>
+    <figcaption>Official source · settled</figcaption>
+    <img src="/output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png">
+  </figure>
+  <figure class="demo">
+    <figcaption>Live Demo · settled</figcaption>
+    <img src="../captures/live-settled-phone.png">
+  </figure>
+</section>
+
+<div class="metrics">
+  <div class="metric"><strong>Card heights −70%</strong>Live three-card height ratios are 0.116 / 0.060 / 0.062 of the organism, versus source 0.399 / 0.201 / 0.210.</div>
+  <div class="metric"><strong>Character starts at 22%</strong>Live character box begins 0.22 organism-height below the top and is 0.78 high; source character spans the full organism height.</div>
+  <div class="metric pass"><strong>Motion semantics pass</strong>Finite 0.6s/0.8s swap, 5s/8s/8s loops, and loop-only pause were observed.</div>
+</div>

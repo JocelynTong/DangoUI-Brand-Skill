@@ -1,0 +1,43 @@
+{
+  "schema": "heldout-event-media-comparison/v1",
+  "attempt": 12,
+  "verdict": "REWORK_PROVENANCE_ONLY",
+  "comparisons": {
+    "againstAttempt11": {
+      "previousBlocker": "EVENT_IDENTITY_MEDIA_EMPTY",
+      "result": "CLOSED_VISUALLY",
+      "evidence": "The formerly blank navy field now carries a legible ME05 logo and Elite Trainer Box at all three fixed viewports."
+    },
+    "againstFrozenDirection": {
+      "containedIdentityMedia": "PASS",
+      "titleStatusMetricsPreserved": "PASS",
+      "identityToMetricsToScheduleToAction": "PASS",
+      "lowRadiusGeometry": "PASS",
+      "noFullScreenPoster": "PASS",
+      "mediaNotSoleRecognitionCarrier": "PASS",
+      "assetProvenance": "FAIL_PRODUCT_BOX"
+    },
+    "againstFrozenSourceEventsEvidence": {
+      "reference": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+      "sharedRules": [
+        "large warm editorial page mass",
+        "contained campaign/event media rather than persistent full-screen art",
+        "strong section heading followed by rectangular event islands",
+        "sparse red action framing and navy structural role"
+      ],
+      "hostTranslation": "Pokémon ME05 identity is retained while the source event system's editorial containment, whitespace and rectangular hierarchy are reused.",
+      "copyOrScreenshotReuse": false
+    },
+    "viewportResults": {
+      "390x844": "PASS_VISUAL",
+      "536x864": "PASS_VISUAL",
+      "1280x720": "PASS_VISUAL"
+    }
+  },
+  "closure": {
+    "visualImplementationReady": true,
+    "businessSafetyReady": true,
+    "evidenceReady": false,
+    "nextRequiredAction": "Complete or replace the product-box provenance record, then fresh QA without altering the accepted composition."
+  }
+}

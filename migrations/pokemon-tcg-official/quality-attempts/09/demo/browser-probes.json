@@ -1,0 +1,20 @@
+{
+  "schema":"brand-browser-probes/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"09-demo",
+  "scope":"page:pokemon-tcg-official-home section:home-product-bands",
+  "route":"http://127.0.0.1:5174/?qa=attempt09#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "states":{
+    "mobileSettled":{"viewport":[390,844],"section":{"width":390,"height":645},"scene":{"width":374,"height":333},"copy":{"width":390,"height":312},"cta":{"width":191,"height":51},"entryState":"settled","horizontalOverflow":false},
+    "mobileBefore":{"entryState":"before","laptop":{"opacity":0,"scale":0.5},"copyChildrenOpacity":0},
+    "mobileMid":{"entryState":"proof-mid","laptop":{"opacity":0.68,"scale":0.78},"headingOpacity":0.72},
+    "desktopSettled":{"viewport":[1440,900],"section":{"width":1440,"height":616},"copy":{"width":696,"minHeight":316},"scene":{"widthApproximately":778,"height":538}},
+    "hover":{"restingForeground":"rgb(0, 0, 0)","hoverForeground":"rgb(226, 186, 101)","background":"rgb(255, 255, 255)"},
+    "cta":{"href":"https://tcg.pokemon.com/en-us/tcgl/","localNavigationPreventedForTest":true},
+    "reducedMotion":{"immediateSettled":true}
+  },
+  "assets":["tcgl-background.jpg","laptop.png","pikachu.png","phone.png","avatar-1.png","avatar-2.png"],
+  "checks":{"backgroundStatic":true,"fiveIndependentLayers":true,"desktopOrder":true,"mobileReorder":true,"copyGeometry":true,"ctaTarget":true,"ctaHover":true,"visibleIntermediateState":true,"reducedMotion":true,"horizontalOverflow":false,"build":true},
+  "implementationChecksPass":true,
+  "visualVerdict":"not-assigned-by-implementation-agent"
+}

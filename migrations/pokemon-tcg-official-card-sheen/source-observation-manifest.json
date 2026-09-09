@@ -1,0 +1,19 @@
+{
+  "schema": "source-observation-manifest/v1",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "pages": [
+    {
+      "pageId": "home",
+      "url": "https://tcg.pokemon.com/en-us/",
+      "viewport": { "width": 1440, "height": 1000 },
+      "covered": true,
+      "fullViewportCapture": "frames/00-initial.png",
+      "region": { "x": 1308, "y": 209, "width": 132, "height": 404.2421875 },
+      "continuousCapture": "pointer-probe-timeline.json",
+      "frameDirectory": "frames",
+      "interactionCoverage": "8/8 frozen pointer states captured",
+      "visibleTargetCoverage": "unavailable: no foreground card is visible in the current hero; visible Previous, Next, and selected Pikachu controls did not activate the opacity-zero owner",
+      "reachabilityCapture": "frames/09-reachability-after-controls.png"
+    }
+  ]
+}

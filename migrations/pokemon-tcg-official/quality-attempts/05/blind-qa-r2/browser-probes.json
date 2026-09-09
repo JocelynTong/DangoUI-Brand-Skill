@@ -1,0 +1,62 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "05-blind-qa-r2",
+  "producer": "independent-blind-qa-r2",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "mobile390x844": {
+    "reportedContentViewport": { "width": 354, "height": 767 },
+    "hero": { "height": 415.9943, "allowedMax": 430, "pass": true },
+    "nextSection": { "boundaryDeltaPx": 0.00002, "visibleInInitialPhoneViewport": true, "pass": true },
+    "navigation": {
+      "desktopItems": [
+        { "label": "EXPANSIONS", "display": "none", "width": 0, "height": 0 },
+        { "label": "CARDS", "display": "none", "width": 0, "height": 0 },
+        { "label": "HOW TO PLAY", "display": "none", "width": 0, "height": 0 },
+        { "label": "NEWS", "display": "none", "width": 0, "height": 0 }
+      ],
+      "mobileLabel": "MENU ☰",
+      "maximumLogoItemOverlapPx2": 0,
+      "pass": true
+    },
+    "cta": { "height": 43.9986, "minimum": 44, "passWithinSubpixelTolerance": true },
+    "maximumCriticalElementOverlapPx2": 0,
+    "overflow": { "documentHorizontal": false, "heroHorizontal": false, "pass": true }
+  },
+  "outer1440InternalPhone": {
+    "reportedContentViewport": { "width": 1309, "height": 909 },
+    "phone": { "width": 370.9091, "height": 802.3721 },
+    "hero": { "height": 415.9943, "allowedMax": 430, "pass": true },
+    "nextSection": { "boundaryDeltaPx": 0.00001, "visibleInInitialPhoneViewport": true, "pass": true },
+    "navigation": { "allDesktopItemsDisplayNone": true, "mobileLabel": "MENU ☰", "maximumLogoItemOverlapPx2": 0, "pass": true },
+    "maximumCriticalElementOverlapPx2": 0,
+    "overflow": { "documentHorizontal": false, "heroHorizontal": false, "pass": true }
+  },
+  "interaction": {
+    "pointer": {
+      "sequence": ["front", "back", "front"],
+      "midTransform": "matrix3d(-0.995213, 0, -0.097731, 0, 0, 1, 0, 0, 0.097731, 0, -0.995213, 0, 0, 0, 0, 1)",
+      "cardBoundsStable": true,
+      "scrollTopSequence": [0, 0, 0],
+      "pass": true
+    },
+    "keyboard": { "keys": ["Enter", "Space"], "sequence": ["front", "back", "front"], "scrollTopSequence": [0, 0, 0], "pass": true },
+    "carousel": { "sequence": [0, 1, 0], "allStatesNonBlank": true, "pass": true },
+    "reducedMotion": {
+      "runtimeRerun": true,
+      "matchMediaActive": true,
+      "beforeAriaPressed": "false",
+      "afterImmediateAriaPressed": "true",
+      "computedTransitionDuration": "0s",
+      "computedTransformImmediatelyAfterActivation": "matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+      "pass": true
+    }
+  },
+  "visualAssessment": {
+    "brandedCompactHero": true,
+    "crowdedThumbnail": false,
+    "notes": "The campaign background, two official logos, featured card, gold-outlined CTA and restrained controls retain a clear Pokemon campaign hierarchy while the next section remains visible."
+  },
+  "console": { "errors": [], "warnings": [], "pass": true },
+  "finalVerdict": "PASS"
+}

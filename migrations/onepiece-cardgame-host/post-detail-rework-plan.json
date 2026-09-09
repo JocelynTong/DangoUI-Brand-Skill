@@ -1,0 +1,121 @@
+{
+  "schema": "host-post-detail-rework-plan/v1",
+  "brand": "onepiece-cardgame",
+  "mode": "apply-host",
+  "target": {
+    "host": "roco-lib",
+    "route": "/pages/team-create-sprite/index?slot=0",
+    "pageType": "team-post-detail",
+    "businessJob": "read a team recruitment post, evaluate fit, and act on the host post data",
+    "capacity": "high"
+  },
+  "capacity": "high",
+  "stageVerdict": "BLOCKED",
+  "decision": "NEEDS_EVIDENCE",
+  "brandSignatures": [],
+  "blockingFindings": [
+    {
+      "code": "HIGH_CAPACITY_DISTINCTIVE_SIGNATURE_NOT_SUPPORTED",
+      "failureOwnerRole": "brandResearcher",
+      "finding": "The learned package does not currently contain an approved, source-independent ONE PIECE signature whose allowed role and scope include a host team post detail. The only portable approved rule, editorial-module-rhythm, is useful information architecture but is not distinctive enough by itself to move the current generic archive treatment beyond the reported 70% state.",
+      "requiredResolution": "Collect and interpret rendered source evidence for one or more post-compatible, content-independent signatures (for example a verified metadata marker, bounded section framing system, or typographic pairing) and explicitly approve their host editorial/detail roles before Design Direction is reopened."
+    },
+    {
+      "code": "HOST_STAGE_REVIEW_MISSING",
+      "failureOwnerRole": "designDirector",
+      "finding": "The requested host-design-director-stage-review.json is not present in the workspace, so its host-specific constraints and accepted/rejected placements cannot be consumed or contradicted safely.",
+      "requiredResolution": "Provide or regenerate the host stage review, then re-evaluate the frozen signatures against it."
+    }
+  ],
+  "rejectedSignatureCandidates": [
+    {
+      "id": "editorial-module-rhythm",
+      "role": "dominant post narrative plus structurally distinct compact team/requirement metadata",
+      "placement": "post-detail content body and supporting facts panel",
+      "evidenceRefs": [
+        "source-home-news-module-region",
+        "source-home-products-module-region",
+        "source-home-events-module-region"
+      ],
+      "distinctivenessClaim": "Evidence supports differentiated editorial pacing and avoidance of repeated generic card shells, but does not prove that this structure alone is recognizably ONE PIECE rather than good general editorial design.",
+      "notFor": [
+        "one repeated generic card shell",
+        "dense admin table",
+        "campaign hero composition",
+        "official Events content or item-for-item layout"
+      ],
+      "businessValue": "Would improve scan order between the recruitment story and team facts without changing host data or actions.",
+      "mobileStrategy": "responsive-reflow: keep the post narrative first, stack the compact facts module below it, preserve terse subordinate metadata, and avoid scale-only shrinking.",
+      "rejectionReason": "Insufficient brand distinctiveness for the mandatory high-capacity signature gate."
+    },
+    {
+      "id": "nautical-story-surface",
+      "role": "bounded narrative surface",
+      "placement": "candidate post-story introduction only",
+      "evidenceRefs": [
+        "source-home-welcome-visible-region"
+      ],
+      "distinctivenessClaim": "The observed map-like parchment is nautical, but the implementation asset is explicitly rejected and a warm paper field by itself is generic; applying it to a team post would over-generalize the Welcome/onboarding role.",
+      "notFor": [
+        "global page background",
+        "every card",
+        "data grid",
+        "active control",
+        "unfrozen source raster"
+      ],
+      "businessValue": "A verified post-compatible version could make the author story legible as a bounded narrative moment.",
+      "mobileStrategy": "If later approved, keep it bounded to one section, crop or repeat only an independently frozen texture, and preserve text contrast at 390px.",
+      "rejectionReason": "Role scope is Welcome/onboarding only, and brand-mod rejects the source parchment raster as an implementation asset."
+    },
+    {
+      "id": "home-display-font-resource",
+      "role": "short oversized English display label",
+      "placement": "candidate post-detail section label",
+      "evidenceRefs": [
+        "home-font-asset-alfa-slab-one"
+      ],
+      "distinctivenessClaim": "The loaded Alfa Slab One face is visually specific, but evidence approves it only for short oversized Home English labels and does not authorize team-post titles or long host copy.",
+      "notFor": [
+        "body copy",
+        "metadata",
+        "long post title",
+        "family-name-only implementation"
+      ],
+      "businessValue": "A newly evidenced detail-page role could create a recognizable section anchor without touching host content.",
+      "mobileStrategy": "If later approved, use only for a short fixed UI label, clamp size responsively, and never apply it to user-generated titles or body text.",
+      "rejectionReason": "Current approved scope is Home-only; extending it would be unsupported semantic-role expansion."
+    }
+  ],
+  "guardrails": {
+    "mustPreserve": [
+      "host routes, post data, author/team data, actions, and interaction semantics",
+      "host content reading order unless a later approved direction explicitly maps the same information into differentiated modules"
+    ],
+    "mustNot": [
+      "use an official website screenshot, screenshot crop, or campaign hero as runtime implementation",
+      "replace host data with ONE PIECE copy, artwork, products, events, or characters",
+      "treat generic yellow/red, black/white, warm neutral, hard borders, or archive mood as a brand signature",
+      "reuse Home-only or catalog-only patterns outside their approved semantic role",
+      "modify business structure merely to imitate the source website"
+    ]
+  },
+  "gateExpectation": {
+    "validateHostApplyGate": "EXPECTED_FAIL_UNTIL_EVIDENCE_RESOLVED",
+    "expectedCode": "HIGH_CAPACITY_SIGNATURE_SET_INVALID",
+    "reason": "A high-capacity plan must freeze one to three signatures, but inventing or over-generalizing them would be a more serious protocol violation than blocking."
+  },
+  "inputsReviewed": [
+    "skills/brand/SKILL.md",
+    "skills/brand/roles/design-director.md",
+    "skills/brand/workflow-contract.json",
+    "skills/brand/scripts/validate-host-apply-gate.mjs",
+    "migrations/onepiece-cardgame/brand-evidence.json",
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "migrations/onepiece-cardgame/brand-mod.json",
+    "migrations/onepiece-cardgame/mapping-qa-final/mapping-qa-report.json"
+  ],
+  "missingInputs": [
+    "migrations/onepiece-cardgame-host/host-design-director-stage-review.json"
+  ]
+}

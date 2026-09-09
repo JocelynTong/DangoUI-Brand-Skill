@@ -1,0 +1,6 @@
+{
+  "schema":"brand-subagent-receipt/v1","brand":"pokemon-tcg-official","attempt":"08-revision2","role":"Demo Implementation Agent","executionId":"/root/pokemon_news_demo","scope":"blind-qa blocker remediation only","goalSha256":"db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5",
+  "blockersAddressed":["MOBILE_CAROUSEL_UNEXPECTED_SCROLL","APPROVED_TYPOGRAPHY_NOT_IMPLEMENTED","NEXT_SECTION_SEAM_WRONG","REDUCED_MOTION_NOT_PROVEN","GENERATIVE_PROOF_NOT_HELD_OUT"],
+  "outputs":["src/App.vue","src/styles.css","public/brand-previews/pokemon-tcg-official.json","public/assets/brand-assets/pokemon-tcg-official/news/pokemon-news-heldout-fixture.svg","migrations/pokemon-tcg-official/quality-attempts/08/revision2/browser-probes.json","migrations/pokemon-tcg-official/quality-attempts/08/revision2/generative-proof.json","migrations/pokemon-tcg-official/quality-attempts/08/revision2/section-fidelity-manifest.json"],
+  "implementationChecksPass":true,"visualVerdict":"not-assigned-by-implementation-agent","handoffTo":"fresh Blind QA / TPP"
+}

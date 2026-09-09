@@ -1,0 +1,2113 @@
+{
+  "schema": "brand-host-structural-snapshot/v1",
+  "file": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/pages/build/index.vue",
+  "sourceSha256": "db407f41a9d2f42dde67d0b86796f3fdc80d2fcd24d683c1fc37092f78a1e94f",
+  "template": [
+    {
+      "id": "n0",
+      "parent": "root",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "build",
+        "theme-pokemon-tcg-pitch-black"
+      ]
+    },
+    {
+      "id": "n1",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "topbar"
+      ]
+    },
+    {
+      "id": "n2",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "dkhead"
+      ]
+    },
+    {
+      "id": "n3",
+      "parent": "n2",
+      "tag": "template",
+      "tagType": 3,
+      "attrs": {},
+      "directives": {
+        "if": "!scrolled"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n4",
+      "parent": "n3",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "titlerow"
+      ]
+    },
+    {
+      "id": "n5",
+      "parent": "n4",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "tl-left"
+      ]
+    },
+    {
+      "id": "n6",
+      "parent": "n5",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "tl-icon"
+      ]
+    },
+    {
+      "id": "n7",
+      "parent": "n6",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "icLayers"
+      },
+      "content": "",
+      "classes": [
+        "tl-ic"
+      ]
+    },
+    {
+      "id": "n8",
+      "parent": "n5",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "tl-text"
+      ]
+    },
+    {
+      "id": "n9",
+      "parent": "n8",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "nameEditing"
+      },
+      "content": "",
+      "classes": [
+        "editing",
+        "tl-name-row"
+      ]
+    },
+    {
+      "id": "n10",
+      "parent": "n9",
+      "tag": "input",
+      "tagType": 0,
+      "attrs": {
+        "focus": true,
+        "confirm-type": "done"
+      },
+      "directives": {
+        "bind:key": "nameInputKey",
+        "bind:value": "draftDeckName",
+        "on:input": "onDraftNameInput",
+        "on:confirm": "finishEditName",
+        "on:blur": "finishEditName"
+      },
+      "content": "",
+      "classes": [
+        "tl-name-input"
+      ]
+    },
+    {
+      "id": "n11",
+      "parent": "n8",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null,
+        "on:tap": "editName"
+      },
+      "content": "",
+      "classes": [
+        "tl-name-row"
+      ]
+    },
+    {
+      "id": "n12",
+      "parent": "n11",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{store.deckName}}",
+      "classes": [
+        "tl-name"
+      ]
+    },
+    {
+      "id": "n13",
+      "parent": "n11",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "icPencil"
+      },
+      "content": "",
+      "classes": [
+        "tl-pen"
+      ]
+    },
+    {
+      "id": "n14",
+      "parent": "n4",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "head-actions"
+      ]
+    },
+    {
+      "id": "n15",
+      "parent": "n14",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "onSaveDraft"
+      },
+      "content": "",
+      "classes": [
+        "draftbtn"
+      ]
+    },
+    {
+      "id": "n16",
+      "parent": "n15",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "icSave"
+      },
+      "content": "",
+      "classes": [
+        "draft-ic"
+      ]
+    },
+    {
+      "id": "n17",
+      "parent": "n15",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "存草稿",
+      "classes": []
+    },
+    {
+      "id": "n18",
+      "parent": "n14",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "publish"
+      },
+      "content": "",
+      "classes": [
+        "pubbtn"
+      ]
+    },
+    {
+      "id": "n19",
+      "parent": "n18",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "发布",
+      "classes": [
+        "pub-t"
+      ]
+    },
+    {
+      "id": "n20",
+      "parent": "n2",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "compactnav"
+      ]
+    },
+    {
+      "id": "n21",
+      "parent": "n20",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cn-left"
+      ]
+    },
+    {
+      "id": "n22",
+      "parent": "n21",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cn-title"
+      ]
+    },
+    {
+      "id": "n23",
+      "parent": "n22",
+      "tag": "input",
+      "tagType": 0,
+      "attrs": {
+        "focus": true,
+        "confirm-type": "done"
+      },
+      "directives": {
+        "if": "nameEditing",
+        "bind:key": "nameInputKey",
+        "bind:value": "draftDeckName",
+        "on:input": "onDraftNameInput",
+        "on:confirm": "finishEditName",
+        "on:blur": "finishEditName"
+      },
+      "content": "",
+      "classes": [
+        "cn-name-input"
+      ]
+    },
+    {
+      "id": "n24",
+      "parent": "n22",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null,
+        "on:tap": "editName"
+      },
+      "content": "{{store.deckName}}",
+      "classes": [
+        "cn-name"
+      ]
+    },
+    {
+      "id": "n25",
+      "parent": "n22",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "!nameEditing"
+      },
+      "content": "{{stats.total}}/60",
+      "classes": [
+        "cn-total"
+      ]
+    },
+    {
+      "id": "n26",
+      "parent": "n20",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "compact-actions",
+        "head-actions"
+      ]
+    },
+    {
+      "id": "n27",
+      "parent": "n26",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "onSaveDraft"
+      },
+      "content": "",
+      "classes": [
+        "draftbtn",
+        "draftbtn-sm"
+      ]
+    },
+    {
+      "id": "n28",
+      "parent": "n27",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "存草稿",
+      "classes": []
+    },
+    {
+      "id": "n29",
+      "parent": "n26",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "publish"
+      },
+      "content": "",
+      "classes": [
+        "pubbtn",
+        "pubbtn-sm"
+      ]
+    },
+    {
+      "id": "n30",
+      "parent": "n29",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "发布",
+      "classes": [
+        "pub-t"
+      ]
+    },
+    {
+      "id": "n31",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "searchrow"
+      ]
+    },
+    {
+      "id": "n32",
+      "parent": "n31",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "b-search"
+      ]
+    },
+    {
+      "id": "n33",
+      "parent": "n32",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "icSearch"
+      },
+      "content": "",
+      "classes": [
+        "b-search-ic"
+      ]
+    },
+    {
+      "id": "n34",
+      "parent": "n32",
+      "tag": "input",
+      "tagType": 0,
+      "attrs": {
+        "placeholder": "搜索卡名 / 编号",
+        "placeholder-class": "b-ph",
+        "confirm-type": "search"
+      },
+      "directives": {
+        "model": "q"
+      },
+      "content": "",
+      "classes": [
+        "b-search-in"
+      ]
+    },
+    {
+      "id": "n35",
+      "parent": "n31",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "poolView = poolView === 'list' ? 'grid' : 'list'"
+      },
+      "content": "",
+      "classes": [
+        "viewtoggle"
+      ]
+    },
+    {
+      "id": "n36",
+      "parent": "n35",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "poolView === 'list' ? icGrid : icList"
+      },
+      "content": "",
+      "classes": [
+        "vt-ic"
+      ]
+    },
+    {
+      "id": "n37",
+      "parent": "n0",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "bind:scroll-y": "true",
+        "on:scroll": "onScroll"
+      },
+      "content": "",
+      "classes": [
+        "poolscroll"
+      ]
+    },
+    {
+      "id": "n38",
+      "parent": "n37",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "type-scroll"
+      ]
+    },
+    {
+      "id": "n39",
+      "parent": "n38",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-row"
+      ]
+    },
+    {
+      "id": "n40",
+      "parent": "n39",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "分类",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n41",
+      "parent": "n39",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "typechips"
+      ]
+    },
+    {
+      "id": "n42",
+      "parent": "n41",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "t in typeOptions",
+        "bind:key": "t",
+        "on:tap": "poolType = t"
+      },
+      "content": "{{t}}",
+      "classes": []
+    },
+    {
+      "id": "n43",
+      "parent": "n37",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "attr-scroll"
+      ]
+    },
+    {
+      "id": "n44",
+      "parent": "n43",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-row"
+      ]
+    },
+    {
+      "id": "n45",
+      "parent": "n44",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "类型",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n46",
+      "parent": "n44",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "attrchips"
+      ]
+    },
+    {
+      "id": "n47",
+      "parent": "n46",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "s in subtypeOptions",
+        "bind:key": "s",
+        "on:tap": "toggleSub(s)"
+      },
+      "content": "{{s}}",
+      "classes": []
+    },
+    {
+      "id": "n48",
+      "parent": "n37",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "attr-scroll"
+      ]
+    },
+    {
+      "id": "n49",
+      "parent": "n48",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-row"
+      ]
+    },
+    {
+      "id": "n50",
+      "parent": "n49",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "属性",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n51",
+      "parent": "n49",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "attrchips"
+      ]
+    },
+    {
+      "id": "n52",
+      "parent": "n51",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "a in attrOptions",
+        "bind:key": "a",
+        "on:tap": "toggleAttr(a)"
+      },
+      "content": "{{a}}",
+      "classes": []
+    },
+    {
+      "id": "n53",
+      "parent": "n37",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {
+        "if": "filterExpanded"
+      },
+      "content": "",
+      "classes": [
+        "attr-scroll"
+      ]
+    },
+    {
+      "id": "n54",
+      "parent": "n53",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-row"
+      ]
+    },
+    {
+      "id": "n55",
+      "parent": "n54",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "关键词",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n56",
+      "parent": "n54",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "attrchips"
+      ]
+    },
+    {
+      "id": "n57",
+      "parent": "n56",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "kw in keywordOptions",
+        "bind:key": "kw",
+        "on:tap": "toggleKeyword(kw)"
+      },
+      "content": "{{kw}}",
+      "classes": []
+    },
+    {
+      "id": "n58",
+      "parent": "n37",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {
+        "if": "filterExpanded"
+      },
+      "content": "",
+      "classes": [
+        "attr-scroll"
+      ]
+    },
+    {
+      "id": "n59",
+      "parent": "n58",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "filter-row"
+      ]
+    },
+    {
+      "id": "n60",
+      "parent": "n59",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "标记",
+      "classes": [
+        "filter-label"
+      ]
+    },
+    {
+      "id": "n61",
+      "parent": "n59",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "attrchips"
+      ]
+    },
+    {
+      "id": "n62",
+      "parent": "n61",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "tag in labelOptions",
+        "bind:key": "tag",
+        "on:tap": "toggleLabel(tag)"
+      },
+      "content": "{{tag}}",
+      "classes": []
+    },
+    {
+      "id": "n63",
+      "parent": "n37",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "filterExpanded = !filterExpanded"
+      },
+      "content": "",
+      "classes": [
+        "filter-more"
+      ]
+    },
+    {
+      "id": "n64",
+      "parent": "n63",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{filterExpanded ? '收起更多筛选项' : '查看更多筛选项'}}",
+      "classes": []
+    },
+    {
+      "id": "n65",
+      "parent": "n63",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n66",
+      "parent": "n37",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "!pool.length"
+      },
+      "content": "",
+      "classes": [
+        "pool-empty"
+      ]
+    },
+    {
+      "id": "n67",
+      "parent": "n66",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "暂无匹配卡牌",
+      "classes": [
+        "pool-empty-title"
+      ]
+    },
+    {
+      "id": "n68",
+      "parent": "n37",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else-if": "poolView === 'list'"
+      },
+      "content": "",
+      "classes": [
+        "poollist"
+      ]
+    },
+    {
+      "id": "n69",
+      "parent": "n68",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "([card, i]) in pool",
+        "bind:key": "i"
+      },
+      "content": "",
+      "classes": [
+        "lrow"
+      ]
+    },
+    {
+      "id": "n70",
+      "parent": "n69",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-card",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "openViewer([i], 0, 'build')"
+      },
+      "content": "",
+      "classes": [
+        "lrow-img"
+      ]
+    },
+    {
+      "id": "n71",
+      "parent": "n70",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(card.img)"
+      },
+      "content": "",
+      "classes": [
+        "lrow-cover"
+      ]
+    },
+    {
+      "id": "n72",
+      "parent": "n70",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "store.deck[i]"
+      },
+      "content": "{{store.deck[i]}}",
+      "classes": [
+        "lrow-cnt"
+      ]
+    },
+    {
+      "id": "n73",
+      "parent": "n69",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "lrow-info"
+      ]
+    },
+    {
+      "id": "n74",
+      "parent": "n73",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "openViewer([i], 0, 'build')"
+      },
+      "content": "",
+      "classes": [
+        "lrow-name-hit"
+      ]
+    },
+    {
+      "id": "n75",
+      "parent": "n74",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{card.n}}",
+      "classes": [
+        "lrow-name"
+      ]
+    },
+    {
+      "id": "n76",
+      "parent": "n73",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "lrow-tags"
+      ]
+    },
+    {
+      "id": "n77",
+      "parent": "n76",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "tag in cardTags(card)",
+        "bind:key": "tag",
+        "on:tap": "openViewer([i], 0, 'build')"
+      },
+      "content": "{{tag}}",
+      "classes": [
+        "tag"
+      ]
+    },
+    {
+      "id": "n78",
+      "parent": "n69",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "store.deck[i]"
+      },
+      "content": "",
+      "classes": [
+        "countctl"
+      ]
+    },
+    {
+      "id": "n79",
+      "parent": "n78",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "on:tap": "remove(i)"
+      },
+      "content": "",
+      "classes": [
+        "mini"
+      ]
+    },
+    {
+      "id": "n80",
+      "parent": "n79",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "−",
+      "classes": []
+    },
+    {
+      "id": "n81",
+      "parent": "n78",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{store.deck[i]}}",
+      "classes": [
+        "num"
+      ]
+    },
+    {
+      "id": "n82",
+      "parent": "n78",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "on:tap": "add(i)"
+      },
+      "content": "",
+      "classes": [
+        "mini",
+        "plus-mini"
+      ]
+    },
+    {
+      "id": "n83",
+      "parent": "n82",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "+",
+      "classes": []
+    },
+    {
+      "id": "n84",
+      "parent": "n69",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "else": null,
+        "on:tap": "add(i)"
+      },
+      "content": "",
+      "classes": [
+        "lrow-plus"
+      ]
+    },
+    {
+      "id": "n85",
+      "parent": "n84",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "+",
+      "classes": [
+        "plus-symbol"
+      ]
+    },
+    {
+      "id": "n86",
+      "parent": "n37",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "poolgrid"
+      ]
+    },
+    {
+      "id": "n87",
+      "parent": "n86",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "([card, i]) in pool",
+        "bind:key": "i"
+      },
+      "content": "",
+      "classes": [
+        "pgcard"
+      ]
+    },
+    {
+      "id": "n88",
+      "parent": "n87",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "openViewer([i], 0, 'build')"
+      },
+      "content": "",
+      "classes": [
+        "pg-box"
+      ]
+    },
+    {
+      "id": "n89",
+      "parent": "n88",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(card.img)"
+      },
+      "content": "",
+      "classes": [
+        "pg-img"
+      ]
+    },
+    {
+      "id": "n90",
+      "parent": "n87",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n91",
+      "parent": "n90",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "on:tap": "store.deck[i] && remove(i)"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n92",
+      "parent": "n91",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "−",
+      "classes": []
+    },
+    {
+      "id": "n93",
+      "parent": "n90",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{store.deck[i] || 0}}",
+      "classes": []
+    },
+    {
+      "id": "n94",
+      "parent": "n90",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-step",
+        "hover-stay-time": "60"
+      },
+      "directives": {
+        "on:tap": "add(i)"
+      },
+      "content": "",
+      "classes": [
+        "pg-plus"
+      ]
+    },
+    {
+      "id": "n95",
+      "parent": "n94",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "+",
+      "classes": [
+        "pg-plus-symbol"
+      ]
+    },
+    {
+      "id": "n96",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "tray"
+      ]
+    },
+    {
+      "id": "n97",
+      "parent": "n96",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "traytabs"
+      ]
+    },
+    {
+      "id": "n98",
+      "parent": "n97",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "ttabs"
+      ]
+    },
+    {
+      "id": "n99",
+      "parent": "n98",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-chip",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "for": "t in typesOnly",
+        "bind:key": "t",
+        "on:tap": "onTrayTab(t)"
+      },
+      "content": "{{t}} {{stats.by[t]}}",
+      "classes": []
+    },
+    {
+      "id": "n100",
+      "parent": "n97",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "trtotal"
+      ]
+    },
+    {
+      "id": "n101",
+      "parent": "n100",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "trdot"
+      ]
+    },
+    {
+      "id": "n102",
+      "parent": "n100",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{stats.total}}/60",
+      "classes": [
+        "trtotal-t"
+      ]
+    },
+    {
+      "id": "n103",
+      "parent": "n96",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "bind:scroll-x": "true",
+        "bind:scroll-into-view": "scrollTarget",
+        "bind:scroll-with-animation": "true"
+      },
+      "content": "",
+      "classes": [
+        "traycards"
+      ]
+    },
+    {
+      "id": "n104",
+      "parent": "n103",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "traycards-inner"
+      ]
+    },
+    {
+      "id": "n105",
+      "parent": "n104",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "(i, k) in trayTabCells",
+        "bind:key": "i"
+      },
+      "content": "",
+      "classes": [
+        "traycell"
+      ]
+    },
+    {
+      "id": "n106",
+      "parent": "n105",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(CARDS[i].img)",
+        "on:tap": "openViewer(trayTabCells, k, 'build')"
+      },
+      "content": "",
+      "classes": [
+        "tc-img"
+      ]
+    },
+    {
+      "id": "n107",
+      "parent": "n105",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{store.deck[i]}}",
+      "classes": [
+        "tc-n"
+      ]
+    },
+    {
+      "id": "n108",
+      "parent": "n104",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "!trayTabCells.length"
+      },
+      "content": "",
+      "classes": [
+        "tray-empty"
+      ]
+    },
+    {
+      "id": "n109",
+      "parent": "n108",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "点击上方 + 添加卡牌",
+      "classes": [
+        "tray-empty-t"
+      ]
+    },
+    {
+      "id": "n110",
+      "parent": "n0",
+      "tag": "CardViewer",
+      "tagType": 1,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n111",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "sheetOpen",
+        "on:tap": "closeSheet"
+      },
+      "content": "",
+      "classes": [
+        "mask"
+      ]
+    },
+    {
+      "id": "n112",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "sheet"
+      ]
+    },
+    {
+      "id": "n113",
+      "parent": "n112",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "sheet-handle"
+      ]
+    },
+    {
+      "id": "n114",
+      "parent": "n113",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n115",
+      "parent": "n112",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "sheet-title"
+      ]
+    },
+    {
+      "id": "n116",
+      "parent": "n115",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "发布卡组",
+      "classes": []
+    },
+    {
+      "id": "n117",
+      "parent": "n115",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "closeSheet"
+      },
+      "content": "×",
+      "classes": [
+        "sheet-close"
+      ]
+    },
+    {
+      "id": "n118",
+      "parent": "n112",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "confirmEnvAndClose"
+      },
+      "content": "",
+      "classes": [
+        "sheet-body"
+      ]
+    },
+    {
+      "id": "n119",
+      "parent": "n118",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cover-row"
+      ]
+    },
+    {
+      "id": "n120",
+      "parent": "n119",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cover-main"
+      ]
+    },
+    {
+      "id": "n121",
+      "parent": "n120",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": " 封面",
+      "classes": [
+        "field-label"
+      ]
+    },
+    {
+      "id": "n122",
+      "parent": "n121",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "*",
+      "classes": [
+        "required"
+      ]
+    },
+    {
+      "id": "n123",
+      "parent": "n120",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "if": "selectedCover !== null",
+        "bind:src": "asset(CARDS[selectedCover].img)"
+      },
+      "content": "",
+      "classes": [
+        "sheet-cover"
+      ]
+    },
+    {
+      "id": "n124",
+      "parent": "n120",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "empty-cover",
+        "sheet-cover"
+      ]
+    },
+    {
+      "id": "n125",
+      "parent": "n119",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cover-pick"
+      ]
+    },
+    {
+      "id": "n126",
+      "parent": "n125",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "从卡组里挑一张作封面",
+      "classes": [
+        "cover-tip"
+      ]
+    },
+    {
+      "id": "n127",
+      "parent": "n125",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {
+        "scroll-x": true
+      },
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cover-scroll"
+      ]
+    },
+    {
+      "id": "n128",
+      "parent": "n127",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cover-list"
+      ]
+    },
+    {
+      "id": "n129",
+      "parent": "n128",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "for": "i in chosenIds",
+        "bind:key": "i",
+        "bind:src": "asset(CARDS[i].img)",
+        "on:tap": "selectedCover = i"
+      },
+      "content": "",
+      "classes": []
+    },
+    {
+      "id": "n130",
+      "parent": "n128",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "!chosenIds.length"
+      },
+      "content": "请先添加卡牌",
+      "classes": [
+        "no-card"
+      ]
+    },
+    {
+      "id": "n131",
+      "parent": "n118",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "field"
+      ]
+    },
+    {
+      "id": "n132",
+      "parent": "n131",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": " 环境",
+      "classes": [
+        "field-label"
+      ]
+    },
+    {
+      "id": "n133",
+      "parent": "n132",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "*",
+      "classes": [
+        "required"
+      ]
+    },
+    {
+      "id": "n134",
+      "parent": "n131",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "on:tap": "toggleEnv"
+      },
+      "content": "",
+      "classes": [
+        "envselect"
+      ]
+    },
+    {
+      "id": "n135",
+      "parent": "n134",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{selectedEnv}}",
+      "classes": [
+        "envtext"
+      ]
+    },
+    {
+      "id": "n136",
+      "parent": "n134",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "⌄",
+      "classes": [
+        "down"
+      ]
+    },
+    {
+      "id": "n137",
+      "parent": "n131",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "if": "envOpen",
+        "on:tap": null
+      },
+      "content": "",
+      "classes": [
+        "envpicker"
+      ]
+    },
+    {
+      "id": "n138",
+      "parent": "n137",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "envfocus"
+      ]
+    },
+    {
+      "id": "n139",
+      "parent": "n137",
+      "tag": "scroll-view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "bind:scroll-y": "true",
+        "bind:scroll-top": "envScrollTop",
+        "bind:scroll-with-animation": "envScrollAnimated",
+        "on:scroll": "onEnvScroll"
+      },
+      "content": "",
+      "classes": [
+        "envpicker-scroll"
+      ]
+    },
+    {
+      "id": "n140",
+      "parent": "n139",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "envpicker-list"
+      ]
+    },
+    {
+      "id": "n141",
+      "parent": "n140",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "env in envs",
+        "bind:key": "env",
+        "on:tap": "pickEnv(env)"
+      },
+      "content": "{{env}}",
+      "classes": []
+    },
+    {
+      "id": "n142",
+      "parent": "n118",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "field"
+      ]
+    },
+    {
+      "id": "n143",
+      "parent": "n142",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": " 卡组名",
+      "classes": [
+        "field-label"
+      ]
+    },
+    {
+      "id": "n144",
+      "parent": "n143",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "*",
+      "classes": [
+        "required"
+      ]
+    },
+    {
+      "id": "n145",
+      "parent": "n142",
+      "tag": "input",
+      "tagType": 0,
+      "attrs": {
+        "placeholder": "给卡组起个名字"
+      },
+      "directives": {
+        "bind:key": "publishNameInputKey",
+        "bind:value": "publishName",
+        "on:input": "onPublishNameInput"
+      },
+      "content": "",
+      "classes": [
+        "sheet-input"
+      ]
+    },
+    {
+      "id": "n146",
+      "parent": "n118",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "field"
+      ]
+    },
+    {
+      "id": "n147",
+      "parent": "n146",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "简介",
+      "classes": [
+        "field-label"
+      ]
+    },
+    {
+      "id": "n148",
+      "parent": "n146",
+      "tag": "textarea",
+      "tagType": 0,
+      "attrs": {
+        "placeholder": "一句话介绍玩法 / 上分思路"
+      },
+      "directives": {
+        "bind:key": "publishDescInputKey",
+        "bind:value": "publishDesc",
+        "on:input": "onPublishDescInput"
+      },
+      "content": "",
+      "classes": [
+        "sheet-area"
+      ]
+    },
+    {
+      "id": "n149",
+      "parent": "n118",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "sheet-actions"
+      ]
+    },
+    {
+      "id": "n150",
+      "parent": "n149",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "saveDraftFromSheet"
+      },
+      "content": "存草稿",
+      "classes": [
+        "sheet-draft"
+      ]
+    },
+    {
+      "id": "n151",
+      "parent": "n150",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFit"
+      },
+      "directives": {
+        "bind:src": "icSavePurple"
+      },
+      "content": "",
+      "classes": [
+        "sheet-action-ic"
+      ]
+    },
+    {
+      "id": "n152",
+      "parent": "n149",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-soft",
+        "hover-stay-time": "80"
+      },
+      "directives": {
+        "on:tap": "submitPublish"
+      },
+      "content": "发布",
+      "classes": [
+        "sheet-publish"
+      ]
+    }
+  ],
+  "script": {
+    "lang": "js",
+    "semanticSha256": "17120d2bc0aef77a0f6cc7b673b83212cae6e1bbd28b43cc15ca2523147a8433",
+    "styleImports": [
+      "./index.scss"
+    ]
+  },
+  "styles": []
+}

@@ -1,0 +1,58 @@
+{
+  "schema": "heldout-event-provenance-closure-visual-qa/v1",
+  "attempt": 13,
+  "role": "fresh-independent-brand-visual-business-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Event provenance closure and regressions only; this verdict does not represent the full host",
+  "verdict": "PASS",
+  "decision": "The exact Mega Darkrai ex source is byte-verified, the replacement remains a contained identity composition across 390/536/1280, and all frozen Event content, interaction, runtime and business-safety checks pass without regression.",
+  "screenshots": [
+    "fresh-390x844-event.png",
+    "fresh-536x864-event.png",
+    "fresh-1280x720-event.png"
+  ],
+  "blockingFindings": [],
+  "findings": {
+    "assetProvenance": {
+      "status": "PASS",
+      "evidence": "Fresh retrieval of the exact CloudFront URL and the local 330x460 PNG both contain 386826 bytes and share SHA-256 e4b59f83713045deb5eb8d84590533188c4392c3c5543839cd5af2f9018daf41. Frozen inventory contains exact URL records as dom-image and dom-srcset, alt=Mega Darkrai ex, shouldMigrate=true."
+    },
+    "implementationIntegrity": {
+      "status": "PASS",
+      "evidence": "The runtime asset is an exact standalone upstream image, not a screenshot, crop or reference-derived full-frame raster. CSS contains it inside the established navy identity field."
+    },
+    "identityComposition": {
+      "status": "PASS",
+      "evidence": "At 390 the logo and card form a compact masthead above content; at 536 the card becomes the right-side anchor; at 1280 the logo and card form one bounded event vignette. The portrait card remains contained and does not read as an unrelated pasted poster."
+    },
+    "contentAndFirstScreenBudget": {
+      "status": "PASS",
+      "evidence": "All viewports preserve title, live status, four metrics, schedule heading, first round, top-deck row and round action in the first screen. Two round cards, two top decks, two actions and four metrics remain in DOM. No visible title clipping was observed; the numeric clipped probe is only a subpixel rounding equality."
+    },
+    "interactionParity": {
+      "status": "PASS",
+      "evidence": "Round and top-deck actions navigate correctly by pointer, Enter and Space. Each is role=button, tabIndex=0, restores the Event URL on Back and remains stable after reload."
+    },
+    "runtimeAndBusinessSafety": {
+      "status": "PASS",
+      "evidence": "All three Event renders have 0px document overflow, zero failed requests, zero non-GET writes and no visible animations under reduced motion. Both identity assets resolve locally."
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "evidence": "Fresh 390px Plaza, Build, Mine, Round and Detail captures exactly match the Attempt13 implementation self-check hashes and each reports 0px overflow and zero writes. Build, Mine, Round and Detail also match Attempt12 byte-for-byte; Plaza reflects its separately accepted later iteration rather than an Event regression."
+    }
+  },
+  "codeReworkRequired": false,
+  "evidenceReworkRequired": false,
+  "eventCompletion": "PASS",
+  "fullHostCompletion": "NOT_EVALUATED",
+  "sources": [
+    "browser-probes.json",
+    "provenance-verification.json",
+    "asset-provenance-closure.json",
+    "implementation-proof.json",
+    "../12/visual-qa-assessment.json",
+    "card-plugin2.0/frontend/migrations/pokemon-tcg-pitch-black/rendered-asset-inventory.json"
+  ]
+}

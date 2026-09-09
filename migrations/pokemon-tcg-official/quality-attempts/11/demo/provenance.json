@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "role": "Demo Implementation Agent",
+  "consumedInputs": ["../goal-contract.json", "../evidence/", "../interpreter/", "../design-direction.json"],
+  "implementationFiles": ["../../../../../src/App.vue", "../../../../../src/styles.css", "../../../../../public/brand-previews/pokemon-tcg-official.json", "../../../../../public/assets/brand-assets/pokemon-tcg-official/championships-2x.jpg"],
+  "runtimeAssetPolicy": "official archived image files only for source calibration; CSS-native original visual for held-out",
+  "qaVerdictsConsumed": false
+}

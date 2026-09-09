@@ -1,0 +1,36 @@
+{
+  "schema": "brand-demo-implementation-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 11,
+  "scope": "Demo host exposure and Home responsive implementation only",
+  "inputs": [
+    "migrations/onepiece-cardgame/quality-attempts/11/interpreter-mobile-contract.json",
+    "migrations/onepiece-cardgame/quality-attempts/11/evidence-manifest.json"
+  ],
+  "changed": [
+    "src/styles.css",
+    "public/brand-previews/onepiece-cardgame.json",
+    "migrations/onepiece-cardgame/demo-screenshot-manifest.json",
+    "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+    "migrations/onepiece-cardgame/generative-proof.json"
+  ],
+  "protectedArtifactsUntouched": ["goal", "evidence", "intent", "QA"],
+  "checks": {
+    "trueNarrowHostFullWidth": true,
+    "referenceAndInspectorRemovedFromNarrowLayout": true,
+    "deviceShellRemovedFromNarrowLayout": true,
+    "desktopPhoneShellRetained": true,
+    "documentVerticalScroll": true,
+    "documentHorizontalOverflow": false,
+    "allContractHomeRegionsVisible": true,
+    "scheduleRecommendVideosPresent": true,
+    "minimumTouchTarget44": true,
+    "footerOfficialAssetsAndGeometrySelectorsPreserved": true,
+    "footerRevealAndLoopKeyframesPreserved": true,
+    "fourFontRolesPreserved": true,
+    "desktopInternalScrollPreserved": true,
+    "build": "success-with-existing-large-chunk-warning"
+  },
+  "browserProbe": "migrations/onepiece-cardgame/quality-attempts/11/implementation/browser-probes.json",
+  "result": "implementation-complete-awaiting-independent-review"
+}

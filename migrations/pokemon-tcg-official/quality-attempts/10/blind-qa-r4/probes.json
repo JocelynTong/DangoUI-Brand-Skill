@@ -1,0 +1,139 @@
+{
+  "schema": "brand-blind-qa-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r4",
+  "inputBoundary": {
+    "manifest": "../demo-revision4/qa-input-manifest.json",
+    "manifestSha256": "f7a2627a205884413405a280adf056924d6555dc29f6f9ab60d622cc8b104439",
+    "allDeclaredHashesMatched": true,
+    "priorQaInputDetected": false,
+    "implementationVisualVerdictDetected": false
+  },
+  "sourceCalibration": {
+    "desktop1440": {
+      "section": [0, 1793.796875, 1440, 476.1875],
+      "background": [0, 1793.796875, 1440, 476.1875],
+      "assetField": [0, 1793.796875, 720, 476.1875],
+      "copyPanel": [720, 1853.640625, 720, 356.5],
+      "topAndBottomBackgroundExposurePx": 59.84375,
+      "backgroundCurrentSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+      "backgroundNaturalSize": [720, 464],
+      "backgroundObjectFit": "cover",
+      "backgroundObjectPosition": "100% 50%",
+      "logoAsset": {
+        "src": "/assets/brand-assets/pokemon-tcg-official/logo-cards.png",
+        "naturalSize": [500, 306],
+        "loaded": true
+      },
+      "typography": {
+        "heading": "Kanit Official, 40px/44px, italic 700",
+        "body": "PT Sans Official, 18px/28.8px",
+        "cta": "PT Sans Official, 20px, white/black"
+      },
+      "cta": {
+        "href": "https://tcgpocket.pokemon.com/en-us",
+        "target": "_blank",
+        "rel": "noreferrer",
+        "height": 56,
+        "hover": "rgb(226, 186, 101)",
+        "restored": "rgb(0, 0, 0)",
+        "destinationOpened": "https://tcgpocket.pokemon.com/en-us/"
+      },
+      "horizontalOverflow": false
+    },
+    "mobile390": {
+      "section": [0, 0, 390, 743.015625],
+      "assetField": [0, 0, 390, 334.21875],
+      "copyPanel": [0, 334.21875, 390, 408.7890625],
+      "copyPanelBackground": "rgb(0, 0, 0)",
+      "heading": "Kanit Official, 28px/30.8px, italic 700",
+      "body": "PT Sans Official, 18px/28.8px",
+      "ctaHeight": 51.296875,
+      "horizontalOverflow": false
+    },
+    "responsiveUrlAliases": {
+      "desktop": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+      "mobileSourceBinding": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+      "desktopSha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "mobileSha256": "4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976",
+      "bothPixelSize": [720, 464],
+      "byteIdentical": true,
+      "visibleAssetSwapCreditAwarded": false
+    }
+  },
+  "heldOut": {
+    "desktop": {
+      "section": [0, 0, 1440, 476.1875],
+      "copyPanel": [0, 59.84375, 720, 356.5],
+      "assetConstruction": "source-independent DOM/CSS concept tile",
+      "fictionalDisclosureVisible": true
+    },
+    "mobile": {
+      "section": [0, 0, 390, 743.015625],
+      "assetFirst": true,
+      "copySecond": true,
+      "fictionalDisclosureVisible": true
+    },
+    "action": {
+      "tag": "BUTTON",
+      "type": "button",
+      "href": null,
+      "urlBefore": "http://127.0.0.1:5177/?qa=attempt10-r4-independent#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "urlAfter": "http://127.0.0.1:5177/?qa=attempt10-r4-independent#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "ariaPressedBefore": "false",
+      "ariaPressedAfter": "true",
+      "ariaLiveAfter": "Concept review noted locally. This fictional fixture route remains open.",
+      "urlAfterReload": "http://127.0.0.1:5177/?qa=attempt10-revision4&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+      "fixtureVisibleAfterReload": true,
+      "ariaPressedAfterReload": "false",
+      "mobileScrollTopBeforeAndAfterCoordinateClick": [0, 0],
+      "hoverForeground": "rgb(226, 186, 101)",
+      "restoredForeground": "rgb(0, 0, 0)"
+    },
+    "typography": {
+      "heading": "Kanit Official, 40px, italic 700",
+      "body": "PT Sans Official, 18px, normal 400",
+      "ctaObserved": "Oxanium, 12px, italic 700",
+      "ctaRequired": "PT Sans Official, source-calibrated action role (20px on desktop)",
+      "status": "fail"
+    }
+  },
+  "scroll": {
+    "homeDesktop": {
+      "scrollHeight": 2414,
+      "clientHeight": 900,
+      "before": 0,
+      "after": 1200,
+      "restored": 0
+    },
+    "heldOutPhone": {
+      "scrollHeight": 1255,
+      "clientHeight": 821,
+      "sectionCount": 2,
+      "before": 0,
+      "after": 433,
+      "restored": 0
+    }
+  },
+  "regression": {
+    "hero": "pass",
+    "news": "pass",
+    "tcgLive": "pass",
+    "pocket": "pass-except-held-out-cta-typography",
+    "consoleErrors": [],
+    "consoleWarnings": []
+  },
+  "machineChecks": {
+    "designDirectionGate": "pass",
+    "sectionFidelityStrict": "pass",
+    "build": "pass-with-existing-vite-chunk-size-warning"
+  },
+  "captures": [
+    {"path": "captures/held-out-desktop-before.png", "sha256": "86d6d546cfe71fb59e1f80a27cd1d1229ccb38a6b94d1ec94fe598bf29edaaa2"},
+    {"path": "captures/held-out-desktop-after.png", "sha256": "3ac4de7dd9b2126716a5424ce8e210d86466e32b85f1005d9a02b7f862742e08"},
+    {"path": "captures/held-out-mobile-before.png", "sha256": "7968ebd0be816b5b7a84647a53a44d4ba3ff35a5219a0d78afb6b2c3395772ec"},
+    {"path": "captures/held-out-mobile-after.png", "sha256": "0d32c0c586388506523c28f702df2f7f8c4a24143fdd8972ca9da36f0e317666"},
+    {"path": "captures/home-desktop-full.png", "sha256": "ab88f97bc39fc0d0a79c831255ff5d3fbf5d8806d7f68a96cbdc0bc93744cb1e"},
+    {"path": "captures/home-mobile-top.png", "sha256": "5f14069268efd430b177146ead7477c2564b3a713b451292501d28060874eeb0"}
+  ]
+}

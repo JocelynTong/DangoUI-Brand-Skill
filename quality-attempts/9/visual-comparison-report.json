@@ -1,0 +1,12 @@
+{
+  "schema": "visual-comparison-report/v1",
+  "attempt": 9,
+  "verdict": "NEEDS_EVIDENCE",
+  "comparisons": [
+    {"id": "home-display-title", "officialCapture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png", "demoCapture": "output/visual-qa/onepiece-cardgame/demo-v9/home-display-title.png", "sourceRegionNormalized": [0.03, 0.097, 0.594, 0.861], "demoRegionNormalized": [0.586, 0.295, 0.224, 0.08], "demoPixelObservation": "LATEST NEWS is visibly large, heavy, slabbed, and dominant over the two-row editorial list.", "officialPixelObservation": "The purported glyph crop shows hero/welcome content and does not visibly contain the NEWS sample.", "result": "BLOCKED_INVALID_SOURCE_REGION"},
+    {"id": "home-four-type-roles", "officialCaptures": ["output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png", "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png", "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"], "demoRegionNormalized": [0.0, 0.0, 1.0, 0.82], "demoPixelObservation": "Display slab, editorial serif, neutral sans body, and condensed metadata are visibly differentiated.", "resourceObservation": ["alfa-slab-one-400.ttf", "noto-serif-700.ttf", "poppins-500.ttf", "oswald-700.ttf"], "result": "BLOCKED_MISLABELED_OFFICIAL_GLYPH_CAPTURES"},
+    {"id": "home-footer-organism", "officialCaptures": ["output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-settled.png", "output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-late-frame.png"], "demoCaptures": ["output/visual-qa/onepiece-cardgame/demo-v9/home-footer-context.png", "output/visual-qa/onepiece-cardgame/demo-v9/home-footer-settled.png"], "sourceRegionNormalizedClaimed": [0.0, 0.069, 1.0, 0.861], "demoRegionNormalized": [0.0, 0.844, 1.0, 0.102], "demoPixelObservation": "Warm illustrated field contains a dominant lower-left Luffy, catch/logo above, and overlapping card cluster to the right; a separate navy footer follows.", "officialPixelObservation": "Both official files show hero/welcome, so footer scale, overlap, crop, and hierarchy cannot be compared.", "result": "BLOCKED_INVALID_SOURCE_CAPTURE"}
+  ],
+  "earliestFailureNode": "Evidence/source observation",
+  "failureOwnerRole": "brandResearcher"
+}

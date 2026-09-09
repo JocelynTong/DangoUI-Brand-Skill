@@ -1,0 +1,17 @@
+{
+  "schema": "brand-host-design-experiment/v1",
+  "status": "approved",
+  "route": "pages/mine/index",
+  "inputStandardSamples": ["Plaza QA10", "Event QA13", "Detail QA15", "Build QA17"],
+  "goal": "Translate the visual system into a restrained personal deck-management page with identity, inventory clarity and safe destructive actions.",
+  "mustPreserve": ["profile identity and counts", "favorite/draft/published/hidden tabs", "create/edit/delete actions", "deck and draft data", "delete confirmation behavior"],
+  "requiredDirection": {
+    "surface": "warm-white paper inventory with a contained navy identity masthead",
+    "composition": "compact identity/counts -> clear create action -> rectangular management tabs -> deck/draft inventory -> confirmation modal",
+    "geometry": "low-radius 1px rules, rectangular cards and tabs, no full Hero or dominant pills",
+    "colorRoles": "navy identity and structure, red destructive/publish semantics, yellow sparse selection, preserve hidden/danger/empty semantics",
+    "type": "restrained CJK labels with strong short identity/count numerics"
+  },
+  "mustNotDo": ["add campaign Hero", "replace profile/deck content", "make delete look like a primary positive action", "change management behavior or other routes"],
+  "acceptance": ["390/536/1280 show identity, create action, tabs and first inventory content within a useful first screen", "all four branches and empty/delete-confirm states remain legible and keyboard-operable", "masked recognition comes from inventory composition and component family", "zero overflow, external writes during QA or cross-route regression"]
+}

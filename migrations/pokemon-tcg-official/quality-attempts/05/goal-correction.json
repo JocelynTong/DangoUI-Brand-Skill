@@ -1,0 +1,21 @@
+{
+  "schema": "brand-goal-correction/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 5,
+  "mode": "host-transferable-generative-demo",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "correction": "Replace the full-height source-study Hero with a compact interactive Hero suitable for host application while retaining the evidenced card-flip interaction.",
+  "sourceTruthBoundary": "This attempt does not overwrite or invalidate the official full-height mobile source truth. It demonstrates a derived, host-transferable application recipe.",
+  "acceptance": {
+    "surface": "390x844",
+    "heroMaxPx": 430,
+    "targetHeroMaxPx": 422,
+    "nextSectionVisibleInInitialViewport": true,
+    "ctaMinHeightPx": 44,
+    "cardWidthRangePx": [110, 130],
+    "flip": ["pointer-click-front-to-back", "pointer-click-back-to-front", "keyboard-front-to-back", "keyboard-back-to-front", "css-3d-rotateY", "prefers-reduced-motion"],
+    "horizontalOverflow": false,
+    "responsiveBasis": "container-query"
+  },
+  "outOfScope": ["other pages", "card shine", "claiming source-site full-height fidelity", "using screenshots as runtime assets"]
+}

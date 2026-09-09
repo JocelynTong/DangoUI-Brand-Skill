@@ -1,0 +1,15 @@
+{
+  "schema": "brand-incident-blind-qa-verdict/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 14,
+  "surface": "normal user-facing ONE PIECE Home phone mockup",
+  "verdict": "PASS",
+  "summary": "The home indicator is now a chassis-owned absolute overlay with an upward transparent fade and visible bar; it remains geometrically fixed during reversible phone-screen scrolling, leaves the full footer reachable, disappears in the true 390px no-shell layout, and introduces no horizontal overflow.",
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "minimumFixScope": null,
+  "build": "PASS",
+  "layoutContractTest": "PASS",
+  "implementationChanges": []
+}

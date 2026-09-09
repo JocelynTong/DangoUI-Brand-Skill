@@ -1,0 +1,69 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "route": "http://127.0.0.1:5179/?qa=attempt8#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "desktop1440x900": {
+    "section": { "x": 0, "width": 1440, "height": 755.796875, "background": "white" },
+    "heading": { "fontSize": 48, "fontFamilyObserved": "Oxanium", "fontFamilyRequired": "Kanit", "lineHeight": 52.8, "alignment": "left" },
+    "archiveLink": { "target": "99.48x44", "fontObserved": "Oxanium 12px 700 italic", "fontRequired": "PT Sans 18px 800 italic" },
+    "layout": { "visibleStories": 2, "pages": 3, "cardWidth": 576, "gap": 24 },
+    "image": { "box": "576x323.875", "natural": "578x325", "objectFit": "contain", "cropped": false },
+    "controls": { "edgeArrows": "60x60", "dots": "44x44" },
+    "carousel": {
+      "beforeAssets": ["wcs26-binder-inserts.png", "30thYoshirotten_169_EN.png"],
+      "secondPageAssets": ["tcg_30th_pikachu_reveals_169_en.png", "30th-pikachu-reveal-169-en.png"],
+      "thirdPageAssets": ["product-showcase-169-en.png", "PCOM_2027_Season_Refresh-16x9.png"],
+      "immediateTransition": {
+        "outgoingOpacity": 0.161503,
+        "outgoingTranslateX": -542.34,
+        "outgoingScale": 0.987423,
+        "incomingOpacity": 0.838498,
+        "incomingTranslateX": 15.1942,
+        "incomingScale": 0.995155
+      },
+      "identityChanged": ["image", "headline", "CTA instance"],
+      "restored": true
+    },
+    "horizontalOverflow": false
+  },
+  "mobile390x844": {
+    "proofSurface": { "x": 0, "width": 390, "phoneChassis": false, "showcaseGutter": false, "scrollContainer": ".phone-screen" },
+    "hero": { "width": 390, "height": 416, "regression": false },
+    "sectionAligned": { "scrollTop": 352.5, "x": 0, "y": 52.5, "width": 390, "height": 666.6328125 },
+    "heading": { "fontSize": 32, "fontFamilyObserved": "Oxanium", "fontFamilyRequired": "Kanit", "alignment": "center" },
+    "archiveLink": { "target": "99.48x44", "fontObserved": "Oxanium 12px 700 italic", "fontRequired": "PT Sans 18px 800 italic", "stackedBelowHeading": true },
+    "layout": { "visibleStories": 1, "pages": 6, "cardWidth": 390 },
+    "image": { "box": "390x219.289", "natural": "578x325", "objectFit": "contain", "cropped": false },
+    "headline": { "fontObserved": "PT Sans 20px/26px 700", "requiredSize": 20 },
+    "cta": { "target": "174x52", "fontObserved": "Oxanium 12px 700 italic", "fontRequired": "PT Sans 18px 700 italic" },
+    "controls": { "edgeArrows": "60x60", "dots": "44x44" },
+    "carousel": {
+      "beforeAsset": "wcs26-binder-inserts.png",
+      "afterAsset": "30thYoshirotten_169_EN.png",
+      "immediateTransition": {
+        "outgoingOpacity": 0.197592,
+        "outgoingTranslateX": -172.117,
+        "outgoingScale": 0.987964,
+        "incomingOpacity": 0.802408,
+        "incomingTranslateX": 6.16486,
+        "incomingScale": 0.994072
+      },
+      "identityChanged": ["image", "headline", "CTA instance"],
+      "restored": true,
+      "scrollTopBefore": 352.5,
+      "scrollTopAfterNext": 582,
+      "scrollTopAfterRestore": 582,
+      "unexpectedScroll": true
+    },
+    "nextSection": { "observedBackground": "rgb(217, 239, 247)", "requiredBoundary": "red TCG Live section" },
+    "horizontalOverflow": false
+  },
+  "reducedMotion": {
+    "activePreference": false,
+    "runtimeProofProvided": false,
+    "observableReducedMotionMediaRules": 0,
+    "verdict": "NOT_PROVEN"
+  },
+  "console": { "errors": [], "warnings": [] }
+}

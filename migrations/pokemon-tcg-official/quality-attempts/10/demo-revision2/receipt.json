@@ -1,0 +1,41 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision2",
+  "role": "Demo Implementation Agent",
+  "executionId": "/root/pokemon_compact_flip_hero_demo_r2",
+  "scope": "homepage/home-editorial-grid-only",
+  "decision": "ready-for-fresh-independent-blind-qa",
+  "inputBindings": {
+    "goalSha256": "47e1b1dcb8134640dcf08735aa557c47f652f1b6d74d699aa813a17e22808351",
+    "evidenceSha256": "7b02f1870a6d7edc25baf34e6bb7fb1a3785a7f40565d66158d5d9e9188de28f",
+    "responsiveAssetsSha256": "d62ccb08f5d0c9d55d02b887bf4e6783f9d0b207b3f444f32632482025bbc11b",
+    "intentSha256": "e2a7f8f558d55b2866305b97182b0749b4c8800421f16e329d993306ab0ad3cd",
+    "patternsSha256": "b6011c88e224bbd7f8b84aa8d99883cd78cee181e54da7a76dae3a4cffe988fa",
+    "designDirectionSha256": "692c8dbf0566bfcb3901bd7bdbce77736791be9eeb384599c5d65c6b83c3b2b1"
+  },
+  "codeChange": {
+    "performed": false,
+    "applicationFilesChanged": [],
+    "reason": "Existing responsive URL bindings and local asset hashes already satisfy corrected Evidence; a visual difference would be fabricated."
+  },
+  "unchangedImplementationBindings": {
+    "src/App.vue": "c3794e563ae4cb38c8749e44212313fef6a548e04e7ba2e92f22fe1e4839da7f",
+    "src/styles.css": "e7d6e5b9e844d2ed999bf2ac41a6d7c32509d9d50afb13c5b0cc04b33c5e47da",
+    "public/brand-previews/pokemon-tcg-official.json": "abb242e2f2159c8ce42f4237efd32d3c472ef1410e4e18c80d1b74601877a43d"
+  },
+  "outputs": [
+    {"path": "provenance.json", "sha256": "3d7d4466d9aff685b4b60c5f6f7312a9d761877078808767fb40f200bd23088a"},
+    {"path": "reuse-proof.json", "sha256": "837146f802d73c7ffbe2427daee4aba66ca3be180f04d515d83f10ba79f49d45"},
+    {"path": "visual-pattern-inventory.json", "sha256": "cb8d9de75e16fccc340e994c02fc3ae4b127a133bdd858f5ad89499e8fc53fcc"},
+    {"path": "generative-proof.json", "sha256": "5d631a9f47527c3375b46ae9e8c2606d99ea933a9aadddf3ea1236b861248e58"},
+    {"path": "section-fidelity-manifest.json", "sha256": "19cea9ec9ed083e7139c43830586815704d893c21afd69cf1dcab918542e22b5"},
+    {"path": "gate-results.json", "sha256": "c9d7969eecb2e35f2da94adb620bb194133641c9618b5221f5e08e997c3b766f"},
+    {"path": "report.md", "sha256": "780eb89ba32724f8e867bf473b00008e5f8ac7bc244aac767aa3d70c8d49910f"}
+  ],
+  "implementationChecksPass": true,
+  "buildPass": true,
+  "motionDisposition": "unresolved/unscored and omitted",
+  "visualVerdict": "not-assigned-by-implementation-agent",
+  "handoffTo": "fresh Blind QA / TPP"
+}

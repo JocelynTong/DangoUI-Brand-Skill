@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "strategy": "single-global-entry",
+  "themeEntry": "src/styles/onepiece-cardgame-heldout-theme.scss",
+  "globalImporters": ["src/app.js"],
+  "scanRoots": ["src"],
+  "allowedLateStyleInjectors": [],
+  "maxSelectorSpecificity": [0, 8, 2],
+  "note": "Held-out theme is imported once after the default Pokemon theme and remains inert in ordinary builds; the fixed preview build enables its H5 root scope with TARO_APP_HELDOUT_THEME=onepiece."
+}

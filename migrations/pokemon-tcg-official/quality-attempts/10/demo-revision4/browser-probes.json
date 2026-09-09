@@ -1,0 +1,100 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision4",
+  "scope": "held-out Pocket fixture local CTA route safety only",
+  "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+  "results": [
+    {
+      "surface": {
+        "id": "desktop-1440",
+        "width": 1440,
+        "height": 900
+      },
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision4&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "tagName": "BUTTON",
+        "type": "button",
+        "href": null,
+        "pressed": "false",
+        "section": {
+          "width": 1440,
+          "height": 476.1875
+        },
+        "copy": {
+          "x": 0,
+          "y": 59.84375,
+          "width": 720,
+          "height": 356.5
+        },
+        "overflow": false
+      },
+      "afterClick": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision4&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true,
+        "pressed": "true",
+        "liveText": "Concept review noted locally. This fictional fixture route remains open."
+      },
+      "afterReload": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision4&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true,
+        "pressed": "false"
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "surface": {
+        "id": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "before": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision4#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "tagName": "BUTTON",
+        "type": "button",
+        "href": null,
+        "pressed": "false",
+        "section": {
+          "width": 390,
+          "height": 743.015625
+        },
+        "copy": {
+          "x": 0,
+          "y": 334.21875,
+          "width": 390,
+          "height": 408.78125
+        },
+        "overflow": false
+      },
+      "afterClick": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision4#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true,
+        "pressed": "true",
+        "liveText": "Concept review noted locally. This fictional fixture route remains open."
+      },
+      "afterReload": {
+        "url": "http://127.0.0.1:5177/?qa=attempt10-revision4#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture",
+        "fixtureVisible": true,
+        "pressed": "false"
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "checks": {
+    "semanticLocalAction": true,
+    "clickChangesLocalState": true,
+    "clickPreservesDirectRoute": true,
+    "reloadPreservesDirectFixture": true,
+    "visualGeometryPreserved": true,
+    "noOverflow": true,
+    "consoleClean": true
+  },
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

@@ -1,0 +1,45 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "decisionStatus": "approved",
+  "scope": "page:pokemon-tcg-official-home section:home-news-grid",
+  "demoType": "source-calibration",
+  "sourceTruthBoundary": "Use only observed WHAT'S NEW layout, media and carousel evidence. Original-English line breaks, exact viewport-entry motion, CTA hover background layer and source keyboard focus remain unresolved.",
+  "designObjective": "Rebuild WHAT'S NEW as the official responsive editorial carousel: full-bleed field, source-like hierarchy, breakpoint-specific density and visibly real story transitions.",
+  "inputBindings": {
+    "goal": {"path":"migrations/pokemon-tcg-official/quality-attempts/08/goal-contract.json","sha256":"db3bb69d2f69dc909b42bbf5e593ab5011d20ac133f990fa9240f85954de27a5"},
+    "evidence": {"path":"migrations/pokemon-tcg-official/quality-attempts/08/evidence/brand-evidence.json","sha256":"2e25ce6832bfc1a866c317463299219ce784f1ca80a450c7294b8f67b2b35744"},
+    "intent": {"path":"migrations/pokemon-tcg-official/quality-attempts/08/interpreter/brand-intent.json","sha256":"27e954feded71c16ae7af6725adfd8b5989d752aea73a1c3020cb9c3e19619b8"},
+    "patterns": {"path":"migrations/pokemon-tcg-official/quality-attempts/08/interpreter/pattern-inventory.json","sha256":"48be4cc525315b83c109f43c5125c77d03925a5a441e2289a819cb16fb15af27"}
+  },
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "full-bleed background and authentic news assets",
+    "editorial composition and responsive density",
+    "visible carousel interaction",
+    "measured geometry",
+    "protocol completeness"
+  ],
+  "sections": [{
+    "id": "home-news-grid",
+    "firstImpressionGoal": "An open, image-led editorial stage whose mobile layout feels intentionally recomposed rather than a squeezed desktop grid.",
+    "mustPreserve": ["white full-width field", "italic section title", "uncropped news media", "image-headline-CTA order", "clean red next-section seam"],
+    "mayChange": ["current generic grid markup", "carousel state model", "desktop/mobile grouping", "control markup"],
+    "mustNotDo": ["add rounded section shell", "crop 578:325 media", "retain two columns at 390px", "hard-code translated wrapping", "use yellow outside carousel state"]
+  }],
+  "highSalienceElements": ["section-boundary", "section-header", "news-gallery", "story-copy-actions", "news-carousel"],
+  "responsiveStrategyMatrix": [
+    {"element":"section-boundary","elementType":"container","strategy":"independent-scale","evidenceRefs":["WN-DESK-BOUNDARY","WN-MOB-BOUNDARY"],"viewports":["1440x900","390x844"],"mustPreserve":["x=0 full viewport width","white field","no outer shell"]},
+    {"element":"section-header","elementType":"text","strategy":"responsive-reflow","evidenceRefs":["WN-DESK-HEADER","WN-MOB-HEADER"],"viewports":["1440x900","390x844"],"mustPreserve":["48px desktop left title and inline More","32px mobile centered title and next-line More","fluid English wrapping"],"minimumReadableSize":"32px mobile title / 18px archive link"},
+    {"element":"news-gallery","elementType":"media","strategy":"structural-substitution","evidenceRefs":["WN-DESK-CARDS","WN-MOB-CARD"],"viewports":["1440x900","390x844"],"mustPreserve":["two cards desktop","one card mobile","578:325 uncropped images","six independent stories"]},
+    {"element":"story-copy-actions","elementType":"control","strategy":"responsive-reflow","evidenceRefs":["WN-DESK-CARDS","WN-MOB-CARD","WN-CTA-HOVER"],"viewports":["1440x900","390x844"],"mustPreserve":["centered headline","centered black CTA","44px or larger target"],"minimumReadableSize":"20px mobile headline / 44px CTA target"},
+    {"element":"news-carousel","elementType":"motion","strategy":"motion-degradation","evidenceRefs":["WN-DESK-CAROUSEL","WN-MOB-CAROUSEL"],"viewports":["1440x900","390x844","prefers-reduced-motion"],"mustPreserve":["image headline CTA identity changes","translate fade scale intermediate state","three desktop pages","six mobile pages","instant reduced-motion settled state"]}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "independent 1440x900 content viewport without inspector chrome",
+    "mobileCanvas": "independent 390x844 content viewport without phone chassis or showcase gutter",
+    "inspectorPolicy": "exclude inspector and decorative device chrome from fidelity captures",
+    "sourceComparison": "compare source and Demo at matching content viewport widths; check full-bleed surface separately from content safe areas"
+  }
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "heldout-event-media-visual-qa/v1",
+  "attempt": 12,
+  "role": "fresh-independent-brand-visual-business-qa",
+  "fresh": true,
+  "readOnly": true,
+  "scope": "Event media closure only; this verdict does not represent the full host",
+  "verdict": "REWORK",
+  "decision": "The contained Event media now succeeds visually and all business/runtime regressions pass, but the product-box asset does not meet the frozen provenance contract. Its sourceUrl is null and no frozen inventory record was found, so this attempt cannot receive a final PASS.",
+  "screenshots": [
+    "fresh-390x844-event.png",
+    "fresh-536x864-event.png",
+    "fresh-1280x720-event.png"
+  ],
+  "blockingFindings": [
+    {
+      "code": "EVENT_PRODUCT_ASSET_PROVENANCE_INCOMPLETE",
+      "severity": "blocking",
+      "owner": "Host Implementation Agent",
+      "evidence": "asset-refs.json records sourceUrl=null for me05-pc-etb-en.png and only describes it as an existing approved bundle. A repository search found the ME05 logo in rendered-asset-inventory.json but no frozen inventory/provenance entry for the product box.",
+      "requiredFix": "Add a verifiable upstream source URL or existing frozen inventory reference for me05-pc-etb-en.png, with its business role and current SHA-256; otherwise replace it with a host asset whose provenance is complete. Do not change the accepted contained composition. Then run a new fresh QA attempt."
+    }
+  ],
+  "advisories": [
+    {
+      "code": "TARO_LOADING_REDUCED_MOTION",
+      "severity": "advisory",
+      "evidence": "The framework taro-navigation-bar-loading node still reports a 2s infinite loading animation under prefers-reduced-motion; no visible Event content motion was observed.",
+      "recommendation": "Suppress the shared framework loading animation during a later shell-maintenance pass."
+    }
+  ],
+  "findings": {
+    "identityMedia": {
+      "status": "PASS_VISUAL",
+      "evidence": "Fresh 390/536/1280 renders visibly load the ME05 logo and Elite Trainer Box inside the bounded navy field. They read as one campaign lockup: logo establishes the event family, product anchors the field, and neither replaces title/status/metrics. No full-screen poster returns."
+    },
+    "compositionAcrossViewports": {
+      "status": "PASS",
+      "evidence": "At 390 the media field becomes a compact horizontal masthead; at 536 it remains the right side of the identity card; at 1280 logo and box consolidate into one product-event vignette. Assets remain contained with no clipping or accidental overlap."
+    },
+    "contentAndFirstScreenBudget": {
+      "status": "PASS",
+      "evidence": "Title, live status, date, rules, player/deck metrics, first round, top-deck row and round action are all present and begin inside each fixed viewport. Text remains complete; the title's subpixel scroll/client rounding has no visible clipping."
+    },
+    "maskedStructuralRecognition": {
+      "status": "PASS",
+      "evidence": "Ignoring the two media assets leaves the already-passing Attempt 11 structure intact: warm map-paper mass, bounded split identity card, ruled metric grid, editorial schedule heading and low-radius rectangular content islands. Media adds identity rather than carrying structure alone."
+    },
+    "assetLoading": {
+      "status": "PASS",
+      "evidence": "Both assets are visibly rendered in all three fresh screenshots and the computed event-head backgroundImage resolves both to local /static/images URLs. No failed-image placeholder appears."
+    },
+    "assetProvenance": {
+      "status": "FAIL",
+      "evidence": "The logo has upstream URL, SHA-256 and a frozen rendered-asset-inventory reference. The product box has SHA-256 and local path but sourceUrl=null and no matching frozen inventory entry."
+    },
+    "interactionParity": {
+      "status": "PASS",
+      "evidence": "Round and top-deck actions both navigate correctly by pointer, Enter and Space; Back restores the same Event URL, reload is stable and all probes record zero writes."
+    },
+    "runtimeAndBusinessSafety": {
+      "status": "PASS",
+      "evidence": "All fixed viewports report 0px document overflow and zero non-GET requests. Title/status/metrics/schedule/top-deck content remains intact."
+    },
+    "otherRoutes": {
+      "status": "PASS",
+      "evidence": "Plaza, Build, Mine, Round and Detail fresh 390px hashes are byte-identical to Attempt 11 and each has 0px overflow."
+    }
+  },
+  "codeReworkRequired": false,
+  "evidenceReworkRequired": true,
+  "failureOwnerRole": "Host Implementation Agent",
+  "sources": [
+    "browser-probes.json",
+    "comparison.json",
+    "asset-refs.json",
+    "../11/visual-qa-assessment.json",
+    "../../event-minimal-experiment-direction.json",
+    "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png"
+  ]
+}

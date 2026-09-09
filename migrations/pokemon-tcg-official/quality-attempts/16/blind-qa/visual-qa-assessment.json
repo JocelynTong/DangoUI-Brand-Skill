@@ -1,0 +1,33 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "pokemon-tcg-official",
+  "attempt": 16,
+  "qaExecutionId": "pokemon-attempt16-fresh-blind-qa",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "blindInputExclusions": ["implementationRationale", "priorVerdict", "buildPassAsVisualEvidence", "mainConversation"],
+  "recommendation": "REWORK",
+  "proofs": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "FAIL"
+  },
+  "pages": [
+    {"pageId": "pokemon-tcg-official-home", "status": "FAIL", "passed": ["phone shell", "four real sections", "scroll and restore", "carousel change and restore"], "failed": ["internal horizontal overflow in product band"]},
+    {"pageId": "pokemon-tcg-official-card-database", "status": "FAIL", "passed": ["one-column results at 371 screen width and 371px host", "search/reset", "advanced open/close", "scrollable phone shell"], "failed": ["title and Energy controls are unreadable", "internal horizontal overflow"]},
+    {"pageId": "pokemon-tcg-official-learn", "status": "FAIL", "passed": ["three real sections", "exclusive accordion change and restore", "scroll and restore"], "failed": ["yellow instructional organism uses unreadable white text", "60px internal horizontal overflow"]},
+    {"pageId": "pokemon-tcg-official-held-out", "status": "FAIL", "passed": ["two purpose-separated sections", "exclusive accordion change and restore", "scroll and restore", "no horizontal overflow"], "failed": ["cream instructional organism uses unreadable white text", "one frozen rule lacks approved evidence binding"]}
+  ],
+  "blockingFindings": [
+    {"code": "COMPUTED_CONTRAST_FAILURE", "scope": "card-database", "selector": "[data-schema-section-id='card-database-search-shell'] h1, [role='group'][aria-label='Energy Type'] button", "visibleRegion": [[141.5,51.5],[27.5,441.6]], "evidence": "Computed contrast is 1.0:1 for the title and 1.17:1 for Energy pills; screenshot shows white text on white/light grey.", "earliestFailureNode": "demoImplementation", "failureOwnerRole": "demoImplementationAgent", "requiredFix": "Use source-supported dark text on the light title/pills or dark surfaces behind white text; remeasure all normal and selected states to WCAG-readable contrast."},
+    {"code": "COMPUTED_CONTRAST_FAILURE", "scope": "learn", "selector": "[data-schema-section-id='learn-card-breakdown'] h2, [data-schema-section-id='learn-card-breakdown'] button, [data-schema-section-id='learn-card-breakdown'] p", "visibleRegion": [[31.5,1804.3],[31.5,1929.1]], "evidence": "Computed white-on-yellow contrast is about 1.51:1; heading and instructions are visibly washed out.", "earliestFailureNode": "demoImplementation", "failureOwnerRole": "demoImplementationAgent", "requiredFix": "Restore source-supported readable foreground roles for yellow paint and verify heading/body/control states independently."},
+    {"code": "COMPUTED_CONTRAST_FAILURE", "scope": "held-out", "selector": "[data-schema-section-id='held-out-deck-steps'] button, [data-schema-section-id='held-out-deck-steps'] p", "visibleRegion": [[31.5,875.8]], "evidence": "Computed white-on-cream contrast is about 1.16:1; labels and explanatory copy are nearly invisible.", "earliestFailureNode": "demoImplementation", "failureOwnerRole": "demoImplementationAgent", "requiredFix": "Apply the frozen hierarchy with a readable foreground/background role; re-capture the held-out lower section."},
+    {"code": "HORIZONTAL_SECTION_OVERFLOW", "scope": "responsive", "selector": ".pokemon-tcgl, .source-schema-demo--database, .pokemon-learn--pokemon-learn-section", "evidence": "At a 371px phone screen: Home 381>371, Database 383>371, Learn 431>371. The outer document does not scroll horizontally because phone-screen clips the excess.", "earliestFailureNode": "demoImplementation", "failureOwnerRole": "demoImplementationAgent", "requiredFix": "Remove fixed/min widths and negative offsets causing content wider than .phone-screen; verify every section scrollWidth <= clientWidth at 371 and 353px screen widths."},
+    {"code": "GOAL_HASH_MISMATCH", "scope": "protocol", "selector": null, "evidence": "design-direction.json binds migrations/pokemon-tcg-official/goal-contract.json at b515... while the frozen v2 goal hash is 73aecf...; strict fidelity reports v1 as current and protocol-blocked.", "earliestFailureNode": "designDirection", "failureOwnerRole": "designDirector", "requiredFix": "Regenerate and approve direction plus Mapper handoff bindings against goal-contract-v2.json and hash 73aecf..., then rerun strict fidelity using v2 as canonical."},
+    {"code": "EVIDENCE_VISIBILITY_GATE_FAILED", "scope": "evidence", "selector": null, "evidence": "Strict evidence gate fails required page id cards and zero third-party seed dispositions, despite v2 naming card-database.", "earliestFailureNode": "evidence", "failureOwnerRole": "brandResearcher", "requiredFix": "Align evidence/observation required page ids to frozen v2 card-database and disposition every imported seed with evidence refs or rejection reason."},
+    {"code": "UNSUPPORTED_GENERATIVE_RULE", "scope": "held-out", "selector": ".source-schema-demo[data-page-id='pokemon-tcg-official-held-out'] > section", "evidence": "generative-proof.json freezes bounded-long-form-sections, but approved-visual-patterns.json contains no pattern with that id.", "earliestFailureNode": "designTranslation", "failureOwnerRole": "designTranslator", "requiredFix": "Bind the rule to an explicitly approved evidence-backed pattern, or remove it from the frozen held-out proof and regenerate the challenge proof."},
+    {"code": "MOCKUP_MATRIX_MISSING", "scope": "mockup", "selector": ".phone, .phone-screen", "evidence": "validate-mockup-matrix.mjs --strict exits 2 because mockup-state-matrix.json is absent.", "earliestFailureNode": "demoImplementation", "failureOwnerRole": "demoImplementationAgent", "requiredFix": "Generate the required brand/style/component × tabbar/no-tabbar × normal/proof matrix and pass the strict gate."}
+  ],
+  "nonBlockingPasses": ["All four pages render inside .phone/.phone-screen", "Every page is scrollable and can return to scrollTop 0", "Search/reset, advanced drawer, Home carousel and both accordions change state and restore", "Card results are one column without document-level horizontal scrolling at both tested narrow widths", "Section fidelity strict gate passes", "Design direction schema gate passes", "npm build passes"],
+  "notes": "Build and interaction passes are not visual-fidelity substitutes and do not compensate for any blocker."
+}

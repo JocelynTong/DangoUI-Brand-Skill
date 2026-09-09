@@ -1,0 +1,177 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 4,
+  "scope": "home-campaign-stage",
+  "generatedAt": "2026-09-02T15:01:09.251Z",
+  "probes": [
+    {
+      "viewport": {
+        "name": "desktop-1440",
+        "width": 1440,
+        "height": 1000
+      },
+      "metrics": {
+        "hero": {
+          "width": 813.625,
+          "height": 710
+        },
+        "layers": {
+          "navigation": true,
+          "campaignArt": true,
+          "campaignLogo": true,
+          "featuredCard": true,
+          "cta": true,
+          "carouselControls": true
+        },
+        "layerBoxes": {
+          "campaignLogo": {
+            "x": 627.796875,
+            "y": 554.640625,
+            "width": 470,
+            "height": 256.40625,
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "1"
+          },
+          "featuredCard": {
+            "x": 1029.421875,
+            "y": 594.328125,
+            "width": 210,
+            "height": 292.71875,
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "1"
+          },
+          "controls": {
+            "x": 543.1875,
+            "y": 935.046875,
+            "width": 813.625,
+            "height": 42,
+            "display": "flex",
+            "visibility": "visible",
+            "opacity": "1"
+          }
+        },
+        "cta": {
+          "width": 238.21875,
+          "height": 50
+        },
+        "overflow": {
+          "documentHorizontal": false,
+          "heroHorizontal": false
+        },
+        "nextSection": {
+          "gap": 0,
+          "reachableWithinScreenScroll": true
+        },
+        "screen": {
+          "clientHeight": 432,
+          "scrollHeight": 2513
+        },
+        "mobileBackgroundSrc": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg"
+      },
+      "carousel": {
+        "before": {
+          "active": 0,
+          "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+        },
+        "changed": {
+          "active": 1,
+          "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+        },
+        "restored": {
+          "active": 0,
+          "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+        },
+        "reversible": false
+      },
+      "errors": [],
+      "pass": false
+    },
+    {
+      "viewport": {
+        "name": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "metrics": {
+        "hero": {
+          "width": 348,
+          "height": 1183
+        },
+        "layers": {
+          "navigation": true,
+          "campaignArt": true,
+          "campaignLogo": true,
+          "featuredCard": true,
+          "cta": true,
+          "carouselControls": true
+        },
+        "layerBoxes": {
+          "campaignLogo": {
+            "x": 40,
+            "y": 566,
+            "width": 310,
+            "height": 169.125,
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "1"
+          },
+          "featuredCard": {
+            "x": 89.5,
+            "y": 819,
+            "width": 211,
+            "height": 294,
+            "display": "block",
+            "visibility": "visible",
+            "opacity": "1"
+          },
+          "controls": {
+            "x": 21,
+            "y": 840,
+            "width": 348,
+            "height": 56,
+            "display": "flex",
+            "visibility": "visible",
+            "opacity": "1"
+          }
+        },
+        "cta": {
+          "width": 262,
+          "height": 56
+        },
+        "overflow": {
+          "documentHorizontal": false,
+          "heroHorizontal": false
+        },
+        "nextSection": {
+          "gap": 0,
+          "reachableWithinScreenScroll": true
+        },
+        "screen": {
+          "clientHeight": 803,
+          "scrollHeight": 4905
+        },
+        "mobileBackgroundSrc": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg"
+      },
+      "carousel": {
+        "before": {
+          "active": 0,
+          "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+        },
+        "changed": {
+          "active": 1,
+          "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+        },
+        "restored": {
+          "active": 0,
+          "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png"
+        },
+        "reversible": false
+      },
+      "errors": [],
+      "pass": false
+    }
+  ]
+}

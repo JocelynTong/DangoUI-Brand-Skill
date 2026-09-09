@@ -1,0 +1,16 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r3",
+  "verdict": "REWORK",
+  "evidenceFidelity": "PASS",
+  "structuralFidelity": "PASS",
+  "generativeProof": "PASS",
+  "interaction": "FAIL",
+  "protocol": "FAIL",
+  "primaryBlocker": "HELD_OUT_CTA_BREAKS_SPA_ROUTE",
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "secondaryBlocker": "BLIND_QA_INPUT_HYGIENE_GAP",
+  "nextAction": "Return only the CTA/link defect and packet-hygiene defect to their owners; do not redo Evidence, Interpreter or the validated Pocket geometry. Run a new fresh Blind QA after correction."
+}

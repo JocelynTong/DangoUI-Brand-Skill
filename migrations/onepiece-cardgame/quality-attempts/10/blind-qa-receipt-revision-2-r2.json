@@ -1,0 +1,57 @@
+{
+  "schema": "brand-blind-qa-receipt/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 10,
+  "revision": 2,
+  "qaRun": "blind-r2",
+  "taskName": "/root/onepiece_footer_motion_blind_qa_r2",
+  "role": "Blind QA / TPP",
+  "completedAt": "2026-09-01T20:01:46+08:00",
+  "verdict": "REWORK",
+  "earliestFailureNode": "Demo Implementation Agent",
+  "failureOwnerRole": "demoImplementationAgent",
+  "independence": {
+    "freshContext": true,
+    "sourceFirst": true,
+    "implementationMessagesRead": false,
+    "implementationSelfChecksRead": false,
+    "priorQaVerdictsRead": false,
+    "goalEvidenceIntentDemoMutated": false
+  },
+  "inputs": [
+    {"path": "migrations/onepiece-cardgame/footer-motion-evidence-v10.json", "sha256": "6aa30210c284fe2e76e69dbdea127a648e70f2f5ffe7bc8c8ba0a2225fbf22a9"},
+    {"path": "migrations/onepiece-cardgame/home-live-dom-evidence.json", "sha256": "115f9c6c94ea9ea209d83258aad76e02a88b847d161a1583e6617b388492e118"},
+    {"path": "migrations/onepiece-cardgame/brand-evidence.json", "sha256": "72f8c63c50bcd20f679d5b0861a084537899dea59ddb568fba5f7dedaa6964f5"},
+    {"path": "migrations/onepiece-cardgame/brand-intent.json", "sha256": "6106db6fbb1c90ef7453409e06ecde27b9a7bad1b35f6a0fd40221c84a303652"},
+    {"path": "migrations/onepiece-cardgame/approved-visual-patterns.json", "sha256": "9d844ec1a31d5b3829f5ae72d26d89ddfcbb1bb93c1b8b9cd98e9b094e281c68"},
+    {"path": "migrations/onepiece-cardgame/visual-pattern-inventory.json", "sha256": "b1f402c634621a92280150bff6b81c081e60afc580a20142995412e355170ce1"},
+    {"path": "migrations/onepiece-cardgame/demo-screenshot-manifest.json", "sha256": "ba375bee583dd791dd58958b01cc807b2852e00be1ec1199eb79cdc86b193257"},
+    {"path": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/", "kind": "official-v10-captures"},
+    {"path": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home", "kind": "live-demo"}
+  ],
+  "outputs": [
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/visual-qa-assessment-revision-2-blind-r2.json", "sha256": "4be4a60a10c90bbca8d8358e7faff3b61dd798585114a68532cfa77d7bb0d2d6"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-report-revision-2-r2.md", "sha256": "9e81229e1993a7a0bb6eee78743f35d4ca5d1d047b91807f53d465fbd08c873b"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-browser-probes.json", "sha256": "daaeb846b357eb587a19cd56af47f32cbd14f483ffc6f7629144427bfbee1ebf"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-comparisons/footer-source-vs-demo-six-states.html", "sha256": "71bf218e34ad162e2013f6548cea7b09e159066861d88b1256ef832f5cc1eea4"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-comparisons/footer-source-vs-demo-six-states.png", "sha256": "dbf4022a28d94fd50b3de833424a21ea94205c9f7eb1f370d4b2136c09994013"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-default-pre-entry-live.png", "sha256": "47b1283caefae33c6efcf483962674064df9e9d081eebac52fe6ecf63a08b9ad"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-120ms-live.png", "sha256": "cbd91e0f4396108f0ef3a637f0f9be463e36c7ac9cf9cf6d1d5fb5d37f7310fa"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-500ms-live.png", "sha256": "682961c8e72a6fe16ac198163ef6169bef024aa43c2d72f8c50de434ea0bef7b"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-settled-live.png", "sha256": "cff15fb024775e8bd8a77931be96776869fa02857b45cf2b67bb75c9d096d14a"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-late-live.png", "sha256": "1abe42a54d40fca58573994ba46eb3fa484bffe1f6ab630e40298210819d594b"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-paused-live.png", "sha256": "e12dde75313bc09f453d2ddc1f70d3c141dcd9c1a2a30f07fec80f6ec9504325"},
+    {"path": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/held-out-live.png", "sha256": "ed4c1a42ac8eadb936f445c0b38d0aa7fa5ff40bbc9d620a0d9b23df907e6f12"}
+  ],
+  "proofVerdicts": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "PASS"
+  },
+  "blockingFindingCodes": [
+    "FOOTER_BACKGROUND_WAVE_SUBSTITUTED",
+    "FOOTER_SPATIAL_HIERARCHY_POSTER_REGRESSION",
+    "FOOTER_INTERMEDIATE_STATE_FIDELITY_MISMATCH",
+    "HOME_DISPLAY_FONT_ROLE_EXPANSION"
+  ]
+}

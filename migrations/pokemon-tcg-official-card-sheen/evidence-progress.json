@@ -1,0 +1,24 @@
+{
+  "schema": "brand-evidence-progress/v1",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "updatedAt": "2026-09-02T20:43:00+08:00",
+  "status": "needs-evidence",
+  "goalContract": "goal-contract.json",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "viewport": { "width": 1440, "height": 1000 },
+  "observations": [
+    "The current hero is Pokémon TCG: 30th Celebration.",
+    "A .perspective-card exists in the hero runtime tree with perspective: 1000px, front/back artwork and .perspective-card__shine.",
+    "At the settled initial state, its bounding rect is x=1308,y=209,w=290,h=404.2421875, but its .vp-slide ancestor has opacity:0 and transform matrix(1,0,0,1,240,0), so no foreground card is visibly rendered in the captured viewport.",
+    "Code/DOM presence was retained only as a candidate; the frozen hidden-state probe produced no style or pixel delta.",
+    "Attempt 2 used all visible carousel reachability controls (Next, Previous, selected Pikachu), but the owning vp-slide stayed opacity:0 and translated; final disposition is unresolved-dormant-unreachable."
+  ],
+  "initialFrame": "frames/00-initial.png",
+  "canonicalOutputs": [
+    "candidate-scan.json",
+    "pointer-probe-timeline.json",
+    "action-evidence.json",
+    "brand-evidence.json",
+    "evidence-receipt.json"
+  ]
+}

@@ -1,0 +1,378 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "status": "implementation-self-check-pass",
+  "patterns": [
+    {
+      "id": "home-layered-campaign-stage",
+      "approvedPatternId": "home-layered-campaign-stage",
+      "evidenceRefs": [
+        "home-stage-composition",
+        "home-carousel-next"
+      ],
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        710
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-campaign-stage",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-campaign-stage\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-news-grid",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-news-grid\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-product-bands",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-product-bands\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-editorial-grid",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-editorial-grid\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "home-banded-editorial-journey",
+      "approvedPatternId": "home-banded-editorial-journey",
+      "evidenceRefs": [
+        "home-responsive-reflow"
+      ],
+      "sourceRegion": [
+        [
+          0,
+          794,
+          1440,
+          1794
+        ],
+        [
+          0,
+          2588,
+          1440,
+          1156
+        ],
+        [
+          0,
+          3745,
+          1440,
+          2160
+        ]
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-campaign-stage",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-campaign-stage\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-news-grid",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-news-grid\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-product-bands",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-product-bands\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-home",
+          "sectionId": "home-editorial-grid",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"home-editorial-grid\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "database-dark-search-organism",
+      "approvedPatternId": "database-dark-search-organism",
+      "evidenceRefs": [
+        "card-db-search-shell",
+        "card-db-responsive",
+        "card-db-search-state"
+      ],
+      "sourceRegion": [
+        80,
+        114,
+        1280,
+        724
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-card-database",
+          "sectionId": "card-database-search-shell",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-card-database",
+          "sectionId": "card-database-search-guidance",
+          "demoRegion": "[data-schema-section-id=\"card-database-search-guidance\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "database-reversible-search-results",
+      "approvedPatternId": "database-reversible-search-results",
+      "evidenceRefs": [
+        "card-db-search-state",
+        "card-db-results",
+        "card-database-search"
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-card-database",
+          "sectionId": "card-database-search-shell",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-card-database",
+          "sectionId": "card-database-search-guidance",
+          "demoRegion": "[data-schema-section-id=\"card-database-search-guidance\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "database-advanced-drawer",
+      "approvedPatternId": "database-advanced-drawer",
+      "evidenceRefs": [
+        "card-db-advanced-state",
+        "card-database-advanced-filter"
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-card-database",
+          "sectionId": "card-database-search-shell",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"card-database-search-shell\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-card-database",
+          "sectionId": "card-database-search-guidance",
+          "demoRegion": "[data-schema-section-id=\"card-database-search-guidance\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "learn-media-entry",
+      "approvedPatternId": "learn-media-entry",
+      "evidenceRefs": [
+        "learn-hierarchy"
+      ],
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        1875
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-getting-started",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-getting-started\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-card-breakdown",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-field-of-play",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-field-of-play\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-held-out",
+          "sectionId": "held-out-deck-entry",
+          "demoRegion": "[data-schema-section-id=\"held-out-deck-entry\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-held-out",
+          "sectionId": "held-out-deck-steps",
+          "demoRegion": "[data-schema-section-id=\"held-out-deck-steps\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "learn-painted-card-anatomy",
+      "approvedPatternId": "learn-painted-card-anatomy",
+      "evidenceRefs": [
+        "learn-hierarchy",
+        "learn-accordion"
+      ],
+      "sourceRegion": [
+        0,
+        1959,
+        1440,
+        3335
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-getting-started",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-getting-started\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-card-breakdown",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-field-of-play",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-field-of-play\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-held-out",
+          "sectionId": "held-out-deck-entry",
+          "demoRegion": "[data-schema-section-id=\"held-out-deck-entry\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-held-out",
+          "sectionId": "held-out-deck-steps",
+          "demoRegion": "[data-schema-section-id=\"held-out-deck-steps\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "learn-painted-field-pairs",
+      "approvedPatternId": "learn-painted-field-pairs",
+      "evidenceRefs": [
+        "learn-hierarchy"
+      ],
+      "sourceRegion": [
+        0,
+        5294,
+        1440,
+        3329
+      ],
+      "demoRegions": [
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-getting-started",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-getting-started\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-card-breakdown",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-card-breakdown\"]"
+        },
+        {
+          "pageId": "pokemon-tcg-official-learn",
+          "sectionId": "learn-field-of-play",
+          "demoRegion": ".source-schema-demo [data-schema-section-id=\"learn-field-of-play\"]"
+        }
+      ],
+      "highSalience": true,
+      "selfCheck": "pass"
+    },
+    {
+      "id": "bounded-long-form-sections",
+      "approvedPatternId": "bounded-long-form-sections",
+      "evidenceRefs": [
+        "home-responsive-reflow",
+        "card-db-search-shell",
+        "learn-hierarchy"
+      ],
+      "sourceRegion": [
+        [
+          0,
+          794,
+          1440,
+          5111
+        ],
+        [
+          80,
+          114,
+          1280,
+          724
+        ],
+        [
+          0,
+          84,
+          1440,
+          8539
+        ]
+      ],
+      "demoRegions": [],
+      "highSalience": true,
+      "selfCheck": "pass"
+    }
+  ],
+  "assets": [
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+      "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1.jpg",
+      "sourceSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca",
+      "role": "home campaign art",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    },
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/Logo-30th.png",
+      "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/en-us/Logo-30th.png",
+      "sourceSha256": "15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d",
+      "role": "home campaign identity",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    },
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png",
+      "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/30th-celebration/en-us/2M6P_EN_23.png",
+      "sourceSha256": "07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83",
+      "role": "home featured full card",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    },
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/card-header-asset_en-2x.png",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/hero/card-header-asset_en-2x.png",
+      "sourceSha256": "70c404722e9479b0204aaae420482fce43d77378ca356e162ec834424758b758",
+      "role": "learn hero card fan",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    },
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/twilight-masquerade/en-us/SV06_EN_33.png",
+      "sourceSha256": "9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95",
+      "role": "learn anatomy card",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    },
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/field-breakdown-prize-cards.png",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/field-of-play/field-breakdown-prize-cards.png",
+      "sourceSha256": "e7593a3bfe70f9ab0a26a1fea6c52ab73fcff808d80644b5f4a888d56f60e6b0",
+      "role": "field diagram",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    },
+    {
+      "path": "/assets/brand-assets/pokemon-tcg-official/card-database/SVP_EN_27.png",
+      "sourceUrl": "https://assets.pokemon.com/static-assets/content-assets/cms2/img/cards/web/SVP/SVP_EN_27.png",
+      "sourceSha256": "409209950e8519c533e2d0840cfd25cc0b956c5d6b8a77a96fd25330ab778283",
+      "role": "database result card",
+      "sourceKind": "independent-official-asset",
+      "runtimeScreenshot": false
+    }
+  ]
+}

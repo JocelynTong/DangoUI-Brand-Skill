@@ -1,0 +1,32 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 10,
+  "status": "closed-after-fresh-qa-pass",
+  "observedMismatch": "The restored source-schema mockup renders the home indicator as a separate white layout block after phone-screen, visually resembling an appended footer instead of a fixed system overlay.",
+  "missedByRole": ["demoImplementationAgent", "visualQA"],
+  "whyExistingGatePassed": "The shell gate verified frame border, radius and scrolling but did not measure whether the home indicator participated in normal flow or stayed anchored while phone-screen content scrolled.",
+  "evidenceRefs": [
+    "normal Pokémon Home route viewport screenshot",
+    "computed phone-screen rect y=61.5..863.9609",
+    "computed outer indicator rect y=863.9609..897.5234 height=33.5625",
+    "src/App.vue mock-home-indicator--outer sibling after phone-screen"
+  ],
+  "rootCause": "The source-schema-specific indicator was moved outside phone-screen to keep it visible, but it remained position:relative and therefore consumed layout height with an opaque background.",
+  "correctiveAction": [
+    "Anchor the outer indicator as a bottom system overlay inside the phone chassis.",
+    "Remove the detached opaque footer appearance while retaining readable contrast.",
+    "Verify its bounding box remains unchanged while phone-screen scrollTop changes and restores."
+  ],
+  "preventiveAction": [
+    "Add indicator overlay/scroll-stability checks to Demo self-check and Blind QA role contracts.",
+    "Require standard mockup shell probes to record phone, screen and home-indicator rectangles before and after scrolling."
+  ],
+  "failureOwnerRole": "demoImplementationAgent",
+  "closureEvidence": {
+    "demoRevision": "migrations/pokemon-tcg-official/quality-attempts/10/demo-revision7",
+    "freshQA": "migrations/pokemon-tcg-official/quality-attempts/10/blind-qa-revision7/report.md",
+    "verdict": "PASS",
+    "blockingFindings": []
+  }
+}

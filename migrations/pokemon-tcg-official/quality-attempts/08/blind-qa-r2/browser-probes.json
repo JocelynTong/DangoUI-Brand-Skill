@@ -1,0 +1,76 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "08-revision2-blind-qa",
+  "scope": "homepage/whats-new-only",
+  "mobile390x844": {
+    "geometry": {
+      "section": { "x": 0, "width": 390, "height": 633.1953125 },
+      "image": { "width": 390, "height": 219.2890625, "ratio": 1.778474473618583, "objectFit": "contain" },
+      "seam": { "x": 0, "width": 390, "height": 24, "background": "rgb(196, 12, 12)" },
+      "horizontalOverflow": false
+    },
+    "typography": {
+      "title": { "fontFamily": "Kanit Official, Kanit, sans-serif", "fontSize": "32px", "fontWeight": "700", "fontStyle": "italic" },
+      "more": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "18px", "fontWeight": "800", "fontStyle": "italic" },
+      "cta": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "18px", "fontWeight": "700", "fontStyle": "italic" }
+    },
+    "scrollStability": {
+      "alignedScrollTop": 352,
+      "afterNext": 352,
+      "afterPrevious": 352,
+      "afterDirectDot": 352,
+      "afterKeyboardEnter": 352,
+      "restored": 352,
+      "pass": true
+    },
+    "directionalMotion": {
+      "outgoing": { "animationName": "pokemon-news-out-forward", "duration": "0.4s", "opacityObserved": "0.163371 -> 0.000945691", "translateXObserved": "-179.457px -> -214.297px" },
+      "incoming": { "animationName": "pokemon-news-in-forward", "duration": "0.4s", "opacityObserved": "0.836629 -> 0.999054", "scaleObserved": "0.995099 -> 0.999972" },
+      "identityChanged": true,
+      "pass": true
+    },
+    "controls": {
+      "previous": { "width": 60, "height": 60 },
+      "next": { "width": 60, "height": 60 },
+      "dots": { "count": 6, "width": 44, "height": 44 },
+      "pass": true
+    },
+    "officialAssets": [
+      { "page": 1, "file": "wcs26-binder-inserts.png", "natural": "578x325", "rendered": "390x219.2890625", "cropped": false },
+      { "page": 2, "file": "30thYoshirotten_169_EN.png", "natural": "578x325", "rendered": "390x219.2890625", "cropped": false },
+      { "page": 3, "file": "tcg_30th_pikachu_reveals_169_en.png", "natural": "578x325", "rendered": "390x219.2890625", "cropped": false },
+      { "page": 4, "file": "30th-pikachu-reveal-169-en.png", "natural": "578x325", "rendered": "390x219.2890625", "cropped": false },
+      { "page": 5, "file": "product-showcase-169-en.png", "natural": "578x325", "rendered": "390x219.2890625", "cropped": false },
+      { "page": 6, "file": "PCOM_2027_Season_Refresh-16x9.png", "natural": "578x325", "rendered": "390x219.2890625", "cropped": false }
+    ]
+  },
+  "desktop1440x900": {
+    "evidenceMode": "exact Revision 2 capture/probe pair independently reviewed against exact source capture",
+    "title": { "fontFamily": "Kanit Official, Kanit, sans-serif", "fontSize": "48px", "fontWeight": "700", "fontStyle": "italic" },
+    "more": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "18px", "fontWeight": "800", "fontStyle": "italic" },
+    "cta": { "fontFamily": "PT Sans Official, PT Sans, sans-serif", "fontSize": "20px", "fontWeight": "700", "fontStyle": "italic" },
+    "layout": { "visibleStories": 2, "pageCount": 3, "fullWidth": 1440, "redSeamWidth": 1440, "redSeamHeight": 24 },
+    "pass": true
+  },
+  "reducedMotionRuntime": {
+    "contentChangedImmediately": true,
+    "outgoingCount": 0,
+    "renderedPageCount": 1,
+    "animationName": "none",
+    "animationDuration": "0s",
+    "transitionDuration": "0s",
+    "transform": "matrix(1, 0, 0, 1, 0, 0)",
+    "opacity": "1",
+    "pass": true
+  },
+  "heldOutGenerativeProof": {
+    "label": "GENERATIVE PROOF · NON-OFFICIAL FIXTURE",
+    "title": "Deck Lab: Build Around a Single Energy Type",
+    "cta": "Open Deck Lab",
+    "asset": "pokemon-news-heldout-fixture.svg",
+    "heldOutInsideOfficialViewport": false,
+    "officialMobileDotCount": 6,
+    "pass": true
+  }
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "heldout-event-minimal-comparison/v1",
+  "attempt": 11,
+  "scope": "pages/event/index only",
+  "references": {
+    "direction": "../../event-minimal-experiment-direction.json",
+    "inputStandardSample": "../10/visual-qa-assessment.json",
+    "source": "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+    "current": "fresh-{390x844,536x864,1280x720}-event.png"
+  },
+  "visualComparison": {
+    "passes": [
+      "Warm map-paper is the dominant page field; navy is confined to the rectangular event header media zone.",
+      "Title, live status and all four business metrics remain complete and immediately legible at all three viewports.",
+      "The reading order is event identity, metrics, schedule, top deck and round action, matching the approved event-native composition.",
+      "Low-radius rectangles, one-pixel rules, sparse red event markers and a single yellow rank marker replace the former dark/pill-heavy treatment.",
+      "At 390, 536 and 1280 the first schedule card, top deck and round action all begin inside the first viewport."
+    ],
+    "blockingDifference": {
+      "code": "EVENT_IDENTITY_MEDIA_EMPTY",
+      "evidence": "The intended identity-media zone is only a flat navy/gradient rectangle. It contains no host event artwork, event mark, promotional composition or other identity-bearing media at any viewport.",
+      "sourceDifference": "The frozen source Events page uses bounded, content-bearing promotional rectangles to establish event identity; a blank dark panel preserves geometry but not the media role.",
+      "impact": "At 390 the first 126px of the card and at desktop roughly 40% of the hero become empty decorative mass. Recognition therefore depends on paper/rules/type, while the required identity-media signal is absent."
+    }
+  },
+  "maskedStructuralRecognition": {
+    "method": "Ignore Pokémon/ONE PIECE names, card/character artwork and explicit red/yellow/navy hues; judge mass, reading order, boundaries, density and type hierarchy.",
+    "status": "PASS_WITHOUT_MEDIA_SIGNAL",
+    "evidence": "The paper field, contained split hero, ruled metrics, schedule heading and rectangular content islands remain coherent after masking. This does not cure the missing identity-bearing content inside the media region."
+  },
+  "verdict": "REWORK"
+}

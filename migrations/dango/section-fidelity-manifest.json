@@ -1,0 +1,49 @@
+{
+  "schema": "brand-section-fidelity/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "sections": [
+    {
+      "id": "introduction-docs-shell",
+      "sourcePageId": "introduction",
+      "salience": "high",
+      "desktopCapture": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+      "mobileCapture": "migrations/dango/captures/source/introduction/mobile-390/frame-00.png",
+      "sourceRegion": [0, 0, 1, 1],
+      "structure": ["full-width header", "left navigation", "reading column", "right outline"],
+      "readingOrder": ["header utilities", "page title", "intro copy", "technical diagram", "three-layer list", "following sections"],
+      "responsiveObservation": "At 390px both sidebars are absent and the main element occupies the viewport width; the fixed header overlaps the top of the source article in the captured page.",
+      "assetIdentity": "DangoUI logomark and text are visible in the header; no large photographic or campaign asset is present.",
+      "interactionStates": ["current-page navigation row"],
+      "claimRefs": ["dango-docs-shell-desktop", "dango-docs-shell-mobile-reflow", "dango-docs-active-navigation"]
+    },
+    {
+      "id": "introduction-content-hierarchy",
+      "sourcePageId": "introduction",
+      "salience": "high",
+      "desktopCapture": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+      "mobileCapture": "migrations/dango/captures/source/introduction/mobile-390/frame-00.png",
+      "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786],
+      "structure": ["36px H1", "divider", "15–16px prose", "gray technical surface", "bulleted layer explanation", "24px H2 sections"],
+      "readingOrder": ["title", "brand proposition", "process diagram", "layer model", "feature sections"],
+      "responsiveObservation": "Content retains its typographic sizes and reflows into a narrow column rather than scaling as a desktop screenshot.",
+      "assetIdentity": "The process diagram is text/DOM on #F7F7F9, not a screenshot asset.",
+      "interactionStates": [],
+      "claimRefs": ["dango-docs-type-hierarchy"]
+    },
+    {
+      "id": "button-docs-shell-and-preview",
+      "sourcePageId": "button",
+      "salience": "high",
+      "desktopCapture": "migrations/dango/captures/source/button/desktop/frame-00.png",
+      "mobileCapture": "migrations/dango/captures/source/button/mobile-390/frame-00.png",
+      "sourceRegion": [0, 0, 1, 1],
+      "structure": ["shared docs shell", "component description", "import example", "two-column preview/code table", "API and theme-variable sections"],
+      "readingOrder": ["title", "purpose", "import", "examples", "API", "theme variables"],
+      "responsiveObservation": "The content column reflows at 390px; the long page remains vertically scrollable and the component examples stay source-authentic rather than becoming marketing cards.",
+      "assetIdentity": "Examples are live component DOM plus code, with no source screenshot embedded as runtime content.",
+      "interactionStates": ["default", "hover-transition", "hover", "focus", "activated"],
+      "claimRefs": ["dango-button-page-shell", "dango-primary-button", "dango-primary-button-hover-no-change", "dango-primary-button-focus", "dango-primary-button-activated"]
+    }
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "mapping-runtime-proof/v0.2",
+  "brand": "pokemon-tcg-official",
+  "status": "INDEPENDENT_MAPPING_QA_PASS_6_OF_6",
+  "observedAt": "http://127.0.0.1:5180/?qa=pokemon-mapping-runtime#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "summary": {"dtcgTargetTokens":6,"runtimeConsumedTokens":6,"pendingTokenMappings":0,"nativeDangouiComponentTypes":1,"nativeDangouiComponentInstances":1,"pendingRuntimeWork":0},
+  "proofs": [
+    {"id":"token-du-bg-1","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db__title-plate","expectedToken":"--du-bg-1=#FFFFFF","actualRuntime":"Scoped theme token #fff; title plate computed rgb(255,255,255).","status":"runtime-consumed"},
+    {"id":"token-du-bg-2","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db","expectedToken":"--du-bg-2=#EDEDED","actualRuntime":"Scoped theme token #ededed; database computed rgb(237,237,237).","status":"runtime-consumed"},
+    {"id":"token-du-text-1","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db__title-plate h1","expectedToken":"--du-text-1=#131415","actualRuntime":"Scoped token #131415; title computes rgb(19,20,21) on the rgb(255,255,255) title plate at desktop and phone proof surfaces.","status":"runtime-consumed"},
+    {"id":"token-du-text-2","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db__empty","expectedToken":"--du-text-2=#494949","actualRuntime":"Scoped theme token #494949 and secondary empty-copy consumer.","status":"runtime-consumed"},
+    {"id":"token-database-font","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db","expectedToken":"--style-font-database","actualRuntime":"Declared and consumed as Flexo-Regular, Arial, sans-serif only on the database organism.","status":"runtime-consumed"},
+    {"id":"token-results-texture","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db__results","expectedToken":"--style-database-results-texture","actualRuntime":"Search-results state consumes content_bg.png only on .pokemon-db__results.","status":"runtime-consumed"},
+    {"id":"home-stage-components","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home","selector":".source-schema-demo__hero--compact-interactive","expectedComponent":"NavigationBar + Swiper + SwiperItem + Image + Button composition candidate","actualRuntime":"Custom stage retained deliberately: replacing its layered crop, flip and navigation with generic primitives would drift from the frozen fidelity-pass composition.","status":"composition-boundary-recorded"},
+    {"id":"home-editorial-components","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home","selector":".pokemon-news","expectedComponent":"Image + Button + optional Swiper composition","actualRuntime":"Custom composition retained to preserve fidelity; no forced adoption.","status":"composition-boundary-recorded"},
+    {"id":"database-search-button","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database","selector":".pokemon-db__submit.du-button","expectedComponent":"dangoui Button.vue with type=primary size=normal text=Search","actualRuntime":"BUTTON.du-button.du-button--normal.du-button--primary; submission changes the database to results state.","status":"native-runtime-consumed"}
+  ]
+}

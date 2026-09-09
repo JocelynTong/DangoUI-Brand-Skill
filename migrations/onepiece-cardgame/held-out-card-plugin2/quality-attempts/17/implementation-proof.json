@@ -1,0 +1,67 @@
+{
+  "schema": "brand-host-build-state-contract-repair-proof/v1",
+  "attempt": 17,
+  "scope": "Build environment field visual state and approved accessibility semantics only",
+  "qaVerdict": null,
+  "contract": "build-state-contract-amendment.json",
+  "repairs": [
+    {
+      "id": "BUILD_ENV_VALUE_INVISIBLE",
+      "change": "Give .envtext an explicit dark navy foreground on the existing white field.",
+      "computedAllViewports": {"foreground":"rgb(7, 26, 44)","background":"rgb(255, 255, 255)","value":"标准赛制-18.0"},
+      "contrastRatioApprox": 17.8
+    },
+    {
+      "id": "BUILD_ENV_KEYBOARD_DOUBLE_TOGGLE",
+      "rootCause": "The environment disclosure keydown bubbled into an earlier accessibility augmentation on .sheet-body, invoking confirmEnvAndClose immediately after toggleEnv.",
+      "change": "Remove only the non-baseline parent role/tabindex/ARIA and Enter/Space delegation plus its manifest entry; preserve the original parent @tap and the environment disclosure's approved same-tap Enter/Space delegation.",
+      "businessHandlerAdded": false
+    },
+    {
+      "id": "BUILD_DISABLED_STATE_ABSENT",
+      "resolution": "N/A by approved amendment: this host uses validation-on-submit. Publish remains active and invalid feedback remains visible; no invented disabled/readiness state was added."
+    }
+  ],
+  "browserEvidence": {
+    "artifact": "browser-probes.json",
+    "viewports": ["390x844","536x864","1280x720"],
+    "pointer": "one activation => aria-expanded true and wheel visible at all viewports",
+    "enter": "one activation => aria-expanded true and wheel visible at all viewports",
+    "space": "one activation => aria-expanded true and wheel visible at all viewports",
+    "invalidSubmit": "sheet remains open and existing validation feedback is visible at all viewports",
+    "documentOverflowX": 0,
+    "networkWrites": 0,
+    "reducedMotion": true
+  },
+  "stateMapping": {
+    "incompleteBeforeSubmit": "active publish control",
+    "invalidAfterSubmit": "existing visible validation feedback",
+    "submitting": "no real host state exists; no disabled/loading semantics invented",
+    "success": "unchanged existing outcome",
+    "failure": "unchanged existing outcome"
+  },
+  "sourceIntegrity": {
+    "businessDataChanged": false,
+    "validationMutationRouteApiStoreChanged": false,
+    "newHandlerAdded": false,
+    "buildSfcSha256": "f93cdf779e0d1706f1d762ae1e817a149709ea51e8b46937a17776980c05fb72",
+    "styleSha256": "77250af7d099e1b66b39eb8a8027fb362b6f4ec46423cd51548d440aba8cf26f",
+    "manifestSha256": "d1612cfc822c1feb9c53ee26847ad2db4068c7ebfee472ef0ed73320b47d5716"
+  },
+  "regression": {
+    "otherRouteOverflowX": {"plaza":0,"detail":0,"mine":0,"event":0,"round":0},
+    "screenshotHashes": {
+      "plaza":"147e09aca04fa1e1748b2e9f997991b47a4d19fe920d0428a36e79455ffe2ed6",
+      "detail":"d1c57021d4f05459ae3ee0a1e9c7c0c713e2308ad16f9f06f89554a3078bf89b",
+      "mine":"60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "event":"7d28e8a474fadbbbf17588d680fee90d491377dd7a763c4437c472da879f911a",
+      "round":"494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca"
+    }
+  },
+  "gates": {
+    "productionBuild": "PASS: 662 modules",
+    "hostStructuralDiffBuild": "PASS",
+    "hostThemeOrder": "PASS",
+    "preview10092": "PASS"
+  }
+}

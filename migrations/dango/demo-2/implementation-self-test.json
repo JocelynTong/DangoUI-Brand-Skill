@@ -1,0 +1,1008 @@
+{
+  "schema": "brand-demo-implementation-self-test/v1",
+  "brand": "dango",
+  "stage": "demo-2",
+  "verdict": "pass",
+  "visualVerdict": "not-assigned-by-implementation-agent",
+  "artifacts": {
+    "screenshotManifest": "migrations/dango/demo-2/demo-screenshot-manifest.json",
+    "implementationSectionManifest": "migrations/dango/demo-2/section-fidelity-implementation-manifest.json",
+    "sourceEvidenceSectionManifest": "migrations/dango/section-fidelity-manifest.json",
+    "mappingRuntimeProbe": "migrations/dango/mapping-runtime-probe.json"
+  },
+  "checks": {
+    "preservedDistributionAndProofRoutes": true,
+    "mobileCompositionLayersBounded": true,
+    "buttonCompositionVariantStable": true,
+    "buttonComparisonSameAspect": true,
+    "allPagesRender": true,
+    "normalPhoneShellPreserved": true,
+    "multiModulePages": true,
+    "introductionTechnicalFlow": true,
+    "buttonReferenceDensity": true,
+    "scrollChangesAndRestores": true,
+    "noHorizontalOverflow": true,
+    "proofViewportExact": true,
+    "proofIndicatorHidden": true,
+    "headerFullBleed": true,
+    "primaryGeometry": true,
+    "primaryRoleColor": true,
+    "primaryHoverStable": true,
+    "primaryFocusVisible": true,
+    "primaryActivationAndRestore": true,
+    "primaryStateScreenshotsComplete": true,
+    "consoleClean": true
+  },
+  "routeReachability": [
+    {
+      "pageId": "distribution",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2-route-regression#/brand/dango/pages/dango-introduction-calibration",
+      "httpOk": true,
+      "phone": true,
+      "screen": true,
+      "unsupported": false,
+      "textLength": 1090,
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-introduction-calibration",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2-route-regression#/brand/dango/pages/dango-introduction-calibration",
+      "httpOk": true,
+      "phone": true,
+      "screen": true,
+      "unsupported": false,
+      "textLength": 1090,
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-button-calibration",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2-route-regression#/brand/dango/pages/dango-button-calibration",
+      "httpOk": true,
+      "phone": true,
+      "screen": true,
+      "unsupported": false,
+      "textLength": 1672,
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-release-checklist-held-out",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2-route-regression#/brand/dango/pages/dango-release-checklist-held-out",
+      "httpOk": true,
+      "phone": true,
+      "screen": true,
+      "unsupported": false,
+      "textLength": 382,
+      "consoleErrors": []
+    }
+  ],
+  "pageResults": [
+    {
+      "pageId": "dango-introduction-calibration",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2#/brand/dango/pages/dango-introduction-calibration",
+      "before": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 1480.078125,
+          "right": 1016,
+          "bottom": 1548.34375
+        },
+        "header": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": 124.265625
+        },
+        "sections": 2,
+        "technicalFlows": 1,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 1514
+        }
+      },
+      "scrolled": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": -171.734375,
+          "width": 372,
+          "height": 1480.078125,
+          "right": 1016,
+          "bottom": 1308.34375
+        },
+        "header": {
+          "x": 644,
+          "y": -171.734375,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": -115.734375
+        },
+        "sections": 2,
+        "technicalFlows": 1,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 240,
+          "clientHeight": 803,
+          "scrollHeight": 1514
+        }
+      },
+      "restored": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 1480.078125,
+          "right": 1016,
+          "bottom": 1548.34375
+        },
+        "header": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": 124.265625
+        },
+        "sections": 2,
+        "technicalFlows": 1,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 1514
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-button-calibration",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2#/brand/dango/pages/dango-button-calibration",
+      "before": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 3586.5625,
+          "right": 1016,
+          "bottom": 3654.828125
+        },
+        "header": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": 124.265625
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 4,
+        "apiTables": 3,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 3620
+        }
+      },
+      "scrolled": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": -171.734375,
+          "width": 372,
+          "height": 3586.5625,
+          "right": 1016,
+          "bottom": 3414.828125
+        },
+        "header": {
+          "x": 644,
+          "y": -171.734375,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": -115.734375
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 4,
+        "apiTables": 3,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 240,
+          "clientHeight": 803,
+          "scrollHeight": 3620
+        }
+      },
+      "restored": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 3586.5625,
+          "right": 1016,
+          "bottom": 3654.828125
+        },
+        "header": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": 124.265625
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 4,
+        "apiTables": 3,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 3620
+        }
+      },
+      "consoleErrors": [],
+      "primaryButton": {
+        "default": {
+          "width": 77.15625,
+          "height": 32,
+          "backgroundColor": "rgb(124, 102, 255)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "4px",
+          "transform": "none",
+          "boxShadow": "none",
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "focused": false,
+          "actionState": "default"
+        },
+        "hover": {
+          "width": 77.15625,
+          "height": 32,
+          "backgroundColor": "rgb(124, 102, 255)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "4px",
+          "transform": "none",
+          "boxShadow": "none",
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "focused": false,
+          "actionState": "default"
+        },
+        "focus": {
+          "width": 77.15625,
+          "height": 32,
+          "backgroundColor": "rgb(124, 102, 255)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "4px",
+          "transform": "none",
+          "boxShadow": "none",
+          "outlineStyle": "auto",
+          "outlineWidth": "1px",
+          "focused": true,
+          "actionState": "default"
+        },
+        "activated": {
+          "width": 77.15625,
+          "height": 32,
+          "backgroundColor": "rgb(124, 102, 255)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "4px",
+          "transform": "none",
+          "boxShadow": "none",
+          "outlineStyle": "auto",
+          "outlineWidth": "1px",
+          "focused": true,
+          "actionState": "activated-focus-retained"
+        },
+        "restored": {
+          "width": 77.15625,
+          "height": 32,
+          "backgroundColor": "rgb(124, 102, 255)",
+          "color": "rgb(255, 255, 255)",
+          "borderRadius": "4px",
+          "transform": "none",
+          "boxShadow": "none",
+          "outlineStyle": "none",
+          "outlineWidth": "0px",
+          "focused": false,
+          "actionState": "default"
+        }
+      }
+    },
+    {
+      "pageId": "dango-release-checklist-held-out",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2#/brand/dango/pages/dango-release-checklist-held-out",
+      "before": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 1190.765625,
+          "right": 1016,
+          "bottom": 1259.03125
+        },
+        "header": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": 124.265625
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 1224
+        }
+      },
+      "scrolled": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": -171.734375,
+          "width": 372,
+          "height": 1190.765625,
+          "right": 1016,
+          "bottom": 1019.03125
+        },
+        "header": {
+          "x": 644,
+          "y": -171.734375,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": -115.734375
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 240,
+          "clientHeight": 803,
+          "scrollHeight": 1224
+        }
+      },
+      "restored": {
+        "phone": {
+          "x": 635,
+          "y": 59.265625,
+          "width": 390,
+          "height": 821.453125,
+          "right": 1025,
+          "bottom": 880.71875
+        },
+        "screen": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 803.453125,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicator": {
+          "x": 644,
+          "y": 838.15625,
+          "width": 372,
+          "height": 33.5625,
+          "right": 1016,
+          "bottom": 871.71875
+        },
+        "indicatorDisplay": "flex",
+        "demo": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 1190.765625,
+          "right": 1016,
+          "bottom": 1259.03125
+        },
+        "header": {
+          "x": 644,
+          "y": 68.265625,
+          "width": 372,
+          "height": 56,
+          "right": 1016,
+          "bottom": 124.265625
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 1224
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-introduction-calibration",
+      "proof": "desktop",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2&proof=desktop#/brand/dango/pages/dango-introduction-calibration",
+      "state": {
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1358.96875,
+          "right": 1440,
+          "bottom": 1358.96875
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1358.96875,
+          "right": 1440,
+          "bottom": 1358.96875
+        },
+        "indicator": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "indicatorDisplay": "none",
+        "demo": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1324.96875,
+          "right": 1440,
+          "bottom": 1324.96875
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 56,
+          "right": 1440,
+          "bottom": 56
+        },
+        "sections": 2,
+        "technicalFlows": 1,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 1359,
+          "scrollHeight": 1359
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-introduction-calibration",
+      "proof": "mobile",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2&proof=mobile#/brand/dango/pages/dango-introduction-calibration",
+      "state": {
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "indicator": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "indicatorDisplay": "none",
+        "demo": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1458.484375,
+          "right": 390,
+          "bottom": 1458.484375
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "right": 390,
+          "bottom": 56
+        },
+        "sections": 2,
+        "technicalFlows": 1,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 844,
+          "scrollHeight": 1492
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-button-calibration",
+      "proof": "desktop",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2&proof=desktop#/brand/dango/pages/dango-button-calibration",
+      "state": {
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2472.890625,
+          "right": 1440,
+          "bottom": 2472.890625
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2472.890625,
+          "right": 1440,
+          "bottom": 2472.890625
+        },
+        "indicator": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "indicatorDisplay": "none",
+        "demo": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2438.890625,
+          "right": 1440,
+          "bottom": 2438.890625
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 56,
+          "right": 1440,
+          "bottom": 56
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 4,
+        "apiTables": 3,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 2473,
+          "scrollHeight": 2473
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-button-calibration",
+      "proof": "mobile",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2&proof=mobile#/brand/dango/pages/dango-button-calibration",
+      "state": {
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "indicator": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "indicatorDisplay": "none",
+        "demo": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 3534.390625,
+          "right": 390,
+          "bottom": 3534.390625
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "right": 390,
+          "bottom": 56
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 4,
+        "apiTables": 3,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 844,
+          "scrollHeight": 3568
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-release-checklist-held-out",
+      "proof": "desktop",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2&proof=desktop#/brand/dango/pages/dango-release-checklist-held-out",
+      "state": {
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1204,
+          "right": 1440,
+          "bottom": 1204
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1204,
+          "right": 1440,
+          "bottom": 1204
+        },
+        "indicator": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "indicatorDisplay": "none",
+        "demo": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 1170,
+          "right": 1440,
+          "bottom": 1170
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 56,
+          "right": 1440,
+          "bottom": 56
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 1204,
+          "scrollHeight": 1204
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "pageId": "dango-release-checklist-held-out",
+      "proof": "mobile",
+      "url": "http://127.0.0.1:5179/?qa=dango-demo-2&proof=mobile#/brand/dango/pages/dango-release-checklist-held-out",
+      "state": {
+        "phone": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "right": 390,
+          "bottom": 844
+        },
+        "indicator": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "right": 0,
+          "bottom": 0
+        },
+        "indicatorDisplay": "none",
+        "demo": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1190.765625,
+          "right": 390,
+          "bottom": 1190.765625
+        },
+        "header": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "right": 390,
+          "bottom": 56
+        },
+        "sections": 2,
+        "technicalFlows": 0,
+        "referenceModules": 0,
+        "apiTables": 0,
+        "unsupportedSections": 0,
+        "horizontalOverflow": false,
+        "scroll": {
+          "top": 0,
+          "clientHeight": 844,
+          "scrollHeight": 1224
+        }
+      },
+      "consoleErrors": []
+    }
+  ]
+}

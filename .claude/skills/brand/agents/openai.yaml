@@ -1,4 +1,28 @@
 interface:
   display_name: "Brand to Dangoui"
-  short_description: "学习或应用品牌迁移资产到 dangoui token 和 demo。"
-  default_prompt: "基于品牌 URL、DESIGN.md 或 migrations/{brand}，按 Echo/dangoui token 与组件体系生成或应用迁移资产，并完成 demo 验证。"
+  short_description: "用 Evidence / Structure / Generative 三证检验品牌学习，再独立映射到 DangoUI 与宿主项目。"
+  default_prompt: "基于品牌 URL、DESIGN.md、截图、Figma/DTCG 或 migrations/{brand}，先判断 learn-brand / apply-host。learn-brand 把 Demo 当学习能力测试：区分 reference calibration 与 held-out generative challenge，完成 Evidence / Structure / Generative 三证；不做官网截图镜像、品牌素材模板或宿主成果。apply-host 独立按 workflow-contract.json 完成宿主落点、渲染 QA 和复盘。"
+
+orchestration:
+  model: "brand-native-required-with-optional-external-review"
+  external_optional:
+    - "gstack"
+  note: "外部 goodcase 只作为 review/QA/retro 的可选增强；Brand 自己的 TPP、computed-first、DTCG、DangoUI、coverage、visual-placement 和 P0 gate 不被替代。"
+
+roles:
+  router:
+    goal: "先判断 /brand 请求属于品牌学习、宿主换肤、复盘还是维护。"
+  brand_researcher:
+    goal: "抓取源站真实 evidence，标注 reference calibration 与 held-out 候选；不得把截图当实现资产。"
+  design_translator:
+    goal: "把 evidence 翻译成品牌意图、适用/禁用场景和结构规则，并在 held-out 揭示前冻结可生成约束。"
+  dangoui_mapper:
+    goal: "映射到 DangoUI token/component/props/slots/style-only recipe，不新造未支持能力。"
+  host_strategist:
+    goal: "判断宿主页面业务目标、视觉承载力、Atomic Design 层级、asset/motion/showcase 落点。"
+  implementation_agent:
+    goal: "learn-brand 用冻结规则重建 calibration 并完成 held-out challenge；apply-host 保留宿主业务内容和组件 API 落代码。"
+  visual_qa:
+    goal: "独立检查 Evidence / Structure / Generative 三证、内部 blocker、可读性、滚动、动效和资产加载；不以综合观感抵消无证据模式。"
+  methodology_keeper:
+    goal: "把重复问题沉淀成脚本、contract、reference、migration 或 run log。"

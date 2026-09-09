@@ -1,0 +1,15 @@
+{
+  "schema":"brand-demo-implementation-gates/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"10-demo-revision3",
+  "results":[
+    {"gate":"browser-implementation-probe","status":"PASS","checks":10,"failures":[]},
+    {"gate":"validate-design-direction","status":"PASS","strategies":4,"failures":[]},
+    {"gate":"validate-section-fidelity-strict","status":"PASS","sections":2,"checks":25,"failures":[]},
+    {"gate":"asset-usage-gate","status":"PASS","blocking":[],"warnings":[]},
+    {"gate":"validate-brand-preview-registry","status":"PASS_WITH_EXISTING_WARNINGS","summary":"5 previews valid; existing remote-source naturalWidth reminders remain."},
+    {"gate":"npm-run-build","status":"PASS","output":"vite build; 25 modules transformed"}
+  ],
+  "implementationChecksPass":true,
+  "visualVerdict":"not-assigned-by-implementation-agent"
+}

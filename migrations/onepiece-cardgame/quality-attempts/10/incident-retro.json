@@ -1,0 +1,18 @@
+{
+  "schema": "brand-visual-incident-retro/v1",
+  "brand": "onepiece-cardgame",
+  "trigger": "user-feedback",
+  "status": "open",
+  "observedMismatch": "The Demo footer uses the right independent assets but arranges them as a pale diagonal poster field; the official source uses a different layered composition and a scroll-triggered reveal/state swap.",
+  "userFeedback": "The Luffy footer background composition is wrong and the source image is dynamic.",
+  "earliestFailureNode": "brandResearcher",
+  "contributingNodes": ["designTranslator", "demoImplementationAgent", "visualQA"],
+  "whyOldGatePassed": [
+    "Evidence proved asset presence and two late screenshots but did not freeze the complete default/transition/settled geometry and state swap.",
+    "Interpreter allowed a broad responsive reconstruction without sufficiently bounding the relative placement and crop of the focal character, logo, catch and cards.",
+    "Demo self-check counted seven loaded assets and bounded duration but did not compare the composite composition frame-by-frame.",
+    "Blind QA checked layer existence, not the source-to-demo spatial and temporal sequence."
+  ],
+  "correctiveAction": "Recapture the official Footer before entry, during reveal and after settling with per-layer geometry/computed state, then rebuild and re-QA the Demo footer.",
+  "preventiveAction": "For high-salience animated organisms require default/transition/settled screenshots, per-layer normalized regions, state/class changes and source/demo spatial-temporal comparison; asset-count checks alone cannot pass."
+}

@@ -1,0 +1,16 @@
+{
+  "schema": "heldout-detail-target-and-pairing-comparison/v1",
+  "attempt": 15,
+  "scope": "Detail repair only",
+  "references": ["../14/visual-qa-assessment.json", "../../detail-minimal-experiment-direction.json", "../../../../../output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png"],
+  "comparisons": [
+    {"dimension":"buy-target-owner","status":"PASS","evidence":"The unchanged real .buybtn owner measures 59.17×45.75px at 390, 80.56×44px at 536 and 114×49.59px at 1280. Its center hit resolves to itself/descendant at every width; role=button, tabindex=0 and visible focus remain intact."},
+    {"dimension":"activation-parity","status":"PASS","evidence":"Pointer, Enter and Space each produce the unchanged local purchase-toast outcome. Expand, favorite, copy, text-view and viewer controls also retain pointer/keyboard parity in isolated contexts."},
+    {"dimension":"persistent-actions","status":"PASS","evidence":"The bottom favorite/copy action family remains rectangular and visually stable. At all three widths it occupies the final viewport band, does not cover the content grid and keeps 8–8.32px safe-area padding."},
+    {"dimension":"desktop-product-pairing","status":"PASS","evidence":"At 1280 the cover/title gap is now 18px, versus the loose opposite-half grouping called out in Attempt 14. Cover, title, tags, author and date read as one natural product identity group without clipping or crowding."},
+    {"dimension":"responsive-composition","status":"PASS","evidence":"390 and 536 preserve the compact cover/title pairing; 1280 tightens it without converting the product frame into a hero. All widths keep the editorial sequence and report zero document overflow."},
+    {"dimension":"visual-system-regression","status":"PASS","evidence":"Warm paper, bounded low-radius product frame, restrained black/navy rules, sparse red/yellow, title/meta/description/stat/view/content/action hierarchy and masked structural recognition remain materially unchanged from Attempt 14."},
+    {"dimension":"other-route-regression","status":"PASS","evidence":"Fresh Plaza, Build, Mine, Event and Round hashes exactly match Attempt 14; all report zero overflow and zero writes."}
+  ],
+  "verdict": "PASS"
+}

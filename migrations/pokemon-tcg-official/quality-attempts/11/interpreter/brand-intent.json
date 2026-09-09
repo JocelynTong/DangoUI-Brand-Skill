@@ -1,0 +1,534 @@
+{
+  "schema": "brand-intent/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "role": "Brand Interpreter",
+  "scope": "homepage Pokémon Championship Series section only",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "goalContract": "../goal-contract.json",
+  "evidenceRoot": "../evidence",
+  "status": "PASS",
+  "implementationGate": "open",
+  "interpretationPolicy": {
+    "fact": "Only frozen screenshot regions, live-DOM observations, computed facts, archived source rules, and archived asset identities from Attempt 11 are treated as facts.",
+    "interpretation": "Intent statements are restricted to the narrowest section, role, viewport endpoint, or interaction state supported by those facts.",
+    "recommendation": "Implementation and QA guidance is labelled as guidance and does not become an observed source fact.",
+    "prohibitions": [
+      "Do not infer a global brand palette from colors embedded in the official Championship image.",
+      "Do not turn the white page canvas into opaque white column or child backgrounds.",
+      "Do not promote the focus outline blue to a decorative or brand-accent color.",
+      "Do not infer motion duration from capture order or continuous-scroll frame spacing.",
+      "Do not use any frozen source screenshot or screenshot crop as a runtime asset."
+    ]
+  },
+  "visualIntent": {
+    "observedFacts": [
+      "The section sits between Pokémon TCG Pocket and Play! Pokémon in the rendered homepage flow.",
+      "A neutral white page canvas carries a transparent section structure, centered copy, one CTA, and one square official event image.",
+      "At 1440px, copy and image have equal 720px fields; at 390px, the same image becomes the first full-width block and copy follows.",
+      "The official image carries the event-specific color and identity; the section UI observed outside the image stays white, near-black, and interaction-gold.",
+      "The single Learn more CTA is black by default, gold on settled pointer hover, and black with an outline on keyboard focus."
+    ],
+    "interpretation": "This section gives the official event image equal structural weight to a restrained editorial explanation. Its identity comes from the exact square event asset plus a strict split-to-stack composition; it does not come from spreading the image palette across the surrounding UI.",
+    "suitableFor": [
+      "a single high-salience event or program entry within a longer editorial homepage",
+      "a section with one principal square image, one heading, one explanatory paragraph, and one primary outbound CTA",
+      "a source-calibration surface that preserves adjacent homepage continuity"
+    ],
+    "notFor": [
+      "dense card grids, filter bars, forms, tables, or utility screens",
+      "multi-action promotional clusters",
+      "full-bleed image overlays or text placed on the Championship image",
+      "global page theming derived from the colors inside the event photo"
+    ]
+  },
+  "tokens": {
+    "colorRoles": [
+      {
+        "id": "section.canvas",
+        "value": "#FFFFFF",
+        "evidenceStatus": "computed-role-observed",
+        "evidenceRefs": [
+          "../evidence/brand-evidence.json#claims/desktop-transparent-two-column-layering",
+          "../evidence/brand-evidence.json#claims/mobile-image-first-reflow"
+        ],
+        "allowedRoles": ["page canvas behind this section"],
+        "forbiddenRoles": ["content-column fill", "image-column fill", "article fill", "pseudo-element fill"]
+      },
+      {
+        "id": "cta.surface.default",
+        "value": "#131415",
+        "evidenceStatus": "source-token-resolved-and-endpoint-observed-as-black",
+        "evidenceRefs": [
+          "../evidence/captures/assets/global.css#.button",
+          "../evidence/source-observation-manifest.json#observations.mobile-interaction",
+          "../evidence/captures/mobile/championship-series-cta-default-390x844.png"
+        ],
+        "allowedRoles": ["Learn more CTA default surface", "Learn more CTA keyboard-focus surface"],
+        "forbiddenRoles": ["section background", "image tint", "global navigation rule", "unrelated controls"]
+      },
+      {
+        "id": "cta.content.default",
+        "value": "#FFFFFF",
+        "evidenceStatus": "source-token-resolved-and-endpoint-observed",
+        "evidenceRefs": [
+          "../evidence/captures/assets/global.css#.button",
+          "../evidence/brand-evidence.json#claims/mobile-typography-hierarchy"
+        ],
+        "allowedRoles": ["Learn more CTA label and arrow in default/focus states"],
+        "forbiddenRoles": ["body text", "heading text", "text on gold hover"]
+      },
+      {
+        "id": "cta.surface.hover",
+        "value": "#E2BA65",
+        "computedValue": "rgb(226, 186, 101)",
+        "evidenceStatus": "computed-observed",
+        "evidenceRefs": [
+          "../evidence/source-observation-manifest.json#observations.mobile-interaction",
+          "../evidence/captures/mobile/championship-series-cta-hover-settled-390x844.png",
+          "../evidence/captures/desktop/championship-series-cta-hover-settled-1440x900.png"
+        ],
+        "allowedRoles": ["settled pointer-hover fill for this CTA recipe"],
+        "forbiddenRoles": ["default CTA fill", "keyboard-focus fill", "section chrome", "heading highlight", "global primary color"]
+      },
+      {
+        "id": "cta.content.hover",
+        "value": "#131415",
+        "evidenceStatus": "source-token-resolved-and-endpoint-observed",
+        "evidenceRefs": [
+          "../evidence/captures/assets/global.css#.button",
+          "../evidence/captures/mobile/championship-series-cta-hover-settled-390x844.png"
+        ],
+        "allowedRoles": ["Learn more CTA label and arrow on settled gold hover"],
+        "forbiddenRoles": ["default CTA label", "focus-ring color"]
+      },
+      {
+        "id": "cta.focus.outline",
+        "value": "#005FCC",
+        "computedValue": "rgb(0, 95, 204) auto 1px",
+        "evidenceStatus": "computed-observed-at-390",
+        "evidenceRefs": [
+          "../evidence/source-observation-manifest.json#observations.mobile-interaction",
+          "../evidence/captures/mobile/championship-series-cta-focus-390x844.png"
+        ],
+        "allowedRoles": ["visible keyboard focus outline for this CTA"],
+        "forbiddenRoles": ["brand accent", "hover fill", "decorative border", "link color", "global focus token without further evidence"]
+      }
+    ],
+    "typographyRoles": [
+      {
+        "id": "section.heading.mobile-390",
+        "family": "Kanit",
+        "weight": 700,
+        "style": "italic",
+        "transform": "uppercase",
+        "fontSizePx": 32,
+        "lineHeightPx": 32.5,
+        "marginBottomPx": 8,
+        "evidenceStatus": "family-weight-size-line-height-and-margin-computed; italic-and-uppercase-source-rule-plus-visible-endpoint",
+        "allowedRoles": ["Championship Series section heading"],
+        "forbiddenRoles": ["body copy", "generic labels", "global heading scale"]
+      },
+      {
+        "id": "section.body.mobile-390",
+        "family": "PT Sans",
+        "weight": 400,
+        "fontSizePx": 18,
+        "lineHeightPx": 28.8,
+        "evidenceStatus": "computed-observed",
+        "allowedRoles": ["section explanatory paragraph"],
+        "forbiddenRoles": ["heading", "CTA label", "global body rule beyond this surface"]
+      },
+      {
+        "id": "section.cta.mobile-390",
+        "family": "PT Sans",
+        "weight": 700,
+        "style": "italic",
+        "fontSizePx": 18,
+        "lineHeightPx": 22.5,
+        "evidenceStatus": "family-weight-size-line-height-computed; italic-source-rule-plus-visible-endpoint",
+        "allowedRoles": ["Learn more CTA label"],
+        "forbiddenRoles": ["body copy", "section heading", "unrelated controls"]
+      }
+    ],
+    "scopeWarning": "These are section-local intent tokens, not approved DangoUI token names. No --du-* mapping is asserted by the Interpreter."
+  },
+  "recipes": [
+    {
+      "id": "recipe.section.transparent-split-to-stack",
+      "status": "approved",
+      "scope": "homepage Championship Series section",
+      "ingredients": [
+        "transparent article, row, columns, and content over the white page canvas",
+        "image-first source/DOM order",
+        "1440 endpoint: row-reverse 50/50 split with copy left and image right",
+        "390 endpoint: block stack with image first and copy second",
+        "centered text hierarchy with one CTA"
+      ],
+      "forbiddenSubstitutions": [
+        "opaque white halves",
+        "a CSS recreation of the official image",
+        "an image/text overlap",
+        "multiple CTAs",
+        "responsive order that puts copy before image at 390"
+      ]
+    },
+    {
+      "id": "recipe.cta.black-to-gold-reveal",
+      "status": "approved",
+      "scope": "the Learn more CTA pattern on this section",
+      "geometry390": {
+        "rect": [99.625, 737.078, 190.742, 51.297],
+        "marginTopPx": 16,
+        "paddingBlockPx": 14.4,
+        "paddingInlinePx": 36,
+        "borderRadiusPx": 2
+      },
+      "surface": {
+        "default": "cta.surface.default",
+        "hover": "cta.surface.hover",
+        "focus": "cta.surface.default"
+      },
+      "content": {
+        "default": "cta.content.default",
+        "hover": "cta.content.hover",
+        "focus": "cta.content.default"
+      },
+      "frame": "2px inset frame using the default near-black surface color, as declared by the archived .button__bg::after rule",
+      "shadow": "0 16px 24px -16px rgba(0,0,0,0.35), source-declared and visibly present",
+      "hoverMechanism": {
+        "target": ".button__bg::before",
+        "from": "scaleX(0)",
+        "to": "scaleX(1)",
+        "origin": "center",
+        "transition": "transform 0.2s ease-in-out",
+        "evidenceQualification": "Timing comes from the archived CSS rule, not from frame timestamps."
+      },
+      "focusMechanism": {
+        "surface": "retain default black/near-black fill",
+        "outline390": "rgb(0,95,204) auto 1px",
+        "prohibition": "Do not reuse the gold hover fill as the focus state."
+      },
+      "activation": {
+        "href": "https://championships.pokemon.com/en-us/",
+        "verifiedFinalUrl": "https://championships.pokemon.com/en-us/"
+      }
+    },
+    {
+      "id": "recipe.type.centered-editorial-stack",
+      "status": "approved-at-390; desktop-exact-boxes-unresolved",
+      "scope": "copy field inside this section",
+      "order": ["heading", "paragraph", "Learn more CTA"],
+      "alignment": "centered",
+      "mobile390": {
+        "contentRect": [8, 390, 374, 439.172],
+        "contentPaddingPx": 24,
+        "innerContentWidthPx": 326,
+        "headingRect": [32, 414, 326, 97.5],
+        "paragraphRect": [32, 519.5, 326, 201.578],
+        "ctaRect": [99.625, 737.078, 190.742, 51.297]
+      },
+      "desktop1440": {
+        "contentRect": [12, 171.211, 696, 377.578],
+        "verticalAlignment": "centered within the 720px content column",
+        "exactChildBoxes": "unresolved"
+      }
+    }
+  ],
+  "approvedVisualPatterns": [
+    {
+      "id": "P11-PCS-01",
+      "name": "equal-weight event image and editorial field",
+      "scope": "section pattern at the 1440 endpoint",
+      "evidenceIds": ["section-identity-boundary", "desktop-transparent-two-column-layering", "official-asset-identity"],
+      "screenshotRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 1440, 720]},
+        {"capture": "../evidence/captures/desktop/championship-series-settled-region-1440x720.png", "region": [0, 0, 1440, 720]}
+      ],
+      "observedFacts": [
+        "section-local rect is 1440x720",
+        "row uses flex-direction row-reverse",
+        "content and image columns are each 720x720",
+        "official image renders at 720x720 on the right"
+      ],
+      "interpretation": "The event image and explanation are peers; neither is a card nested inside the other.",
+      "suitableFor": ["one event story with one principal square asset and one outbound action"],
+      "notFor": ["card lists", "image overlays", "asymmetric multi-column dashboards"],
+      "allowedRoles": ["section composition", "principal image placement", "editorial copy placement"],
+      "forbiddenRoles": ["global two-column template", "generic card component", "page hero rule"],
+      "invariants": ["50/50 endpoint split", "copy left", "exact official image right", "720px endpoint height"],
+      "allowedTransformations": ["copy may change only on a clearly labelled held-out fictional fixture while preserving one heading/paragraph/CTA hierarchy"],
+      "prohibitedTransformations": ["substitute a different official image on the calibration surface", "sample the image palette into UI tokens", "add decorative frames not observed"]
+    },
+    {
+      "id": "P11-PCS-02",
+      "name": "transparent section over a white page canvas",
+      "scope": "layering pattern at both frozen viewport endpoints",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow"],
+      "screenshotRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 720, 720]},
+        {"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 390, 390, 454]}
+      ],
+      "observedFacts": ["article, row, inspected columns, and content are transparent", "visible white belongs to the page canvas", "no pseudo fill was observed"],
+      "interpretation": "Whitespace is structural breathing room supplied by the page, not a pair of white panels.",
+      "suitableFor": ["this section inside the continuous white homepage canvas"],
+      "notFor": ["opaque cards", "alternating panel fills", "isolated framed modules"],
+      "allowedRoles": ["page canvas", "transparent section layers"],
+      "forbiddenRoles": ["column fill", "child fill", "pseudo-background", "white image mask"],
+      "invariants": ["white owned by page canvas", "transparent section nodes"],
+      "allowedTransformations": ["held-out content changes that do not introduce new background owners"],
+      "prohibitedTransformations": ["paint either half white to imitate the screenshot", "introduce a card shadow around the content field"]
+    },
+    {
+      "id": "P11-PCS-03",
+      "name": "image-first responsive narrative order",
+      "scope": "responsive relationship between the 1440 and 390 endpoints",
+      "evidenceIds": ["desktop-transparent-two-column-layering", "mobile-image-first-reflow", "official-asset-identity"],
+      "screenshotRegions": [
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 1440, 720]},
+        {"capture": "../evidence/captures/mobile/championship-series-settled-top-390x844.png", "region": [0, 56, 390, 788]}
+      ],
+      "observedFacts": [
+        "the image is first in the mobile DOM/visual flow",
+        "row-reverse places content left and image right at 1440",
+        "block flow places image above content at 390"
+      ],
+      "interpretation": "One source order supports both endpoints: the image remains first semantically, while desktop reverses the row visually.",
+      "suitableFor": ["this exact split-to-stack section"],
+      "notFor": ["claiming a sitewide responsive rule", "using responsive reflow itself as held-out generative proof"],
+      "allowedRoles": ["source/DOM order", "desktop row direction", "mobile block order"],
+      "forbiddenRoles": ["absolute page Y", "unobserved intermediate breakpoint", "global image-first policy"],
+      "invariants": ["image precedes copy at 390", "copy-left/image-right at 1440", "same 1:1 principal image composition"],
+      "allowedTransformations": ["implementation may choose a content-safe intermediate breakpoint, but must label it implementation-derived until source-observed"],
+      "prohibitedTransformations": ["claim an exact breakpoint from endpoint evidence", "count the 1440-to-390 reflow as the fictional held-out variation"]
+    },
+    {
+      "id": "P11-PCS-04",
+      "name": "centered event-title and explanatory action stack",
+      "scope": "section copy hierarchy; exact geometry approved at 390",
+      "evidenceIds": ["mobile-typography-hierarchy"],
+      "screenshotRegions": [
+        {"capture": "../evidence/captures/source-mobile-390-content-settled.png", "region": [0, 390, 390, 439.172]},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": [0, 84, 720, 720]}
+      ],
+      "observedFacts": ["Kanit heading", "PT Sans paragraph", "PT Sans bold CTA", "heading-paragraph-CTA order", "center alignment"],
+      "interpretation": "Condensed, emphatic event naming is separated from plain-language explanation and a single decisive action.",
+      "suitableFor": ["one concise section title, one paragraph, one CTA"],
+      "notFor": ["long-form article typography", "multi-level heading systems", "generic typography defaults"],
+      "allowedRoles": ["section heading", "section body", "section CTA label"],
+      "forbiddenRoles": ["navigation", "metadata", "forms", "global type scale"],
+      "invariants": ["font-family role split", "single centered hierarchy", "measured 390 geometry"],
+      "allowedTransformations": ["fictional copy may change while preserving the role split and readable hierarchy"],
+      "prohibitedTransformations": ["assert exact desktop child boxes", "replace fonts based on visual similarity without evidence"]
+    },
+    {
+      "id": "P11-PCS-05",
+      "name": "single CTA with gold pointer reveal and distinct keyboard focus",
+      "scope": "Learn more CTA interaction states only",
+      "evidenceIds": ["desktop-cta-states-and-destination", "mobile-cta-interactions"],
+      "screenshotRegions": [
+        {"capture": "../evidence/captures/mobile/championship-series-cta-default-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-hover-settled-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/mobile/championship-series-cta-focus-390x844.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-default-1440x900.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-hover-settled-1440x900.png", "region": "visible CTA"},
+        {"capture": "../evidence/captures/desktop/championship-series-cta-focus-1440x900.png", "region": "visible CTA"}
+      ],
+      "observedFacts": [
+        "default is black/near-black with white content",
+        "settled pointer hover is a full gold fill with near-black content",
+        "keyboard focus retains the default black/near-black fill and adds an outline",
+        "activation reaches the verified Championship Series URL"
+      ],
+      "interpretation": "Gold communicates pointer hover feedback; keyboard focus remains a separate accessibility state rather than borrowing the hover fill.",
+      "suitableFor": ["the one primary outbound CTA in this section"],
+      "notFor": ["passive labels", "selected tabs", "focus decoration elsewhere", "global action-color inference"],
+      "allowedRoles": ["default CTA surface/content", "pointer-hover overlay/content", "keyboard-focus outline", "verified outbound navigation"],
+      "forbiddenRoles": ["section fill", "active navigation", "focus-as-hover", "gold default CTA"],
+      "invariants": ["black default", "gold settled hover", "black focus with outline", "single verified destination"],
+      "allowedTransformations": ["label text may change only in a clearly fictional held-out fixture while preserving the state machine"],
+      "prohibitedTransformations": ["make focus gold", "make default gold", "remove visible focus", "invent pressed/loading/disabled states"]
+    },
+    {
+      "id": "P11-PCS-06",
+      "name": "continuous homepage section boundary",
+      "scope": "placement and reversible-scroll context",
+      "evidenceIds": ["section-identity-boundary", "reversible-scroll"],
+      "screenshotRegions": [
+        {"capture": "../evidence/captures/mobile/championship-series-cta-default-390x844.png", "region": "Championship tail followed by Play! Pokémon"},
+        {"capture": "../evidence/captures/source-mobile-390-scroll-restored.png", "region": "Pocket-to-Championship boundary"}
+      ],
+      "observedFacts": ["Championship follows TCG Pocket", "Play! Pokémon follows Championship", "page scroll can reach the section and return to the prior context"],
+      "interpretation": "The surface is a section in a continuous homepage, not a standalone page or modal.",
+      "suitableFor": ["full-page validation preserving previous and next sections"],
+      "notFor": ["isolated viewport mockups presented as full-page proof", "fixed-position recreations"],
+      "allowedRoles": ["adjacency", "page-flow continuity", "reversible scrolling"],
+      "forbiddenRoles": ["absolute page Y invariant", "scroll animation timing", "replacement of preceding sections"],
+      "invariants": ["Pocket before", "Play! Pokémon after", "reversible scroll", "preceding homepage content preserved"],
+      "allowedTransformations": ["none on the source-calibration page outside the target section"],
+      "prohibitedTransformations": ["delete, reorder, or restyle preceding sections as part of this section proof", "fix the section to a captured absolute Y"]
+    }
+  ],
+  "compositionContracts": [
+    {
+      "id": "composition.source-calibration",
+      "status": "approved",
+      "surface": "homepage Pokémon Championship Series section",
+      "sectionBoundary": {"startsAfter": "Pokémon TCG Pocket", "endsBefore": "Play! Pokémon"},
+      "layerOrder": [
+        "white page canvas",
+        "transparent article/row/columns",
+        "principal square image and centered copy as sibling fields",
+        "single CTA inside the copy field"
+      ],
+      "desktop1440": {
+        "articleRect": [0, 0, 1440, 720],
+        "layout": "flex row-reverse",
+        "contentColumnRect": [0, 0, 720, 720],
+        "contentRect": [12, 171.211, 696, 377.578],
+        "imageColumnRect": [720, 0, 720, 720],
+        "imageRenderedRect": [720, 0, 720, 720],
+        "visualOrder": ["content left", "official image right"]
+      },
+      "mobile390": {
+        "articleRect": [0, 0, 390, 829.1719],
+        "layout": "block",
+        "imageRect": [0, 0, 390, 390],
+        "contentRect": [8, 390, 374, 439.172],
+        "contentPaddingPx": 24,
+        "readingOrder": ["official image", "heading", "paragraph", "Learn more CTA"]
+      },
+      "responsiveSemantics": {
+        "invariant": "same section identity, same image-first source order, same square principal-image role, same heading/body/CTA hierarchy, same transparent canvas ownership",
+        "change": "desktop uses row-reverse equal halves; 390 uses image-first block flow",
+        "exactBreakpoint": "unresolved",
+        "absolutePageY": "explicitly non-structural"
+      }
+    },
+    {
+      "id": "composition.held-out-fictional-fixture",
+      "status": "approved-with-constraints",
+      "purpose": "prove that the section-local rules generate a new fixture rather than only copying the source",
+      "mustChange": ["fictional content and/or an internal content arrangement beyond the source-observed responsive reflow"],
+      "mustPreserve": [
+        "single-section split-to-stack grammar",
+        "one square principal-media role",
+        "transparent layers over the page canvas",
+        "heading/body/single-CTA hierarchy",
+        "black default, gold hover, black-with-outline focus state separation"
+      ],
+      "mustLabel": "fictional held-out fixture",
+      "mustNot": [
+        "count the 1440-to-390 reflow as the generative change",
+        "present a different official Pokémon asset as evidence-approved",
+        "reuse a source screenshot or screenshot crop",
+        "claim source fidelity for an implementation-chosen breakpoint"
+      ]
+    }
+  ],
+  "roleBoundaries": {
+    "color": {
+      "allowed": [
+        "white for the page canvas",
+        "near-black and white for CTA default/focus surface and content",
+        "#E2BA65 only for the settled CTA pointer-hover fill",
+        "#005FCC only as the observed 390 keyboard-focus outline"
+      ],
+      "forbidden": [
+        "asset-blue, asset-orange, logo-yellow, or other sampled image colors as UI tokens",
+        "gold section backgrounds or headings",
+        "blue decorative borders derived from the focus ring",
+        "white child-panel fills"
+      ]
+    },
+    "asset": {
+      "allowed": ["the archived official 1x and 2x JPEG candidates with their frozen hashes", "a responsive img/srcset implementation that verifies live currentSrc"],
+      "forbidden": ["source screenshots as runtime assets", "alternate official event art on the calibration surface", "cropped or recolored derivatives", "asset-color sampling as UI-role evidence"]
+    },
+    "motion": {
+      "allowed": ["CTA hover overlay scaleX(0) to scaleX(1), center origin, with source-declared 0.2s ease-in-out transition"],
+      "forbidden": ["section entrance animation", "parallax", "image zoom", "timing inferred from continuous-scroll frames", "invented pressed/loading/disabled motion"]
+    }
+  },
+  "officialAssetUsage": {
+    "calibrationSurface": {
+      "requiredAssetId": "championship-series-image-2x",
+      "requiredSourceUrl": "https://tcg.pokemon.com/assets/img/home/championship-series/championships-2x.jpg",
+      "requiredSha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db",
+      "naturalSize": [1392, 1392],
+      "role": "principal section image",
+      "variant": "2x",
+      "composition": "full square 1:1 event image; 720x720 at the 1440 endpoint and 390x390 at the 390 endpoint"
+    },
+    "responsiveCandidates": {
+      "src1x": {
+        "url": "https://tcg.pokemon.com/assets/img/home/championship-series/championships.jpg",
+        "path": "../evidence/captures/assets/championships.jpg",
+        "naturalSize": [696, 696],
+        "sha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d"
+      },
+      "srcset2x": {
+        "url": "https://tcg.pokemon.com/assets/img/home/championship-series/championships-2x.jpg",
+        "path": "../evidence/captures/assets/championships-2x.jpg",
+        "naturalSize": [1392, 1392],
+        "sha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db"
+      },
+      "observed390": {
+        "src": "1x championships.jpg",
+        "currentSrc": "2x championships-2x.jpg",
+        "rule": "src is not proof of the selected resource; record and verify src, srcset, and live currentSrc."
+      }
+    },
+    "mustPreserve": ["asset identity", "variant identity", "source URL", "SHA-256", "1:1 composition", "responsive candidate relationship"],
+    "mustNot": ["replace with another official image", "use a source screenshot/crop", "recolor", "tint", "crop away the documented square composition", "derive UI palette roles from pixels inside the asset"]
+  },
+  "unresolvedClaims": [
+    {
+      "id": "desktop-typography-child-boxes",
+      "status": "unresolved-non-blocking",
+      "reason": "Exact desktop heading, paragraph, and CTA bounding boxes were not independently frozen.",
+      "effect": "Use the approved desktop content box and visible hierarchy, but do not claim exact desktop child geometry."
+    },
+    {
+      "id": "responsive-breakpoint",
+      "status": "unresolved-non-blocking",
+      "reason": "The evidence freezes 1440 and 390 endpoints, not the exact layout-switch threshold.",
+      "effect": "Any chosen implementation breakpoint is an implementation decision until separately observed."
+    },
+    {
+      "id": "desktop-focus-outline-computed-value",
+      "status": "unresolved-non-blocking",
+      "reason": "Desktop focus is visually frozen, but the exact outline computed value is independently recorded only at 390.",
+      "effect": "Preserve black fill plus a visible outline on desktop; do not claim the exact desktop outline value without a computed recapture."
+    },
+    {
+      "id": "dembrandt-score",
+      "status": "unresolved-non-blocking",
+      "reason": "Dembrandt was unavailable in the Evidence run.",
+      "effect": "No similarity score or threshold result may be claimed."
+    }
+  ],
+  "recommendations": [
+    {
+      "id": "implementation-self-check",
+      "type": "recommendation",
+      "text": "Verify 1440 and 390 section-local rectangles, background ownership, DOM/visual order, exact asset hash/currentSrc, and all three CTA presentations before QA."
+    },
+    {
+      "id": "qa-state-separation",
+      "type": "recommendation",
+      "text": "Compare default, settled pointer hover, and keyboard focus independently; a gold focus state is a blocking role expansion."
+    },
+    {
+      "id": "qa-generative-proof",
+      "type": "recommendation",
+      "text": "Reject a held-out proof that only reflows the source responsively, swaps official imagery, or changes labels while preserving the original composition verbatim."
+    }
+  ],
+  "handoff": {
+    "decision": "PASS",
+    "blockingUnresolved": [],
+    "downstreamMayConsume": ["approvedVisualPatterns", "compositionContracts", "tokens", "recipes", "roleBoundaries", "officialAssetUsage"],
+    "downstreamMustNotTreatAsObserved": ["recommendations", "implementation-chosen breakpoint", "unresolved desktop child boxes"]
+  }
+}

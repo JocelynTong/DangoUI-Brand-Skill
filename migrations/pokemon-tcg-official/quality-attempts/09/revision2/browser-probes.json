@@ -1,0 +1,898 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "09-revision2",
+  "scope": "home-product-bands",
+  "results": [
+    {
+      "surface": {
+        "id": "desktop-1440x900",
+        "width": 1440,
+        "height": 900,
+        "proof": "desktop"
+      },
+      "route": "http://127.0.0.1:5174/?qa=attempt09-r2&proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "settled": {
+        "section": {
+          "x": 0,
+          "y": 1169.796875,
+          "width": 1440,
+          "height": 624,
+          "right": 1440,
+          "bottom": 1793.796875
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 2712.390625,
+          "right": 1440,
+          "bottom": 2712.390625
+        },
+        "backgroundImage": "url(\"http://127.0.0.1:5174/assets/brand-assets/pokemon-tcg-official/tcgl-background.jpg\")",
+        "entryState": "settled",
+        "copy": {
+          "rect": {
+            "x": 12,
+            "y": 1323.796875,
+            "width": 696,
+            "height": 316,
+            "right": 708,
+            "bottom": 1639.796875
+          },
+          "style": {
+            "fontFamily": "\"PT Sans\", sans-serif",
+            "fontSize": "12px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0.7)",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, -158)"
+          }
+        },
+        "scene": {
+          "x": 612,
+          "y": 1201.796875,
+          "width": 778,
+          "height": 538,
+          "right": 1390,
+          "bottom": 1739.796875
+        },
+        "h2": {
+          "rect": {
+            "x": 84,
+            "y": 1373.796875,
+            "width": 552,
+            "height": 44,
+            "right": 636,
+            "bottom": 1417.796875
+          },
+          "style": {
+            "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+            "fontSize": "40px",
+            "fontWeight": "700",
+            "lineHeight": "44px",
+            "letterSpacing": "1.25px",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "body": {
+          "rect": {
+            "x": 84,
+            "y": 1431.796875,
+            "width": 552,
+            "height": 57.59375,
+            "right": 636,
+            "bottom": 1489.390625
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "lineHeight": "28.8px",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "cta": {
+          "rect": {
+            "x": 258.546875,
+            "y": 1513.390625,
+            "width": 202.890625,
+            "height": 56,
+            "right": 461.4375,
+            "bottom": 1569.390625
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "20px",
+            "fontWeight": "700",
+            "lineHeight": "24px",
+            "letterSpacing": "normal",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "opacity": "1",
+            "transform": "none"
+          },
+          "href": "https://tcg.pokemon.com/en-us/tcgl/"
+        },
+        "assets": [
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__laptop",
+            "src": "/assets/brand-assets/pokemon-tcg-official/laptop.png",
+            "rect": {
+              "x": 730.25,
+              "y": 1323.921875,
+              "width": 657.015625,
+              "height": 387.640625,
+              "right": 1387.265625,
+              "bottom": 1711.5625
+            },
+            "natural": [
+              661,
+              390
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__pikachu",
+            "src": "/assets/brand-assets/pokemon-tcg-official/pikachu.png",
+            "rect": {
+              "x": 612,
+              "y": 1461.640625,
+              "width": 280,
+              "height": 276,
+              "right": 892,
+              "bottom": 1737.640625
+            },
+            "natural": [
+              280,
+              276
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__phone",
+            "src": "/assets/brand-assets/pokemon-tcg-official/phone.png",
+            "rect": {
+              "x": 1211.984375,
+              "y": 1457.875,
+              "width": 132.015625,
+              "height": 274.03125,
+              "right": 1344,
+              "bottom": 1731.90625
+            },
+            "natural": [
+              132,
+              274
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--one",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-1.png",
+            "rect": {
+              "x": 1077,
+              "y": 1248.8125,
+              "width": 134.96875,
+              "height": 115.96875,
+              "right": 1211.96875,
+              "bottom": 1364.78125
+            },
+            "natural": [
+              135,
+              116
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--two",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-2.png",
+            "rect": {
+              "x": 1211.984375,
+              "y": 1201.796875,
+              "width": 167.96875,
+              "height": 145.96875,
+              "right": 1379.953125,
+              "bottom": 1347.765625
+            },
+            "natural": [
+              168,
+              146
+            ]
+          }
+        ],
+        "sectionHorizontalOverflow": false,
+        "documentHorizontalOverflow": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 450,
+          "right": 1440,
+          "bottom": 450
+        },
+        "news": {
+          "x": 0,
+          "y": 450,
+          "width": 1440,
+          "height": 719.796875,
+          "right": 1440,
+          "bottom": 1169.796875
+        }
+      },
+      "hover": {
+        "section": {
+          "x": 0,
+          "y": 137.796875,
+          "width": 1440,
+          "height": 624,
+          "right": 1440,
+          "bottom": 761.796875
+        },
+        "screen": {
+          "x": 0,
+          "y": -1032,
+          "width": 1440,
+          "height": 2712.390625,
+          "right": 1440,
+          "bottom": 1680.390625
+        },
+        "backgroundImage": "url(\"http://127.0.0.1:5174/assets/brand-assets/pokemon-tcg-official/tcgl-background.jpg\")",
+        "entryState": "settled",
+        "copy": {
+          "rect": {
+            "x": 12,
+            "y": 291.796875,
+            "width": 696,
+            "height": 316,
+            "right": 708,
+            "bottom": 607.796875
+          },
+          "style": {
+            "fontFamily": "\"PT Sans\", sans-serif",
+            "fontSize": "12px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0.7)",
+            "opacity": "1",
+            "transform": "matrix(1, 0, 0, 1, 0, -158)"
+          }
+        },
+        "scene": {
+          "x": 612,
+          "y": 169.796875,
+          "width": 778,
+          "height": 538,
+          "right": 1390,
+          "bottom": 707.796875
+        },
+        "h2": {
+          "rect": {
+            "x": 84,
+            "y": 341.796875,
+            "width": 552,
+            "height": 44,
+            "right": 636,
+            "bottom": 385.796875
+          },
+          "style": {
+            "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+            "fontSize": "40px",
+            "fontWeight": "700",
+            "lineHeight": "44px",
+            "letterSpacing": "1.25px",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "body": {
+          "rect": {
+            "x": 84,
+            "y": 399.796875,
+            "width": 552,
+            "height": 57.59375,
+            "right": 636,
+            "bottom": 457.390625
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "lineHeight": "28.8px",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "cta": {
+          "rect": {
+            "x": 258.546875,
+            "y": 481.390625,
+            "width": 202.890625,
+            "height": 56,
+            "right": 461.4375,
+            "bottom": 537.390625
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "20px",
+            "fontWeight": "700",
+            "lineHeight": "24px",
+            "letterSpacing": "normal",
+            "color": "rgb(226, 186, 101)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "opacity": "1",
+            "transform": "none"
+          },
+          "href": "https://tcg.pokemon.com/en-us/tcgl/"
+        },
+        "assets": [
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__laptop",
+            "src": "/assets/brand-assets/pokemon-tcg-official/laptop.png",
+            "rect": {
+              "x": 730.25,
+              "y": 291.921875,
+              "width": 657.015625,
+              "height": 387.640625,
+              "right": 1387.265625,
+              "bottom": 679.5625
+            },
+            "natural": [
+              661,
+              390
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__pikachu",
+            "src": "/assets/brand-assets/pokemon-tcg-official/pikachu.png",
+            "rect": {
+              "x": 612,
+              "y": 429.640625,
+              "width": 280,
+              "height": 276,
+              "right": 892,
+              "bottom": 705.640625
+            },
+            "natural": [
+              280,
+              276
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__phone",
+            "src": "/assets/brand-assets/pokemon-tcg-official/phone.png",
+            "rect": {
+              "x": 1211.984375,
+              "y": 425.875,
+              "width": 132.015625,
+              "height": 274.03125,
+              "right": 1344,
+              "bottom": 699.90625
+            },
+            "natural": [
+              132,
+              274
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--one",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-1.png",
+            "rect": {
+              "x": 1077,
+              "y": 216.8125,
+              "width": 134.96875,
+              "height": 115.96875,
+              "right": 1211.96875,
+              "bottom": 332.78125
+            },
+            "natural": [
+              135,
+              116
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--two",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-2.png",
+            "rect": {
+              "x": 1211.984375,
+              "y": 169.796875,
+              "width": 167.96875,
+              "height": 145.96875,
+              "right": 1379.953125,
+              "bottom": 315.765625
+            },
+            "natural": [
+              168,
+              146
+            ]
+          }
+        ],
+        "sectionHorizontalOverflow": false,
+        "documentHorizontalOverflow": false,
+        "hero": {
+          "x": 0,
+          "y": -1032,
+          "width": 1440,
+          "height": 450,
+          "right": 1440,
+          "bottom": -582
+        },
+        "news": {
+          "x": 0,
+          "y": -582,
+          "width": 1440,
+          "height": 719.796875,
+          "right": 1440,
+          "bottom": 137.796875
+        }
+      },
+      "consoleErrors": []
+    },
+    {
+      "surface": {
+        "id": "mobile-390x844",
+        "width": 390,
+        "height": 844,
+        "proof": null
+      },
+      "route": "http://127.0.0.1:5174/?qa=attempt09-r2#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "settled": {
+        "section": {
+          "x": 0,
+          "y": 1049.1875,
+          "width": 390,
+          "height": 644.625,
+          "right": 390,
+          "bottom": 1693.8125
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 821.453125,
+          "right": 390,
+          "bottom": 821.453125
+        },
+        "backgroundImage": "url(\"http://127.0.0.1:5174/assets/brand-assets/pokemon-tcg-official/tcgl-background.jpg\")",
+        "entryState": "settled",
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 1379.609375,
+            "width": 390,
+            "height": 314.1875,
+            "right": 390,
+            "bottom": 1693.796875
+          },
+          "style": {
+            "fontFamily": "\"PT Sans\", sans-serif",
+            "fontSize": "12px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "scene": {
+          "x": 8,
+          "y": 1081.1875,
+          "width": 374,
+          "height": 258.625,
+          "right": 382,
+          "bottom": 1339.8125
+        },
+        "h2": {
+          "rect": {
+            "x": 30,
+            "y": 1409.609375,
+            "width": 330,
+            "height": 30.796875,
+            "right": 360,
+            "bottom": 1440.40625
+          },
+          "style": {
+            "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "700",
+            "lineHeight": "30.8px",
+            "letterSpacing": "1px",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "body": {
+          "rect": {
+            "x": 30,
+            "y": 1452.40625,
+            "width": 330,
+            "height": 57.59375,
+            "right": 360,
+            "bottom": 1510
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "lineHeight": "28.8px",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "cta": {
+          "rect": {
+            "x": 99.5,
+            "y": 1530,
+            "width": 191,
+            "height": 51,
+            "right": 290.5,
+            "bottom": 1581
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "700",
+            "lineHeight": "22.5px",
+            "letterSpacing": "normal",
+            "color": "rgb(0, 0, 0)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "opacity": "1",
+            "transform": "none"
+          },
+          "href": "https://tcg.pokemon.com/en-us/tcgl/"
+        },
+        "assets": [
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__laptop",
+            "src": "/assets/brand-assets/pokemon-tcg-official/laptop.png",
+            "rect": {
+              "x": 64.84375,
+              "y": 1139.890625,
+              "width": 315.828125,
+              "height": 186.328125,
+              "right": 380.671875,
+              "bottom": 1326.21875
+            },
+            "natural": [
+              661,
+              390
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__pikachu",
+            "src": "/assets/brand-assets/pokemon-tcg-official/pikachu.png",
+            "rect": {
+              "x": 8,
+              "y": 1206.09375,
+              "width": 134.59375,
+              "height": 132.65625,
+              "right": 142.59375,
+              "bottom": 1338.75
+            },
+            "natural": [
+              280,
+              276
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__phone",
+            "src": "/assets/brand-assets/pokemon-tcg-official/phone.png",
+            "rect": {
+              "x": 296.421875,
+              "y": 1204.28125,
+              "width": 63.453125,
+              "height": 131.703125,
+              "right": 359.875,
+              "bottom": 1335.984375
+            },
+            "natural": [
+              132,
+              274
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--one",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-1.png",
+            "rect": {
+              "x": 231.53125,
+              "y": 1103.78125,
+              "width": 64.875,
+              "height": 55.734375,
+              "right": 296.40625,
+              "bottom": 1159.515625
+            },
+            "natural": [
+              135,
+              116
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--two",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-2.png",
+            "rect": {
+              "x": 296.421875,
+              "y": 1081.1875,
+              "width": 80.734375,
+              "height": 70.15625,
+              "right": 377.15625,
+              "bottom": 1151.34375
+            },
+            "natural": [
+              168,
+              146
+            ]
+          }
+        ],
+        "sectionHorizontalOverflow": false,
+        "documentHorizontalOverflow": false,
+        "hero": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 416,
+          "right": 390,
+          "bottom": 416
+        },
+        "news": {
+          "x": 0,
+          "y": 416,
+          "width": 390,
+          "height": 633.1875,
+          "right": 390,
+          "bottom": 1049.1875
+        }
+      },
+      "hover": {
+        "section": {
+          "x": 0,
+          "y": 88.1875,
+          "width": 390,
+          "height": 644.625,
+          "right": 390,
+          "bottom": 732.8125
+        },
+        "screen": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 821.453125,
+          "right": 390,
+          "bottom": 821.453125
+        },
+        "backgroundImage": "url(\"http://127.0.0.1:5174/assets/brand-assets/pokemon-tcg-official/tcgl-background.jpg\")",
+        "entryState": "settled",
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 418.609375,
+            "width": 390,
+            "height": 314.1875,
+            "right": 390,
+            "bottom": 732.796875
+          },
+          "style": {
+            "fontFamily": "\"PT Sans\", sans-serif",
+            "fontSize": "12px",
+            "fontWeight": "400",
+            "lineHeight": "normal",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "scene": {
+          "x": 8,
+          "y": 120.1875,
+          "width": 374,
+          "height": 258.625,
+          "right": 382,
+          "bottom": 378.8125
+        },
+        "h2": {
+          "rect": {
+            "x": 30,
+            "y": 448.609375,
+            "width": 330,
+            "height": 30.796875,
+            "right": 360,
+            "bottom": 479.40625
+          },
+          "style": {
+            "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+            "fontSize": "28px",
+            "fontWeight": "700",
+            "lineHeight": "30.8px",
+            "letterSpacing": "1px",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "body": {
+          "rect": {
+            "x": 30,
+            "y": 491.40625,
+            "width": 330,
+            "height": 57.59375,
+            "right": 360,
+            "bottom": 549
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "400",
+            "lineHeight": "28.8px",
+            "letterSpacing": "normal",
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgba(0, 0, 0, 0)",
+            "opacity": "1",
+            "transform": "none"
+          }
+        },
+        "cta": {
+          "rect": {
+            "x": 99.5,
+            "y": 569,
+            "width": 191,
+            "height": 51,
+            "right": 290.5,
+            "bottom": 620
+          },
+          "style": {
+            "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+            "fontSize": "18px",
+            "fontWeight": "700",
+            "lineHeight": "22.5px",
+            "letterSpacing": "normal",
+            "color": "rgb(226, 186, 101)",
+            "backgroundColor": "rgb(255, 255, 255)",
+            "opacity": "1",
+            "transform": "none"
+          },
+          "href": "https://tcg.pokemon.com/en-us/tcgl/"
+        },
+        "assets": [
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__laptop",
+            "src": "/assets/brand-assets/pokemon-tcg-official/laptop.png",
+            "rect": {
+              "x": 64.84375,
+              "y": 178.890625,
+              "width": 315.828125,
+              "height": 186.328125,
+              "right": 380.671875,
+              "bottom": 365.21875
+            },
+            "natural": [
+              661,
+              390
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__pikachu",
+            "src": "/assets/brand-assets/pokemon-tcg-official/pikachu.png",
+            "rect": {
+              "x": 8,
+              "y": 245.09375,
+              "width": 134.59375,
+              "height": 132.65625,
+              "right": 142.59375,
+              "bottom": 377.75
+            },
+            "natural": [
+              280,
+              276
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__phone",
+            "src": "/assets/brand-assets/pokemon-tcg-official/phone.png",
+            "rect": {
+              "x": 296.421875,
+              "y": 243.28125,
+              "width": 63.453125,
+              "height": 131.703125,
+              "right": 359.875,
+              "bottom": 374.984375
+            },
+            "natural": [
+              132,
+              274
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--one",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-1.png",
+            "rect": {
+              "x": 231.53125,
+              "y": 142.78125,
+              "width": 64.875,
+              "height": 55.734375,
+              "right": 296.40625,
+              "bottom": 198.515625
+            },
+            "natural": [
+              135,
+              116
+            ]
+          },
+          {
+            "className": "pokemon-tcgl__asset pokemon-tcgl__avatar pokemon-tcgl__avatar--two",
+            "src": "/assets/brand-assets/pokemon-tcg-official/avatar-2.png",
+            "rect": {
+              "x": 296.421875,
+              "y": 120.1875,
+              "width": 80.734375,
+              "height": 70.15625,
+              "right": 377.15625,
+              "bottom": 190.34375
+            },
+            "natural": [
+              168,
+              146
+            ]
+          }
+        ],
+        "sectionHorizontalOverflow": false,
+        "documentHorizontalOverflow": false,
+        "hero": {
+          "x": 0,
+          "y": -961,
+          "width": 390,
+          "height": 416,
+          "right": 390,
+          "bottom": -545
+        },
+        "news": {
+          "x": 0,
+          "y": -545,
+          "width": 390,
+          "height": 633.1875,
+          "right": 390,
+          "bottom": 88.1875
+        }
+      },
+      "consoleErrors": []
+    }
+  ],
+  "checks": {
+    "independentDesktopSurface": true,
+    "desktopComposition": true,
+    "independentMobileSurface": true,
+    "mobileComposition": true,
+    "desktopTypography": true,
+    "mobileTypography": true,
+    "fiveIndependentAssets": true,
+    "backgroundAndSeamAsset": true,
+    "ctaTargetAndHover": true,
+    "settledAuthorityOnly": true,
+    "noOverflow": true,
+    "heroNewsRegression": true,
+    "consoleClean": true
+  },
+  "implementationChecksPass": true,
+  "motionDisposition": "unresolved candidate; omitted from implementation and scoring",
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

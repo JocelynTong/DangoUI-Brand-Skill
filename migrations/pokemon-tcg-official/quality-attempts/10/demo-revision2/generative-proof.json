@@ -1,0 +1,14 @@
+{
+  "schema":"brand-generative-proof/v1",
+  "brand":"pokemon-tcg-official",
+  "attempt":"10-demo-revision2",
+  "scope":"home-editorial-grid",
+  "proofType":"responsive-structural-translation",
+  "invariants":["campaign asset precedes explanation","independent Pocket composite remains primary recognition asset","opaque black field contains exactly H2, paragraph, CTA","Kanit/PT Sans role split","localized white external CTA with gold foreground hover","desktop/mobile background payload remains visually identical"],
+  "intentionalChanges":["desktop equal side-by-side fields become asset-first/copy-second at 390px","the responsive URL role changes while the verified artwork bytes remain identical","title and paragraph wrap fluidly","composite scales proportionally"],
+  "allowedBecause":"PAT-POCKET-01 preserves viewport-specific URL roles without inventing a visual asset substitution; PAT-POCKET-02 through PAT-POCKET-07 approve the structural reflow, proportional composite scaling and fluid copy.",
+  "captures":["../demo/captures/desktop-1440-settled.png","../demo/captures/mobile-390-settled.png","../demo/captures/desktop-1440-hover.png","../demo/captures/mobile-390-hover.png"],
+  "usesSourceScreenshotAtRuntime":false,
+  "entryMotionClaim":"unresolved/unscored and omitted",
+  "visualVerdict":"reserved-for-blind-qa"
+}

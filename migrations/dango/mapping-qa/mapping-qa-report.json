@@ -1,0 +1,27 @@
+{
+  "schema": "dango-mapping-qa-report/v0.1",
+  "brand": "dango",
+  "verdict": "FAIL",
+  "reason": "The native DuButton and four mapped token consumers are real, but the five-token runtime closure is incomplete and #5854FF expands beyond its approved navigation-current role.",
+  "counts": {"mappedDuTokensDeclared":5,"mappedDuTokensExisting":5,"mappedDuTokensRuntimePass":4,"mappedDuTokensRuntimeFail":1,"nativeComponentsClaimed":1,"nativeComponentsVerified":1,"compositionCandidates":1,"styleOnlyRecipesVerified":3,"blockers":2},
+  "blockers": [
+    {"code":"MAPPED_TOKEN_NOT_COMPUTED_CONSUMED","target":"--du-bg-2","severity":"blocking","finding":"The Dango root declares background: var(--du-bg-2), but computed background is black with a pitch-black remote texture because the later generic .source-schema-demo rule overrides it. A declaration that loses the cascade is not runtime consumption."},
+    {"code":"TOKEN_ROLE_EXPANSION","target":"#5854FF / --style-docs-navigation-current","severity":"blocking","finding":"#5854FF correctly drives the current navigation cue and does not contaminate --du-primary-*, but it is also hardcoded into Beta, import/code/table and checklist affordances. The approved role is documentation current-page cue only, so this is unsupported role expansion."}
+  ],
+  "passes": [
+    "All five declared --du-* targets exist in the DangoUI catalog.",
+    "--du-bg-1, --du-text-1, --du-border-1 and --du-primary-solid-bg resolve to expected values on real Dango consumers.",
+    "The Button page contains real DuButton runtime instances with genuine component classes and the --du-bt-solid-bg to --du-primary-solid-bg chain.",
+    "32px height, 4px radius, #7C66FF fill, focus, activated state and blur restoration are preserved; hover/active stability is also present in the scoped source rule.",
+    "NavigationBar remains composition-candidate and is not claimed as a runtime instance.",
+    "Documentation shell, technical flow and page outline remain style-only compositions without invented component/API claims.",
+    "The held-out release checklist reuses the same scope/tokens and a native DuButton with changed information structure."
+  ],
+  "commands": [
+    {"command":"node scripts/validate-brand-mod.mjs migrations/dango/brand-mod.json","status":"PASS"},
+    {"command":"node skills/brand/scripts/brand-guard.mjs rule-candidate-gate --brand dango","status":"PASS"},
+    {"command":"npm run build","status":"PASS_WITH_CHUNK_SIZE_WARNING"}
+  ],
+  "inputManifest":"migrations/dango/mapping-qa/qa-input-manifest.json",
+  "computedReport":"migrations/dango/mapping-qa/computed-consumption-report.json"
+}

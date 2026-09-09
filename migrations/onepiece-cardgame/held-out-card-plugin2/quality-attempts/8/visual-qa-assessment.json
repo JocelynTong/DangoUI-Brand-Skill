@@ -1,0 +1,65 @@
+{
+  "schema": "heldout-plaza-spacing-visual-qa/v1",
+  "attempt": 8,
+  "role": "fresh-independent-visual-qa",
+  "fresh": true,
+  "readOnly": true,
+  "verdict": "PASS",
+  "decision": "The reported search/filter vertical dead-space regression is closed at 390x844, 536x864 and 1280x720. Remaining space is proportional container rhythm or a functional horizontal-scroll affordance, not an empty row.",
+  "screenshots": [
+    "fresh-390x844-plaza.png",
+    "fresh-536x864-plaza.png",
+    "fresh-1280x720-plaza.png"
+  ],
+  "findings": {
+    "searchSpacing": {
+      "status": "PASS",
+      "evidence": [
+        "The real input is vertically centered inside the search outer: 390 top/bottom inset 1.031/1.047px, 536 1.422/1.422px, desktop 1/1px.",
+        "The search wrapper has no hidden bottom padding. Its top breathing room is balanced by the following section gap: 390 18.719px versus 14.547px; 536 25.719px versus 20px; desktop 18px versus 14px.",
+        "Search outer uses align-items:center and the input has zero block padding, so the previous phantom lower line-box is absent."
+      ]
+    },
+    "filterRailSpacing": {
+      "status": "PASS",
+      "evidence": [
+        "The environment rail is one control row plus the deliberate scrollbar lane: chip bottom inset 10.406px at 390 and 14.281px at 536; it is 0 at desktop where the controls wrap and scrolling is disabled.",
+        "The rail has no partial initial chip at either mobile width and no vertical overflow.",
+        "Vertical wheel input over the rail moves scrollLeft from 0 to 500; focus and pointer selection also scroll the target fully into view. The right-edge continuation marker is visible on the narrow render.",
+        "Panel content-bottom gap is 11.391px at 390, 15.281px at 536 and 11px desktop, matching the panel's declared bottom padding rather than creating an additional row."
+      ]
+    },
+    "controlGeometry": {
+      "status": "PASS",
+      "evidence": "Line height, box height and vertical alignment are stable. Mobile environment controls occupy one 44px-equivalent row; desktop controls wrap without a scroll gutter."
+    },
+    "interactionAndA11y": {
+      "status": "PASS",
+      "evidence": [
+        "All 39 environment choices are focusable, role=button, have aria-pressed, and become fully visible when focused.",
+        "All 3 category choices also pass, for 42/42 total filter controls.",
+        "Pointer, Enter and Space each change the final environment option from aria-pressed=false to true with focus retained.",
+        "Vertical wheel/trackpad motion is usable as horizontal scrolling; direct horizontal delta is browser-dependent and did not move in headless Chrome, but this does not block the ordinary wheel path."
+      ]
+    },
+    "foldAndOverflow": {
+      "status": "PASS",
+      "evidence": "Season strip and first deck card are visible in all three initial viewports. Document horizontal overflow is 0px in every viewport."
+    },
+    "businessSafety": {
+      "status": "PASS",
+      "evidence": "No POST/PUT/PATCH/DELETE request was observed during render, focus, pointer or keyboard probes."
+    },
+    "regression": {
+      "status": "PASS",
+      "evidence": "Build, mine, event, round and detail fresh mobile screenshots exactly match Attempt 4 SHA-256 values and each has 0px document overflow."
+    },
+    "directionPreservation": {
+      "status": "PASS",
+      "evidence": "Attempt 4's warm-paper editorial direction, low-radius cards, navy/red hierarchy and restrained yellow active state remain intact on Plaza."
+    }
+  },
+  "blockingFindings": [],
+  "codeReworkRequired": false,
+  "source": "browser-probes.json"
+}

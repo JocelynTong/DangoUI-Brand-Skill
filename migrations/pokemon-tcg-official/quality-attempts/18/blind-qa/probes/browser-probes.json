@@ -1,0 +1,42 @@
+{
+  "schema": "brand-blind-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 18,
+  "url": "http://127.0.0.1:5177",
+  "isolation": {
+    "readPriorQa": false,
+    "readContrastFix": false,
+    "readImplementationRationale": false
+  },
+  "cardDatabase": {
+    "searchButton": {
+      "selector": ".pokemon-db__submit",
+      "fontSize": "12px",
+      "fontWeight": "700",
+      "threshold": 4.5,
+      "states": {
+        "normal": {"foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrast": 4.874435255231589, "pass": true},
+        "hover": {"foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrast": 4.874435255231589, "pass": true},
+        "focus": {"foreground": "rgb(34, 34, 34)", "background": "rgb(228, 107, 41)", "contrast": 4.874435255231589, "pass": true, "focusVisible": true, "outline": "rgb(34, 34, 34) none 0px", "boxShadow": "none"}
+      }
+    },
+    "emptyState": {"text": "Enter a card name to search the official card database.", "presentInitially": true, "presentAfterEmptySubmit": true, "presentAfterReset": true},
+    "viewport390": {"documentClientWidth": 390, "documentScrollWidth": 390, "phoneScreenClientWidth": 371, "phoneScreenScrollWidth": 371, "horizontalOverflow": false, "resultsAfterPikachu": 4, "inputAfterReset": "", "resultsAfterReset": 0},
+    "internal371": {"phoneScreenClientWidth": 371, "phoneScreenScrollWidth": 371, "horizontalOverflow": false, "resultsAfterPikachu": 4, "inputAfterReset": "", "resultsAfterReset": 0, "emptyScrollHeight": 1638, "resultsScrollHeight": 3704}
+  },
+  "regressions": {
+    "home": {"sections": 5, "imagesLoaded": "all", "scroll": {"before": 0, "after": 500, "restored": 0}, "campaign": {"triggered": "campaign-2", "restored": "campaign-1"}},
+    "learn": {"sections": 4, "imagesLoaded": "all", "phoneScreen": {"clientWidth": 371, "scrollWidth": 371, "clientHeight": 802, "scrollHeight": 3519}, "accordion": {"triggered": "Hit Points", "restored": "Name and Type"}, "scrollRestored": 0},
+    "heldOut": {"sections": 2, "imagesLoaded": "all", "phoneScreen": {"clientWidth": 371, "scrollWidth": 371, "clientHeight": 802, "scrollHeight": 1676}, "accordion": {"triggered": "Support the plan", "restored": "Choose a lead Pokémon"}, "scrollRestored": 0},
+    "mockupNormal": {"phone": {"width": 390, "height": 821.4609375}, "screen": {"width": 371, "clientHeight": 802, "scrollHeight": 2461, "borderRadius": "31.5936px"}, "indicator": {"owner": "phone template-phone", "display": "flex", "position": "absolute", "rectDeltaAfterScroll": 0}, "scroll": {"before": 0, "after": 500, "restored": 0}},
+    "mockupProofMobile": {"indicatorDisplay": "none"}
+  },
+  "captures": [
+    "captures/card-db-371-empty-focus.png",
+    "captures/card-db-371-results.png",
+    "captures/card-db-390-results.png",
+    "captures/home-390.png",
+    "captures/learn-390.png",
+    "captures/held-out-390.png"
+  ]
+}

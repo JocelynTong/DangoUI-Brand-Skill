@@ -1,0 +1,10 @@
+{
+  "schema":"brand-demo-shell-modes/v1","brand":"pokemon-tcg-official","attempt":"10-demo-revision6",
+  "modes":[
+    {"id":"normal-home","query":"none","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home","shell":"phone","frame":"9px border; 41.4666px radius; pseudo-element shadow","screen":"31.5936px radius; clipped; overflow-y auto","contentWidth":372,"capture":"captures/normal-home.png"},
+    {"id":"normal-pocket-fixture","query":"none","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture","shell":"phone","proofRole":"generative-held-out-fictional","frame":"9px border; 41.4666px radius; pseudo-element shadow","screen":"31.5936px radius; clipped; overflow-y auto","contentWidth":372,"capture":"captures/normal-pocket-fixture.png"},
+    {"id":"proof-desktop-pocket","query":"proof=desktop","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture","shell":"none","viewport":"1440x900","section":{"x":0,"width":1440},"capture":"captures/proof-desktop-pocket.png"},
+    {"id":"proof-mobile-pocket","query":"proof=mobile","route":"#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-pocket-fixture","shell":"none","viewport":"390x844","section":{"x":0,"width":390},"capture":"captures/proof-mobile-pocket.png"}
+  ],
+  "invariant":"proofRole metadata never selects a shell mode; only an explicit proof query may remove the presentation chassis.","visualVerdict":"not-assigned-by-implementation-agent"
+}

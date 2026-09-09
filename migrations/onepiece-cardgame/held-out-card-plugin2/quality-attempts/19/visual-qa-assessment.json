@@ -1,0 +1,92 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 19,
+  "route": "pages/mine/index",
+  "qaRole": "fresh-independent-visual-qa",
+  "readOnly": true,
+  "verdict": "PASS",
+  "workflowCompletion": "PASS_MINE_PAGE_GATE",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "PASS",
+  "visualSystemConformance": "PASS",
+  "dangoUi": "PARTIAL_STYLE_ONLY",
+  "summary": "Attempt 19 closes the intermediate-card clipping and desktop author-truncation blockers from Attempt 18. Mine now preserves complete title, lineup tags, author and metrics at 390, 536 and 1280, with one column through 899px and two columns only when the card width is sufficient. All management branches, safe delete cancellation, keyboard behavior, touch targets, reduced motion, structural preservation and five-route regression pass with zero external writes.",
+  "blockingFindings": [],
+  "advisoryFindings": [],
+  "networkWrites": {
+    "external": 0,
+    "deleteConfirmed": false,
+    "productionContextMutated": false,
+    "note": "A single local draft was created only inside an isolated disposable browser context. QA opened delete confirmation, cancelled it with Enter, verified the draft remained, and discarded the context."
+  },
+  "responsiveLegibility": {
+    "390x844": {
+      "cardWidth": 365.0625,
+      "layout": "single-column",
+      "clippedTitles": 0,
+      "clippedTags": 0,
+      "clippedAuthors": 0,
+      "clippedStats": 0
+    },
+    "536x864": {
+      "cardWidth": 504,
+      "layout": "single-column",
+      "clippedTitles": 0,
+      "clippedTags": 0,
+      "clippedAuthors": 0,
+      "clippedStats": 0,
+      "findingClosure": "All three published cards visibly retain their full titles, all nine lineup tags, full authors and both metrics; document and internal text probes report no clipping."
+    },
+    "1280x720": {
+      "cardWidth": 455,
+      "layout": "two-column",
+      "clippedTitles": 0,
+      "clippedTags": 0,
+      "clippedAuthors": 0,
+      "clippedStats": 0,
+      "findingClosure": "AshKetchum, SabrinaPSY and MistyWater render in full; scrollWidth equals clientWidth for each author."
+    }
+  },
+  "passedChecks": {
+    "directionalComposition": "PASS: compact contained navy identity masthead, red create action, rectangular yellow selected tab, ruled inventory cards and warm-paper canvas establish the approved identity -> create -> tabs -> inventory sequence without a campaign Hero.",
+    "firstScreenUsefulness": "PASS at 390/536/1280: identity, create action, all four tabs and first inventory content are visible in the first screen.",
+    "forbiddenTreatments": "PASS: 0 .hero nodes, 0 pill-radius elements, no fluorescent canvas and no full-screen black treatment.",
+    "branches": {
+      "favorite": "PASS: aria-selected=true and one complete card visible.",
+      "draft": "PASS: aria-selected=true and real empty state visible.",
+      "published": "PASS: aria-selected=true and three complete cards visible.",
+      "hidden": "PASS: aria-selected=true and one complete card visible."
+    },
+    "inputModes": "PASS: pointer activation was exercised; Enter and Space independently selected all four tabs with aria-selected=true.",
+    "focus": "PASS: keyboard focus stayed on every activated tab and the visible focus treatment remained non-empty; modal cancel retained focus through Enter activation.",
+    "touchTargets": "PASS: no visible role=button/tab owner is below 44x44 at any tested viewport; draft edit/delete are 64.375x45.75 and modal actions are 144.094x49.906.",
+    "reducedMotion": "PASS: prefers-reduced-motion matched and no active transition or animation remained on checked controls.",
+    "overflow": "PASS: page-level horizontal overflow is 0px at all viewports and every measured title, tag, author and metric satisfies scrollWidth <= clientWidth + 1.",
+    "deleteConfirmation": "PASS: confirmation copy and danger/neutral hierarchy are legible; cancel via Enter closes it; draft count stays 1; confirm-delete is never invoked.",
+    "businessIntegrity": "PASS: Mine structural diff against its frozen baseline passes with only approved accessibility augmentations; no source data, condition, loop, route, API or store behavior was altered by the responsive repair.",
+    "otherRouteRegression": "PASS: plaza, build, detail, event and round each report 0px horizontal overflow and 0 external non-GET writes.",
+    "themeOrder": "PASS: single global theme entry is imported exactly once by src/app.js, with no validator failures."
+  },
+  "freshEvidence": {
+    "browserProbes": "fresh-browser-probes.json",
+    "runner": "run-fresh-qa.mjs",
+    "screenshots": [
+      "fresh-390x844-mine.png",
+      "fresh-390x844-mine-published.png",
+      "fresh-536x864-mine.png",
+      "fresh-536x864-mine-published.png",
+      "fresh-1280x720-mine.png",
+      "fresh-1280x720-mine-published.png",
+      "fresh-390x844-mine-delete-confirm.png"
+    ],
+    "structuralGate": {
+      "status": "PASS",
+      "command": "node skills/brand/scripts/validate-host-structural-diff.mjs --baseline migrations/onepiece-cardgame/held-out-card-plugin2/structural-baselines/mine-index.json --current card-plugin2.0/frontend/src/pages/mine/index.vue --manifest migrations/onepiece-cardgame/held-out-card-plugin2/structural-manifests/mine-index.json"
+    },
+    "themeOrderGate": {
+      "status": "PASS",
+      "command": "node skills/brand/scripts/validate-host-theme-order.mjs --root card-plugin2.0/frontend --contract migrations/onepiece-cardgame/held-out-card-plugin2/theme-order-contract.json"
+    }
+  },
+  "failureRoute": null
+}

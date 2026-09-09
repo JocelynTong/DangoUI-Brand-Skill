@@ -1,0 +1,100 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 20,
+  "route": "pages/round/index",
+  "qaRole": "fresh-independent-visual-qa",
+  "readOnly": true,
+  "verdict": "PASS",
+  "workflowCompletion": "PASS_ROUND_PAGE_GATE",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "PASS",
+  "visualSystemConformance": "PASS",
+  "dangoUi": "PARTIAL_STYLE_ONLY",
+  "summary": "Round now reads as a restrained tournament ranking sheet at 390, 536 and 1280: contained navy event context, compact round summary, tabular rank numerics and ruled deck/player rows appear in one uninterrupted scan order. Live, ended, open, first-place and unrecorded-deck states remain explicit in text; all available controls and navigation outcomes pass fresh read-only interaction checks with zero external writes.",
+  "blockingFindings": [],
+  "advisoryFindings": [
+    {
+      "code": "DIRECTION_FIELD_NOT_PRESENT_IN_FROZEN_HOST",
+      "owner": "Design Director / Orchestrator",
+      "finding": "The experiment acceptance copy names score and current-selection branches, but the frozen Round baseline, host data model and rendered route contain neither a score field nor a current-selection state. QA treats these as not-applicable rather than asking implementation to invent business data; rank, player, deck, favorite/view metrics, event status, gold rank and empty-slot semantics are preserved and verified.",
+      "blocking": false
+    }
+  ],
+  "networkWrites": {
+    "external": 0,
+    "productionContextMutated": false,
+    "note": "All probes used new disposable browser contexts. Navigation was exercised only to local detail routes; no non-GET request was observed."
+  },
+  "responsiveLegibility": {
+    "390x844": {
+      "mastheadHeight": 132.859375,
+      "firstRowTop": 155.71875,
+      "rowWidth": 365.03125,
+      "textClippedCount": 0,
+      "overflowX": 0,
+      "assessment": "PASS: event context, round metadata and the first meaningful rank row are visible immediately; rank -> cover -> deck/tags -> player/metrics preserves a clean mobile scan order."
+    },
+    "536x864": {
+      "mastheadHeight": 156.3125,
+      "firstRowTop": 186.59375,
+      "rowWidth": 504,
+      "textClippedCount": 0,
+      "overflowX": 0,
+      "assessment": "PASS: intermediate width gains breathing room without changing the row hierarchy or creating clipping/dead space."
+    },
+    "1280x720": {
+      "contentWidth": 920,
+      "mastheadHeight": 190.890625,
+      "firstRowTop": 226.890625,
+      "textClippedCount": 0,
+      "overflowX": 0,
+      "assessment": "PASS: desktop uses a bounded readable measure and extra horizontal space for metadata separation rather than premature multi-column compaction."
+    }
+  },
+  "passedChecks": {
+    "directionalComposition": "PASS: warm-paper canvas, one contained navy tournament masthead, sparse red identity rule, yellow first-place/live accents, ruled rows and strong rank numerics produce context -> summary -> ranking -> deck/player/status hierarchy without a decorative Hero.",
+    "firstScreenUsefulness": "PASS at 390/536/1280: event context, round identity and first meaningful rank row are all within the initial viewport; masthead-to-list gaps are only 10.39px, 14.28px and 20px respectively.",
+    "rankHierarchy": "PASS: rendered rank order remains 1, 2, 3, 3, 3, 6 and numerics form a stable left rail at all viewports.",
+    "semanticBranches": {
+      "live": "PASS: '● 进行中' is explicit text, not color-only, with six ranked slots.",
+      "ended": "PASS: '已结束' is explicit text on the Beijing round with three ranked rows.",
+      "open": "PASS: '报名中' is explicit text on the schedule branch with zero rows.",
+      "gold": "PASS: rank '1' remains visible in the first-place cell in addition to yellow emphasis.",
+      "empty": "PASS: the unrecorded first-place slot visibly says '卡组暂未收录' and shows a question-mark cover; it is not conveyed by color alone."
+    },
+    "deckAndPlayerIdentity": "PASS: deck names, lineup tags, player initials/names and favorite/view metrics are complete and unclipped in all three renders.",
+    "forbiddenTreatments": "PASS: 0 explicit Hero nodes, 0 pill-radius elements, no fake controls, no ornamental full-bleed artwork, no internal clipping and no accidental blank viewport region.",
+    "inputModes": "PASS: the first real deck control navigates to pages/detail/index via pointer, Enter and Space in isolated contexts.",
+    "focus": "PASS: keyboard focus is retained on the real deck owner with a solid visible outline (3px at 390, 4px at 536, 6px at 1280).",
+    "touchTargets": "PASS: no visible role=button owner is below 44x44; minimum measured owner is 313.125x112.3125.",
+    "reducedMotion": "PASS: prefers-reduced-motion is active and no checked control retains an animation or timed transition.",
+    "overflowAndClipping": "PASS: document overflow is 0px at all viewports and every measured event, round, deck, tag, player, metric and empty-state node satisfies scroll dimensions within its client box.",
+    "businessIntegrity": "PASS: current Round structural diff against the frozen baseline passes; data ordering, conditions, loops, stores, APIs and navigation outcomes remain intact, with only the approved same-outcome keyboard augmentation.",
+    "otherRouteRegression": "PASS: plaza, build, detail, event and mine retain their accepted screenshot hashes, each has 0px horizontal overflow and each emitted 0 external non-GET requests.",
+    "themeOrder": "PASS: the single global held-out theme entry remains imported exactly once from src/app.js.",
+    "productionBuild": "PASS: TARO_APP_HELDOUT_THEME=onepiece npm run build:h5 completed with 662 modules transformed."
+  },
+  "freshEvidence": {
+    "browserProbes": "fresh-browser-probes.json",
+    "runner": "run-fresh-qa.mjs",
+    "screenshots": [
+      "fresh-390x844-round.png",
+      "fresh-536x864-round.png",
+      "fresh-1280x720-round.png"
+    ],
+    "structuralGate": {
+      "status": "PASS",
+      "command": "node skills/brand/scripts/validate-host-structural-diff.mjs --baseline migrations/onepiece-cardgame/held-out-card-plugin2/structural-baselines/round-index.json --current card-plugin2.0/frontend/src/pages/round/index.vue --manifest migrations/onepiece-cardgame/held-out-card-plugin2/structural-manifests/round-index.json"
+    },
+    "themeOrderGate": {
+      "status": "PASS",
+      "command": "node skills/brand/scripts/validate-host-theme-order.mjs --root card-plugin2.0/frontend --contract migrations/onepiece-cardgame/held-out-card-plugin2/theme-order-contract.json"
+    },
+    "buildGate": {
+      "status": "PASS",
+      "command": "TARO_APP_HELDOUT_THEME=onepiece npm run build:h5",
+      "modules": 662
+    }
+  },
+  "failureRoute": null
+}

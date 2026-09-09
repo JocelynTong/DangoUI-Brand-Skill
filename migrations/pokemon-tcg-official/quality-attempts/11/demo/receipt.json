@@ -1,0 +1,11 @@
+{
+  "schemaVersion": 1,
+  "status": "ready-for-fresh-blind-qa",
+  "implemented": ["source Championship section", "independent fictional Championship-family fixture", "desktop and 390 proof modes", "normal mockup scroll preservation"],
+  "codeChanges": true,
+  "build": {"command": "npm run build", "exitCode": 0},
+  "browserSelfCheck": {"geometry": "completed", "states": "completed", "scrollRegression": "completed", "console": "no errors or warnings observed"},
+  "captures": 10,
+  "strictSectionGate": {"exitCode": 0, "failures": []},
+  "finalQaVerdict": "not-issued-by-demo-role"
+}

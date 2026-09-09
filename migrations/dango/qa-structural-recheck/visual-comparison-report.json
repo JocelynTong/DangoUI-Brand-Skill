@@ -1,0 +1,49 @@
+{
+  "schema": "brand-visual-comparison/v2",
+  "brand": "dango",
+  "qaRun": "structural-recheck",
+  "verdict": "PASS",
+  "comparisons": [
+    {
+      "pageId": "dango-introduction-calibration",
+      "sourcePageId": "introduction",
+      "score": 90,
+      "result": "PASS",
+      "retained": ["responsive docs shell", "title-divider-prose hierarchy", "wide technical-flow surface", "layer explanation", "long-form continuation", "mobile single-column reading order"],
+      "mobileBounded": true,
+      "scrollAndRestore": true
+    },
+    {
+      "pageId": "dango-button-calibration",
+      "sourcePageId": "button",
+      "score": 84,
+      "result": "PASS",
+      "assetIdentity": { "source": "dango-button-reference-dom-css", "demo": "dango-button-reference-dom-css", "match": true },
+      "variant": { "source": "multi-module-preview-code-api-theme", "demo": "multi-module-preview-code-api-theme", "match": true },
+      "boundedComparison": {
+        "sourceRegion": [0.161111, 0.113378, 0.691667, 0.50],
+        "demoRegion": [0.198611, 0.30, 0.478472, 0.346],
+        "sourcePixelAspect": 2.2133344,
+        "demoPixelAspect": 2.2125867,
+        "relativeAspectDelta": 0.000338,
+        "ruleResult": "PASS",
+        "retainedFocalPoints": ["live component preview", "adjacent implementation code"],
+        "observedReadingOrder": ["purpose", "import", "preview", "code", "additional preview/code modules", "API", "events", "theme variables"]
+      },
+      "primaryButton": { "identityMatch": true, "variantMatch": true, "geometryMatch": true, "stateSequenceMatch": true },
+      "mobileBounded": true,
+      "scrollAndRestore": true
+    },
+    {
+      "pageId": "dango-release-checklist-held-out",
+      "sourcePageId": null,
+      "score": 88,
+      "result": "PASS",
+      "retained": ["responsive technical-document shell", "title and section hierarchy", "restrained support surface", "compact Primary action"],
+      "changed": ["subject", "section order", "checklist structure", "copy", "action label"],
+      "mobileBounded": true,
+      "scrollAndRestore": true
+    }
+  ],
+  "blockingDifferences": []
+}

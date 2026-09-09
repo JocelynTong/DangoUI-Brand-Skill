@@ -1,0 +1,46 @@
+{
+  "schema": "brand-blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "04",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "url": "http://127.0.0.1:5177/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "capturedAt": "2026-09-02T22:55:52+08:00",
+  "mobile390x844": {
+    "observedCssViewport": {"width": 354, "height": 767},
+    "hero": {"width": 344.375, "height": 1182.997},
+    "phoneScreen": {"clientWidth": 368, "scrollWidth": 368, "clientHeight": 797, "scrollHeight": 4881},
+    "background": {"src": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg", "width": 344.375, "height": 681.996},
+    "campaignLogo": {"src": "/assets/brand-assets/pokemon-tcg-official/Logo-30th.png", "width": 306.371, "height": 167.145},
+    "featuredCard": {"src": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png", "width": 210.994, "height": 293.999},
+    "cta": {"width": 258.381, "height": 55.994, "background": "rgb(255, 255, 255)", "border": "0px none", "borderRadius": "0px"},
+    "carouselControls": [
+      {"state": "inactive", "width": 55.994, "height": 55.994, "background": "rgba(0, 0, 0, 0.88)", "color": "rgba(0, 0, 0, 0)"},
+      {"state": "active", "width": 55.994, "height": 55.994, "background": "rgb(255, 255, 255)", "color": "rgba(0, 0, 0, 0)"}
+    ],
+    "nextSectionGapPx": 0,
+    "horizontalOverflow": false,
+    "scrollProbe": {"before": 0, "after": 780, "restored": 0, "reversible": true}
+  },
+  "carouselProbe": {
+    "beforeActiveIndex": 0,
+    "changedActiveIndex": 1,
+    "restoredActiveIndex": 0,
+    "indexReversible": true,
+    "changedStateImages": ["tcg-logo.png", "booster-art-1.jpg"],
+    "changedStateCampaignLogoPresent": false,
+    "changedStateFeaturedCardPresent": false,
+    "visualStatePass": false
+  },
+  "desktop1440x1000": {
+    "actualProductProofSurface": {"heroWidth": 346.918, "heroHeight": 710, "phoneScreenWidth": 370.909},
+    "heroClientWidth": 347,
+    "heroScrollWidth": 506,
+    "navigationClipped": true,
+    "compositionOverlap": true,
+    "carouselTargetHeight": 41.996,
+    "activeControl": {"background": "rgb(255, 255, 255)", "color": "rgb(255, 255, 255)"},
+    "pass": false
+  },
+  "console": {"errorCount": 0, "errors": []},
+  "overallPass": false
+}

@@ -1,0 +1,122 @@
+{
+  "schema": "onepiece-home-mobile-organism-contract/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 12,
+  "status": "FROZEN_FOR_IMPLEMENTATION",
+  "scope": "Official Home at 390x844 CSS px: Welcome, New Arrival, Events, Recommend, Videos and Footer nav/legal",
+  "goalContract": "migrations/onepiece-cardgame/goal-contract.json",
+  "evidence": {
+    "manifest": "migrations/onepiece-cardgame/quality-attempts/12/evidence/manifest.json",
+    "sectionChecklist": "migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json",
+    "domComputedProbes": "migrations/onepiece-cardgame/quality-attempts/12/evidence/dom-computed-probes.json",
+    "boundary": "Default static organization and semantic actions are approved. Uncaptured drag, active, pressed, modal, accordion-open and touch-hover states remain UNRESOLVED."
+  },
+  "globalAcceptance": {
+    "itemCountCannotSubstituteForStructure": {
+      "blocking": true,
+      "rule": "Matching or exceeding a source child/item count never satisfies an organism contract when any required layer, reading-order edge, media organization, semantic action, responsive relationship or required default state is missing or replaced.",
+      "machineCheck": {
+        "id": "SECTION_STRUCTURE_NOT_COUNT_PROXY",
+        "operator": "AND",
+        "requiredAssertions": [
+          "allRequiredLayerIdsPresent",
+          "readingOrderMatches",
+          "proportionsWithinContract",
+          "responsiveBehaviorMatches",
+          "allSemanticActionsAreActionable",
+          "defaultInteractiveStateMatches",
+          "mustPreserveAllTrue",
+          "mustNotReplaceAllAbsent"
+        ],
+        "countAssertionRole": "diagnostic-only",
+        "failWhen": "itemCountPass == true && any(requiredAssertions) == false",
+        "failureCode": "ITEM_COUNT_USED_AS_STRUCTURE_PROXY"
+      }
+    },
+    "unresolvedPolicy": {
+      "allowed": "Preserve the verified default appearance and semantic element; omit or disable unverified enhancement without claiming parity.",
+      "forbidden": "Invent active identity, drag physics, pressed styling, modal/accordion after-state, hover-on-touch or autoplay behavior.",
+      "failureCode": "UNRESOLVED_STATE_INVENTED"
+    }
+  },
+  "sections": [
+    {
+      "id": "welcome",
+      "evidenceCapture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/welcome-390.png",
+      "requiredLayers": ["full-bleed-mobile-story-background", "color-burn-text-decoration", "centered-inner-column", "editorial-heading", "supporting-copy", "begin-adventure-cta", "eleven-card-decoration-layers"],
+      "readingOrder": ["editorial-heading", "supporting-copy", "begin-adventure-cta"],
+      "proportions": {"sectionPx": [390, 679], "innerWidthPx": 332.8, "sideInsetPx": 28.6, "headingPx": 32.24, "bodyPx": 14.56, "ctaPx": [213.2, 57.2], "decorationRole": "full-section background plus eleven layered cards; never a minor corner accent"},
+      "responsiveBehavior": "True reflow to a full-width mobile story section; text and CTA remain uncropped in one readable flow while decoration may crop only inside the section boundary.",
+      "semanticActions": [{"id": "begin-adventure", "element": "a", "href": "/beginners/", "label": "Begin Your Adventure", "required": true}],
+      "interactiveStates": {"default": "verified", "desktopHover": "verified elsewhere but not transferable to touch", "touchPressed": "UNRESOLVED", "freshAnimationFrame": "UNRESOLVED"},
+      "mustPreserve": ["onboarding invitation hierarchy", "full mobile art field", "heading/body/CTA distinction", "eleven-card layered decoration"],
+      "mustNotReplace": ["plain text block", "generic warm panel", "single decorative card", "yellow generic CTA", "hover as sole affordance"],
+      "unresolvedHandling": "Keep the anchor operable and its verified default appearance; do not invent touch pressed or animation timing states."
+    },
+    {
+      "id": "new-arrival",
+      "evidenceCapture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/new-arrival-390.png",
+      "requiredLayers": ["navy-section-surface", "mobile-decoration", "new-arrival-heading", "clipped-horizontal-swiper-rail", "linked-square-product-cards", "previous-control", "next-control"],
+      "readingOrder": ["new-arrival-heading", "clipped-horizontal-swiper-rail", "previous-control", "next-control"],
+      "proportions": {"cardWidthPx": 166.4, "cardWidthToViewport": 0.4267, "thumbnailAspect": "1:1", "gapPx": 15.6, "controlPx": [46.8, 46.8], "decorationHeightPx": 184.6},
+      "responsiveBehavior": "Retain a bounded horizontal rail with clipped neighboring items; do not convert to a generic grid or allow document-level horizontal overflow.",
+      "semanticActions": [{"id": "product-links", "element": "a", "required": true, "verifiedCount": 10}, {"id": "previous", "element": "button", "required": true}, {"id": "next", "element": "button", "required": true}],
+      "interactiveStates": {"defaultRail": "verified", "previousNextControls": "verified", "dragBeforeAfter": "UNRESOLVED", "activeSlideIdentity": "UNRESOLVED"},
+      "mustPreserve": ["Swiper rail organization", "square product-first cards", "visible previous/next controls", "navy decorated section"],
+      "mustNotReplace": ["static grid", "unactionable arrow glyphs", "item count without rail layers", "fabricated active dot", "fabricated drag behavior"],
+      "unresolvedHandling": "Implement only verified product links and previous/next controls. No drag claim, active styling or selected-slide identity may be added without new evidence."
+    },
+    {
+      "id": "events",
+      "evidenceCapture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/events-complete-390.jpg",
+      "requiredLayers": ["near-full-width-events-field", "black-title-bar", "events-english-label", "events-heading", "bg-pikup-events-red-frame", "six-stacked-linked-event-rows", "overlapping-event-thumbnails", "event-title-and-date-copy", "view-all-events-link"],
+      "readingOrder": ["black-title-bar", "bg-pikup-events-red-frame", "event-rows-in-source-order", "view-all-events-link"],
+      "proportions": {"sectionWidthPx": 373.36, "sectionWidthToViewport": 0.9573, "titleBarHeightPx": 43.68, "thumbnailPx": [104, 104], "detailMinHeightPx": 124.8, "thumbnailToRowHeightApprox": 0.833, "leadOnMobile": "hidden"},
+      "responsiveBehavior": "Desktop pickup field becomes stacked linked rows. Each art thumbnail overlaps into its text body while title/date remain legible; the source bg_pikup-events red frame remains the enclosing organism.",
+      "semanticActions": [{"id": "event-detail-links", "element": "a", "required": true, "verifiedCount": 6}, {"id": "view-all-events", "element": "a", "href": "/events/", "required": true}],
+      "interactiveStates": {"default": "verified", "touchRowHover": "UNRESOLVED", "exactRuntimeBorderImageSliceWidth": "UNRESOLVED"},
+      "mustPreserve": ["bg_pikup-events red-frame organism", "black title bar", "thumbnail-over-copy row composition", "event title/date metadata", "six detail links and view-all action"],
+      "mustNotReplace": ["generic white rows", "ordinary card list", "count-only six rows", "reservation action", "red accent without the framed organism"],
+      "unresolvedHandling": "Use the verified bg_pikup-events asset/appearance conservatively; do not claim exact runtime border-image slice values or invent touch hover."
+    },
+    {
+      "id": "recommend",
+      "evidenceCapture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/recommend-390.png",
+      "requiredLayers": ["textured-recommend-background", "recommend-heading", "horizontal-swiper-media-rail", "wanted-poster-card-surfaces", "linked-media-thumbnails", "partial-next-card-cue"],
+      "readingOrder": ["recommend-heading", "swiper-cards-in-source-order", "partial-next-card-cue"],
+      "proportions": {"cardPx": [270.4, 391.56], "cardWidthToViewport": 0.6933, "cardAspect": 0.6906, "thumbnailPx": [244.92, 137.28], "thumbnailAspect": 1.7848, "partialNextCard": true},
+      "responsiveBehavior": "Desktop staggered wanted-poster organization becomes a single clipped horizontal Swiper rail with a partial next card; desktop controls remain hidden at mobile.",
+      "semanticActions": [{"id": "recommend-links", "element": "a", "required": true, "verifiedCount": 5}],
+      "interactiveStates": {"defaultMediaRail": "verified", "desktopControlsHidden": "verified", "dragBeforeAfter": "UNRESOLVED", "activeSlideIdentity": "UNRESOLVED"},
+      "mustPreserve": ["Swiper media organization", "wanted-poster surfaces", "large portrait card proportion", "partial-next-card discovery cue", "five semantic links"],
+      "mustNotReplace": ["single-row summary", "ordinary card grid", "one full-width feature card", "item count without poster layers", "invented dots/arrows/active state"],
+      "unresolvedHandling": "Preserve the verified default rail and links; omit assertions or styling for drag and active identity."
+    },
+    {
+      "id": "videos",
+      "evidenceCapture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/videos-390.png",
+      "requiredLayers": ["light-textured-video-section", "videos-heading", "horizontal-swiper-thumbnail-rail", "multiple-cropped-video-thumbnails", "youtube-channel-link"],
+      "readingOrder": ["videos-heading", "swiper-thumbnails-in-source-order", "youtube-channel-link"],
+      "proportions": {"thumbnailPx": [229.84, 129.48], "thumbnailWidthToViewport": 0.5893, "thumbnailAspect": 1.775, "gapPx": 15.6, "visibleOrganization": "multiple thumbnails share one cropped horizontal row"},
+      "responsiveBehavior": "Desktop centered five-item row becomes a clipped horizontal Swiper thumbnail rail; desktop autoplay control is hidden on mobile.",
+      "semanticActions": [{"id": "video-thumbnails", "element": "a", "required": true, "verifiedCount": 5, "destinationType": "youtube-nocookie/fancybox trigger"}, {"id": "youtube-channel", "element": "a", "href": "https://www.youtube.com/channel/UCMhxrrst-3oDFY2oWJGd29Q", "target": "_blank", "required": true}],
+      "interactiveStates": {"defaultMediaRail": "verified", "autoplayControlHidden": "verified", "fancyboxOpen": "UNRESOLVED", "dragActive": "UNRESOLVED"},
+      "mustPreserve": ["Swiper media organization", "five video actions", "multiple visible/cropped thumbnails", "channel CTA after rail"],
+      "mustNotReplace": ["single video summary", "vertical list", "decorative non-actionable thumbnails", "invented modal state", "invented autoplay control on mobile"],
+      "unresolvedHandling": "Keep each thumbnail semantically actionable in its verified default state; do not simulate or claim the uncaptured fancybox after-state or drag/active behavior."
+    },
+    {
+      "id": "footer-nav-legal",
+      "evidenceCapture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/footer-complete-390.jpg",
+      "requiredLayers": ["footer-illustration-organism-before-nav", "footer-banners", "navy-structural-footer", "single-column-accordion-style-navigation", "plus-controls", "contact-link", "cookie-settings-button", "privacy-link", "global-entrance-link", "home-logo-link", "copyright-and-notices"],
+      "readingOrder": ["footer-banners-and-illustration", "navy-navigation", "contact-and-cookie-actions", "home-logo", "privacy-and-global-actions", "copyright-and-notices"],
+      "proportions": {"footerPx": [390, 1624.7], "navWidthPx": 343.2, "navWidthToViewport": 0.88, "sideInsetPx": 23.4, "baseTextPxObserved": 8.32, "legalOrganization": "compact row plus copyright/notices below"},
+      "responsiveBehavior": "Footer art/banners precede the navy field. Desktop navigation reflows to a single-column accordion-style list with plus controls; legal actions remain visible and operable without horizontal overflow.",
+      "semanticActions": [{"id": "contact", "element": "a", "href": "https://sec.carddass.com/en/contact/", "required": true}, {"id": "cookie-settings", "element": "button", "selector": "#ot-sdk-btn", "required": true}, {"id": "privacy", "element": "a", "href": "https://www.bandai.co.jp/en/site/privacy/", "required": true}, {"id": "global-entrance", "element": "a", "href": "https://www.onepiece-cardgame.com/global/", "required": true}, {"id": "home-logo", "element": "a", "href": "/", "required": true}, {"id": "nav-plus-controls", "element": "button", "required": true, "afterState": "UNRESOLVED"}],
+      "interactiveStates": {"defaultOperability": "verified", "accordionExpanded": "UNRESOLVED", "cookieModalAfter": "UNRESOLVED"},
+      "mustPreserve": ["illustration/banners before structural footer", "navy footer distinction", "single-column navigation hierarchy", "semantic anchor/button actions", "legal copy and notices"],
+      "mustNotReplace": ["plain navy text dump", "non-actionable labels", "div/span pretending to be links or buttons", "illustration omitted", "invented accordion-open or cookie-modal appearance"],
+      "unresolvedHandling": "Default controls must use correct semantic elements and remain actionable. Expanded accordion and cookie-modal visual states may not be claimed or styled as source-faithful until captured."
+    }
+  ]
+}

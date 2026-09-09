@@ -1,0 +1,20 @@
+{
+  "schema": "computed-consumption-report/v0.1",
+  "brand": "dango",
+  "verdict": "FAIL",
+  "tokenSummary": {"declaredMappedDuTokens":5,"catalogExisting":5,"runtimeConsumedAsExpected":4,"runtimeOverridden":1,"styleOnlyDeclared":1,"styleOnlyRuntimePresent":1},
+  "tokens": [
+    {"token":"--du-bg-1","exists":true,"declared":"#ffffff","consumer":".dango-docs / .dango-docs__example-table","computed":"rgb(255, 255, 255)","status":"PASS"},
+    {"token":"--du-bg-2","exists":true,"declared":"#ffffff","consumer":".source-schema-demo--dango","expected":"rgb(255, 255, 255)","computed":"rgb(0, 0, 0)","computedBackgroundImage":"url(https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me05/patterns/pattern-black.jpg)","cause":"later generic .source-schema-demo rule overrides the Dango root background","status":"FAIL"},
+    {"token":"--du-text-1","exists":true,"declared":"#000000","consumer":".dango-docs__article","computed":"rgb(0, 0, 0)","status":"PASS"},
+    {"token":"--du-border-1","exists":true,"declared":"#0000001f","consumer":".dango-docs__title-rule","computed":"rgba(0, 0, 0, 0.12)","status":"PASS"},
+    {"token":"--du-primary-solid-bg","exists":true,"declared":"#7c66ff","consumer":"button.du-button.du-button--normal.du-button--primary.dango-docs__primary via --du-bt-solid-bg","computed":"rgb(124, 102, 255)","status":"PASS"},
+    {"token":"--style-docs-navigation-current","existsAsDuToken":false,"declared":"#5854ff","consumer":".dango-docs__nav-group > span.is-current","computed":"rgb(88, 84, 255)","status":"FAIL_ROLE_EXPANSION","otherComputedConsumers":[".dango-docs__identity small",".dango-docs-continuation li > span:first-child"],"otherLiteralConsumers":[".dango-docs__import",".dango-docs__table-row code"]}
+  ],
+  "componentRuntime": {
+    "DuButton":{"native":true,"runtimeCountOnButtonPage":4,"tag":"BUTTON","classes":["du-button","du-button--normal","du-button--primary","du-c-primary-bt","dango-docs__primary"],"source":"node_modules/dangoui/src/button/Button.vue","tokenChain":[".du-button--primary","--du-bt-solid-bg","--du-primary-solid-bg","#7c66ff"],"initial":{"height":"32px","width":"77.15625px","radius":"4px","background":"rgb(124, 102, 255)","transform":"none","boxShadow":"none","state":"default"},"activatedFocus":{"height":"32px","radius":"4px","background":"rgb(124, 102, 255)","outline":"rgb(0, 95, 204) auto 1px","state":"activated-focus-retained"},"restored":{"height":"32px","radius":"4px","background":"rgb(124, 102, 255)","outline":"none 0px","state":"default"},"hover":{"sourceRuleVerifiedStable":true,"runtimePointerProbeAvailable":false},"status":"PASS"},
+    "NavigationBar":{"runtimeInstancesOnThreeDangoPages":0,"mappingStatus":"composition-candidate","status":"PASS_BOUNDARY"}
+  },
+  "styleOnlyBoundaries":{"documentationShell":"PASS","technicalFlow":"PASS","pageOutline":"PASS","nativeComponentClaims":[]},
+  "heldOut":{"route":"dango-release-checklist-held-out","sections":2,"changedHeadings":["发布检查清单","交付前的三层检查","准备提交"],"sameTokensPresent":true,"nativeDuButtonPresent":true,"buttonComputed":{"height":"32px","radius":"4px","background":"rgb(124, 102, 255)"},"status":"PASS"}
+}

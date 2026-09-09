@@ -1,0 +1,73 @@
+{
+  "schema": "onepiece-attempt13-independent-browser-probes/v1",
+  "role": "Blind Visual QA / TPP",
+  "browser": "fresh Codex in-app browser session",
+  "requestedViewport": {"width": 390, "height": 844},
+  "home": {
+    "horizontalOverflow": false,
+    "scrollHeight": 8065,
+    "heldOutSectionCount": 0,
+    "fieldNotesTextCount": 0,
+    "generatedHeldOutImages": 0
+  },
+  "events": {
+    "itemCount": 6,
+    "naturalDimensions": [[300,300],[300,300],[300,300],[300,300],[300,300],[300,300]],
+    "displayDimensionsApprox": [[104,126],[104,126],[104,126],[104,126],[104,126],[104,126]],
+    "objectFit": "cover",
+    "objectPosition": "50% 50%",
+    "sha256InPosition": [
+      "ffdfd56437ce2b99e5f347b4cf285d2c088f2372aaf6b2d5c2caca2dd1c67cef",
+      "143aab0325b2283d310b34968ca7fc7d5656bbdae029bef382c5577bed85928d",
+      "e0be2c4212b76da630155208e5f2f00b705453c73a08116b6a8263a91447e638",
+      "aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1",
+      "aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1",
+      "e60937474d0ee5d966716e46fa45c902105e8045d01604a59a465af6e61b8736"
+    ],
+    "uniqueShaCount": 5,
+    "soleDuplicatePositions": [4,5],
+    "generatedAssetCount": 0,
+    "redFrame": {"background": "rgb(159, 16, 24)", "border": "2.72727px solid rgb(102, 16, 22)", "preserved": true}
+  },
+  "recommend": {
+    "itemCount": 5,
+    "naturalDimensions": [[640,360],[640,360],[640,360],[640,360],[640,360]],
+    "displayDimensionsApprox": [[244.915,137.28],[244.915,137.28],[244.915,137.28],[244.915,137.28],[244.915,137.28]],
+    "objectFit": "cover",
+    "objectPosition": "50% 50%",
+    "rail": {"clientWidth": 323, "scrollWidth": 1414, "overflowX": "hidden", "partialNextVisible": true},
+    "sha256InPosition": [
+      "80d5894a4e90e44c534f31aa45deb3a125f54e275778f529811be0850e664f04",
+      "ddc5c56bb36329c0dee1bde517dae9063d4667087c582e53f0d651da540675c3",
+      "41bd7233ad389059ead4c9df75d8ebf924fcfd69ca5215f0dbff05099caa346a",
+      "4bfea04b6403abdb06985bd272034f8e418b3108a16a73809f7cb40523402b24",
+      "23c504cb5a807473956309362b1f4641eb3d19a2c0f218b08da915463ea89776"
+    ],
+    "allPairwiseDistinct": true,
+    "generatedAssetCount": 0
+  },
+  "newArrival": {
+    "initial": {"active": "1 / 10", "translateX": 0, "previous": {"ariaDisabled":"true","tabindex":"-1","pointerEvents":"none","opacity":0.35}, "next": {"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1}},
+    "afterNext": {"active": "2 / 10", "translateX": -181.998, "previous": {"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1}, "next": {"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1}},
+    "afterPrevious": {"active": "1 / 10", "translateX": 0, "previous": {"ariaDisabled":"true","tabindex":"-1","pointerEvents":"none","opacity":0.35}, "next": {"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":1}},
+    "reversible": true
+  },
+  "heldOut": {
+    "directRoute": "#/brand/onepiece-cardgame/pages/onepiece-cardgame-editorial-held-out",
+    "resolved": true,
+    "mapsToSourcePageId": null,
+    "sectionIds": ["held-out-taxonomy","held-out-editorial-board"],
+    "recipes": ["black-white-taxonomy-control","editorial-module-rhythm"],
+    "hardBlackHeadingVisible": true,
+    "independentGeneratedImages": 5,
+    "separateCapture": "captures/held-out-route-live-390x844.png"
+  },
+  "regression": {
+    "mobileSectionsPresent": 11,
+    "fullScrollCaptured": true,
+    "heroControlStateChanged": true,
+    "footerRevealStateChanged": true,
+    "desktopPhoneShellPresent": true,
+    "desktopHorizontalOverflow": false
+  }
+}

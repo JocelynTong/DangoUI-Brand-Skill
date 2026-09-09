@@ -1,0 +1,428 @@
+{
+  "schema": "brand-host-structural-snapshot/v1",
+  "file": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/pages/round/index.vue",
+  "sourceSha256": "94352acb54ec2f374ba9d01ec197e371f9f33f5863a8c1f80ee84a69fa1e1915",
+  "template": [
+    {
+      "id": "n0",
+      "parent": "root",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "page",
+        "round-page",
+        "theme-pokemon-tcg-pitch-black"
+      ]
+    },
+    {
+      "id": "n1",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "softcard"
+      ]
+    },
+    {
+      "id": "n2",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "headrow"
+      ]
+    },
+    {
+      "id": "n3",
+      "parent": "n2",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{event.n}}",
+      "classes": [
+        "event-name"
+      ]
+    },
+    {
+      "id": "n4",
+      "parent": "n2",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{statusLabel(event.status)}}",
+      "classes": []
+    },
+    {
+      "id": "n5",
+      "parent": "n1",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "div"
+      ]
+    },
+    {
+      "id": "n6",
+      "parent": "n1",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{round.title}}",
+      "classes": [
+        "round-title"
+      ]
+    },
+    {
+      "id": "n7",
+      "parent": "n1",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{round.meta}}",
+      "classes": [
+        "round-meta"
+      ]
+    },
+    {
+      "id": "n8",
+      "parent": "n0",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "rank-list"
+      ]
+    },
+    {
+      "id": "n9",
+      "parent": "n8",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "(rk, idx) in slots",
+        "bind:key": "rk.r + '-' + idx"
+      },
+      "content": "",
+      "classes": [
+        "rank-row"
+      ]
+    },
+    {
+      "id": "n10",
+      "parent": "n9",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{rk.r}}",
+      "classes": []
+    },
+    {
+      "id": "n11",
+      "parent": "n9",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {
+        "hover-class": "tap-card",
+        "hover-stay-time": "90"
+      },
+      "directives": {
+        "if": "hasDeck(rk)",
+        "on:tap": "openDeck(rk.d)"
+      },
+      "content": "",
+      "classes": [
+        "deck-card"
+      ]
+    },
+    {
+      "id": "n12",
+      "parent": "n11",
+      "tag": "image",
+      "tagType": 0,
+      "attrs": {
+        "mode": "aspectFill"
+      },
+      "directives": {
+        "bind:src": "asset(deckCover(rk).img)"
+      },
+      "content": "",
+      "classes": [
+        "cover"
+      ]
+    },
+    {
+      "id": "n13",
+      "parent": "n11",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "deck-info"
+      ]
+    },
+    {
+      "id": "n14",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "line1"
+      ]
+    },
+    {
+      "id": "n15",
+      "parent": "n14",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{deckName(rk)}}",
+      "classes": [
+        "dname"
+      ]
+    },
+    {
+      "id": "n16",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "tag-row"
+      ]
+    },
+    {
+      "id": "n17",
+      "parent": "n16",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "for": "tag in deckTags(rk)",
+        "bind:key": "tag"
+      },
+      "content": "{{tag}}",
+      "classes": [
+        "line-tag"
+      ]
+    },
+    {
+      "id": "n18",
+      "parent": "n13",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "line3"
+      ]
+    },
+    {
+      "id": "n19",
+      "parent": "n18",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "author"
+      ]
+    },
+    {
+      "id": "n20",
+      "parent": "n19",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{decks[rk.d].av || '?'}}",
+      "classes": [
+        "mini-avatar"
+      ]
+    },
+    {
+      "id": "n21",
+      "parent": "n19",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{decks[rk.d].au || '未知玩家'}}",
+      "classes": [
+        "au"
+      ]
+    },
+    {
+      "id": "n22",
+      "parent": "n18",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "stats"
+      ]
+    },
+    {
+      "id": "n23",
+      "parent": "n22",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "收藏 ",
+      "classes": [
+        "stat"
+      ]
+    },
+    {
+      "id": "n24",
+      "parent": "n23",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{decks[rk.d].favs || '--'}}",
+      "classes": [
+        "stat-b"
+      ]
+    },
+    {
+      "id": "n25",
+      "parent": "n22",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "浏览 ",
+      "classes": [
+        "stat"
+      ]
+    },
+    {
+      "id": "n26",
+      "parent": "n25",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "{{decks[rk.d].views || '--'}}",
+      "classes": [
+        "stat-b"
+      ]
+    },
+    {
+      "id": "n27",
+      "parent": "n9",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {
+        "else": null
+      },
+      "content": "",
+      "classes": [
+        "deck-card",
+        "empty-deck"
+      ]
+    },
+    {
+      "id": "n28",
+      "parent": "n27",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "cover",
+        "cover-empty"
+      ]
+    },
+    {
+      "id": "n29",
+      "parent": "n28",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "?",
+      "classes": [
+        "cover-empty-t"
+      ]
+    },
+    {
+      "id": "n30",
+      "parent": "n27",
+      "tag": "view",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": [
+        "deck-info"
+      ]
+    },
+    {
+      "id": "n31",
+      "parent": "n30",
+      "tag": "text",
+      "tagType": 0,
+      "attrs": {},
+      "directives": {},
+      "content": "卡组暂未收录",
+      "classes": [
+        "dname",
+        "muted-name"
+      ]
+    },
+    {
+      "id": "n32",
+      "parent": "n0",
+      "tag": "DetailOverlay",
+      "tagType": 1,
+      "attrs": {},
+      "directives": {},
+      "content": "",
+      "classes": []
+    }
+  ],
+  "script": {
+    "lang": "js",
+    "semanticSha256": "bac1d9f175ccf6f7b7ee11dfe0bf081069944d596d3a5be85862cbdb3cfbd863",
+    "styleImports": [
+      "./index.scss"
+    ]
+  },
+  "styles": []
+}

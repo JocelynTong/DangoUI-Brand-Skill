@@ -1,0 +1,51 @@
+{
+  "schema": "brand-host-visual-qa-assessment/v1",
+  "attempt": 17,
+  "route": "pages/build/index",
+  "role": "fresh-independent-brand-visual-business-qa",
+  "readOnly": true,
+  "producerEvidenceConsumed": false,
+  "viewports": ["390x844", "536x864", "1280x720"],
+  "verdict": "PASS",
+  "workflowCompletion": "PASS",
+  "businessSafety": "PASS",
+  "visualDistinctiveness": "PASS",
+  "visualSystemConformance": "PASS",
+  "summary": "Attempt 17 closes the two real Build blockers from Attempt 16. The environment value is readable at 17.6:1 and each pointer/Enter/Space activation opens exactly once, with a second activation closing. The approved state-contract amendment correctly classifies pre-submit disabled absence as N/A for this validation-on-submit host. Build regressions, structural preservation, five-route isolation and external-write safety all pass.",
+  "passes": [
+    "标准赛制-18.0 is complete and readable in the environment field at all three viewports: rgb(7,26,44) on white, 17.6:1 contrast.",
+    "Pointer, Enter and Space each change aria-expanded false-to-true exactly once and expose a visible environment wheel; repeating the same gesture closes it.",
+    "No parent-child double toggle remains.",
+    "The structural diff gate passes; sheet-body baseline node n118 is absent from accessibilityAugmentations while its unchanged @tap=confirmEnvAndClose outcome still closes the open wheel at runtime.",
+    "Validation-on-submit is preserved: publish is active before submit, invalid submit retains the sheet and exposes existing feedback, and the action remains available for correction.",
+    "No real submitting state exists, so submitting disabled/loading semantics are N/A rather than invented.",
+    "Attempt 16 visual direction regresses cleanly: warm paper, navy framing, hard editorial rules, restrained radii, yellow selected state and red publish action remain recognizable without relying on brand text.",
+    "Filters expand 3-to-5 and collapse to 3; list/grid restores; type filter changes 41-to-17-to-41; search for 超梦 yields one matching result.",
+    "Tray, local draft, sheet open/close, validation feedback and local-only draft persistence remain functional.",
+    "All visible role button/tab targets meet 44px in all three viewports; focus outlines are visible and reduced-motion is active.",
+    "Build and all five other routes have zero document horizontal overflow and generated zero external non-GET writes.",
+    "Fresh hashes for plaza, detail, mine, event and round exactly match Attempt 16, proving route isolation."
+  ],
+  "blockingFindings": [],
+  "stateContract": {
+    "amendment": "../../build-state-contract-amendment.json",
+    "incompleteBeforeSubmit": "PASS_ACTIVE_VALIDATION_ON_SUBMIT",
+    "invalidAfterSubmit": "PASS_VISIBLE_FEEDBACK_SHEET_RETAINED",
+    "submitting": "N/A_NO_REAL_HOST_STATE",
+    "successAndFailure": "UNCHANGED_EXISTING_OUTCOMES"
+  },
+  "freshArtifacts": {
+    "browserProbes": "browser-probes.json",
+    "comparison": "comparison.json",
+    "screenshots": [
+      "fresh-390x844-build-env.png",
+      "fresh-536x864-build-env.png",
+      "fresh-1280x720-build-env.png"
+    ]
+  },
+  "structuralGate": {
+    "status": "PASS",
+    "command": "node skills/brand/scripts/validate-host-structural-diff.mjs --baseline migrations/onepiece-cardgame/held-out-card-plugin2/structural-baselines/build-index.json --current card-plugin2.0/frontend/src/pages/build/index.vue --manifest migrations/onepiece-cardgame/held-out-card-plugin2/structural-manifests/build-index.json"
+  },
+  "failureRoute": null
+}

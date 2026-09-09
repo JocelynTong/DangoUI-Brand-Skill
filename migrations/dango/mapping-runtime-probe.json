@@ -1,0 +1,192 @@
+{
+  "schema": "dango-mapping-runtime-probe/v0.2",
+  "generatedAt": "2026-09-05T17:08:45.680Z",
+  "verdict": "pass",
+  "summary": {
+    "nativeComponentTypesConsumed": 1,
+    "nativeButtonInstanceCount": 4,
+    "mappedTokensConsumed": 5,
+    "styleOnlyTokensConsumed": 1
+  },
+  "checks": {
+    "nativeDuButton": true,
+    "buttonGeometry": true,
+    "primaryToken": true,
+    "interactionLifecycle": true,
+    "rootCanvasToken": true,
+    "pageSurfaceToken": true,
+    "cardSurfaceToken": true,
+    "textToken": true,
+    "borderToken": true,
+    "navigationRemainsStyleOnly": true,
+    "navigationPurpleHasNoRoleExpansion": true,
+    "scrollChangesAndRestores": true,
+    "consoleClean": true,
+    "heldOutRoute": true
+  },
+  "button": {
+    "before": {
+      "tagName": "BUTTON",
+      "classes": [
+        "du-button",
+        "du-button--normal",
+        "du-button--primary",
+        "du-c-primary-bt",
+        "dango-docs__primary"
+      ],
+      "text": "Primary",
+      "actionState": "default",
+      "focused": false,
+      "computed": {
+        "width": 77.15625,
+        "height": 32,
+        "borderRadius": "4px",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "color": "rgb(255, 255, 255)",
+        "outlineStyle": "none",
+        "outlineWidth": "0px"
+      },
+      "tokens": {
+        "primary": "#7c66ff",
+        "white": "#ffffff"
+      }
+    },
+    "focused": {
+      "tagName": "BUTTON",
+      "classes": [
+        "du-button",
+        "du-button--normal",
+        "du-button--primary",
+        "du-c-primary-bt",
+        "dango-docs__primary"
+      ],
+      "text": "Primary",
+      "actionState": "default",
+      "focused": true,
+      "computed": {
+        "width": 77.15625,
+        "height": 32,
+        "borderRadius": "4px",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "color": "rgb(255, 255, 255)",
+        "outlineStyle": "auto",
+        "outlineWidth": "1px"
+      },
+      "tokens": {
+        "primary": "#7c66ff",
+        "white": "#ffffff"
+      }
+    },
+    "activated": {
+      "tagName": "BUTTON",
+      "classes": [
+        "du-button",
+        "du-button--normal",
+        "du-button--primary",
+        "du-c-primary-bt",
+        "dango-docs__primary"
+      ],
+      "text": "Primary",
+      "actionState": "activated-focus-retained",
+      "focused": true,
+      "computed": {
+        "width": 77.15625,
+        "height": 32,
+        "borderRadius": "4px",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "color": "rgb(255, 255, 255)",
+        "outlineStyle": "auto",
+        "outlineWidth": "1px"
+      },
+      "tokens": {
+        "primary": "#7c66ff",
+        "white": "#ffffff"
+      }
+    },
+    "restored": {
+      "tagName": "BUTTON",
+      "classes": [
+        "du-button",
+        "du-button--normal",
+        "du-button--primary",
+        "du-c-primary-bt",
+        "dango-docs__primary"
+      ],
+      "text": "Primary",
+      "actionState": "default",
+      "focused": false,
+      "computed": {
+        "width": 77.15625,
+        "height": 32,
+        "borderRadius": "4px",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "color": "rgb(255, 255, 255)",
+        "outlineStyle": "none",
+        "outlineWidth": "0px"
+      },
+      "tokens": {
+        "primary": "#7c66ff",
+        "white": "#ffffff"
+      }
+    }
+  },
+  "tokens": {
+    "rootCanvas": {
+      "selector": ".source-schema-demo--dango",
+      "token": "#ffffff",
+      "computed": "rgb(255, 255, 255)",
+      "backgroundImage": "none"
+    },
+    "pageSurface": {
+      "selector": ".dango-docs",
+      "token": "#ffffff",
+      "computed": "rgb(255, 255, 255)"
+    },
+    "cardSurface": {
+      "selector": ".dango-docs__example-table",
+      "token": "#ffffff",
+      "computed": "rgb(255, 255, 255)"
+    },
+    "text": {
+      "selector": ".dango-docs__article",
+      "token": "#000000",
+      "computed": "rgb(0, 0, 0)"
+    },
+    "border": {
+      "selector": ".dango-docs__title-rule",
+      "token": "#0000001f",
+      "computed": "rgba(0, 0, 0, 0.12)"
+    }
+  },
+  "navigation": {
+    "token": "#5854ff",
+    "color": "rgb(88, 84, 255)"
+  },
+  "purpleConsumers": [
+    {
+      "selector": ".dango-docs__nav-group > span.is-current",
+      "properties": [
+        "color",
+        "borderTopColor",
+        "borderRightColor",
+        "borderBottomColor",
+        "borderLeftColor",
+        "outlineColor"
+      ],
+      "text": "介绍"
+    }
+  ],
+  "screenshots": [
+    "migrations/dango/mapping-qa/runtime-repair/dango-button-runtime.png",
+    "migrations/dango/mapping-qa/runtime-repair/dango-introduction-runtime.png",
+    "migrations/dango/mapping-qa/runtime-repair/dango-release-held-out-runtime.png"
+  ],
+  "scroll": {
+    "clientHeight": 803,
+    "scrollHeight": 1514,
+    "before": 0,
+    "after": 240,
+    "restored": 0
+  },
+  "errors": []
+}

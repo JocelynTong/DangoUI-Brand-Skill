@@ -1,0 +1,176 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-live-only",
+  "status": "APPROVED_WITH_WARNINGS",
+  "patterns": [
+    {
+      "id": "PAT-TCGL-01",
+      "name": "Chevron threshold over technical field",
+      "classification": "section-background",
+      "approval": "approved",
+      "scope": "homepage TCG Live section",
+      "intent": "Introduce an energetic branded threshold without turning the whole callout into a saturated red block.",
+      "observableRules": [
+        "one full-bleed background raster contains the red/gold V-shaped top seam and pale gray honeycomb body",
+        "the pale gray field occupies the main body of the section",
+        "the background has no observed transform or animation",
+        "the lower edge transitions directly into the pale-blue following section"
+      ],
+      "suitableFor": ["the homepage TCG Live product callout", "a source-faithful generative proof retaining the same callout role"],
+      "notFor": ["global page background", "generic red campaign section", "global action or active-state color", "animated backdrop"],
+      "allowedRoles": ["TCG Live section background", "TCG Live top threshold", "TCG Live lower boundary"],
+      "forbiddenRoles": ["global red surface token", "global honeycomb texture", "global gold emphasis", "background motion recipe"],
+      "assetIdentity": {
+        "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background.jpg",
+        "highDpiUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/tcgl-background-2x.jpg",
+        "sourceKind": "independent-source-asset"
+      },
+      "evidenceRefs": ["live-background", "live-layout-desktop", "live-layout-mobile"]
+    },
+    {
+      "id": "PAT-TCGL-02",
+      "name": "Responsive black copy anchor",
+      "classification": "content-panel",
+      "approval": "approved",
+      "scope": "homepage TCG Live copy group",
+      "intent": "Create a strong, readable explanation and action endpoint beside or after the visually complex product scene.",
+      "observableRules": [
+        "desktop panel is rectangular, translucent black, left aligned in the two-column composition, with 50px 72px padding",
+        "mobile panel is opaque black, full width, follows the product scene, and has 30px padding",
+        "content is centered H2, one paragraph, and one CTA",
+        "no visible kicker"
+      ],
+      "suitableFor": ["the TCG Live product callout's copy and action group"],
+      "notFor": ["global dark-mode surface", "generic card or modal", "every campaign section", "host utility panels"],
+      "allowedRoles": ["TCG Live copy backdrop", "TCG Live text contrast field"],
+      "forbiddenRoles": ["global surface token", "global black panel recipe", "invented kicker container", "rounded floating card"],
+      "evidenceRefs": ["live-layout-desktop", "live-layout-mobile", "live-copy-desktop", "live-copy-mobile"]
+    },
+    {
+      "id": "PAT-TCGL-03",
+      "name": "Five-layer product-world composition",
+      "classification": "asset-composition",
+      "approval": "approved",
+      "scope": "homepage TCG Live asset group",
+      "intent": "Show the product ecosystem as an inhabitable scene: devices establish utility, Pikachu provides character recognition, and avatars signal player identity.",
+      "observableRules": [
+        "laptop is the large rear plane",
+        "Pikachu overlaps the lower-left laptop edge",
+        "phone overlaps the lower-right laptop edge",
+        "two avatar hexagons float above the laptop",
+        "all five foreground assets are separate transparent rasters",
+        "mobile scales the complete group to approximately 374x258.625 while preserving overlap"
+      ],
+      "suitableFor": ["TCG Live product showcase", "a generative product-world callout with equivalent evidenced layer semantics"],
+      "notFor": ["generic product card", "flat screenshot hero", "unrelated Pokémon campaign", "individual asset used without its evidenced composition role"],
+      "allowedRoles": ["primary device back plane", "foreground character", "secondary device", "floating player avatars"],
+      "forbiddenRoles": ["single flattened screenshot", "decorative asset collage without hierarchy", "replacement with unrelated official assets"],
+      "assetIdentity": {
+        "layers": [
+          {"role": "primary-device-back-plane", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/laptop.png", "naturalSize": [661, 390]},
+          {"role": "foreground-character", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/pikachu.png", "naturalSize": [280, 276]},
+          {"role": "secondary-device", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/phone.png", "naturalSize": [132, 274]},
+          {"role": "floating-avatar-left", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-1.png", "naturalSize": [135, 116]},
+          {"role": "floating-avatar-right", "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcgl/avatar-2.png", "naturalSize": [168, 146]}
+        ],
+        "sourceKind": "independent-source-assets"
+      },
+      "evidenceRefs": ["live-assets", "live-layout-desktop", "live-layout-mobile"]
+    },
+    {
+      "id": "PAT-TCGL-04",
+      "name": "Breakpoint-specific scene and copy reorder",
+      "classification": "responsive-layout",
+      "approval": "approved",
+      "scope": "homepage TCG Live section",
+      "intent": "Keep the product visual immediate on a narrow screen while preserving comfortable reading in a dedicated full-width panel.",
+      "observableRules": [
+        "desktop reads as copy-left and scene-right",
+        "mobile reads as scene-first and copy-second",
+        "mobile copy panel spans the full viewport width",
+        "the next section begins directly after the black panel"
+      ],
+      "suitableFor": ["the TCG Live section at desktop and mobile proof widths"],
+      "notFor": ["global breakpoint behavior", "proportional shrinking of the desktop row", "retaining desktop reading order at 390px"],
+      "allowedRoles": ["TCG Live section responsive order", "TCG Live panel width translation"],
+      "forbiddenRoles": ["global row-reverse rule", "global mobile full-width black panel"],
+      "evidenceRefs": ["live-layout-desktop", "live-layout-mobile"]
+    },
+    {
+      "id": "PAT-TCGL-05",
+      "name": "Product callout typography stack",
+      "classification": "typography",
+      "approval": "approved",
+      "scope": "homepage TCG Live black copy panel",
+      "intent": "Pair a compact, assertive product name with legible explanatory copy and an obvious action.",
+      "observableRules": [
+        "desktop H2 is Kanit 700 at 40/44 with 1.25px tracking",
+        "mobile H2 is Kanit 700 at 28/30.8 with approximately 1px tracking",
+        "body is PT Sans 400 at 18/28.8 on both observed widths",
+        "CTA is PT Sans 700 at 20/24 desktop and 18/22.5 mobile",
+        "all copy is centered and there is no kicker"
+      ],
+      "suitableFor": ["TCG Live heading, body, and CTA in this callout"],
+      "notFor": ["global heading scale", "all body copy", "translated screenshot line breaks", "navigation typography"],
+      "allowedRoles": ["TCG Live H2", "TCG Live paragraph", "TCG Live CTA label"],
+      "forbiddenRoles": ["global type token promotion", "hard-coded English or translated line breaks", "invented kicker typography"],
+      "evidenceRefs": ["live-copy-desktop", "live-copy-mobile"]
+    },
+    {
+      "id": "PAT-TCGL-06",
+      "name": "White action with localized gold hover",
+      "classification": "component-state",
+      "approval": "approved",
+      "scope": "homepage TCG Live Learn More CTA",
+      "intent": "Provide a high-contrast exit from the dark panel while using gold only as a restrained interactive foreground response.",
+      "observableRules": [
+        "resting background remains white with black foreground",
+        "hover changes the text/icon foreground to rgb(226,186,101)",
+        "hover does not change the white background layer",
+        "desktop height is 56px and mobile height is approximately 51.297px",
+        "activation navigates to /en-us/tcgl/"
+      ],
+      "suitableFor": ["TCG Live Learn More action in this black panel"],
+      "notFor": ["global primary button", "all white buttons", "global gold hover", "inert visual-only control"],
+      "allowedRoles": ["TCG Live CTA resting state", "TCG Live CTA hover foreground", "TCG Live overview navigation"],
+      "forbiddenRoles": ["global action token", "gold background fill", "generic focus styling without evidence"],
+      "evidenceRefs": ["live-copy-desktop", "live-copy-mobile", "live-cta-hover", "live-cta-click"]
+    },
+    {
+      "id": "PAT-TCGL-07",
+      "name": "Staggered product-scene viewport reveal",
+      "classification": "interaction-motion",
+      "approval": "approved",
+      "scope": "homepage TCG Live viewport entry",
+      "intent": "Build the product world progressively: the laptop establishes the stage, then copy and companion layers settle into the composition.",
+      "observableRules": [
+        "laptop transitions from opacity 0 and scale .5 to opacity 1 and scale 1",
+        "heading transitions from opacity 0 and translateY 15.398px to settled",
+        "paragraph and CTA use the same slide/fade family with later delays",
+        "Pikachu, phone, and avatars carry stagger classes",
+        "normal incremental scrolling triggers the viewport controller",
+        "background remains static"
+      ],
+      "suitableFor": ["first viewport entry of the TCG Live callout"],
+      "notFor": ["continuous parallax", "background animation", "all site sections", "CTA hover", "carousel swapping"],
+      "allowedRoles": ["laptop entry pop", "copy entry slide/fade", "companion asset stagger"],
+      "forbiddenRoles": ["global motion token", "scroll-linked animation", "repeating ambient animation", "class-only proof without visible intermediate state"],
+      "acceptanceProof": ["before-entry capture", "intermediate capture", "settled capture", "visible opacity/transform change"],
+      "evidenceRefs": ["live-entry-motion"]
+    }
+  ],
+  "scopeAudit": {
+    "globalPatternsApproved": [],
+    "sectionLocalApproved": ["PAT-TCGL-01", "PAT-TCGL-02", "PAT-TCGL-03", "PAT-TCGL-04", "PAT-TCGL-05", "PAT-TCGL-06", "PAT-TCGL-07"],
+    "unresolved": ["UNRESOLVED-TRANSLATED-WRAP", "UNRESOLVED-BACKGROUND-MOTION"],
+    "tokenRoleExpansionDetected": false,
+    "notes": [
+      "Red is restricted to the background asset's top seam and is not an action or section-fill token.",
+      "Gold is restricted to the seam asset and the observed CTA hover foreground.",
+      "Black panel styling is restricted to the TCG Live copy group.",
+      "Chrome-translated wrapping was not encoded as a layout rule.",
+      "No background motion was approved."
+    ]
+  }
+}

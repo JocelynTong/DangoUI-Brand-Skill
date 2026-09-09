@@ -1,0 +1,27 @@
+{
+  "role": "fresh-independent-blind-qa-r2",
+  "verdict": "REWORK",
+  "threeProofVerdicts": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "PASS"
+  },
+  "blockingFindings": [
+    {
+      "code": "HOME_INDICATOR_CONTENT_OVERLAP",
+      "surface": "normal ONE PIECE Home at bottom scroll",
+      "evidence": "Footer bottom=685.1015625px, bar top=681.9453125px; overlap=3.15625px. The copyright line enters the black bar zone.",
+      "earliestFailureNode": "demoImplementationAgent",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "code": "FOOTER_CONTENT_CLIPPED_HORIZONTALLY",
+      "surface": "normal ONE PIECE Home phone",
+      "evidence": "Screen right=1018.828125px while footer navigation/copyright right=1087.765625px. The right side is visibly clipped and cannot be reached because horizontal scrolling is disabled.",
+      "earliestFailureNode": "demoImplementationAgent",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "earliestFailureNode": "demoImplementationAgent",
+  "failureOwnerRole": "demoImplementationAgent"
+}

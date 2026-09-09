@@ -1,0 +1,14 @@
+{
+  "schema": "brand-demo-revision-gates/v1",
+  "brand": "pokemon-tcg-official",
+  "revision": "01/revision-1",
+  "results": {
+    "sectionFidelityStrict": {"status":"pass","command":"node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --strict","failures":[]},
+    "previewRegistry": {"status":"pass","command":"npm run validate:brand-preview -- --brand pokemon-tcg-official","summary":"4 previews ok; unrelated legacy preview warnings only"},
+    "build": {"status":"pass","command":"npm run build","artifact":"dist/assets/index-ivouW1wj.js"},
+    "advancedDrawerGeometry": {"status":"pass","viewport":[1440,1000],"trace":[{"label":"Show Advanced Search","computedHeight":"0px","rectHeight":0},{"label":"Hide Advanced Search","computedHeight":"724px","rectHeight":724},{"label":"Hide Advanced Search","computedHeight":"1206.73px","rectHeight":1206.734375},{"label":"Show Advanced Search","computedHeight":"0px","rectHeight":0}]},
+    "generativeContract": {"status":"implementation-contract-pass-independent-review-pending","goalContract":"migrations/pokemon-tcg-official/goal-contract-v2.json","goalSha256":"73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794","heldOut":true,"sourceContentIndependent":true,"frozenRuleCount":3,"structureRuleCheckCount":3,"hashedOutput":true,"brandCueSubstitution":false},
+    "fidelityOrchestrator": {"status":"protocol-blocked-as-expected-before-fresh-qa","reason":"Current validator resolves legacy goal-contract.json and requires a new hashed Blind QA input manifest and independent v2 assessment; this implementation role did not fabricate either."}
+  },
+  "selfApproval": false
+}

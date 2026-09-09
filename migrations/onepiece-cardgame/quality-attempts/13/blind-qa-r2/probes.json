@@ -1,0 +1,62 @@
+{
+  "schema": "onepiece-attempt13-blind-qa-r2-probes/v1",
+  "attempt": 13,
+  "revision": 2,
+  "method": "fresh Browser QA against current live Demo at 390x844 override; DOM/computed probes plus real clicks and screenshots",
+  "demo": "http://127.0.0.1:5174/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+  "events": {
+    "count": 6,
+    "items": [
+      {"position":1,"alt":"Extra Grand Battle","file":"event-extra-grand-battle.webp","sha256":"ffdfd56437ce2b99e5f347b4cf285d2c088f2372aaf6b2d5c2caca2dd1c67cef","natural":[300,300],"computed":[103.99857330322266,103.99857330322266],"objectFit":"cover","objectPosition":"50% 50%","leftIntrusionPx":-13.998578548431396},
+      {"position":2,"alt":"Flagship Battle","file":"event-flagship-battle.webp","sha256":"143aab0325b2283d310b34968ca7fc7d5656bbdae029bef382c5577bed85928d","natural":[300,300],"computed":[103.99857330322266,103.99857330322266],"objectFit":"cover","objectPosition":"50% 50%","leftIntrusionPx":-13.998578548431396},
+      {"position":3,"alt":"Meet-Up Event","file":"event-meetup.webp","sha256":"e0be2c4212b76da630155208e5f2f00b705453c73a08116b6a8263a91447e638","natural":[300,300],"computed":[103.99857330322266,103.99857330322266],"objectFit":"cover","objectPosition":"50% 50%","leftIntrusionPx":-13.998578548431396},
+      {"position":4,"alt":"BANDAI CARD GAMES Fest · Jakarta","file":"event-bcgfest-jakarta-manila.webp","sha256":"aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1","natural":[300,300],"computed":[103.99857330322266,103.99857330322266],"objectFit":"cover","objectPosition":"50% 50%","leftIntrusionPx":-13.998578548431396},
+      {"position":5,"alt":"BANDAI CARD GAMES Fest · Manila","file":"event-bcgfest-jakarta-manila.webp","sha256":"aac544d4f191e5ff6a831fe9e87fbc30e5154b9b50840d03df2bedef6f9a14a1","natural":[300,300],"computed":[103.99857330322266,103.99857330322266],"objectFit":"cover","objectPosition":"50% 50%","leftIntrusionPx":-13.998578548431396},
+      {"position":6,"alt":"Flame-Flame Fruit Tournament","file":"event-flame-flame.webp","sha256":"e60937474d0ee5d966716e46fa45c902105e8045d01604a59a465af6e61b8736","natural":[300,300],"computed":[103.99857330322266,103.99857330322266],"objectFit":"cover","objectPosition":"50% 50%","leftIntrusionPx":-13.998578548431396}
+    ],
+    "uniqueShaCount": 5,
+    "duplicateGroups": [[4,5]],
+    "redFrameOrganism": {"backgroundColor":"rgb(189, 24, 33)","backgroundImage":"bg_pikup-events.webp","overflow":"hidden"},
+    "status": "PASS"
+  },
+  "recommend": {
+    "count": 5,
+    "sha256InOrder": ["80d5894a4e90e44c534f31aa45deb3a125f54e275778f529811be0850e664f04","ddc5c56bb36329c0dee1bde517dae9063d4667087c582e53f0d651da540675c3","41bd7233ad389059ead4c9df75d8ebf924fcfd69ca5215f0dbff05099caa346a","4bfea04b6403abdb06985bd272034f8e418b3108a16a73809f7cb40523402b24","23c504cb5a807473956309362b1f4641eb3d19a2c0f218b08da915463ea89776"],
+    "uniqueShaCount": 5,
+    "naturalAll": [640,360],
+    "computedMediaApprox": [244.91476440429688,137.2798309326172],
+    "objectFitAll": "cover",
+    "objectPositionAll": "50% 50%",
+    "clippedHorizontalRailWithPartialNextCue": true,
+    "status": "PASS"
+  },
+  "newArrival": {
+    "initial": {"active":"1 / 10","transform":"matrix(1, 0, 0, 1, 0, 0)","previous":{"ariaDisabled":"true","tabindex":"-1","pointerEvents":"none","opacity":"0.35"}},
+    "afterNext": {"active":"2 / 10","transform":"matrix(1, 0, 0, 1, -181.998, 0)","previous":{"ariaDisabled":"false","tabindex":"0","pointerEvents":"auto","opacity":"1"}},
+    "restored": {"active":"1 / 10","transform":"matrix(1, 0, 0, 1, 0, 0)","previous":{"ariaDisabled":"true","tabindex":"-1","pointerEvents":"none","opacity":"0.35"}},
+    "status": "PASS"
+  },
+  "heldOut": {
+    "route": "#/brand/onepiece-cardgame/pages/onepiece-cardgame-editorial-held-out",
+    "directNavigation": true,
+    "homeHeldOutSectionCount": 0,
+    "homeHeldOutText": false,
+    "sourceIndependentFixture": true,
+    "observedRecipeClasses": ["schema-recipe--black-white-taxonomy-control","schema-recipe--editorial-module-rhythm"],
+    "hardBlackUnboxedHeadingRendered": true,
+    "status": "PASS"
+  },
+  "responsiveAndFooter": {
+    "documentClientWidth": 354,
+    "documentScrollWidth": 354,
+    "horizontalOverflow": false,
+    "footerAnimatedNodes": ["cardItem card01","cardItem card02","cardItem card03"],
+    "animationNames": ["opcg-footer-card01","opcg-footer-card02","opcg-footer-card03"],
+    "motionObservedAcross2600ms": true,
+    "pauseButtonChangedTo": "Resume footer card animation",
+    "pausedPlayState": "paused",
+    "movementAcrossPaused700ms": false,
+    "status": "PASS"
+  },
+  "captures": ["captures/events-390x844.png","captures/new-arrival-after-next-390x844.png","captures/held-out-route-390x844.png","captures/footer-motion-live-390x844.png"]
+}

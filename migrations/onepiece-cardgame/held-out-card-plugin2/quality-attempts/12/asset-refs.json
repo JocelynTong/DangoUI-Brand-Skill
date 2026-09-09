@@ -1,0 +1,26 @@
+{
+  "schema": "brand-host-asset-refs/v1",
+  "attempt": 12,
+  "route": "pages/event/index",
+  "usage": "contained event identity media only",
+  "assets": [
+    {
+      "id": "pokemon-me05-logo",
+      "localPath": "frontend/src/assets/brand-assets/pokemon-tcg-pitch-black/me05-logo-2x.png",
+      "sha256": "c749edce39748188135d3b0ea9bcdcc378829c1390ed3cc26ac5f6c917030155",
+      "provenance": "frontend/migrations/pokemon-tcg-pitch-black/rendered-asset-inventory.json#me05-logo-2x.png",
+      "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/me05/logo/en-us/me05-logo-2x.png",
+      "sourceKind": "existing-host-official-pokemon-asset"
+    },
+    {
+      "id": "pokemon-me05-elite-trainer-box",
+      "localPath": "frontend/src/assets/brand-assets/pokemon-tcg-pitch-black/me05-pc-etb-en.png",
+      "sha256": "9b512941e129a70b9033c864ad05a50e21b688dfda35ffe0654f862adcfd1f7e",
+      "provenance": "existing approved pokemon-tcg-pitch-black host asset bundle; upstream URL was not recorded in the frozen inventory",
+      "sourceUrl": null,
+      "sourceKind": "existing-host-pokemon-product-asset"
+    }
+  ],
+  "composition": "CSS multi-background inside the pre-existing bounded media field; logo and product pack remain secondary to event title/status/metrics",
+  "rejected": ["source screenshot crop", "ONE PIECE product art in Pokémon business content", "full-screen character poster"]
+}

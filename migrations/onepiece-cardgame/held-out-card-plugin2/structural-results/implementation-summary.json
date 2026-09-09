@@ -1,0 +1,15 @@
+{
+  "schema": "brand-host-structural-results/v1",
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "validator": "skills/brand/scripts/validate-host-structural-diff.mjs",
+  "routes": [
+    {"route":"pages/plaza/index","baseline":"structural-baselines/plaza-index.json","manifest":"structural-manifests/plaza-index.json","ok":true,"failures":[]},
+    {"route":"pages/build/index","baseline":"structural-baselines/build-index.json","manifest":"structural-manifests/build-index.json","ok":true,"failures":[]},
+    {"route":"pages/mine/index","baseline":"structural-baselines/mine-index.json","manifest":"structural-manifests/mine-index.json","ok":true,"failures":[]},
+    {"route":"pages/event/index","baseline":"structural-baselines/event-index.json","manifest":"structural-manifests/event-index.json","ok":true,"failures":[]},
+    {"route":"pages/round/index","baseline":"structural-baselines/round-index.json","manifest":"structural-manifests/round-index.json","ok":true,"failures":[]},
+    {"route":"pages/detail/index","baseline":"structural-baselines/detail-index.json","manifest":"structural-manifests/detail-index.json","ok":true,"failures":[]}
+  ],
+  "summary": {"passed":6,"total":6,"sfcTemplateEdits":"accessibility semantics only","accessibilityAugmentationNodes":68,"sfcBusinessScriptEdits":0},
+  "verdict": "PASS"
+}

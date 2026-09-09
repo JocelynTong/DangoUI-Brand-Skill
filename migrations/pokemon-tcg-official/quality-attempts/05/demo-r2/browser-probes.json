@@ -1,0 +1,663 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "05-demo-r2",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "route": "http://127.0.0.1:5177/?qa=attempt5-r2#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "results": [
+    {
+      "surface": {
+        "name": "mobile-390x844",
+        "width": 390,
+        "height": 844
+      },
+      "initial": {
+        "hero": {
+          "x": 21,
+          "y": 9,
+          "right": 369,
+          "bottom": 425,
+          "width": 348,
+          "height": 416,
+          "clientWidth": 348,
+          "scrollWidth": 348
+        },
+        "logo": {
+          "x": 31,
+          "y": 16,
+          "right": 101,
+          "bottom": 41,
+          "width": 70,
+          "height": 25
+        },
+        "nav": {
+          "box": {
+            "x": 35,
+            "y": 9,
+            "right": 355,
+            "bottom": 47,
+            "width": 320,
+            "height": 38
+          },
+          "mobileLabel": "\"MENU  ☰\"",
+          "items": [
+            {
+              "label": "EXPANSIONS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "CARDS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "HOW TO PLAY",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "NEWS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            }
+          ],
+          "visibleItemCount": 0,
+          "maximumLogoItemOverlapPx2": 0
+        },
+        "card": {
+          "box": {
+            "x": 234,
+            "y": 230.171875,
+            "right": 352,
+            "bottom": 395,
+            "width": 118,
+            "height": 164.828125
+          },
+          "ariaPressed": "false",
+          "transform": "none",
+          "transitionDuration": "0.56s"
+        },
+        "cta": {
+          "x": 35,
+          "y": 351,
+          "right": 221,
+          "bottom": 395,
+          "width": 186,
+          "height": 44
+        },
+        "nextSection": {
+          "box": {
+            "x": 21,
+            "y": 425,
+            "right": 369,
+            "bottom": 1397.671875,
+            "width": 348,
+            "height": 972.671875
+          },
+          "browserViewportHeight": 844,
+          "phoneViewport": {
+            "x": 9,
+            "y": 9,
+            "right": 381,
+            "bottom": 812.453125,
+            "width": 372,
+            "height": 803.453125
+          },
+          "startsAtHeroBoundary": false,
+          "visibleInInitialPhoneViewport": false
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 4138
+        },
+        "overflow": {
+          "documentHorizontal": false,
+          "heroHorizontal": false
+        }
+      },
+      "interaction": {
+        "pointer": {
+          "sequence": [
+            "false",
+            "true",
+            "false"
+          ],
+          "midTransform": "matrix3d(-0.62939, 0, -0.77709, 0, 0, 1, 0, 0, 0.77709, 0, -0.62939, 0, 0, 0, 0, 1)",
+          "scrollTopStable": true,
+          "pass": true
+        },
+        "keyboard": {
+          "keys": [
+            "Enter",
+            "Space"
+          ],
+          "sequence": [
+            "true",
+            "false"
+          ],
+          "pass": true
+        },
+        "carousel": {
+          "sequence": [
+            0,
+            1,
+            0
+          ],
+          "pass": true
+        }
+      },
+      "final": {
+        "hero": {
+          "x": 21,
+          "y": 9,
+          "right": 369,
+          "bottom": 425,
+          "width": 348,
+          "height": 416,
+          "clientWidth": 348,
+          "scrollWidth": 348
+        },
+        "logo": {
+          "x": 31,
+          "y": 16,
+          "right": 101,
+          "bottom": 41,
+          "width": 70,
+          "height": 25
+        },
+        "nav": {
+          "box": {
+            "x": 35,
+            "y": 9,
+            "right": 355,
+            "bottom": 47,
+            "width": 320,
+            "height": 38
+          },
+          "mobileLabel": "\"MENU  ☰\"",
+          "items": [
+            {
+              "label": "EXPANSIONS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "CARDS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "HOW TO PLAY",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "NEWS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            }
+          ],
+          "visibleItemCount": 0,
+          "maximumLogoItemOverlapPx2": 0
+        },
+        "card": {
+          "box": {
+            "x": 234,
+            "y": 230.171875,
+            "right": 352,
+            "bottom": 395,
+            "width": 118,
+            "height": 164.828125
+          },
+          "ariaPressed": "false",
+          "transform": "none",
+          "transitionDuration": "0.56s"
+        },
+        "cta": {
+          "x": 35,
+          "y": 351,
+          "right": 221,
+          "bottom": 395,
+          "width": 186,
+          "height": 44
+        },
+        "nextSection": {
+          "box": {
+            "x": 21,
+            "y": 425,
+            "right": 369,
+            "bottom": 1397.671875,
+            "width": 348,
+            "height": 972.671875
+          },
+          "browserViewportHeight": 844,
+          "phoneViewport": {
+            "x": 9,
+            "y": 9,
+            "right": 381,
+            "bottom": 812.453125,
+            "width": 372,
+            "height": 803.453125
+          },
+          "startsAtHeroBoundary": false,
+          "visibleInInitialPhoneViewport": false
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 4138
+        },
+        "overflow": {
+          "documentHorizontal": false,
+          "heroHorizontal": false
+        }
+      },
+      "checks": {
+        "navPass": true,
+        "geometryPass": true,
+        "carouselPass": true,
+        "consolePass": true
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "pass": true
+    },
+    {
+      "surface": {
+        "name": "outer-1440-internal-phone",
+        "width": 1440,
+        "height": 1000
+      },
+      "initial": {
+        "hero": {
+          "x": 776,
+          "y": 81.484375,
+          "right": 1124,
+          "bottom": 497.484375,
+          "width": 348,
+          "height": 416,
+          "clientWidth": 348,
+          "scrollWidth": 348
+        },
+        "logo": {
+          "x": 786,
+          "y": 88.484375,
+          "right": 856,
+          "bottom": 113.484375,
+          "width": 70,
+          "height": 25
+        },
+        "nav": {
+          "box": {
+            "x": 790,
+            "y": 81.484375,
+            "right": 1110,
+            "bottom": 119.484375,
+            "width": 320,
+            "height": 38
+          },
+          "mobileLabel": "\"MENU  ☰\"",
+          "items": [
+            {
+              "label": "EXPANSIONS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "CARDS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "HOW TO PLAY",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "NEWS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            }
+          ],
+          "visibleItemCount": 0,
+          "maximumLogoItemOverlapPx2": 0
+        },
+        "card": {
+          "box": {
+            "x": 989,
+            "y": 302.65625,
+            "right": 1107,
+            "bottom": 467.484375,
+            "width": 118,
+            "height": 164.828125
+          },
+          "ariaPressed": "false",
+          "transform": "none",
+          "transitionDuration": "0.56s"
+        },
+        "cta": {
+          "x": 790,
+          "y": 423.484375,
+          "right": 976,
+          "bottom": 467.484375,
+          "width": 186,
+          "height": 44
+        },
+        "nextSection": {
+          "box": {
+            "x": 776,
+            "y": 497.484375,
+            "right": 1124,
+            "bottom": 1286.046875,
+            "width": 348,
+            "height": 788.5625
+          },
+          "browserViewportHeight": 1000,
+          "phoneViewport": {
+            "x": 764,
+            "y": 81.484375,
+            "right": 1136,
+            "bottom": 884.9375,
+            "width": 372,
+            "height": 803.453125
+          },
+          "startsAtHeroBoundary": false,
+          "visibleInInitialPhoneViewport": false
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 2504
+        },
+        "overflow": {
+          "documentHorizontal": false,
+          "heroHorizontal": false
+        }
+      },
+      "interaction": {
+        "pointer": {
+          "sequence": [
+            "false",
+            "true",
+            "false"
+          ],
+          "midTransform": "matrix3d(-0.629975, 0, -0.776615, 0, 0, 1, 0, 0, 0.776615, 0, -0.629975, 0, 0, 0, 0, 1)",
+          "scrollTopStable": true,
+          "pass": true
+        },
+        "keyboard": {
+          "keys": [
+            "Enter",
+            "Space"
+          ],
+          "sequence": [
+            "true",
+            "false"
+          ],
+          "pass": true
+        },
+        "carousel": {
+          "sequence": [
+            0,
+            1,
+            0
+          ],
+          "pass": true
+        }
+      },
+      "final": {
+        "hero": {
+          "x": 776,
+          "y": 81.484375,
+          "right": 1124,
+          "bottom": 497.484375,
+          "width": 348,
+          "height": 416,
+          "clientWidth": 348,
+          "scrollWidth": 348
+        },
+        "logo": {
+          "x": 786,
+          "y": 88.484375,
+          "right": 856,
+          "bottom": 113.484375,
+          "width": 70,
+          "height": 25
+        },
+        "nav": {
+          "box": {
+            "x": 790,
+            "y": 81.484375,
+            "right": 1110,
+            "bottom": 119.484375,
+            "width": 320,
+            "height": 38
+          },
+          "mobileLabel": "\"MENU  ☰\"",
+          "items": [
+            {
+              "label": "EXPANSIONS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "CARDS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "HOW TO PLAY",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            },
+            {
+              "label": "NEWS",
+              "display": "none",
+              "box": {
+                "x": 0,
+                "y": 0,
+                "right": 0,
+                "bottom": 0,
+                "width": 0,
+                "height": 0
+              }
+            }
+          ],
+          "visibleItemCount": 0,
+          "maximumLogoItemOverlapPx2": 0
+        },
+        "card": {
+          "box": {
+            "x": 989,
+            "y": 302.65625,
+            "right": 1107,
+            "bottom": 467.484375,
+            "width": 118,
+            "height": 164.828125
+          },
+          "ariaPressed": "false",
+          "transform": "none",
+          "transitionDuration": "0.56s"
+        },
+        "cta": {
+          "x": 790,
+          "y": 423.484375,
+          "right": 976,
+          "bottom": 467.484375,
+          "width": 186,
+          "height": 44
+        },
+        "nextSection": {
+          "box": {
+            "x": 776,
+            "y": 497.484375,
+            "right": 1124,
+            "bottom": 1286.046875,
+            "width": 348,
+            "height": 788.5625
+          },
+          "browserViewportHeight": 1000,
+          "phoneViewport": {
+            "x": 764,
+            "y": 81.484375,
+            "right": 1136,
+            "bottom": 884.9375,
+            "width": 372,
+            "height": 803.453125
+          },
+          "startsAtHeroBoundary": false,
+          "visibleInInitialPhoneViewport": false
+        },
+        "scroll": {
+          "top": 0,
+          "clientHeight": 803,
+          "scrollHeight": 2504
+        },
+        "overflow": {
+          "documentHorizontal": false,
+          "heroHorizontal": false
+        }
+      },
+      "checks": {
+        "navPass": true,
+        "geometryPass": true,
+        "carouselPass": true,
+        "consolePass": true
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      },
+      "pass": true
+    }
+  ],
+  "reducedMotion": {
+    "matchMediaActive": true,
+    "beforeAriaPressed": "false",
+    "afterImmediateAriaPressed": "true",
+    "computedTransitionDuration": "0s",
+    "computedTransformImmediatelyAfterActivation": "matrix3d(-1, 0, 0, 0, 0, 1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1)",
+    "degradedToAtMostOneMillisecond": true,
+    "pass": true
+  },
+  "captures": [
+    "captures/mobile-390x844-back.png",
+    "captures/mobile-390x844-flip-mid.png",
+    "captures/mobile-390x844-front.png",
+    "captures/outer-1440-internal-phone-back.png",
+    "captures/outer-1440-internal-phone-flip-mid.png",
+    "captures/outer-1440-internal-phone-front.png",
+    "captures/reduced-motion-back-immediate.png"
+  ],
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

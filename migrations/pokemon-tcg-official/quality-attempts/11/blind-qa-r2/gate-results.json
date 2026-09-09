@@ -1,0 +1,15 @@
+{
+  "schema": "blind-qa-gate-results/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 2,
+  "gates": [
+    {"id": "build", "command": "npm run build", "exitCode": 0, "status": "PASS", "note": "Vite built 25 modules; non-blocking chunk-size warning."},
+    {"id": "preview-registry", "command": "npm run validate:brand-preview", "exitCode": 0, "status": "PASS", "note": "5 previews valid; warnings include format-only remote Pocket asset checks and unrelated legacy/other-brand notices."},
+    {"id": "design-direction", "command": "node skills/brand/scripts/validate-design-direction.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/11/design-direction.json", "exitCode": 0, "status": "PASS", "failures": []},
+    {"id": "strict-section", "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/11/demo-revision2/section-fidelity-manifest.json --strict", "exitCode": 0, "status": "PASS_WITH_BLIND_SPOT", "machineFailures": [], "blindQaFinding": "The validator accepts stale revision paths, inaccurate source URLs, omitted 2x provenance and self-declared visibility because it checks presence/existence rather than semantic correctness."}
+  ],
+  "machineAggregate": "PASS",
+  "blindQaAggregate": "FAIL",
+  "rule": "Machine gate success does not override blocking visual or provenance findings."
+}

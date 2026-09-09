@@ -1,0 +1,18 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "scope": "home-news-grid",
+  "patterns": [
+    {"demoRegion":"section field","patternId":"PAT-WN-01","evidenceRefs":["WN-DESK-BOUNDARY","WN-MOB-BOUNDARY"],"sourceRegion":"article.whats-new","implementation":"[data-schema-section-id=home-news-grid] full-width white field"},
+    {"demoRegion":"section header","patternId":"PAT-WN-02","evidenceRefs":["WN-DESK-HEADER","WN-MOB-HEADER"],"sourceRegion":"h2.whats-new__title + .whats-new__link","implementation":"desktop inline / mobile centered stack"},
+    {"demoRegion":"story cards","patternId":"PAT-WN-03","evidenceRefs":["WN-DESK-CARDS","WN-MOB-CARD"],"sourceRegion":".news-gallery .news__item","implementation":"six independent image-headline-CTA stories"},
+    {"demoRegion":"responsive pages","patternId":"PAT-WN-04","evidenceRefs":["WN-DESK-CARDS","WN-MOB-CARD"],"sourceRegion":"medium-up and small galleries","implementation":"two-up three pages / one-up six pages"},
+    {"demoRegion":"story CTA","patternId":"PAT-WN-05","evidenceRefs":["WN-DESK-CARDS","WN-MOB-CARD","WN-CTA-HOVER"],"sourceRegion":"a.button","implementation":"black rectangular CTA; exact hover layer not claimed"},
+    {"demoRegion":"carousel transition","patternId":"PAT-WN-06","evidenceRefs":["WN-DESK-CAROUSEL","WN-MOB-CAROUSEL"],"sourceRegion":".gallery__item transition","implementation":"directional translate, fade and scale with before/intermediate/settled/restored captures"},
+    {"demoRegion":"carousel controls","patternId":"PAT-WN-07","evidenceRefs":["WN-DESK-CAROUSEL","WN-MOB-CAROUSEL"],"sourceRegion":"gallery navigation and dots","implementation":"60px edge arrows; localized yellow active dot; accessible targets"}
+  ],
+  "unsupportedPatternsAdded": [],
+  "unresolvedOmitted": ["PAT-WN-08 exact viewport-entry motion", "exact CTA hover background layer", "source-specific keyboard focus style"],
+  "visualVerdict": "reserved-for-blind-qa"
+}

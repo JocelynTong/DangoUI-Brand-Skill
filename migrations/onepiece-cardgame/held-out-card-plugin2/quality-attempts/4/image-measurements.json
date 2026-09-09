@@ -1,0 +1,396 @@
+{
+  "plaza": {
+    "old": {
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.298,
+        "darkRatio": 0.5755,
+        "navyRatio": 0.0824,
+        "redRatio": 0.0164,
+        "yellowRatio": 0.0308,
+        "nearWhiteRatio": 0.2677
+      },
+      "desktop": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.1108,
+        "darkRatio": 0.8405,
+        "navyRatio": 0.1679,
+        "redRatio": 0.0187,
+        "yellowRatio": 0.0236,
+        "nearWhiteRatio": 0.1057
+      }
+    },
+    "fresh": {
+      "mobile": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.6965,
+        "darkRatio": 0.1926,
+        "navyRatio": 0.1563,
+        "redRatio": 0.0207,
+        "yellowRatio": 0.0239,
+        "nearWhiteRatio": 0.437
+      },
+      "desktop": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.7014,
+        "darkRatio": 0.2601,
+        "navyRatio": 0.1673,
+        "redRatio": 0.0104,
+        "yellowRatio": 0.0078,
+        "nearWhiteRatio": 0.5535
+      }
+    },
+    "delta": {
+      "mobile": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.778439,
+        "strongChangedPixelRatio": 0.620823,
+        "meanRgbAbsSum": 317.523
+      },
+      "desktop": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.99466,
+        "strongChangedPixelRatio": 0.744639,
+        "meanRgbAbsSum": 446.666
+      }
+    }
+  },
+  "sources": {
+    "sourceHome": {
+      "width": 1280,
+      "height": 6871,
+      "warmRatio": 0.813,
+      "darkRatio": 0.1005,
+      "navyRatio": 0.0622,
+      "redRatio": 0.0112,
+      "yellowRatio": 0.0099,
+      "nearWhiteRatio": 0.6095
+    },
+    "sourceProducts": {
+      "width": 1280,
+      "height": 2699,
+      "warmRatio": 0.8598,
+      "darkRatio": 0.1116,
+      "navyRatio": 0.104,
+      "redRatio": 0.0073,
+      "yellowRatio": 0.0019,
+      "nearWhiteRatio": 0.6213
+    },
+    "sourceEvents": {
+      "width": 1280,
+      "height": 4172,
+      "warmRatio": 0.8787,
+      "darkRatio": 0.0851,
+      "navyRatio": 0.0696,
+      "redRatio": 0.0098,
+      "yellowRatio": 0.0009,
+      "nearWhiteRatio": 0.7389
+    }
+  },
+  "siblingRegression": [
+    {
+      "route": "build",
+      "viewport": "mobile-390x844",
+      "old": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.2048,
+        "darkRatio": 0.7123,
+        "navyRatio": 0.0874,
+        "redRatio": 0.0195,
+        "yellowRatio": 0.0331,
+        "nearWhiteRatio": 0.1946
+      },
+      "fresh": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.2048,
+        "darkRatio": 0.7123,
+        "navyRatio": 0.0874,
+        "redRatio": 0.0195,
+        "yellowRatio": 0.0331,
+        "nearWhiteRatio": 0.1946
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0,
+        "strongChangedPixelRatio": 0,
+        "meanRgbAbsSum": 0
+      }
+    },
+    {
+      "route": "build",
+      "viewport": "desktop-1280x720",
+      "old": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.4996,
+        "darkRatio": 0.4611,
+        "navyRatio": 0.2003,
+        "redRatio": 0.0264,
+        "yellowRatio": 0.0156,
+        "nearWhiteRatio": 0.4862
+      },
+      "fresh": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.4996,
+        "darkRatio": 0.4611,
+        "navyRatio": 0.2003,
+        "redRatio": 0.0264,
+        "yellowRatio": 0.0156,
+        "nearWhiteRatio": 0.4862
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0,
+        "strongChangedPixelRatio": 0,
+        "meanRgbAbsSum": 0
+      }
+    },
+    {
+      "route": "detail",
+      "viewport": "mobile-390x844",
+      "old": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.4886,
+        "darkRatio": 0.3582,
+        "navyRatio": 0.2937,
+        "redRatio": 0.0462,
+        "yellowRatio": 0.0358,
+        "nearWhiteRatio": 0.4062
+      },
+      "fresh": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.4922,
+        "darkRatio": 0.3584,
+        "navyRatio": 0.2938,
+        "redRatio": 0.0462,
+        "yellowRatio": 0.032,
+        "nearWhiteRatio": 0.4062
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.004369,
+        "strongChangedPixelRatio": 0.004235,
+        "meanRgbAbsSum": 0.998
+      }
+    },
+    {
+      "route": "detail",
+      "viewport": "desktop-1280x720",
+      "old": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.5965,
+        "darkRatio": 0.3369,
+        "navyRatio": 0.2572,
+        "redRatio": 0.0854,
+        "yellowRatio": 0.0126,
+        "nearWhiteRatio": 0.4668
+      },
+      "fresh": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.6053,
+        "darkRatio": 0.337,
+        "navyRatio": 0.2573,
+        "redRatio": 0.0854,
+        "yellowRatio": 0.0038,
+        "nearWhiteRatio": 0.4668
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.009193,
+        "strongChangedPixelRatio": 0.009073,
+        "meanRgbAbsSum": 2.184
+      }
+    },
+    {
+      "route": "event",
+      "viewport": "mobile-390x844",
+      "old": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.3418,
+        "darkRatio": 0.5758,
+        "navyRatio": 0.0773,
+        "redRatio": 0.0919,
+        "yellowRatio": 0.007,
+        "nearWhiteRatio": 0.2786
+      },
+      "fresh": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.3484,
+        "darkRatio": 0.576,
+        "navyRatio": 0.0774,
+        "redRatio": 0.0919,
+        "yellowRatio": 0.0005,
+        "nearWhiteRatio": 0.2842
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.007073,
+        "strongChangedPixelRatio": 0.006915,
+        "meanRgbAbsSum": 1.727
+      }
+    },
+    {
+      "route": "event",
+      "viewport": "desktop-1280x720",
+      "old": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.0345,
+        "darkRatio": 0.8412,
+        "navyRatio": 0.1518,
+        "redRatio": 0,
+        "yellowRatio": 0,
+        "nearWhiteRatio": 0.0293
+      },
+      "fresh": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.0345,
+        "darkRatio": 0.8412,
+        "navyRatio": 0.1518,
+        "redRatio": 0,
+        "yellowRatio": 0,
+        "nearWhiteRatio": 0.0293
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0,
+        "strongChangedPixelRatio": 0,
+        "meanRgbAbsSum": 0.002
+      }
+    },
+    {
+      "route": "mine",
+      "viewport": "mobile-390x844",
+      "old": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.0075,
+        "darkRatio": 0.9413,
+        "navyRatio": 0.1035,
+        "redRatio": 0.0492,
+        "yellowRatio": 0.0186,
+        "nearWhiteRatio": 0.0053
+      },
+      "fresh": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.0075,
+        "darkRatio": 0.9502,
+        "navyRatio": 0.1035,
+        "redRatio": 0.0492,
+        "yellowRatio": 0.0097,
+        "nearWhiteRatio": 0.0053
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.008895,
+        "strongChangedPixelRatio": 0.008895,
+        "meanRgbAbsSum": 4.296
+      }
+    },
+    {
+      "route": "mine",
+      "viewport": "desktop-1280x720",
+      "old": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.0136,
+        "darkRatio": 0.911,
+        "navyRatio": 0.2577,
+        "redRatio": 0.1177,
+        "yellowRatio": 0.0371,
+        "nearWhiteRatio": 0.0089
+      },
+      "fresh": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.0136,
+        "darkRatio": 0.9216,
+        "navyRatio": 0.2577,
+        "redRatio": 0.1177,
+        "yellowRatio": 0.0264,
+        "nearWhiteRatio": 0.0089
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.010677,
+        "strongChangedPixelRatio": 0.010677,
+        "meanRgbAbsSum": 5.199
+      }
+    },
+    {
+      "route": "round",
+      "viewport": "mobile-390x844",
+      "old": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.36,
+        "darkRatio": 0.5531,
+        "navyRatio": 0.1504,
+        "redRatio": 0.015,
+        "yellowRatio": 0.0146,
+        "nearWhiteRatio": 0.2004
+      },
+      "fresh": {
+        "width": 390,
+        "height": 844,
+        "warmRatio": 0.3681,
+        "darkRatio": 0.5531,
+        "navyRatio": 0.1504,
+        "redRatio": 0.015,
+        "yellowRatio": 0.0063,
+        "nearWhiteRatio": 0.2004
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0.008221,
+        "strongChangedPixelRatio": 0.008221,
+        "meanRgbAbsSum": 1.995
+      }
+    },
+    {
+      "route": "round",
+      "viewport": "desktop-1280x720",
+      "old": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.4924,
+        "darkRatio": 0.4522,
+        "navyRatio": 0.337,
+        "redRatio": 0.013,
+        "yellowRatio": 0.006,
+        "nearWhiteRatio": 0.351
+      },
+      "fresh": {
+        "width": 1280,
+        "height": 720,
+        "warmRatio": 0.4924,
+        "darkRatio": 0.4522,
+        "navyRatio": 0.337,
+        "redRatio": 0.013,
+        "yellowRatio": 0.006,
+        "nearWhiteRatio": 0.351
+      },
+      "diff": {
+        "sameDimensions": true,
+        "changedPixelRatio": 0,
+        "strongChangedPixelRatio": 0,
+        "meanRgbAbsSum": 0
+      }
+    }
+  ]
+}

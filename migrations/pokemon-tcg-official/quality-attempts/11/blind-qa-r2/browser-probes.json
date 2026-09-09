@@ -1,0 +1,49 @@
+{
+  "schema": "blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 2,
+  "baseUrl": "http://127.0.0.1:4173/",
+  "normalRoute": {
+    "viewport": [1200, 900],
+    "phoneRect": [635, 51.398, 390, 821.461],
+    "screenRect": [644.5, 60.898, 371, 802.461],
+    "phoneBorder": "9.5px solid rgba(0, 0, 0, 0.08)",
+    "phoneRadius": "41.4666px",
+    "screenRadius": "31.5936px",
+    "scroll": {"before": 0, "after": 2460, "restored": 0, "clientHeight": 802, "scrollHeight": 3842},
+    "homeIndicator": {"position": "absolute", "rectBefore": [654.367, 819.93, 351.266, 33.563], "rectAfter": [654.367, 819.93, 351.266, 33.563]},
+    "sectionOrder": ["home-campaign-stage", "home-news-grid", "home-product-bands", "home-editorial-grid", "homepage-pokemon-championship-series", "homepage-play-pokemon"]
+  },
+  "desktopCalibration": {
+    "surface": [1440, 900],
+    "section": {"localRect": [0, 0, 1440, 720], "display": "flex", "flexDirection": "row-reverse", "background": "transparent", "pseudoBackgrounds": "none"},
+    "media": {"localRect": [720, 0, 720, 720], "background": "transparent", "pseudoBackgrounds": "none"},
+    "copy": {"localRect": [0, 0, 720, 720], "background": "transparent", "pseudoBackgrounds": "none"},
+    "typography": {"h2": {"localRect": [12, 196.484, 696, 114.234], "font": "Kanit Official", "size": 56, "lineHeight": 57.12}, "body": {"localRect": [50, 318.719, 620, 128], "font": "PT Sans Official", "size": 20, "lineHeight": 32}, "cta": {"font": "PT Sans Official", "size": 20, "lineHeight": 24}},
+    "asset": {"src": "/assets/brand-assets/pokemon-tcg-official/championships.jpg", "srcset": "championships.jpg 1x, championships-2x.jpg 2x", "currentSrcAtDpr1": "/assets/brand-assets/pokemon-tcg-official/championships.jpg", "naturalSize": [696, 696]},
+    "cta": {"default": {"surface": "rgb(0, 0, 0)", "content": "rgb(255, 255, 255)", "ariaPressed": null}, "hover": {"content": "rgb(0, 0, 0)", "overlay": "rgb(226, 186, 101)", "transform": "matrix(1, 0, 0, 1, 0, 0)"}, "focus": {"surface": "rgb(0, 0, 0)", "content": "rgb(255, 255, 255)", "outline": "rgb(0, 95, 204) auto 1px", "overlayTransform": "matrix(0, 0, 0, 1, 0, 0)"}, "destinationOpened": "https://championships.pokemon.com/en-us/", "renderedShadow": "rgba(0, 0, 0, 0.55) 0px 8px 16px -10px", "afterPseudo": {"content": "none", "boxShadow": "none"}},
+    "playPokemonLocalStartY": 720
+  },
+  "mobileCalibration": {
+    "contentSurface": [390, 844],
+    "note": "Chrome extension did not resize its outer window reliably; the explicit proof=mobile route nevertheless rendered and was cropped/probed as its designed independent 390x844 content surface.",
+    "geometry": {"section": [0, 0, 390, 829.172], "media": [0, 0, 390, 390], "copy": [8, 390, 374, 439.172], "h2": [32, 422.398, 326, 97.5], "body": [32, 527.898, 326, 201.578], "cta": [99.633, 745.477, 190.734, 51.297], "playPokemonStartY": 829.172},
+    "expectedFrozenY": {"h2": 414, "body": 519.5, "cta": 737.078},
+    "computed": {"h2": "Kanit Official 700 italic 32/32.5", "body": "PT Sans Official 400 18/28.8", "cta": "PT Sans Official 700 italic 18/22.5"},
+    "backgroundOwnership": "section/media/copy transparent; pseudo content none; page canvas white",
+    "asset": {"src": "/assets/brand-assets/pokemon-tcg-official/championships.jpg", "srcset": "championships.jpg 1x, championships-2x.jpg 2x", "currentSrcAtDpr1": "/assets/brand-assets/pokemon-tcg-official/championships.jpg", "naturalSize": [696, 696]},
+    "interaction": {"hoverOverlay": "gold scaleX(1)", "focus": "black/white with rgb(0,95,204) auto 1px outline", "ariaPressed": null, "destinationOpened": "https://championships.pokemon.com/en-us/"}
+  },
+  "assetIntegrity": {
+    "runtime1xSha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+    "evidence1xSha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+    "runtime2xSha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db",
+    "evidence2xSha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db"
+  },
+  "heldOut": {
+    "desktop": {"section": [0, 0, 1440, 720], "copy": [0, 0, 720, 720], "cssNativeMedia": [720, 0, 720, 720], "background": "transparent", "pseudoContent": "none"},
+    "mobile": {"section": [0, 0, 390, 829.172], "cssNativeMedia": [0, 0, 390, 390], "copy": [8, 390, 374, 439.172]},
+    "interaction": {"focusVisible": true, "outline": "rgb(0, 95, 204) auto 1px", "ariaPressedBefore": null, "ariaPressedAfter": null, "statusBefore": "Fictional program review is ready.", "statusAfter": "Fictional program review noted locally.", "statusVisualPresentation": "1x1 clipped visually-hidden aria-live node", "reloadRestored": true, "scrollTopAfterReload": 0}
+  }
+}

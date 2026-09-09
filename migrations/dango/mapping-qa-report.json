@@ -1,0 +1,26 @@
+{
+  "schema": "dangoui-mapping-qa-report/v1",
+  "brand": "dango",
+  "qaExecutionId": "/root/dango_eight_token_mapping_qa",
+  "verdict": "PASS",
+  "summary": {
+    "targetBearingLeaves": 8,
+    "verifiedLeaves": 8,
+    "mappedNativeColorTokens": "5/5",
+    "styleOnlyTokens": "3/3"
+  },
+  "evidence": {
+    "qaInput": "migrations/dango/mapping-qa-eight-token/qa-input-manifest.json",
+    "computedConsumption": "migrations/dango/mapping-qa-eight-token/computed-consumption-report.json",
+    "fullReport": "migrations/dango/mapping-qa-eight-token/mapping-qa-report.json"
+  },
+  "checks": {
+    "completeDtcgChain": true,
+    "runtimeConsumption": true,
+    "nativeComponentBoundary": true,
+    "styleOnlyBoundary": true,
+    "roleExpansionAudit": true,
+    "build": true
+  },
+  "blockingFindings": []
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 5,
+  "decisionStatus": "approved",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "demoType": "host-transferable-generative-demo",
+  "sourceTruthBoundary": "The official 1183px mobile composition remains brand-learning source evidence. This compact Hero is an intentional host adaptation and does not replace or falsify that source truth.",
+  "designObjective": "Keep the Pokémon campaign identity and tangible card-flip interaction in a Hero no taller than half a 390x844 viewport, while making the following business section visible immediately.",
+  "inputBindings": {
+    "goal": {"path": "migrations/pokemon-tcg-official/quality-attempts/05/goal-correction.json", "sha256": "986498b5ef0a85c60946591e3398d0d563a30fc8cb3ac539f8865d0a7b262c50"},
+    "evidence": {"path": "migrations/pokemon-tcg-official/brand-evidence.json", "sha256": "ef8123934f5cc4fc76113db18a0141ab0e373436755581b284297fd6969e6771"},
+    "intent": {"path": "migrations/pokemon-tcg-official/brand-intent.json", "sha256": "bb73a547abe6a0aa50d77315f12c96125886d9536e40bf68928fba3d630f0021"},
+    "patterns": {"path": "migrations/pokemon-tcg-official/approved-visual-patterns.json", "sha256": "01cf9955b79ac666879709f6a8bb92342310eaac3302c3df34bf05f177978fe8"}
+  },
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "featured card interaction",
+    "campaign identity and official assets",
+    "compact composition",
+    "carousel continuity",
+    "protocol completeness"
+  ],
+  "sections": [{
+    "id": "home-campaign-stage",
+    "firstImpressionGoal": "A compact branded campaign surface with a tangible flippable card is immediately recognizable, while the next business section remains visible in the first phone viewport.",
+    "mustPreserve": ["official mobile campaign background", "campaign and TCG identity", "official card front and back", "reversible flip", "readable CTA", "working campaign controls"],
+    "mayChange": ["source Hero height", "layer positions", "campaign logo scale", "navigation density", "carousel control presentation"],
+    "mustNotDo": ["use screenshot as runtime composition", "add unsupported shine", "hide next section below initial viewport", "shrink controls below usable sizes", "overlap navigation and logo"]
+  }],
+  "highSalienceElements": ["background", "campaign-logo", "featured-card", "cta", "carousel-controls", "card-flip-motion"],
+  "responsiveStrategyMatrix": [
+    {"element": "background", "elementType": "media", "strategy": "art-directed-crop", "evidenceRefs": ["home-stage-composition", "home-responsive-reflow"], "viewports": ["390x844", "outer-1440-internal-phone"], "mustPreserve": ["official mobile asset", "recognizable central subject"]},
+    {"element": "campaign-logo", "elementType": "media", "strategy": "independent-scale", "evidenceRefs": ["home-stage-composition"], "viewports": ["390x844", "outer-1440-internal-phone"], "mustPreserve": ["brand identity", "legibility", "zero navigation overlap"]},
+    {"element": "featured-card", "elementType": "control", "strategy": "independent-scale", "evidenceRefs": ["home-stage-composition", "user-correction-card-flip-core"], "viewports": ["390x844", "outer-1440-internal-phone"], "mustPreserve": ["official front and back identity", "keyboard and pointer operability"], "minimumReadableSize": "110px card width / 44px interactive target"},
+    {"element": "cta", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["home-stage-composition"], "viewports": ["390x844", "outer-1440-internal-phone"], "mustPreserve": ["visible label", "primary action hierarchy"], "minimumReadableSize": "14px text / 44px height"},
+    {"element": "carousel-controls", "elementType": "control", "strategy": "structural-substitution", "evidenceRefs": ["home-carousel-next", "home-responsive-reflow"], "viewports": ["390x844", "outer-1440-internal-phone"], "mustPreserve": ["real state change", "reversible selection", "visible active state"], "minimumReadableSize": "44px target or grouped accessible control"},
+    {"element": "card-flip-motion", "elementType": "motion", "strategy": "motion-degradation", "evidenceRefs": ["user-correction-card-flip-core", "official-card-back-asset"], "viewports": ["pointer", "keyboard", "prefers-reduced-motion"], "mustPreserve": ["front-to-back state truth", "reversibility", "no scroll jump", "instant settled state under reduced motion"]}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "outer 1440 viewport containing the real narrow phone proof surface",
+    "mobileCanvas": "independent 390x844 viewport",
+    "inspectorPolicy": "exclude inspector selection markers and side panels from fidelity crops",
+    "sourceComparison": "compare brand invariants to source evidence; evaluate compact height as an approved host adaptation, not source pixel fidelity"
+  }
+}

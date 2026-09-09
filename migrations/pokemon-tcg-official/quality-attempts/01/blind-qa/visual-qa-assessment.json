@@ -1,0 +1,78 @@
+{
+  "schema": "brand-visual-qa-assessment-independent/v1",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "attempt": 1,
+  "reviewerRecommendation": "rework",
+  "overall": "FAIL",
+  "scores": {
+    "Evidence": {"score": 72, "status": "FAIL"},
+    "Structural": {"score": 66, "status": "FAIL"},
+    "Generative": {"score": 58, "status": "FAIL"},
+    "VisibleLearning": {"score": 74, "status": "FAIL"},
+    "overallUnweighted": 67.5
+  },
+  "proofVerdicts": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "FAIL",
+    "visibleLearningProof": "FAIL"
+  },
+  "pageAssessments": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "pokemon-tcg-official-home",
+      "status": "REWORK",
+      "strengths": ["Phone shell is present and reversibly scrollable.", "Frozen official image identities load with non-zero natural sizes.", "Black campaign stage and banded editorial/product journey are visually distinct."],
+      "findings": ["Canonical full-page source capture contains large blank/lazy regions, weakening screenshot-first proof for the claimed complete editorial journey.", "The standard desktop route remains a phone-shell translation rather than independently demonstrating the source desktop horizontal geometry."]
+    },
+    {
+      "sourcePageId": "card-database",
+      "demoPageId": "pokemon-tcg-official-card-database",
+      "status": "REWORK",
+      "strengths": ["Search is real and reversible: empty to Pikachu to results to reset.", "Result cards load from official-scoped assets.", "Dense charcoal search organism preserves reading order at desktop host and 390."],
+      "findings": ["Advanced drawer geometry/state progression does not match the frozen source action contract: demo settles at 520px immediately instead of 724px then 1206.73px."]
+    },
+    {
+      "sourcePageId": "how-to-play",
+      "demoPageId": "pokemon-tcg-official-learn",
+      "status": "PASS_WITH_EVIDENCE_GAP",
+      "strengths": ["Getting-started, yellow card anatomy, and navy field-of-play organisms are distinct.", "Exclusive accordion changes and restores.", "No Reduce Motion behavior or control was invented.", "Phone shell is present and reversibly scrollable."],
+      "findings": ["Canonical full-page source capture has extensive blank/lazy regions; it does not visually establish all claimed hierarchy without relying on manifest assertions and later assets."]
+    },
+    {
+      "sourcePageId": null,
+      "demoPageId": "pokemon-tcg-official-held-out",
+      "status": "VISUALLY_GENERATIVE_BUT_PROTOCOL_FAIL",
+      "strengths": ["New Deck Lab information architecture is visibly separate from the three calibrated pages.", "It reuses bounded organism, oversized heading, authentic-object, accordion, and responsive hierarchy rules."],
+      "findings": ["The submitted generative-proof artifact lacks required frozen-rule, challenge-independence, output-hash, and structure-check fields, so independent generative proof is not machine-verifiable."]
+    }
+  ],
+  "blockingFindings": [
+    {
+      "code": "ADVANCED_DRAWER_GEOMETRY_MISMATCH",
+      "finding": "Required Show/0 → Hide/724 → settled Hide/1206.73 → Show/0 is observed in the source contract, but live Demo produces Show/0 → Hide/520 → Hide/520 → Show/0.",
+      "earliestFailureNode": "Demo Designer",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "code": "GENERATIVE_PROOF_CONTRACT_INCOMPLETE",
+      "finding": "generative-proof.json is visually plausible but omits goalSha256, a challenge object proving heldOut/sourceContentIndependent, named frozenRules, hashed output screenshot, and structureRulesApplied checks required by the active validator.",
+      "earliestFailureNode": "Demo Designer",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "code": "SCREENSHOT_FIRST_SOURCE_COVERAGE_WEAK",
+      "finding": "Canonical Home and Learn full-page source screenshots contain large blank/lazy regions in high-salience sections, so complete section claims are not independently demonstrated screenshot-first.",
+      "earliestFailureNode": "Evidence",
+      "failureOwnerRole": "brandResearcher"
+    }
+  ],
+  "mustNotReplace": {
+    "noPitchBlackConclusionReuse": {"violated": false, "basis": "No forbidden theme selector, class, asset path, or recipe was found inside official demo DOM; official CSS selectors do not cross-reference forbidden themes."},
+    "noScreenshotRuntime": {"violated": false, "basis": "No runtime asset hash matched any canonical source screenshot hash."},
+    "noItemCountProxy": {"violated": false},
+    "noFakeControls": {"violated": true, "basis": "The advanced drawer is clickable and reversible, but its required intermediate and settled structural states are not implemented."}
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "schema": "mapping-qa-input-manifest/v1",
+  "brand": "onepiece-cardgame",
+  "generatedAt": "2026-09-06T11:09:52Z",
+  "independence": {
+    "freshContext": true,
+    "excludedInputs": [
+      "all prior mapping QA verdicts",
+      "implementation rationale"
+    ],
+    "mutationBoundary": "Only migrations/onepiece-cardgame/mapping-qa/* and the canonical mapping-qa-report.json were written. Runtime, goal, evidence, intent, mapping contracts and implementation artifacts were not changed."
+  },
+  "inputs": [
+    {"path":"migrations/onepiece-cardgame/goal-contract.json","sha256":"1833efd09448404ccac2831c64617e77246babd818a425bb1e96bc03248860fb"},
+    {"path":"migrations/onepiece-cardgame/brand-evidence.json","sha256":"af89412ac57f52f0f423c2e01a6c8914e499d1a4641f5602c255c49acae5a9ca"},
+    {"path":"migrations/onepiece-cardgame/computed-evidence.json","sha256":"6966e27380bee712a08a12391e2639bde54d5bda6ef28b42a847c776404c594c"},
+    {"path":"migrations/onepiece-cardgame/brand-intent.json","sha256":"43fcc113a4ba4859444cbca09abeb79fc0f477fa69c4983354833713200c4765"},
+    {"path":"migrations/onepiece-cardgame/approved-visual-patterns.json","sha256":"9b72a760b13d979b22a288e8b51e0823bcb45a02e97d2b15f2daa4394f7ad239"},
+    {"path":"migrations/onepiece-cardgame/brand-profile.dtcg.json","sha256":"ee414f1ecd447fc52e0b623748af7bce469ae010d4991a5d04da451b8becae71"},
+    {"path":"migrations/onepiece-cardgame/dangoui-adapter.json","sha256":"4e8cca611db0f53c631f1f07ffaa986ff9fe7aea84e05f91e6ec1f9a52a2567d"},
+    {"path":"migrations/onepiece-cardgame/component-mapping.json","sha256":"fd97429492d22bff51191dea18af1a29af29549bd83182fc15294d5311d4a9ad"},
+    {"path":"migrations/onepiece-cardgame/mapping-runtime-proof.json","sha256":"1110eca4e991879e65e2e22fc29695641aa0916dd5fb0818881aa3cc8cc80796"},
+    {"path":"migrations/onepiece-cardgame/mapping-runtime/runtime-probe.json","sha256":"2e9d178013c1037df7a4c24baf12ffa1bc7f075e9dd4089c6b2d33be8c341492"},
+    {"path":"src/styles.css","sha256":"06da334e2930593f53efb316145c387fe9dc150491b609793f95172abe776e3f"},
+    {"path":"src/App.vue","sha256":"b2b1872fb85f917e444a9ba45adfbbeb88cb2719669c6bbf888ef7f5d866824c"},
+    {"path":"node_modules/dangoui/src/button/Button.vue","sha256":"621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"},
+    {"path":"public/brand-previews/onepiece-cardgame.json","sha256":"776cd0b055deb1ee9832aebba36ffc79c48e9ccce3b07423694c3f92c881dbb4"}
+  ],
+  "runtime": {
+    "preferredPort": 5182,
+    "actualFreshQaPort": 5183,
+    "reason": "5182 was already occupied; a fresh Vite instance selected 5183.",
+    "liveInspectionUrl": "http://127.0.0.1:5183/?qa=independent-mapping#/brand/onepiece-cardgame/pages/onepiece-cardgame-home"
+  }
+}

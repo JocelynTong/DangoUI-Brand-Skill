@@ -1,0 +1,760 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-demo-revision3",
+  "scope": "home-editorial-grid plus directly-reachable fictional Pocket-family fixture",
+  "calibration": [
+    {
+      "surface": {
+        "id": "desktop-1440",
+        "width": 1440,
+        "height": 900,
+        "proof": "desktop"
+      },
+      "settled": {
+        "proofRole": "source-calibration",
+        "section": {
+          "x": 0,
+          "y": 1793.796875,
+          "right": 1440,
+          "bottom": 2269.984375,
+          "width": 1440,
+          "height": 476.1875
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 476.1875
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "100% 50%"
+        },
+        "assetField": {
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 476.1875
+        },
+        "copy": {
+          "rect": {
+            "x": 720,
+            "y": 59.84375,
+            "width": 720,
+            "height": 356.5
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": {
+          "rect": {
+            "x": 10,
+            "y": 23.890625,
+            "width": 700,
+            "height": 428.390625
+          },
+          "natural": [
+            500,
+            306
+          ]
+        },
+        "fixtureArt": null,
+        "fixtureLabel": null,
+        "h2": {
+          "text": "POKÉMON TRADING CARD GAME POCKET",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "40px",
+          "fontStyle": "italic",
+          "lineHeight": "44px"
+        },
+        "body": {
+          "text": "Experience the fun of collecting Pokémon TCG cards with Pokémon Trading Card Game Pocket. Collect and battle with digital cards featuring nostalgic artwork from the past as well as brand-new cards that are exclusive to Pokémon TCG Pocket.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 985,
+            "y": 319.78125,
+            "width": 190,
+            "height": 56
+          },
+          "href": "https://tcgpocket.pokemon.com/en-us",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "hover": {
+        "proofRole": "source-calibration",
+        "section": {
+          "x": 0,
+          "y": 279.796875,
+          "right": 1440,
+          "bottom": 755.984375,
+          "width": 1440,
+          "height": 476.1875
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 476.1875
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "100% 50%"
+        },
+        "assetField": {
+          "x": 0,
+          "y": 0,
+          "width": 720,
+          "height": 476.1875
+        },
+        "copy": {
+          "rect": {
+            "x": 720,
+            "y": 59.84375,
+            "width": 720,
+            "height": 356.5
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": {
+          "rect": {
+            "x": 10,
+            "y": 23.890625,
+            "width": 700,
+            "height": 428.390625
+          },
+          "natural": [
+            500,
+            306
+          ]
+        },
+        "fixtureArt": null,
+        "fixtureLabel": null,
+        "h2": {
+          "text": "POKÉMON TRADING CARD GAME POCKET",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "40px",
+          "fontStyle": "italic",
+          "lineHeight": "44px"
+        },
+        "body": {
+          "text": "Experience the fun of collecting Pokémon TCG cards with Pokémon Trading Card Game Pocket. Collect and battle with digital cards featuring nostalgic artwork from the past as well as brand-new cards that are exclusive to Pokémon TCG Pocket.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 985,
+            "y": 319.78125,
+            "width": 190,
+            "height": 56
+          },
+          "href": "https://tcgpocket.pokemon.com/en-us",
+          "color": "rgb(226, 186, 101)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "regression": {
+        "hero": {
+          "width": 1440,
+          "height": 450
+        },
+        "news": {
+          "width": 1440,
+          "height": 719.796875
+        },
+        "tcgl": {
+          "width": 1440,
+          "height": 624
+        }
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "surface": {
+        "id": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "settled": {
+        "proofRole": "source-calibration",
+        "section": {
+          "x": 0,
+          "y": 1693.8125,
+          "right": 390,
+          "bottom": 2436.828125,
+          "width": 390,
+          "height": 743.015625
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 743.015625
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "50% 50%"
+        },
+        "assetField": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 334.21875
+        },
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 334.21875,
+            "width": 390,
+            "height": 408.78125
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": {
+          "rect": {
+            "x": 10,
+            "y": 50,
+            "width": 370,
+            "height": 226.4375
+          },
+          "natural": [
+            500,
+            306
+          ]
+        },
+        "fixtureArt": null,
+        "fixtureLabel": null,
+        "h2": {
+          "text": "POKÉMON TRADING CARD GAME POCKET",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "28px",
+          "fontStyle": "italic",
+          "lineHeight": "30.8px"
+        },
+        "body": {
+          "text": "Experience the fun of collecting Pokémon TCG cards with Pokémon Trading Card Game Pocket. Collect and battle with digital cards featuring nostalgic artwork from the past as well as brand-new cards that are exclusive to Pokémon TCG Pocket.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 107.953125,
+            "y": 650.640625,
+            "width": 174.078125,
+            "height": 51.296875
+          },
+          "href": "https://tcgpocket.pokemon.com/en-us",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "hover": {
+        "proofRole": "source-calibration",
+        "section": {
+          "x": 0,
+          "y": 38.8125,
+          "right": 390,
+          "bottom": 781.828125,
+          "width": 390,
+          "height": 743.015625
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 743.015625
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "50% 50%"
+        },
+        "assetField": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 334.21875
+        },
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 334.21875,
+            "width": 390,
+            "height": 408.78125
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": {
+          "rect": {
+            "x": 10,
+            "y": 50,
+            "width": 370,
+            "height": 226.4375
+          },
+          "natural": [
+            500,
+            306
+          ]
+        },
+        "fixtureArt": null,
+        "fixtureLabel": null,
+        "h2": {
+          "text": "POKÉMON TRADING CARD GAME POCKET",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "28px",
+          "fontStyle": "italic",
+          "lineHeight": "30.8px"
+        },
+        "body": {
+          "text": "Experience the fun of collecting Pokémon TCG cards with Pokémon Trading Card Game Pocket. Collect and battle with digital cards featuring nostalgic artwork from the past as well as brand-new cards that are exclusive to Pokémon TCG Pocket.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 107.953125,
+            "y": 650.640625,
+            "width": 174.078125,
+            "height": 51.296875
+          },
+          "href": "https://tcgpocket.pokemon.com/en-us",
+          "color": "rgb(226, 186, 101)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "regression": {
+        "hero": {
+          "width": 390,
+          "height": 416
+        },
+        "news": {
+          "width": 390,
+          "height": 633.1875
+        },
+        "tcgl": {
+          "width": 390,
+          "height": 644.625
+        }
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "heldOut": [
+    {
+      "surface": {
+        "id": "desktop-1440",
+        "width": 1440,
+        "height": 900,
+        "proof": "desktop"
+      },
+      "settled": {
+        "proofRole": "generative-held-out-fictional",
+        "section": {
+          "x": 0,
+          "y": 0,
+          "right": 1440,
+          "bottom": 476.1875,
+          "width": 1440,
+          "height": 476.1875
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 476.1875
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "100% 50%"
+        },
+        "assetField": {
+          "x": 720,
+          "y": 0,
+          "width": 720,
+          "height": 476.1875
+        },
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 59.84375,
+            "width": 720,
+            "height": 356.5
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": null,
+        "fixtureArt": {
+          "rect": {
+            "x": 815.4469604492188,
+            "y": 94.10211944580078,
+            "width": 529.1060180664062,
+            "height": 287.9832763671875
+          },
+          "text": "PPOCKET DECK STUDIOCONCEPT 01"
+        },
+        "fixtureLabel": {
+          "rect": {
+            "x": 18,
+            "y": 14,
+            "width": 400.640625,
+            "height": 32.59375
+          },
+          "text": "GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT"
+        },
+        "h2": {
+          "text": "POCKET DECK STUDIO",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "40px",
+          "fontStyle": "italic",
+          "lineHeight": "44px"
+        },
+        "body": {
+          "text": "A fictional practice space for arranging a compact digital deck idea. This concept tests the learned Pocket callout structure and is not an announced Pokémon product.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 227.8125,
+            "y": 283.390625,
+            "width": 264.359375,
+            "height": 56
+          },
+          "href": "#fictional-pocket-concept",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "hover": {
+        "proofRole": "generative-held-out-fictional",
+        "section": {
+          "x": 0,
+          "y": 0,
+          "right": 1440,
+          "bottom": 476.1875,
+          "width": 1440,
+          "height": 476.1875
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 476.1875
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "100% 50%"
+        },
+        "assetField": {
+          "x": 720,
+          "y": 0,
+          "width": 720,
+          "height": 476.1875
+        },
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 59.84375,
+            "width": 720,
+            "height": 356.5
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": null,
+        "fixtureArt": {
+          "rect": {
+            "x": 815.4469604492188,
+            "y": 94.10211944580078,
+            "width": 529.1060180664062,
+            "height": 287.9832763671875
+          },
+          "text": "PPOCKET DECK STUDIOCONCEPT 01"
+        },
+        "fixtureLabel": {
+          "rect": {
+            "x": 18,
+            "y": 14,
+            "width": 400.640625,
+            "height": 32.59375
+          },
+          "text": "GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT"
+        },
+        "h2": {
+          "text": "POCKET DECK STUDIO",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "40px",
+          "fontStyle": "italic",
+          "lineHeight": "44px"
+        },
+        "body": {
+          "text": "A fictional practice space for arranging a compact digital deck idea. This concept tests the learned Pocket callout structure and is not an announced Pokémon product.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 227.8125,
+            "y": 283.390625,
+            "width": 264.359375,
+            "height": 56
+          },
+          "href": "#fictional-pocket-concept",
+          "color": "rgb(226, 186, 101)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    },
+    {
+      "surface": {
+        "id": "mobile-390",
+        "width": 390,
+        "height": 844
+      },
+      "settled": {
+        "proofRole": "generative-held-out-fictional",
+        "section": {
+          "x": 0,
+          "y": -431,
+          "right": 390,
+          "bottom": 312.015625,
+          "width": 390,
+          "height": 743.015625
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 743.015625
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "50% 50%"
+        },
+        "assetField": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 334.21875
+        },
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 334.21875,
+            "width": 390,
+            "height": 408.78125
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": null,
+        "fixtureArt": {
+          "rect": {
+            "x": 22.43850326538086,
+            "y": 52.38470458984375,
+            "width": 345.12298583984375,
+            "height": 221.6680908203125
+          },
+          "text": "PPOCKET DECK STUDIOCONCEPT 01"
+        },
+        "fixtureLabel": {
+          "rect": {
+            "x": 10,
+            "y": 10,
+            "width": 380,
+            "height": 51.1875
+          },
+          "text": "GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT"
+        },
+        "h2": {
+          "text": "POCKET DECK STUDIO",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "28px",
+          "fontStyle": "italic",
+          "lineHeight": "30.8px"
+        },
+        "body": {
+          "text": "A fictional practice space for arranging a compact digital deck idea. This concept tests the learned Pocket callout structure and is not an announced Pokémon product.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 72.125,
+            "y": 606.453125,
+            "width": 245.75,
+            "height": 51.296875
+          },
+          "href": "#fictional-pocket-concept",
+          "color": "rgb(0, 0, 0)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "hover": {
+        "proofRole": "generative-held-out-fictional",
+        "section": {
+          "x": 0,
+          "y": 0,
+          "right": 390,
+          "bottom": 743.015625,
+          "width": 390,
+          "height": 743.015625
+        },
+        "background": {
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 390,
+            "height": 743.015625
+          },
+          "currentSrc": "http://127.0.0.1:5177/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "desktopSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-background.jpg",
+          "mobileSrc": "/assets/brand-assets/pokemon-tcg-official/pocket-header-bg-small.jpg",
+          "objectPosition": "50% 50%"
+        },
+        "assetField": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 334.21875
+        },
+        "copy": {
+          "rect": {
+            "x": 0,
+            "y": 334.21875,
+            "width": 390,
+            "height": 408.78125
+          },
+          "backgroundColor": "rgb(0, 0, 0)"
+        },
+        "composite": null,
+        "fixtureArt": {
+          "rect": {
+            "x": 22.43850326538086,
+            "y": 52.38469696044922,
+            "width": 345.12298583984375,
+            "height": 221.6680908203125
+          },
+          "text": "PPOCKET DECK STUDIOCONCEPT 01"
+        },
+        "fixtureLabel": {
+          "rect": {
+            "x": 10,
+            "y": 10,
+            "width": 380,
+            "height": 51.1875
+          },
+          "text": "GENERATIVE FIXTURE · FICTIONAL · NOT AN OFFICIAL PRODUCT"
+        },
+        "h2": {
+          "text": "POCKET DECK STUDIO",
+          "fontFamily": "\"Kanit Official\", Kanit, sans-serif",
+          "fontSize": "28px",
+          "fontStyle": "italic",
+          "lineHeight": "30.8px"
+        },
+        "body": {
+          "text": "A fictional practice space for arranging a compact digital deck idea. This concept tests the learned Pocket callout structure and is not an announced Pokémon product.",
+          "fontFamily": "\"PT Sans Official\", \"PT Sans\", sans-serif",
+          "fontSize": "18px",
+          "lineHeight": "28.8px"
+        },
+        "cta": {
+          "rect": {
+            "x": 72.125,
+            "y": 606.453125,
+            "width": 245.75,
+            "height": 51.296875
+          },
+          "href": "#fictional-pocket-concept",
+          "color": "rgb(226, 186, 101)",
+          "backgroundColor": "rgb(255, 255, 255)"
+        },
+        "overflow": {
+          "sectionHorizontal": false,
+          "documentHorizontal": false
+        }
+      },
+      "console": {
+        "errors": [],
+        "warnings": []
+      }
+    }
+  ],
+  "checks": {
+    "desktopFullBackground": true,
+    "desktopInsetPanel": true,
+    "mobileLayering": true,
+    "responsiveAliases": true,
+    "calibrationCta": true,
+    "heldOutDirectAndLabelled": true,
+    "heldOutArrangementChanged": true,
+    "heldOutPreservesFamily": true,
+    "noOverflow": true,
+    "priorSectionsUnchanged": true,
+    "consoleClean": true
+  },
+  "implementationChecksPass": true,
+  "motionDisposition": "unresolved/unscored; omitted",
+  "visualVerdict": "not-assigned-by-implementation-agent"
+}

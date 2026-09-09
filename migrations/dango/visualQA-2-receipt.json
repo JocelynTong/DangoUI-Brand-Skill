@@ -1,0 +1,26 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "dispatchId":"3dce3aed-4194-4789-86e8-1b48bb8c1413",
+  "stageId":"visualQA-2",
+  "role":"visualQA",
+  "agentExecutionId":"/root/dango_blind_qa_retry",
+  "goalSha256":"07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "verdict":"fail",
+  "failureOwnerRole":"designTranslator",
+  "inputs":[
+    {"path":"migrations/dango/goal-contract.json","sha256":"07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac"},
+    {"path":"migrations/dango/visual-pattern-inventory.json","sha256":"3cf3eadc46277c30d1a61c031ad7018a212cb303199b094945f9436de03b2cf7"},
+    {"path":"migrations/dango/generative-proof.json","sha256":"9d07debf0bee95cb6d08b4ab83360cfaa1c96287753f13b5abd8efb49ec5d8a6"}
+  ],
+  "outputs":[
+    {"path":"migrations/dango/qa-input-manifest.json","sha256":"c33c801fd203b8fef82ef5648df93ba7f2a0bd27e925498d9a832be2def579a8"},
+    {"path":"migrations/dango/visual-qa-assessment.json","sha256":"f242731c3db0e650f1c1c3ba41766d2b79d5c719cad70b21a3484ac5ec73a860"},
+    {"path":"migrations/dango/visual-comparison-report.json","sha256":"4ca0deac00630b8171e4ae06b36b2034ee8ea176bfd3c49cce0172225f43ffb2"},
+    {"path":"migrations/dango/fidelity-report.json","sha256":"d14e5aa627b5c7a3a6d35c27a92294f1eced34f99819f1b4385f7ee02061700f"}
+  ],
+  "blockingFindings":[
+    {"code":"COMPOSITION_LAYER_EVIDENCE_INVALID","owner":"designTranslator","summary":"Mobile composition layer uses a whole-page source region."},
+    {"code":"HERO_ASSET_VARIANT_MISMATCH","owner":"demoImplementationAgent","summary":"Button source/demo composition variants differ without an authorized translation."},
+    {"code":"COMPOSITION_CROP_TRANSLATION_UNVERIFIED","owner":"designTranslator","summary":"Button composition aspect ratio differs by 1.35x without a frozen translation."}
+  ]
+}

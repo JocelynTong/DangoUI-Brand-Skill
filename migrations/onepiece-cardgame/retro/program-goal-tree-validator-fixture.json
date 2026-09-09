@@ -1,0 +1,9 @@
+{
+  "schema": "brand-program-goal-tree/v1",
+  "pipelines": {
+    "learn-brand": { "status": "PASS", "evidence": ["migrations/onepiece-cardgame/fidelity-report.json"], "remainingGap": "none in current brand learning scope", "nextAction": "hold frozen MOD for reuse" },
+    "design-host": { "status": "REWORK", "evidence": ["host QA remains external to this source repository"], "remainingGap": "approve a complete page opportunity map before further host styling", "nextAction": "run program-strategy gate against the host map" },
+    "held-out-reuse": { "status": "NEEDS_EVIDENCE", "evidence": ["no second independent brand-host pair accepted yet"], "remainingGap": "one held-out transfer", "nextAction": "repeat both pipelines on an independent case" }
+  },
+  "progressBasis": "Each pipeline reports its own status; host coverage is scoped to design-host only."
+}

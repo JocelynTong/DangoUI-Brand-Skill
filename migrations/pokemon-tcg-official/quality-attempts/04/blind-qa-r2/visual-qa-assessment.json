@@ -1,0 +1,43 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "04-blind-qa-r2",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "verdict": "PASS",
+  "goalCorrection": "../goal-correction-hero-responsive.json",
+  "evidenceFidelity": "PASS",
+  "structuralFidelity": "PASS",
+  "generativeProof": "NOT_ASSESSED_OUT_OF_SCOPE",
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "acceptance": {
+    "mobileViewport390x844": "PASS",
+    "mobileHeroHeight900To1280": "PASS_1183PX",
+    "defaultStateSixRequiredLayers": "PASS",
+    "allCarouselStatesPreserveRequiredLayers": "PASS_0_TO_1_TO_0",
+    "minimumCTAHeight44": "PASS_55_99PX",
+    "sourceShapedCTA": "PASS_GOLD_BORDER_PILL_DARK_LABEL_RIGHT_ARROW",
+    "sourceShapedReadableCarouselControls": "PASS_VISIBLE_LEFT_RIGHT_ARROWS_55_99PX",
+    "activeStateVisibility": "PASS_NO_BLANK_OR_WHITE_ON_WHITE_STATE",
+    "artDirectedMobileAssetAndCrop": "PASS",
+    "logoCardControlsDoNotObscureEachOther": "PASS_ALL_STATES",
+    "nextSectionReachable": "PASS",
+    "noHorizontalOverflow": "PASS_MOBILE_AND_OUTER_1440_INTERNAL_PHONE",
+    "scrollChangeAndRestore": "PASS_0_MIDDLE_BOTTOM_0",
+    "carouselChangeAndRestore": "PASS_VISUAL_AND_INDEX",
+    "outer1440InternalPhoneUsesMobileLayout": "PASS",
+    "controlsMinimum44": "PASS_55_99PX",
+    "desktopRegression": "PASS_ACTUAL_PRODUCT_PROOF_SURFACE",
+    "runtimeConsoleErrors": "PASS"
+  },
+  "blockingFindings": [],
+  "nonBlockingObservations": [
+    "The Demo labels the mobile arrow controls with small slide numerals; the source presents plainer arrow controls. The arrows, target sizes and interaction truth remain clear, so this is not a blocker for the sealed structural goal.",
+    "Both Demo carousel states intentionally reuse the same approved campaign logo and featured card because no second complete source identity set is frozen. This is preferable to dropping required layers, but the second state should not later be presented as a distinct learned official campaign without new evidence.",
+    "The app-level 1440 viewport still presents a phone mockup by design. Desktop regression therefore means the narrow internal proof surface remains coherent under a wide outer window; it is not a claim that this route reproduces the official site's independent 1440 desktop composition."
+  ],
+  "sourceComparison": {
+    "finding": "The mobile Hero now preserves the source's compact black navigation, mobile campaign art, vertical focal sequence, separate campaign mark/card, edge navigation controls and gold-outlined pill CTA. The outer 1440 review surface correctly follows its approximately 348–371px internal width instead of activating the official desktop arrangement.",
+    "machineDataCannotOverrideVisualReview": true
+  }
+}

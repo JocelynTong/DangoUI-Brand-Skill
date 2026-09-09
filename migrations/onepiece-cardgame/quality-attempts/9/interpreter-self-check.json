@@ -1,0 +1,118 @@
+{
+  "schema": "brand-interpreter-self-check/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 9,
+  "role": "Design Translator",
+  "checkedAt": "2026-09-01T16:45:00+08:00",
+  "inputBoundary": {
+    "consumed": [
+      "migrations/onepiece-cardgame/goal-contract.json",
+      "migrations/onepiece-cardgame/brand-evidence.json",
+      "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+      "migrations/onepiece-cardgame/rendered-asset-inventory.json",
+      "quality-attempts/9/evidence-self-check.json",
+      "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-settled.png",
+      "output/visual-qa/onepiece-cardgame/evidence-v9/footer-organism/footer-illustration-late-frame.png"
+    ],
+    "forbiddenInputsNotConsumed": [
+      "Demo source or runtime",
+      "Demo screenshots",
+      "implementation rationale",
+      "prior QA verdicts"
+    ]
+  },
+  "verdict": "PASS",
+  "checks": [
+    {
+      "id": "all-new-evidence-claims-translated",
+      "status": "pass",
+      "expectedClaimIds": [
+        "home-font-asset-alfa-slab-one",
+        "home-font-asset-noto-serif",
+        "home-font-asset-poppins",
+        "home-font-asset-oswald",
+        "home-footer-illustration-organism"
+      ],
+      "approvedPatternIds": [
+        "home-display-font-resource",
+        "home-editorial-font-resource",
+        "home-utility-font-resource",
+        "home-condensed-metadata-font-resource",
+        "home-footer-illustration-organism"
+      ]
+    },
+    {
+      "id": "font-resource-not-family-name",
+      "status": "pass",
+      "rule": "For every font role, a CSS font-family declaration without a delivered or network-loaded resource, document.fonts.check=true and visible glyph proof cannot count as implemented typography."
+    },
+    {
+      "id": "font-fallback-boundary",
+      "status": "pass",
+      "rule": "A disclosed role-matched fallback is permitted only while the exact font-file URL remains unavailable-cross-origin; fallback output cannot be reported as exact typography fidelity."
+    },
+    {
+      "id": "font-role-scope",
+      "status": "pass",
+      "details": [
+        "Alfa Slab One remains short oversized Home display labels only.",
+        "Noto Serif remains the Home Welcome narrative statement role only.",
+        "Poppins remains captured Home navigation and proven ordinary sans roles only.",
+        "Oswald remains captured Home hero availability-date/short campaign metadata only; computed 800 is not globalized beyond the imported 300-700 range."
+      ]
+    },
+    {
+      "id": "footer-composition-frozen",
+      "status": "pass",
+      "assetIdentityCount": 7,
+      "requiredCssLayers": ["footerIllustBg"],
+      "requiredPlacement": "immediately before .footerColInner",
+      "forbiddenSubstitutions": [
+        "plain navy band",
+        "single Luffy image",
+        "generic footer illustration",
+        "organism with omitted text, logo or card layers"
+      ]
+    },
+    {
+      "id": "footer-responsive-boundary",
+      "status": "pass",
+      "mayChange": ["scale", "bounded crop", "overlap offsets", "narrow stacking"],
+      "mustPreserve": ["all seven asset identities", "character/text/logo/card hierarchy", "placement before structural navy footer"]
+    },
+    {
+      "id": "footer-animation-semantics",
+      "status": "pass",
+      "rule": "Retain a bounded one-shot reveal/transition or show the complete settled composition for reduced motion; do not invent controls, loop indefinitely or animate the structural navy footer."
+    },
+    {
+      "id": "evidence-reference-integrity",
+      "status": "pass",
+      "claimSource": "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+      "captureFilesExist": true,
+      "regionsChecked": 7,
+      "regionRule": "Every normalized [x,y,width,height] value is within 0..1 and x+width/y+height do not exceed 1."
+    },
+    {
+      "id": "asset-inventory-consistency",
+      "status": "pass",
+      "inventory": "migrations/onepiece-cardgame/rendered-asset-inventory.json",
+      "fontClaimRefs": 4,
+      "footerRasterAssets": 7,
+      "note": "Inventory records exact font-file URLs as unavailable rather than inferred and requires all footer illustration assets together."
+    },
+    {
+      "id": "no-token-role-expansion",
+      "status": "pass",
+      "rule": "No typography role was promoted to a global default and the footer navy field was not promoted into or accepted as the illustration organism."
+    }
+  ],
+  "outputs": [
+    "migrations/onepiece-cardgame/brand-intent.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "migrations/onepiece-cardgame/quality-attempts/9/interpreter-self-check.json"
+  ]
+}

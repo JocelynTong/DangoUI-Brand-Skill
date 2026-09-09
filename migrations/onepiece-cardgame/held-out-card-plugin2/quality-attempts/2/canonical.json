@@ -1,0 +1,143 @@
+{
+  "schema": "brand-held-out-host-fresh-qa/v1",
+  "attempt": 2,
+  "case": "onepiece-cardgame-heldout-card-plugin2",
+  "role": "fresh-independent-brand-visual-business-qa",
+  "readOnlyProduction": true,
+  "producerEvidenceReused": false,
+  "goalSeal": {
+    "declaredSha256": "6374d1a73ee85c07e69b1e17344519c16d3547c11a4710fcbadaab33cd3791fb",
+    "freshComputedSha256": "6374d1a73ee85c07e69b1e17344519c16d3547c11a4710fcbadaab33cd3791fb",
+    "verdict": "PASS"
+  },
+  "service": {
+    "port": 10092,
+    "listen": "PASS",
+    "heldOutMode": "TARO_APP_HELDOUT_THEME=onepiece",
+    "queryDependency": false
+  },
+  "routeCoverage": {
+    "configured": [
+      "pages/plaza/index",
+      "pages/build/index",
+      "pages/mine/index",
+      "pages/event/index",
+      "pages/round/index",
+      "pages/detail/index"
+    ],
+    "mobile390x844FreshColdLoad": "6/6",
+    "desktop1280x720FreshColdLoad": "6/6",
+    "httpStatus": "PASS_12_OF_12",
+    "horizontalViewportOverflow": "PASS_12_OF_12"
+  },
+  "verdicts": {
+    "workflowCompletion": "FAIL",
+    "businessSafety": "PASS",
+    "visualSystemConformance": "FAIL",
+    "structuralRecognition": "PASS",
+    "explicitIpRecognition": "PASS_DIAGNOSTIC",
+    "runtimeTheme": "PASS",
+    "fullHostExperience": "FAIL",
+    "dangoUi": "PARTIAL_STYLE_ONLY",
+    "overall": "FAIL_RETURN_TO_HOST_IMPLEMENTATION"
+  },
+  "businessSafety": {
+    "routesPreserved": "PASS_6_OF_6",
+    "structuralDiff": "PASS_6_OF_6_FRESH_VALIDATION",
+    "businessScriptDiff": "PASS_6_OF_6",
+    "pokemonContentAndData": "PASS",
+    "externalWriteRequestsDuringFreshQa": 0,
+    "publishOrDestructiveActionsTriggered": false,
+    "notes": "Cold loads, reversible tab state and navigation-only keyboard probes were used. Save, publish, buy, copy, favorite and delete outcomes were not triggered."
+  },
+  "runtimeTheme": {
+    "allColdLoadsHaveHeldOutRootClass": "PASS_12_OF_12",
+    "eventToRoundEnter": "PASS",
+    "eventToRoundSpace": "PASS_SAME_OUTCOME",
+    "childColdReload": "PASS",
+    "backNavigation": "PASS",
+    "childUrlNeedsThemeQuery": false,
+    "themeOrder": "PASS_SINGLE_GLOBAL_ENTRY",
+    "ordinaryBuildIsolation": "PASS_STATIC_AND_BUILD",
+    "ordinaryBuildEvidence": "The ordinary build completed successfully and app.js toggles the held-out root class only when TARO_APP_HELDOUT_THEME equals onepiece; the theme stylesheet is inert without that root scope.",
+    "heldOutBuild": "PASS"
+  },
+  "componentFamilyChecks": {
+    "sourceAugmentedCustomControls": 68,
+    "sourceRoleCount": 68,
+    "sourceEnterHandlerCount": 68,
+    "sourceSpaceHandlerCount": 68,
+    "renderedMissingTabindex": 0,
+    "renderedTabsMissingAriaSelected": 0,
+    "enterSpaceNavigationParity": "PASS",
+    "tabSpaceStateSemantics": "PASS",
+    "focusVisible": "PASS_12_OF_12_ROUTE_PROBES",
+    "minimumTarget44": "FAIL_DETAIL_INLINE_EXPAND",
+    "cjkBodyFont": "PASS_SYSTEM_CJK_STACK_12_OF_12",
+    "roundContrast": "PASS_VISUAL",
+    "eventFullTitle": "PASS",
+    "reducedMotion": "FAIL_PAGE_ROOT_ANIMATION_REMAINS",
+    "responsiveOverflow": "PASS_12_OF_12"
+  },
+  "recognition": {
+    "structuralRecognition": {
+      "blocking": true,
+      "verdict": "PASS",
+      "maskedSurfaces": ["plaza", "event", "detail"],
+      "signals": [
+        "black editorial stages with hard red rules",
+        "yellow active controls and asymmetric campaign framing",
+        "event archive composition and metric panel remain recognizable after text and raster masking",
+        "detail identity masthead, warm content paper and paired hard-edge actions remain structurally consistent"
+      ]
+    },
+    "explicitIpRecognition": {
+      "blocking": false,
+      "verdict": "PASS_DIAGNOSTIC",
+      "signals": ["source-approved campaign art remains visible in unmasked event and plaza captures"]
+    }
+  },
+  "findings": [
+    {
+      "id": "DETAIL_INLINE_EXPAND_TARGET_UNDERSIZED",
+      "severity": "P1",
+      "category": "fullHostExperience",
+      "route": "pages/detail/index",
+      "observed": "The focusable inline 展开 control is 24.97x12 CSS px at 390x844 and 48x24 CSS px at 1280x720.",
+      "expected": "Every custom control in the frozen acceptance scope must expose a minimum 44x44 CSS px target while preserving the inline reading hierarchy.",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": "browser-probes.json results[*].probe.controls.sub44"
+    },
+    {
+      "id": "REDUCED_MOTION_PAGE_ROOT_ANIMATION_REMAINS",
+      "severity": "P1",
+      "category": "visualSystemConformance",
+      "route": "all configured routes",
+      "observed": "With prefers-reduced-motion: reduce, every page root still reports a 0.22s animation. The held-out reduced-motion selector targets descendants of .theme-pokemon-tcg-pitch-black but not the page root carrying that class.",
+      "expected": "Nonessential page-entry animation must be disabled on the root and descendants in reduced-motion mode.",
+      "failureOwnerRole": "Host Implementation Agent",
+      "evidence": [
+        "browser-probes.json results[*].probe.animated",
+        "frontend/src/styles/onepiece-cardgame-heldout-theme.scss reduced-motion selector"
+      ]
+    }
+  ],
+  "earliestFailureOwner": "Host Implementation Agent",
+  "requiredRework": [
+    "Give the inline 展开/收起 control a real 44x44 interactive hit area without distorting the title/description reading flow.",
+    "Extend the held-out reduced-motion rule to the page root itself, then rerun a fresh QA attempt rather than editing this verdict."
+  ],
+  "dangoUi": {
+    "verdict": "PARTIAL_STYLE_ONLY",
+    "runtimeDependencyFound": false,
+    "componentConsumerFound": false,
+    "notes": "CSS variable names and style recipes do not constitute a real DangoUI runtime/component consumer."
+  },
+  "artifacts": {
+    "browserProbes": "quality-attempts/2/browser-probes.json",
+    "keyboardParity": "quality-attempts/2/keyboard-parity.json",
+    "detailLayoutProbe": "quality-attempts/2/detail-layout-probe.json",
+    "freshScreenshots": 12,
+    "maskedRecognitionScreenshots": 3
+  }
+}

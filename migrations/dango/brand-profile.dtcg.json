@@ -1,0 +1,15 @@
+{
+  "$description": "DangoUI documentation-site identity token contract; navigation state and component Primary are deliberately separate roles.",
+  "$extensions": {"echo.brand.schema":"brand-profile.dtcg/v0.1","echo.brand.source":"migrations/dango/brand-evidence.json"},
+  "color": {
+    "surface": {
+      "page": {"$type":"color","$value":"#ffffff","$extensions":{"echo.brand.target":"--du-bg-2","echo.brand.channel":"mapped","echo.brand.status":"mapped"}},
+      "card": {"$type":"color","$value":"#ffffff","$extensions":{"echo.brand.target":"--du-bg-1","echo.brand.channel":"mapped","echo.brand.status":"identity"}}
+    },
+    "text": {"primary":{"$type":"color","$value":"#000000","$extensions":{"echo.brand.target":"--du-text-1","echo.brand.channel":"mapped","echo.brand.status":"identity"}}},
+    "border": {"subtle":{"$type":"color","$value":"#0000001f","$extensions":{"echo.brand.target":"--du-border-1","echo.brand.channel":"mapped","echo.brand.status":"identity"}}},
+    "action": {"primary":{"$type":"color","$value":"#7C66FF","$extensions":{"echo.brand.target":"--du-primary-solid-bg","echo.brand.channel":"mapped","echo.brand.status":"identity","echo.brand.evidenceRefs":["dango-primary-button"]}}},
+    "navigation": {"current":{"$type":"color","$value":"#5854FF","$extensions":{"echo.brand.target":"--style-docs-navigation-current","echo.brand.channel":"styleOnly","echo.brand.status":"styleOnly","echo.brand.evidenceRefs":["dango-docs-active-navigation"],"echo.brand.allowedRuntimeConsumers":[".dango-docs__nav-group > span.is-current"],"echo.brand.forbiddenRoles":["Primary Button","Beta badge","code/import/table","held-out checklist status"]}}}
+  },
+  "dimension": {"control":{"normalHeight":{"$type":"dimension","$value":"32px","$extensions":{"echo.brand.target":"--style-primary-button-height","echo.brand.channel":"styleOnly","echo.brand.status":"styleOnly"}},"radius":{"$type":"dimension","$value":"4px","$extensions":{"echo.brand.target":"--style-primary-button-radius","echo.brand.channel":"styleOnly","echo.brand.status":"styleOnly"}}}}
+}

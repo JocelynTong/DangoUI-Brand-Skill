@@ -1,0 +1,29 @@
+{
+  "brand": "onepiece-cardgame",
+  "verdict": "draft-visual-preview",
+  "checkedPages": [
+    "campaign-home",
+    "product-gallery",
+    "event-news"
+  ],
+  "findings": [
+    {
+      "page": "campaign-home",
+      "status": "pass",
+      "finding": "Hero, overlay navigation and parchment intro are represented.",
+      "evidence": "computed-evidence + rendered assets"
+    },
+    {
+      "page": "product-gallery",
+      "status": "pass",
+      "finding": "Square media and product grouping are structurally distinct.",
+      "evidence": "source navigation and DOM"
+    },
+    {
+      "page": "event-news",
+      "status": "pass",
+      "finding": "Category colors remain semantic and separate from primary active yellow.",
+      "evidence": "layout.css category rules"
+    }
+  ]
+}

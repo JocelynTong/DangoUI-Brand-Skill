@@ -1,0 +1,19 @@
+{
+  "schema": "brand-demo-proof-repair-self-test/v1",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v4",
+  "scope": "visual-pattern-inventory#home-four-type-roles",
+  "runtimeVisualChanged": false,
+  "frozenInputsChanged": false,
+  "visualPatternInventory": {
+    "path": "migrations/onepiece-cardgame/visual-pattern-inventory.json",
+    "sha256": "7dbb2e33e6932ad234df3cbcb089a11eb39da5227d1ee2a3291048fe4a51c4e4"
+  },
+  "checks": [
+    {"evidenceId":"home-font-asset-alfa-slab-one","sourcePageId":"home","capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png","sourceRegion":[0.03,0.097,0.594,0.861],"status":"pass"},
+    {"evidenceId":"home-font-asset-noto-serif","sourcePageId":"home","capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png","sourceRegion":[0,0.083,1,0.917],"status":"pass"},
+    {"evidenceId":"home-font-asset-poppins","sourcePageId":"home","capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png","sourceRegion":[0.108,0.01,0.64,0.075],"status":"pass"},
+    {"evidenceId":"home-font-asset-oswald","sourcePageId":"home","capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png","sourceRegion":[0.025,0.75,0.313,0.07],"status":"pass"}
+  ],
+  "verdictBoundary": "Implementation proof repair only; no QA verdict is written."
+}

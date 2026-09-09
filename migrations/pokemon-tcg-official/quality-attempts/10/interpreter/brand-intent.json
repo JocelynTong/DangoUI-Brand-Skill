@@ -1,0 +1,232 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-pocket-only",
+  "status": "APPROVED_WITH_CONSTRAINTS",
+  "sourceEvidence": [
+    "../evidence/brand-evidence.json",
+    "../evidence/section-fidelity-source.json"
+  ],
+  "interpretationPrinciple": "Translate only the observed Pokémon TCG Pocket promotional section. Preserve its asset/copy relationship and breakpoint-specific recomposition without promoting its black panel, 50/50 split, mobile background, typography, or CTA treatment into site-wide rules.",
+  "visualIntent": {
+    "summary": "A cross-site digital-product promotion that balances a pale-blue campaign image field against a decisive black explanation-and-action field. Product recognition leads; concise copy and a single external action complete the handoff.",
+    "hierarchy": [
+      "The transparent Pocket logo-and-cards composite is the primary recognition asset.",
+      "Desktop gives asset and copy equal 50/50 spatial authority.",
+      "Mobile intentionally changes to asset-first/copy-second and uses a dedicated small-screen background.",
+      "The black panel is a local contrast anchor for one title, one paragraph, and one CTA.",
+      "The white CTA is the only action and exits to the separate Pokémon TCG Pocket site."
+    ],
+    "brandSignals": [
+      "responsive Pocket background identity",
+      "single transparent logo-and-card composite",
+      "desktop equal split and mobile vertical reflow",
+      "Kanit italic display heading with PT Sans body and CTA",
+      "white CTA with black-to-gold foreground hover"
+    ]
+  },
+  "structureRecipe": {
+    "id": "pokemon-pocket-cross-site-product-callout",
+    "scope": "homepage Pokémon TCG Pocket section only",
+    "layers": [
+      {
+        "order": 1,
+        "role": "responsive-campaign-field",
+        "rule": "Use background.jpg for the desktop campaign field and header_bg-small.jpg for the mobile asset field. The mobile asset field is not an arbitrary crop of the desktop image."
+      },
+      {
+        "order": 2,
+        "role": "campaign-identity-composite",
+        "rule": "Place the independent transparent logo-cards.png composite as the sole primary campaign artwork; do not flatten it with a screenshot or split it into invented layers."
+      },
+      {
+        "order": 3,
+        "role": "copy-panel",
+        "rule": "Use an opaque rectangular black field for the title, paragraph, and CTA; desktop occupies the right half, mobile spans full width after the asset field."
+      },
+      {
+        "order": 4,
+        "role": "copy-and-exit",
+        "rule": "Keep exactly one Kanit italic H2, one centered PT Sans paragraph, and one centered white external CTA. Do not add a kicker or secondary action."
+      }
+    ],
+    "readingOrder": {
+      "desktop": ["left Pocket campaign composition", "right H2", "right paragraph", "right Play Now CTA", "next homepage section"],
+      "mobile": ["Pocket campaign composition", "H2", "paragraph", "Play Now CTA", "next homepage section"]
+    }
+  },
+  "responsiveMatrix": [
+    {
+      "aspect": "section composition",
+      "desktop1440": "1440x476.195 full-bleed band; two equal 720px columns, asset left and copy right.",
+      "mobile390": "390x743.023 full-bleed vertical stack; 334.23px asset field first and 408.79px copy field second.",
+      "invariant": "Campaign artwork precedes explanation in reading order; the section is not wrapped as a floating card.",
+      "evidenceRefs": ["pocket-boundary", "pocket-desktop", "pocket-mobile"]
+    },
+    {
+      "aspect": "responsive background",
+      "desktop1440": "Use background.jpg for the pale-blue branded campaign field.",
+      "mobile390": "Use the dedicated header_bg-small.jpg for the asset field.",
+      "invariant": "Background identity changes at the narrow breakpoint; do not simulate mobile by merely cropping or shrinking the desktop field.",
+      "evidenceRefs": ["pocket-mobile", "pocket-assets"]
+    },
+    {
+      "aspect": "campaign composite",
+      "desktop1440": "logo-cards.png rendered at approximately 700x428.4 with a 10px horizontal inset in its 720px column.",
+      "mobile390": "The same composite renders at 370x226.44 with 10px side insets.",
+      "invariant": "One transparent logo-and-card composite remains the primary asset and preserves its intrinsic composition.",
+      "evidenceRefs": ["pocket-desktop", "pocket-mobile", "pocket-assets"]
+    },
+    {
+      "aspect": "copy panel",
+      "desktop1440": "Opaque black right half; content inset approximately 32px per side within the 720px column.",
+      "mobile390": "Opaque black full-width panel after the asset field with 40px vertical panel padding.",
+      "invariant": "One rectangular local contrast field contains only title, paragraph, and CTA.",
+      "evidenceRefs": ["pocket-desktop", "pocket-mobile", "pocket-copy"]
+    },
+    {
+      "aspect": "typography",
+      "desktop1440": "H2 Kanit italic 700 at 40/44; body PT Sans 18/28.8.",
+      "mobile390": "H2 Kanit italic 700 at 28/30.8 and wraps to two lines; body remains PT Sans 18/28.8.",
+      "invariant": "Centered white title and body with no kicker; wrapping stays fluid rather than hard-coded from a screenshot.",
+      "evidenceRefs": ["pocket-copy"]
+    },
+    {
+      "aspect": "CTA",
+      "desktop1440": "White rectangular Play Now CTA; PT Sans italic 700 at 20/24 and approximately 56px high.",
+      "mobile390": "174.086x51.297; PT Sans italic 700 at 18/22.5 with 14.4px 36px padding.",
+      "invariant": "White background remains white; foreground changes from black to gold on hover and activation targets the Pocket external site.",
+      "evidenceRefs": ["pocket-cta"]
+    }
+  ],
+  "assetRoles": [
+    {
+      "role": "desktop-campaign-background",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+      "sourceKind": "independent-source-asset",
+      "allowedUse": "desktop asset field of this Pocket section",
+      "forbiddenUse": "global page background or mobile fallback"
+    },
+    {
+      "role": "mobile-campaign-background",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg",
+      "sourceKind": "independent-source-asset",
+      "allowedUse": "mobile asset field of this Pocket section",
+      "forbiddenUse": "site-wide mobile header or proof of a global breakpoint recipe"
+    },
+    {
+      "role": "campaign-logo-and-card-composite",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png",
+      "sourceKind": "independent-transparent-source-asset",
+      "allowedUse": "primary Pocket product recognition composition",
+      "forbiddenUse": "flattened screenshot replacement, generic decoration, or invented individual card layers"
+    }
+  ],
+  "interactionRecipes": [
+    {
+      "id": "pokemon-pocket-white-cta-hover",
+      "scope": "homepage Pocket Play Now CTA only",
+      "status": "approved",
+      "rule": "Keep the button background white while changing label and arrow foreground from black to rgb(226,186,101) on pointer hover.",
+      "evidenceRefs": ["pocket-cta"]
+    },
+    {
+      "id": "pokemon-pocket-external-navigation",
+      "scope": "homepage Pocket Play Now CTA only",
+      "status": "approved",
+      "rule": "Activation links to https://tcgpocket.pokemon.com/en-us as an external product-site handoff; an inert button or internal-section navigation is not equivalent.",
+      "evidenceRefs": ["pocket-cta"]
+    },
+    {
+      "id": "pokemon-pocket-entry-endpoints",
+      "scope": "homepage Pocket section viewport entry only",
+      "status": "unresolved",
+      "observedEndpoints": {
+        "hidden": "asset opacity 0 with translateY(-214.199px); title and body opacity 0 with translateX(328px); CTA opacity 0 with translateX(94.98px)",
+        "settled": "all observed layers at opacity 1 with identity transform"
+      },
+      "downstreamRule": "Do not claim or implement source-faithful intermediate frames, duration, easing, stagger, or sequence. A Director may omit the reveal or authorize a clearly non-fidelity transition, but it must remain unscored and explicitly labeled as not learned from source.",
+      "evidenceRefs": ["pocket-entry-motion"]
+    }
+  ],
+  "compositionContracts": [
+    {
+      "id": "pokemon-pocket-responsive-product-promo",
+      "scope": "homepage Pokémon TCG Pocket section",
+      "mustPreserve": [
+        "desktop equal asset-left/copy-right split",
+        "mobile asset-first/copy-second stack",
+        "desktop background.jpg and mobile header_bg-small.jpg identities",
+        "logo-cards.png as one independent transparent composite",
+        "opaque black copy field",
+        "one H2, one paragraph, and one CTA",
+        "Kanit italic heading and PT Sans body/CTA roles",
+        "white CTA with localized black-to-gold foreground hover",
+        "external destination https://tcgpocket.pokemon.com/en-us"
+      ],
+      "allowedVariation": [
+        "The composite may scale proportionally within its evidenced field.",
+        "Text may wrap naturally according to viewport width.",
+        "Minor spacing translation is allowed only to retain the observed hierarchy and section boundary."
+      ],
+      "mustNotReplace": [
+        "Do not use a source screenshot or section crop as runtime artwork.",
+        "Do not preserve desktop 50/50 geometry on mobile.",
+        "Do not crop background.jpg as a substitute for header_bg-small.jpg.",
+        "Do not add a kicker, second CTA, carousel, card interaction, or decorative overlay.",
+        "Do not reproduce the small red Chinese browser-extension overlay.",
+        "Do not invent precise entry motion timing, easing, stagger, or intermediate frames."
+      ],
+      "evidenceRefs": ["pocket-boundary", "pocket-desktop", "pocket-mobile", "pocket-copy", "pocket-cta", "pocket-assets", "pocket-entry-motion"]
+    }
+  ],
+  "scopeBoundaries": {
+    "sectionLocalRules": [
+      "desktop 50/50 asset/copy composition",
+      "mobile asset-first/copy-second reflow",
+      "desktop and mobile Pocket background identities",
+      "opaque black copy field",
+      "Pocket composite asset role",
+      "Kanit italic heading and PT Sans body/CTA hierarchy",
+      "white Play Now CTA and its black-to-gold hover"
+    ],
+    "notGlobalTokensOrRecipes": [
+      "The 50/50 desktop split is not a site-wide campaign layout.",
+      "The black panel is not a generic panel, modal, card, navigation, or host-project surface.",
+      "The mobile header_bg-small.jpg behavior is not a global mobile-background rule.",
+      "Kanit/PT Sans sizing and italic roles here do not authorize global typography changes.",
+      "Gold is not inferred as a global hover or active color.",
+      "Asset-first/copy-second is not a universal mobile reorder.",
+      "The hidden and settled motion endpoints are not a reusable global motion preset."
+    ],
+    "mustNotInvent": [
+      "red Chinese browser-extension overlay",
+      "extra kicker",
+      "secondary CTA",
+      "carousel or card interaction",
+      "rounded outer shell",
+      "precise motion intermediate frames, duration, easing, stagger, or sequence",
+      "Championship Series content inside the Pocket section"
+    ]
+  },
+  "unresolvedClaims": [
+    {
+      "id": "UNRESOLVED-POCKET-ENTRY-MOTION",
+      "owner": "Evidence",
+      "impact": "Only hidden and settled endpoints are trustworthy; no continuous visual trajectory was captured.",
+      "downstreamRule": "Keep timing, easing, stagger, intermediate frames, and exact sequence unresolved and exclude them from source-fidelity scoring."
+    }
+  ],
+  "handoff": {
+    "verdict": "PASS_WITH_CONSTRAINTS",
+    "blockers": [],
+    "requirementsForDesignDirection": [
+      "Approve both 1440px desktop and 390px mobile proof surfaces.",
+      "Freeze the two responsive background identities and the single transparent logo-cards composite.",
+      "Require desktop 50/50 asset-left/copy-right and mobile asset-first/copy-second.",
+      "Require the localized CTA hover and real external destination.",
+      "Exclude exact entry choreography from fidelity claims unless Evidence later captures a reliable intermediate sequence.",
+      "Reject the browser-extension overlay and all site-wide promotion of this section's local rules."
+    ]
+  }
+}

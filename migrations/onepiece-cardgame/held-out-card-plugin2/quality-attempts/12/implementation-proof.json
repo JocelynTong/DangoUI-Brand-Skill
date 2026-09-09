@@ -1,0 +1,43 @@
+{
+  "schema": "brand-host-event-identity-media-repair-proof/v1",
+  "attempt": 12,
+  "route": "pages/event/index",
+  "sourceAssessment": "quality-attempts/11/visual-qa-assessment.json#EVENT_IDENTITY_MEDIA_EMPTY",
+  "scope": "Event contained identity media CSS only",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "6d127604d7338fbfe438bb1991447f4f1795dbfe1452ea43f5a97b9d5cd0771f",
+    "vueSfcEdited": false,
+    "media": ["pokemon-me05-logo", "pokemon-me05-elite-trainer-box"],
+    "layout": "logo and Pokémon product pack composed inside the existing navy rectangle",
+    "objectFitEquivalent": "CSS contain sizing with viewport-specific positions; no screenshot crop",
+    "fullScreenPoster": false,
+    "titleStatusMetricsScheduleTopDeckChanged": false,
+    "businessDomNavigationOrDataChanged": false,
+    "writes": 0
+  },
+  "assetChecks": {
+    "localAssetsLoaded": "PASS_2_OF_2",
+    "failedRequests": 0,
+    "provenance": "asset-refs.json",
+    "maskedMediaStructure": "PRESERVED_FROM_ATTEMPT_11"
+  },
+  "viewportChecks": {
+    "390x844": {"mediaContained": true, "titleComplete": true, "firstRoundVisible": true, "topDeckVisible": true, "documentOverflow": 0},
+    "536x864": {"mediaContained": true, "titleComplete": true, "firstRoundVisible": true, "topDeckVisible": true, "documentOverflow": 0},
+    "1280x720": {"mediaContained": true, "titleComplete": true, "firstRoundVisible": true, "topDeckVisible": true, "documentOverflow": 0}
+  },
+  "regression": {
+    "roundAndTopDeckPointerEnterSpace": "UNCHANGED_FROM_QA11_PASS",
+    "reducedMotion": "PRESERVED",
+    "nonGetRequests": 0,
+    "build": "PASS",
+    "themeOrder": "PASS",
+    "eventStructuralDiff": "PASS",
+    "otherRoutes": "UNCHANGED_HASHES_AND_OVERFLOW_0"
+  },
+  "evidence": ["asset-refs.json", "browser-probes.json", "selfcheck-390x844-event.png", "selfcheck-536x864-event.png", "selfcheck-1280x720-event.png"],
+  "preview": "http://localhost:10092/#/pages/event/index?id=0",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

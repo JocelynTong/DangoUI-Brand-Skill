@@ -1,0 +1,68 @@
+{
+  "schema": "brand-host-build-attempt-comparison/v1",
+  "attempt": 17,
+  "baselineAttempt": 16,
+  "producerEvidenceConsumed": false,
+  "viewports": ["390x844", "536x864", "1280x720"],
+  "blockingClosure": {
+    "BUILD_ENV_VALUE_INVISIBLE": {
+      "before": "white text on white field at all viewports",
+      "after": "rgb(7,26,44) on rgb(255,255,255), measured contrast 17.6:1 at all viewports",
+      "status": "CLOSED"
+    },
+    "BUILD_ENV_KEYBOARD_DOUBLE_TOGGLE": {
+      "before": "Enter and Space ended with aria-expanded=false and no wheel",
+      "after": "pointer, Enter and Space each produce exactly one aria-expanded mutation to true with the wheel visible; the second same activation closes it",
+      "status": "CLOSED"
+    },
+    "BUILD_DISABLED_STATE_ABSENT": {
+      "amendment": "build-state-contract-amendment.json",
+      "findingCorrection": "N/A: the frozen host business model is validation-on-submit, so absence of pre-submit disabled semantics is not a defect",
+      "observed": "publish remains active; invalid submit keeps the sheet and shows existing feedback",
+      "submitting": "N/A: no real submitting state exists",
+      "status": "CLOSED_BY_APPROVED_CONTRACT_CORRECTION"
+    }
+  },
+  "regression": {
+    "build": {
+      "filterRows": "3 -> 5 -> 3",
+      "listGrid": "list -> grid by Enter -> list by Space",
+      "typeFilter": "41 -> 17 -> 41",
+      "search": "超梦 -> 1 exact visible result",
+      "tray": "visible",
+      "draft": "local-only storage change, sheet closes, success feedback visible",
+      "sheet": "opens, environment wheel opens and closes, invalid submit retains sheet",
+      "minimumPointerTarget": "0 visible role=button/tab targets under 44px in all three viewports",
+      "focus": "yellow 3/4/6px solid focus outline by viewport",
+      "reducedMotion": true,
+      "overflowX": [0, 0, 0],
+      "externalWrites": 0
+    },
+    "otherFiveRoutes": {
+      "overflowX": 0,
+      "externalWrites": 0,
+      "freshHashesMatchAttempt16": {
+        "plaza": true,
+        "detail": true,
+        "mine": true,
+        "event": true,
+        "round": true
+      }
+    },
+    "structural": {
+      "gate": "PASS",
+      "parentSheetBodyBaselineNode": "n118",
+      "erroneousParentAugmentationPresent": false,
+      "originalTapOutcome": "confirmEnvAndClose",
+      "runtimeParentTapClosesWheel": true
+    },
+    "maskedRecognition": {
+      "status": "PASS",
+      "signals": [
+        "warm paper workbench with navy structural framing",
+        "hard editorial rules and restrained 0-2px radii",
+        "yellow selected controls and red primary publish action"
+      ]
+    }
+  }
+}

@@ -1,0 +1,484 @@
+{
+  "schema": "brand-mod.v0.1",
+  "manifest": {
+    "brand": "pokemon-tcg-official",
+    "displayName": "Pokémon TCG Official",
+    "sourceUrl": "https://tcg.pokemon.com/en-us/",
+    "createdAt": "2026-09-04T00:00:00+08:00",
+    "version": "0.1.0",
+    "scope": {
+      "intent": "Reusable page-purpose visual language mapped conservatively to DangoUI without globalizing campaign, database, or learning treatments.",
+      "for": [
+        "brand visual migration",
+        "standard demo capability preview"
+      ],
+      "notFor": [
+        "game-only content mod; this visual package is reusable beyond game products",
+        "copying official content into unrelated products",
+        "automatic universal Pokémon skin"
+      ]
+    },
+    "producer": {
+      "skill": "/brand",
+      "decoupledFrom": [
+        "/qdmp"
+      ]
+    }
+  },
+  "tokens": {
+    "mapped": {
+      "--du-bg-1": {
+        "value": "#FFFFFF",
+        "status": "mapped",
+        "evidence": "site-evidence topColors and light content/input surfaces",
+        "usage": "Light content and input surfaces."
+      },
+      "--du-bg-2": {
+        "value": "#EDEDED",
+        "status": "mapped",
+        "evidence": "site-evidence .content-bg--flat",
+        "usage": "Restrained light page/title surface."
+      },
+      "--du-text-1": {
+        "value": "#131415",
+        "status": "mapped",
+        "evidence": "site-evidence --color-black",
+        "usage": "Primary text on light surfaces."
+      },
+      "--du-text-2": {
+        "value": "#494949",
+        "status": "mapped",
+        "evidence": "site-evidence .main-nav",
+        "usage": "Secondary neutral copy."
+      }
+    },
+    "styleOnly": {
+      "--style-font-database": {
+        "value": "Flexo-Regular, arial, sans-serif",
+        "status": "style-only",
+        "evidence": "card-db-search-state computed font-family",
+        "usage": "Database labels and controls only."
+      },
+      "--style-database-results-texture": {
+        "value": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)",
+        "status": "style-only",
+        "evidence": "card-db-results computed background-image",
+        "usage": "Database results mosaic only."
+      }
+    },
+    "dtcg": {
+      "$description": "Pokémon TCG Official DTCG token contract generated from Brand MOD token mirrors.",
+      "$extensions": {
+        "echo.brand.schema": "brand-mod.tokens.dtcg/v0.1",
+        "echo.brand.sourceFile": "migrations/pokemon-tcg-official/brand-mod.json",
+        "echo.brand.note": "DTCG is canonical for reusable token values; mapped/styleOnly are compatibility mirrors for current demo consumers."
+      },
+      "mapped": {
+        "du-bg-1": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$description": "site-evidence topColors and light content/input surfaces",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Light content and input surfaces.",
+            "echo.brand.legacyKey": "--du-bg-1",
+            "echo.brand.evidence": "site-evidence topColors and light content/input surfaces"
+          }
+        },
+        "du-bg-2": {
+          "$type": "color",
+          "$value": "#EDEDED",
+          "$description": "site-evidence .content-bg--flat",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-2",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Restrained light page/title surface.",
+            "echo.brand.legacyKey": "--du-bg-2",
+            "echo.brand.evidence": "site-evidence .content-bg--flat"
+          }
+        },
+        "du-text-1": {
+          "$type": "color",
+          "$value": "#131415",
+          "$description": "site-evidence --color-black",
+          "$extensions": {
+            "echo.brand.target": "--du-text-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Primary text on light surfaces.",
+            "echo.brand.legacyKey": "--du-text-1",
+            "echo.brand.evidence": "site-evidence --color-black"
+          }
+        },
+        "du-text-2": {
+          "$type": "color",
+          "$value": "#494949",
+          "$description": "site-evidence .main-nav",
+          "$extensions": {
+            "echo.brand.target": "--du-text-2",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Secondary neutral copy.",
+            "echo.brand.legacyKey": "--du-text-2",
+            "echo.brand.evidence": "site-evidence .main-nav"
+          }
+        }
+      },
+      "styleOnly": {
+        "style-font-database": {
+          "$type": "fontFamily",
+          "$value": "Flexo-Regular, arial, sans-serif",
+          "$description": "card-db-search-state computed font-family",
+          "$extensions": {
+            "echo.brand.target": "--style-font-database",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Database labels and controls only.",
+            "echo.brand.legacyKey": "--style-font-database",
+            "echo.brand.evidence": "card-db-search-state computed font-family"
+          }
+        },
+        "style-database-results-texture": {
+          "$type": "string",
+          "$value": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)",
+          "$description": "card-db-results computed background-image",
+          "$extensions": {
+            "echo.brand.target": "--style-database-results-texture",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Database results mosaic only.",
+            "echo.brand.legacyKey": "--style-database-results-texture",
+            "echo.brand.evidence": "card-db-results computed background-image"
+          }
+        }
+      }
+    }
+  },
+  "semanticRoles": {
+    "surface.page": {
+      "kind": "mappedToken",
+      "value": "#EDEDED",
+      "target": "--du-bg-2",
+      "dtcgPath": "mapped.du-bg-2",
+      "status": "mapped"
+    },
+    "surface.card": {
+      "kind": "mappedToken",
+      "value": "#FFFFFF",
+      "target": "--du-bg-1",
+      "dtcgPath": "mapped.du-bg-1",
+      "status": "mapped"
+    },
+    "text.primary": {
+      "kind": "mappedToken",
+      "value": "#131415",
+      "target": "--du-text-1",
+      "dtcgPath": "mapped.du-text-1",
+      "status": "mapped"
+    },
+    "text.secondary": {
+      "kind": "mappedToken",
+      "value": "#494949",
+      "target": "--du-text-2",
+      "dtcgPath": "mapped.du-text-2",
+      "status": "mapped"
+    },
+    "border.subtle": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "rejected",
+      "sources": [
+        "border-token-evidence-recheck.json"
+      ],
+      "evidenceRefs": [
+        "border-token-evidence-recheck.json:disposition"
+      ],
+      "reason": "No reviewed rendered source region proves #5E5E5E as an ordinary subtle divider. Keep the DangoUI baseline and do not create a brand mapping or runtime consumer."
+    },
+    "action.primary.fill": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "missing",
+      "sources": [
+        "brand-evidence.json:card-db-search-shell",
+        "action-evidence-v02.json:card-database-search"
+      ],
+      "evidenceRefs": [
+        "card-db-search-shell",
+        "card-database-search"
+      ],
+      "reason": "The available rendered and computed observations do not establish a distinct brand action color. Consumers must keep the DangoUI Button baseline until direct evidence exists."
+    },
+    "typography.body.family": {
+      "kind": "styleOnlyToken",
+      "value": "Flexo-Regular, arial, sans-serif",
+      "target": "--style-font-database",
+      "dtcgPath": "styleOnly.style-font-database",
+      "status": "style-only",
+      "scope": "card database controls only"
+    }
+  },
+  "componentVariants": [
+    {
+      "id": "campaign-carousel-composition",
+      "component": "Swiper + Image + Button",
+      "status": "composed",
+      "approvedPatternId": "home-layered-campaign-stage",
+      "styleOnly": [
+        "layer coordinates",
+        "art-directed crop",
+        "black campaign stage"
+      ]
+    },
+    {
+      "id": "database-search-organism",
+      "component": "Search + Input + Tag + Button",
+      "status": "composed",
+      "approvedPatternId": "database-dark-search-organism",
+      "styleOnly": [
+        "charcoal bounded shell",
+        "angled title plate",
+        "energy grouping"
+      ],
+      "boundary": "No rendered/computed source evidence authorizes a brand action color; keep the DangoUI Button baseline."
+    },
+    {
+      "id": "database-advanced-disclosure",
+      "component": "Card + Transition",
+      "status": "fallback",
+      "approvedPatternId": "database-advanced-drawer",
+      "styleOnly": [
+        "multi-stage drawer geometry and timing"
+      ]
+    },
+    {
+      "id": "learning-card-anatomy",
+      "component": "Card + Image",
+      "status": "composed",
+      "approvedPatternId": "learn-painted-card-anatomy",
+      "styleOnly": [
+        "painted edge",
+        "hotspot positioning"
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "campaign-art",
+      "component": "Image",
+      "prop": "src",
+      "mode": "aspectFill",
+      "status": "mapped",
+      "assetIds": [
+        "home-booster-art"
+      ]
+    },
+    {
+      "id": "campaign-logo",
+      "component": "Image",
+      "prop": "src",
+      "mode": "widthFix",
+      "status": "mapped",
+      "assetIds": [
+        "home-30-logo"
+      ]
+    },
+    {
+      "id": "authentic-card",
+      "component": "Image",
+      "prop": "src",
+      "mode": "widthFix",
+      "status": "mapped",
+      "assetIds": [
+        "home-feature-card",
+        "learn-card",
+        "card-db-pikachu-27"
+      ]
+    },
+    {
+      "id": "instruction-diagram",
+      "component": "Image",
+      "prop": "src",
+      "mode": "widthFix",
+      "status": "mapped",
+      "assetIds": [
+        "field-diagrams"
+      ]
+    }
+  ],
+  "assets": [
+    {
+      "id": "home-booster-art",
+      "role": "hero-background",
+      "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1.jpg",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+      "sourceSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "home campaign stage",
+      "antiScopes": [
+        "database",
+        "learning",
+        "ordinary card"
+      ]
+    },
+    {
+      "id": "database-results-texture",
+      "role": "section-background",
+      "sourceUrl": "https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png",
+      "sourceKind": "computed-style-asset",
+      "status": "style-only",
+      "targetScope": "database result mosaic",
+      "antiScopes": [
+        "campaign",
+        "learning"
+      ]
+    },
+    {
+      "id": "home-30-logo",
+      "role": "campaign-identity",
+      "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/en-us/Logo-30th.png",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/Logo-30th.png",
+      "sourceSha256": "15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "home campaign stage",
+      "antiScopes": [
+        "sitewide logo",
+        "database",
+        "learning"
+      ]
+    },
+    {
+      "id": "home-feature-card",
+      "role": "featured-card",
+      "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/30th-celebration/en-us/2M6P_EN_23.png",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png",
+      "sourceSha256": "07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "home campaign stage",
+      "antiScopes": [
+        "database result",
+        "learning"
+      ]
+    },
+    {
+      "id": "learn-card",
+      "role": "instructional-card",
+      "sourceUrl": "https://dz3we2x72f7ol.cloudfront.net/expansions/twilight-masquerade/en-us/SV06_EN_33.png",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "sourceSha256": "9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "learning card anatomy",
+      "antiScopes": [
+        "home hero",
+        "database result"
+      ]
+    },
+    {
+      "id": "card-db-pikachu-27",
+      "role": "database-result-card",
+      "sourceUrl": "https://assets.pokemon.com/static-assets/content-assets/cms2/img/cards/web/SVP/SVP_EN_27.png",
+      "localPath": "public/assets/brand-assets/pokemon-tcg-official/card-database/SVP_EN_27.png",
+      "sourceSha256": "409209950e8519c533e2d0840cfd25cc0b956c5d6b8a77a96fd25330ab778283",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "database search results",
+      "antiScopes": [
+        "home hero",
+        "learning"
+      ]
+    },
+    {
+      "id": "field-diagrams",
+      "role": "instruction-diagram",
+      "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/field-of-play/",
+      "sourceSha256": "e7593a3bfe70f9ab0a26a1fea6c52ab73fcff808d80644b5f4a888d56f60e6b0",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "learning field definition pairs",
+      "antiScopes": [
+        "unlabeled decoration",
+        "generic background"
+      ]
+    }
+  ],
+  "layoutRules": {
+    "sectionBackgroundChain": {
+      "layers": [
+        {
+          "id": "campaign-stage",
+          "assetId": "home-booster-art"
+        },
+        {
+          "id": "database-results",
+          "assetId": "database-results-texture"
+        }
+      ]
+    },
+    "overlay": {
+      "inspectorTag": {
+        "mustNotAffectLayout": true
+      }
+    },
+    "bottomBarReserve": {
+      "required": true
+    },
+    "pagePurposeIsolation": {
+      "required": true,
+      "rule": "Campaign, database and learning treatments may not be promoted into one universal skin."
+    },
+    "hero": {
+      "fullBleed": true,
+      "artDirectedCrop": true,
+      "maxHostHeight": "Host strategy decision; not a learn-brand token."
+    },
+    "media": {
+      "preserveAspectRatio": true,
+      "defaultMode": "widthFix",
+      "allowAspectFillOnlyWhen": "computed/source crop evidence exists"
+    },
+    "paintedBoundaries": {
+      "status": "missing",
+      "globalize": false
+    }
+  },
+  "platformOverrides": {
+    "web": {
+      "fontFallback": "Arial, sans-serif",
+      "remoteAssetPolicy": "Use inventoried source URLs or local verified copies."
+    },
+    "miniProgram": {
+      "remoteAssets": "Download or replace before production.",
+      "unsupportedCompositions": "Implement with host layout and explicit asset slots, not invented DangoUI props."
+    }
+  },
+  "verification": {
+    "goalId": "pokemon-tcg-official-cold-start-v2",
+    "goalContract": "goal-contract-v2.json",
+    "goalContractPath": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+    "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+    "goalLineage": {
+      "supersedes": "pokemon-tcg-official-cold-start-v1",
+      "sealed": true
+    },
+    "evidence": "brand-evidence.json",
+    "intent": "brand-intent.json",
+    "patterns": "approved-visual-patterns.json",
+    "assetInventory": "rendered-asset-inventory.json",
+    "mappingStatus": "mapped-with-explicit-gaps",
+    "blockers": [
+      "Painted yellow/navy edge implementation recipe unresolved",
+      "Home/Learn exact font families unresolved",
+      "Reduce Motion has no observable state and is intentionally unmapped"
+    ],
+    "ruleCandidates": []
+  }
+}

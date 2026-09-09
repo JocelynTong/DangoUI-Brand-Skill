@@ -1,0 +1,41 @@
+{
+  "schemaVersion":"1.0",
+  "brand":"pokemon-tcg-official",
+  "sourceUrl":"https://tcg.pokemon.com/en-us/",
+  "scope":"Pokémon TCG Pocket background/content layering only",
+  "status":"PASS_CORRECTED",
+  "earliestCorrectedClaim": {
+    "owner":"Evidence",
+    "old":"Desktop was described as a pale-blue left field plus an independent opaque-black right field, which implied the background existed only on the left.",
+    "corrected":"A single absolute 1440x476.195 background layer spans the entire article. A relative content layer sits above it. Inside the content row, the 720x356.5 black copy panel only occludes the middle of the right half, leaving about 59.84px of the same background visible above and 59.85px below."
+  },
+  "claims":[
+    {
+      "id":"desktop-background-layering",
+      "status":"validated",
+      "capture":"captures/desktop-1440-pocket-layering.png",
+      "fact":"The background is article-wide, not left-column-only. .full-width-section__bg is the first direct child, absolute and 1440x476.195. .full-width-section__content is the second direct child, relative and same-sized.",
+      "computed":{"background":{"rect":[0,3212.367,1440,476.195],"backgroundImage":"background.jpg","backgroundColor":"rgb(0,0,0)","size":"cover","position":"100% 50%"},"content":{"rect":[0,3212.367,1440,476.195],"backgroundColor":"transparent"}}
+    },
+    {
+      "id":"desktop-copy-panel-geometry",
+      "status":"validated",
+      "capture":"captures/desktop-1440-pocket-layering.png",
+      "fact":"The black copy panel is a 720x356.5 flex child in the right half at layout x=720 and y=section+59.844. It does not fill the section height. The shared section background remains visibly exposed above and below it.",
+      "computed":{"layoutRect":[720,59.844,720,356.5],"backgroundColor":"rgb(0,0,0)","padding":"40px 32px","topBackgroundExposure":59.844,"bottomBackgroundExposure":59.852}
+    },
+    {
+      "id":"mobile-layering",
+      "status":"validated",
+      "capture":"captures/mobile-390-pocket-layering.png",
+      "fact":"At 390 the same absolute background spans the complete 390x743.023 article. Content becomes a vertical block: a transparent 390x334 asset region followed by an opaque-black 390x409 copy panel. The copy panel fully occludes the lower background with no exposed side/top/bottom strip around that panel.",
+      "computed":{"background":{"layoutRect":[0,0,390,743],"backgroundImage":"header_bg-small.jpg","size":"cover","position":"50% 50%"},"assetColumn":{"layoutRect":[0,0,390,334]},"copyPanel":{"layoutRect":[0,334,390,409],"backgroundColor":"rgb(0,0,0)","padding":"40px 0"}}
+    },
+    {
+      "id":"responsive-alias-identity",
+      "status":"validated-corrected",
+      "fact":"Revision 2 remains binding: desktop and mobile computed styles use different official URL aliases, but both files are 720x464 with identical SHA256 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976."
+    }
+  ],
+  "handoffBlockers":[]
+}

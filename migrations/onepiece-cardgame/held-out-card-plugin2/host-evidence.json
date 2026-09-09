@@ -1,0 +1,116 @@
+{
+  "schema": "brand-host-evidence/v1",
+  "brand": "onepiece-cardgame",
+  "heldOutCase": "card-plugin2.0",
+  "observedAt": "2026-09-09",
+  "hostRoot": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend",
+  "evidenceMode": "read-only-source-inventory",
+  "sourceOfTruth": {
+    "routeConfig": "src/app.config.js",
+    "globalStyleEntry": "src/app.js",
+    "currentTheme": "src/styles/pokemon-tcg-pitch-black-theme.scss",
+    "pages": [
+      "src/pages/plaza/index.vue",
+      "src/pages/build/index.vue",
+      "src/pages/mine/index.vue",
+      "src/pages/event/index.vue",
+      "src/pages/round/index.vue",
+      "src/pages/detail/index.vue"
+    ]
+  },
+  "runtime": {
+    "framework": "Taro 4.2 + Vue 3",
+    "targets": ["H5", "WeChat mini-program"],
+    "defaultEntry": "pages/plaza/index",
+    "configuredRoutes": [
+      "pages/plaza/index",
+      "pages/build/index",
+      "pages/mine/index",
+      "pages/event/index",
+      "pages/round/index",
+      "pages/detail/index"
+    ],
+    "unconfiguredFiles": ["pages/index/index.vue", "pages/viewer/index.vue"],
+    "globalThemeLoadOrder": ["src/app.scss", "src/styles/pokemon-tcg-pitch-black-theme.scss"]
+  },
+  "dangoUiRuntimeTruth": {
+    "packageDependencyFound": false,
+    "nativeConsumersFound": [],
+    "claimCeiling": "PARTIAL_STYLE_ONLY",
+    "requiredReporting": "除非后续真实安装、核验 API 并消费组件，否则只允许声明 DangoUI token/style recipe 映射候选，不得声明 native DangoUI component adoption。"
+  },
+  "dirtyWorktreeBoundary": {
+    "status": "DIRTY_PREEXISTING_USER_WORK",
+    "mustPreserve": [
+      "现有 Pokémon pitch-black 主题及其资产",
+      "plaza/build/mine/event/round/detail 的未提交业务与视觉改动",
+      "CardViewer 未提交改动",
+      "pokemon-tcg-pitch-black migrations 与 selector maps",
+      "rocom 文件的既有删除状态"
+    ],
+    "mustNotDo": [
+      "reset/checkout 覆盖用户改动",
+      "把 ONE PIECE 规则写进 Pokémon theme scope",
+      "删除或恢复 rocom 既有变更",
+      "重写宿主文案、卡组数据、发布校验、导航或 store"
+    ],
+    "recommendedIsolation": "新增独立、可显式启用的 ONE PIECE held-out theme scope；默认 Pokémon 行为保持不变。"
+  },
+  "routeEvidence": [
+    {
+      "route": "pages/plaza/index",
+      "businessJob": "浏览、搜索和筛选卡组；在卡组与赛事之间切换；进入我的、赛事或卡组详情。",
+      "states": ["deck", "event", "search", "category-filtered", "environment-filtered", "empty", "campaign-hero-front", "campaign-hero-back"],
+      "interactions": ["primary tabs", "search input", "filter chips", "campaign entry", "hero flip", "deck/event navigation", "mine entry"],
+      "dataRisk": "卡组与赛事内容属于 Pokémon 宿主业务，不能替换为 ONE PIECE 内容。"
+    },
+    {
+      "route": "pages/build/index",
+      "businessJob": "搜索、筛选、增减卡牌，编辑卡组名，保存草稿并完成发布表单。",
+      "states": ["top-expanded", "top-scrolled", "list", "grid", "filter-collapsed", "filter-expanded", "empty", "sheet-open", "env-open", "invalid", "publish-ready", "publish-success", "publish-failure"],
+      "interactions": ["name edit", "search", "filters", "view toggle", "card preview", "increment/decrement", "tray tabs", "publish sheet", "save draft", "submit publish"],
+      "dataRisk": "发布、校验、草稿和 60 张卡限制是核心业务，不得更改。"
+    },
+    {
+      "route": "pages/mine/index",
+      "businessJob": "查看收藏、草稿、已发布、已隐藏卡组；新建、编辑或删除草稿。",
+      "states": ["fav", "draft", "pub", "hidden", "empty", "delete-confirm"],
+      "interactions": ["tabs", "new build", "open deck", "edit draft", "delete confirmation"],
+      "dataRisk": "删除确认和 store mutations 必须保持原语义。"
+    },
+    {
+      "route": "pages/event/index",
+      "businessJob": "读取赛事状态、规模与赛程，进入头部卡组、轮次或卡组详情。",
+      "states": ["ready", "empty-rounds", "live", "open", "ended"],
+      "interactions": ["back", "top deck", "open round", "open deck"],
+      "dataRisk": "赛事状态色和排名语义不能被品牌主色覆盖。"
+    },
+    {
+      "route": "pages/round/index",
+      "businessJob": "扫描单轮排名与卡组，区分已收录和缺失卡组并进入详情。",
+      "states": ["ready", "partial", "empty-slot", "gold-rank", "standard-rank"],
+      "interactions": ["back", "open ranked deck"],
+      "dataRisk": "排名、缺失槽位与赛事状态必须保持可辨识。"
+    },
+    {
+      "route": "pages/detail/index",
+      "businessJob": "阅读卡组身份、作者、统计和简介；切换卡图/文字；收藏、复制、购齐或编辑。",
+      "states": ["image-view", "text-view", "title-expanded", "description-expanded", "favorite", "unfavorite", "viewer-open"],
+      "interactions": ["expand/collapse", "buy", "tabs", "card viewer", "favorite", "copy", "edit"],
+      "dataRisk": "价格、收藏、复制、编辑与卡牌分类是业务语义；inline alternating row colors 是视觉债务但不能改数据结构。"
+    }
+  ],
+  "crossRouteJourneys": [
+    "plaza -> detail -> viewer/back",
+    "plaza -> event -> round -> detail",
+    "plaza -> mine -> build -> publish -> mine(pub)",
+    "mine(draft) -> build -> save/publish"
+  ],
+  "researchVerdict": "SUFFICIENT_FOR_STRATEGY_NOT_IMPLEMENTATION",
+  "remainingEvidenceBeforeQa": [
+    "实现前 6 路由不可变 structural baseline",
+    "真实 H5 mobile/desktop screenshot baseline",
+    "交互状态的 hit-test、44px、focus、keyboard 与 reversible probe",
+    "网络副作用基线和发布流程 QA 隔离"
+  ]
+}

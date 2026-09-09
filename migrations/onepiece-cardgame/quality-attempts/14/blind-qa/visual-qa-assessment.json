@@ -1,0 +1,37 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 14,
+  "qaRole": "fresh-independent-blind-qa-tpp",
+  "scope": "User-reported Home indicator incident closure only",
+  "verdict": "PASS",
+  "proofs": {
+    "evidenceFidelity": {
+      "status": "PASS",
+      "scope": "The reported solid rgba footer-like strip is absent in the fresh render; computed and visual evidence show an upward transparent fade."
+    },
+    "structuralFidelity": {
+      "status": "PASS",
+      "scope": "Normal phone shell, chassis-owned overlay, invariant scroll geometry, complete footer reachability, and true narrow no-shell behavior all pass."
+    },
+    "generativeProof": {
+      "status": "NOT_REASSESSED",
+      "blocking": false,
+      "scope": "The frozen incident request concerns Home indicator behavior and does not reopen the brand-wide held-out generative proof."
+    }
+  },
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "minimumFixScope": null,
+  "inputDiscipline": {
+    "readIncidentFields": [
+      "userFeedback",
+      "observedMismatch",
+      "requiredClosure"
+    ],
+    "forbiddenPriorVerdictOrProbeInputsRead": [],
+    "implementationRationaleRead": false
+  },
+  "implementationChanges": []
+}

@@ -1,0 +1,33 @@
+{
+  "schema": "dango-eight-token-computed-consumption/v1",
+  "brand": "dango",
+  "runtimeUrl": "http://127.0.0.1:5179",
+  "verdict": "PASS",
+  "coverage": {"targetBearingLeaves":8,"verified":8,"mappedNativeColor":5,"styleOnly":3},
+  "tokens": [
+    {"source":"color.surface.page","target":"--du-bg-2","channel":"mapped","targetExists":true,"allowedRoles":["documentation page canvas"],"consumer":".source-schema-demo--dango","declaration":"background: var(--du-bg-2); background-image: none","computed":{"customProperty":"#ffffff","backgroundColor":"rgb(255, 255, 255)","backgroundImage":"none"},"status":"PASS"},
+    {"source":"color.surface.card","target":"--du-bg-1","channel":"mapped","targetExists":true,"allowedRoles":["documentation module surface"],"consumer":".dango-docs__example-table","declaration":"background: var(--du-bg-1)","computed":{"customProperty":"#ffffff","backgroundColor":"rgb(255, 255, 255)"},"status":"PASS"},
+    {"source":"color.text.primary","target":"--du-text-1","channel":"mapped","targetExists":true,"allowedRoles":["text on light documentation surfaces"],"consumer":".dango-docs__article","declaration":"color: var(--du-text-1)","computed":{"customProperty":"#000000","color":"rgb(0, 0, 0)"},"status":"PASS"},
+    {"source":"color.border.subtle","target":"--du-border-1","channel":"mapped","targetExists":true,"allowedRoles":["quiet module divider"],"consumer":".dango-docs__title-rule","declaration":"background: var(--du-border-1)","computed":{"customProperty":"#0000001f","backgroundColor":"rgba(0, 0, 0, 0.12)"},"status":"PASS"},
+    {"source":"color.action.primary","target":"--du-primary-solid-bg","channel":"mapped","targetExists":true,"allowedRoles":["Primary Button solid fill"],"consumer":"button.du-button.du-button--normal.du-button--primary.dango-docs__primary","chain":["DuButton .du-button--primary","--du-bt-solid-bg","--du-primary-solid-bg"],"computed":{"customProperty":"#7c66ff","backgroundColor":"rgb(124, 102, 255)"},"status":"PASS"},
+    {"source":"color.navigation.current","target":"--style-docs-navigation-current","channel":"styleOnly","targetExists":false,"allowedRoles":["documentation current-page cue"],"consumer":".dango-docs__nav-group > span.is-current","declaration":"color: var(--style-docs-navigation-current)","computed":{"customProperty":"#5854ff","color":"rgb(88, 84, 255)"},"exactValueConsumerElements":1,"unexpectedRoleConsumers":0,"status":"PASS"},
+    {"source":"dimension.control.normalHeight","target":"--style-primary-button-height","channel":"styleOnly","targetExists":false,"allowedRoles":["normal Primary Button specimen height"],"consumer":".phone .source-schema-demo--dango button.dango-docs__primary","declaration":"height: var(--style-primary-button-height)","computed":{"customProperty":"32px","height":"32px"},"matchedElements":4,"matchedBoundary":"Every match is BUTTON.du-button.du-button--normal.du-button--primary.dango-docs__primary; one match is the loading state of the same native specimen.","excludedObservedVariants":{"secondary":true,"outline":true,"text":true,"mini":true,"small":true,"medium":true,"large":true,"documentationModules":true},"status":"PASS"},
+    {"source":"dimension.control.radius","target":"--style-primary-button-radius","channel":"styleOnly","targetExists":false,"allowedRoles":["normal Primary Button specimen radius"],"consumer":".phone .source-schema-demo--dango button.dango-docs__primary","declaration":"border-radius: var(--style-primary-button-radius) !important","computed":{"customProperty":"4px","borderRadius":"4px"},"matchedElements":4,"matchedBoundary":"Same four real DuButton primary/normal specimens; no document module or other-size specimen matches the consuming selector.","excludedObservedVariants":{"secondary":true,"outline":true,"text":true,"mini":true,"small":true,"medium":true,"large":true,"documentationModules":true,"phoneMockup":true},"status":"PASS"}
+  ],
+  "nativeComponent": {
+    "component":"DuButton",
+    "source":"node_modules/dangoui/src/button/Button.vue",
+    "styleSource":"node_modules/dangoui/src/button/style.scss",
+    "runtimeTag":"BUTTON",
+    "runtimeClasses":["du-button","du-button--normal","du-button--primary","du-c-primary-bt","dango-docs__primary"],
+    "states":{"default":"PASS","focusVisible":"PASS","activatedFocusRetained":"PASS","blurRestored":"PASS"},
+    "status":"PASS"
+  },
+  "roleExpansionAudit": {
+    "navigationCurrent":{"exactPurpleConsumers":1,"onlyAllowedElement":true,"status":"PASS"},
+    "buttonHeight":{"propertyConsumerSelectorCount":1,"allMatchesRealDuButtonPrimaryNormal":true,"status":"PASS"},
+    "buttonRadius":{"propertyConsumerSelectorCount":1,"allMatchesRealDuButtonPrimaryNormal":true,"status":"PASS"}
+  },
+  "consoleErrors": [],
+  "blockingFindings": []
+}

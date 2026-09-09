@@ -1,0 +1,84 @@
+{
+  "schema": "brand-rework-request/v1",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v1",
+  "goalSha256": "ca6e00eabab09adb402b16a9a8a8defa0c7e5577d738a76c5e769462244e8389",
+  "fromAttempt": 1,
+  "nextAttempt": 2,
+  "blockingFindings": [
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "home",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "home",
+      "message": "Core page score 47.5 is below 70."
+    },
+    {
+      "code": "HOME_HERO_COMPOSITION",
+      "scope": "home",
+      "message": "Rebuild the source hero's dominant asymmetric visual hierarchy inside the phone viewport."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "products",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "products",
+      "message": "Core page score 60 is below 70."
+    },
+    {
+      "code": "PRODUCT_CATALOG_DENSITY",
+      "scope": "products",
+      "message": "Restore the official catalog browsing rhythm rather than a category board."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "hero-composition",
+      "message": "The home preview preserves the official hero's dominant campaign composition, visual weight and asset hierarchy."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "product-density",
+      "message": "The products preview preserves the official catalog's grid density, product-first hierarchy and browsing rhythm."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "role-color-system",
+      "message": "Cream surfaces, hard black typography, yellow active states and red action emphasis remain distinct roles."
+    },
+    {
+      "code": "MUST_NOT_REPLACE_VIOLATED",
+      "scope": "logo-color-substitution",
+      "message": "Logo, official assets and brand colors may not substitute for matching composition, hierarchy and information density."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 53.75 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is fail."
+    }
+  ],
+  "allowedChanges": [
+    "demo implementation",
+    "demo screenshots"
+  ],
+  "forbiddenChanges": [
+    "goal-contract",
+    "source evidence",
+    "fidelity thresholds"
+  ],
+  "requiredRecaptures": [
+    "onepiece-cardgame-home",
+    "onepiece-cardgame-products"
+  ],
+  "maxAttempts": 2
+}

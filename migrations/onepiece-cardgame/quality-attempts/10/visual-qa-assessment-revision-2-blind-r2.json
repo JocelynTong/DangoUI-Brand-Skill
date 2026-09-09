@@ -1,0 +1,129 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "onepiece-cardgame",
+  "attempt": 10,
+  "revision": 2,
+  "qaExecution": {
+    "taskName": "/root/onepiece_footer_motion_blind_qa_r2",
+    "role": "Blind QA / TPP",
+    "freshContext": true,
+    "sourceFirst": true,
+    "forbiddenInputsRead": false,
+    "forbiddenInputs": ["implementation agent messages", "implementation self-checks", "prior QA verdicts"],
+    "goalEvidenceIntentDemoMutated": false
+  },
+  "verdict": "REWORK",
+  "failureOwnerRole": "demoImplementationAgent",
+  "earliestFailureNode": "Demo Implementation Agent",
+  "proofVerdicts": {
+    "evidenceFidelity": {
+      "verdict": "FAIL",
+      "reason": "The live footer substitutes the frozen background-wave with generic pale gradients, applies unsupported non-uniform spatial scaling to Luffy and the three cards, and expands Alfa Slab One into long article titles despite the frozen notFor boundary."
+    },
+    "structuralFidelity": {
+      "verdict": "FAIL",
+      "reason": "The settled and intermediate frames remain a pale vertical poster: character/cards occlude the phone, the edge-spanning wave and left-character/right-card/lower-right-type hierarchy are not visually preserved, and the card composite appears too early at 120ms/500ms."
+    },
+    "generativeProof": {
+      "verdict": "PASS",
+      "reason": "The independent Field Notes route renders the frozen taxonomy/editorial rhythm with independent assets, five sections, five loaded images, and reversible scrolling. This PASS does not compensate for either footer failure."
+    }
+  },
+  "userIncidentClosure": {
+    "wrongBackgroundClosed": false,
+    "missingMotionClosed": false,
+    "explanation": "Motion primitives now exist, but the source-observed spatial-temporal sequence is still not reproduced. The frozen edge-spanning wave is not present: live .footerIllustBg has no image source and computes to three generic pale gradients. Both user-reported issues therefore remain open."
+  },
+  "blockingFindings": [
+    {
+      "code": "FOOTER_BACKGROUND_WAVE_SUBSTITUTED",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation Agent",
+      "failureOwnerRole": "demoImplementationAgent",
+      "sourceEvidence": [
+        "footer-motion-evidence-v10.json#spatialComposition",
+        "approved-visual-patterns.json#home-footer-illustration-organism.compositionContract.requiredLayers[background-wave]",
+        "brand-intent.json#home-footer-illustration-organism.responsiveTranslation.mustPreserve"
+      ],
+      "visibleEvidence": [
+        "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png",
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-settled-live.png",
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-browser-probes.json#footerAssetProbe"
+      ],
+      "finding": "The official edge-spanning blue wave is absent. Live .footerIllustBg has no loaded image source and computes to a pale linear/repeating/radial gradient stack, reproducing exactly the user-reported wrong-background failure."
+    },
+    {
+      "code": "FOOTER_SPATIAL_HIERARCHY_POSTER_REGRESSION",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation Agent",
+      "failureOwnerRole": "demoImplementationAgent",
+      "sourceEvidence": [
+        "footer-motion-evidence-v10.json#spatialComposition",
+        "approved-visual-patterns.json#home-footer-illustration-organism.compositionContract",
+        "brand-intent.json#home-footer-illustration-organism.responsiveTranslation"
+      ],
+      "visibleEvidence": [
+        "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png",
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-settled-live.png",
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-comparisons/footer-source-vs-demo-six-states.png"
+      ],
+      "finding": "At the same normalized 16:9 capture frame, official v10 is a horizontal edge-spanning organism. Live revision 2 remains a pale vertical poster. Character width is 2.230 phone widths versus official 0.547 viewport widths; card widths are 0.693/0.382/0.363 versus 0.159/0.087/0.085, while catch/logo widths remain nearly exact. This is not uniform scaling and destroys the frozen hierarchy independently of the missing wave."
+    },
+    {
+      "code": "FOOTER_INTERMEDIATE_STATE_FIDELITY_MISMATCH",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation Agent",
+      "failureOwnerRole": "demoImplementationAgent",
+      "sourceEvidence": [
+        "footer-motion-evidence-v10.json#sequence",
+        "approved-visual-patterns.json#home-footer-illustration-organism.compositionContract.motionSemantics"
+      ],
+      "visibleEvidence": [
+        "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png",
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-120ms-live.png",
+        "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png",
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/footer-500ms-live.png"
+      ],
+      "finding": "Official 120ms shows only the faint entering background and official 500ms shows only the top of Luffy; live revision 2 already presents the oversized three-card composite at 120ms and stages it over Luffy at 500ms. Exact animation duration strings do not cure the visibly wrong state sequence."
+    },
+    {
+      "code": "HOME_DISPLAY_FONT_ROLE_EXPANSION",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation Agent",
+      "failureOwnerRole": "demoImplementationAgent",
+      "sourceEvidence": [
+        "brand-intent.json#home-display-font-resource",
+        "visual-pattern-inventory.json#home-four-type-roles"
+      ],
+      "visibleEvidence": [
+        "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-browser-probes.json#fontProbe"
+      ],
+      "finding": "All four font resources load successfully, but Alfa Slab One is applied at weight 700 to long article titles. The approved pattern limits it to short oversized English section labels at weight 400 and explicitly forbids long-title use."
+    }
+  ],
+  "nonBlockingPasses": [
+    "Default/pre-entry footer class exists before is-in.",
+    "Finite card composite durations are 0.6s and 0.8s with one iteration each.",
+    "Settled loops are 5s/8s/8s and infinite; all three transforms change in late state.",
+    "Pause switches all three card loops to paused, holds transforms for 1200ms, and does not rewind reveal layers.",
+    "Home phone page scrollHeight 3129 exceeds clientHeight 583 and scrollTop restores 0→480→0.",
+    "Four required font resources report document.fonts.check=true.",
+    "Held-out page has five sections, five loaded images, and reversible scrolling."
+  ],
+  "requiredRework": [
+    "Replace the generic pale CSS-gradient .footerIllustBg substitute with a source-faithful edge-spanning wave layer supported by the frozen evidence/approved pattern.",
+    "Return Luffy to a bounded dominant-left mass instead of a 2.23-viewport-width poster crop.",
+    "Restore the three-card size hierarchy and rightward field near the frozen normalized widths; cards must not cover Luffy's face/torso.",
+    "Keep the wave legible as the edge-spanning backdrop and preserve catch-over-logo lower-right placement against that field.",
+    "Retune the finite composite entry so 120ms and 500ms visually match the official delayed progression, while retaining 0.6s/0.8s finite semantics.",
+    "Restrict Alfa Slab One to the approved short oversized display role."
+  ],
+  "artifacts": {
+    "report": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-report-revision-2-r2.md",
+    "browserProbes": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-browser-probes.json",
+    "comparisonHtml": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-comparisons/footer-source-vs-demo-six-states.html",
+    "comparisonPng": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-comparisons/footer-source-vs-demo-six-states.png",
+    "captureDirectory": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-r2-captures/",
+    "receipt": "migrations/onepiece-cardgame/quality-attempts/10/blind-qa-receipt-revision-2-r2.json"
+  }
+}

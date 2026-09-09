@@ -1,0 +1,106 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "scope": "first complete high-salience homepage section immediately after Pokémon TCG Live",
+  "method": "screenshot-first -> section boundary -> settled render -> visible DOM -> computed style -> loaded assets",
+  "status": "PASS_WITH_WARNINGS",
+  "selectedSection": {
+    "id": "homepage-pokemon-tcg-pocket",
+    "visibleTitle": "POKÉMON TRADING CARD GAME POCKET",
+    "selector": "article.tcg-pocket",
+    "reason": "It is the first complete, self-contained, full-width promotional section after .tcgl-callout. The following Pokémon Championship Series begins only after this article ends and is out of scope."
+  },
+  "goalCoverage": [
+    {"id":"section-identity-and-boundary","status":"proved","claimRefs":["pocket-boundary"]},
+    {"id":"desktop-composition","status":"proved","claimRefs":["pocket-desktop"]},
+    {"id":"mobile-responsive-reflow","status":"proved","claimRefs":["pocket-mobile"]},
+    {"id":"copy-type-and-cta","status":"proved","claimRefs":["pocket-copy","pocket-cta"]},
+    {"id":"rendered-assets","status":"proved","claimRefs":["pocket-assets"]},
+    {"id":"entry-motion","status":"unresolved","claimRefs":["pocket-entry-motion"]}
+  ],
+  "claims": [
+    {
+      "id": "pocket-boundary",
+      "status": "observed",
+      "fact": "The section starts at the hard lower seam of .tcgl-callout and ends before the Pokémon Championship Series grid. It is one ARTICLE.tcg-pocket, full-bleed at both measured viewports.",
+      "capture": "captures/tcg-pocket-desktop-1440-settled.png",
+      "captureSha256": "277ea421c340918ddcfc2f6f07dd0bfc28f60d35ebe2e640acedfc7c0eda3177",
+      "region": {"x":0,"y":212.34,"width":1440,"height":476.2},
+      "visibleDomState": {"selector":"main > article.tcg-pocket","state":"settled; immediately after .tcgl-callout and before .homepage-grid"},
+      "computed": {"desktop":{"width":"1440px","height":"476.195px","position":"relative"},"mobile":{"width":"390px","height":"743.023px","position":"relative"}}
+    },
+    {
+      "id": "pocket-desktop",
+      "status": "observed",
+      "fact": "At 1440px the section is a two-column horizontal composition: a 720px pale-blue branded image field on the left and an opaque black 720px copy field on the right. The product/logo composite is the primary left visual; the right reading order is title, paragraph, centered CTA.",
+      "capture": "captures/tcg-pocket-desktop-1440-settled.png",
+      "captureSha256": "277ea421c340918ddcfc2f6f07dd0bfc28f60d35ebe2e640acedfc7c0eda3177",
+      "region": {"x":0,"y":212.34,"width":1440,"height":476.2},
+      "visibleDomState": {"selector":"article.tcg-pocket .row.row--vertical-center","state":"settled; two column-large--6 children; asset-left/copy-right"},
+      "computed": {"section":{"width":"1440px","height":"476.195px"},"assetColumn":{"x":0,"width":"720px"},"asset":{"x":10,"width":"700px","height":"428.4px"},"copyColumn":{"x":720,"y":"section+60px","width":"720px","height":"357px","backgroundColor":"rgb(0, 0, 0)"},"contentInset":{"x":752,"width":"656px"}}
+    },
+    {
+      "id": "pocket-mobile",
+      "status": "observed",
+      "fact": "At 390px the horizontal split becomes a vertical stack. The asset field comes first (334.23px high), followed by a full-width opaque black copy panel (408.79px high). The primary asset scales to 370x226.44 with 10px side insets; the background switches to the mobile-specific header_bg-small.jpg.",
+      "capture": "captures/tcg-pocket-mobile-390-settled.png",
+      "captureSha256": "c11d1dd689909fc107b7dbeb0fabcdefd369cd97fd19dd08c267b12c7a009212",
+      "region": {"x":0,"y":0,"width":390,"height":743.02},
+      "visibleDomState": {"selector":"article.tcg-pocket","state":"English en-us settled render; asset column then copy column"},
+      "computed": {"section":{"width":"390px","height":"743.023px"},"assetColumn":{"width":"390px","height":"334.23px","padding":"50px 10px"},"asset":{"width":"370px","height":"226.44px"},"copyColumn":{"width":"390px","height":"408.79px","padding":"40px 0","backgroundColor":"rgb(0, 0, 0)"}}
+    },
+    {
+      "id": "pocket-copy",
+      "status": "observed",
+      "fact": "The English source copy is exactly one H2 and one paragraph. Desktop H2 is 40/44 Kanit italic 700; mobile H2 is 28/30.8 and wraps to two lines. Body remains 18/28.8 PT Sans and is centered.",
+      "capture": "captures/tcg-pocket-mobile-390-settled.png",
+      "captureSha256": "c11d1dd689909fc107b7dbeb0fabcdefd369cd97fd19dd08c267b12c7a009212",
+      "region": {"x":0,"y":334.23,"width":390,"height":408.79},
+      "visibleDomState": {"selector":"article.tcg-pocket h2, article.tcg-pocket p","state":"visible English DOM; no kicker"},
+      "computed": {"desktopH2":{"fontFamily":"Kanit, sans-serif","fontStyle":"italic","fontWeight":"700","fontSize":"40px","lineHeight":"44px","color":"rgb(255, 255, 255)"},"mobileH2":{"width":"390px","height":"61.59px","fontSize":"28px","lineHeight":"30.8px"},"mobileParagraph":{"width":"390px","height":"172.78px","fontFamily":"PT Sans, sans-serif","fontSize":"18px","lineHeight":"28.8px","color":"rgb(255, 255, 255)"}}
+    },
+    {
+      "id": "pocket-cta",
+      "status": "observed",
+      "fact": "The only CTA is Play Now. It is a white rectangular button with black italic text and arrow; hover changes text and arrow to gold while the white .button__bg remains white. The observed href is https://tcgpocket.pokemon.com/en-us.",
+      "capture": "captures/tcg-pocket-mobile-390-settled.png",
+      "captureSha256": "c11d1dd689909fc107b7dbeb0fabcdefd369cd97fd19dd08c267b12c7a009212",
+      "region": {"x":107.95,"y":644.0,"width":174.09,"height":51.3},
+      "visibleDomState": {"selector":"article.tcg-pocket a.button.button--white","state":"default -> pointer hover"},
+      "computed": {"mobile":{"width":"174.086px","height":"51.297px","padding":"14.4px 36px","fontFamily":"PT Sans, sans-serif","fontStyle":"italic","fontWeight":"700","fontSize":"18px","lineHeight":"22.5px"},"default":{"foreground":"rgb(0, 0, 0)","buttonBg":"rgb(255, 255, 255)"},"hover":{"foreground":"rgb(226, 186, 101)","buttonBg":"rgb(255, 255, 255)"},"href":"https://tcgpocket.pokemon.com/en-us"}
+    },
+    {
+      "id": "pocket-assets",
+      "status": "observed",
+      "fact": "The visible campaign composition uses one independent transparent product/logo raster over one responsive background. Desktop loads background.jpg; mobile loads header_bg-small.jpg. No flattened screenshot is required.",
+      "capture": "captures/tcg-pocket-desktop-1440-settled.png",
+      "captureSha256": "277ea421c340918ddcfc2f6f07dd0bfc28f60d35ebe2e640acedfc7c0eda3177",
+      "region": {"x":0,"y":212.34,"width":720,"height":476.2},
+      "visibleDomState": {"selector":"article.tcg-pocket .full-width-section__bg, article.tcg-pocket img","state":"loaded and visible"},
+      "computed": {"desktopBackground":"url(https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg)","mobileBackground":"url(https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg)","productComposite":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png"}
+    },
+    {
+      "id": "pocket-entry-motion",
+      "status": "unresolved",
+      "fact": "The rendered page exposed offscreen start states (image opacity 0/translateY -214.199px; title/body opacity 0/translateX right) and a later settled state (opacity 1, transform 0). In this browser run the viewport controller did not yield a reliable visible intermediate frame before settling, so exact duration, easing and stagger are not frozen and must not be invented.",
+      "capture": "captures/tcg-pocket-desktop-pre-entry.png",
+      "captureSha256": "78903dfd7aee36be092977c4bb0472bbd3d544c8d5f04e53735b7c0c0a503939",
+      "region": {"x":0,"y":0,"width":1440,"height":1000},
+      "visibleDomState": {"selector":"article.tcg-pocket .vp-slide","state":"observed hidden endpoint and settled endpoint; no reliable intermediate frame"},
+      "computed": {"start":{"asset":{"opacity":"0","transform":"translateY(-214.199px)"},"heading":{"opacity":"0","transform":"translateX(328px)"},"paragraph":{"opacity":"0","transform":"translateX(328px)"},"cta":{"opacity":"0","transform":"translateX(94.98px)"}},"settled":{"all":"opacity 1; transform matrix identity"}}
+    }
+  ],
+  "renderedAssetInventory": [
+    {"role":"desktop-full-bleed-left-field","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg","observed":"validated","source":"computedStyle + pageAssets"},
+    {"role":"mobile-full-bleed-field","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/header_bg-small.jpg","observed":"validated","source":"computedStyle + pageAssets"},
+    {"role":"campaign-logo-and-card-composite","sourceUrl":"https://tcg.pokemon.com/assets/img/home/tcg-pocket/en-us/logo-cards.png","observed":"validated","source":"visible IMG + pageAssets"}
+  ],
+  "thirdPartySeedDispositions": [],
+  "warnings": [
+    "Chrome briefly auto-translated one discarded mobile run; the canonical mobile screenshot and copy measurements were re-captured from the English en-us DOM.",
+    "A small red Chinese browser-extension overlay is visible at the top-left of the mobile screenshot. It is browser chrome/injection, not source-page evidence, and must not be reproduced.",
+    "Exact motion duration/easing/stagger remain unresolved because no reliable intermediate rendered frame was captured."
+  ],
+  "handoffBlockers": []
+}

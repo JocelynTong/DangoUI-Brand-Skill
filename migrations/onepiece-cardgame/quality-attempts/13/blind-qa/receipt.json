@@ -1,0 +1,26 @@
+{
+  "schema": "onepiece-attempt13-blind-qa-receipt/v1",
+  "attempt": 13,
+  "role": "Blind Visual QA / TPP",
+  "independent": true,
+  "verdict": "FAIL",
+  "blockingCode": "EVENT_ASSET_IDENTITY_MISMATCH",
+  "inputsReadPolicy": "Frozen Goal; attempt13 Evidence/contract; approved patterns; current inventory/manifest/generative proof; live Demo only. No implementation messages, self-checks, receipts or old verdicts consumed.",
+  "artifacts": [
+    {"path":"report.md","sha256":"24ed7e8372cff738eb70d4682df19f270b1f4bcbfc79f4ec75015c4a73cfb05f"},
+    {"path":"assessment.json","sha256":"0230d19f4b988b87bb1b70ddf9735e00cf6d39fea9591db0db740d349268e294"},
+    {"path":"probes.json","sha256":"6e5272757414e636126235da5de2950b72a4ba60fbb6f521ac200d9cf8cfa1e7"},
+    {"path":"captures/home-full-live-390x844.png","sha256":"c5249733e39c6a71afb7c6d171377207319cd61df0f71d7186d6a8277491373a"},
+    {"path":"captures/events-live-initial.png","sha256":"668578ec0d5860d40700c762c0ad76ff9ef807408796afd2a642b0813e97aad9"},
+    {"path":"captures/recommend-live-initial.png","sha256":"35962356d6b500ef1a5989676b0b66e7879a5bb5b6b6f7b02092577ce1312b87"},
+    {"path":"captures/new-arrival-live-initial.png","sha256":"d96335dafb40d56601dd4717780c427c2efb81c0942f45751b09943a917da6e3"},
+    {"path":"captures/new-arrival-live-after-next.png","sha256":"d63760fcae6e6cfde6a6bdb8a0bd460458100bc12656697baf1c915ad20e88e6"},
+    {"path":"captures/new-arrival-live-after-previous.png","sha256":"9e5d230f3a366d444326d6e99e833f6eaa41ad75fc8e65a122aaf5626312c88a"},
+    {"path":"captures/held-out-route-live-390x844.png","sha256":"fd7110ef4aa1e75ab7be3edfa6742a685b20a205e5e633d8f397aaf65a5a6f56"},
+    {"path":"captures/desktop-shell-live.png","sha256":"c36bec35ad8fef3379cf679170a7d34f1ebfbeb97ed9d9eb659c724856852ba5"},
+    {"path":"comparisons/events-source-vs-live.html","sha256":"1ae2773e37badb52339b97aac758773e9efba4fa1e6becf800f6b7c359a844ce"},
+    {"path":"comparisons/recommend-source-vs-live.html","sha256":"30803f7121d65fbc70f173bc36d9c0ab806b3271404807ad96b3a7f79d281a3e"},
+    {"path":"comparisons/new-arrival-source-vs-live.html","sha256":"ce983d1147d73203945f33a3d27b154cedc88daa6a047b60bb014447e3fd4765"}
+  ],
+  "mutationBoundary": "Only quality-attempts/13/blind-qa outputs were added; Goal, Evidence, Intent and Demo were not modified."
+}

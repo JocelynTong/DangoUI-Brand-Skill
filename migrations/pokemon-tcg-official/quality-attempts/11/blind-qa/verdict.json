@@ -1,0 +1,101 @@
+{
+  "schema": "blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "role": "Blind QA / TPP",
+  "outcome": "FAIL",
+  "roleDecision": "REWORK",
+  "independentRun": true,
+  "implementationModified": false,
+  "threeProofs": {
+    "evidenceFidelity": "PASS",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "FAIL"
+  },
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "blockingFindings": [
+    {
+      "id": "B11-01-WHITE-CANVAS-OWNERSHIP",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "summary": "The target's visible white field is an absolute ::before fill owned by the Championship section, not the white page canvas required by the frozen pattern.",
+      "reproduction": {
+        "url": "http://127.0.0.1:4173/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+        "viewport": "1440x900",
+        "probe": "getComputedStyle(document.querySelector('.pokemon-championship'),'::before')",
+        "observed": "content=\"\"; position=absolute; backgroundColor=rgb(255,255,255); width=1440px; height=720px; section and copy backgrounds transparent; parent canvas background rgb(0,0,0)",
+        "expected": "White is owned by the page canvas; section, row, columns, content and pseudo-elements do not create a white fill."
+      },
+      "minimalRollbackScope": "Only remove the Championship/held-out section-owned white pseudo fill and restore white ownership at the page-canvas layer; do not touch Hero, What's New, TCG Live or Pocket."
+    },
+    {
+      "id": "B11-02-PLAY-POKEMON-MISSING",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "summary": "Championship follows Pocket, but Play! Pokémon is absent after it; the live homepage ends at Championship.",
+      "reproduction": {
+        "url": "http://127.0.0.1:4173/?proof=desktop#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+        "viewport": "1440x900",
+        "probe": "document.querySelector('.pokemon-championship').nextElementSibling",
+        "observed": "null; the source-schema-demo has five direct sections and ends with .pokemon-championship",
+        "expected": "Pocket immediately before Championship and Play! Pokémon immediately after."
+      },
+      "minimalRollbackScope": "Restore the approved Play! Pokémon successor section immediately after Championship without reordering or rewriting any prior section."
+    },
+    {
+      "id": "B11-03-HELD-OUT-STATE-MACHINE",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "summary": "The directly reachable fictional fixture does not preserve the required keyboard-focus presentation and invents a pressed state.",
+      "reproduction": {
+        "url": "http://127.0.0.1:4173/?proof=mobile#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-championship-fixture",
+        "viewport": "390x844",
+        "probe": "Focus Review the Program by keyboard, then inspect computed outline; activate once and inspect accessibility state.",
+        "observed": "focus-visible=true but outline=none 0px and box-shadow=none; after activation the control becomes aria-pressed=true and exposes an invented pressed state",
+        "expected": "Black focus state with a visible outline; no invented pressed/loading/disabled state."
+      },
+      "minimalRollbackScope": "Only the held-out CTA interaction recipe: reuse the approved outlined keyboard focus and replace the toggle/pressed behavior with a non-invented activation result."
+    },
+    {
+      "id": "B11-04-PREVIEW-REGISTRY-VISIBLE-PAGES",
+      "severity": "blocking",
+      "earliestFailureNode": "Demo Implementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "summary": "Fresh preview validation rejects the Attempt 11 visible page set.",
+      "reproduction": {
+        "command": "npm run validate:brand-preview",
+        "exitCode": 1,
+        "observed": "Visible pages include pokemon-tcg-official-championship-fixture, while sourceNavigation.visiblePageIds does not.",
+        "expected": "The registry and sourceNavigation visible-page contract agree."
+      },
+      "minimalRollbackScope": "Align only the registry/sourceNavigation visibility declaration for the directly reachable fixture; do not remove the held-out route."
+    }
+  ],
+  "passedChecks": [
+    "Fresh production build passes.",
+    "Normal Home route retains a visible phone chassis, rounded screen, fixed Home Indicator and reversible internal scrolling.",
+    "Championship desktop proof is 1440x720 with 720/720 copy-left and image-right fields.",
+    "Championship mobile proof is image-first with a 390x390 image and a measured 439.171875px copy block.",
+    "Official 1x and 2x Championship assets match frozen SHA-256 values; src, srcset and live currentSrc were recorded.",
+    "Kanit heading and PT Sans body/CTA roles are live.",
+    "Official CTA is black by default, reveals gold from the center on hover, remains black with a visible blue outline on keyboard focus, and opens the verified Championship destination.",
+    "No horizontal overflow at 1440 or 390.",
+    "Hero, What's New, TCG Live and Pocket remain present with positive geometry and loaded principal images.",
+    "The fictional fixture is directly reachable, uses independent copy and CSS-native media, and does not reuse the official Championship image."
+  ],
+  "gateResults": [
+    {"command": "npm run build", "status": "PASS", "exitCode": 0},
+    {"command": "validate-design-direction --file Attempt 11 design-direction.json", "status": "PASS", "exitCode": 0},
+    {"command": "validate-section-fidelity --file Attempt 11 demo/section-fidelity-manifest.json --strict", "status": "PASS_WITH_LIVE_ESCAPE", "exitCode": 0, "note": "Live QA disproved submitted pass claims for canvas ownership and adjacency."},
+    {"command": "npm run validate:brand-preview", "status": "FAIL", "exitCode": 1}
+  ],
+  "evidence": {
+    "browserProbes": "probes/browser-probes.json",
+    "captureManifest": "probes/capture-manifest.json",
+    "report": "report.md"
+  }
+}

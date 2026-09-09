@@ -1,0 +1,54 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 12,
+  "status": "closed-after-cross-brand-blind-qa-pass",
+  "userFeedback": "这里还有啊；你没全局通用啊",
+  "observedMismatch": {
+    "surface": "Pokémon TCG Official Home phone mockup bottom",
+    "facts": [
+      "The Pokémon theme retained a white translucent indicator gradient after ONE PIECE had been corrected.",
+      "A legacy global source-schema rule added 110px bottom padding to the Home demo root, creating a large visible blank tail."
+    ]
+  },
+  "earliestFailureNode": "Demo Implementation",
+  "failureOwnerRole": "demoImplementationAgent",
+  "qaMiss": {
+    "role": "Visual QA / Methodology Keeper",
+    "reason": "The previous closure verified only ONE PIECE. The validator helper was unit-tested but was not invoked by the browser validator, so it could not prevent the same platform-chrome defect in another brand."
+  },
+  "correctiveAction": [
+    "Move source-preview indicator ownership and transparency into a shared phone-chassis CSS contract.",
+    "Remove the unsupported 110px legacy tail from Home source demos and retain only a sub-indicator-height safe inset.",
+    "Preserve brand-specific page styling while prohibiting brand-specific system-chrome veils.",
+    "Run cross-brand browser regression for Pokémon and ONE PIECE Home."
+  ],
+  "preventiveGate": {
+    "files": [
+      "scripts/brand-preview-layout-contract.mjs",
+      "scripts/validate-brand-preview-browser.mjs"
+    ],
+    "blockerCode": "HOME_INDICATOR_OPAQUE_FOOTER",
+    "change": "The browser validator now executes the shared Home indicator probe, including source-root legacy bottom-padding detection, on every brand Home source preview."
+  },
+  "requiredClosure": [
+    "Pokemon Home visual proof",
+    "ONE PIECE Home regression proof",
+    "all Pokemon preview browser gates",
+    "fresh independent Blind QA"
+  ],
+  "closure": {
+    "verdict": "PASS",
+    "qaArtifact": "migrations/pokemon-tcg-official/quality-attempts/12/blind-qa/report.md",
+    "pokemonClearancePx": {
+      "1184x933": 3.71,
+      "1280x720": 3.22
+    },
+    "onepieceClearancePx": {
+      "1184x933": 1.84,
+      "1280x720": 1.45
+    },
+    "earliestFailureNode": null,
+    "failureOwnerRole": null
+  }
+}

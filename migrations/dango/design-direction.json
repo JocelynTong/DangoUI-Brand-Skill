@@ -1,0 +1,83 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "dango",
+  "scope": "goal:dango-relearn-home-button-v1 introduction|button|release-checklist-held-out",
+  "designObjective": "Prove that DangoUI has been learned as a quiet, responsive technical documentation system with role-separated navigation and component purples, compact controls, and clear long-form hierarchy—not as a generic purple business skin.",
+  "decisionStatus": "approved",
+  "inputBindings": {
+    "goal": {"path": "migrations/dango/goal-contract.json", "sha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac"},
+    "evidence": {"path": "migrations/dango/brand-evidence.json", "sha256": "06a5374f36f3c300165a5fdc0ef2b8393276ea3573ca03cfede99c86f138b88f"},
+    "intent": {"path": "migrations/dango/brand-intent.json", "sha256": "bc39df3dfa8af7138720304f6c15863f6f0a25aac52a258c34e3d8335146f958"},
+    "patterns": {"path": "migrations/dango/approved-visual-patterns.json", "sha256": "4d90b0aad2a442839223c3198e895bbbcf0a03ddf201111dc3ad6a35a2147a51"}
+  },
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "documentation shell and reading hierarchy",
+    "strict separation of navigation and Primary Button purple roles",
+    "component geometry and interaction truth",
+    "responsive geometry",
+    "protocol completeness"
+  ],
+  "sections": [
+    {
+      "id": "introduction-calibration",
+      "firstImpressionGoal": "A quiet technical documentation page whose full-width utility header, strong black title, restrained supporting surface and explicit system hierarchy are recognizable before any purple branding is noticed.",
+      "mustPreserve": ["full-width utility header", "black 36px/700 title hierarchy", "restrained gray technical surface", "desktop navigation/content zones", "single-column phone reading order", "wide monospace technical-flow surface", "long-form layer explanation rhythm"],
+      "mayChange": ["copy length", "technical-diagram content", "right-outline labels", "mobile removal of secondary navigation"],
+      "mustNotDo": ["create a marketing hero", "turn every block into a floating card", "replace the technical-flow surface with generic summary cards", "use source screenshot at runtime", "apply purple as a page wash", "reproduce the source mobile title occlusion"]
+    },
+    {
+      "id": "button-calibration",
+      "firstImpressionGoal": "A component reference page where a compact live Primary Button and code/example relationship prove precise system behavior instead of a generic showcase CTA.",
+      "mustPreserve": ["technical article hierarchy", "multi-module reference-page density", "purpose and import section", "multiple preview-code modules", "API section", "theme variables section", "at least two independently QA-addressable page sections", "live 32px Primary Button", "4px control radius", "#7C66FF component fill", "visible focus", "stable hover"],
+      "mayChange": ["example label", "supporting explanatory copy", "code sample content"],
+      "mustNotDo": ["collapse the reference page to one live example and a short checklist", "pill CTA", "hover lift or recolor", "red/orange activation", "reuse #5854FF for the button", "infer unobserved variants", "put an attempt or run label in the composition variant", "use a materially different source/demo aspect without a frozen mayTranslate authorization"]
+    },
+    {
+      "id": "release-checklist-held-out",
+      "firstImpressionGoal": "A new release-readiness article should still feel native to the learned DangoUI documentation system despite having no one-to-one source page.",
+      "mustPreserve": ["content-first white canvas", "technical title hierarchy", "restrained navigation cue", "light support field", "compact Primary Button role"],
+      "mayChange": ["subject matter", "section order", "checklist content", "article length"],
+      "mustNotDo": ["copy Introduction composition verbatim", "reuse source screenshot", "invent campaign imagery", "promote orange to core action", "flatten into a generic card dashboard"]
+    }
+  ],
+  "highSalienceElements": [
+    "utility header",
+    "desktop navigation zones",
+    "documentation H1 and section hierarchy",
+    "technical support surface",
+    "current-page navigation cue",
+    "Primary Button"
+  ],
+  "responsiveStrategyMatrix": [
+    {"element": "utility header", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["dango-docs-shell-desktop", "dango-docs-shell-mobile-reflow"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["full-width edge alignment", "brand identity", "essential utilities", "unobscured first heading"], "minimumReadableSize": "12px labels / 32px controls"},
+    {"element": "desktop navigation zones", "elementType": "control", "strategy": "structural-substitution", "evidenceRefs": ["dango-docs-shell-desktop", "dango-docs-shell-mobile-reflow"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["current-location truth", "primary article remains accessible"], "minimumReadableSize": "11px desktop navigation / hidden secondary zones on phone"},
+    {"element": "documentation H1 and section hierarchy", "elementType": "text", "strategy": "responsive-reflow", "evidenceRefs": ["dango-docs-type-hierarchy", "dango-docs-shell-mobile-reflow"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["H1 first reading priority", "H2 separation", "body readability", "no header overlap"], "minimumReadableSize": "32px phone H1 / 15px body"},
+    {"element": "technical support surface", "elementType": "surface", "strategy": "responsive-reflow", "evidenceRefs": ["dango-docs-type-hierarchy"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["low-emphasis gray field", "technical content legibility", "no decorative elevation"]},
+    {"element": "current-page navigation cue", "elementType": "control", "strategy": "structural-substitution", "evidenceRefs": ["dango-docs-active-navigation"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["#5854FF remains navigation-only", "one restrained current state"], "minimumReadableSize": "11px desktop / equivalent location cue on phone"},
+    {"element": "Primary Button", "elementType": "control", "strategy": "independent-scale", "evidenceRefs": ["dango-primary-button", "dango-primary-button-hover-no-change", "dango-primary-button-focus", "dango-primary-button-activated"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["#7C66FF fill", "white label", "32px height", "4px radius", "no hover spectacle", "visible focus"], "minimumReadableSize": "14px label / 32px control"}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "Independent 1440x900 source/demo calibration without inspector width counted as page width.",
+    "mobileCanvas": "Independent 390x844 source/demo calibration; normal product route retains phone mockup while proof mode exposes the exact content viewport.",
+    "inspectorPolicy": "Exclude rail, selected-node outline, mockup bezel and home indicator from source-fidelity crops.",
+    "sourceComparison": "Same-viewport Introduction and Button comparisons plus a separate held-out release-checklist screenshot. The source mobile title overlap is documented as a defect and must not be copied.",
+    "mobileLayerRegions": {
+      "utilityHeader": {"sourceRegion": [0, 0, 1, 0.066351], "demoRequirement": "bounded full-width header only"},
+      "insetReadingColumn": {"sourceRegion": [0.041026, 0.066351, 0.917949, 0.899], "demoRequirement": "bounded inset article only; preserve heading-first reading order"},
+      "forbidden": "Do not use [0,0,1,1] for either mobile layer."
+    },
+    "buttonCompositionComparison": {
+      "stableVariant": "multi-module-preview-code-api-theme",
+      "variantNaming": "Source and calibration Demo use the same stable DOM/CSS variant; attempt labels belong outside variant.",
+      "aspectTranslation": "not-authorized",
+      "reason": "The frozen goal has no mayTranslate entry authorizing aspect/crop translation or asset variant replacement.",
+      "demoRequirement": "Use same-aspect, bounded, like-for-like comparison regions and retain purpose/import → preview/code → API → theme reading order. If this cannot be represented truthfully, Demo must change its proof regions; the contract must not fabricate authorization."
+    }
+  },
+  "orchestratorDecision": {
+    "mobileHeaderOcclusion": "correct-for-legibility",
+    "reason": "The overlap contradicts the top visual priority and is not an approved brand invariant.",
+    "demoRegistration": "Only after implementation self-test and Blind QA; no Evidence-stage registry mutation."
+  }
+}

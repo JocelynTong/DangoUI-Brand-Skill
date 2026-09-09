@@ -1,0 +1,64 @@
+{
+  "schema": "blind-qa-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "revision": 3,
+  "previewUrl": "http://127.0.0.1:5178/",
+  "desktopProof": {
+    "viewport": [1440, 900],
+    "section": [0, 2269.984375, 1440, 720],
+    "image": [720, 2269.984375, 720, 720],
+    "h2FontPx": 48,
+    "bodyFontPx": 18,
+    "ctaFontPx": 18
+  },
+  "mobileProof": {
+    "viewport": [390, 844],
+    "sectionSize": [390, 829.171875],
+    "imageLocalRect": [0, 0, 390, 390],
+    "h2LocalRect": [32, 414, 326, 97.5],
+    "paragraphLocalRect": [32, 519.5, 326, 201.578125],
+    "ctaLocalRect": [99.6328125, 737.078125, 190.734375, 51.296875]
+  },
+  "normalRoute": {
+    "hostViewport": [1200, 900],
+    "phoneRect": [635, 51.3984375, 390, 821.4609375],
+    "screenRect": [644.5, 60.8984375, 371, 802.4609375],
+    "indicatorRectBefore": [654.3671875, 819.9296875, 351.265625, 33.5625],
+    "indicatorRectAfter": [654.3671875, 819.9296875, 351.265625, 33.5625],
+    "scroll": {"before": 0, "after": 1380, "restored": 0, "scrollHeight": 3842, "clientHeight": 802}
+  },
+  "background": {
+    "section": "rgba(0, 0, 0, 0)",
+    "media": "rgba(0, 0, 0, 0)",
+    "copy": "rgba(0, 0, 0, 0)",
+    "pageCanvas": "white"
+  },
+  "adjacency": {"previous": "home-editorial-grid", "next": "homepage-play-pokemon"},
+  "asset": {
+    "src": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+    "srcset": "/assets/brand-assets/pokemon-tcg-official/championships.jpg 1x, /assets/brand-assets/pokemon-tcg-official/championships-2x.jpg 2x",
+    "currentSrcAtDpr1": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+    "sha2561x": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+    "sha2562x": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db",
+    "hashesMatchFrozenEvidence": true
+  },
+  "sourceCta": {
+    "default": {"surface": "rgb(0, 0, 0)", "content": "rgb(255, 255, 255)"},
+    "hover": {"overlay": "rgb(226, 186, 101)", "transform": "matrix(1, 0, 0, 1, 0, 0)", "content": "rgb(0, 0, 0)"},
+    "focus": {"surface": "rgb(0, 0, 0)", "content": "rgb(255, 255, 255)", "outline": "rgb(0, 95, 204) auto 1px", "outlineOffset": "2px"},
+    "insetFrame": "rgb(0, 0, 0) 0px 0px 0px 2px inset",
+    "shadow": "rgba(0, 0, 0, 0.35) 0px 16px 24px -16px",
+    "destination": "https://championships.pokemon.com/en-us/"
+  },
+  "heldOut": {
+    "proofRole": "generative-held-out-fictional",
+    "sourceImageCount": 0,
+    "art": "CSS-native original fictional arena-program visual",
+    "control": {"tag": "BUTTON", "type": "button", "href": null, "ariaPressed": null},
+    "keyboardFocus": {"active": true, "outline": "rgb(0, 95, 204) auto 1px", "outlineOffset": "2px"},
+    "ariaLive": {"mode": "polite", "before": "Fictional program review is ready.", "after": "Fictional program review noted locally.", "visuallyHidden": true},
+    "routeRemainedLocal": true
+  },
+  "manifest": {"entries": 7, "missing": [], "oldDemoArtifacts": [], "priorQaVerdicts": []}
+}

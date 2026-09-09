@@ -1,0 +1,27 @@
+{
+  "schema": "brand-demo-scroll-restore-probe/v1",
+  "brand": "pokemon-tcg-official",
+  "sequence": {
+    "pageA": "pokemon-tcg-official-home",
+    "pageAScrolled": 420,
+    "pageB": "pokemon-tcg-official-learn",
+    "pageBInitial": {
+      "scrollTop": 0,
+      "scrollHeight": 2717,
+      "clientHeight": 803
+    },
+    "pageBScrolled": 420,
+    "pageAReturned": {
+      "scrollTop": 0,
+      "scrollHeight": 4066,
+      "clientHeight": 803
+    }
+  },
+  "checks": {
+    "pageAScrolled": true,
+    "pageBInitialAtTop": true,
+    "pageBScrolled": true,
+    "pageAReturnedAtTop": true
+  },
+  "passed": true
+}

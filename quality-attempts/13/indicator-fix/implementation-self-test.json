@@ -1,0 +1,80 @@
+{
+  "incident": 13,
+  "role": "Demo Implementation Agent",
+  "blockerCode": "STYLE_PAGE_HOME_INDICATOR_IN_FLOW",
+  "scope": "shared phone mockup chassis",
+  "change": {
+    "structure": "Render one mock-home-indicator--outer as a direct child of every phone.template-phone instead of placing the non-source indicator inside phone-screen.",
+    "positioning": "Normal mockups use position:absolute; bottom:0; transparent background; z-index:30.",
+    "proofModes": "template-phone--source-desktop and template-phone--source-mobile-proof continue to hide the indicator.",
+    "contentSafety": "Existing page scroll containers and existing bottom-safe-area variables were retained; no white veil or gradient was added."
+  },
+  "browserChecks": [
+    {
+      "route": "#/brand/pokemon-tcg-official/style/button",
+      "indicator": {
+        "parentClass": "phone template-phone",
+        "position": "absolute",
+        "bottom": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "zIndex": "30",
+        "rect": { "x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625 }
+      },
+      "scroll": { "owner": "contents", "before": 0, "after": 1630.5, "max": 1631, "lastContentReached": true },
+      "indicatorRectStableAfterScroll": true
+    },
+    {
+      "route": "#/brand/pokemon-tcg-official/components/navigation-bar",
+      "indicator": {
+        "parentClass": "phone template-phone",
+        "position": "absolute",
+        "bottom": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "zIndex": "30",
+        "rect": { "x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625 }
+      },
+      "scroll": { "owner": "contents", "before": 0, "after": 174, "max": 174, "restored": 0, "lastContentReached": true },
+      "indicatorRectStableAfterScroll": true
+    },
+    {
+      "route": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "indicator": {
+        "parentClass": "phone template-phone",
+        "position": "absolute",
+        "bottom": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "zIndex": "30",
+        "rect": { "x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625 }
+      },
+      "scroll": { "owner": "phone-screen", "before": 0, "after": 3061.5, "max": 3061, "restored": 0, "lastContentReached": true },
+      "indicatorRectStableAfterScroll": true
+    },
+    {
+      "route": "#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+      "indicator": {
+        "parentClass": "phone template-phone",
+        "position": "absolute",
+        "bottom": "0px",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "zIndex": "30",
+        "rect": { "x": 729.0859375, "y": 670.8671875, "width": 281.828125, "height": 26.90625 }
+      },
+      "scroll": { "owner": "phone-screen", "before": 0, "after": 5602, "max": 5602, "restored": 0, "lastContentReached": true },
+      "indicatorRectStableAfterScroll": true
+    }
+  ],
+  "proofModeChecks": {
+    "desktop": { "class": "template-phone--source-desktop", "display": "none", "rect": { "width": 0, "height": 0 } },
+    "mobile": { "class": "template-phone--source-mobile-proof", "display": "none", "rect": { "width": 0, "height": 0 } }
+  },
+  "build": {
+    "command": "npm run build",
+    "result": "PASS"
+  },
+  "qaVerdict": null,
+  "handoff": "Ready for an independent Blind Visual QA verdict."
+}

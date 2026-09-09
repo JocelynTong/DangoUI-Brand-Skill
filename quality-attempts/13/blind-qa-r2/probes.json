@@ -1,0 +1,90 @@
+{
+  "schema": "brand-incident-blind-qa-probes/v1",
+  "attempt": 13,
+  "review": "blind-qa-r2",
+  "date": "2026-09-04",
+  "orangeClaim": {
+    "verdict": "PASS",
+    "formalDatabaseOrangeBindings": 0,
+    "mappingBoundary": "No rendered/computed source evidence authorizes a brand action color; keep the DangoUI Button baseline.",
+    "renderedPrimaryButtons": {
+      "background": "rgb(124, 102, 255)",
+      "border": "rgb(124, 102, 255)",
+      "text": "rgb(255, 255, 255)"
+    }
+  },
+  "normalRoutes": [
+    {
+      "id": "style-button",
+      "path": "#/brand/pokemon-tcg-official/style/button",
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottom": "0px",
+      "background": "transparent",
+      "backgroundImage": "none",
+      "scrollHeight": 644,
+      "clientHeight": 644,
+      "endReached": true,
+      "phoneAndIndicatorStable": true,
+      "restoredTop": true
+    },
+    {
+      "id": "component-navigation-bar",
+      "path": "#/brand/pokemon-tcg-official/components/navigation-bar",
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottom": "0px",
+      "background": "transparent",
+      "backgroundImage": "none",
+      "scrollHeight": 644,
+      "clientHeight": 644,
+      "endReached": true,
+      "phoneAndIndicatorStable": true,
+      "restoredTop": true
+    },
+    {
+      "id": "pokemon-home",
+      "path": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottom": "0px",
+      "background": "transparent",
+      "backgroundImage": "none",
+      "scrollHeight": 3705,
+      "clientHeight": 644,
+      "maximumScrollTop": 3061,
+      "observedEndScrollTop": 3061.5,
+      "endReached": true,
+      "phoneAndIndicatorStable": true,
+      "restoredTop": true
+    },
+    {
+      "id": "onepiece-home",
+      "path": "#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+      "directPhoneChild": true,
+      "position": "absolute",
+      "bottom": "0px",
+      "background": "transparent",
+      "backgroundImage": "none",
+      "scrollHeight": 6246,
+      "clientHeight": 644,
+      "maximumScrollTop": 5602,
+      "observedEndScrollTop": 5602,
+      "endReached": true,
+      "phoneAndIndicatorStable": true,
+      "restoredTop": true
+    }
+  ],
+  "proofModes": {
+    "modes": ["proof=1", "proof=desktop", "proof=mobile"],
+    "routesChecked": ["style-button", "component-navigation-bar", "pokemon-home", "onepiece-home"],
+    "checks": 12,
+    "indicatorVisibleFailures": 0,
+    "renderedIndicatorSize": "0x0"
+  },
+  "build": {
+    "command": "npm run build",
+    "verdict": "PASS",
+    "vite": "8.0.16"
+  }
+}

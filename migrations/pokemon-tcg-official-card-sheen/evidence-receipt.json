@@ -1,0 +1,42 @@
+{
+  "schema": "brand-role-receipt/v1",
+  "role": "Evidence Agent",
+  "agentTask": "/root/pokemon_card_sheen_evidence",
+  "brand": "pokemon-tcg-official-card-sheen",
+  "status": "NEEDS_EVIDENCE",
+  "goalId": "pokemon-tcg-official-card-sheen-backfill-v1",
+  "goalContractSha256": "f6ca32da2d996f057fdbd08106703a80137d53a761a20cdeb89971bcf97ae744",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "viewport": { "width": 1440, "height": 1000 },
+  "startedAt": "2026-09-02T20:33:57+08:00",
+  "completedAt": "2026-09-02T20:43:00+08:00",
+  "result": "The runtime card/shine/perspective signals are real dormant candidates. All visible carousel controls were exercised, but none activated the opacity-zero owning vp-slide. The hidden-state path has zero delta, but that cannot reject visibility-gated behavior; disposition is unresolved-dormant-unreachable.",
+  "originalPassiveRecordingMissedRealEffect": null,
+  "outputs": [
+    { "path": "candidate-scan.json", "sha256": "86f5fc93ef3b2ece87a6457475b1991daa50ab77876098df9f6c0a80c44b7abe" },
+    { "path": "pointer-probe-timeline.json", "sha256": "0e38648664874335c0581b9877f0cc7b9374cf4da7e1f326a76c4f3a47995951" },
+    { "path": "action-evidence.json", "sha256": "d29da19386bab368f8a7dca0cda4145c4dc5e2ba700d2a58dd1d2e5da4a42fe3" },
+    { "path": "source-observation-manifest.json", "sha256": "26415d767c963d4c119cdf9efdaa7fab55f8a2c64d7abd4c1971e436c724a524" },
+    { "path": "rendered-asset-inventory.json", "sha256": "3bf13e3540310479c28ec4c6f591e001420ab75e63eb77803f830ea780108d7f" },
+    { "path": "brand-evidence.json", "sha256": "518d4252cc85fcc9fa54a2e3a473f0c47de344c054d859c8d014001b8708274d" }
+  ],
+  "frameManifest": {
+    "initial": { "path": "frames/00-initial.png", "sha256": "9b13eb98e36597c903e695f599ff95740174abd764f917eabe870831eb936cf4" },
+    "probeFrames": 8,
+    "probeUniqueHashes": 1,
+    "probeSha256": "3feb9ccae68acdf0c020a36ab7412ce03a185ff016b96e2b37635439f3ba353a",
+    "reachability": { "path": "frames/09-reachability-after-controls.png", "sha256": "9b13eb98e36597c903e695f599ff95740174abd764f917eabe870831eb936cf4" }
+  },
+  "selfCheck": {
+    "screenshotFirst": true,
+    "boundedScanOnly": true,
+    "frozenPointerPathComplete": true,
+    "timestampsAndCoordinatesRecorded": true,
+    "computedAndPseudoStylesRecorded": true,
+    "losslessFramesAndHashesRecorded": true,
+    "candidateDispositionsComplete": true,
+    "visibleControlReachabilityTested": true,
+    "codeOnlyProofAvoided": true,
+    "demoImplemented": false
+  }
+}

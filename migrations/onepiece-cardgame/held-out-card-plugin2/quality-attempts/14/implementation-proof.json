@@ -1,0 +1,50 @@
+{
+  "schema": "brand-host-detail-minimal-experiment-proof/v1",
+  "attempt": 14,
+  "route": "pages/detail/index",
+  "direction": "detail-minimal-experiment-direction.json",
+  "inputStandardSamples": ["Plaza QA10", "Event QA13"],
+  "scope": "Detail held-out scoped visual CSS only",
+  "implementation": {
+    "editedFiles": ["frontend/src/styles/onepiece-cardgame-heldout-theme.scss"],
+    "styleSha256": "21e3809aaf5b357fb77da4a094071b015f0648cf98b1f3ea58cbf8b43eca649c",
+    "vueSfcEdited": false,
+    "surface": "warm map-paper canvas with white editorial product islands",
+    "identity": "rectangular Pokémon deck cover frame paired with title, environment, campaign, author and update metadata",
+    "description": "restrained red-rule editorial note",
+    "stats": "three ruled cells with preserved purple price and buy action",
+    "views": "rectangular two-cell switch with navy selected state and sparse yellow rule",
+    "content": "bounded card/product grid and text inventory",
+    "persistentActions": "64px-class low-occupancy rectangular favorite/copy bar; purple secondary and red primary",
+    "pokemonMediaCopyDataActionsPreserved": true,
+    "plazaEventAndOtherRoutesEdited": false,
+    "businessDomNavigationChanged": false,
+    "writes": 0
+  },
+  "viewportChecks": {
+    "390x844": {"identity": true, "description": true, "stats": true, "view": true, "content": true, "persistentActions": true, "actionHeight": 66.55, "minimumInteractiveTarget": 45.75, "documentOverflow": 0},
+    "536x864": {"identity": true, "description": true, "stats": true, "view": true, "content": true, "persistentActions": true, "actionHeight": 64, "minimumInteractiveTarget": 44, "documentOverflow": 0},
+    "1280x720": {"identity": true, "description": true, "stats": true, "view": true, "content": true, "persistentActions": true, "actionHeight": 64, "minimumInteractiveTarget": 44, "documentOverflow": 0}
+  },
+  "interactionSafety": {
+    "titleAndDescriptionExpand": "UNCHANGED_SFC_BINDINGS",
+    "favoriteCopyBuyAndViews": "UNCHANGED_SFC_BINDINGS",
+    "cardViewer": "UNCHANGED_SFC_BINDINGS",
+    "edit": "NOT_PRESENT_FOR_THIS_NON_OWNER_FIXTURE",
+    "pointerEnterSpaceParity": "PRESERVED_BY_FROZEN_STRUCTURAL_DIFF",
+    "focusVisible": "PRESERVED_SHARED_YELLOW_OUTLINE"
+  },
+  "verification": {
+    "reducedMotion": "PASS_ANIMATION_NONE_TRANSITION_0S",
+    "nonGetRequests": 0,
+    "build": "PASS",
+    "themeOrder": "PASS",
+    "detailStructuralDiff": "PASS",
+    "otherRouteHashes": "UNCHANGED",
+    "otherRouteOverflow": "PASS_0_5_OF_5"
+  },
+  "evidence": ["browser-probes.json", "selfcheck-390x844-detail.png", "selfcheck-536x864-detail.png", "selfcheck-1280x720-detail.png"],
+  "preview": "http://localhost:10092/#/pages/detail/index?id=0",
+  "qaVerdict": "NOT_WRITTEN_BY_IMPLEMENTATION_AGENT",
+  "coverageStatus": "PARTIAL_STYLE_ONLY"
+}

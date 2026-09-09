@@ -1,0 +1,533 @@
+{
+  "schema": "brand-browser-probes/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "06-demo",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "route": "http://127.0.0.1:5177/?qa=attempt6#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "states": {
+    "initial": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+      "titleImage": "/assets/brand-assets/pokemon-tcg-official/Logo-30th.png",
+      "titleText": null,
+      "proofLabel": null,
+      "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png",
+      "cta": "Discover the celebration",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "false",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        }
+      ],
+      "active": 0,
+      "menuPanelVisible": false,
+      "animation": {
+        "name": "pokemon-campaign-swap-in",
+        "duration": "0.36s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    },
+    "transition": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+      "titleImage": null,
+      "titleText": "BUILD YOUR NEXT DECK",
+      "proofLabel": "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN",
+      "card": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "cta": "Explore the Deck Lab",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "false",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        }
+      ],
+      "active": 1,
+      "menuPanelVisible": false,
+      "animation": {
+        "name": "pokemon-campaign-swap-in",
+        "duration": "0.36s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    },
+    "settled": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+      "titleImage": null,
+      "titleText": "BUILD YOUR NEXT DECK",
+      "proofLabel": "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN",
+      "card": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "cta": "Explore the Deck Lab",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "false",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        }
+      ],
+      "active": 1,
+      "menuPanelVisible": false,
+      "animation": {
+        "name": "pokemon-campaign-swap-in",
+        "duration": "0.36s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    },
+    "menuOpen": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+      "titleImage": null,
+      "titleText": "BUILD YOUR NEXT DECK",
+      "proofLabel": "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN",
+      "card": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "cta": "Explore the Deck Lab",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "true",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        }
+      ],
+      "active": 1,
+      "menuPanelVisible": true,
+      "animation": {
+        "name": "pokemon-campaign-swap-in",
+        "duration": "0.36s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    },
+    "menuClosed": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+      "titleImage": null,
+      "titleText": "BUILD YOUR NEXT DECK",
+      "proofLabel": "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN",
+      "card": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "cta": "Explore the Deck Lab",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "false",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        }
+      ],
+      "active": 1,
+      "menuPanelVisible": false,
+      "animation": {
+        "name": "pokemon-campaign-swap-in",
+        "duration": "0.36s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    },
+    "restored": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+      "titleImage": "/assets/brand-assets/pokemon-tcg-official/Logo-30th.png",
+      "titleText": null,
+      "proofLabel": null,
+      "card": "/assets/brand-assets/pokemon-tcg-official/2M6P_EN_23.png",
+      "cta": "Discover the celebration",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "false",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        }
+      ],
+      "active": 0,
+      "menuPanelVisible": false,
+      "animation": {
+        "name": "pokemon-campaign-swap-in",
+        "duration": "0.36s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    },
+    "reducedSettled": {
+      "hero": {
+        "x": 0,
+        "y": 0,
+        "width": 390,
+        "height": 416,
+        "bottom": 416
+      },
+      "background": "/assets/brand-assets/pokemon-tcg-official/championships.jpg",
+      "titleImage": null,
+      "titleText": "BUILD YOUR NEXT DECK",
+      "proofLabel": "GENERATIVE DEMO · NOT AN OFFICIAL CAMPAIGN",
+      "card": "/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png",
+      "cta": "Explore the Deck Lab",
+      "nav": {
+        "box": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 56,
+          "bottom": 56
+        },
+        "logo": {
+          "x": 23,
+          "y": 8,
+          "width": 78,
+          "height": 39.921875,
+          "bottom": 47.921875
+        },
+        "menu": {
+          "x": 272,
+          "y": 6,
+          "width": 92,
+          "height": 44,
+          "bottom": 50
+        },
+        "expanded": "false",
+        "lineCount": 3
+      },
+      "controls": [
+        {
+          "box": {
+            "x": 151,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": false
+        },
+        {
+          "box": {
+            "x": 195,
+            "y": 371,
+            "width": 44,
+            "height": 44,
+            "bottom": 415
+          },
+          "active": true
+        }
+      ],
+      "active": 1,
+      "menuPanelVisible": false,
+      "animation": {
+        "name": "none",
+        "duration": "0s"
+      },
+      "nextVisible": true,
+      "horizontalOverflow": false
+    }
+  },
+  "differentIdentities": [
+    "background",
+    "titleImage",
+    "titleText",
+    "card",
+    "cta"
+  ],
+  "checks": {
+    "officialDefaultPreserved": true,
+    "heldOutTruthful": true,
+    "highSalienceChanged": true,
+    "visibleTransition": true,
+    "restored": true,
+    "navGeometry": true,
+    "menuOperable": true,
+    "controlTargets": true,
+    "compactAndNextVisible": true,
+    "reducedMotionImmediate": true,
+    "noHorizontalOverflow": true,
+    "consoleClean": true
+  },
+  "captures": [
+    "captures/default-390x844.png",
+    "captures/menu-open-390x844.png",
+    "captures/reduced-motion-settled-390x844.png",
+    "captures/restored-390x844.png",
+    "captures/settled-held-out-390x844.png",
+    "captures/transition-390x844.png"
+  ],
+  "implementationChecksPass": true,
+  "visualVerdict": "not-assigned-by-implementation-agent",
+  "console": {
+    "errors": []
+  }
+}

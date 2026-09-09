@@ -1,0 +1,108 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "scope": "homepage/pokemon-tcg-pocket-only",
+  "status": "APPROVED_WITH_CONSTRAINTS_CORRECTED",
+  "supersedes": "../interpreter-revision2/pattern-inventory.json",
+  "patterns": [
+    {
+      "id": "PAT-POCKET-01",
+      "name": "Full-article Pocket background with viewport aliases",
+      "classification": "background-layer-and-binding",
+      "approval": "approved-corrected",
+      "scope": "homepage Pocket article parent field",
+      "observableRules": ["background layer is the first direct article child", "it is absolute and spans the complete article at 1440 and 390", "desktop binds background.jpg and mobile binds header_bg-small.jpg", "both URL responses are byte-identical 720x464 with SHA 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976"],
+      "allowedRoles": ["Pocket full-section base field", "desktop/mobile responsive URL aliases"],
+      "forbiddenRoles": ["visually different breakpoint artwork", "left-column-only background", "parent-level black section fill", "site-wide background recipe"],
+      "evidenceRefs": ["desktop-background-layering", "mobile-layering", "responsive-alias-identity"]
+    },
+    {
+      "id": "PAT-POCKET-02",
+      "name": "Desktop content split over a shared background",
+      "classification": "section-layout",
+      "approval": "approved-corrected",
+      "scope": "homepage Pocket desktop content layer",
+      "observableRules": ["transparent content row spans 1440x476.195 above the shared background", "left transparent asset column is 720x476.195", "right black copy panel is 720x356.5 at y=59.844", "shared background remains visible about 59.84px above and 59.85px below the black panel"],
+      "allowedRoles": ["desktop 50/50 content geometry", "local vertically inset right copy panel"],
+      "forbiddenRoles": ["two full-height background halves", "right-half parent background", "full-height desktop black panel", "parent-level full-section black fill", "global 50/50 recipe"],
+      "evidenceRefs": ["desktop-background-layering", "desktop-copy-panel-geometry"]
+    },
+    {
+      "id": "PAT-POCKET-03",
+      "name": "Mobile asset-first stack over a shared background",
+      "classification": "responsive-layout",
+      "approval": "approved-corrected",
+      "scope": "homepage Pocket mobile content layer",
+      "observableRules": ["full-section background remains behind both rows", "transparent asset row is 390x334", "opaque black copy panel is 390x409 and fully occludes the lower background", "no background strip is exposed around the mobile copy panel"],
+      "allowedRoles": ["Pocket mobile asset-first/copy-second order", "lower-row black occlusion"],
+      "forbiddenRoles": ["parent-level full-section black fill", "black behind the upper asset row", "gapped mobile black panel", "global mobile reorder"],
+      "evidenceRefs": ["mobile-layering"]
+    },
+    {
+      "id": "PAT-POCKET-04",
+      "name": "Single composite product signature",
+      "classification": "asset-composition",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket asset region",
+      "observableRules": ["one independent transparent logo-cards.png composite", "composite overlays the shared background", "no invented card layers or interactions"],
+      "forbiddenRoles": ["flattened section screenshot", "carousel", "independent card tilt or flip"],
+      "evidenceRefs": ["pocket-assets", "pocket-desktop", "pocket-mobile"]
+    },
+    {
+      "id": "PAT-POCKET-05",
+      "name": "Local black product-copy panel",
+      "classification": "content-panel",
+      "approval": "approved-corrected",
+      "scope": "homepage Pocket copy child",
+      "observableRules": ["panel is opaque black and rectangular", "desktop panel is vertically inset in the right half", "mobile panel fills only the complete lower row", "panel contains one H2, one paragraph, and one CTA"],
+      "allowedRoles": ["Pocket local copy contrast field", "desktop right inset panel", "mobile lower-row occluding panel"],
+      "forbiddenRoles": ["article background", "content-layer background", "parent-level full-section black fill", "desktop full-height right half", "global black panel", "modal or navigation surface"],
+      "evidenceRefs": ["desktop-copy-panel-geometry", "mobile-layering", "pocket-copy"]
+    },
+    {
+      "id": "PAT-POCKET-06",
+      "name": "Italic product-callout type hierarchy",
+      "classification": "typography",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket copy panel",
+      "observableRules": ["Kanit italic 700 H2", "PT Sans 18/28.8 body", "PT Sans italic 700 CTA", "fluid wrapping and no kicker"],
+      "evidenceRefs": ["pocket-copy", "pocket-cta"]
+    },
+    {
+      "id": "PAT-POCKET-07",
+      "name": "White external action with localized gold hover",
+      "classification": "component-state",
+      "approval": "approved-unchanged",
+      "scope": "homepage Pocket Play Now CTA",
+      "observableRules": ["white background", "black resting foreground", "gold hover foreground", "external Pocket destination"],
+      "evidenceRefs": ["pocket-cta"]
+    },
+    {
+      "id": "PAT-POCKET-08",
+      "name": "Entry hidden and settled endpoints",
+      "classification": "interaction-motion",
+      "approval": "unresolved-unchanged",
+      "scope": "homepage Pocket viewport entry",
+      "observedOnly": ["hidden endpoint", "settled endpoint"],
+      "forbiddenRoles": ["approved motion recipe", "intermediate frames", "duration", "easing", "stagger", "sequence"],
+      "evidenceRefs": ["pocket-entry-motion"]
+    }
+  ],
+  "parentBlackProhibitionAudit": {
+    "requiredPatterns": ["PAT-POCKET-01", "PAT-POCKET-02", "PAT-POCKET-03", "PAT-POCKET-05"],
+    "reasoning": {
+      "PAT-POCKET-01": "owns the parent background layer and must keep it as the light campaign field",
+      "PAT-POCKET-02": "owns desktop content geometry and must preserve exposed light background above/below the local panel",
+      "PAT-POCKET-03": "owns mobile stacking and must keep the upper asset row transparent over the parent background",
+      "PAT-POCKET-05": "owns black usage and must constrain black to the copy child only"
+    },
+    "allExplicitlyForbidParentFullSectionBlack": true
+  },
+  "scopeAudit": {
+    "globalPatternsApproved": [],
+    "sectionLocalApproved": ["PAT-POCKET-01", "PAT-POCKET-02", "PAT-POCKET-03", "PAT-POCKET-04", "PAT-POCKET-05", "PAT-POCKET-06", "PAT-POCKET-07"],
+    "unresolved": ["PAT-POCKET-08"],
+    "tokenRoleExpansionDetected": false,
+    "mustNotInvent": ["parent-level full-section black fill", "visually different mobile artwork", "red browser-extension overlay", "motion intermediate/timing/easing/stagger", "extra kicker/CTA/carousel/card interaction"]
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "schema": "source-observation-manifest/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "status": "PASS",
+  "coordinatePolicy": {
+    "structuralGeometry": "section-local",
+    "absolutePageY": "observed to drift; retained only as non-structural context and omitted from frozen geometry"
+  },
+  "observations": {
+    "section-identity": {
+      "status": "observed",
+      "claim": "POKÉMON CHAMPIONSHIP SERIES is the first complete high-salience section after TCG Pocket and precedes Play! Pokémon.",
+      "captureRegion": {"path": "captures/desktop/championship-series-settled-region-1440x720.png", "rect": [0, 0, 1440, 720], "sha256": "a1b98012b7636347efd13090265522bdd9aa81141b3b9c55733b3d019f2c0908"},
+      "dom": {"node": "rendered article.championships", "adjacency": ["TCG Pocket", "POKÉMON CHAMPIONSHIP SERIES", "Play! Pokémon"]},
+      "computed": {"localRect": [0, 0, 1440, 720]}
+    },
+    "desktop-geometry": {
+      "status": "observed",
+      "claim": "Desktop uses a transparent row-reverse two-column structure over the page canvas.",
+      "captureRegion": {"path": "captures/desktop/championship-series-settled-region-1440x720.png", "rect": [0, 0, 1440, 720], "sha256": "a1b98012b7636347efd13090265522bdd9aa81141b3b9c55733b3d019f2c0908"},
+      "dom": {"article": "article.championships", "row": "section row", "children": ["image column rendered right", "content column rendered left"], "pseudoFill": "none observed"},
+      "computed": {"article": {"rect": [0, 0, 1440, 720], "background": "transparent"}, "row": {"rect": [0, 0, 1440, 720], "display": "flex", "flexDirection": "row-reverse", "background": "transparent"}, "imageColumn": {"rect": [720, 0, 720, 720], "background": "transparent"}, "contentColumn": {"rect": [0, 0, 720, 720], "background": "transparent"}, "content": {"rect": [12, 171.211, 696, 377.578], "verticalCenterDerivation": "(720 - 377.578) / 2 = 171.211", "background": "transparent"}, "visibleWhite": "page canvas"}
+    },
+    "mobile-geometry": {
+      "status": "observed",
+      "claim": "Mobile uses image-first block flow followed by content.",
+      "captureRegion": {"path": "captures/mobile/championship-series-settled-region-390x829-scale50.png", "rect": [0, 0, 195, 414], "sourceScale": 0.5, "sha256": "1edca70751438ce3124539406c562d02c4d7b75a61c651d585e4bbd78e02df8c"},
+      "dom": {"article": "article.championships", "row": "section row", "displayOrder": ["image", "content"]},
+      "computed": {"article": {"rect": [0, 0, 390, 829.1719], "background": "transparent"}, "row": {"display": "block", "background": "transparent"}, "image": {"rect": [0, 0, 390, 390]}, "content": {"rect": [8, 390, 374, 439.172], "padding": 24, "columnOuterInset": 8, "background": "transparent"}, "visibleWhite": "page canvas"}
+    },
+    "responsive-image": {
+      "status": "observed",
+      "claim": "The image declares 1x and 2x candidates; in the observed 390px browser session currentSrc selected the 2x URL. Both source candidates are archived.",
+      "captureRegion": {"path": "captures/mobile/championship-series-settled-top-390x844.png", "rect": [0, 0, 390, 390], "sha256": "06dbded102bcae374984ac22e15d69906cea91f3153146c86dc24c29856e6459"},
+      "dom": {"desktopUrl": "https://tcg.pokemon.com/assets/img/home/championship-series/championships-2x.jpg", "mobileSrc": "https://tcg.pokemon.com/assets/img/home/championship-series/championships.jpg", "mobileCurrentSrc": "https://tcg.pokemon.com/assets/img/home/championship-series/championships-2x.jpg", "srcset": "championships.jpg 1x, championships-2x.jpg 2x", "mobileNaturalSize": [696, 696]},
+      "computed": {"desktopRenderedRect": [720, 0, 720, 720], "mobileRenderedRect": [0, 0, 390, 390], "objectRatio": "1:1"},
+      "assetTrace": {"path": "captures/assets/championships-2x.jpg", "naturalSize": [1392, 1392], "sha256": "862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db", "mobile1xPath": "captures/assets/championships.jpg", "mobile1xSha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d"}
+    },
+    "mobile-typography": {
+      "status": "observed",
+      "claim": "Mobile typography and CTA geometry form a centered hierarchy within the 374px content column.",
+      "captureRegion": {"path": "captures/source-mobile-390-content-settled.png", "rect": [0, 390, 390, 439.172], "sha256": "2b731774902a746b4cc5045871c9c8d9c6c7eaf4fac24e1cc399077ce146cd3d"},
+      "dom": {"order": ["h2", "p", "a.button"], "ctaText": "Learn more", "ctaHref": "https://championships.pokemon.com/en-us/"},
+      "computed": {"h2": {"localRect": [32, 414, 326, 97.5], "fontFamily": "Kanit", "fontSize": 32, "fontWeight": 700, "lineHeight": 32.5, "marginBottom": 8}, "paragraph": {"localRect": [32, 519.5, 326, 201.578], "fontFamily": "PT Sans", "fontSize": 18, "fontWeight": 400, "lineHeight": 28.8}, "cta": {"localRect": [99.625, 737.078, 190.742, 51.297], "marginTop": 16, "padding": [14.4, 36], "fontFamily": "PT Sans", "fontSize": 18, "fontWeight": 700, "lineHeight": 22.5, "buttonBg": "black", "contentColor": "white", "borderRadius": 2, "shadow": "observed"}}
+    },
+    "desktop-interaction": {
+      "status": "observed",
+      "claim": "Desktop CTA default, hover transition, hover settled, focus and destination were frozen independently.",
+      "captureRegions": [
+        {"state": "default", "path": "captures/desktop/championship-series-cta-default-1440x900.png", "region": "CTA viewport", "sha256": "8bdde3f14490c1744bcc4e168b3189e3e7a9268160b4fa0097a16186492f79d5"},
+        {"state": "hover-transition", "path": "captures/desktop/championship-series-cta-hover-transition-1440x900.png", "region": "CTA viewport", "sha256": "2687595da0703bc99b97dcfe0eb94ddeeb9608f4de5f8e4e957815582f438f61"},
+        {"state": "hover-settled", "path": "captures/desktop/championship-series-cta-hover-settled-1440x900.png", "region": "CTA viewport", "sha256": "930a3214c5016a6226f1b2d88b6654ff73ad2b959b61a1adcb3864ad5525041e"},
+        {"state": "focus", "path": "captures/desktop/championship-series-cta-focus-1440x900.png", "region": "CTA viewport", "sha256": "a5664a0f01a00546a004cdc5b30e4914bfb0a950d42c77237a88754946dad3c1"},
+        {"state": "destination", "path": "captures/desktop/championship-series-cta-destination-1440x900.png", "region": "destination viewport", "sha256": "3f1198961a319dce891cee2ede6dda39dc045fc11c233bca5f4b39fcdf0fbfaa"}
+      ],
+      "dom": {"node": "a.button", "href": "https://championships.pokemon.com/en-us/"},
+      "computed": {"archivedRule": ".button:not(:disabled):hover .button__bg::before { transform: scaleX(1) }", "archivedTransition": "transform 0.2s ease-in-out", "captureTiming": "not frozen"}
+    },
+    "mobile-interaction": {
+      "status": "observed",
+      "claim": "At 390px the CTA is black by default, fills gold on pointer hover, retains black on keyboard focus with a visible focus outline, and activates the documented Championship destination.",
+      "captureRegions": [
+        {"state": "default", "path": "captures/mobile/championship-series-cta-default-390x844.png", "sha256": "05a350baec06f51f2db68e3d92051873184669af0dd4dadf429a25b73c1574a0"},
+        {"state": "hover-settled", "path": "captures/mobile/championship-series-cta-hover-settled-390x844.png", "sha256": "b0f38d0479e7f3126d54b480ff3970f236187aa4a5734c9dec4a45b4157fea10"},
+        {"state": "focus", "path": "captures/mobile/championship-series-cta-focus-390x844.png", "sha256": "80b8276a37a6d551c98b9cad7abd0d8e3009ac990c188ccee94669fdeb14a160"},
+        {"state": "destination", "path": "captures/mobile/championship-series-cta-destination-390x844.png", "sha256": "179fc69bbd0e7fd9e6351f78f55d525459037c9cba4aa83cedeae6ef1c084070"}
+      ],
+      "dom": {"node": "a.button", "href": "https://championships.pokemon.com/en-us/"},
+      "computed": {"defaultPseudoTransform": "matrix(0,0,0,1,0,0)", "hoverPseudoTransform": "matrix(1,0,0,1,0,0)", "hoverFill": "rgb(226,186,101)", "focusOutline": "rgb(0,95,204) auto 1px"}
+    },
+    "scroll-continuity": {
+      "status": "observed-endpoints",
+      "claim": "Desktop and mobile before/target/restored endpoints show reversible page scroll without using absolute pageY as structure.",
+      "captureRegions": [
+        {"viewport": "desktop", "state": "before", "path": "captures/source-desktop-scroll-before.png", "sha256": "be59acd78b7ac62eea520c14eaa84e77103f58f1618f8e3e5dffe2bb08603b8e"},
+        {"viewport": "desktop", "state": "target", "path": "captures/source-desktop-section-settled-visible.png", "sha256": "575c57988ced0a9b518fe672120d2ad88e3c48300ad291bdd16d8c326684bed9"},
+        {"viewport": "desktop", "state": "restored", "path": "captures/continuous/desktop-restored.png", "sha256": "8a203cae60a7ad145a1625242e2ae00b09654f4af440a45477778f17b9ecaf52"},
+        {"viewport": "mobile", "state": "before", "path": "captures/source-mobile-390-scroll-before.png", "sha256": "bdb2a1595b78778da5899d9e86b8992a6607b78a37f271a3b1a581af3294ed05"},
+        {"viewport": "mobile", "state": "target", "path": "captures/source-mobile-390-content-settled.png", "sha256": "2b731774902a746b4cc5045871c9c8d9c6c7eaf4fac24e1cc399077ce146cd3d"},
+        {"viewport": "mobile", "state": "restored", "path": "captures/source-mobile-390-scroll-restored.png", "sha256": "ffb472e1b8f7ff73a86518f268cee253aa8d481842cc39989a2da03cbca28337"}
+      ],
+      "dom": {"subject": "document scrolling element", "result": "same document context restored"},
+      "computed": {"absolutePageYUsedAsInvariant": false}
+    }
+  },
+  "unresolvedObservations": [
+    {"id": "dembrandt", "captureRegion": null, "dom": null, "computed": null, "reason": "unavailable; not required because screenshot-first evidence plus DOM/computed reverse lookup is complete"}
+  ]
+}

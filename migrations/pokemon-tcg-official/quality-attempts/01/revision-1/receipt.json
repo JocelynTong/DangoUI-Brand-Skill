@@ -1,0 +1,54 @@
+{
+  "schema": "brand-demo-revision-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "01",
+  "revision": "1",
+  "status": "READY_FOR_FRESH_BLIND_QA_NOT_SELF_APPROVED",
+  "goalContractPath": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "correctiveActions": [
+    {
+      "blocker": "ADVANCED_DRAWER_GEOMETRY_MISMATCH",
+      "result": "live-computed-geometry-fixed",
+      "trace": ["Show / 0px", "Hide / 724px", "Hide / 1206.73px", "Show / 0px"],
+      "evidence": "browser-probes.json"
+    },
+    {
+      "blocker": "GENERATIVE_PROOF_CONTRACT_INCOMPLETE",
+      "result": "active-contract-populated",
+      "fields": ["goalSha256", "challenge.heldOut", "challenge.sourceContentIndependent", "frozenRules", "output.screenshot.sha256", "checks.brandCueSubstitution", "checks.structureRulesApplied"],
+      "evidence": "generative-proof.json"
+    }
+  ],
+  "artifactHashes": {
+    "browser-probes.json": "7c48bc4efcee6a20b77a04c3f4eb54ba0b9b974c0e0063a4ddf0ba0a67ca5a06",
+    "card-database-desktop.png": "2d56642365d0622b2ccbe5c242b61ff1aa22917c625e258afbee4c26784e7725",
+    "generative-proof.json": "d581ddf628b68431ac171d27d5253bb97ad3e69cf6da1ef79dbc1d05d1dda1d9",
+    "held-out-desktop.png": "37ef16bd6f0bef8a7c96173fc49d16e1cc8c0c99622b2cd2a82aec5e907d0efb",
+    "section-fidelity-manifest.json": "b3d0b25d124e6e127f03a4c5e1927b63e99e258b375f1eabdd1bf2cebd683d62",
+    "demo-screenshot-manifest.json": "26adf59322eb1f1bc98d3ac67b220e438ef2f5e6d7a4dac07b91f2b2de7b0f3b",
+    "visual-pattern-inventory.json": "3923a122908061f974a71c4f40d45eb26ae829d6c834b88e2dfd4006095b9192"
+  },
+  "gates": {
+    "sectionFidelityStrict": "pass",
+    "previewRegistry": "pass",
+    "npmBuild": "pass",
+    "browserInteraction": "pass",
+    "generativeContract": "implementation fields pass; independent QA approval intentionally pending"
+  },
+  "evidenceRefresh": {
+    "status": "bound",
+    "evidenceReceiptSha256": "778b8dde4e595b0e395a9e5c3ca35b1fa594613a7d08eb8dd3800c4c9115e182",
+    "sourceObservationManifestSha256": "5d413b1d943123fcff628c3c49a49e87dc814d41a51cc9425ea98a32ba469de9",
+    "captures": {
+      "homeDesktopFull": "66a446457df6de071de9b172b83c09a33f2921c85e5446620bf5b959264e1242",
+      "homeDesktopTimeline": "27b6023fe353dff0f7dcf59aaad91e06cbde4f5b341780ff5910e4ec5bbdd9a2",
+      "homeMobile390Full": "44b1ac0a3c653af1ba7d77e6dc37c1061534051c563030a05fd7a26f390da51e",
+      "homeMobile390Timeline": "4bd5961a7ec1fcaf761a86b67bbfb00f0e3b6814fc64b8f68b02a3f5a8179835",
+      "learnDesktopFull": "8ac316b87f33e005faecf5bdec58aed38c1a37c3b003f996be0f92d6b834a2be",
+      "learnDesktopTimeline": "a3a7d253627a05d10e9bae33408277c9a8b7cb28fac531a605c3b7d0181e85ab",
+      "learnMobile390Full": "a8bb7edb545359be34b443352d60a7f3635347cdb2cb15c2134821de9f35fd22",
+      "learnMobile390Timeline": "bbbe37cb60ea38eb9bf8d819000096deceb74c28c830592db8a8bf44dbbc0b3f"
+    }
+  }
+}

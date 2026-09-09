@@ -1,0 +1,935 @@
+{
+  "schema": "brand-source-observation/v2",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "captureMethod": "Playwright rendered-source capture; screenshots are the primary evidence and DOM/computed samples are bound afterward.",
+  "pages": [
+    {
+      "id": "introduction",
+      "sourcePageId": "introduction",
+      "url": "https://dumpling.echo.tech/get-started/introduction",
+      "status": "covered",
+      "viewports": {
+        "desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "fullPageCapture": {
+            "path": "migrations/dango/captures/source/introduction/desktop/full-page.png",
+            "sha256": "14f6a830e78c3b159dbfd90ca71a1a310684b45f91ad5da850b52190743465a3"
+          },
+          "continuousCapture": {
+            "path": "migrations/dango/captures/source/introduction/desktop/continuous-scroll.webm",
+            "sha256": "f854a9b38e3a2fddf9a52ad19d05037dfb74b43e61c58bfa730be039293e05b4"
+          },
+          "timeline": {
+            "path": "migrations/dango/captures/source/introduction/desktop/timeline.json",
+            "sha256": "7d1649c3661d62c82d5054a1fdedd2e32020115e392aa4c8cbaa423e9f7ca819"
+          },
+          "restoredCapture": {
+            "path": "migrations/dango/captures/source/introduction/desktop/restored.png",
+            "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+          },
+          "computedSamples": "migrations/dango/captures/source/introduction/desktop/visible-computed.json",
+          "interaction": null
+        },
+        "mobile-390": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "fullPageCapture": {
+            "path": "migrations/dango/captures/source/introduction/mobile-390/full-page.png",
+            "sha256": "0e0c3570d258ac996fd6cd53c2ef9e3c43bb9bcfb04a2c0bd51cfa3c89c695be"
+          },
+          "continuousCapture": {
+            "path": "migrations/dango/captures/source/introduction/mobile-390/continuous-scroll.webm",
+            "sha256": "dbf2374280dce4439bddee603403040483cee50c11a66345c9d44c6bf598bbf6"
+          },
+          "timeline": {
+            "path": "migrations/dango/captures/source/introduction/mobile-390/timeline.json",
+            "sha256": "c065b542db0cb0ba0b5dd6fc3f832fd08571b41373b42fdf227220bb8eb2d814"
+          },
+          "restoredCapture": {
+            "path": "migrations/dango/captures/source/introduction/mobile-390/restored.png",
+            "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+          },
+          "computedSamples": "migrations/dango/captures/source/introduction/mobile-390/visible-computed.json",
+          "interaction": null
+        }
+      },
+      "fullPageCapture": {
+        "path": "migrations/dango/captures/source/introduction/desktop/full-page.png",
+        "sha256": "14f6a830e78c3b159dbfd90ca71a1a310684b45f91ad5da850b52190743465a3"
+      },
+      "continuousCapture": {
+        "path": "migrations/dango/captures/source/introduction/desktop/continuous-scroll.webm",
+        "sha256": "f854a9b38e3a2fddf9a52ad19d05037dfb74b43e61c58bfa730be039293e05b4"
+      },
+      "timeline": {
+        "path": "migrations/dango/captures/source/introduction/desktop/timeline.json",
+        "sha256": "7d1649c3661d62c82d5054a1fdedd2e32020115e392aa4c8cbaa423e9f7ca819"
+      },
+      "restoredCapture": {
+        "path": "migrations/dango/captures/source/introduction/desktop/restored.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      }
+    },
+    {
+      "id": "button",
+      "sourcePageId": "button",
+      "url": "https://dumpling.echo.tech/style/button",
+      "status": "covered",
+      "viewports": {
+        "desktop": {
+          "viewport": {
+            "width": 1440,
+            "height": 900
+          },
+          "fullPageCapture": {
+            "path": "migrations/dango/captures/source/button/desktop/full-page.png",
+            "sha256": "c3d77f3c51a86d33d543ab1d7c1cba578c1172fcaa5183cd2444146a08382ecc"
+          },
+          "continuousCapture": {
+            "path": "migrations/dango/captures/source/button/desktop/continuous-scroll.webm",
+            "sha256": "2ef743e0e2f52ef81b17fdcada94269d3312679d84f10b74c928bc7439bcc10e"
+          },
+          "timeline": {
+            "path": "migrations/dango/captures/source/button/desktop/timeline.json",
+            "sha256": "e1026e6b5bc50cc2b385e1918b056302676708b509041397c6dddd01da4dc9ab"
+          },
+          "restoredCapture": {
+            "path": "migrations/dango/captures/source/button/desktop/restored.png",
+            "sha256": "575d526005812aaf1d14b4481559ebdbc4bafe61208e65e9c6449919d1273044"
+          },
+          "computedSamples": "migrations/dango/captures/source/button/desktop/visible-computed.json",
+          "interaction": {
+            "id": "primary-button-desktop",
+            "target": "button[name=\"Primary\"]",
+            "status": "covered",
+            "states": [
+              {
+                "state": "default",
+                "capture": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+                "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(255, 255, 255)",
+                  "outlineStyle": "none",
+                  "outlineWidth": "3px"
+                }
+              },
+              {
+                "state": "hover-transition",
+                "capture": "migrations/dango/captures/source/button/desktop/primary-button/hover-transition.png",
+                "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(255, 255, 255)",
+                  "outlineStyle": "none",
+                  "outlineWidth": "3px"
+                }
+              },
+              {
+                "state": "hover",
+                "capture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
+                "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(255, 255, 255)",
+                  "outlineStyle": "none",
+                  "outlineWidth": "3px"
+                }
+              },
+              {
+                "state": "focus",
+                "capture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+                "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(0, 95, 204)",
+                  "outlineStyle": "auto",
+                  "outlineWidth": "1px"
+                }
+              },
+              {
+                "state": "activated",
+                "capture": "migrations/dango/captures/source/button/desktop/primary-button/activated.png",
+                "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(0, 95, 204)",
+                  "outlineStyle": "auto",
+                  "outlineWidth": "1px"
+                }
+              }
+            ],
+            "timeline": {
+              "path": "migrations/dango/captures/source/button/desktop/primary-button/timeline.json",
+              "sha256": "b6917f7457fd9e613ba8a27c304818328766e8311a246af7e4c49d5695db50c9"
+            }
+          }
+        },
+        "mobile-390": {
+          "viewport": {
+            "width": 390,
+            "height": 844
+          },
+          "fullPageCapture": {
+            "path": "migrations/dango/captures/source/button/mobile-390/full-page.png",
+            "sha256": "5212e7c21b45e9b7599a45cfb032d4691ca5069352125330ebb9610085b41655"
+          },
+          "continuousCapture": {
+            "path": "migrations/dango/captures/source/button/mobile-390/continuous-scroll.webm",
+            "sha256": "8402bd6619d7514a05ef591f28fa8ee34dfe1d96dd5880289c514b610cbbcd01"
+          },
+          "timeline": {
+            "path": "migrations/dango/captures/source/button/mobile-390/timeline.json",
+            "sha256": "270b24c57b3873ddd45410a3dc6fb19b9dfdd0c9498ad647fa7dbc5ff3b8737f"
+          },
+          "restoredCapture": {
+            "path": "migrations/dango/captures/source/button/mobile-390/restored.png",
+            "sha256": "a1890a62dea8f543bd869f56bb0eefbba4674498b8e77dc93b36bfde6f1bacd5"
+          },
+          "computedSamples": "migrations/dango/captures/source/button/mobile-390/visible-computed.json",
+          "interaction": {
+            "id": "primary-button-mobile-390",
+            "target": "button[name=\"Primary\"]",
+            "status": "covered",
+            "states": [
+              {
+                "state": "default",
+                "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/default.png",
+                "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(255, 255, 255)",
+                  "outlineStyle": "none",
+                  "outlineWidth": "3px"
+                }
+              },
+              {
+                "state": "hover-transition",
+                "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/hover-transition.png",
+                "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(255, 255, 255)",
+                  "outlineStyle": "none",
+                  "outlineWidth": "3px"
+                }
+              },
+              {
+                "state": "hover",
+                "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/hover.png",
+                "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(255, 255, 255)",
+                  "outlineStyle": "none",
+                  "outlineWidth": "3px"
+                }
+              },
+              {
+                "state": "focus",
+                "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/focus.png",
+                "sha256": "72091dde539aa70c0ec3f43119263d705e1c1485a6c3f9bd23da9c7573e661fa",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(0, 95, 204)",
+                  "outlineStyle": "auto",
+                  "outlineWidth": "1px"
+                }
+              },
+              {
+                "state": "activated",
+                "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/activated.png",
+                "sha256": "72091dde539aa70c0ec3f43119263d705e1c1485a6c3f9bd23da9c7573e661fa",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+                "visibleDom": {
+                  "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+                  "visible": true,
+                  "boundingBox": {
+                    "x": 12,
+                    "y": 53,
+                    "width": 77.15625,
+                    "height": 32
+                  }
+                },
+                "computed": {
+                  "color": "rgb(255, 255, 255)",
+                  "backgroundColor": "rgb(124, 102, 255)",
+                  "borderColor": "rgba(0, 0, 0, 0)",
+                  "borderRadius": "4px",
+                  "boxShadow": "none",
+                  "height": "32px",
+                  "transform": "none",
+                  "transition": "all",
+                  "outlineColor": "rgb(0, 95, 204)",
+                  "outlineStyle": "auto",
+                  "outlineWidth": "1px"
+                }
+              }
+            ],
+            "timeline": {
+              "path": "migrations/dango/captures/source/button/mobile-390/primary-button/timeline.json",
+              "sha256": "c7c2ff7fab2814c3e2586df571bdd601d51bedc7189bda38f7b057d2ccb4ad73"
+            }
+          }
+        }
+      },
+      "fullPageCapture": {
+        "path": "migrations/dango/captures/source/button/desktop/full-page.png",
+        "sha256": "c3d77f3c51a86d33d543ab1d7c1cba578c1172fcaa5183cd2444146a08382ecc"
+      },
+      "continuousCapture": {
+        "path": "migrations/dango/captures/source/button/desktop/continuous-scroll.webm",
+        "sha256": "2ef743e0e2f52ef81b17fdcada94269d3312679d84f10b74c928bc7439bcc10e"
+      },
+      "timeline": {
+        "path": "migrations/dango/captures/source/button/desktop/timeline.json",
+        "sha256": "e1026e6b5bc50cc2b385e1918b056302676708b509041397c6dddd01da4dc9ab"
+      },
+      "restoredCapture": {
+        "path": "migrations/dango/captures/source/button/desktop/restored.png",
+        "sha256": "575d526005812aaf1d14b4481559ebdbc4bafe61208e65e9c6449919d1273044"
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "primary-button-desktop",
+      "target": "button[name=\"Primary\"]",
+      "status": "covered",
+      "states": [
+        {
+          "state": "default",
+          "capture": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+          "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(255, 255, 255)",
+            "outlineStyle": "none",
+            "outlineWidth": "3px"
+          }
+        },
+        {
+          "state": "hover-transition",
+          "capture": "migrations/dango/captures/source/button/desktop/primary-button/hover-transition.png",
+          "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(255, 255, 255)",
+            "outlineStyle": "none",
+            "outlineWidth": "3px"
+          }
+        },
+        {
+          "state": "hover",
+          "capture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
+          "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(255, 255, 255)",
+            "outlineStyle": "none",
+            "outlineWidth": "3px"
+          }
+        },
+        {
+          "state": "focus",
+          "capture": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
+          "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(0, 95, 204)",
+            "outlineStyle": "auto",
+            "outlineWidth": "1px"
+          }
+        },
+        {
+          "state": "activated",
+          "capture": "migrations/dango/captures/source/button/desktop/primary-button/activated.png",
+          "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(0, 95, 204)",
+            "outlineStyle": "auto",
+            "outlineWidth": "1px"
+          }
+        }
+      ],
+      "timeline": {
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/timeline.json",
+        "sha256": "b6917f7457fd9e613ba8a27c304818328766e8311a246af7e4c49d5695db50c9"
+      },
+      "sourcePageId": "button",
+      "continuousCapture": {
+        "path": "migrations/dango/captures/source/button/desktop/continuous-scroll.webm",
+        "sha256": "2ef743e0e2f52ef81b17fdcada94269d3312679d84f10b74c928bc7439bcc10e"
+      }
+    },
+    {
+      "id": "primary-button-mobile-390",
+      "target": "button[name=\"Primary\"]",
+      "status": "covered",
+      "states": [
+        {
+          "state": "default",
+          "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/default.png",
+          "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(255, 255, 255)",
+            "outlineStyle": "none",
+            "outlineWidth": "3px"
+          }
+        },
+        {
+          "state": "hover-transition",
+          "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/hover-transition.png",
+          "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(255, 255, 255)",
+            "outlineStyle": "none",
+            "outlineWidth": "3px"
+          }
+        },
+        {
+          "state": "hover",
+          "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/hover.png",
+          "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(255, 255, 255)",
+            "outlineStyle": "none",
+            "outlineWidth": "3px"
+          }
+        },
+        {
+          "state": "focus",
+          "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/focus.png",
+          "sha256": "72091dde539aa70c0ec3f43119263d705e1c1485a6c3f9bd23da9c7573e661fa",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(0, 95, 204)",
+            "outlineStyle": "auto",
+            "outlineWidth": "1px"
+          }
+        },
+        {
+          "state": "activated",
+          "capture": "migrations/dango/captures/source/button/mobile-390/primary-button/activated.png",
+          "sha256": "72091dde539aa70c0ec3f43119263d705e1c1485a6c3f9bd23da9c7573e661fa",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "className": "du-button du-button--normal du-button--primary du-c-primary-bt",
+          "visibleDom": {
+            "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+            "visible": true,
+            "boundingBox": {
+              "x": 12,
+              "y": 53,
+              "width": 77.15625,
+              "height": 32
+            }
+          },
+          "computed": {
+            "color": "rgb(255, 255, 255)",
+            "backgroundColor": "rgb(124, 102, 255)",
+            "borderColor": "rgba(0, 0, 0, 0)",
+            "borderRadius": "4px",
+            "boxShadow": "none",
+            "height": "32px",
+            "transform": "none",
+            "transition": "all",
+            "outlineColor": "rgb(0, 95, 204)",
+            "outlineStyle": "auto",
+            "outlineWidth": "1px"
+          }
+        }
+      ],
+      "timeline": {
+        "path": "migrations/dango/captures/source/button/mobile-390/primary-button/timeline.json",
+        "sha256": "c7c2ff7fab2814c3e2586df571bdd601d51bedc7189bda38f7b057d2ccb4ad73"
+      },
+      "sourcePageId": "button",
+      "continuousCapture": {
+        "path": "migrations/dango/captures/source/button/mobile-390/continuous-scroll.webm",
+        "sha256": "8402bd6619d7514a05ef591f28fa8ee34dfe1d96dd5880289c514b610cbbcd01"
+      }
+    }
+  ],
+  "coverage": {
+    "requiredPageIds": [
+      "introduction",
+      "button"
+    ],
+    "coveredPageIds": [
+      "introduction",
+      "button"
+    ],
+    "requiredViewports": [
+      "desktop",
+      "mobile-390"
+    ],
+    "requiredStates": [
+      "initial",
+      "continuous-scroll",
+      "settled-end",
+      "restored"
+    ],
+    "coveredInteractionStates": [
+      "default",
+      "hover-transition",
+      "hover",
+      "focus",
+      "activated"
+    ],
+    "readyForInterpreter": true,
+    "reason": "Both frozen pages now have hashed full-page screenshots, hashed continuous recordings, lossless frame timelines reaching the page end, restored-state captures, page-scoped rendered claims, and dispositioned high-salience extractor seeds."
+  }
+}

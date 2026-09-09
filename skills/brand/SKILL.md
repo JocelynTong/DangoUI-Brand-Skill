@@ -36,19 +36,63 @@ description: 将品牌网站、DESIGN.md、截图或 Figma/DTCG 资产迁移到 
 - 产出可复用的 `migrations/{brand}/brand-mod.json`、证据文件、adapter、demo preset。
 - 把“这个网站为什么长这样”沉淀成后续任何项目都能消费的风格资产。
 
-### 2. 宿主换肤（`apply-host`）
+learn-brand 的 Demo 正式定义为 **brand-learning-capability-test（品牌学习能力测试）**。它要证明证据支持的视觉规律能够重新生成不同信息结构，而不是制作 website mirror、执行 host apply，或用 Logo、品牌色和官方大图拼成 branded asset template。Demo 必须同时提交三类互不抵消的证明：
+
+- `Evidence Fidelity`：每个高显著度决定都能追溯到具体官网证据和使用语义。
+- `Structural Fidelity`：决定品牌辨识度的构图、层级、密度、色彩角色、图形和交互关系被保留。
+- `Generative Proof`：使用同一组已学规律，在改变内容或结构后仍能生成属于同一视觉系统的页面；官网镜像、整图复用或仅换资产不能充当证明。
+
+任何一证失败都必须返工，不能被综合分或另外两证的高分抵消。机器产物为 `generative-proof.json` 和 fidelity report 中的三证状态。
+
+Learn-brand 支持两个执行档位，机器规则以 `workflow-contract.json.executionProfiles` 为准：`fast` 用于 15–20 分钟方向验证，不得宣称完整学习；`full` 是默认 30–45 分钟标准流程。`full` 超过 60 分钟停止扩展可选范围，超过 75 分钟仍缺必需产物则 BLOCKED，不能无界探索或降低质量阈值。
+
+高显著度页面在全页 Blind QA 前必须生成 `section-fidelity-manifest.json` 并运行：
+
+```bash
+node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict
+```
+
+该 Gate 检查同视口 source/demo 截图、结构层、阅读顺序、响应式、资产 provenance 与交互状态变化；条目数量、DOM 数量和 build pass 不能代替区块结构验收。
+
+### 2. 宿主设计（`design-host`，代码落地阶段为 `apply-host`）
 
 适用场景：用户已经在某个千岛项目、业务项目或本地宿主项目里安装了 `/brand`，现在要把某个已有品牌视觉语言真正落到这个宿主里看结果。
 
 固定链路：
 
-`/brand <品牌来源或已有 brand key>` → 读取已有 MOD / style pack / 证据 → 识别宿主入口与目标页面 → 映射到 dangoui / 宿主组件 → 输出宿主项目里的真实预览
+`Design Brief` → 设计调研 → 设计方向 → 设计产出 → 设计评审 → `apply-host` → 开发验收
 
 这一条路重点是：
 
 - 决定“这个视觉语言怎么落到当前宿主项目里”。
 - 保留宿主原业务内容、数据、逻辑、组件 API，只改视觉语言。
 - 最终验收地址必须是宿主项目自己的地址，不是 demo 站地址。
+
+`design-host` 是面向用户和设计组织的完整 Pipeline 名；现有脚本继续使用 `apply-host` 表示其中已经批准后的实现阶段，以保持命令兼容。不得因为进入 `apply-host` 就跳过 Brief、设计方向和设计评审。
+
+apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract](references/host-theme-load-order.md) 建立单一全局主题入口并运行 `validate-host-theme-order.mjs`，再以真实宿主 desktop/mobile 证明 cascade winner。随后必须生成只读的 `brand-distinctiveness-assessment.json`：同视口对照 source/host，遮蔽品牌名、Logo 和显式品牌文字后做 blind recognition，并分别评 visual mass / asset / composition / type / motion。高承载页至少需要 3 个跨 3 个维度、各占视口至少 5% 的可见证据 signal；字体、小 Logo、微图标和 archive 气质不算强表达。先运行 `validate-brand-distinctiveness.mjs`，再把结果传给 `validate-host-apply-gate.mjs --distinctiveness`。Visual QA 只读，FAIL 退回 Evidence、Interpreter/Design Director 或 Host Implementation 的真实 owner，修复后 fresh QA。技术 Gate 或业务安全通过不能补偿视觉辨识度 FAIL；最终必须分列 `workflowCompletion`、`businessSafety`、`visualDistinctiveness`，禁止用单一 overall 百分比误导。没有真实 DangoUI runtime/component consumer 时最高只能报 `PARTIAL_STYLE_ONLY` / `conservative-application`。细则见 `workflow-contract.json` 与角色契约。
+
+## Role Contract 路由
+
+维护或执行 learn-brand 角色时，按当前节点完整读取对应契约，不要只依赖本文件的摘要：
+
+- 通用节点模型：[roles/role-contract-template.md](roles/role-contract-template.md)
+- Evidence：[roles/evidence-agent.md](roles/evidence-agent.md)
+- Brand Interpreter：[roles/brand-interpreter.md](roles/brand-interpreter.md)
+- 顶层 Design Director / Orchestrator：[roles/design-director.md](roles/design-director.md)
+- Demo Designer：[roles/demo-designer.md](roles/demo-designer.md)
+- Blind QA / TPP：[roles/blind-qa-tpp.md](roles/blind-qa-tpp.md)
+- Learn-brand 自测流程：[workflows/learn-brand.md](workflows/learn-brand.md)
+
+Evidence 节点的机器放行命令为：
+
+```bash
+node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand <brand> --strict
+```
+
+该 Gate 必须先于 Interpreter。它验证 screenshot-first、可见 Region、真实状态和 computed property；只有 CSS、变量名、类名或第三方抽取结果不能放行。
+
+Evidence Agent 是该节点的结果 owner；Dembrandt 只是它内部的 candidate extractor，不新增角色、不单独 handoff，也不拥有 PASS/FAIL 权。Evidence 必须从冻结 Goal 生成证据问题，再运行抽取器帮助排序候选，最后用真实渲染证据为相关 seed 写 `validated / rejected / unresolved / out-of-scope` disposition。存在第三方 seed 却没有 disposition 时，strict gate 不得交给 Interpreter。
 
 ## /brand 总入口（必经）
 
@@ -81,6 +125,79 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 
 这一步的意义不是多一层流程，而是把“md 里的原则”变成 AI 每次都必须先过的一道硬门。
 
+## vNext 目标导向分工
+
+`/brand` 不是单个全能 agent 从头猜到尾，而是一条目标导向的角色工作流。机器可读版本以 `workflow-contract.json` 为准；`SKILL.md` 只保留入口、边界和执行原则。
+
+默认角色：
+
+- `Router`：先判断 `learn-brand` / `apply-host` / `retro` / `maintain`，阻止走错路。
+- `Brand Researcher`：只负责抓证据，包括 dembrandt/第三方种子、真实 DOM、computed style、资源、action 节点和导航。
+- `Design Translator`：把证据翻译成品牌意图，说明颜色、资产、动效、布局分别代表什么，适合哪里，不适合哪里。
+- `Design Director / Orchestrator`：顶层负责 Agent；冻结目标、拆解和派发任务、主持设计方向、路由失败并作最终审美签字。它不是 learn-brand 的串行 subagent。
+- `Dangoui Mapper`：只把已解释的品牌意图映射到 DangoUI token/component/props/slots/style-only recipe，不新造未支持 API。
+- `Host Strategist`：在宿主项目里判断页面业务目标、视觉承载力、Atomic Design 层级、asset/motion/showcase 落点和过度应用风险。
+- `Demo Implementation Agent`：只为 learn-brand 构建品牌学习能力测试，产出 pattern inventory、可复现截图和 generative proof；不修改宿主项目。
+- `Host Implementation Agent`：只在 apply-host 中消费已经验证的 MOD、brand intent 和 host strategy，保留宿主路由、内容、数据、组件 API 和核心交互。
+- `Visual QA`：从用户看到的页面验收视觉还原、可读性、滚动、动效中间态、资产加载和“是否生硬”。标准 learn-brand Demo 的每个 phone page 都必须保留 `phone` + `phone-screen` mockup shell；目标或源证据呈现长页/多模块时，页面至少有两个 schema sections，并由浏览器实际证明 `phone-screen.scrollHeight > clientHeight`、`scrollTop` 可改变且能恢复。缺失时使用明确 blocker code：`MOCKUP_SHELL_MISSING`、`MULTI_MODULE_PAGE_SECTIONS_MISSING`、`PAGE_NOT_SCROLLABLE`、`PAGE_SCROLL_NOT_RESTORED`。
+- `Methodology Keeper`：把反复出现的问题沉淀成脚本、contract、reference、migration 或 run log；单品牌事故先做 rule candidate，不直接升级全局 blocking。
+
+对应产物：
+
+- `brand-evidence.json`：事实证据，避免凭印象判断。
+- `brand-intent.json`：设计意图和使用/禁用场景，避免“抓到了但不会用”。
+- `host-opportunity-map.json` 或 `intent-plan.json`：宿主页面落点判断，避免强视觉乱塞效率页。
+- `visual-qa-report.json`：渲染后的设计审查，避免“build 过了但体验不对”。
+- `retro-learnings.json` / run log：本轮教训和下一次可复用位置。
+
+声明 vNext 流程完成前，运行 `node skills/brand/scripts/brand-guard.mjs handoff-artifact-gate --mode <learn-brand|apply-host> --brand <brand> --strict`。它检查这些角色产物是否有可用结构和具体内容，不能只靠 `SKILL.md` 文字说明放行。
+
+外部开源项目（例如 gstack）只能作为**可选组织增强**：可借鉴它的 router、角色分工、review、QA 和 retro 方法；不能替代 `/brand` 自己的 TPP、computed-first、DTCG、selector-map、coverage、asset-usage、visual-placement 和 P0 acceptance 硬 gate。每次引入外部 goodcase 前，先按 `workflow-contract.json.externalGoodcaseAdoption` 判定：保留、迭代、废弃或 optional hook。
+
+### 真实 Subagent 执行（MVP 必经）
+
+`workflow-contract.json.roles` 是 subagent 的可执行岗位契约，不是角色介绍。`learn-brand` 必须由顶层 `Design Director / Orchestrator` 组织四个独立执行上下文：`Brand Researcher → Design Translator → Demo Implementation Agent → Visual QA`。顶层负责人在 Interpreter 通过后亲自形成并批准 `design-direction.json`，通过方向门后才派发 Demo。`Host Implementation Agent` 只属于 `apply-host`，不能用宿主适配结果反证品牌已经学会。
+
+每个 subagent 只有在 `workflow-contract.json.roleCapabilityModel.requiredDimensions` 全部存在时才可派发；dispatch packet 固定携带冻结目标 hash、required/forbidden 输入、交付物、验收标准、失败路由与 cross-checker。Producer 自检不能替代 Consumer Gate 或 fresh QA。
+
+- 开始前创建并冻结 `migrations/{brand}/goal-contract.json`；进入 Evidence 后不得修改目标、阈值、`mustPreserve` 或 `mustNotReplace`。
+- 使用 `node skills/brand/scripts/brand-subagent-workflow.mjs prepare --brand <brand>` 创建本轮 execution manifest；使用 `next` 获取当前角色的 dispatch packet。外层总 Agent 必须把这个 packet 交给真实 subagent，脚本本身不伪装成 agent 调度器。
+- 每个 subagent 只获得 role contract 允许的输入。完成后由总 Agent写 receipt，再用 `record --receipt <file>` 校验真实 agent execution id、目标 hash、输入/输出 hash 和顺序。
+- Implementation 开始前必须生成 `design-direction.json` 并运行 `node skills/brand/scripts/validate-design-direction.mjs --brand <brand>`。未批准的方向、未声明的高显著度元素响应策略、缺失 proof surface 或把可读性排在协议之后都不得进入实现。
+- Visual QA 必须是新的独立 subagent，不继承实现上下文；禁止接收实现理由、旧 verdict、目标话术或把 build/browser pass 当视觉还原证据。
+- QA 只能写 `visual-qa-assessment.json`；不得写 `visual-quality-ready`。最终 verdict 由 `validate-brand-fidelity.mjs` 按冻结 rubric 计算。
+- Demo Implementation Agent 在交给 QA 前必须生成 `visual-pattern-inventory.json`，列出页面里每个高显著度模式（标题栏、整段底色、Hero 构图、大边框、装饰纹理、强动效等）的 demo region、approved pattern id、evidence refs 和官网 source region，并完成自检。颜色 token 只能用于 `brand-intent` 声明的角色；例如“黄色用于 active”不能扩张成黄色 section chrome。缺任一项即 `UNSUPPORTED_VISUAL_PATTERN`，不得交给 QA。
+- 官网截图及其 crop 只允许作为 QA evidence，不能复制进 Demo runtime 或冒充 composition asset。高显著度 runtime asset 必须在 pattern inventory 记录原站 `sourceUrl`、文件 `sourceSha256`、业务 `role` 和 `sourceKind`；默认只接受原站独立资产、DOM/CSS 重建或独立生成资产。若资产与 source screenshot 同 hash，或属于 screenshot/reference-derived full-frame raster，机器必须报 `SCREENSHOT_AS_IMPLEMENTATION` / `EVIDENCE_LEAKAGE`。只有冻结目标明确为 `screenshot-recreation` 且显式授权时例外。
+- `mustPreserve` 涉及构图时，Interpreter 必须先在 approved pattern 冻结 source asset identity/variant 和关键结构层；Implementation 必须逐层映射并记录 source/demo region、裁切和宽高比翻译。另一张官方资产、整页区域或“品牌感很像”都不能替代 Hero 构图证据。
+- Visual QA 必须逐项核对 pattern inventory，而不能只凭整体气质或综合分判断。任何无证据的高显著度模式、或 token role 扩张，都是不可被其他高分抵消的 blocking finding；receipt 用 `failureOwnerRole` 把问题退给 Evidence、Interpreter 或 Demo 的实际责任角色。
+- Visual QA 不得只检查 Hero 或 schema/DOM 数量：必须逐页检查 mockup shell；对长页/多模块页记录两个以上 sections 与可逆滚动探针（scrollHeight、clientHeight、before/after/restored scrollTop）。上述 blocker 不能由其他页面或三证分数抵消。
+- Demo Implementation Agent 在 QA 前必须生成 `generative-proof.json`，列出不变量规则、主动改变的内容或结构、允许变化的原因和证明截图。直接复制官网构图、贴整张截图、只换 Logo/颜色/官方资产都不算 Generative Proof。
+- Visual QA 必须分别给出 Evidence Fidelity、Structural Fidelity、Generative Proof 的 PASS/FAIL；三证互不补偿。
+- QA FAIL 时只把冻结目标和 blocking findings 退回 Demo；最多两次 Demo 尝试，每次必须重新截图并创建新的 QA subagent。耗尽后停止并向用户报告，不降低阈值。
+- 只有 protocol、handoff、Evidence Fidelity、Structural Fidelity 与 Generative Proof 全部通过，Orchestrator 才能 finalize 并声明品牌学习完成。
+
+### 用户反馈触发的强制复盘闭环
+
+用户指出任何视觉不符时，不能只解释、改报告或等待用户再次提醒。该反馈自动视为上一轮自检漏检，并立即触发 `workflow-contract.json.incidentClosureProtocol`：
+
+1. 写 `quality-attempts/{attempt}/incident-retro.json`，明确 observed mismatch、漏检角色、旧 gate 为什么放行、官网 evidence refs。
+2. 把规则落到可执行位置：Evidence / brand intent / Implementation self-check / Visual QA / validator；不能只追加 Markdown 提醒。
+3. 按根因退回实际 owner：缺证据回 Researcher，错误泛化回 Translator，实现偏离回 Implementation，QA 漏检同时修 QA gate。
+4. 自动重做受影响页面、重新截图，并换一个新的 Blind Visual QA subagent；旧 QA verdict 不得复用。
+5. 重新运行 machine fidelity gate。只有新实现和新 QA 都通过才向用户说“做好了，请验收”；否则继续内部修正或明确报告 blocking，不能把发现问题的责任交还给用户。
+
+这个闭环适用于后续每一条用户视觉反馈，不需要用户重复要求“复盘、自查、重做”。
+
+最小命令：
+
+```bash
+node skills/brand/scripts/brand-subagent-workflow.mjs prepare --brand <brand>
+node skills/brand/scripts/brand-subagent-workflow.mjs next --brand <brand>
+node skills/brand/scripts/brand-subagent-workflow.mjs record --brand <brand> --receipt <receipt.json>
+node skills/brand/scripts/validate-brand-fidelity.mjs --brand <brand> --write
+node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
+```
+
 ### 边界
 
 - `/brand` 负责：学习品牌视觉语言、沉淀 MOD / style pack、把视觉语言映射到 dangoui、以及在宿主项目里做换肤验证。
@@ -110,6 +227,8 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 
 - `references/brand-dtcg-migration-asset-standard.md`：长期资产架构、`style.json`、Figma REST-like document 与 DTCG tokens。
 - `references/mapping-rules.md`：颜色、资产、组件、Frame/Divider、Radius/Shadow、style pack 应用链路和风格原子表达规则。
+- `references/host-visual-opportunity-map.md`：宿主页面截图统计、页面分型、视觉承载力和可落地层级判断。
+- `references/atomic-acceptance-rubric.md`：Atomic Design 分层、P0/P1/P2 验收口径和对外解释。
 - `references/output-template.md`：迁移文件、README、最终交付格式。
 - `references/dangoui.design-system.json`：当前 demo 的 dangoui token/component 快照；正式项目迁移后以宿主项目真实 dangoui 源码为准。
 
@@ -126,6 +245,7 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 - 触发：更新、优化、同步、发布 skill；刷新 schema / reference / script；修改 `skills/brand/` 或同步脚本。
 - 只维护源目录 `skills/brand/`，不要手动编辑 `.claude/skills/brand/`。
 - 新增 md 前必须询问用户；优先复用已有 references。
+- 借鉴外部开源项目或 goodcase 前，先盘点现有 md 规则和脚本能力，并把处理结论分成：`retain`、`iterate`、`deprecate`、`optionalHook`。能保留脚本 gate 的不要用自然语言规则替代；能合并到 `workflow-contract.json` 的不要散落在 `SKILL.md`。
 - 改完运行 `npm run sync:skills`。
 - 验证 `diff -qr skills/brand .claude/skills/brand` 无差异。
 - 能构建时运行 `npm run build`。
@@ -151,6 +271,7 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 - 若输入是品牌官网且没有现成 style pack / demo 站资产，不能直接在业务项目里临时捏品牌 preview route。先把官网证据注册到标准 demo 预览：生成 `migrations/{brand}/...`、`public/brand-previews/{brand}.json` 和 registry，让 demo 站出现完整的参考站 / 风格 / 组件 / 页面结构。标准 demo/registry 是“风格能力验收”，业务项目只负责最终 apply 或明确允许后的实验预览。没有标准 demo gate 通过时，不碰业务项目，除非用户明确说“可以在当前项目中实验”。
 - 标准 demo registry 是机器协议，不是报告文本：`public/brand-previews/registry.json` 必须使用 `brands[].id/path/migrationRoot/standardDemo/businessApply`，preview JSON 的 `brand/preset.id/pages/styleRecipeDetails/assets` 必须能被 demo 运行时消费。写入后运行 demo 仓库的 `npm run validate:brand-preview`；失败时先修协议，不要声称 demo 已接入。协议通过只代表“能渲染”，不代表“像官网”。
 - 标准 demo 还必须过 visual quality gate：运行 `npm run validate:brand-quality -- --brand <brand>` 生成 `migrations/{brand}/visual-quality-report.json`。如果输出是 `draft-visual-preview`，最终只能说“草稿预览/待校准”，并列出主色、Hero、资产、动效、截图或 computed 缺口；只有 `npm run validate:brand-quality:strict -- --brand <brand>` 通过，才可称为“视觉质量已验收”。
+- Browser/schema gate 只能证明“页面真实渲染并且协议没断”，不能证明“学会了官网”。标准 demo 要达到 `visual-quality-ready`，必须有 `migrations/{brand}/visual-comparison-report.json` 对照至少两个官网截图/页面 crop 与 demo 页面，记录 matchedPatterns、gaps、assetAuthenticity 和 nextFix；如果 demo 使用未证明来自官网的本地占位资产，只能保持 `draft-visual-preview`。
 
 ### C. Apply Existing Style Pack (`apply-host`)
 
@@ -180,6 +301,7 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 - `dangoui-adapter.tokens` 里的现有 `--du-*` 可以进入主题 token；`demoOnlyVisualControls` 只能进入页面样式层、主题 class、asset 或 ReviewQueue。
 - `component-mapping.json` 决定组件组合方式；不要把页面组合误判为需要新增 dangoui 组件。
 - 应用前必须诊断宿主：默认入口、目标文件、样式入口、组件类名、DangoUI API、硬编码视觉值、当前 token 消费点。
+- 修改每个 Vue SFC 前必须按 `references/host-structural-diff-contract.md` 生成不可变 baseline snapshot；实现后用 manifest 运行 `validate-host-structural-diff.mjs`。class/style hook 可通过，业务 script、route/API、data/state、组件 API、条件渲染、循环数据源与未批准 primitive substitution 必须阻断；装饰节点必须显式声明为无交互并关联证据。事件默认同样阻断；唯一例外是 Design Director 在实现前显式批准的 `accessibilityAugmentations`，它只允许既有 interactive/`@tap` 节点新增受限 role/tabindex/ARIA 语义，并让 Enter/Space keydown 原样委托到同一既有 tap outcome，不能新增业务 handler 或改写原事件。
 - 必须生成并消费 `migrations/{brand}/selector-map.json`：CSS selector 必须命中宿主真实 DOM，不能把 demo class 当宿主 targetScope。
 - 必须落到宿主真实页面/路由/组件或明确允许的业务 preview；只新增 theme CSS、只 import 主题、只列 token 状态都不算完成。
 - 必须做 `evidence -> adapter token/recipe -> generated CSS -> consuming selector/component -> computed style` 链路校验；详见 `references/mapping-rules.md`。
@@ -189,6 +311,8 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 - 宿主视觉债务必须 token 化或进入 review：硬编码色、字体、圆角、边框、阴影、动效、inline style、`:style`、Tailwind arbitrary class、旧主题变量和主题耦合 class 都要扫描。
 - 自动处理的视觉项沉淀为运营可理解的“可调整项”；业务语义色表或库存/价格/状态/属性色进入 `needsReview`，必要时给出品牌化映射实验。
 - 资产证据不能只写进 migration：抽象纹理、背景、frame、mask、边框、光效、占位媒体层应进入 style-only asset/recipe；未承接时 coverage 降级。
+- 宿主换肤的视觉落地必须按 Atomic Design 分层判断：`atoms` 负责颜色、字体、圆角、边框、阴影、纹理、透明度；`molecules` 负责按钮、Tab、筛选、输入、标签、卡片基础态和交互状态；`organisms` 负责 Header、搜索筛选区、详情弹窗、卡组卡片、赛事列表、发布器表单块等业务模块；`templates` 负责页面骨架、区块顺序、滚动容器和导航位置；`pages` 负责带真实业务内容和品牌资产的最终实例。`brand assets` 和 `showcase moment` 是跨层能力，不再作为同级四层：资产可以挂到任意层，Hero、翻转、shine、大媒体和沉浸式模块通常只能进入 `organisms/templates/pages`。工具页、列表页、表单页默认 `efficiency-first`，只有在 `visualPlacementPolicy.pagePlacements[].showcasePlacement.businessPurpose` 说明业务目的时，才能注入 showcase；否则降级为 `atoms/molecules`，必要时只做少量 `organisms`。
+- 宿主换肤改代码前必须先生成视觉机会判断：页面类型、业务目标、视觉承载力、allowedLayers、assetSlots、motionSlots、showcaseFit、overApplyRisk 和 recommendation。细则见 `references/host-visual-opportunity-map.md`。如果所有目标页都是低承载，不能为了展示能力硬塞强视觉；应保守完成 P0，并额外给出活动页/专题页 mock 作为产品讨论材料。
 - 默认在宿主 git 仓库改动前创建 rollback checkpoint commit；`/brand rollback` 回到最近一次 `/brand` 前的 checkpoint。
 - 必须启动或复用宿主项目 dev server，给出当前业务项目预览地址；不要把 demo 站 URL 当成业务项目验收地址。
 - 必须验证默认初始状态：根地址、默认首页、默认 TabBar 选中页、首屏可见区域都要实际套用主题。
@@ -218,14 +342,27 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 - 写入或应用 replacement 后，运行 `node .claude/skills/brand/scripts/brand-guard.mjs validate-role-replacements --brand <brand> --css-files <theme/demo css files>`。该 guard 强制每条 computed replacement 有 `role / replacement / antiScopes`，并扫描 CSS 中明显的角色泄漏：例如文档说明卡、代码块、示例分组不能使用 control radius；大范围 `.phone span/p/small` 文字覆盖会产生 warning，必须人工确认是否按 `text-on-dark / text-on-light` 分层。guard blocking 未清零前不能声称完成迁移。
 - 确定宿主目标页面后，运行 `node .claude/skills/brand/scripts/brand-guard.mjs scan-host-debt --brand <brand> --files <target files>`；若未传 `--files`，脚本会使用 `detect-entry` 的默认入口。输出中的 `autoFix` 必须自动处理，不询问运营；`visualDebt` 是本次 token/recipe 替换清单；`tokenizationPlan` 是必须消费的源码视觉值 token 化计划，并按 `fixStrategy` 执行：`tokenize-inline` 改静态 inline 值，`tokenize-dynamic` 保留条件但替换视觉字面量，`extract-class` 给复杂 gradient/border 加语义 class 并移到 CSS/recipe，`preserve-semantic` 进入业务语义确认；`needsReview` 只用于业务语义风险，例如状态色/价格色/库存色/游戏属性色，优先保留语义并映射到 semantic token；只有 `blocking` 才能暂停执行。该扫描必须识别 Tailwind arbitrary class，例如 `bg-[#f0ebe0]`、`text-[#333]`、`bg-white`，`:style` / inline style 视觉锁，以及 `TYPE_HEX` / `colorMap` / `typeColor` / `statusColorMap` 这类业务语义色表；发现 `inline-style-visual-lock` 时必须改源码绑定值，不能只写 theme CSS。扫描结果里的 `operatorAdjustmentGuide.autoApplied` 是已自动更改、但运营可能想微调的通用视觉项；最终回复必须用白话说明这些“可调整项”以及用户可以怎么要求改方向。`operatorAdjustmentGuide.needsOperatorDecision` 才是需要确认或保留的业务语义风险。
 - 对每个目标页面运行 `node .claude/skills/brand/scripts/brand-guard.mjs create-selector-map --brand <brand> --files <target files>`；若未传 `--files`，脚本会使用默认入口。生成或更新 `migrations/{brand}/selector-map.json`。Theme CSS 必须优先使用其中的 `.theme-{brand} .<hostClass>` selector。若走 preview，确认 apply 时也必须用同一张 selector-map 合并回原页面。
+- Host Strategist 在派发 Host Implementation 前必须生成 `migrations/<brand>/host-coverage-matrix.json`，逐格覆盖 `route × branch × state × component-family × viewport`，并记录默认入口、父子路由、真实交互节点、中文字体和业务语义色边界。实现和 fresh QA 后运行 `node skills/brand/scripts/validate-host-coverage-matrix.mjs --matrix migrations/<brand>/host-coverage-matrix.json`；只要存在缺格、父入口漏项、组件 sibling variant 漏项、触控目标过小或全宿主 scope 不完整，就不能宣称 full-host PASS。
 - 生成/改动 CSS 后运行 `node .claude/skills/brand/scripts/brand-guard.mjs scan-css --root .`；有 blocking 时必须修复后再 build。
 - 应用后运行 `node .claude/skills/brand/scripts/brand-guard.mjs coverage-gate --brand <brand> --files <target files/theme files> --evidence-file migrations/<brand>/site-evidence.json`，把输出的 `coverageLevel` 用在最终话术和 `validate-final --coverage-level`。coverage gate 必须读取 computed evidence 和 `preview-gate.json` 的 `assetRoleCoverage`：发现 CTA、导航、Hero、卡片、frame 等核心角色仍有 baseline/默认色，或强 IP/官网缺少 Menu、入口、角色、CTA 状态、frame 等高频资产角色时，输出 mismatch / missing 并降级覆盖等级。coverageLevel 低时必须降级说法，不能写“完整套用风格”。
 - 应用后运行 `node .claude/skills/brand/scripts/brand-guard.mjs asset-usage-gate --brand <brand> --files <target files/theme files>`。该 gate 检查资产层级、装饰挂载、图片比例/重复和 inspector 高亮是否误导；有 blocking 时必须修复，有 warning 时只能按保守应用口径表达。
+- 若宿主页面注入了 Hero、翻转、shine、强动效、大品牌图、沉浸式模块等 showcase 能力，还必须在 intent plan / brand-mod 中声明 `visualPlacementPolicy`，并运行 `node .claude/skills/brand/scripts/brand-guard.mjs visual-placement-gate --brand <brand> --plan-file migrations/<brand>/intent-plan.json`。该 gate 检查页面类型、视觉承载力、Atomic Design 允许层级、asset slot、motion slot、showcase slot、业务目的、首屏占用约束和 `notFor` 边界；通过只代表“使用理由清楚”，不代表视觉质量已经验收。
+- 最终验收 P0 / MVP 是否可交代时，运行 `node .claude/skills/brand/scripts/brand-guard.mjs p0-acceptance --mode apply-host --brand <brand> --host-target <target> --plan-file <plan> --preview-url <host preview url> --files <target files/theme files>`。该 gate 汇总 TPP 语义、sourceRole、宿主目标、静态/真实 dev 预览、coverage 口径、Atomic Design 落地层和资产误挂风险，输出 `PASS / PARTIAL / FAIL`。只要输入来源仍是 `demo-style-source`、只有静态 HTML 预览、或 coverage 与实际 gate warning 不一致，就不能宣称 P0 complete；必须降级为 `conservative-application` 或继续修 blocking。P0/P1/P2 话术见 `references/atomic-acceptance-rubric.md`。
 - 启动 dev server 后，把 server 日志传给 `node .claude/skills/brand/scripts/brand-guard.mjs parse-dev-server --log <logfile>`，最终输出使用脚本解析出的 actualUrl。
 - 对 Taro H5 / 小程序项目，apply 后必须用浏览器或渲染快照验证实际 DOM selector 命中；可保存 DOM 到 `rendered.html` 后运行 `node .claude/skills/brand/scripts/brand-guard.mjs verify-dom --brand <brand> --html rendered.html`。如果 `.theme-{brand}` 不在真实 DOM 中，改用 `.taro_page`、`taro-view-core` 或实际渲染 class 作为主题作用域，不要只相信 Vue 源码里有 class。浏览器可用时还要记录旧值到新值的 computed diff，至少看 font-family、border-radius、border-color、box-shadow、background-image、active tab state。
 - 最终回复前运行 `node .claude/skills/brand/scripts/brand-guard.mjs validate-final --file <draft> --brand-label <demo/registry 中展示的品牌名或风格名> --source-url <URL> --coverage-level <coverageLevel>`。缺业务预览 URL 是硬失败，必须继续执行；已有业务预览 URL 但缺风格名或默认入口验证时，先把 URL 给用户可见，再修正最终话术，不能用内部 token 表替代结果。最终 URL 不能是输入 demo URL 的原路径；不能把 demo/registry 页面当作业务成果。
 - 最终回复前或紧随其后运行 `node .claude/skills/brand/scripts/brand-guard.mjs record-run --brand <brand> --source-url <URL> --coverage-level <coverageLevel> --missing <comma dims> --target-route <route> --preview-url <url> --default-url <url> --style-pack <true|false> --generated-preview <true|false>`。这条记录不阻塞预览交付；失败时只把记录失败写进技术备注，不影响用户看结果。
+- 共享 phone shell、TabBar 或 home indicator 改动后，生成 `migrations/<brand>/mockup-state-matrix.json` 并运行 `node skills/brand/scripts/validate-mockup-matrix.mjs --brand <brand> --strict`。矩阵固定覆盖 `brand/style/component × tabbar/no-tabbar × normal/proof=1/proof=desktop/proof=mobile`；正常模式检查 indicator owner/position/background semantics、screen 宽度/圆角、底部 Chrome 圆角、滚动稳定与恢复，proof 模式必须隐藏 indicator。不得硬编码品牌。
+- 删除、不再认可或由新版替代学习项目时，不删除 run log。运行 `node skills/brand/scripts/brand-guard.mjs tombstone-run --brand <brand> --disposition <retired|invalidated|superseded> --reason "<原因>" --scope all`；也可用 `--run-id <id>` 精确标记单次运行。`summarize-runs` 和 `issue-retro` 自动排除被标记的旧 run，但保留审计历史。
 - 用户执行 `/brand rollback` 时，先运行 `node .claude/skills/brand/scripts/brand-guard.mjs rollback` 查看 dry-run，再经确认后运行 `rollback --execute`。
+
+问题复盘自动化：
+
+- 当用户说“学习下 brand skill 执行过程中遇到问题”“复盘这轮 /brand 问题”“记录这次 brand skill 的坑”“把刚刚的问题喂给 skill 修复”等同义表达时，必须进入复盘流程；无论问题来自当前 demo、宿主项目、其他项目、截图批注、粘贴文本或对话描述，都按同一流程处理。
+- 第一步先运行 `node .claude/skills/brand/scripts/brand-guard.mjs issue-retro --scope all --limit 12`；如果当前仓库没有 `.claude` 路径，使用实际 skill 路径，或在 demo 仓库运行 `npm run brand:retro -- --scope all --limit 12`。该命令负责汇总项目内和全局最新 run log，找出高频缺口、覆盖等级和可能的脚本落点。
+- 第二步把 `issue-retro` 输出与当前对话、浏览器批注、截图、粘贴文本合并，输出四块白话内容：`最新问题`、`复盘原因`、`解决方案`、`落地点`。落地点必须区分脚本、规则、demo 数据、单品牌 migration、宿主项目；不能只写“已记录”。
+- 第三步必须问用户“这些复盘和落地方向 OK 吗？”；用户确认前不能修改 skill、脚本、demo、migration 或宿主项目。
+- 用户确认后才落地。能脚本化的问题优先改 guard / extractor / validator / workflow；只有抽象判断、话术和操作顺序才写 `SKILL.md` 或 `references/*.md`；单品牌素材或页面问题才写 `migrations/{brand}/...`。落地后运行对应验证命令，并在需要时运行 `npm run sync:skills` 同步安装版 skill。
 
 最终输出口径：
 
@@ -239,6 +376,7 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 
 - 项目内汇总：`node .claude/skills/brand/scripts/brand-guard.mjs summarize-runs --scope project`
 - 全局脱敏汇总：`node ~/.codex/skills/brand/scripts/brand-guard.mjs summarize-runs --scope global`
+- 问题复盘待确认：`node ~/.codex/skills/brand/scripts/brand-guard.mjs issue-retro --scope all --limit 12`
 - 汇总用于判断哪些 source host 高频出现、哪些 coverage 维度常缺、哪些品牌值得沉淀为维护版 style pack。
 
 ## WebFetch / Sandbox Fallback

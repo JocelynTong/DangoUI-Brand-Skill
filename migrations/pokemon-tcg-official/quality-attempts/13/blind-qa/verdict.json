@@ -1,0 +1,23 @@
+{
+  "schema": "brand-incident-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 13,
+  "verdict": "FAIL",
+  "checks": {
+    "unsupportedDatabaseOrangeRemoved": "PASS",
+    "normalModeOuterHomeIndicator": "PASS",
+    "proofModeOuterHomeIndicatorHidden": "FAIL",
+    "build": "PASS"
+  },
+  "blockers": [
+    {
+      "id": "PROOF_MODE_HOME_INDICATOR_VISIBLE",
+      "severity": "blocking",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent",
+      "finding": "With the explicit ?proof=1 route, .mock-home-indicator--outer remains present and visibly rendered on style/button, components/navigation-bar, Pokémon home, and ONE PIECE home.",
+      "expected": "Proof mode hides the shared outer Home Indicator on every tested surface.",
+      "actual": "Each tested proof route has indicatorCount=1 and visible=1."
+    }
+  ]
+}

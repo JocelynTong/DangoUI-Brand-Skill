@@ -1,0 +1,11 @@
+{
+  "schema": "brand-visual-comparison-report/v1",
+  "brand": "pokemon-tcg-official",
+  "verdict": "rework",
+  "comparisons": [
+    {"sourcePage": "home", "demoPage": "pokemon-tcg-official-home", "matchedPatterns": ["black campaign stage", "authentic campaign identity", "featured full card", "banded editorial journey"], "gaps": ["CSS390 Home shell clips 41.45px at right", "route preview begins below inspector at y=640.53"], "assetAuthenticity": "pass"},
+    {"sourcePage": "card-database", "demoPage": "pokemon-tcg-official-card-database", "matchedPatterns": ["light title plate", "charcoal dense search organism", "orange primary action", "reversible advanced drawer", "authentic result cards"], "gaps": ["route preview begins below inspector at y=640.53"], "assetAuthenticity": "pass"},
+    {"sourcePage": "how-to-play", "demoPage": "pokemon-tcg-official-learn", "matchedPatterns": ["oversized instructional hierarchy", "yellow and navy painted boundaries", "authentic card and field diagrams", "bounded long-form organisms"], "gaps": ["route preview begins below inspector at y=640.53"], "assetAuthenticity": "pass"},
+    {"sourcePage": null, "demoPage": "pokemon-tcg-official-held-out", "matchedPatterns": ["source-independent Deck Lab architecture", "oversized entry hierarchy", "authentic-object teaching", "bounded two-organism rhythm"], "gaps": ["strict proof is blocked by inventory/validator protocol mismatch"], "assetAuthenticity": "pass"}
+  ]
+}

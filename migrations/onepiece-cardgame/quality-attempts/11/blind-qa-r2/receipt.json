@@ -1,0 +1,43 @@
+{
+  "schema": "blind-visual-qa-receipt/v1",
+  "attempt": 11,
+  "revision": 2,
+  "scope": "Home mobile 390x844 plus desktop phone-shell/footer regression",
+  "verdict": "FAIL",
+  "failureOwner": "Demo implementation — Home mobile structural fidelity and interaction semantics",
+  "proofs": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "PASS_NARROW_NON_COMPENSATING"
+  },
+  "freshBrowser": {
+    "engine": "Chrome for Testing 152 via isolated Playwright Core context",
+    "viewport": { "width": 390, "height": 844 },
+    "url": "http://127.0.0.1:5177/#/brand/onepiece-cardgame/pages/onepiece-cardgame-home",
+    "pluginRuntimeNote": "The in-app browser JavaScript runtime was not exposed to this task; a fresh local isolated Chromium context was used instead."
+  },
+  "measurements": {
+    "documentScrollWidth": 390,
+    "documentScrollHeight": 7271,
+    "semanticActionableCount": 11,
+    "measuredActionablesBelow44px": 0,
+    "desktopPhoneScreen": { "width": 372, "height": 803, "scrollHeight": 4835, "overflowY": "auto" }
+  },
+  "regionResults": {
+    "hostCanvas": "PASS",
+    "navigationHero": "FAIL",
+    "welcome": "FAIL",
+    "newsNewArrival": "FAIL",
+    "productsEventsMidPage": "FAIL",
+    "footerIllustrationMotion": "PASS",
+    "footerNavigationTouchSemantics": "FAIL",
+    "desktopPhoneShellInternalScroll": "PASS"
+  },
+  "artifacts": {
+    "report": "migrations/onepiece-cardgame/quality-attempts/11/blind-qa-r2/report.md",
+    "probes": "migrations/onepiece-cardgame/quality-attempts/11/blind-qa-r2/probes.json",
+    "captures": "migrations/onepiece-cardgame/quality-attempts/11/blind-qa-r2/captures",
+    "comparisons": "migrations/onepiece-cardgame/quality-attempts/11/blind-qa-r2/comparisons"
+  },
+  "immutableInputsModified": false
+}

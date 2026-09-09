@@ -1,0 +1,49 @@
+{
+  "schema": "blind-visual-qa-receipt/v1",
+  "attempt": 12,
+  "revision": 2,
+  "agentExecutionId": "/root/onepiece_home_sections_blind_qa_r2",
+  "completedAt": "2026-09-01T00:00:00+08:00",
+  "verdict": "FAIL",
+  "scope": "Fresh 390x844 source/demo section QA plus full-page regressions",
+  "inputsRead": [
+    "migrations/onepiece-cardgame/goal-contract.json",
+    "migrations/onepiece-cardgame/quality-attempts/12/evidence/manifest.json",
+    "migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json",
+    "migrations/onepiece-cardgame/quality-attempts/12/evidence/dom-computed-probes.json",
+    "migrations/onepiece-cardgame/quality-attempts/12/interpreter/section-contract.json",
+    "migrations/onepiece-cardgame/approved-visual-patterns.json",
+    "migrations/onepiece-cardgame/rendered-asset-inventory.json",
+    "migrations/onepiece-cardgame/demo-screenshot-manifest.json",
+    "migrations/onepiece-cardgame/source-observation-manifest.json",
+    "live Demo at http://127.0.0.1:5173/"
+  ],
+  "excludedFromJudgment": [
+    "implementation messages",
+    "implementation self-checks",
+    "handoff receipts",
+    "prior QA verdicts"
+  ],
+  "outputs": [
+    { "path": "report.md", "sha256": "abe07b70d35ff6121430dd3c3e6ec1a3b320c153a0f6e75e36e4254343c137fd" },
+    { "path": "comparisons/section-comparison.md", "sha256": "de8754d43a1199a480b3160a8ef3dd5dc56b05855b3252c98e64c9fdc1c98168" },
+    { "path": "probes.json", "sha256": "022d7916835581f75659535c5412824a82f83422783575353a6abc53d9736216" },
+    { "path": "assessment.json", "sha256": "8985d51072600b8b501878c668307f278b579c6655e9783d790d08df3a2768bc" },
+    { "path": "captures/demo-full-390x844.png", "sha256": "71d925c330f3beaf900b9d0d4e074fb606244586fbef0d1933927108aa9f2b17" },
+    { "path": "captures/demo-welcome-390x844.png", "sha256": "4097b8463dbfc6f33cf77bc0833382b834b8abaf20bb8fa90416fb5c7a017c49" },
+    { "path": "captures/demo-new-arrival-390x844.png", "sha256": "2b6498bbf77acc74590e62396cc139b463a8b1deb9e5619dbc370ea28bbd3958" },
+    { "path": "captures/demo-events-top-390x844.png", "sha256": "9132bc97c7815a6dbb9d1642a16834dc2bc7fb2777c073a481b51e30da67e1a2" },
+    { "path": "captures/demo-events-lower-390x844.png", "sha256": "27b66781fa7b1e7a7e934a79942f3cfb4c8c0f3aadafeade5f0a3353efdd7cf8" },
+    { "path": "captures/demo-recommend-390x844.png", "sha256": "bafc51cda1f47211365369687f116ce888c31e155650a398a57cc9fab49698d2" },
+    { "path": "captures/demo-videos-390x844.png", "sha256": "9a0e09f356803ca200f9014c9f1058dfa2c126371b62f1fa96ef71b88b54c57a" },
+    { "path": "captures/demo-footer-art-390x844.png", "sha256": "c9024258e837652bc35931535f9ba67db06ad28c18efc9feed0d8d24fac1dc3c" },
+    { "path": "captures/demo-footer-legal-390x844.png", "sha256": "8f13b43d39e5dfcda28da1a3842010ef7d60bd01ac3fb22ee8e258869329004c" }
+  ],
+  "blockingFindings": [
+    "EVENTS_OFFICIAL_ASSET_AUTHENTICITY",
+    "RECOMMEND_MEDIA_ORGANIZATION_REPLACED",
+    "NEW_ARRIVAL_CONTROLS_INERT",
+    "HELD_OUT_PROOF_ABSENT"
+  ],
+  "failureOwnerRole": "demoImplementationAgent"
+}

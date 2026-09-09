@@ -1,0 +1,147 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "f7e66983-4c15-4092-a07d-0bfbc5da5c57",
+  "runId": "de142c35-0cfc-400a-8760-b92950ec6d21",
+  "stageId": "interpreter-2",
+  "stage": "interpreter",
+  "role": "designTranslator",
+  "attempt": 2,
+  "goalId": "dango-relearn-home-button-v1",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "mission": "Turn raw evidence into reusable visual intent: what each color, asset, motion, frame, or layout pattern means and where it should or should not be used.",
+  "roleContractVersion": "2.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/dango/goal-contract.json",
+      "sha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac"
+    },
+    {
+      "path": "migrations/dango/brand-evidence.json",
+      "sha256": "06a5374f36f3c300165a5fdc0ef2b8393276ea3573ca03cfede99c86f138b88f"
+    },
+    {
+      "path": "migrations/dango/source-observation-manifest.json",
+      "sha256": "19be116f7ef0bffee3d4781d5c25f0c84f76ffc20248c4b52d28a413facddae9"
+    },
+    {
+      "path": "migrations/dango/rendered-asset-inventory.json",
+      "sha256": "fbe1e71ce058a930b9191eff519d7f4c9ae8cc7e0a6763ffdc5226cf2575a151"
+    },
+    {
+      "path": "migrations/dango/action-evidence-v02.json",
+      "sha256": "095ca564d9199264dd28fae8c11161c1902a5a3da6f99742a3796905cf6a5210"
+    },
+    {
+      "path": "migrations/dango/third-party-evidence.dembrandt.json",
+      "sha256": "f8bd26ed47410bb0de105def3abb5a8787ee3078670a1bea387db2e78da5ff75"
+    },
+    {
+      "path": "migrations/dango/section-fidelity-manifest.json",
+      "sha256": "c9f26e6c9433fd873547794e5d3ce6f1bb7f496ab746ad89ca8cc255195532fd"
+    },
+    {
+      "path": "migrations/dango/evidence-question-matrix.json",
+      "sha256": "09e9cadb7d7d68455cd796b0d581384f22e857f61b8ca8a5868c04d951b93bd9"
+    },
+    {
+      "path": "migrations/dango/brand-intent.json",
+      "sha256": "722012656f0ac61337827de303fcb1af375795e23791aa2aa4ddc842026d6627"
+    },
+    {
+      "path": "migrations/dango/approved-visual-patterns.json",
+      "sha256": "79ddae83f4eb9847d2b0225b02ba426ca612dbecb253acc2ca1ab125205053e1"
+    },
+    {
+      "path": "public/brand-previews/dango.json",
+      "sha256": "b6e792cc43ac6087fbb39b79b7b5d173f865552f642c1becc1b071786dee2514"
+    },
+    {
+      "path": "migrations/dango/visual-pattern-inventory.json",
+      "sha256": "d0aa3f6f9c20060b2ad6e2fa6ac3af6ebd9a1aef253b455763af226956ba6a16"
+    },
+    {
+      "path": "migrations/dango/generative-proof.json",
+      "sha256": "5f0d1ceab49d84e3b9dbc8652a4d68200619b11356e7527bbfc3e1f959a88b05"
+    },
+    {
+      "path": "migrations/dango/demo-1/implementation-self-test.json",
+      "sha256": "746bbcdeb8da8a29a60dc9b193f390e243221e3b3e5dcdb63ca1ddcbdb26ebb8"
+    },
+    {
+      "path": "migrations/dango/demo-1/demo-screenshot-manifest.json",
+      "sha256": "c95c2ed059f292aa93040bcb845983a22921780a2d99eb67df41df59ba16694b"
+    },
+    {
+      "path": "migrations/dango/demo-1/section-fidelity-implementation-manifest.json",
+      "sha256": "a2bf23b1c707b28dec124234bb7fa3834fea480ab0262275c67ea57366081013"
+    },
+    {
+      "path": "src/App.vue",
+      "sha256": "72abaa87ec185a08b932d2149df73fa3afe6e0280085e3d475f8a011db9fcf4a"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "d713ad4fb1ca42f5dfdff2c6391bcc02259fbe05b6019c579c64583df48a1549"
+    },
+    {
+      "path": "scripts/dango-demo-1-probe.mjs",
+      "sha256": "e21567976ae9662b25c4f84ffc73a3f7ed87b5c0764eac87ee581e62c0cd7899"
+    }
+  ],
+  "allowedInputs": [
+    "action-evidence.json",
+    "source screenshots"
+  ],
+  "forbiddenInputs": [
+    "demo implementation",
+    "demo screenshots",
+    "implementation rationale",
+    "previous QA verdict"
+  ],
+  "tasks": [
+    "translate evidence into composition, color-role, type, boundary, asset, density and motion patterns",
+    "attach evidence ids",
+    "declare suitableFor, notFor and allowed transformations",
+    "leave unsupported claims unresolved"
+  ],
+  "requirements": [
+    "every pattern has evidenceRefs and normalized sourceRegion",
+    "every composition pattern freezes a compositionContract containing source asset identity/variant and required structural layers before implementation",
+    "every color role declares allowedRoles and forbiddenRoles",
+    "every promoted color, font, shadow or motion semantic is recorded in semanticClaims with validated disposition and evidenceRefs resolving to an observed Claim with visible screenshot/sourceRegion, DOM selector, computed property/value, page and state",
+    "aggregate palettes, CSS variable names and Dembrandt seeds remain candidates and cannot independently establish a semantic role",
+    "facts, interpretations and recommendations use separate fields",
+    "composition and information density are explicit"
+  ],
+  "mustNot": [
+    "modify the goal contract",
+    "implement pages",
+    "lower learn-brand fidelity for host convenience",
+    "promote a third-party summary directly to a rule"
+  ],
+  "expectedOutputs": [
+    "brand-intent.json",
+    "styleRecipeDetails",
+    "interactionRecipes",
+    "approved-visual-patterns"
+  ],
+  "passCriteria": [
+    "every mustPreserve item maps to a pattern",
+    "composition mustPreserve mappings freeze source asset identity/variant and at least two independently observable required layers",
+    "every core pattern has evidence, usage and notFor"
+  ],
+  "failCriteria": [
+    "pattern without evidence",
+    "promoted semantic role lacks a complete validated rendered-evidence chain",
+    "candidate-only aggregate palette, CSS variable or extractor seed is used as semantic proof",
+    "missing composition or density interpretation",
+    "goal changed"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"
+  ]
+}

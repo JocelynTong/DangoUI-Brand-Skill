@@ -1,0 +1,279 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "dango",
+  "goalId": "dango-relearn-home-button-v1",
+  "goalSha256": "07491a8583d0371e1cf7ce154516b100880ba645128b8e937b0ce6029152fcac",
+  "attempt": 2,
+  "implementationStage": "demo-2",
+  "runtimeAssetPolicy": {
+    "sourceScreenshotsUsedAtRuntime": false,
+    "highSalienceRuntimeAssets": [],
+    "compositionMethod": "DOM/CSS reconstruction only"
+  },
+  "pages": [
+    {
+      "demoPageId": "dango-introduction-calibration",
+      "sourcePageId": "introduction",
+      "proofRole": "source-calibration",
+      "screenshot": {
+        "path": "migrations/dango/captures/demo/demo-2/dango-introduction-calibration-proof-desktop.png",
+        "sha256": "333c48e1318d68bbf14e7973326cc1604fb46ed26c0bafab35c985a0a069a0bb",
+        "viewport": { "width": 1440, "height": 900 }
+      },
+      "patterns": [
+        {
+          "id": "intro-responsive-documentation-shell",
+          "salience": "high",
+          "approvedPatternId": "responsive-documentation-shell",
+          "preserves": ["docs-shell"],
+          "demoRegion": [0, 0, 1, 1],
+          "implementationLocation": "src/App.vue#SchemaDangoDocsPageSection + src/styles.css#.dango-docs",
+          "evidenceRefs": [
+            { "evidenceId": "dango-docs-shell-desktop", "sourcePageId": "introduction", "sourceRegion": [0, 0, 1, 1] },
+            { "evidenceId": "dango-docs-shell-mobile-reflow", "sourcePageId": "introduction", "sourceRegion": [0, 0, 1, 1] }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-docs-shell-dom-css", "variant": "desktop-three-column-and-mobile-single-column" },
+            "demoAsset": { "identity": "dango-docs-shell-dom-css", "variant": "desktop-three-column-and-mobile-single-column" },
+            "layers": [
+              { "id": "full-width utility header", "role": "global utilities", "sourceRegion": [0, 0, 1, 0.062222], "demoRegion": [0, 0, 1, 0.062222] },
+              { "id": "desktop left navigation", "role": "local wayfinding", "sourceRegion": [0, 0.062222, 0.138889, 0.937778], "demoRegion": [0, 0.062222, 0.138889, 0.76] },
+              { "id": "central reading column", "role": "primary article", "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778], "demoRegion": [0.138889, 0.062222, 0.736111, 0.76] },
+              { "id": "desktop right outline", "role": "article scan", "sourceRegion": [0.875, 0.062222, 0.125, 0.937778], "demoRegion": [0.875, 0.062222, 0.125, 0.76] },
+              { "id": "mobile utility header", "role": "phone global utilities", "sourceRegion": [0, 0, 1, 0.066351], "demoRegion": [0, 0, 1, 0.066351] },
+              { "id": "mobile inset reading column", "role": "phone primary article and reading order", "sourceRegion": [0.041026, 0.066351, 0.917949, 0.899], "demoRegion": [0.041026, 0.066351, 0.917949, 0.899] }
+            ]
+          },
+          "selfCheck": "pass"
+        },
+        {
+          "id": "intro-technical-content-hierarchy",
+          "salience": "high",
+          "approvedPatternId": "technical-content-hierarchy",
+          "preserves": ["content-hierarchy"],
+          "demoRegion": [0.198611, 0.062222, 0.478472, 0.48],
+          "implementationLocation": "public/brand-previews/dango.json#dango-introduction-shell",
+          "evidenceRefs": [
+            { "evidenceId": "dango-docs-type-hierarchy", "sourcePageId": "introduction", "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786] }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-introduction-technical-hierarchy", "variant": "dom-text-and-diagram-surface" },
+            "demoAsset": { "identity": "dango-introduction-technical-hierarchy", "variant": "dom-text-and-diagram-surface" },
+            "layers": [
+              { "id": "36px page title", "role": "first reading priority", "sourceRegion": [0.161111, 0.088889, 0.691667, 0.066875], "demoRegion": [0.198611, 0.08, 0.478472, 0.055] },
+              { "id": "divider", "role": "title/body separation", "sourceRegion": [0.161111, 0.155764, 0.691667, 0.002], "demoRegion": [0.198611, 0.151, 0.478472, 0.002] },
+              { "id": "dense explanatory prose", "role": "technical explanation", "sourceRegion": [0.161111, 0.18, 0.691667, 0.14], "demoRegion": [0.198611, 0.18, 0.478472, 0.09] },
+              { "id": "technical-flow-surface", "role": "wide-monospaced-process-model", "sourceRegion": [0.161111, 0.22, 0.691667, 0.396667], "demoRegion": [0.198611, 0.32, 0.478472, 0.46] },
+              { "id": "layer-explanation", "role": "dense-prose-and-layer-list", "sourceRegion": [0.161111, 0.616667, 0.691667, 0.18], "demoRegion": [0.198611, 0.79, 0.478472, 0.16] },
+              { "id": "24px section headings", "role": "article section hierarchy", "sourceRegion": [0.161111, 0.57, 0.691667, 0.05], "demoRegion": [0.198611, 0.298, 0.478472, 0.05] }
+            ]
+          },
+          "selfCheck": "pass"
+        },
+        {
+          "id": "intro-restrained-current-page-cue",
+          "salience": "high",
+          "approvedPatternId": "restrained-current-page-cue",
+          "preserves": ["accent-semantics"],
+          "demoRegion": [0.008333, 0.062222, 0.121528, 0.036111],
+          "implementationLocation": "src/styles.css#.dango-docs__nav-group > span.is-current",
+          "evidenceRefs": [
+            { "evidenceId": "dango-docs-active-navigation", "sourcePageId": "introduction", "sourceRegion": [0.008333, 0.114444, 0.121528, 0.036111] }
+          ],
+          "colorRole": { "value": "rgb(88, 84, 255)", "role": "documentation current-page text only" },
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "demoPageId": "dango-button-calibration",
+      "sourcePageId": "button",
+      "proofRole": "structural-transfer",
+      "screenshot": {
+        "path": "migrations/dango/captures/demo/demo-2/dango-button-calibration-proof-desktop.png",
+        "sha256": "7bc1e22ea1676f8cd8c6fef6eaf0835af3ef76cf84bdaa520b0816f5f1728830",
+        "viewport": { "width": 1440, "height": 900 }
+      },
+      "patterns": [
+        {
+          "id": "button-responsive-documentation-shell",
+          "salience": "high",
+          "approvedPatternId": "responsive-documentation-shell",
+          "preserves": ["docs-shell"],
+          "demoRegion": [0, 0, 1, 1],
+          "implementationLocation": "src/App.vue#SchemaDangoDocsPageSection + src/styles.css#.dango-docs",
+          "evidenceRefs": [
+            { "evidenceId": "dango-button-page-shell", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-docs-shell-dom-css", "variant": "desktop-three-column-and-mobile-single-column" },
+            "demoAsset": { "identity": "dango-docs-shell-dom-css", "variant": "desktop-three-column-and-mobile-single-column" },
+            "layers": [
+              { "id": "full-width utility header", "role": "global utilities", "sourceRegion": [0, 0, 1, 0.062222], "demoRegion": [0, 0, 1, 0.062222] },
+              { "id": "desktop left navigation", "role": "local wayfinding", "sourceRegion": [0, 0.062222, 0.138889, 0.937778], "demoRegion": [0, 0.062222, 0.138889, 0.76] },
+              { "id": "central reading column", "role": "primary article", "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778], "demoRegion": [0.138889, 0.062222, 0.736111, 0.76] },
+              { "id": "desktop right outline", "role": "article scan", "sourceRegion": [0.875, 0.062222, 0.125, 0.937778], "demoRegion": [0.875, 0.062222, 0.125, 0.76] },
+              { "id": "mobile utility header", "role": "phone global utilities", "sourceRegion": [0, 0, 1, 0.066351], "demoRegion": [0, 0, 1, 0.066351] },
+              { "id": "mobile inset reading column", "role": "phone primary article and reading order", "sourceRegion": [0.041026, 0.066351, 0.917949, 0.899], "demoRegion": [0.041026, 0.066351, 0.917949, 0.899] }
+            ]
+          },
+          "selfCheck": "pass"
+        },
+        {
+          "id": "button-multi-module-reference",
+          "salience": "high",
+          "approvedPatternId": "multi-module-button-reference",
+          "preserves": ["docs-shell", "content-hierarchy", "button-state-system"],
+          "demoRegion": [0.198611, 0.30, 0.478472, 0.346],
+          "implementationLocation": "src/App.vue#dangoExampleModule+dangoReferenceTable; public/brand-previews/dango.json#dango-button-calibration",
+          "evidenceRefs": [
+            { "evidenceId": "dango-button-page-shell", "sourcePageId": "button", "sourceRegion": [0.161111, 0.113378, 0.691667, 0.50] },
+            { "evidenceId": "dango-primary-button", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-button-reference-dom-css", "variant": "multi-module-preview-code-api-theme" },
+            "demoAsset": { "identity": "dango-button-reference-dom-css", "variant": "multi-module-preview-code-api-theme" },
+            "comparison": {
+              "mode": "same-aspect-bounded-preview-code-slice",
+              "aspectTranslation": "none",
+              "sourceRegion": [0.161111, 0.113378, 0.691667, 0.50],
+              "demoRegion": [0.198611, 0.30, 0.478472, 0.346],
+              "retainedFocalPoints": ["continuous live component specimen column", "adjacent continuous implementation-code column"],
+              "readingOrderRetention": ["purpose and import precede the matrix", "each compact specimen row reads preview then code", "type, size, state and icon families remain visible in sequence", "API reference and theme reference continue below the matrix"],
+              "cropAuthorization": "not-required-no-crop-translation"
+            },
+            "layers": [
+              { "id": "purpose-and-import", "role": "component-context-and-setup", "sourceRegion": [0.161111, 0.013378, 0.691667, 0.10], "demoRegion": [0.198611, 0.09, 0.478472, 0.20] },
+              { "id": "preview-code-modules", "role": "multiple-live-preview-and-code-examples", "sourceRegion": [0.161111, 0.113378, 0.691667, 0.50], "demoRegion": [0.198611, 0.30, 0.478472, 0.46] },
+              { "id": "api-reference", "role": "downstream-component-api-reference", "sourceRegion": [0.161111, 0.613378, 0.691667, 0.19], "demoRegion": [0.198611, 0.76, 0.478472, 0.15] },
+              { "id": "theme-reference", "role": "downstream-theme-variable-reference", "sourceRegion": [0.161111, 0.803378, 0.691667, 0.18], "demoRegion": [0.198611, 0.91, 0.478472, 0.08] }
+            ]
+          },
+          "selfCheck": "pass"
+        },
+        {
+          "id": "button-compact-primary-action",
+          "salience": "high",
+          "approvedPatternId": "compact-primary-action",
+          "preserves": ["accent-semantics", "button-state-system"],
+          "demoRegion": [0.272222, 0.447778, 0.054167, 0.035556],
+          "implementationLocation": "src/App.vue#dangoPrimaryButton + src/styles.css#.dango-docs__primary",
+          "evidenceRefs": [
+            { "evidenceId": "dango-primary-button", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] },
+            { "evidenceId": "dango-primary-button-hover-no-change", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] },
+            { "evidenceId": "dango-primary-button-focus", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] },
+            { "evidenceId": "dango-primary-button-activated", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] }
+          ],
+          "colorRole": { "value": "rgb(124, 102, 255)", "role": "normal Primary Button fill only" },
+          "interactionSelfCheck": {
+            "default": "pass",
+            "hoverStable": "pass",
+            "focusVisible": "pass",
+            "activatedFocusRetained": "pass",
+            "restored": "pass"
+          },
+          "interactionEvidence": [
+            { "state": "default", "path": "migrations/dango/captures/demo/demo-2/dango-button-primary-default.png", "sha256": "9993f2d1d9c9239bc51142e7ea0e4164ddb2f3b4b2c100349dfcad98c7b345cf" },
+            { "state": "hover", "path": "migrations/dango/captures/demo/demo-2/dango-button-primary-hover.png", "sha256": "9993f2d1d9c9239bc51142e7ea0e4164ddb2f3b4b2c100349dfcad98c7b345cf" },
+            { "state": "focus", "path": "migrations/dango/captures/demo/demo-2/dango-button-primary-focus.png", "sha256": "b5579017288988b3021a40cba6afd343d65684c406ae5e9df0d1e09cb367ee74" },
+            { "state": "activated", "path": "migrations/dango/captures/demo/demo-2/dango-button-primary-activated.png", "sha256": "b5579017288988b3021a40cba6afd343d65684c406ae5e9df0d1e09cb367ee74" },
+            { "state": "restored", "path": "migrations/dango/captures/demo/demo-2/dango-button-primary-restored.png", "sha256": "9993f2d1d9c9239bc51142e7ea0e4164ddb2f3b4b2c100349dfcad98c7b345cf" }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-primary-button-live-dom", "variant": "normal-primary" },
+            "demoAsset": { "identity": "dango-primary-button-live-dom", "variant": "normal-primary" },
+            "layers": [
+              { "id": "solid purple control surface", "role": "primary action fill", "sourceRegion": [0.008333, 0.058889, 0.053581, 0.035556], "demoRegion": [0.272222, 0.447778, 0.054167, 0.035556] },
+              { "id": "white label", "role": "control label", "sourceRegion": [0.015, 0.068, 0.04, 0.018], "demoRegion": [0.282, 0.456, 0.035, 0.018] },
+              { "id": "compact 32px geometry", "role": "component density", "sourceRegion": [0.008333, 0.058889, 0.053581, 0.035556], "demoRegion": [0.272222, 0.447778, 0.054167, 0.035556] },
+              { "id": "visible focus outline", "role": "keyboard focus", "sourceRegion": [0.008, 0.058, 0.055, 0.037], "demoRegion": [0.2715, 0.447, 0.0555, 0.037] }
+            ]
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "demoPageId": "dango-release-checklist-held-out",
+      "sourcePageId": null,
+      "proofRole": "generative-held-out",
+      "screenshot": {
+        "path": "migrations/dango/captures/demo/demo-2/dango-release-checklist-held-out-proof-desktop.png",
+        "sha256": "e74f24f1e47140cfc5f40326ae87592369ceb224f44b64f060195cc51dd4b4ae",
+        "viewport": { "width": 1440, "height": 900 }
+      },
+      "patterns": [
+        {
+          "id": "held-out-responsive-documentation-shell",
+          "salience": "high",
+          "approvedPatternId": "responsive-documentation-shell",
+          "preserves": ["docs-shell"],
+          "demoRegion": [0, 0, 1, 1],
+          "implementationLocation": "public/brand-previews/dango.json#dango-release-checklist-held-out",
+          "evidenceRefs": [
+            { "evidenceId": "dango-docs-shell-mobile-reflow", "sourcePageId": "introduction", "sourceRegion": [0, 0, 1, 1] }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-docs-shell-dom-css", "variant": "desktop-three-column-and-mobile-single-column" },
+            "demoAsset": { "identity": "dango-release-docs-shell-dom-css", "variant": "held-out-release-checklist" },
+            "layers": [
+              { "id": "full-width utility header", "role": "global utilities", "sourceRegion": [0, 0, 1, 0.062222], "demoRegion": [0, 0, 1, 0.062222] },
+              { "id": "central reading column", "role": "primary held-out article", "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778], "demoRegion": [0.138889, 0.062222, 0.736111, 0.82] },
+              { "id": "mobile utility header", "role": "phone global utilities", "sourceRegion": [0, 0, 1, 0.066351], "demoRegion": [0, 0, 1, 0.066351] },
+              { "id": "mobile inset reading column", "role": "phone primary article and reading order", "sourceRegion": [0.041026, 0.066351, 0.917949, 0.899], "demoRegion": [0.041026, 0.066351, 0.917949, 0.899] }
+            ]
+          },
+          "selfCheck": "pass"
+        },
+        {
+          "id": "held-out-technical-content-hierarchy",
+          "salience": "high",
+          "approvedPatternId": "technical-content-hierarchy",
+          "preserves": ["content-hierarchy"],
+          "demoRegion": [0, 0.062222, 1, 0.84],
+          "implementationLocation": "public/brand-previews/dango.json#dango-release-shell",
+          "evidenceRefs": [
+            { "evidenceId": "dango-docs-type-hierarchy", "sourcePageId": "introduction", "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786] }
+          ],
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-introduction-technical-hierarchy", "variant": "dom-text-and-diagram-surface" },
+            "demoAsset": { "identity": "dango-release-technical-hierarchy", "variant": "held-out-checklist-model" },
+            "layers": [
+              { "id": "page-title", "role": "36px-document-title", "sourceRegion": [0.161111, 0.088889, 0.691667, 0.066875], "demoRegion": [0.198611, 0.08, 0.478472, 0.055] },
+              { "id": "restrained-support-surface", "role": "technical checklist model", "sourceRegion": [0.161111, 0.22, 0.691667, 0.396667], "demoRegion": [0.198611, 0.34, 0.478472, 0.24] },
+              { "id": "continuation-section", "role": "held-out action guidance", "sourceRegion": [0.161111, 0.796667, 0.691667, 0.18], "demoRegion": [0.198611, 0.63, 0.478472, 0.25] }
+            ]
+          },
+          "selfCheck": "pass"
+        },
+        {
+          "id": "held-out-primary-action",
+          "salience": "high",
+          "approvedPatternId": "compact-primary-action",
+          "preserves": ["accent-semantics", "button-state-system"],
+          "demoRegion": [0.041026, 0.9, 0.246154, 0.037915],
+          "implementationLocation": "public/brand-previews/dango.json#dango-release-actions",
+          "evidenceRefs": [
+            { "evidenceId": "dango-primary-button", "sourcePageId": "button", "sourceRegion": [0, 0, 1, 1] }
+          ],
+          "colorRole": { "value": "rgb(124, 102, 255)", "role": "normal Primary Button fill only" },
+          "compositionSupport": {
+            "sourceAsset": { "identity": "dango-primary-button-live-dom", "variant": "normal-primary" },
+            "demoAsset": { "identity": "dango-primary-button-live-dom", "variant": "held-out-run-check" },
+            "layers": [
+              { "id": "solid purple control surface", "role": "primary action fill", "sourceRegion": [0.008333, 0.058889, 0.053581, 0.035556], "demoRegion": [0.041026, 0.9, 0.246154, 0.037915] },
+              { "id": "white label", "role": "control label", "sourceRegion": [0.015, 0.068, 0.04, 0.018], "demoRegion": [0.065, 0.908, 0.14, 0.018] }
+            ]
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    }
+  ],
+  "selfCheck": {
+    "unsupportedHighSaliencePatterns": [],
+    "unapprovedColorRoleExpansions": [],
+    "sourceScreenshotRuntimeAssets": [],
+    "result": "pass"
+  }
+}

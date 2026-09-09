@@ -1,0 +1,14 @@
+{
+  "schema": "blind-qa-capture-manifest/v1",
+  "captures": [
+    {"path": "../captures/home-normal-1440x900.png", "viewport": [1440,900], "state": "normal Home initial", "sha256": "d21c477994f75dc36a2ec2b58682873390a878c190ff40433b9c01ea96b73345"},
+    {"path": "../captures/home-normal-scrolled-1440x900.png", "viewport": [1440,900], "state": "normal Home internal scroll", "sha256": "6fe3dcd190a0d2c74ddf300bc2fdb7e65c9e61e6be488dfd04bcc640b15df26f"},
+    {"path": "../captures/championship-desktop-1440x900.png", "viewport": [1440,900], "state": "desktop proof target and missing successor", "sha256": "0384f87e2400578bf6abcede4fd93e9241df579015b0bb7a7198489596134fa0"},
+    {"path": "../captures/championship-mobile-top-390x844.png", "viewport": [390,844], "state": "mobile proof image-first target", "sha256": "eb8695d0c92530ba475dd558b2c31a4f9b711ce73b5a09de07bf4ac45471a566d"},
+    {"path": "../captures/championship-mobile-cta-hover-390x844.png", "viewport": [390,844], "state": "official CTA settled hover", "sha256": "b94c3dcdb45531530aa6358907cabc3f1866e86f59e44bbc5228defbc2ff3a69a"},
+    {"path": "../captures/championship-mobile-cta-focus-390x844.png", "viewport": [390,844], "state": "official CTA keyboard focus", "sha256": "49d43f14e3c9ad6e06558ff83f8e225aadce5d4b86be62c877eca88ddd933545"},
+    {"path": "../captures/held-out-desktop-1440x900.png", "viewport": [1440,900], "state": "fictional held-out desktop", "sha256": "8236f6c5c142f535285d558b2c31a4f9b711ce73b5a09de07bf4ac45471a566d"},
+    {"path": "../captures/held-out-mobile-390x844.png", "viewport": [390,844], "state": "fictional held-out mobile", "sha256": "f1775d7b0e6a890dcb2043a5d04c23130256607504c7cbdcadaf0b3b89781269"}
+  ],
+  "overlayExclusion": "A small Chrome extension overlay may appear in mobile screenshots. It is absent from the page DOM and excluded from geometry/fidelity judgments."
+}

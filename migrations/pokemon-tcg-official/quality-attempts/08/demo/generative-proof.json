@@ -1,0 +1,12 @@
+{
+  "schema": "brand-generative-proof/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 8,
+  "scope": "home-news-grid",
+  "invariants": ["full-width white editorial field", "image-headline-CTA reading order", "578:325 uncropped media", "breakpoint-specific density", "directional translate-fade-scale transition"],
+  "intentionalChanges": ["six different source-backed story assets", "fluid English headlines", "three desktop pages regrouped as six mobile pages"],
+  "allowedBecause": "PAT-WN-03 and PAT-WN-04 explicitly permit story identity changes and breakpoint regrouping while preserving the learned composition.",
+  "captures": ["captures/demo-whats-new-desktop-1440x900-before.png", "captures/demo-whats-new-desktop-1440x900-settled.png", "captures/demo-whats-new-mobile-390x844-before.png", "captures/demo-whats-new-mobile-390x844-settled.png"],
+  "usesSourceScreenshotAtRuntime": false,
+  "visualVerdict": "reserved-for-blind-qa"
+}

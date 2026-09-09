@@ -1,0 +1,391 @@
+{
+  "schema": "brand-visual-qa-assessment/v3",
+  "brand": "onepiece-cardgame",
+  "goalId": "onepiece-cardgame-learn-v3",
+  "goalSha256": "03c2fb9ab05ea49dd881f6892a008e1e6ec8642a609fc7faf559e323b17703da",
+  "attempt": 7,
+  "qaExecutionId": "blind-qa-onepiece-cardgame-v3-20260901-001",
+  "capturedAt": "2026-09-01T03:00:13.251Z",
+  "overallRecommendation": "rework",
+  "verdicts": {
+    "evidenceFidelity": {
+      "status": "fail",
+      "finding": "High-salience CTA behavior is not traceable to the frozen source evidence on Home, and the held-out Events page does not faithfully reuse the required image-pill-hover recipe."
+    },
+    "structuralFidelity": {
+      "status": "fail",
+      "finding": "Shell, sections and reversible scrolling are now real on all four pages, but the Home welcome interaction semantics and graphic treatment still diverge from the evidence-backed source pattern."
+    },
+    "generativeProof": {
+      "status": "fail",
+      "finding": "The held-out Events page keeps black-white taxonomy controls and editorial rhythm, but it fails to prove reuse of the required image-pill-hover-feedback recipe."
+    }
+  },
+  "pages": [
+    {
+      "pageId": "onepiece-cardgame-home",
+      "sourcePageId": "home",
+      "shell": {
+        "status": "pass",
+        "hasPhone": true,
+        "hasPhoneScreen": true,
+        "overflowY": "auto"
+      },
+      "sections": {
+        "status": "pass",
+        "count": 3,
+        "types": [
+          "brand-hero",
+          "home-welcome",
+          "home-editorial-list"
+        ]
+      },
+      "scroll": {
+        "status": "pass",
+        "clientHeight": 662,
+        "scrollHeight": 1089,
+        "before": 0,
+        "after": 299,
+        "delta": 299,
+        "restoredTop": 0,
+        "restored": true,
+        "anchorEvidence": {
+          "welcomeTopBefore": 415.234375,
+          "welcomeTopAfter": -11.765625,
+          "newsTopBefore": 745.234375,
+          "newsTopAfter": 318.234375
+        }
+      },
+      "checks": [
+        {
+          "id": "home-navigation-default-state",
+          "status": "pass",
+          "finding": "All seven expected hero navigation labels are present and render white on transparent backgrounds in the default state; no yellow pseudo-active nav item was observed.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-top.png"
+          ]
+        },
+        {
+          "id": "home-welcome-cta-default-hover",
+          "status": "fail",
+          "finding": "The welcome CTA is a plain black pill button with no image background and no evidence-backed hover glow or scale on Home. Source evidence requires an image-faced 280px pill with hover scale 1.03 and warm #352115 shadow.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-welcome-default-precise.png",
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-welcome-hover-precise.png",
+            "migrations/onepiece-cardgame/brand-evidence.json",
+            "migrations/onepiece-cardgame/action-evidence-v02.json",
+            "migrations/onepiece-cardgame/brand-intent.json"
+          ],
+          "observedComputed": {
+            "default": {
+              "backgroundColor": "rgb(8, 8, 8)",
+              "backgroundImage": "none",
+              "borderRadius": "999px",
+              "color": "rgb(255, 255, 255)",
+              "transform": "none",
+              "boxShadow": "none",
+              "afterOpacity": "0",
+              "afterFilter": "blur(0px)",
+              "afterBackgroundColor": "rgb(53, 33, 21)"
+            },
+            "hover": {
+              "backgroundColor": "rgb(8, 8, 8)",
+              "backgroundImage": "none",
+              "borderRadius": "999px",
+              "color": "rgb(255, 255, 255)",
+              "transform": "none",
+              "boxShadow": "none",
+              "afterOpacity": "0",
+              "afterFilter": "blur(0px)",
+              "afterBackgroundColor": "rgb(53, 33, 21)"
+            }
+          }
+        }
+      ],
+      "screenshots": {
+        "top": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-top.png",
+          "sha256": "8985d5d52bee8a2a80caac912a284903479a35bdc56a28166c23406f5255c02e"
+        },
+        "scroll": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-scroll.png",
+          "sha256": "46869d1a5f1fbabda4d5742253d5d2cb61796a51e1f6411d12759a189ed7ad6f"
+        }
+      }
+    },
+    {
+      "pageId": "onepiece-cardgame-news",
+      "sourcePageId": "home-news-module",
+      "shell": {
+        "status": "pass",
+        "hasPhone": true,
+        "hasPhoneScreen": true,
+        "overflowY": "auto"
+      },
+      "sections": {
+        "status": "pass",
+        "count": 4,
+        "types": [
+          "filter-tabs",
+          "featured-card-strip",
+          "home-editorial-list",
+          "center-cta"
+        ]
+      },
+      "scroll": {
+        "status": "pass",
+        "clientHeight": 662,
+        "scrollHeight": 844,
+        "before": 0,
+        "after": 127,
+        "delta": 127,
+        "restoredTop": 0,
+        "restored": true
+      },
+      "checks": [
+        {
+          "id": "news-real-list-density",
+          "status": "pass",
+          "finding": "The News page contains a real three-item list with thumbnails, labels and dates. The scrolled state still shows list content plus the Read more CTA rather than empty filler used only to force scroll metrics.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-news-blind-v3-top.png",
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-news-blind-v3-scroll.png"
+          ]
+        }
+      ],
+      "screenshots": {
+        "top": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-news-blind-v3-top.png",
+          "sha256": "ef7474d8bec9f9c8b3ca16bdceba2a260228a130c95b0026b6aadd8a12a3eda9"
+        },
+        "scroll": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-news-blind-v3-scroll.png",
+          "sha256": "e4f8ae171c03f5aee475332033dcca7d014f6b172575205aa6588e738ca3487b"
+        }
+      }
+    },
+    {
+      "pageId": "onepiece-cardgame-products",
+      "sourcePageId": "products",
+      "shell": {
+        "status": "pass",
+        "hasPhone": true,
+        "hasPhoneScreen": true,
+        "overflowY": "auto"
+      },
+      "sections": {
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "product-gallery",
+          "filter-tabs"
+        ]
+      },
+      "scroll": {
+        "status": "pass",
+        "clientHeight": 662,
+        "scrollHeight": 1095,
+        "before": 0,
+        "after": 303,
+        "delta": 303,
+        "restoredTop": 0,
+        "restored": true
+      },
+      "checks": [
+        {
+          "id": "products-heading-and-filters",
+          "status": "pass",
+          "finding": "Products keeps a transparent title field with hard black heading text and uses zero-radius black-white rectangular filters. No yellow active chrome was observed.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-top.png",
+            "migrations/onepiece-cardgame/brand-evidence.json",
+            "migrations/onepiece-cardgame/brand-intent.json"
+          ],
+          "observedFilters": [
+            {
+              "label": "ALL",
+              "backgroundColor": "rgb(17, 17, 17)",
+              "color": "rgb(255, 255, 255)",
+              "borderRadius": "0px"
+            },
+            {
+              "label": "BOOSTERS",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(17, 17, 17)",
+              "borderRadius": "0px"
+            },
+            {
+              "label": "DECKS",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(17, 17, 17)",
+              "borderRadius": "0px"
+            },
+            {
+              "label": "OTHER",
+              "backgroundColor": "rgb(255, 255, 255)",
+              "color": "rgb(17, 17, 17)",
+              "borderRadius": "0px"
+            }
+          ]
+        },
+        {
+          "id": "products-density-and-pagination",
+          "status": "pass",
+          "finding": "The top and scrolled captures together expose all eight products and a visible pagination row inside the same phone shell.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-top.png",
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-scroll.png"
+          ]
+        }
+      ],
+      "screenshots": {
+        "top": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-top.png",
+          "sha256": "62e50f704fbafa496c5573ef18d4df06c8b7f48e45954dfca310fa87feb41fd8"
+        },
+        "scroll": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-products-blind-v3-scroll.png",
+          "sha256": "d4a0542ca9c6ccbee956e604876f3cdef724b22597c538a602f7d24183d8ae31"
+        }
+      }
+    },
+    {
+      "pageId": "onepiece-cardgame-events",
+      "sourcePageId": null,
+      "proofRole": "generative-held-out",
+      "shell": {
+        "status": "pass",
+        "hasPhone": true,
+        "hasPhoneScreen": true,
+        "overflowY": "auto"
+      },
+      "sections": {
+        "status": "pass",
+        "count": 2,
+        "types": [
+          "filter-tabs",
+          "event-editorial-board"
+        ]
+      },
+      "scroll": {
+        "status": "pass",
+        "clientHeight": 662,
+        "scrollHeight": 704,
+        "before": 0,
+        "after": 29,
+        "delta": 29,
+        "restoredTop": 0,
+        "restored": true
+      },
+      "checks": [
+        {
+          "id": "events-black-white-taxonomy",
+          "status": "pass",
+          "finding": "The held-out Events tabs use black-white rectangular taxonomy controls rather than unsupported yellow active states.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-top.png",
+            "migrations/onepiece-cardgame/brand-intent.json"
+          ]
+        },
+        {
+          "id": "events-unsupported-red-emphasis",
+          "status": "pass",
+          "finding": "No unsupported red emphasis was observed on the held-out Events page.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-top.png"
+          ]
+        },
+        {
+          "id": "events-required-image-pill-reuse",
+          "status": "fail",
+          "finding": "The held-out CTA is a plain black pill with no image face and no warm-shadow hover. Hover adds scale only, so the required image-pill-hover-feedback recipe is not faithfully reused.",
+          "evidencePaths": [
+            "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-top-precise.png",
+            "migrations/onepiece-cardgame/goal-contract.json",
+            "migrations/onepiece-cardgame/brand-intent.json",
+            "migrations/onepiece-cardgame/action-evidence-v02.json"
+          ],
+          "observedComputed": {
+            "default": {
+              "backgroundColor": "rgb(8, 8, 8)",
+              "backgroundImage": "none",
+              "borderRadius": "999px",
+              "color": "rgb(255, 255, 255)",
+              "transform": "none",
+              "boxShadow": "none",
+              "afterOpacity": "1",
+              "afterFilter": "none",
+              "afterBackgroundColor": "rgba(0, 0, 0, 0)"
+            },
+            "hover": {
+              "backgroundColor": "rgb(8, 8, 8)",
+              "backgroundImage": "none",
+              "borderRadius": "999px",
+              "color": "rgb(255, 255, 255)",
+              "transform": "matrix(1.03, 0, 0, 1.03, 0, 0)",
+              "boxShadow": "none",
+              "afterOpacity": "1",
+              "afterFilter": "none",
+              "afterBackgroundColor": "rgba(0, 0, 0, 0)"
+            }
+          }
+        }
+      ],
+      "screenshots": {
+        "top": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-top.png",
+          "sha256": "1f2619d6baf692d34b46525b995e036b8271036a4327ef78253557066a9ccc20"
+        },
+        "scroll": {
+          "path": "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-scroll.png",
+          "sha256": "b1a4be94fafae182c8d945849e101766d395d408014b6baa5c23ade7d51c6c62"
+        }
+      }
+    }
+  ],
+  "blockingFindings": [
+    {
+      "code": "WELCOME_CTA_RECIPE_MISMATCH",
+      "pageId": "onepiece-cardgame-home",
+      "severity": "blocking",
+      "finding": "Home fails a high-salience evidence-backed interaction rule: the source requires an image-faced welcome pill with hover scale and warm shadow, but the demo renders a generic black pill with no image background, no scale and no glow.",
+      "earliestFailureNode": "demoImplementationAgent",
+      "failureOwnerRole": "demoImplementationAgent",
+      "evidencePaths": [
+        "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-welcome-default-precise.png",
+        "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-home-blind-v3-welcome-hover-precise.png",
+        "migrations/onepiece-cardgame/brand-evidence.json",
+        "migrations/onepiece-cardgame/action-evidence-v02.json",
+        "migrations/onepiece-cardgame/brand-intent.json"
+      ]
+    },
+    {
+      "code": "GENERATIVE_REQUIRED_RECIPE_NOT_REUSED",
+      "pageId": "onepiece-cardgame-events",
+      "severity": "blocking",
+      "finding": "The held-out Events page does not satisfy the frozen generative challenge because the required image-pill-hover-feedback recipe is only partially reused: the CTA scales on hover but lacks the image face and warm-shadow feedback defined by source evidence.",
+      "earliestFailureNode": "demoImplementationAgent",
+      "failureOwnerRole": "demoImplementationAgent",
+      "evidencePaths": [
+        "output/visual-qa/onepiece-cardgame/attempt-7-blind-v3/qa-events-blind-v3-top-precise.png",
+        "migrations/onepiece-cardgame/goal-contract.json",
+        "migrations/onepiece-cardgame/brand-intent.json",
+        "migrations/onepiece-cardgame/action-evidence-v02.json"
+      ]
+    }
+  ],
+  "nonBlockingObservations": [
+    {
+      "finding": "Home default navigation is complete and remains white by default; no generic yellow active state leaked into the hero nav."
+    },
+    {
+      "finding": "Products now satisfies shell, section count, reversible scroll, transparent hard-black heading, and black-white rectangular filter requirements."
+    },
+    {
+      "finding": "News contains a real list and remains contentful after scrolling; it is not an empty page padded only to satisfy scroll metrics."
+    },
+    {
+      "finding": "Events shows no unsupported red emphasis in the fresh v3 capture."
+    }
+  ]
+}

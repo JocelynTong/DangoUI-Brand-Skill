@@ -1,0 +1,39 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-revision6",
+  "assessmentScope": "Fresh independent validation of the revision6 mockup/proof-surface incident closure only.",
+  "inputBoundary": {
+    "manifest": "../demo-revision6/qa-input-manifest.json",
+    "manifestSha256": "cff4c770a5882686edea9f1dbc17e5c346ca2f3d46c6619f5556d877474f8c7e",
+    "priorVerdictsRead": false,
+    "implementationCodeModified": false
+  },
+  "protocolAssessment": {
+    "status": "PASS",
+    "facts": [
+      "Normal user-facing routes were tested separately from explicit proof queries.",
+      "Computed border/radius/shadow, visible captures, clipped screen geometry and reversible scroll were all verified; DOM class presence alone was not accepted.",
+      "Mobile and desktop proof canvases were measured against their true browser viewport and full-bleed section bounds.",
+      "Hero, News, TCG Live, Pocket, CTA and held-out controls were personally operated and restored."
+    ]
+  },
+  "threeProofAssessment": {
+    "evidenceFidelity": {
+      "status": "PASS",
+      "basis": "The source Pocket section still renders the approved 720x464 background asset, 500x306 logo-cards composite, Kanit/PT Sans roles, white CTA, black-to-gold hover and external Pocket href. No image failed to load and no console warning/error appeared."
+    },
+    "structuralFidelity": {
+      "status": "PASS",
+      "basis": "Normal Home, Pocket Fixture and existing held-out each retain a visible rounded phone chassis plus independently scrollable clipped screen. Explicit mobile proof is exactly 390x844 with section x=0,width=390 and asset-first/copy-second geometry. Explicit desktop proof is x=0,width=1440 with a full-width background and a 720x356.5 inset black child. Removing the proof query restores the chassis."
+    },
+    "generativeProof": {
+      "status": "PASS",
+      "basis": "The labelled fictional Pocket Deck Studio fixture preserves the bounded black copy child, full-section campaign field, Kanit/PT Sans hierarchy and localized CTA while changing the message, asset construction and desktop child order. Its CTA changes/restores local state, and the separate Deck Lab held-out accordion also changes/restores without shell loss."
+    }
+  },
+  "findings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "verdict": "PASS"
+}

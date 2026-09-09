@@ -1,0 +1,66 @@
+{
+  "schema": "brand-host-detail-target-and-pairing-repair-proof/v1",
+  "attempt": 15,
+  "scope": "held-out pages/detail/index scoped visual CSS only",
+  "qaVerdict": null,
+  "changes": [
+    {
+      "selector": ".theme-onepiece-cardgame-heldout .detail .buybtn",
+      "change": "Set the real interactive owner to min-height: 44px; no child-only hit-area workaround."
+    },
+    {
+      "selector": "@media (min-width: 481px) .theme-onepiece-cardgame-heldout .detail .dhead",
+      "change": "Use a content-paired flex identity row so cover and title remain 18px apart at desktop instead of spanning independent grid columns."
+    }
+  ],
+  "sourceIntegrity": {
+    "vueSfcChanged": false,
+    "businessDataChanged": false,
+    "eventsChanged": false,
+    "routesChanged": false,
+    "apiOrStoreChanged": false,
+    "styleSha256": "b2cc341c165aa59015ca76ecb7aa126823b56192899ef1e5626b94c317c90725"
+  },
+  "browserEvidence": {
+    "artifact": "browser-probes.json",
+    "readOnly": true,
+    "viewports": {
+      "390x844": {
+        "buyOwner": { "width": 59.171875, "height": 45.75, "centerHitOwner": true, "role": "button", "tabindex": 0 },
+        "identityGap": 18.71875,
+        "documentOverflowX": 0,
+        "writes": 0
+      },
+      "536x864": {
+        "buyOwner": { "width": 80.5625, "height": 44, "centerHitOwner": true, "role": "button", "tabindex": 0 },
+        "identityGap": 18,
+        "documentOverflowX": 0,
+        "writes": 0
+      },
+      "1280x720": {
+        "buyOwner": { "width": 114, "height": 49.59375, "centerHitOwner": true, "role": "button", "tabindex": 0 },
+        "identityGap": 18,
+        "documentOverflowX": 0,
+        "writes": 0
+      }
+    },
+    "interactionParity": "Pointer target and existing role/tabindex remain on the unchanged buybtn SFC owner; existing Enter/Space delegation is preserved by the structural-diff PASS.",
+    "persistentActions": "Visible and contained at all three viewports."
+  },
+  "regression": {
+    "otherRouteOverflowX": { "plaza": 0, "build": 0, "mine": 0, "event": 0, "round": 0 },
+    "unchangedRouteScreenshotHashes": {
+      "build": "aacf2ad9aeb5e0a9c1581c48d4538cf30ffde8b7e0f1a6b422a70688a5cdb51f",
+      "mine": "60ee874a6652c7c6ba0361a9971625b10fb215bbd9c0699aac71c39b7de60938",
+      "event": "7d28e8a474fadbbbf17588d680fee90d491377dd7a763c4437c472da879f911a",
+      "round": "494409176e1ab0eebb731071d2bf526a80a0c20ec51909d4aa4d14fdddf269ca"
+    },
+    "plazaNote": "Plaza remained unedited and overflow-free; its campaign surface contains time-varying content, so this run records its fresh capture rather than asserting byte-identical screenshot output."
+  },
+  "gates": {
+    "productionBuild": "PASS (662 modules)",
+    "hostStructuralDiffDetail": "PASS",
+    "hostThemeOrder": "PASS",
+    "preview": "PASS: TCP *:10092 is listening"
+  }
+}

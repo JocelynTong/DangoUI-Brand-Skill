@@ -1,0 +1,51 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "08-revision2-blind-qa",
+  "scope": "homepage/whats-new-only",
+  "verdict": "PASS",
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "threeProofs": {
+    "evidenceFidelity": {
+      "verdict": "PASS",
+      "basis": [
+        "The exact source and Demo captures preserve the full-width white field, breakpoint-specific title/link hierarchy, six official 578:325 media assets, black CTA role, carousel controls and the source-evidenced red seam.",
+        "Computed runtime values independently observed on the Demo match the approved evidence: Kanit 700 italic at 32px mobile, PT Sans 800 italic at 18px More, PT Sans 700 italic at 18px mobile CTA, 390px full bleed and a 390x24 red seam.",
+        "Unresolved source facts remain outside the claim: translated source line wrapping, exact entry-on-scroll trajectory and exact CTA hover-layer geometry."
+      ]
+    },
+    "structuralFidelity": {
+      "verdict": "PASS",
+      "basis": [
+        "Exact 1440x900 capture shows two equal stories and three pages; exact 390x844 capture and live runtime show one edge-to-edge story and six pages.",
+        "All six official images report intrinsic 578x325, render at 390x219.289 with object-fit contain, and keep the image-headline-CTA reading order.",
+        "Live next/previous/direct-dot/Enter interactions preserve the aligned scrollTop and visibly change story identity; the directional swap contains real outgoing translate/fade and incoming fade/scale layers.",
+        "Hero remains 416px and the 390px proof surface has no horizontal overflow."
+      ]
+    },
+    "generativeProof": {
+      "verdict": "PASS",
+      "basis": [
+        "The held-out Deck Lab fixture is visually obvious, independently illustrated and explicitly labeled GENERATIVE PROOF · NON-OFFICIAL FIXTURE.",
+        "It sits outside the official gallery viewport, does not alter the official six-story/three-desktop-page/six-mobile-page model, and preserves the learned image-headline-black-CTA editorial recipe."
+      ]
+    }
+  },
+  "blockingFindings": [],
+  "nonBlockingNotes": [
+    {
+      "code": "FOLLOWING_CONTENT_OUT_OF_SCOPE",
+      "note": "Only the 24px red seam is claimed as source-evidenced continuation. The later pale-blue Demo modules remain outside Attempt 08 fidelity scope and were not counted as restored source sections."
+    },
+    {
+      "code": "DESKTOP_RUNTIME_SOURCE",
+      "note": "Desktop geometry was judged from the allowed exact 1440x900 Revision 2 capture/probe pair and compared visually with the exact 1440x900 source capture. Live interaction was independently exercised on the 390x844 proof surface; the connected external browser's desktop inspector surface embeds the Demo in a 390px phone and was excluded from desktop fidelity evidence."
+    }
+  ],
+  "machineGate": {
+    "command": "node skills/brand/scripts/validate-section-fidelity.mjs --brand pokemon-tcg-official --file migrations/pokemon-tcg-official/quality-attempts/08/revision2/section-fidelity-manifest.json --strict",
+    "result": "PASS",
+    "failures": []
+  }
+}

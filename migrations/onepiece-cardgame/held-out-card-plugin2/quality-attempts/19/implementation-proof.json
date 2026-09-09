@@ -1,0 +1,60 @@
+{
+  "schema": "brand-host-mine-responsive-legibility-repair-proof/v1",
+  "attempt": 19,
+  "route": "pages/mine/index",
+  "scope": "Mine held-out responsive CSS only",
+  "qaVerdict": null,
+  "repairs": [
+    {
+      "id": "MINE_INTERMEDIATE_CARD_CONTENT_CLIPPED",
+      "change": "Keep the inventory single-column from 481px through 899px; enable two columns only at 900px where each card has sufficient content width.",
+      "before536CardWidth": 247,
+      "after536CardWidth": 504
+    },
+    {
+      "id": "MINE_DESKTOP_AUTHOR_OVERTRUNCATED",
+      "change": "Use physical desktop/intermediate type sizing and a deliberate identity-versus-metrics grid for line three, preserving full author and statistics text.",
+      "after1280CardWidth": 455
+    }
+  ],
+  "textMeasurement": {
+    "artifact": "browser-probes.json",
+    "viewports": ["390x844","536x864","1280x720"],
+    "branches": ["favorite","draft","published","hidden"],
+    "measuredFamilies": ["title","all lineup tags","author","favorite stat","view stat"],
+    "rule": "scrollWidth <= clientWidth + 1",
+    "clippedTitles": 0,
+    "clippedTags": 0,
+    "clippedAuthors": 0,
+    "clippedStats": 0,
+    "note": "No hidden-overflow result is counted as success unless its measured text content fits its client box."
+  },
+  "interactionAndLayout": {
+    "fourTabs": "Enter/Space selection retained with aria-selected=true",
+    "minimumOwner390": "90.77x49.91 minimum axes",
+    "minimumOwner536": "125.5x48 minimum axes",
+    "minimumOwner1280": "229x48 minimum axes",
+    "undersizedOwners": 0,
+    "pageOverflowX": 0,
+    "externalNetworkWrites": 0,
+    "reducedMotion": true
+  },
+  "sourceIntegrity": {
+    "vueSfcChanged": false,
+    "businessDataConditionsLoopsChanged": false,
+    "actionsRoutesApiStoreChanged": false,
+    "otherRoutesStyled": false,
+    "styleSha256": "51cd4ab318f6a2a5a0c530fe69ca872b951bdc775bb81a844de15324f32d5b7f"
+  },
+  "regression": {
+    "otherRouteOverflowX": {"plaza":0,"build":0,"detail":0,"event":0,"round":0},
+    "freshCaptureHashesRecordedIn": "browser-probes.json"
+  },
+  "gates": {
+    "productionBuild": "PASS: 662 modules",
+    "hostStructuralDiffMine": "PASS",
+    "hostThemeOrder": "PASS",
+    "importantForbidden": "PASS",
+    "preview10092": "PASS"
+  }
+}

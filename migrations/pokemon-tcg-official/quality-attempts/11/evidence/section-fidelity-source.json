@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0",
+  "brand": "pokemon-tcg-official",
+  "attempt": 11,
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "sectionId": "homepage-pokemon-championship-series",
+  "status": "PASS",
+  "boundary": {
+    "startsAfter": "Pokémon TCG Pocket",
+    "identity": "POKÉMON CHAMPIONSHIP SERIES",
+    "endsBefore": "Play! Pokémon",
+    "selectionReason": "first complete high-salience rendered section after TCG Pocket",
+    "visualEvidence": ["captures/desktop/championship-series-settled-region-1440x720.png", "captures/mobile/championship-series-settled-region-390x829-scale50.png"],
+    "domEvidence": "rendered article.championships adjacency",
+    "computedEvidence": "desktop local [0,0,1440,720]; mobile local [0,0,390,829.1719]"
+  },
+  "viewports": [
+    {
+      "id": "desktop-1440",
+      "capture": "captures/desktop/championship-series-settled-region-1440x720.png",
+      "captureSha256": "a1b98012b7636347efd13090265522bdd9aa81141b3b9c55733b3d019f2c0908",
+      "sectionLocalRect": [0, 0, 1440, 720],
+      "dom": {"rowDisplay": "flex", "rowDirection": "row-reverse", "readingOrderVisual": ["left content", "right image"], "backgroundOwners": {"article": "transparent", "row": "transparent", "contentColumn": "transparent", "content": "transparent", "imageColumn": "transparent", "white": "page canvas"}},
+      "computed": {"contentColumn": [0, 0, 720, 720], "content": [12, 171.211, 696, 377.578], "imageColumn": [720, 0, 720, 720], "imageRendered": [720, 0, 720, 720]},
+      "layers": ["white page canvas", "transparent article/row/columns", "left centered copy stack", "right official square image", "black Learn more CTA"],
+      "readingOrder": ["POKÉMON CHAMPIONSHIP SERIES heading", "descriptive paragraph", "Learn more CTA", "official Championship image as right visual field"]
+    },
+    {
+      "id": "mobile-390",
+      "capture": "captures/mobile/championship-series-settled-region-390x829-scale50.png",
+      "captureSha256": "1edca70751438ce3124539406c562d02c4d7b75a61c651d585e4bbd78e02df8c",
+      "sectionLocalRect": [0, 0, 390, 829.1719],
+      "dom": {"rowDisplay": "block", "readingOrder": ["image", "heading", "paragraph", "Learn more CTA"], "backgroundOwners": {"article": "transparent", "row": "transparent", "content": "transparent", "white": "page canvas"}},
+      "computed": {"image": [0, 0, 390, 390], "content": [8, 390, 374, 439.172], "contentPadding": 24, "h2": [32, 414, 326, 97.5], "paragraph": [32, 519.5, 326, 201.578], "cta": [99.625, 737.078, 190.742, 51.297]},
+      "layers": ["white page canvas", "transparent section flow", "square official image", "centered copy and CTA"]
+    }
+  ],
+  "responsiveTranslation": {
+    "section": "1440x720 -> 390x829.1719",
+    "layout": "desktop row-reverse 50/50 split -> mobile block stack",
+    "order": "desktop content-left/image-right -> mobile image-first/content-second",
+    "image": "720x720 desktop and 390x390 mobile render the same official square composition; observed mobile currentSrc selected the 2x candidate even though src declares the 1x URL",
+    "content": "desktop 696x377.578 vertically centered inside 720 column -> mobile 374x439.172 immediately after image with 8px outer inset and 24px padding",
+    "background": "transparent nodes over white page canvas at both viewports",
+    "geometryRule": "all values section-local; absolute pageY is not an invariant"
+  },
+  "typography": {
+    "mobileH2": {"font": "Kanit", "weight": 700, "size": 32, "lineHeight": 32.5, "marginBottom": 8, "evidence": "source-observation-manifest.json#observations.mobile-typography"},
+    "mobileBody": {"font": "PT Sans", "weight": 400, "size": 18, "lineHeight": 28.8, "evidence": "source-observation-manifest.json#observations.mobile-typography"},
+    "mobileCta": {"font": "PT Sans", "weight": 700, "size": 18, "lineHeight": 22.5, "evidence": "source-observation-manifest.json#observations.mobile-typography"},
+    "desktopExactBoxes": {"status": "unresolved", "reason": "not independently frozen in the supplied DOM facts"}
+  },
+  "interactionStates": "interaction-state-matrix.json",
+  "mustPreserve": [
+    "section identity and Pocket/Play! Pokémon boundaries",
+    "transparent section nodes over white page canvas",
+    "desktop row-reverse 50/50 composition",
+    "mobile image-first vertical reflow",
+    "official square Championship Series image identity",
+    "Kanit heading and PT Sans body/control roles",
+    "single Learn more CTA and verified destination",
+    "reversible page scroll and all preceding homepage sections"
+  ],
+  "mustNotInvent": [
+    "opaque white column backgrounds",
+    "pseudo-element fills not observed in live DOM",
+    "motion timing inferred from frame order",
+    "interaction styling not present in the frozen default/hover/focus evidence",
+    "absolute pageY as fixed structure",
+    "source screenshots as implementation assets"
+  ],
+  "unresolved": ["exact desktop typography boxes (non-blocking)", "Dembrandt score (non-blocking)"],
+  "handoffBlockers": [],
+  "implementationGate": "open"
+}

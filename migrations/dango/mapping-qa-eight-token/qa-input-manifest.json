@@ -1,0 +1,35 @@
+{
+  "schema": "dango-mapping-qa-input-manifest/v1",
+  "brand": "dango",
+  "qaExecutionId": "/root/dango_eight_token_mapping_qa",
+  "independence": {
+    "oldMappingQaVerdictsRead": false,
+    "scope": "all eight target-bearing leaves in brand-profile.dtcg.json",
+    "runtimeMutation": false,
+    "dtcgMutation": false,
+    "adapterMutation": false,
+    "proofMutation": false,
+    "visualMutation": false
+  },
+  "inputs": [
+    {"path":"migrations/dango/brand-profile.dtcg.json","sha256":"29f3603c10cf5ba740fc5adba813f485100518b63947fd5734447f9e8e472b02"},
+    {"path":"migrations/dango/dangoui-adapter.json","sha256":"5f52623a9e53c41712ccb9bd8633cc59cc6adbc036abb437106a0131b0653106"},
+    {"path":"migrations/dango/component-mapping.json","sha256":"f5515026621b0a9b346eb34e590d2f1875032736b9ab78fdaeb3479a3620f5cd"},
+    {"path":"migrations/dango/mapping-runtime-proof.json","sha256":"e1fc73ec736a34e28017c80a89f3aa6d84df72bb39b511288ee7d2e748fd4cb6"},
+    {"path":"src/App.vue","sha256":"a2f0d9c36041515bef0597d348de0f0f996ff47ecc8994147f988c0294c1f4f5"},
+    {"path":"src/styles.css","sha256":"84da6dbb2456f95fd0cfc2365ea7c6bd7d7148b58cec82bd974b230455d58adc"},
+    {"path":"node_modules/dangoui/src/button/Button.vue","sha256":"621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"},
+    {"path":"node_modules/dangoui/src/button/style.scss","sha256":"8187ae882057c25accd65893218047825ca2f91e8606968abb65aec5caf12c30"}
+  ],
+  "runtime": {
+    "url": "http://127.0.0.1:5179",
+    "routes": [
+      "#/brand/dango/pages/dango-button-calibration",
+      "#/brand/dango/pages/dango-introduction-calibration",
+      "#/brand/dango/pages/dango-release-checklist-held-out"
+    ],
+    "freshProbeSha256": "7831ca227ebbfb5f6ab20c90108860afd7e0dad1ace4f13cbd57e67fa996b8d5",
+    "freshProbeStorage": "/private/tmp/dango-eight-token-runtime-probe.json",
+    "note": "The repository probe was executed against 5179 through a temporary output rewrite so no pre-existing runtime proof artifact was modified. A separate live-browser CSSOM/computed scan covered the two dimension tokens omitted from the probe summary counter."
+  }
+}

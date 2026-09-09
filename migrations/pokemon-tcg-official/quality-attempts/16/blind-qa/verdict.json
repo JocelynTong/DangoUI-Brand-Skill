@@ -1,0 +1,25 @@
+{
+  "schema": "brand-blind-qa-verdict/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 16,
+  "verdict": "REWORK",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+  "evidenceFidelity": "FAIL",
+  "structuralFidelity": "FAIL",
+  "generativeProof": "FAIL",
+  "compensationPolicy": "NONE",
+  "blockerCount": 8,
+  "gateSummary": {
+    "evidenceVisibilityStrict": "FAIL",
+    "designDirectionStrict": "PASS_SCHEMA_BUT_STALE_V1_BINDING_FOUND_BY_BLIND_QA",
+    "sectionFidelityStrict": "PASS",
+    "mockupStrict": "FAIL_MISSING_MATRIX",
+    "fidelityStrict": "FAIL_PROTOCOL_BLOCKED_V1_CANONICAL",
+    "handoffStrict": "FAIL",
+    "npmBuild": "PASS_WITH_CHUNK_WARNING"
+  },
+  "interactionSummary": "PASS for search/reset, advanced open/close, carousel switch/restore, Learn accordion and held-out accordion.",
+  "responsiveSummary": "Results are one column at 390x844 (371px phone-screen) and at a 371px host (353px phone-screen), with no document-level overflow; Home, Database and Learn nevertheless contain clipped internal horizontal overflow.",
+  "final": false
+}

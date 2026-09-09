@@ -1,0 +1,121 @@
+{
+  "schema": "brand-visual-qa-assessment/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": "10-blind-qa-r2",
+  "executionId": "/root/pokemon_pocket_blind_qa_r2",
+  "scope": "homepage/home-editorial-grid-only-with-prior-section-regression",
+  "independentReview": true,
+  "previousQaVerdictConsumed": false,
+  "verdict": "REWORK",
+  "threeProofVerdict": {
+    "evidenceFidelity": "FAIL",
+    "structuralFidelity": "FAIL",
+    "generativeProof": "FAIL"
+  },
+  "blockingFindings": [
+    {
+      "code": "POCKET_DESKTOP_BACKGROUND_STACKING_MISMATCH",
+      "severity": "blocking",
+      "dimension": "background-and-core-composition",
+      "observedMismatch": "At 1440px the official background image is one 1440x476.195 layer beneath both logical halves. Its pale artwork remains visible above and below the vertically inset black copy panel in the right half. The Demo confines the background picture to the 720px left asset field and paints the entire section parent black, so the right-side top and bottom exposure is black instead of pale artwork.",
+      "sourceRegion": {
+        "selector": "article.tcg-pocket > .full-width-section__bg",
+        "rect": [0, 0, 1440, 476.195],
+        "computedBackgroundImage": "https://tcg.pokemon.com/assets/img/home/tcg-pocket/background.jpg",
+        "copyPanelRectRelativeToSection": [720, 81.844, 720, 312.5],
+        "referenceCapture": "../evidence-revision2/captures/desktop-1440-background-use.png"
+      },
+      "demoRegion": {
+        "selector": "[data-schema-section-id=home-editorial-grid].pokemon-pocket",
+        "rect": [0, 0, 1440, 476.188],
+        "backgroundPictureRect": [0, 0, 720, 476.188],
+        "parentBackground": "rgb(0, 0, 0)",
+        "copyPanelRectRelativeToSection": [720, 60, 720, 357],
+        "referenceCapture": "../demo/captures/desktop-1440-settled.png"
+      },
+      "earliestFailureNode": "evidence",
+      "failureOwnerRole": "brandResearcher",
+      "downstreamAffectedRoles": [
+        "designTranslator",
+        "designDirectorOrchestrator",
+        "demoImplementationAgent"
+      ],
+      "requiredRework": [
+        "Freeze the full-section background layer and right-side exposed margins as explicit desktop Evidence.",
+        "Update the Pocket composition contract so the background layer spans the whole section while the black panel remains an inset overlay in the right logical half.",
+        "Rebuild and recapture the desktop section; keep the already-correct mobile stack and same-byte responsive URL conclusion."
+      ]
+    },
+    {
+      "code": "GENERATIVE_PROOF_CIRCULAR",
+      "severity": "blocking",
+      "dimension": "generative-proof",
+      "observedMismatch": "The claimed intentional variation is the same desktop-to-mobile reflow already observed on the source. It proves responsive reproduction, but it does not provide a held-out content or structure variation generated from the learned invariants.",
+      "artifact": "../demo-revision2/generative-proof.json",
+      "earliestFailureNode": "goal-and-direction",
+      "failureOwnerRole": "designDirectorOrchestrator",
+      "downstreamAffectedRoles": [
+        "demoImplementationAgent"
+      ],
+      "requiredRework": [
+        "Add one bounded held-out Pocket callout variation that changes content or internal structure while preserving the approved section-local invariants.",
+        "Keep source-calibration screenshots separate from the held-out generative proof."
+      ]
+    }
+  ],
+  "passedChecks": [
+    {
+      "id": "responsive-url-and-bytes",
+      "status": "PASS",
+      "detail": "Desktop and mobile official URL roles differ, while both downloaded 720x464 files and both local files share SHA-256 4fb7e2a72c046448d58d2d1bc6f0a9e5f61b9693ddcec5d117b59f881ec25976. No visible breakpoint asset swap was required or rewarded."
+    },
+    {
+      "id": "desktop-logical-columns",
+      "status": "PASS_WITH_BLOCKER_ELSEWHERE",
+      "detail": "Both source and Demo use 720/720 logical columns at 1440px; the blocker is the underlying background-layer extent, not the column split."
+    },
+    {
+      "id": "mobile-stack",
+      "status": "PASS",
+      "detail": "Source measured 334.234px asset-first plus 408.789px copy-second; Demo measured 334.227px plus 408.789px, total 743.016px."
+    },
+    {
+      "id": "logo-asset",
+      "status": "PASS",
+      "detail": "Independent 500x306 logo-cards.png loads successfully; local SHA-256 is 27f2453e0eea3b4af7e63c134a891ea15817580f62fcffe3818be5e592638009."
+    },
+    {
+      "id": "type",
+      "status": "PASS",
+      "detail": "Demo H2 computes to Kanit Official italic 700 at 40/44 desktop and 28/30.8 mobile; paragraph computes to PT Sans Official 18/28.8."
+    },
+    {
+      "id": "cta",
+      "status": "PASS",
+      "detail": "CTA is visually white, resolves to https://tcgpocket.pokemon.com/en-us, changes foreground rgb(0,0,0) to rgb(226,186,101) on hover, and restores to black at desktop and mobile."
+    },
+    {
+      "id": "scroll",
+      "status": "PASS",
+      "detail": "At 390px the actual .phone-screen measured scrollHeight 2547 and clientHeight 821; scrollTop changed 0 -> 1725.5 -> 0."
+    },
+    {
+      "id": "prior-section-regression",
+      "status": "PASS",
+      "detail": "Hero campaign state changed variant-1 -> variant-2 -> variant-1; News titles changed to the next page and restored; all five TCG Live foreground assets loaded with non-zero natural dimensions and its external destination remained intact."
+    },
+    {
+      "id": "motion-boundary",
+      "status": "UNRESOLVED_UNSCORED",
+      "detail": "Pocket entry intermediate frames, timing, easing, stagger and sequence were neither required nor scored."
+    }
+  ],
+  "machineChecks": {
+    "validateDesignDirection": "PASS",
+    "validateSectionFidelityStrict": "PASS_BUT_DID_NOT_DETECT_RENDERED_LAYER_EXTENT_MISMATCH",
+    "validateBrandPreview": "PASS_WITH_EXISTING_NATURAL_WIDTH_WARNINGS",
+    "build": "PASS",
+    "assetUsageBroadRepoScan": "NOT_SCOPED_TO_ATTEMPT; repo-wide legacy findings are not used as this verdict"
+  },
+  "qaConclusion": "The corrected same-byte responsive asset semantics are valid, and the mobile implementation plus interactions are strong. The desktop high-salience background stacking is visibly wrong, and the submitted generative proof is not independent of the source responsive behavior; therefore this attempt cannot pass."
+}

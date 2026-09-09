@@ -1,0 +1,12 @@
+{
+  "schema":"brand-demo-implementation-self-check/v1","brand":"onepiece-cardgame","attempt":10,"revision":2,"role":"Home footer responsive geometry / spatial-composition owner","status":"PASS_READY_FOR_NEW_BLIND_QA",
+  "blockingFindingsClosed":[
+    {"finding":"cards approximately 70% too small","closure":"settled normalized heights changed from 0.116/0.060/0.062 to 0.463/0.237/0.239; official 0.399/0.201/0.210"},
+    {"finding":"character begins 22% down","closure":"settled character top/height changed from 0.22/0.78 to 0/1"},
+    {"finding":"500ms character outside visible slice","closure":"continuous 500ms capture has opacity 0.822251, normalized top 0.013779 and visible face/energy at viewport edge"},
+    {"finding":"tall pale poster dominates","closure":"foreground family now fills the organism; wave height is 63%, full-height wide character and primary-scale overlapping cards eliminate the empty-poster hierarchy"},
+    {"finding":"catch/logo enlarged","closure":"normalized widths restored to 0.1615/0.4292; official 0.161/0.429"}
+  ],
+  "preservedPasses":{"finiteSwap":{"durations":["0.6s","0.8s"],"iterations":[1,1],"terminalOpacity":0},"loops":{"durations":["5s","8s","8s"],"iterations":"infinite"},"pause":{"scope":"three loops only","transformsFrozenForMs":1200,"revealReset":false},"phone":{"scrollHeight":3130,"clientHeight":583,"restoredScrollTop":0},"heldOutSections":2,"fontChanges":false},
+  "browser":{"viewport":[1164,655],"consoleWarnings":0,"consoleErrors":0,"captures":"output/visual-qa/onepiece-cardgame/demo-v10-revision-2"},"build":"pass","visualFidelitySelfApproved":false,"nextRole":"new Blind Visual QA"
+}

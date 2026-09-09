@@ -1,0 +1,35 @@
+{
+  "schema": "brand-role-receipt/v1",
+  "brand": "pokemon-tcg-official",
+  "attempt": 4,
+  "role": "Demo Implementation Agent",
+  "status": "READY_FOR_INDEPENDENT_QA",
+  "scope": "page:pokemon-tcg-official-home section:home-campaign-stage",
+  "inputs": [
+    {"path": "migrations/pokemon-tcg-official/design-direction.json", "sha256": "98fffcb0b7b526d6c8b7d5545e4ad22e351b372356cd1ba4475b762c9513e2d6"},
+    {"path": "migrations/pokemon-tcg-official/quality-attempts/04/goal-correction-hero-responsive.json", "sha256": "c28018f9a69a5892b4edc60e5d4ab103799c2f4a22b7496b7f7fb423598da78a"},
+    {"path": "migrations/pokemon-tcg-official/quality-attempts/04/evidence/evidence-correction.json", "sha256": "6da9f3a6ec440185922aa266196627b487710892896ac9ce542039b543567d60"},
+    {"path": "migrations/pokemon-tcg-official/brand-intent.json", "sha256": "bb73a547abe6a0aa50d77315f12c96125886d9536e40bf68928fba3d630f0021"},
+    {"path": "migrations/pokemon-tcg-official/approved-visual-patterns.json", "sha256": "01cf9955b79ac666879709f6a8bb92342310eaac3302c3df34bf05f177978fe8"}
+  ],
+  "outputs": [
+    {"path": "src/App.vue", "sha256": "44a2ca96d805a6d43a8926f7903930bfc4f975e1a8a71f0611f80b16dfca798e"},
+    {"path": "src/styles.css", "sha256": "e194243a1e75cea98de0e7124ce50e3c9bfc49d97d4e3b580a2b672960d7d2fc"},
+    {"path": "migrations/pokemon-tcg-official/quality-attempts/04/demo/browser-probes.json", "sha256": "15e32c7adbd8fae2141c8721547439ec017838d5083ed96179c045c1eb2d7b32"},
+    {"path": "migrations/pokemon-tcg-official/quality-attempts/04/demo/report.md"},
+    {"path": "migrations/pokemon-tcg-official/quality-attempts/04/demo/captures/desktop-1440-hero-default.png"},
+    {"path": "migrations/pokemon-tcg-official/quality-attempts/04/demo/captures/mobile-390-hero-default.png"}
+  ],
+  "selfChecks": {
+    "mobileHeroHeight": 1183,
+    "sixRequiredLayersVisible": true,
+    "mobileCtaHeight": 56,
+    "documentHorizontalOverflow": false,
+    "nextSectionReachable": true,
+    "carouselStateReversible": true,
+    "desktopViewportRegression": true,
+    "productionBuild": true
+  },
+  "selfApproval": false,
+  "handoff": "Independent Blind QA owns the fidelity verdict."
+}
