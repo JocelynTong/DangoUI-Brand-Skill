@@ -1,0 +1,31 @@
+{
+  "schema": "brand-host-token-state-evidence/v1",
+  "platform": "h5",
+  "capturedAt": "2026-09-10",
+  "route": "/pages/build/index?mode=new&tokenQa=1",
+  "build": {
+    "status": "PASS",
+    "modules": 668,
+    "themeOptIn": "TARO_APP_HELDOUT_THEME=onepiece",
+    "artifactChecks": {
+      "qaHarnessReachable": "PASS",
+      "disabledTokenBundled": "PASS",
+      "loadingStateBundled": "PASS",
+      "inputNumberBoundaryStateBundled": "PASS"
+    }
+  },
+  "liveBrowserChecks": {
+    "default": "PASS",
+    "focus": "PASS",
+    "inputVisualOwnership": "PASS",
+    "inputNumberAlias": "PASS",
+    "disabled": "PENDING_LIVE_BROWSER",
+    "loading": "PENDING_LIVE_BROWSER",
+    "minimum": "PENDING_LIVE_BROWSER",
+    "maximum": "PENDING_LIVE_BROWSER"
+  },
+  "blocker": {
+    "code": "LIVE_BROWSER_AUTOMATION_UNAVAILABLE",
+    "detail": "Safari WebDriver is installed but Allow Remote Automation is disabled; compiled reachability is not promoted to rendered-state proof."
+  }
+}

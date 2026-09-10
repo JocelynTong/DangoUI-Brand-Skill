@@ -7,7 +7,7 @@ const args = process.argv.slice(2);
 if (args.includes("--help") || args.includes("-h")) {
   console.log(`Usage:
   dangoui-runtime-gate.mjs prepare --root <host> --version <exact-semver> --platform h5 [--package-manager pnpm|npm|yarn|bun] [--install]
-  dangoui-runtime-gate.mjs verify --root <host> --version <exact-semver> --platform h5 --components <names> --source <files> --style-entry <file> --evidence <json>
+  dangoui-runtime-gate.mjs verify --root <host> --version <exact-semver> --platform h5 --components <names> --source <files> --style-entry <file> --evidence <json> --token-root <workspace> --token-closure <json>
 
 prepare is read-only unless --install is explicitly supplied. verify never installs packages.`);
   process.exit(0);
@@ -29,6 +29,8 @@ const components = value("components", "").split(",").map(item => item.trim()).f
 const sourceFiles = value("source", "").split(",").map(item => item.trim()).filter(Boolean);
 const styleEntry = value("style-entry");
 const evidenceFile = value("evidence");
+const tokenClosureFile = value("token-closure");
+const tokenRoot = path.resolve(value("token-root", root));
 const blockers = [];
 const warnings = [];
 const add = (code, message) => blockers.push({ code, message });
@@ -169,6 +171,16 @@ else {
         add("DANGOUI_CONTROL_OWNERSHIP_FAILED", "DuInput and DuTextarea evidence must PASS visualOwnership: exactly one control boundary and one focus-ring owner, with nested native fields visually reset.");
       }
     }
+  }
+}
+
+if (components.length && !tokenClosureFile) {
+  add("DANGOUI_TOKEN_CLOSURE_REQUIRED", "Real component verification requires a strict token-closure contract.");
+} else if (tokenClosureFile) {
+  const tokenGate = path.resolve(path.dirname(new URL(import.meta.url).pathname), "validate-host-token-closure.mjs");
+  const tokenResult = spawnSync(process.execPath, [tokenGate, "--root", tokenRoot, "--contract", tokenClosureFile, "--strict"], { encoding: "utf8" });
+  if (tokenResult.status !== 0) {
+    add("DANGOUI_TOKEN_CLOSURE_FAILED", `Strict token closure failed: ${(tokenResult.stdout || tokenResult.stderr || "no output").trim()}`);
   }
 }
 

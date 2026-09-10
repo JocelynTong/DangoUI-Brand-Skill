@@ -3,6 +3,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import crypto from "node:crypto";
 import { spawnSync } from "node:child_process";
 
 const gate = path.resolve("skills/brand/scripts/dangoui-runtime-gate.mjs");
@@ -17,10 +18,20 @@ const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", l
   fs.writeFileSync(path.join(root, "node_modules/dangoui/dist/index.mjs"), "export { DuInput, DuButton };");
   fs.writeFileSync(path.join(root, "src/page.tsx"), `import { DuInput, DuButton } from "dangoui";`);
   fs.writeFileSync(path.join(root, "src/app.ts"), `import "dangoui/style.css";\nimport "dangoui/theme.css";`);
+  fs.writeFileSync(path.join(root, "source-mod.json"), "{}");
+  fs.writeFileSync(path.join(root, "src/theme.css"), ":root { --du-bg-1: #fff; --du-bt-color: #000; } .du-c-primary-bt {}");
+  const sourceHash = crypto.createHash("sha256").update("{}").digest("hex");
+  fs.writeFileSync(path.join(root, "token-closure.json"), JSON.stringify({
+    schema: "brand-host-token-closure/v1", sourceMod: "source-mod.json", sourceModSha256: sourceHash,
+    host: ".", themeFile: "src/theme.css", status: "PASS",
+    tracks: { sourceTokenInventory: "PASS", semanticMapping: "PASS", runtimeConsumption: "PASS", renderedStateVerification: "PASS", businessVisualQa: "PASS" },
+    requiredMappings: [{ role: "surface", source: "surface", target: "--du-bg-1", value: "#fff", status: "mapped" }],
+    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], exceptions: []
+  }));
   if (evidence) fs.writeFileSync(path.join(root, "evidence.json"), JSON.stringify({ platform, renderedConsumer: "PASS", bundleContainsDangoui: "PASS", businessParity: "PASS", visualOwnership }));
   return root;
 };
-const run = (root, extra = []) => spawnSync(process.execPath, [gate, "verify", "--root", root, "--version", "3.6.16", "--platform", "h5", "--components", "DuInput,DuButton", "--source", "src/page.tsx", "--style-entry", "src/app.ts", "--evidence", "evidence.json", ...extra], { encoding: "utf8" });
+const run = (root, extra = []) => spawnSync(process.execPath, [gate, "verify", "--root", root, "--version", "3.6.16", "--platform", "h5", "--components", "DuInput,DuButton", "--source", "src/page.tsx", "--style-entry", "src/app.ts", "--evidence", "evidence.json", "--token-root", root, "--token-closure", "token-closure.json", ...extra], { encoding: "utf8" });
 
 assert.equal(run(fixture()).status, 0);
 assert.match(run(fixture()).stdout, /PASS_REAL_COMPONENT_CONSUMER_H5_ONLY/);
@@ -33,4 +44,8 @@ assert.notEqual(run(fixture({ platform: "weapp" }), ["--platform", "weapp"]).sta
 assert.notEqual(run(fixture({ evidence: false })).status, 0);
 assert.notEqual(run(fixture({ visualOwnership: "FAIL" })).status, 0);
 assert.match(run(fixture({ visualOwnership: "FAIL" })).stdout, /DANGOUI_CONTROL_OWNERSHIP_FAILED/);
+const missingTokenRoot = fixture();
+fs.unlinkSync(path.join(missingTokenRoot, "token-closure.json"));
+assert.notEqual(run(missingTokenRoot).status, 0);
+assert.match(run(missingTokenRoot).stdout, /DANGOUI_TOKEN_CLOSURE_FAILED/);
 console.log("dangoui-runtime-gate tests passed");

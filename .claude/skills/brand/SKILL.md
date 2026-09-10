@@ -72,7 +72,7 @@ node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict
 
 apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract](references/host-theme-load-order.md) 建立单一全局主题入口并运行 `validate-host-theme-order.mjs`，再以真实宿主 desktop/mobile 证明 cascade winner。随后必须生成只读的 `brand-distinctiveness-assessment.json`：同视口对照 source/host，遮蔽品牌名、Logo 和显式品牌文字后做 blind recognition，并分别评 visual mass / asset / composition / type / motion。高承载页至少需要 3 个跨 3 个维度、各占视口至少 5% 的可见证据 signal；字体、小 Logo、微图标和 archive 气质不算强表达。先运行 `validate-brand-distinctiveness.mjs`，再把结果传给 `validate-host-apply-gate.mjs --distinctiveness`。Visual QA 只读，FAIL 退回 Evidence、Interpreter/Design Director 或 Host Implementation 的真实 owner，修复后 fresh QA。技术 Gate 或业务安全通过不能补偿视觉辨识度 FAIL；最终必须分列 `workflowCompletion`、`businessSafety`、`visualDistinctiveness`，禁止用单一 overall 百分比误导。没有真实 DangoUI runtime/component consumer 时最高只能报 `PARTIAL_STYLE_ONLY` / `conservative-application`。细则见 `workflow-contract.json` 与角色契约。
 
-当目标要求真实 DangoUI 组件消费而非 style-only 时，必须读取 [公开宿主 Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)，先用 `dangoui-runtime-gate.mjs prepare` 解析宿主包管理器和安装方案，再在实现、构建、浏览器验证后运行 `verify`。本地源码路径不能作为公开依赖；H5 PASS 不能外推为小程序 PASS。
+当目标要求真实 DangoUI 组件消费而非 style-only 时，必须读取 [公开宿主 Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)，先用 `dangoui-runtime-gate.mjs prepare` 解析宿主包管理器和安装方案，再在实现、构建、浏览器验证后运行 `verify`。验证不得省略 token closure：必须分别由 Token Mapper、Runtime Integrator、Rendered-state QA、Business/Visual QA 对 source inventory、semantic mapping、runtime consumption、rendered states、business/visual safety 五轨签字；任何一轨不能被另一轨补偿。`verify` 必须携带 `--token-root` 与 `--token-closure`，后者会被 strict 复核。本地源码路径不能作为公开依赖；H5 PASS 不能外推为小程序 PASS。
 
 ## Role Contract 路由
 

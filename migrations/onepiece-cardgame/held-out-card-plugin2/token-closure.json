@@ -1,0 +1,61 @@
+{
+  "schema": "brand-host-token-closure/v1",
+  "brand": "onepiece-cardgame",
+  "host": "card-plugin2.0/frontend",
+  "platform": "h5",
+  "sourceMod": "migrations/onepiece-cardgame/brand-mod.json",
+  "sourceModSha256": "a54095c856e8c68f1c2c7c3f473f76166f1469fe64b19ef251645c1e1dad1b04",
+  "themeFile": "src/styles/onepiece-cardgame-heldout-theme.scss",
+  "status": "READY_FOR_RUNTIME_QA",
+  "trackOwners": {
+    "sourceTokenInventory": "Token Architect",
+    "semanticMapping": "Token Mapper",
+    "runtimeConsumption": "Runtime Integrator",
+    "renderedStateVerification": "Independent Rendered-state QA",
+    "businessVisualQa": "Independent Business/Visual QA",
+    "finalClaim": "Design Director"
+  },
+  "tracks": {
+    "sourceTokenInventory": "PASS",
+    "semanticMapping": "PASS",
+    "runtimeConsumption": "PASS",
+    "renderedStateVerification": "PENDING",
+    "businessVisualQa": "PASS"
+  },
+  "stateEvidence": "migrations/onepiece-cardgame/held-out-card-plugin2/token-state-evidence.json",
+  "requiredMappings": [
+    {"role":"contentSurface","source":"color.surface.content","target":"--du-bg-1","value":"#FFFFFF","status":"mapped"},
+    {"role":"pageSurface","source":"color.surface.warm","target":"--du-bg-2","value":"#F3F1EA","status":"mapped"},
+    {"role":"tertiaryText","source":"color.text.muted","target":"--du-text-3","value":"#717171","status":"mapped"},
+    {"role":"ordinaryDivider","source":"color.border.subtle","target":"--du-border-1","value":"#DCD6C6","status":"mapped"},
+    {"role":"activeEmphasis","source":"color.action.active","target":"--du-primary-color","value":"#FFF507","status":"mapped"},
+    {"role":"activeBorder","source":"color.action.active","target":"--du-primary-border","value":"#FFF507","status":"mapped"},
+    {"role":"softSelectedSurface","source":"color.action.activeSoft","target":"--du-primary-soft-bg","value":"#FFFBD0","status":"fallback"},
+    {"role":"solidActionFallback","source":"color.action.solid","target":"--du-primary-solid-bg","value":"#B91D22","status":"mapped"},
+    {"role":"secondaryNauticalAccent","source":"color.accent.nautical","target":"--du-secondary-color","value":"#AFA384","status":"mapped"}
+  ],
+  "runtimeComponentTokens": {
+    "DuButton": ["--du-bt-color","--du-bt-border","--du-bt-soft-bg","--du-bt-solid-bg","--du-bt-solid-color","--du-bt-disabledtemp-color","--du-bt-disabledtemp-border","--du-bt-outline-disabledtemp-color","--du-bt-soft-disabledtemp-bg","--du-bt-solid-disabledtemp-bg","--du-bt-solid-disabledtemp-color","--du-bt-text-color","--du-bt-text-disabledtemp-color"],
+    "DuInput": ["--du-text-1","--du-text-3","--du-border-2","--du-bg-2","--du-icon-disabled"],
+    "DuTextarea": ["--du-bg-2","--du-border-2","--du-error-color"],
+    "DuInputNumber": ["--du-text-1","--du-bg-4","--du-icon-1","--du-icon-disabled","--du-in-solid-bg","--du-in-solid-color","--du-in-solid-disabledtemp-bg","--du-in-solid-disabledtemp-color"]
+  },
+  "componentAliasSelectors": [
+    ".du-c-primary-bt",
+    ".du-c-default-bt",
+    ".du-c-primary-input-number"
+  ],
+  "requiredStates": ["default","focus","disabled","loading","minimum","maximum"],
+  "hardcodedValuePolicy": {
+    "mappedVisualValues": "must resolve through --du-* or a documented --style-* recipe",
+    "businessSemanticValues": "must remain separate from brand action tokens",
+    "localRecipeValues": "allowed only for documented texture, asset, media, geometry, or composition recipes",
+    "unclassified": "blocking"
+  },
+  "exceptions": [
+    {"id":"onepiece-paper-texture","kind":"style-only","owner":"Brand Translator","reason":"Grid, radial texture, and alpha endpoints form a bounded paper recipe rather than a DangoUI color token."},
+    {"id":"trading-card-rarity-palette","kind":"business-semantic","owner":"Host Product","reason":"Card rarity/type colors convey game data and must not inherit brand action colors."},
+    {"id":"environment-selector-composite","kind":"host-component","owner":"Host Implementation","reason":"DuSelect would nest a second bottom popup inside the existing publish sheet."}
+  ],
+  "claimBoundary": "No apply-host completion claim is allowed until every track is PASS and unresolved mappings equal zero. H5 evidence does not prove mini-program support."
+}
