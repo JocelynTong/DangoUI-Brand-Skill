@@ -15,6 +15,13 @@
       "rootCause": "移除硬编码卡背时遗留 pitchCardBack 模板和 setup 返回引用",
       "fix": "赛季展示改用已有正面素材 pitchCardDarkrai，并删除遗留返回值",
       "executableRule": "删除视觉资产能力后必须对标识符做全仓零引用检查，并刷新所有受影响首屏"
+    },
+    {
+      "id": "zoom-unit-conversion",
+      "symptom": "名为大图的卡牌实际仅渲染 109×150px",
+      "rootCause": "Taro 将组件样式中的小写 px 转换为响应单位，视觉语义与声明值不一致",
+      "fix": "大图容器使用明确的 CSS PX 上限并让图片占满容器",
+      "executableRule": "尺寸验收必须读取运行时 getBoundingClientRect；源码中的 width/height 数字不能作为渲染尺寸证据"
     }
   ],
   "requiredFreshQa": [

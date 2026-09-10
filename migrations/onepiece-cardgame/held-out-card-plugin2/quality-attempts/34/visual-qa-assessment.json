@@ -1,0 +1,173 @@
+{
+  "schemaVersion": "visual-qa-assessment.v1",
+  "attempt": 34,
+  "generatedAt": "2026-09-10T20:40:53+08:00",
+  "qaMode": "fresh-blind",
+  "verdict": "REWORK",
+  "scope": {
+    "baseUrl": "http://192.168.12.127:10092",
+    "sourceChangesMade": false,
+    "routes": [
+      "/#/pages/detail/index?id=0",
+      "/#/pages/plaza/index"
+    ]
+  },
+  "summary": "卡牌详情大图层的节点、正面素材和可见性链均成立，且已清除翻转、卡背及 DECK 硬编码；但所谓“大图”实际只渲染为 109×150px，未形成大图体验，因此本轮不能判定完成。卡组广场在本轮范围内通过。",
+  "routes": [
+    {
+      "id": "detail-card-zoom",
+      "url": "http://192.168.12.127:10092/#/pages/detail/index?id=0",
+      "verdict": "REWORK",
+      "interaction": [
+        "冷启动进入详情页",
+        "点击首张卡片打开卡片详情",
+        "点击可访问树中的“查看卡牌大图”按钮"
+      ],
+      "screenshotEvidence": [
+        {
+          "ref": "browser-capture://attempt34/detail-mobile-open",
+          "viewport": "390x844",
+          "description": "大图层已打开；深色遮罩内仅有一张正面卡图，但卡图只占 109×150px，明显未放大。截图已输出到本 QA 任务记录。"
+        },
+        {
+          "ref": "browser-capture://attempt34/detail-desktop-open",
+          "viewport": "1280x720",
+          "description": "桌面视口复核同样只有 109×150px 的正面图。截图已输出到本 QA 任务记录。"
+        }
+      ],
+      "domEvidence": {
+        "maskCount": 1,
+        "stageCount": 1,
+        "zoomImageCount": 1,
+        "backClassCount": 0,
+        "flipClassCount": 0,
+        "deckTextCountInsideOverlay": 0,
+        "overlayText": "×",
+        "image": {
+          "sourceKind": "data-uri-front-art",
+          "naturalWidth": 109,
+          "naturalHeight": 150,
+          "renderedRect": {
+            "x": 23.3984,
+            "y": 346.9922,
+            "width": 109,
+            "height": 150
+          },
+          "computed": {
+            "display": "block",
+            "opacity": "1",
+            "visibility": "visible"
+          }
+        }
+      },
+      "computedAncestorChain": [
+        {
+          "node": ".zoommask",
+          "display": "flex",
+          "opacity": "1",
+          "visibility": "visible",
+          "pointerEvents": "auto",
+          "zIndex": "560"
+        },
+        {
+          "node": ".cv.on",
+          "display": "flex",
+          "opacity": "1",
+          "visibility": "visible",
+          "zIndex": "500"
+        },
+        {
+          "node": ".detail.theme-pokemon-tcg-pitch-black",
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        {
+          "node": ".taro_page",
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        {
+          "node": ".taro_router",
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        {
+          "node": "body",
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        },
+        {
+          "node": "html.theme-onepiece-cardgame-heldout",
+          "display": "block",
+          "opacity": "1",
+          "visibility": "visible"
+        }
+      ],
+      "assertions": {
+        "overlayExists": true,
+        "frontImageIsTechnicallyVisible": true,
+        "exactlyOneFrontImage": true,
+        "noFlipNodes": true,
+        "noBackNodes": true,
+        "noDeckHardcodedTextInOverlay": true,
+        "largeImageExperienceIsSatisfied": false
+      },
+      "findings": [
+        {
+          "severity": "blocking",
+          "code": "DETAIL_ZOOM_IMAGE_NOT_ENLARGED",
+          "observed": "390×844 移动视口和 1280×720 桌面视口中，图片都按天然尺寸 109×150px 渲染。移动端宽度仅约占视口 28%。",
+          "expected": "打开“大图”后，正面卡图应按大图舞台尺寸清晰放大，同时保持仅一张正面图且不出现翻转或卡背。",
+          "routing": "hostImplementationAgent"
+        }
+      ]
+    },
+    {
+      "id": "plaza-first-screen",
+      "url": "http://192.168.12.127:10092/#/pages/plaza/index",
+      "verdict": "PASS",
+      "screenshotEvidence": [
+        {
+          "ref": "browser-capture://attempt34/plaza-desktop",
+          "viewport": "1280x720",
+          "description": "卡组广场首屏正常渲染，导航、筛选、赛季卡和卡组列表均有内容。截图已输出到本 QA 任务记录。"
+        }
+      ],
+      "domEvidence": {
+        "plazaRootCount": 1,
+        "firstScreenHasExpectedContent": true,
+        "pitchSeasonImageCount": 1,
+        "pitchSeasonImageVisible": true,
+        "pitchSeasonImageSrc": "http://192.168.12.127:10092/assets/brand-assets/pokemon-tcg-pitch-black/KD5B_EN_70-2x.png",
+        "blackScreen": false
+      },
+      "consoleEvidence": {
+        "pitchCardBackReferenceErrorCount": 0,
+        "matchingMessages": []
+      },
+      "assertions": {
+        "firstScreenLoads": true,
+        "noPitchCardBackReferenceError": true,
+        "seasonCardUsesDefinedAsset": true
+      }
+    }
+  ],
+  "consoleEvidence": {
+    "scopeRelevantErrors": [],
+    "unrelatedObservedNoise": [
+      "运行时存在多条 Dimina setupState guard failed 警告；未观察到其阻断本轮两条路径，也未与 pitchCardBack 相关。"
+    ]
+  },
+  "blockingFindings": [
+    "DETAIL_ZOOM_IMAGE_NOT_ENLARGED"
+  ],
+  "earliestFailureNode": "hostImplementation",
+  "failureOwnerRole": "hostImplementationAgent",
+  "workflowCompletion": "REWORK",
+  "businessSafety": "PASS_FOR_SCOPED_READ_ONLY_QA",
+  "visualDistinctiveness": "NOT_EVALUATED_OUT_OF_SCOPE"
+}

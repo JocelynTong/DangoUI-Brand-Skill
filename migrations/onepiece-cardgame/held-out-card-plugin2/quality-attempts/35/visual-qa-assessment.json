@@ -1,0 +1,114 @@
+{
+  "schemaVersion": "visual-qa-assessment.v1",
+  "attempt": 35,
+  "generatedAt": "2026-09-10T20:44:48+08:00",
+  "qaMode": "fresh-blind",
+  "freshIndependentQa": true,
+  "readOnly": true,
+  "sourceChangesMade": false,
+  "verdict": "PASS",
+  "scope": {
+    "baseUrl": "http://192.168.12.127:10092",
+    "routes": [
+      "/#/pages/detail/index?id=0",
+      "/#/pages/plaza/index"
+    ],
+    "focus": "Attempt 34 blocker DETAIL_ZOOM_IMAGE_NOT_ENLARGED plus plaza pitchCardBack runtime regression"
+  },
+  "summary": "Attempt 34 的大图尺寸阻塞已关闭。详情页在桌面端渲染 330×462px，在 319px 窄屏收敛为 283×462px 且完整位于视口；可见性祖先链全部有效。遮罩内只有一张正面图，没有 flip/back/DECK 动效节点。广场正常渲染，未观察到 pitchCardBack 或 ReferenceError。",
+  "routes": [
+    {
+      "id": "detail-card-zoom",
+      "url": "http://192.168.12.127:10092/#/pages/detail/index?id=0",
+      "verdict": "PASS",
+      "interaction": [
+        "进入详情页",
+        "点击首张 .gcard 打开 CardViewer",
+        "点击 .cvimg-hit 打开大图"
+      ],
+      "desktopEvidence": {
+        "viewport": "1280x720",
+        "zoomImageCount": 1,
+        "renderedRect": {
+          "left": 475,
+          "top": 129,
+          "width": 330,
+          "height": 462,
+          "right": 805,
+          "bottom": 591
+        },
+        "computedAncestorChain": [
+          { "node": ".zoomimg", "display": "block", "visibility": "visible", "opacity": "1" },
+          { "node": ".zoomstage", "display": "flex", "visibility": "visible", "opacity": "1" },
+          { "node": ".zoommask", "display": "flex", "visibility": "visible", "opacity": "1" },
+          { "node": ".cv.on", "display": "flex", "visibility": "visible", "opacity": "1" },
+          { "node": ".detail.theme-pokemon-tcg-pitch-black", "display": "block", "visibility": "visible", "opacity": "1" }
+        ]
+      },
+      "mobileEvidence": {
+        "viewport": "319x706",
+        "zoomImageCount": 1,
+        "renderedRect": {
+          "left": 18,
+          "top": 122,
+          "width": 283,
+          "height": 462,
+          "right": 301,
+          "bottom": 584
+        },
+        "fullyContainedInViewport": true,
+        "allAncestorsVisible": true,
+        "maskOpacity": "1"
+      },
+      "semanticEvidence": {
+        "frontImageCount": 1,
+        "flipNodeCount": 0,
+        "cardBackImageCount": 0,
+        "deckTextInsideOverlay": false
+      },
+      "assertions": {
+        "attempt34LargeImageBlockerClosed": true,
+        "desktopLargeImageAt330By462Cap": true,
+        "narrowViewportAdaptation": true,
+        "exactlyOneFrontImage": true,
+        "noFlipNodes": true,
+        "noBackImage": true,
+        "noDeckAnimationOrText": true,
+        "visibilityChainPasses": true
+      },
+      "blockingFindings": []
+    },
+    {
+      "id": "plaza-first-screen",
+      "url": "http://192.168.12.127:10092/#/pages/plaza/index",
+      "verdict": "PASS",
+      "domEvidence": {
+        "plazaRootCount": 1,
+        "title": "卡组工具",
+        "firstScreenHasExpectedContent": true,
+        "expectedContent": [
+          "卡组广场",
+          "赛事",
+          "Pitch Black 赛季挑战",
+          "喷火龙 烈焰速攻"
+        ],
+        "blackScreen": false
+      },
+      "consoleEvidence": {
+        "pitchCardBackMessages": [],
+        "referenceErrorMessages": []
+      },
+      "assertions": {
+        "plazaLoads": true,
+        "noPitchCardBackReferenceError": true
+      },
+      "blockingFindings": []
+    }
+  ],
+  "blockingFindings": [],
+  "earliestFailureNode": null,
+  "failureOwnerRole": null,
+  "workflowCompletion": "PASS_FOR_SCOPED_REGRESSION",
+  "businessSafety": "PASS_FOR_SCOPED_READ_ONLY_QA",
+  "visualDistinctiveness": "NOT_EVALUATED_OUT_OF_SCOPE"
+}
