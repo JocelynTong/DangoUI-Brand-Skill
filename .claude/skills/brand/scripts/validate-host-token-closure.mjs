@@ -15,6 +15,7 @@ const blockers = [];
 const add = (code, message) => blockers.push({ code, message });
 const exists = (file) => fs.existsSync(file);
 const read = (file) => fs.readFileSync(file, "utf8");
+const readJson = (file) => JSON.parse(read(file));
 const hash = (file) => crypto.createHash("sha256").update(read(file)).digest("hex");
 
 if (!value("--contract") || !exists(contractFile)) {
@@ -60,6 +61,21 @@ if (!value("--contract") || !exists(contractFile)) {
       if (status !== "PASS") add("TOKEN_TRACK_INCOMPLETE", `${track} is ${status || "MISSING"}.`);
     }
     if (contract.status !== "PASS") add("TOKEN_CLOSURE_NOT_PASS", `Contract status is ${contract.status || "MISSING"}.`);
+    const stateEvidence = path.resolve(root, contract.stateEvidence || "");
+    if (!contract.stateEvidence || !exists(stateEvidence)) {
+      add("TOKEN_STATE_EVIDENCE_MISSING", "Strict closure requires an existing stateEvidence receipt.");
+    } else {
+      const evidence = readJson(stateEvidence);
+      if (evidence.schema !== "brand-host-token-state-evidence/v1" || evidence.platform !== contract.platform) {
+        add("TOKEN_STATE_EVIDENCE_INVALID", "State evidence schema and platform must match the closure contract.");
+      }
+      for (const state of contract.requiredStates || []) {
+        if (evidence.liveBrowserChecks?.[state] !== "PASS") add("TOKEN_RENDERED_STATE_INCOMPLETE", `${state} lacks live browser PASS evidence.`);
+      }
+      if (evidence.liveReport?.status !== "PASS" || evidence.build?.status !== "PASS") {
+        add("TOKEN_STATE_EVIDENCE_FAILED", "Live report and themed production build must both PASS.");
+      }
+    }
   }
 }
 

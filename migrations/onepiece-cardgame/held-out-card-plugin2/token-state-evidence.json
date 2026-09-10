@@ -19,13 +19,17 @@
     "focus": "PASS",
     "inputVisualOwnership": "PASS",
     "inputNumberAlias": "PASS",
-    "disabled": "PENDING_LIVE_BROWSER",
-    "loading": "PENDING_LIVE_BROWSER",
-    "minimum": "PENDING_LIVE_BROWSER",
-    "maximum": "PENDING_LIVE_BROWSER"
+    "disabled": "PASS",
+    "loading": "PASS",
+    "minimum": "PASS",
+    "maximum": "PASS"
   },
-  "blocker": {
-    "code": "LIVE_BROWSER_AUTOMATION_UNAVAILABLE",
-    "detail": "Safari WebDriver is installed but Allow Remote Automation is disabled; compiled reachability is not promoted to rendered-state proof."
+  "liveReport": {
+    "browser": "Chrome 152 / macOS",
+    "status": "PASS",
+    "disabled": { "backgroundColor": "rgb(215, 216, 212)", "color": "rgb(111, 115, 119)" },
+    "loading": { "backgroundColor": "rgb(185, 29, 34)", "color": "rgb(255, 255, 255)", "opacity": "0.6" },
+    "minimum": { "minus": "disabled", "plusBackgroundColor": "rgb(185, 29, 34)" },
+    "maximum": { "minusBackgroundColor": "rgb(185, 29, 34)", "plus": "disabled" }
   }
 }

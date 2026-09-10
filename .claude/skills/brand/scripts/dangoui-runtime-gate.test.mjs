@@ -20,13 +20,14 @@ const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", l
   fs.writeFileSync(path.join(root, "src/app.ts"), `import "dangoui/style.css";\nimport "dangoui/theme.css";`);
   fs.writeFileSync(path.join(root, "source-mod.json"), "{}");
   fs.writeFileSync(path.join(root, "src/theme.css"), ":root { --du-bg-1: #fff; --du-bt-color: #000; } .du-c-primary-bt {}");
+  fs.writeFileSync(path.join(root, "state-evidence.json"), JSON.stringify({ schema: "brand-host-token-state-evidence/v1", platform: "h5", build: { status: "PASS" }, liveReport: { status: "PASS" }, liveBrowserChecks: { default: "PASS" } }));
   const sourceHash = crypto.createHash("sha256").update("{}").digest("hex");
   fs.writeFileSync(path.join(root, "token-closure.json"), JSON.stringify({
-    schema: "brand-host-token-closure/v1", sourceMod: "source-mod.json", sourceModSha256: sourceHash,
+    schema: "brand-host-token-closure/v1", platform: "h5", sourceMod: "source-mod.json", sourceModSha256: sourceHash,
     host: ".", themeFile: "src/theme.css", status: "PASS",
     tracks: { sourceTokenInventory: "PASS", semanticMapping: "PASS", runtimeConsumption: "PASS", renderedStateVerification: "PASS", businessVisualQa: "PASS" },
     requiredMappings: [{ role: "surface", source: "surface", target: "--du-bg-1", value: "#fff", status: "mapped" }],
-    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], exceptions: []
+    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], requiredStates: ["default"], stateEvidence: "state-evidence.json", exceptions: []
   }));
   if (evidence) fs.writeFileSync(path.join(root, "evidence.json"), JSON.stringify({ platform, renderedConsumer: "PASS", bundleContainsDangoui: "PASS", businessParity: "PASS", visualOwnership }));
   return root;
