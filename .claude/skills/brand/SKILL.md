@@ -399,15 +399,23 @@ node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
 
 ## 安装到其他业务项目
 
-推荐安装“skill + 全量本地 style packs”，不要只安装某一个品牌：
+公开分发不得依赖维护者本机目录。维护者先在 skill 仓库运行：
 
 ```bash
-mkdir -p .claude/skills migrations public/assets
-rm -rf .claude/skills/brand
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/.claude/skills/brand .claude/skills/brand
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/. migrations/
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/public/assets/. public/assets/
+npm run package:brand-skill
+npm run validate:brand-skill-release
 ```
+
+分发 `output/brand-skill-release/brand/`，使用者按宿主选择一个入口：Codex 放入 `~/.codex/skills/brand/`；Claude Code 放入项目 `.claude/skills/brand/`。style packs 与品牌资产通过版本化 registry 或单独的项目包分发，不得偷偷复制维护者本地 migrations。
+
+千岛小程序开发者首轮采用受控内测：
+
+1. 选择 5-10 名 Taro/小程序开发者，每人带 1 个真实页面，不直接全员开放。
+2. 安装后在宿主项目运行 `node <skill-dir>/scripts/public-host-preflight.mjs --host . --platform h5`；前置检查不通过不得进入改造。
+3. 以 `/brand <品牌 URL 或证据目录>` 发起任务；必须先保留宿主业务基线，再完成 token、component、runtime、visual 五轨证据。
+4. 小程序项目第一轮仍以同构 H5 作为可复现视觉验收面；若目标声明 `weapp`，在没有独立构建与真机证据前返回 `DANGOUI_PLATFORM_UNVERIFIED`，不得外推 PASS。
+5. DangoUI 不满足项写入 `dangoui-capability-gaps.json`，严格校验后导出本地 Issue 草稿；由开发者人工确认再提交，skill 不自动发送内部代码、截图或路径。
+6. 两周或累计 10 个页面后复盘：安装成功率、五轨通过率、误判/越界率、gap 分类完整率；达到门槛再扩大范围。
 
 安装完成后，用简短提示告诉用户：
 

@@ -1,0 +1,24 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "status": "FIXED_PENDING_FRESH_QA",
+  "incidents": [
+    {
+      "id": "zoom-parent-opacity",
+      "symptom": "大图节点存在但不可见",
+      "rootCause": "放大态隐藏了大图所在的根级 CardViewer，子层无法逃逸父级 opacity",
+      "fix": "根层在 viewer 或 zoom 任一开启时保持可见，并移除隐藏 cluster 的状态类",
+      "executableRule": "视觉弹层验收必须读取目标及完整祖先链 computed opacity/display/visibility，DOM 存在不等于可见"
+    },
+    {
+      "id": "plaza-undefined-asset",
+      "symptom": "卡组广场黑屏",
+      "rootCause": "移除硬编码卡背时遗留 pitchCardBack 模板和 setup 返回引用",
+      "fix": "赛季展示改用已有正面素材 pitchCardDarkrai，并删除遗留返回值",
+      "executableRule": "删除视觉资产能力后必须对标识符做全仓零引用检查，并刷新所有受影响首屏"
+    }
+  ],
+  "requiredFreshQa": [
+    "详情页打开卡片，再打开大图：可见、仅一张正面图、无翻转/卡背控件",
+    "卡组广场首屏正常渲染、无 ReferenceError、赛季卡使用已定义素材"
+  ]
+}
