@@ -6,7 +6,7 @@ import path from "node:path";
 import { spawnSync } from "node:child_process";
 
 const gate = path.resolve("skills/brand/scripts/dangoui-runtime-gate.mjs");
-const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", local = false, twoLocks = false, evidence = true } = {}) => {
+const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", local = false, twoLocks = false, evidence = true, visualOwnership = "PASS" } = {}) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), "dangoui-runtime-gate-"));
   fs.mkdirSync(path.join(root, "src"), { recursive: true });
   fs.mkdirSync(path.join(root, "node_modules/dangoui/dist"), { recursive: true });
@@ -17,7 +17,7 @@ const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", l
   fs.writeFileSync(path.join(root, "node_modules/dangoui/dist/index.mjs"), "export { DuInput, DuButton };");
   fs.writeFileSync(path.join(root, "src/page.tsx"), `import { DuInput, DuButton } from "dangoui";`);
   fs.writeFileSync(path.join(root, "src/app.ts"), `import "dangoui/style.css";\nimport "dangoui/theme.css";`);
-  if (evidence) fs.writeFileSync(path.join(root, "evidence.json"), JSON.stringify({ platform, renderedConsumer: "PASS", bundleContainsDangoui: "PASS", businessParity: "PASS" }));
+  if (evidence) fs.writeFileSync(path.join(root, "evidence.json"), JSON.stringify({ platform, renderedConsumer: "PASS", bundleContainsDangoui: "PASS", businessParity: "PASS", visualOwnership }));
   return root;
 };
 const run = (root, extra = []) => spawnSync(process.execPath, [gate, "verify", "--root", root, "--version", "3.6.16", "--platform", "h5", "--components", "DuInput,DuButton", "--source", "src/page.tsx", "--style-entry", "src/app.ts", "--evidence", "evidence.json", ...extra], { encoding: "utf8" });
@@ -31,4 +31,6 @@ assert.notEqual(run(fixture({ installed: "3.6.15" })).status, 0);
 assert.notEqual(run(fixture({ twoLocks: true })).status, 0);
 assert.notEqual(run(fixture({ platform: "weapp" }), ["--platform", "weapp"]).status, 0);
 assert.notEqual(run(fixture({ evidence: false })).status, 0);
+assert.notEqual(run(fixture({ visualOwnership: "FAIL" })).status, 0);
+assert.match(run(fixture({ visualOwnership: "FAIL" })).stdout, /DANGOUI_CONTROL_OWNERSHIP_FAILED/);
 console.log("dangoui-runtime-gate tests passed");
