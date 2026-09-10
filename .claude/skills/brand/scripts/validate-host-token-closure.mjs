@@ -72,6 +72,9 @@ if (!value("--contract") || !exists(contractFile)) {
       for (const state of contract.requiredStates || []) {
         if (evidence.liveBrowserChecks?.[state] !== "PASS") add("TOKEN_RENDERED_STATE_INCOMPLETE", `${state} lacks live browser PASS evidence.`);
       }
+      for (const check of contract.requiredOwnershipChecks || []) {
+        if (evidence.liveBrowserChecks?.[check] !== "PASS") add("TOKEN_VISUAL_OWNERSHIP_INCOMPLETE", `${check} lacks live browser PASS evidence.`);
+      }
       if (evidence.liveReport?.status !== "PASS" || evidence.build?.status !== "PASS") {
         add("TOKEN_STATE_EVIDENCE_FAILED", "Live report and themed production build must both PASS.");
       }

@@ -46,6 +46,7 @@
     ".du-c-primary-input-number"
   ],
   "requiredStates": ["default","focus","disabled","loading","minimum","maximum"],
+  "requiredOwnershipChecks": ["inputOwnership","textareaOwnership"],
   "hardcodedValuePolicy": {
     "mappedVisualValues": "must resolve through --du-* or a documented --style-* recipe",
     "businessSemanticValues": "must remain separate from brand action tokens",

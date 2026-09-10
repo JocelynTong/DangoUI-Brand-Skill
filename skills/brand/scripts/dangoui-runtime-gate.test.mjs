@@ -27,7 +27,7 @@ const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", l
     host: ".", themeFile: "src/theme.css", status: "PASS",
     tracks: { sourceTokenInventory: "PASS", semanticMapping: "PASS", runtimeConsumption: "PASS", renderedStateVerification: "PASS", businessVisualQa: "PASS" },
     requiredMappings: [{ role: "surface", source: "surface", target: "--du-bg-1", value: "#fff", status: "mapped" }],
-    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], requiredStates: ["default"], stateEvidence: "state-evidence.json", exceptions: []
+    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], requiredStates: ["default"], requiredOwnershipChecks: [], stateEvidence: "state-evidence.json", exceptions: []
   }));
   if (evidence) fs.writeFileSync(path.join(root, "evidence.json"), JSON.stringify({ platform, renderedConsumer: "PASS", bundleContainsDangoui: "PASS", businessParity: "PASS", visualOwnership }));
   return root;

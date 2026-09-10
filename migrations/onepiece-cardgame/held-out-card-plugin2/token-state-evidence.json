@@ -23,6 +23,8 @@
     "loading": "PASS",
     "minimum": "PASS",
     "maximum": "PASS"
+    ,"inputOwnership": "PASS"
+    ,"textareaOwnership": "PASS"
   },
   "liveReport": {
     "browser": "Chrome 152 / macOS",
@@ -30,6 +32,8 @@
     "disabled": { "backgroundColor": "rgb(215, 216, 212)", "color": "rgb(111, 115, 119)" },
     "loading": { "backgroundColor": "rgb(185, 29, 34)", "color": "rgb(255, 255, 255)", "opacity": "0.6" },
     "minimum": { "minus": "disabled", "plusBackgroundColor": "rgb(185, 29, 34)" },
-    "maximum": { "minusBackgroundColor": "rgb(185, 29, 34)", "plus": "disabled" }
+    "maximum": { "minusBackgroundColor": "rgb(185, 29, 34)", "plus": "disabled" },
+    "inputOwnership": { "nativeBorderWidth": "0px", "nativeBackgroundColor": "rgba(0, 0, 0, 0)" },
+    "textareaOwnership": { "nativeBorderWidth": "0px", "nativeBackgroundColor": "rgba(0, 0, 0, 0)" }
   }
 }

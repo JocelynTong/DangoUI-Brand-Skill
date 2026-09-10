@@ -22,7 +22,7 @@ const fixture = ({ bridge = true, tracksPass = true, stale = false, statePass = 
     themeFile: "theme.scss", status: tracksPass ? "PASS" : "READY_FOR_RUNTIME_QA",
     tracks: { source: "PASS", rendered: tracksPass ? "PASS" : "PENDING" },
     requiredMappings: [{ role: "active", source: "action.active", target: "--du-primary-color", value: "#FFF507", status: "mapped" }],
-    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], requiredStates: ["default"], stateEvidence: "state-evidence.json",
+    runtimeComponentTokens: { DuButton: ["--du-bt-color"] }, componentAliasSelectors: [".du-c-primary-bt"], requiredStates: ["default"], requiredOwnershipChecks: [], stateEvidence: "state-evidence.json",
     exceptions: [{ id: "recipe", kind: "style-only", owner: "Design", reason: "bounded recipe" }]
   }));
   return root;
