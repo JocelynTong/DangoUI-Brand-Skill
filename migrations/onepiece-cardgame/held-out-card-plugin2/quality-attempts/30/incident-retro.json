@@ -1,0 +1,21 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "attempt": 30,
+  "observedMismatch": "The attempted fix replaced a meaningful host card back with an invented DECK graphic and assigned new motion values without source evidence, making the interaction harder to understand.",
+  "missedBy": ["Design Director / Orchestrator", "Host Implementation Agent", "Visual QA"],
+  "whyOldGatePassed": "The gate proved that values changed with the theme, but never proved that the replacement asset or motion recipe existed in the approved Brand MOD or preserved host semantics.",
+  "evidenceRefs": [
+    "browser-comment-2026-09-10#synthetic-deck-back",
+    "brand-mod.json#assets.product-sleeve16.antiScopes",
+    "goal-contract.json#mustPreserve"
+  ],
+  "rootCause": "Theme variability was incorrectly treated as sufficient evidence. A locally generated CSS graphic and new timing values were accepted despite having no approved asset identity or motion recipe.",
+  "closure": [
+    "Restore the original host card-back DOM and interaction semantics.",
+    "Keep generic motion parameters configurable in the host contract without adding ONE PIECE overrides.",
+    "Reject synthetic replacement assets and motion recipes unless the approved Brand MOD supplies provenance and target scope.",
+    "Validate the rendered flipped state contains no synthetic DECK mark."
+  ],
+  "failureOwnerRole": "Design Director / Orchestrator",
+  "ruleDisposition": "candidate-warning: require a second brand or platform-general proof before promoting to a global blocking guard"
+}

@@ -8,11 +8,12 @@ const files = {
 }
 const text = Object.fromEntries(Object.entries(files).map(([key, file]) => [key, fs.readFileSync(file, 'utf8')]))
 const checks = {
-  sharedCardBackSurface: text.viewer.includes('brand-card-back') && text.plaza.includes('brand-card-back'),
-  pokemonAssetHiddenByHostTheme: /brand-card-back__asset\s*\{[^}]*display:\s*none/s.test(text.theme),
-  hostCardBackMark: /brand-card-back__mark\s*\{[^}]*display:\s*flex/s.test(text.theme),
+  hostCardBackPreserved: text.viewer.includes('zoomimg zoomimg-back') && text.plaza.includes('image class="pitch-card-back"'),
+  noSyntheticBrandCardBack: !text.viewer.includes('brand-card-back') && !text.plaza.includes('brand-card-back') && !text.theme.includes('brand-card-back'),
+  noUnprovenDeckMark: !text.viewer.includes('brand-card-back__mark') && !text.plaza.includes('brand-card-back__mark'),
   motionVariablesConsumed: ['--host-motion-zoom-in', '--host-motion-zoom-out', '--host-motion-flip-duration'].every(token => text.viewerCss.includes(token)),
-  autoFlipThemeControlled: text.plaza.includes('--host-motion-hero-cycle') && text.theme.includes('--host-motion-hero-cycle: 0ms'),
+  motionNotOverriddenByOnePiece: !/--host-motion-(?:hero|overlay|flip|zoom)/.test(text.theme),
+  autoFlipContractConsumed: text.plaza.includes('--host-motion-hero-cycle'),
   noLiteralAutoFlipInterval: !/setInterval\(toggleHeroFlip,\s*4200\)/.test(text.plaza)
 }
 const failed = Object.entries(checks).filter(([, pass]) => !pass).map(([name]) => name)
