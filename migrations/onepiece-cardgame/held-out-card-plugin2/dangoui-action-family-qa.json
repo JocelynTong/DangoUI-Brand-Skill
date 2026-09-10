@@ -1,0 +1,36 @@
+{
+  "schema": "brand-dangoui-action-family-qa/v1",
+  "generatedAt": "2026-09-10",
+  "platform": "h5",
+  "renderedConsumer": "PASS",
+  "bundleContainsDangoui": "PASS",
+  "businessParity": "PASS",
+  "scope": {
+    "components": ["DuButton"],
+    "consumers": [
+      "pages/build/index.vue:publish sheet draft and publish",
+      "components/CardViewer.vue:card purchase",
+      "pages/detail/index.vue:deck purchase and favorite",
+      "components/DetailOverlay.vue:deck purchase and favorite"
+    ],
+    "excludedPendingBehaviorProbe": [
+      "copy deck",
+      "quantity stepper",
+      "environment selector"
+    ]
+  },
+  "checks": {
+    "productionBuild": "PASS: pnpm run build:h5, 668 modules, zero errors",
+    "publishValidation": "PASS: empty publish invokes original validation and reports 请选择封面",
+    "publishLayout": "PASS: publish sheet actions remain visible below textarea with no bottom-bar overlap",
+    "cardPurchase": "PASS: DuButton invokes original handler and reports 去购买 ｜ 跳转卡牌 SPU",
+    "deckPurchase": "PASS: DuButton invokes original handler and reports 去购买 ｜ 跳转卡组 SPU",
+    "favoriteRestore": "PASS: first activation changes 收藏卡组 to 已收藏; second returns to 收藏卡组 and reports 已取消",
+    "iconCompatibility": "PASS_AFTER_REPAIR: nested Taro images produced malformed glyphs and were removed; text labels render cleanly"
+  },
+  "limitations": [
+    "H5 only; no mini-program compatibility claim",
+    "copy deck remains the original host control until a reversible persistent-state probe exists",
+    "quantity and environment controls remain host components until their event models are independently proven"
+  ]
+}
