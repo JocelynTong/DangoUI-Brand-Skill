@@ -1,0 +1,51 @@
+{
+  "schema": "brand-dangoui-fresh-qa-attempt2/v1",
+  "generatedAt": "2026-09-10",
+  "independentFreshQa": true,
+  "productionEditsByQa": false,
+  "platform": "H5_ONLY",
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "PASS",
+    "visualQuality": "PASS",
+    "runtimeConsumer": "PASS"
+  },
+  "finalVerdict": "PASS_REAL_COMPONENT_CONSUMER_H5_ONLY",
+  "weapp": "UNSUPPORTED_UNVERIFIED",
+  "checks": {
+    "dependency": "PASS: package.json and pnpm-lock.yaml resolve exact dangoui 3.6.16",
+    "styleOrder": "PASS: dangoui/style.css then dangoui/theme.css then app/host themes",
+    "sourceConsumer": "PASS: named DuInput, DuTextarea and DuButton imports, Options API registration, and three approved template substitutions",
+    "bundleConsumer": "PASS: production chunks contain DangoUI and host consumer signatures; index sha256 32c7a11aa17ed9ab9d3f0b0de1f4241ad2b11a2f8b1a17c09b28adc567d6aaa1; vendor sha256 30801a424e2ec603320b0ccd3edae8a146e5a8dd98eacdd4927845a0d57ecbb3",
+    "renderedInstances": "PASS: exactly one div.du-input, div.du-textarea, and button.du-button in each tested viewport",
+    "environmentControl": "PASS: original environment control remains rendered as 标准赛制-18.0 and is not substituted",
+    "fieldOwnership": "PASS: one DangoUI-root boundary; native input and textarea borders are 0px none",
+    "fieldStates": "PASS: placeholders, filled values, visible focus outline, name 15/16 -> 15, description 1000/1001 -> 1000",
+    "textareaScrolling": "PASS: native textarea scrollHeight exceeds clientHeight and scrollTop changes",
+    "responsive": "PASS: environment, input, textarea, actions horizontally and vertically contained at 390x844, 536x864, 1280x720; textarea remains above actions",
+    "desktop720": "PASS: sheet 42.406..720, environment 322..414, input 476..522, textarea 584..656, actions 662..710",
+    "savePointerKeyboard": "PASS: pointer, Enter and Space each produce exactly one original ptcg storage write, close sheet, exact storage restore, zero external writes",
+    "disabledLoading": "PASS: isolated real component states suppress click/storage and expose du-button--secondary-disabled-temp / du-button--loading; contexts discarded",
+    "keyboardProxy": "PASS_PROXY_ONLY: real textarea focused; visualViewport 520; textarea bottom 511.766 and visible; real-device soft keyboard N/A/unverified",
+    "businessDiff": "PASS: baseline/current node count remains 153; only the three approved primitive substitutions plus DangoUI import/registration and two thin string-to-detail adapters affect business SFC; original onPublishNameInput/onPublishDescInput, saveDraftFromSheet/onSaveDraft, validation, publish, environment, route, store and API bodies remain unchanged",
+    "productionBuild": "PASS: npm run build:h5; 668 modules transformed; no errors",
+    "sixPageRegression": "PASS_WITH_KNOWN_OPAQUE_TARO_PAGEERRORS: all six configured routes render non-empty content with no horizontal overflow and no actionable JS stack; plaza/build/detail emit pre-existing opaque Object pageerrors not attributable to this scoped substitution"
+  },
+  "evidence": [
+    "browser-probes.json",
+    "captures/build-sheet-390x844-empty.png",
+    "captures/build-sheet-390x844.png",
+    "captures/build-sheet-536x864-empty.png",
+    "captures/build-sheet-536x864.png",
+    "captures/build-sheet-1280x720-empty.png",
+    "captures/build-sheet-1280x720.png",
+    "current-build-index.json",
+    "../qa-harness-contract.json",
+    "../qa-harness-attempt2.mjs"
+  ],
+  "limitations": [
+    "visualViewport resizing is an automated keyboard-occlusion proxy, not a real mobile keyboard test",
+    "No weapp compatibility claim is made",
+    "Opaque Taro pageerror objects on plaza/build/detail have no message or stack; route rendering and scoped-regression checks pass"
+  ]
+}

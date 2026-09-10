@@ -1,0 +1,31 @@
+{
+  "schema": "brand-dangoui-runtime-experiment/v1",
+  "status": "FROZEN",
+  "route": "pages/build/index?mode=new",
+  "objective": "Prove that card-plugin2 can consume real DangoUI components in one Build publish-sheet vertical slice while preserving existing business behavior.",
+  "requiredConsumers": ["deck-name input", "description textarea", "save-draft button"],
+  "control": "environment selector remains the original host component",
+  "mustPreserve": [
+    "draftDeckName and publishDesc state semantics",
+    "existing input limits, placeholders, validation and save-draft handler outcome",
+    "publish behavior, environment behavior, cover selection and all routes",
+    "390, 536 and 1280 layout usability",
+    "fixed preview port 10092"
+  ],
+  "mustProve": [
+    "declared dangoui 3.6.16 dependency",
+    "real component imports and rendered component instances",
+    "DangoUI module present in the production bundle",
+    "pointer and keyboard behavior plus focus, filled, disabled and validation states",
+    "textarea visibility above the fixed action bar and while focused",
+    "business-equivalent before/after outcomes with zero external writes during QA"
+  ],
+  "mustNot": [
+    "claim runtime adoption from --du-* variables, adapter files or CSS class names",
+    "replace the environment selector in this experiment",
+    "change stores, APIs, routes, validation rules or submission behavior",
+    "silently fall back to style-only if DangoUI cannot build or render",
+    "expand migration to other pages before the experiment verdict"
+  ],
+  "completionStates": ["PASS_REAL_COMPONENT_CONSUMER", "FAIL_INCOMPATIBLE", "BLOCKED_DEPENDENCY_OR_API"]
+}

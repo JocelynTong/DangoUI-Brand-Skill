@@ -1,0 +1,17 @@
+{
+  "schema": "brand-host-design-direction/v1",
+  "status": "APPROVED",
+  "scope": "Build publish sheet minimal DangoUI runtime slice",
+  "decisions": [
+    "DangoUI owns the visible field boundary and native input/textarea primitive; no double border.",
+    "DangoUI Button owns the save-draft hit target and its focus/disabled presentation.",
+    "Existing labels, section order, values and handlers remain host-owned.",
+    "Environment selector remains unchanged as a visual and behavioral control.",
+    "Theme translation may use documented DangoUI variables or scoped component APIs only; unsupported APIs remain explicit gaps."
+  ],
+  "responsiveAcceptance": {
+    "390": "fields and textarea remain fully visible and scroll above bottom actions",
+    "536": "single-column form rhythm remains intact",
+    "1280": "no mobile rpx scaling, double borders or oversized controls"
+  }
+}

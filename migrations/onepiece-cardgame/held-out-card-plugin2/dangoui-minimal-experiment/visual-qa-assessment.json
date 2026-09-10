@@ -1,0 +1,61 @@
+{
+  "schema": "brand-dangoui-fresh-visual-qa/v1",
+  "generatedAt": "2026-09-10",
+  "scope": "H5-only DangoUI minimal experiment on Build publish sheet",
+  "freshIndependentQa": true,
+  "verdicts": {
+    "workflowCompletion": "PASS",
+    "businessSafety": "FAIL",
+    "visualQuality": "FAIL",
+    "runtimeConsumer": "FAIL"
+  },
+  "positiveEvidence": [
+    "DangoUI 3.6.16 is exact in package.json, pnpm lock, and installed package.",
+    "Global DangoUI CSS is imported before host themes.",
+    "DuInput, DuTextarea and DuButton are real named imports, registered consumers, present in the production bundle, and rendered as .du-* instances.",
+    "At 390 and 536 the three migrated controls are horizontally contained; input and textarea each expose one visible root boundary and zero native primitive border.",
+    "Name 15/16 and description 1000/1001 paths truncate through the preserved adapters and show the original limit toasts.",
+    "The long textarea is internally scrollable and a focus outline is visible in the focus proxy probe."
+  ],
+  "blockingFindings": [
+    {
+      "code": "DESKTOP_SHEET_VERTICAL_CLIPPING",
+      "owner": "HostImplementationAgent",
+      "evidence": "At fresh 1280x720, textarea top/bottom=749.02/893.02 and actions top/bottom=907.02/955.02. The action row is outside the viewport and the screenshot visibly cuts the form below the name field."
+    },
+    {
+      "code": "SAVE_EXACTLY_ONCE_AND_STORAGE_RESTORE_UNPROVEN",
+      "owner": "HostImplementationAgent/RuntimeQAHarness",
+      "evidence": "The required pointer, Enter and Space probes through saveDraftFromSheet were not run because exact localStorage restoration and write interception were unavailable in the read-only browser evaluation surface."
+    },
+    {
+      "code": "DUBUTTON_DISABLED_LOADING_RUNTIME_UNPROVEN",
+      "owner": "RuntimeQAHarness",
+      "evidence": "Production fixes both props to false and no isolated non-production mount exists. Source inspection is not accepted as runtime proof."
+    },
+    {
+      "code": "REAL_MOBILE_KEYBOARD_UNPROVEN",
+      "owner": "RuntimeQAHarness",
+      "evidence": "Focus and reduced-space geometry were checked, but no real mobile virtual keyboard event/viewport resize was available."
+    },
+    {
+      "code": "SCREENSHOT_FILES_NOT_PERSISTED",
+      "owner": "QAInfrastructure",
+      "evidence": "All three CUA screenshots were captured and inspected, but the QA surface exposed no authorized filesystem persistence method."
+    }
+  ],
+  "businessComparison": {
+    "stores": "UNCHANGED_IN_DIFF",
+    "apis": "UNCHANGED_IN_DIFF",
+    "routes": "UNCHANGED_IN_DIFF",
+    "validation": "UNCHANGED_EXCEPT_THIN_STRING_TO_DETAIL_ADAPTERS; boundary runtime probes pass",
+    "publishFlow": "UNCHANGED_IN_DIFF",
+    "saveHandlerBody": "UNCHANGED_IN_DIFF",
+    "dynamicSaveEvidence": "MISSING"
+  },
+  "platformVerdict": {
+    "h5": "FAIL_ACCEPTANCE_DESPITE_REAL_RUNTIME_CONSUMERS",
+    "weapp": "UNSUPPORTED_UNVERIFIED_DO_NOT_CLAIM"
+  },
+  "finalVerdict": "FAIL"
+}

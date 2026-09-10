@@ -1,0 +1,69 @@
+{
+  "schema": "brand-dangoui-fresh-browser-probes/v1",
+  "generatedAt": "2026-09-10",
+  "qaRole": "freshIndependentVisualQA",
+  "platform": "H5_ONLY",
+  "url": "http://192.168.12.127:10092/#/pages/build/index?mode=new",
+  "viewports": {
+    "390x844": {
+      "instances": { "duInput": 1, "duTextarea": 1, "duButton": 1 },
+      "tags": { "inputRoot": "DIV", "inputPrimitive": "INPUT", "textareaRoot": "DIV", "textareaPrimitive": "TEXTAREA", "buttonRoot": "BUTTON" },
+      "rects": {
+        "environment": { "left": 14.55, "right": 375.45, "top": 465.40, "bottom": 513.23, "width": 360.89, "height": 47.84 },
+        "input": { "left": 14.55, "right": 375.45, "top": 556.90, "bottom": 604.73, "width": 360.89, "height": 47.84 },
+        "textarea": { "left": 14.55, "right": 375.45, "top": 648.40, "bottom": 723.27, "width": 360.89, "height": 74.88 },
+        "actions": { "left": 14.55, "right": 375.45, "top": 737.82, "bottom": 787.74, "width": 360.89, "height": 49.91 }
+      },
+      "documentHorizontalOverflowPx": 0,
+      "textareaAboveActions": true,
+      "borderOwnership": {
+        "inputRoot": "1px solid",
+        "inputPrimitive": "0px none",
+        "textareaRoot": "1px solid",
+        "textareaPrimitive": "0px none"
+      }
+    },
+    "536x864": {
+      "instances": { "duInput": 1, "duTextarea": 1, "duButton": 1 },
+      "allTargetsContained": true,
+      "documentHorizontalOverflowPx": 0,
+      "textareaAboveActions": true,
+      "rects": {
+        "environment": { "left": 14, "right": 522, "top": 395.02, "bottom": 460.76, "width": 508, "height": 65.74 },
+        "input": { "left": 14, "right": 522, "top": 514.77, "bottom": 580.52, "width": 508, "height": 65.74 },
+        "textarea": { "left": 14, "right": 522, "top": 634.53, "bottom": 737.44, "width": 508, "height": 102.91 },
+        "actions": { "left": 14, "right": 522, "top": 751.44, "bottom": 799.44, "width": 508, "height": 48 }
+      }
+    },
+    "1280x720": {
+      "instances": { "duInput": 1, "duTextarea": 1, "duButton": 1 },
+      "horizontalContainment": true,
+      "documentHorizontalOverflowPx": 0,
+      "textareaAboveActions": true,
+      "viewportVerticalContainment": false,
+      "blockingFinding": "The sheet content scales vertically beyond the viewport: textarea top=749.02 and actions top=907.02/bottom=955.02 in a 720px viewport. The screenshot shows the form clipped below the input and no visible action row.",
+      "rects": {
+        "environment": { "left": 346, "right": 934, "top": 425.02, "bottom": 517.02, "width": 588, "height": 92 },
+        "input": { "left": 346, "right": 934, "top": 587.02, "bottom": 679.02, "width": 588, "height": 92 },
+        "textarea": { "left": 346, "right": 934, "top": 749.02, "bottom": 893.02, "width": 588, "height": 144 },
+        "actions": { "left": 346, "right": 934, "top": 907.02, "bottom": 955.02, "width": 588, "height": 48 }
+      }
+    }
+  },
+  "interaction": {
+    "name15": { "result": "PASS", "renderedLength": 15 },
+    "name16": { "result": "PASS", "renderedLength": 15, "toast": "卡组名最多 15 个字", "remounted": true },
+    "description1000": { "result": "PASS", "renderedLength": 1000, "activeElementWasTextarea": true },
+    "description1001": { "result": "PASS", "renderedLength": 1000, "toast": "简介最多 1000 字", "remounted": true },
+    "textareaScroll": { "result": "PASS", "clientHeight": 46, "scrollHeight": 968, "maxScrollTop": 922, "observedScrollTopAfterEnd": 922, "overflowY": "auto" },
+    "textareaFocus": { "result": "PASS_WITH_PROXY_ONLY", "nativeActiveElement": true, "focusWithin": true, "nativeOutline": "rgb(255, 245, 7) solid 3px", "textareaBottom": 746.30, "actionsTop": 775.37, "keyboardProxy": "viewport/focus probe only; no real mobile virtual keyboard was available" },
+    "environmentControl": { "sourceDiff": "UNCHANGED", "initialLabel": "标准赛制-18.0", "pickerOpened": true, "optionCount": 38, "note": "A semantic locator activation for 17.5 resulted in visible label 17.0; this control was unchanged by the experiment, so the probe is recorded without attributing a regression." },
+    "saveDraft": { "result": "NOT_EXECUTED", "reason": "The available browser evaluation surface is read-only and cannot safely restore the exact localStorage snapshot after the original handler writes. Executing the write without restoration would violate the frozen QA requirement." },
+    "duButtonDisabledLoading": { "result": "UNVERIFIED", "reason": "No isolated non-production Vue mount was available, and production props are hard-coded false. Source-level click gating is not accepted as runtime proof." }
+  },
+  "screenshots": {
+    "capturedAndVisuallyInspected": ["390x844", "536x864", "1280x720"],
+    "persistedFiles": [],
+    "evidenceGap": "The CUA screenshot API exposed image bytes for visual inspection but no authorized filesystem persistence method in this QA context."
+  }
+}

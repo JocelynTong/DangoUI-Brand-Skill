@@ -1,0 +1,18 @@
+{
+  "schema": "brand-dangoui-runtime-qa-harness/v1",
+  "status": "APPROVED_TEST_ONLY",
+  "approvedByRole": "designDirectorOrchestrator",
+  "allowed": [
+    "Use an independent Playwright process rather than read-only CUA evaluation.",
+    "Snapshot browser storage, instrument storage mutation calls and external network writes, activate the real rendered DuButton, assert exactly one original save outcome and sheet close, then restore the exact storage snapshot.",
+    "In an isolated browser context, temporarily set the rendered DuButton component instance disabled or loading prop/state through Vue runtime internals, assert the real component suppresses click and exposes its documented visual class, then reload and discard the context.",
+    "Use visualViewport resizing while the real DuTextarea owns focus as an automated keyboard-occlusion proxy."
+  ],
+  "forbidden": [
+    "No production source, route, store, handler or fixture may be changed for QA.",
+    "No synthetic replacement button/input/textarea DOM may be created.",
+    "No external write request may be sent.",
+    "Automated visualViewport proxy may not be reported as a real-device soft-keyboard PASS."
+  ],
+  "requiredRestoration": ["storage exact restore", "fresh browser context after prop harness", "zero external writes"]
+}

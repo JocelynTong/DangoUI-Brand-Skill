@@ -1,0 +1,28 @@
+{
+  "schema": "brand-dangoui-runtime-qa-harness-results/v1",
+  "generatedAt": "2026-09-10",
+  "harness": "qa-harness-attempt2.mjs",
+  "status": "IMPLEMENTATION_SELFCHECK_ONLY_NOT_FRESH_QA_VERDICT",
+  "activations": [
+    {"activation": "pointer", "sheetClosed": true, "storageWriteCount": 1, "storageWriteKeys": ["ptcg"], "exactRestore": true, "externalWrites": [], "beaconWrites": []},
+    {"activation": "Enter", "sheetClosed": true, "storageWriteCount": 1, "storageWriteKeys": ["ptcg"], "exactRestore": true, "externalWrites": [], "beaconWrites": []},
+    {"activation": "Space", "sheetClosed": true, "storageWriteCount": 1, "storageWriteKeys": ["ptcg"], "exactRestore": true, "externalWrites": [], "beaconWrites": []}
+  ],
+  "isolatedButtonStates": [
+    {"state": "disabled", "classIncludes": "du-button--secondary-disabled-temp", "sheetStayedOpen": true, "storageWriteDelta": 0, "exactRestore": true, "externalWrites": []},
+    {"state": "loading", "classIncludes": "du-button--loading", "sheetStayedOpen": true, "storageWriteDelta": 0, "exactRestore": true, "externalWrites": []}
+  ],
+  "keyboardProxy": {
+    "classification": "AUTOMATED_VISUAL_VIEWPORT_PROXY_NOT_REAL_DEVICE_KEYBOARD_PASS",
+    "focused": true,
+    "visualViewportHeight": 520,
+    "textareaTop": 436.891,
+    "textareaBottom": 511.766,
+    "textareaVisible": true,
+    "textareaAboveActions": true,
+    "sheetScrollTop": 37,
+    "externalWrites": []
+  },
+  "inputLimits": {"typedNameLength": 16, "renderedNameLength": 15, "typedDescriptionLength": 1001, "renderedDescriptionLength": 1000, "storageWriteCount": 0, "externalWrites": []},
+  "restoration": {"storageExactRestoreAllMutatingProbes": true, "freshContextPerProbe": true, "externalWriteCount": 0}
+}

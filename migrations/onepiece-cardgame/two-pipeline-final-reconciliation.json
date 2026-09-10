@@ -9,7 +9,7 @@
     "achieved": true,
     "reason": "learn-brand 已冻结通过；第一宿主的视觉、业务、运行时和整站体验通过；第二宿主在不重学品牌、不新增 case-specific 流程规则的前提下完成 6/6 页面与整站独立 QA。",
     "nonCompensatingException": "第一宿主 V2-D 缺失实施前 orchestrator structural baseline，workflowCompletion 保持 NEEDS_EVIDENCE；第二宿主通过不重写该历史事实。",
-    "advisoryBoundary": "第二宿主为 PARTIAL_STYLE_ONLY，没有真实 DangoUI dependency、component consumer 或 runtime proof，因此不得宣称 DangoUI complete。"
+    "advisoryBoundary": "第二宿主现有一个通过独立 QA 的 H5-only DangoUI 真实消费者切片；其余页面仍为 style-only，weapp 仍 UNSUPPORTED_UNVERIFIED，因此不得宣称全站或跨端 DangoUI complete。"
   },
   "layers": {
     "methodology": {
@@ -58,7 +58,7 @@
       "runtimeTheme": "PASS",
       "fullHostExperience": "PASS_ADVISORY",
       "implementation": {"routes": "6/6", "acceptedPageQaAttempts": [10, 13, 22, 17, 19, 20], "fullIntegrationQaAttempt": 21, "postIntegrationUserFeedbackClosureAttempt": 22, "acceptedComponentFamilyQaAttempt": 28},
-      "dangoUi": "PARTIAL_STYLE_ONLY",
+      "dangoUi": "PARTIAL_REAL_COMPONENT_CONSUMER_H5_ONLY_PLUS_STYLE_ONLY",
       "businessEvidenceBoundary": "Fresh QA preserved data, routes, stores, APIs, mutations and navigation outcomes and emitted zero external writes. Destructive delete and publish submission were intentionally not executed; no unobserved production result is claimed.",
       "evidence": [
         "migrations/onepiece-cardgame/held-out-card-plugin2/goal-contract.json",
@@ -82,7 +82,7 @@
         "Mobile subordinate labels reach 8.32–9.88px; they passed current legibility review but must not be reused for longer CJK copy.",
         "Mine default favorite branch whitespace is caused by one-item content length, not a missing surface or separator.",
         "Round score/current-selection branches are not present in the frozen host data model and are N/A; no business data was invented.",
-        "No DangoUI runtime/component consumer is present."
+        "Only the Build publish-sheet Input, Textarea and save-draft Button are proven real DangoUI consumers on H5; remaining components are style-only and weapp is unsupported/unverified."
       ],
       "remainingBlocking": []
     }
@@ -110,10 +110,10 @@
         {"seq": "P2.1", "name": "Design Brief 与业务保护边界", "completionPercent": 100, "workflow": "PASS_BOTH_HOSTS", "business": "PASS_BOUNDARY_FROZEN", "visual": "N/A", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/migrations/onepiece-cardgame-host/program-goal-tree-v2.json", "migrations/onepiece-cardgame/held-out-card-plugin2/goal-contract.json"], "remaining": []},
         {"seq": "P2.2", "name": "全部路由、旅程、状态和组件家族盘点", "completionPercent": 100, "workflow": "PASS_12_PLUS_6_ROUTES", "business": "PASS_INVENTORY", "visual": "N/A", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/migrations/onepiece-cardgame-host/host-coverage-matrix.json", "migrations/onepiece-cardgame/held-out-card-plugin2/coverage-matrix.json"], "remaining": []},
         {"seq": "P2.3", "name": "页面视觉机会与整站方向", "completionPercent": 100, "workflow": "PASS_BOTH_HOSTS", "business": "PASS_CAPACITY_AWARE", "visual": "PASS_DIRECTION", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/migrations/onepiece-cardgame-host/host-opportunity-map-v2.json", "/Users/jocelyn/Downloads/spu-common-plugin/migrations/onepiece-cardgame-host/design-direction-v2.json", "migrations/onepiece-cardgame/held-out-card-plugin2/host-opportunity-map.json", "migrations/onepiece-cardgame/held-out-card-plugin2/design-direction.json"], "remaining": []},
-        {"seq": "P2.4", "name": "Host Implementation", "completionPercent": 100, "workflow": "FIRST_HOST_NEEDS_EVIDENCE_SECOND_HOST_PASS", "business": "PASS_PRESERVED", "visual": "PASS_IMPLEMENTED", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/quality-attempts/102/canonical.json", "migrations/onepiece-cardgame/held-out-card-plugin2/implementation-receipt.json"], "remaining": ["First host V2-D prechange baseline remains unavailable."], "dangoUiBoundary": {"firstHost": "PARTIAL_REAL_CONSUMER_PLUS_PARTIAL_STYLE_ONLY", "secondHost": "PARTIAL_STYLE_ONLY"}},
+        {"seq": "P2.4", "name": "Host Implementation", "completionPercent": 100, "workflow": "FIRST_HOST_NEEDS_EVIDENCE_SECOND_HOST_PASS", "business": "PASS_PRESERVED", "visual": "PASS_IMPLEMENTED", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/quality-attempts/102/canonical.json", "migrations/onepiece-cardgame/held-out-card-plugin2/implementation-receipt.json", "migrations/onepiece-cardgame/held-out-card-plugin2/dangoui-minimal-experiment/qa-attempt2-fresh/assessment.json"], "remaining": ["First host V2-D prechange baseline remains unavailable."], "dangoUiBoundary": {"firstHost": "PARTIAL_REAL_CONSUMER_PLUS_PARTIAL_STYLE_ONLY", "secondHost": "PARTIAL_REAL_COMPONENT_CONSUMER_H5_ONLY_PLUS_STYLE_ONLY; weapp UNSUPPORTED_UNVERIFIED"}},
         {"seq": "P2.5", "name": "业务安全与可访问性", "completionPercent": 100, "workflow": "PASS_OBSERVED_SCOPE", "business": "PASS_BOTH_HOSTS", "visual": "PASS_READABILITY_AND_INTERACTION", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/quality-attempts/102/visual-qa-report.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/21/full-host-visual-qa-assessment.json"], "remaining": [], "boundary": "Second-host QA did not submit publish or confirm delete and therefore does not claim those production side effects."},
         {"seq": "P2.6", "name": "独立视觉与全站回归", "completionPercent": 100, "workflow": "PASS_FRESH_INDEPENDENT", "business": "PASS", "visual": "PASS_FIRST_HOST_12_ROUTES_SECOND_HOST_6_ROUTES", "evidence": ["/Users/jocelyn/Downloads/spu-common-plugin/quality-attempts/102/canonical.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/21/full-host-visual-qa-assessment.json"], "remaining": []},
-        {"seq": "P2.7", "name": "最终交接与 held-out 复用证明", "completionPercent": 100, "workflow": "PASS_SECOND_HOST_WITH_FIRST_HOST_EXCEPTION_RETAINED", "business": "PASS_ADVISORY", "visual": "PASS_ADVISORY", "evidence": ["migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/10/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/13/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/22/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/17/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/19/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/20/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/21/full-host-visual-qa-assessment.json"], "remainingBlocking": [], "remainingAdvisory": ["Do not reuse sub-10px microcopy for longer CJK text.", "Do not claim DangoUI runtime adoption on the second host."]}
+        {"seq": "P2.7", "name": "最终交接与 held-out 复用证明", "completionPercent": 100, "workflow": "PASS_SECOND_HOST_WITH_FIRST_HOST_EXCEPTION_RETAINED", "business": "PASS_ADVISORY", "visual": "PASS_ADVISORY", "evidence": ["migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/10/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/13/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/22/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/17/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/19/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/20/visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/21/full-host-visual-qa-assessment.json", "migrations/onepiece-cardgame/held-out-card-plugin2/quality-attempts/28/component-state-closure.json", "migrations/onepiece-cardgame/held-out-card-plugin2/dangoui-minimal-experiment/qa-attempt2-fresh/assessment.json"], "remainingBlocking": [], "remainingAdvisory": ["Do not reuse sub-10px microcopy for longer CJK text.", "Do not generalize the H5-only DangoUI pilot to remaining components or weapp."]}
       ]
     }
   },
@@ -128,6 +128,6 @@
   "remainingWork": {
     "blockingForOriginalGoal": [],
     "historicalExceptions": ["First host V2-D prechange orchestrator baseline is missing and unrecoverable."],
-    "advisories": ["Second-host small microcopy is at the lower legibility bound.", "Second host remains PARTIAL_STYLE_ONLY for DangoUI.", "A future third unrelated host would strengthen confidence but is not required by the frozen two-host exit criterion."]
+    "advisories": ["Second-host small microcopy is at the lower legibility bound.", "Second host has one H5-only real DangoUI consumer slice; remaining components are style-only and weapp is unsupported/unverified.", "A future third unrelated host would strengthen confidence but is not required by the frozen two-host exit criterion."]
   }
 }

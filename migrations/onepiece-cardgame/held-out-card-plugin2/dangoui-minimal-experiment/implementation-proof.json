@@ -1,0 +1,212 @@
+{
+  "schema": "brand-dangoui-runtime-implementation-proof/v1",
+  "generatedAt": "2026-09-10",
+  "producerRole": "hostImplementationAgent",
+  "status": "IMPLEMENTED_AWAITING_FRESH_QA_VERDICT",
+  "scope": {
+    "platform": "H5_ONLY",
+    "route": "pages/build/index?mode=new",
+    "surface": "Build publish sheet",
+    "hostRoot": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend",
+    "previewUrl": "http://192.168.12.127:10092/#/pages/build/index?mode=new",
+    "weappClaim": "NONE"
+  },
+  "dependency": {
+    "package": "dangoui",
+    "declaredVersion": "3.6.16",
+    "resolvedVersion": "3.6.16",
+    "packageFile": "card-plugin2.0/frontend/package.json",
+    "lockFile": "card-plugin2.0/frontend/pnpm-lock.yaml"
+  },
+  "globalStyleOrder": [
+    "dangoui/style.css",
+    "dangoui/theme.css",
+    "./app.scss",
+    "./styles/pokemon-tcg-pitch-black-theme.scss",
+    "./styles/onepiece-cardgame-heldout-theme.scss"
+  ],
+  "componentMappings": [
+    {
+      "baselineNode": "n145 <input class=\"sheet-input\">",
+      "postNode": "DuInput -> div.du-input.sheet-input--du > input.du-input__input",
+      "import": "DuInput from dangoui",
+      "valueBefore": ":value=\"publishName\"",
+      "valueAfter": ":value=\"publishName\"",
+      "eventBefore": "@input=\"onPublishNameInput\" with e.detail.value",
+      "eventAfter": "@input=\"onDangoPublishNameInput\" with string",
+      "adapter": "onDangoPublishNameInput(value) -> onPublishNameInput({ detail: { value } })",
+      "unchangedBusinessOwner": "onPublishNameInput -> limitInputValue(..., 15, ...)"
+    },
+    {
+      "baselineNode": "n148 <textarea class=\"sheet-area\">",
+      "postNode": "DuTextarea -> div.du-textarea.sheet-area--du > textarea.du-textarea__inner",
+      "import": "DuTextarea from dangoui",
+      "valueBefore": ":value=\"publishDesc\"",
+      "valueAfter": ":value=\"publishDesc\"",
+      "eventBefore": "@input=\"onPublishDescInput\" with e.detail.value",
+      "eventAfter": "@update:value=\"onDangoPublishDescValue\" with string",
+      "adapter": "onDangoPublishDescValue(value) -> onPublishDescInput({ detail: { value } })",
+      "unchangedBusinessOwner": "onPublishDescInput -> limitInputValue(..., 1000, ...)"
+    },
+    {
+      "baselineNode": "n150 <view class=\"sheet-draft\" role=\"button\">",
+      "postNode": "DuButton -> button.du-button.sheet-draft--du",
+      "import": "DuButton from dangoui",
+      "eventBefore": "@tap plus manual Enter/Space delegation to saveDraftFromSheet",
+      "eventAfter": "single @click=\"saveDraftFromSheet\" on native button root",
+      "adapter": "none",
+      "unchangedBusinessOwner": "saveDraftFromSheet() -> onSaveDraft(); closeSheet()"
+    }
+  ],
+  "control": {
+    "name": "environment selector",
+    "status": "UNCHANGED",
+    "component": "view.envselect plus scroll-view.envpicker",
+    "data": "selectedEnv",
+    "handlers": ["toggleEnv", "pickEnv", "onEnvScroll", "snapEnv", "confirmEnvAndClose"]
+  },
+  "businessPreservation": {
+    "changedStores": false,
+    "changedApis": false,
+    "changedRoutes": false,
+    "changedValidationRules": false,
+    "changedPublishFlow": false,
+    "changedSaveHandlerBody": false,
+    "externalWritesDuringRecordedBrowserProbes": 0
+  },
+  "build": {
+    "command": "npm run build:h5",
+    "result": "PASS",
+    "modulesTransformed": 668,
+    "durationSeconds": 23.88,
+    "warnings": ["Dart Sass legacy JS API deprecation", "Babel deoptimized cardImages.js over 500KB"],
+    "errors": []
+  },
+  "bundleEvidence": {
+    "consumerChunk": "card-plugin2.0/frontend/dist/js/index-legacy.dd4e4081.js",
+    "consumerChunkSha256": "32c7a11aa17ed9ab9d3f0b0de1f4241ad2b11a2f8b1a17c09b28adc567d6aaa1",
+    "vendorChunk": "card-plugin2.0/frontend/dist/js/vendors-legacy.9d122b82.js",
+    "vendorChunkSha256": "30801a424e2ec603320b0ccd3edae8a146e5a8dd98eacdd4927845a0d57ecbb3",
+    "signatures": ["du-input__inner", "du-textarea__inner", "du-button--secondary", "sheet-input--du", "sheet-area--du", "sheet-draft--du"]
+  },
+  "renderedRuntimeEvidence": {
+    "viewport1280x720": {
+      "counts": {"div.du-input": 1, "div.du-textarea": 1, "button.du-button": 1},
+      "tags": {"inputRoot": "DIV", "inputPrimitive": "INPUT", "textareaRoot": "DIV", "textareaPrimitive": "TEXTAREA", "buttonRoot": "BUTTON"},
+      "rects": {
+        "environment": {"left": 345, "right": 935, "top": 353.484, "bottom": 399.484, "height": 46},
+        "input": {"left": 345, "right": 935, "top": 441.484, "bottom": 487.484, "height": 46},
+        "textarea": {"left": 345, "right": 935, "top": 529.484, "bottom": 601.484, "height": 72},
+        "actions": {"left": 345, "right": 935, "top": 615.484, "bottom": 663.484, "height": 48}
+      },
+      "textareaAboveActions": true,
+      "documentHorizontalOverflow": false
+    },
+    "viewport536x864": {
+      "singleColumn": true,
+      "allTargetsContained": true,
+      "textareaAboveActions": true,
+      "documentHorizontalOverflow": false
+    },
+    "viewport390x844": {
+      "counts": {"div.du-input": 1, "div.du-textarea": 1, "button.du-button": 1},
+      "allTargetsHorizontallyContained": true,
+      "textareaAboveActions": true,
+      "documentHorizontalOverflow": false,
+      "rects": {
+        "environment": {"left": 14.555, "right": 375.445, "top": 502.938, "bottom": 550.773},
+        "input": {"left": 14.555, "right": 375.445, "top": 594.438, "bottom": 642.273},
+        "textarea": {"left": 14.555, "right": 375.445, "top": 685.938, "bottom": 760.813},
+        "actions": {"left": 14.555, "right": 375.445, "top": 775.367, "bottom": 825.281}
+      }
+    },
+    "singleBorderOwnership": {
+      "inputRootBorder": "1px/2px host theme border according to viewport scaling",
+      "inputPrimitiveBorder": "0px none",
+      "textareaRootBorder": "1px/2px host theme border according to viewport scaling",
+      "textareaPrimitiveBorder": "0px none",
+      "owner": "DangoUI root translated by onepiece-cardgame-heldout theme"
+    }
+  },
+  "interactionProbes": {
+    "empty": "rendered with placeholders",
+    "filledName": "native input reflected typed value",
+    "nameOverflow": {"typedLength": 16, "renderedLength": 15, "renderedValue": "123456789012345", "existingLimitPathPreserved": true},
+    "filledDescription": {"typedValue": "实验简介", "renderedValue": "实验简介"},
+    "textareaFocus": {"nativeTextareaWasDocumentActiveElement": true, "textareaAboveActionsWhileFocused": true},
+    "saveOnceAndClose": "ATTEMPT2_APPROVED_HARNESS_PASS; see attempt2-harness-results.json",
+    "description1000Overflow": "ATTEMPT2_APPROVED_HARNESS_PASS: 1001 typed, 1000 rendered",
+    "disabledLoading": "ATTEMPT2_ISOLATED_HARNESS_PASS_WITHOUT_PRODUCTION_TEST_UI"
+  },
+  "screenshots": {
+    "capturedInProducerSession": ["390x844 open publish sheet"],
+    "persistedArtifactPaths": [],
+    "note": "CUA screenshot was visually inspected but not persisted from the subagent browser session; fresh QA should capture canonical files for all three viewports."
+  },
+  "freshQaRequired": [
+    "persist canonical 390/536/1280 screenshots",
+    "compare environment selector before/after baseline geometry and behavior",
+    "fresh independent QA must issue the final verdict"
+  ],
+  "attempt2": {
+    "trigger": "Fresh QA failure DESKTOP_SHEET_VERTICAL_CLIPPING plus missing runtime harness evidence",
+    "productChange": {
+      "file": "card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss",
+      "sourceSha256": "049863478714153cc5411b0ec784e57f789627e9e9e0282eb934af3954060e62",
+      "scope": "@media (min-width: 720px) Build publish sheet only",
+      "changes": [
+        "Bound sheet to viewport minus 24px and split it into fixed title plus min-height:0 overflow:auto body.",
+        "Use desktop PX dimensions for the migrated DuInput and DuTextarea roots.",
+        "Compact desktop-only body gap/padding and cover height so all fields and actions fit at 1280x720.",
+        "Keep overflow:auto and scroll-padding as a low-height fallback."
+      ],
+      "unchanged": [
+        "DuInput/DuTextarea/DuButton imports, props, events and adapters",
+        "stores, APIs, routes, validation, publish and save handler bodies",
+        "environment selector template, data, handlers, width and 1280 QA-height of 92px",
+        "390 and 536 rules and accepted geometry"
+      ]
+    },
+    "desktop1280x720StableRects": {
+      "sheet": {"top": 42.406, "bottom": 720, "height": 677.594, "contained": true},
+      "sheetBody": {"top": 114, "bottom": 718, "clientHeight": 604, "scrollHeight": 604, "overflowY": "auto"},
+      "environment": {"top": 322, "bottom": 414, "height": 92},
+      "duInput": {"top": 476, "bottom": 522, "height": 46},
+      "duTextarea": {"top": 584, "bottom": 656, "height": 72},
+      "actions": {"top": 662, "bottom": 710, "height": 48},
+      "allContained": true,
+      "textareaAboveActions": true,
+      "focus": {"nativeTextareaFocused": true, "textareaVisible": true}
+    },
+    "responsiveRegression": {
+      "390x844": {"allTargetsContained": true, "textareaAboveActions": true, "geometryUnchangedFromAcceptedProbe": true},
+      "536x864": {"allTargetsContained": true, "textareaAboveActions": true, "geometryUnchangedFromAcceptedProbe": true}
+    },
+    "approvedQaHarness": {
+      "contract": "qa-harness-contract.json",
+      "script": "qa-harness-attempt2.mjs",
+      "results": "attempt2-harness-results.json",
+      "saveActivations": {
+        "pointer": {"storageWriteCount": 1, "sheetClosed": true, "storageExactRestore": true},
+        "Enter": {"storageWriteCount": 1, "sheetClosed": true, "storageExactRestore": true},
+        "Space": {"storageWriteCount": 1, "sheetClosed": true, "storageExactRestore": true}
+      },
+      "disabled": {"clickSuppressed": true, "visualClass": "du-button--secondary-disabled-temp", "productionSourceChanged": false},
+      "loading": {"clickSuppressed": true, "visualClass": "du-button--loading", "productionSourceChanged": false},
+      "keyboardProxy": {"focused": true, "visualViewportHeight": 520, "textareaBottom": 511.766, "textareaVisible": true, "realDeviceClaim": false},
+      "inputLimits": {"name16To15": true, "description1001To1000": true, "storageWrites": 0},
+      "storageExactRestore": true,
+      "externalWriteCount": 0
+    },
+    "productionBuild": {"command": "npm run build:h5", "result": "PASS", "modulesTransformed": 668, "durationSeconds": 24.29, "errors": 0},
+    "bundleConsumers": {
+      "consumerChunk": "card-plugin2.0/frontend/dist/js/index-legacy.dd4e4081.js",
+      "consumerSha256": "32c7a11aa17ed9ab9d3f0b0de1f4241ad2b11a2f8b1a17c09b28adc567d6aaa1",
+      "vendorChunk": "card-plugin2.0/frontend/dist/js/vendors-legacy.9d122b82.js",
+      "vendorSha256": "30801a424e2ec603320b0ccd3edae8a146e5a8dd98eacdd4927845a0d57ecbb3",
+      "renderedCounts": {"div.du-input": 1, "div.du-textarea": 1, "button.du-button": 1}
+    },
+    "producerVerdict": "NONE_AWAITING_FRESH_INDEPENDENT_QA"
+  },
+  "verdict": "NONE_PRODUCER_NOT_AUTHORIZED_TO_ISSUE_FINAL_QA_VERDICT"
+}

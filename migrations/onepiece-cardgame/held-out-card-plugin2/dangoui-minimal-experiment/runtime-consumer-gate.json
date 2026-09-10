@@ -1,0 +1,21 @@
+{
+  "schema": "brand-dangoui-runtime-consumer-gate/v1",
+  "generatedAt": "2026-09-10",
+  "platform": "H5_ONLY",
+  "weapp": "UNSUPPORTED_UNVERIFIED",
+  "checks": {
+    "dependencyExact": { "verdict": "PASS", "declared": "3.6.16", "lockSpecifier": "3.6.16", "lockResolved": "3.6.16", "installed": "3.6.16" },
+    "styleLoadOrder": { "verdict": "PASS", "order": ["dangoui/style.css", "dangoui/theme.css", "app.scss", "pokemon-tcg-pitch-black-theme.scss", "onepiece-cardgame-heldout-theme.scss"] },
+    "sourceConsumers": { "verdict": "PASS", "import": "import { DuInput, DuTextarea, DuButton } from 'dangoui'", "registered": true, "renderedInTemplate": true },
+    "productionBuild": { "verdict": "PASS", "command": "npm run build:h5", "modules": 668, "durationSeconds": 23.46, "errors": 0 },
+    "bundleSignatures": { "verdict": "PASS", "consumerChunk": "dist/js/index-legacy.dd4e4081.js", "consumerSha256": "32c7a11aa17ed9ab9d3f0b0de1f4241ad2b11a2f8b1a17c09b28adc567d6aaa1", "vendorChunk": "dist/js/vendors-legacy.9d122b82.js", "vendorSha256": "30801a424e2ec603320b0ccd3edae8a146e5a8dd98eacdd4927845a0d57ecbb3", "signatures": ["du-input__inner", "du-textarea__inner", "du-button--secondary", "sheet-input--du", "sheet-area--du", "sheet-draft--du"] },
+    "renderedInstances": { "verdict": "PASS", "countsAtFreshRuntime": { "div.du-input": 1, "div.du-textarea": 1, "button.du-button": 1 } },
+    "inputEventParity": { "verdict": "PASS", "nameBoundaryAndOverflow": true, "descriptionBoundaryAndOverflow": true },
+    "saveOriginalPathExactlyOnce": { "verdict": "FAIL", "reason": "Required storage snapshot/write interception/restore probe could not be safely executed; source parity alone is insufficient." },
+    "buttonPointerEnterSpace": { "verdict": "FAIL", "reason": "Separate exactly-once probes were not executed because every activation reaches the persistent original save path and exact restoration was unavailable." },
+    "buttonDisabledLoading": { "verdict": "FAIL", "reason": "No isolated runtime mount; production props fixed false. DangoUI source gates emission for disabled/loading, but source is not runtime evidence." },
+    "responsiveLayout": { "verdict": "FAIL", "reason": "1280x720 vertically clips the textarea and action row; actions bottom=955.02." }
+  },
+  "verdict": "FAIL",
+  "classification": "REAL_COMPONENT_CONSUMER_PRESENT_BUT_H5_ACCEPTANCE_INCOMPLETE"
+}

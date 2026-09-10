@@ -1,0 +1,364 @@
+{
+  "schema": "brand-dangoui-api-mapping/v1",
+  "status": "MAPPING_ONLY_NOT_IMPLEMENTED_NOT_PASS",
+  "generatedAt": "2026-09-10",
+  "scope": {
+    "host": "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend",
+    "route": "pages/build/index?mode=new",
+    "surface": "Build publish sheet",
+    "runtimeConsumers": [
+      "deck-name input",
+      "description textarea",
+      "save-draft button"
+    ],
+    "control": "environment selector remains the original host component",
+    "forbiddenInThisArtifact": [
+      "dependency installation",
+      "host implementation",
+      "PASS verdict"
+    ]
+  },
+  "evidence": {
+    "host": [
+      "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/package.json",
+      "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/config/index.js",
+      "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/app.js",
+      "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/pages/build/index.vue",
+      "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/pages/build/index.scss",
+      "/Users/jocelyn/Downloads/vibecoding-docs-demo/card-plugin2.0/frontend/src/styles/onepiece-cardgame-heldout-theme.scss"
+    ],
+    "dangoui": [
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/package.json",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/index.ts",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/input/Input.vue",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/textarea/Textarea.vue",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/button/Button.vue",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/select/Select.vue",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/input/style.scss",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/textarea/style.scss",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/src/button/style.scss",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/dangoui/typings/index.d.ts",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/docs/content/0.get-started/2.quick-start.md",
+      "/Users/jocelyn/Downloads/dangoui-feat-update/packages/vite-plugin-dangoui/README.md"
+    ]
+  },
+  "packageContract": {
+    "package": "dangoui",
+    "verifiedVersion": "3.6.16",
+    "hostCurrentDependency": "ABSENT",
+    "moduleEntry": "dist/index.mjs",
+    "typesEntry": "typings/index.d.ts",
+    "verifiedNamedExports": {
+      "input": ["Input", "DuInput"],
+      "textarea": ["Textarea", "DuTextarea"],
+      "button": ["Button", "DuButton"],
+      "selectControlOnly": ["Select", "DuSelect"]
+    },
+    "canonicalExperimentImports": "import { DuInput, DuTextarea, DuButton } from 'dangoui'",
+    "registrationForCurrentOptionsApiPage": {
+      "required": true,
+      "shape": "components: { CardViewer, DuInput, DuTextarea, DuButton }",
+      "reason": "Build uses an Options API export with setup(), not <script setup>."
+    },
+    "styles": {
+      "h5RequiredImports": [
+        "import 'dangoui/style.css'",
+        "import 'dangoui/theme.css'"
+      ],
+      "recommendedHostLocation": "src/app.js before host theme imports, so host-scoped One Piece overrides remain the final cascade owner",
+      "themeWarning": "dangoui/theme.css defines broad :root and page variables. Import order and a scoped .theme-onepiece-cardgame-heldout translation must be verified; existing partial --du-* declarations are not a complete DangoUI theme contract.",
+      "mpDocumentedImport": "import 'virtual:dangoui-theme.css'",
+      "mpStyleAlternativesExposedByPackage": [
+        "dangoui/mp/style.css",
+        "dangoui/mp/theme.css"
+      ],
+      "mpAlternativeStatus": "PACKAGE_EXPORT_EXISTS_BUT_TARO_USAGE_NOT_DOCUMENTED_OR_VERIFIED"
+    }
+  },
+  "platformCompatibility": {
+    "host": {
+      "framework": "Vue 3",
+      "runtime": "Taro 4.2.0",
+      "compiler": "Vite",
+      "targets": ["weapp", "h5"]
+    },
+    "h5": {
+      "status": "CANDIDATE_REQUIRES_BUILD_AND_RUNTIME_PROOF",
+      "basis": [
+        "DangoUI describes itself as a Vue 3 mobile component library for Web and uni-app.",
+        "The published dist/index.mjs is built with __WEB__=true and __UNI_PLATFORM__='h5'.",
+        "The three target components render standard Vue elements and expose Vue emits."
+      ],
+      "notProven": [
+        "Taro H5 compilation of the published Vue render functions",
+        "event parity inside Taro wrappers",
+        "production bundle inclusion",
+        "390/536/1280 layout and keyboard behavior"
+      ]
+    },
+    "weapp": {
+      "status": "UNSUPPORTED_UNVERIFIED_DO_NOT_CLAIM",
+      "basis": [
+        "DangoUI quick-start says mini-program usage requires vite-plugin-dangoui.",
+        "vite-plugin-dangoui README says it is currently only for uni-app mini-programs.",
+        "The host is Taro, not uni-app, and its Vite config has no DangoUI plugin integration.",
+        "The published library bundle bakes Web branches into dist/index.mjs, including Textarea reading e.target before e.detail.",
+        "Source templates use div, span, img, button, input and textarea rather than @tarojs/components primitives."
+      ],
+      "requiredProofBeforeAnyMpClaim": [
+        "documented or source-backed Taro integration path",
+        "successful taro build --type weapp",
+        "real-device/devtools render of all three components",
+        "input and textarea update events carry correct values",
+        "button click fires exactly once and respects disabled/loading",
+        "component wrapper nodes do not break sheet layout"
+      ]
+    }
+  },
+  "componentMappings": [
+    {
+      "id": "publish-name",
+      "existing": {
+        "node": "<input class=\"sheet-input\">",
+        "data": "publishName: Ref<string>",
+        "valueBinding": ":value=\"publishName\"",
+        "placeholder": "给卡组起个名字",
+        "event": "@input=\"onPublishNameInput\"",
+        "handlerContract": "onPublishNameInput(e) delegates to limitInputValue(e, publishName, 15, toast, publishNameInputKey); it expects e.detail.value and returns the truncated string",
+        "limit": 15,
+        "overflowBehavior": "truncate, increment key to remount, and show a throttled toast"
+      },
+      "dangoui": {
+        "component": "DuInput",
+        "verifiedAliases": ["Input", "DuInput"],
+        "valueProp": "value: string",
+        "model": "v-model:value is supported through update:value",
+        "events": {
+          "input": "string",
+          "change": "string",
+          "update:value": "string",
+          "focus": "event-like payload",
+          "blur": "event-like payload",
+          "confirm": "{ detail: { value: string } }",
+          "keyboardheightchange": "{ detail: { height: number, duration: number } }"
+        },
+        "relevantProps": {
+          "placeholder": "string",
+          "maxlength": "number; default -1",
+          "disabled": "boolean; default false; forwarded to native input",
+          "bordered": "boolean; default false",
+          "withoutBorder": "boolean; default false",
+          "autofocus": "boolean; default false",
+          "confirmType": "string; default done",
+          "adjustPosition": "boolean; default true",
+          "allowClear": "boolean; default false",
+          "extClass": "string | string[] | class map",
+          "extStyle": "string | style object"
+        }
+      },
+      "preservingAdapter": {
+        "recommendedBinding": ":value=\"publishName\" placeholder=\"给卡组起个名字\" :maxlength=\"-1\" bordered ext-class=\"sheet-input sheet-input--du\" @input=\"onDangoPublishNameInput\"",
+        "adapter": "onDangoPublishNameInput(value) { return onPublishNameInput({ detail: { value } }) }",
+        "whyNotDirectExistingHandler": "DuInput emits a string for input, while the existing handler reads e.detail.value.",
+        "whyNotVModelForParity": "v-model:value with maxlength=15 is simpler but bypasses the existing over-limit toast/remount path because the native maxlength normally prevents an over-limit value. Use it only if that behavior is intentionally relaxed and separately approved.",
+        "key": "publishNameInputKey may remain on the component to preserve the current forced-remount behavior after custom truncation.",
+        "styleOwnership": "Use DangoUI bordered as the single visible boundary; remove/neutralize the old .sheet-input border/background/padding on the wrapper class to avoid a double border. Exact scoped CSS requires rendered DOM verification."
+      },
+      "unsupportedOrUnknown": [
+        "No documented error/status prop on DuInput.",
+        "No validation-message rendering is built into this component alone.",
+        "Web programmatic focus is explicitly marked TODO in source; autofocus/focus behavior must be tested rather than assumed."
+      ]
+    },
+    {
+      "id": "publish-description",
+      "existing": {
+        "node": "<textarea class=\"sheet-area\">",
+        "data": "publishDesc: Ref<string>",
+        "valueBinding": ":value=\"publishDesc\"",
+        "placeholder": "一句话介绍玩法 / 上分思路",
+        "event": "@input=\"onPublishDescInput\"",
+        "handlerContract": "onPublishDescInput(e) delegates to limitInputValue(e, publishDesc, 1000, toast, publishDescInputKey); it expects e.detail.value",
+        "limit": 1000,
+        "overflowBehavior": "truncate, increment key to remount, and show a throttled toast"
+      },
+      "dangoui": {
+        "component": "DuTextarea",
+        "verifiedAliases": ["Textarea", "DuTextarea"],
+        "valueProp": "value: string",
+        "model": "v-model:value is supported through update:value",
+        "events": {
+          "update:value": "string"
+        },
+        "relevantProps": {
+          "placeholder": "string",
+          "maxlength": "number; default -1",
+          "showCount": "boolean; default false",
+          "bordered": "boolean; default false",
+          "extClass": "string | string[] | class map",
+          "extStyle": "string | style object"
+        },
+        "notExposed": [
+          "disabled",
+          "loading",
+          "focus/autofocus",
+          "blur/focus/confirm/keyboard-height events",
+          "placeholder-class"
+        ]
+      },
+      "preservingAdapter": {
+        "recommendedBinding": ":value=\"publishDesc\" placeholder=\"一句话介绍玩法 / 上分思路\" :maxlength=\"-1\" :show-count=\"false\" bordered ext-class=\"sheet-area sheet-area--du\" @update:value=\"onDangoPublishDescValue\"",
+        "adapter": "onDangoPublishDescValue(value) { return onPublishDescInput({ detail: { value } }) }",
+        "whyNotDirectExistingHandler": "DuTextarea does not emit input; update:value carries a string, while the existing handler expects e.detail.value.",
+        "whyNotVModelForParity": "v-model:value with maxlength=1000 would enforce the length but would not preserve the current overflow toast/remount semantics.",
+        "key": "publishDescInputKey may remain on the component for the current forced-remount behavior.",
+        "styleOwnership": "Use DangoUI bordered as the only field boundary. Its default bordered component is 150px tall, whereas the host textarea is 72px; a scoped extStyle/extClass height override and keyboard/scroll proof are required."
+      },
+      "unsupportedOrUnknown": [
+        "Disabled textarea state cannot be mapped to a verified DuTextarea prop in 3.6.16.",
+        "The component only emits update:value and has platform-conditional event extraction; the published Web-built bundle's behavior in Taro weapp is unverified.",
+        "No built-in action-bar avoidance or keyboard-safe scrolling API exists on DuTextarea. The sheet remains responsible for visibility."
+      ]
+    },
+    {
+      "id": "save-draft",
+      "existing": {
+        "node": "<view class=\"sheet-draft\" role=\"button\">",
+        "label": "存草稿",
+        "icon": "icSavePurple data-URL image",
+        "pointerEvent": "@tap=\"saveDraftFromSheet\"",
+        "keyboardEvents": ["keydown.enter", "keydown.space.prevent"],
+        "handlerContract": "saveDraftFromSheet() calls onSaveDraft(), then closeSheet(); onSaveDraft persists, tracks success/failure, and shows toast"
+      },
+      "dangoui": {
+        "component": "DuButton",
+        "verifiedAliases": ["Button", "DuButton"],
+        "event": "click(event)",
+        "relevantProps": {
+          "type": "primary | secondary | outline | text; default primary",
+          "size": "mini | small | normal | medium | large; default normal",
+          "color": "palette name; default primary",
+          "text": "string; default empty; default slot is also supported",
+          "icon": "registered icon name, internal icon object, or image URL string",
+          "disabled": "boolean; default false",
+          "disabledType": "default | temp; default default",
+          "loading": "boolean; default false",
+          "full": "boolean; default false",
+          "openType": "string; mini-program capability",
+          "extClass": "string | string[] | class map",
+          "extStyle": "string | style object"
+        },
+        "nativeBehavior": {
+          "root": "native <button>",
+          "keyboardH5": "native button activation should produce click, but must be verified through Taro H5",
+          "clickGate": "component emits click only when !disabled && !loading and press is false",
+          "disabledAttribute": "NOT FORWARDED; disabled/loading are internal emission gates and CSS classes, not a native :disabled attribute",
+          "htmlType": "NOT EXPOSED; no type=button prop is rendered",
+          "tapEvent": "NOT EXPOSED; consumer API is click",
+          "openType": "forwarded to root as openType"
+        }
+      },
+      "preservingAdapter": {
+        "recommendedBinding": "<DuButton type=\"secondary\" color=\"primary\" size=\"large\" full ext-class=\"sheet-draft sheet-draft--du\" :disabled=\"false\" :loading=\"false\" @click=\"saveDraftFromSheet\">...</DuButton>",
+        "handler": "saveDraftFromSheet can be bound directly because it ignores the emitted click event.",
+        "keyboard": "Remove the host's manual keydown handlers only after native H5 Enter/Space activation is proven; DuButton itself exposes no keydown emit.",
+        "icon": "Prefer preserving the current slot image initially. The icon prop accepts a URL string, but the source decides between registered icon and <img>; either path still needs rendered proof.",
+        "styleOwnership": "DangoUI owns the button hit target, focus and disabled/loading classes. Host extClass may translate the approved One Piece geometry/colors, but must not recreate a second nested button surface."
+      },
+      "unsupportedOrUnknown": [
+        "No verified native disabled attribute or aria-disabled output.",
+        "No html button type prop; inside an HTML form the default submit behavior is a risk, although this current sheet is not a form.",
+        "No documented Taro weapp openType/event compatibility.",
+        "No current host loading/disabled state exists, so those states require experiment-only controlled probes without changing business outcomes."
+      ]
+    }
+  ],
+  "controlMapping": {
+    "id": "environment-select",
+    "experimentAction": "KEEP_EXISTING_UNCHANGED",
+    "existingData": "selectedEnv: Ref<string>; envs = ENV_OPTIONS",
+    "existingHandlers": [
+      "toggleEnv",
+      "pickEnv",
+      "onEnvScroll",
+      "snapEnv",
+      "confirmEnvAndClose"
+    ],
+    "reason": "It is the required visual/behavioral control and its scroll-snap picker semantics are not equivalent to DuSelect's popup option list.",
+    "verifiedButNotUsed": {
+      "component": "DuSelect",
+      "model": "v-model:value via update:value",
+      "options": "Array<{ label: string, value: string | number, disabled?: boolean }>",
+      "openModel": "v-model:open via update:open",
+      "confirm": "SelectOption[]",
+      "semanticMismatch": "DuSelect opens a DangoUI Popup and does not expose the host's env scroll position, row-height snapping, or scroll callback contract."
+    }
+  },
+  "businessPreservation": {
+    "unchangedData": [
+      "publishName",
+      "publishDesc",
+      "publishNameInputKey",
+      "publishDescInputKey",
+      "selectedEnv",
+      "selectedCover",
+      "store"
+    ],
+    "unchangedHandlers": [
+      "limitInputValue",
+      "onPublishNameInput",
+      "onPublishDescInput",
+      "saveDraftFromSheet",
+      "onSaveDraft",
+      "submitPublish",
+      "closeSheet"
+    ],
+    "requiredThinAdapters": [
+      "onDangoPublishNameInput(string) -> onPublishNameInput({ detail: { value } })",
+      "onDangoPublishDescValue(string) -> onPublishDescInput({ detail: { value } })"
+    ],
+    "unchangedValidation": [
+      "name required on publish",
+      "name maximum 15 characters",
+      "description maximum 1000 characters",
+      "cover required",
+      "validateDeck(requireTotal=true)",
+      "draft save closes sheet after save attempt"
+    ]
+  },
+  "runtimeGateRequiredAfterImplementation": {
+    "dependency": "package.json and lockfile resolve exactly dangoui 3.6.16",
+    "imports": "DuInput, DuTextarea and DuButton are imported from package export 'dangoui'",
+    "instances": "rendered sheet contains .du-input, .du-textarea and button.du-button",
+    "bundle": "production H5 bundle contains DangoUI module/component signatures; CSS contains target component rules",
+    "eventParity": [
+      "name updates once per input and keeps 15-character policy",
+      "description updates once per input and keeps 1000-character policy",
+      "save draft calls the original path exactly once and closes the sheet"
+    ],
+    "states": [
+      "empty/placeholder",
+      "filled",
+      "focused",
+      "limit boundary and overflow behavior",
+      "button disabled",
+      "button loading"
+    ],
+    "layout": [
+      "390x844",
+      "536x864",
+      "1280x720",
+      "textarea visible above bottom actions before and during focus",
+      "no double border",
+      "environment control visually and behaviorally unchanged"
+    ],
+    "mpVerdictRule": "Do not report PASS_REAL_COMPONENT_CONSUMER for the host's full target matrix unless weapp compatibility is separately proven. An H5-only success must be labeled H5-only."
+  },
+  "overallAssessment": {
+    "mapping": "COMPLETE_FROM_LOCAL_3_6_16_SOURCE",
+    "implementation": "NOT_STARTED_BY_THIS_ARTIFACT",
+    "h5": "PLAUSIBLE_BUT_UNPROVEN",
+    "weapp": "UNSUPPORTED_UNVERIFIED",
+    "verdict": "NO_PASS"
+  }
+}
