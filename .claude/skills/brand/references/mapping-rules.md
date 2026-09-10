@@ -448,6 +448,24 @@ node skills/brand/scripts/validate-dangoui-mapping.mjs --brand <brand> --strict
 
 这个 Gate 只固化平台级完整性，不固化任何单品牌视觉结论。它检查：DTCG 与 adapter target 不漂移；mapped token 确实指向已有 `--du-*`，style-only 不冒充 DangoUI；每项有 evidence、allowed role 和 runtime consumer；native component 有真实源码/API/selector 证明；composition 不伪装成组件；runtime proof 无 pending；独立 Mapping QA 无 blocker。颜色值、构图、页面类型等仍由各品牌冻结证据和 Visual QA 决定。
 
+### 公开宿主的 DangoUI Runtime Gate
+
+需要把“映射”升级为真实 DangoUI 组件消费时，先运行 `prepare` 获取与宿主锁文件一致的安装命令；只有用户已授权修改依赖时才加 `--install`：
+
+```bash
+node skills/brand/scripts/dangoui-runtime-gate.mjs prepare --root <host> --version <exact-version> --platform h5
+```
+
+实现、构建和浏览器验证后运行：
+
+```bash
+node skills/brand/scripts/dangoui-runtime-gate.mjs verify --root <host> --version <exact-version> --platform h5 --components DuInput,DuTextarea,DuButton --source <consumer-files> --style-entry <global-entry> --evidence <fresh-runtime-evidence.json>
+```
+
+公开分发必须使用宿主自己的包管理器、锁文件和 registry 配置；不得写入 `file:/Users/...` 等本机路径，也不得把本地 DangoUI 源码当成宿主已安装的证明。声明版本、锁文件命中版本、`node_modules/dangoui/package.json` 实际版本和安装包导出 API 必须一致。runtime evidence 至少包含同一平台的 `renderedConsumer`、`bundleContainsDangoui`、`businessParity` 三项 PASS。当前公共契约只验证 H5；小程序或其他平台没有独立证明时必须报 `DANGOUI_PLATFORM_UNVERIFIED`，不能从 H5 外推。
+
+状态口径固定为：无真实 runtime consumer 是 `PARTIAL_STYLE_ONLY`；仅 H5 通过上述 Gate 是 `PASS_REAL_COMPONENT_CONSUMER_H5_ONLY`；不得省略平台后缀宣称全平台接入。
+
 ## 7. Style Pack 应用链路校验
 
 应用已有 style pack 时，不能只生成主题变量或 migration 报告。必须建立并验证完整链路：

@@ -10,6 +10,8 @@
     "build:dangoui-local": "DANGOUI_LOCAL=1 vite build",
     "create:mapping": "node scripts/create-dangoui-mapping-doc.mjs",
     "validate:dangoui-mapping": "node skills/brand/scripts/validate-dangoui-mapping.mjs",
+    "validate:dangoui-runtime": "node skills/brand/scripts/dangoui-runtime-gate.mjs verify",
+    "test:dangoui-runtime": "node skills/brand/scripts/dangoui-runtime-gate.test.mjs",
     "brand:workflow": "node skills/brand/scripts/run-brand-workflow.mjs run",
     "brand:learn": "node skills/brand/scripts/run-brand-workflow.mjs run --mode learn-brand",
     "brand:apply": "node skills/brand/scripts/run-brand-workflow.mjs run --mode apply-host",
