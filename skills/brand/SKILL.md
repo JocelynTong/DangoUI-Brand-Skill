@@ -74,6 +74,8 @@ apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract]
 
 当目标要求真实 DangoUI 组件消费而非 style-only 时，必须读取 [公开宿主 Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)，先用 `dangoui-runtime-gate.mjs prepare` 解析宿主包管理器和安装方案，再在实现、构建、浏览器验证后运行 `verify`。验证不得省略 token closure：必须分别由 Token Mapper、Runtime Integrator、Rendered-state QA、Business/Visual QA 对 source inventory、semantic mapping、runtime consumption、rendered states、business/visual safety 五轨签字；任何一轨不能被另一轨补偿。表单控件还必须把单一边界与 focus-ring owner 作为独立 computed-style 检查，不能只验证颜色和状态类。`verify` 必须携带 `--token-root` 与 `--token-closure`，后者会被 strict 复核。本地源码路径不能作为公开依赖；H5 PASS 不能外推为小程序 PASS。
 
+DangoUI 能力缺口收集是 apply-host 的必需本地产物。先由 `collect-dangoui-gaps.mjs` 从 component mapping、token closure 例外和 runtime QA seeds 生成候选，再由 Dangoui Mapper/Design Director 把每项分类为 `capability-gap` 或 `correct-boundary`；`unclassified` 阻塞。运行 `validate-dangoui-gaps.mjs` 后，Runtime Gate 和 Host Apply Gate 都必须携带 `--capability-gaps`。公开 MVP 默认 `networkSubmission=disabled`，不得自动回传；只有使用者审阅后，才可用 `export-dangoui-gap-issue.mjs --confirm-reviewed` 生成本地 Issue 草稿。绝对路径、内网 URL、本机 URL或隐式遥测会被阻塞。
+
 ## Role Contract 路由
 
 维护或执行 learn-brand 角色时，按当前节点完整读取对应契约，不要只依赖本文件的摘要：

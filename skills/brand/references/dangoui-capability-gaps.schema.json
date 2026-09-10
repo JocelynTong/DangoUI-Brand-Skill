@@ -1,0 +1,16 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "brand/dangoui-capability-gaps/v1",
+  "title": "DangoUI capability gap report",
+  "type": "object",
+  "required": ["schema", "source", "privacy", "discovery", "summary", "items"],
+  "properties": {
+    "schema": { "const": "dangoui-capability-gaps/v1" },
+    "source": { "type": "object" },
+    "privacy": { "type": "object" },
+    "discovery": { "type": "object" },
+    "summary": { "type": "object" },
+    "items": { "type": "array" }
+  },
+  "additionalProperties": true
+}

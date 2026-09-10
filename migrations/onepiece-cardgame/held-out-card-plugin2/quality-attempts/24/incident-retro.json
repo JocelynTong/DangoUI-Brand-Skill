@@ -1,0 +1,21 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "attempt": 24,
+  "observedMismatch": "Card flip surfaces and timing retained Pokémon-specific assets and hard-coded motion after the ONE PIECE host theme was applied.",
+  "missedBy": ["Host Implementation Agent", "Dangoui Mapper", "Visual QA"],
+  "whyOldGatePassed": "The previous closure counted token/component states and reduced-motion safety, but did not prove that every showcase asset slot and motion slot changed owner with the active theme.",
+  "evidenceRefs": [
+    "browser-comment-2026-09-10#detail-card-flip",
+    "browser-comment-2026-09-10#plaza-hero-card-back",
+    "host-opportunity-map.json#pages[0].motionSlots"
+  ],
+  "rootCause": "CardViewer.vue and plaza/index.vue imported the Pokémon card-back directly; flip durations and the plaza auto-flip interval were literal values outside the host theme contract.",
+  "requiredClosure": [
+    "Move flip/open/close/cycle timing behind host theme variables.",
+    "Give the card-back a theme-owned surface and hide the Pokémon asset under the ONE PIECE theme.",
+    "Prove both plaza and detail flipped states from the rendered page.",
+    "Record asset-slot and motion-slot ownership as repeatable capability-gap candidates."
+  ],
+  "failureOwnerRole": "Host Implementation Agent",
+  "crossChecker": "fresh Blind Visual QA"
+}

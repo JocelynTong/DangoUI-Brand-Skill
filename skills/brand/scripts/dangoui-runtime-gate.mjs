@@ -7,7 +7,7 @@ const args = process.argv.slice(2);
 if (args.includes("--help") || args.includes("-h")) {
   console.log(`Usage:
   dangoui-runtime-gate.mjs prepare --root <host> --version <exact-semver> --platform h5 [--package-manager pnpm|npm|yarn|bun] [--install]
-  dangoui-runtime-gate.mjs verify --root <host> --version <exact-semver> --platform h5 --components <names> --source <files> --style-entry <file> --evidence <json> --token-root <workspace> --token-closure <json>
+  dangoui-runtime-gate.mjs verify --root <host> --version <exact-semver> --platform h5 --components <names> --source <files> --style-entry <file> --evidence <json> --token-root <workspace> --token-closure <json> --gap-root <workspace> --capability-gaps <json>
 
 prepare is read-only unless --install is explicitly supplied. verify never installs packages.`);
   process.exit(0);
@@ -31,6 +31,8 @@ const styleEntry = value("style-entry");
 const evidenceFile = value("evidence");
 const tokenClosureFile = value("token-closure");
 const tokenRoot = path.resolve(value("token-root", root));
+const capabilityGapsFile = value("capability-gaps");
+const gapRoot = path.resolve(value("gap-root", tokenRoot));
 const blockers = [];
 const warnings = [];
 const add = (code, message) => blockers.push({ code, message });
@@ -182,6 +184,14 @@ if (components.length && !tokenClosureFile) {
   if (tokenResult.status !== 0) {
     add("DANGOUI_TOKEN_CLOSURE_FAILED", `Strict token closure failed: ${(tokenResult.stdout || tokenResult.stderr || "no output").trim()}`);
   }
+}
+
+if (components.length && !capabilityGapsFile) {
+  add("DANGOUI_CAPABILITY_GAPS_REQUIRED", "Real component verification requires a classified local capability-gap report.");
+} else if (capabilityGapsFile) {
+  const gapGate = path.resolve(path.dirname(new URL(import.meta.url).pathname), "validate-dangoui-gaps.mjs");
+  const gapResult = spawnSync(process.execPath, [gapGate, "--report", path.resolve(gapRoot, capabilityGapsFile)], { encoding: "utf8" });
+  if (gapResult.status !== 0) add("DANGOUI_CAPABILITY_GAPS_FAILED", `Capability-gap validation failed: ${(gapResult.stdout || gapResult.stderr || "no output").trim()}`);
 }
 
 const status = blockers.length ? "BLOCKED" : "PASS_REAL_COMPONENT_CONSUMER_H5_ONLY";

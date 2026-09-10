@@ -1,0 +1,307 @@
+{
+  "schema": "dangoui-capability-gaps/v1",
+  "generatedAt": "2026-09-10T08:07:28.063Z",
+  "source": {
+    "brand": "onepiece-cardgame",
+    "host": "card-plugin2.0",
+    "platform": "h5",
+    "dangouiVersion": "3.6.16"
+  },
+  "privacy": {
+    "networkSubmission": "disabled",
+    "reviewedForExport": false,
+    "containsAbsolutePaths": false,
+    "containsPrivateUrls": false
+  },
+  "discovery": {
+    "componentMappingCandidates": 5,
+    "tokenClosureExceptions": 3,
+    "runtimeSeeds": 4,
+    "total": 12,
+    "unusedDecisionIds": []
+  },
+  "summary": {
+    "total": 12,
+    "capabilityGaps": 4,
+    "correctBoundaries": 8,
+    "unclassified": 0
+  },
+  "items": [
+    {
+      "id": "mapping-campaign-hero-stage",
+      "origin": "component-mapping",
+      "component": "Swiper+Image+Button+NavigationBar",
+      "requestedCapability": "campaign-hero-stage",
+      "currentLimitation": "The seven fixed artwork identities, focal crops, title/product layers and play state remain page composition. Candidate primitives are not evidence of native runtime consumption.",
+      "evidence": [
+        {
+          "type": "mapping",
+          "ref": "component-mapping.json#campaign-hero-stage"
+        }
+      ],
+      "workaround": "Host composition or style recipe",
+      "decision": "correct-boundary",
+      "rationale": "Hero art direction and layered composition are brand/page responsibilities.",
+      "generality": "brand-specific",
+      "frequency": 1,
+      "severity": "none",
+      "proposedLayer": "correct-boundary",
+      "owner": "Design Director",
+      "lifecycle": "accepted",
+      "fingerprint": "5877dd1d2a22e5bd"
+    },
+    {
+      "id": "mapping-image-pill-hover-feedback",
+      "origin": "component-mapping",
+      "component": "Button+Image",
+      "requestedCapability": "image-pill-hover-feedback",
+      "currentLimitation": "The official image face, 999px geometry, hover scale and glow are a Welcome-only recipe. A generic DuButton must not imply a reusable primary action.",
+      "evidence": [
+        {
+          "type": "mapping",
+          "ref": "component-mapping.json#image-pill-hover-feedback"
+        }
+      ],
+      "workaround": "Host composition or style recipe",
+      "decision": "correct-boundary",
+      "rationale": "The official image face and hover choreography are a bounded brand recipe.",
+      "generality": "brand-specific",
+      "frequency": 1,
+      "severity": "none",
+      "proposedLayer": "recipe",
+      "owner": "Design Translator",
+      "lifecycle": "accepted",
+      "fingerprint": "48825ada0d68c5ab"
+    },
+    {
+      "id": "mapping-black-white-taxonomy-control",
+      "origin": "component-mapping",
+      "component": "Tabs",
+      "requestedCapability": "black-white-taxonomy-control",
+      "currentLimitation": "Current filters are plain buttons. Their rectangular black/white taxonomy is not a verified DuTabs instance.",
+      "evidence": [
+        {
+          "type": "mapping",
+          "ref": "component-mapping.json#black-white-taxonomy-control"
+        }
+      ],
+      "workaround": "Host composition or style recipe",
+      "decision": "capability-gap",
+      "rationale": "Taxonomy tabs are a repeatable interaction family, but the current Tabs variants cannot express this rectangular treatment without replacement markup.",
+      "generality": "cross-brand",
+      "frequency": 2,
+      "severity": "major",
+      "proposedLayer": "component",
+      "owner": "DangoUI",
+      "lifecycle": "proposed",
+      "fingerprint": "760722993ffbc23a"
+    },
+    {
+      "id": "mapping-product-first-catalog-density",
+      "origin": "component-mapping",
+      "component": "Card+Image",
+      "requestedCapability": "product-first-catalog-density",
+      "currentLimitation": "Browse density, square media and no-per-card-CTA policy remain catalog composition; Card + Image are candidates, not current native consumers.",
+      "evidence": [
+        {
+          "type": "mapping",
+          "ref": "component-mapping.json#product-first-catalog-density"
+        }
+      ],
+      "workaround": "Host composition or style recipe",
+      "decision": "correct-boundary",
+      "rationale": "Catalog information architecture and product density should remain host composition.",
+      "generality": "business-specific",
+      "frequency": 1,
+      "severity": "none",
+      "proposedLayer": "correct-boundary",
+      "owner": "Host Strategist",
+      "lifecycle": "accepted",
+      "fingerprint": "ec02644a3c78b189"
+    },
+    {
+      "id": "mapping-editorial-module-rhythm",
+      "origin": "component-mapping",
+      "component": "Card+Image+Button",
+      "requestedCapability": "editorial-module-rhythm",
+      "currentLimitation": "News, products and events have distinct editorial structures. Primitives may host atoms later but cannot replace the information architecture with one generic Card.",
+      "evidence": [
+        {
+          "type": "mapping",
+          "ref": "component-mapping.json#editorial-module-rhythm"
+        }
+      ],
+      "workaround": "Host composition or style recipe",
+      "decision": "correct-boundary",
+      "rationale": "News, product and event modules intentionally retain different information structures.",
+      "generality": "business-specific",
+      "frequency": 1,
+      "severity": "none",
+      "proposedLayer": "correct-boundary",
+      "owner": "Host Strategist",
+      "lifecycle": "accepted",
+      "fingerprint": "92e824864546ce94"
+    },
+    {
+      "id": "closure-onepiece-paper-texture",
+      "origin": "token-closure-exception",
+      "component": null,
+      "requestedCapability": "onepiece-paper-texture",
+      "currentLimitation": "Grid, radial texture, and alpha endpoints form a bounded paper recipe rather than a DangoUI color token.",
+      "evidence": [
+        {
+          "type": "closure",
+          "ref": "token-closure.json#onepiece-paper-texture"
+        }
+      ],
+      "workaround": "style-only",
+      "decision": "correct-boundary",
+      "rationale": "Texture layers are a brand composition recipe rather than a reusable component API.",
+      "generality": "brand-specific",
+      "frequency": 1,
+      "severity": "none",
+      "proposedLayer": "recipe",
+      "owner": "Design Translator",
+      "lifecycle": "accepted",
+      "fingerprint": "f6b52d19868d2539"
+    },
+    {
+      "id": "closure-trading-card-rarity-palette",
+      "origin": "token-closure-exception",
+      "component": null,
+      "requestedCapability": "trading-card-rarity-palette",
+      "currentLimitation": "Card rarity/type colors convey game data and must not inherit brand action colors.",
+      "evidence": [
+        {
+          "type": "closure",
+          "ref": "token-closure.json#trading-card-rarity-palette"
+        }
+      ],
+      "workaround": "business-semantic",
+      "decision": "correct-boundary",
+      "rationale": "Rarity colors encode card-game data and must not inherit global action colors.",
+      "generality": "business-specific",
+      "frequency": 1,
+      "severity": "none",
+      "proposedLayer": "correct-boundary",
+      "owner": "Host Product",
+      "lifecycle": "accepted",
+      "fingerprint": "56d2530d79201f32"
+    },
+    {
+      "id": "closure-environment-selector-composite",
+      "origin": "token-closure-exception",
+      "component": null,
+      "requestedCapability": "environment-selector-composite",
+      "currentLimitation": "DuSelect would nest a second bottom popup inside the existing publish sheet.",
+      "evidence": [
+        {
+          "type": "closure",
+          "ref": "token-closure.json#environment-selector-composite"
+        }
+      ],
+      "workaround": "host-component",
+      "decision": "capability-gap",
+      "rationale": "A reusable selector needs an inline or caller-owned popup container mode to avoid nested bottom sheets.",
+      "generality": "cross-product",
+      "frequency": 1,
+      "severity": "major",
+      "proposedLayer": "prop",
+      "owner": "DangoUI",
+      "lifecycle": "proposed",
+      "fingerprint": "aa9aedbf4749b07c"
+    },
+    {
+      "id": "runtime-composite-field-boundary",
+      "component": "DuInput+DuTextarea",
+      "requestedCapability": "single visual boundary ownership",
+      "currentLimitation": "Host-wide native input rules can draw a second border and focus ring inside the DangoUI wrapper.",
+      "evidence": [
+        {
+          "type": "runtime-qa",
+          "ref": "token-state-evidence.json#inputOwnership"
+        }
+      ],
+      "workaround": "Scoped reset of inner native border, outline, shadow and background",
+      "origin": "runtime-qa",
+      "decision": "capability-gap",
+      "rationale": "Composite inputs need a documented and testable contract for which layer owns border and focus presentation.",
+      "generality": "cross-product",
+      "frequency": 2,
+      "severity": "major",
+      "proposedLayer": "integration-contract",
+      "owner": "DangoUI",
+      "lifecycle": "proposed",
+      "fingerprint": "eb34ec314909ce22"
+    },
+    {
+      "id": "runtime-theme-scope-cascade",
+      "component": "DangoUI theme aliases",
+      "requestedCapability": "predictable host theme scope precedence",
+      "currentLimitation": "A theme token declared on the document root can be shadowed by a host theme token declared on a nearer page root.",
+      "evidence": [
+        {
+          "type": "runtime-qa",
+          "ref": "token-state-evidence.json#loading"
+        }
+      ],
+      "workaround": "Repeat the semantic bridge on the host theme root with explicit scope",
+      "origin": "runtime-qa",
+      "decision": "capability-gap",
+      "rationale": "Theme aliases need a supported scoping strategy that remains predictable inside an existing host theme root.",
+      "generality": "cross-product",
+      "frequency": 1,
+      "severity": "major",
+      "proposedLayer": "token",
+      "owner": "DangoUI",
+      "lifecycle": "proposed",
+      "fingerprint": "a0a15b1f564318b2"
+    },
+    {
+      "id": "runtime-showcase-asset-slot",
+      "component": "Host showcase composition",
+      "requestedCapability": "theme-owned visual asset slots",
+      "currentLimitation": "A showcase component can keep importing the previous brand asset after its surrounding theme changes.",
+      "evidence": [
+        {
+          "type": "browser-feedback",
+          "ref": "quality-attempts/24/incident-retro.json#observedMismatch"
+        }
+      ],
+      "workaround": "Expose one semantic card-back surface and let the active host theme own its rendered asset or CSS treatment",
+      "origin": "runtime-qa",
+      "decision": "correct-boundary",
+      "rationale": "Brand-specific media and generated card-back art belong to the host recipe, but the slot must still be explicit and theme-owned.",
+      "generality": "cross-brand",
+      "frequency": 1,
+      "severity": "major",
+      "proposedLayer": "recipe",
+      "owner": "Host Implementation Agent",
+      "lifecycle": "accepted",
+      "fingerprint": "3e21a88e3b430817"
+    },
+    {
+      "id": "runtime-showcase-motion-slot",
+      "component": "Host showcase composition",
+      "requestedCapability": "theme-owned motion timing and autoplay policy",
+      "currentLimitation": "Literal durations and autoplay intervals survive a palette/theme swap and preserve the previous brand's motion character.",
+      "evidence": [
+        {
+          "type": "browser-feedback",
+          "ref": "quality-attempts/24/incident-retro.json#rootCause"
+        }
+      ],
+      "workaround": "Expose duration, easing and cycle policy as host theme variables and verify computed values in each active theme",
+      "origin": "runtime-qa",
+      "decision": "correct-boundary",
+      "rationale": "Brand motion character belongs to the host recipe; DangoUI should not prescribe page-showcase choreography.",
+      "generality": "cross-brand",
+      "frequency": 1,
+      "severity": "major",
+      "proposedLayer": "recipe",
+      "owner": "Host Implementation Agent",
+      "lifecycle": "accepted",
+      "fingerprint": "1c49ee1ab14d03de"
+    }
+  ]
+}

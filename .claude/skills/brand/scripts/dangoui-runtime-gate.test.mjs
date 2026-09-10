@@ -21,6 +21,7 @@ const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", l
   fs.writeFileSync(path.join(root, "source-mod.json"), "{}");
   fs.writeFileSync(path.join(root, "src/theme.css"), ":root { --du-bg-1: #fff; --du-bt-color: #000; } .du-c-primary-bt {}");
   fs.writeFileSync(path.join(root, "state-evidence.json"), JSON.stringify({ schema: "brand-host-token-state-evidence/v1", platform: "h5", build: { status: "PASS" }, liveReport: { status: "PASS" }, liveBrowserChecks: { default: "PASS" } }));
+  fs.writeFileSync(path.join(root, "capability-gaps.json"), JSON.stringify({ schema: "dangoui-capability-gaps/v1", source: { brand: "fixture", host: "fixture", platform: "h5", dangouiVersion: "3.6.16" }, privacy: { networkSubmission: "disabled" }, discovery: { total: 0 }, summary: { total: 0, capabilityGaps: 0, correctBoundaries: 0, unclassified: 0 }, items: [] }));
   const sourceHash = crypto.createHash("sha256").update("{}").digest("hex");
   fs.writeFileSync(path.join(root, "token-closure.json"), JSON.stringify({
     schema: "brand-host-token-closure/v1", platform: "h5", sourceMod: "source-mod.json", sourceModSha256: sourceHash,
@@ -32,7 +33,7 @@ const fixture = ({ declared = "3.6.16", installed = "3.6.16", platform = "h5", l
   if (evidence) fs.writeFileSync(path.join(root, "evidence.json"), JSON.stringify({ platform, renderedConsumer: "PASS", bundleContainsDangoui: "PASS", businessParity: "PASS", visualOwnership }));
   return root;
 };
-const run = (root, extra = []) => spawnSync(process.execPath, [gate, "verify", "--root", root, "--version", "3.6.16", "--platform", "h5", "--components", "DuInput,DuButton", "--source", "src/page.tsx", "--style-entry", "src/app.ts", "--evidence", "evidence.json", "--token-root", root, "--token-closure", "token-closure.json", ...extra], { encoding: "utf8" });
+const run = (root, extra = []) => spawnSync(process.execPath, [gate, "verify", "--root", root, "--version", "3.6.16", "--platform", "h5", "--components", "DuInput,DuButton", "--source", "src/page.tsx", "--style-entry", "src/app.ts", "--evidence", "evidence.json", "--token-root", root, "--token-closure", "token-closure.json", "--gap-root", root, "--capability-gaps", "capability-gaps.json", ...extra], { encoding: "utf8" });
 
 assert.equal(run(fixture()).status, 0);
 assert.match(run(fixture()).stdout, /PASS_REAL_COMPONENT_CONSUMER_H5_ONLY/);
@@ -49,4 +50,8 @@ const missingTokenRoot = fixture();
 fs.unlinkSync(path.join(missingTokenRoot, "token-closure.json"));
 assert.notEqual(run(missingTokenRoot).status, 0);
 assert.match(run(missingTokenRoot).stdout, /DANGOUI_TOKEN_CLOSURE_FAILED/);
+const missingGapRoot = fixture();
+fs.unlinkSync(path.join(missingGapRoot, "capability-gaps.json"));
+assert.notEqual(run(missingGapRoot).status, 0);
+assert.match(run(missingGapRoot).stdout, /DANGOUI_CAPABILITY_GAPS_FAILED/);
 console.log("dangoui-runtime-gate tests passed");

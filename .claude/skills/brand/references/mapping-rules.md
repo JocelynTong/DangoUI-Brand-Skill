@@ -459,12 +459,29 @@ node skills/brand/scripts/dangoui-runtime-gate.mjs prepare --root <host> --versi
 实现、构建和浏览器验证后运行：
 
 ```bash
-node skills/brand/scripts/dangoui-runtime-gate.mjs verify --root <host> --version <exact-version> --platform h5 --components DuInput,DuTextarea,DuButton --source <consumer-files> --style-entry <global-entry> --evidence <fresh-runtime-evidence.json> --token-root <workspace> --token-closure <token-closure.json>
+node skills/brand/scripts/dangoui-runtime-gate.mjs verify --root <host> --version <exact-version> --platform h5 --components DuInput,DuTextarea,DuButton --source <consumer-files> --style-entry <global-entry> --evidence <fresh-runtime-evidence.json> --token-root <workspace> --token-closure <token-closure.json> --gap-root <workspace> --capability-gaps <dangoui-capability-gaps.json>
 ```
 
 公开分发必须使用宿主自己的包管理器、锁文件和 registry 配置；不得写入 `file:/Users/...` 等本机路径，也不得把本地 DangoUI 源码当成宿主已安装的证明。声明版本、锁文件命中版本、`node_modules/dangoui/package.json` 实际版本和安装包导出 API 必须一致。runtime evidence 至少包含同一平台的 `renderedConsumer`、`bundleContainsDangoui`、`businessParity` 三项 PASS。token closure 合同必须冻结 source MOD hash、列出 DangoUI token 与组件 alias、声明例外 owner，并让 source inventory、semantic mapping、runtime consumption、rendered states、business/visual QA 五轨全部 PASS；Input/Textarea 等复合控件必须额外记录 inner native field 的 border、outline、shadow 为零，以及唯一外层边界/focus owner。Runtime Gate 会以 strict 模式调用 `validate-host-token-closure.mjs`，缺失合同或任一轨未完成都阻塞。当前公共契约只验证 H5；小程序或其他平台没有独立证明时必须报 `DANGOUI_PLATFORM_UNVERIFIED`，不能从 H5 外推。
 
 状态口径固定为：无真实 runtime consumer 是 `PARTIAL_STYLE_ONLY`；仅 H5 通过上述 Gate 是 `PASS_REAL_COMPONENT_CONSUMER_H5_ONLY`；不得省略平台后缀宣称全平台接入。
+
+### DangoUI 能力缺口 Intake MVP
+
+每次 apply-host 必须留下本地 `dangoui-capability-gaps.json`。采集器只生成候选，不替代负责人判断：
+
+```bash
+node skills/brand/scripts/collect-dangoui-gaps.mjs --brand <brand> --host <host> --version <version> --mapping <component-mapping.json> --token-closure <token-closure.json> --seeds <runtime-seeds.json> --decisions <decisions.json> --output <dangoui-capability-gaps.json>
+node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>
+```
+
+每项必须明确为 `correct-boundary` 或 `capability-gap`，并包含 evidence、workaround、generality、frequency、severity、proposedLayer、owner 与 lifecycle。正确边界不进入组件库需求；能力缺口进入本地 Issue 草稿。MVP 不联网，只有用户审阅后才允许导出：
+
+```bash
+node skills/brand/scripts/export-dangoui-gap-issue.mjs --report <dangoui-capability-gaps.json> --output <issue.md> --confirm-reviewed
+```
+
+导出前会再次严格校验并阻塞绝对路径、`file://`、localhost、内网 URL 与未分类项；脚本只写本地 Markdown，不创建 Issue、不发送请求。
 
 ## 7. Style Pack 应用链路校验
 

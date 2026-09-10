@@ -1,0 +1,37 @@
+{
+  "schema": "dangoui-capability-gap-seeds/v1",
+  "items": [
+    {
+      "id": "runtime-composite-field-boundary",
+      "component": "DuInput+DuTextarea",
+      "requestedCapability": "single visual boundary ownership",
+      "currentLimitation": "Host-wide native input rules can draw a second border and focus ring inside the DangoUI wrapper.",
+      "evidence": [{ "type": "runtime-qa", "ref": "token-state-evidence.json#inputOwnership" }],
+      "workaround": "Scoped reset of inner native border, outline, shadow and background"
+    },
+    {
+      "id": "runtime-theme-scope-cascade",
+      "component": "DangoUI theme aliases",
+      "requestedCapability": "predictable host theme scope precedence",
+      "currentLimitation": "A theme token declared on the document root can be shadowed by a host theme token declared on a nearer page root.",
+      "evidence": [{ "type": "runtime-qa", "ref": "token-state-evidence.json#loading" }],
+      "workaround": "Repeat the semantic bridge on the host theme root with explicit scope"
+    },
+    {
+      "id": "runtime-showcase-asset-slot",
+      "component": "Host showcase composition",
+      "requestedCapability": "theme-owned visual asset slots",
+      "currentLimitation": "A showcase component can keep importing the previous brand asset after its surrounding theme changes.",
+      "evidence": [{ "type": "browser-feedback", "ref": "quality-attempts/24/incident-retro.json#observedMismatch" }],
+      "workaround": "Expose one semantic card-back surface and let the active host theme own its rendered asset or CSS treatment"
+    },
+    {
+      "id": "runtime-showcase-motion-slot",
+      "component": "Host showcase composition",
+      "requestedCapability": "theme-owned motion timing and autoplay policy",
+      "currentLimitation": "Literal durations and autoplay intervals survive a palette/theme swap and preserve the previous brand's motion character.",
+      "evidence": [{ "type": "browser-feedback", "ref": "quality-attempts/24/incident-retro.json#rootCause" }],
+      "workaround": "Expose duration, easing and cycle policy as host theme variables and verify computed values in each active theme"
+    }
+  ]
+}
