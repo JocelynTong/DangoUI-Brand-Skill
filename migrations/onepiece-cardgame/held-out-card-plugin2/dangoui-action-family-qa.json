@@ -12,7 +12,8 @@
       "components/CardViewer.vue:card purchase",
       "pages/detail/index.vue:deck purchase and favorite",
       "components/DetailOverlay.vue:deck purchase and favorite",
-      "pages/plaza/index.vue:deck search"
+      "pages/plaza/index.vue:deck search",
+      "pages/build/index.vue:card pool search"
     ],
     "excludedPendingBehaviorProbe": [
       "copy deck",
@@ -28,6 +29,7 @@
     "deckPurchase": "PASS: DuButton invokes original handler and reports 去购买 ｜ 跳转卡组 SPU",
     "favoriteRestore": "PASS: first activation changes 收藏卡组 to 已收藏; second returns to 收藏卡组 and reports 已取消",
     "plazaSearch": "PASS: entering 耿鬼 reduces the visible deck results from three to the matching 耿鬼 deck; clearing restores all three",
+    "buildSearch": "PASS: entering 超梦 reduces the card pool to the matching card; clearing restores the complete pool",
     "iconCompatibility": "PASS_AFTER_REPAIR: nested Taro images produced malformed glyphs and were removed; text labels render cleanly"
   },
   "limitations": [
