@@ -162,6 +162,13 @@ else {
     if (normalizedPlatform !== platform.toLowerCase() || renderedConsumer !== "PASS" || bundleContainsDangoui !== "PASS" || businessParity !== "PASS") {
       add("DANGOUI_RUNTIME_EVIDENCE_FAILED", "Evidence must match the platform and PASS renderedConsumer, bundleContainsDangoui, and businessParity.");
     }
+    if (components.some((component) => component === "DuInput" || component === "DuTextarea")) {
+      const visualOwnership = evidence.visualOwnership
+        || (String(evidence.checks?.visualOwnership || evidence.checks?.fieldOwnership || "").startsWith("PASS") ? "PASS" : "");
+      if (visualOwnership !== "PASS") {
+        add("DANGOUI_CONTROL_OWNERSHIP_FAILED", "DuInput and DuTextarea evidence must PASS visualOwnership: exactly one control boundary and one focus-ring owner, with nested native fields visually reset.");
+      }
+    }
   }
 }
 

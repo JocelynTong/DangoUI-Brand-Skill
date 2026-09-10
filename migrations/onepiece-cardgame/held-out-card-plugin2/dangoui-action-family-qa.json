@@ -7,19 +7,18 @@
   "businessParity": "PASS",
   "visualOwnership": "PASS",
   "scope": {
-    "components": ["DuButton", "DuInput"],
+    "components": ["DuButton", "DuInput", "DuTextarea", "DuInputNumber"],
     "consumers": [
       "pages/build/index.vue:publish sheet draft and publish",
       "components/CardViewer.vue:card purchase",
       "pages/detail/index.vue:deck purchase and favorite",
-      "components/DetailOverlay.vue:deck purchase and favorite",
+      "components/DetailOverlay.vue:deck purchase, favorite, and copy",
       "pages/plaza/index.vue:deck search",
-      "pages/build/index.vue:card pool search"
+      "pages/build/index.vue:card pool search",
+      "components/CardViewer.vue:deck quantity stepper"
     ],
     "excludedPendingBehaviorProbe": [
-      "copy deck",
-      "quantity stepper",
-      "environment selector"
+      "environment selector: retained as a host composite because DuSelect would nest a second bottom popup inside the existing publish sheet"
     ]
   },
   "checks": {
@@ -31,12 +30,15 @@
     "favoriteRestore": "PASS: first activation changes 收藏卡组 to 已收藏; second returns to 收藏卡组 and reports 已取消",
     "plazaSearch": "PASS: entering 耿鬼 reduces the visible deck results from three to the matching 耿鬼 deck; clearing restores all three",
     "buildSearch": "PASS: entering 超梦 reduces the card pool to the matching card; clearing restores the complete pool",
+    "quantityStepper": "PASS: DuInputNumber increments the selected card by one and decrements back to the original value through the existing addCard/removeCard validation and persistence path",
+    "copyDeck": "PASS: DuButton invokes the existing copyDeck handler, reports 已复制为草稿, and navigates to the build page",
+    "environmentSelector": "PASS_HOST_EXCEPTION: the existing single-layer selector preserves keyboard behavior, scroll positioning, and sheet containment; DuSelect is intentionally not nested because its own bottom Popup conflicts with the host publish Sheet",
+    "mainPageSweep": "PASS: plaza search and filters, detail purchase/copy actions, build search/publish entry, and mine profile content are reachable and visible in the live H5 host",
     "visualOwnership": "PASS: the outer build search control owns the border and focus ring; nested .du-input__input has transparent background and zero border, radius, shadow, and outline",
     "iconCompatibility": "PASS_AFTER_REPAIR: nested Taro images produced malformed glyphs and were removed; text labels render cleanly"
   },
   "limitations": [
     "H5 only; no mini-program compatibility claim",
-    "copy deck remains the original host control until a reversible persistent-state probe exists",
-    "quantity and environment controls remain host components until their event models are independently proven"
+    "environment selection remains a documented host composite; replacing it requires redesigning the publish flow around one popup owner rather than nesting DuSelect inside the current sheet"
   ]
 }
