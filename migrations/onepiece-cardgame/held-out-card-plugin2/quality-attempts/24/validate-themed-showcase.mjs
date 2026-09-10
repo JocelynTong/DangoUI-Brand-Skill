@@ -8,13 +8,13 @@ const files = {
 }
 const text = Object.fromEntries(Object.entries(files).map(([key, file]) => [key, fs.readFileSync(file, 'utf8')]))
 const checks = {
-  hostCardBackPreserved: text.viewer.includes('zoomimg zoomimg-back') && text.plaza.includes('image class="pitch-card-back"'),
+  originalZoomSemanticsRestored: text.viewer.includes('<view class="zoomstage" @tap.stop="noop">') && !text.viewer.includes('翻转卡牌'),
+  noCardBackInZoom: !text.viewer.includes('zoomimg-back') && !text.viewer.includes('pitchCardBack'),
+  noHeroFlipControl: !text.plaza.includes('heroFlipped') && !text.plaza.includes('toggleHeroFlip') && !text.plaza.includes('pitch-hero-back'),
   noSyntheticBrandCardBack: !text.viewer.includes('brand-card-back') && !text.plaza.includes('brand-card-back') && !text.theme.includes('brand-card-back'),
   noUnprovenDeckMark: !text.viewer.includes('brand-card-back__mark') && !text.plaza.includes('brand-card-back__mark'),
-  motionVariablesConsumed: ['--host-motion-zoom-in', '--host-motion-zoom-out', '--host-motion-flip-duration'].every(token => text.viewerCss.includes(token)),
-  motionNotOverriddenByOnePiece: !/--host-motion-(?:hero|overlay|flip|zoom)/.test(text.theme),
-  autoFlipContractConsumed: text.plaza.includes('--host-motion-hero-cycle'),
-  noLiteralAutoFlipInterval: !/setInterval\(toggleHeroFlip,\s*4200\)/.test(text.plaza)
+  noFlipCssOrMotionContract: !/zoomflip|zoomback|zoomFrontPass|zoomBackPass|zoomFlipSettle|--host-motion-(?:hero|flip|zoom)/.test(`${text.viewerCss}\n${text.theme}`),
+  simpleZoomOnly: /\.zoomstage\s*\{[^}]*display:\s*flex/s.test(text.viewerCss)
 }
 const failed = Object.entries(checks).filter(([, pass]) => !pass).map(([name]) => name)
 console.log(JSON.stringify({ schema: 'themed-showcase-gate/v1', checks, status: failed.length ? 'FAIL' : 'PASS' }, null, 2))

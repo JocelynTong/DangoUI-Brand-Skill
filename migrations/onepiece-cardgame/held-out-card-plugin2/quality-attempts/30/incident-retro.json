@@ -11,8 +11,8 @@
   ],
   "rootCause": "Theme variability was incorrectly treated as sufficient evidence. A locally generated CSS graphic and new timing values were accepted despite having no approved asset identity or motion recipe.",
   "closure": [
-    "Restore the original host card-back DOM and interaction semantics.",
-    "Keep generic motion parameters configurable in the host contract without adding ONE PIECE overrides.",
+    "Restore the original host zoom-only DOM and remove the later-added card-back interaction entirely.",
+    "Remove the added flip/autoplay motion contract rather than rebranding an interaction absent from the original host baseline.",
     "Reject synthetic replacement assets and motion recipes unless the approved Brand MOD supplies provenance and target scope.",
     "Validate the rendered flipped state contains no synthetic DECK mark."
   ],
