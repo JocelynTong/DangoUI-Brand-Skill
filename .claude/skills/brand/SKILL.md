@@ -114,6 +114,8 @@ Evidence Agent 是该节点的结果 owner；Dembrandt 只是它内部的 candid
 node skills/brand/scripts/run-brand-workflow.mjs run ...
 ```
 
+总入口在抽取前必须先按规范化来源 URL 或 Demo 深链查询公共 Registry。命中已审核版本时直接返回 `reuse-existing-style-pack`；进入宿主应用时自动把公开 JSON 规则安装到宿主 `migrations/{brand}/`，不要求用户理解或填写 `assetRoot`、`style-pack`、`mod-file`。只有未命中时才进入新的 `learn-brand` 抽取。公共 Registry 暂时不可达时必须明确报告，不能把网络失败当成“未收录”。官网运行时素材仍服从 manifest 的 `reusePolicy`，不得因为规则公开就自动推断素材可商用。
+
 如果当前运行环境是 Claude 项目 skill 镜像，则使用：
 
 ```bash
@@ -224,6 +226,7 @@ node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
 - 当前 dangoui 不支持的能力，不伪装成正式 `--du-*`。
 - 用户手动校正过的效果属于高优先级证据；后续改内容或补页面时不能静默丢失。
 - 面向运营/vibecoder 的主调用方式是一句话：`/brand <URL>`。不要要求用户先理解 assetRoot、mapping 文件或内部模式名。
+- 用户输入已收录官网 URL 或公共 Demo 深链时，先运行 Registry resolver；命中后禁止重复采集同一品牌。
 
 ## Reference 路由
 
@@ -287,6 +290,12 @@ node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
 2. 宿主项目同级或用户提供的本地 style pack
 3. 公开 demo/registry 站点返回的 `{brand}` style pack
 4. 都不存在时，回到 B 路径重新学习素材
+
+公开 Registry 查询和安装由总入口自动完成；需要单独诊断时可运行：
+
+```bash
+node skills/brand/scripts/resolve-public-style-pack.mjs --source-url <URL> --install
+```
 
 必须读取：
 

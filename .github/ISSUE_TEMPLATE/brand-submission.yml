@@ -1,0 +1,75 @@
+name: 品牌收录申请
+description: 申请学习新品牌或更新公共 Brand MOD
+title: "[Brand] "
+labels: ["brand-submission"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        提交官网来源和使用目标即可，不需要理解 Registry、DTCG 或映射文件。请勿提交密钥、内网地址、客户私有素材或个人信息。
+  - type: input
+    id: source_url
+    attributes:
+      label: 品牌官方来源
+      description: 官网、公开活动页或公开设计规范的完整 URL。
+      placeholder: https://example.com/
+    validations:
+      required: true
+  - type: dropdown
+    id: request_type
+    attributes:
+      label: 申请类型
+      options:
+        - 新品牌学习
+        - 更新已有品牌
+        - 修正已有品牌证据或效果
+    validations:
+      required: true
+  - type: textarea
+    id: goal
+    attributes:
+      label: 想验证什么
+      description: 简述目标页面、平台和希望保留的视觉特征，不必提供技术实现方案。
+      placeholder: 希望先验证 Web/Taro H5 的活动首页和列表页。
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 优先平台
+      multiple: true
+      options:
+        - Web
+        - Taro H5
+        - 微信小程序
+        - iOS
+        - Android
+        - Flutter
+        - 鸿蒙
+    validations:
+      required: true
+  - type: dropdown
+    id: asset_rights
+    attributes:
+      label: 官网素材处理方式
+      description: 不确定时请选择仅公开规则，维护者会逐项审核素材。
+      options:
+        - 仅公开视觉规则和元数据，不分发官网原始素材
+        - 已获得公开再分发授权，可在说明中提供依据
+        - 不确定，需要维护者审核
+    validations:
+      required: true
+  - type: textarea
+    id: notes
+    attributes:
+      label: 补充信息
+      description: 可填写关键页面、公开授权依据或已发现的问题。请勿粘贴私有数据。
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 提交确认
+      options:
+        - label: 我确认没有提交密钥、内网地址、客户私有素材或个人信息。
+          required: true
+        - label: 我理解提交申请不代表官网素材自动获得再分发或商业使用授权。
+          required: true

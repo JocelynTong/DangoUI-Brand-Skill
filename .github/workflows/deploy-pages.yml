@@ -29,6 +29,8 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
+      - name: Verify Registry-first reuse
+        run: npm run test:brand-registry-reuse
       - name: Build for GitHub Pages
         run: npm run build:github-pages
       - name: Configure GitHub Pages

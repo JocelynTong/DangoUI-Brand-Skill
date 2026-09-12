@@ -17,6 +17,24 @@
 
 公开 Demo：[https://jocelyntong.github.io/Dangoui-Design-System-Skill/](https://jocelyntong.github.io/Dangoui-Design-System-Skill/)
 
+## 一分钟开始
+
+只看效果：打开公共 Demo，不需要登录。
+
+已经安装 Skill：直接说一句，不需要选择模式或提供内部文件路径。
+
+```text
+$brand https://asia-en.onepiece-cardgame.com/
+```
+
+已收录官网会直接复用公共 Brand MOD；未收录官网才进入新的品牌学习。要应用到当前项目，只需补充目标：
+
+```text
+$brand 把 https://asia-en.onepiece-cardgame.com/ 应用到当前项目，保留原业务内容。
+```
+
+Claude Code 中将 `$brand` 写成 `/brand`。
+
 ## 适合谁
 
 - 想从品牌参考快速得到可审查设计方向的运营、产品和 vibecoder。
@@ -72,7 +90,30 @@ Claude Code 中将 `$brand` 写成 `/brand`。
 - ONE PIECE CARD GAME `0.1.0`
 - Pokémon TCG Official `0.1.0`
 
+机器查询入口：
+
+- [品牌索引](https://jocelyntong.github.io/Dangoui-Design-System-Skill/brand-registry/v0.1/index.json)
+- [来源 URL 索引](https://jocelyntong.github.io/Dangoui-Design-System-Skill/brand-registry/v0.1/by-source.json)
+
+需要确认某个官网是否已收录时，可运行：
+
+```bash
+npm run brand:resolve -- --source-url https://asia-en.onepiece-cardgame.com/
+```
+
 MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录；新增或更新资产通过受控 Pull Request 审核。规则与元数据可以公开复用，官网原始素材仍按 manifest 中的授权状态逐项判断。
+
+## 共建一个品牌
+
+不需要等待独立账号系统。先提交 [品牌收录申请](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=brand-submission.yml)，提供官网来源、希望验证的平台和素材授权情况。维护者完成证据、三证与安全检查后，再通过 Pull Request 将版本加入公共 Registry。
+
+收录门槛：
+
+- 来源可追溯，规范化 URL 不与现有品牌重复。
+- Evidence Fidelity、Structural Fidelity、Generative Proof 分别通过。
+- Brand MOD、DangoUI mapping、Demo 和机器校验产物齐全。
+- 不包含私有链接、本机路径、密钥或未经确认可分发的官网原始素材。
+- 更新已有品牌时递增版本，不覆盖已公开版本。
 
 ## 5 分钟启动 Demo
 

@@ -1,9 +1,20 @@
 {
-  "version": "0.12",
+  "version": "0.13",
   "roleContractVersion": "3.0",
   "command": "/brand",
   "owner": "brand",
   "description": "Machine-readable workflow contract for brand learning and host apply. The contract keeps Brand native, borrows external orchestration ideas when useful, and prevents Markdown-only rules from becoming fake gates.",
+  "publicRegistryReuse": {
+    "defaultRegistry": "https://jocelyntong.github.io/Dangoui-Design-System-Skill/brand-registry/v0.1/",
+    "lookupKey": "normalized canonical source URL or /#/brand/{brand}/ demo deep link",
+    "order": ["host migrations", "local repository registry", "public registry", "new learn-brand extraction"],
+    "rules": [
+      "Resolve the source before starting extraction or asking the user for internal file paths.",
+      "A Registry hit reuses the reviewed version and must not repeat brand learning.",
+      "Apply-host may install public JSON rules automatically, but runtime assets remain governed by manifest reusePolicy.",
+      "A Registry miss falls through to learn-brand; a public network failure is reported and never treated as proof that no pack exists."
+    ]
+  },
   "nodeQualityModel": {
     "states": ["PASS", "REWORK", "NEEDS_EVIDENCE", "BLOCKED"],
     "sequence": ["required-inputs", "role-work", "self-check", "deliverables", "consumer-gate"],
@@ -495,7 +506,7 @@
           "role": "router",
           "label": "Resolve learn-brand intake and boundaries",
           "required": true,
-          "outputs": ["workflow-mode", "resolved-inputs"]
+          "outputs": ["workflow-mode", "resolved-inputs", "registry-resolution"]
         },
         {
           "id": "extract-third-party",
@@ -595,7 +606,7 @@
           "role": "router",
           "label": "Resolve apply-host intake, source style, and host boundaries",
           "required": true,
-          "outputs": ["workflow-mode", "resolved-inputs"]
+          "outputs": ["workflow-mode", "resolved-inputs", "registry-resolution"]
         },
         {
           "id": "load-existing-mod",

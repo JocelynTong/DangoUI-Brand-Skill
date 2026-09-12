@@ -25,6 +25,8 @@
     "brand:apply": "node skills/brand/scripts/run-brand-workflow.mjs run --mode apply-host",
     "brand:status": "node skills/brand/scripts/run-brand-workflow.mjs status",
     "brand:plan": "node skills/brand/scripts/run-brand-workflow.mjs plan",
+    "brand:resolve": "node skills/brand/scripts/resolve-public-style-pack.mjs",
+    "test:brand-registry-reuse": "node skills/brand/scripts/resolve-public-style-pack.test.mjs",
     "brand:subagents": "node skills/brand/scripts/brand-subagent-workflow.mjs",
     "brand:retro": "node skills/brand/scripts/brand-guard.mjs issue-retro",
     "validate:brand:p0": "node skills/brand/scripts/brand-guard.mjs p0-acceptance",

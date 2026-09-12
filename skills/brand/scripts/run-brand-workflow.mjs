@@ -2,10 +2,11 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
 
 const originalArgs = process.argv.slice(2);
 const normalized = normalizeEntryCommand(originalArgs);
-const rawArgs = normalized.args;
+let rawArgs = normalized.args;
 const command = rawArgs[0];
 
 if (!command || ["-h", "--help", "help"].includes(command)) {
@@ -23,7 +24,64 @@ if (mode === "learn-brand" && !["fast", "full"].includes(profile)) {
   fail(`Unknown learn-brand profile: ${profile}. Use fast or full.`);
 }
 const root = opt(rawArgs, "--root", process.cwd());
-const brand = resolveBrand(rawArgs.slice(1));
+let brand = resolveBrand(rawArgs.slice(1));
+let registryResolution = null;
+const requestedSourceUrl = opt(rawArgs, "--source-url", "");
+const needsReusablePack = requestedSourceUrl && !opt(rawArgs, "--style-pack", "") && !opt(rawArgs, "--mod-file", "");
+
+if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
+  try {
+    registryResolution = await resolvePublicStylePack({
+      sourceUrl: requestedSourceUrl,
+      root,
+      registryBase: opt(rawArgs, "--registry-base", undefined),
+      install: mode === "apply-host" && command === "run",
+    });
+  } catch (error) {
+    registryResolution = { matched: false, reason: "registry-unavailable", error: error.message };
+  }
+
+  if (registryResolution.reason === "registry-unavailable") {
+    process.stdout.write(`${JSON.stringify({
+      ok: false,
+      command,
+      workflow: mode,
+      brand,
+      root,
+      registryResolution,
+      blockingCode: "PUBLIC_REGISTRY_UNAVAILABLE",
+      nextAction: "Restore Registry access or provide an explicit local --style-pack/--mod-file; do not assume the source is unlisted.",
+      message: "Public Registry could not be checked, so the workflow stopped before duplicate learning or host apply.",
+    }, null, 2)}\n`);
+    process.exit(1);
+  }
+
+  if (registryResolution.matched) {
+    brand = registryResolution.brand;
+    if (mode === "learn-brand" && command === "run") {
+      process.stdout.write(`${JSON.stringify({
+        ok: true,
+        command,
+        workflow: "reuse-existing-style-pack",
+        requestedWorkflow: mode,
+        brand,
+        root,
+        registryResolution,
+        nextAction: "Use the existing public Brand MOD; do not repeat source extraction.",
+        message: "Public Registry matched this source. Reusing the reviewed style pack instead of relearning the brand.",
+      }, null, 2)}\n`);
+      process.exit(0);
+    }
+
+    if (mode === "apply-host") {
+      rawArgs = withoutOption(rawArgs, "--source-url");
+      rawArgs = withoutOption(rawArgs, "--registry-base");
+      if (!opt(rawArgs, "--brand", "")) rawArgs.push("--brand", brand);
+      rawArgs.push("--mod-file", registryResolution.modFile);
+    }
+  }
+}
+
 const passthroughArgs = rawArgs.slice(1);
 const intake = resolveWorkflowIntake({
   mode,
@@ -79,6 +137,7 @@ if (command === "detect") {
       dembrandtInput: opt(rawArgs, "--dembrandt-input", ""),
       stylePack: opt(rawArgs, "--style-pack", ""),
       modFile: opt(rawArgs, "--mod-file", ""),
+      registryResolution,
     },
     message: "Workflow intake resolved. Use this to confirm /brand selected the correct path before running.",
   }, null, 2)}\n`);
@@ -101,6 +160,7 @@ if (command === "plan") {
       sourceUrl: opt(rawArgs, "--source-url", ""),
       hostTarget: opt(rawArgs, "--host-target", "") || opt(rawArgs, "--host-target-or-plan", ""),
       planFile: opt(rawArgs, "--plan-file", ""),
+      registryResolution,
     },
     progress: buildProgressSummary({ mode, outputAudit, executed: [] }),
     stepStatus: outputAudit.stepStatus,
@@ -842,7 +902,7 @@ function formatExtraArgs(args) {
 }
 
 function stripCommandOnlyArgs(args) {
-  const names = new Set(["--root", "--mode", "--profile", "--base-url", "--page"]);
+  const names = new Set(["--root", "--mode", "--profile", "--base-url", "--page", "--registry-base"]);
   const flags = new Set(["--require-browser"]);
   const output = [];
   for (let index = 0; index < args.length; index += 1) {
@@ -855,6 +915,18 @@ function stripCommandOnlyArgs(args) {
       continue;
     }
     output.push(token);
+  }
+  return output;
+}
+
+function withoutOption(args, name) {
+  const output = [];
+  for (let index = 0; index < args.length; index += 1) {
+    if (args[index] === name) {
+      index += 1;
+      continue;
+    }
+    output.push(args[index]);
   }
   return output;
 }
