@@ -120,13 +120,13 @@
 
 - [ ] **DuSwitch/Checkbox/Radio 在 showcase 中无 click 响应**:原因是 demo 绑定时只用 `:on`/`:checked` 但缺 `@update:on`/`:update:checked` 处理器;
       但同样的 props 在生产表单中是可以响应的,这是 demo 自身写法,不是 dangoui 缺陷。
-      06-17 已在 vibecoding-docs-demo/src/App.vue line 521/524/528 补齐事件绑定。
+      06-17 已在 DangoUI-Brand-Skill/src/App.vue line 521/524/528 补齐事件绑定。
 - [ ] **DateTimePicker 没有独立 DangoUI 组件**:目前 demo 全部用 `DuCalendar + showTimePicker` 承接;这一条和"待更新"表里的 DateTimePicker 条目重复,**已合并到待更新**。
 - [ ] **Cascader + show-search 时 search input 无背景**:这是 dangoui 内部 Search 组件在 Cascader 容器内未继承通用 card bg 导致的;
-      06-17 已在 vibecoding-docs-demo/src/styles.css line 2988+ 加 demo 侧覆盖(.du-cascader__search .du-search bg + border)。
+      06-17 已在 DangoUI-Brand-Skill/src/styles.css line 2988+ 加 demo 侧覆盖(.du-cascader__search .du-search bg + border)。
       后续:dangoui 生产代码需在 `src/cascader/` 内部 Search 容器补默认 background,或加 `context` prop。
 - [ ] **Popup/Cascader/Select 内 Radio 无 hover 提示**:dangoui 内部 Radio 在 popup 弹层里没有 hover 视觉;
-      06-17 已在 vibecoding-docs-demo/src/styles.css line 3010+ 加 demo 侧覆盖(.du-popup__content .du-radio:hover)。
+      06-17 已在 DangoUI-Brand-Skill/src/styles.css line 3010+ 加 demo 侧覆盖(.du-popup__content .du-radio:hover)。
       后续:dangoui Radio 自身加 hover state,或在 Popup 内容容器加默认 cursor 与 bg。
 - [ ] **Tabs type="tag" 默认居中**:`<DuTabs type="tag">` 时 `.du-tabs--tag .du-tabs__list` 用 justify-content:center;
       demo 中"单次活动 / 多场次活动"因此被居中,语义不合。

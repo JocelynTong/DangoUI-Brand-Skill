@@ -3264,7 +3264,7 @@ function demoGate() {
   if (demoRoot) {
     const full = path.resolve(root, demoRoot);
     checks.push({ name: "demo-root-exists", ok: fs.existsSync(full), detail: full });
-    checks.push({ name: "standard-demo-source", ok: /vibecoding-docs-demo$/.test(full) || fs.existsSync(path.join(full, "src")) && fs.existsSync(path.join(full, "migrations")), detail: "local demo root should look like the maintained demo project" });
+    checks.push({ name: "standard-demo-source", ok: fs.existsSync(path.join(full, "src")) && fs.existsSync(path.join(full, "migrations")), detail: "local demo root should look like the maintained demo project" });
     if (brand) {
       checks.push({ name: "brand-migration", ok: fs.existsSync(path.join(full, "migrations", brand)), detail: `migrations/${brand}` });
       const localPreviewPath = path.join(full, "public", "brand-previews", `${brand}.json`);
@@ -6552,7 +6552,7 @@ Usage:
   node skills/brand/scripts/brand-guard.mjs validate-tone --brand rocom
   node skills/brand/scripts/brand-guard.mjs draft-style-pack --brand rocom --source-url "https://rocom.qq.com/"
   node skills/brand/scripts/brand-guard.mjs register-demo-preview --brand rocom --source-url "https://rocom.qq.com/"
-  node skills/brand/scripts/brand-guard.mjs demo-gate --brand rocom --demo-root /path/to/vibecoding-docs-demo
+  node skills/brand/scripts/brand-guard.mjs demo-gate --brand rocom --demo-root /path/to/DangoUI-Brand-Skill
   node skills/brand/scripts/brand-guard.mjs verify-dom --brand re1999 --html rendered.html
   node skills/brand/scripts/brand-guard.mjs parse-dev-server --log dev.log
   node skills/brand/scripts/brand-guard.mjs validate-final --file final.txt --brand-label "1999" --source-url "<demo-url>" --coverage-level conservative-application

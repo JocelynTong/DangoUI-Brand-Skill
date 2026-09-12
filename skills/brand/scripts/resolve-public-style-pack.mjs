@@ -3,7 +3,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
-export const DEFAULT_REGISTRY_BASE = "https://jocelyntong.github.io/Dangoui-Design-System-Skill/";
+export const DEFAULT_REGISTRY_BASE = "https://jocelyntong.github.io/DangoUI-Brand-Skill/";
 
 export function normalizeSourceUrl(value) {
   const url = new URL(value);
@@ -38,7 +38,7 @@ async function fetchJson(url) {
 function remoteUrl(base, publicPath) {
   if (/^https?:\/\//.test(publicPath)) return publicPath;
   const baseUrl = new URL(base);
-  if (publicPath.startsWith("/Dangoui-Design-System-Skill/")) {
+  if (/^\/(?:DangoUI-Brand-Skill|Dangoui-Design-System-Skill)\//.test(publicPath)) {
     return new URL(publicPath, baseUrl.origin).toString();
   }
   return new URL(publicPath.replace(/^\//, ""), baseUrl).toString();

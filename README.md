@@ -15,7 +15,7 @@
 
 > 当前阶段：公开 Web MVP / controlled alpha。适合在测试项目或独立分支体验；微信小程序和原生移动端尚未完成生产验证。
 
-公开 Demo：[https://jocelyntong.github.io/Dangoui-Design-System-Skill/](https://jocelyntong.github.io/Dangoui-Design-System-Skill/)
+公开 Demo：[https://jocelyntong.github.io/DangoUI-Brand-Skill/](https://jocelyntong.github.io/DangoUI-Brand-Skill/)
 
 ## 一分钟开始
 
@@ -79,7 +79,7 @@ Claude Code 中将 `$brand` 写成 `/brand`。
 
 | 通道 | 当前验证范围 | 可用来源 | 反馈位置 | 边界 |
 | --- | --- | --- | --- | --- |
-| GitHub 公开通道 | Web；Taro H5 为实验性 | 仅公开 URL 与可公开材料 | [MVP 试用反馈](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=mvp-trial.yml) | 不提交私有代码、截图、日志、内网地址、凭证、个人信息或未审素材 |
+| GitHub 公开通道 | Web；Taro H5 为实验性 | 仅公开 URL 与可公开材料 | [MVP 试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml) | 不提交私有代码、截图、日志、内网地址、凭证、个人信息或未审素材 |
 | 公司内部通道 | Web、Taro H5、微信开发者工具、Android / iOS 真机 | 可含私有来源 | 本地 `.brand-trials/`，再走公司批准的内部协作渠道 | 默认不联网提交，原始记录不进 GitHub |
 
 内部试点开始前，在宿主项目根目录初始化一份本地记录：
@@ -108,8 +108,8 @@ npm run validate:brand-trial -- --record .brand-trials/<试点编号>.json
 
 机器查询入口：
 
-- [品牌索引](https://jocelyntong.github.io/Dangoui-Design-System-Skill/brand-registry/v0.1/index.json)
-- [来源 URL 索引](https://jocelyntong.github.io/Dangoui-Design-System-Skill/brand-registry/v0.1/by-source.json)
+- [品牌索引](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/index.json)
+- [来源 URL 索引](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/by-source.json)
 
 需要确认某个官网是否已收录时，可运行：
 
@@ -121,7 +121,7 @@ MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录�
 
 ## 共建一个品牌
 
-不需要等待独立账号系统。先提交 [品牌收录申请](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=brand-submission.yml)，提供官网来源、希望验证的平台和素材授权情况。维护者完成证据、三证与安全检查后，再通过 Pull Request 将版本加入公共 Registry。
+不需要等待独立账号系统。先提交 [品牌收录申请](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=brand-submission.yml)，提供官网来源、希望验证的平台和素材授权情况。维护者完成证据、三证与安全检查后，再通过 Pull Request 将版本加入公共 Registry。
 
 收录门槛：
 
@@ -133,18 +133,18 @@ MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录�
 
 ## 参加 GitHub 公开 MVP 试用
 
-试用者只需要带一个可公开说明的 Web 或 Taro H5 测试页面，按“一分钟开始”调用 Skill，然后提交 [MVP 试用反馈](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=mvp-trial.yml)。反馈表会统一记录首次成功耗时、Registry 是否命中、业务是否回归以及回退结果。公司内部项目不要走此入口，使用上面的内部通道。
+试用者只需要带一个可公开说明的 Web 或 Taro H5 测试页面，按“一分钟开始”调用 Skill，然后提交 [MVP 试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)。反馈表会统一记录首次成功耗时、Registry 是否命中、业务是否回归以及回退结果。公司内部项目不要走此入口，使用上面的内部通道。
 
 ## 5 分钟启动 Demo
 
-只想体验时可直接打开[公共 Demo](https://jocelyntong.github.io/Dangoui-Design-System-Skill/)。需要本地开发时再执行以下步骤。
+只想体验时可直接打开[公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。需要本地开发时再执行以下步骤。
 
 需要 Node.js 20.19+（或 22.12+）、npm 和 [Git LFS](https://git-lfs.com/)。
 
 ```bash
 git lfs install
-git clone https://github.com/JocelynTong/Dangoui-Design-System-Skill.git
-cd Dangoui-Design-System-Skill
+git clone https://github.com/JocelynTong/DangoUI-Brand-Skill.git
+cd DangoUI-Brand-Skill
 npm ci
 npm run dev -- --port 5174
 ```
@@ -163,7 +163,7 @@ npm run dev -- --port 5174
 
 ```bash
 GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse \
-  https://github.com/JocelynTong/Dangoui-Design-System-Skill.git \
+  https://github.com/JocelynTong/DangoUI-Brand-Skill.git \
   dangoui-brand-skill
 cd dangoui-brand-skill
 git sparse-checkout set skills/brand

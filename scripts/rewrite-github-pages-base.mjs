@@ -2,7 +2,8 @@ import { copyFile, mkdir, readdir, readFile, writeFile } from "node:fs/promises"
 import path from "node:path";
 
 const outputDirectory = path.resolve("dist");
-const repositoryPath = "/Dangoui-Design-System-Skill";
+const repositoryName = process.env.GITHUB_REPOSITORY?.split("/").pop() || "DangoUI-Brand-Skill";
+const repositoryPath = `/${repositoryName}`;
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".map", ".svg"]);
 const publicRoots = ["assets", "brand-previews", "brand-registry", "data"];
 
