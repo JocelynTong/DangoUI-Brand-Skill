@@ -1,0 +1,64 @@
+{
+  "schema": "brand-action-evidence/v2",
+  "brand": "re1999-v2",
+  "goalId": "re1999-full-revalidation-v2",
+  "entries": [
+    {
+      "id": "news-filter",
+      "sourcePageId": "news",
+      "selector": "#news1",
+      "trigger": "click #news1, then click #news0 to restore",
+      "observedState": "news-right-head-bg-list-active",
+      "className": "news-right-head-bg-list news-right-head-bg-list-active",
+      "stateNames": {
+        "before": "news-right-head-bg-list",
+        "triggered": "news-right-head-bg-list-active",
+        "settled": "news-right-head-bg-list-active",
+        "restored": "news-right-head-bg-list"
+      },
+      "beforeCapture": {
+        "path": "migrations/re1999-v2/captures/source/interactions/news-filter/00-default.png",
+        "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"
+      },
+      "transitionCapture": {
+        "path": "migrations/re1999-v2/captures/source/interactions/news-filter/01-transition.png",
+        "sha256": "3b44f491c6e56f4f4358374fa38504b5aae9a96fe5c8687417dcb5ebc1555672"
+      },
+      "afterCapture": {
+        "path": "migrations/re1999-v2/captures/source/interactions/news-filter/02-settled.png",
+        "sha256": "6b8eb05443d90b7ad243bce6dc4d3ba1dd71e6ba197e09dbb8fcfef8fb96e41c"
+      },
+      "restoredCapture": {
+        "path": "migrations/re1999-v2/captures/source/interactions/news-filter/03-restored.png",
+        "sha256": "316f081db6147ad0c7615ee192f2bb0c2cab147fe368e2640b8be16e59ffa029"
+      },
+      "visibleDom": {
+        "selector": "#news1",
+        "visible": true,
+        "boundingBox": {
+          "x": 946.734375,
+          "y": 151.34375,
+          "width": 29.28125,
+          "height": 36.28125
+        }
+      },
+      "computedProperty": "color",
+      "computedValue": "rgb(181, 88, 41)",
+      "computedChanges": [
+        {
+          "property": "color",
+          "before": "rgb(233, 220, 205)",
+          "after": "rgb(181, 88, 41)",
+          "restored": "rgb(233, 220, 205)"
+        },
+        {
+          "property": "border-color",
+          "before": "rgb(233, 220, 205) rgb(233, 220, 205) rgb(181, 88, 41)",
+          "after": "rgb(181, 88, 41)",
+          "restored": "rgb(233, 220, 205) rgb(233, 220, 205) rgb(181, 88, 41)"
+        }
+      ],
+      "sourceRule": "Real runtime class toggles from news-right-head-bg-list to news-right-head-bg-list-active after click; restored by clicking #news0."
+    }
+  ]
+}

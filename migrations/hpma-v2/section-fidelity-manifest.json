@@ -1,0 +1,83 @@
+{
+  "schema": "brand-section-fidelity-manifest/v1",
+  "brand": "hpma-v2",
+  "goalId": "hpma-full-revalidation-v2",
+  "sections": [
+    {
+      "id": "home-dark-stage",
+      "sourcePageId": "home",
+      "status": "source-observed",
+      "sourceCapture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/home/full-page.png",
+        "sha256": "df93309a26b87d0b6fd7f612020e427f3847f32a186519f80b539deba844c3e5"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "structureLayers": [
+        "moonlit lake/castle full-bleed background",
+        "oversized pale-gold headline",
+        "framed QR/download cluster",
+        "outlined right action rail"
+      ],
+      "readingOrder": [
+        "global nav/logo",
+        "headline",
+        "download cluster",
+        "right actions"
+      ],
+      "interactionStates": [
+        "default"
+      ],
+      "assetEvidence": [
+        "asset-home-background",
+        "asset-home-action-frame"
+      ],
+      "responsive": "not-observed"
+    },
+    {
+      "id": "news-ornate-frame",
+      "sourcePageId": "news",
+      "status": "unavailable",
+      "unavailableReason": "Distinct news state could not be made visible; off-canvas DOM and unchanged captures are not accepted as evidence."
+    },
+    {
+      "id": "cards-illustrated-book",
+      "sourcePageId": "cards-media",
+      "status": "source-observed",
+      "sourceCapture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/cards-media/full-page.png",
+        "sha256": "63dadc4fb93c0c7e7c1187e88ebe418a6345362edf785b09ebfd17df6e115bff"
+      },
+      "sourceRegion": [
+        0.045,
+        0.08,
+        0.91,
+        0.86
+      ],
+      "structureLayers": [
+        "full-viewport character illustration",
+        "gold ornamental path",
+        "sepia open-book panel",
+        "top navigation and download marker"
+      ],
+      "readingOrder": [
+        "global nav/logo",
+        "section title",
+        "book/profile panel",
+        "illustrated character field"
+      ],
+      "interactionStates": [
+        "default"
+      ],
+      "assetEvidence": [
+        "asset-cards-stage",
+        "asset-cards-book-panel"
+      ],
+      "responsive": "not-observed"
+    }
+  ]
+}

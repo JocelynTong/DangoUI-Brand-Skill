@@ -20,6 +20,10 @@ if (!["run", "plan", "status", "tpp", "detect"].includes(command)) {
 
 const mode = resolveWorkflowMode(rawArgs.slice(1));
 const profile = opt(rawArgs, "--profile", "full");
+const forceRelearn = rawArgs.includes("--force-relearn");
+if (forceRelearn && mode !== "learn-brand") {
+  fail("--force-relearn is only valid for learn-brand maintenance runs.");
+}
 if (mode === "learn-brand" && !["fast", "full"].includes(profile)) {
   fail(`Unknown learn-brand profile: ${profile}. Use fast or full.`);
 }
@@ -57,8 +61,8 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
   }
 
   if (registryResolution.matched) {
-    brand = registryResolution.brand;
-    if (mode === "learn-brand" && command === "run") {
+    if (!forceRelearn) brand = registryResolution.brand;
+    if (mode === "learn-brand" && command === "run" && !forceRelearn) {
       process.stdout.write(`${JSON.stringify({
         ok: true,
         command,
@@ -903,7 +907,7 @@ function formatExtraArgs(args) {
 
 function stripCommandOnlyArgs(args) {
   const names = new Set(["--root", "--mode", "--profile", "--base-url", "--page", "--registry-base"]);
-  const flags = new Set(["--require-browser"]);
+  const flags = new Set(["--require-browser", "--force-relearn"]);
   const output = [];
   for (let index = 0; index < args.length; index += 1) {
     const token = args[index];
@@ -1510,6 +1514,7 @@ function printHelp() {
 Usage:
   node ${script} learn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --profile fast --brand pokemon30 --source-url "https://pokemon30th.com/"
+  node ${script} learn --force-relearn --brand pokemon30-v2 --source-url "https://pokemon30th.com/"
   node ${script} apply --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} run --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} run --mode apply-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
@@ -1521,6 +1526,7 @@ Usage:
 Behavior:
   - explicit aliases: \`learn\` => learn-brand, \`apply\` => apply-host
   - learn-brand defaults to \`--profile full\`; use \`--profile fast\` for a bounded direction-validation run
+  - \`--force-relearn\` is an explicit maintainer-only escape hatch for versioned revalidation; use a new brand workspace and never overwrite a reviewed version in place
   - \`detect\` only resolves the workflow intake and shows whether inputs belong to learning or host apply
   - if you mix the two flows, intake fails before any downstream step runs
   - raw \`run\` still resolves workflow mode automatically (${workflows})

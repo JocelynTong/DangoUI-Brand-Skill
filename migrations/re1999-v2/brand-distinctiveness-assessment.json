@@ -1,0 +1,8 @@
+{
+  "schema":"brand-distinctiveness-assessment/v1","brand":"re1999-v2","mode":"learn-brand","qaExecutionId":"/root/re1999_v2_visual_qa",
+  "workflowCompletion":"fail","businessSafety":"not-applicable","visualDistinctiveness":"fail",
+  "designSystemStructuralRecognition":{"status":"fail","blocking":true,"finding":"News remains structurally recognizable, but home drops major archive-stage layers and character-gallery loses its dominant selected subject."},
+  "explicitIpRecognition":{"status":"pass","blocking":false,"finding":"Official home/news/title assets make the specific IP recognizable; this does not compensate for structural failure."},
+  "dimensions":{"visualMass":{"rating":2,"evidence":["character demo contains a large empty black field where the source has a full figure","home becomes a narrow wallpaper crop"]},"asset":{"rating":3,"evidence":["all five runtime asset hashes match provenance","character background plate is authentic but semantically insufficient"]},"composition":{"rating":1,"evidence":["character triptych central subject absent","home navigation and campaign layers absent"]},"type":{"rating":3,"evidence":["serif editorial title and official character title survive","home bilingual navigation system does not"]},"motion":{"rating":2,"evidence":["home loop is authentic","NEWS focus causes unrecovered scroll shift","held-out reversible selector unproven"]}},
+  "note":"Learn-brand assessment; apply-host masked-recognition policy is not applicable. Explicit IP and design-system structure are intentionally reported separately."
+}

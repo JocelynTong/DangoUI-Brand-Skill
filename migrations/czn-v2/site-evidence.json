@@ -1,0 +1,952 @@
+{
+  "schema": "brand-site-evidence/v1",
+  "brand": "czn-v2",
+  "sourceUrl": "https://czn.qq.com/",
+  "createdAt": "2026-09-12T18:01:00.515Z",
+  "collection": {
+    "documents": [
+      {
+        "type": "html",
+        "url": "https://czn.qq.com/",
+        "bytes": 57327
+      },
+      {
+        "type": "css-url",
+        "url": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "bytes": 19819
+      },
+      {
+        "type": "css-url",
+        "url": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "bytes": 140352
+      },
+      {
+        "type": "css-url",
+        "url": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "bytes": 146745
+      },
+      {
+        "type": "css-url",
+        "url": "https://czn.qq.com/cp/a20250820xnz/css/intell-box.css",
+        "bytes": 11673
+      }
+    ],
+    "sampleCount": 324,
+    "warningCount": 0,
+    "scope": "czn-v2",
+    "warnings": []
+  },
+  "dominantToneDecision": {
+    "result": "black-gold",
+    "confidence": 0.293,
+    "minConfidence": 0.65,
+    "topFamilies": [
+      {
+        "family": "white",
+        "score": 485.4
+      },
+      {
+        "family": "black",
+        "score": 385.6
+      },
+      {
+        "family": "orange",
+        "score": 201.8
+      },
+      {
+        "family": "neutral",
+        "score": 102.6
+      },
+      {
+        "family": "purple",
+        "score": 46.8
+      },
+      {
+        "family": "blue",
+        "score": 27.6
+      }
+    ],
+    "competingTone": "blue-sky",
+    "competingScore": 209.89,
+    "reason": [
+      "Dark/brown canvas plus yellow/gold action colors outscore blue/cyan evidence.",
+      "Evidence came mainly from cta-active, surface, text, unknown roles.",
+      "Top color families: white 485.4, black 385.6, orange 201.8, neutral 102.6, purple 46.8, blue 27.6."
+    ],
+    "assetCaveat": "Image/asset colors are intentionally down-weighted. They prove media atmosphere, not UI token dominance."
+  },
+  "familyScores": {
+    "white": 485.4,
+    "black": 385.6,
+    "orange": 201.8,
+    "neutral": 102.6,
+    "purple": 46.8,
+    "blue": 27.6,
+    "cyan": 12.4,
+    "yellow-gold": 9.2
+  },
+  "topColors": [
+    {
+      "color": "#FFFFFF",
+      "score": 485.4,
+      "family": "white"
+    },
+    {
+      "color": "#000000",
+      "score": 321.8,
+      "family": "black"
+    },
+    {
+      "color": "#FF5514",
+      "score": 185.8,
+      "family": "orange"
+    },
+    {
+      "color": "#222222",
+      "score": 29,
+      "family": "black"
+    },
+    {
+      "color": "#4E4E4E",
+      "score": 16.8,
+      "family": "neutral"
+    },
+    {
+      "color": "#CCCCCC",
+      "score": 16.6,
+      "family": "neutral"
+    },
+    {
+      "color": "#FF6418",
+      "score": 16,
+      "family": "orange"
+    },
+    {
+      "color": "#595959",
+      "score": 14.2,
+      "family": "neutral"
+    },
+    {
+      "color": "#111111",
+      "score": 13.6,
+      "family": "black"
+    },
+    {
+      "color": "#D7F1F7",
+      "score": 12.4,
+      "family": "cyan"
+    },
+    {
+      "color": "#B2B2B2",
+      "score": 10.8,
+      "family": "neutral"
+    },
+    {
+      "color": "#B9B8BF",
+      "score": 10.8,
+      "family": "neutral"
+    },
+    {
+      "color": "#ECDBFF",
+      "score": 8.4,
+      "family": "purple"
+    },
+    {
+      "color": "#FAF6FF",
+      "score": 8.4,
+      "family": "purple"
+    },
+    {
+      "color": "#DBBBFF",
+      "score": 8.4,
+      "family": "purple"
+    },
+    {
+      "color": "#993CCE",
+      "score": 7.6,
+      "family": "purple"
+    },
+    {
+      "color": "#007AFF",
+      "score": 7.6,
+      "family": "blue"
+    },
+    {
+      "color": "#C178FF",
+      "score": 6.8,
+      "family": "purple"
+    },
+    {
+      "color": "#C5C5C5",
+      "score": 6.8,
+      "family": "neutral"
+    },
+    {
+      "color": "#160A24",
+      "score": 6.8,
+      "family": "black"
+    },
+    {
+      "color": "#171717",
+      "score": 6.8,
+      "family": "black"
+    },
+    {
+      "color": "#CDD7F8",
+      "score": 6.8,
+      "family": "blue"
+    },
+    {
+      "color": "#C3D0EC",
+      "score": 6.8,
+      "family": "blue"
+    },
+    {
+      "color": "#7876A7",
+      "score": 6.4,
+      "family": "blue"
+    }
+  ],
+  "roleEvidence": {
+    "surface": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-left"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-container-3d .swiper-slide-shadow-right"
+      }
+    ],
+    "cta-active": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 5.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-bullet"
+      },
+      {
+        "color": "#007AFF",
+        "family": "blue",
+        "weight": 5.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-bullet-active"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-white .swiper-pagination-bullet-active"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 5.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-black .swiper-pagination-bullet-active"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 5.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-scrollbar"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 5.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": "/* nav */ .top_nav"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 5.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_go_main"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 5.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_go_main"
+      },
+      {
+        "color": "#B2B2B2",
+        "family": "neutral",
+        "weight": 5.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".top_nav_list li"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".top_nav_list li a"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_play_icon i"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_loginbox"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_loginzx"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_user_cicon"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 5.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".nav_user_cicon"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 6.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".tips"
+      }
+    ],
+    "unknown": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-progressbar"
+      },
+      {
+        "color": "#007AFF",
+        "family": "blue",
+        "weight": 1.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-progressbar .swiper-pagination-progressbar-fill"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-progressbar.swiper-pagination-white"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-progressbar.swiper-pagination-white .swiper-pagination-progressbar-fill"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-progressbar.swiper-pagination-black"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-pagination-progressbar.swiper-pagination-black .swiper-pagination-progressbar-fill"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".wrap"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".wrap"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_com_para a"
+      },
+      {
+        "color": "#CCCCCC",
+        "family": "neutral",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_com_para span"
+      },
+      {
+        "color": "#FF6418",
+        "family": "orange",
+        "weight": 1.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_skill_name:before"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".footer .foot *"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".cont_order_num"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_conner_enname p"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 2.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tab li.light"
+      }
+    ],
+    "frame": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.8,
+        "source": "https://ossweb-img.qq.com/images/js/swiper/swiper-4.3.3.min.css",
+        "context": ".swiper-scrollbar-drag"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".cont1_vbg:before"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 2.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".cont1_vbg:before"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_p_animate img, .character_p_animate canvas"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.6,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_skills_canvas"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.6,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_skills_canvas"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.6,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_skills_canvas"
+      },
+      {
+        "color": "#A0A0A0",
+        "family": "neutral",
+        "weight": 2.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_prg span"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".character_p_animate img, .character_p_animate canvas"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".character_conner_hdimg_anime"
+      },
+      {
+        "color": "#A0A0A0",
+        "family": "neutral",
+        "weight": 2.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_prg span"
+      },
+      {
+        "color": "#7876A7",
+        "family": "blue",
+        "weight": 3.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/intell-box.css",
+        "context": ".webp .intell_swip_prg span"
+      },
+      {
+        "color": "#7876A7",
+        "family": "blue",
+        "weight": 3.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/intell-box.css",
+        "context": ".intell_swip_prg span"
+      }
+    ],
+    "text": [
+      {
+        "color": "#222222",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": "body"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_para"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_rewimg_para"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_para1"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_para2"
+      },
+      {
+        "color": "#C178FF",
+        "family": "purple",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_para2 a"
+      },
+      {
+        "color": "#CCCCCC",
+        "family": "neutral",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".dia_com_para_gr"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".footer"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".footer"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".cont_numcount"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_en_name"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_cn_name"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_p_des"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_p_des_info p:nth-child(1)"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_voice_time"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".character_skills_name"
+      }
+    ],
+    "navigation": [
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".top_nav_list li i"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".top_nav_list li.light"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".top_nav_list li.light a"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".top_nav_list li.light a i"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".top_nav_list li span:after"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".top_nav_list li i"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".top_nav_list li.light"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".top_nav_list li.light a"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".top_nav_list li.light a i"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".top_nav_list li.light span:after"
+      }
+    ],
+    "asset": [
+      {
+        "color": "#FF6418",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".side_open"
+      },
+      {
+        "color": "#FF6418",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".side_open.show"
+      },
+      {
+        "color": "#222222",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tab li:before"
+      },
+      {
+        "color": "#222222",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tab li:after"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tab li.light:before"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tab li.light:after"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tips:before"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/style.css?v=1.5",
+        "context": ".intelligence_detail_tips:after"
+      },
+      {
+        "color": "#222222",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_detail_tab li:before"
+      },
+      {
+        "color": "#222222",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_detail_tab li:after"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_detail_tab li.light:before"
+      },
+      {
+        "color": "#FF5514",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_detail_tab li.light:after"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_detail_tips:before"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".intelligence_detail_tips:after"
+      },
+      {
+        "color": "#FF6418",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".side_open"
+      },
+      {
+        "color": "#FF6418",
+        "family": "orange",
+        "weight": 1.4,
+        "source": "https://czn.qq.com/cp/a20250820xnz/css/stylem.css?v=1.3",
+        "context": ".side_open.show"
+      }
+    ]
+  },
+  "gate": {
+    "ok": false,
+    "minConfidence": 0.65,
+    "message": "Tone evidence is weak. Keep as draft and ask for screenshot/design confirmation before changing adapter/demo tokens."
+  }
+}

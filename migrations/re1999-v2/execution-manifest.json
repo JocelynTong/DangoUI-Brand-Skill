@@ -1,0 +1,357 @@
+{
+  "schema": "brand-subagent-execution/v1",
+  "runId": "65efb32e-cfd9-4305-92ea-6ff391c32ff0",
+  "brand": "re1999-v2",
+  "mode": "learn-brand",
+  "goalId": "re1999-full-revalidation-v2",
+  "goalPath": "migrations/re1999-v2/goal-contract.json",
+  "goalSha256": "f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791",
+  "roleContractVersion": "3.0",
+  "status": "blocked",
+  "createdAt": "2026-09-12T18:04:23.851Z",
+  "currentStageId": null,
+  "stages": [
+    {
+      "id": "evidence-1",
+      "stage": "evidence",
+      "role": "brandResearcher",
+      "attempt": 1,
+      "maxAttempts": 1,
+      "status": "complete",
+      "dispatchId": "f518aea1-7582-40a8-874a-2c2ecc10b0ee",
+      "dispatchPath": "migrations/re1999-v2/dispatch/evidence-1.json",
+      "startedAt": "2026-09-12T18:04:23.936Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/re1999_v2_evidence",
+      "receiptPath": "migrations/re1999-v2/receipts/evidence-1.json",
+      "receiptSha256": "14522b115d8a16fe6e9a3200cc27966edddce674f5c41d3dbfbc345b70d21de4",
+      "outputHashes": [
+        {
+          "path": "migrations/re1999-v2/brand-evidence.json",
+          "sha256": "aeac4937138c99e7335acfedff1fbb722ba18cca352fa4c9f8b055d78aa68d2e"
+        },
+        {
+          "path": "migrations/re1999-v2/source-observation-manifest.json",
+          "sha256": "0341cc1d5adcedddc79c376b285951f16e9e9c95d7a147edfcbd84c230b37ab4"
+        },
+        {
+          "path": "migrations/re1999-v2/rendered-asset-inventory.json",
+          "sha256": "f35aac245a14c91ef7fe6f60f4cf9009df7c3739be02bd3a1165cff41b9937e7"
+        },
+        {
+          "path": "migrations/re1999-v2/action-evidence.json",
+          "sha256": "5c72197a5e489f6a8138524490440b0d4c4c1acf1b90f725e050851947b4b937"
+        },
+        {
+          "path": "migrations/re1999-v2/action-evidence-v02.json",
+          "sha256": "5c72197a5e489f6a8138524490440b0d4c4c1acf1b90f725e050851947b4b937"
+        },
+        {
+          "path": "migrations/re1999-v2/third-party-evidence.dembrandt.json",
+          "sha256": "e976ce6cf8971527ab4986bbc619a5abb7f88db64ccdef2533ec81482e0fe620"
+        },
+        {
+          "path": "migrations/re1999-v2/section-fidelity-manifest.json",
+          "sha256": "4c48aa6c87ba226a32d36466f710e986abebf293933b34d0aaf801c020119264"
+        },
+        {
+          "path": "migrations/re1999-v2/captures/source/raw-observation.json",
+          "sha256": "bd86de9001293145403291a41190478414d69e8ff6493d26ebbc41b528dd5d6b"
+        },
+        {
+          "path": "migrations/re1999-v2/captures/source/continuous-playback.webm",
+          "sha256": "273108fccce4229178c5b3aa8e422a4225e1ba54b3c5de4361e90e1eac338938"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-12T18:10:36.983Z"
+    },
+    {
+      "id": "interpreter-1",
+      "stage": "interpreter",
+      "role": "designTranslator",
+      "attempt": 1,
+      "maxAttempts": 1,
+      "status": "complete",
+      "dispatchId": "a5d91a51-144c-45b2-8bc7-b75c52653cce",
+      "dispatchPath": "migrations/re1999-v2/dispatch/interpreter-1.json",
+      "startedAt": "2026-09-12T18:11:01.966Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/re1999_v2_interpreter",
+      "receiptPath": "migrations/re1999-v2/receipts/interpreter-1.json",
+      "receiptSha256": "20c38cb842e2179bca57c3fd3e617be157d773759a62e10ca558c0205972fbd5",
+      "outputHashes": [
+        {
+          "path": "migrations/re1999-v2/brand-intent.json",
+          "sha256": "80cbab91d2a1a819b64a4b104beb6ea8dd46b2a835863d89951f3192672c8262"
+        },
+        {
+          "path": "migrations/re1999-v2/approved-visual-patterns.json",
+          "sha256": "cd1c264e3888d97504826c438c975ad86f2a68fe9b42a9869153d093bdfc0e2b"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-12T18:14:17.081Z"
+    },
+    {
+      "id": "demo-1",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 1,
+      "maxAttempts": 2,
+      "status": "failed",
+      "dispatchId": "d7aac9e6-2413-4209-8046-1489c4c8e5af",
+      "dispatchPath": "migrations/re1999-v2/dispatch/demo-1.json",
+      "startedAt": "2026-09-12T18:15:21.395Z",
+      "verdict": "needs-evidence",
+      "agentExecutionId": "/root/re1999_v2_demo",
+      "receiptPath": "migrations/re1999-v2/receipts/demo-1.json",
+      "receiptSha256": "ff3fe55f5c2c5ab00dbb38fac05257bd4f269b46c3762ba40c3c6af0c69a9116",
+      "outputHashes": [
+        {
+          "path": "src/App.vue",
+          "sha256": "e6aecf7d9928eea3b250c2dae84aac6c1fe4e9f9d1e98b0fc9ccca648d180a05"
+        },
+        {
+          "path": "src/styles.css",
+          "sha256": "22678fb667a94f62b4d257a7a1cf3ae7a662c3d269fd69001c65d59718e7271e"
+        },
+        {
+          "path": "migrations/re1999-v2/capture-demo.mjs",
+          "sha256": "fe875fd8e36d6a691607b977ae203d481a4b1fa231609885767dfec082c66f42"
+        },
+        {
+          "path": "migrations/re1999-v2/demo-screenshot-manifest.json",
+          "sha256": "8c6d13dd517fa66bce61ab1c08d57a53d9e3419e35f14cb2e36ceddfc3e19b76"
+        },
+        {
+          "path": "migrations/re1999-v2/visual-pattern-inventory.json",
+          "sha256": "7fb6646a0790369623a365a89918d9f47068a1bd9970eb769a21c276e5ff0080"
+        },
+        {
+          "path": "migrations/re1999-v2/generative-proof.json",
+          "sha256": "2529a2927bede07bf6f2061c28ed43c86d5c7c3af215aed5fa8849269f2e2090"
+        },
+        {
+          "path": "migrations/re1999-v2/implementation-self-test.json",
+          "sha256": "a9ef8d2623e86a52abf2fd26b3bb27bd998b0e10dde3b27aa91ef7687aa6f62c"
+        },
+        {
+          "path": "migrations/re1999-v2/captures/demo/browser-probes.json",
+          "sha256": "8ffeae79b358be90ac2cdc09c2cb0dc4d54729cbf48907a03d40825932e7c717"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/home-kv.mp4",
+          "sha256": "918fcd070f53a1daf369aaca189fc34ade345486ce8bc293297b4c90c4699082"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/home-label.png",
+          "sha256": "993eb09cee2f28d8787fcebe35eae9761cfd964d236b0c5d8e46bdaccdd91b48"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/news-hero.jpg",
+          "sha256": "e5b70a59f1e266e0185f9f1aead3c2c8a1acf7220e792690ce9b7133e68915e2"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/character-background.png",
+          "sha256": "99e9357e1ae3a60cc0292b7444651b2f84a5f9f31369c65b959c91ad9d2a11e9"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/character-title.png",
+          "sha256": "8006ae7ba43d6bb3f84bdb71a7614e4180f9603b5e1e52cf1fcb97d1db200511"
+        }
+      ],
+      "blockingFindings": [
+        {
+          "code": "SECTION_FIDELITY_FROZEN_INPUT_INCOMPLETE",
+          "failureOwnerRole": "designDirectorOrchestrator",
+          "evidence": "Frozen required input section-fidelity-manifest.json lacks Demo capture, pageId, bounded layers, responsive probes and pass status required by strict gate; changing it would violate dispatch input hash."
+        },
+        {
+          "code": "FRESH_BLIND_QA_REQUIRED",
+          "failureOwnerRole": "designDirectorOrchestrator",
+          "evidence": "Visual fidelity and all three independent proofs require a separate blindQa execution; implementation self-check cannot approve them."
+        }
+      ],
+      "failureOwnerRole": "designDirectorOrchestrator",
+      "endedAt": "2026-09-12T18:21:54.796Z"
+    },
+    {
+      "id": "demo-2",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "complete",
+      "retryInput": {
+        "goalSha256": "f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791",
+        "blockingFindings": [
+          {
+            "code": "SECTION_FIDELITY_FROZEN_INPUT_INCOMPLETE",
+            "failureOwnerRole": "designDirectorOrchestrator",
+            "evidence": "Update the source-only section-fidelity-manifest as an explicit Demo output; the receipt validator permits a frozen input path to be overwritten when it is also declared as a hashed output."
+          },
+          {
+            "code": "FRESH_BLIND_QA_REQUIRED",
+            "failureOwnerRole": "designDirectorOrchestrator",
+            "evidence": "Do not self-approve fidelity; a fresh visualQA stage follows only after Demo passes its own gates."
+          }
+        ]
+      },
+      "dispatchId": "9e344a10-618c-4a4f-ae48-c23889fe79ba",
+      "dispatchPath": "migrations/re1999-v2/dispatch/demo-2.json",
+      "startedAt": "2026-09-12T18:22:45.282Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/re1999_v2_demo",
+      "receiptPath": "migrations/re1999-v2/receipts/demo-2.json",
+      "receiptSha256": "3d290803f752c1e3b6be74c0ba6e4cb232f7b49fbf6088fa1381560dd5472517",
+      "outputHashes": [
+        {
+          "path": "src/App.vue",
+          "sha256": "e6aecf7d9928eea3b250c2dae84aac6c1fe4e9f9d1e98b0fc9ccca648d180a05"
+        },
+        {
+          "path": "src/styles.css",
+          "sha256": "50a1e54e5412f110ead0f91915f8ac29f1f406a79e15a865a60cb29fb7e7ca73"
+        },
+        {
+          "path": "migrations/re1999-v2/capture-demo.mjs",
+          "sha256": "95d75d1f7a5d87d66441aef22db1ec939eb74fb29cf37ceee298a931df24b829"
+        },
+        {
+          "path": "migrations/re1999-v2/demo-screenshot-manifest.json",
+          "sha256": "162212ed328b6e8966951fe525d0596c457367defe4c531fcb2ea698f23d586a"
+        },
+        {
+          "path": "migrations/re1999-v2/visual-pattern-inventory.json",
+          "sha256": "f435f0bf75869e982cc91d5c166390b3c2f737ce2348e2eec675c25638201cf6"
+        },
+        {
+          "path": "migrations/re1999-v2/generative-proof.json",
+          "sha256": "ee119a19ebfd72ee83b546bf2cfb278ac0d78045ebbc831101d2caa71a815905"
+        },
+        {
+          "path": "migrations/re1999-v2/implementation-self-test.json",
+          "sha256": "daf88d8f0e3a2b3a79dc471fcc082fae3f7652532d4e7866af70b52e80e0b32f"
+        },
+        {
+          "path": "migrations/re1999-v2/section-fidelity-manifest.json",
+          "sha256": "b0f854b5ce2dd8599362aacdd854c3903f4360457e6e11385efe540241854ece"
+        },
+        {
+          "path": "migrations/re1999-v2/captures/demo-2/browser-probes.json",
+          "sha256": "81079edfae73497153453bed655910cd48ec7ba9841cb8bfd1b5369f5b1cb693"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/home-kv.mp4",
+          "sha256": "918fcd070f53a1daf369aaca189fc34ade345486ce8bc293297b4c90c4699082"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/home-label.png",
+          "sha256": "993eb09cee2f28d8787fcebe35eae9761cfd964d236b0c5d8e46bdaccdd91b48"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/news-hero.jpg",
+          "sha256": "e5b70a59f1e266e0185f9f1aead3c2c8a1acf7220e792690ce9b7133e68915e2"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/character-background.png",
+          "sha256": "99e9357e1ae3a60cc0292b7444651b2f84a5f9f31369c65b959c91ad9d2a11e9"
+        },
+        {
+          "path": "public/assets/brand-assets/re1999-v2/character-title.png",
+          "sha256": "8006ae7ba43d6bb3f84bdb71a7614e4180f9603b5e1e52cf1fcb97d1db200511"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-12T18:26:47.117Z"
+    },
+    {
+      "id": "visualQA-2",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "failed",
+      "dispatchId": "402ae1b4-5ac6-43ec-bc81-49b08b871da3",
+      "dispatchPath": "migrations/re1999-v2/dispatch/visualQA-2.json",
+      "startedAt": "2026-09-12T18:26:56.027Z",
+      "verdict": "fail",
+      "agentExecutionId": "/root/re1999_v2_visual_qa",
+      "receiptPath": "migrations/re1999-v2/receipts/visualQA-2.json",
+      "receiptSha256": "1bf639149ce31ab685514eaf02f2af86a2fc90b4d622a5796f6e21dad9c69680",
+      "outputHashes": [
+        {
+          "path": "migrations/re1999-v2/visual-qa-assessment.json",
+          "sha256": "c091d62ab5098ad8fa9c2ff760f582e1bdeb79fc371d6fe9491ccd77dd7e68ff"
+        },
+        {
+          "path": "migrations/re1999-v2/visual-comparison-report.json",
+          "sha256": "3dd6735291b00b31f1c305c67cd7143b95823e8ef4923cf99160ae3fcea1e37a"
+        },
+        {
+          "path": "migrations/re1999-v2/brand-distinctiveness-assessment.json",
+          "sha256": "18ac0e9e35dbace7faa1b12df8e68cb17063362524c186dc5523d34560804c8d"
+        },
+        {
+          "path": "migrations/re1999-v2/fidelity-report.json",
+          "sha256": "af5aa8aa31c1a5dbb9af9766fa48c10ff0c7a69e24040d4c43533ed5869f45a2"
+        },
+        {
+          "path": "migrations/re1999-v2/mockup-state-matrix.json",
+          "sha256": "d0d6d6be59a4faea8566e17a9a3850cd8fcced4b4d52d3032b7c9f46fbafa28b"
+        }
+      ],
+      "blockingFindings": [
+        {
+          "code": "HERO_ASSET_VARIANT_MISMATCH",
+          "scope": "character-gallery",
+          "finding": "Official 5bg environment plate is not the full selected-character subject visible in source.",
+          "earliestFailureNode": "Design Translator",
+          "failureOwnerRole": "designTranslator"
+        },
+        {
+          "code": "UNSUPPORTED_VISUAL_PATTERN",
+          "scope": "character-gallery",
+          "finding": "Central character and portrait rail are missing.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        },
+        {
+          "code": "UNSUPPORTED_VISUAL_PATTERN",
+          "scope": "home",
+          "finding": "Navigation/campaign/focal layers are omitted by the crop.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        },
+        {
+          "code": "PAGE_SCROLL_NOT_RESTORED",
+          "scope": "news-filter",
+          "finding": "Fresh filter cycle leaves scrollTop at 68.66666412353516 instead of 0.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        },
+        {
+          "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+          "scope": "held-out",
+          "finding": "No held-out interaction state sequence proves recipe-news-filter.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        },
+        {
+          "code": "MOCKUP_MATRIX_EVIDENCE_MISSING",
+          "scope": "shared-shell",
+          "finding": "Only one of 24 required matrix cells has fresh rendered evidence.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        }
+      ],
+      "failureOwnerRole": "designTranslator",
+      "endedAt": "2026-09-12T18:32:28.680Z"
+    }
+  ],
+  "finalGates": {}
+}

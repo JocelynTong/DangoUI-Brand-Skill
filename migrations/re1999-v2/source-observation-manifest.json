@@ -1,0 +1,133 @@
+{
+  "schema": "source-observation-manifest/v1",
+  "brand": "re1999-v2",
+  "goalId": "re1999-full-revalidation-v2",
+  "capturedAt": "2026-09-12T18:08:20.817Z",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://re.bluepoch.com/home/",
+      "status": "covered",
+      "navigationModel": "full-viewport vertical Swiper",
+      "requiredStates": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": true
+      },
+      "fullPageCapture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/full-page.png",
+        "sha256": "a5fa8f24e259b9651049b81ce5d46016a68a010a7310f437ce7693ce31825720"
+      },
+      "continuousCapture": {
+        "path": "migrations/re1999-v2/captures/source/continuous-playback.webm",
+        "sha256": "273108fccce4229178c5b3aa8e422a4225e1ba54b3c5de4361e90e1eac338938"
+      },
+      "timeline": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/timeline.json",
+        "sha256": "4f243e5ed9a389591f4cec41f6ed6b17617ca9ae74276d4416258765987ccc77"
+      },
+      "coverage": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": true
+      }
+    },
+    {
+      "id": "news",
+      "url": "https://re.bluepoch.com/home/",
+      "status": "covered",
+      "navigationModel": "full-viewport vertical Swiper",
+      "requiredStates": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": true
+      },
+      "fullPageCapture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png",
+        "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"
+      },
+      "continuousCapture": {
+        "path": "migrations/re1999-v2/captures/source/continuous-playback.webm",
+        "sha256": "273108fccce4229178c5b3aa8e422a4225e1ba54b3c5de4361e90e1eac338938"
+      },
+      "timeline": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/timeline.json",
+        "sha256": "7422c3491286e57edb65ad112608d21b30a2cd222d8c9c4ab31424e2c7fd030d"
+      },
+      "coverage": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": true
+      }
+    },
+    {
+      "id": "character-gallery",
+      "url": "https://re.bluepoch.com/home/",
+      "status": "covered",
+      "navigationModel": "full-viewport vertical Swiper",
+      "requiredStates": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": true
+      },
+      "fullPageCapture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png",
+        "sha256": "35d98ca4b667bfc209eb5974ed301c527aebff3a0728997271de7c59de8219cd"
+      },
+      "continuousCapture": {
+        "path": "migrations/re1999-v2/captures/source/continuous-playback.webm",
+        "sha256": "273108fccce4229178c5b3aa8e422a4225e1ba54b3c5de4361e90e1eac338938"
+      },
+      "timeline": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/timeline.json",
+        "sha256": "c78503fac635a31ebf3dcf07f3d103f0a9fb2d3917e81c01d61ca4c90a093adc"
+      },
+      "coverage": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": true
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "news-filter",
+      "status": "covered",
+      "continuousCapture": {
+        "path": "migrations/re1999-v2/captures/source/continuous-playback.webm",
+        "sha256": "273108fccce4229178c5b3aa8e422a4225e1ba54b3c5de4361e90e1eac338938"
+      },
+      "timeline": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/timeline.json",
+        "sha256": "7422c3491286e57edb65ad112608d21b30a2cd222d8c9c4ab31424e2c7fd030d"
+      },
+      "states": [
+        "default",
+        "transition",
+        "settled",
+        "restored"
+      ]
+    }
+  ],
+  "coverage": {
+    "readyForInterpreter": true,
+    "requiredPageIds": [
+      "home",
+      "news",
+      "character-gallery"
+    ],
+    "covered": 3,
+    "unavailable": 0,
+    "notes": "All three goal page ids are states of the same official vertical Swiper URL; each was captured independently at 1280x720."
+  }
+}

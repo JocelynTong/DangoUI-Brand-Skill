@@ -1,0 +1,103 @@
+{
+  "schema": "approved-visual-patterns/v1",
+  "brand": "re1999-v2",
+  "goalId": "re1999-full-revalidation-v2",
+  "patterns": [
+    {
+      "id": "archive-motion-stage",
+      "status": "approved",
+      "scope": "home full-viewport opening stage",
+      "preserves": ["mustPreserve.archive-stage"],
+      "observedFact": "A full-viewport video stage is combined with independent perimeter label and download/action assets.",
+      "interpretation": "The authored layer hierarchy, not generic archive styling, carries the opening identity.",
+      "recommendation": "Implement each required layer independently and retain the dominant moving scene.",
+      "suitableFor": ["home opening stage"],
+      "notFor": ["flat screenshot", "generic archive card", "utility page"],
+      "allowedTransformations": ["bounded focal crop", "proportional scale", "responsive perimeter reflow retaining all roles"],
+      "sourceRegion": [0, 0, 1, 1],
+      "evidenceRefs": ["home-archive-stage", "home-layered-authentic-assets"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-home-kv-video", "variant": "official desktop p.mp4 autoplay-loop", "sourceUrl": "https://re.bluepoch.com/home/kv/p.mp4", "sourceSha256": "918fcd070f53a1daf369aaca189fc34ade345486ce8bc293297b4c90c4699082"},
+        "requiredLayers": [
+          {"id": "motion-scene", "role": "full-viewport dominant background", "sourceRegion": [0, 0, 1, 1], "assetIdentity": "asset-home-kv-video"},
+          {"id": "perimeter-label", "role": "left archival marker", "sourceRegion": [0.05, 0.45, 0.122, 0.052], "assetIdentity": "asset-home-label", "assetVariant": "official img/first/1.png", "sourceSha256": "993eb09cee2f28d8787fcebe35eae9761cfd964d236b0c5d8e46bdaccdd91b48"},
+          {"id": "download-actions", "role": "lower-right QR/platform/play cluster", "sourceRegion": [0.592, 0.822, 0.328, 0.178]},
+          {"id": "lower-fade", "role": "contrast bridge from scene to controls", "sourceRegion": [0, 0.733, 1, 0.267]}
+        ],
+        "hierarchy": ["motion scene dominates", "archival label stays peripheral", "download/action cluster anchors lower right", "fade supports legibility without becoming a flat surface"],
+        "mustNot": ["source screenshot as runtime", "replace video hierarchy with warm-gray/serif/thin-border shorthand", "flatten independent layers"]
+      }
+    },
+    {
+      "id": "asymmetric-editorial-index",
+      "status": "approved",
+      "scope": "news editorial browsing state",
+      "preserves": ["mustPreserve.editorial-and-character-hierarchy", "mustPreserve.copper-paper-role-system"],
+      "observedFact": "A 550x309 lead image at left is paired with a denser 565x504 right editorial area containing heading, category controls, five rows and More.",
+      "interpretation": "Unequal image/index mass and compact row density establish an editorial hierarchy.",
+      "recommendation": "Keep one dominant image, a denser index, and distinct selected/unselected category roles.",
+      "suitableFor": ["news index", "editorial update feed"],
+      "notFor": ["equal grid", "undifferentiated list", "dashboard table"],
+      "allowedTransformations": ["stack on narrow viewport", "replace content", "scale gaps while retaining the unequal masses and five-row rhythm"],
+      "sourceRegion": [0.064, 0.15, 0.872, 0.674],
+      "evidenceRefs": ["news-asymmetric-editorial-split", "news-copper-active-paper-inactive", "news-paper-body-text", "news-filter"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-news-hero", "variant": "official 2026-08-12 1920x1080 announcement image", "sourceUrl": "https://gamecms-res.sl916.com/official_website_resource/50001/4/PICTURE/20260812/%E7%89%88%E6%9C%AC%E5%BC%80%E5%90%AF%E5%85%AC%E5%91%8A-1920x1080_50b05671076b4f839d0595885b8dbea2.jpg", "sourceSha256": "e5b70a59f1e266e0185f9f1aead3c2c8a1acf7220e792690ce9b7133e68915e2"},
+        "requiredLayers": [
+          {"id": "feature-image", "role": "single visual lead", "sourceRegion": [0.064, 0.192, 0.43, 0.43], "assetIdentity": "asset-news-hero"},
+          {"id": "heading-category", "role": "News identity and four-category control", "sourceRegion": [0.526, 0.15, 0.402, 0.112]},
+          {"id": "editorial-index", "role": "five dated rows", "sourceRegion": [0.526, 0.292, 0.41, 0.39]},
+          {"id": "more-action", "role": "terminal continuation", "sourceRegion": [0.82, 0.68, 0.115, 0.08]}
+        ],
+        "hierarchy": ["feature image first", "News/category control second", "dense dated index third", "More closes the module"],
+        "mustNot": ["equalize all content into cards", "remove category state", "promote copper to a global fill"]
+      }
+    },
+    {
+      "id": "character-triptych-stage",
+      "status": "approved",
+      "scope": "observed CHARACTER state only",
+      "preserves": ["mustPreserve.editorial-and-character-hierarchy", "mustPreserve.copper-paper-role-system"],
+      "observedFact": "A portrait rail, oversized character field and title/quote/voice column form three unequal linked regions.",
+      "interpretation": "Selection, subject and narrative detail are distinct layers of one theatrical browser.",
+      "recommendation": "Retain all three layers and the subject-dominant scale.",
+      "suitableFor": ["character browser", "cast profile variation"],
+      "notFor": ["generic avatar grid", "equal cards", "separate gallery slide", "minor corner decoration"],
+      "allowedTransformations": ["vertical reflow preserving reading order", "bounded subject crop", "source-independent content substitution within the three roles"],
+      "sourceRegion": [0.06, 0.1, 0.88, 0.82],
+      "evidenceRefs": ["character-gallery-triptych", "character-copper-copy"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-character-background", "variant": "official role/5bg.png selected-character field", "sourceUrl": "https://re.bluepoch.com/home/img/role/5bg.png", "sourceSha256": "99e9357e1ae3a60cc0292b7444651b2f84a5f9f31369c65b959c91ad9d2a11e9"},
+        "requiredLayers": [
+          {"id": "portrait-rail", "role": "staggered selection sequence", "sourceRegion": [0.06, 0.1, 0.18, 0.82]},
+          {"id": "character-field", "role": "oversized dominant subject over oblique copper frame", "sourceRegion": [0.22, 0.1, 0.52, 0.82], "assetIdentity": "asset-character-background"},
+          {"id": "title-quote-voice", "role": "narrative and audio detail", "sourceRegion": [0.724, 0.3, 0.208, 0.36], "assetIdentity": "asset-character-title", "assetVariant": "official role/5t.png", "sourceSha256": "8006ae7ba43d6bb3f84bdb71a7614e4180f9603b5e1e52cf1fcb97d1db200511"}
+        ],
+        "hierarchy": ["portrait rail establishes selection", "character is the largest mass", "title/quote/voice completes identity and action"],
+        "mustNot": ["claim separate gallery equivalence", "drop the portrait rail", "reduce the character to decoration", "flatten into equal cards"]
+      }
+    },
+    {
+      "id": "copper-paper-role-boundary",
+      "status": "approved",
+      "scope": "observed news category and news/character foreground roles",
+      "preserves": ["mustPreserve.copper-paper-role-system"],
+      "observedFact": "Selected category copper, available category paper and muted copper-paper narrative copy are visibly distinct computed text/border roles.",
+      "interpretation": "The palette encodes selection and editorial/narrative hierarchy rather than a freely combinable global theme.",
+      "recommendation": "Keep each value within its narrow observed role.",
+      "suitableFor": ["news category state", "news title/date", "character quote"],
+      "notFor": ["global fill", "background", "CTA", "status colors", "universal text"],
+      "allowedRoles": ["editorial-selected-text-border", "editorial-available-text-border", "narrative-foreground-copy"],
+      "forbiddenRoles": ["global-primary", "surface", "button-fill", "semantic-status", "global-body"],
+      "allowedTransformations": ["contrast-preserving use in the same semantic roles"],
+      "sourceRegion": [0.526, 0.2, 0.41, 0.438],
+      "evidenceRefs": ["news-copper-active-paper-inactive", "news-paper-body-text", "character-copper-copy"]
+    }
+  ],
+  "mustPreserveMappings": [
+    {"goalRef": "mustPreserve.archive-stage", "patternIds": ["archive-motion-stage"]},
+    {"goalRef": "mustPreserve.copper-paper-role-system", "patternIds": ["copper-paper-role-boundary", "asymmetric-editorial-index", "character-triptych-stage"]},
+    {"goalRef": "mustPreserve.editorial-and-character-hierarchy", "patternIds": ["asymmetric-editorial-index", "character-triptych-stage"]}
+  ],
+  "unresolvedPatternCandidates": ["global background color", "global radius system", "shadow system", "generic motion timing", "mobile responsive behavior", "separate gallery slide equivalence"]
+}

@@ -1,0 +1,171 @@
+{
+  "schema": "brand-intent/vNext",
+  "brand": "re1999-v2",
+  "goalId": "re1999-full-revalidation-v2",
+  "role": "designTranslator",
+  "evidencePolicy": "Only frozen screenshot-first observed claims and action evidence in interpreter-1 are authoritative; aggregate palettes, CSS names and Dembrandt values are candidates only.",
+  "patterns": [
+    {
+      "id": "archive-motion-stage",
+      "status": "approved",
+      "scope": "home full-viewport opening stage",
+      "observedFact": "The active #slide1 fills 1280x720 and combines the visible #kvPc video with independent perimeter labels and a download/action cluster.",
+      "interpretation": "Identity comes from an authored foreground/perimeter hierarchy over moving scene media, not from a generic warm archive surface.",
+      "recommendation": "Keep the stage full-bleed and preserve the independent label and action layers around the dominant scene.",
+      "suitableFor": ["home opening stage", "high-capacity campaign introduction"],
+      "notFor": ["generic card surface", "flat screenshot runtime", "low-capacity utility page", "warm-gray archive shorthand"],
+      "allowedTransformations": ["bounded focal crop", "responsive reflow preserving hierarchy", "DOM/CSS reconstruction with independent runtime assets"],
+      "evidenceRefs": ["home-archive-stage", "home-layered-authentic-assets"],
+      "sourceRegion": [0, 0, 1, 1],
+      "compositionContractRef": "migrations/re1999-v2/approved-visual-patterns.json#patterns[id=archive-motion-stage]"
+    },
+    {
+      "id": "asymmetric-editorial-index",
+      "status": "approved",
+      "scope": "news editorial browsing state",
+      "observedFact": "The news state pairs a 550x309 feature image on the left with a 565x504 five-row editorial index on the right inside generous dark negative space.",
+      "interpretation": "Editorial density is concentrated in a compact index while one image carries the issue-level visual lead.",
+      "recommendation": "Preserve the unequal two-part hierarchy, category control, five-row rhythm and terminal More action.",
+      "suitableFor": ["news index", "source-independent editorial update feed"],
+      "notFor": ["equal card grid", "single-column undifferentiated list", "generic dashboard table"],
+      "allowedTransformations": ["stack image before index on narrow viewports", "replace editorial content", "compress whitespace without equalizing the two masses"],
+      "evidenceRefs": ["news-asymmetric-editorial-split", "news-copper-active-paper-inactive", "news-paper-body-text"],
+      "sourceRegion": [0.064, 0.15, 0.872, 0.674],
+      "compositionContractRef": "migrations/re1999-v2/approved-visual-patterns.json#patterns[id=asymmetric-editorial-index]"
+    },
+    {
+      "id": "character-triptych-stage",
+      "status": "approved",
+      "scope": "observed character state selected by #banner2; not the separate gallery slide",
+      "observedFact": "The character state combines a staggered portrait rail, an oversized illustration over an oblique copper-framed field, and a title/quote/voice column.",
+      "interpretation": "Character browsing uses three unequal synchronized masses: selection, theatrical subject, and narrative/voice detail.",
+      "recommendation": "Preserve all three masses and their reading order; keep the main character visually dominant.",
+      "suitableFor": ["character browser", "source-independent cast profile"],
+      "notFor": ["generic avatar grid", "equal three-column cards", "gallery-slide equivalence", "small decorative portrait"],
+      "allowedTransformations": ["vertical reflow retaining portrait-to-subject-to-copy order", "bounded crop retaining the main subject", "replace character content while keeping triptych roles"],
+      "evidenceRefs": ["character-gallery-triptych", "character-copper-copy"],
+      "sourceRegion": [0.06, 0.1, 0.88, 0.82],
+      "compositionContractRef": "migrations/re1999-v2/approved-visual-patterns.json#patterns[id=character-triptych-stage]"
+    },
+    {
+      "id": "copper-paper-role-boundary",
+      "status": "approved",
+      "scope": "news category state plus news/character foreground copy",
+      "observedFact": "News selected category text computes rgb(181, 88, 41), unselected category text computes rgb(233, 220, 205), and news title plus character quote copy compute rgb(187, 168, 147).",
+      "interpretation": "Saturated copper marks the current editorial choice; pale paper marks available choices; muted copper-paper carries narrative foreground text.",
+      "recommendation": "Use these colors only for their observed text/border roles and keep surfaces asset-led or unresolved.",
+      "suitableFor": ["news selected category text/border", "news unselected category text", "news title/date foreground", "character quote foreground"],
+      "notFor": ["global primary fill", "page background", "generic CTA fill", "success/error status", "all body text"],
+      "allowedRoles": ["editorial-selected-text-border", "editorial-available-text", "narrative-foreground-copy"],
+      "forbiddenRoles": ["global-primary", "surface", "action-fill", "semantic-status", "universal-text"],
+      "allowedTransformations": ["contrast-preserving text use within the same observed roles"],
+      "evidenceRefs": ["news-copper-active-paper-inactive", "news-paper-body-text", "character-copper-copy"],
+      "sourceRegion": [0.526, 0.2, 0.41, 0.438]
+    }
+  ],
+  "semanticClaims": [
+    {
+      "id": "semantic-editorial-selected-copper",
+      "kind": "color",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "value": "rgb(181, 88, 41)",
+      "meaning": "current news category text and border",
+      "allowedRoles": ["news-category-selected-text", "news-category-selected-border"],
+      "forbiddenRoles": ["global-primary", "button-fill", "surface", "all-selected-states"],
+      "origin": "rendered-observed-claim",
+      "evidenceRefs": ["news-copper-active-paper-inactive"],
+      "evidenceBinding": {"capture": {"path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png", "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"}, "sourceRegion": [0.645, 0.2, 0.285, 0.075], "visibleDom": {"selector": "#news0", "visible": true, "boundingBox": {"x": 856.640625, "y": 151.34375, "width": 29.28125, "height": 37.28125}}, "computed": {"property": "color", "value": "rgb(181, 88, 41)"}, "sourcePageId": "news", "state": "news-right-head-bg-list-active"}
+    },
+    {
+      "id": "semantic-editorial-available-paper",
+      "kind": "color",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "value": "rgb(233, 220, 205)",
+      "meaning": "unselected news category text and partial border",
+      "allowedRoles": ["news-category-unselected-text", "news-category-unselected-border"],
+      "forbiddenRoles": ["global-surface", "global-text", "button-fill", "selected-state"],
+      "origin": "rendered-observed-claim",
+      "evidenceRefs": ["news-copper-active-paper-inactive"],
+      "evidenceBinding": {"capture": {"path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png", "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"}, "sourceRegion": [0.739, 0.21, 0.023, 0.051], "visibleDom": {"selector": "#news1", "visible": true, "boundingBox": {"x": 946.734375, "y": 151.34375, "width": 29.28125, "height": 36.28125}}, "computed": {"property": "color", "value": "rgb(233, 220, 205)"}, "sourcePageId": "news", "state": "default"}
+    },
+    {
+      "id": "semantic-muted-copper-paper-copy",
+      "kind": "color",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "value": "rgb(187, 168, 147)",
+      "meaning": "muted narrative/editorial foreground copy",
+      "allowedRoles": ["news-title-copy", "news-date-copy", "character-quote-copy"],
+      "forbiddenRoles": ["global-primary", "global-body-text", "surface", "action-fill"],
+      "origin": "rendered-observed-claims",
+      "evidenceRefs": ["news-paper-body-text", "character-copper-copy"],
+      "evidenceBinding": {"capture": {"path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png", "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"}, "sourceRegion": [0.526, 0.292, 0.41, 0.35], "visibleDom": {"selector": ".news-right-con-list-left-title", "visible": true, "boundingBox": {"x": 721.1875, "y": 220.984375, "width": 133.5625, "height": 28}}, "computed": {"property": "color", "value": "rgb(187, 168, 147)"}, "sourcePageId": "news", "state": "default"}
+    },
+    {
+      "id": "semantic-source-han-serif-stage",
+      "kind": "typography",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "value": "SourceHanSerifCN",
+      "meaning": "observed serif family for the active home stage",
+      "allowedRoles": ["home-stage-copy-family"],
+      "forbiddenRoles": ["all-page-global-font", "news-cn-control-font", "unverified-weight-scale"],
+      "origin": "rendered-observed-claim",
+      "evidenceRefs": ["home-archive-stage"],
+      "evidenceBinding": {"capture": {"path": "migrations/re1999-v2/captures/source/home/desktop/full-page.png", "sha256": "a5fa8f24e259b9651049b81ce5d46016a68a010a7310f437ce7693ce31825720"}, "sourceRegion": [0, 0, 1, 1], "visibleDom": {"selector": "#slide1", "visible": true, "boundingBox": {"x": 0, "y": 0, "width": 1280, "height": 720}}, "computed": {"property": "font-family", "value": "SourceHanSerifCN"}, "sourcePageId": "home", "state": "swiper-slide-active"}
+    },
+    {
+      "id": "semantic-news-filter-reversible-selection",
+      "kind": "interaction",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "meaning": "clicking a news category moves the narrow selected color/border state and clicking the original category restores it",
+      "allowedRoles": ["news-category-selection"],
+      "forbiddenRoles": ["global-tab-motion", "hover", "pressed", "loading"],
+      "origin": "rendered-action-evidence",
+      "evidenceRefs": [],
+      "evidenceBinding": {
+        "capture": {"path": "migrations/re1999-v2/captures/source/interactions/news-filter/02-settled.png", "sha256": "6b8eb05443d90b7ad243bce6dc4d3ba1dd71e6ba197e09dbb8fcfef8fb96e41c"},
+        "sourceRegion": [0.739, 0.21, 0.023, 0.051],
+        "visibleDom": {"selector": "#news1", "visible": true, "boundingBox": {"x": 946.734375, "y": 151.34375, "width": 29.28125, "height": 36.28125}},
+        "computed": {"property": "color", "value": "rgb(181, 88, 41)"},
+        "sourcePageId": "news",
+        "state": "news-right-head-bg-list-active"
+      }
+    }
+  ],
+  "styleRecipeDetails": [
+    {"id": "recipe-archive-stage", "category": "composition", "purpose": "full-bleed authored opening stage", "usage": "home only", "notFor": ["flat poster", "generic archive surface"], "patternRef": "archive-motion-stage", "evidenceRefs": ["home-archive-stage", "home-layered-authentic-assets"]},
+    {"id": "recipe-editorial-split", "category": "density-layout", "purpose": "one visual lead plus dense five-row index", "usage": "news/editorial feeds", "notFor": ["equal card grid"], "patternRef": "asymmetric-editorial-index", "evidenceRefs": ["news-asymmetric-editorial-split"]},
+    {"id": "recipe-character-triptych", "category": "composition-asset", "purpose": "selection rail, theatrical subject and narrative detail", "usage": "character browser", "notFor": ["avatar grid", "separate gallery slide"], "patternRef": "character-triptych-stage", "evidenceRefs": ["character-gallery-triptych"]},
+    {"id": "recipe-copper-paper-copy", "category": "color", "purpose": "separate current choice, available choice and narrative copy", "usage": "observed news and character roles only", "notFor": ["global palette application", "surface fill"], "patternRef": "copper-paper-role-boundary", "evidenceRefs": ["news-copper-active-paper-inactive", "news-paper-body-text", "character-copper-copy"]}
+  ],
+  "interactionRecipes": [
+    {"id": "recipe-news-filter", "status": "approved", "purpose": "reversible category selection", "trigger": "click a news category; click the previous category to restore", "states": ["default", "transition", "settled", "restored"], "visualChange": ["color: rgb(233, 220, 205) -> rgb(181, 88, 41)", "border-color: mixed paper/copper -> rgb(181, 88, 41)"], "suitableFor": ["news category filter"], "notFor": ["generic active state", "hover", "press", "loading", "global tab animation"], "allowedTransformations": ["change labels and data while preserving reversible selected-state semantics"], "evidenceRefs": ["news-filter"], "sourceRegion": [0.739, 0.21, 0.023, 0.051]}
+  ],
+  "informationDensity": {
+    "observedFact": "News concentrates five dated rows in a 565x504 right index beside one 550x309 lead image; character uses three unequal masses rather than repeated equal cards.",
+    "interpretation": "Density is editorially tiered: one dominant visual, compact repeatable metadata, and deliberate negative space.",
+    "recommendation": "Preserve differentiation between lead, index and supporting control density; do not normalize into equal cards.",
+    "evidenceRefs": ["news-asymmetric-editorial-split", "character-gallery-triptych"]
+  },
+  "distinctivenessSignalContract": {
+    "highCapacityMinimum": {"signalCount": 3, "dimensionCount": 3, "minimumViewportAreaRatioPerSignal": 0.05},
+    "signals": [
+      {"id": "signal-archive-motion-mass", "dimension": "visual mass", "minimumViewportAreaRatio": 0.5, "suitableFor": ["home opening"], "notFor": ["utility/list/form pages"], "evidenceRefs": ["home-archive-stage"]},
+      {"id": "signal-authentic-layered-assets", "dimension": "asset", "minimumViewportAreaRatio": 0.1, "suitableFor": ["home opening", "character stage"], "notFor": ["logo-only branding"], "evidenceRefs": ["home-layered-authentic-assets", "character-gallery-triptych"]},
+      {"id": "signal-asymmetric-hierarchy", "dimension": "composition", "minimumViewportAreaRatio": 0.3, "suitableFor": ["news", "character browser"], "notFor": ["equal card grid"], "evidenceRefs": ["news-asymmetric-editorial-split", "character-gallery-triptych"]},
+      {"id": "signal-copper-paper-role", "dimension": "type", "minimumViewportAreaRatio": 0.05, "suitableFor": ["editorial/character foreground hierarchy"], "notFor": ["sole high-capacity proof"], "evidenceRefs": ["news-copper-active-paper-inactive", "news-paper-body-text", "character-copper-copy"]}
+    ]
+  },
+  "unresolvedClaims": [
+    {"id": "global-background-color", "reason": "Visible core slide backgrounds are transparent over assets; Dembrandt black background seed was rejected."},
+    {"id": "global-radius-system", "reason": "Candidate radii lack goal-critical rendered semantic evidence."},
+    {"id": "shadow-system", "reason": "No observed shadow claim exists."},
+    {"id": "generic-motion-timing", "reason": "Video presence and transition frames do not establish a reusable computed motion duration/easing semantic."},
+    {"id": "mobile-responsive-contract", "reason": "No mobile evidence was promoted; only desktop 1280x720 is supported."},
+    {"id": "separate-gallery-equivalence", "reason": "The frozen page id aliases character/gallery, but evidence validates only the CHARACTER state selected by #banner2."}
+  ]
+}

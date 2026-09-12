@@ -1,0 +1,12 @@
+{
+  "schema":"brand-visual-comparison-report/v2","brand":"re1999-v2","attempt":2,"qaExecutionId":"/root/re1999_v2_visual_qa","verdict":"fail",
+  "comparisons":[
+    {"page":"home","source":"migrations/re1999-v2/captures/source/home/desktop/full-page.png","demo":"migrations/re1999-v2/captures/demo-2/home-phone.png","score":67.5,"matched":["official motion scene hash","archive label","dark lower fade","bounded actions"],"gaps":["source navigation absent","campaign hierarchy absent","telephone focal point cropped out","most of character cropped out"],"blocking":true},
+    {"page":"news","source":"migrations/re1999-v2/captures/source/news/desktop/full-page.png","demo":"migrations/re1999-v2/captures/demo-2/news-phone.png","score":85,"matched":["official lead image","unequal lead/index reading order","five-row index","narrow copper selected role"],"gaps":["filter restoration leaves phone-screen at scrollTop 68.66666412353516 instead of 0"],"blocking":true},
+    {"page":"character-gallery","source":"migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png","demo":"migrations/re1999-v2/captures/demo-2/character-gallery-phone.png","score":42.5,"matched":["official background plate","official title graphic","local copper accent"],"gaps":["full selected-character subject absent","portrait thumbnails replaced with numbers","voice state not visually evidenced"],"blocking":true},
+    {"page":"held-out","source":null,"demo":"migrations/re1999-v2/captures/demo-2/held-out-phone.png","score":null,"matched":["fictional source-independent content","asymmetric lead/ledger","copper indices on paper copy"],"gaps":["reversible held-out filter rule has no visual state sequence"],"blocking":true}
+  ],
+  "computedCoreAverage":65,
+  "thresholds":{"overall":80,"corePage":70,"composition":3,"assetAuthenticity":3},
+  "evidenceNote":"Scores are attached to source/demo regions in visual-qa-assessment.json; blockers are not averaged away."
+}

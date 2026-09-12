@@ -1,0 +1,258 @@
+{
+  "schema": "brand-evidence/v4",
+  "brand": "hpma-v2",
+  "goalId": "hpma-full-revalidation-v2",
+  "sourceUrl": "https://www.harrypottermagicawakened.com/cn/index.html",
+  "capturedAt": "2026-09-12T18:11:34.041Z",
+  "status": "needs-evidence",
+  "evidenceQuestions": [
+    {
+      "id": "q-parchment-dark-stage",
+      "question": "Does HOME visibly combine a dark cinematic stage with parchment/gold information and action surfaces?",
+      "stopCondition": "Full viewport capture plus visible DOM, computed role values and asset identities."
+    },
+    {
+      "id": "q-ornate-news-frame",
+      "question": "Does the reachable NEWS state visibly use the same ornate frame grammar as cards/media?",
+      "stopCondition": "Distinct news-state screenshot, non-zero visible DOM region, computed properties and interaction trace."
+    },
+    {
+      "id": "q-ornate-cards-frame",
+      "question": "Does CARDS/MEDIA visibly use authored book/frame geometry rather than generic rounded cards?",
+      "stopCondition": "Distinct state capture plus visible DOM and source asset identity."
+    },
+    {
+      "id": "q-action-media-semantics",
+      "question": "Across HOME, NEWS and CARDS/MEDIA, are brown/gold framed actions observably distinct from magical media surfaces in default, triggered, settled and restored states?",
+      "stopCondition": "Page-scoped before/transition/after/restored captures with changed computed properties."
+    }
+  ],
+  "claims": [
+    {
+      "id": "home-dark-cinematic-stage",
+      "sourcePageId": "home",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "state": "initial",
+      "summary": "The initial viewport is a full-bleed moonlit lake/castle scene with a large pale-gold title, a framed download cluster, and a vertical stack of ornate outlined actions.",
+      "capture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/home/full-page.png",
+        "sha256": "df93309a26b87d0b6fd7f612020e427f3847f32a186519f80b539deba844c3e5"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".wrap",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 750
+        },
+        "state": "nav1 on"
+      },
+      "computed": {
+        "property": "font-family",
+        "value": "\"Microsoft YaHei\""
+      },
+      "assetRefs": [
+        "asset-home-background",
+        "asset-home-action-frame"
+      ]
+    },
+    {
+      "id": "home-active-nav-muted-versus-gold",
+      "sourcePageId": "home",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "state": "initial",
+      "summary": "The selected home navigation label is muted light gray while unselected navigation labels are warm gold; selection is also marked by an ornamental underline.",
+      "capture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/home/full-page.png",
+        "sha256": "df93309a26b87d0b6fd7f612020e427f3847f32a186519f80b539deba844c3e5"
+      },
+      "sourceRegion": [
+        0.005,
+        0.01,
+        0.96,
+        0.08
+      ],
+      "visibleDom": {
+        "selector": ".nav_link.nav1.on",
+        "visible": true,
+        "boundingBox": {
+          "x": 8,
+          "y": 23.5,
+          "width": 140.4,
+          "height": 37
+        },
+        "state": "on"
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(218, 218, 218)"
+      },
+      "comparison": {
+        "selector": ".nav_link.nav2",
+        "property": "color",
+        "value": "rgb(194, 166, 115)"
+      }
+    },
+    {
+      "id": "cards-media-illustrated-book-stage",
+      "sourcePageId": "cards-media",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "state": "nav4 on",
+      "summary": "The spells/companions surface uses a full-viewport character illustration with a sepia storybook panel and gold ornamental line paths instead of generic rounded cards.",
+      "capture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/cards-media/full-page.png",
+        "sha256": "63dadc4fb93c0c7e7c1187e88ebe418a6345362edf785b09ebfd17df6e115bff"
+      },
+      "sourceRegion": [
+        0.045,
+        0.08,
+        0.91,
+        0.86
+      ],
+      "visibleDom": {
+        "selector": ".media",
+        "visible": true,
+        "boundingBox": {
+          "x": 58.33,
+          "y": 957.67,
+          "width": 1163.33,
+          "height": 466.67
+        },
+        "state": "nav4 on; internal transformed stage"
+      },
+      "assetRefs": [
+        "asset-cards-stage",
+        "asset-cards-book-panel"
+      ]
+    },
+    {
+      "id": "cards-media-nav-gold",
+      "sourcePageId": "cards-media",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "state": "nav4 on",
+      "summary": "The selected spells/companions navigation item computes light gray while neighboring inactive items remain warm gold.",
+      "capture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/cards-media/full-page.png",
+        "sha256": "63dadc4fb93c0c7e7c1187e88ebe418a6345362edf785b09ebfd17df6e115bff"
+      },
+      "sourceRegion": [
+        0.005,
+        0.01,
+        0.96,
+        0.08
+      ],
+      "visibleDom": {
+        "selector": ".nav_link.nav4.on",
+        "visible": true,
+        "boundingBox": {
+          "x": 477.21,
+          "y": 23.5,
+          "width": 140.4,
+          "height": 37
+        },
+        "state": "on"
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(218, 218, 218)"
+      },
+      "comparison": {
+        "selector": ".nav_link.nav2",
+        "property": "color",
+        "value": "rgb(194, 166, 115)"
+      }
+    }
+  ],
+  "notObserved": [
+    {
+      "id": "news-distinct-state",
+      "sourcePageId": "news",
+      "status": "unavailable",
+      "reason": "The attempted .news_btn and news category triggers did not produce a distinct visible news panel in the automated capture; .newsBig_box retained width 0 and x=1280. The resulting screenshot is identical in structure to HOME and is not promoted as NEWS evidence."
+    },
+    {
+      "id": "news-category-change",
+      "sourcePageId": "news",
+      "status": "not-observed",
+      "reason": "Forced click on .nav_tit3 produced no computed color/backgroundColor change and no verifiable visible state change; captures are retained only as negative evidence."
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "seedRef": "dembrandt.colors.semantic.primary",
+      "status": "validated",
+      "evidenceRefs": [
+        "home-active-nav-muted-versus-gold",
+        "cards-media-nav-gold"
+      ]
+    },
+    {
+      "seedRef": "dembrandt.colors.semantic.background",
+      "status": "rejected",
+      "reason": "The extractor reports #FCFBF9, but both visible goal-critical stages are dark full-bleed raster compositions; the light aggregate does not describe the observed main surface."
+    },
+    {
+      "seedRef": "dembrandt.colors.semantic.text",
+      "status": "rejected",
+      "reason": "The extractor reports black as semantic text, while the observed navigation and headline system is pale gray/warm gold over dark imagery."
+    },
+    {
+      "seedRef": "dembrandt.primaryActionFillSeed.#610000",
+      "status": "out-of-scope",
+      "reason": "This seed comes from the footer guardianship link and does not prove a goal-critical primary action role."
+    },
+    {
+      "seedRef": "dembrandt.borderRadius.16px",
+      "status": "out-of-scope",
+      "reason": "No goal-critical high-salience visible section was shown to rely on this radius."
+    },
+    {
+      "seedRef": "dembrandt.borderRadius.100percent",
+      "status": "out-of-scope",
+      "reason": "Circular minor controls do not establish the ornate frame grammar required by the frozen goal."
+    }
+  ],
+  "goalCoverage": [
+    {
+      "goalItemId": "parchment-dark-stage",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "home-dark-cinematic-stage",
+        "home-active-nav-muted-versus-gold"
+      ]
+    },
+    {
+      "goalItemId": "ornate-frame-grammar",
+      "verdict": "unresolved",
+      "evidenceRefs": [
+        "cards-media-illustrated-book-stage"
+      ],
+      "reason": "Cards/media is observed, but distinct NEWS evidence is unavailable."
+    },
+    {
+      "goalItemId": "brown-action-versus-magic-media",
+      "verdict": "unresolved",
+      "evidenceRefs": [
+        "home-dark-cinematic-stage",
+        "cards-media-illustrated-book-stage"
+      ],
+      "reason": "Required cross-page interaction semantics cannot be proved without a visible NEWS state and an interaction with a computed visual change."
+    }
+  ]
+}

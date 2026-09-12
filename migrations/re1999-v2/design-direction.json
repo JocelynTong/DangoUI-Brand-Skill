@@ -1,0 +1,75 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "re1999-v2",
+  "scope": "goal:re1999-full-revalidation-v2 pages:home|news|character-gallery|held-out",
+  "designObjective": "Prove Reverse: 1999 as an asset-led, full-viewport editorial system: a layered moving archive stage, an asymmetric news index, and a theatrical character triptych, while keeping copper and paper colors inside their observed semantic roles and proving reuse on a source-independent held-out surface.",
+  "decisionStatus": "approved",
+  "inputBindings": {
+    "goal": {"path": "migrations/re1999-v2/goal-contract.json", "sha256": "f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791"},
+    "evidence": {"path": "migrations/re1999-v2/brand-evidence.json", "sha256": "aeac4937138c99e7335acfedff1fbb722ba18cca352fa4c9f8b055d78aa68d2e"},
+    "intent": {"path": "migrations/re1999-v2/brand-intent.json", "sha256": "80cbab91d2a1a819b64a4b104beb6ea8dd46b2a835863d89951f3192672c8262"},
+    "patterns": {"path": "migrations/re1999-v2/approved-visual-patterns.json", "sha256": "cd1c264e3888d97504826c438c975ad86f2a68fe9b42a9869153d093bdfc0e2b"}
+  },
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "source-authentic asset identity and independent layer hierarchy",
+    "purpose-specific composition and information density",
+    "copper-paper semantic role boundaries",
+    "reversible interaction truth",
+    "responsive geometry and motion degradation",
+    "protocol completeness"
+  ],
+  "sections": [
+    {
+      "id": "home-archive-stage",
+      "firstImpressionGoal": "A full-viewport moving scene dominates immediately, while the archival perimeter label and lower-right action cluster remain separate, readable layers rather than being flattened into a poster.",
+      "mustPreserve": ["independent full-viewport motion scene", "official source asset identity", "perimeter archival label", "lower-right download/action cluster", "lower contrast fade", "SourceHanSerifCN only in the observed stage role"],
+      "mayChange": ["bounded focal crop", "responsive coordinates", "supporting copy", "action destinations in the fictional proof"],
+      "mustNotDo": ["use a source screenshot as runtime", "flatten the stage into one raster", "replace the authored hierarchy with generic warm archive styling", "promote observed typography to a global family", "hide controls behind decorative media"]
+    },
+    {
+      "id": "news-editorial-index",
+      "firstImpressionGoal": "One strong editorial image and one denser five-row index form unequal but balanced masses, with the current category visibly distinct from available categories.",
+      "mustPreserve": ["single visual lead", "denser five-row index", "heading and category control", "terminal More action", "reversible selected category", "selected copper versus available paper roles"],
+      "mayChange": ["story content", "labels", "dates", "image subject", "narrow-screen stacking"],
+      "mustNotDo": ["convert to an equal card grid", "remove category state", "use copper as a global primary or surface", "invent hover, pressed or loading semantics", "collapse the index into an undifferentiated list"]
+    },
+    {
+      "id": "character-triptych",
+      "firstImpressionGoal": "A staggered portrait selector, an oversized theatrical subject, and a narrative/voice column read as three synchronized but unequal masses.",
+      "mustPreserve": ["portrait selection rail", "dominant character field", "oblique copper-framed field", "title/quote/voice detail", "portrait-to-subject-to-copy reading order"],
+      "mayChange": ["fictional cast content", "portrait count", "bounded subject crop", "vertical reflow on narrow screens"],
+      "mustNotDo": ["turn the surface into an avatar grid", "make three equal cards", "drop the selection rail", "reduce the subject to decoration", "claim the separate source gallery slide is equivalent"]
+    },
+    {
+      "id": "held-out-archive-briefing",
+      "firstImpressionGoal": "A fictional archive briefing feels native through reused layer hierarchy, asymmetric editorial density, narrow copper-paper roles, and reversible selection without copying any source page composition one-for-one.",
+      "mustPreserve": ["at least two frozen recipes", "source-independent content and structure", "clear editorial reading priority", "narrow color-role semantics", "observable reversible control"],
+      "mayChange": ["subject matter", "section order", "asset content", "copy density", "responsive arrangement"],
+      "mustNotDo": ["copy a source page verbatim", "reuse source screenshots", "present fictional content as official", "apply copper everywhere", "derive an unsupported global theme"]
+    }
+  ],
+  "highSalienceElements": ["archive motion scene", "perimeter archive label", "download action cluster", "news feature image", "news category and index", "character portrait rail", "dominant character field", "character narrative column"],
+  "responsiveStrategyMatrix": [
+    {"element": "archive motion scene", "elementType": "media", "strategy": "art-directed-crop", "evidenceRefs": ["home-archive-stage", "home-layered-authentic-assets"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["official asset identity", "dominant moving scene", "foreground legibility"]},
+    {"element": "perimeter archive label", "elementType": "text", "strategy": "responsive-reflow", "evidenceRefs": ["home-archive-stage", "home-layered-authentic-assets"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["independent layer", "peripheral archival role", "no overlap with primary action"], "minimumReadableSize": "12px-equivalent visible label"},
+    {"element": "download action cluster", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["home-layered-authentic-assets"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["separate foreground cluster", "readable platform/action identity", "reachable controls"], "minimumReadableSize": "14px label / 44x44px target"},
+    {"element": "news feature image", "elementType": "media", "strategy": "responsive-reflow", "evidenceRefs": ["news-asymmetric-editorial-split"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["single visual lead", "identity not duplicated into equal cards", "bounded crop"]},
+    {"element": "news category and index", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["news-asymmetric-editorial-split", "news-copper-active-paper-inactive", "news-filter"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["denser five-row rhythm", "selected and available role distinction", "reversible category selection", "More terminus"], "minimumReadableSize": "14px text / 44px category target"},
+    {"element": "character portrait rail", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["character-gallery-triptych"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["selection sequence", "distinct from dominant subject", "selected identity remains visible"], "minimumReadableSize": "44x44px portrait target"},
+    {"element": "dominant character field", "elementType": "media", "strategy": "art-directed-crop", "evidenceRefs": ["character-gallery-triptych"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["largest visual mass", "recognizable subject", "oblique framed-field relationship"]},
+    {"element": "character narrative column", "elementType": "text", "strategy": "responsive-reflow", "evidenceRefs": ["character-gallery-triptych", "character-copper-copy"], "viewports": ["1280x720", "390x844"], "mustPreserve": ["title/quote/voice grouping", "narrative copy role", "subject-to-copy reading order"], "minimumReadableSize": "16px body / 28px title"}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "Independent 1280x720 source/demo captures for Home, News, Character and held-out states.",
+    "mobileCanvas": "Independent 390x844 captures proving art-directed crop or vertical reflow without horizontal overflow.",
+    "inspectorPolicy": "Exclude browser chrome, debug overlays, selection outlines and annotations from verdict captures.",
+    "sourceComparison": "Compare each mapped surface at the same viewport and state; use bounded layer regions in addition to whole-canvas captures. Evaluate the held-out page only for frozen-rule reuse and explicitly fictional content."
+  },
+  "orchestratorDecision": {
+    "status": "approved-for-demo-dispatch",
+    "sourceBoundary": "The observed CHARACTER state is #banner2 only; the separate #banner4 GALLERY is not treated as equivalent.",
+    "colorBoundary": "Copper and paper values remain text/border roles and may not become global fills or semantic statuses.",
+    "publication": "Keep re1999-v2 private to the migration workspace until implementation self-test, fresh independent Blind QA, fidelity gate and release checks pass."
+  }
+}

@@ -1,0 +1,75 @@
+{
+  "schema": "brand-source-timeline/v1",
+  "pageId": "character-gallery",
+  "meta": {
+    "url": "https://re.bluepoch.com/home/",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "scrollHeight": 720,
+    "navigationModel": "full-viewport vertical Swiper; wheel/navigation changes slide while document scrollTop remains 0"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "label": "default",
+      "timeMs": 3440,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/00-default.png",
+        "sha256": "59eb18b7912e967989829f8b9b24fc1ae43d6b3987dcec28e633961f819601ce"
+      }
+    },
+    {
+      "index": 1,
+      "label": "transition",
+      "timeMs": 3560,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/01-transition.png",
+        "sha256": "6a4c85bd44706b6841effc300b648b7609f2b62c45cb667934a01e3dec5b4267"
+      }
+    },
+    {
+      "index": 2,
+      "label": "settled",
+      "timeMs": 4460,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/02-settled.png",
+        "sha256": "a778fad4fe214c431da7e80395e1bb2c474169f65b119d92475d2e6ffb0cd29c"
+      }
+    },
+    {
+      "index": 3,
+      "label": "restored",
+      "timeMs": 5160,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/03-restored.png",
+        "sha256": "93ebd273ef087c1c6e5e40256d6f9b0eb15a89c62b5f5333d2377669e2678b34"
+      }
+    }
+  ]
+}

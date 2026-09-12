@@ -1,0 +1,104 @@
+{
+  "capturedAt": "2026-09-12T18:24:09.742Z",
+  "probes": [
+    {
+      "pageId": "re1999-v2-home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "contentViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo-2/home-phone.png",
+      "sections": 2,
+      "horizontalOverflow": false,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 994,
+        "scrollWidth": 372,
+        "clientWidth": 372,
+        "before": 0,
+        "after": 191,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "re1999-v2-news",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "contentViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo-2/news-phone.png",
+      "sections": 2,
+      "horizontalOverflow": false,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1138,
+        "scrollWidth": 372,
+        "clientWidth": 372,
+        "before": 0,
+        "after": 220,
+        "restored": 0
+      },
+      "interaction": {
+        "id": "news-filter",
+        "before": "CATEGORY / LATEST",
+        "changed": "CATEGORY / NOTICE",
+        "restored": "CATEGORY / LATEST",
+        "pass": true
+      }
+    },
+    {
+      "pageId": "re1999-v2-character-gallery",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "contentViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo-2/character-gallery-phone.png",
+      "sections": 2,
+      "horizontalOverflow": false,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1123,
+        "scrollWidth": 372,
+        "clientWidth": 372,
+        "before": 0,
+        "after": 220,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "re1999-v2-held-out",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "contentViewport": {
+        "width": 390,
+        "height": 844
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo-2/held-out-phone.png",
+      "sections": 2,
+      "horizontalOverflow": false,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1141,
+        "scrollWidth": 372,
+        "clientWidth": 372,
+        "before": 0,
+        "after": 220,
+        "restored": 0
+      }
+    }
+  ]
+}

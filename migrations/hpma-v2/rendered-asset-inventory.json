@@ -1,0 +1,43 @@
+{
+  "schema": "rendered-asset-inventory/v1",
+  "brand": "hpma-v2",
+  "sourceUrl": "https://www.harrypottermagicawakened.com/cn/index.html",
+  "capturedAt": "2026-09-12T18:11:34.041Z",
+  "assets": [
+    {
+      "id": "asset-home-background",
+      "status": "observed",
+      "role": "full-viewport cinematic background",
+      "sourceUrl": "official page runtime asset; exact URL requires a browser network export not available in this run",
+      "captureRef": "home-dark-cinematic-stage",
+      "availability": "rendered-observed-source-url-unresolved"
+    },
+    {
+      "id": "asset-home-action-frame",
+      "status": "observed",
+      "role": "ornate action and download frame graphics",
+      "sourceUrl": "official page runtime asset; exact URL unresolved",
+      "captureRef": "home-dark-cinematic-stage",
+      "availability": "rendered-observed-source-url-unresolved"
+    },
+    {
+      "id": "asset-cards-stage",
+      "status": "observed",
+      "role": "full-viewport character illustration",
+      "sourceUrl": "official page runtime asset; exact URL unresolved",
+      "captureRef": "cards-media-illustrated-book-stage",
+      "availability": "rendered-observed-source-url-unresolved"
+    },
+    {
+      "id": "asset-cards-book-panel",
+      "status": "observed",
+      "role": "sepia book/profile information panel",
+      "sourceUrl": "official page runtime asset; exact URL unresolved",
+      "captureRef": "cards-media-illustrated-book-stage",
+      "availability": "rendered-observed-source-url-unresolved"
+    }
+  ],
+  "limitations": [
+    "Loaded pixels were observed, but source asset URLs and binary hashes were not independently exported; these entries cannot authorize runtime reuse."
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "f518aea1-7582-40a8-874a-2c2ecc10b0ee",
+  "runId": "65efb32e-cfd9-4305-92ea-6ff391c32ff0",
+  "stageId": "evidence-1",
+  "stage": "evidence",
+  "role": "brandResearcher",
+  "attempt": 1,
+  "goalId": "re1999-full-revalidation-v2",
+  "agentExecutionId": "/root/re1999_v2_evidence",
+  "goalSha256": "f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791",
+  "startedAt": "2026-09-12T18:00:00Z",
+  "completedAt": "2026-09-12T18:15:00Z",
+  "inputs": [
+    {"path": "migrations/re1999-v2/goal-contract.json", "sha256": "f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791"},
+    {"path": "migrations/re1999-v2/dispatch/evidence-1.json", "sha256": "1bde59630fe09a1b404e99c73aca7f193f2334c4d6906cd536689ef2279aefbd"}
+  ],
+  "outputs": [
+    {"path": "migrations/re1999-v2/brand-evidence.json", "sha256": "aeac4937138c99e7335acfedff1fbb722ba18cca352fa4c9f8b055d78aa68d2e"},
+    {"path": "migrations/re1999-v2/source-observation-manifest.json", "sha256": "0341cc1d5adcedddc79c376b285951f16e9e9c95d7a147edfcbd84c230b37ab4"},
+    {"path": "migrations/re1999-v2/rendered-asset-inventory.json", "sha256": "f35aac245a14c91ef7fe6f60f4cf9009df7c3739be02bd3a1165cff41b9937e7"},
+    {"path": "migrations/re1999-v2/action-evidence.json", "sha256": "5c72197a5e489f6a8138524490440b0d4c4c1acf1b90f725e050851947b4b937"},
+    {"path": "migrations/re1999-v2/action-evidence-v02.json", "sha256": "5c72197a5e489f6a8138524490440b0d4c4c1acf1b90f725e050851947b4b937"},
+    {"path": "migrations/re1999-v2/third-party-evidence.dembrandt.json", "sha256": "e976ce6cf8971527ab4986bbc619a5abb7f88db64ccdef2533ec81482e0fe620"},
+    {"path": "migrations/re1999-v2/section-fidelity-manifest.json", "sha256": "4c48aa6c87ba226a32d36466f710e986abebf293933b34d0aaf801c020119264"},
+    {"path": "migrations/re1999-v2/captures/source/raw-observation.json", "sha256": "bd86de9001293145403291a41190478414d69e8ff6493d26ebbc41b528dd5d6b"},
+    {"path": "migrations/re1999-v2/captures/source/continuous-playback.webm", "sha256": "273108fccce4229178c5b3aa8e422a4225e1ba54b3c5de4361e90e1eac338938"}
+  ],
+  "verdict": "pass",
+  "failureOwnerRole": null,
+  "blockingFindings": [],
+  "warnings": [
+    "The official source is a fixed-viewport vertical Swiper: document scrollTop remains 0 while the active slide changes. Timelines preserve that observed navigation model rather than relabeling it as ordinary document scrolling.",
+    "The frozen page id character-gallery was validated against the CHARACTER state selected by #banner2. This receipt does not assert that the separate GALLERY slide selected by #banner4 is equivalent.",
+    "The unified entry resolved the older reviewed re1999 pack, but this sealed goal explicitly requires legacy-pack-full-revalidation; v1 artifacts were not used as observed evidence."
+  ],
+  "checks": {
+    "goalHashUnchanged": "pass",
+    "evidenceVisibilityStrict": "pass",
+    "requiredPageCoverage": "3/3",
+    "requiredInteractionCoverage": "1/1",
+    "mustPreserveTraceability": "pass",
+    "thirdPartySeedDispositions": "pass",
+    "highSalienceAssetHashes": "5/5",
+    "observedClaimCount": 7
+  }
+}

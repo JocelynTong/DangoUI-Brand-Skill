@@ -1,0 +1,966 @@
+{
+  "schema": "rendered-asset-inventory/v1",
+  "brand": "re1999-v2",
+  "capturedAt": "2026-09-12T18:08:20.817Z",
+  "loadedResourceCount": 146,
+  "assets": [
+    {
+      "id": "asset-home-kv-video",
+      "sourceUrl": "https://re.bluepoch.com/home/kv/p.mp4",
+      "loaded": true,
+      "initiatorType": "video",
+      "use": "home",
+      "cache": {
+        "path": "migrations/re1999-v2/captures/source/assets/home-kv.mp4",
+        "sha256": "918fcd070f53a1daf369aaca189fc34ade345486ce8bc293297b4c90c4699082"
+      },
+      "sourceSha256": "918fcd070f53a1daf369aaca189fc34ade345486ce8bc293297b4c90c4699082",
+      "hashStatus": "cached-and-hashed",
+      "evidenceRefs": [
+        "home-archive-stage",
+        "home-layered-authentic-assets"
+      ]
+    },
+    {
+      "id": "asset-home-label",
+      "sourceUrl": "https://re.bluepoch.com/home/img/first/1.png",
+      "loaded": true,
+      "initiatorType": "img",
+      "use": "home",
+      "cache": {
+        "path": "migrations/re1999-v2/captures/source/assets/home-label.png",
+        "sha256": "993eb09cee2f28d8787fcebe35eae9761cfd964d236b0c5d8e46bdaccdd91b48"
+      },
+      "sourceSha256": "993eb09cee2f28d8787fcebe35eae9761cfd964d236b0c5d8e46bdaccdd91b48",
+      "hashStatus": "cached-and-hashed",
+      "evidenceRefs": [
+        "home-archive-stage",
+        "home-layered-authentic-assets"
+      ]
+    },
+    {
+      "id": "asset-news-hero",
+      "sourceUrl": "https://gamecms-res.sl916.com/official_website_resource/50001/4/PICTURE/20260812/%E7%89%88%E6%9C%AC%E5%BC%80%E5%90%AF%E5%85%AC%E5%91%8A-1920x1080_50b05671076b4f839d0595885b8dbea2.jpg",
+      "loaded": true,
+      "initiatorType": "img",
+      "use": "news",
+      "cache": {
+        "path": "migrations/re1999-v2/captures/source/assets/news-hero.jpg",
+        "sha256": "e5b70a59f1e266e0185f9f1aead3c2c8a1acf7220e792690ce9b7133e68915e2"
+      },
+      "sourceSha256": "e5b70a59f1e266e0185f9f1aead3c2c8a1acf7220e792690ce9b7133e68915e2",
+      "hashStatus": "cached-and-hashed",
+      "evidenceRefs": []
+    },
+    {
+      "id": "asset-character-background",
+      "sourceUrl": "https://re.bluepoch.com/home/img/role/5bg.png",
+      "loaded": true,
+      "initiatorType": "css",
+      "use": "character-gallery",
+      "cache": {
+        "path": "migrations/re1999-v2/captures/source/assets/character-background.png",
+        "sha256": "99e9357e1ae3a60cc0292b7444651b2f84a5f9f31369c65b959c91ad9d2a11e9"
+      },
+      "sourceSha256": "99e9357e1ae3a60cc0292b7444651b2f84a5f9f31369c65b959c91ad9d2a11e9",
+      "hashStatus": "cached-and-hashed",
+      "evidenceRefs": [
+        "character-gallery-triptych"
+      ]
+    },
+    {
+      "id": "asset-character-title",
+      "sourceUrl": "https://re.bluepoch.com/home/img/role/5t.png",
+      "loaded": true,
+      "initiatorType": "img",
+      "use": "character-gallery",
+      "cache": {
+        "path": "migrations/re1999-v2/captures/source/assets/character-title.png",
+        "sha256": "8006ae7ba43d6bb3f84bdb71a7614e4180f9603b5e1e52cf1fcb97d1db200511"
+      },
+      "sourceSha256": "8006ae7ba43d6bb3f84bdb71a7614e4180f9603b5e1e52cf1fcb97d1db200511",
+      "hashStatus": "cached-and-hashed",
+      "evidenceRefs": [
+        "character-gallery-triptych"
+      ]
+    }
+  ],
+  "allLoadedResources": [
+    {
+      "url": "https://re.bluepoch.com/home/img/icon/wx.png",
+      "initiatorType": "img",
+      "transferSize": 7647,
+      "decodedBodySize": 7347
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/statement/ageword.png",
+      "initiatorType": "img",
+      "transferSize": 181239,
+      "decodedBodySize": 180939
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/music/hide.png",
+      "initiatorType": "img",
+      "transferSize": 1979,
+      "decodedBodySize": 1679
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/v2c.png",
+      "initiatorType": "img",
+      "transferSize": 5204,
+      "decodedBodySize": 4904
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/logo.png",
+      "initiatorType": "img",
+      "transferSize": 14094,
+      "decodedBodySize": 13794
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/mobile/Menu.png",
+      "initiatorType": "img",
+      "transferSize": 2008,
+      "decodedBodySize": 1708
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/statement/agewordM.png",
+      "initiatorType": "img",
+      "transferSize": 249841,
+      "decodedBodySize": 249541
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/v2.webp",
+      "initiatorType": "img",
+      "transferSize": 381146,
+      "decodedBodySize": 380846
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/mobile/Menuc.png",
+      "initiatorType": "img",
+      "transferSize": 2362,
+      "decodedBodySize": 2062
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/close.png",
+      "initiatorType": "img",
+      "transferSize": 2903,
+      "decodedBodySize": 2603
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/login/ju.png",
+      "initiatorType": "img",
+      "transferSize": 3255,
+      "decodedBodySize": 2955
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/login/yb.png",
+      "initiatorType": "img",
+      "transferSize": 10444,
+      "decodedBodySize": 10144
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/login/g.png",
+      "initiatorType": "img",
+      "transferSize": 1551,
+      "decodedBodySize": 1251
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/login/one.png",
+      "initiatorType": "img",
+      "transferSize": 16493,
+      "decodedBodySize": 16193
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/1.png",
+      "initiatorType": "img",
+      "transferSize": 2117,
+      "decodedBodySize": 1817
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/2.png",
+      "initiatorType": "img",
+      "transferSize": 2669,
+      "decodedBodySize": 2369
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/share.png",
+      "initiatorType": "img",
+      "transferSize": 2442,
+      "decodedBodySize": 2142
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/login/two.png",
+      "initiatorType": "img",
+      "transferSize": 17117,
+      "decodedBodySize": 16817
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/3.webp",
+      "initiatorType": "img",
+      "transferSize": 20062,
+      "decodedBodySize": 19762
+    },
+    {
+      "url": "https://re.bluepoch.com/home/kv/p.jpg",
+      "initiatorType": "video",
+      "transferSize": 406753,
+      "decodedBodySize": 406453
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/pc4.png",
+      "initiatorType": "img",
+      "transferSize": 8450,
+      "decodedBodySize": 8150
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/pc3.png",
+      "initiatorType": "img",
+      "transferSize": 10239,
+      "decodedBodySize": 9939
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/android.png",
+      "initiatorType": "img",
+      "transferSize": 6676,
+      "decodedBodySize": 6376
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/ios.png",
+      "initiatorType": "img",
+      "transferSize": 7384,
+      "decodedBodySize": 7084
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/mumu.png",
+      "initiatorType": "img",
+      "transferSize": 7728,
+      "decodedBodySize": 7428
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/1.png",
+      "initiatorType": "img",
+      "transferSize": 23845,
+      "decodedBodySize": 23545
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/News.png",
+      "initiatorType": "img",
+      "transferSize": 13345,
+      "decodedBodySize": 13045
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/yu.png",
+      "initiatorType": "img",
+      "transferSize": 10117,
+      "decodedBodySize": 9817
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/taptap.png",
+      "initiatorType": "img",
+      "transferSize": 6400,
+      "decodedBodySize": 6100
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/jian.png",
+      "initiatorType": "img",
+      "transferSize": 616,
+      "decodedBodySize": 316
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/first/play.webp",
+      "initiatorType": "img",
+      "transferSize": 1954690,
+      "decodedBodySize": 1954390
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/6.png",
+      "initiatorType": "img",
+      "transferSize": 30296,
+      "decodedBodySize": 29996
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/8.png",
+      "initiatorType": "img",
+      "transferSize": 23411,
+      "decodedBodySize": 23111
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/2.png",
+      "initiatorType": "img",
+      "transferSize": 30053,
+      "decodedBodySize": 29753
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/3.png",
+      "initiatorType": "img",
+      "transferSize": 24785,
+      "decodedBodySize": 24485
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/5.png",
+      "initiatorType": "img",
+      "transferSize": 26506,
+      "decodedBodySize": 26206
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/7.png",
+      "initiatorType": "img",
+      "transferSize": 28383,
+      "decodedBodySize": 28083
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/4.png",
+      "initiatorType": "img",
+      "transferSize": 26195,
+      "decodedBodySize": 25895
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/9.png",
+      "initiatorType": "img",
+      "transferSize": 27356,
+      "decodedBodySize": 27056
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/10.png",
+      "initiatorType": "img",
+      "transferSize": 18660,
+      "decodedBodySize": 18360
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/1t.png",
+      "initiatorType": "img",
+      "transferSize": 7227,
+      "decodedBodySize": 6927
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/Live2Ding.png",
+      "initiatorType": "img",
+      "transferSize": 4542,
+      "decodedBodySize": 4242
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/yuyin_02.webp",
+      "initiatorType": "img",
+      "transferSize": 4910,
+      "decodedBodySize": 4610
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/yuyin_01.png",
+      "initiatorType": "img",
+      "transferSize": 2842,
+      "decodedBodySize": 2542
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/live2d.png",
+      "initiatorType": "img",
+      "transferSize": 4837,
+      "decodedBodySize": 4537
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/big.png",
+      "initiatorType": "img",
+      "transferSize": 1544,
+      "decodedBodySize": 1244
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p1.png",
+      "initiatorType": "img",
+      "transferSize": 282496,
+      "decodedBodySize": 282196
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p2.png",
+      "initiatorType": "img",
+      "transferSize": 326347,
+      "decodedBodySize": 326047
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/false.webp",
+      "initiatorType": "img",
+      "transferSize": 933428,
+      "decodedBodySize": 933128
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p3.png",
+      "initiatorType": "img",
+      "transferSize": 248217,
+      "decodedBodySize": 247917
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p4.png",
+      "initiatorType": "img",
+      "transferSize": 274664,
+      "decodedBodySize": 274364
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/t1.png",
+      "initiatorType": "img",
+      "transferSize": 29158,
+      "decodedBodySize": 28858
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/next.png",
+      "initiatorType": "img",
+      "transferSize": 1425,
+      "decodedBodySize": 1125
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/pre.png",
+      "initiatorType": "img",
+      "transferSize": 1443,
+      "decodedBodySize": 1143
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p7.png",
+      "initiatorType": "img",
+      "transferSize": 214905,
+      "decodedBodySize": 214605
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p5.png",
+      "initiatorType": "img",
+      "transferSize": 263867,
+      "decodedBodySize": 263567
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p8.png",
+      "initiatorType": "img",
+      "transferSize": 277725,
+      "decodedBodySize": 277425
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/p6.png",
+      "initiatorType": "img",
+      "transferSize": 349796,
+      "decodedBodySize": 349496
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/01_t.png",
+      "initiatorType": "img",
+      "transferSize": 20284,
+      "decodedBodySize": 19984
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/01_GIF.gif",
+      "initiatorType": "img",
+      "transferSize": 197109,
+      "decodedBodySize": 196809
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/02.png",
+      "initiatorType": "img",
+      "transferSize": 357872,
+      "decodedBodySize": 357572
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/01.png",
+      "initiatorType": "img",
+      "transferSize": 484900,
+      "decodedBodySize": 484600
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/02_GIF.webp",
+      "initiatorType": "img",
+      "transferSize": 716664,
+      "decodedBodySize": 716364
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/txt_1.png",
+      "initiatorType": "img",
+      "transferSize": 1369,
+      "decodedBodySize": 1069
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/txt_2.png",
+      "initiatorType": "img",
+      "transferSize": 1840,
+      "decodedBodySize": 1540
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/03_t.png",
+      "initiatorType": "img",
+      "transferSize": 21522,
+      "decodedBodySize": 21222
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/firstMobile/m4.png",
+      "initiatorType": "img",
+      "transferSize": 20644,
+      "decodedBodySize": 20344
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/firstMobile/p2.png",
+      "initiatorType": "img",
+      "transferSize": 10213,
+      "decodedBodySize": 9913
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/firstMobile/m3.png",
+      "initiatorType": "img",
+      "transferSize": 10800,
+      "decodedBodySize": 10500
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/02_t.png",
+      "initiatorType": "img",
+      "transferSize": 26471,
+      "decodedBodySize": 26171
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/txt_3.png",
+      "initiatorType": "img",
+      "transferSize": 2524,
+      "decodedBodySize": 2224
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/mu.png",
+      "initiatorType": "img",
+      "transferSize": 112126,
+      "decodedBodySize": 111826
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/03.png",
+      "initiatorType": "img",
+      "transferSize": 467133,
+      "decodedBodySize": 466833
+    },
+    {
+      "url": "https://re.bluepoch.com/home/kv/m.jpg",
+      "initiatorType": "img",
+      "transferSize": 647241,
+      "decodedBodySize": 646941
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/firstMobile/d1.png",
+      "initiatorType": "img",
+      "transferSize": 8411,
+      "decodedBodySize": 8111
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/firstMobile/taptap.png",
+      "initiatorType": "img",
+      "transferSize": 7852,
+      "decodedBodySize": 7552
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/login/y.png",
+      "initiatorType": "img",
+      "transferSize": 8167,
+      "decodedBodySize": 7867
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/1.png",
+      "initiatorType": "img",
+      "transferSize": 190788,
+      "decodedBodySize": 190488
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstoryM/1.png",
+      "initiatorType": "img",
+      "transferSize": 216275,
+      "decodedBodySize": 215975
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstoryM/pre.png",
+      "initiatorType": "img",
+      "transferSize": 2927,
+      "decodedBodySize": 2627
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstoryM/next.png",
+      "initiatorType": "img",
+      "transferSize": 2885,
+      "decodedBodySize": 2585
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstoryM/t1.png",
+      "initiatorType": "img",
+      "transferSize": 10410,
+      "decodedBodySize": 10110
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/01M.png",
+      "initiatorType": "img",
+      "transferSize": 269737,
+      "decodedBodySize": 269437
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/paperDetail/b.png",
+      "initiatorType": "img",
+      "transferSize": 1629,
+      "decodedBodySize": 1329
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/statement/age.png",
+      "initiatorType": "img",
+      "transferSize": 4339,
+      "decodedBodySize": 4039
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/statement/logo.png",
+      "initiatorType": "img",
+      "transferSize": 18177,
+      "decodedBodySize": 17877
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/statement/cha.png",
+      "initiatorType": "img",
+      "transferSize": 1703,
+      "decodedBodySize": 1403
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/02M.png",
+      "initiatorType": "img",
+      "transferSize": 238996,
+      "decodedBodySize": 238696
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/gallery/03M.png",
+      "initiatorType": "img",
+      "transferSize": 261687,
+      "decodedBodySize": 261387
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/paperDetail/s.png",
+      "initiatorType": "img",
+      "transferSize": 1532,
+      "decodedBodySize": 1232
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/paperDetail/c.png",
+      "initiatorType": "img",
+      "transferSize": 1580,
+      "decodedBodySize": 1280
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/paperDetail/a.png",
+      "initiatorType": "img",
+      "transferSize": 1141,
+      "decodedBodySize": 841
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/paperDetail/d.png",
+      "initiatorType": "img",
+      "transferSize": 1015,
+      "decodedBodySize": 715
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/BG.png",
+      "initiatorType": "css",
+      "transferSize": 1102180,
+      "decodedBodySize": 1101880
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/more.png",
+      "initiatorType": "css",
+      "transferSize": 5814,
+      "decodedBodySize": 5514
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/1bg.png",
+      "initiatorType": "css",
+      "transferSize": 747970,
+      "decodedBodySize": 747670
+    },
+    {
+      "url": "https://re.bluepoch.com/home/font/Sans.ttf",
+      "initiatorType": "css",
+      "transferSize": 1725508,
+      "decodedBodySize": 1725208
+    },
+    {
+      "url": "https://re.bluepoch.com/home/font/Serif.ttf",
+      "initiatorType": "css",
+      "transferSize": 2511180,
+      "decodedBodySize": 2510880
+    },
+    {
+      "url": "https://hm.baidu.com/hm.gif?hca=62D85DF70EE660BA&cc=1&ck=1&cl=24-bit&ds=1280x720&vl=720&et=0&ja=0&ln=en-us&lo=0&rnd=1992431987&si=23eb867705797e170fefb62c4b747f6e&v=1.3.2&lv=1&sn=65452&r=0&ww=1280&u=https%3A%2F%2Fre.bluepoch.com%2Fhome%2F&tt=%E3%80%8A%E9%87%8D%E8%BF%94%E6%9C%AA%E6%9D%A5%EF%BC%9A1999%E3%80%8B%E5%AE%98%E6%96%B9%E7%BD%91%E7%AB%99-%E6%B7%B1%E8%93%9D%E4%BA%92%E5%8A%A8",
+      "initiatorType": "img",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/loading/loading.webp",
+      "initiatorType": "css",
+      "transferSize": 2643508,
+      "decodedBodySize": 2643208
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/loading/load.gif",
+      "initiatorType": "css",
+      "transferSize": 251180,
+      "decodedBodySize": 250880
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/5.png",
+      "initiatorType": "img",
+      "transferSize": 1464,
+      "decodedBodySize": 1164
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/4.png",
+      "initiatorType": "img",
+      "transferSize": 1469,
+      "decodedBodySize": 1169
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/3.png",
+      "initiatorType": "img",
+      "transferSize": 1342,
+      "decodedBodySize": 1042
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/2.png",
+      "initiatorType": "img",
+      "transferSize": 1322,
+      "decodedBodySize": 1022
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/8.png",
+      "initiatorType": "img",
+      "transferSize": 1474,
+      "decodedBodySize": 1174
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/6.png",
+      "initiatorType": "img",
+      "transferSize": 1464,
+      "decodedBodySize": 1164
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/7.png",
+      "initiatorType": "img",
+      "transferSize": 1465,
+      "decodedBodySize": 1165
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/backstory/1_1.png",
+      "initiatorType": "img",
+      "transferSize": 1305,
+      "decodedBodySize": 1005
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/6c.png",
+      "initiatorType": "img",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/character/5c.png",
+      "initiatorType": "img",
+      "transferSize": 37224,
+      "decodedBodySize": 36924
+    },
+    {
+      "url": "https://re.bluepoch.com/home/kv/p.mp4",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/kv/p.mp4",
+      "initiatorType": "video",
+      "transferSize": 32489,
+      "decodedBodySize": 32189
+    },
+    {
+      "url": "https://gamecms-res.sl916.com/official_website_resource/50001/4/GAME_PIC/20230727/%E5%AE%98%E7%BD%91%E4%B8%8B%E8%BD%BD%E4%BA%8C%E7%BB%B4%E7%A0%81_202c1eaf76bc4f9ba3b825ee4f942a36.png",
+      "initiatorType": "img",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://gamecms-res.sl916.com/official_website_resource/50001/4/VIDEO/20230530/%E5%85%AC%E6%B5%8BFL_12+_18b856ab5e3c43908b01a361c5109bee.mp4",
+      "initiatorType": "video",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://gamecms-res.sl916.com/official_website_resource/50001/4/VIDEO/20230530/%E5%85%AC%E6%B5%8BFL_12+_18b856ab5e3c43908b01a361c5109bee.mp4",
+      "initiatorType": "video",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://gamecms-res.sl916.com/official_website_resource/50001/4/PICTURE/20260812/%E7%89%88%E6%9C%AC%E5%BC%80%E5%90%AF%E5%85%AC%E5%91%8A-1920x1080_50b05671076b4f839d0595885b8dbea2.jpg",
+      "initiatorType": "img",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/icon/pc.png",
+      "initiatorType": "css",
+      "transferSize": 762,
+      "decodedBodySize": 462
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/see.png",
+      "initiatorType": "img",
+      "transferSize": 1403,
+      "decodedBodySize": 1103
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/5t.png",
+      "initiatorType": "img",
+      "transferSize": 10723,
+      "decodedBodySize": 10423
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/5.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/5bg.png",
+      "initiatorType": "css",
+      "transferSize": 74049,
+      "decodedBodySize": 73749
+    },
+    {
+      "url": "https://re.bluepoch.com/home/kv/p.mp4",
+      "initiatorType": "video",
+      "transferSize": 0,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/6t.png",
+      "initiatorType": "img",
+      "transferSize": 13301,
+      "decodedBodySize": 13001
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/6m.png",
+      "initiatorType": "img",
+      "transferSize": 382928,
+      "decodedBodySize": 382628
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/5m.png",
+      "initiatorType": "img",
+      "transferSize": 328448,
+      "decodedBodySize": 328148
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/6bg.png",
+      "initiatorType": "img",
+      "transferSize": 74698,
+      "decodedBodySize": 74398
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/9bg.png",
+      "initiatorType": "img",
+      "transferSize": 71280,
+      "decodedBodySize": 70980
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/4bg.png",
+      "initiatorType": "img",
+      "transferSize": 77961,
+      "decodedBodySize": 77661
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/3bg.png",
+      "initiatorType": "img",
+      "transferSize": 87451,
+      "decodedBodySize": 87151
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/7bg.png",
+      "initiatorType": "img",
+      "transferSize": 83136,
+      "decodedBodySize": 82836
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/8bg.png",
+      "initiatorType": "img",
+      "transferSize": 700421,
+      "decodedBodySize": 700121
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/10bg.png",
+      "initiatorType": "img",
+      "transferSize": 63927,
+      "decodedBodySize": 63627
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/2bg.png",
+      "initiatorType": "img",
+      "transferSize": 72723,
+      "decodedBodySize": 72423
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/5.webm",
+      "initiatorType": "video",
+      "transferSize": 12847,
+      "decodedBodySize": 12547
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/9.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/3.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/1.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/6.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/8.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/4.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/7.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/2.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/10.webm",
+      "initiatorType": "video",
+      "transferSize": 300,
+      "decodedBodySize": 0
+    },
+    {
+      "url": "https://re.bluepoch.com/home/img/role/5.webm",
+      "initiatorType": "video",
+      "transferSize": 65836,
+      "decodedBodySize": 2175235
+    },
+    {
+      "url": "https://re.bluepoch.com/home/kv/p.mp4",
+      "initiatorType": "video",
+      "transferSize": 0,
+      "decodedBodySize": 916925
+    }
+  ]
+}

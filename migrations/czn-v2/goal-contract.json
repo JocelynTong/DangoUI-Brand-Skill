@@ -1,0 +1,23 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "czn-full-revalidation-v2",
+  "brand": "czn-v2",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "legacy-pack-full-revalidation",
+  "createdAt": "2026-09-13T00:00:00+08:00",
+  "sealed": true,
+  "goal": "Relearn CZN from rendered official-site evidence, validate the legacy immersive HUD language, and generate distinct home, forward-content and character Demo structures plus a held-out variation without overwriting migrations/czn.",
+  "nonGoals": ["website-mirror", "host-apply", "overwrite-czn-v1"],
+  "implementationPolicy": {"allowSourceScreenshotAsRuntimeAsset": false, "requireIndependentRuntimeAssetsOrDomCssReconstruction": true, "requireHighSalienceEvidenceTrace": true},
+  "evidencePolicy": {"continuousCaptureRequired": true, "requiredPageIds": ["home", "forward", "character"], "requiredPageStates": ["initial", "continuous-scroll", "settled-end"], "requiredInteractionStates": ["default", "triggered", "settled", "restored"], "consumerRule": "Interpreter is blocked until every reachable reference surface has screenshot-first claims, rendered asset provenance and state evidence; unavailable legacy screenshot-only surfaces remain unresolved."},
+  "referencePages": [{"id": "home", "url": "https://czn.qq.com/", "core": true}, {"id": "forward", "url": "https://czn.qq.com/", "core": true}, {"id": "character", "url": "https://czn.qq.com/", "core": true}],
+  "demoPages": [{"id": "czn-v2-home", "mapsToSourcePageId": "home"}, {"id": "czn-v2-forward", "mapsToSourcePageId": "forward"}, {"id": "czn-v2-character", "mapsToSourcePageId": "character"}, {"id": "czn-v2-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out"}],
+  "mustPreserve": [{"id": "immersive-hero-stage", "requiredOn": ["home"], "dimensions": ["composition", "assetAuthenticity"]}, {"id": "slanted-hud-grammar", "requiredOn": ["forward", "character"], "dimensions": ["composition", "typographyGraphics"]}, {"id": "orange-action-role", "requiredOn": ["home", "forward", "character"], "dimensions": ["colorRoles", "interactionSemantics"]}],
+  "mayTranslate": [{"id": "responsive-reflow", "description": "Desktop immersive layers may reflow to phone while preserving visual mass, HUD geometry and action hierarchy."}, {"id": "representative-content", "description": "Held-out proof may use source-independent content after recipes are frozen."}],
+  "mustNotReplace": [{"id": "no-screenshot-runtime", "description": "Source screenshots and screenshot crops are evidence only."}, {"id": "no-legacy-claim-promotion", "description": "Legacy statistics cannot become observed claims without current rendered evidence."}, {"id": "no-asset-only-proof", "description": "Logo, characters and orange color cannot substitute for composition and interaction proof."}],
+  "learningProofContract": {"evidenceFidelity": {"required": true}, "structuralFidelity": {"required": true}, "generativeProof": {"required": true}, "compensationPolicy": "No proof can compensate for another."},
+  "thresholds": {"overall": 80, "corePage": 70, "dimensionMin": {"composition": 3, "assetAuthenticity": 3}, "maxAttempts": 2},
+  "timeBudget": {"profile": "full", "targetMinutes": [30, 45], "stopOptionalExpansionAtMinutes": 60, "blockAtMinutes": 75}
+}

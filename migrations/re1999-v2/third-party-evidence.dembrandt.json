@@ -1,0 +1,373 @@
+{
+  "schema": "brand-third-party-computed-evidence/v1",
+  "provider": "dembrandt",
+  "brand": "re1999-v2",
+  "sourceUrl": "https://re.bluepoch.com/home/",
+  "input": "output/extractor-benchmark/re1999-v2/dembrandt/result.json",
+  "createdAt": "2026-09-12T18:06:30.350Z",
+  "counts": {
+    "semanticColors": 3,
+    "palette": 3,
+    "buttonVariants": 0,
+    "radii": 8,
+    "shadows": 0
+  },
+  "computedEvidence": {
+    "semanticColors": {
+      "background": {
+        "value": "rgb(0, 0, 0)",
+        "hex": "#000000",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0
+      },
+      "text": {
+        "value": "rgb(0, 0, 0)",
+        "hex": "#000000",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0
+      },
+      "primary": {
+        "value": "rgb(187, 168, 147)",
+        "hex": "#BBA893",
+        "family": "orange",
+        "hue": 31.5,
+        "saturation": 0.227,
+        "lightness": 0.655
+      }
+    },
+    "palette": [
+      {
+        "value": "#bba893",
+        "hex": "#BBA893",
+        "family": "orange",
+        "hue": 31.5,
+        "saturation": 0.227,
+        "lightness": 0.655,
+        "role": "accent",
+        "count": 64,
+        "confidence": "high",
+        "sources": [
+          "head-logo",
+          "div-center"
+        ],
+        "onColor": "#000000",
+        "hover": "#9f8f7d"
+      },
+      {
+        "value": "#e9dccd",
+        "hex": "#E9DCCD",
+        "family": "yellow-gold",
+        "hue": 32.143,
+        "saturation": 0.389,
+        "lightness": 0.859,
+        "role": "accent",
+        "count": 21,
+        "confidence": "high",
+        "sources": [],
+        "onColor": "#000000",
+        "hover": "#c6bbae"
+      },
+      {
+        "value": "#ffffff",
+        "hex": "#FFFFFF",
+        "family": "white",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 1,
+        "role": "surface",
+        "count": 21,
+        "confidence": "medium",
+        "sources": [],
+        "onColor": "#000000",
+        "hover": "#d9d9d9"
+      }
+    ],
+    "buttonVariants": [],
+    "radii": [
+      {
+        "value": "0px 100px 0px 0px",
+        "count": 5,
+        "confidence": "medium",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 0
+      },
+      {
+        "value": "10px",
+        "count": 2,
+        "confidence": "low",
+        "elements": [
+          "input"
+        ],
+        "numericValue": 10
+      },
+      {
+        "value": "11px",
+        "count": 4,
+        "confidence": "medium",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 11
+      },
+      {
+        "value": "24px",
+        "count": 1,
+        "confidence": "low",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 24
+      },
+      {
+        "value": "42px",
+        "count": 2,
+        "confidence": "low",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 42
+      },
+      {
+        "value": "45px",
+        "count": 1,
+        "confidence": "low",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 45
+      },
+      {
+        "value": "90px",
+        "count": 1,
+        "confidence": "low",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 90
+      },
+      {
+        "value": "50%",
+        "count": 1,
+        "confidence": "low",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 50
+      }
+    ],
+    "shadows": [],
+    "typography": {
+      "styles": [
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "32px (2.00rem)",
+          "fontWeight": 700,
+          "lineHeight": "",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "32px (2.00rem)",
+          "fontWeight": 700,
+          "lineHeight": "",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "30px (1.88rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "24px (1.50rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "22px (1.38rem)",
+          "fontWeight": 600,
+          "lineHeight": "1.96",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.40",
+          "count": 11,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.40",
+          "count": 3,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "17.6px (1.10rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 24,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 24,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "cn",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 300,
+          "lineHeight": "",
+          "count": 5,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 300,
+          "lineHeight": "",
+          "count": 5,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "14.4px (0.90rem)",
+          "fontWeight": 400,
+          "lineHeight": "",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "12px (0.75rem)",
+          "fontWeight": 300,
+          "lineHeight": "",
+          "count": 16,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "SourceHanSerifCN",
+          "fontSize": "12px (0.75rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.92",
+          "count": 8,
+          "confidence": "",
+          "selectors": []
+        }
+      ],
+      "sources": [
+        "[object Object]"
+      ]
+    }
+  },
+  "candidateHints": {
+    "primaryColorSeed": {
+      "value": "#BBA893",
+      "source": "dembrandt.colors.semantic.primary",
+      "confidence": "seed-only"
+    },
+    "accentColorSeed": {
+      "value": "",
+      "source": "",
+      "confidence": "seed-only"
+    },
+    "primaryActionFillSeed": null,
+    "activeStateFillSeed": null,
+    "cardRadiusSeed": {
+      "value": "0px 100px 0px 0px",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "controlRadiusSeed": {
+      "value": "50%",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "shadowSeed": null
+  },
+  "requiredBrandGuards": [
+    "score-action-evidence",
+    "collect-rendered-assets",
+    "asset-usage-gate",
+    "create-selector-map",
+    "coverage-gate",
+    "demo-gate"
+  ],
+  "mappingBoundary": {
+    "canSeed": [
+      "raw palette evidence",
+      "button computed styles",
+      "radius/shadow/typography hints"
+    ],
+    "mustNotOverwriteDirectly": [
+      "--du-* tokens",
+      "componentVariants",
+      "slots",
+      "assets",
+      "layoutRules",
+      "platformOverrides",
+      "businessApply"
+    ],
+    "decisionRule": "Use third-party extraction only as raw computed evidence; rerun Brand action/asset/selector/coverage gates before changing style.json, demo presets, or business pages."
+  },
+  "limitations": [
+    "Global color frequency can over-rank decorative, text, or manifest colors.",
+    "CTA color requires action-node scoring from real clickable/download/submit elements.",
+    "Assets, pseudo-elements, masks, section background stacking, and DOM selector mapping still require Brand rendered asset guards.",
+    "This import does not mutate style.json or generated demo files."
+  ]
+}

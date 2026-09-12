@@ -1,0 +1,31 @@
+{
+  "schema":"mockup-state-matrix/v1","brand":"re1999-v2","attempt":2,"ownerRole":"visualQA","qaExecutionId":"/root/re1999_v2_visual_qa","verdict":"fail",
+  "freshObservation":{"route":"#/brand/re1999-v2/pages/re1999-v2-news","pageType":"brand","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"shell":{"phone":true,"phoneScreen":true,"indicator":true,"indicatorParent":"phone","indicatorPosition":"absolute","screenWidth":371.3333435058594,"phoneWidth":390},"scroll":{"clientHeight":803,"scrollHeight":1137,"beforeScrollTop":0,"afterFilterScrollTop":68.66666412353516,"restoredFilterScrollTop":68.66666412353516}},
+  "observations":[
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"observed":true,"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"matches-tabbar"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"clientHeight":803,"scrollHeight":1137,"beforeScrollTop":0,"afterScrollTop":68.66666412353516,"restoredScrollTop":68.66666412353516,"indicatorRectDeltaPx":0}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1440,"height":1000},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":900},"observed":false,"indicator":{"hidden":null}},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":390,"height":844},"observed":false,"indicator":{"hidden":null}}
+  ],
+  "blockingFindings":[{"code":"PAGE_SCROLL_NOT_RESTORED","case":"brand|tabbar|normal","finding":"Fresh filter cycle changes scrollTop 0 → 68.66666412353516 and does not restore it."},{"code":"MOCKUP_MATRIX_EVIDENCE_MISSING","case":"23 remaining cases","finding":"Packet supplies no frozen brand/style/component × tabbar/no-tabbar × proof visual observations; unobserved cells are explicit and cannot pass."}]
+}

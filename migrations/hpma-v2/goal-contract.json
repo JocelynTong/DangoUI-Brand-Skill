@@ -1,0 +1,23 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "hpma-full-revalidation-v2",
+  "brand": "hpma-v2",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "legacy-pack-full-revalidation",
+  "createdAt": "2026-09-13T00:00:00+08:00",
+  "sealed": true,
+  "goal": "Relearn HPMA from the current official site and generate distinct home, news and cards/media Demo structures plus a held-out variation without overwriting migrations/hpma.",
+  "nonGoals": ["website-mirror", "host-apply", "overwrite-hpma-v1"],
+  "implementationPolicy": {"allowSourceScreenshotAsRuntimeAsset": false, "requireIndependentRuntimeAssetsOrDomCssReconstruction": true, "requireHighSalienceEvidenceTrace": true},
+  "evidencePolicy": {"continuousCaptureRequired": true, "requiredPageIds": ["home", "news", "cards-media"], "requiredPageStates": ["initial", "continuous-scroll", "settled-end"], "requiredInteractionStates": ["default", "triggered", "settled", "restored"], "consumerRule": "Interpreter is blocked until all reference surfaces have screenshot-first, DOM, computed, asset and interaction evidence."},
+  "referencePages": [{"id": "home", "url": "https://www.harrypottermagicawakened.com/cn/index.html", "core": true}, {"id": "news", "url": "https://www.harrypottermagicawakened.com/cn/index.html", "core": true}, {"id": "cards-media", "url": "https://www.harrypottermagicawakened.com/cn/index.html", "core": true}],
+  "demoPages": [{"id": "hpma-v2-home", "mapsToSourcePageId": "home"}, {"id": "hpma-v2-news", "mapsToSourcePageId": "news"}, {"id": "hpma-v2-cards-media", "mapsToSourcePageId": "cards-media"}, {"id": "hpma-v2-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out"}],
+  "mustPreserve": [{"id": "parchment-dark-stage", "requiredOn": ["home"], "dimensions": ["composition", "colorRoles"]}, {"id": "ornate-frame-grammar", "requiredOn": ["news", "cards-media"], "dimensions": ["assetAuthenticity", "typographyGraphics"]}, {"id": "brown-action-versus-magic-media", "requiredOn": ["home", "news", "cards-media"], "dimensions": ["colorRoles", "interactionSemantics"]}],
+  "mayTranslate": [{"id": "responsive-reflow", "description": "Large media and framed desktop modules may reflow to phone without turning into generic rounded cards."}, {"id": "representative-content", "description": "Held-out proof may use source-independent content after recipes are frozen."}],
+  "mustNotReplace": [{"id": "no-screenshot-runtime", "description": "Source screenshots are QA evidence only."}, {"id": "no-generic-fantasy", "description": "Generic blue glow or fantasy imagery cannot replace the observed frame, typography and surface system."}, {"id": "no-legacy-claim-promotion", "description": "Legacy CSS statistics remain candidates until current rendered validation."}],
+  "learningProofContract": {"evidenceFidelity": {"required": true}, "structuralFidelity": {"required": true}, "generativeProof": {"required": true}, "compensationPolicy": "No proof can compensate for another."},
+  "thresholds": {"overall": 80, "corePage": 70, "dimensionMin": {"composition": 3, "assetAuthenticity": 3}, "maxAttempts": 2},
+  "timeBudget": {"profile": "full", "targetMinutes": [30, 45], "stopOptionalExpansionAtMinutes": 60, "blockAtMinutes": 75}
+}

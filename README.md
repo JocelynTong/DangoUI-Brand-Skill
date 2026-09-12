@@ -95,6 +95,8 @@ npm run validate:brand-trial -- --record .brand-trials/<试点编号>.json
 
 相同官网不应由每位使用者重复学习。Skill 会先根据规范化后的来源 URL 查询公共 Registry；命中时复用已有版本，未命中时才重新采集。
 
+维护者需要用最新版流程复验旧品牌包时，使用 `--force-relearn` 并写入新的版本化工作区，例如 `--brand hpma-v2`。复验产物在 Evidence、视觉翻译、Design Direction、Demo、独立 QA 与发布校验全部通过前只保留在 migration workspace，不覆盖已审核版本，也不进入公共 Registry。
+
 ```text
 /brand-registry/v0.1/index.json
 /brand-registry/v0.1/by-source.json

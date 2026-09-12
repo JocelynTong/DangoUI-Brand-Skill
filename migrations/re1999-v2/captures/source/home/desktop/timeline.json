@@ -1,0 +1,75 @@
+{
+  "schema": "brand-source-timeline/v1",
+  "pageId": "home",
+  "meta": {
+    "url": "https://re.bluepoch.com/home/",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "scrollHeight": 720,
+    "navigationModel": "full-viewport vertical Swiper; wheel/navigation changes slide while document scrollTop remains 0"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "label": "default",
+      "timeMs": 0,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/00-default.png",
+        "sha256": "5f947bd95021ecba0a76181274a601b7fb5160811239b6d7758382735f52ea24"
+      }
+    },
+    {
+      "index": 1,
+      "label": "transition",
+      "timeMs": 120,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/01-transition.png",
+        "sha256": "f1d533e571ef56daa2e1c32668b065a91fb9da0863c8ab8758542cb81a488180"
+      }
+    },
+    {
+      "index": 2,
+      "label": "settled",
+      "timeMs": 1020,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/02-settled.png",
+        "sha256": "4382d291ec795bf10513f218e5fd521094cee7647971422331dd87f4ba23d4ce"
+      }
+    },
+    {
+      "index": 3,
+      "label": "restored",
+      "timeMs": 1720,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/03-restored.png",
+        "sha256": "642e6d8d06ff9f2177540766d7f807c73927288a066b914e11879d08fcfa3966"
+      }
+    }
+  ]
+}

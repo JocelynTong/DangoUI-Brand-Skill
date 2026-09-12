@@ -1,0 +1,76 @@
+{
+  "capturedAt": "2026-09-12T18:20:09.496Z",
+  "probes": [
+    {
+      "pageId": "re1999-v2-home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo/home-phone.png",
+      "sections": 2,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 894,
+        "before": 0,
+        "after": 91,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "re1999-v2-news",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo/news-phone.png",
+      "sections": 2,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 992,
+        "before": 0,
+        "after": 189,
+        "restored": 0
+      },
+      "interaction": {
+        "id": "news-filter",
+        "before": "CATEGORY / LATEST",
+        "changed": "CATEGORY / NOTICE",
+        "restored": "CATEGORY / LATEST",
+        "pass": true
+      }
+    },
+    {
+      "pageId": "re1999-v2-character-gallery",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo/character-gallery-phone.png",
+      "sections": 2,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 995,
+        "before": 0,
+        "after": 192,
+        "restored": 0
+      }
+    },
+    {
+      "pageId": "re1999-v2-held-out",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "screenshot": "migrations/re1999-v2/captures/demo/held-out-phone.png",
+      "sections": 2,
+      "scroll": {
+        "clientHeight": 803,
+        "scrollHeight": 1177,
+        "before": 0,
+        "after": 220,
+        "restored": 0
+      }
+    }
+  ]
+}

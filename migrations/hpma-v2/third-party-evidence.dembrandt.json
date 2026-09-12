@@ -1,0 +1,394 @@
+{
+  "schema": "brand-third-party-computed-evidence/v1",
+  "provider": "dembrandt",
+  "brand": "hpma-v2",
+  "sourceUrl": "https://www.harrypottermagicawakened.com/cn/index.html",
+  "input": "output/extractor-benchmark/hpma-v2/dembrandt/result.json",
+  "createdAt": "2026-09-12T18:06:55.209Z",
+  "counts": {
+    "semanticColors": 3,
+    "palette": 3,
+    "buttonVariants": 1,
+    "radii": 2,
+    "shadows": 0
+  },
+  "computedEvidence": {
+    "semanticColors": {
+      "background": {
+        "value": "rgb(252, 251, 249)",
+        "hex": "#FCFBF9",
+        "family": "yellow-gold",
+        "hue": 40,
+        "saturation": 0.333,
+        "lightness": 0.982
+      },
+      "text": {
+        "value": "rgb(0, 0, 0)",
+        "hex": "#000000",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0
+      },
+      "primary": {
+        "value": "rgb(194, 166, 115)",
+        "hex": "#C2A673",
+        "family": "yellow-gold",
+        "hue": 38.734,
+        "saturation": 0.393,
+        "lightness": 0.606
+      }
+    },
+    "palette": [
+      {
+        "value": "#ffffff",
+        "hex": "#FFFFFF",
+        "family": "white",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 1,
+        "role": "surface",
+        "count": 227,
+        "confidence": "high",
+        "sources": [
+          "logo",
+          "btn",
+          "nav_tit1"
+        ],
+        "onColor": "#000000",
+        "hover": "#d9d9d9"
+      },
+      {
+        "value": "#c2a673",
+        "hex": "#C2A673",
+        "family": "yellow-gold",
+        "hue": 38.734,
+        "saturation": 0.393,
+        "lightness": 0.606,
+        "role": "accent",
+        "count": 12,
+        "confidence": "high",
+        "sources": [
+          "nav_link"
+        ],
+        "onColor": "#000000",
+        "hover": "#a58d62"
+      },
+      {
+        "value": "#dadada",
+        "hex": "#DADADA",
+        "family": "neutral",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0.855,
+        "role": "",
+        "count": 1,
+        "confidence": "medium",
+        "sources": [
+          "hover/focus"
+        ],
+        "onColor": "",
+        "hover": ""
+      }
+    ],
+    "buttonVariants": [
+      {
+        "text": "点击查看家长关爱平台 >",
+        "role": "unknown",
+        "confidence": "medium",
+        "backgroundColor": {
+          "value": "rgb(97, 0, 0)",
+          "hex": "#610000",
+          "family": "red",
+          "hue": 0,
+          "saturation": 1,
+          "lightness": 0.19
+        },
+        "color": {
+          "value": "rgb(255, 255, 255)",
+          "hex": "#FFFFFF",
+          "family": "white",
+          "hue": 0,
+          "saturation": 0,
+          "lightness": 1
+        },
+        "border": "0px none rgb(255, 255, 255)",
+        "borderColors": [
+          {
+            "value": "rgb(255, 255, 255)",
+            "hex": "#FFFFFF",
+            "family": "white",
+            "hue": 0,
+            "saturation": 0,
+            "lightness": 1
+          }
+        ],
+        "borderRadius": "0px",
+        "padding": "0px 3px",
+        "fontSize": "12px",
+        "fontWeight": "400",
+        "boxShadow": ""
+      }
+    ],
+    "radii": [
+      {
+        "value": "16px",
+        "count": 2,
+        "confidence": "low",
+        "elements": [
+          "div"
+        ],
+        "numericValue": 16
+      },
+      {
+        "value": "100%",
+        "count": 8,
+        "confidence": "medium",
+        "elements": [
+          "span"
+        ],
+        "numericValue": 100
+      }
+    ],
+    "shadows": [],
+    "typography": {
+      "styles": [
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "22px (1.38rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.55",
+          "count": 5,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.13",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.13",
+          "count": 5,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "navfont",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.27",
+          "count": 6,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 700,
+          "lineHeight": "1.75",
+          "count": 12,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.69",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.27",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.27",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "15px (0.94rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.67",
+          "count": 24,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "14px (0.88rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.14",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "navfont",
+          "fontSize": "14px (0.88rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.46",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "14px (0.88rem)",
+          "fontWeight": 700,
+          "lineHeight": "1.46",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "14px (0.88rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.46",
+          "count": 15,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "14px (0.88rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.46",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "12px (0.75rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.70",
+          "count": 45,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "12px (0.75rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.70",
+          "count": 54,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "12px (0.75rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.70",
+          "count": 23,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "12px (0.75rem)",
+          "fontWeight": 700,
+          "lineHeight": "1.70",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "Microsoft YaHei",
+          "fontSize": "0px (0.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "Infinity",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        }
+      ],
+      "sources": [
+        "[object Object]"
+      ]
+    }
+  },
+  "candidateHints": {
+    "primaryColorSeed": {
+      "value": "#C2A673",
+      "source": "dembrandt.colors.semantic.primary",
+      "confidence": "seed-only"
+    },
+    "accentColorSeed": {
+      "value": "",
+      "source": "",
+      "confidence": "seed-only"
+    },
+    "primaryActionFillSeed": {
+      "value": "#610000",
+      "text": "点击查看家长关爱平台 >",
+      "source": "dembrandt.components.buttons computed backgroundColor",
+      "confidence": "seed-only; rerun score-action-evidence before mapping --du-primary-color"
+    },
+    "activeStateFillSeed": null,
+    "cardRadiusSeed": {
+      "value": "16px",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "controlRadiusSeed": {
+      "value": "100%",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "shadowSeed": null
+  },
+  "requiredBrandGuards": [
+    "score-action-evidence",
+    "collect-rendered-assets",
+    "asset-usage-gate",
+    "create-selector-map",
+    "coverage-gate",
+    "demo-gate"
+  ],
+  "mappingBoundary": {
+    "canSeed": [
+      "raw palette evidence",
+      "button computed styles",
+      "radius/shadow/typography hints"
+    ],
+    "mustNotOverwriteDirectly": [
+      "--du-* tokens",
+      "componentVariants",
+      "slots",
+      "assets",
+      "layoutRules",
+      "platformOverrides",
+      "businessApply"
+    ],
+    "decisionRule": "Use third-party extraction only as raw computed evidence; rerun Brand action/asset/selector/coverage gates before changing style.json, demo presets, or business pages."
+  },
+  "limitations": [
+    "Global color frequency can over-rank decorative, text, or manifest colors.",
+    "CTA color requires action-node scoring from real clickable/download/submit elements.",
+    "Assets, pseudo-elements, masks, section background stacking, and DOM selector mapping still require Brand rendered asset guards.",
+    "This import does not mutate style.json or generated demo files."
+  ]
+}

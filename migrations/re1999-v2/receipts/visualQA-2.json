@@ -1,0 +1,51 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "dispatchId":"402ae1b4-5ac6-43ec-bc81-49b08b871da3",
+  "stageId":"visualQA-2",
+  "role":"visualQA",
+  "agentExecutionId":"/root/re1999_v2_visual_qa",
+  "goalSha256":"f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791",
+  "verdict":"fail",
+  "failureOwnerRole":"designTranslator",
+  "earliestFailureNode":"Design Translator",
+  "inputs":[
+    {"path":"migrations/re1999-v2/dispatch/visualQA-2.json","sha256":"50885ba401eb2c7752e969568fedb3d19f2f988f28c358bb1bef8b1b4e636aba"},
+    {"path":"migrations/re1999-v2/goal-contract.json","sha256":"f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791"},
+    {"path":"migrations/re1999-v2/visual-pattern-inventory.json","sha256":"f435f0bf75869e982cc91d5c166390b3c2f737ce2348e2eec675c25638201cf6"},
+    {"path":"migrations/re1999-v2/generative-proof.json","sha256":"ee119a19ebfd72ee83b546bf2cfb278ac0d78045ebbc831101d2caa71a815905"},
+    {"path":"migrations/re1999-v2/source-observation-manifest.json","sha256":"0341cc1d5adcedddc79c376b285951f16e9e9c95d7a147edfcbd84c230b37ab4"},
+    {"path":"migrations/re1999-v2/demo-screenshot-manifest.json","sha256":"162212ed328b6e8966951fe525d0596c457367defe4c531fcb2ea698f23d586a"},
+    {"path":"migrations/re1999-v2/rendered-asset-inventory.json","sha256":"f35aac245a14c91ef7fe6f60f4cf9009df7c3739be02bd3a1165cff41b9937e7"},
+    {"path":"migrations/re1999-v2/captures/demo-2/browser-probes.json","sha256":"81079edfae73497153453bed655910cd48ec7ba9841cb8bfd1b5369f5b1cb693"},
+    {"path":"migrations/re1999-v2/captures/source/home/desktop/full-page.png","sha256":"a5fa8f24e259b9651049b81ce5d46016a68a010a7310f437ce7693ce31825720"},
+    {"path":"migrations/re1999-v2/captures/source/news/desktop/full-page.png","sha256":"2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"},
+    {"path":"migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png","sha256":"35d98ca4b667bfc209eb5974ed301c527aebff3a0728997271de7c59de8219cd"},
+    {"path":"migrations/re1999-v2/captures/demo-2/home-phone.png","sha256":"025255ce69f65ef0a0e97a21ef2c7a8444ddb46d4ec78f15edcea5aef5e41738"},
+    {"path":"migrations/re1999-v2/captures/demo-2/news-phone.png","sha256":"2e504b931f7112a83c754c1fee64c4c3244885cbd21527f9140dad0dfc4e62d5"},
+    {"path":"migrations/re1999-v2/captures/demo-2/news-filter-after.png","sha256":"1caddd18b7c1989302d5b13a7142e28a1caf256559fc67d1eff5d78826b7a72b"},
+    {"path":"migrations/re1999-v2/captures/demo-2/news-filter-restored.png","sha256":"2e504b931f7112a83c754c1fee64c4c3244885cbd21527f9140dad0dfc4e62d5"},
+    {"path":"migrations/re1999-v2/captures/demo-2/character-gallery-phone.png","sha256":"dda3ec9e3b71e9bdb14a88f65e00dace106975f0f1ec76ebcac45da576ebcf14"},
+    {"path":"migrations/re1999-v2/captures/demo-2/held-out-phone.png","sha256":"9ea681fa21ee84c39019b36a7333a0ea47d6a0f36180247d2a2b6dd6b997a7a0"},
+    {"path":"public/assets/brand-assets/re1999-v2/home-kv.mp4","sha256":"918fcd070f53a1daf369aaca189fc34ade345486ce8bc293297b4c90c4699082"},
+    {"path":"public/assets/brand-assets/re1999-v2/home-label.png","sha256":"993eb09cee2f28d8787fcebe35eae9761cfd964d236b0c5d8e46bdaccdd91b48"},
+    {"path":"public/assets/brand-assets/re1999-v2/news-hero.jpg","sha256":"e5b70a59f1e266e0185f9f1aead3c2c8a1acf7220e792690ce9b7133e68915e2"},
+    {"path":"public/assets/brand-assets/re1999-v2/character-background.png","sha256":"99e9357e1ae3a60cc0292b7444651b2f84a5f9f31369c65b959c91ad9d2a11e9"},
+    {"path":"public/assets/brand-assets/re1999-v2/character-title.png","sha256":"8006ae7ba43d6bb3f84bdb71a7614e4180f9603b5e1e52cf1fcb97d1db200511"}
+  ],
+  "outputs":[
+    {"path":"migrations/re1999-v2/visual-qa-assessment.json","sha256":"c091d62ab5098ad8fa9c2ff760f582e1bdeb79fc371d6fe9491ccd77dd7e68ff"},
+    {"path":"migrations/re1999-v2/visual-comparison-report.json","sha256":"3dd6735291b00b31f1c305c67cd7143b95823e8ef4923cf99160ae3fcea1e37a"},
+    {"path":"migrations/re1999-v2/brand-distinctiveness-assessment.json","sha256":"18ac0e9e35dbace7faa1b12df8e68cb17063362524c186dc5523d34560804c8d"},
+    {"path":"migrations/re1999-v2/fidelity-report.json","sha256":"af5aa8aa31c1a5dbb9af9766fa48c10ff0c7a69e24040d4c43533ed5869f45a2"},
+    {"path":"migrations/re1999-v2/mockup-state-matrix.json","sha256":"d0d6d6be59a4faea8566e17a9a3850cd8fcced4b4d52d3032b7c9f46fbafa28b"}
+  ],
+  "proofVerdict":{"evidenceFidelity":"fail","structuralFidelity":"fail","generativeProof":"fail","compensationApplied":false},
+  "blockingFindings":[
+    {"code":"HERO_ASSET_VARIANT_MISMATCH","scope":"character-gallery","finding":"Official 5bg environment plate is not the full selected-character subject visible in source.","earliestFailureNode":"Design Translator","failureOwnerRole":"designTranslator"},
+    {"code":"UNSUPPORTED_VISUAL_PATTERN","scope":"character-gallery","finding":"Central character and portrait rail are missing.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"},
+    {"code":"UNSUPPORTED_VISUAL_PATTERN","scope":"home","finding":"Navigation/campaign/focal layers are omitted by the crop.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"},
+    {"code":"PAGE_SCROLL_NOT_RESTORED","scope":"news-filter","finding":"Fresh filter cycle leaves scrollTop at 68.66666412353516 instead of 0.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"},
+    {"code":"GENERATIVE_RULE_REUSE_UNPROVEN","scope":"held-out","finding":"No held-out interaction state sequence proves recipe-news-filter.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"},
+    {"code":"MOCKUP_MATRIX_EVIDENCE_MISSING","scope":"shared-shell","finding":"Only one of 24 required matrix cells has fresh rendered evidence.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"}
+  ]
+}

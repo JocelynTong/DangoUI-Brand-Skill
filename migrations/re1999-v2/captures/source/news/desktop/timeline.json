@@ -1,0 +1,75 @@
+{
+  "schema": "brand-source-timeline/v1",
+  "pageId": "news",
+  "meta": {
+    "url": "https://re.bluepoch.com/home/",
+    "viewport": {
+      "width": 1280,
+      "height": 720
+    },
+    "scrollHeight": 720,
+    "navigationModel": "full-viewport vertical Swiper; wheel/navigation changes slide while document scrollTop remains 0"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "label": "default",
+      "timeMs": 1720,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/00-default.png",
+        "sha256": "f1cca55630c076aa4eb6b82653db2e383db6b4e9fb34988723c3b9aa79d3f768"
+      }
+    },
+    {
+      "index": 1,
+      "label": "transition",
+      "timeMs": 1840,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/01-transition.png",
+        "sha256": "44c536730ae8e3503ade54ae4074f2d69d1a9e3de55265762a63694f103f8421"
+      }
+    },
+    {
+      "index": 2,
+      "label": "settled",
+      "timeMs": 2740,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/02-settled.png",
+        "sha256": "bf003595ac69736027aaa00d0b2a45084d03f3d8a5d70a8b07bc9e8745ce112a"
+      }
+    },
+    {
+      "index": 3,
+      "label": "restored",
+      "timeMs": 3440,
+      "scrollTop": 0,
+      "scrollHeight": 720,
+      "state": {
+        "activeId": null,
+        "activeClass": null
+      },
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/03-restored.png",
+        "sha256": "c1917f8003068eaa77fc3171f2b7d6fa8c89d33c11fbac460fc9166acd7a8d03"
+      }
+    }
+  ]
+}

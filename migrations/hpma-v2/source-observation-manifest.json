@@ -1,0 +1,96 @@
+{
+  "schema": "source-observation-manifest/v1",
+  "brand": "hpma-v2",
+  "goalId": "hpma-full-revalidation-v2",
+  "capturedAt": "2026-09-12T18:11:34.041Z",
+  "viewport": {
+    "width": 1280,
+    "height": 720
+  },
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://www.harrypottermagicawakened.com/cn/index.html",
+      "status": "covered",
+      "navigationModel": "fixed-height, internally transformed presentation; document scroll range is 30px",
+      "requiredStates": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": false
+      },
+      "fullPageCapture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/home/full-page.png",
+        "sha256": "df93309a26b87d0b6fd7f612020e427f3847f32a186519f80b539deba844c3e5"
+      },
+      "continuousCapture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/home/continuous.gif",
+        "sha256": "da6069315db65c1d42d47037dda6a0455d6dda6d6a0b504086cb0bcd30c7dbe3"
+      },
+      "timeline": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/home/timeline.json",
+        "sha256": "4effd54b02f7eb7cc7d01c7d4c934078aa422ac408ffce477cce6663eba6db7c"
+      },
+      "coverage": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": false
+      }
+    },
+    {
+      "id": "news",
+      "url": "https://www.harrypottermagicawakened.com/cn/index.html",
+      "status": "unavailable",
+      "unavailableReason": "No distinct visible NEWS state could be reproduced: .newsBig_box remained zero-width/off-canvas after the available news triggers; retained captures show HOME and are not treated as NEWS proof."
+    },
+    {
+      "id": "cards-media",
+      "url": "https://www.harrypottermagicawakened.com/cn/index.html",
+      "status": "covered",
+      "navigationModel": "fixed-height, internally transformed presentation; document scroll range is 30px",
+      "requiredStates": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": false
+      },
+      "fullPageCapture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/cards-media/full-page.png",
+        "sha256": "63dadc4fb93c0c7e7c1187e88ebe418a6345362edf785b09ebfd17df6e115bff"
+      },
+      "continuousCapture": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/cards-media/continuous.gif",
+        "sha256": "2af27fc11ba6120ca830c84d3c97d84f5e54ebedeae32549361897dad56ac9c5"
+      },
+      "timeline": {
+        "path": "output/extractor-benchmark/hpma-v2/source-captures/cards-media/timeline.json",
+        "sha256": "5e139f9ceae08939d64e2cbc3920a6ef43261a04f048eaf2beaac55f26ed51c1"
+      },
+      "coverage": {
+        "initial": true,
+        "continuousScroll": true,
+        "settledEnd": true,
+        "restored": false
+      }
+    }
+  ],
+  "interactions": [
+    {
+      "id": "news-category-trigger",
+      "status": "unavailable",
+      "unavailableReason": "No visible or computed style change was observed after the reproducible forced click; negative before/transition/after/restored captures retained."
+    }
+  ],
+  "coverage": {
+    "readyForInterpreter": false,
+    "requiredPageIds": [
+      "home",
+      "news",
+      "cards-media"
+    ],
+    "covered": 2,
+    "unavailable": 1,
+    "notes": "NEWS and required restored interaction evidence remain unavailable; Interpreter dispatch is blocked."
+  }
+}

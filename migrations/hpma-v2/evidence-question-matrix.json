@@ -1,0 +1,50 @@
+{
+  "schema": "evidence-question-matrix/v1",
+  "brand": "hpma-v2",
+  "goalId": "hpma-full-revalidation-v2",
+  "questions": [
+    {
+      "id": "q-parchment-dark-stage",
+      "question": "Does HOME visibly combine a dark cinematic stage with parchment/gold information and action surfaces?",
+      "stopCondition": "Full viewport capture plus visible DOM, computed role values and asset identities."
+    },
+    {
+      "id": "q-ornate-news-frame",
+      "question": "Does the reachable NEWS state visibly use the same ornate frame grammar as cards/media?",
+      "stopCondition": "Distinct news-state screenshot, non-zero visible DOM region, computed properties and interaction trace."
+    },
+    {
+      "id": "q-ornate-cards-frame",
+      "question": "Does CARDS/MEDIA visibly use authored book/frame geometry rather than generic rounded cards?",
+      "stopCondition": "Distinct state capture plus visible DOM and source asset identity."
+    },
+    {
+      "id": "q-action-media-semantics",
+      "question": "Across HOME, NEWS and CARDS/MEDIA, are brown/gold framed actions observably distinct from magical media surfaces in default, triggered, settled and restored states?",
+      "stopCondition": "Page-scoped before/transition/after/restored captures with changed computed properties."
+    }
+  ],
+  "pageCoverage": [
+    {
+      "id": "home",
+      "status": "covered",
+      "unavailableReason": null
+    },
+    {
+      "id": "news",
+      "status": "unavailable",
+      "unavailableReason": "No distinct visible NEWS state could be reproduced: .newsBig_box remained zero-width/off-canvas after the available news triggers; retained captures show HOME and are not treated as NEWS proof."
+    },
+    {
+      "id": "cards-media",
+      "status": "covered",
+      "unavailableReason": null
+    }
+  ],
+  "stopDecision": "needs-evidence",
+  "blockers": [
+    "NEWS distinct rendered state unavailable",
+    "required interaction settled/restored visual delta unavailable",
+    "high-salience asset source URL/hash unresolved"
+  ]
+}

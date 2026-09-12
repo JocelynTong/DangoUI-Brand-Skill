@@ -1,0 +1,339 @@
+{
+  "schema": "brand-evidence/v4",
+  "brand": "re1999-v2",
+  "goalId": "re1999-full-revalidation-v2",
+  "sourceUrl": "https://re.bluepoch.com/home/",
+  "capturedAt": "2026-09-12T18:08:20.817Z",
+  "status": "screenshot-first",
+  "evidenceQuestions": [
+    {
+      "id": "q-archive-stage",
+      "question": "Does HOME visibly use an authored, layered stage rather than a generic warm-gray archive surface?",
+      "stopCondition": "Full viewport capture plus visible DOM and asset identities."
+    },
+    {
+      "id": "q-role-system",
+      "question": "Do HOME, NEWS and CHARACTER visibly reuse copper/paper roles with exact computed values?",
+      "stopCondition": "Page-scoped captures and exact computed color properties on visible nodes."
+    },
+    {
+      "id": "q-hierarchy",
+      "question": "Do NEWS and CHARACTER expose distinct editorial/gallery hierarchies and real state changes?",
+      "stopCondition": "Full captures, DOM boxes and a reproducible filter interaction with restored state."
+    }
+  ],
+  "claims": [
+    {
+      "id": "home-archive-stage",
+      "sourcePageId": "home",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "summary": "A full-bleed rainy London motion stage carries the character at foreground scale, while restrained archival labels and download controls sit around the perimeter.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/full-page.png",
+        "sha256": "a5fa8f24e259b9651049b81ce5d46016a68a010a7310f437ce7693ce31825720"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "#slide1",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "state": "swiper-slide-active"
+      },
+      "computed": {
+        "property": "font-family",
+        "value": "SourceHanSerifCN"
+      },
+      "assetRefs": [
+        "asset-home-kv-video",
+        "asset-home-label"
+      ]
+    },
+    {
+      "id": "home-layered-authentic-assets",
+      "sourcePageId": "home",
+      "status": "observed",
+      "kind": "asset",
+      "salience": "high",
+      "summary": "The stage is assembled from a full-viewport looping video plus independent transparent label/download/play assets, not a flat editorial card.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/home/desktop/full-page.png",
+        "sha256": "a5fa8f24e259b9651049b81ce5d46016a68a010a7310f437ce7693ce31825720"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "#kvPc",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "state": "autoplay-loop"
+      },
+      "computed": {
+        "property": "display",
+        "value": "block"
+      },
+      "assetRefs": [
+        "asset-home-kv-video",
+        "asset-home-label"
+      ]
+    },
+    {
+      "id": "news-asymmetric-editorial-split",
+      "sourcePageId": "news",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "summary": "The NEWS state uses a large 550×309 image at left and a denser 565×504 editorial index at right, with generous dark negative space.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png",
+        "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"
+      },
+      "sourceRegion": [
+        0.064,
+        0.15,
+        0.872,
+        0.674
+      ],
+      "visibleDom": {
+        "selector": "#slide2",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "state": "swiper-slide-active"
+      }
+    },
+    {
+      "id": "news-copper-active-paper-inactive",
+      "sourcePageId": "news",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "summary": "The selected category is copper while unselected categories are pale paper.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png",
+        "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"
+      },
+      "sourceRegion": [
+        0.645,
+        0.2,
+        0.285,
+        0.075
+      ],
+      "visibleDom": {
+        "selector": "#news0",
+        "visible": true,
+        "boundingBox": {
+          "x": 856.640625,
+          "y": 151.34375,
+          "width": 29.28125,
+          "height": 37.28125
+        },
+        "state": "news-right-head-bg-list-active"
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(181, 88, 41)"
+      },
+      "comparison": {
+        "selector": "#news1",
+        "property": "color",
+        "value": "rgb(233, 220, 205)"
+      }
+    },
+    {
+      "id": "news-paper-body-text",
+      "sourcePageId": "news",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "summary": "News titles and dates use a muted paper/copper family against the near-black textured field.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/news/desktop/full-page.png",
+        "sha256": "2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"
+      },
+      "sourceRegion": [
+        0.526,
+        0.292,
+        0.41,
+        0.35
+      ],
+      "visibleDom": {
+        "selector": ".news-right-con-list-left-title",
+        "visible": true,
+        "boundingBox": {
+          "x": 721.1875,
+          "y": 220.984375,
+          "width": 133.5625,
+          "height": 28
+        },
+        "state": "default"
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(187, 168, 147)"
+      }
+    },
+    {
+      "id": "character-gallery-triptych",
+      "sourcePageId": "character-gallery",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "summary": "The CHARACTER state forms a three-part hierarchy: staggered portrait rail, oversized character illustration over an oblique copper-framed field, then title/quote/voice controls.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png",
+        "sha256": "35d98ca4b667bfc209eb5974ed301c527aebff3a0728997271de7c59de8219cd"
+      },
+      "sourceRegion": [
+        0.06,
+        0.1,
+        0.88,
+        0.82
+      ],
+      "visibleDom": {
+        "selector": "#slide3",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        },
+        "state": "swiper-slide-active"
+      },
+      "assetRefs": [
+        "asset-character-background",
+        "asset-character-title"
+      ]
+    },
+    {
+      "id": "character-copper-copy",
+      "sourcePageId": "character-gallery",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "summary": "Character quote copy uses the same muted copper family as news metadata, binding the gallery and editorial states.",
+      "capture": {
+        "path": "migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png",
+        "sha256": "35d98ca4b667bfc209eb5974ed301c527aebff3a0728997271de7c59de8219cd"
+      },
+      "sourceRegion": [
+        0.724,
+        0.438,
+        0.208,
+        0.14
+      ],
+      "visibleDom": {
+        "selector": "#roleStr",
+        "visible": true,
+        "boundingBox": {
+          "x": 926.6875,
+          "y": 318.234375,
+          "width": 266.65625,
+          "height": 97.1875
+        },
+        "state": "default"
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(187, 168, 147)"
+      }
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "seedRef": "dembrandt.colors.semantic.primary",
+      "status": "validated",
+      "evidenceRefs": [
+        "news-paper-body-text",
+        "character-copper-copy"
+      ]
+    },
+    {
+      "seedRef": "dembrandt.colors.palette.#E9DCCD",
+      "status": "validated",
+      "evidenceRefs": [
+        "news-copper-active-paper-inactive"
+      ]
+    },
+    {
+      "seedRef": "dembrandt.colors.semantic.background",
+      "status": "rejected",
+      "reason": "Extractor reported #000000 as a semantic background, but the visible core slide nodes compute transparent backgrounds over textured/raster assets; the seed is too strong as a rendered semantic claim."
+    },
+    {
+      "seedRef": "dembrandt.colors.semantic.text",
+      "status": "rejected",
+      "reason": "Extractor reported black text, while the visible NEWS and CHARACTER foreground text inspected here computes copper/paper colors."
+    },
+    {
+      "seedRef": "dembrandt.borderRadius.0px-100px-0px-0px",
+      "status": "out-of-scope",
+      "reason": "No goal-critical high-salience visible node in the three required states was shown to depend on this radius."
+    },
+    {
+      "seedRef": "dembrandt.borderRadius.50percent",
+      "status": "out-of-scope",
+      "reason": "Circular controls exist, but this low-confidence seed is not needed to prove a frozen mustPreserve item."
+    }
+  ],
+  "goalCoverage": [
+    {
+      "goalRef": "mustPreserve.archive-stage",
+      "status": "proved",
+      "evidenceRefs": [
+        "home-archive-stage",
+        "home-layered-authentic-assets"
+      ]
+    },
+    {
+      "goalRef": "mustPreserve.copper-paper-role-system",
+      "status": "proved",
+      "evidenceRefs": [
+        "news-copper-active-paper-inactive",
+        "news-paper-body-text",
+        "character-copper-copy"
+      ]
+    },
+    {
+      "goalRef": "mustPreserve.editorial-and-character-hierarchy",
+      "status": "proved",
+      "evidenceRefs": [
+        "news-asymmetric-editorial-split",
+        "character-gallery-triptych"
+      ],
+      "interactionRefs": [
+        "news-filter"
+      ]
+    }
+  ],
+  "sourceObservationManifest": "migrations/re1999-v2/source-observation-manifest.json",
+  "limitations": [
+    "The frozen goal aliases character and gallery into one required page id; this packet validates the CHARACTER state selected by #banner2 and does not claim the separate GALLERY slide as equivalent.",
+    "Mobile/responsive evidence is not required by evidencePolicy and was not promoted to observed claims."
+  ]
+}

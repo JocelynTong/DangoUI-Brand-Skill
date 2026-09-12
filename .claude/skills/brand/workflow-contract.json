@@ -11,6 +11,7 @@
     "rules": [
       "Resolve the source before starting extraction or asking the user for internal file paths.",
       "A Registry hit reuses the reviewed version and must not repeat brand learning.",
+      "A maintainer may explicitly use --force-relearn with a new versioned brand workspace to revalidate a legacy pack; the reviewed source directory must not be overwritten in place.",
       "Apply-host may install public JSON rules automatically, but runtime assets remain governed by manifest reusePolicy.",
       "A Registry miss falls through to learn-brand; a public network failure is reported and never treated as proof that no pack exists."
     ]

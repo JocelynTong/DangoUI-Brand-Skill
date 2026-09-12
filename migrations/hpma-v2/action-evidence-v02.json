@@ -1,0 +1,23 @@
+{
+  "schema": "action-evidence/v2",
+  "brand": "hpma-v2",
+  "goalId": "hpma-full-revalidation-v2",
+  "entries": [
+    {
+      "id": "news-category-trigger-negative",
+      "selector": ".nav_tit3",
+      "observedState": "triggered-no-visible-change",
+      "trigger": "click .news_btn, wait 700ms, force-click .nav_tit3, wait through 100ms transition and 800ms settled intervals",
+      "beforeCapture": "output/extractor-benchmark/hpma-v2/source-captures/interaction-news-tab-before.png",
+      "transitionCapture": "output/extractor-benchmark/hpma-v2/source-captures/interaction-news-tab-transition.png",
+      "afterCapture": "output/extractor-benchmark/hpma-v2/source-captures/interaction-news-tab-after.png",
+      "restoredCapture": "output/extractor-benchmark/hpma-v2/source-captures/interaction-news-tab-restored.png",
+      "computedProperty": "color",
+      "computedValue": "rgb(255, 255, 255)",
+      "beforeComputedValue": "rgb(255, 255, 255)",
+      "sourceRule": "current rendered computed style only; no changed source rule was established",
+      "verdict": "not-observed",
+      "note": "No pixel/computed delta was verified; this entry is negative evidence and blocks semantic promotion."
+    }
+  ]
+}

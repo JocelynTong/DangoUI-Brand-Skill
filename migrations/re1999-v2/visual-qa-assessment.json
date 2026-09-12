@@ -1,0 +1,79 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "re1999-v2",
+  "attempt": 2,
+  "qaExecutionId": "/root/re1999_v2_visual_qa",
+  "goalSha256": "f23948882a88c8b6e46d14aec1028a97a3c12a47fd8d5c9fc2e18ae40f9d3791",
+  "pages": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "re1999-v2-home",
+      "sourceScreenshot": {"path":"migrations/re1999-v2/captures/source/home/desktop/full-page.png","sha256":"a5fa8f24e259b9651049b81ce5d46016a68a010a7310f437ce7693ce31825720"},
+      "demoScreenshot": {"path":"migrations/re1999-v2/captures/demo-2/home-phone.png","sha256":"025255ce69f65ef0a0e97a21ef2c7a8444ddb46d4ec78f15edcea5aef5e41738"},
+      "dimensions": {
+        "composition":{"rating":2,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,0.74],"finding":"The official scene is authentic, but the phone crop removes the telephone booth and most of the character, omits the source navigation/campaign hierarchy, and reduces the archive stage to a wallpaper crop with bottom actions."}]},
+        "assetAuthenticity":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,0.74],"finding":"Runtime home-kv.mp4 and home-label.png hashes exactly match the independently inventoried official assets; no source screenshot hash is reused."}]},
+        "colorRoles":{"rating":3,"observations":[{"sourceRegion":[0.45,0,0.5,0.12],"demoRegion":[0.05,0.74,0.85,0.08],"finding":"Copper remains a narrow action/accent color rather than a section fill, but the pale phone chrome is external to the dark archive surface."}]},
+        "informationDensity":{"rating":2,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Source navigation, identity, atmospheric message, download cluster and motion-stage layers are compressed to a sparse scene plus two actions."}]},
+        "typographyGraphics":{"rating":2,"observations":[{"sourceRegion":[0.04,0.43,0.18,0.1],"demoRegion":[0.05,0.15,0.25,0.08],"finding":"Spaced archival label survives, but the source bilingual navigation and campaign typography system is not carried through."}]},
+        "motionSemantics":{"rating":3,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,0.74],"finding":"The same official loop supplies atmospheric motion; no captured control state proves the refresh or film affordances restore state."}]},
+        "brandRecognition":{"rating":3,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"The authentic scene makes the IP recognizable, but structural recognition falls because the source archive-stage hierarchy is largely absent."}]}
+      },
+      "visualPatterns":[{"id":"home-stage","status":"unsupported","sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,0.74],"finding":"Asset identity passes, but the claimed composition does not: navigation/campaign copy are omitted and the authorized responsive reflow does not authorize dropping focal layers.","roleExpansion":false,"compositionLayers":[{"id":"motion-scene","status":"matched","finding":"Official moving street scene is present."},{"id":"perimeter-label","status":"matched","finding":"Archival REVERSE 1999 label is visible."},{"id":"download-actions","status":"matched","finding":"Two bounded actions remain at the bottom."},{"id":"lower-fade","status":"matched","finding":"A dark fade separates scene and actions."}]}],
+      "mustPreserve":[{"id":"archive-stage","status":"fail","finding":"The dominant source composition loses navigation, campaign identity, telephone booth and most of the character."},{"id":"copper-paper-role-system","status":"pass"}],
+      "mustNotReplace":[{"id":"no-screenshot-runtime","violated":false},{"id":"no-generic-archive","violated":false},{"id":"no-legacy-claim-promotion","violated":false}],
+      "blockingFindings":[{"code":"UNSUPPORTED_VISUAL_PATTERN","finding":"home-stage uses an authentic asset but does not preserve the source's bounded navigation/campaign/focal composition.","evidence":{"source":"migrations/re1999-v2/captures/source/home/desktop/full-page.png","demo":"migrations/re1999-v2/captures/demo-2/home-phone.png"},"earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"}]
+    },
+    {
+      "sourcePageId": "news",
+      "demoPageId": "re1999-v2-news",
+      "sourceScreenshot": {"path":"migrations/re1999-v2/captures/source/news/desktop/full-page.png","sha256":"2e445246423d6b62e3bb326dfb1585126ba5f550053bb89a4d39aaee5e99ac27"},
+      "demoScreenshot": {"path":"migrations/re1999-v2/captures/demo-2/news-phone.png","sha256":"2e504b931f7112a83c754c1fee64c4c3244885cbd21527f9140dad0dfc4e62d5"},
+      "dimensions": {
+        "composition":{"rating":3,"observations":[{"sourceRegion":[0.064,0.15,0.872,0.674],"demoRegion":[0.06,0.12,0.88,0.66],"finding":"Lead image, title/category, index and More action retain an unequal editorial reading order under phone reflow."}]},
+        "assetAuthenticity":{"rating":4,"observations":[{"sourceRegion":[0.064,0.192,0.43,0.43],"demoRegion":[0.06,0.12,0.88,0.24],"finding":"Rendered news image URL resolves to the inventoried official announcement asset and its runtime hash matches provenance."}]},
+        "colorRoles":{"rating":4,"observations":[{"sourceRegion":[0.526,0.15,0.402,0.12],"demoRegion":[0.06,0.45,0.88,0.14],"finding":"Copper is confined to selected category, issue label and row metadata; it does not become broad section chrome."}]},
+        "informationDensity":{"rating":3,"observations":[{"sourceRegion":[0.526,0.292,0.41,0.39],"demoRegion":[0.06,0.59,0.88,0.31],"finding":"Five-row editorial index remains scannable, though the second continuation section falls below the initial viewport."}]},
+        "typographyGraphics":{"rating":4,"observations":[{"sourceRegion":[0.526,0.15,0.402,0.112],"demoRegion":[0.06,0.4,0.88,0.14],"finding":"Large serif News title, compact sans metadata and copper rules retain the editorial hierarchy."}]},
+        "motionSemantics":{"rating":2,"observations":[{"sourceRegion":[0.645,0.2,0.285,0.075],"demoRegion":[0.06,0.52,0.88,0.08],"finding":"Fresh browser operation changes LATEST to NOTICE and restores the content label, but focus moves phone-screen scrollTop from 0 to 68.67 and restoration leaves it at 68.67."}]},
+        "brandRecognition":{"rating":4,"observations":[{"sourceRegion":[0.064,0.15,0.872,0.674],"demoRegion":[0.06,0.12,0.88,0.78],"finding":"The asymmetric lead/index, black archival field, serif title and narrow copper selection remain recognizable beyond logo alone."}]}
+      },
+      "visualPatterns":[{"id":"news-index","status":"unsupported","sourceRegion":[0.064,0.15,0.872,0.674],"demoRegion":[0,0,1,0.78],"finding":"Visual structure and color roles are supported, but the declared reversible interaction fails scroll-position restoration.","roleExpansion":false,"compositionLayers":[{"id":"feature-image","status":"matched","finding":"Authentic lead visual remains first."},{"id":"heading-category","status":"matched","finding":"Title and categories form the second hierarchy layer."},{"id":"editorial-index","status":"matched","finding":"Dense repeated rows remain."},{"id":"more-action","status":"matched","finding":"More action is visible below rows."}]}],
+      "mustPreserve":[{"id":"editorial-and-character-hierarchy","status":"fail","finding":"Editorial hierarchy is visible, but interactionSemantics fails because filter restoration does not restore scroll."},{"id":"copper-paper-role-system","status":"pass"}],
+      "mustNotReplace":[{"id":"no-screenshot-runtime","violated":false},{"id":"no-generic-archive","violated":false},{"id":"no-legacy-claim-promotion","violated":false}],
+      "blockingFindings":[{"code":"PAGE_SCROLL_NOT_RESTORED","finding":"Fresh NEWS filter cycle: before=0, after NOTICE=68.66666412353516, after restoring LATEST=68.66666412353516.","evidence":{"route":"http://127.0.0.1:5173/#/brand/re1999-v2/pages/re1999-v2-news","states":["CATEGORY / LATEST","CATEGORY / NOTICE","CATEGORY / LATEST"]},"earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"}]
+    },
+    {
+      "sourcePageId": "character-gallery",
+      "demoPageId": "re1999-v2-character-gallery",
+      "sourceScreenshot": {"path":"migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png","sha256":"35d98ca4b667bfc209eb5974ed301c527aebff3a0728997271de7c59de8219cd"},
+      "demoScreenshot": {"path":"migrations/re1999-v2/captures/demo-2/character-gallery-phone.png","sha256":"dda3ec9e3b71e9bdb14a88f65e00dace106975f0f1ec76ebcac45da576ebcf14"},
+      "dimensions": {
+        "composition":{"rating":1,"observations":[{"sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0.05,0.17,0.91,0.64],"finding":"The source triptych depends on portrait rail, full selected character subject and title/voice narrative. Demo shows number cards, an empty oval background and the title; the central subject is missing."}]},
+        "assetAuthenticity":{"rating":2,"observations":[{"sourceRegion":[0.22,0.1,0.52,0.82],"demoRegion":[0.24,0.22,0.48,0.5],"finding":"Background and title assets are authentic hashes, but asset-character-background is misrepresented as a selected-character field: the file contains only the oval environment, not the source character subject."}]},
+        "colorRoles":{"rating":3,"observations":[{"sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0.05,0.17,0.91,0.64],"finding":"Copper remains local to selected index and title accent on a black field."}]},
+        "informationDensity":{"rating":1,"observations":[{"sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0.05,0.17,0.91,0.64],"finding":"The selected portrait, full character illustration and right narrative/voice balance collapse into large empty black areas."}]},
+        "typographyGraphics":{"rating":3,"observations":[{"sourceRegion":[0.724,0.3,0.208,0.36],"demoRegion":[0.12,0.67,0.7,0.25],"finding":"Official title graphic and quote survive, but no longer balance a visible subject."}]},
+        "motionSemantics":{"rating":1,"observations":[{"sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0.05,0.17,0.91,0.64],"finding":"No before/after/restored character-selection or voice-state capture is supplied; a static initial frame cannot prove the declared controls."}]},
+        "brandRecognition":{"rating":2,"observations":[{"sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0.05,0.17,0.91,0.64],"finding":"The title asset identifies the IP, while the decisive character-gallery composition is not recognizable because its subject is absent."}]}
+      },
+      "visualPatterns":[{"id":"character-triptych","status":"unsupported","sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0,0,1,0.78],"finding":"The claimed character-field layer is an empty background asset and cannot match the source's dominant selected character.","roleExpansion":false,"compositionLayers":[{"id":"portrait-rail","status":"unmatched","finding":"Number tiles replace visible character portraits."},{"id":"character-field","status":"unmatched","finding":"Only the official environment oval renders; the full character subject is absent."},{"id":"title-quote-voice","status":"matched","finding":"Official title and quote are visible; voice control is below the captured fold."}]}],
+      "mustPreserve":[{"id":"editorial-and-character-hierarchy","status":"fail","finding":"The dominant selected character and portrait hierarchy are missing."},{"id":"copper-paper-role-system","status":"pass"}],
+      "mustNotReplace":[{"id":"no-screenshot-runtime","violated":false},{"id":"no-generic-archive","violated":false},{"id":"no-legacy-claim-promotion","violated":false}],
+      "blockingFindings":[{"code":"HERO_ASSET_VARIANT_MISMATCH","finding":"The runtime asset identity is the official role/5bg.png environment plate, but it is claimed as the dominant selected-character field; source screenshot visibly contains a full character layer that is absent in Demo.","evidence":{"source":"migrations/re1999-v2/captures/source/character-gallery/desktop/full-page.png","demo":"migrations/re1999-v2/captures/demo-2/character-gallery-phone.png","runtimeAsset":"public/assets/brand-assets/re1999-v2/character-background.png"},"earliestFailureNode":"Design Translator","failureOwnerRole":"designTranslator"},{"code":"UNSUPPORTED_VISUAL_PATTERN","finding":"character-triptych lacks the central subject and replaces portrait thumbnails with numeric cards.","evidence":{"sourceRegion":[0.06,0.1,0.88,0.82],"demoRegion":[0.05,0.17,0.91,0.64]},"earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"}]
+    }
+  ],
+  "generativeProofReview": {
+    "status":"fail",
+    "finding":"The held-out briefing is visibly source-independent and non-mirrored, and it reuses asymmetric density plus narrow copper/paper roles. However, the third frozen rule (reversible Signals/Dispatches selector) has no before/after/restored visual evidence and is not visible in the supplied held-out screenshot.",
+    "ruleChecks":[
+      {"recipeId":"recipe-news-editorial","status":"reused","finding":"New fictional title-led briefing uses unequal lead and compact three-row ledger rather than copying a source page."},
+      {"recipeId":"recipe-copper-paper-copy","status":"reused","finding":"Copper is restricted to disclaimer, section label and indices; paper carries readable copy."},
+      {"recipeId":"recipe-news-filter","status":"unproven","finding":"No held-out triggered, settled and restored captures prove the claimed Signals/Dispatches state change."}
+    ]
+  },
+  "proofStatuses":{"evidenceFidelity":"fail","structuralFidelity":"fail","generativeProof":"fail","compensationApplied":false},
+  "reviewerRecommendation":"fail",
+  "failureOwnerRole":"designTranslator",
+  "earliestFailureNode":"Design Translator"
+}

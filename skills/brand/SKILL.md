@@ -116,6 +116,8 @@ node skills/brand/scripts/run-brand-workflow.mjs run ...
 
 总入口在抽取前必须先按规范化来源 URL 或 Demo 深链查询公共 Registry。命中已审核版本时直接返回 `reuse-existing-style-pack`；进入宿主应用时自动把公开 JSON 规则安装到宿主 `migrations/{brand}/`，不要求用户理解或填写 `assetRoot`、`style-pack`、`mod-file`。只有未命中时才进入新的 `learn-brand` 抽取。公共 Registry 暂时不可达时必须明确报告，不能把网络失败当成“未收录”。官网运行时素材仍服从 manifest 的 `reusePolicy`，不得因为规则公开就自动推断素材可商用。
 
+维护者需要用新流程复验已存在的旧品牌包时，显式使用 `--force-relearn`，并把 `--brand` 指向新的版本化工作区（例如 `hpma-v2`）。该参数只允许 `learn-brand`，不得覆盖原有已审核目录；新工作区完成 Evidence、Interpreter、Design Direction、Demo、独立 QA 和三证前，不得替换 Registry 版本。
+
 如果当前运行环境是 Claude 项目 skill 镜像，则使用：
 
 ```bash

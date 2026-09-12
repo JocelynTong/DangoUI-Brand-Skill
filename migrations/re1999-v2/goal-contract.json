@@ -1,0 +1,23 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "re1999-full-revalidation-v2",
+  "brand": "re1999-v2",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "legacy-pack-full-revalidation",
+  "createdAt": "2026-09-13T00:00:00+08:00",
+  "sealed": true,
+  "goal": "Relearn Reverse: 1999 from current official rendered evidence and generate distinct home, news and character/gallery Demo structures plus a held-out variation without overwriting migrations/re1999.",
+  "nonGoals": ["website-mirror", "host-apply", "overwrite-re1999-v1"],
+  "implementationPolicy": {"allowSourceScreenshotAsRuntimeAsset": false, "requireIndependentRuntimeAssetsOrDomCssReconstruction": true, "requireHighSalienceEvidenceTrace": true},
+  "evidencePolicy": {"continuousCaptureRequired": true, "requiredPageIds": ["home", "news", "character-gallery"], "requiredPageStates": ["initial", "continuous-scroll", "settled-end"], "requiredInteractionStates": ["default", "triggered", "settled", "restored"], "consumerRule": "Interpreter is blocked until HOME, NEWS and CHARACTER/GALLERY structures have screenshot-first, DOM, computed, asset and state evidence."},
+  "referencePages": [{"id": "home", "url": "https://re.bluepoch.com/home/", "core": true}, {"id": "news", "url": "https://re.bluepoch.com/home/", "core": true}, {"id": "character-gallery", "url": "https://re.bluepoch.com/home/", "core": true}],
+  "demoPages": [{"id": "re1999-v2-home", "mapsToSourcePageId": "home"}, {"id": "re1999-v2-news", "mapsToSourcePageId": "news"}, {"id": "re1999-v2-character-gallery", "mapsToSourcePageId": "character-gallery"}, {"id": "re1999-v2-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out"}],
+  "mustPreserve": [{"id": "archive-stage", "requiredOn": ["home"], "dimensions": ["composition", "assetAuthenticity"]}, {"id": "copper-paper-role-system", "requiredOn": ["home", "news", "character-gallery"], "dimensions": ["colorRoles", "typographyGraphics"]}, {"id": "editorial-and-character-hierarchy", "requiredOn": ["news", "character-gallery"], "dimensions": ["composition", "informationDensity", "interactionSemantics"]}],
+  "mayTranslate": [{"id": "responsive-reflow", "description": "Desktop archive compositions may reflow to phone while preserving asymmetric hierarchy, paper texture and copper line grammar."}, {"id": "representative-content", "description": "Held-out proof may use source-independent content after recipes are frozen."}],
+  "mustNotReplace": [{"id": "no-screenshot-runtime", "description": "Source screenshots are QA evidence only."}, {"id": "no-generic-archive", "description": "Warm gray, serif type and thin borders alone cannot prove this brand."}, {"id": "no-legacy-claim-promotion", "description": "Legacy asset lists and statistics remain candidates until rendered validation."}],
+  "learningProofContract": {"evidenceFidelity": {"required": true}, "structuralFidelity": {"required": true}, "generativeProof": {"required": true}, "compensationPolicy": "No proof can compensate for another."},
+  "thresholds": {"overall": 80, "corePage": 70, "dimensionMin": {"composition": 3, "assetAuthenticity": 3}, "maxAttempts": 2},
+  "timeBudget": {"profile": "full", "targetMinutes": [30, 45], "stopOptionalExpansionAtMinutes": 60, "blockAtMinutes": 75}
+}
