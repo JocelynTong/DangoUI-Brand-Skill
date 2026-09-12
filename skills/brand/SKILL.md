@@ -337,6 +337,7 @@ node skills/brand/scripts/resolve-public-style-pack.mjs --source-url <URL> --ins
 - CSS / asset / font / Taro / Vite 细节按 `scan-css` 与 `mapping-rules.md` 处理：二进制不能 `@import`、CSS import 顺序要合法、Taro/Vite 可改 JS 入口导入、字体路径和 computed font 必须验证。
 - 用户执行中补充反馈时先记录并继续执行；除非明确停止、回滚或改变目标。
 - 每次 `/brand` 结束记录 run log：项目完整记录 + 全局脱敏摘要；不做静默网络上传。
+- 试用必须区分 `public` 与 `internal` 通道，并执行 `workflow-contract.json#trialChannels`。两条通道共用 Brand Skill、Brand MOD、DangoUI mapping 和质量 gate；公开通道只接受公开来源与可公开反馈，内部通道允许私有来源但记录默认写入宿主的 `.brand-trials/` 且禁止自动网络提交。内部结论只有在 `sanitized / reviewed / authorized` 三项均为 true 后才能以摘要晋级公开，原始代码、截图、日志、内网地址、个人信息和未审素材不得进入 GitHub。
 
 执行 guard：
 

@@ -1,5 +1,5 @@
 {
-  "version": "0.13",
+  "version": "0.14",
   "roleContractVersion": "3.0",
   "command": "/brand",
   "owner": "brand",
@@ -13,6 +13,30 @@
       "A Registry hit reuses the reviewed version and must not repeat brand learning.",
       "Apply-host may install public JSON rules automatically, but runtime assets remain governed by manifest reusePolicy.",
       "A Registry miss falls through to learn-brand; a public network failure is reported and never treated as proof that no pack exists."
+    ]
+  },
+  "trialChannels": {
+    "schema": "brand-trial-record/v1",
+    "gate": "node skills/brand/scripts/validate-trial-channel.mjs validate --record <trial-record.json>",
+    "sharedCore": "Both channels consume the same Brand Skill, Brand MOD, DangoUI mapping and quality gates; internal dependencies and private evidence are never added to the public distribution.",
+    "public": {
+      "platforms": ["web", "taro-h5"],
+      "sourceVisibility": "public",
+      "feedbackDestination": "github-issue",
+      "purpose": "Verify self-service installation, public Registry reuse and Web-first application using information safe to publish."
+    },
+    "internal": {
+      "platforms": ["web", "taro-h5", "weapp-developer-tool", "weapp-android", "weapp-ios"],
+      "sourceVisibility": ["public", "private"],
+      "feedbackDestination": "internal-only",
+      "purpose": "Verify Taro, developer-tool, device and business-safety behavior against real company hosts without moving private material into GitHub."
+    },
+    "rules": [
+      "Trial records default to networkSubmission=disabled; the Skill never uploads records, code, screenshots, logs or capability gaps silently.",
+      "Internal records live under the gitignored .brand-trials directory and are shared only through an approved internal channel.",
+      "A public record contains only public sources and no private code, internal URL, credential, raw log, personal data or unreviewed asset.",
+      "Promoting an internal conclusion to the public channel requires sanitized=true, reviewed=true and authorized=true; publish a summary, never the raw internal record.",
+      "Public-channel support claims remain Web verified and Taro H5 experimental; developer-tool and device results stay internal until independently approved for publication."
     ]
   },
   "nodeQualityModel": {

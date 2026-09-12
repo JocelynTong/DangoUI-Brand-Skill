@@ -71,9 +71,27 @@ Claude Code 中将 `$brand` 写成 `/brand`。
 | 真实业务项目换肤 | 已完成 ONE PIECE × 卡组工具 H5 试点 |
 | Taro 微信小程序 | 构建通过，开发者工具与真机运行待验证 |
 | iOS / Android / Flutter / 鸿蒙 | 尚未验证 |
-| 外部用户试用 | 尚未完成 5–10 人受控内测 |
+| 双通道试用 | 入口与隔离规则已就绪，真实用户样本待招募 |
 
 详细进度、证据和下一阶段门槛见 [research/okr.md](research/okr.md)。
+
+## 一套核心，两条试用通道
+
+不拆成两套 Skill，也不复制两份品牌资产。内部员工和 GitHub 用户共享 Brand Skill、Brand MOD、DangoUI mapping、公共 Registry 和质量门槛，只把输入、反馈与平台验证范围隔离。
+
+| 通道 | 当前验证范围 | 可用来源 | 反馈位置 | 边界 |
+| --- | --- | --- | --- | --- |
+| GitHub 公开通道 | Web；Taro H5 为实验性 | 仅公开 URL 与可公开材料 | [MVP 试用反馈](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=mvp-trial.yml) | 不提交私有代码、截图、日志、内网地址、凭证、个人信息或未审素材 |
+| 公司内部通道 | Web、Taro H5、微信开发者工具、Android / iOS 真机 | 可含私有来源 | 本地 `.brand-trials/`，再走公司批准的内部协作渠道 | 默认不联网提交，原始记录不进 GitHub |
+
+内部试点开始前，在宿主项目根目录初始化一份本地记录：
+
+```bash
+npm run brand:trial:init -- --channel internal --id <试点编号> --platform taro-h5
+npm run validate:brand-trial -- --record .brand-trials/<试点编号>.json
+```
+
+`.brand-trials/` 已被 Git 忽略。脚本只生成和校验本地 JSON，不会上传记录；公开记录还会拦截常见本机路径、私网地址、内网域名、私钥和云访问密钥格式。若要把内部结论贡献到公共仓库，只发布脱敏摘要，并在记录中将 `publicPromotion.sanitized`、`reviewed`、`authorized` 全部确认后再提交；原始内部记录始终留在内部。
 
 ## 公共品牌库
 
@@ -115,9 +133,9 @@ MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录�
 - 不包含私有链接、本机路径、密钥或未经确认可分发的官网原始素材。
 - 更新已有品牌时递增版本，不覆盖已公开版本。
 
-## 参加 MVP 试用
+## 参加 GitHub 公开 MVP 试用
 
-试用者只需要带一个可公开说明的测试页面，按“一分钟开始”调用 Skill，然后提交 [MVP 试用反馈](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=mvp-trial.yml)。反馈表会统一记录首次成功耗时、Registry 是否命中、业务是否回归以及回退结果；不要上传公司私有代码、截图、日志或访问凭证。
+试用者只需要带一个可公开说明的 Web 或 Taro H5 测试页面，按“一分钟开始”调用 Skill，然后提交 [MVP 试用反馈](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=mvp-trial.yml)。反馈表会统一记录首次成功耗时、Registry 是否命中、业务是否回归以及回退结果。公司内部项目不要走此入口，使用上面的内部通道。
 
 ## 5 分钟启动 Demo
 
@@ -222,6 +240,7 @@ research/okr.md         当前目标、完成度与下一阶段门槛
 npm run sync:skills
 npm run build:brand-registry
 npm run validate:brand
+npm run test:brand-trial
 npm run test:brand-wild-design
 npm run package:brand-skill
 npm run validate:brand-skill-release

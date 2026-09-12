@@ -31,6 +31,8 @@ jobs:
         run: npm ci
       - name: Verify Registry-first reuse
         run: npm run test:brand-registry-reuse
+      - name: Verify trial channel boundaries
+        run: npm run test:brand-trial
       - name: Build for GitHub Pages
         run: npm run build:github-pages
       - name: Configure GitHub Pages

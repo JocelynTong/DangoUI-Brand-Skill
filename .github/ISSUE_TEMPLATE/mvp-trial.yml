@@ -5,18 +5,21 @@ body:
   - type: markdown
     attributes:
       value: |
-        感谢参与公开 MVP。请只填写可公开的信息，不要上传公司私有代码、截图、完整日志、内网地址、密钥或个人信息。
+        感谢参与 GitHub 公开通道 MVP。本表不是公司内部试点入口；请只填写可公开的信息，不要上传公司私有代码、截图、完整日志、内网地址、密钥、个人信息或未经审核的素材。
+  - type: checkboxes
+    id: public_channel
+    attributes:
+      label: 试用通道确认
+      options:
+        - label: 我确认本次是 GitHub 公开通道试用；内部项目将使用本地 `.brand-trials/` 记录，不在此提交。
+          required: true
   - type: dropdown
     id: platform
     attributes:
       label: 验证平台
       options:
         - Web
-        - Taro H5
-        - 微信小程序开发者工具
-        - 微信小程序 Android 真机
-        - 微信小程序 iOS 真机
-        - 其他
+        - Taro H5（实验性）
     validations:
       required: true
   - type: dropdown
@@ -40,7 +43,7 @@ body:
     id: public_source
     attributes:
       label: 使用的公开品牌来源
-      description: 只填写公开 URL；无法公开时填写“私有来源，不披露”。
+      description: 只填写公开 URL；私有来源请转入内部通道，不要在 GitHub 披露。
       placeholder: https://example.com/
     validations:
       required: true
