@@ -1,0 +1,97 @@
+name: MVP 试用反馈
+description: 记录首次安装、Registry 复用和真实页面应用结果
+title: "[MVP Trial] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        感谢参与公开 MVP。请只填写可公开的信息，不要上传公司私有代码、截图、完整日志、内网地址、密钥或个人信息。
+  - type: dropdown
+    id: platform
+    attributes:
+      label: 验证平台
+      options:
+        - Web
+        - Taro H5
+        - 微信小程序开发者工具
+        - 微信小程序 Android 真机
+        - 微信小程序 iOS 真机
+        - 其他
+    validations:
+      required: true
+  - type: dropdown
+    id: install_result
+    attributes:
+      label: 是否在无人协助下完成安装
+      options:
+        - 是
+        - 否，需要维护者协助
+        - 已预装，本次未验证安装
+    validations:
+      required: true
+  - type: input
+    id: time_to_first_result
+    attributes:
+      label: 从开始到首次可见结果耗时
+      placeholder: 例如 12 分钟
+    validations:
+      required: true
+  - type: input
+    id: public_source
+    attributes:
+      label: 使用的公开品牌来源
+      description: 只填写公开 URL；无法公开时填写“私有来源，不披露”。
+      placeholder: https://example.com/
+    validations:
+      required: true
+  - type: dropdown
+    id: registry_result
+    attributes:
+      label: Registry 结果
+      options:
+        - 命中已有 Style Pack，未重复学习
+        - 未命中，进入新品牌学习
+        - Registry 不可访问
+        - 不确定
+    validations:
+      required: true
+  - type: textarea
+    id: page_scope
+    attributes:
+      label: 测试页面和结果
+      description: 说明页面类型、视觉承载力和是否得到可见结果，不要粘贴私有代码或截图。
+      placeholder: Taro H5 活动列表页；保留原内容后成功生成两个视觉方向。
+    validations:
+      required: true
+  - type: dropdown
+    id: business_safety
+    attributes:
+      label: 业务数据、路由、提交语义是否保持正常
+      options:
+        - 是
+        - 否
+        - 本次未覆盖
+    validations:
+      required: true
+  - type: dropdown
+    id: rollback
+    attributes:
+      label: 回退验证
+      options:
+        - 已验证，可完整恢复
+        - 回退失败
+        - 本次未执行
+    validations:
+      required: true
+  - type: textarea
+    id: blockers
+    attributes:
+      label: 最大卡点或能力缺口
+      description: 请描述用户看到的现象和期望；提交前删除私有路径、内部域名和敏感数据。
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: 公开信息确认
+      options:
+        - label: 我确认本反馈不包含私有代码、截图、完整日志、内网地址、密钥或个人信息。
+          required: true

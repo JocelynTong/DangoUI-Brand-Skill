@@ -115,6 +115,10 @@ MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录�
 - 不包含私有链接、本机路径、密钥或未经确认可分发的官网原始素材。
 - 更新已有品牌时递增版本，不覆盖已公开版本。
 
+## 参加 MVP 试用
+
+试用者只需要带一个可公开说明的测试页面，按“一分钟开始”调用 Skill，然后提交 [MVP 试用反馈](https://github.com/JocelynTong/Dangoui-Design-System-Skill/issues/new?template=mvp-trial.yml)。反馈表会统一记录首次成功耗时、Registry 是否命中、业务是否回归以及回退结果；不要上传公司私有代码、截图、日志或访问凭证。
+
 ## 5 分钟启动 Demo
 
 只想体验时可直接打开[公共 Demo](https://jocelyntong.github.io/Dangoui-Design-System-Skill/)。需要本地开发时再执行以下步骤。
