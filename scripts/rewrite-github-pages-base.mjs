@@ -1,10 +1,16 @@
-import { readdir, readFile, writeFile } from "node:fs/promises";
+import { copyFile, mkdir, readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const outputDirectory = path.resolve("dist");
 const repositoryPath = "/Dangoui-Design-System-Skill";
 const textExtensions = new Set([".css", ".html", ".js", ".json", ".map", ".svg"]);
 const publicRoots = ["assets", "brand-previews", "brand-registry", "data"];
+
+await mkdir(path.join(outputDirectory, "data"), { recursive: true });
+await copyFile(
+  path.resolve("data/dangoui.design-system.json"),
+  path.join(outputDirectory, "data/dangoui.design-system.json"),
+);
 
 async function visit(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
