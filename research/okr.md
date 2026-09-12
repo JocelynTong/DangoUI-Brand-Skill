@@ -27,7 +27,7 @@
 | KR1.4 声明发布、平台与素材复用状态 | ✅ 完成 | `publicationStatus`、`platformSupport`、`reusePolicy` |
 | KR1.5 公共协议和生成校验 | ✅ 完成 | Registry v0.2 schema、构建脚本、preview validator |
 | KR1.6 首批公开样本 | ✅ 完成 | ONE PIECE、Pokémon；Web 均为 `verified` |
-| KR1.7 公网部署和真实外部访问 | ✅ 完成 | `https://dangoui-brand-library.jocelyntong1991.chatgpt.site` 已发布为公开站 |
+| KR1.7 公网部署和真实外部访问 | ✅ 完成 | `https://jocelyntong.github.io/Dangoui-Design-System-Skill/` 已通过 GitHub Pages 发布并完成外部访问验证 |
 
 O1 结论：Web MVP 已达到当前放行标准。产品形态不需要先做账号系统，继续采用“公开读取 + PR 审核写入”，把注意力留给品牌学习质量与复用率。
 
