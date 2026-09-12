@@ -73,8 +73,6 @@ Claude Code 中将 `$brand` 写成 `/brand`。
 | iOS / Android / Flutter / 鸿蒙 | 尚未验证 |
 | 双通道试用 | 入口与隔离规则已就绪，真实用户样本待招募 |
 
-详细进度、证据和下一阶段门槛见 [research/okr.md](research/okr.md)。
-
 ## 一套核心，两条试用通道
 
 不拆成两套 Skill，也不复制两份品牌资产。内部员工和 GitHub 用户共享 Brand Skill、Brand MOD、DangoUI mapping、公共 Registry 和质量门槛，只把输入、反馈与平台验证范围隔离。
@@ -229,7 +227,6 @@ public/brand-registry/  版本化公共 Registry 产物
 schemas/                Brand MOD 与 Registry 协议
 src/                    Vue Demo 站
 scripts/                构建、同步和质量校验
-research/okr.md         当前目标、完成度与下一阶段门槛
 ```
 
 只维护 `skills/brand/`，不要手工同步 `.claude/skills/brand/`。
