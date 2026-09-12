@@ -1,0 +1,69 @@
+{
+  "brand": "onepiece-cardgame",
+  "demoPurpose": "brand-learning-capability-test",
+  "pages": [
+    {
+      "id": "campaign-home",
+      "proofRole": "source-calibration",
+      "scenarioRole": "campaign discovery",
+      "sourceNavigation": "home hero",
+      "selectedPagesReason": "validates campaign media, overlay nav and CTA",
+      "interactiveStates": [
+        "menu-open indicator",
+        "hero carousel"
+      ],
+      "assetRoles": [
+        "brand-mark",
+        "hero/campaign art"
+      ]
+    },
+    {
+      "id": "product-gallery",
+      "proofRole": "source-calibration",
+      "scenarioRole": "product discovery",
+      "sourceNavigation": "PRODUCTS",
+      "selectedPagesReason": "validates square product media and category navigation",
+      "interactiveStates": [
+        "active category",
+        "more link"
+      ],
+      "assetRoles": [
+        "product media",
+        "action-indicator"
+      ]
+    },
+    {
+      "id": "event-news",
+      "proofRole": "generative-held-out",
+      "scenarioRole": "held-out event discovery",
+      "sourceNavigation": null,
+      "selectedPagesReason": "proves frozen editorial rhythm and black-white taxonomy controls using original fixtures without copying an Events page",
+      "interactiveStates": [
+        "black-white selected format",
+        "editorial hierarchy",
+        "terminal action"
+      ],
+      "assetRoles": [
+        "original test-fixture media"
+      ]
+    }
+  ],
+  "generativeChallenge": {
+    "id": "onepiece-editorial-held-out-v1",
+    "mapsToSourcePageId": null,
+    "recipeIds": [
+      "black-white-taxonomy-control",
+      "editorial-module-rhythm",
+      "image-pill-hover-feedback"
+    ],
+    "status": "awaiting-v3-blind-qa"
+  },
+  "assetRoleCoverage": {
+    "hero": true,
+    "navigation": true,
+    "cta": true,
+    "card": true,
+    "frame": true
+  },
+  "status": "evidence-v3-ready-for-demo-qa"
+}

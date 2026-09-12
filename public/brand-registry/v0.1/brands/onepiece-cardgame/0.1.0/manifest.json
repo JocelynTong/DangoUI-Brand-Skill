@@ -1,0 +1,40 @@
+{
+  "schema": "public-brand-manifest.v0.1",
+  "id": "onepiece-cardgame",
+  "displayName": "ONE PIECE CARD GAME",
+  "version": "0.1.0",
+  "publicationStatus": "public-preview",
+  "canonicalSources": [
+    "https://asia-en.onepiece-cardgame.com/"
+  ],
+  "sourceHost": "asia-en.onepiece-cardgame.com",
+  "preview": "/brand-previews/onepiece-cardgame.json",
+  "artifacts": {
+    "brand-mod": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/brand-mod.json",
+    "brand-evidence": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/brand-evidence.json",
+    "brand-intent": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/brand-intent.json",
+    "style": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/style.json",
+    "dangoui-adapter": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/dangoui-adapter.json",
+    "component-mapping": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/component-mapping.json",
+    "preview-gate": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/preview-gate.json",
+    "fidelity-report": "/brand-registry/v0.1/brands/onepiece-cardgame/0.1.0/fidelity-report.json"
+  },
+  "platformSupport": {
+    "web": "verified",
+    "taroH5": "planned",
+    "weapp": "unverified",
+    "ios": "unverified",
+    "android": "unverified",
+    "flutter": "unverified",
+    "harmonyos": "unverified"
+  },
+  "reusePolicy": {
+    "metadataAndRules": "public",
+    "runtimeAssets": "review-required"
+  },
+  "verification": {
+    "web": "fidelity-pass",
+    "standardDemo": true
+  },
+  "updatedAt": "2026-09-01T00:00:00.000Z"
+}

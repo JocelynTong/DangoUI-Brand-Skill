@@ -86,7 +86,7 @@ if (command === "detect") {
 }
 
 if (command === "plan") {
-  const outputAudit = auditWorkflowOutputs({ root, mode, brand });
+  const outputAudit = auditWorkflowOutputs({ root, mode, brand, args: passthroughArgs });
   process.stdout.write(`${JSON.stringify({
     ok: true,
     command,
@@ -109,7 +109,7 @@ if (command === "plan") {
     missingOutputs: outputAudit.missingOutputs,
     nextAction: outputAudit.nextAction,
     previewArtifacts: outputAudit.previewArtifacts,
-    howToTest: buildHowToTest({ mode, brand }),
+    howToTest: buildHowToTest({ root, mode, brand }),
     message: "Workflow plan generated. This command only shows the resolved flow and current missing outputs.",
   }, null, 2)}\n`);
   process.exit(0);
@@ -221,7 +221,7 @@ if (command === "tpp") {
   process.exit(0);
 }
 
-const outputAudit = auditWorkflowOutputs({ root, mode, brand });
+const outputAudit = auditWorkflowOutputs({ root, mode, brand, args: passthroughArgs });
 const completed = outputAudit.missingOutputs.length === 0;
 const progress = buildProgressSummary({ mode, outputAudit, executed });
 
@@ -244,7 +244,7 @@ process.stdout.write(`${JSON.stringify({
   missingOutputs: outputAudit.missingOutputs,
   nextAction: outputAudit.nextAction,
   previewArtifacts: outputAudit.previewArtifacts,
-  howToTest: buildHowToTest({ mode, brand }),
+  howToTest: buildHowToTest({ root, mode, brand }),
   message: completed
     ? "Brand workflow gate passed and the expected outputs are present."
     : "Brand workflow gate passed, but the expected outputs are still incomplete. Keep going until the missing outputs are generated.",
@@ -508,6 +508,20 @@ function executeWorkflow({ root, mode, brand, args, executed }) {
       executed,
     });
     return;
+  }
+
+  const wild = resolveWildDesignSet({ root, brand, args });
+  const wildResult = runNodeCheck({
+    root,
+    script: "skills/brand/scripts/validate-wild-design-decision.mjs",
+    label: "wild-design-selection",
+    enabled: fs.existsSync(path.join(root, "skills/brand/scripts/validate-wild-design-decision.mjs")),
+    scriptArgs: wild.args,
+    executed,
+  });
+  if (wildResult.status !== "passed") {
+    process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "wild-design-selection", blockingCode: "WILD_DESIGN_GATE_BLOCKED", gate: wildResult, message: "Host implementation is blocked until a user-bound Wild Design decision passes." }, null, 2)}\n`);
+    process.exit(1);
   }
 
   if (opt(args, "--plan-file", "")) {
@@ -1070,20 +1084,73 @@ function buildProgressSummary({ mode, outputAudit, executed }) {
   };
 }
 
-function buildHowToTest({ mode, brand }) {
+function buildHowToTest({ root, mode, brand }) {
   const brandArgs = brand ? ` --brand ${brand}` : "";
+  const wild = resolveWildDesignSet({ root, brand });
+  const options = wild.options || `migrations/${brand}/design-direction-options.json`;
+  const decision = wild.decision || `migrations/${brand}/design-direction-decision.json`;
+  const scope = wild.scope || `migrations/${brand}/business-scope.json`;
+  const direction = wild.direction || `migrations/${brand}/design-direction.json`;
+  const brandEvidence = wild.brandEvidence || `migrations/${brand}/brand-evidence.json`;
+  const wildDesign = brand ? `node skills/brand/scripts/validate-wild-design-decision.mjs --options ${options} --decision ${decision} --business-scope ${scope} --brand-evidence ${brandEvidence} --design-direction ${direction}` : "";
   return {
     plan: `node skills/brand/scripts/run-brand-workflow.mjs plan --mode ${mode}${brandArgs}`,
     tpp: `node skills/brand/scripts/run-brand-workflow.mjs tpp --mode ${mode}${brandArgs}`,
     handoffArtifacts: `node skills/brand/scripts/brand-guard.mjs handoff-artifact-gate --mode ${mode}${brandArgs} --strict`,
+    ...(mode === "apply-host" ? { wildDesign } : {}),
     p0Acceptance: `node skills/brand/scripts/brand-guard.mjs p0-acceptance --mode ${mode}${brandArgs}`,
     status: `node skills/brand/scripts/run-brand-workflow.mjs status --mode ${mode}${brandArgs}`,
     run: `node skills/brand/scripts/run-brand-workflow.mjs run --mode ${mode}${brandArgs}`,
   };
 }
 
-function auditWorkflowOutputs({ root, mode, brand }) {
+function findNestedArtifact(root, basename) {
+  if (!root || !fs.existsSync(root)) return "";
+  const direct = path.join(root, basename);
+  if (fs.existsSync(direct)) return direct;
+  const matches = [];
+  const walk = (dir) => {
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name === basename) matches.push(full);
+    }
+  };
+  walk(root);
+  return matches.length === 1 ? matches[0] : "";
+}
+
+function resolveWildDesignSet({ root, brand, args = [] }) {
   const migrationDir = brand ? path.join(root, "migrations", brand) : "";
+  const options = opt(args, "--wild-design-options", findNestedArtifact(migrationDir, "design-direction-options.json"));
+  const cohortDir = options ? path.dirname(path.resolve(root, options)) : migrationDir;
+  const nearby = (basename) => {
+    let cursor = cohortDir;
+    while (cursor && cursor.startsWith(path.resolve(migrationDir))) {
+      const candidate = path.join(cursor, basename);
+      if (fs.existsSync(candidate)) return candidate;
+      const parent = path.dirname(cursor);
+      if (parent === cursor) break;
+      cursor = parent;
+    }
+    return findNestedArtifact(migrationDir, basename);
+  };
+  const decision = opt(args, "--wild-design-decision", nearby("design-direction-decision.json"));
+  const scope = opt(args, "--wild-design-business-scope", nearby("business-scope.json"));
+  const direction = opt(args, "--design-direction", nearby("design-direction.json"));
+  const brandEvidence = opt(args, "--brand-evidence", path.join(migrationDir, "brand-evidence.json"));
+  const cliArgs = [];
+  if (options) cliArgs.push("--options", options);
+  if (decision) cliArgs.push("--decision", decision);
+  if (scope) cliArgs.push("--business-scope", scope);
+  if (direction) cliArgs.push("--design-direction", direction);
+  if (brandEvidence && fs.existsSync(brandEvidence)) cliArgs.push("--brand-evidence", brandEvidence);
+  return { options, decision, scope, direction, brandEvidence, args: cliArgs };
+}
+
+function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
+  const migrationDir = brand ? path.join(root, "migrations", brand) : "";
+  const wild = mode === "apply-host" ? resolveWildDesignSet({ root, brand, args }) : null;
   const previewFile = brand ? path.join(root, "public", "brand-previews", `${brand}.json`) : "";
   const previewRegistry = path.join(root, "public", "brand-previews", "registry.json");
   const files = {
@@ -1104,11 +1171,25 @@ function auditWorkflowOutputs({ root, mode, brand }) {
     generativeProof: migrationDir ? path.join(migrationDir, "generative-proof.json") : "",
     retroLearnings: migrationDir ? path.join(migrationDir, "retro-learnings.json") : "",
     componentMapping: migrationDir ? path.join(migrationDir, "component-mapping.json") : "",
+    wildOptions: wild?.options || "",
+    wildDecision: wild?.decision || "",
+    wildScope: wild?.scope || "",
+    designDirection: wild?.direction || "",
+    structuralTargets: migrationDir ? findNestedArtifact(migrationDir, "structural-targets.json") : "",
+    preeditBaselineBundle: migrationDir ? findNestedArtifact(migrationDir, "preedit-baseline-bundle.json") : "",
     previewFile,
   };
   const exists = Object.fromEntries(
     Object.entries(files).map(([key, value]) => [key, Boolean(value) && fs.existsSync(value)]),
   );
+  const wildDesignGate = mode === "apply-host" && exists.wildOptions && exists.wildDecision && exists.wildScope && exists.designDirection
+    ? runSilentNodeCheck({
+      root,
+      script: "skills/brand/scripts/validate-wild-design-decision.mjs",
+      scriptArgs: wild.args,
+    })
+    : null;
+  const wildDesignPassed = wildDesignGate?.status === "passed";
   const registryHasBrand = brand ? previewRegistryIncludes(previewRegistry, brand) : false;
   const staticPreviewGate = mode === "learn-brand" && brand
     ? runSilentNodeCheck({
@@ -1235,6 +1316,12 @@ function auditWorkflowOutputs({ root, mode, brand }) {
 
   const outputStatus = [
     {
+      key: "wild-design-selection",
+      status: wildDesignPassed ? "complete" : exists.wildOptions || exists.wildDecision ? "blocked" : "missing",
+      file: rel(root, files.wildDecision),
+      gate: summarizeSilentCheck(wildDesignGate),
+    },
+    {
       key: "host-opportunity-map-or-intent-plan",
       status: exists.hostOpportunity || exists.intentPlan ? "complete" : "missing",
       file: rel(root, exists.hostOpportunity ? files.hostOpportunity : files.intentPlan),
@@ -1267,9 +1354,11 @@ function auditWorkflowOutputs({ root, mode, brand }) {
       "load-existing-mod": exists.brandMod || exists.brandEvidence || exists.brandIntent ? "complete" : "pending",
       "diagnose-host": "complete",
       "assess-host-visual-capacity": exists.hostOpportunity || exists.intentPlan ? "complete" : "pending",
+      "wild-design-selection": wildDesignPassed ? "complete" : exists.wildOptions || exists.wildDecision ? "blocked" : "pending",
+      "freeze-host-structural-baselines": exists.structuralTargets && exists.preeditBaselineBundle ? "complete" : "pending",
       "tpp-test": "complete",
       "map-to-dangoui": exists.dangouiAdapter || exists.componentMapping ? "complete" : "pending",
-      "apply-preview": exists.previewGate && (exists.computedEvidence || exists.visualQuality) ? "complete" : "pending",
+      "apply-preview": wildDesignPassed && exists.previewGate && (exists.computedEvidence || exists.visualQuality) ? "complete" : "pending",
       "visual-qa": exists.visualQa || exists.visualQuality ? "complete" : "pending",
       "record-retro": exists.retroLearnings ? "complete" : "pending",
     },

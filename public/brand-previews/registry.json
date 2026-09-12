@@ -1,10 +1,17 @@
 {
-  "schema": "brand-preview-registry.v0.1",
-  "updatedAt": "2026-08-08",
+  "schema": "brand-preview-registry.v0.2",
+  "updatedAt": "2026-09-12T00:00:00.000Z",
+  "access": {
+    "read": "public",
+    "authentication": "none",
+    "write": "curated-pull-request"
+  },
   "brands": [
     {
       "id": "onepiece-cardgame",
       "displayName": "ONE PIECE CARD GAME",
+      "version": "0.1.0",
+      "publicationStatus": "public-preview",
       "path": "/brand-previews/onepiece-cardgame.json",
       "migrationRoot": "migrations/onepiece-cardgame",
       "demoPurpose": "brand-learning-capability-test",
@@ -13,13 +20,66 @@
       "businessApply": false,
       "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
       "sourceHost": "asia-en.onepiece-cardgame.com",
+      "canonicalSources": [
+        "https://asia-en.onepiece-cardgame.com/"
+      ],
+      "artifactFiles": [
+        "brand-mod.json",
+        "brand-evidence.json",
+        "brand-intent.json",
+        "style.json",
+        "dangoui-adapter.json",
+        "component-mapping.json",
+        "preview-gate.json",
+        "fidelity-report.json"
+      ],
+      "platformSupport": {
+        "web": "verified",
+        "taroH5": "planned",
+        "weapp": "unverified",
+        "ios": "unverified",
+        "android": "unverified",
+        "flutter": "unverified",
+        "harmonyos": "unverified"
+      },
+      "reusePolicy": {
+        "metadataAndRules": "public",
+        "runtimeAssets": "review-required"
+      },
       "updatedAt": "2026-09-01T00:00:00.000Z"
     },
     {
       "id": "pokemon-tcg-official",
       "displayName": "Pokémon TCG Official",
+      "version": "0.1.0",
+      "publicationStatus": "public-preview",
       "sourceUrl": "https://tcg.pokemon.com/en-us/",
       "sourceHost": "tcg.pokemon.com",
+      "canonicalSources": [
+        "https://tcg.pokemon.com/en-us/"
+      ],
+      "artifactFiles": [
+        "brand-mod.json",
+        "brand-evidence.json",
+        "brand-intent.json",
+        "style.json",
+        "dangoui-adapter.json",
+        "component-mapping.json",
+        "fidelity-report.json"
+      ],
+      "platformSupport": {
+        "web": "verified",
+        "taroH5": "planned",
+        "weapp": "unverified",
+        "ios": "unverified",
+        "android": "unverified",
+        "flutter": "unverified",
+        "harmonyos": "unverified"
+      },
+      "reusePolicy": {
+        "metadataAndRules": "public",
+        "runtimeAssets": "review-required"
+      },
       "path": "/brand-previews/pokemon-tcg-official.json",
       "migrationRoot": "migrations/pokemon-tcg-official",
       "demoPurpose": "brand-learning-capability-test",

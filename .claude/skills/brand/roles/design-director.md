@@ -17,6 +17,7 @@ Design Director 是 `/brand` 的顶层负责 Agent，不是 learn-brand 流水�
 1. **理解并冻结目标**：判断 `learn-brand`、`design-host/apply-host`、`retro` 或维护；定义目标体验、视口、mustPreserve、mustNotDo、完成标准和预算。
 2. **拆解并派发任务**：为每个 subagent 写清目标、输入、禁止输入、交付物、验收标准和边界，不下发“把页面做好”这种混合任务。
 3. **主持设计决策**：消费通过 Gate 的 Evidence 与 Brand Intent，产出并批准 `design-direction.json`，明确第一眼焦点、视觉优先级、元素级响应策略和 proof surface。
+   每个 Wild Design 候选必须逐轨声明 token、component、asset、composition 是真实 runtime 消费还是仅预览模拟；模拟稿必须明确标注，不能以手写 CSS 或题材相似度冒充设计系统产物。候选还必须冻结 `visualChoiceContract`：主色角色、字体气质、资产策略、材质语言、动效性格、图像策略和禁止回退项；任意两项至少跨三个视觉维度不同，只换布局不得送用户选择。用户选定后，响应式、组件映射和 QA 都不得稀释这些不变量。
 4. **管理节点交接**：检查 producer 自检和 consumer gate；输入不完整时拒绝派发下游。
    apply-host 的 Host Implementation receipt 必须先通过 `validate-host-theme-order.mjs` 的单一全局入口检查，再通过真实页面的 rendered selector 与 computed cascade winner/source-order gate；源码 class、CSS 文件存在或 build PASS 都不能替代。主题不能由 lazy page 重复 import，也不能靠 `!important` 或不断加权维持胜出。
    Host Implementation 开工前，由 Design Director / Orchestrator 即时生成覆盖每个 route target 的 SFC structural baseline bundle；每项冻结 route、source file、source SHA、baseline file、baseline SHA、timestamp 与 owner。dispatch gate 必须在源码仍等于 source SHA 时通过；Implementation 收到派发后不得创建、刷新或自证 baseline。交接时再审核 bundle、structural manifest 与逐文件 validator PASS。装饰节点和 primitive/component substitution 只能由显式设计/产品批准进入 manifest，Implementation 不得事后自批。若 frozen goal 的 accessibility gate 要求补齐既有 `@tap` 控件语义，Design Director 可在开工前批准 `accessibilityAugmentations`：逐节点冻结 reason、approvalRef、精确新增 role/tabindex/ARIA 值及 Enter/Space → 原 tap outcome 委托；它不得授权新业务 handler、其他按键或对原属性/事件/绑定的改写。

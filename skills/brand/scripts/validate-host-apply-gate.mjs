@@ -2,10 +2,21 @@
 import fs from "node:fs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { createHash } from "node:crypto";
 const args=process.argv.slice(2), value=f=>{const i=args.indexOf(f);return i>=0?args[i+1]:undefined};
 const read=(f,required=true)=>{const p=value(f);if(!p&&required)throw new Error(`${f} is required.`);return p?JSON.parse(fs.readFileSync(path.resolve(p),"utf8")):null};
 const failures=[], fail=(code,message,context={})=>failures.push({code,message,...context});
 let receipt,capability,plan,qa,distinctiveness;try{receipt=read("--receipt");capability=read("--capability-audit");plan=read("--plan");qa=read("--qa",false);distinctiveness=read("--distinctiveness")}catch(error){console.error(JSON.stringify({ok:false,failures:[{code:"HOST_GATE_INPUT_UNREADABLE",message:error.message}]},null,2));process.exit(2)}
+const wildFiles={options:value("--wild-options"),decision:value("--wild-decision"),scope:value("--wild-business-scope"),direction:value("--design-direction"),brandEvidence:value("--brand-evidence")};
+if(!Object.values(wildFiles).every(Boolean))fail("WILD_DESIGN_ARTIFACT_SET_INCOMPLETE","Host apply must receive the complete Wild Design options, decision, business scope and design direction set.");
+if(Object.values(wildFiles).every(Boolean)){
+  const wildGate=path.resolve(path.dirname(new URL(import.meta.url).pathname),"validate-wild-design-decision.mjs");
+  const resolved=Object.fromEntries(Object.entries(wildFiles).map(([key,file])=>[key,path.resolve(file)]));
+  const wildResult=spawnSync(process.execPath,[wildGate,"--options",resolved.options,"--decision",resolved.decision,"--business-scope",resolved.scope,"--design-direction",resolved.direction,"--brand-evidence",resolved.brandEvidence],{encoding:"utf8"});
+  if(wildResult.status!==0)fail("WILD_DESIGN_GATE_FAILED",(wildResult.stdout||wildResult.stderr||"Wild Design validation failed.").trim());
+  const sha=file=>createHash("sha256").update(fs.readFileSync(file)).digest("hex"), expected={optionsSha256:sha(resolved.options),decisionSha256:sha(resolved.decision),businessScopeSha256:sha(resolved.scope),designDirectionSha256:sha(resolved.direction),brandEvidenceSha256:sha(resolved.brandEvidence)};
+  for(const [key,hash] of Object.entries(expected))if(receipt.wildDesignBindings?.[key]!==hash)fail("WILD_DESIGN_RECEIPT_BINDING_MISMATCH",`Host implementation receipt must bind ${key}.`,{key});
+}
 const gapsFile=value("--capability-gaps");
 if(!gapsFile)fail("DANGOUI_CAPABILITY_GAPS_REQUIRED","Host apply requires a classified local DangoUI capability-gap report.");
 else{const gapGate=path.resolve(path.dirname(new URL(import.meta.url).pathname),"validate-dangoui-gaps.mjs"),gapResult=spawnSync(process.execPath,[gapGate,"--report",path.resolve(gapsFile)],{encoding:"utf8"});if(gapResult.status!==0)fail("DANGOUI_CAPABILITY_GAPS_FAILED",(gapResult.stdout||gapResult.stderr||"Capability-gap validation failed.").trim())}

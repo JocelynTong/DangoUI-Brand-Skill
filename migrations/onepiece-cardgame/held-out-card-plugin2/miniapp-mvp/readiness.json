@@ -1,0 +1,44 @@
+{
+  "schema": "miniapp-mod-mvp-readiness/v1",
+  "updatedAt": "2026-09-11T20:00:00+08:00",
+  "brand": "onepiece-cardgame",
+  "host": "card-plugin2.0/frontend",
+  "targetPlatform": "taro-weapp-dimina",
+  "scope": {
+    "route": "/pages/event/index?id=0",
+    "direction": "A / official-events red field",
+    "preserves": [
+      "event data",
+      "event status",
+      "schedule content",
+      "deck and round navigation outcomes"
+    ]
+  },
+  "runtimePolicy": {
+    "h5": "real-dangoui-runtime",
+    "weappDimina": "dangoui-semantic-contract-plus-host-node-adapter",
+    "reason": "dangoui@3.6.16 Vue components are known to render blank in Taro + Dimina"
+  },
+  "checks": {
+    "weappBuild": "PASS",
+    "h5RegressionBuild": "PASS",
+    "miniRuntimeVisual": "PENDING_DEVELOPER_TOOL",
+    "android": "PENDING",
+    "ios": "PENDING",
+    "qdmpPackage": "BLOCKED_MISSING_QDMP_JSON",
+    "testUpload": "BLOCKED_QDMP_NOT_AUTHENTICATED"
+  },
+  "build": {
+    "command": "npm run build:weapp:onepiece-mvp",
+    "output": "card-plugin2.0/frontend/dist",
+    "distKiB": 26336,
+    "appOriginWxssKiB": 2701.65,
+    "note": "The remaining large WXSS is primarily inherited from the existing Pokémon host theme, including embedded visual assets; the mini ONE PIECE slice itself is isolated."
+  },
+  "nextUnblock": [
+    "Run qdmp login with the developer account",
+    "Create qdmp.json locally with the test mini-app appId/appSecret; do not commit the secret",
+    "Run qdmp build -t weapp and qdmp upload -e test",
+    "Complete developer-tool, Android and iOS runtime checks"
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "version": "0.10",
+  "version": "0.12",
   "roleContractVersion": "3.0",
   "command": "/brand",
   "owner": "brand",
@@ -125,7 +125,7 @@
     "executionManifest": "migrations/{brand}/execution-manifest.json",
     "rules": [
       "Design Director / Orchestrator is the top-level accountable agent, not a sequential subagent stage.",
-      "The top-level agent owns goal freeze, work decomposition, design-direction.json, dispatch, failure routing and final sign-off.",
+      "The top-level agent owns goal freeze, work decomposition, Wild Design user selection, design-direction.json, dispatch, failure routing and final sign-off.",
       "Freeze and hash the goal contract before dispatching Evidence.",
       "Each subagent stage receives only the allowed inputs declared by its role contract.",
       "After Interpreter passes, the top-level agent must create and validate design-direction.json before Demo can be dispatched.",
@@ -142,7 +142,7 @@
     "position": "top-level-accountable-agent",
     "roleFile": "roles/design-director.md",
     "owns": ["goal freeze", "task decomposition", "design direction", "subagent dispatch", "consumer gates", "failure routing", "issue scope classification", "cross-brand regression matrix", "failed-learning asset retirement", "scope and budget", "final aesthetic sign-off"],
-    "outputs": ["goal-contract.json", "execution-manifest.json", "design-direction.json", "dispatch packets", "phase decisions", "incident-retro.json when required"],
+    "outputs": ["goal-contract.json", "execution-manifest.json", "design-direction-options.json", "design-direction-decision.json", "design-direction.json", "dispatch packets", "phase decisions", "incident-retro.json when required"],
     "mustNot": ["replace specialist subagents", "self-approve Blind QA", "invent source evidence", "lower frozen thresholds", "treat build success as visual success", "close a shared-platform incident with a single-brand pass", "leave rejected experiments in registry as future learning seeds"]
   },
   "executionProfiles": {
@@ -292,7 +292,7 @@
       "owns": ["selector-map", "host theme CSS", "host asset wiring", "host build and computed verification"],
       "outputs": ["selector-map.json", "host project preview URL", "computed verification result", "host implementation receipt"],
       "inputs": {
-        "required": ["validated brand-mod.json", "brand-intent.json", "host-opportunity-map.json or intent-plan.json", "host target"],
+        "required": ["validated brand-mod.json", "brand-evidence.json", "brand-intent.json", "host-opportunity-map.json or intent-plan.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json", "host target"],
         "allowed": ["DangoUI schema", "host source and rendered DOM", "host business constraints", "host QA blocking findings"],
         "forbidden": ["source website composition as a host page specification", "permission to replace host business content", "learn-brand Demo as the host target"]
       },
@@ -310,7 +310,7 @@
       "owns": ["visual fidelity", "over-application", "readability", "scrolling", "interaction contract", "asset loading"],
       "outputs": ["visual-qa-assessment.json", "visual-comparison-report.json", "brand-distinctiveness-assessment.json", "fidelity-report.json", "mockup-state-matrix.json", "three-proof verdict"],
       "inputs": {
-        "required": ["goal-contract.json", "source screenshot manifest", "demo screenshot manifest", "visual-pattern-inventory.json", "generative-proof.json", "qa-input-manifest.json"],
+        "required": ["goal-contract.json", "brand-evidence.json", "source screenshot manifest", "demo screenshot manifest", "visual-pattern-inventory.json", "generative-proof.json", "qa-input-manifest.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json", "host implementation receipt with Wild Design SHA-256 bindings"],
         "allowed": ["source interaction captures", "demo interaction captures", "asset provenance manifest"],
         "forbidden": ["implementation rationale", "implementation narrative", "desired verdict", "previous QA verdict", "build pass as fidelity evidence", "translation claims absent from goal contract"]
       },
@@ -371,7 +371,9 @@
   "handoffArtifacts": {
     "brand-evidence.json": "Facts from rendered source: DOM, computed styles, assets, actions, screenshots, and third-party seeds.",
     "brand-intent.json": "Meaning and usage guidance for brand patterns. This prevents captured-but-not-understood failures.",
-    "design-direction.json": "Design Director approval for visual objective, priority order, responsive strategy matrix and independent proof surfaces before implementation.",
+    "design-direction-options.json": "Two or three rendered directions over the same business scope, with explicit density, asset, structure and motion differences.",
+    "design-direction-decision.json": "User selection, mix, rejection, or explicit delegation to the recommended direction, bound to the exact options hash.",
+    "design-direction.json": "Design Director approval that inherits the Wild Design decision, visual objective, priority order, responsive strategy matrix and independent proof surfaces before implementation.",
     "host-opportunity-map.json": "Host page fit analysis. This prevents putting strong C-side visuals into low-capacity efficiency pages.",
     "intent-plan.json": "Approved application decision for a specific host project.",
     "visual-qa-report.json": "Rendered design review: what looks right, what looks wrong, and what must be downgraded.",
@@ -618,6 +620,15 @@
           "outputs": ["host-opportunity-map.json", "intent-plan.json", "visualPlacementPolicy"]
         },
         {
+          "id": "wild-design-selection",
+          "role": "designDirectorOrchestrator",
+          "label": "Show two or three visual directions for the same business scope, declare token/component/asset/composition consumption per option, and bind the user's choice before implementation",
+          "required": true,
+          "blocking": true,
+          "outputs": ["design-direction-options.json", "design-direction-decision.json"],
+          "gates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>"]
+        },
+        {
           "id": "freeze-host-structural-baselines",
           "role": "designDirectorOrchestrator",
           "label": "Freeze a pre-edit structural baseline for every route target after opportunity-map approval and before Host Implementation dispatch",
@@ -646,7 +657,7 @@
           "label": "Apply and verify preview in host project",
           "required": true,
           "outputs": ["host project preview URL", "rendered cascade proof", "host structural manifest/result", "host implementation receipt"],
-          "producerGates": ["node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt", "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"]
+          "producerGates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt", "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"]
         },
         {
           "id": "visual-qa",
@@ -655,7 +666,7 @@
           "required": true,
           "outputs": ["visual-qa-report.json", "brand-distinctiveness-assessment.json", "p0-acceptance report"],
           "readOnly": true,
-          "gates": ["node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>", "node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>", "node skills/brand/scripts/validate-host-apply-gate.mjs --receipt <receipt> --capability-audit <audit> --plan <intent-plan> --qa <visual-qa-report.json> --distinctiveness <brand-distinctiveness-result.json> --capability-gaps <dangoui-capability-gaps.json>"],
+          "gates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>", "node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>", "node skills/brand/scripts/validate-host-apply-gate.mjs --receipt <receipt> --capability-audit <audit> --plan <intent-plan> --qa <visual-qa-report.json> --distinctiveness <brand-distinctiveness-result.json> --capability-gaps <dangoui-capability-gaps.json> --wild-options <design-direction-options.json> --wild-decision <design-direction-decision.json> --wild-business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>"],
           "onFail": {"required": ["blockingFindings", "failureOwnerRole=<earliest-real-owner>"], "next": "return to Evidence, Interpreter/Design Director, or Host Implementation according to cause; then fresh Visual QA"},
           "externalOptional": ["gstack-style design review"]
         },
@@ -683,6 +694,9 @@
         "Host Implementation receipt is invalid until the deterministic host theme load-order gate and real rendered selectors/cascade winner proof pass at desktop and mobile, including cold load and route navigation.",
         "Host Implementation receipt is invalid until every edited Vue SFC passes the pre-edit baseline structural diff gate; class/style hooks are allowed but business script, event, route/API, data/state, component API, conditional/loop source and unapproved primitive substitutions are blocked.",
         "Visual QA is read-only; it returns failures to the earliest real Evidence, Interpreter/Design Director or Host Implementation owner and never repairs production code.",
+        "Host Implementation and Visual QA must revalidate the exact Wild Design options, business scope, user decision, inherited direction-contract hash and selectedVisualChoiceSha256; a changed strategy with unchanged option ids is invalid.",
+        "Wild Design is a visual-style choice, not a layout chooser: every option must freeze dominant color role, typography character, asset strategy, material language, motion character, image policy and forbidden fallbacks, and every pair must differ across at least three visual dimensions.",
+        "After selection, no downstream role may shrink a dominant visual field into an accent, reduce the selected type hierarchy, change complete-versus-cropped image policy, or trigger a forbidden fallback merely to satisfy viewport density; such a conflict returns to the Design Director instead of silently rewriting the user's choice.",
         "No verified DangoUI runtime or component consumer caps mappingStatus at PARTIAL_STYLE_ONLY and wording at conservative-application.",
         "High-capacity placement requires at least three material signals across at least three of visual mass, asset, composition, type and motion; generic palette, archive mood, typography, logos and small icons alone cannot pass.",
         "Report workflowCompletion, businessSafety and visualDistinctiveness separately; never publish a single overall completion percentage."

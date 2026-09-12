@@ -57,6 +57,10 @@
             </ul>
           </div>
           <p style="margin: 8px 0 0; opacity: .72;">宿主 apply：{{ selectedLearningProof.hostApply }}</p>
+          <div v-if="selectedStyle.registry" style="margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(127,127,127,.22); opacity: .78;">
+            <div>公共资产 {{ selectedStyle.registry.version }} · {{ publicationStatusLabel(selectedStyle.registry.publicationStatus) }}</div>
+            <div style="margin-top: 3px;">Web {{ platformSupportLabel(selectedStyle.registry.platformSupport.web) }} · Taro H5 {{ platformSupportLabel(selectedStyle.registry.platformSupport.taroH5) }} · 小程序 {{ platformSupportLabel(selectedStyle.registry.platformSupport.weapp) }}</div>
+          </div>
         </details>
 
         <template v-if="selectedInspectorTab === 'style'">
@@ -9512,7 +9516,7 @@ async function loadRuntimeBrandPreviews() {
       const preview = await previewResponse.json();
       if (!preview?.preset?.id) continue;
       const id = preview.preset.id;
-      previews.push(normalizeRuntimePreset(preview.preset, preview));
+      previews.push(normalizeRuntimePreset(preview.preset, preview, entry));
       recipes[id] = normalizeRuntimeRecipe(preview.styleRecipeDetails);
       pagesByStyle[id] = normalizeRuntimePages(id, preview.pages);
     }
@@ -9525,7 +9529,7 @@ async function loadRuntimeBrandPreviews() {
   }
 }
 
-function normalizeRuntimePreset(preset, preview = {}) {
+function normalizeRuntimePreset(preset, preview = {}, registryEntry = {}) {
   const tokens = Array.isArray(preset.tokens) ? preset.tokens : [];
   const tokenMap = Object.fromEntries(tokens.map((token) => [token.name, token.value]));
   const semanticRoles = preset.semanticRoles || {};
@@ -9576,8 +9580,22 @@ function normalizeRuntimePreset(preset, preview = {}) {
       blockers: Array.isArray(preview.mustVerifyBeforeApply) ? preview.mustVerifyBeforeApply : [],
       ...(preview.learningProof || {}),
     },
+    registry: registryEntry.publicationStatus ? {
+      version: registryEntry.version,
+      publicationStatus: registryEntry.publicationStatus,
+      platformSupport: registryEntry.platformSupport || {},
+      reusePolicy: registryEntry.reusePolicy || {},
+    } : null,
     runtimePreview: true,
   };
+}
+
+function publicationStatusLabel(status) {
+  return ({ draft: "草稿", "public-preview": "公开预览", published: "已发布", retired: "已归档" })[status] || status || "未登记";
+}
+
+function platformSupportLabel(status) {
+  return ({ verified: "已验证", planned: "下一阶段", unverified: "未验证", unsupported: "不支持" })[status] || "未声明";
 }
 
 function normalizeRuntimeRecipe(recipe = {}) {

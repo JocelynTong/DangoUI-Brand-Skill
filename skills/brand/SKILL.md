@@ -1,6 +1,6 @@
 ---
 name: brand
-description: 将品牌网站、DESIGN.md、截图或 Figma/DTCG 资产迁移到 Echo / dangoui。用于统计高频视觉值和组件模式，保持 dangoui 命名不变，生成 token/component mapping，并应用到 demo 验证。
+description: 从品牌官网、活动页、DESIGN.md、截图、Figma 或 DTCG 学习可迁移视觉语言，生成证据、DangoUI token/component mapping 和品牌 Demo，或将已验证 style pack 应用到现有业务项目。用户提到品牌学习、视觉迁移、换肤、style pack、DangoUI 映射或基于参考站改造页面时使用；不用于没有品牌来源的普通 UI 调整。
 ---
 
 # Brand Skill
@@ -70,7 +70,7 @@ node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict
 
 `design-host` 是面向用户和设计组织的完整 Pipeline 名；现有脚本继续使用 `apply-host` 表示其中已经批准后的实现阶段，以保持命令兼容。不得因为进入 `apply-host` 就跳过 Brief、设计方向和设计评审。
 
-apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract](references/host-theme-load-order.md) 建立单一全局主题入口并运行 `validate-host-theme-order.mjs`，再以真实宿主 desktop/mobile 证明 cascade winner。随后必须生成只读的 `brand-distinctiveness-assessment.json`：同视口对照 source/host，遮蔽品牌名、Logo 和显式品牌文字后做 blind recognition，并分别评 visual mass / asset / composition / type / motion。高承载页至少需要 3 个跨 3 个维度、各占视口至少 5% 的可见证据 signal；字体、小 Logo、微图标和 archive 气质不算强表达。先运行 `validate-brand-distinctiveness.mjs`，再把结果传给 `validate-host-apply-gate.mjs --distinctiveness`。Visual QA 只读，FAIL 退回 Evidence、Interpreter/Design Director 或 Host Implementation 的真实 owner，修复后 fresh QA。技术 Gate 或业务安全通过不能补偿视觉辨识度 FAIL；最终必须分列 `workflowCompletion`、`businessSafety`、`visualDistinctiveness`，禁止用单一 overall 百分比误导。没有真实 DangoUI runtime/component consumer 时最高只能报 `PARTIAL_STYLE_ONLY` / `conservative-application`。细则见 `workflow-contract.json` 与角色契约。
+apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract](references/host-theme-load-order.md) 建立单一全局主题入口并运行 `validate-host-theme-order.mjs`，再以真实宿主 desktop/mobile 证明 cascade winner。Host Strategist 完成机会判断后、任何结构冻结或实现之前，必须执行 Wild Design MVP 选择门：以同一业务内容生成 2-3 个轻量可视方向，分别说明信息密度、视觉资产、页面结构和动效强度，并标出一个推荐项。用户可选单项、混合、全部否定，或明确跳过并采用推荐项；技术映射、组件选择和普通 QA 不得转嫁给用户。候选写入 `design-direction-options.json`、选择写入 `design-direction-decision.json`，运行 `validate-wild-design-decision.mjs`；`awaiting-user` 和 `none-fit` 均阻断实现。最终 `design-direction.json` 必须绑定选择文件 hash 与选中项，后续 subagent 不得自行换方向。随后必须生成只读的 `brand-distinctiveness-assessment.json`：同视口对照 source/host，遮蔽品牌名、Logo 和显式品牌文字后做 blind recognition，并分别评 visual mass / asset / composition / type / motion。高承载页至少需要 3 个跨 3 个维度、各占视口至少 5% 的可见证据 signal；字体、小 Logo、微图标和 archive 气质不算强表达。先运行 `validate-brand-distinctiveness.mjs`，再把结果传给 `validate-host-apply-gate.mjs --distinctiveness`。Visual QA 只读，FAIL 退回 Evidence、Interpreter/Design Director 或 Host Implementation 的真实 owner，修复后 fresh QA。技术 Gate 或业务安全通过不能补偿视觉辨识度 FAIL；最终必须分列 `workflowCompletion`、`businessSafety`、`visualDistinctiveness`，禁止用单一 overall 百分比误导。没有真实 DangoUI runtime/component consumer 时最高只能报 `PARTIAL_STYLE_ONLY` / `conservative-application`。细则见 `workflow-contract.json` 与角色契约。
 
 当目标要求真实 DangoUI 组件消费而非 style-only 时，必须读取 [公开宿主 Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)，先用 `dangoui-runtime-gate.mjs prepare` 解析宿主包管理器和安装方案，再在实现、构建、浏览器验证后运行 `verify`。验证不得省略 token closure：必须分别由 Token Mapper、Runtime Integrator、Rendered-state QA、Business/Visual QA 对 source inventory、semantic mapping、runtime consumption、rendered states、business/visual safety 五轨签字；任何一轨不能被另一轨补偿。表单控件还必须把单一边界与 focus-ring owner 作为独立 computed-style 检查，不能只验证颜色和状态类。`verify` 必须携带 `--token-root` 与 `--token-closure`，后者会被 strict 复核。本地源码路径不能作为公开依赖；H5 PASS 不能外推为小程序 PASS。
 
@@ -392,8 +392,9 @@ node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
 3. 如果输入是品牌官网 URL，先根据 URL、页面标题、registry 索引或 `migrations/*/style.json.source` 推断 brand key。
 4. 在当前业务项目查找匹配的 `migrations/{brand}/style.json`。
 5. 查找已安装全量本地 style packs，例如 `migrations/*/style.json` 和 `public/assets/`。
-6. 查公开 registry，例如 `GET /api/brand-migrations?source={encodedUrl}` 或 `GET /api/brand-migrations/{brand}`。
-7. 只有 style pack 不存在、registry 不存在、URL 也无法采集，才请求替代素材。
+6. 查公开 registry。MVP 先读取 `/brand-registry/v0.1/by-source.json`，用规范化后的来源 URL 查到 brand key，再读取 `/brand-registry/v0.1/brands/{brand}/{version}/manifest.json`；未来有写入后台时才升级为动态 API。
+7. 公开 registry 读取必须免登录；写入保持受控审核。命中已有来源时直接复用版本化规则，不得重新采集同一官网。manifest 中平台状态为 `verified` 才能声称该平台已支持，`planned` / `unverified` 只能作为路线图。
+8. 只有 style pack 不存在、registry 不存在、URL 也无法采集，才请求替代素材。
 
 请求替代素材时保持低门槛：优先 2-3 张核心页面截图，其次 HTML/CSS/network assets，再其次 Figma 链接或 DTCG/tokens JSON。不要把“请粘贴 CSS 文件内容”作为默认第一选择。
 
@@ -541,3 +542,7 @@ Demo 站必须给每个参考站和页面稳定 URL：
 - 用户已校准的字体、icon、边框、圆角、阴影没有在后续内容改造中丢失。
 - 边框不是误加内框；圆角不是由通用容器样式或控件习惯误推导。
 - 构建通过并完成浏览器验证。
+
+## Wild Design 同品牌分叉约束
+
+Wild Design 的多方向必须是同一用户输入品牌内部的多种风格化解释：固定同一宿主业务范围与必要布局约束，从已批准的品牌证据簇分别生成候选；不得跨品牌、泛题材化，或让宿主现有主题替代用户输入主体。每个候选必须绑定同一份 `brand-evidence.json`，列出具体 evidence refs，并用 `visualChoiceContract` 冻结主色角色、字体气质、资产策略、材质语言、动效性格、图像策略和禁止回退项。任意两项必须在至少三个视觉维度形成可见差异；只改变 Hero、列表、网格顺序或信息密度不构成 Wild Design 风格选择。用户选定后，`design-direction.json` 必须绑定所选视觉契约 hash，任何响应式压缩、组件映射或 QA 优化都不得把主视觉降为点缀、降低已选字阶、改变完整/裁切策略或触发禁止回退项。

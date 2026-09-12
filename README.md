@@ -1,194 +1,90 @@
-# Dangoui Design System Skill
+# DangoUI Brand Skill
 
-这个仓库提供一个可给 Codex 和 Claude 共用的 `brand` skill，用来把品牌网站、DESIGN.md、截图或 Figma/DTCG 资产迁移到 Echo / dangoui 的 token、component mapping 和 demo 视觉验证。
+把品牌官网、活动页、截图、Figma、`DESIGN.md` 或 DTCG 资产，转换成可解释、可复用、可验证的品牌视觉语言，并安全应用到现有产品页面。
 
-安装到业务项目后，用户入口是：
+这个项目不是网页镜像工具，也不只是换一组颜色。它关注完整链路：
 
 ```text
-/brand <品牌官网 URL 或 demo 站 URL>
+品牌来源
+  → 证据与设计意图
+  → Brand MOD / style pack
+  → DangoUI token、组件语义与视觉 recipe
+  → 品牌学习 Demo 或真实业务项目
+  → 构建、视觉、交互与回退验证
 ```
 
-## 入口
+> 当前阶段：公开 Web MVP / controlled alpha。适合在测试项目或独立分支体验；微信小程序和原生移动端尚未完成生产验证。
 
-- Codex 分发包：`skills/brand/`
-- Claude Code 项目 skill：`.claude/skills/brand/`
-- Claude.ai 自定义 skill 上传包：打包 `skills/brand/`
+## 适合谁
 
-## 快速安装到任意测试项目
+- 想从品牌参考快速得到可审查设计方向的运营、产品和 vibecoder。
+- 想把已确认视觉语言应用到现有页面的设计师和开发者。
+- 想沉淀可被不同项目重复消费的品牌规则与设计系统团队。
 
-在“要被换肤的业务项目”根目录执行下面这段。它会安装最新版 `brand` skill，并复制本仓库已经沉淀的 style packs 与本地资产：
+## 两种使用方式
+
+### 学习品牌
+
+只提供品牌来源时，Skill 会进入 `learn-brand`：提取证据、解释设计意图、生成 Brand MOD，并用多个页面验证它是否真的学会了这套视觉语言。
+
+```text
+$brand 学习 https://example.com 的品牌视觉语言，先给我 2–3 个方向。
+```
+
+### 应用到现有项目
+
+明确要求修改当前项目时，Skill 会进入 `apply-host`：保留原有内容、数据、路由和核心交互，先提供视觉方向，确认后再修改真实页面，并在动手前建立回退点。
+
+```text
+$brand 把 https://example.com 的视觉语言应用到当前项目，保留业务内容，先给我 2–3 个方向。
+```
+
+Claude Code 中将 `$brand` 写成 `/brand`。
+
+## 当前已经做到什么
+
+| 能力 | 当前状态 |
+| --- | --- |
+| 品牌证据、意图、MOD 和 DangoUI 映射 | 已实现并有机器校验 |
+| 多页面品牌学习 Demo | Web 已验证 2 个公开样本 |
+| 公共品牌 Registry | v0.1 已实现，免登录只读、来源 URL 去重、版本化分发 |
+| 真实业务项目换肤 | 已完成 ONE PIECE × 卡组工具 H5 试点 |
+| Taro 微信小程序 | 构建通过，开发者工具与真机运行待验证 |
+| iOS / Android / Flutter / 鸿蒙 | 尚未验证 |
+| 外部用户试用 | 尚未完成 5–10 人受控内测 |
+
+详细进度、证据和下一阶段门槛见 [research/okr.md](research/okr.md)。
+
+## 公共品牌库
+
+相同官网不应由每位使用者重复学习。Skill 会先根据规范化后的来源 URL 查询公共 Registry；命中时复用已有版本，未命中时才重新采集。
+
+```text
+/brand-registry/v0.1/index.json
+/brand-registry/v0.1/by-source.json
+/brand-registry/v0.1/brands/{brand}/{version}/manifest.json
+```
+
+当前公开样本：
+
+- ONE PIECE CARD GAME `0.1.0`
+- Pokémon TCG Official `0.1.0`
+
+MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录；新增或更新资产通过受控 Pull Request 审核。规则与元数据可以公开复用，官网原始素材仍按 manifest 中的授权状态逐项判断。
+
+## 5 分钟启动 Demo
+
+需要 Node.js 20.19+（或 22.12+）、npm 和 [Git LFS](https://git-lfs.com/)。
 
 ```bash
-mkdir -p .claude/skills migrations public/assets
-rm -rf .claude/skills/brand
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/.claude/skills/brand .claude/skills/brand
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/. migrations/
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/public/assets/. public/assets/
+git lfs install
+git clone https://github.com/JocelynTong/Dangoui-Design-System-Skill.git
+cd Dangoui-Design-System-Skill
+npm ci
+npm run dev -- --port 5174
 ```
 
-安装后，在 Claude Code 里直接用：
-
-```text
-/brand <品牌官网 URL 或 demo 站 URL>
-```
-
-例子：
-
-```text
-/brand http://127.0.0.1:5174/#/brand/re1999/pages/re1999-home
-/brand http://127.0.0.1:5174/#/brand/hpma/pages/hpma-home
-/brand http://127.0.0.1:5174/#/brand/spotify/pages/distribution
-```
-
-预期行为：
-
-- demo URL 只作为风格来源，不会自动新建 `/{brand}` 路由或 `BrandPage.vue`。
-- 默认把风格套到当前业务项目默认入口，例如 `/` 或 `/#/`。
-- 保留原业务内容、数据、文案和逻辑，只迁移视觉语言。
-- 执行前自动创建 rollback checkpoint；需要回退时用 `/brand rollback`。
-- 如果误生成未请求的 preview route/page，skill 会在 checkpoint 保护下自动清理。
-
-确认安装成功：
-
-```bash
-test -f .claude/skills/brand/SKILL.md && echo "brand skill installed"
-test -f .claude/skills/brand/scripts/brand-guard.mjs && echo "brand guard installed"
-```
-
-更新到最新版本时，在业务项目里重新执行同一段安装命令即可。
-
-## 同步
-
-维护源目录：
-
-```bash
-skills/brand/
-```
-
-改完同步 Claude Code 镜像：
-
-```bash
-npm run sync:skills
-```
-
-不要手动维护两份 skill。`.claude/skills/brand/` 是 Claude Code 镜像，由同步脚本生成。
-
-## 怎么用
-
-### 维护这个 Skill
-
-在这个仓库里使用，目标是更新工具本身。
-
-示例：
-
-```text
-帮我更新 brand skill，让它支持从截图里提取颜色频次，并同步 Claude 版本，然后 push。
-```
-
-会改动：
-
-```text
-skills/brand/
-.claude/skills/brand/
-scripts/
-references/
-README.md
-```
-
-推荐流程：
-
-```bash
-npm run sync:skills
-diff -qr skills/brand .claude/skills/brand
-npm run build
-git add --all
-git commit -m "Update brand skill"
-git push
-```
-
-### 在业务项目里应用品牌风格
-
-在开发者自己的项目里使用，目标是把某个品牌风格应用到当前项目或 demo。
-
-示例：
-
-```text
-用 brand skill，把 https://example.com 的品牌风格迁移到当前项目，先给我 3 个 demo 方向。
-```
-
-典型输出在宿主项目里：
-
-```text
-migrations/{brand}/
-src/styles/brand-theme.css
-src/pages/BrandPreview.vue
-```
-
-在业务项目里使用 `/brand <URL>` 时，不需要选择模式。skill 会自己判断是否已有 style pack：有就复用并应用到当前项目，没有就先学习再生成可预览页面。只有当你明确说“更新/维护 brand skill 本身”时，才回到本仓库改 skill。
-
-## 使用场景
-
-- 为其他项目先生成 2-3 个 demo 视觉方向，让用户选择风格。
-- 统计品牌高频颜色、圆角、间距、阴影和组件模式。
-- 生成 `migrations/{brand}/` 下的 DTCG、Echo mapping、dangoui adapter、component mapping 和 README。
-- 把已确认方向应用到 demo，同时区分正式 `--du-*` token 和 `demoOnlyVisualControls`。
-
-## Demo 的目标：品牌学习能力测试
-
-`learn-brand` 的 Demo 不是官网镜像、宿主项目成果，也不是把 Logo、品牌色和官方素材装进固定模板。它只回答一个问题：**Brand Skill 是否从证据中学会了可迁移的视觉语言，并能用这些规律重新组织页面。**
-
-完成 Demo 必须同时给出三类证明：
-
-- `Evidence Proof`：每个高显著度设计决定都能追溯到源站 DOM、computed style、独立资产、动效或截图区域；没有证据的标题栏、底色、边框和装饰必须阻断。
-- `Structure Proof`：构图、信息层级、密度、页面类型和浏览节奏保留了品牌决定性特征，不以“用了官方素材”代替结构还原。
-- `Generative Proof`：先用 reference pages 校准规则，再用未参与校准的 `held-out generative challenge` 验证同一规则能生成新的同类页面；不得复制整张官网截图或只替换素材。
-
-Reference page 用于校准和回归，不单独证明泛化。Held-out challenge 在规则冻结后才揭示给实现/验收链路；失败必须回到 Evidence / Interpreter / Demo 的实际责任角色修正，再由新的 Blind QA 复验。
-
-`apply-host` 是独立工作流：它验证视觉语言在真实业务中的可迁移性、效率和边界，不计入 learn-brand Demo 的三证，也不能用 Demo 地址冒充宿主交付。
-
-## Claude 试用话术
-
-给 Claude Code 或 Claude.ai 测试时，不要讲内部实现。让它扮演第一次使用 skill 的运营/vibecoder，直接从一句话开始。URL 可以是任意品牌官网，也可以是未来 demo/registry 站点地址：
-
-```text
-/brand <品牌官网 URL 或 demo 站 URL>
-```
-
-如果要测试“已有风格包直接复用”，用：
-
-```text
-/brand <品牌官网 URL 或 demo 站 URL>，把当前项目套成这个风格，先给 2-3 个预览页面；如果本地或 registry 已有匹配 style pack 就直接复用。
-```
-
-验收重点：Claude 不应该要求用户理解 `assetRoot` 或 mapping 文件；它应该自动找已有 migration/style pack，找不到才重新采集 URL，并输出可预览页面、资产分层和 DangoUI 缺口清单。
-
-如果是在另一个本地业务仓库里测试，要先把 skill 和全量本地 style packs 一起装过去。推荐直接使用 README 顶部“快速安装到任意测试项目”的命令。
-
-等价命令如下：
-
-```bash
-mkdir -p .claude/skills migrations public/assets
-rm -rf .claude/skills/brand
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/.claude/skills/brand .claude/skills/brand
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/migrations/. migrations/
-cp -R /Users/jocelyn/Downloads/vibecoding-docs-demo/public/assets/. public/assets/
-```
-
-安装完成后，提醒用户：
-
-```text
-已安装 brand skill。你现在可以用：
-/brand <品牌官网 URL 或 demo 站 URL>
-
-它会自动判断是否复用本地/registry style pack；没有可复用资产时，会采集 URL 或让你补截图/Figma/HTML 等素材。常见用途：学习一个网站风格、生成 2-3 个预览页面、把已沉淀风格应用到当前项目。
-```
-
-如果 WebFetch 抓不到官网，Claude 应优先扫描 `migrations/*/style.json` 和 registry，看是否有匹配 style pack，而不是先让用户贴 CSS。
-
-## Demo 唯一地址
-
-Demo 站支持每个参考站、页面和说明项的唯一地址：
+打开终端输出的本地地址。Demo 中每个品牌、页面、风格分类和组件都有稳定深链：
 
 ```text
 /#/brand/{brand}/pages/{pageId}
@@ -196,32 +92,124 @@ Demo 站支持每个参考站、页面和说明项的唯一地址：
 /#/brand/{brand}/components/{componentName}
 ```
 
-例子：
+## 只安装 Skill
 
-```text
-http://127.0.0.1:5174/#/brand/hpma/pages/hpma-home
-http://127.0.0.1:5174/#/brand/czn/style/color
-http://127.0.0.1:5174/#/brand/dango/components/navigation-bar
-```
-
-以后公开站点上线后，用户可以直接：
-
-```text
-/brand <demo 站某个参考站地址>
-```
-
-skill 应从 URL hash 解析 brand/page/style/component，再匹配对应 style pack。
-
-## 当前研究重点
-
-重风格网站先作为黄金样本研究，不急着证明 skill 泛化：
-
-- 1999 / HPMA / CZN 这类游戏站、剧本杀站、IP 活动页。
-- 重点追踪 PNG/WebP/SVG 资产、字体包、纹理、装饰边框、选中背景、插画和场景图。
-- 阶段看板见 `research/okr.md`。
-
-## 验证
+如果不需要 Demo 和大型品牌素材，可使用 sparse clone：
 
 ```bash
+GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse \
+  https://github.com/JocelynTong/Dangoui-Design-System-Skill.git \
+  dangoui-brand-skill
+cd dangoui-brand-skill
+git sparse-checkout set skills/brand
+```
+
+### Codex
+
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+rsync -a --delete skills/brand/ "${CODEX_HOME:-$HOME/.codex}/skills/brand/"
+```
+
+### Claude Code
+
+在目标项目根目录执行：
+
+```bash
+mkdir -p .claude/skills
+rsync -a --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
+```
+
+安装或更新后重新打开任务/会话。
+
+## 一次品牌学习会产出什么
+
+```text
+migrations/{brand}/brand-mod.json
+migrations/{brand}/brand-evidence.json
+migrations/{brand}/brand-intent.json
+migrations/{brand}/style.json
+migrations/{brand}/dangoui-adapter.json
+migrations/{brand}/component-mapping.json
+migrations/{brand}/fidelity-report.json
+```
+
+正式通过需要三项证明同时成立：
+
+- Evidence Fidelity：关键设计决定能追溯到真实来源。
+- Structural Fidelity：构图、层级、密度和浏览节奏没有被通用模板抹平。
+- Generative Proof：规则能生成新页面，而不是复制官网截图或只替换 Logo。
+
+Demo 验证品牌学习能力；真实业务交付必须在宿主项目自身的页面和地址完成。
+
+## 平台路线
+
+| 阶段 | 范围 | 放行条件 |
+| --- | --- | --- |
+| 0.1 | Web Demo + 公共 Registry | 版本、来源去重、发布状态、三证和构建校验通过 |
+| 0.2 | Taro H5 受控试点 | 5–10 位开发者、累计约 10 个真实页面；记录安装、视觉、业务和回退结果 |
+| 0.3 | 微信/千岛小程序 | 开发者工具、Android、iOS 真机分别通过；建立组件兼容矩阵 |
+| 后续 | iOS / Android / Flutter / 鸿蒙 | 为各运行时实现并验证 adapter，不以 H5 结果外推 |
+
+## 仓库结构
+
+```text
+skills/brand/           Brand Skill 维护源与公开分发包
+.claude/skills/brand/   Claude Code 镜像，由同步脚本生成
+migrations/             品牌 MOD、证据、验证与试点记录
+public/brand-previews/  Demo 运行时品牌数据
+public/brand-registry/  版本化公共 Registry 产物
+schemas/                Brand MOD 与 Registry 协议
+src/                    Vue Demo 站
+scripts/                构建、同步和质量校验
+research/okr.md         当前目标、完成度与下一阶段门槛
+```
+
+只维护 `skills/brand/`，不要手工同步 `.claude/skills/brand/`。
+
+## 维护与发布
+
+```bash
+npm run sync:skills
+npm run build:brand-registry
+npm run validate:brand
+npm run test:brand-wild-design
+npm run package:brand-skill
+npm run validate:brand-skill-release
 npm run build
 ```
+
+公共 Registry 的源协议是 `public/brand-previews/registry.json`，生成产物不要手工修改。
+
+## 常见问题
+
+### 图片只有一小段文本
+
+这是 Git LFS 指针。执行：
+
+```bash
+git lfs install
+git lfs pull
+```
+
+### 官网无法自动抓取
+
+可以改用 2–3 张核心页面截图、Figma、HTML、`DESIGN.md` 或 DTCG。Skill 会先查询本地和公共 Registry，不会默认要求使用者粘贴 CSS。
+
+### 如何回退宿主修改
+
+让 Skill 执行 `$brand rollback`（Claude Code 使用 `/brand rollback`）。回退前会先展示 dry-run；非 Git 项目使用文件备份清单。
+
+### 是否已经支持微信小程序或原生 App
+
+目前只能确认 Web 和特定 Taro H5 试点结果。微信构建已跑通，但开发者工具和真机仍待验证；其他平台尚不能声明支持。
+
+## 项目边界
+
+- 不替代官网素材授权判断。
+- 不把品牌 key 自动变成业务路由或新业务页面。
+- 不修改宿主业务数据、字段和核心逻辑来换取视觉效果。
+- 不用构建成功替代浏览器、开发者工具或真机验收。
+- 不把某个平台的 PASS 外推到其他平台。
+
+当前许可证见 [package.json](package.json)。品牌来源内容和素材仍受各自权利方条款约束。

@@ -1,0 +1,772 @@
+{
+  "schema": "brand-mod.v0.1",
+  "manifest": {
+    "brand": "onepiece-cardgame",
+    "displayName": "ONE PIECE CARD GAME",
+    "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+    "createdAt": "2026-09-01T05:40:29.799Z",
+    "version": "0.1.0",
+    "scope": {
+      "intent": "Reusable visual-language package for ONE PIECE CARD GAME official site styling.",
+      "for": [
+        "brand visual migration",
+        "standard demo capability preview"
+      ],
+      "notFor": [
+        "game-only content mod; this visual package is reusable beyond game products",
+        "copying game content into unrelated products",
+        "automatic brand route generation"
+      ]
+    },
+    "producer": {
+      "skill": "/brand",
+      "decoupledFrom": [
+        "/qdmp"
+      ]
+    }
+  },
+  "tokens": {
+    "mapped": {
+      "--du-bg-1": {
+        "value": "#FFFFFF",
+        "status": "mapped",
+        "evidence": "Computed html background rgb(255,255,255).",
+        "usage": "Primary content surface."
+      },
+      "--du-bg-2": {
+        "value": "#F3F1EA",
+        "status": "mapped",
+        "evidence": "Rendered welcome section uses a warm parchment image over a light canvas.",
+        "usage": "Warm secondary page surface."
+      },
+      "--du-text-3": {
+        "value": "#717171",
+        "status": "fallback",
+        "evidence": "Repeated neutral metadata color in collected CSS.",
+        "usage": "Tertiary metadata."
+      },
+      "--du-border-1": {
+        "value": "#DCD6C6",
+        "status": "mapped",
+        "evidence": "Footer and warm section boundary evidence #DCD6C6.",
+        "usage": "Ordinary subtle dividers only."
+      },
+      "--du-primary-color": {
+        "value": "#FFF507",
+        "status": "protocol-derived",
+        "evidence": "Computed/CSS active menu state and yellow active icon set.",
+        "usage": "Primary active/navigation emphasis."
+      },
+      "--du-primary-border": {
+        "value": "#FFF507",
+        "status": "protocol-derived",
+        "evidence": "Active navigation icon and caret border use #FFF507.",
+        "usage": "Active control edge."
+      },
+      "--du-primary-soft-bg": {
+        "value": "#FFFBD0",
+        "status": "fallback",
+        "evidence": "Readable soft derivative of verified active yellow.",
+        "usage": "Soft selected surface."
+      },
+      "--du-primary-solid-bg": {
+        "value": "#B91D22",
+        "status": "protocol-derived",
+        "evidence": "Rendered carousel scrollbar drag and interaction emphasis use #B91D22.",
+        "usage": "Solid action fallback where yellow lacks contrast."
+      },
+      "--du-secondary-color": {
+        "value": "#AFA384",
+        "status": "mapped",
+        "evidence": "Selection highlight and nautical neutral accent use #AFA384.",
+        "usage": "Secondary nautical accent."
+      }
+    },
+    "styleOnly": {
+      "--style-font-body": {
+        "value": "Poppins, YuGothic, -apple-system, sans-serif",
+        "status": "style-only",
+        "evidence": "Computed body/nav/CTA font-family.",
+        "usage": "Body and controls."
+      },
+      "--style-font-display": {
+        "value": "Alfa Slab One, Poppins, sans-serif",
+        "status": "style-only",
+        "evidence": "Official section titles use Alfa Slab One.",
+        "usage": "Large display titles only."
+      },
+      "--style-font-numeric": {
+        "value": "Oswald, Poppins, sans-serif",
+        "status": "style-only",
+        "evidence": "Dates and slider counters use Oswald.",
+        "usage": "Dates and numeric metadata."
+      },
+      "--style-control-radius": {
+        "value": "999px",
+        "status": "style-only",
+        "evidence": "Computed Begin Your Adventure and schedule controls.",
+        "usage": "Primary CTA and compact controls."
+      },
+      "--style-card-radius": {
+        "value": "0px",
+        "status": "style-only",
+        "evidence": "Rendered hero, news and product media are square-edged.",
+        "usage": "Media and editorial cards."
+      },
+      "--style-hero-shadow": {
+        "value": "drop-shadow(2px 2px 3.33px rgba(0,0,0,.6))",
+        "status": "style-only",
+        "evidence": "Computed dark hero copy filter.",
+        "usage": "Text placed on campaign art."
+      },
+      "--style-motion-hover": {
+        "value": "transform .3s, scale(1.07)",
+        "status": "style-only",
+        "evidence": "Official more/media controls scale to 1.07 on hover.",
+        "usage": "Clickable media and More controls."
+      }
+    },
+    "dtcg": {
+      "$description": "ONE PIECE CARD GAME DTCG token contract generated from Brand MOD token mirrors.",
+      "$extensions": {
+        "echo.brand.schema": "brand-mod.tokens.dtcg/v0.1",
+        "echo.brand.sourceFile": "migrations/onepiece-cardgame/brand-mod.json",
+        "echo.brand.note": "DTCG is canonical for reusable token values; mapped/styleOnly are compatibility mirrors for current demo consumers."
+      },
+      "mapped": {
+        "du-bg-1": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$description": "Computed html background rgb(255,255,255).",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Primary content surface.",
+            "echo.brand.legacyKey": "--du-bg-1",
+            "echo.brand.evidence": "Computed html background rgb(255,255,255)."
+          }
+        },
+        "du-bg-2": {
+          "$type": "color",
+          "$value": "#F3F1EA",
+          "$description": "Rendered welcome section uses a warm parchment image over a light canvas.",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-2",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Warm secondary page surface.",
+            "echo.brand.legacyKey": "--du-bg-2",
+            "echo.brand.evidence": "Rendered welcome section uses a warm parchment image over a light canvas."
+          }
+        },
+        "du-text-3": {
+          "$type": "color",
+          "$value": "#717171",
+          "$description": "Repeated neutral metadata color in collected CSS.",
+          "$extensions": {
+            "echo.brand.target": "--du-text-3",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "fallback",
+            "echo.brand.usage": "Tertiary metadata.",
+            "echo.brand.legacyKey": "--du-text-3",
+            "echo.brand.evidence": "Repeated neutral metadata color in collected CSS."
+          }
+        },
+        "du-border-1": {
+          "$type": "color",
+          "$value": "#DCD6C6",
+          "$description": "Footer and warm section boundary evidence #DCD6C6.",
+          "$extensions": {
+            "echo.brand.target": "--du-border-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Ordinary subtle dividers only.",
+            "echo.brand.legacyKey": "--du-border-1",
+            "echo.brand.evidence": "Footer and warm section boundary evidence #DCD6C6."
+          }
+        },
+        "du-primary-color": {
+          "$type": "color",
+          "$value": "#FFF507",
+          "$description": "Computed/CSS active menu state and yellow active icon set.",
+          "$extensions": {
+            "echo.brand.target": "--du-primary-color",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "protocol-derived",
+            "echo.brand.usage": "Primary active/navigation emphasis.",
+            "echo.brand.legacyKey": "--du-primary-color",
+            "echo.brand.evidence": "Computed/CSS active menu state and yellow active icon set."
+          }
+        },
+        "du-primary-border": {
+          "$type": "color",
+          "$value": "#FFF507",
+          "$description": "Active navigation icon and caret border use #FFF507.",
+          "$extensions": {
+            "echo.brand.target": "--du-primary-border",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "protocol-derived",
+            "echo.brand.usage": "Active control edge.",
+            "echo.brand.legacyKey": "--du-primary-border",
+            "echo.brand.evidence": "Active navigation icon and caret border use #FFF507."
+          }
+        },
+        "du-primary-soft-bg": {
+          "$type": "color",
+          "$value": "#FFFBD0",
+          "$description": "Readable soft derivative of verified active yellow.",
+          "$extensions": {
+            "echo.brand.target": "--du-primary-soft-bg",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "fallback",
+            "echo.brand.usage": "Soft selected surface.",
+            "echo.brand.legacyKey": "--du-primary-soft-bg",
+            "echo.brand.evidence": "Readable soft derivative of verified active yellow."
+          }
+        },
+        "du-primary-solid-bg": {
+          "$type": "color",
+          "$value": "#B91D22",
+          "$description": "Rendered carousel scrollbar drag and interaction emphasis use #B91D22.",
+          "$extensions": {
+            "echo.brand.target": "--du-primary-solid-bg",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "protocol-derived",
+            "echo.brand.usage": "Solid action fallback where yellow lacks contrast.",
+            "echo.brand.legacyKey": "--du-primary-solid-bg",
+            "echo.brand.evidence": "Rendered carousel scrollbar drag and interaction emphasis use #B91D22."
+          }
+        },
+        "du-secondary-color": {
+          "$type": "color",
+          "$value": "#AFA384",
+          "$description": "Selection highlight and nautical neutral accent use #AFA384.",
+          "$extensions": {
+            "echo.brand.target": "--du-secondary-color",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "Secondary nautical accent.",
+            "echo.brand.legacyKey": "--du-secondary-color",
+            "echo.brand.evidence": "Selection highlight and nautical neutral accent use #AFA384."
+          }
+        }
+      },
+      "styleOnly": {
+        "style-font-body": {
+          "$type": "fontFamily",
+          "$value": "Poppins, YuGothic, -apple-system, sans-serif",
+          "$description": "Computed body/nav/CTA font-family.",
+          "$extensions": {
+            "echo.brand.target": "--style-font-body",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Body and controls.",
+            "echo.brand.legacyKey": "--style-font-body",
+            "echo.brand.evidence": "Computed body/nav/CTA font-family."
+          }
+        },
+        "style-font-display": {
+          "$type": "fontFamily",
+          "$value": "Alfa Slab One, Poppins, sans-serif",
+          "$description": "Official section titles use Alfa Slab One.",
+          "$extensions": {
+            "echo.brand.target": "--style-font-display",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Large display titles only.",
+            "echo.brand.legacyKey": "--style-font-display",
+            "echo.brand.evidence": "Official section titles use Alfa Slab One."
+          }
+        },
+        "style-font-numeric": {
+          "$type": "fontFamily",
+          "$value": "Oswald, Poppins, sans-serif",
+          "$description": "Dates and slider counters use Oswald.",
+          "$extensions": {
+            "echo.brand.target": "--style-font-numeric",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Dates and numeric metadata.",
+            "echo.brand.legacyKey": "--style-font-numeric",
+            "echo.brand.evidence": "Dates and slider counters use Oswald."
+          }
+        },
+        "style-control-radius": {
+          "$type": "dimension",
+          "$value": "999px",
+          "$description": "Computed Begin Your Adventure and schedule controls.",
+          "$extensions": {
+            "echo.brand.target": "--style-control-radius",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Primary CTA and compact controls.",
+            "echo.brand.legacyKey": "--style-control-radius",
+            "echo.brand.evidence": "Computed Begin Your Adventure and schedule controls."
+          }
+        },
+        "style-card-radius": {
+          "$type": "dimension",
+          "$value": "0px",
+          "$description": "Rendered hero, news and product media are square-edged.",
+          "$extensions": {
+            "echo.brand.target": "--style-card-radius",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Media and editorial cards.",
+            "echo.brand.legacyKey": "--style-card-radius",
+            "echo.brand.evidence": "Rendered hero, news and product media are square-edged."
+          }
+        },
+        "style-hero-shadow": {
+          "$type": "shadow",
+          "$value": "drop-shadow(2px 2px 3.33px rgba(0,0,0,.6))",
+          "$description": "Computed dark hero copy filter.",
+          "$extensions": {
+            "echo.brand.target": "--style-hero-shadow",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Text placed on campaign art.",
+            "echo.brand.legacyKey": "--style-hero-shadow",
+            "echo.brand.evidence": "Computed dark hero copy filter."
+          }
+        },
+        "style-motion-hover": {
+          "$type": "string",
+          "$value": "transform .3s, scale(1.07)",
+          "$description": "Official more/media controls scale to 1.07 on hover.",
+          "$extensions": {
+            "echo.brand.target": "--style-motion-hover",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "style-only",
+            "echo.brand.usage": "Clickable media and More controls.",
+            "echo.brand.legacyKey": "--style-motion-hover",
+            "echo.brand.evidence": "Official more/media controls scale to 1.07 on hover."
+          }
+        }
+      }
+    }
+  },
+  "semanticRoles": {
+    "surface.page": {
+      "kind": "mappedToken",
+      "value": "#F3F1EA",
+      "target": "--du-bg-2",
+      "status": "mapped"
+    },
+    "surface.card": {
+      "kind": "mappedToken",
+      "value": "#FFFFFF",
+      "target": "--du-bg-1",
+      "status": "mapped"
+    },
+    "surface.story": {
+      "kind": "mappedToken",
+      "value": "#F3F1EA",
+      "target": "--du-bg-2",
+      "status": "mapped"
+    },
+    "text.primary": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "computed-evidence:html",
+        "products-hard-black-heading-no-color-chrome"
+      ],
+      "reason": "The proposed #000000 → --du-text-1 contract conflicts with the frozen product runtime, which computes #111; changing the runtime merely to satisfy the mapping would invalidate fidelity."
+    },
+    "text.warmNarrative.audit": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "source-home-welcome-visible-region",
+        "home-welcome-cta-hover-motion"
+      ],
+      "reason": "The proposed #352115 → --du-text-2 contract expands a bounded Welcome observation into a reusable secondary-text role while the frozen runtime uses rgba(0,0,0,.65)."
+    },
+    "interaction.menuDisclosureOpen.audit": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "top-menu-open-yellow-label"
+      ],
+      "reason": "The source-only dropdown-open yellow has no frozen equivalent interaction state or runtime consumer; it must not become a canonical style token or expand into current-page, tab, title, or button roles."
+    },
+    "asset.welcomeSurface.audit": {
+      "kind": "unresolvedEvidenceRole",
+      "value": null,
+      "target": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "source-home-welcome-visible-region"
+      ],
+      "reason": "The source parchment raster is not frozen as an implementation asset. The accepted Welcome surface is a DOM/CSS reconstruction, and adopting the raster would change the rebuilt composition."
+    },
+    "border.subtle": {
+      "kind": "mappedToken",
+      "value": "#DCD6C6",
+      "target": "--du-border-1",
+      "status": "mapped"
+    },
+    "action.primary.fill": {
+      "kind": "actionEvidence",
+      "value": "#FFF507",
+      "target": "--du-primary-color",
+      "status": "mapped",
+      "sources": [
+        "action-evidence-score.skills.json:candidates.primaryActionFill"
+      ],
+      "protocol": {
+        "bucket": "primaryActionFill",
+        "source": "action-evidence-score.skills.json"
+      }
+    },
+    "action.active.fill": {
+      "kind": "actionEvidence",
+      "value": "#FFF507",
+      "target": "--du-primary-solid-bg",
+      "status": "mapped",
+      "protocol": {
+        "bucket": "activeStateFill",
+        "source": "action-evidence-score.skills.json"
+      }
+    },
+    "typography.body.family": {
+      "kind": "styleOnlyToken",
+      "value": "Poppins, YuGothic, -apple-system, sans-serif",
+      "target": "--style-font-body",
+      "status": "style-only"
+    },
+    "shape.control.radius": {
+      "kind": "styleOnlyToken",
+      "value": "999px",
+      "target": "--style-control-radius",
+      "status": "style-only"
+    }
+  },
+  "componentVariants": [
+    {
+      "id": "button-outline-pill",
+      "component": "Button",
+      "status": "composed"
+    },
+    {
+      "id": "navigation-menu-open-yellow-audit",
+      "component": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "top-menu-open-yellow-label"
+      ],
+      "boundary": "No frozen dropdown-open state exists in the Demo, so the source yellow interaction must not be represented as a DangoUI Tabs or navigation component variant."
+    },
+    {
+      "id": "editorial-card-square",
+      "component": "Card",
+      "status": "composed"
+    }
+  ],
+  "slots": [
+    {
+      "id": "campaign-hero",
+      "component": "Image",
+      "status": "mapped"
+    },
+    {
+      "id": "primary-action",
+      "component": "Button",
+      "status": "mapped"
+    },
+    {
+      "id": "editorial-media",
+      "component": "Image",
+      "status": "mapped"
+    }
+  ],
+  "assets": [
+    {
+      "id": "campaign-hero-op17",
+      "role": "hero-background",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/fsIAlbTmSh7C45aU/mv.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-current-op17.webp",
+      "sourceSha256": "e8628c5b3aee2a54dc8c85d8071b5b871b694e9628c88b6f5e8c42d4fac34e76",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "campaign hero",
+      "antiScopes": [
+        "ordinary card",
+        "dense form"
+      ]
+    },
+    {
+      "id": "onepiece-logo",
+      "role": "brand-mark",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/logo_op.png",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+      "sourceSha256": "b97738711a787610da6959054aa9ffcc89f52b4d99cbe255eedf0711e1d088d2",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "navigation/brand",
+      "antiScopes": [
+        "ordinary card",
+        "form control"
+      ]
+    },
+    {
+      "id": "product-st31",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/product/2026/06/01/yvlQOGQN87hClKlB/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st31.webp",
+      "sourceSha256": "678912604f6af3bd08eff2e71599d200bfa32c25f3ee65ab923012c8bec41443",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-31",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "product-st32",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/b42jY1zyAMuNXKBa/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st32.webp",
+      "sourceSha256": "e118f4f6ba17676f6b082c232308e31f97f92b5f353920c47591e7760ad0a33f",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-32",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "product-st33",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/weP4WcvMyAX5VOR7/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st33.webp",
+      "sourceSha256": "d876da27f0351287b8ec84acdea1a6fa23a87adb28df164babca79fe15efadca",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-33",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "product-st34",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/t5LIBWX0muRucLKS/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st34.webp",
+      "sourceSha256": "c98f50b00961905558fe98572b092ea093a283f410c84928c1307128c183bb64",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-34",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "product-st35",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/XrIHnR2RnQclTTEn/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st35.webp",
+      "sourceSha256": "533ab56d7931fcbbb6a399bcfb76df7f845c0fbae6609e969346624ff3fd32b7",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-35",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "product-st36",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/jp/products/2026/06/01/sjtHEth2Ti1WlWrg/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+      "sourceSha256": "8a1eaa0a1acc271dddba4f8885b1aa549bbab03df472c7fa7a6fbd3394b4b564",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog ST-36",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "campaign-product-op17",
+      "role": "product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/P0PAbumTLGIP8iis/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-product.webp",
+      "sourceSha256": "70c2bfe4d1605a7504cebf0cc6626b25a52d43ba217a50905f2d24a2827ee0ec",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog OP-17",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "product-sleeve16",
+      "role": "accessory-product-media",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/product/2026/08/05/jULsJjZKqpplffIg/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/product-sleeve.webp",
+      "sourceSha256": "ac8f9ae78dd52d2759c797a678ceacf87637da1ae0048612fd77e5ba69d702ad",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "products catalog accessories",
+      "antiScopes": [
+        "background",
+        "navigation",
+        "generic card chrome"
+      ]
+    },
+    {
+      "id": "campaign-hero-st32-green",
+      "role": "hero-background",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/jo3RRrqUeatmAZEU/st32_mv.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-st32-green.webp",
+      "sourceSha256": "615b9721008a395c4e88b53a72948cee3b2e840f131c150fdf06b5e1790ec6a1",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "frozen green campaign hero",
+      "antiScopes": [
+        "ordinary card",
+        "dense form"
+      ]
+    },
+    {
+      "id": "campaign-title-st32",
+      "role": "campaign-title",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/plHBojzYSunkjzSs/st32_logo_jp.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-st32-title.webp",
+      "sourceSha256": "41032a68dcd6f404fe41e0a732016a5573ec9416a6bf9982bf8c5987370be8db",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "frozen green campaign copy",
+      "antiScopes": [
+        "global navigation",
+        "section heading"
+      ]
+    },
+    {
+      "id": "campaign-product-st32",
+      "role": "featured-product-card",
+      "url": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/24/YNTN5GWtqPWF9aOl/img_item01.webp",
+      "localPath": "public/assets/brand-assets/onepiece-cardgame/source/hero-st32-product.webp",
+      "sourceSha256": "e118f4f6ba17676f6b082c232308e31f97f92b5f353920c47591e7760ad0a33f",
+      "sourceKind": "original-site-asset",
+      "status": "style-only",
+      "targetScope": "frozen green campaign product callout",
+      "antiScopes": [
+        "background",
+        "navigation"
+      ]
+    },
+    {
+      "id": "welcome-parchment-audit",
+      "role": "section-background",
+      "value": null,
+      "target": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "source-home-welcome-visible-region"
+      ],
+      "reason": "The source parchment raster was not frozen as an implementation asset; the accepted Welcome surface remains a DOM/CSS reconstruction."
+    },
+    {
+      "id": "dot-arrow",
+      "role": "action-indicator",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/ico-dot.png",
+      "status": "style-only",
+      "targetScope": "more links",
+      "antiScopes": [
+        "primary nav",
+        "decorative-only text"
+      ]
+    },
+    {
+      "id": "rudder-date",
+      "role": "metadata-icon",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/ico_rudder.png",
+      "status": "style-only",
+      "targetScope": "date metadata",
+      "antiScopes": [
+        "button",
+        "hero background"
+      ]
+    },
+    {
+      "id": "movie-play",
+      "role": "media-action",
+      "url": "https://asia-en.onepiece-cardgame.com/renewal/images/common/ico-movie.png",
+      "status": "style-only",
+      "targetScope": "video thumbnail",
+      "antiScopes": [
+        "non-video image"
+      ]
+    }
+  ],
+  "layoutRules": {
+    "sectionBackgroundChain": {
+      "layers": [
+        {
+          "id": "campaign-stage",
+          "assetId": "campaign-hero-op17"
+        }
+      ]
+    },
+    "overlay": {
+      "inspectorTag": {
+        "mustNotAffectLayout": true
+      }
+    },
+    "bottomBarReserve": {
+      "required": true
+    },
+    "hero": {
+      "fullBleed": true,
+      "textOverlay": true
+    },
+    "sections": {
+      "preserveDistinctStructures": true
+    },
+    "media": {
+      "preserveAspectRatio": true,
+      "defaultObjectFit": "cover"
+    },
+    "decorativeAssets": {
+      "globalize": false
+    }
+  },
+  "platformOverrides": {
+    "web": {
+      "fontFallback": "system sans-serif"
+    },
+    "miniProgram": {
+      "remoteAssets": "download or replace before production"
+    }
+  },
+  "verification": {
+    "sourceComputedFile": "computed-evidence.json",
+    "assetInventory": "rendered-asset-inventory.json",
+    "demoPreview": "public/brand-previews/onepiece-cardgame.json",
+    "ruleCandidates": []
+  }
+}

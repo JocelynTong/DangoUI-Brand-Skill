@@ -17,8 +17,19 @@ const requiredEntryFields = [
   'migrationRoot',
   'status',
   'standardDemo',
-  'businessApply'
+  'businessApply',
+  'version',
+  'publicationStatus',
+  'canonicalSources',
+  'artifactFiles',
+  'platformSupport',
+  'reusePolicy'
 ]
+const publicationStatuses = new Set(['draft', 'public-preview', 'published', 'retired'])
+const platformStatuses = new Set(['verified', 'planned', 'unverified', 'unsupported'])
+const platformNames = ['web', 'taroH5', 'weapp', 'ios', 'android', 'flutter', 'harmonyos']
+const publicArtifactRoot = path.resolve(root, 'public', 'brand-registry', 'v0.1')
+const forbiddenPublicText = [/\/Users\//, /https?:\/\/(?:localhost|127\.0\.0\.1|10\.|192\.168\.)/i, /echotech\.feishu\.cn/i]
 const requiredTokens = ['--du-bg-2', '--du-bg-1', '--du-text-1', '--du-primary-color']
 const shellBooleanFields = ['statusBar', 'navigationBar', 'bottomActions', 'fab']
 const supportedSectionTypes = new Set([
@@ -85,6 +96,20 @@ function isNonEmptyString(value) {
   return typeof value === 'string' && value.trim().length > 0
 }
 
+function normalizeSourceUrl(value) {
+  try {
+    const url = new URL(value)
+    if (!['http:', 'https:'].includes(url.protocol)) return null
+    url.hash = ''
+    url.search = ''
+    url.hostname = url.hostname.toLowerCase()
+    url.pathname = url.pathname.replace(/\/{2,}/g, '/').replace(/\/$/, '') || '/'
+    return url.toString()
+  } catch {
+    return null
+  }
+}
+
 function validateRegistryEntry(entry, index) {
   const scope = `registry.brands[${index}]${entry?.id ? ` (${entry.id})` : ''}`
 
@@ -107,6 +132,45 @@ function validateRegistryEntry(entry, index) {
 
   if (typeof entry.standardDemo !== 'boolean') fail(scope, 'standardDemo must be boolean')
   if (typeof entry.businessApply !== 'boolean') fail(scope, 'businessApply must be boolean')
+  if (!/^\d+\.\d+\.\d+(?:-[0-9A-Za-z.-]+)?$/.test(entry.version || '')) fail(scope, 'version must be semantic')
+  if (!publicationStatuses.has(entry.publicationStatus)) fail(scope, 'publicationStatus is invalid')
+  if (!Array.isArray(entry.canonicalSources) || !entry.canonicalSources.length) {
+    fail(scope, 'canonicalSources must not be empty')
+  } else {
+    for (const sourceUrl of entry.canonicalSources) {
+      if (!normalizeSourceUrl(sourceUrl)) fail(scope, `canonical source must be a public HTTP(S) URL: ${sourceUrl}`)
+    }
+  }
+  if (!Array.isArray(entry.artifactFiles)) fail(scope, 'artifactFiles must be an array')
+  if (!entry.platformSupport || typeof entry.platformSupport !== 'object') {
+    fail(scope, 'platformSupport must be an object')
+  } else {
+    for (const platform of platformNames) {
+      if (!platformStatuses.has(entry.platformSupport[platform])) fail(scope, `platformSupport.${platform} is invalid`)
+    }
+  }
+  if (entry.platformSupport?.web === 'verified' && entry.status !== 'fidelity-pass') {
+    fail(scope, 'web can be verified only after fidelity-pass')
+  }
+  if (!['public', 'review-required'].includes(entry.reusePolicy?.metadataAndRules)) {
+    fail(scope, 'reusePolicy.metadataAndRules is invalid')
+  }
+  if (!['public', 'review-required', 'excluded'].includes(entry.reusePolicy?.runtimeAssets)) {
+    fail(scope, 'reusePolicy.runtimeAssets is invalid')
+  }
+
+  if (entry.publicationStatus === 'public-preview') {
+    if (!entry.artifactFiles?.length) fail(scope, 'public-preview entries need artifactFiles')
+    for (const name of entry.artifactFiles || []) {
+      if (!/^[a-z0-9-]+\.json$/.test(name)) fail(scope, `invalid artifact filename: ${name}`)
+      const artifactFile = path.resolve(root, entry.migrationRoot || '', name)
+      if (!fs.existsSync(artifactFile)) fail(scope, `artifact does not exist: ${name}`)
+      else {
+        const text = fs.readFileSync(artifactFile, 'utf8')
+        if (forbiddenPublicText.some((pattern) => pattern.test(text))) fail(scope, `artifact contains a private/local reference: ${name}`)
+      }
+    }
+  }
 
   if (isNonEmptyString(entry.path)) {
     if (!entry.path.startsWith('/brand-previews/')) {
@@ -551,24 +615,62 @@ function main() {
   const registry = readJson(registryFile, 'public/brand-previews/registry.json')
   if (!registry) return finish()
 
-  if (registry.schema !== 'brand-preview-registry.v0.1') {
-    fail('registry', 'schema must be brand-preview-registry.v0.1')
+  if (registry.schema !== 'brand-preview-registry.v0.2') {
+    fail('registry', 'schema must be brand-preview-registry.v0.2')
+  }
+
+  if (registry.access?.read !== 'public' || registry.access?.authentication !== 'none' || registry.access?.write !== 'curated-pull-request') {
+    fail('registry', 'access must declare public unauthenticated reads and curated-pull-request writes')
   }
 
   if ('items' in registry) fail('registry', 'legacy items[] is not allowed; use brands[]')
   if (!Array.isArray(registry.brands)) fail('registry', 'brands[] is required')
 
   const seen = new Set()
+  const seenSources = new Map()
   for (const [index, entry] of (registry.brands || []).entries()) {
     if (entry?.id) {
       if (seen.has(entry.id)) fail(`registry.brands[${index}]`, `duplicate id ${entry.id}`)
       seen.add(entry.id)
     }
+    for (const source of entry?.canonicalSources || []) {
+      const normalized = normalizeSourceUrl(source)
+      if (!normalized) continue
+      if (seenSources.has(normalized) && seenSources.get(normalized) !== entry.id) {
+        fail(`registry.brands[${index}]`, `canonical source already belongs to ${seenSources.get(normalized)}: ${normalized}`)
+      }
+      seenSources.set(normalized, entry.id)
+    }
     validateRegistryEntry(entry, index)
   }
 
   if (!seen.size) fail('registry', 'brands[] must not be empty')
+  validatePublishedRegistry(registry)
   finish(seen.size)
+}
+
+function validatePublishedRegistry(registry) {
+  const published = (registry.brands || []).filter((entry) => entry.publicationStatus === 'public-preview')
+  const indexFile = path.join(publicArtifactRoot, 'index.json')
+  const bySourceFile = path.join(publicArtifactRoot, 'by-source.json')
+  if (!fs.existsSync(indexFile) || !fs.existsSync(bySourceFile)) {
+    fail('public brand registry', 'generated index is missing; run npm run build:brand-registry')
+    return
+  }
+  const index = readJson(indexFile, indexFile)
+  const bySource = readJson(bySourceFile, bySourceFile)
+  if (index?.schema !== 'public-brand-registry.v0.1') fail(indexFile, 'invalid schema')
+  if (bySource?.schema !== 'public-brand-source-index.v0.1') fail(bySourceFile, 'invalid schema')
+  if ((index?.brands || []).length !== published.length) fail(indexFile, 'published brand count is stale')
+  for (const entry of published) {
+    const manifestFile = path.join(publicArtifactRoot, 'brands', entry.id, entry.version, 'manifest.json')
+    const manifest = fs.existsSync(manifestFile) ? readJson(manifestFile, manifestFile) : null
+    if (!manifest) fail(entry.id, 'public manifest is missing')
+    if (manifest?.id !== entry.id || manifest?.version !== entry.version) fail(entry.id, 'public manifest is stale')
+    for (const source of entry.canonicalSources || []) {
+      if (bySource?.sources?.[normalizeSourceUrl(source)] !== entry.id) fail(entry.id, `source index is stale: ${source}`)
+    }
+  }
 }
 
 function finish(count = 0) {

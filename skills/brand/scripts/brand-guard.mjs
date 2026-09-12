@@ -3227,7 +3227,18 @@ function registerDemoPreview() {
   fs.mkdirSync(migrationDir, { recursive: true });
   fs.writeFileSync(previewPath, `${JSON.stringify(preview, null, 2)}\n`);
   fs.writeFileSync(migrationDraftPath, `${JSON.stringify(draft, null, 2)}\n`);
-  upsertDemoRegistry(registryPath, { id: brand, label, path: `/brand-previews/${brand}.json`, sourceUrl, sourceHost: source.host });
+  upsertDemoRegistry(registryPath, {
+    id: brand,
+    displayName: label,
+    path: `/brand-previews/${brand}.json`,
+    migrationRoot: `migrations/${brand}`,
+    demoPurpose: preview.demoPurpose,
+    status: preview.status,
+    standardDemo: preview.standardDemo,
+    businessApply: preview.businessApply,
+    sourceUrl,
+    sourceHost: source.host,
+  });
 
   ok({
     ok: true,
@@ -5843,11 +5854,33 @@ function defaultStandardStyleRecipes(label) {
 function upsertDemoRegistry(registryPath, entry) {
   const registry = fs.existsSync(registryPath)
     ? JSON.parse(safeRead(registryPath) || "{}")
-    : { schema: "brand-preview-registry/v1", brands: [] };
+    : { schema: "brand-preview-registry.v0.2", access: { read: "public", authentication: "none", write: "curated-pull-request" }, brands: [] };
   const brands = Array.isArray(registry.brands) ? registry.brands.filter((item) => item.id !== entry.id) : [];
-  brands.push({ ...entry, updatedAt: new Date().toISOString() });
+  brands.push({
+    version: "0.0.0-draft",
+    publicationStatus: "draft",
+    canonicalSources: entry.sourceUrl ? [entry.sourceUrl] : [],
+    artifactFiles: [],
+    platformSupport: {
+      web: "unverified",
+      taroH5: "planned",
+      weapp: "unverified",
+      ios: "unverified",
+      android: "unverified",
+      flutter: "unverified",
+      harmonyos: "unverified",
+    },
+    reusePolicy: { metadataAndRules: "review-required", runtimeAssets: "review-required" },
+    ...entry,
+    updatedAt: new Date().toISOString(),
+  });
   fs.mkdirSync(path.dirname(registryPath), { recursive: true });
-  fs.writeFileSync(registryPath, `${JSON.stringify({ ...registry, schema: "brand-preview-registry/v1", brands }, null, 2)}\n`);
+  fs.writeFileSync(registryPath, `${JSON.stringify({
+    ...registry,
+    schema: "brand-preview-registry.v0.2",
+    access: registry.access || { read: "public", authentication: "none", write: "curated-pull-request" },
+    brands,
+  }, null, 2)}\n`);
 }
 
 function registryHasBrand(registryPath, brand) {

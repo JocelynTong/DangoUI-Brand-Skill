@@ -1,0 +1,51 @@
+{
+  "name": "pokemon-tcg-official",
+  "displayName": "Pokémon TCG Official",
+  "schemaVersion": 1,
+  "source": {"type": "web", "url": "https://tcg.pokemon.com/en-us/"},
+  "document": {
+    "id": "style:pokemon-tcg-official",
+    "name": "Pokémon TCG Official Brand Style",
+    "type": "DOCUMENT",
+    "children": [
+      {"id": "web:pokemon-tcg-official:home-campaign-stage", "name": "Layered Campaign Stage", "type": "FRAME", "children": [], "pluginData": {"echo.brand": {"approvedPatternId": "home-layered-campaign-stage", "targets": {"dangoui": ["NavigationBar", "Swiper", "Image", "Button"]}, "mappingStatus": "composed"}}},
+      {"id": "web:pokemon-tcg-official:database-search", "name": "Card Database Search Organism", "type": "FRAME", "children": [], "pluginData": {"echo.brand": {"approvedPatternId": "database-dark-search-organism", "targets": {"dangoui": ["Search", "Input", "Tag", "Button"]}, "mappingStatus": "composed"}}},
+      {"id": "web:pokemon-tcg-official:learn-anatomy", "name": "Painted Card Anatomy", "type": "FRAME", "children": [], "pluginData": {"echo.brand": {"approvedPatternId": "learn-painted-card-anatomy", "targets": {"dangoui": ["Card", "Image"]}, "mappingStatus": "composed"}}},
+      {"id": "web:pokemon-tcg-official:learn-field", "name": "Painted Field Pairs", "type": "FRAME", "children": [], "pluginData": {"echo.brand": {"approvedPatternId": "learn-painted-field-pairs", "targets": {"dangoui": ["Image"]}, "mappingStatus": "fallback"}}}
+    ]
+  },
+  "components": {},
+  "componentSets": {},
+  "styles": {},
+  "tokens": {
+    "mapped": {
+      "du-bg-1": {"$type": "color", "$value": "#FFFFFF", "$description": "Light content and input surfaces.", "$extensions": {"echo.brand.target": "--du-bg-1", "echo.brand.channel": "mapped", "echo.brand.evidenceRefs": ["site-evidence:topColors:#FFFFFF"]}},
+      "du-bg-2": {"$type": "color", "$value": "#EDEDED", "$description": "Restrained light page/title surface.", "$extensions": {"echo.brand.target": "--du-bg-2", "echo.brand.channel": "mapped", "echo.brand.evidenceRefs": ["site-evidence:roleEvidence.unknown:.content-bg--flat"]}},
+      "du-text-1": {"$type": "color", "$value": "#131415", "$description": "Primary text on light surfaces.", "$extensions": {"echo.brand.target": "--du-text-1", "echo.brand.channel": "mapped", "echo.brand.evidenceRefs": ["site-evidence:roleEvidence.token:--color-black"]}},
+      "du-text-2": {"$type": "color", "$value": "#494949", "$description": "Secondary neutral copy.", "$extensions": {"echo.brand.target": "--du-text-2", "echo.brand.channel": "mapped", "echo.brand.evidenceRefs": ["site-evidence:roleEvidence.navigation:.main-nav"]}},
+      "du-border-1": {"$type": "color", "$value": "#5E5E5E", "$description": "Fallback for ordinary subtle dividers only.", "$extensions": {"echo.brand.target": "--du-border-1", "echo.brand.channel": "mapped", "echo.brand.status": "fallback", "echo.brand.evidenceRefs": ["site-evidence:roleEvidence.navigation:.main-nav__dropdown-column::before"]}}
+    },
+    "styleOnly": {
+      "style-font-database": {"$type": "string", "$value": "Flexo-Regular, arial, sans-serif", "$description": "Database labels and controls only.", "$extensions": {"echo.brand.target": "--style-font-database", "echo.brand.channel": "styleOnly", "echo.brand.evidenceRefs": ["card-db-search-state"]}},
+      "style-database-results-texture": {"$type": "string", "$value": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)", "$description": "Card database results mosaic only.", "$extensions": {"echo.brand.target": "--style-database-results-texture", "echo.brand.channel": "styleOnly", "echo.brand.evidenceRefs": ["card-db-results"]}}
+    }
+  },
+  "assets": {
+    "home-booster-art": {"id": "home-booster-art", "role": "hero-background", "url": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1.jpg", "localPath": "public/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg", "sourceSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "sourceKind": "original-site-asset", "status": "style-only", "targetScope": "home campaign stage", "antiScopes": ["database", "learning", "ordinary card"]},
+    "database-results-texture": {"id": "database-results-texture", "role": "section-background", "url": "https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png", "sourceKind": "computed-style-asset", "status": "style-only", "targetScope": "card database results mosaic", "antiScopes": ["home campaign", "learning organism"]},
+    "learn-card": {"id": "learn-card", "role": "instructional-card", "url": "https://dz3we2x72f7ol.cloudfront.net/expansions/twilight-masquerade/en-us/SV06_EN_33.png", "localPath": "public/assets/brand-assets/pokemon-tcg-official/SV06_EN_33.png", "sourceSha256": "9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95", "sourceKind": "original-site-asset", "status": "style-only", "targetScope": "card anatomy instruction", "antiScopes": ["home hero", "database results"]}
+  },
+  "brandMetadata": {
+    "targets": ["dangoui", "vue", "unocss"],
+    "status": "draft-mapped-with-explicit-gaps",
+    "verification": {
+      "goalId": "pokemon-tcg-official-cold-start-v2",
+      "goalContract": "goal-contract-v2.json",
+      "goalContractPath": "migrations/pokemon-tcg-official/goal-contract-v2.json",
+      "goalSha256": "73aecf1e48b86041958289517f395facd3aaf9cbba3a263980c6574a9b7e4794",
+      "supersedes": "pokemon-tcg-official-cold-start-v1"
+    },
+    "demoWorkflow": {"pages": ["home", "card-database", "how-to-play", "held-out"], "mappingBoundary": "DangoUI carries controls and media slots; page-purpose compositions, painted boundaries, asset layering and state machines remain style/layout/application concerns."},
+    "reviewQueue": ["Home/Learn exact computed font families", "painted yellow/navy boundary implementation assets or computed recipes", "Reduce Motion remains unimplemented"]
+  }
+}

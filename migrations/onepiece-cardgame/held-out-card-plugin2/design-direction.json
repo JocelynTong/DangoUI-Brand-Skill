@@ -12,9 +12,15 @@
     "intent": {"path":"migrations/onepiece-cardgame/brand-intent.json","sha256":"43fcc113a4ba4859444cbca09abeb79fc0f477fa69c4983354833713200c4765"},
     "patterns": {"path":"migrations/onepiece-cardgame/approved-visual-patterns.json","sha256":"9b72a760b13d979b22a288e8b51e0823bcb45a02e97d2b15f2daa4394f7ad239"}
   },
+  "wildDesignDecision": {
+    "path": "migrations/onepiece-cardgame/held-out-card-plugin2/wild-design-mvp/design-direction-decision.json",
+    "sha256": "547e945e7ff331447cc215f76fed68054f009e39351e5acc09fc424e261cfb8b",
+    "selectedOptionIds": ["grand-line-campaign"],
+    "selectedContractSha256": "ccf8b0eea180829feae6efd3579d9547cf944e4acd75815b222150fa229d8fee"
+  },
   "visualPriorityOrder": ["正文与操作可见、可读、可点击", "业务状态和任务完成率", "跨页组件家族一致性", "容量匹配的 ONE PIECE 结构辨识", "显式 IP 识别诊断信号"],
-  "directionName": "ONE PIECE editorial campaign system over a Pokémon-native card utility",
-  "designThesis": "不改 Pokémon 卡组业务，以 ONE PIECE 官网已验证的黑/暖白编辑节奏、红色行动强调、硬边界、短标题 display/numeric、product-first 媒体框和受控 campaign stage 重组视觉层级。强表达只进入赛事和详情的天然媒体面；编辑与管理流程保持效率优先。",
+  "directionName": "伟大航路·战役型 / Grand Line Campaign",
+  "designThesis": "不改 Pokémon 卡组业务与共享布局，在卡组广场以 ONE PIECE 官网已验证的 campaign stage、海军蓝结构面、暖白正文、克制行动红、硬边战役面板和章节切片建立战役型首屏；战役黄只进入有证据的 campaign 区域。工具页与密集列表不继承 Hero 装饰。",
   "sourceContracts": [
     "migrations/onepiece-cardgame/brand-mod.json",
     "migrations/onepiece-cardgame/brand-intent.json",
@@ -30,7 +36,7 @@
     "assets": ["品牌官网资产只允许 source-approved 独立资产并记录 provenance", "宿主卡牌、封面、赛事和用户数据不替换", "不使用 source screenshot/crop 作 runtime asset"]
   },
   "routeDirection": {
-    "pages/plaza/index": "双强度首页：deck 为 compact browse，event 为 campaign showcase。",
+    "pages/plaza/index": "伟大航路战役入口：保留 season-entry → search → filters → featured-deck → secondary-decks，共享布局不变；以战役海报、航线编号、红色行动和一次性章节揭幕强化首屏。",
     "pages/build/index": "编辑器工具化；强化焦点、选择、计数、发布状态，不放 Hero。",
     "pages/mine/index": "contained identity masthead + 资产管理组件家族。",
     "pages/event/index": "主 proof surface：event editorial hero + metric + rounds。",
