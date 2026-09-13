@@ -1,87 +1,33 @@
 {
   "schema": "brand-generative-proof/v1",
   "brand": "czn-v3",
-  "goalId": "czn-current-official-site-v3",
-  "goalSha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
-  "attempt": 1,
-  "challenge": {
-    "id": "held-out-field-briefing",
-    "heldOut": true,
-    "sourceContentIndependent": true,
-    "mapsToSourcePageId": null,
-    "selectedAfterRuleFreeze": true,
-    "contentChange": "Official game and character content is replaced with an explicitly fictional anomaly field briefing.",
-    "structureChange": "The source media/timeline hierarchy is recombined as radar plus briefing copy and reversible phase control; no official composition or raster is copied."
-  },
-  "frozenRules": [
-    {
-      "recipeId": "gameplay-media-timeline-hud",
-      "application": "One dominant visual plane plus sparse independent directional/indexing controls."
-    },
-    {
-      "recipeId": "orange-current-navigation-role",
-      "application": "Orange marks only the current top-level navigation text."
-    },
-    {
-      "recipeId": "recipe-viewport-surface-navigation",
-      "application": "Selection visibly changes and restores."
-    }
+  "attempt": 7,
+  "status": "implemented-independent-qa-pending",
+  "invariants": ["gameplay-media-timeline-hud", "orange-current-navigation-role"],
+  "recipeBindings": [
+    {"approvedPatternId":"gameplay-media-timeline-hud","evidenceRef":"gameplay-slanted-hud-stage","transferredRoles":["dominant slanted media slab","explicit edge arrows","vertical numbered timeline"]},
+    {"approvedPatternId":"orange-current-navigation-role","evidenceRef":"gameplay-orange-active-nav","transferredRoles":["top-navigation-current-text"]}
   ],
-  "allowedVariation": {
-    "basis": "migrations/czn-v3/design-direction.json#held-out-field-briefing",
-    "varied": [
-      "subject matter",
-      "section order",
-      "media content",
-      "labels"
-    ],
-    "preserved": [
-      "layered hierarchy",
-      "slanted HUD grammar",
-      "reversible synchronized control",
-      "narrow current-location orange role"
-    ]
-  },
+  "variedInput": "fictional abyssal signal archive with radar and briefing structure absent from source pages",
   "output": {
-    "demoPageId": "czn-v3-held-out",
-    "route": "/#/brand/czn-v3/pages/czn-v3-held-out",
-    "screenshots": [
-      {
-        "id": "czn-v3-held-out-desktop",
-        "path": "migrations/czn-v3/captures/demo/desktop/held-out.png",
-        "sha256": "bb367d0c4c3d35a14fbc0da81477f8f189c847fdadbec0685dfca0a1af3b4cd0",
-        "viewport": {
-          "width": 1440,
-          "height": 1100
-        },
-        "contentCanvas": {
-          "width": 1440,
-          "height": 900
-        },
-        "state": "initial-fictional"
+    "demoPageId": "czn-held-out",
+    "screenshot": {
+      "pageId": "czn-held-out",
+      "state": "02-settled",
+      "path": "migrations/czn-v3/quality-attempts/7/screenshots/czn-held-out/02-settled.png",
+      "sha256": "df675223817a76f0db4734612895cf394594bce0734e5fff72badb5370397636",
+      "viewport": {
+        "width": 1440,
+        "height": 900
       },
-      {
-        "id": "czn-v3-held-out-mobile",
-        "path": "migrations/czn-v3/captures/demo/mobile/held-out.png",
-        "sha256": "0cc1dd53f6d03eda491ab20fde591b00127f2eb11c54becf9a149c60f7dc0b68",
-        "viewport": {
-          "width": 700,
-          "height": 1000
-        },
-        "contentCanvas": {
-          "width": 390,
-          "height": 844
-        },
-        "state": "initial-fictional"
-      }
-    ]
+      "scrollY": 0
+    }
   },
-  "checks": {
-    "brandCueSubstitution": false,
-    "sourceScreenshotAtRuntime": false,
-    "officialAssetSwapOnly": false,
-    "implementationSelfCheck": "pass",
-    "blindQaStatus": "pending"
-  },
-  "implementationConclusion": "The implementation supplies an explicitly fictional source-independent structural variation. Final Generative Proof approval remains owned by fresh Blind QA."
+  "whyInSystem": "Uses learned hierarchy and edge-control grammar while changing subject matter and composition; explicitly fictional and not a source mirror.",
+  "prohibitedShortcuts": [
+    "source screenshot runtime",
+    "source crop runtime",
+    "payload-integrity claim from URL hash"
+  ],
+  "visualVerdict": "not-self-assessed"
 }

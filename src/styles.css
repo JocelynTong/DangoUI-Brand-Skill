@@ -716,6 +716,269 @@ body:has(.theme-pokemon-tcg-official .template-phone--source-desktop) { overflow
   border-radius: var(--style-welcome-control-radius);
   transition-duration: var(--style-welcome-hover-duration);
 }
+.czn-current-character__identity h2{white-space:nowrap;font-size:clamp(36px,3.2vw,52px)}
+.czn-current-heldout__heading{position:absolute;z-index:6;left:7%;top:14%}.czn-current-heldout__heading h2{margin:6px 0;font-size:46px;transform:skewX(-8deg)}
+.czn-current-heldout__media{position:absolute;z-index:3;left:15%;top:25%;width:69%;height:58%;margin:0;overflow:hidden;background:linear-gradient(145deg,#351125,#0b0910 58%,#21113a);clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);box-shadow:0 18px 45px #0008}.czn-current-heldout__signal{position:absolute;inset:0;background:radial-gradient(circle at 62% 48%,#ffffff20 0 2px,transparent 3px),repeating-radial-gradient(circle at 62% 48%,transparent 0 70px,#ffffff18 71px 72px),linear-gradient(115deg,transparent 45%,#ffffff20 45.2% 45.6%,transparent 46%)}.czn-current-heldout__signal i{position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 18px #fff}.czn-current-heldout__signal i:nth-child(1){left:35%;top:28%}.czn-current-heldout__signal i:nth-child(2){left:62%;top:51%}.czn-current-heldout__signal i:nth-child(3){left:78%;top:72%}.czn-current-heldout__media figcaption{position:absolute;left:5%;right:5%;bottom:4%;padding:14px 18px;background:#08080ab8;color:#fff}.czn-current-heldout .czn-current-controls{top:44%}.czn-current-heldout .czn-current-timeline li{color:#aaa}.czn-current-heldout .czn-current-timeline .is-current{color:#fff}
+
+/* CZN v3 attempt 3: desktop evidence viewport, no phone-card scaling. */
+.shell.theme-czn:has(.template-phone--proof-mode),.shell.theme-czn:has(.template-phone--proof-mode) .shell-content,.shell.theme-czn:has(.template-phone--proof-mode) .workspace,.shell.theme-czn:has(.template-phone--proof-mode) .demo-stage,.shell.theme-czn:has(.template-phone--proof-mode) .showcase,.shell.theme-czn:has(.template-phone--proof-mode) .template-preview{display:block;width:1440px;height:900px;min-width:1440px;min-height:900px;margin:0;padding:0;overflow:hidden}.shell.theme-czn:has(.template-phone--proof-mode) .panel{display:none}.theme-czn .phone.template-phone--proof-mode,.theme-czn .phone.template-phone--proof-mode .phone-screen,.theme-czn .phone.template-phone--proof-mode .contents,.theme-czn .phone.template-phone--proof-mode .source-schema-demo--czn{box-sizing:border-box;width:1440px;height:900px;min-width:1440px;min-height:900px;margin:0;padding:0;border:0;border-radius:0;overflow:hidden}
+.source-schema-demo--czn{width:100%;height:100%;padding:0;color:#17171a;font-family:Arial,sans-serif}.source-schema-demo--czn .tag{display:none}.czn-current{position:relative;width:100%;height:100%;overflow:hidden}.czn-current-nav{position:absolute;z-index:20;inset:0 0 auto;height:68px;display:flex;align-items:center;justify-content:center;gap:54px;padding-left:210px;color:#202024;background:linear-gradient(#f1f0ee,rgba(241,240,238,.78),transparent)}.czn-current-nav__logo{position:absolute;left:42px;top:12px;width:142px;height:42px;object-fit:contain}.czn-current-nav span{display:grid;min-width:92px;text-align:center;letter-spacing:.12em}.czn-current-nav b{font-size:15px}.czn-current-nav small{font-size:10px;font-weight:700}.czn-current-nav .is-current{color:#ff5514}
+.czn-current-home{color:#fff;background:#0b080d}.czn-current-home__media,.czn-current-home__shade{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.czn-current-home__shade{background:linear-gradient(180deg,rgba(5,4,7,.7),transparent 24%,transparent 62%,rgba(5,4,7,.83))}.czn-current-home .czn-current-nav{color:#fff;background:linear-gradient(rgba(5,4,7,.9),transparent)}.czn-current-home__slogan{position:absolute;z-index:5;left:50%;top:45%;width:560px;transform:translate(-50%,-50%);filter:drop-shadow(0 12px 22px #000)}.czn-current-download{position:absolute;z-index:8;left:50%;bottom:2.5%;width:510px;height:118px;transform:translateX(-50%);display:flex;align-items:center;justify-content:center;gap:18px}.czn-current-download__frame{position:absolute;inset:0;width:100%;height:100%}.czn-current-download__qr{position:relative;width:90px;height:90px}.czn-current-download>div{position:relative;display:grid;gap:4px;min-width:230px}.czn-current-download button{height:36px;color:#fff;border:1px solid #fff;background:#17131a}
+.czn-current-gameplay{background:#e8e7e5}.czn-current-gameplay__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}.czn-current-gameplay header{position:absolute;z-index:5;left:7%;top:11%}.czn-current-gameplay header h2{margin:5px 0;font-size:48px;transform:skewX(-9deg)}.czn-current-gameplay__media{position:absolute;z-index:3;left:15%;top:20%;width:69%;height:63%;margin:0;background:#151519;clip-path:polygon(4% 0,100% 0,96% 100%,0 100%);box-shadow:0 18px 45px #0004}.czn-current-gameplay__media img{width:100%;height:100%;object-fit:cover}.czn-current-gameplay__media figcaption{position:absolute;left:4%;right:4%;bottom:3%;padding:10px 16px;color:#fff;background:#08080aa8}.czn-current-controls{position:absolute;z-index:12;left:2.3%;right:2.3%;top:43%;display:flex;justify-content:space-between;pointer-events:none}.czn-current-controls button{display:grid;place-items:center;width:88px;height:112px;padding:0;border:0;background:#ffffffb8;clip-path:polygon(16% 0,100% 0,84% 100%,0 100%);pointer-events:auto}.czn-current-controls img{width:58px;height:88px;object-fit:contain}.czn-current-controls img.is-next{transform:scaleX(-1)}.czn-current-timeline{position:absolute;z-index:6;right:3.5%;top:18%;bottom:13%;display:flex;flex-direction:column;justify-content:space-around;list-style:none}.czn-current-timeline li{font-size:12px;font-weight:800;color:#777}.czn-current-timeline .is-current{font-size:20px;color:#111}.czn-current-timeline .is-current:before{content:'— '}
+.czn-current-character{color:#fff;background:radial-gradient(circle at 66% 38%,#661820,#16080d 50%,#070609 80%)}.czn-current-character .czn-current-nav{color:#fff;background:linear-gradient(#070507ef,transparent)}.czn-current-character__subject{position:absolute;z-index:3;right:-1%;top:5%;width:57%;height:95%;object-fit:contain;object-position:center bottom;filter:drop-shadow(0 22px 30px #000)}.czn-current-portraits{position:absolute;z-index:10;left:1.2%;top:13%;bottom:6%;width:90px;display:flex;flex-direction:column;justify-content:center;gap:7px}.czn-current-portraits button{width:82px;height:82px;padding:0;border:1px solid #756a6e;background:#171117;clip-path:polygon(9% 0,100% 0,91% 100%,0 100%)}.czn-current-portraits button.is-current{border:3px solid #fff}.czn-current-portraits img{width:100%;height:100%;object-fit:cover}.czn-current-character__identity{position:absolute;z-index:7;top:18%;left:14%;width:34%;padding:22px 28px;border-left:5px solid #fff;background:linear-gradient(90deg,#090609dc,transparent);transform:skewX(-7deg)}.czn-current-character__identity>*{transform:skewX(7deg)}.czn-current-character__identity h2{margin:8px 0;font-size:52px}.czn-current-character__identity p{line-height:1.55;color:#c9bcc0}.czn-current-skills{position:absolute;z-index:6;left:13%;right:46%;bottom:5%;display:grid;grid-template-columns:repeat(5,1fr);gap:7px;align-items:end}.czn-current-skills article{min-height:210px;padding:8px;display:grid;align-content:end;transform:skewX(-8deg);background:linear-gradient(160deg,#731822f2,#0d090df5);border:1px solid #76676d;clip-path:polygon(7% 0,100% 0,93% 100%,0 100%)}.czn-current-skills article>*{transform:skewX(8deg)}.czn-current-skills article:nth-child(2){margin-bottom:18px}.czn-current-skills article:nth-child(3){margin-bottom:36px}.czn-current-skills article:nth-child(4){margin-bottom:54px}.czn-current-skills article:nth-child(5){margin-bottom:72px}.czn-current-skills img{width:72px;height:72px;object-fit:contain}.czn-current-character .czn-current-controls{left:auto;right:1.3%;top:70%;width:72px;height:160px;flex-direction:column}.czn-current-character .czn-current-controls button{width:64px;height:70px;background:#220c12c2}
+.czn-current-heldout{color:#fff;background:radial-gradient(circle at 68% 48%,#9747ff55,transparent 24%),repeating-linear-gradient(90deg,#ffffff09 0 1px,transparent 1px 72px),linear-gradient(135deg,#09070c,#280d1a 58%,#08070a)}.czn-current-heldout .czn-current-nav{color:#fff;background:linear-gradient(#08060bd9,transparent)}.czn-current-heldout__disclosure{position:absolute;z-index:8;top:92px;left:5%;color:#fff;letter-spacing:.15em}.czn-current-heldout__radar{position:absolute;left:45%;top:18%;width:520px;height:520px;border:1px solid #ffffff59;border-radius:50%;box-shadow:0 0 0 75px #ffffff09,0 0 0 150px #ffffff06}.czn-current-heldout__radar:before,.czn-current-heldout__radar:after{content:'';position:absolute;background:#ffffff40}.czn-current-heldout__radar:before{left:50%;width:1px;height:100%}.czn-current-heldout__radar:after{top:50%;width:100%;height:1px}.czn-current-heldout__radar i{position:absolute;width:14px;height:14px;border-radius:50%;background:#fff;box-shadow:0 0 20px #fff}.czn-current-heldout__radar i:nth-child(1){left:25%;top:28%}.czn-current-heldout__radar i:nth-child(2){left:67%;top:55%}.czn-current-heldout__radar i:nth-child(3){left:42%;top:78%}.czn-current-heldout__brief{position:absolute;z-index:5;left:7%;top:31%;width:35%;padding:30px;border-left:6px solid #fff;background:linear-gradient(90deg,#060508eb,transparent);transform:skewX(-7deg)}.czn-current-heldout__brief>*{transform:skewX(7deg)}.czn-current-heldout__brief h2{font-size:54px;margin:12px 0}.czn-current-heldout__brief p{line-height:1.7;color:#c9c2cc}.czn-current-heldout .czn-current-controls{top:77%}
+
+/* The editor route is the public delivery surface, not just a launcher for the
+   isolated proof viewport. Keep the CZN desktop stage visible in both. */
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .phone-screen,
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .phone-screen > .contents,
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .source-schema-demo--czn,
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .czn-current {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .phone-screen > .contents,
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .source-schema-demo--czn {
+  display: block;
+  background: #080609;
+}
+.theme-czn .phone.template-phone--source-desktop:has(.source-schema-demo--czn) .phone-screen > .contents {
+  position: absolute;
+  inset: 0;
+}
+
+/* The public editor preview is narrower and shorter than the 1440 x 900 proof
+   canvas. Adapt fixed-size edge controls to that real delivery viewport. */
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-character__subject {
+  right: 0;
+  top: 6%;
+  height: 88%;
+  object-position: center bottom;
+}
+.czn-current-character__subject--fallback {
+  z-index: 3;
+}
+.czn-current-character__subject--motion {
+  z-index: 4;
+}
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-portraits {
+  top: 14%;
+  bottom: 4%;
+  gap: 4px;
+}
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-portraits button {
+  width: 68px;
+  height: 68px;
+}
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-character .czn-current-controls {
+  top: auto;
+  bottom: 3%;
+  height: 142px;
+  gap: 8px;
+}
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-character .czn-current-controls button {
+  width: 64px;
+  height: 66px;
+  background: rgba(255, 255, 255, .82);
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, .58), 0 8px 18px rgba(0, 0, 0, .36);
+}
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-character .czn-current-controls img {
+  width: 42px;
+  height: 52px;
+}
+.theme-czn .phone.template-phone--source-desktop:not(.template-phone--proof-mode):has(.source-schema-demo--czn) .czn-current-heldout .czn-current-controls {
+  top: auto;
+  bottom: 3%;
+}
+
+/* Normal brand-library routes are mobile capability previews. The source's
+   1440 x 900 composition remains available through ?proof=desktop. */
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .phone-screen > .contents,
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .source-schema-demo--czn,
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current {
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  min-height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .phone-screen > .contents {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #080609;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-nav {
+  height: 70px;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 0 14px 0 96px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-nav__logo {
+  left: 14px;
+  top: 17px;
+  width: 76px;
+  height: 32px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-nav span {
+  min-width: 0;
+  letter-spacing: .04em;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-nav span:nth-of-type(4) {
+  display: none;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-nav b {
+  font-size: 10px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-nav small {
+  font-size: 7px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-home__media {
+  object-position: 58% center;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-home__slogan {
+  top: 39%;
+  width: 86%;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-download {
+  bottom: 5%;
+  width: 92%;
+  height: 110px;
+  gap: 10px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-download__qr {
+  width: 72px;
+  height: 72px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-download > div {
+  min-width: 180px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-download button {
+  height: 44px;
+  min-height: 44px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-gameplay header {
+  left: 6%;
+  top: 12%;
+  color: #17171a;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-gameplay header h2,
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-heldout__heading h2 {
+  font-size: 30px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-gameplay__media,
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-heldout__media {
+  left: 6%;
+  top: 24%;
+  width: 88%;
+  height: 66%;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-controls {
+  left: 2%;
+  right: 2%;
+  top: 46%;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-controls button {
+  width: 48px;
+  height: 68px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-controls img {
+  width: 34px;
+  height: 50px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-timeline {
+  right: 4%;
+  top: 20%;
+  bottom: 14%;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-character__subject {
+  right: 0;
+  top: 8%;
+  width: 100%;
+  height: 45%;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-portraits {
+  left: 4%;
+  right: 4%;
+  top: 10%;
+  bottom: auto;
+  width: auto;
+  height: 58px;
+  flex-direction: row;
+  justify-content: flex-start;
+  gap: 5px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-portraits button {
+  width: 54px;
+  height: 54px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-character__identity {
+  left: 7%;
+  top: 48%;
+  width: 78%;
+  padding: 14px 18px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-character__identity h2 {
+  font-size: 34px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-character__identity p {
+  margin-bottom: 0;
+  font-size: 12px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-skills {
+  left: 5%;
+  right: 5%;
+  bottom: 4%;
+  gap: 4px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-skills article {
+  min-height: 96px;
+  padding: 5px;
+  font-size: 9px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-skills article:nth-child(n) {
+  margin-bottom: 0;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-skills img {
+  width: 40px;
+  height: 40px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-character .czn-current-controls {
+  left: 2%;
+  right: 2%;
+  top: 29%;
+  bottom: auto;
+  width: auto;
+  height: auto;
+  flex-direction: row;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-character .czn-current-controls button {
+  background: rgba(255, 255, 255, .8);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, .4);
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-heldout__heading {
+  left: 7%;
+  top: 16%;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-heldout__heading small {
+  display: none;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-heldout__disclosure {
+  top: 92px;
+  left: 7%;
+  font-size: 10px;
+}
+.theme-czn .phone.template-phone:not(.template-phone--source-desktop):has(.source-schema-demo--czn) .czn-current-heldout .czn-current-controls {
+  top: 46%;
+  bottom: auto;
+}
 
 /* Native DangoUI colors are rebound only at their approved consumer surfaces;
    generic source-preview defaults remain untouched. */

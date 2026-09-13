@@ -148,7 +148,7 @@
             <div
               class="phone template-phone"
               :class="{
-                'template-phone--source-desktop': selectedTemplateShell.device === 'desktop' || isDesktopHeroProofSurface,
+                'template-phone--source-desktop': isDesktopHeroProofSurface || (selectedTemplateShell.device === 'desktop' && (selectedStyle.normalPreviewDevice !== 'phone' || isExplicitProofSurface)),
                 'template-phone--source-mobile-proof': isMobileProofSurface,
                 'template-phone--proof-mode': isExplicitProofSurface,
                 'template-phone--bottom-actions': showDemoBottomActions,
@@ -6494,7 +6494,29 @@ const SchemaDangoDocsContinuationSection = defineComponent({
   },
 });
 
+const SchemaCznCurrentSection = defineComponent({
+  name: "SchemaCznCurrentSection",
+  props: { section: { type: Object, required: true } },
+  setup(props) {
+    const active = ref(0);
+    const advance = (delta) => { const n = Math.max(1, props.section.content?.items?.length || 1); active.value = (active.value + delta + n) % n; };
+    const nav = (content, assets) => h("nav", { class: "czn-current-nav" }, [h("img", { class: "czn-current-nav__logo", src: assets.logo, alt: "Chaos Zero Nightmare" }), ...content.navigation.map((item) => h("span", { class: item.id === content.activeNavigation ? "is-current" : "" }, [h("b", item.zh), h("small", item.en)]))]);
+    const controls = (assets) => h("div", { class: "czn-current-controls" }, [-1, 1].map((delta) => h("button", { type: "button", "aria-label": delta < 0 ? "Previous" : "Next", onClick: () => advance(delta) }, h("img", { src: assets.arrow, alt: "", class: delta > 0 ? "is-next" : "" }))));
+    return () => {
+      const content = props.section.content; const assets = props.section.assets; const item = content.items[active.value];
+      if (props.section.type === "czn-current-home") return renderSchemaSection(props.section, "czn-current czn-current-home", [h("video", { class: "czn-current-home__media", src: assets.video, poster: assets.poster, autoplay: true, muted: true, loop: true, playsinline: true }), h("div", { class: "czn-current-home__shade" }), nav(content, assets), h("img", { class: "czn-current-home__slogan", src: assets.slogan, alt: "CZN campaign slogan" }), h("section", { class: "czn-current-download" }, [h("img", { class: "czn-current-download__frame", src: assets.downloadFrame, alt: "" }), h("img", { class: "czn-current-download__qr", src: assets.qr, alt: "Download QR" }), h("div", [h("strong", "立即下载"), h("small", "DOWNLOAD NOW"), h("button", { type: "button", onClick: () => advance(1) }, active.value ? "恢复下载面板" : "展开平台列表")])])]);
+      if (props.section.type === "czn-current-gameplay") return renderSchemaSection(props.section, "czn-current czn-current-gameplay", [h("img", { class: "czn-current-gameplay__bg", src: assets.background, alt: "" }), nav(content, assets), h("header", [h("small", "玩法介绍 / GAMEPLAY"), h("h2", item.title)]), h("figure", { class: "czn-current-gameplay__media" }, [h("img", { src: item.src, alt: item.title }), h("figcaption", item.description)]), controls(assets), h("ol", { class: "czn-current-timeline" }, content.items.map((_, i) => h("li", { class: i === active.value ? "is-current" : "" }, `${String(i + 1).padStart(2, "0")}/05`)))]);
+      if (props.section.type === "czn-current-heldout") return renderSchemaSection(props.section, "czn-current czn-current-heldout", [nav(content, assets), h("strong", { class: "czn-current-heldout__disclosure" }, "FICTIONAL HELD-OUT / 非官方页面"), h("header", { class: "czn-current-heldout__heading" }, [h("small", "ABYSSAL SIGNAL ARCHIVE"), h("h2", item.title)]), h("figure", { class: "czn-current-heldout__media" }, [h("div", { class: "czn-current-heldout__signal" }, [h("i"), h("i"), h("i")]), h("figcaption", item.description)]), controls(assets), h("ol", { class: "czn-current-timeline" }, Array.from({ length: 5 }, (_, i) => h("li", { class: i === active.value ? "is-current" : "" }, `${String(i + 1).padStart(2, "0")}/05`)))]);
+      return renderSchemaSection(props.section, "czn-current czn-current-character", [nav(content, assets), h("div", { class: "czn-current-portraits" }, content.rail.map((portrait, i) => h("button", { type: "button", class: i % content.items.length === active.value ? "is-current" : "", onClick: () => active.value = i % content.items.length }, h("img", { src: portrait.src, alt: portrait.name })))), h("img", { key: `${item.poster}-fallback`, class: "czn-current-character__subject czn-current-character__subject--fallback", src: item.poster, alt: item.name }), h("video", { key: item.video, class: "czn-current-character__subject czn-current-character__subject--motion", src: item.video, poster: item.poster, autoplay: true, muted: true, loop: true, playsinline: true, preload: "auto" }), h("section", { class: "czn-current-character__identity" }, [h("small", "角色档案 / CHARACTER"), h("h2", item.name), h("b", `CV / ${item.voice}`), h("p", item.description)]), h("div", { class: "czn-current-skills" }, item.skills.map((skill) => h("article", [h("img", { src: skill.src, alt: "" }), h("strong", skill.name)]))), controls(assets)]);
+    };
+  },
+});
+
 const sectionRendererRegistry = {
+  "czn-current-home": SchemaCznCurrentSection,
+  "czn-current-gameplay": SchemaCznCurrentSection,
+  "czn-current-character": SchemaCznCurrentSection,
+  "czn-current-heldout": SchemaCznCurrentSection,
   "brand-hero": SchemaBrandHeroSection,
   "action-cluster": SchemaActionClusterSection,
   "featured-card-strip": SchemaAssetStripSection,
