@@ -1,0 +1,30 @@
+{
+  "schema":"mockup-state-matrix/v1","brand":"czn-v3","attempt":1,"ownerRole":"visualQA","qaExecutionId":"/root/czn_v3_visual_qa","verdict":"fail",
+  "observations":[
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1440,"height":1100},"indicator":{"hidden":false,"parentRole":"phone","position":"absolute","backgroundSemantics":"transparent"},"geometry":{"screenWidthAligned":true,"screenRadiusAligned":true,"bottomChromeRadiusAligned":true},"scroll":{"scrollHeight":924,"clientHeight":803,"beforeScrollTop":0,"afterScrollTop":121.33,"restoredScrollTop":0,"indicatorRectDeltaPx":0}},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"normal","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"normal","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"brand","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":700,"height":1000},"status":"not-observed"},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"brand","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":700,"height":1000},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":700,"height":1000},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"style","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":700,"height":1000},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=1","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"tabbar","mode":"proof=mobile","viewport":{"width":700,"height":1000},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=1","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=desktop","viewport":{"width":1440,"height":1100},"status":"not-observed"},
+    {"pageType":"component","bottomChrome":"no-tabbar","mode":"proof=mobile","viewport":{"width":700,"height":1000},"status":"not-observed"}
+  ],
+  "blockingFindings":[{"code":"MOCKUP_MATRIX_EVIDENCE_INCOMPLETE","finding":"Only the normal brand/no-tabbar phone state was directly observed; the complete shared platform matrix cannot honestly pass without fresh browser evidence for the other 23 cells.","failureOwnerRole":"demoImplementationAgent"}]
+}

@@ -1,0 +1,461 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "czn-v3",
+  "goalId": "czn-current-official-site-v3",
+  "goalSha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+  "attempt": 1,
+  "implementationStage": "demo-1",
+  "runtimeAssetPolicy": {
+    "sourceScreenshotsUsedAtRuntime": false,
+    "compositionMethod": "DOM/CSS reconstruction only",
+    "highSalienceRuntimeAssets": [],
+    "provenanceStatement": "No raster/video source payload is used by the czn-v3 preview. Frozen sourceSha256 values are canonical URL identity hashes only; payload integrity is not claimed.",
+    "hashBasis": "canonical-source-url-identity in frozen evidence; runtime DOM/CSS has local file hashes"
+  },
+  "pages": [
+    {
+      "demoPageId": "czn-v3-home",
+      "sourcePageId": "home",
+      "proofRole": "source-mapped",
+      "patterns": [
+        {
+          "id": "home-stage",
+          "salience": "high",
+          "approvedPatternId": "immersive-moving-home-stage",
+          "preserves": [
+            "mustPreserve.immersive-hero-stage"
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css#.czn-v3-home-stage",
+          "evidenceRefs": [
+            {
+              "evidenceId": "home-immersive-hero-stage",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ]
+            }
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "asset-102",
+              "variant": "official observed moving-background URL",
+              "sourceSha256": "b66939bd35261642a4fcfbc7c26dbf7e5cbefdc0e08c9daf91f9c1befff1c671",
+              "hashBasis": "canonical-source-url-identity"
+            },
+            "demoAsset": {
+              "identity": "czn-v3-home-dom-css",
+              "variant": "independent CSS animated field",
+              "sourceKind": "dom-css-reconstruction"
+            },
+            "aspectTranslation": "desktop layers reflow inside phone shell with bounded dominant field",
+            "layers": [
+              {
+                "id": "moving-hero-field",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "demoRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              {
+                "id": "fixed-top-navigation",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  0.14
+                ],
+                "demoRegion": [
+                  0,
+                  0,
+                  1,
+                  0.1
+                ]
+              },
+              {
+                "id": "lower-download-cluster",
+                "sourceRegion": [
+                  0.35,
+                  0.62,
+                  0.3,
+                  0.34
+                ],
+                "demoRegion": [
+                  0.07,
+                  0.72,
+                  0.86,
+                  0.18
+                ]
+              }
+            ]
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "demoPageId": "czn-v3-gameplay",
+      "sourcePageId": "gameplay",
+      "proofRole": "source-mapped",
+      "patterns": [
+        {
+          "id": "gameplay-hud",
+          "salience": "high",
+          "approvedPatternId": "gameplay-media-timeline-hud",
+          "preserves": [
+            "mustPreserve.slanted-hud-grammar"
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css#.czn-v3-gameplay-stage",
+          "evidenceRefs": [
+            {
+              "evidenceId": "gameplay-slanted-hud-stage",
+              "sourcePageId": "gameplay",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ]
+            }
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "asset-116",
+              "variant": "observed gameplay media URL",
+              "sourceSha256": "098a4d50e2de7141f888915ce868a87c92b8af3a184fc31a10849ce169a1d0e9",
+              "hashBasis": "canonical-source-url-identity"
+            },
+            "demoAsset": {
+              "identity": "czn-v3-gameplay-dom-css",
+              "variant": "representative CSS media plane",
+              "sourceKind": "dom-css-reconstruction"
+            },
+            "aspectTranslation": "wide media remains dominant; controls and timeline stay independent",
+            "layers": [
+              {
+                "id": "backdrop",
+                "sourceRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ],
+                "demoRegion": [
+                  0,
+                  0,
+                  1,
+                  1
+                ]
+              },
+              {
+                "id": "wide-media-slab",
+                "sourceRegion": [
+                  0.18,
+                  0.18,
+                  0.64,
+                  0.64
+                ],
+                "demoRegion": [
+                  0.08,
+                  0.24,
+                  0.76,
+                  0.48
+                ]
+              },
+              {
+                "id": "edge-controls",
+                "sourceRegion": [
+                  0.04,
+                  0.34,
+                  0.92,
+                  0.32
+                ],
+                "demoRegion": [
+                  0.05,
+                  0.44,
+                  0.87,
+                  0.12
+                ]
+              },
+              {
+                "id": "numbered-timeline",
+                "sourceRegion": [
+                  0.87,
+                  0.2,
+                  0.1,
+                  0.62
+                ],
+                "demoRegion": [
+                  0.88,
+                  0.22,
+                  0.1,
+                  0.58
+                ]
+              }
+            ]
+          },
+          "interactionSelfCheck": {
+            "changed": true,
+            "restored": true
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "demoPageId": "czn-v3-character",
+      "sourcePageId": "character",
+      "proofRole": "source-mapped",
+      "patterns": [
+        {
+          "id": "character-hud",
+          "salience": "high",
+          "approvedPatternId": "character-layered-profile-hud",
+          "preserves": [
+            "mustPreserve.slanted-hud-grammar"
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css#.czn-v3-character-stage",
+          "evidenceRefs": [
+            {
+              "evidenceId": "character-slanted-hud-stage",
+              "sourcePageId": "character",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ]
+            }
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "asset-099",
+              "variant": "observed character-motion URL",
+              "sourceSha256": "a5c426d684152ac0c599eb647013ffe5196b9dcd83d7938ed55d99d46814e43c",
+              "hashBasis": "canonical-source-url-identity"
+            },
+            "demoAsset": {
+              "identity": "czn-v3-character-dom-css",
+              "variant": "animated CSS silhouette fixture",
+              "sourceKind": "dom-css-reconstruction"
+            },
+            "aspectTranslation": "asymmetric desktop profile stacks while retaining moving-subject dominance",
+            "layers": [
+              {
+                "id": "portrait-rail",
+                "sourceRegion": [
+                  0,
+                  0.12,
+                  0.18,
+                  0.76
+                ],
+                "demoRegion": [
+                  0.03,
+                  0.1,
+                  0.94,
+                  0.08
+                ]
+              },
+              {
+                "id": "moving-subject",
+                "sourceRegion": [
+                  0.2,
+                  0.04,
+                  0.58,
+                  0.92
+                ],
+                "demoRegion": [
+                  0.09,
+                  0.2,
+                  0.72,
+                  0.43
+                ]
+              },
+              {
+                "id": "identity-voice",
+                "sourceRegion": [
+                  0.57,
+                  0.12,
+                  0.38,
+                  0.42
+                ],
+                "demoRegion": [
+                  0.08,
+                  0.61,
+                  0.84,
+                  0.2
+                ]
+              },
+              {
+                "id": "angled-skills",
+                "sourceRegion": [
+                  0.54,
+                  0.54,
+                  0.42,
+                  0.39
+                ],
+                "demoRegion": [
+                  0.08,
+                  0.83,
+                  0.84,
+                  0.12
+                ]
+              }
+            ]
+          },
+          "interactionSelfCheck": {
+            "changed": true,
+            "restored": true
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    },
+    {
+      "demoPageId": "czn-v3-held-out",
+      "sourcePageId": null,
+      "proofRole": "generative-held-out",
+      "patterns": [
+        {
+          "id": "fictional-briefing",
+          "salience": "high",
+          "approvedPatternId": "gameplay-media-timeline-hud",
+          "preserves": [
+            "source-independent content",
+            "layered hierarchy",
+            "reversible control",
+            "orange-current-navigation-role"
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css#.czn-v3-heldout-stage",
+          "evidenceRefs": [
+            {
+              "evidenceId": "gameplay-slanted-hud-stage",
+              "sourcePageId": "gameplay",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ]
+            },
+            {
+              "evidenceId": "home-orange-active-nav",
+              "sourcePageId": "home",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ]
+            }
+          ],
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "gameplay-hud-composition",
+              "variant": "wide media plus timeline"
+            },
+            "demoAsset": {
+              "identity": "fictional-radar-briefing-dom-css",
+              "variant": "radar plus text brief",
+              "sourceKind": "dom-css-reconstruction"
+            },
+            "aspectTranslation": "rules recombined into radar/briefing structure; no source page mirrored",
+            "layers": [
+              {
+                "id": "fictional-disclosure",
+                "sourceRegion": [
+                  0,
+                  0,
+                  0,
+                  0
+                ],
+                "demoRegion": [
+                  0.07,
+                  0.11,
+                  0.86,
+                  0.06
+                ]
+              },
+              {
+                "id": "radar-mass",
+                "sourceRegion": [
+                  0.18,
+                  0.18,
+                  0.64,
+                  0.64
+                ],
+                "demoRegion": [
+                  0.08,
+                  0.35,
+                  0.52,
+                  0.46
+                ]
+              },
+              {
+                "id": "briefing-panel",
+                "sourceRegion": [
+                  0.87,
+                  0.2,
+                  0.1,
+                  0.62
+                ],
+                "demoRegion": [
+                  0.52,
+                  0.44,
+                  0.4,
+                  0.32
+                ]
+              }
+            ]
+          },
+          "interactionSelfCheck": {
+            "changed": true,
+            "restored": true
+          },
+          "selfCheck": "pass"
+        }
+      ]
+    }
+  ],
+  "selfCheck": {
+    "unsupportedHighSaliencePatterns": [],
+    "unapprovedColorRoleExpansions": [],
+    "sourceScreenshotRuntimeAssets": [],
+    "result": "pass",
+    "scope": "producer implementation self-check only"
+  }
+}

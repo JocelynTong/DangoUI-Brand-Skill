@@ -1,0 +1,31 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "dispatchId":"489a4441-6753-46d4-8606-8ce287e15897",
+  "stageId":"visualQA-2",
+  "role":"visualQA",
+  "agentExecutionId":"/root/czn_v3_visual_qa",
+  "goalSha256":"ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+  "verdict":"fail",
+  "failureOwnerRole":"demoImplementationAgent",
+  "inputs":[
+    {"path":"migrations/czn-v3/goal-contract.json","sha256":"ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504"},
+    {"path":"migrations/czn-v3/visual-pattern-inventory.json","sha256":"d64b3d4d6b77519641ce7ad6d134344454053346ec3dfe1dd38ad5572ca885a9"},
+    {"path":"migrations/czn-v3/generative-proof.json","sha256":"add6c709751b569c515519b4401c4af4b32567e150dd8762876f7c8cf1324512"}
+  ],
+  "outputs":[
+    {"path":"migrations/czn-v3/qa-input-manifest.json","sha256":"e16aefc2cd0f5cde8e1e0ce20ac687527620aee2da93b586d1e5271ba047f18c"},
+    {"path":"migrations/czn-v3/visual-qa-assessment.json","sha256":"43db7bbd91427c52e3675d3b9a3af76e0599e83a6b78459b6ae2c7ddfbc30106"},
+    {"path":"migrations/czn-v3/visual-comparison-report.json","sha256":"23b4d35229b50fa375faf8266715a4939f3223336f85b8beac05413fe878af62"},
+    {"path":"migrations/czn-v3/brand-distinctiveness-assessment.json","sha256":"819d4f27b014d7ee0efc0e2a2b460c3487982e195f62a7c967d3004e66ce5c5e"},
+    {"path":"migrations/czn-v3/fidelity-report.json","sha256":"6cbf9e3b3585c0ad9d8c048b37989fc50407dee2c70a0ed37880d513109b155f"},
+    {"path":"migrations/czn-v3/mockup-state-matrix.json","sha256":"c74ed8220699869ba01c11906a3cb618b2492473e55d1052603c38eefb5c3572"}
+  ],
+  "proofVerdict":{"evidenceFidelity":"fail","structuralFidelity":"fail","generativeProof":"fail","policy":"all-pass-no-compensation"},
+  "blockingFindings":[
+    {"code":"UNSUPPORTED_VISUAL_PATTERN","scope":"home","finding":"Sparse generic CSS field does not preserve the immersive illustrated hero, campaign lockup and download cluster."},
+    {"code":"UNSUPPORTED_VISUAL_PATTERN","scope":"gameplay","finding":"Empty wireframe media slab does not preserve the dominant gameplay media composition."},
+    {"code":"UNSUPPORTED_VISUAL_PATTERN","scope":"character","finding":"Real portrait rail and moving subject are absent; angled skill fan is replaced by text controls."},
+    {"code":"GENERATIVE_RULE_REUSE_UNPROVEN","scope":"held-out","finding":"Held-out is non-mirrored and reuses two visible rules, but not every frozen recipe is proven and the heading visibly overlaps."},
+    {"code":"MOCKUP_MATRIX_EVIDENCE_INCOMPLETE","scope":"shared-mockup","finding":"The required 24-cell matrix has only one directly observed normal fixture; unobserved cells cannot pass."}
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "czn-v3",
+  "goalId": "czn-current-official-site-v3",
+  "goalContractPath": "migrations/czn-v3/goal-contract.json",
+  "goalSha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+  "attempt": 1,
+  "status": "fidelity-fail",
+  "overallScore": 40.83,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "czn-v3-home",
+      "score": 37.5,
+      "ratings": {
+        "composition": 1,
+        "assetAuthenticity": 1,
+        "colorRoles": 3,
+        "informationDensity": 1,
+        "typographyGraphics": 2,
+        "motionSemantics": 2,
+        "brandRecognition": 1
+      }
+    },
+    {
+      "sourcePageId": "gameplay",
+      "demoPageId": "czn-v3-gameplay",
+      "score": 50,
+      "ratings": {
+        "composition": 2,
+        "assetAuthenticity": 1,
+        "colorRoles": 3,
+        "informationDensity": 2,
+        "typographyGraphics": 2,
+        "motionSemantics": 3,
+        "brandRecognition": 1
+      }
+    },
+    {
+      "sourcePageId": "character",
+      "demoPageId": "czn-v3-character",
+      "score": 35,
+      "ratings": {
+        "composition": 1,
+        "assetAuthenticity": 0,
+        "colorRoles": 3,
+        "informationDensity": 1,
+        "typographyGraphics": 2,
+        "motionSemantics": 3,
+        "brandRecognition": 1
+      }
+    }
+  ],
+  "protocolFailures": [],
+  "hardFailures": [
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "home-stage",
+      "message": "Declared three-layer topology exists nominally, but the dominant illustrated hero composition and campaign/download visual mass are not matched."
+    },
+    {
+      "code": "COMPOSITION_SUPPORT_MISSING",
+      "scope": "immersive-hero-stage",
+      "message": "home has no implementation pattern explicitly bound to immersive-hero-stage."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "home",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_ASSET_BELOW_MIN",
+      "scope": "home",
+      "message": "Asset authenticity is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "home",
+      "message": "Core page score 37.5 is below 70."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "home",
+      "message": "Home replaces the immersive official hero composition with a sparse generic CSS field."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "gameplay-hud",
+      "message": "The structural skeleton is present but the dominant gameplay media and source visual mass are absent."
+    },
+    {
+      "code": "COMPOSITION_SUPPORT_MISSING",
+      "scope": "slanted-hud-grammar",
+      "message": "gameplay has no implementation pattern explicitly bound to slanted-hud-grammar."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "gameplay",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_ASSET_BELOW_MIN",
+      "scope": "gameplay",
+      "message": "Asset authenticity is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "gameplay",
+      "message": "Core page score 50 is below 70."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "gameplay",
+      "message": "Gameplay keeps controls/timeline but replaces the required dominant media composition with an empty wireframe slab."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "character-hud",
+      "message": "Required real portrait rail and moving subject are absent; identity/voice and angled skills are only weak textual analogues."
+    },
+    {
+      "code": "CORE_COMPOSITION_BELOW_MIN",
+      "scope": "character",
+      "message": "Composition is below the frozen minimum."
+    },
+    {
+      "code": "CORE_ASSET_BELOW_MIN",
+      "scope": "character",
+      "message": "Asset authenticity is below the frozen minimum."
+    },
+    {
+      "code": "CORE_PAGE_BELOW_THRESHOLD",
+      "scope": "character",
+      "message": "Core page score 35 is below 70."
+    },
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "character",
+      "message": "Character omits the real portrait rail and moving subject and substitutes generic CSS geometry."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "immersive-hero-stage",
+      "message": "A mustPreserve requirement failed."
+    },
+    {
+      "code": "MUST_PRESERVE_FAILED",
+      "scope": "slanted-hud-grammar",
+      "message": "A mustPreserve requirement failed."
+    },
+    {
+      "code": "MUST_NOT_REPLACE_VIOLATED",
+      "scope": "no-asset-only-proof",
+      "message": "Logo, characters and orange color cannot substitute for composition and interaction proof."
+    },
+    {
+      "code": "OVERALL_BELOW_THRESHOLD",
+      "scope": "overall",
+      "message": "Overall score 40.83 is below 80."
+    },
+    {
+      "code": "REVIEWER_REJECTED",
+      "scope": "overall",
+      "message": "Reviewer recommendation is fail."
+    },
+    {
+      "code": "GENERATIVE_RULE_REUSE_UNPROVEN",
+      "scope": "held-out-field-briefing",
+      "message": "Generative proof must reuse at least two named recipes frozen before the held-out challenge."
+    },
+    {
+      "code": "GENERATIVE_OUTPUT_MISSING",
+      "scope": "held-out-field-briefing",
+      "message": "Held-out output needs a demo page id and hashed screenshot."
+    },
+    {
+      "code": "BRAND_CUE_SUBSTITUTION",
+      "scope": "czn-v3-held-out",
+      "message": "Logo, brand colors or official wallpaper cannot substitute for applying reusable structural rules."
+    },
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "held-out-field-briefing",
+      "message": "Blind QA must independently approve the held-out generative proof."
+    }
+  ],
+  "blockingFindings": [
+    {
+      "page": "home",
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "finding": "Home replaces the immersive official hero composition with a sparse generic CSS field.",
+      "earliestFailureNode": "demo",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "page": "gameplay",
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "finding": "Gameplay keeps controls/timeline but replaces the required dominant media composition with an empty wireframe slab.",
+      "earliestFailureNode": "demo",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "page": "character",
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "finding": "Character omits the real portrait rail and moving subject and substitutes generic CSS geometry.",
+      "earliestFailureNode": "demo",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-fail",
+    "evidenceFidelity": "fail",
+    "structuralFidelity": "fail",
+    "generativeProof": "fail",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+    "qaInputManifest": "e16aefc2cd0f5cde8e1e0ce20ac687527620aee2da93b586d1e5271ba047f18c",
+    "assessment": "43db7bbd91427c52e3675d3b9a3af76e0599e83a6b78459b6ae2c7ddfbc30106",
+    "visualPatternInventory": "d64b3d4d6b77519641ce7ad6d134344454053346ec3dfe1dd38ad5572ca885a9",
+    "generativeProof": "add6c709751b569c515519b4401c4af4b32567e150dd8762876f7c8cf1324512"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-09-13T05:11:11.789Z"
+}

@@ -1,0 +1,453 @@
+{
+  "schema": "brand-third-party-computed-evidence/v1",
+  "provider": "dembrandt",
+  "brand": "czn-v3",
+  "sourceUrl": "https://czn.qq.com/",
+  "input": "output/extractor-benchmark/czn-v3/dembrandt/result.json",
+  "createdAt": "2026-09-13T04:52:19.590Z",
+  "counts": {
+    "semanticColors": 4,
+    "palette": 6,
+    "buttonVariants": 1,
+    "radii": 2,
+    "shadows": 0
+  },
+  "computedEvidence": {
+    "semanticColors": {
+      "background": {
+        "value": "rgb(34, 34, 34)",
+        "hex": "#222222",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0.133
+      },
+      "text": {
+        "value": "rgb(0, 0, 0)",
+        "hex": "#000000",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0
+      },
+      "primary": {
+        "value": "rgb(0, 0, 238)",
+        "hex": "#0000EE",
+        "family": "blue",
+        "hue": 240,
+        "saturation": 1,
+        "lightness": 0.467
+      },
+      "accent": {
+        "value": "rgb(255, 85, 20)",
+        "hex": "#FF5514",
+        "family": "orange",
+        "hue": 16.596,
+        "saturation": 1,
+        "lightness": 0.539
+      }
+    },
+    "palette": [
+      {
+        "value": "#0000ee",
+        "hex": "#0000EE",
+        "family": "blue",
+        "hue": 240,
+        "saturation": 1,
+        "lightness": 0.467,
+        "role": "accent",
+        "count": 148,
+        "confidence": "high",
+        "sources": [
+          "nav_logo",
+          "nav_user_icon",
+          "sm_icon1"
+        ],
+        "onColor": "#ffffff",
+        "hover": "#0000ff"
+      },
+      {
+        "value": "#ffffff",
+        "hex": "#FFFFFF",
+        "family": "white",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 1,
+        "role": "surface",
+        "count": 137,
+        "confidence": "high",
+        "sources": [
+          "character_voice_name",
+          "footer",
+          "foot_cpright"
+        ],
+        "onColor": "#000000",
+        "hover": "#d9d9d9"
+      },
+      {
+        "value": "#111111",
+        "hex": "#111111",
+        "family": "black",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0.067,
+        "role": "neutral",
+        "count": 24,
+        "confidence": "high",
+        "sources": [],
+        "onColor": "#ffffff",
+        "hover": "#141414"
+      },
+      {
+        "value": "#777777",
+        "hex": "#777777",
+        "family": "neutral",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0.467,
+        "role": "neutral",
+        "count": 16,
+        "confidence": "medium",
+        "sources": [],
+        "onColor": "#000000",
+        "hover": "#656565"
+      },
+      {
+        "value": "#ff5514",
+        "hex": "#FF5514",
+        "family": "orange",
+        "hue": 16.596,
+        "saturation": 1,
+        "lightness": 0.539,
+        "role": "accent",
+        "count": 13,
+        "confidence": "medium",
+        "sources": [
+          "nav_go_main",
+          "swiper-pagination-bullet"
+        ],
+        "onColor": "#000000",
+        "hover": "#d94811"
+      },
+      {
+        "value": "#b2b2b2",
+        "hex": "#B2B2B2",
+        "family": "neutral",
+        "hue": 0,
+        "saturation": 0,
+        "lightness": 0.698,
+        "role": "neutral",
+        "count": 6,
+        "confidence": "medium",
+        "sources": [],
+        "onColor": "#000000",
+        "hover": "#979797"
+      }
+    ],
+    "buttonVariants": [
+      {
+        "text": "进入官网",
+        "role": "unknown",
+        "confidence": "medium",
+        "backgroundColor": {
+          "value": "rgba(0, 0, 0, 0)",
+          "hex": "#000000",
+          "family": "black",
+          "hue": 0,
+          "saturation": 0,
+          "lightness": 0
+        },
+        "color": {
+          "value": "rgb(255, 85, 20)",
+          "hex": "#FF5514",
+          "family": "orange",
+          "hue": 16.596,
+          "saturation": 1,
+          "lightness": 0.539
+        },
+        "border": "1px solid rgb(255, 85, 20)",
+        "borderColors": [
+          {
+            "value": "rgb(255, 85, 20)",
+            "hex": "#FF5514",
+            "family": "orange",
+            "hue": 16.596,
+            "saturation": 1,
+            "lightness": 0.539
+          }
+        ],
+        "borderRadius": "0px",
+        "padding": "0px",
+        "fontSize": "20px",
+        "fontWeight": "400",
+        "boxShadow": ""
+      }
+    ],
+    "radii": [
+      {
+        "value": "2px",
+        "count": 1,
+        "confidence": "low",
+        "elements": [
+          "p"
+        ],
+        "numericValue": 2
+      },
+      {
+        "value": "50%",
+        "count": 3,
+        "confidence": "low",
+        "elements": [
+          "a",
+          "img",
+          "image"
+        ],
+        "numericValue": 50
+      }
+    ],
+    "shadows": [],
+    "typography": {
+      "styles": [
+        {
+          "fontFamily": "hkmid",
+          "fontSize": "36px (2.25rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.44",
+          "count": 13,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hkmid",
+          "fontSize": "32px (2.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 13,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "qtr",
+          "fontSize": "24px (1.50rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.33",
+          "count": 8,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "23.5px (1.47rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.19",
+          "count": 14,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "22px (1.38rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.18",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "20px (1.25rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hkmid",
+          "fontSize": "20px (1.25rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.60",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "tahoma",
+          "fontSize": "20px (1.25rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.60",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hkmid",
+          "fontSize": "20px (1.25rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "19px (1.19rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.79",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.33",
+          "count": 4,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.33",
+          "count": 9,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hkmid",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.56",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "tahoma",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.00",
+          "count": 8,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "tahoma",
+          "fontSize": "18px (1.13rem)",
+          "fontWeight": 400,
+          "lineHeight": "2.00",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "17px (1.06rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 12,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "tahoma",
+          "fontSize": "17px (1.06rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 6,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.88",
+          "count": 7,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hkmid",
+          "fontSize": "16px (1.00rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.50",
+          "count": 2,
+          "confidence": "",
+          "selectors": []
+        },
+        {
+          "fontFamily": "hk",
+          "fontSize": "15px (0.94rem)",
+          "fontWeight": 400,
+          "lineHeight": "1.47",
+          "count": 1,
+          "confidence": "",
+          "selectors": []
+        }
+      ],
+      "sources": [
+        "[object Object]"
+      ]
+    }
+  },
+  "candidateHints": {
+    "primaryColorSeed": {
+      "value": "#0000EE",
+      "source": "dembrandt.colors.semantic.primary",
+      "confidence": "seed-only"
+    },
+    "accentColorSeed": {
+      "value": "#FF5514",
+      "source": "dembrandt.colors.semantic.accent",
+      "confidence": "seed-only"
+    },
+    "primaryActionFillSeed": null,
+    "activeStateFillSeed": null,
+    "cardRadiusSeed": {
+      "value": "2px",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "controlRadiusSeed": {
+      "value": "50%",
+      "source": "dembrandt.borderRadius",
+      "confidence": "seed-only"
+    },
+    "shadowSeed": null
+  },
+  "requiredBrandGuards": [
+    "score-action-evidence",
+    "collect-rendered-assets",
+    "asset-usage-gate",
+    "create-selector-map",
+    "coverage-gate",
+    "demo-gate"
+  ],
+  "mappingBoundary": {
+    "canSeed": [
+      "raw palette evidence",
+      "button computed styles",
+      "radius/shadow/typography hints"
+    ],
+    "mustNotOverwriteDirectly": [
+      "--du-* tokens",
+      "componentVariants",
+      "slots",
+      "assets",
+      "layoutRules",
+      "platformOverrides",
+      "businessApply"
+    ],
+    "decisionRule": "Use third-party extraction only as raw computed evidence; rerun Brand action/asset/selector/coverage gates before changing style.json, demo presets, or business pages."
+  },
+  "limitations": [
+    "Global color frequency can over-rank decorative, text, or manifest colors.",
+    "CTA color requires action-node scoring from real clickable/download/submit elements.",
+    "Assets, pseudo-elements, masks, section background stacking, and DOM selector mapping still require Brand rendered asset guards.",
+    "This import does not mutate style.json or generated demo files."
+  ]
+}

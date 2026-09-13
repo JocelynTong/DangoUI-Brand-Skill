@@ -1,0 +1,71 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "czn-v3",
+  "attempt": 1,
+  "qaExecutionId": "/root/czn_v3_visual_qa",
+  "goalSha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+  "reviewerRecommendation": "fail",
+  "pages": [
+    {
+      "sourcePageId":"home","demoPageId":"czn-v3-home",
+      "sourceScreenshot":{"path":"migrations/czn-v3/captures/source/home/desktop/key-region.png","sha256":"697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2"},
+      "demoScreenshot":{"path":"migrations/czn-v3/captures/demo/desktop/home.png","sha256":"bb7af15bf3d2b08c98b5a586a9429d53326879da0a7ed925cca8168507e3c360"},
+      "dimensions": {
+        "composition":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Source is a dense layered illustrated hero with foreground subject, campaign lockup and download cluster; demo is a sparse dark abstract field."}]},
+        "assetAuthenticity":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Canonical URL hashes identify evidence assets but do not authenticate payload reuse; no authentic hero payload appears in demo."}]},
+        "colorRoles":{"rating":3,"observations":[{"sourceRegion":[0.3,0,0.5,0.12],"demoRegion":[0.05,0,0.9,0.1],"finding":"Orange remains confined to current navigation text."}]},
+        "informationDensity":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Source campaign, navigation, social and download density collapses to one title and one access card."}]},
+        "typographyGraphics":{"rating":2,"observations":[{"sourceRegion":[0.15,0.55,0.7,0.22],"demoRegion":[0.08,0.18,0.84,0.35],"finding":"Italic display type is present but does not reproduce the source campaign graphic hierarchy."}]},
+        "motionSemantics":{"rating":2,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"A moving CSS field exists and access changes/restores, but the source moving illustrated stage is not preserved."}]},
+        "brandRecognition":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Without names, the generic dark sci-fi phone stage is not strongly recognizable as the source system."}]}
+      },
+      "visualPatterns":[{"id":"home-stage","status":"unsupported","sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Declared three-layer topology exists nominally, but the dominant illustrated hero composition and campaign/download visual mass are not matched.","roleExpansion":false,"compositionLayers":[{"id":"moving-hero-field","status":"mismatched","finding":"Abstract CSS planes replace the illustrated moving hero."},{"id":"fixed-top-navigation","status":"matched","finding":"Top navigation remains fixed and current-item orange is narrow."},{"id":"lower-download-cluster","status":"mismatched","finding":"Single access card does not match the multi-action download cluster."}]}],
+      "mustPreserve":[{"id":"immersive-hero-stage","status":"fail"},{"id":"orange-action-role","status":"pass"}],
+      "mustNotReplace":[{"id":"no-screenshot-runtime","violated":false},{"id":"no-legacy-claim-promotion","violated":false},{"id":"no-asset-only-proof","violated":true}],
+      "mockupShellChecks":{"phone":true,"phoneScreen":true},"scrollChecks":{"scrollHeight":924,"clientHeight":803,"before":0,"after":121.33,"restored":0},
+      "blockingFindings":[{"code":"UNSUPPORTED_VISUAL_PATTERN","finding":"Home replaces the immersive official hero composition with a sparse generic CSS field.","earliestFailureNode":"demo","failureOwnerRole":"demoImplementationAgent"}]
+    },
+    {
+      "sourcePageId":"gameplay","demoPageId":"czn-v3-gameplay",
+      "sourceScreenshot":{"path":"migrations/czn-v3/captures/source/gameplay/desktop/key-region.png","sha256":"97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd"},
+      "demoScreenshot":{"path":"migrations/czn-v3/captures/demo/desktop/gameplay.png","sha256":"d736e8b7151c59be76d6945745b38748d1e560046aef5e089c1b223098b02d35"},
+      "dimensions": {
+        "composition":{"rating":2,"observations":[{"sourceRegion":[0.1,0.15,0.88,0.7],"demoRegion":[0.05,0.18,0.9,0.72],"finding":"Media slab, edge controls and timeline positions survive, but the media plane is visually empty and hierarchy is much weaker."}]},
+        "assetAuthenticity":{"rating":1,"observations":[{"sourceRegion":[0.13,0.25,0.68,0.6],"demoRegion":[0.08,0.25,0.75,0.5],"finding":"No authentic gameplay media payload is visible; URL identity hash is not payload authenticity."}]},
+        "colorRoles":{"rating":3,"observations":[{"sourceRegion":[0.45,0,0.18,0.1],"demoRegion":[0.18,0,0.25,0.1],"finding":"Orange is restricted to GAMEPLAY current navigation."}]},
+        "informationDensity":{"rating":2,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Five-step timeline and controls remain, but graphic/media density is substantially reduced."}]},
+        "typographyGraphics":{"rating":2,"observations":[{"sourceRegion":[0.1,0.1,0.35,0.18],"demoRegion":[0.08,0.12,0.7,0.18],"finding":"Angled uppercase type is present but lacks source bilingual title treatment and graphic energy."}]},
+        "motionSemantics":{"rating":3,"observations":[{"sourceRegion":[0.85,0.2,0.12,0.62],"demoRegion":[0.85,0.2,0.12,0.62],"finding":"Next changes ZERO PRESSURE/FEED 01 to VECTOR BREACH/FEED 02 and RESET restores; scrolling 0→97.33→0."}]},
+        "brandRecognition":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Without explicit labels, the empty wireframe reads as generic sci-fi HUD."}]}
+      },
+      "visualPatterns":[{"id":"gameplay-hud","status":"unsupported","sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"The structural skeleton is present but the dominant gameplay media and source visual mass are absent.","roleExpansion":false,"compositionLayers":[{"id":"backdrop","status":"mismatched","finding":"Source pale layered backdrop becomes near-black generic field."},{"id":"wide-media-slab","status":"mismatched","finding":"Illustrated media becomes empty outlined polygon."},{"id":"edge-controls","status":"matched","finding":"Previous/next edge controls remain independent and reversible."},{"id":"numbered-timeline","status":"matched","finding":"Five numbered steps remain on the right edge."}]}],
+      "mustPreserve":[{"id":"slanted-hud-grammar","status":"fail"},{"id":"orange-action-role","status":"pass"}],
+      "mustNotReplace":[{"id":"no-screenshot-runtime","violated":false},{"id":"no-legacy-claim-promotion","violated":false},{"id":"no-asset-only-proof","violated":true}],
+      "mockupShellChecks":{"phone":true,"phoneScreen":true},"scrollChecks":{"scrollHeight":900,"clientHeight":803,"before":0,"after":97.33,"restored":0},
+      "blockingFindings":[{"code":"UNSUPPORTED_VISUAL_PATTERN","finding":"Gameplay keeps controls/timeline but replaces the required dominant media composition with an empty wireframe slab.","earliestFailureNode":"demo","failureOwnerRole":"demoImplementationAgent"}]
+    },
+    {
+      "sourcePageId":"character","demoPageId":"czn-v3-character",
+      "sourceScreenshot":{"path":"migrations/czn-v3/captures/source/character/desktop/key-region.png","sha256":"af9493eac9ef58feb72d158092477b38e78f297613e6fed9de23faa2e3bed4b2"},
+      "demoScreenshot":{"path":"migrations/czn-v3/captures/demo/desktop/character.png","sha256":"ce21c461ad26211b6a38a3858f6a9621f3837099e7f3aa1853ae42cd49224442"},
+      "dimensions": {
+        "composition":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Source portrait rail, full moving character, identity/voice and angled skill fan are replaced by letters, a primitive silhouette and text buttons."}]},
+        "assetAuthenticity":{"rating":0,"observations":[{"sourceRegion":[0,0.1,1,0.85],"demoRegion":[0,0.1,1,0.85],"finding":"Live phone-screen contains zero img elements; no real portrait rail or character subject is rendered."}]},
+        "colorRoles":{"rating":3,"observations":[{"sourceRegion":[0.4,0,0.2,0.1],"demoRegion":[0.35,0,0.3,0.1],"finding":"Orange is restricted to CHARACTER current navigation."}]},
+        "informationDensity":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Rich portrait/skills/voice composition collapses to sparse abstract geometry."}]},
+        "typographyGraphics":{"rating":2,"observations":[{"sourceRegion":[0.08,0.15,0.4,0.6],"demoRegion":[0.05,0.55,0.9,0.35],"finding":"Angular labels remain but source bilingual identity and card graphics are not preserved."}]},
+        "motionSemantics":{"rating":3,"observations":[{"sourceRegion":[0,0.1,1,0.85],"demoRegion":[0,0.1,1,0.85],"finding":"Next synchronizes identity, voice and skills and RESET restores; scroll probe is 0→247.33→0."}]},
+        "brandRecognition":{"rating":1,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Abstract mannequin does not carry the distinctive character-page identity."}]}
+      },
+      "visualPatterns":[{"id":"character-hud","status":"unsupported","sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Required real portrait rail and moving subject are absent; identity/voice and angled skills are only weak textual analogues.","roleExpansion":false,"compositionLayers":[{"id":"portrait-rail","status":"mismatched","finding":"Three letter tiles replace a real portrait rail."},{"id":"moving-subject","status":"mismatched","finding":"Primitive CSS mannequin replaces the moving character subject."},{"id":"identity-voice","status":"matched","finding":"Identity and voice text changes synchronously."},{"id":"angled-skills","status":"mismatched","finding":"Two small text controls replace the angled skill-card fan."}]}],
+      "mustPreserve":[{"id":"slanted-hud-grammar","status":"fail"},{"id":"orange-action-role","status":"pass"}],
+      "mustNotReplace":[{"id":"no-screenshot-runtime","violated":false},{"id":"no-legacy-claim-promotion","violated":false},{"id":"no-asset-only-proof","violated":true}],
+      "mockupShellChecks":{"phone":true,"phoneScreen":true},"scrollChecks":{"scrollHeight":1050,"clientHeight":803,"before":0,"after":247.33,"restored":0},
+      "blockingFindings":[{"code":"UNSUPPORTED_VISUAL_PATTERN","finding":"Character omits the real portrait rail and moving subject and substitutes generic CSS geometry.","earliestFailureNode":"demo","failureOwnerRole":"demoImplementationAgent"}]
+    }
+  ],
+  "generativeProofReview":{"status":"fail","finding":"Held-out is non-mirrored and visibly reuses navigation orange plus reversible selection, but the captured heading overlaps and the frozen proof metadata does not demonstrate every recipe was frozen before challenge.","ruleChecks":[{"recipeId":"gameplay-media-timeline-hud","status":"not-proven","finding":"Radar/brief hierarchy is independent but does not visibly retain the gameplay dominant-media relationship."},{"recipeId":"orange-current-navigation-role","status":"reused","finding":"Orange remains limited to FIELD BRIEF current navigation."},{"recipeId":"recipe-viewport-surface-navigation","status":"reused","finding":"Next changes THE GLASS TIDE/FIELD BRIEF 01 and reset restores."}]},
+  "proofs":{"evidenceFidelity":"fail","structuralFidelity":"fail","generativeProof":"fail"},
+  "blockingFindings":[{"code":"MUST_PRESERVE_FAILED","finding":"All three source-mapped pages miss at least one required high-salience composition/asset layer.","earliestFailureNode":"demo","failureOwnerRole":"demoImplementationAgent"},{"code":"GENERATIVE_RULE_REUSE_UNPROVEN","finding":"Held-out metadata/capture does not prove every declared frozen recipe and has visible title overlap.","earliestFailureNode":"demo","failureOwnerRole":"demoImplementationAgent"}],
+  "failureOwnerRole":"demoImplementationAgent"
+}

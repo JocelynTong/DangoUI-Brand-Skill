@@ -1,0 +1,120 @@
+{
+  "schema": "brand-action-evidence/v02",
+  "brand": "czn-v3",
+  "entries": [
+    {
+      "id": "home-primary-interaction",
+      "sourcePageId": "home",
+      "selector": ".index_main_bbox_pcdown",
+      "observedState": "hover",
+      "trigger": "hover .index_main_bbox_pcdown",
+      "beforeCapture": "migrations/czn-v3/captures/source/home/desktop/04-action-default.png",
+      "triggeredCapture": "migrations/czn-v3/captures/source/home/desktop/05-action-triggered.png",
+      "afterCapture": "migrations/czn-v3/captures/source/home/desktop/06-action-settled.png",
+      "restoredCapture": "migrations/czn-v3/captures/source/home/desktop/07-action-restored.png",
+      "computedProperty": "backgroundImage",
+      "computedValue": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+      "sourceRule": ".index_main_bbox_pcdown live computed opacity during hover capture",
+      "beforeComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all"
+      },
+      "afterComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all"
+      },
+      "restoredComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+        "opacity": "1",
+        "transform": "none",
+        "transition": "all"
+      }
+    },
+    {
+      "id": "gameplay-primary-interaction",
+      "sourcePageId": "gameplay",
+      "selector": ".gameplay_next",
+      "observedState": "carousel-next",
+      "trigger": "click .gameplay_next; restore with corresponding previous control",
+      "beforeCapture": "migrations/czn-v3/captures/source/gameplay/desktop/04-action-default.png",
+      "triggeredCapture": "migrations/czn-v3/captures/source/gameplay/desktop/05-action-triggered.png",
+      "afterCapture": "migrations/czn-v3/captures/source/gameplay/desktop/06-action-settled.png",
+      "restoredCapture": "migrations/czn-v3/captures/source/gameplay/desktop/07-action-restored.png",
+      "computedProperty": "transform",
+      "computedValue": "matrix(-1, 0, 0, 1, 0, 0)",
+      "sourceRule": ".gameplay_next live computed transform/transition",
+      "beforeComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png\")",
+        "opacity": "1",
+        "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+        "transition": "all"
+      },
+      "afterComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png\")",
+        "opacity": "1",
+        "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+        "transition": "all"
+      },
+      "restoredComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png\")",
+        "opacity": "1",
+        "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+        "transition": "all"
+      }
+    },
+    {
+      "id": "character-primary-interaction",
+      "sourcePageId": "character",
+      "selector": ".character_side_next",
+      "observedState": "carousel-next",
+      "trigger": "click .character_side_next; restore with corresponding previous control",
+      "beforeCapture": "migrations/czn-v3/captures/source/character/desktop/04-action-default.png",
+      "triggeredCapture": "migrations/czn-v3/captures/source/character/desktop/05-action-triggered.png",
+      "afterCapture": "migrations/czn-v3/captures/source/character/desktop/06-action-settled.png",
+      "restoredCapture": "migrations/czn-v3/captures/source/character/desktop/07-action-restored.png",
+      "computedProperty": "transform",
+      "computedValue": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+      "sourceRule": ".character_side_next live computed transform/transition",
+      "beforeComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//p2_man_prevbtn.png\")",
+        "opacity": "1",
+        "transform": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+        "transition": "all"
+      },
+      "afterComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//p2_man_prevbtn.png\")",
+        "opacity": "1",
+        "transform": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+        "transition": "all"
+      },
+      "restoredComputed": {
+        "color": "rgb(0, 0, 238)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//p2_man_prevbtn.png\")",
+        "opacity": "1",
+        "transform": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+        "transition": "all"
+      }
+    }
+  ]
+}

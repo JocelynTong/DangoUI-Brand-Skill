@@ -1,0 +1,33 @@
+{
+  "schema": "brand-demo-implementation-self-test/v1",
+  "brand": "czn-v3",
+  "stage": "demo-2",
+  "agentExecutionId": "/root/czn_v3_demo",
+  "result": "pass",
+  "checks": {
+    "goalHashUnchanged": true,
+    "allFourPagesRender": true,
+    "phoneShellPresent": true,
+    "sourceMappedSectionFidelityStrictGate": true,
+    "gameplayMediaEdgeControlsTimeline": true,
+    "characterMovingSubjectPortraitRailIdentityVoiceAngledSkills": true,
+    "controlsChangedAndRestored": true,
+    "heldOutExplicitlyFictional": true,
+    "sourceScreenshotsAtRuntime": false,
+    "runtimeProvenanceHashBasisExplicit": true,
+    "orangeOnlyCurrentTopNavText": true,
+    "build": true,
+    "designDirectionGate": true,
+    "independentVisualQa": false,
+    "allPagesScrollableAndRestored": true,
+    "homeIndicatorFixedAcrossScroll": true,
+    "freshIndependentVisualQa": "pending-expected-next-stage"
+  },
+  "evidence": {
+    "screenshotManifest": "migrations/czn-v3/demo-screenshot-manifest.json",
+    "sectionManifest": "migrations/czn-v3/section-fidelity-manifest.json",
+    "visualPatternInventory": "migrations/czn-v3/visual-pattern-inventory.json",
+    "generativeProof": "migrations/czn-v3/generative-proof.json"
+  },
+  "scopeNote": "Producer implementation-owned gates pass. This does not approve Evidence Fidelity, Structural Fidelity, Generative Proof, or visual similarity; fresh independent Blind QA owns those verdicts."
+}

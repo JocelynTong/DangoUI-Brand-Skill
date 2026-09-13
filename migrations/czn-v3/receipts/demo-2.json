@@ -1,0 +1,167 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "e41d3c38-b080-43f9-9b3e-4d78041afbba",
+  "stageId": "demo-2",
+  "role": "demoImplementationAgent",
+  "agentExecutionId": "/root/czn_v3_demo",
+  "goalSha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+  "verdict": "pass",
+  "inputs": [
+    {
+      "path": "migrations/czn-v3/goal-contract.json",
+      "sha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504"
+    },
+    {
+      "path": "migrations/czn-v3/brand-evidence.json",
+      "sha256": "70dcb39fe30fffc41ab424c0cc2644b2c3a7f35c85a62494c05e44f2412c187a"
+    },
+    {
+      "path": "migrations/czn-v3/source-observation-manifest.json",
+      "sha256": "6fef21690c2bf2e2ff11519dc58da2c09739e1dca00c6f03d849786cad100d42"
+    },
+    {
+      "path": "migrations/czn-v3/rendered-asset-inventory.json",
+      "sha256": "081f0039150d5abbb6db6e396d2ed701e63c99a99c2d5e1230f1a19e0a1056eb"
+    },
+    {
+      "path": "migrations/czn-v3/action-evidence.json",
+      "sha256": "8a0060dd485dea2d657c18a035b03d34c57943863b0bf6ba0da88ee56424244a"
+    },
+    {
+      "path": "migrations/czn-v3/action-evidence-v02.json",
+      "sha256": "b7605bcf78d99508a4dedcb264e9a772d3e1bdbda7e92765277bf098bf0198c3"
+    },
+    {
+      "path": "migrations/czn-v3/third-party-evidence.dembrandt.json",
+      "sha256": "29b85d220189b5f98b9a5d936c8611919f3af69f9f86babddf93ff7c61590482"
+    },
+    {
+      "path": "migrations/czn-v3/section-fidelity-manifest.json",
+      "sha256": "aa92f8a84eb3882870317dd4f9b1d7b64532cae5e17ee2386653601837b5e422"
+    },
+    {
+      "path": "migrations/czn-v3/raw-source-observation.json",
+      "sha256": "5420ae55d4032b29a29e400f4b1fa697a2517208494c6b2dc474a3b8c7084594"
+    },
+    {
+      "path": "migrations/czn-v3/evidence-visibility-gate.json",
+      "sha256": "f4193a1ab4db4fbb22140dedbab352d3c6a6b78eedba8bda3d495ee8e24a77b8"
+    },
+    {
+      "path": "migrations/czn-v3/brand-intent.json",
+      "sha256": "2460602a0e13cb9d7fc847f9c6c48344376e82fe8f29d3509aa9cc60cfe1eabf"
+    },
+    {
+      "path": "migrations/czn-v3/approved-visual-patterns.json",
+      "sha256": "598160530fc9cc64679ca2f2a3f919b8aaead634fbb3191c046c02ec9f57622f"
+    },
+    {
+      "path": "migrations/czn-v3/design-direction.json",
+      "sha256": "ffc2e924ccc48ca94f28ce7c6d0726fa43a8b1768e6eda3fffe18a3bd6b4579a"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "src/App.vue",
+      "sha256": "9febf7bf34eb02aab8584d054582db6330c75edc19a42203d7f948f2cea0fb9a"
+    },
+    {
+      "path": "src/styles.css",
+      "sha256": "5d9ec865e0c95c4919e33e48a48f78492784cdfa74d620ba7974d22262a35591"
+    },
+    {
+      "path": "public/brand-previews/czn-v3.json",
+      "sha256": "d7a11127b79509c4c27937d845110437f97c372622355bfaf20694235212a165"
+    },
+    {
+      "path": "migrations/czn-v3/demo-screenshot-manifest.json",
+      "sha256": "857fe8b64767ab55d36fc755acac19de52c1b2242d7c9d6499185d5fe303f7a9"
+    },
+    {
+      "path": "migrations/czn-v3/visual-pattern-inventory.json",
+      "sha256": "d64b3d4d6b77519641ce7ad6d134344454053346ec3dfe1dd38ad5572ca885a9"
+    },
+    {
+      "path": "migrations/czn-v3/generative-proof.json",
+      "sha256": "add6c709751b569c515519b4401c4af4b32567e150dd8762876f7c8cf1324512"
+    },
+    {
+      "path": "migrations/czn-v3/implementation-self-test.json",
+      "sha256": "c7e012b35d4b50c04b574abf604271a27ebe6adf5ed6bb6c3761e899c82825cf"
+    },
+    {
+      "path": "migrations/czn-v3/section-fidelity-manifest.json",
+      "sha256": "2519333220a9d8f9fcd794343fe0dab6d28d3664e8462d27d1dd46bfd491537d"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/home.png",
+      "sha256": "bb7af15bf3d2b08c98b5a586a9429d53326879da0a7ed925cca8168507e3c360"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/gameplay.png",
+      "sha256": "d736e8b7151c59be76d6945745b38748d1e560046aef5e089c1b223098b02d35"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/character.png",
+      "sha256": "ce21c461ad26211b6a38a3858f6a9621f3837099e7f3aa1853ae42cd49224442"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/held-out.png",
+      "sha256": "bb367d0c4c3d35a14fbc0da81477f8f189c847fdadbec0685dfca0a1af3b4cd0"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/mobile/home.png",
+      "sha256": "693de39f2d365ddf42b6c3f5c49abe50afdd6b85b5333dc356f722e27b4d57da"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/mobile/gameplay.png",
+      "sha256": "34d03a86c3ef7fc01b7030587478b123ab6346b42923d3bb69d2d0a53e8b733b"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/mobile/character.png",
+      "sha256": "f95f23bae65d4369f10f60ee19064b2c7466a397f57deca1fc7f55fb1c873efb"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/mobile/held-out.png",
+      "sha256": "0cc1dd53f6d03eda491ab20fde591b00127f2eb11c54becf9a149c60f7dc0b68"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/home-after.png",
+      "sha256": "e39fd700e6d949e62a193df314a9d9f0cc73166e569d3a4de58f59dbf7ccb585"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/home-restored.png",
+      "sha256": "b51e229ab6159b7dc0478e3d6ae1e48b287880d7ac22f1aad3c3313fdae26567"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/gameplay-after.png",
+      "sha256": "7658e20547ddecd4a1fd6012cab2e5976ddb7cafcbe2a273f6a764d52176032f"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/gameplay-restored.png",
+      "sha256": "d736e8b7151c59be76d6945745b38748d1e560046aef5e089c1b223098b02d35"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/character-after.png",
+      "sha256": "e7f73af51fdfd6d77ac0ebaed81c6227118421e710801be8d708330c8ae6a3e4"
+    },
+    {
+      "path": "migrations/czn-v3/captures/demo/desktop/character-restored.png",
+      "sha256": "66fabb0c59052fb078963b555b1a0ae6e0be9168915c623ec90ff68401a426c9"
+    }
+  ],
+  "blockingFindings": [],
+  "gateResults": {
+    "build": "pass",
+    "designDirection": "pass",
+    "strictSectionFidelity": "pass",
+    "allFourPagesRender": "pass",
+    "actionsChangeAndRestore": "pass",
+    "scrollAndRestore": "pass",
+    "homeIndicatorStable": "pass",
+    "sourceScreenshotRuntime": "none",
+    "orangeRoleBoundary": "pass",
+    "visualQa": "pending-expected-next-stage"
+  },
+  "scopeNote": "Demo implementation pass only; no visual proof verdict is asserted."
+}

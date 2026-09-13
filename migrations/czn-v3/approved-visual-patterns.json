@@ -1,0 +1,98 @@
+{
+  "schema": "approved-visual-patterns/v1",
+  "brand": "czn-v3",
+  "goalId": "czn-current-official-site-v3",
+  "assetIdentityPolicy": "Every sourceSha256 below is a canonical-source-URL identity hash copied from rendered-asset-inventory.json, not a downloaded payload hash. It proves the observed URL identity only.",
+  "patterns": [
+    {
+      "id": "immersive-moving-home-stage",
+      "status": "approved",
+      "scope": "Home settled full-viewport stage",
+      "preserves": ["mustPreserve.immersive-hero-stage"],
+      "observedFact": "The visible #index surface fills 1440x900 and layers moving media, fixed navigation and a lower download cluster.",
+      "interpretation": "A dominant moving environment plus independent controls creates the immersive entry hierarchy.",
+      "recommendation": "Reconstruct independent layers; never use the evidence screenshot as runtime art.",
+      "suitableFor": ["Home opening stage"],
+      "notFor": ["static poster", "screenshot runtime", "generic card"],
+      "allowedTransformations": ["bounded focal crop", "proportional scale", "responsive reflow retaining dominant stage and action cluster"],
+      "sourceRegion": [0, 0, 1, 1],
+      "evidenceRefs": ["home-immersive-hero-stage"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-102", "variant": "official observed Home 20260617 xh_bg.mp4 moving-background URL", "sourceUrl": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.mp4", "sourceSha256": "b66939bd35261642a4fcfbc7c26dbf7e5cbefdc0e08c9daf91f9c1befff1c671", "hashBasis": "canonical-source-url; payload hash unavailable without duplicating browser cache"},
+        "requiredLayers": [
+          {"id": "moving-hero-field", "role": "dominant full-viewport environment", "sourceRegion": [0, 0, 1, 1], "assetIdentity": "asset-102", "assetVariant": "official observed Home 20260617 xh_bg.mp4 URL", "sourceSha256": "b66939bd35261642a4fcfbc7c26dbf7e5cbefdc0e08c9daf91f9c1befff1c671", "hashBasis": "canonical-source-url-identity"},
+          {"id": "fixed-top-navigation", "role": "surface locator above moving field", "sourceRegion": [0, 0, 1, 0.14]},
+          {"id": "lower-download-cluster", "role": "QR/platform/PC action anchor", "sourceRegion": [0.35, 0.62, 0.3, 0.34], "assetIdentity": "asset-043", "assetVariant": "official observed index_main_bbox_bg.png cluster frame URL", "sourceSha256": "f34ec2ac9fe2aae4981fb25150c249f25e4cfb04bf5e65bd2bbb8df38c64484f", "hashBasis": "canonical-source-url-identity"}
+        ],
+        "hierarchy": ["moving field dominates", "navigation remains fixed and legible", "download cluster anchors the lower stage"],
+        "mustNot": ["source screenshot or crop as runtime asset", "flatten layers", "claim payload integrity from URL hash", "invent hover response"]
+      }
+    },
+    {
+      "id": "gameplay-media-timeline-hud",
+      "status": "approved",
+      "scope": "Gameplay settled full-viewport stage",
+      "preserves": ["mustPreserve.slanted-hud-grammar"],
+      "observedFact": "The visible #gameplay surface combines a backdrop, title, wide media slab, edge arrows and vertical numbered timeline.",
+      "interpretation": "One wide media mass is indexed by sparse directional and progress HUD layers.",
+      "recommendation": "Keep all control layers independent of the selected media asset.",
+      "suitableFor": ["Gameplay mode browser"],
+      "notFor": ["equal cards", "text-only list", "legacy Forward label"],
+      "allowedTransformations": ["replace media item", "compress spacing", "reflow while retaining title-media-controls-timeline hierarchy"],
+      "sourceRegion": [0, 0, 1, 1],
+      "evidenceRefs": ["gameplay-slanted-hud-stage"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-116", "variant": "official observed current Gameplay media item URL", "sourceUrl": "https://vasd-cms.qq.com/vasd-cms/media/czn/20260819_af6052c0_%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17869513186481.png", "sourceSha256": "098a4d50e2de7141f888915ce868a87c92b8af3a184fc31a10849ce169a1d0e9", "hashBasis": "canonical-source-url; payload hash unavailable without duplicating browser cache"},
+        "requiredLayers": [
+          {"id": "gameplay-backdrop", "role": "full-stage environment", "sourceRegion": [0, 0, 1, 1], "assetIdentity": "asset-058", "assetVariant": "official observed gameplay_bg.jpg URL", "sourceSha256": "83e4d53c49fcd294e0561f0318ed413ee3b5c5b524639cd462ce2ce6b80412f5", "hashBasis": "canonical-source-url-identity"},
+          {"id": "wide-media-slab", "role": "dominant current gameplay media", "sourceRegion": [0.18, 0.18, 0.64, 0.64], "assetIdentity": "asset-116", "assetVariant": "official observed current Gameplay media item URL", "sourceSha256": "098a4d50e2de7141f888915ce868a87c92b8af3a184fc31a10849ce169a1d0e9", "hashBasis": "canonical-source-url-identity"},
+          {"id": "edge-arrows", "role": "bidirectional selection controls", "sourceRegion": [0.04, 0.34, 0.92, 0.32], "assetIdentity": "asset-062", "assetVariant": "official observed gameplay_prev.png with next mirrored by computed transform", "sourceSha256": "0323108657df33109bf818a6be01173930572dd920ec4e270a83263d07be75e4", "hashBasis": "canonical-source-url-identity"},
+          {"id": "numbered-timeline", "role": "vertical 01/05-05/05 progress HUD", "sourceRegion": [0.87, 0.2, 0.1, 0.62], "assetIdentity": "asset-061", "assetVariant": "official observed game_timeline.png URL", "sourceSha256": "8f4bca36aec585f3cb6f8de997208ffe5cd33f93e52bfa71ee6def39f86706b4", "hashBasis": "canonical-source-url-identity"}
+        ],
+        "hierarchy": ["backdrop supports", "wide media dominates", "edge arrows bracket the media", "numbered timeline explains position"],
+        "mustNot": ["rename as Forward", "flatten to card grid", "claim payload integrity from URL hash", "infer arrow transform changes when computed values remain stable"]
+      }
+    },
+    {
+      "id": "character-layered-profile-hud",
+      "status": "approved",
+      "scope": "Character settled full-viewport stage",
+      "preserves": ["mustPreserve.slanted-hud-grammar"],
+      "observedFact": "The visible #character surface combines character motion, a portrait rail, identity/voice content and angled skill cards.",
+      "interpretation": "The profile is an asymmetric synchronized stage, not a collection of equal cards.",
+      "recommendation": "Retain selection, moving subject, identity and skill layers as separately controllable roles.",
+      "suitableFor": ["Character browser", "cast profile"],
+      "notFor": ["avatar grid", "flat biography card", "asset-only proof"],
+      "allowedTransformations": ["replace character variant", "bounded subject crop", "responsive stack preserving reading order and angled skill layer"],
+      "sourceRegion": [0, 0, 1, 1],
+      "evidenceRefs": ["character-slanted-hud-stage"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-099", "variant": "official observed Arabella_rc.mp4 character-motion URL", "sourceUrl": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_rc.mp4", "sourceSha256": "a5c426d684152ac0c599eb647013ffe5196b9dcd83d7938ed55d99d46814e43c", "hashBasis": "canonical-source-url; payload hash unavailable without duplicating browser cache"},
+        "requiredLayers": [
+          {"id": "moving-character-subject", "role": "dominant character motion stage", "sourceRegion": [0.2, 0.04, 0.58, 0.92], "assetIdentity": "asset-099", "assetVariant": "official observed Arabella_rc.mp4 URL", "sourceSha256": "a5c426d684152ac0c599eb647013ffe5196b9dcd83d7938ed55d99d46814e43c", "hashBasis": "canonical-source-url-identity"},
+          {"id": "portrait-selection-rail", "role": "character selection context", "sourceRegion": [0, 0.12, 0.18, 0.76], "assetIdentity": "asset-018", "assetVariant": "official observed Arabella portrait-rail image URL", "sourceSha256": "b64413cea496e23cd2fd09d3a0ce368d918c01c5dc914c912540e7175af488f5", "hashBasis": "canonical-source-url-identity"},
+          {"id": "identity-voice-panel", "role": "name, description and voice reading layer", "sourceRegion": [0.57, 0.12, 0.38, 0.42]},
+          {"id": "angled-skill-cards", "role": "ability detail layer", "sourceRegion": [0.54, 0.54, 0.42, 0.39], "assetIdentity": "asset-097", "assetVariant": "official observed Arabella_skills_1.png member of five-skill set", "sourceSha256": "055025027800b7b09dbf3aa3171e63a7674301eba8360b7cbf624830baf7f8bd", "hashBasis": "canonical-source-url-identity"}
+        ],
+        "hierarchy": ["portrait rail establishes selection", "moving subject dominates", "identity and voice explain subject", "angled skill cards complete the profile"],
+        "mustNot": ["flatten into equal cards", "drop synchronization", "use source screenshot as runtime", "claim payload integrity from URL hash"]
+      }
+    },
+    {
+      "id": "orange-current-navigation-role",
+      "status": "approved",
+      "scope": "selected top-navigation text on three settled surfaces",
+      "preserves": ["mustPreserve.orange-action-role"],
+      "observedFact": "Selected Home, Gameplay and Character navigation anchors compute to rgb(255, 85, 20).",
+      "interpretation": "Orange marks the current top-level location in the observed evidence.",
+      "recommendation": "Apply only to current-navigation text pending further evidence.",
+      "suitableFor": ["current top-navigation text"],
+      "notFor": ["hover", "global action fill", "all active states", "semantic status"],
+      "allowedRoles": ["top-navigation-current-text"],
+      "forbiddenRoles": ["global-primary-fill", "surface", "hover", "pressed", "generic-action", "semantic-status"],
+      "allowedTransformations": ["contrast-preserving same-role application"],
+      "sourceRegion": [0, 0, 1, 1],
+      "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"]
+    }
+  ]
+}

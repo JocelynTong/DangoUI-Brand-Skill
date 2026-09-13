@@ -1,0 +1,77 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "czn-v3",
+  "scope": "goal:czn-current-official-site-v3 pages:home|gameplay|character|held-out",
+  "designObjective": "Prove CZN as an immersive full-viewport game interface whose identity comes from layered moving media, fixed navigation, slanted HUD geometry, synchronized selection systems and a narrowly scoped orange current-location signal—not from an orange skin or asset collage.",
+  "decisionStatus": "approved",
+  "inputBindings": {
+    "goal": {"path": "migrations/czn-v3/goal-contract.json", "sha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504"},
+    "evidence": {"path": "migrations/czn-v3/brand-evidence.json", "sha256": "70dcb39fe30fffc41ab424c0cc2644b2c3a7f35c85a62494c05e44f2412c187a"},
+    "intent": {"path": "migrations/czn-v3/brand-intent.json", "sha256": "2460602a0e13cb9d7fc847f9c6c48344376e82fe8f29d3509aa9cc60cfe1eabf"},
+    "patterns": {"path": "migrations/czn-v3/approved-visual-patterns.json", "sha256": "598160530fc9cc64679ca2f2a3f919b8aaead634fbb3191c046c02ec9f57622f"}
+  },
+  "visualPriorityOrder": [
+    "content visibility and legibility",
+    "moving subject and media identity",
+    "independent HUD layer hierarchy",
+    "synchronized selection and restoration",
+    "orange current-navigation role boundary",
+    "responsive reflow without flattening",
+    "protocol completeness"
+  ],
+  "sections": [
+    {
+      "id": "home-immersive-stage",
+      "firstImpressionGoal": "A moving full-viewport environment dominates while fixed navigation and a lower download cluster remain independently readable and operable.",
+      "mustPreserve": ["moving hero field", "fixed top navigation", "lower QR/platform/PC action cluster", "three-layer hierarchy", "current-location truth"],
+      "mayChange": ["bounded focal crop", "responsive coordinates", "representative non-official copy in held-out proof"],
+      "mustNotDo": ["use a source screenshot at runtime", "flatten layers", "invent a hover response", "claim URL identity hash as payload integrity", "use orange as a generic action fill"]
+    },
+    {
+      "id": "gameplay-media-timeline",
+      "firstImpressionGoal": "A wide gameplay media slab is bracketed by edge controls and explained by a vertical 01/05–05/05 timeline over a restrained full-stage backdrop.",
+      "mustPreserve": ["supporting backdrop", "dominant wide media", "bidirectional edge controls", "numbered vertical timeline", "advance and restore behavior"],
+      "mayChange": ["media content", "timeline labels", "narrow-screen stacking while retaining hierarchy"],
+      "mustNotDo": ["rename the surface Forward", "flatten into a card grid", "claim stable arrow transform as animation", "lose media/timeline synchronization"]
+    },
+    {
+      "id": "character-layered-profile",
+      "firstImpressionGoal": "A moving character remains the largest mass while portrait selection, identity/voice and angled skill cards form distinct synchronized HUD layers.",
+      "mustPreserve": ["moving character subject", "portrait selection rail", "identity and voice panel", "angled skill cards", "synchronized change and restoration"],
+      "mayChange": ["character content", "skill copy", "vertical reflow preserving subject dominance"],
+      "mustNotDo": ["reduce the character to decoration", "replace portraits with numbers", "flatten into equal cards", "drop any required profile layer", "use a source screenshot at runtime"]
+    },
+    {
+      "id": "held-out-field-briefing",
+      "firstImpressionGoal": "A clearly fictional field briefing reuses at least two frozen HUD/composition rules with different content and structure, without impersonating an official CZN page.",
+      "mustPreserve": ["source-independent content", "layered hierarchy", "one synchronized reversible control", "narrow current-location orange role", "explicit fictional disclosure"],
+      "mayChange": ["subject matter", "section order", "media content", "labels"],
+      "mustNotDo": ["mirror a source page", "reuse source screenshots", "present content as official", "apply orange to all controls or sections"]
+    }
+  ],
+  "highSalienceElements": ["moving home field", "fixed top navigation", "download cluster", "gameplay media slab", "gameplay edge controls", "numbered timeline", "moving character subject", "portrait rail", "identity voice panel", "angled skill cards"],
+  "responsiveStrategyMatrix": [
+    {"element": "moving home field", "elementType": "media", "strategy": "art-directed-crop", "evidenceRefs": ["home-immersive-hero-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["moving media identity", "dominant visual mass", "foreground legibility"]},
+    {"element": "fixed top navigation", "elementType": "control", "strategy": "structural-substitution", "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["current-location truth", "orange only on current text", "surface navigation remains reachable"], "minimumReadableSize": "14px text / 44px target"},
+    {"element": "download cluster", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["home-immersive-hero-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["lower-stage anchor", "QR/platform/PC roles", "independent layer"], "minimumReadableSize": "14px text / 44px target"},
+    {"element": "gameplay media slab", "elementType": "media", "strategy": "responsive-reflow", "evidenceRefs": ["gameplay-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["dominant wide media", "backdrop remains supporting", "bounded crop"]},
+    {"element": "gameplay edge controls", "elementType": "control", "strategy": "independent-scale", "evidenceRefs": ["gameplay-primary-interaction", "gameplay-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["bidirectional operation", "selection changes", "restoration"], "minimumReadableSize": "44x44px target"},
+    {"element": "numbered timeline", "elementType": "text", "strategy": "responsive-reflow", "evidenceRefs": ["gameplay-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["01/05–05/05 position explanation", "visual separation from media", "selected position truth"], "minimumReadableSize": "12px labels"},
+    {"element": "moving character subject", "elementType": "media", "strategy": "art-directed-crop", "evidenceRefs": ["character-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["largest mass", "recognizable character", "motion or explicit motion degradation"]},
+    {"element": "portrait rail", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["character-primary-interaction", "character-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["portrait identity", "selection context", "synchronized change"], "minimumReadableSize": "44x44px portrait target"},
+    {"element": "identity voice panel", "elementType": "text", "strategy": "responsive-reflow", "evidenceRefs": ["character-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["name/description/voice grouping", "subject relationship", "reading order"], "minimumReadableSize": "16px body / 28px identity"},
+    {"element": "angled skill cards", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["character-slanted-hud-stage"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["angled HUD grammar", "ability detail role", "synchronized selected character"], "minimumReadableSize": "14px text / 44px target"}
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "Independent 1440x900 source/demo captures for Home, Gameplay, Character and held-out.",
+    "mobileCanvas": "Independent 390x844 captures proving reflow and art-directed crop inside the standard phone shell.",
+    "inspectorPolicy": "Exclude browser chrome, debug overlays, annotations and mockup selection outlines from verdict captures.",
+    "sourceComparison": "Compare mapped surfaces at the same viewport/state with bounded layer regions; separately test advance, settled and restore states. Held-out is judged only for frozen-rule reuse and explicit non-official status."
+  },
+  "orchestratorDecision": {
+    "status": "approved-for-demo-dispatch",
+    "forwardCorrection": "Legacy Forward is not observed on the current official site and is replaced by the evidenced Gameplay surface.",
+    "assetIntegrityBoundary": "Current asset hashes establish canonical URL identity only; runtime provenance must not claim downloaded payload integrity unless independently hashed.",
+    "publication": "Keep czn-v3 outside the public Registry and public Demo until fresh independent QA and all three proof gates pass."
+  }
+}

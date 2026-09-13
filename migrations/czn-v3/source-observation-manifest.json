@@ -1,0 +1,442 @@
+{
+  "schema": "brand-source-observation/v1",
+  "brand": "czn-v3",
+  "sourceUrl": "https://czn.qq.com/",
+  "capturedAt": "2026-09-13T04:51:38.253Z",
+  "captureMethod": "Playwright Chromium; screenshot-first; per-surface isolated lossless PNG frames and WebM continuity",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://czn.qq.com/",
+      "coverage": "covered",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullPageCapture": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/full-page.png",
+        "sha256": "502750033e4cd8c4d5d13b201417df02e8ffb0fc87b328ec54a4a4f4eaf326f6"
+      },
+      "fullPageSha256": "502750033e4cd8c4d5d13b201417df02e8ffb0fc87b328ec54a4a4f4eaf326f6",
+      "keyRegionCapture": "migrations/czn-v3/captures/source/home/desktop/key-region.png",
+      "keyRegionSha256": "697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2",
+      "continuousCapture": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/continuous-playback.webm",
+        "sha256": "3d23189765398929a01baff9ffcc9d56396c2fb3868132552f00c0f1ed0ea2f4"
+      },
+      "continuousCaptureSha256": "3d23189765398929a01baff9ffcc9d56396c2fb3868132552f00c0f1ed0ea2f4",
+      "losslessFrameDirectory": "migrations/czn-v3/captures/source/home/desktop",
+      "timeline": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/timeline.json",
+        "sha256": "00f0b64b8fcb1e5c5ba00406b18538eb7da441f0338c9973ac49c54a8db2f222"
+      },
+      "timelineSha256": "29cdc0615e58dd6d10545b5243fff903986c019e70bd6a254f7af2641f17134c",
+      "pageExtent": {
+        "interactionModel": "viewport-sized vertical swiper surface",
+        "reachableStart": 0,
+        "reachableEnd": 900,
+        "coverageRatio": 1,
+        "documentScrollHeight": 900
+      },
+      "states": {
+        "default": {
+          "pageId": "home",
+          "state": "default",
+          "timeMs": 0,
+          "file": "migrations/czn-v3/captures/source/home/desktop/00-default.png",
+          "sha256": "def65ce89ab5a247b1f608c24fcbb9c21e2ee60e495fc1e7c1ba95d3b6c0bdda",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "character",
+          "activeClass": "swiper-slide cont2 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": -900,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "triggered": {
+          "pageId": "home",
+          "state": "triggered",
+          "timeMs": 90,
+          "file": "migrations/czn-v3/captures/source/home/desktop/01-triggered.png",
+          "sha256": "741f459999734fae09a6b16f172d06a861214471f3d9b0db64cd31515bf46eb8",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 loadover swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": -177.58953857421875,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "transition": {
+          "pageId": "home",
+          "state": "transition",
+          "timeMs": 270,
+          "file": "migrations/czn-v3/captures/source/home/desktop/02-transition.png",
+          "sha256": "2a4225ffa90658b76efc172bdc88379005689b8b30e50f40f9f03cbc090fe3e6",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 loadover swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "settled": {
+          "pageId": "home",
+          "state": "settled",
+          "timeMs": 1470,
+          "file": "migrations/czn-v3/captures/source/home/desktop/03-settled.png",
+          "sha256": "240e65c33a10573d0f92f5d3bff1cb9677f7eb706e85c06811655c93a32a545d",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 loadover swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "restored": {
+          "pageId": "home",
+          "state": "restored",
+          "timeMs": 3960,
+          "file": "migrations/czn-v3/captures/source/home/desktop/08-restored.png",
+          "sha256": "d7dc37d0f001e866a0f224890b3e2d15e24012b95b84d6cfbab3cd257cb62707",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "character",
+          "activeClass": "swiper-slide cont2 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": -900,
+            "width": 1440,
+            "height": 900
+          }
+        }
+      },
+      "status": "covered"
+    },
+    {
+      "id": "gameplay",
+      "url": "https://czn.qq.com/",
+      "coverage": "covered",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullPageCapture": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/full-page.png",
+        "sha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd"
+      },
+      "fullPageSha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd",
+      "keyRegionCapture": "migrations/czn-v3/captures/source/gameplay/desktop/key-region.png",
+      "keyRegionSha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd",
+      "continuousCapture": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/continuous-playback.webm",
+        "sha256": "56798349c693af145ced687b156eb146dcfbe33eae2b7acf32017d8dee086160"
+      },
+      "continuousCaptureSha256": "56798349c693af145ced687b156eb146dcfbe33eae2b7acf32017d8dee086160",
+      "losslessFrameDirectory": "migrations/czn-v3/captures/source/gameplay/desktop",
+      "timeline": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/timeline.json",
+        "sha256": "26a4367a47561f7042cfa367b6d9ffa4f43d67d46f811cf0d00547821744ae77"
+      },
+      "timelineSha256": "4559d1f0d14b463e7e1f19e4e73b7b6bcec17c53ebf2bb893de142b914d59603",
+      "pageExtent": {
+        "interactionModel": "viewport-sized vertical swiper surface",
+        "reachableStart": 0,
+        "reachableEnd": 900,
+        "coverageRatio": 1,
+        "documentScrollHeight": 900
+      },
+      "states": {
+        "default": {
+          "pageId": "gameplay",
+          "state": "default",
+          "timeMs": 0,
+          "file": "migrations/czn-v3/captures/source/gameplay/desktop/00-default.png",
+          "sha256": "dd6953132e74b5824823ecd5f0b84e6bc9bfa6a5d39f1b769b788690c8e081fb",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 swiper-slide-active loadover",
+          "targetBox": {
+            "x": 0,
+            "y": 1800,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "triggered": {
+          "pageId": "gameplay",
+          "state": "triggered",
+          "timeMs": 90,
+          "file": "migrations/czn-v3/captures/source/gameplay/desktop/01-triggered.png",
+          "sha256": "8faad4d55e65ec497b961f16b273e9f2afe51466c5683fada5f81a12044811bc",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "gameplay",
+          "activeClass": "swiper-slide cont3 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 110.8831787109375,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "transition": {
+          "pageId": "gameplay",
+          "state": "transition",
+          "timeMs": 270,
+          "file": "migrations/czn-v3/captures/source/gameplay/desktop/02-transition.png",
+          "sha256": "074b7d76083bb255672a054f0555d4351b0b3ec35ead38a643cd6c0b24c59eb8",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "gameplay",
+          "activeClass": "swiper-slide cont3 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "settled": {
+          "pageId": "gameplay",
+          "state": "settled",
+          "timeMs": 1470,
+          "file": "migrations/czn-v3/captures/source/gameplay/desktop/03-settled.png",
+          "sha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "gameplay",
+          "activeClass": "swiper-slide cont3 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "restored": {
+          "pageId": "gameplay",
+          "state": "restored",
+          "timeMs": 3960,
+          "file": "migrations/czn-v3/captures/source/gameplay/desktop/08-restored.png",
+          "sha256": "7e166fc839c7e8ca431e3cf7593cd606dd171379013fb966c2e1e5a73a1da9f7",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 loadover swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 1800,
+            "width": 1440,
+            "height": 900
+          }
+        }
+      },
+      "status": "covered"
+    },
+    {
+      "id": "character",
+      "url": "https://czn.qq.com/",
+      "coverage": "covered",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "fullPageCapture": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/full-page.png",
+        "sha256": "d4386cef5a1aa8d3ddd5220838a996dcf4e6f8403526e4f4ba1a6702bc821a2a"
+      },
+      "fullPageSha256": "d4386cef5a1aa8d3ddd5220838a996dcf4e6f8403526e4f4ba1a6702bc821a2a",
+      "keyRegionCapture": "migrations/czn-v3/captures/source/character/desktop/key-region.png",
+      "keyRegionSha256": "af9493eac9ef58feb72d158092477b38e78f297613e6fed9de23faa2e3bed4b2",
+      "continuousCapture": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/continuous-playback.webm",
+        "sha256": "886f7c8429c66a5d831023b6cca89cd1c24116e92ddc4017a5647ff7844d989e"
+      },
+      "continuousCaptureSha256": "886f7c8429c66a5d831023b6cca89cd1c24116e92ddc4017a5647ff7844d989e",
+      "losslessFrameDirectory": "migrations/czn-v3/captures/source/character/desktop",
+      "timeline": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/timeline.json",
+        "sha256": "875e247beaa83f7639616562973783eae12616ef485817551e657bc1a1c5209d"
+      },
+      "timelineSha256": "c8f4bc4508dc913a49f005158b20deb8762ba8be563f5f89c7582092b9915e92",
+      "pageExtent": {
+        "interactionModel": "viewport-sized vertical swiper surface",
+        "reachableStart": 0,
+        "reachableEnd": 900,
+        "coverageRatio": 1,
+        "documentScrollHeight": 900
+      },
+      "states": {
+        "default": {
+          "pageId": "character",
+          "state": "default",
+          "timeMs": 0,
+          "file": "migrations/czn-v3/captures/source/character/desktop/00-default.png",
+          "sha256": "bc9b489c5968551a0839b8b40116f7d61d01657133a69c1702151029c110b37b",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 swiper-slide-active loadover",
+          "targetBox": {
+            "x": 0,
+            "y": 900,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "triggered": {
+          "pageId": "character",
+          "state": "triggered",
+          "timeMs": 90,
+          "file": "migrations/czn-v3/captures/source/character/desktop/01-triggered.png",
+          "sha256": "22b233837e53056e1b2dc640928875cb1ea79d75cdfcbebd64320074d9e7c72f",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "character",
+          "activeClass": "swiper-slide cont2 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 81.29791259765625,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "transition": {
+          "pageId": "character",
+          "state": "transition",
+          "timeMs": 270,
+          "file": "migrations/czn-v3/captures/source/character/desktop/02-transition.png",
+          "sha256": "f81a9e2d7c00b3a74de4aaddf80832885c39bcd5409e9c5dad7f2950c8cb5474",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "character",
+          "activeClass": "swiper-slide cont2 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "settled": {
+          "pageId": "character",
+          "state": "settled",
+          "timeMs": 1470,
+          "file": "migrations/czn-v3/captures/source/character/desktop/03-settled.png",
+          "sha256": "bdc564598b6d768f61e676d461ac1259b9e743fb1eb48054c7627bbb4be12c45",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "character",
+          "activeClass": "swiper-slide cont2 swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 0,
+            "width": 1440,
+            "height": 900
+          }
+        },
+        "restored": {
+          "pageId": "character",
+          "state": "restored",
+          "timeMs": 3960,
+          "file": "migrations/czn-v3/captures/source/character/desktop/08-restored.png",
+          "sha256": "5b40e76c0053532efcf3ea9ca293ab9e5d21bfa51d08035cf37bfecf21311c7e",
+          "scrollTop": 0,
+          "scrollHeight": 900,
+          "activeId": "index",
+          "activeClass": "swiper-slide cont1 loadover swiper-slide-active",
+          "targetBox": {
+            "x": 0,
+            "y": 900,
+            "width": 1440,
+            "height": 900
+          }
+        }
+      },
+      "status": "covered"
+    }
+  ],
+  "pageCoverage": {
+    "required": 3,
+    "covered": 3,
+    "ratio": 1
+  },
+  "interactionCoverage": {
+    "requiredStates": [
+      "default",
+      "triggered",
+      "settled",
+      "restored"
+    ],
+    "coveredStates": [
+      "default",
+      "triggered",
+      "settled",
+      "restored"
+    ],
+    "ratio": 1
+  },
+  "coverage": {
+    "readyForInterpreter": true,
+    "pageRatio": 1,
+    "interactionRatio": 1
+  },
+  "interactions": [
+    {
+      "id": "home-primary-interaction",
+      "status": "covered",
+      "continuousCapture": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/continuous-playback.webm",
+        "sha256": "3d23189765398929a01baff9ffcc9d56396c2fb3868132552f00c0f1ed0ea2f4"
+      },
+      "timeline": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/timeline.json",
+        "sha256": "00f0b64b8fcb1e5c5ba00406b18538eb7da441f0338c9973ac49c54a8db2f222"
+      }
+    },
+    {
+      "id": "gameplay-primary-interaction",
+      "status": "covered",
+      "continuousCapture": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/continuous-playback.webm",
+        "sha256": "56798349c693af145ced687b156eb146dcfbe33eae2b7acf32017d8dee086160"
+      },
+      "timeline": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/timeline.json",
+        "sha256": "26a4367a47561f7042cfa367b6d9ffa4f43d67d46f811cf0d00547821744ae77"
+      }
+    },
+    {
+      "id": "character-primary-interaction",
+      "status": "covered",
+      "continuousCapture": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/continuous-playback.webm",
+        "sha256": "886f7c8429c66a5d831023b6cca89cd1c24116e92ddc4017a5647ff7844d989e"
+      },
+      "timeline": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/timeline.json",
+        "sha256": "875e247beaa83f7639616562973783eae12616ef485817551e657bc1a1c5209d"
+      }
+    }
+  ]
+}

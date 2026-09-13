@@ -1,0 +1,455 @@
+{
+  "schema": "brand-section-fidelity-manifest/v1",
+  "brand": "czn-v3",
+  "stage": "demo-1-implementation",
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "sections": [
+    {
+      "id": "home-primary-stage",
+      "sourcePageId": "home",
+      "salience": "high",
+      "sourceCapture": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/key-region.png",
+        "sha256": "697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "structuralLayers": [
+        "moving hero",
+        "fixed nav",
+        "download cluster"
+      ],
+      "readingOrder": [
+        "hero",
+        "actions"
+      ],
+      "responsiveEvidence": {
+        "status": "not-observed",
+        "reason": "Desktop official surface only in frozen evidence goal."
+      },
+      "assetEvidenceRefs": [
+        "asset-006",
+        "asset-025",
+        "asset-027",
+        "asset-039",
+        "asset-040",
+        "asset-041",
+        "asset-042",
+        "asset-043",
+        "asset-044",
+        "asset-045",
+        "asset-046",
+        "asset-047"
+      ],
+      "interactionEvidenceRef": "home-primary-interaction",
+      "downstreamDemoRegion": {
+        "pageId": "czn-v3-home",
+        "route": "/#/brand/czn-v3/pages/czn-v3-home",
+        "region": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "demoCapture": {
+        "path": "migrations/czn-v3/captures/demo/desktop/home.png",
+        "sha256": "bb7af15bf3d2b08c98b5a586a9429d53326879da0a7ed925cca8168507e3c360",
+        "viewport": {
+          "width": 1440,
+          "height": 1100
+        },
+        "state": "initial"
+      },
+      "demoStructuralLayers": [
+        "moving hero field",
+        "fixed top navigation",
+        "lower access cluster"
+      ],
+      "demoReadingOrder": [
+        "moving field",
+        "navigation",
+        "title",
+        "actions"
+      ],
+      "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css",
+      "runtimeAssetProvenance": {
+        "sourceKind": "dom-css-reconstruction",
+        "sourceScreenshotUsed": false,
+        "hashBasis": "local implementation file sha256; frozen source asset hashes remain canonical-source-url identity only"
+      },
+      "interactionProbe": {
+        "control": "OPEN ACCESS",
+        "before": "OPEN ACCESS",
+        "after": "RESTORE ACCESS",
+        "restored": "OPEN ACCESS"
+      },
+      "implementationSelfCheck": "pass",
+      "pageId": "czn-v3-home",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "demoViewport": {
+        "width": 1440,
+        "height": 1100
+      },
+      "approvedViewportTranslation": "design-direction responsiveStrategyMatrix: source-calibration inside retained desktop phone shell",
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "moving-hero-field",
+          "sourceSelector": "video.xh_bg",
+          "demoSelector": ".czn-v3-moving-field",
+          "status": "pass"
+        },
+        {
+          "id": "fixed-top-navigation",
+          "sourceSelector": ".top_nav_list",
+          "demoSelector": ".czn-v3-nav",
+          "status": "pass"
+        },
+        {
+          "id": "lower-download-cluster",
+          "sourceSelector": ".index_main_bbox",
+          "demoSelector": ".czn-v3-download",
+          "status": "pass"
+        }
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktopCapture": "migrations/czn-v3/captures/demo/desktop/home.png",
+        "mobileCapture": "migrations/czn-v3/captures/demo/mobile/home.png",
+        "strategy": "approved responsive reflow/art-directed crop"
+      },
+      "assetRefs": [],
+      "interactionChecks": [
+        {
+          "id": "home-control",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/czn-v3/captures/demo/desktop/home.png",
+          "afterCapture": "migrations/czn-v3/captures/demo/desktop/home-after.png",
+          "restoredCapture": "migrations/czn-v3/captures/demo/desktop/home-restored.png"
+        }
+      ],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "gameplay-primary-stage",
+      "sourcePageId": "gameplay",
+      "salience": "high",
+      "sourceCapture": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/key-region.png",
+        "sha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "structuralLayers": [
+        "backdrop",
+        "media slab",
+        "edge arrows",
+        "numbered timeline"
+      ],
+      "readingOrder": [
+        "title",
+        "media",
+        "timeline"
+      ],
+      "responsiveEvidence": {
+        "status": "not-observed",
+        "reason": "Desktop official surface only in frozen evidence goal."
+      },
+      "assetEvidenceRefs": [
+        "asset-058",
+        "asset-060",
+        "asset-061",
+        "asset-062",
+        "asset-113",
+        "asset-114",
+        "asset-116",
+        "asset-117",
+        "asset-119"
+      ],
+      "interactionEvidenceRef": "gameplay-primary-interaction",
+      "downstreamDemoRegion": {
+        "pageId": "czn-v3-gameplay",
+        "route": "/#/brand/czn-v3/pages/czn-v3-gameplay",
+        "region": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "demoCapture": {
+        "path": "migrations/czn-v3/captures/demo/desktop/gameplay.png",
+        "sha256": "d736e8b7151c59be76d6945745b38748d1e560046aef5e089c1b223098b02d35",
+        "viewport": {
+          "width": 1440,
+          "height": 1100
+        },
+        "state": "initial"
+      },
+      "demoStructuralLayers": [
+        "backdrop",
+        "wide media slab",
+        "edge controls",
+        "01/05–05/05 timeline"
+      ],
+      "demoReadingOrder": [
+        "title",
+        "media",
+        "controls",
+        "timeline"
+      ],
+      "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css",
+      "runtimeAssetProvenance": {
+        "sourceKind": "dom-css-reconstruction",
+        "sourceScreenshotUsed": false,
+        "hashBasis": "local implementation file sha256; frozen source asset hashes remain canonical-source-url identity only"
+      },
+      "interactionProbe": {
+        "control": "Next / RESET",
+        "before": "TACTICAL FEED 01",
+        "after": "TACTICAL FEED 02",
+        "restored": "TACTICAL FEED 01"
+      },
+      "implementationSelfCheck": "pass",
+      "pageId": "czn-v3-gameplay",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "demoViewport": {
+        "width": 1440,
+        "height": 1100
+      },
+      "approvedViewportTranslation": "design-direction responsiveStrategyMatrix: source-calibration inside retained desktop phone shell",
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "gameplay-backdrop",
+          "sourceSelector": "#gameplay",
+          "demoSelector": ".czn-v3-gameplay-stage",
+          "status": "pass"
+        },
+        {
+          "id": "wide-media-slab",
+          "sourceSelector": ".gameplay_img",
+          "demoSelector": ".czn-v3-media-slab",
+          "status": "pass"
+        },
+        {
+          "id": "edge-arrows",
+          "sourceSelector": ".gameplay_prev, .gameplay_next",
+          "demoSelector": ".czn-v3-controls",
+          "status": "pass"
+        },
+        {
+          "id": "numbered-timeline",
+          "sourceSelector": ".game_timeline",
+          "demoSelector": ".czn-v3-timeline",
+          "status": "pass"
+        }
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktopCapture": "migrations/czn-v3/captures/demo/desktop/gameplay.png",
+        "mobileCapture": "migrations/czn-v3/captures/demo/mobile/gameplay.png",
+        "strategy": "approved responsive reflow/art-directed crop"
+      },
+      "assetRefs": [],
+      "interactionChecks": [
+        {
+          "id": "gameplay-control",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/czn-v3/captures/demo/desktop/gameplay.png",
+          "afterCapture": "migrations/czn-v3/captures/demo/desktop/gameplay-after.png",
+          "restoredCapture": "migrations/czn-v3/captures/demo/desktop/gameplay-restored.png"
+        }
+      ],
+      "horizontalOverflow": false,
+      "status": "pass"
+    },
+    {
+      "id": "character-primary-stage",
+      "sourcePageId": "character",
+      "salience": "high",
+      "sourceCapture": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/key-region.png",
+        "sha256": "af9493eac9ef58feb72d158092477b38e78f297613e6fed9de23faa2e3bed4b2"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "structuralLayers": [
+        "character motion",
+        "portrait rail",
+        "identity panel",
+        "angled skill cards"
+      ],
+      "readingOrder": [
+        "identity",
+        "description",
+        "voice",
+        "skills"
+      ],
+      "responsiveEvidence": {
+        "status": "not-observed",
+        "reason": "Desktop official surface only in frozen evidence goal."
+      },
+      "assetEvidenceRefs": [
+        "asset-007",
+        "asset-008",
+        "asset-009",
+        "asset-010",
+        "asset-011",
+        "asset-012",
+        "asset-013",
+        "asset-016",
+        "asset-017",
+        "asset-018",
+        "asset-020",
+        "asset-021"
+      ],
+      "interactionEvidenceRef": "character-primary-interaction",
+      "downstreamDemoRegion": {
+        "pageId": "czn-v3-character",
+        "route": "/#/brand/czn-v3/pages/czn-v3-character",
+        "region": [
+          0,
+          0,
+          1,
+          1
+        ]
+      },
+      "demoCapture": {
+        "path": "migrations/czn-v3/captures/demo/desktop/character.png",
+        "sha256": "ce21c461ad26211b6a38a3858f6a9621f3837099e7f3aa1853ae42cd49224442",
+        "viewport": {
+          "width": 1440,
+          "height": 1100
+        },
+        "state": "initial"
+      },
+      "demoStructuralLayers": [
+        "moving subject",
+        "portrait rail",
+        "identity/voice",
+        "angled skill cards"
+      ],
+      "demoReadingOrder": [
+        "portrait selection",
+        "subject",
+        "identity",
+        "voice",
+        "skills"
+      ],
+      "implementationLocation": "src/App.vue#SchemaCznV3StageSection + src/styles.css",
+      "runtimeAssetProvenance": {
+        "sourceKind": "dom-css-reconstruction",
+        "sourceScreenshotUsed": false,
+        "hashBasis": "local implementation file sha256; frozen source asset hashes remain canonical-source-url identity only"
+      },
+      "interactionProbe": {
+        "control": "Next / RESET",
+        "before": "ARABEL",
+        "after": "NOX",
+        "restored": "ARABEL"
+      },
+      "implementationSelfCheck": "pass",
+      "pageId": "czn-v3-character",
+      "sourceViewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "demoViewport": {
+        "width": 1440,
+        "height": 1100
+      },
+      "approvedViewportTranslation": "design-direction responsiveStrategyMatrix: source-calibration inside retained desktop phone shell",
+      "demoRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "requiredLayers": [
+        {
+          "id": "moving-character-subject",
+          "sourceSelector": ".character_rc video",
+          "demoSelector": ".czn-v3-subject",
+          "status": "pass"
+        },
+        {
+          "id": "portrait-selection-rail",
+          "sourceSelector": ".character_side_list",
+          "demoSelector": ".czn-v3-portrait-rail",
+          "status": "pass"
+        },
+        {
+          "id": "identity-voice-panel",
+          "sourceSelector": ".character_info",
+          "demoSelector": ".czn-v3-identity",
+          "status": "pass"
+        },
+        {
+          "id": "angled-skill-cards",
+          "sourceSelector": ".character_skill_list",
+          "demoSelector": ".czn-v3-skills",
+          "status": "pass"
+        }
+      ],
+      "responsiveBehavior": {
+        "status": "pass",
+        "desktopCapture": "migrations/czn-v3/captures/demo/desktop/character.png",
+        "mobileCapture": "migrations/czn-v3/captures/demo/mobile/character.png",
+        "strategy": "approved responsive reflow/art-directed crop"
+      },
+      "assetRefs": [],
+      "interactionChecks": [
+        {
+          "id": "character-control",
+          "required": true,
+          "stateChanged": true,
+          "restored": true,
+          "beforeCapture": "migrations/czn-v3/captures/demo/desktop/character.png",
+          "afterCapture": "migrations/czn-v3/captures/demo/desktop/character-after.png",
+          "restoredCapture": "migrations/czn-v3/captures/demo/desktop/character-restored.png"
+        }
+      ],
+      "horizontalOverflow": false,
+      "status": "pass"
+    }
+  ],
+  "scope": "source-mapped sections only; held-out is covered by generative-proof.json"
+}

@@ -1,0 +1,420 @@
+{
+  "ok": true,
+  "brand": "czn-v3",
+  "gate": "screenshot-first-evidence",
+  "evidenceFile": "migrations/czn-v3/brand-evidence.json",
+  "actionFile": "migrations/czn-v3/action-evidence-v02.json",
+  "thirdPartyFile": "migrations/czn-v3/third-party-evidence.dembrandt.json",
+  "observationFile": "migrations/czn-v3/source-observation-manifest.json",
+  "intentFile": null,
+  "checks": [
+    {
+      "id": "evidence-json",
+      "status": "pass",
+      "message": "brand-evidence.json must be valid JSON.",
+      "fix": "Create migrations/czn-v3/brand-evidence.json from rendered source captures."
+    },
+    {
+      "id": "action-json",
+      "status": "pass",
+      "message": "Action evidence should be valid JSON when the source has interaction claims.",
+      "fix": "Create migrations/czn-v3/action-evidence-v02.json with before/after captures and exact computed properties."
+    },
+    {
+      "id": "source-observation-manifest",
+      "status": "pass",
+      "message": "Continuous source evidence requires source-observation-manifest.json.",
+      "fix": "Record each required page with full-page capture, continuous playback, lossless-frame timeline and coverage status."
+    },
+    {
+      "id": "observation-page-home",
+      "status": "pass",
+      "message": "home must be covered or explicitly unavailable.",
+      "fix": "Capture the real source page or record unavailableReason."
+    },
+    {
+      "id": "observation-claim-coverage-home",
+      "status": "pass",
+      "message": "home continuous evidence must be extracted into page-scoped screenshot/region/DOM/computed claims.",
+      "fix": "Review the page playback and frames, then add sourcePageId-scoped claims before Interpreter handoff.",
+      "claimCount": 2
+    },
+    {
+      "id": "observation-full-page-home",
+      "status": "pass",
+      "message": "home full-page evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-continuous-home",
+      "status": "pass",
+      "message": "home continuous evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-timeline-home",
+      "status": "pass",
+      "message": "home timeline evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-scroll-coverage-home",
+      "status": "pass",
+      "message": "home timeline must begin at scrollTop 0 and reach the page end.",
+      "fix": "Record stable initial frames, continuous scroll steps and settled end frames.",
+      "frameCount": 5,
+      "firstScrollTop": 0,
+      "lastScrollTop": 0,
+      "scrollHeight": 900,
+      "viewportHeight": 900
+    },
+    {
+      "id": "observation-page-gameplay",
+      "status": "pass",
+      "message": "gameplay must be covered or explicitly unavailable.",
+      "fix": "Capture the real source page or record unavailableReason."
+    },
+    {
+      "id": "observation-claim-coverage-gameplay",
+      "status": "pass",
+      "message": "gameplay continuous evidence must be extracted into page-scoped screenshot/region/DOM/computed claims.",
+      "fix": "Review the page playback and frames, then add sourcePageId-scoped claims before Interpreter handoff.",
+      "claimCount": 2
+    },
+    {
+      "id": "observation-full-page-gameplay",
+      "status": "pass",
+      "message": "gameplay full-page evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-continuous-gameplay",
+      "status": "pass",
+      "message": "gameplay continuous evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-timeline-gameplay",
+      "status": "pass",
+      "message": "gameplay timeline evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-scroll-coverage-gameplay",
+      "status": "pass",
+      "message": "gameplay timeline must begin at scrollTop 0 and reach the page end.",
+      "fix": "Record stable initial frames, continuous scroll steps and settled end frames.",
+      "frameCount": 5,
+      "firstScrollTop": 0,
+      "lastScrollTop": 0,
+      "scrollHeight": 900,
+      "viewportHeight": 900
+    },
+    {
+      "id": "observation-page-character",
+      "status": "pass",
+      "message": "character must be covered or explicitly unavailable.",
+      "fix": "Capture the real source page or record unavailableReason."
+    },
+    {
+      "id": "observation-claim-coverage-character",
+      "status": "pass",
+      "message": "character continuous evidence must be extracted into page-scoped screenshot/region/DOM/computed claims.",
+      "fix": "Review the page playback and frames, then add sourcePageId-scoped claims before Interpreter handoff.",
+      "claimCount": 2
+    },
+    {
+      "id": "observation-full-page-character",
+      "status": "pass",
+      "message": "character full-page evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-continuous-character",
+      "status": "pass",
+      "message": "character continuous evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-timeline-character",
+      "status": "pass",
+      "message": "character timeline evidence must exist and match its frozen sha256.",
+      "fix": "Recapture the page and refresh the observation manifest hash."
+    },
+    {
+      "id": "observation-scroll-coverage-character",
+      "status": "pass",
+      "message": "character timeline must begin at scrollTop 0 and reach the page end.",
+      "fix": "Record stable initial frames, continuous scroll steps and settled end frames.",
+      "frameCount": 5,
+      "firstScrollTop": 0,
+      "lastScrollTop": 0,
+      "scrollHeight": 900,
+      "viewportHeight": 900
+    },
+    {
+      "id": "observation-consumer-ready",
+      "status": "pass",
+      "message": "Evidence must explicitly mark the observation set ready only after page claims and consumer audit are complete.",
+      "fix": "Keep readyForInterpreter=false while any required page still lacks extracted claims or a consumer rejection remains."
+    },
+    {
+      "id": "screenshot-first-claims",
+      "status": "pass",
+      "message": "Evidence must expose reviewable screenshot-first claims; palette summaries and CSS scans are not rendered facts.",
+      "fix": "Add claims/observations with status, capture, sourceRegion, visibleDom and computed evidence.",
+      "claimCount": 6
+    },
+    {
+      "id": "third-party-seed-dispositions",
+      "status": "pass",
+      "message": "Imported Dembrandt/third-party seeds must be dispositioned by the Evidence Agent; extractor success is not evidence completion.",
+      "fix": "Add brand-evidence.json.thirdPartySeedDispositions entries with seedRef, status and evidenceRefs or reason.",
+      "dispositionCount": 4,
+      "thirdPartyFile": "migrations/czn-v3/third-party-evidence.dembrandt.json"
+    },
+    {
+      "id": "seed-disposition-status-1",
+      "status": "pass",
+      "message": "dembrandt.colors.semantic.primary must use a supported seed disposition status.",
+      "fix": "Use validated, rejected, unresolved or out-of-scope."
+    },
+    {
+      "id": "seed-disposition-reason-1",
+      "status": "pass",
+      "message": "dembrandt.colors.semantic.primary needs a reviewable reason for rejected.",
+      "fix": "Explain the visible contradiction, missing evidence, or why the seed is outside the frozen goal."
+    },
+    {
+      "id": "seed-disposition-status-2",
+      "status": "pass",
+      "message": "dembrandt.colors.semantic.accent must use a supported seed disposition status.",
+      "fix": "Use validated, rejected, unresolved or out-of-scope."
+    },
+    {
+      "id": "seed-disposition-evidence-2",
+      "status": "pass",
+      "message": "dembrandt.colors.semantic.accent is validated only when every evidenceRef resolves to an observed Claim.",
+      "fix": "Add evidenceRefs pointing to screenshot-first observed Claim ids.",
+      "evidenceRefs": [
+        "home-orange-active-nav",
+        "gameplay-orange-active-nav",
+        "character-orange-active-nav"
+      ]
+    },
+    {
+      "id": "seed-disposition-status-3",
+      "status": "pass",
+      "message": "dembrandt.borderRadius.card must use a supported seed disposition status.",
+      "fix": "Use validated, rejected, unresolved or out-of-scope."
+    },
+    {
+      "id": "seed-disposition-reason-3",
+      "status": "pass",
+      "message": "dembrandt.borderRadius.card needs a reviewable reason for out-of-scope.",
+      "fix": "Explain the visible contradiction, missing evidence, or why the seed is outside the frozen goal."
+    },
+    {
+      "id": "seed-disposition-status-4",
+      "status": "pass",
+      "message": "dembrandt.borderRadius.control must use a supported seed disposition status.",
+      "fix": "Use validated, rejected, unresolved or out-of-scope."
+    },
+    {
+      "id": "seed-disposition-reason-4",
+      "status": "pass",
+      "message": "dembrandt.borderRadius.control needs a reviewable reason for out-of-scope.",
+      "fix": "Explain the visible contradiction, missing evidence, or why the seed is outside the frozen goal."
+    },
+    {
+      "id": "claim-capture-home-immersive-hero-stage",
+      "status": "pass",
+      "message": "home-immersive-hero-stage must begin with a readable rendered screenshot.",
+      "fix": "Capture the real rendered page before reading CSS or naming a brand rule."
+    },
+    {
+      "id": "claim-region-home-immersive-hero-stage",
+      "status": "pass",
+      "message": "home-immersive-hero-stage must point to a screenshot region with positive width and height.",
+      "fix": "Record the exact visible region that supports the claim."
+    },
+    {
+      "id": "claim-visible-dom-home-immersive-hero-stage",
+      "status": "pass",
+      "message": "home-immersive-hero-stage must map to a visible DOM node/state with a non-zero box.",
+      "fix": "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern."
+    },
+    {
+      "id": "claim-capture-home-orange-active-nav",
+      "status": "pass",
+      "message": "home-orange-active-nav must begin with a readable rendered screenshot.",
+      "fix": "Capture the real rendered page before reading CSS or naming a brand rule."
+    },
+    {
+      "id": "claim-region-home-orange-active-nav",
+      "status": "pass",
+      "message": "home-orange-active-nav must point to a screenshot region with positive width and height.",
+      "fix": "Record the exact visible region that supports the claim."
+    },
+    {
+      "id": "claim-visible-dom-home-orange-active-nav",
+      "status": "pass",
+      "message": "home-orange-active-nav must map to a visible DOM node/state with a non-zero box.",
+      "fix": "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern."
+    },
+    {
+      "id": "claim-computed-home-orange-active-nav",
+      "status": "pass",
+      "message": "home-orange-active-nav must record the exact computed property and value.",
+      "fix": "Store property and value separately; never turn color into backgroundColor or infer semantics from a variable name."
+    },
+    {
+      "id": "claim-capture-gameplay-slanted-hud-stage",
+      "status": "pass",
+      "message": "gameplay-slanted-hud-stage must begin with a readable rendered screenshot.",
+      "fix": "Capture the real rendered page before reading CSS or naming a brand rule."
+    },
+    {
+      "id": "claim-region-gameplay-slanted-hud-stage",
+      "status": "pass",
+      "message": "gameplay-slanted-hud-stage must point to a screenshot region with positive width and height.",
+      "fix": "Record the exact visible region that supports the claim."
+    },
+    {
+      "id": "claim-visible-dom-gameplay-slanted-hud-stage",
+      "status": "pass",
+      "message": "gameplay-slanted-hud-stage must map to a visible DOM node/state with a non-zero box.",
+      "fix": "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern."
+    },
+    {
+      "id": "claim-capture-gameplay-orange-active-nav",
+      "status": "pass",
+      "message": "gameplay-orange-active-nav must begin with a readable rendered screenshot.",
+      "fix": "Capture the real rendered page before reading CSS or naming a brand rule."
+    },
+    {
+      "id": "claim-region-gameplay-orange-active-nav",
+      "status": "pass",
+      "message": "gameplay-orange-active-nav must point to a screenshot region with positive width and height.",
+      "fix": "Record the exact visible region that supports the claim."
+    },
+    {
+      "id": "claim-visible-dom-gameplay-orange-active-nav",
+      "status": "pass",
+      "message": "gameplay-orange-active-nav must map to a visible DOM node/state with a non-zero box.",
+      "fix": "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern."
+    },
+    {
+      "id": "claim-computed-gameplay-orange-active-nav",
+      "status": "pass",
+      "message": "gameplay-orange-active-nav must record the exact computed property and value.",
+      "fix": "Store property and value separately; never turn color into backgroundColor or infer semantics from a variable name."
+    },
+    {
+      "id": "claim-capture-character-slanted-hud-stage",
+      "status": "pass",
+      "message": "character-slanted-hud-stage must begin with a readable rendered screenshot.",
+      "fix": "Capture the real rendered page before reading CSS or naming a brand rule."
+    },
+    {
+      "id": "claim-region-character-slanted-hud-stage",
+      "status": "pass",
+      "message": "character-slanted-hud-stage must point to a screenshot region with positive width and height.",
+      "fix": "Record the exact visible region that supports the claim."
+    },
+    {
+      "id": "claim-visible-dom-character-slanted-hud-stage",
+      "status": "pass",
+      "message": "character-slanted-hud-stage must map to a visible DOM node/state with a non-zero box.",
+      "fix": "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern."
+    },
+    {
+      "id": "claim-capture-character-orange-active-nav",
+      "status": "pass",
+      "message": "character-orange-active-nav must begin with a readable rendered screenshot.",
+      "fix": "Capture the real rendered page before reading CSS or naming a brand rule."
+    },
+    {
+      "id": "claim-region-character-orange-active-nav",
+      "status": "pass",
+      "message": "character-orange-active-nav must point to a screenshot region with positive width and height.",
+      "fix": "Record the exact visible region that supports the claim."
+    },
+    {
+      "id": "claim-visible-dom-character-orange-active-nav",
+      "status": "pass",
+      "message": "character-orange-active-nav must map to a visible DOM node/state with a non-zero box.",
+      "fix": "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern."
+    },
+    {
+      "id": "claim-computed-character-orange-active-nav",
+      "status": "pass",
+      "message": "character-orange-active-nav must record the exact computed property and value.",
+      "fix": "Store property and value separately; never turn color into backgroundColor or infer semantics from a variable name."
+    },
+    {
+      "id": "action-entries",
+      "status": "pass",
+      "message": "Interaction evidence should expose concrete state entries.",
+      "fix": "Add one entry per visibly observed interaction state.",
+      "entryCount": 3
+    },
+    {
+      "id": "action-state-1",
+      "status": "pass",
+      "message": "home-primary-interaction must preserve the actual observed state and reproducible trigger.",
+      "fix": "Record values such as is-open/open-menu; do not rewrite them as active/current."
+    },
+    {
+      "id": "action-captures-1",
+      "status": "pass",
+      "message": "home-primary-interaction needs readable before and after captures.",
+      "fix": "Trigger the interaction in the browser and capture both states."
+    },
+    {
+      "id": "action-property-1",
+      "status": "pass",
+      "message": "home-primary-interaction needs the exact changed computed property and value.",
+      "fix": "Record color as color, background-color as backgroundColor, and retain the source rule."
+    },
+    {
+      "id": "action-state-2",
+      "status": "pass",
+      "message": "gameplay-primary-interaction must preserve the actual observed state and reproducible trigger.",
+      "fix": "Record values such as is-open/open-menu; do not rewrite them as active/current."
+    },
+    {
+      "id": "action-captures-2",
+      "status": "pass",
+      "message": "gameplay-primary-interaction needs readable before and after captures.",
+      "fix": "Trigger the interaction in the browser and capture both states."
+    },
+    {
+      "id": "action-property-2",
+      "status": "pass",
+      "message": "gameplay-primary-interaction needs the exact changed computed property and value.",
+      "fix": "Record color as color, background-color as backgroundColor, and retain the source rule."
+    },
+    {
+      "id": "action-state-3",
+      "status": "pass",
+      "message": "character-primary-interaction must preserve the actual observed state and reproducible trigger.",
+      "fix": "Record values such as is-open/open-menu; do not rewrite them as active/current."
+    },
+    {
+      "id": "action-captures-3",
+      "status": "pass",
+      "message": "character-primary-interaction needs readable before and after captures.",
+      "fix": "Trigger the interaction in the browser and capture both states."
+    },
+    {
+      "id": "action-property-3",
+      "status": "pass",
+      "message": "character-primary-interaction needs the exact changed computed property and value.",
+      "fix": "Record color as color, background-color as backgroundColor, and retain the source rule."
+    }
+  ],
+  "blocking": [],
+  "warnings": [],
+  "message": "Evidence visibility gate passed. Interpreter may consume these rendered facts."
+}

@@ -1,0 +1,19 @@
+{
+  "schema": "brand-blind-qa-input/v1",
+  "brand": "czn-v3",
+  "attempt": 1,
+  "qaExecutionId": "/root/czn_v3_visual_qa",
+  "implementationExecutionId": "demo-2",
+  "goalSha256": "ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504",
+  "forbiddenInputsAbsent": {"implementationRationale": true, "priorVerdict": true, "buildPassAsVisualEvidence": true, "mainConversation": true},
+  "allowedInputs": [
+    {"kind":"goal","path":"migrations/czn-v3/goal-contract.json","sha256":"ff837b32c248698d68ef1db71d3cf888aa75716291ddcb995a3b19c2a0c2f504"},
+    {"kind":"visual-pattern-inventory","path":"migrations/czn-v3/visual-pattern-inventory.json","sha256":"d64b3d4d6b77519641ce7ad6d134344454053346ec3dfe1dd38ad5572ca885a9"},
+    {"kind":"generative-proof","path":"migrations/czn-v3/generative-proof.json","sha256":"add6c709751b569c515519b4401c4af4b32567e150dd8762876f7c8cf1324512"},
+    {"kind":"source-screenshot","path":"migrations/czn-v3/captures/source/home/desktop/key-region.png","sha256":"697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2"},
+    {"kind":"source-screenshot","path":"migrations/czn-v3/captures/source/gameplay/desktop/key-region.png","sha256":"97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd"},
+    {"kind":"source-screenshot","path":"migrations/czn-v3/captures/source/character/desktop/key-region.png","sha256":"af9493eac9ef58feb72d158092477b38e78f297613e6fed9de23faa2e3bed4b2"},
+    {"kind":"demo-screenshot-manifest","path":"migrations/czn-v3/demo-screenshot-manifest.json","sha256":"857fe8b64767ab55d36fc755acac19de52c1b2242d7c9d6499185d5fe303f7a9"},
+    {"kind":"asset-provenance","path":"migrations/czn-v3/rendered-asset-inventory.json","sha256":"081f0039150d5abbb6db6e396d2ed701e63c99a99c2d5e1230f1a19e0a1056eb"}
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "pageId": "character",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 900,
+    "interactionModel": "viewport-sized vertical swiper"
+  },
+  "frames": [
+    {
+      "label": "default",
+      "timeMs": 0,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/character/desktop/00-default.png",
+      "sha256": "bc9b489c5968551a0839b8b40116f7d61d01657133a69c1702151029c110b37b",
+      "state": "index",
+      "index": 0
+    },
+    {
+      "label": "triggered",
+      "timeMs": 90,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/character/desktop/01-triggered.png",
+      "sha256": "22b233837e53056e1b2dc640928875cb1ea79d75cdfcbebd64320074d9e7c72f",
+      "state": "character",
+      "index": 1
+    },
+    {
+      "label": "transition",
+      "timeMs": 270,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/character/desktop/02-transition.png",
+      "sha256": "f81a9e2d7c00b3a74de4aaddf80832885c39bcd5409e9c5dad7f2950c8cb5474",
+      "state": "character",
+      "index": 2
+    },
+    {
+      "label": "settled",
+      "timeMs": 1470,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/character/desktop/03-settled.png",
+      "sha256": "bdc564598b6d768f61e676d461ac1259b9e743fb1eb48054c7627bbb4be12c45",
+      "state": "character",
+      "index": 3
+    },
+    {
+      "label": "restored",
+      "timeMs": 3960,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/character/desktop/08-restored.png",
+      "sha256": "5b40e76c0053532efcf3ea9ca293ab9e5d21bfa51d08035cf37bfecf21311c7e",
+      "state": "index",
+      "index": 4
+    }
+  ]
+}

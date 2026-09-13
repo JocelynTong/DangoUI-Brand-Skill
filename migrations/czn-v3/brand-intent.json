@@ -1,0 +1,161 @@
+{
+  "schema": "brand-intent/vNext",
+  "brand": "czn-v3",
+  "goalId": "czn-current-official-site-v3",
+  "role": "designTranslator",
+  "evidencePolicy": "Only the frozen screenshot-first observed claims, source observation manifest, rendered asset inventory and action evidence named by interpreter-1 are authoritative. Asset sourceSha256 values are canonical source-URL identity hashes, not payload hashes. Dembrandt output, CSS names and aggregate palettes are candidates only.",
+  "patterns": [
+    {
+      "id": "immersive-moving-home-stage",
+      "status": "approved",
+      "scope": "Home settled full-viewport stage",
+      "observedFact": "At 1440x900, #index fills the viewport with moving hero media, fixed navigation and a lower download/action cluster.",
+      "interpretation": "Home identity depends on a moving environmental field with independent navigation and action layers, rather than a poster or color-only treatment.",
+      "recommendation": "Preserve the dominant moving field and independently positioned navigation and download cluster.",
+      "suitableFor": ["Home opening stage", "high-capacity campaign introduction"],
+      "notFor": ["source screenshot runtime", "generic card", "static poster substitute", "utility surface"],
+      "allowedTransformations": ["bounded focal crop", "responsive reflow preserving visual mass and action hierarchy", "DOM/CSS reconstruction with independent runtime assets"],
+      "evidenceRefs": ["home-immersive-hero-stage"],
+      "sourceRegion": [0, 0, 1, 1],
+      "compositionContractRef": "migrations/czn-v3/approved-visual-patterns.json#patterns[id=immersive-moving-home-stage]"
+    },
+    {
+      "id": "gameplay-media-timeline-hud",
+      "status": "approved",
+      "scope": "Gameplay settled full-viewport stage",
+      "observedFact": "At 1440x900, #gameplay combines a wide media slab, edge arrows and a vertical 01/05-05/05 timeline over a dedicated backdrop.",
+      "interpretation": "Gameplay communicates browsable modes through one dominant media plane plus sparse directional and numbered HUD controls.",
+      "recommendation": "Keep the media slab dominant and retain both edge navigation and vertical progress structure.",
+      "suitableFor": ["Gameplay mode browser", "source-independent feature carousel"],
+      "notFor": ["equal card grid", "text-only feature list", "ambiguous legacy Forward surface"],
+      "allowedTransformations": ["replace media content while retaining slab role", "compress HUD spacing", "vertical reflow that preserves media-control-timeline order"],
+      "evidenceRefs": ["gameplay-slanted-hud-stage"],
+      "sourceRegion": [0, 0, 1, 1],
+      "compositionContractRef": "migrations/czn-v3/approved-visual-patterns.json#patterns[id=gameplay-media-timeline-hud]"
+    },
+    {
+      "id": "character-layered-profile-hud",
+      "status": "approved",
+      "scope": "Character settled full-viewport stage",
+      "observedFact": "At 1440x900, #character combines a moving character stage, portrait rail, layered identity/voice panel and angled skill cards.",
+      "interpretation": "Character browsing is a synchronized asymmetric profile composition: selection, moving subject, narrative identity and abilities remain distinct layers.",
+      "recommendation": "Preserve all four roles and the identity-description-voice-skills reading order.",
+      "suitableFor": ["Character browser", "source-independent cast profile"],
+      "notFor": ["avatar grid", "single flat biography card", "character art without HUD structure"],
+      "allowedTransformations": ["replace character content while preserving role synchronization", "bounded crop retaining the subject", "responsive stack retaining reading order and angled skill treatment"],
+      "evidenceRefs": ["character-slanted-hud-stage"],
+      "sourceRegion": [0, 0, 1, 1],
+      "compositionContractRef": "migrations/czn-v3/approved-visual-patterns.json#patterns[id=character-layered-profile-hud]"
+    },
+    {
+      "id": "orange-current-navigation-role",
+      "status": "approved",
+      "scope": "selected top navigation text on Home, Gameplay and Character settled states",
+      "observedFact": "The selected top-navigation anchor computes to rgb(255, 85, 20) on all three required surfaces.",
+      "interpretation": "Orange is a narrow current-location emphasis, not evidence for a global primary fill or every interactive state.",
+      "recommendation": "Use orange for the current top-level navigation text only unless new rendered evidence validates another role.",
+      "suitableFor": ["current top-navigation label", "current surface locator"],
+      "notFor": ["global background", "generic CTA fill", "hover", "pressed", "success/error", "all active controls"],
+      "allowedRoles": ["top-navigation-current-text"],
+      "forbiddenRoles": ["global-primary-fill", "surface", "generic-action", "hover", "pressed", "semantic-status", "universal-accent"],
+      "allowedTransformations": ["contrast-preserving use on the same current-navigation text role"],
+      "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"],
+      "sourceRegion": [0, 0, 1, 1]
+    }
+  ],
+  "semanticClaims": [
+    {
+      "id": "semantic-current-nav-orange",
+      "kind": "color",
+      "status": "approved",
+      "evidenceDisposition": "validated",
+      "value": "rgb(255, 85, 20)",
+      "meaning": "current top-level navigation text",
+      "allowedRoles": ["top-navigation-current-text"],
+      "forbiddenRoles": ["global-primary-fill", "surface", "generic-action", "hover", "pressed", "semantic-status", "all-selected-states"],
+      "origin": "rendered-observed-claims",
+      "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"],
+      "evidenceBinding": {
+        "capture": {"path": "migrations/czn-v3/captures/source/home/desktop/key-region.png", "sha256": "697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2"},
+        "sourceRegion": [0, 0, 1, 1],
+        "visibleDom": {"selector": ".top_nav_list > li.light > a", "visible": true, "boundingBox": {"width": 1440, "height": 900}},
+        "computed": {"property": "color", "value": "rgb(255, 85, 20)"},
+        "sourcePageId": "home",
+        "state": "settled"
+      }
+    }
+  ],
+  "styleRecipeDetails": [
+    {"id": "recipe-home-moving-stage", "category": "composition-asset", "purpose": "full-viewport moving scene with independent action layer", "usage": "Home opening only", "notFor": ["flat screenshot", "generic hero card"], "patternRef": "immersive-moving-home-stage", "evidenceRefs": ["home-immersive-hero-stage"]},
+    {"id": "recipe-gameplay-hud", "category": "composition-density", "purpose": "dominant media slab with edge navigation and numbered timeline", "usage": "Gameplay browser", "notFor": ["equal card grid", "legacy Forward label"], "patternRef": "gameplay-media-timeline-hud", "evidenceRefs": ["gameplay-slanted-hud-stage"]},
+    {"id": "recipe-character-hud", "category": "composition-asset", "purpose": "portrait selection, moving subject, identity panel and angled skill cards", "usage": "Character browser", "notFor": ["avatar grid", "flat profile card"], "patternRef": "character-layered-profile-hud", "evidenceRefs": ["character-slanted-hud-stage"]},
+    {"id": "recipe-current-nav-orange", "category": "color-boundary", "purpose": "mark current top-level location", "usage": "selected top-navigation text only", "notFor": ["hover", "global accent fill", "generic active state"], "patternRef": "orange-current-navigation-role", "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"]}
+  ],
+  "interactionRecipes": [
+    {
+      "id": "recipe-viewport-surface-navigation",
+      "status": "approved",
+      "purpose": "move between whole-viewport Home, Gameplay and Character surfaces and restore the prior surface",
+      "trigger": "activate the corresponding current official-site navigation target; restore by returning to the prior target",
+      "states": ["default", "triggered", "transition", "settled", "restored"],
+      "visualChange": ["target surface moves from off-viewport to y=0", "selected top-navigation text resolves to rgb(255, 85, 20) at settled state", "restoration returns the prior surface"],
+      "suitableFor": ["top-level surface navigation among Home, Gameplay and Character"],
+      "notFor": ["generic scroll animation", "hover animation", "carousel timing token", "legacy Forward route"],
+      "allowedTransformations": ["change transport mechanism while retaining whole-surface transition, settled current-location indication and reversibility"],
+      "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"],
+      "sourceRegion": [0, 0, 1, 1]
+    },
+    {
+      "id": "recipe-gameplay-carousel-control",
+      "status": "approved",
+      "purpose": "advance and restore the Gameplay media/timeline selection",
+      "trigger": "click .gameplay_next; restore with corresponding previous control",
+      "states": ["default", "triggered", "settled", "restored"],
+      "visualChange": ["content selection changes while the mirrored next-control transform remains matrix(-1, 0, 0, 1, 0, 0)"],
+      "suitableFor": ["Gameplay media/timeline carousel"],
+      "notFor": ["generic arrow animation", "hover", "proof of changed transform", "global carousel motion timing"],
+      "allowedTransformations": ["replace carousel content while retaining bidirectional restoration and media/timeline synchronization"],
+      "evidenceRefs": ["gameplay-primary-interaction", "gameplay-slanted-hud-stage"],
+      "sourceRegion": [0, 0, 1, 1]
+    },
+    {
+      "id": "recipe-character-carousel-control",
+      "status": "approved",
+      "purpose": "advance and restore synchronized Character selection layers",
+      "trigger": "click .character_side_next; restore with corresponding previous control",
+      "states": ["default", "triggered", "settled", "restored"],
+      "visualChange": ["character selection changes while the next-control transform remains matrix(0.7, 0, 0, -0.7, -22.5, 0)"],
+      "suitableFor": ["Character portrait/subject/identity/skill synchronization"],
+      "notFor": ["generic arrow animation", "hover", "proof of changed transform", "unsynchronized avatar rail"],
+      "allowedTransformations": ["replace character content while all profile layers advance and restore together"],
+      "evidenceRefs": ["character-primary-interaction", "character-slanted-hud-stage"],
+      "sourceRegion": [0, 0, 1, 1]
+    }
+  ],
+  "informationDensity": {
+    "observedFact": "Each required surface occupies one 1440x900 viewport. Home is sparse and scene-led with a lower action cluster; Gameplay concentrates one wide media slab plus edge arrows and a five-step vertical timeline; Character carries the densest layered profile with portrait rail, identity/voice information and angled skill cards.",
+    "interpretation": "Density is surface-specific and hierarchical: sparse cinematic entry, medium-density mode browsing, then high-density character inspection.",
+    "recommendation": "Do not normalize the three surfaces into a common card density; preserve each surface's dominant mass and supporting HUD density.",
+    "evidenceRefs": ["home-immersive-hero-stage", "gameplay-slanted-hud-stage", "character-slanted-hud-stage"]
+  },
+  "distinctivenessSignalContract": {
+    "highCapacityMinimum": {"signalCount": 3, "dimensionCount": 3, "minimumViewportAreaRatioPerSignal": 0.05},
+    "signals": [
+      {"id": "signal-moving-stage-mass", "dimension": "visual mass", "minimumViewportAreaRatio": 0.5, "suitableFor": ["Home opening"], "notFor": ["utility/list/form pages"], "evidenceRefs": ["home-immersive-hero-stage"]},
+      {"id": "signal-hud-composition", "dimension": "composition", "minimumViewportAreaRatio": 0.3, "suitableFor": ["Gameplay", "Character browser"], "notFor": ["equal card grids"], "evidenceRefs": ["gameplay-slanted-hud-stage", "character-slanted-hud-stage"]},
+      {"id": "signal-authentic-media-layers", "dimension": "asset", "minimumViewportAreaRatio": 0.2, "suitableFor": ["Home", "Gameplay", "Character"], "notFor": ["logo-only branding", "source screenshots"], "evidenceRefs": ["home-immersive-hero-stage", "gameplay-slanted-hud-stage", "character-slanted-hud-stage"]},
+      {"id": "signal-current-nav-orange", "dimension": "type", "minimumViewportAreaRatio": 0.05, "suitableFor": ["current top navigation"], "notFor": ["sole high-capacity proof", "orange surface fill"], "evidenceRefs": ["home-orange-active-nav", "gameplay-orange-active-nav", "character-orange-active-nav"]},
+      {"id": "signal-whole-surface-transition", "dimension": "motion", "minimumViewportAreaRatio": 0.5, "suitableFor": ["top-level surface navigation"], "notFor": ["generic component animation"], "evidenceRefs": ["home-immersive-hero-stage", "gameplay-slanted-hud-stage", "character-slanted-hud-stage"]}
+    ]
+  },
+  "unresolvedClaims": [
+    {"id": "home-download-hover-rule", "status": "not-observed", "reason": "Home hover captures show identical before/after/restored computed backgroundImage, opacity, transform and transition; no visible computed change may be promoted."},
+    {"id": "legacy-forward-label", "status": "not-observed", "reason": "The current frozen official-site evidence observes Gameplay; the legacy Forward label is explicitly excluded from promotion."},
+    {"id": "global-font-system", "status": "unresolved", "reason": "No promoted rendered claim records font-family with a complete computed evidence chain."},
+    {"id": "global-shadow-system", "status": "unresolved", "reason": "No promoted rendered claim records a shadow semantic."},
+    {"id": "global-boundary-radius-system", "status": "unresolved", "reason": "Dembrandt radius frequencies were dispositioned out-of-scope and cannot establish a global boundary rule."},
+    {"id": "generic-motion-duration-easing", "status": "unresolved", "reason": "Continuous frames prove surface movement and restoration but not a reusable computed duration/easing semantic."},
+    {"id": "mobile-responsive-contract", "status": "not-observed", "reason": "Frozen evidence covers desktop 1440x900 only; responsive behavior may be translated but is not observed fact."},
+    {"id": "asset-payload-integrity", "status": "unresolved", "reason": "Inventory sourceSha256 fields hash canonical source URLs; payload hashes were unavailable and asset authenticity must not be overstated."}
+  ]
+}

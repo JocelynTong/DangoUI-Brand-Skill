@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "pageId": "home",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 900,
+    "interactionModel": "viewport-sized vertical swiper"
+  },
+  "frames": [
+    {
+      "label": "default",
+      "timeMs": 0,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/home/desktop/00-default.png",
+      "sha256": "def65ce89ab5a247b1f608c24fcbb9c21e2ee60e495fc1e7c1ba95d3b6c0bdda",
+      "state": "character",
+      "index": 0
+    },
+    {
+      "label": "triggered",
+      "timeMs": 90,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/home/desktop/01-triggered.png",
+      "sha256": "741f459999734fae09a6b16f172d06a861214471f3d9b0db64cd31515bf46eb8",
+      "state": "index",
+      "index": 1
+    },
+    {
+      "label": "transition",
+      "timeMs": 270,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/home/desktop/02-transition.png",
+      "sha256": "2a4225ffa90658b76efc172bdc88379005689b8b30e50f40f9f03cbc090fe3e6",
+      "state": "index",
+      "index": 2
+    },
+    {
+      "label": "settled",
+      "timeMs": 1470,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/home/desktop/03-settled.png",
+      "sha256": "240e65c33a10573d0f92f5d3bff1cb9677f7eb706e85c06811655c93a32a545d",
+      "state": "index",
+      "index": 3
+    },
+    {
+      "label": "restored",
+      "timeMs": 3960,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/home/desktop/08-restored.png",
+      "sha256": "d7dc37d0f001e866a0f224890b3e2d15e24012b95b84d6cfbab3cd257cb62707",
+      "state": "character",
+      "index": 4
+    }
+  ]
+}

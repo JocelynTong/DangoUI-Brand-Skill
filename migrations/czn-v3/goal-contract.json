@@ -1,0 +1,58 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "czn-current-official-site-v3",
+  "brand": "czn-v3",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "user-supplied-official-source-correction",
+  "createdAt": "2026-09-13T00:00:00+08:00",
+  "sealed": true,
+  "goal": "Relearn CZN from the currently rendered official site at https://czn.qq.com/, replacing the ambiguous legacy Forward label with the site's observable Gameplay surface, and validate Home, Gameplay and Character before any public promotion.",
+  "nonGoals": ["website-mirror", "host-apply", "overwrite-czn-v1", "preserve-unobservable-forward-label"],
+  "implementationPolicy": {
+    "allowSourceScreenshotAsRuntimeAsset": false,
+    "requireIndependentRuntimeAssetsOrDomCssReconstruction": true,
+    "requireHighSalienceEvidenceTrace": true
+  },
+  "evidencePolicy": {
+    "continuousCaptureRequired": true,
+    "requiredPageIds": ["home", "gameplay", "character"],
+    "requiredPageStates": ["initial", "transition", "settled", "restored"],
+    "requiredInteractionStates": ["default", "triggered", "settled", "restored"],
+    "consumerRule": "Interpreter is blocked until each current official-site surface has persisted screenshot-first claims, continuous capture, lossless timeline frames, visible DOM/computed evidence and asset provenance."
+  },
+  "referencePages": [
+    {"id": "home", "url": "https://czn.qq.com/", "core": true, "locator": "current official HOME navigation/state"},
+    {"id": "gameplay", "url": "https://czn.qq.com/", "core": true, "locator": "current official GAMEPLAY navigation/state; supersedes ambiguous legacy Forward"},
+    {"id": "character", "url": "https://czn.qq.com/", "core": true, "locator": "current official CHARACTER navigation/state"}
+  ],
+  "demoPages": [
+    {"id": "czn-v3-home", "mapsToSourcePageId": "home"},
+    {"id": "czn-v3-gameplay", "mapsToSourcePageId": "gameplay"},
+    {"id": "czn-v3-character", "mapsToSourcePageId": "character"},
+    {"id": "czn-v3-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out"}
+  ],
+  "mustPreserve": [
+    {"id": "immersive-hero-stage", "requiredOn": ["home"], "dimensions": ["composition", "assetAuthenticity"]},
+    {"id": "slanted-hud-grammar", "requiredOn": ["gameplay", "character"], "dimensions": ["composition", "typographyGraphics"]},
+    {"id": "orange-action-role", "requiredOn": ["home", "gameplay", "character"], "dimensions": ["colorRoles", "interactionSemantics"]}
+  ],
+  "mayTranslate": [
+    {"id": "responsive-reflow", "description": "Desktop immersive layers may reflow to phone while preserving visual mass, HUD geometry and action hierarchy."},
+    {"id": "representative-content", "description": "Held-out proof may use source-independent content after recipes are frozen."}
+  ],
+  "mustNotReplace": [
+    {"id": "no-screenshot-runtime", "description": "Source screenshots and crops are evidence only."},
+    {"id": "no-legacy-claim-promotion", "description": "Legacy statistics and the old Forward label cannot become observed claims without current rendered evidence."},
+    {"id": "no-asset-only-proof", "description": "Logo, characters and orange color cannot substitute for composition and interaction proof."}
+  ],
+  "learningProofContract": {
+    "evidenceFidelity": {"required": true},
+    "structuralFidelity": {"required": true},
+    "generativeProof": {"required": true},
+    "compensationPolicy": "No proof can compensate for another."
+  },
+  "thresholds": {"overall": 80, "corePage": 70, "dimensionMin": {"composition": 3, "assetAuthenticity": 3}, "maxAttempts": 2},
+  "timeBudget": {"profile": "full", "targetMinutes": [30, 45], "stopOptionalExpansionAtMinutes": 60, "blockAtMinutes": 75}
+}

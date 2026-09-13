@@ -1,0 +1,270 @@
+{
+  "schema": "brand-evidence/vNext",
+  "brand": "czn-v3",
+  "goalId": "czn-current-official-site-v3",
+  "sourceUrl": "https://czn.qq.com/",
+  "goalQuestions": [
+    {
+      "id": "q-hero",
+      "question": "Does Home visibly use an immersive full-viewport hero?"
+    },
+    {
+      "id": "q-hud",
+      "question": "Do Gameplay and Character visibly use slanted HUD composition?"
+    },
+    {
+      "id": "q-orange",
+      "question": "Is orange a reproducible selected/action state on all required surfaces?"
+    }
+  ],
+  "claims": [
+    {
+      "id": "home-immersive-hero-stage",
+      "status": "observed",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "home",
+      "state": "settled",
+      "kind": "composition",
+      "description": "Viewport-filling video hero with lower download action cluster.",
+      "capture": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/key-region.png",
+        "sha256": "697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "#index",
+        "visible": true,
+        "boundingBox": {
+          "width": 1440,
+          "height": 900
+        }
+      }
+    },
+    {
+      "id": "home-orange-active-nav",
+      "status": "observed",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "home",
+      "state": "settled",
+      "kind": "interaction",
+      "description": "Selected HOME navigation is orange.",
+      "capture": {
+        "path": "migrations/czn-v3/captures/source/home/desktop/key-region.png",
+        "sha256": "697fef4a4fc15d190f4d8a8f502b3883fb605a89e260e276b2754d8bfa63e0c2"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".top_nav_list > li.light > a",
+        "visible": true,
+        "boundingBox": {
+          "width": 1440,
+          "height": 900
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(255, 85, 20)"
+      }
+    },
+    {
+      "id": "gameplay-slanted-hud-stage",
+      "status": "observed",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "gameplay",
+      "state": "settled",
+      "kind": "composition",
+      "description": "Wide media slab, edge controls and vertical 01/05–05/05 HUD timeline.",
+      "capture": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/key-region.png",
+        "sha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "#gameplay",
+        "visible": true,
+        "boundingBox": {
+          "width": 1440,
+          "height": 900
+        }
+      }
+    },
+    {
+      "id": "gameplay-orange-active-nav",
+      "status": "observed",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "gameplay",
+      "state": "settled",
+      "kind": "interaction",
+      "description": "Selected GAMEPLAY navigation is orange.",
+      "capture": {
+        "path": "migrations/czn-v3/captures/source/gameplay/desktop/key-region.png",
+        "sha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".top_nav_list > li.light > a",
+        "visible": true,
+        "boundingBox": {
+          "width": 1440,
+          "height": 900
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(255, 85, 20)"
+      }
+    },
+    {
+      "id": "character-slanted-hud-stage",
+      "status": "observed",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "character",
+      "state": "settled",
+      "kind": "composition",
+      "description": "Moving character stage, portrait rail, layered identity and angled skill cards.",
+      "capture": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/key-region.png",
+        "sha256": "af9493eac9ef58feb72d158092477b38e78f297613e6fed9de23faa2e3bed4b2"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "#character",
+        "visible": true,
+        "boundingBox": {
+          "width": 1440,
+          "height": 900
+        }
+      }
+    },
+    {
+      "id": "character-orange-active-nav",
+      "status": "observed",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "character",
+      "state": "settled",
+      "kind": "interaction",
+      "description": "Selected CHARACTER navigation is orange.",
+      "capture": {
+        "path": "migrations/czn-v3/captures/source/character/desktop/key-region.png",
+        "sha256": "af9493eac9ef58feb72d158092477b38e78f297613e6fed9de23faa2e3bed4b2"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".top_nav_list > li.light > a",
+        "visible": true,
+        "boundingBox": {
+          "width": 1440,
+          "height": 900
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(255, 85, 20)"
+      }
+    }
+  ],
+  "goalCoverage": [
+    {
+      "goalItemId": "immersive-hero-stage",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "home-immersive-hero-stage"
+      ]
+    },
+    {
+      "goalItemId": "slanted-hud-grammar",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "gameplay-slanted-hud-stage",
+        "character-slanted-hud-stage"
+      ]
+    },
+    {
+      "goalItemId": "orange-action-role",
+      "verdict": "proved",
+      "scopeNote": "Observed as selected navigation/action emphasis on all required surfaces.",
+      "evidenceRefs": [
+        "home-orange-active-nav",
+        "gameplay-orange-active-nav",
+        "character-orange-active-nav"
+      ]
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "seedRef": "dembrandt.colors.semantic.primary",
+      "status": "rejected",
+      "reason": "#0000EE is browser/link-style anchor color without high visual weight."
+    },
+    {
+      "seedRef": "dembrandt.colors.semantic.accent",
+      "status": "validated",
+      "evidenceRefs": [
+        "home-orange-active-nav",
+        "gameplay-orange-active-nav",
+        "character-orange-active-nav"
+      ]
+    },
+    {
+      "seedRef": "dembrandt.borderRadius.card",
+      "status": "out-of-scope",
+      "reason": "2px frequency does not prove goal-critical card grammar."
+    },
+    {
+      "seedRef": "dembrandt.borderRadius.control",
+      "status": "out-of-scope",
+      "reason": "50% occurs on isolated circular details, not a global control rule."
+    }
+  ],
+  "epistemicStatus": {
+    "observed": [
+      "home-immersive-hero-stage",
+      "home-orange-active-nav",
+      "gameplay-slanted-hud-stage",
+      "gameplay-orange-active-nav",
+      "character-slanted-hud-stage",
+      "character-orange-active-nav"
+    ],
+    "inferred": [],
+    "notObserved": [
+      "legacy-forward-label"
+    ],
+    "unavailable": []
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "meta": {
+    "pageId": "gameplay",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 900,
+    "interactionModel": "viewport-sized vertical swiper"
+  },
+  "frames": [
+    {
+      "label": "default",
+      "timeMs": 0,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/gameplay/desktop/00-default.png",
+      "sha256": "dd6953132e74b5824823ecd5f0b84e6bc9bfa6a5d39f1b769b788690c8e081fb",
+      "state": "index",
+      "index": 0
+    },
+    {
+      "label": "triggered",
+      "timeMs": 90,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/gameplay/desktop/01-triggered.png",
+      "sha256": "8faad4d55e65ec497b961f16b273e9f2afe51466c5683fada5f81a12044811bc",
+      "state": "gameplay",
+      "index": 1
+    },
+    {
+      "label": "transition",
+      "timeMs": 270,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/gameplay/desktop/02-transition.png",
+      "sha256": "074b7d76083bb255672a054f0555d4351b0b3ec35ead38a643cd6c0b24c59eb8",
+      "state": "gameplay",
+      "index": 2
+    },
+    {
+      "label": "settled",
+      "timeMs": 1470,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/gameplay/desktop/03-settled.png",
+      "sha256": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd",
+      "state": "gameplay",
+      "index": 3
+    },
+    {
+      "label": "restored",
+      "timeMs": 3960,
+      "scrollTop": 0,
+      "scrollHeight": 900,
+      "file": "migrations/czn-v3/captures/source/gameplay/desktop/08-restored.png",
+      "sha256": "7e166fc839c7e8ca431e3cf7593cd606dd171379013fb966c2e1e5a73a1da9f7",
+      "state": "index",
+      "index": 4
+    }
+  ]
+}

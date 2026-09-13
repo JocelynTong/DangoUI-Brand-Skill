@@ -1,0 +1,6 @@
+{
+  "schema":"brand-distinctiveness-assessment/v1","brand":"czn-v3","qaExecutionId":"/root/czn_v3_visual_qa","mode":"learn-brand-diagnostic","verdict":"FAIL",
+  "maskedRecognition":{"explicitNamesLogosIgnored":true,"status":"FAIL","finding":"The demo is recognizable as a generic dark sci-fi HUD, not as the source system once CZN labels are ignored."},
+  "dimensions":{"visualMass":{"score":1,"finding":"Source pages are asset-dense full-canvas compositions; demo fields are sparse."},"asset":{"score":0,"finding":"No authentic hero/gameplay/character payload is visible; character phone-screen contains no images."},"composition":{"score":1,"finding":"Only coarse skeletons survive and critical campaign/media/portrait/skills layers do not."},"type":{"score":2,"finding":"Italic uppercase HUD type is directionally relevant but much less distinctive than source title graphics."},"motion":{"score":2,"finding":"Controls synchronize and restore, but source moving subjects/media are not faithfully represented."}},
+  "workflowCompletion":"FAIL","businessSafety":"NOT_APPLICABLE_LEARN_BRAND","visualDistinctiveness":"FAIL"
+}

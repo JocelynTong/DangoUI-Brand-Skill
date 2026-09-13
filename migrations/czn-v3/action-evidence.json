@@ -1,0 +1,244 @@
+{
+  "schema": "brand-action-evidence/v1",
+  "brand": "czn-v3",
+  "sourceUrl": "https://czn.qq.com/",
+  "actions": [
+    {
+      "id": "home-primary-interaction",
+      "pageId": "home",
+      "stateSemantics": "hover",
+      "trigger": "hover .index_main_bbox_pcdown",
+      "selector": ".index_main_bbox_pcdown",
+      "beforeCapture": "migrations/czn-v3/captures/source/home/desktop/04-action-default.png",
+      "triggeredCapture": "migrations/czn-v3/captures/source/home/desktop/05-action-triggered.png",
+      "afterCapture": "migrations/czn-v3/captures/source/home/desktop/06-action-settled.png",
+      "restoredCapture": "migrations/czn-v3/captures/source/home/desktop/07-action-restored.png",
+      "captureSha256": {
+        "before": "56907ff8cdcc024abbe56ca82a68a90f6a67f19440ff21e8d93c4b799be5ab23",
+        "triggered": "b476ce12f2f0fd7eecc8cd6686d39442ac84e5455a1ee739fdbd986f97949922",
+        "after": "b9ca9a17e64e14d1a969b60c6d88b52643eca33238a8a3e97caf83a3f97b9ba2",
+        "restored": "1b89120716d79405db6e58125172943607fa7444b64e02012792b203cad6a3e3"
+      },
+      "beforeState": {
+        "className": "index_main_bbox_pcdown",
+        "box": {
+          "x": 633.328125,
+          "y": 695.015625,
+          "width": 172.5,
+          "height": 138.328125
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+          "opacity": "1",
+          "transform": "none",
+          "transition": "all"
+        }
+      },
+      "afterState": {
+        "className": "index_main_bbox_pcdown",
+        "box": {
+          "x": 633.328125,
+          "y": 695.015625,
+          "width": 172.5,
+          "height": 138.328125
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+          "opacity": "1",
+          "transform": "none",
+          "transition": "all"
+        }
+      },
+      "restoredState": {
+        "className": "index_main_bbox_pcdown",
+        "box": {
+          "x": 633.328125,
+          "y": 695.015625,
+          "width": 172.5,
+          "height": 138.328125
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/web202605//index_pc_main_down.png\")",
+          "opacity": "1",
+          "transform": "none",
+          "transition": "all"
+        }
+      },
+      "sourceRule": {
+        "kind": "computed-live-page",
+        "propertyNames": [
+          "color",
+          "backgroundColor",
+          "backgroundImage",
+          "opacity",
+          "transform",
+          "transition"
+        ]
+      }
+    },
+    {
+      "id": "gameplay-primary-interaction",
+      "pageId": "gameplay",
+      "stateSemantics": "carousel-next",
+      "trigger": "click .gameplay_next; restore with corresponding previous control",
+      "selector": ".gameplay_next",
+      "beforeCapture": "migrations/czn-v3/captures/source/gameplay/desktop/04-action-default.png",
+      "triggeredCapture": "migrations/czn-v3/captures/source/gameplay/desktop/05-action-triggered.png",
+      "afterCapture": "migrations/czn-v3/captures/source/gameplay/desktop/06-action-settled.png",
+      "restoredCapture": "migrations/czn-v3/captures/source/gameplay/desktop/07-action-restored.png",
+      "captureSha256": {
+        "before": "97ab63664caf407b5aab15cda7705d7406be8bf3c7722b0a8eef2ecc0f998bcd",
+        "triggered": "da58ed292c92e16148dc211b0cfa228c05b1e487836832c7df39d91e433ca9eb",
+        "after": "d5dd7ee296b09e636fd49e15072db35118bcac5feb604b9067d163d533a3f626",
+        "restored": "103ceb9b036073d198a07f5bf62f3a30b0d59f024e997a2d12f318b74646a993"
+      },
+      "beforeState": {
+        "className": "gameplay_next",
+        "box": {
+          "x": 1189.984375,
+          "y": 371.65625,
+          "width": 33.328125,
+          "height": 265
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png\")",
+          "opacity": "1",
+          "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+          "transition": "all"
+        }
+      },
+      "afterState": {
+        "className": "gameplay_next",
+        "box": {
+          "x": 1189.984375,
+          "y": 371.65625,
+          "width": 33.328125,
+          "height": 265
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png\")",
+          "opacity": "1",
+          "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+          "transition": "all"
+        }
+      },
+      "restoredState": {
+        "className": "gameplay_next",
+        "box": {
+          "x": 1189.984375,
+          "y": 371.65625,
+          "width": 33.328125,
+          "height": 265
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png\")",
+          "opacity": "1",
+          "transform": "matrix(-1, 0, 0, 1, 0, 0)",
+          "transition": "all"
+        }
+      },
+      "sourceRule": {
+        "kind": "computed-live-page",
+        "propertyNames": [
+          "color",
+          "backgroundColor",
+          "backgroundImage",
+          "opacity",
+          "transform",
+          "transition"
+        ]
+      }
+    },
+    {
+      "id": "character-primary-interaction",
+      "pageId": "character",
+      "stateSemantics": "carousel-next",
+      "trigger": "click .character_side_next; restore with corresponding previous control",
+      "selector": ".character_side_next",
+      "beforeCapture": "migrations/czn-v3/captures/source/character/desktop/04-action-default.png",
+      "triggeredCapture": "migrations/czn-v3/captures/source/character/desktop/05-action-triggered.png",
+      "afterCapture": "migrations/czn-v3/captures/source/character/desktop/06-action-settled.png",
+      "restoredCapture": "migrations/czn-v3/captures/source/character/desktop/07-action-restored.png",
+      "captureSha256": {
+        "before": "a2307797f8bd8b8091206ce6785e71de495d8e6b5d92754ae18fed542bb188c2",
+        "triggered": "610f5ca28a8f813a1eaf072813b0d21ff7ed00a45e3365dbcdeb9e812653524b",
+        "after": "403d82850dc55f0ea7f8c914ea35e5a65253f1c9d2a63b70d7e503fbfaa662ef",
+        "restored": "67a511f1eec33f46f4ff8622384112874e79c87e33b364a3a23a2d0615ec8eb2"
+      },
+      "beforeState": {
+        "className": "character_side_next",
+        "box": {
+          "x": 2.578125,
+          "y": 697.202392578125,
+          "width": 31.5,
+          "height": 18.07965087890625
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//p2_man_prevbtn.png\")",
+          "opacity": "1",
+          "transform": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+          "transition": "all"
+        }
+      },
+      "afterState": {
+        "className": "character_side_next",
+        "box": {
+          "x": 2.578125,
+          "y": 697.202392578125,
+          "width": 31.5,
+          "height": 18.07965087890625
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//p2_man_prevbtn.png\")",
+          "opacity": "1",
+          "transform": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+          "transition": "all"
+        }
+      },
+      "restoredState": {
+        "className": "character_side_next",
+        "box": {
+          "x": 2.578125,
+          "y": 697.202392578125,
+          "width": 31.5,
+          "height": 18.07965087890625
+        },
+        "computed": {
+          "color": "rgb(0, 0, 238)",
+          "backgroundColor": "rgba(0, 0, 0, 0)",
+          "backgroundImage": "url(\"https://game.gtimg.cn/images/czn/cp/a20250820xnz//p2_man_prevbtn.png\")",
+          "opacity": "1",
+          "transform": "matrix(0.7, 0, 0, -0.7, -22.5, 0)",
+          "transition": "all"
+        }
+      },
+      "sourceRule": {
+        "kind": "computed-live-page",
+        "propertyNames": [
+          "color",
+          "backgroundColor",
+          "backgroundImage",
+          "opacity",
+          "transform",
+          "transition"
+        ]
+      }
+    }
+  ]
+}
