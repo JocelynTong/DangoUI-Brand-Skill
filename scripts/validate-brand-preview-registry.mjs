@@ -54,7 +54,11 @@ const supportedSectionTypes = new Set([
   'database-card-strip',
   'database-cta',
   'pokemon-database',
-  'pokemon-learn-section'
+  'pokemon-learn-section',
+  'czn-current-home',
+  'czn-current-gameplay',
+  'czn-current-character',
+  'czn-current-heldout'
 ])
 const assetValueKeys = new Set([
   'src',

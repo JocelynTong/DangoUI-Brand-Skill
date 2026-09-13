@@ -11,7 +11,7 @@
       "id": "czn",
       "displayName": "卡厄思梦境",
       "version": "0.3.0-attempt3",
-      "publicationStatus": "qa-pending",
+      "publicationStatus": "draft",
       "path": "/brand-previews/czn.json",
       "migrationRoot": "migrations/czn-v3",
       "demoPurpose": "brand-learning-capability-test",
@@ -21,6 +21,20 @@
       "sourceUrl": "https://czn.qq.com/",
       "sourceHost": "czn.qq.com",
       "canonicalSources": ["https://czn.qq.com/"],
+      "artifactFiles": ["brand-evidence.json", "brand-intent.json", "design-direction.json", "fidelity-report.json", "source-manifest.json"],
+      "platformSupport": {
+        "web": "unverified",
+        "taroH5": "planned",
+        "weapp": "unverified",
+        "ios": "unverified",
+        "android": "unverified",
+        "flutter": "unverified",
+        "harmonyos": "unverified"
+      },
+      "reusePolicy": {
+        "metadataAndRules": "review-required",
+        "runtimeAssets": "review-required"
+      },
       "updatedAt": "2026-09-13T09:00:00.000Z"
     },
     {

@@ -1,12 +1,526 @@
 {
-  "schema":"brand-preview.v0.1","brand":"czn","sourceUrl":"https://czn.qq.com/","status":"implementation-ready-qa-pending","standardDemo":true,"businessApply":false,
-  "preset":{"id":"czn","label":"卡厄思梦境","icon":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png","source":"czn.qq.com · frozen desktop evidence","hero":"CHAOS ZERO NIGHTMARE","notice":"Mobile mockup by default; desktop 1440×900 evidence remains available in proof mode.","evidenceNote":"Orange is current top-navigation text only.","sectionTitle":"Official Site Study","normalPreviewDevice":"phone","tabs":["首页","玩法","角色"],"cards":[],"tokens":[{"name":"--du-primary-color","value":"#ff5514"},{"name":"--du-bg-1","value":"#080609"}],"style":{"cardRadius":"0px","controlRadius":"0px","pageSpacing":"0px","cardShadow":"none","media":"#111"},"signals":[]},
-  "learningProof":{"status":"implementation-ready-qa-pending","evidenceStatus":"frozen","structureStatus":"implemented","generativeStatus":"implemented","businessApply":false,"blockers":["fresh independent Visual QA pending"]},
-  "styleRecipeDetails":{"color":["Gray-white gameplay and black-red character/home scenes.","Orange only marks current top-nav text."],"layout":["Desktop 1440x900 full-bleed stage."],"button":["Edge arrows change and restore slide state."]},
-  "pages":[
-    {"id":"czn-home","side":"distribution","tab":"首页","name":"Home","description":"Official moving hero and download cluster.","kind":"home","proofRole":"source-calibration","layoutRecipe":"czn-current","shell":{"device":"desktop","statusBar":false,"navigationBar":false,"bottomActions":false,"fab":false},"components":["HeroHeader"],"sections":[{"id":"czn-home-stage","type":"czn-current-home","component":"HeroHeader","recipe":"immersive-moving-home-stage","content":{"navigation":[{"id":"home","zh":"首页","en":"HOME"},{"id":"character","zh":"角色档案","en":"CHARACTER"},{"id":"gameplay","zh":"玩法介绍","en":"GAMEPLAY"},{"id":"news","zh":"新闻资讯","en":"NEWS"}],"activeNavigation":"home","items":[{"id":"closed"},{"id":"open"}]},"assets":{"logo":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png","video":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.mp4","poster":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//20260617/xh_bg.jpg","slogan":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//20260617/sm_add_slogan.png","downloadFrame":"https://game.gtimg.cn/images/czn/web202605//index_main_bbox_bg.png","qr":"https://game.gtimg.cn/images/czn/web202605/index_main_cod.png"}}]},
-    {"id":"czn-gameplay","side":"distribution","tab":"玩法","name":"Gameplay","description":"Large media slab, explicit edge controls and 01/05 timeline.","kind":"display","proofRole":"source-calibration","layoutRecipe":"czn-current","shell":{"device":"desktop","statusBar":false,"navigationBar":false,"bottomActions":false,"fab":false},"components":["Swiper"],"sections":[{"id":"czn-gameplay-stage","type":"czn-current-gameplay","component":"Swiper","recipe":"gameplay-media-timeline-hud","assets":{"logo":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png","arrow":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png","background":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_bg.jpg"},"content":{"navigation":[{"id":"home","zh":"首页","en":"HOME"},{"id":"character","zh":"角色档案","en":"CHARACTER"},{"id":"gameplay","zh":"玩法介绍","en":"GAMEPLAY"},{"id":"news","zh":"新闻资讯","en":"NEWS"}],"activeNavigation":"gameplay","items":[{"title":"战术协同","src":"https://vasd-cms.qq.com/vasd-cms/media/czn/20260819_af6052c0_%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17869513186481.png","description":"玩法媒体与编号时间线同步切换。"},{"title":"赛季战区","src":"https://vasd-cms.qq.com/vasd-cms/media/czn/20260729_d4e215ff_26.7.15%E3%80%90CZN%E3%80%91%E4%BA%94%E5%9B%BE%EF%BC%88%E8%B5%9B%E5%AD%A3%EF%BC%89.jpg","description":"已切换至 02/05。"},{"title":"异常调查","src":"https://vasd-cms.qq.com/vasd-cms/11_91093c37ed.jpg","description":"03/05"},{"title":"深层突入","src":"https://vasd-cms.qq.com/vasd-cms/12_91330b2391.jpg","description":"04/05"},{"title":"夏日作战","src":"https://vasd-cms.qq.com/vasd-cms/media/czn/20260729_09d4d4dc_%E4%BA%94%E5%9B%BE-%E6%B3%B3%E8%A3%85kv-%E6%97%A0%E7%A0%81%E7%89%88.jpg","description":"05/05"}]}}]},
-    {"id":"czn-character","side":"distribution","tab":"角色","name":"Character","description":"Moving subject, portrait rail, identity/voice and five angled skills.","kind":"display","proofRole":"source-calibration","layoutRecipe":"czn-current","shell":{"device":"desktop","statusBar":false,"navigationBar":false,"bottomActions":false,"fab":false},"components":["Image","Swiper"],"sections":[{"id":"czn-character-stage","type":"czn-current-character","component":"Image","recipe":"character-layered-profile-hud","assets":{"logo":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png","arrow":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png"},"content":{"navigation":[{"id":"home","zh":"首页","en":"HOME"},{"id":"character","zh":"角色档案","en":"CHARACTER"},{"id":"gameplay","zh":"玩法介绍","en":"GAMEPLAY"},{"id":"news","zh":"新闻资讯","en":"NEWS"}],"activeNavigation":"character","rail":[{"name":"Arabella","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/character_side_img_Arabella.png"},{"name":"Heidemarie","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/character_creazyimg_Heidemarie.png"},{"name":"Arabella 2","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/character_side_img_Arabella.png"},{"name":"Heidemarie 2","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/character_creazyimg_Heidemarie.png"},{"name":"Arabella 3","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/character_side_img_Arabella.png"}],"items":[{"name":"阿拉贝拉","voice":"ARABELLA","video":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_rc.mp4","poster":"/assets/czn/arabella-video-frame-t1.jpg","description":"混沌中的观察者。角色主体、身份、语音与技能作为独立同步层。","skills":[{"name":"技能 01","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_1.png"},{"name":"技能 02","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_2.png"},{"name":"技能 03","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_3.png"},{"name":"技能 04","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_4.png"},{"name":"技能 05","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_5.png"}]},{"name":"阿拉贝拉 · 战斗姿态","voice":"ARABELLA","video":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_rc.mp4","poster":"/assets/czn/arabella-video-frame-t1.jpg","description":"第二角色状态。","skills":[{"name":"技能 01","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_1.png"},{"name":"技能 02","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_2.png"},{"name":"技能 03","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_3.png"},{"name":"技能 04","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_4.png"},{"name":"技能 05","src":"https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_5.png"}]}]}}]},
-    {"id":"czn-held-out","side":"distribution","tab":"Held-out","name":"Fictional Signal Archive","description":"Explicit fictional generative transfer, not an official page.","kind":"display","proofRole":"generative-held-out","layoutRecipe":"czn-current","shell":{"device":"desktop","statusBar":false,"navigationBar":false,"bottomActions":false,"fab":false},"components":["Swiper"],"sections":[{"id":"czn-heldout-stage","type":"czn-current-heldout","component":"Swiper","recipe":"fictional-signal-archive","assets":{"logo":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png","arrow":"https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png"},"content":{"navigation":[{"id":"home","zh":"首页","en":"HOME"},{"id":"archive","zh":"信号档案","en":"ARCHIVE"}],"activeNavigation":"archive","items":[{"title":"VOID ECHO 01","description":"A fictional archive using learned hierarchy without copying a source page."},{"title":"VOID ECHO 02","description":"Observable next state."},{"title":"VOID ECHO 03","description":"Observable final state."}]}}]}
+  "schema": "brand-standard-demo-preview.v0.1",
+  "brand": "czn",
+  "displayName": "卡厄思梦境",
+  "sourceUrl": "https://czn.qq.com/",
+  "sourceHost": "czn.qq.com",
+  "status": "implementation-ready-qa-pending",
+  "standardDemo": true,
+  "businessApply": false,
+  "migrationRoot": "migrations/czn-v3",
+  "demoPurpose": "brand-learning-capability-test",
+  "nonGoals": [
+    "website mirror",
+    "host application",
+    "runtime use of source screenshots"
+  ],
+  "proofs": {
+    "evidenceFidelity": {
+      "claim": "High-salience decisions map to frozen official evidence.",
+      "status": "pending",
+      "requiredEvidence": [
+        "brand-evidence.json",
+        "source-observation-manifest.json"
+      ]
+    },
+    "structuralFidelity": {
+      "claim": "Mobile mockup and desktop proof mode preserve the learned composition and interactions.",
+      "status": "pending",
+      "requiredEvidence": [
+        "section-fidelity-manifest.json",
+        "fresh independent visual QA"
+      ]
+    },
+    "generativeProof": {
+      "claim": "A fictional archive tests rule reuse without claiming to be an official page.",
+      "status": "pending",
+      "requiredEvidence": [
+        "generative-proof.json",
+        "fresh held-out screenshot"
+      ]
+    }
+  },
+  "generativeChallenge": {
+    "challengeId": "czn-fictional-signal-archive-v1",
+    "status": "pending",
+    "targetPageId": "czn-held-out",
+    "heldOutContentRule": "Use fictional signal-archive content to test learned hierarchy without copying an official page."
+  },
+  "sourceNavigation": {
+    "visiblePageIds": [
+      "czn-home",
+      "czn-gameplay",
+      "czn-character",
+      "czn-held-out"
+    ],
+    "items": [
+      {
+        "label": "首页",
+        "pageId": "czn-home"
+      },
+      {
+        "label": "玩法",
+        "pageId": "czn-gameplay"
+      },
+      {
+        "label": "角色",
+        "pageId": "czn-character"
+      },
+      {
+        "label": "生成验证",
+        "pageId": "czn-held-out"
+      }
+    ]
+  },
+  "mustVerifyBeforeApply": [
+    "Run fresh independent visual QA against frozen desktop source captures.",
+    "Verify phone mockup, responsive layout, media loading, next/reset state and held-out title at required viewports."
+  ],
+  "preset": {
+    "id": "czn",
+    "label": "卡厄思梦境",
+    "icon": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png",
+    "source": "czn.qq.com · frozen desktop evidence",
+    "hero": "CHAOS ZERO NIGHTMARE",
+    "notice": "Mobile mockup by default; desktop 1440×900 evidence remains available in proof mode.",
+    "evidenceNote": "Orange is current top-navigation text only.",
+    "sectionTitle": "Official Site Study",
+    "normalPreviewDevice": "phone",
+    "tabs": [
+      "首页",
+      "玩法",
+      "角色"
+    ],
+    "cards": [],
+    "tokens": [
+      {
+        "name": "--du-primary-color",
+        "value": "#ff5514"
+      },
+      {
+        "name": "--du-bg-1",
+        "value": "#080609"
+      },
+      {
+        "name": "--du-bg-2",
+        "value": "#140b10"
+      },
+      {
+        "name": "--du-text-1",
+        "value": "#f4f1ed"
+      }
+    ],
+    "assets": {
+      "officialLogo": {
+        "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png",
+        "role": "navigation identity"
+      },
+      "homePoster": {
+        "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//20260617/xh_bg.jpg",
+        "role": "home media fallback"
+      }
+    },
+    "style": {
+      "cardRadius": "0px",
+      "controlRadius": "0px",
+      "pageSpacing": "0px",
+      "cardShadow": "none",
+      "media": "#111"
+    },
+    "signals": []
+  },
+  "learningProof": {
+    "status": "implementation-ready-qa-pending",
+    "evidenceStatus": "frozen",
+    "structureStatus": "implemented",
+    "generativeStatus": "implemented",
+    "businessApply": false,
+    "blockers": [
+      "fresh independent Visual QA pending"
+    ]
+  },
+  "styleRecipeDetails": {
+    "color": [
+      "Gray-white gameplay and black-red character/home scenes.",
+      "Orange only marks current top-nav text."
+    ],
+    "layout": [
+      "Desktop 1440x900 full-bleed stage."
+    ],
+    "button": [
+      "Edge arrows change and restore slide state."
+    ]
+  },
+  "pages": [
+    {
+      "id": "czn-home",
+      "side": "distribution",
+      "tab": "首页",
+      "name": "Home",
+      "description": "Official moving hero and download cluster.",
+      "kind": "home",
+      "proofRole": "source-calibration",
+      "recipeIds": ["immersive-moving-home-stage", "orange-current-navigation-role"],
+      "evidenceTrace": ["home-immersive-hero-stage", "home-orange-active-nav"],
+      "contentIndependence": {"mode": "source-content", "status": "pending"},
+      "mapsToSourcePageId": "home",
+      "layoutRecipe": "czn-current",
+      "shell": {
+        "device": "desktop",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "HeroHeader"
+      ],
+      "sections": [
+        {
+          "id": "czn-home-stage",
+          "type": "czn-current-home",
+          "component": "HeroHeader",
+          "recipe": "immersive-moving-home-stage",
+          "content": {
+            "navigation": [
+              {
+                "id": "home",
+                "zh": "首页",
+                "en": "HOME"
+              },
+              {
+                "id": "character",
+                "zh": "角色档案",
+                "en": "CHARACTER"
+              },
+              {
+                "id": "gameplay",
+                "zh": "玩法介绍",
+                "en": "GAMEPLAY"
+              },
+              {
+                "id": "news",
+                "zh": "新闻资讯",
+                "en": "NEWS"
+              }
+            ],
+            "activeNavigation": "home",
+            "items": [
+              {
+                "id": "closed"
+              },
+              {
+                "id": "open"
+              }
+            ]
+          },
+          "assets": {
+            "logo": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png",
+            "video": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.mp4",
+            "poster": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//20260617/xh_bg.jpg",
+            "slogan": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//20260617/sm_add_slogan.png",
+            "downloadFrame": "https://game.gtimg.cn/images/czn/web202605//index_main_bbox_bg.png",
+            "qr": "https://game.gtimg.cn/images/czn/web202605/index_main_cod.png"
+          }
+        }
+      ]
+    },
+    {
+      "id": "czn-gameplay",
+      "side": "distribution",
+      "tab": "玩法",
+      "name": "Gameplay",
+      "description": "Large media slab, explicit edge controls and 01/05 timeline.",
+      "kind": "display",
+      "proofRole": "source-calibration",
+      "recipeIds": ["gameplay-media-timeline-hud", "orange-current-navigation-role"],
+      "evidenceTrace": ["gameplay-slanted-hud-stage", "gameplay-orange-active-nav"],
+      "contentIndependence": {"mode": "source-content", "status": "pending"},
+      "mapsToSourcePageId": "gameplay",
+      "layoutRecipe": "czn-current",
+      "shell": {
+        "device": "desktop",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "Swiper"
+      ],
+      "sections": [
+        {
+          "id": "czn-gameplay-stage",
+          "type": "czn-current-gameplay",
+          "component": "Swiper",
+          "recipe": "gameplay-media-timeline-hud",
+          "assets": {
+            "logo": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png",
+            "arrow": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png",
+            "background": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_bg.jpg"
+          },
+          "content": {
+            "navigation": [
+              {
+                "id": "home",
+                "zh": "首页",
+                "en": "HOME"
+              },
+              {
+                "id": "character",
+                "zh": "角色档案",
+                "en": "CHARACTER"
+              },
+              {
+                "id": "gameplay",
+                "zh": "玩法介绍",
+                "en": "GAMEPLAY"
+              },
+              {
+                "id": "news",
+                "zh": "新闻资讯",
+                "en": "NEWS"
+              }
+            ],
+            "activeNavigation": "gameplay",
+            "items": [
+              {
+                "title": "战术协同",
+                "src": "https://vasd-cms.qq.com/vasd-cms/media/czn/20260819_af6052c0_%E4%BC%81%E4%B8%9A%E5%BE%AE%E4%BF%A1%E6%88%AA%E5%9B%BE_17869513186481.png",
+                "description": "玩法媒体与编号时间线同步切换。"
+              },
+              {
+                "title": "赛季战区",
+                "src": "https://vasd-cms.qq.com/vasd-cms/media/czn/20260729_d4e215ff_26.7.15%E3%80%90CZN%E3%80%91%E4%BA%94%E5%9B%BE%EF%BC%88%E8%B5%9B%E5%AD%A3%EF%BC%89.jpg",
+                "description": "已切换至 02/05。"
+              },
+              {
+                "title": "异常调查",
+                "src": "https://vasd-cms.qq.com/vasd-cms/11_91093c37ed.jpg",
+                "description": "03/05"
+              },
+              {
+                "title": "深层突入",
+                "src": "https://vasd-cms.qq.com/vasd-cms/12_91330b2391.jpg",
+                "description": "04/05"
+              },
+              {
+                "title": "夏日作战",
+                "src": "https://vasd-cms.qq.com/vasd-cms/media/czn/20260729_09d4d4dc_%E4%BA%94%E5%9B%BE-%E6%B3%B3%E8%A3%85kv-%E6%97%A0%E7%A0%81%E7%89%88.jpg",
+                "description": "05/05"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "czn-character",
+      "side": "distribution",
+      "tab": "角色",
+      "name": "Character",
+      "description": "Moving subject, portrait rail, identity/voice and five angled skills.",
+      "kind": "display",
+      "proofRole": "source-calibration",
+      "recipeIds": ["character-layered-profile-hud", "orange-current-navigation-role"],
+      "evidenceTrace": ["character-layered-profile-stage", "character-orange-active-nav"],
+      "contentIndependence": {"mode": "source-content", "status": "pending"},
+      "mapsToSourcePageId": "character",
+      "layoutRecipe": "czn-current",
+      "shell": {
+        "device": "desktop",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "Image",
+        "Swiper"
+      ],
+      "sections": [
+        {
+          "id": "czn-character-stage",
+          "type": "czn-current-character",
+          "component": "Image",
+          "recipe": "character-layered-profile-hud",
+          "assets": {
+            "logo": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png",
+            "arrow": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png"
+          },
+          "content": {
+            "navigation": [
+              {
+                "id": "home",
+                "zh": "首页",
+                "en": "HOME"
+              },
+              {
+                "id": "character",
+                "zh": "角色档案",
+                "en": "CHARACTER"
+              },
+              {
+                "id": "gameplay",
+                "zh": "玩法介绍",
+                "en": "GAMEPLAY"
+              },
+              {
+                "id": "news",
+                "zh": "新闻资讯",
+                "en": "NEWS"
+              }
+            ],
+            "activeNavigation": "character",
+            "rail": [
+              {
+                "name": "Arabella",
+                "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/character_side_img_Arabella.png"
+              },
+              {
+                "name": "Heidemarie",
+                "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/character_creazyimg_Heidemarie.png"
+              },
+              {
+                "name": "Arabella 2",
+                "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/character_side_img_Arabella.png"
+              },
+              {
+                "name": "Heidemarie 2",
+                "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/character_creazyimg_Heidemarie.png"
+              },
+              {
+                "name": "Arabella 3",
+                "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/character_side_img_Arabella.png"
+              }
+            ],
+            "items": [
+              {
+                "name": "阿拉贝拉",
+                "voice": "ARABELLA",
+                "video": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_rc.mp4",
+                "poster": "/assets/czn/arabella-video-frame-t1.jpg",
+                "description": "混沌中的观察者。角色主体、身份、语音与技能作为独立同步层。",
+                "skills": [
+                  {
+                    "name": "技能 01",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_1.png"
+                  },
+                  {
+                    "name": "技能 02",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_2.png"
+                  },
+                  {
+                    "name": "技能 03",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_3.png"
+                  },
+                  {
+                    "name": "技能 04",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_4.png"
+                  },
+                  {
+                    "name": "技能 05",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_5.png"
+                  }
+                ]
+              },
+              {
+                "name": "阿拉贝拉 · 战斗姿态",
+                "voice": "ARABELLA",
+                "video": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_rc.mp4",
+                "poster": "/assets/czn/arabella-video-frame-t1.jpg",
+                "description": "第二角色状态。",
+                "skills": [
+                  {
+                    "name": "技能 01",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_1.png"
+                  },
+                  {
+                    "name": "技能 02",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_2.png"
+                  },
+                  {
+                    "name": "技能 03",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_3.png"
+                  },
+                  {
+                    "name": "技能 04",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_4.png"
+                  },
+                  {
+                    "name": "技能 05",
+                    "src": "https://game.gtimg.cn/images/czn/cp/a20250820xnz/frames/Arabella/Arabella_skills_5.png"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "czn-held-out",
+      "side": "distribution",
+      "tab": "Held-out",
+      "name": "Fictional Signal Archive",
+      "description": "Explicit fictional generative transfer, not an official page.",
+      "kind": "display",
+      "proofRole": "generative-held-out",
+      "recipeIds": ["gameplay-media-timeline-hud", "orange-current-navigation-role"],
+      "evidenceTrace": ["generative-proof.json", "responsive-attempt-16"],
+      "contentIndependence": {"mode": "held-out-content", "status": "pending"},
+      "layoutRecipe": "czn-current",
+      "shell": {
+        "device": "desktop",
+        "statusBar": false,
+        "navigationBar": false,
+        "bottomActions": false,
+        "fab": false
+      },
+      "components": [
+        "Swiper"
+      ],
+      "sections": [
+        {
+          "id": "czn-heldout-stage",
+          "type": "czn-current-heldout",
+          "component": "Swiper",
+          "recipe": "fictional-signal-archive",
+          "assets": {
+            "logo": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//nav/nav_logo.png",
+            "arrow": "https://game.gtimg.cn/images/czn/cp/a20250820xnz//gameplay_prev.png"
+          },
+          "content": {
+            "navigation": [
+              {
+                "id": "home",
+                "zh": "首页",
+                "en": "HOME"
+              },
+              {
+                "id": "archive",
+                "zh": "信号档案",
+                "en": "ARCHIVE"
+              }
+            ],
+            "activeNavigation": "archive",
+            "items": [
+              {
+                "title": "VOID ECHO 01",
+                "description": "A fictional archive using learned hierarchy without copying a source page."
+              },
+              {
+                "title": "VOID ECHO 02",
+                "description": "Observable next state."
+              },
+              {
+                "title": "VOID ECHO 03",
+                "description": "Observable final state."
+              }
+            ]
+          }
+        }
+      ]
+    }
   ]
 }
