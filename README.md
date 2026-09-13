@@ -151,7 +151,7 @@ MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录�
 
 ## 5 分钟启动 Demo
 
-只想体验时可直接打开[公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。需要本地开发时再执行以下步骤。
+只想体验时可直接打开 [公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。需要本地开发时再执行以下步骤。
 
 需要 Node.js 20.19+（或 22.12+）、npm 和 [Git LFS](https://git-lfs.com/)。
 

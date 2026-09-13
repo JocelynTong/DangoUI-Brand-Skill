@@ -148,7 +148,7 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 > 目的：先确认视觉方向，再进入正式 DTCG / Echo / dangoui 迁移。
 
 | 方向 | 核心页面 | 气质 | 信息密度 | 组件模式假设 | 决策 | 原因 |
-|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- |
 | `preview-a` | 首页、详情页 | 清爽克制 | 中 | `media-card`、`primary-cta` | selected | 更符合目标用户 |
 
 ## 1. 品牌风格摘要
@@ -162,7 +162,7 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 > 占比公式：该视觉值出现次数 / 本次统计中所有视觉值出现次数总和。
 
 | 类型 | 原始值 | 次数 | 占比 | 证据 | 角色判断 | 承接 |
-|---|---|---:|---:|---|---|---|
+| --- | --- | ---: | ---: | --- | --- | --- |
 | color | `#ffffff` | 42 | 38% | 首屏、卡片、导航 | 中性表面 | `--du-bg-1` |
 
 ## 3. 高频组件模式统计
@@ -172,7 +172,7 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 > 占比公式：该组件模式出现次数 / 本次统计中所有组件模式出现次数总和。
 
 | 组件模式 | 次数 | 占比 | 证据 | Echo/Figma 候选 | Dangoui 落地 | 状态 |
-|---|---:|---:|---|---|---|---|
+| --- | ---: | ---: | --- | --- | --- | --- |
 | `media-led-card` | 9 | 36% | 首页 feed | `Card` | `DuCard + DuTag` | `composed` |
 
 ## 4. Token Mapping
@@ -184,7 +184,7 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 > 目的：判断风格化边框是否替代父容器 border，以及 radius / divider / background / shadow / asset 是否联动。
 
 | Container | Type | Implementation | Radius | Asset | 承接 | 说明 |
-|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- |
 | `Hero panel` | `frame` | parent `background` edge lines | `0px` | none | `style-only Frame CSS` | frame 替代父容器 border |
 | `Card list` | `frame` | parent `background` edge lines | `0px` | none | `style-only Frame CSS` | Card 跟随站点边界语言 |
 | `Video thumbnail` | `asset frame` | `border-image` / PNG | follows asset | `media_border.png` | `style-only asset` | 不能只映射到 `--du-border-1` |
@@ -203,7 +203,7 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 > 目的：保证 PNG / WebP / SVG 等资产不会在抽色后丢失，尤其是背景图、选中背景、装饰图、frame 图和 texture。
 
 | Asset | Role | Source | Target Scope | State | Implementation | Fallback | 承接 |
-|---|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- | --- |
 | `/assets/re1999-logo.png` | `brand-mark` | local png 333x132 RGBA | nav logo / watermark | default | CSS background-image | serif title | `style-only asset recipe` |
 | `selected-bg.png` | `selected-bg` | source css/img | selected card / active tab | selected | state background | active line | `style-only state asset` |
 | `media_border.png` | `asset-frame` | source image | media/card frame | default | border-image / edge background | CSS frame | `style-only Frame asset` |
@@ -264,7 +264,7 @@ DOM class
 追加三证结论：
 
 | Proof | 输入 | 必须证明 | Blocking 示例 | 结论 |
-|---|---|---|---|---|
+| --- | --- | --- | --- | --- |
 | Evidence | DOM / computed / asset / motion / source region | 高显著度模式有来源且语义未扩张 | `UNSUPPORTED_VISUAL_PATTERN` | pass / blocked |
 | Structure | reference 与 demo 对照 | 构图、层级、密度、节奏保留决定性特征 | Hero 只换官方壁纸 | pass / blocked |
 | Generative | 冻结规则 + held-out challenge | 新内容仍可生成同品牌页面 | 截图复用、固定模板换素材 | pass / blocked |
@@ -278,7 +278,7 @@ DOM class
 当本次任务是应用已有 `migrations/{brand}` 时，README 或交付说明必须列出：
 
 | 项 | 内容 |
-|---|---|
+| --- | --- |
 | 使用的 migration | `migrations/{brand}` 或公开 demo/registry style pack |
 | assetRoot | `{实际读取的资产目录}` |
 | 读取的资产 | `brand-evidence.json`、`dangoui-adapter.json`、`component-mapping.json` 等 |

@@ -194,7 +194,7 @@
 #### Commit 链(06-17 token 化完整历史)
 
 | commit | 说明 | 影响 |
-|---|---|---|
+| --- | --- | --- |
 | `71fb53b` | 06-17 立 token 体系规范 | 立原则 + 6 处 .group |
 | `18ed0b5` | :root 自定 8 token 映射到 dangoui | 9 个 :root 改动 |
 | `7981616` | 56 处 var(--style-card-bg) → --du-bg-2 | 删 :root alias + 56 处迁移 |

@@ -7,7 +7,7 @@
 > 目的：先确认视觉方向，再进入正式 DTCG / Echo / dangoui 迁移。
 
 | 方向 | 核心页面 | 气质 | 信息密度 | 组件模式假设 | 决策 | 原因 |
-|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- |
 | `preview-a` | 首页、资讯、魔咒图鉴 | 羊皮纸、古铜、魔法书桌 | 中 | `ornate-top-nav`、`download-panel`、`spell-card-grid` | selected | 最贴近官网 UI，且能守住媒体资产边界 |
 | `preview-b` | 战斗/活动 | 暗黑决斗 HUD | 高 | `hud-card`、`spell-action-button` | rejected | 容易把魔法蓝光和战斗特效误写成 token |
 | `preview-c` | 视听/壁纸 | 手绘魔法世界 | 中低 | `media-thumbnail-grid`、`wallpaper-grid` | merged | 只作为媒体组件证据，不作为 token 源 |
@@ -25,7 +25,7 @@ HPMA 官网是深棕魔法书桌和羊皮纸阅读感的组合：页面结构由
 > 占比公式：该视觉值出现次数 / 本次统计中所有视觉值出现次数总和。
 
 | 类型 | 原始值 | 次数 | 占比 | 证据 | 角色判断 | 承接 |
-|---|---|---:|---:|---|---|---|
+| --- | --- | ---: | ---: | --- | --- | --- |
 | color | `#6a3611` | 12 | 10.4% | CSS 高频古铜棕 | 强调/边界 | `--du-primary-border` |
 | color | `#ffffff / #fefefe` | 13 | 11.3% | logo、反相文字、输入文字 | 亮前景 | `--du-text-1` / `--du-white-*` |
 | color | `#696a75` | 8 | 7.0% | placeholder、弱信息 | 次级文字 | `--du-text-3` |
@@ -42,7 +42,7 @@ HPMA 官网是深棕魔法书桌和羊皮纸阅读感的组合：页面结构由
 > 统计口径：官网 HTML 和页面区块中的组件模式，共 18 次。
 
 | 组件模式 | 次数 | 占比 | 证据 | Echo/Figma 候选 | Dangoui 落地 | 状态 |
-|---|---:|---:|---|---|---|---|
+| --- | ---: | ---: | --- | --- | --- | --- |
 | `feature-split-scene` | 5 | 27.8% | 游戏特色 page1-page5 | `Image + Card` | `Image + Card` | `style-only` |
 | `news-carousel-with-list` | 4 | 22.2% | newsBig swiper、news tabs | `Swiper + Tabs + Card` | `Swiper + Tabs + Card + Tag` | `composed` |
 | `ornate-top-nav` | 3 | 16.7% | 顶部导航、logo、submenu | `NavigationBar + Tabs` | `NavigationBar + Tabs` | `composed` |

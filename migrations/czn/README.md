@@ -5,7 +5,7 @@
 ## 0. Preview Gate
 
 | 方向 | 核心页面 | 气质 | 信息密度 | 组件模式假设 | 决策 | 原因 |
-|---|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- | --- |
 | `preview-a` | 游戏工具页 | 冷蓝科幻 HUD | 中高 | `dark-hud-card`、`blue-cta` | rejected | 与截图中高频橙色主行动不一致 |
 | `preview-b` | 官网首页、角色页、公测内容页 | 橙色主行动、黑紫沉浸、斜切 HUD | 高 | `immersive-hero-visual`、`orange-primary-cta`、`slanted-hud-card` | selected | 更符合截图证据 |
 
@@ -20,7 +20,7 @@ CZN 的视觉不是极简品牌站，而是游戏内容站 / 工具站：首屏�
 > 占比公式：该视觉值出现次数 / 本次截图抽样中所有 UI color 出现次数总和。
 
 | 类型 | 原始值 | 次数 | 占比 | 证据 | 角色判断 | 承接 |
-|---|---|---:|---:|---|---|---|
+| --- | --- | ---: | ---: | --- | --- | --- |
 | color | `#ff5514` | 6 | 30% | 导航激活、官网按钮、下载 CTA、轮播边框 | 主行动 / 品牌强调 | `--du-primary-color` |
 | color | `#0b0710` | 4 | 20% | 角色页黑紫背景 | 沉浸式页面底 | `--du-bg-2` |
 | color | `#17111f` | 4 | 20% | 暗色 HUD 面板 | 卡片/容器表面 | `--du-bg-1` |
@@ -30,7 +30,7 @@ CZN 的视觉不是极简品牌站，而是游戏内容站 / 工具站：首屏�
 ## 3. 高频组件模式统计
 
 | 组件模式 | 次数 | 占比 | 证据 | Echo/Figma 候选 | Dangoui 落地 | 状态 |
-|---|---:|---:|---|---|---|---|
+| --- | ---: | ---: | --- | --- | --- | --- |
 | `immersive-hero-visual` | 3 | 23.1% | 首页、角色页 | `HeroStage` | `NavigationBar + Image + Card` | `style-only` |
 | `orange-primary-cta` | 3 | 23.1% | 官网按钮、下载、更多 | `Button/Primary` | `DuButton` / `DuTag` | `mapped` |
 | `slanted-hud-card` | 3 | 23.1% | 内容轮播、角色卡、下载区 | `Card/GameHud` | `DuCard + Image + Tag` | `style-only` |

@@ -7,7 +7,7 @@
 ## 1. 三种设计系统文件对比
 
 | 文件 | 格式 | 语义层 | 代码生成 | 版本化 diff | 适用场景 |
-|---|---|---|---|---|---|
+| --- | --- | --- | --- | --- | --- |
 | DESIGN-apple.md | MD + YAML frontmatter | ✅ 完整 prose | ❌ 无 | ❌ 整段覆盖 | 品牌设计规范（人读） |
 | DESIGN-figma.md | MD + YAML frontmatter | ✅ 完整 prose | ❌ 无 | ❌ 整段覆盖 | 品牌设计规范（人读） |
 | 千岛.tokens.json | W3C Design Tokens JSON | ❌ 只有 value | ⚠️ Token 层可 | ✅ Git 友好 | Figma 变量导出（机读） |
@@ -70,7 +70,7 @@ echo-design-system 语义化 schema（02 components/*.json）
 **Figma 原生缺失的字段**：
 
 | 字段 | Figma API 是否返回 |
-|---|---|
+| --- | --- |
 | `$description` — token 用途 | ✅ tokens.json 有 |
 | `$usage_rule` — 使用/禁用场景 | ❌ 不返回 |
 | Component props interface | ❌ 不返回 |

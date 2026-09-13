@@ -13,8 +13,10 @@
 
 ## 可肉眼复核
 
-- 桌面：[desktop-default.png](../../../../../../output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/desktop/frames/desktop-default.png)
-- 390px：[mobile-default.png](../../../../../../output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/mobile-390/frames/mobile-default.png)
+- 桌面：`output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/desktop/frames/desktop-default.png`
+- 390px：`output/visual-qa/pokemon-tcg-official-home-hero/evidence/source/mobile-390/frames/mobile-default.png`
+
+> 上述截图是本地 QA 产物，未纳入版本库；路径仅用于追溯当次验证。
 
 桌面是一块约 710px 高的横向舞台：Logo/CTA 在左，角色居中，卡片在右，底部是横向文字控制。手机则变成约 1183px 高的纵向舞台：背景被重新裁切，Logo、卡片和 CTA 分段向下排，左右箭头承担切换。因此后续方向不能再使用“整块桌面 Hero 等比缩小”作为官网还原策略。
 

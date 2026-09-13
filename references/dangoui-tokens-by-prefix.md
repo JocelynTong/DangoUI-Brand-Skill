@@ -8,7 +8,7 @@ Total: 455
 ## --du-primary-* (43)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-primary-1` | `#f2f0ff` | 主品牌色 |
 | `--du-primary-2` | `#d9d2ff` | 主品牌色 |
 | `--du-primary-3` | `#c7b8ff` | 主品牌色 |
@@ -56,7 +56,7 @@ Total: 455
 ## --du-white-* (43)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-white-1` | `#ffffff0a` | dangoui token |
 | `--du-white-2` | `#ffffff14` | dangoui token |
 | `--du-white-3` | `#ffffff1f` | dangoui token |
@@ -104,7 +104,7 @@ Total: 455
 ## --du-error-* (39)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-error-1` | `#ffebe9` | 错误状态 |
 | `--du-error-2` | `#ffd1cf` | 错误状态 |
 | `--du-error-3` | `#ffabab` | 错误状态 |
@@ -148,7 +148,7 @@ Total: 455
 ## --du-secondary-* (39)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-secondary-1` | `#f7f7f9` | dangoui token |
 | `--du-secondary-2` | `#ededf2` | dangoui token |
 | `--du-secondary-3` | `#e1e1e5` | dangoui token |
@@ -192,7 +192,7 @@ Total: 455
 ## --du-success-* (39)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-success-1` | `#e2f7e3` | 成功状态 |
 | `--du-success-2` | `#c9f2ca` | 成功状态 |
 | `--du-success-3` | `#9de09d` | 成功状态 |
@@ -236,7 +236,7 @@ Total: 455
 ## --du-trade-* (39)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-trade-1` | `#ffebe9` | dangoui token |
 | `--du-trade-2` | `#ffd1cf` | dangoui token |
 | `--du-trade-3` | `#ffabab` | dangoui token |
@@ -280,7 +280,7 @@ Total: 455
 ## --du-trans-* (39)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-trans-black-1` | `#0000000a` | dangoui token |
 | `--du-trans-black-2` | `#00000014` | dangoui token |
 | `--du-trans-black-3` | `#0000001f` | dangoui token |
@@ -324,7 +324,7 @@ Total: 455
 ## --du-warning-* (39)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-warning-1` | `#fff0e6` | 警告状态 |
 | `--du-warning-2` | `#ffdfca` | 警告状态 |
 | `--du-warning-3` | `#ffc299` | 警告状态 |
@@ -368,7 +368,7 @@ Total: 455
 ## --du-default-* (35)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-default-1` | `#0000000a` | dangoui token |
 | `--du-default-2` | `#00000014` | dangoui token |
 | `--du-default-3` | `#0000001f` | dangoui token |
@@ -408,7 +408,7 @@ Total: 455
 ## --du-c-* (24)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-c-2` | `#2B263B` | dangoui token |
 | `--du-c-secondary` | `#2B263B` | dangoui token |
 | `--du-c-secondary-channel` | `43,38,59` | dangoui token |
@@ -437,7 +437,7 @@ Total: 455
 ## --du-vip-* (24)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-vip-solid-bg` | `#000` | 背景/容器表面 |
 | `--du-vip-solid-bg-channel` | `0,0,0` | 背景/容器表面 |
 | `--du-vip-solid-disabledtemp-bg` | `#0000001F` | 背景/容器表面 |
@@ -466,7 +466,7 @@ Total: 455
 ## --du-bt-* (14)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-bt-solid-color` | `var(--du-default-solid-color)` | dangoui token |
 | `--du-bt-solid-bg` | `var(--du-default-solid-bg)` | 背景/容器表面 |
 | `--du-bt-solid-disabledtemp-color` | `var(--du-default-solid-disabledtemp-color)` | dangoui token |
@@ -485,7 +485,7 @@ Total: 455
 ## --du-mask-* (6)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-mask-1` | `#000000e0` | 遮罩/覆盖层 |
 | `--du-mask-2` | `#000000a3` | 遮罩/覆盖层 |
 | `--du-mask-3` | `#00000066` | 遮罩/覆盖层 |
@@ -496,7 +496,7 @@ Total: 455
 ## --du-bg-* (4)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-bg-1` | `#ffffff` | 背景/容器表面 |
 | `--du-bg-2` | `#f7f7f9` | 背景/容器表面 |
 | `--du-bg-3` | `#ffffff` | 背景/容器表面 |
@@ -505,7 +505,7 @@ Total: 455
 ## --du-icon-* (4)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-icon-1` | `#2b263b` | 图标颜色 |
 | `--du-icon-2` | `#625e76` | 图标颜色 |
 | `--du-icon-3` | `#918b9f` | 图标颜色 |
@@ -514,7 +514,7 @@ Total: 455
 ## --du-in-* (4)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-in-solid-color` | `var(--du-default-solid-color)` | dangoui token |
 | `--du-in-solid-bg` | `var(--du-default-solid-bg)` | 背景/容器表面 |
 | `--du-in-solid-disabledtemp-color` | `var(--du-default-solid-disabledtemp-color)` | dangoui token |
@@ -523,7 +523,7 @@ Total: 455
 ## --du-text-* (4)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-text-1` | `#000000` | 文本颜色 |
 | `--du-text-2` | `#000000a3` | 文本颜色 |
 | `--du-text-3` | `#00000066` | 文本颜色 |
@@ -532,7 +532,7 @@ Total: 455
 ## --du-border-* (3)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-border-1` | `#0000001f` | 边框颜色 |
 | `--du-border-2` | `#00000014` | 边框颜色 |
 | `--du-border-3` | `#0000000a` | 边框颜色 |
@@ -540,7 +540,7 @@ Total: 455
 ## --du-checkbox-* (3)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-checkbox-bg` | `var(--du-default-solid-bg)` | 背景/容器表面 |
 | `--du-checkbox-disabled-bg` | `var(--du-default-solid-disabledtemp-bg)` | 背景/容器表面 |
 | `--du-checkbox-color` | `var(--du-default-solid-color)` | dangoui token |
@@ -548,7 +548,7 @@ Total: 455
 ## --du-color-* (3)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-color-main-rgb` | `124, 102, 255` | dangoui token |
 | `--du-color-main` | `rgb(var(--du-color-main-rgb))` | dangoui token |
 | `--du-color-main-opacity` | `rgba(var(--du-color-main-rgb), 0.2)` | dangoui token |
@@ -556,26 +556,26 @@ Total: 455
 ## --du-input-* (2)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-input-disabled-color` | `rgba(32, 36, 38, 0.4)` | dangoui token |
 | `--du-input-placeholder-color` | `rgba(32, 36, 38, 0.4)` | dangoui token |
 
 ## --du-radio-* (2)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-radio-bg` | `var(--du-default-solid-bg)` | 背景/容器表面 |
 | `--du-radio-disabled-bg` | `var(--du-default-solid-disabledtemp-bg)` | 背景/容器表面 |
 
 ## --du-switch-* (2)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-switch-bg` | `var(--du-default-solid-bg)` | 背景/容器表面 |
 | `--du-switch-disabled-bg` | `var(--du-default-solid-disabledtemp-bg)` | 背景/容器表面 |
 
 ## --du-empty-* (1)
 
 | token | value | usage |
-|---|---|---|
+| --- | --- | --- |
 | `--du-empty-padding` | `calc(100vw * (120 / 375)) 0` | dangoui token |
