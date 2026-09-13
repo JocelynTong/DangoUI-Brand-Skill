@@ -118,6 +118,8 @@ node skills/brand/scripts/run-brand-workflow.mjs run ...
 
 维护者需要用新流程复验已存在的旧品牌包时，显式使用 `--force-relearn`，并把 `--brand` 指向新的版本化工作区（例如 `hpma-v2`）。该参数只允许 `learn-brand`，不得覆盖原有已审核目录；新工作区完成 Evidence、Interpreter、Design Direction、Demo、独立 QA 和三证前，不得替换 Registry 版本。
 
+更新已经存在的 Demo 不等同于学习新品牌。使用 `node skills/brand/scripts/run-brand-workflow.mjs update --brand <brand> --source-url <url>`；入口必须先读取 `migrations/<brand>/source-manifest.json`，继承历次学习网站和页面，再允许追加或刷新来源。不得用本次单一输入覆盖历史来源；发现来源缺失时以 `LEARNED_SOURCE_DROPPED` 阻断。Registry 的 `canonicalSources` 只负责公开检索摘要，完整学习履历以品牌目录的 source manifest 为准。来源确需废弃时保留记录并显式标记 retired 和原因。
+
 如果当前运行环境是 Claude 项目 skill 镜像，则使用：
 
 ```bash

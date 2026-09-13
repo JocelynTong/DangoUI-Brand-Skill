@@ -1,0 +1,73 @@
+{
+  "schema": "brand-source-manifest/v1",
+  "brand": "onepiece-cardgame",
+  "policy": {
+    "updateMode": "inherit-and-append",
+    "removal": "explicit-retirement-only",
+    "blockingCode": "LEARNED_SOURCE_DROPPED"
+  },
+  "sources": [
+    {
+      "url": "https://asia-en.onepiece-cardgame.com/",
+      "pageIds": [
+        "evidence-root",
+        "home",
+        "preview-root",
+        "registry-canonical",
+        "registry-root",
+        "source-root"
+      ],
+      "roles": [
+        "canonical",
+        "observed-page",
+        "primary"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/onepiece-cardgame/brand-evidence.json",
+        "migrations/onepiece-cardgame/source-observation-manifest.json",
+        "public/brand-previews/onepiece-cardgame.json",
+        "public/brand-previews/registry.json"
+      ]
+    },
+    {
+      "url": "https://asia-en.onepiece-cardgame.com/events",
+      "pageIds": [
+        "events"
+      ],
+      "roles": [
+        "observed-page"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/onepiece-cardgame/source-observation-manifest.json"
+      ]
+    },
+    {
+      "url": "https://asia-en.onepiece-cardgame.com/news",
+      "pageIds": [
+        "news"
+      ],
+      "roles": [
+        "observed-page"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/onepiece-cardgame/source-observation-manifest.json"
+      ]
+    },
+    {
+      "url": "https://asia-en.onepiece-cardgame.com/products?view=normal",
+      "pageIds": [
+        "products"
+      ],
+      "roles": [
+        "observed-page"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/onepiece-cardgame/source-observation-manifest.json"
+      ]
+    }
+  ]
+}

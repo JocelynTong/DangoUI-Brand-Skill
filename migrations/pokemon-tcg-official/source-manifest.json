@@ -1,0 +1,57 @@
+{
+  "schema": "brand-source-manifest/v1",
+  "brand": "pokemon-tcg-official",
+  "policy": {
+    "updateMode": "inherit-and-append",
+    "removal": "explicit-retirement-only",
+    "blockingCode": "LEARNED_SOURCE_DROPPED"
+  },
+  "sources": [
+    {
+      "url": "https://tcg.pokemon.com/en-us",
+      "pageIds": [
+        "home",
+        "preview-root",
+        "registry-canonical",
+        "registry-root"
+      ],
+      "roles": [
+        "canonical",
+        "observed-page",
+        "primary"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/pokemon-tcg-official/source-observation-manifest.json",
+        "public/brand-previews/pokemon-tcg-official.json",
+        "public/brand-previews/registry.json"
+      ]
+    },
+    {
+      "url": "https://tcg.pokemon.com/en-us/learn",
+      "pageIds": [
+        "how-to-play"
+      ],
+      "roles": [
+        "observed-page"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/pokemon-tcg-official/source-observation-manifest.json"
+      ]
+    },
+    {
+      "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+      "pageIds": [
+        "card-database"
+      ],
+      "roles": [
+        "observed-page"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/pokemon-tcg-official/source-observation-manifest.json"
+      ]
+    }
+  ]
+}

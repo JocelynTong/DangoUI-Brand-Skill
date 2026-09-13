@@ -21,6 +21,7 @@ if (!["run", "plan", "status", "tpp", "detect"].includes(command)) {
 const mode = resolveWorkflowMode(rawArgs.slice(1));
 const profile = opt(rawArgs, "--profile", "full");
 const forceRelearn = rawArgs.includes("--force-relearn");
+const updateExisting = rawArgs.includes("--update-existing");
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");
 }
@@ -62,7 +63,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
 
   if (registryResolution.matched) {
     if (!forceRelearn) brand = registryResolution.brand;
-    if (mode === "learn-brand" && command === "run" && !forceRelearn) {
+    if (mode === "learn-brand" && command === "run" && !forceRelearn && !updateExisting) {
       process.stdout.write(`${JSON.stringify({
         ok: true,
         command,
@@ -124,6 +125,18 @@ const workflowDefinitionSummary = {
 };
 const guardCommands = buildGuardCommands(mode, passthroughArgs);
 const executed = [];
+
+if (updateExisting) {
+  if (mode !== "learn-brand" || !brand) fail("update requires an existing --brand and uses the learn-brand pipeline.");
+  const sourceArgs = [command === "run" ? "merge" : "validate", "--brand", brand, "--root", root];
+  if (command === "run" && requestedSourceUrl) sourceArgs.push("--source-url", requestedSourceUrl);
+  const sourceResult = spawnSync("node", ["skills/brand/scripts/brand-source-manifest.mjs", ...sourceArgs], { cwd: root, encoding: "utf8" });
+  executed.push({ step: "inherit-learned-sources", command: `node skills/brand/scripts/brand-source-manifest.mjs ${sourceArgs.join(" ")}`, exitCode: sourceResult.status, stdout: sourceResult.stdout, stderr: sourceResult.stderr });
+  if (sourceResult.status !== 0) {
+    process.stdout.write(`${JSON.stringify({ ok: false, workflow: "update-existing-brand", brand, blockingCode: safeParseJson(sourceResult.stdout)?.code || "SOURCE_MANIFEST_INVALID", blockingResult: safeParseJson(sourceResult.stdout), message: "Existing-demo update stopped before extraction because its learned source history is incomplete." }, null, 2)}\n`);
+    process.exit(sourceResult.status || 1);
+  }
+}
 
 if (command === "detect") {
   process.stdout.write(`${JSON.stringify({
@@ -907,7 +920,7 @@ function formatExtraArgs(args) {
 
 function stripCommandOnlyArgs(args) {
   const names = new Set(["--root", "--mode", "--profile", "--base-url", "--page", "--registry-base"]);
-  const flags = new Set(["--require-browser", "--force-relearn"]);
+  const flags = new Set(["--require-browser", "--force-relearn", "--update-existing"]);
   const output = [];
   for (let index = 0; index < args.length; index += 1) {
     const token = args[index];
@@ -945,6 +958,11 @@ function normalizeEntryCommand(args) {
   if (command === "apply") {
     return {
       args: ["run", "--mode", "apply-host", ...rest],
+    };
+  }
+  if (command === "update") {
+    return {
+      args: ["run", "--mode", "learn-brand", "--update-existing", ...rest],
     };
   }
   return { args };
@@ -1515,6 +1533,7 @@ Usage:
   node ${script} learn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --profile fast --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --force-relearn --brand pokemon30-v2 --source-url "https://pokemon30th.com/"
+  node ${script} update --brand pokemon30 --source-url "https://pokemon30th.com/learn/"
   node ${script} apply --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} run --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} run --mode apply-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
@@ -1524,7 +1543,8 @@ Usage:
   node ${script} plan --mode learn-brand --brand pokemon30 --source-url "https://pokemon30th.com/"
 
 Behavior:
-  - explicit aliases: \`learn\` => learn-brand, \`apply\` => apply-host
+  - explicit aliases: \`learn\` => new learn-brand, \`update\` => existing learn-brand with inherited source history, \`apply\` => apply-host
+  - \`update\` validates migrations/<brand>/source-manifest.json before extraction and only appends sources; a missing historical source blocks with LEARNED_SOURCE_DROPPED
   - learn-brand defaults to \`--profile full\`; use \`--profile fast\` for a bounded direction-validation run
   - \`--force-relearn\` is an explicit maintainer-only escape hatch for versioned revalidation; use a new brand workspace and never overwrite a reviewed version in place
   - \`detect\` only resolves the workflow intake and shows whether inputs belong to learning or host apply

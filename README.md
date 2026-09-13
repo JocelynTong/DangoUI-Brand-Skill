@@ -97,6 +97,18 @@ npm run validate:brand-trial -- --record .brand-trials/<试点编号>.json
 
 维护者需要用最新版流程复验旧品牌包时，使用 `--force-relearn` 并写入新的版本化工作区，例如 `--brand hpma-v2`。复验产物在 Evidence、视觉翻译、Design Direction、Demo、独立 QA 与发布校验全部通过前只保留在 migration workspace，不覆盖已审核版本，也不进入公共 Registry。
 
+### 更新已有 Demo
+
+已有 Demo 的维护不是一次新的空白学习。每个品牌用 `migrations/<brand>/source-manifest.json` 保存历次实际学习过的官网页面；更新入口会先继承这份清单，再追加本次来源：
+
+```bash
+node skills/brand/scripts/run-brand-workflow.mjs update \
+  --brand onepiece-cardgame \
+  --source-url "https://asia-en.onepiece-cardgame.com/news/"
+```
+
+可用 `npm run brand:sources -- validate --brand <brand>` 单独检查来源履历。若更新导致旧来源静默消失，流程会以 `LEARNED_SOURCE_DROPPED` 阻断。来源确实失效时应保留条目并显式标记退役及原因，不能直接删除。公共 Registry 的 `canonicalSources` 只用于检索摘要，不代替完整来源履历。
+
 ```text
 /brand-registry/v0.1/index.json
 /brand-registry/v0.1/by-source.json

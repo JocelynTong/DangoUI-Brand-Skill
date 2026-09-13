@@ -32,6 +32,8 @@
     "test:brand-trial": "node skills/brand/scripts/validate-trial-channel.test.mjs",
     "brand:subagents": "node skills/brand/scripts/brand-subagent-workflow.mjs",
     "brand:retro": "node skills/brand/scripts/brand-guard.mjs issue-retro",
+    "brand:sources": "node skills/brand/scripts/brand-source-manifest.mjs",
+    "test:brand-sources": "node skills/brand/scripts/brand-source-manifest.test.mjs",
     "validate:brand:p0": "node skills/brand/scripts/brand-guard.mjs p0-acceptance",
     "validate:brand:tpp": "node skills/brand/scripts/run-brand-workflow.mjs tpp",
     "validate:brand:tpp:browser": "node skills/brand/scripts/run-brand-workflow.mjs tpp --require-browser",

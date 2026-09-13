@@ -1,0 +1,36 @@
+{
+  "schema": "brand-source-manifest/v1",
+  "brand": "czn",
+  "policy": {
+    "updateMode": "inherit-and-append",
+    "removal": "explicit-retirement-only",
+    "blockingCode": "LEARNED_SOURCE_DROPPED"
+  },
+  "sources": [
+    {
+      "url": "https://czn.qq.com/",
+      "pageIds": [
+        "character",
+        "evidence-root",
+        "gameplay",
+        "home",
+        "preview-root",
+        "registry-canonical",
+        "registry-root",
+        "source-root"
+      ],
+      "roles": [
+        "canonical",
+        "observed-page",
+        "primary"
+      ],
+      "status": "active",
+      "provenance": [
+        "migrations/czn-v3/brand-evidence.json",
+        "migrations/czn-v3/source-observation-manifest.json",
+        "public/brand-previews/czn.json",
+        "public/brand-previews/registry.json"
+      ]
+    }
+  ]
+}

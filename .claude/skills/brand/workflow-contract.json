@@ -1,5 +1,5 @@
 {
-  "version": "0.14",
+  "version": "0.15",
   "roleContractVersion": "3.0",
   "command": "/brand",
   "owner": "brand",
@@ -14,6 +14,18 @@
       "A maintainer may explicitly use --force-relearn with a new versioned brand workspace to revalidate a legacy pack; the reviewed source directory must not be overwritten in place.",
       "Apply-host may install public JSON rules automatically, but runtime assets remain governed by manifest reusePolicy.",
       "A Registry miss falls through to learn-brand; a public network failure is reported and never treated as proof that no pack exists."
+    ]
+  },
+  "existingDemoUpdates": {
+    "command": "node skills/brand/scripts/run-brand-workflow.mjs update --brand <brand> --source-url <url>",
+    "sourceManifest": "migrations/{brand}/source-manifest.json",
+    "policy": "inherit-and-append",
+    "rules": [
+      "Updating an existing Demo is a maintenance lane, not a blank new-brand learn.",
+      "Before extraction, load every page previously recorded by source observation, Registry and the brand source manifest.",
+      "A new input may append or refresh a source but must never silently replace the remembered source set.",
+      "Removing a learned website requires an explicit retirement record and rationale. Missing history blocks with LEARNED_SOURCE_DROPPED.",
+      "Registry canonicalSources remains a public lookup summary; source-manifest.json is the complete per-brand learning lineage."
     ]
   },
   "trialChannels": {
