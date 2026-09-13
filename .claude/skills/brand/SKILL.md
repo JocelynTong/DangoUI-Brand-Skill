@@ -242,8 +242,12 @@ node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
 - `references/atomic-acceptance-rubric.md`：Atomic Design 分层、P0/P1/P2 验收口径和对外解释。
 - `references/output-template.md`：迁移文件、README、最终交付格式。
 - `references/dangoui.design-system.json`：当前 demo 的 dangoui token/component 快照；正式项目迁移后以宿主项目真实 dangoui 源码为准。
+- `references/dangoui.tokens.dtcg.json`：由设计侧 Figma Export modes 流水线发布的 DangoUI 平台无关标准源；不得手改。
+- `references/dangoui-token-contract.json`：标准 DTCG 到当前 `--du-*` runtime 的生成式兼容合同；映射和 capability gap 以此为准。
 
 如果宿主项目另有最新 dangoui schema、Echo/Figma DTCG 文件或本地组件源码，优先使用宿主项目真实文件，本 skill 内置快照只当 fallback。
+
+维护内置标准源时，只能消费 `dangoui-token-workflow` 的已验证 release，并运行 `npm run sync:dangoui-tokens -- --source <dangoui.tokens.json> --release-manifest <manifest.json>`；随后必须运行 `npm run validate:dangoui-token-source`。Brand 不得覆盖 Primitive、修改 token 路径或 `$type`。Semantic/Component 只有在兼容合同标记 `mapped` 时才能写入 `dangoui-adapter.json`；`missing` 必须进入 capability gap。
 
 ## 路由判断
 

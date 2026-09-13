@@ -4,6 +4,20 @@
   "command": "/brand",
   "owner": "brand",
   "description": "Machine-readable workflow contract for brand learning and host apply. The contract keeps Brand native, borrows external orchestration ideas when useful, and prevents Markdown-only rules from becoming fake gates.",
+  "dangouiTokenSource": {
+    "canonical": "skills/brand/references/dangoui.tokens.dtcg.json",
+    "manifest": "skills/brand/references/dangoui-token-source.manifest.json",
+    "compatibilityContract": "skills/brand/references/dangoui-token-contract.json",
+    "runtimeCatalog": "skills/brand/references/dangoui.design-system.json",
+    "syncCommand": "npm run sync:dangoui-tokens -- --source <release/dangoui.tokens.json> --release-manifest <release/manifest.json>",
+    "checkCommand": "npm run validate:dangoui-token-source",
+    "rules": [
+      "Primitive tokens are immutable brand provenance and cannot be emitted as Brand overrides.",
+      "A Semantic or Component token may be mapped only when its compatibility target exists in the actual --du-* runtime catalog.",
+      "Missing runtime targets remain explicit capability gaps and must never be presented as mapped support.",
+      "The canonical source hash must match both its release manifest and the generated compatibility contract."
+    ]
+  },
   "publicRegistryReuse": {
     "defaultRegistry": "https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/",
     "lookupKey": "normalized canonical source URL or /#/brand/{brand}/ demo deep link",

@@ -55,7 +55,9 @@
     "validate:brand-program-strategy": "node skills/brand/scripts/validate-program-strategy.mjs",
     "test:brand-host-preedit": "node skills/brand/scripts/validate-host-preedit-baseline.test.mjs",
     "validate:brand": "npm run validate:brand-mod && npm run validate:brand-preview",
-    "sync:skills": "node scripts/sync-agent-skills.mjs"
+    "sync:skills": "node scripts/sync-agent-skills.mjs",
+    "sync:dangoui-tokens": "node skills/brand/scripts/sync-dangoui-token-source.mjs",
+    "validate:dangoui-token-source": "node skills/brand/scripts/sync-dangoui-token-source.mjs --check"
   },
   "keywords": [],
   "author": "",

@@ -19,6 +19,7 @@ if (!brand || !/^[a-z0-9][a-z0-9-]*$/.test(brand)) {
 const root = process.cwd();
 const migrationDir = path.join(root, 'migrations', brand);
 const required = {
+  systemTokens: path.join(root, 'skills/brand/references/dangoui-token-contract.json'),
   dtcg: path.join(migrationDir, 'brand-profile.dtcg.json'),
   mod: path.join(migrationDir, 'brand-mod.json'),
   adapter: path.join(migrationDir, 'dangoui-adapter.json'),
@@ -63,6 +64,9 @@ const walkDtcg = (node, tokenPath = []) => {
 walkDtcg(data.dtcg);
 
 if (data.dtcg && data.adapter) {
+  const supportedTargets = new Set(
+    ['Light', 'Dark'].flatMap((mode) => data.systemTokens?.semantic?.[mode] || []).filter((entry) => entry.status === 'mapped').map((entry) => entry.targetToken)
+  );
   const mappings = Array.isArray(data.adapter.tokenMappings) ? data.adapter.tokenMappings : [];
   const bySource = new Map(mappings.map((entry) => [entry.sourceToken, entry]));
   const contractLeaves = leaves.filter((leaf) => leaf.extensions['echo.brand.target']);
@@ -82,6 +86,7 @@ if (data.dtcg && data.adapter) {
       add(entry.targetExists === false && entry.mappingType === 'style-only', 'MAPPING_STYLE_ONLY_BOUNDARY', `${leaf.path} remains style-only and does not impersonate DangoUI.`);
     } else if (channel === 'mapped') {
       add(entry.targetExists === true && entry.targetToken.startsWith('--du-'), 'MAPPING_NATIVE_TOKEN_BOUNDARY', `${leaf.path} maps only to an existing --du-* token.`);
+      add(supportedTargets.has(entry.targetToken), 'MAPPING_CANONICAL_TOKEN_UNSUPPORTED', `${leaf.path} target exists in the current canonical DangoUI token contract.`, { targetToken: entry.targetToken, sourceSha256: data.systemTokens?.source?.sha256 });
     }
   }
 }
@@ -130,6 +135,7 @@ const report = {
   strict,
   ok: failures.length === 0,
   summary: { checks: checks.length, passed: checks.length - failures.length, failed: failures.length, dtcgTargetTokens: leaves.filter((leaf) => leaf.extensions['echo.brand.target']).length },
+  dangouiTokenSource: data.systemTokens?.source || null,
   checks,
   failures,
 };

@@ -1,0 +1,16 @@
+{
+  "schema": "brand-skill.dangoui-token-source/v0.1",
+  "version": "0.1.0",
+  "sourceSha256": "14e7d15c15f68917ed2b97b44225148e45e8f9e78f15ca9f770adaa6bf88fee4",
+  "compatibility": "compatible",
+  "upstreamSchema": "prototype-to-production.tokens/v0.1",
+  "collections": {
+    "primitive": "Primitives-QD / Base",
+    "semanticAndComponent": "Tokens-QD / Light | Dark"
+  },
+  "policy": {
+    "addedOrValueChanged": "minor",
+    "removedPathOrTypeChanged": "major",
+    "metadataOnly": "patch"
+  }
+}
