@@ -2931,7 +2931,7 @@ const baseStylePresets = [
   {
     id: "dango",
     label: "DangoUI",
-    icon: "https://dumpling.echo.tech/favicon.ico",
+    icon: "/assets/site-icons/dango.ico",
     source: "dumpling.echo.tech / 初始化状态",
     hero: "DangoUI",
     notice: "未应用品牌迁移的 DangoUI baseline：组件结构、默认 token 和普通边界保持原样，用来判断后续风格化覆盖了什么。",
@@ -2974,7 +2974,7 @@ const baseStylePresets = [
   {
     id: "czn",
     label: "CZN",
-    icon: "https://czn.qq.com/favicon.ico",
+    icon: "/assets/site-icons/czn.ico",
     source: "czn.qq.com / 待截图校准",
     hero: "Combat Zone",
     notice: "沉浸式游戏工具风格：橙色主行动、黑紫角色页、白灰资讯区和 HUD 式斜切边界。",
@@ -3017,7 +3017,7 @@ const baseStylePresets = [
   {
     id: "hpma",
     label: "HPMA",
-    icon: "https://www.harrypottermagicawakened.com/favicon.ico",
+    icon: "/assets/site-icons/hpma.ico",
     source: "官网 HTML/CSS + 截图采样",
     hero: "Magic Awakened",
     notice: "棕黑羊皮纸、古铜金边、白金标题和手绘魔法场景被拆成 dangoui token 与 demo-only 媒体资产两层。",
@@ -3069,7 +3069,7 @@ const baseStylePresets = [
   {
     id: "re1999",
     label: "1999",
-    icon: "/assets/re1999-logo.png",
+    icon: "/assets/site-icons/re1999.ico",
     source: "re.bluepoch.com/home / HTML + CSS",
     hero: "Reverse:1999",
     notice: "20 世纪复古神秘学 RPG 官网风格：黑底、暖纸、古铜橙、衬线标题、档案式资讯框和角色文件感。",

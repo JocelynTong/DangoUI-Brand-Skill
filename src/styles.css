@@ -2274,16 +2274,19 @@ a {
 }
 
 .site-icon {
-  width: auto;
-  max-width: 84px;
-  height: 16px;
+  box-sizing: border-box;
+  width: 20px;
+  max-width: 20px;
+  height: 20px;
+  aspect-ratio: 1;
+  padding: 0;
   display: block;
   flex: 0 0 auto;
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   border: 0;
-  border-radius: 0 !important;
-  background: transparent;
+  border-radius: 6px !important;
+  background: var(--du-bg-1);
   clip-path: none;
 }
 
