@@ -33,23 +33,27 @@ function prepare() {
   const goal = readJsonRequired(goalFile);
   if (goal.sealed !== true) fail("goal-contract.json must be sealed before prepare.");
   const contract = readJsonRequired(contractFile);
+  const mode = goal.mode || "learn-brand";
+  const executionProfile = goal.executionProfile || (mode === "apply-host" ? "fast" : "full");
+  const initialStage = initialStageForMode(mode);
   const manifest = {
     schema: "brand-subagent-execution/v1",
     runId: crypto.randomUUID(),
     brand,
-    mode: goal.mode || "learn-brand",
+    mode,
+    executionProfile,
     goalId: goal.goalId,
     goalPath: relative(goalFile),
     goalSha256: sha256File(goalFile),
     roleContractVersion: contract.roleContractVersion || null,
     status: "running",
     createdAt: new Date().toISOString(),
-    currentStageId: "evidence-1",
-    stages: [stage("evidence", "brandResearcher", 1)],
+    currentStageId: initialStage.id,
+    stages: [initialStage],
     finalGates: {},
   };
   writeJson(manifestFile, manifest);
-  output({ ok: true, manifest: relative(manifestFile), runId: manifest.runId, next: "Run next to obtain the Evidence dispatch request." });
+  output({ ok: true, manifest: relative(manifestFile), runId: manifest.runId, next: `Run next to obtain the ${initialStage.stage} dispatch request.` });
 }
 
 function next() {
@@ -75,11 +79,16 @@ function next() {
     goalSha256: manifest.goalSha256,
     mission: roleContract.goal,
     roleContractVersion: manifest.roleContractVersion,
+    executionProfile: manifest.executionProfile,
+    profileContract: manifest.mode === "apply-host"
+      ? contract.applyHostExecutionProfiles?.[manifest.executionProfile] || null
+      : contract.executionProfiles?.[manifest.executionProfile] || null,
     requiredInputs: inputs,
     allowedInputs: roleContract.inputs?.allowed || [],
     forbiddenInputs: roleContract.inputs?.forbidden || [],
     tasks: roleContract.tasks || [],
     requirements: roleContract.requirements || [],
+    scopeRules: dispatchScopeRules(manifest),
     mustNot: roleContract.mustNot || [],
     expectedOutputs: roleContract.outputs || [],
     passCriteria: roleContract.passCriteria || [],
@@ -141,9 +150,12 @@ function record() {
   current.blockingFindings = array(receipt.blockingFindings);
   current.failureOwnerRole = receipt.failureOwnerRole || null;
   current.endedAt = new Date().toISOString();
+  current.durationMs = Math.max(0, Date.parse(current.endedAt) - Date.parse(current.startedAt));
   advance(manifest, current);
+  manifest.updatedAt = current.endedAt;
+  manifest.elapsedMs = manifest.stages.reduce((sum, item) => sum + Number(item.durationMs || 0), 0);
   writeJson(manifestFile, manifest);
-  output({ ok: true, status: manifest.status, completedStage: current.id, nextStageId: manifest.currentStageId || null, blockingFindings: current.blockingFindings });
+  output({ ok: true, status: manifest.status, completedStage: current.id, durationMs: current.durationMs, elapsedMs: manifest.elapsedMs, nextStageId: manifest.currentStageId || null, blockingFindings: current.blockingFindings });
 }
 
 function status() {
@@ -156,6 +168,7 @@ function status() {
 
 function resumeEvidence() {
   const manifest = validateManifest();
+  if (manifest.mode === "apply-host") fail("resume-evidence is only valid for learn-brand workflows.");
   const latestEvidence = [...manifest.stages].reverse().find((item) => item.role === "brandResearcher");
   if (manifest.status !== "blocked" || latestEvidence?.verdict !== "needs-evidence") {
     fail("resume-evidence requires a blocked workflow whose latest Evidence verdict is needs-evidence.");
@@ -201,6 +214,7 @@ function resumeQa() {
 
 function resumeDemo() {
   const manifest = validateManifest();
+  if (manifest.mode === "apply-host") fail("resume-demo is only valid for learn-brand workflows.");
   const latestQa = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
   const latestDemo = [...manifest.stages].reverse().find((item) => item.role === "demoImplementationAgent");
   if (manifest.status !== "blocked" || !["fail", "needs-evidence"].includes(latestQa?.verdict)) {
@@ -229,6 +243,19 @@ function resumeDemo() {
 
 function finalize() {
   const manifest = validateManifest();
+  if (manifest.mode === "apply-host") {
+    const qaStage = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
+    if (manifest.status !== "passed" || qaStage?.verdict !== "pass") {
+      return output({ ok: false, status: "blocked", workflowStatus: manifest.status, message: "Apply-host requires a passing independent Visual QA receipt before finalization." }, 2);
+    }
+    manifest.status = "complete";
+    manifest.currentStageId = null;
+    manifest.completedAt = new Date().toISOString();
+    manifest.elapsedMs = manifest.stages.reduce((sum, item) => sum + Number(item.durationMs || 0), 0);
+    manifest.finalGates = { protocol: "pass", hostVisualQA: "pass", finalizedAt: manifest.completedAt };
+    writeJson(manifestFile, manifest);
+    return output({ ok: true, status: "complete", finalGates: manifest.finalGates });
+  }
   const fidelityFile = path.join(migrationDir, "fidelity-report.json");
   const fidelity = readJsonRequired(fidelityFile);
   const qaStage = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
@@ -248,7 +275,7 @@ function advance(manifest, current) {
     manifest.currentStageId = null;
     return;
   }
-  const order = ["evidence", "interpreter", "demo", "visualQA"];
+  const order = stageOrderForMode(manifest.mode);
   if (current.verdict === "pass") {
     const index = order.indexOf(current.stage);
     if (index === order.length - 1) {
@@ -257,7 +284,7 @@ function advance(manifest, current) {
       return;
     }
     const nextStageName = order[index + 1];
-    const nextRole = { evidence: "brandResearcher", interpreter: "designTranslator", demo: "demoImplementationAgent", visualQA: "visualQA" }[nextStageName];
+    const nextRole = roleForStage(nextStageName);
     // Attempts are local to each role. An upstream retry must not consume the
     // next role's budget, while a return to a previously completed role must
     // advance that role's own attempt number.
@@ -281,12 +308,7 @@ function advance(manifest, current) {
       manifest.orchestratorAction = "Revise and revalidate design-direction.json, then prepare a scoped rerun from Demo.";
       return;
     }
-    const routed = {
-      brandResearcher: ["evidence", "brandResearcher"],
-      designTranslator: ["interpreter", "designTranslator"],
-      demoImplementationAgent: ["demo", "demoImplementationAgent"],
-      implementationAgent: ["demo", "demoImplementationAgent"],
-    }[current.failureOwnerRole] || ["demo", "demoImplementationAgent"];
+    const routed = failureRouteForMode(manifest.mode, current.failureOwnerRole);
     const routedAttempts = manifest.stages.filter((item) => item.role === routed[1] && ["complete", "failed"].includes(item.status)).length;
     const retry = uniqueStage(manifest, routed[0], routed[1], routedAttempts + 1);
     retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings };
@@ -313,6 +335,10 @@ function dispatchInputs(manifest, current) {
     return latestInputsByPath([goalInput, ...previousOutputs, hashedPath(`migrations/${brand}/design-direction.json`)]);
   }
   if (current.stage === "visualQA") {
+    if (manifest.mode === "apply-host") {
+      const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes));
+      return latestInputsByPath([goalInput, ...previousOutputs]);
+    }
     const goal = readJsonRequired(goalFile);
     const sourceScreenshots = array(goal.referencePages).map((item) => item?.screenshot).filter(Boolean).map(hashedPath);
     const demoScreenshots = array(goal.demoPages).map((item) => item?.screenshot).filter(Boolean).map(hashedPath);
@@ -362,6 +388,11 @@ function proofStatusFromFidelity(fidelity) {
 }
 function allProofsPass(proofs) { return Object.values(proofs).every((value) => value === "pass"); }
 function nextAction(manifest, proofs) {
+  if (manifest.mode === "apply-host") {
+    if (manifest.status === "passed") return "Run finalize to close the apply-host manifest after its passing independent Visual QA receipt.";
+    if (manifest.status === "complete") return "Host application is complete and has a passing independent Visual QA receipt.";
+    return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}.` : "Inspect the blocked host stage and preserve the frozen apply-host goal.";
+  }
   const failed = Object.entries(proofs).filter(([, value]) => value === "fail").map(([key]) => key);
   if (failed.length) return `Rework failed independent proof(s): ${failed.join(", ")}; then recapture and dispatch a fresh Visual QA.`;
   const pending = Object.entries(proofs).filter(([, value]) => value !== "pass").map(([key]) => key);
@@ -370,6 +401,55 @@ function nextAction(manifest, proofs) {
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
+function initialStageForMode(mode) {
+  if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
+  if (mode === "apply-host") return stage("hostStrategy", "hostStrategist", 1);
+  fail(`Unsupported goal mode: ${mode}`);
+}
+function stageOrderForMode(mode) {
+  return mode === "apply-host"
+    ? ["hostStrategy", "hostImplementation", "visualQA"]
+    : ["evidence", "interpreter", "demo", "visualQA"];
+}
+function roleForStage(name) {
+  return {
+    evidence: "brandResearcher",
+    interpreter: "designTranslator",
+    demo: "demoImplementationAgent",
+    hostStrategy: "hostStrategist",
+    hostImplementation: "hostImplementationAgent",
+    visualQA: "visualQA",
+  }[name];
+}
+function dispatchScopeRules(manifest) {
+  if (manifest.mode !== "apply-host") return [];
+  if (manifest.executionProfile === "certification") {
+    return ["Run the complete declared host coverage matrix and all release-blocking platform/runtime gates."];
+  }
+  if (manifest.executionProfile === "standard") {
+    return ["Cover changed routes, affected component states and required parent launch paths; do not expand into unrequested platform certification."];
+  }
+  return [
+    "Reuse the frozen Registry Evidence, Intent and Mapping; do not dispatch or simulate Brand Researcher or Design Translator.",
+    "Limit synchronous work to the explicitly targeted route, changed selectors, critical desktop/mobile viewport, asset loading, rollback and one primary business journey.",
+    "Do not run or block on a full-host coverage matrix, capability-gap certification or unrequested platform proof; report PARTIAL_STYLE_ONLY when runtime proof is absent.",
+  ];
+}
+function failureRouteForMode(mode, failureOwnerRole) {
+  if (mode === "apply-host") {
+    return {
+      hostStrategist: ["hostStrategy", "hostStrategist"],
+      designDirectorOrchestrator: ["hostStrategy", "hostStrategist"],
+      hostImplementationAgent: ["hostImplementation", "hostImplementationAgent"],
+    }[failureOwnerRole] || ["hostImplementation", "hostImplementationAgent"];
+  }
+  return {
+    brandResearcher: ["evidence", "brandResearcher"],
+    designTranslator: ["interpreter", "designTranslator"],
+    demoImplementationAgent: ["demo", "demoImplementationAgent"],
+    implementationAgent: ["demo", "demoImplementationAgent"],
+  }[failureOwnerRole] || ["demo", "demoImplementationAgent"];
+}
 function uniqueStage(manifest, name, role, attempt) {
   const item = stage(name, role, attempt);
   const used = new Set(array(manifest?.stages).map((entry) => entry.id));

@@ -19,7 +19,7 @@ if (!["run", "plan", "status", "tpp", "detect"].includes(command)) {
 }
 
 const mode = resolveWorkflowMode(rawArgs.slice(1));
-const profile = opt(rawArgs, "--profile", "full");
+const profile = opt(rawArgs, "--profile", mode === "apply-host" ? "fast" : "full");
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
 const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
@@ -28,6 +28,9 @@ if (forceRelearn && mode !== "learn-brand") {
 }
 if (mode === "learn-brand" && !["fast", "full"].includes(profile)) {
   fail(`Unknown learn-brand profile: ${profile}. Use fast or full.`);
+}
+if (mode === "apply-host" && !["fast", "standard", "certification"].includes(profile)) {
+  fail(`Unknown apply-host profile: ${profile}. Use fast, standard or certification.`);
 }
 const root = opt(rawArgs, "--root", process.cwd());
 let brand = resolveBrand(rawArgs.slice(1));
@@ -197,6 +200,36 @@ if (command === "plan") {
 }
 
 if (command === "run") {
+  if (mode === "apply-host") {
+    const hostTarget = opt(passthroughArgs, "--host-target", "") || opt(passthroughArgs, "--host-target-or-plan", "");
+    const preflight = spawnSync("node", [
+      "skills/brand/scripts/apply-host-preflight.mjs",
+      "--root", root,
+      "--brand", brand,
+      "--host-target", hostTarget,
+      "--profile", profile,
+    ], { cwd: root, encoding: "utf8" });
+    executed.push({
+      step: "apply-host-preflight",
+      command: `node skills/brand/scripts/apply-host-preflight.mjs --root ${root} --brand ${brand} --host-target ${hostTarget} --profile ${profile}`,
+      exitCode: preflight.status,
+      stdout: preflight.stdout,
+      stderr: preflight.stderr,
+    });
+    if (preflight.status !== 0) {
+      process.stdout.write(`${JSON.stringify({
+        ok: false,
+        workflow: mode,
+        profile,
+        brand,
+        step: "apply-host-preflight",
+        blockingCode: "APPLY_HOST_PREFLIGHT_BLOCKED",
+        preflight: safeParseJson(preflight.stdout),
+        message: "Host apply stopped before agent dispatch or implementation because the bounded preflight failed.",
+      }, null, 2)}\n`);
+      process.exit(preflight.status || 1);
+    }
+  }
   executeWorkflow({
     root,
     mode,

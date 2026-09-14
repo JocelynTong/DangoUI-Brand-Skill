@@ -248,6 +248,33 @@
       "A QA failure recaptures only affected sections plus required regressions, not the entire source by default."
     ]
   },
+  "applyHostExecutionProfiles": {
+    "default": "fast",
+    "fast": {
+      "targetMinutes": [8, 15],
+      "purpose": "Produce a reviewable result on the explicitly targeted host page using an already reviewed Registry bundle.",
+      "registryPolicy": "A complete frozen bundle is trusted after hash/file preflight; Brand Researcher and Design Translator are not dispatched.",
+      "coverageScope": "Changed route, changed selectors, desktop/mobile critical viewport, asset loading, rollback and one primary business journey.",
+      "qualityBoundary": "May report PARTIAL_STYLE_ONLY; may not claim full-host, DangoUI runtime or platform certification.",
+      "stopRule": "At 15 minutes report the slow node and preserve a runnable review result; do not silently expand into certification."
+    },
+    "standard": {
+      "targetMinutes": [15, 25],
+      "purpose": "Deliver one or more declared host routes with affected-scope Visual QA and required DangoUI mapping evidence.",
+      "registryPolicy": "Reuse frozen Evidence, Intent and Mapping unless their hashes or required references are invalid.",
+      "coverageScope": "All changed routes, affected component states and required parent launch paths.",
+      "qualityBoundary": "Can claim scoped host delivery, but not untested platforms or full-host certification.",
+      "stopRule": "At 25 minutes move non-blocking full-matrix checks to certification and report remaining scope."
+    },
+    "certification": {
+      "targetMinutes": [20, 30],
+      "purpose": "Run release-level full-host, runtime, capability-gap and platform-specific certification.",
+      "registryPolicy": "Reuse the frozen brand bundle; only invalid or changed source evidence returns to learning owners.",
+      "coverageScope": "Complete declared host matrix and all release-blocking journeys/platform proofs.",
+      "qualityBoundary": "Required for full-host and platform PASS claims.",
+      "stopRule": "Failures remain explicit blockers; certification must never be inserted silently into fast preview."
+    }
+  },
   "sectionQualityModel": {
     "artifact": "migrations/{brand}/section-fidelity-manifest.json",
     "gate": "node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict",
