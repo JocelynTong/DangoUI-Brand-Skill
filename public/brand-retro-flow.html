@@ -56,4 +56,30 @@ flowchart-elk TD
 <div class="note"><b>12｜胡腾第二次讨论</b><p>明确 Skill、DangoUI、adapter、宿主和生产验收的责任边界。</p></div>
 <div class="note"><b>13–14｜阶段结论与复用</b><p>流程跑完不等于能力完成；成功必须留下来源、规则、版本、验收证据和回退点。</p></div>
 <div class="rule"><strong>“跑通”的定义</strong>失败能被发现，能进入对应处理动作，能返回正确阶段复验；全部条件满足后才允许交付。</div></aside></div></main>
-<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,theme:'base',securityLevel:'strict',flowchart:{curve:'linear',htmlLabels:true,nodeSpacing:42,rankSpacing:54},themeVariables:{fontFamily:'-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif',fontSize:'14px',primaryColor:'#ffffff',primaryTextColor:'#20242b',primaryBorderColor:'#30353c',lineColor:'#4d545d',secondaryColor:'#ffffff',tertiaryColor:'#ffffff',edgeLabelBackground:'#ffffff'}});</script></body></html>
+<script type="module">
+import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.esm.min.mjs';
+mermaid.initialize({startOnLoad:false,theme:'base',securityLevel:'strict',flowchart:{curve:'linear',htmlLabels:true,nodeSpacing:42,rankSpacing:54},themeVariables:{fontFamily:'-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif',fontSize:'14px',primaryColor:'#ffffff',primaryTextColor:'#20242b',primaryBorderColor:'#30353c',lineColor:'#4d545d',secondaryColor:'#ffffff',tertiaryColor:'#ffffff',edgeLabelBackground:'#ffffff'}});
+await mermaid.run();
+const svg=document.querySelector('.mermaid svg');
+const toSvg=(element,x,y)=>{const point=svg.createSVGPoint();point.x=x;point.y=y;return point.matrixTransform(element.getCTM())};
+const toLocal=(element,point)=>point.matrixTransform(element.getCTM().inverse());
+for(const node of svg.querySelectorAll('g.node')){
+  const polygon=node.querySelector('polygon');
+  const match=node.id.match(/^flowchart-(.+)-\d+$/);
+  if(!polygon||!match)continue;
+  const box=polygon.getBBox();
+  const center=toSvg(polygon,box.x+box.width/2,box.y+box.height/2);
+  const key=match[1];
+  const paths=[...svg.querySelectorAll('g.edgePaths path[id]')].filter(path=>path.id.includes(`L_${key}_`));
+  if(!paths.length)continue;
+  const tips={left:toSvg(polygon,box.x,box.y+box.height/2),right:toSvg(polygon,box.x+box.width,box.y+box.height/2),bottom:toSvg(polygon,box.x+box.width/2,box.y+box.height)};
+  for(const path of paths){
+    const samplePoint=path.getPointAtLength(Math.min(24,path.getTotalLength()));
+    const sample=toSvg(path,samplePoint.x,samplePoint.y);
+    const dx=sample.x-center.x,dy=sample.y-center.y;
+    const tip=Math.abs(dx)>Math.abs(dy)*.35?(dx<0?tips.left:tips.right):tips.bottom;
+    const local=toLocal(path,tip);
+    path.setAttribute('d',path.getAttribute('d').replace(/^M\s*[-\d.]+[, ]+[-\d.]+/,`M ${local.x},${local.y}`));
+  }
+}
+</script></body></html>
