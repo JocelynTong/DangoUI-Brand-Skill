@@ -1,159 +1,137 @@
 # DangoUI Brand Skill
 
-把品牌官网、活动页、截图、Figma、`DESIGN.md` 或 DTCG 资产，转换成可解释、可复用、可验证的品牌视觉语言，并安全应用到现有产品页面。
+把你喜欢的品牌视觉，变成一套能解释、能复用、能检查，也能安全应用到产品里的设计语言。
 
-这个项目不是网页镜像工具，也不只是换一组颜色。它关注完整链路：
+你可以给它一个想模仿的品牌网址、截图、Figma、`DESIGN.md` 或现有项目。它不会只抄颜色、贴 Logo，也不会把官网生硬搬进业务页面，而是先回答三个问题：
+
+1. 这个品牌为什么看起来像它自己？
+2. 哪些视觉规律可以迁移，哪些只适合原场景？
+3. 怎样证明结果真的学会了品牌，同时没有破坏原产品？
+
+> 当前阶段：公开 Web MVP / controlled alpha。Web 流程已经形成闭环，适合在测试项目或独立分支体验；微信开发者工具、移动端真机和更多真实业务仍在验证中。
+
+[查看公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看互动流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
+
+## 先用一句话理解
+
+过去，做一次品牌化页面通常需要一个人同时研究官网、总结风格、设计页面、写代码和自查。上下文一长，很容易漏掉动效、资产用途、业务边界或真实页面验收。
+
+Brand Skill 把这件事改成一条有分工、有产物、有验收、有返工路线的流程：
 
 ```text
 品牌来源
-  → 证据与设计意图
-  → Brand MOD / style pack
-  → DangoUI token、组件语义与视觉 recipe
-  → 品牌学习 Demo 或真实业务项目
-  → 构建、视觉、交互与回退验证
+  → 找到真实视觉证据
+  → 解释品牌语言和适用场景
+  → 映射为可复用设计能力
+  → 生成不同结构的 Demo，或应用到现有项目
+  → 检查视觉、交互、业务和回退
+  → 通过后再交付；不通过就回到责任阶段修正
 ```
 
-> 当前阶段：公开 Web MVP / controlled alpha。适合在测试项目或独立分支体验；微信小程序和原生移动端尚未完成生产验证。
+互动流程图中的红框代表历史上真正卡住过的节点。点击红框，可以查看问题发生时间、解决时间、当时卡在哪里以及后来如何解决。
 
-公开 Demo：[https://jocelyntong.github.io/DangoUI-Brand-Skill/](https://jocelyntong.github.io/DangoUI-Brand-Skill/)
+## 谁可以用
+
+- **运营、市场、品牌爱好者**：给一个喜欢的品牌参考，快速看到可讨论的视觉方向。
+- **产品经理**：判断品牌感适合放在哪些页面，不让强视觉伤害信息效率。
+- **设计师**：把“感觉像”变成有证据、有适用边界的视觉语言。
+- **开发者和 vibecoder**：把已经确认的方向落到真实页面，同时保留路由、数据和核心交互。
+- **设计系统团队**：把一次成功沉淀为后续项目可重复使用的 Brand MOD、组件映射和质量门槛。
+
+不需要先理解 DTCG、Registry、Gate 或内部文件结构。日常使用只需要说明参考来源和目标。
 
 ## 一分钟开始
 
-只看效果：打开公共 Demo，不需要登录。
+只想看效果，直接打开[公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。
 
-已经安装 Skill：直接说一句，不需要选择模式或提供内部文件路径。
-
-```text
-$brand https://asia-en.onepiece-cardgame.com/
-```
-
-已收录官网会直接复用公共 Brand MOD；未收录官网才进入新的品牌学习。要应用到当前项目，只需补充目标：
+已经安装 Skill 时，直接说一句：
 
 ```text
-$brand 把 https://asia-en.onepiece-cardgame.com/ 应用到当前项目，保留原业务内容。
+/brand + 想模仿的品牌网址 / 截图 / Figma / DESIGN.md / 现有项目
 ```
 
-Claude Code 中将 `$brand` 写成 `/brand`。
-
-## 适合谁
-
-- 想从品牌参考快速得到可审查设计方向的运营、产品和 vibecoder。
-- 想把已确认视觉语言应用到现有页面的设计师和开发者。
-- 想沉淀可被不同项目重复消费的品牌规则与设计系统团队。
-
-## 两种使用方式
-
-### 学习品牌
-
-只提供品牌来源时，Skill 会进入 `learn-brand`：提取证据、解释设计意图、生成 Brand MOD，并用多个页面验证它是否真的学会了这套视觉语言。
+例如，只学习一个品牌：
 
 ```text
-$brand 学习 https://example.com 的品牌视觉语言，先给我 2–3 个方向。
+/brand 学习 https://asia-en.onepiece-cardgame.com/ 的视觉语言，先给我 2–3 个方向。
 ```
 
-### 应用到现有项目
-
-明确要求修改当前项目时，Skill 会进入 `apply-host`：保留原有内容、数据、路由和核心交互，先提供视觉方向，确认后再修改真实页面，并在动手前建立回退点。
+把它应用到现有项目：
 
 ```text
-$brand 把 https://example.com 的视觉语言应用到当前项目，保留业务内容，先给我 2–3 个方向。
+/brand 把 https://asia-en.onepiece-cardgame.com/ 的视觉语言应用到当前项目，
+保留原有内容、数据、路由和核心交互，先给我 2–3 个方向。
 ```
 
-Claude Code 中将 `$brand` 写成 `/brand`。
+Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要记内部模式名或提供配置文件路径。
 
-## 当前已经做到什么
+## 使用时会发生什么
 
-| 能力 | 当前状态 |
+### 只给品牌参考：学习品牌
+
+系统会先收集真实页面、样式、资产和动效证据，再解释这些元素为什么成立、适合用在哪里。随后用同一套规则生成不同信息结构的页面，验证学到的是视觉语言，而不是某一张页面模板。
+
+这一过程不会默认修改你的业务项目。你最终会看到：
+
+- 品牌视觉证据和来源；
+- 颜色、排版、构图、资产与动效的使用解释；
+- 2–3 个可讨论的视觉方向；
+- 多页面 Demo；
+- 哪些能力已经证明、哪些仍未证明的验收结论。
+
+### 明确要改现有项目：应用品牌
+
+系统会先读取项目的业务内容、路由、结构和回退点，然后给出 2–3 个轻量方向。方向确认后才修改真实页面。
+
+应用过程遵守三条底线：
+
+- 不为了视觉效果改掉业务事实、数据或核心逻辑；
+- 不把适合官网的强视觉硬塞进搜索、列表、编辑和交易等效率页面；
+- 修改前建立回退点，最终在宿主项目自己的页面上验收。
+
+## 怎么判断“真的学会了”
+
+页面能打开、代码能构建，只代表程序跑了，不代表品牌学会了。
+
+一次品牌学习必须同时通过三项互不抵消的证明：
+
+| 要证明什么 | 人话解释 |
 | --- | --- |
-| 品牌证据、意图、MOD 和 DangoUI 映射 | 已实现并有机器校验 |
-| 多页面品牌学习 Demo | Web 已验证 2 个公开样本 |
-| 公共品牌 Registry | v0.1 已实现，免登录只读、来源 URL 去重、版本化分发 |
-| 真实业务项目换肤 | 已完成 ONE PIECE × 卡组工具 H5 试点 |
-| Taro 微信小程序 | 构建通过，开发者工具与真机运行待验证 |
-| iOS / Android / Flutter / 鸿蒙 | 尚未验证 |
-| 双通道试用 | 入口与隔离规则已就绪，真实用户样本待招募 |
+| Evidence Fidelity | 重要视觉决定确实来自参考来源，不靠想象补全 |
+| Structural Fidelity | 构图、层级、密度和浏览节奏没有被通用模板抹平 |
+| Generative Proof | 同一套规律能生成新页面，不是复制截图或只换 Logo |
 
-## 一套核心，两条试用通道
+任何一项失败都会回到对应阶段返工。真实项目还要额外检查业务安全、滚动、交互、资产加载、响应式和回退是否有效。
 
-不拆成两套 Skill，也不复制两份品牌资产。内部员工和 GitHub 用户共享 Brand Skill、Brand MOD、DangoUI mapping、公共 Registry 和质量门槛，只把输入、反馈与平台验证范围隔离。
+## 当前进展
 
-| 通道 | 当前验证范围 | 可用来源 | 反馈位置 | 边界 |
-| --- | --- | --- | --- | --- |
-| GitHub 公开通道 | Web；Taro H5 为实验性 | 仅公开 URL 与可公开材料 | [MVP 试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml) | 不提交私有代码、截图、日志、内网地址、凭证、个人信息或未审素材 |
-| 公司内部通道 | Web、Taro H5、微信开发者工具、Android / iOS 真机 | 可含私有来源 | 本地 `.brand-trials/`，再走公司批准的内部协作渠道 | 默认不联网提交，原始记录不进 GitHub |
+| 能力 | 今天可以诚实地说什么 |
+| --- | --- |
+| 品牌证据、语义解释与可复用规则 | 已实现，并有机器检查 |
+| 多页面品牌学习 Demo | Web 已有公开样本和真实页面验收 |
+| 公共品牌库 | v0.1 已上线，相同官网可先复用已有版本 |
+| 真实业务项目换肤 | 已完成有限 H5 试点 |
+| QA / TPP 失败回退 | Web 已能定位责任阶段、返工并重新验收 |
+| 多角色工作流 | 已有职责、产物和 Gate；尚不能宣称所有角色都稳定自动并行 |
+| Taro 微信小程序 | 构建通过，开发者工具和真机待验证 |
+| iOS / Android / Flutter / 鸿蒙 | 尚未验证，不能从 Web 结果外推 |
 
-内部试点开始前，在宿主项目根目录初始化一份本地记录：
+当前公开样本：ONE PIECE CARD GAME `0.1.0`、Pokémon TCG Official `0.1.0`。
 
-```bash
-npm run brand:trial:init -- --channel internal --id <试点编号> --platform taro-h5
-npm run validate:brand-trial -- --record .brand-trials/<试点编号>.json
-```
+## 公共品牌库是什么
 
-`.brand-trials/` 已被 Git 忽略。脚本只生成和校验本地 JSON，不会上传记录；公开记录还会拦截常见本机路径、私网地址、内网域名、私钥和云访问密钥格式。若要把内部结论贡献到公共仓库，只发布脱敏摘要，并在记录中将 `publicPromotion.sanitized`、`reviewed`、`authorized` 全部确认后再提交；原始内部记录始终留在内部。
+公共品牌库（Registry）可以理解为“已经审核过的品牌能力目录”。同一个官网不需要每个人从头学习：命中已有版本时直接复用；没有收录时，才开始新的证据采集和学习。
 
-## 公共品牌库
+公共读取免登录。规则和元数据可以复用，但官网图片、字体和视频等原始素材仍要按各自授权判断，收录不等于自动获得商用许可。
 
-相同官网不应由每位使用者重复学习。Skill 会先根据规范化后的来源 URL 查询公共 Registry；命中时复用已有版本，未命中时才重新采集。
+- [查看品牌索引](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/index.json)
+- [查看来源网址索引](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/by-source.json)
+- [申请收录一个品牌](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=brand-submission.yml)
+- [提交公开 MVP 试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)
 
-维护者需要用最新版流程复验旧品牌包时，使用 `--force-relearn` 并写入新的版本化工作区，例如 `--brand hpma-v2`。复验产物在 Evidence、视觉翻译、Design Direction、Demo、独立 QA 与发布校验全部通过前只保留在 migration workspace，不覆盖已审核版本，也不进入公共 Registry。
+## 开始本地体验
 
-### 更新已有 Demo
-
-已有 Demo 的维护不是一次新的空白学习。每个品牌用 `migrations/<brand>/source-manifest.json` 保存历次实际学习过的官网页面；更新入口会先继承这份清单，再追加本次来源：
-
-```bash
-node skills/brand/scripts/run-brand-workflow.mjs update \
-  --brand onepiece-cardgame \
-  --source-url "https://asia-en.onepiece-cardgame.com/news/"
-```
-
-可用 `npm run brand:sources -- validate --brand <brand>` 单独检查来源履历。若更新导致旧来源静默消失，流程会以 `LEARNED_SOURCE_DROPPED` 阻断。来源确实失效时应保留条目并显式标记退役及原因，不能直接删除。公共 Registry 的 `canonicalSources` 只用于检索摘要，不代替完整来源履历。
-
-```text
-/brand-registry/v0.1/index.json
-/brand-registry/v0.1/by-source.json
-/brand-registry/v0.1/brands/{brand}/{version}/manifest.json
-```
-
-当前公开样本：
-
-- ONE PIECE CARD GAME `0.1.0`
-- Pokémon TCG Official `0.1.0`
-
-机器查询入口：
-
-- [品牌索引](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/index.json)
-- [来源 URL 索引](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/by-source.json)
-
-需要确认某个官网是否已收录时，可运行：
-
-```bash
-npm run brand:resolve -- --source-url https://asia-en.onepiece-cardgame.com/
-```
-
-MVP 不建设账号、计费和在线编辑后台。公开读取不需要登录；新增或更新资产通过受控 Pull Request 审核。规则与元数据可以公开复用，官网原始素材仍按 manifest 中的授权状态逐项判断。
-
-## 共建一个品牌
-
-不需要等待独立账号系统。先提交 [品牌收录申请](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=brand-submission.yml)，提供官网来源、希望验证的平台和素材授权情况。维护者完成证据、三证与安全检查后，再通过 Pull Request 将版本加入公共 Registry。
-
-收录门槛：
-
-- 来源可追溯，规范化 URL 不与现有品牌重复。
-- Evidence Fidelity、Structural Fidelity、Generative Proof 分别通过。
-- Brand MOD、DangoUI mapping、Demo 和机器校验产物齐全。
-- 不包含私有链接、本机路径、密钥或未经确认可分发的官网原始素材。
-- 更新已有品牌时递增版本，不覆盖已公开版本。
-
-## 参加 GitHub 公开 MVP 试用
-
-试用者只需要带一个可公开说明的 Web 或 Taro H5 测试页面，按“一分钟开始”调用 Skill，然后提交 [MVP 试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)。反馈表会统一记录首次成功耗时、Registry 是否命中、业务是否回归以及回退结果。公司内部项目不要走此入口，使用上面的内部通道。
-
-## 5 分钟启动 Demo
-
-只想体验时可直接打开 [公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。需要本地开发时再执行以下步骤。
-
-需要 Node.js 20.19+（或 22.12+）、npm 和 [Git LFS](https://git-lfs.com/)。
+环境要求：Node.js 20.19+（或 22.12+）、npm 和 [Git LFS](https://git-lfs.com/)。
 
 ```bash
 git lfs install
@@ -163,7 +141,7 @@ npm ci
 npm run dev -- --port 5174
 ```
 
-打开终端输出的本地地址。Demo 中每个品牌、页面、风格分类和组件都有稳定深链：
+Demo 深链：
 
 ```text
 /#/brand/{brand}/pages/{pageId}
@@ -173,7 +151,7 @@ npm run dev -- --port 5174
 
 ## 只安装 Skill
 
-如果不需要 Demo 和大型品牌素材，可使用 sparse clone：
+如果不需要 Demo 和大型品牌素材，可以只下载 Skill：
 
 ```bash
 GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse \
@@ -192,60 +170,50 @@ rsync -a --delete skills/brand/ "${CODEX_HOME:-$HOME/.codex}/skills/brand/"
 
 ### Claude Code
 
-在目标项目根目录执行：
-
 ```bash
 mkdir -p .claude/skills
 rsync -a --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
 ```
 
-安装或更新后重新打开任务/会话。
+安装或更新后，重新打开任务或会话。
 
-## 一次品牌学习会产出什么
+## 给开发者：产物与边界
 
-```text
-migrations/{brand}/brand-mod.json
-migrations/{brand}/brand-evidence.json
-migrations/{brand}/brand-intent.json
-migrations/{brand}/style.json
-migrations/{brand}/dangoui-adapter.json
-migrations/{brand}/component-mapping.json
-migrations/{brand}/fidelity-report.json
-```
-
-正式通过需要三项证明同时成立：
-
-- Evidence Fidelity：关键设计决定能追溯到真实来源。
-- Structural Fidelity：构图、层级、密度和浏览节奏没有被通用模板抹平。
-- Generative Proof：规则能生成新页面，而不是复制官网截图或只替换 Logo。
-
-Demo 验证品牌学习能力；真实业务交付必须在宿主项目自身的页面和地址完成。
-
-## 平台路线
-
-| 阶段 | 范围 | 放行条件 |
-| --- | --- | --- |
-| 0.1 | Web Demo + 公共 Registry | 版本、来源去重、发布状态、三证和构建校验通过 |
-| 0.2 | Taro H5 受控试点 | 5–10 位开发者、累计约 10 个真实页面；记录安装、视觉、业务和回退结果 |
-| 0.3 | 微信/千岛小程序 | 开发者工具、Android、iOS 真机分别通过；建立组件兼容矩阵 |
-| 后续 | iOS / Android / Flutter / 鸿蒙 | 为各运行时实现并验证 adapter，不以 H5 结果外推 |
-
-## 仓库结构
+一次品牌学习的核心产物位于 `migrations/{brand}/`：
 
 ```text
-skills/brand/           Brand Skill 维护源与公开分发包
-.claude/skills/brand/   Claude Code 镜像，由同步脚本生成
-migrations/             品牌 MOD、证据、验证与试点记录
-public/brand-previews/  Demo 运行时品牌数据
-public/brand-registry/  版本化公共 Registry 产物
-schemas/                Brand MOD 与 Registry 协议
-src/                    Vue Demo 站
-scripts/                构建、同步和质量校验
+brand-evidence.json       真实来源证据
+brand-intent.json         品牌意图、使用与禁用场景
+brand-mod.json            可供其他项目消费的品牌视觉包
+component-mapping.json    DangoUI 组件映射
+dangoui-adapter.json      运行时适配规则
+fidelity-report.json      三项证明与验收结论
+source-manifest.json      历次学习来源和状态
 ```
 
-只维护 `skills/brand/`，不要手工同步 `.claude/skills/brand/`。
+`Brand MOD` 是模块化品牌视觉包，不是游戏 MOD。它不仅包含颜色 Token，也包含组件变体、资产、布局规则、插槽、平台覆盖和验证状态。
 
-## 维护与发布
+边界：
+
+- Brand Skill 负责学习品牌、解释视觉语言、映射 DangoUI，以及在宿主项目中做换肤验证。
+- 宿主项目继续拥有业务内容、数据、路由、组件 API 和核心交互。
+- DangoUI 提供统一能力；平台 adapter 处理不同运行时差异。
+- 当前 DangoUI 不支持的能力会被记录为缺口，不会伪装成正式 API。
+- Demo 用于证明品牌学习；真实业务交付必须在宿主自己的页面和地址完成。
+
+## 给维护者：更新、验证与发布
+
+已有 Demo 的更新不是一次空白学习。更新入口会先继承 `source-manifest.json` 中的历史来源，再追加本次来源；旧来源静默丢失时会阻断。
+
+```bash
+node skills/brand/scripts/run-brand-workflow.mjs update \
+  --brand onepiece-cardgame \
+  --source-url "https://asia-en.onepiece-cardgame.com/news/"
+```
+
+需要用最新版流程重新验证旧品牌包时，使用 `--force-relearn` 和新的版本化工作区，例如 `hpma-v2`。新版本全部通过前，不覆盖原目录，也不进入公共品牌库。
+
+维护源只有 `skills/brand/`；`.claude/skills/brand/` 由同步脚本生成。
 
 ```bash
 npm run sync:skills
@@ -258,37 +226,63 @@ npm run validate:brand-skill-release
 npm run build
 ```
 
-公共 Registry 的源协议是 `public/brand-previews/registry.json`，生成产物不要手工修改。
+主要目录：
+
+```text
+skills/brand/           Brand Skill 维护源与公开分发包
+.claude/skills/brand/   Claude Code 镜像
+migrations/             品牌 MOD、证据和验证记录
+public/brand-previews/  Demo 运行时品牌数据
+public/brand-registry/  公共品牌库生成产物
+schemas/                Brand MOD 与 Registry 协议
+src/                    Vue Demo 站
+scripts/                构建、同步和质量检查
+```
+
+## 试用与隐私
+
+公开 GitHub 通道只接受可公开的 Web 或 Taro H5 测试材料。不要提交私有代码、截图、日志、内网地址、凭证、个人信息或未确认授权的素材。
+
+公司内部试点记录保存在宿主项目本地 `.brand-trials/`，默认不会上传：
+
+```bash
+npm run brand:trial:init -- --channel internal --id <试点编号> --platform taro-h5
+npm run validate:brand-trial -- --record .brand-trials/<试点编号>.json
+```
+
+若要把内部结论贡献到公共仓库，只发布经过审阅和授权的脱敏摘要；原始记录始终留在内部。
 
 ## 常见问题
 
-### 图片只有一小段文本
+### 我不会设计或写代码，也能用吗？
 
-这是 Git LFS 指针。执行：
+可以。给出品牌参考并说明想做什么即可。系统负责把证据、方向和限制说清楚；涉及真实项目修改时，仍建议由项目负责人确认方向和验收结果。
+
+### 它会直接复制官网吗？
+
+不会。官网可以作为学习证据，但复制整张截图、照搬页面或只替换 Logo 不能通过品牌学习验收。
+
+### 官网无法自动抓取怎么办？
+
+可以改用 2–3 张核心页面截图、Figma、HTML 或 `DESIGN.md`。系统不会默认要求你粘贴 CSS。
+
+### 如何回退项目修改？
+
+让 Skill 执行 `$brand rollback`，Claude Code 使用 `/brand rollback`。执行前会展示 dry-run；非 Git 项目使用文件备份清单。
+
+### 图片为什么只有一小段文本？
+
+这是 Git LFS 指针。运行：
 
 ```bash
 git lfs install
 git lfs pull
 ```
 
-### 官网无法自动抓取
+### 已经支持微信小程序或原生 App 吗？
 
-可以改用 2–3 张核心页面截图、Figma、HTML、`DESIGN.md` 或 DTCG。Skill 会先查询本地和公共 Registry，不会默认要求使用者粘贴 CSS。
+还不能这样宣称。目前可以确认 Web 和有限 Taro H5 试点；微信构建已通过，但开发者工具和真机仍待验证，其他平台也尚未完成生产验收。
 
-### 如何回退宿主修改
+## 许可证与素材权利
 
-让 Skill 执行 `$brand rollback`（Claude Code 使用 `/brand rollback`）。回退前会先展示 dry-run；非 Git 项目使用文件备份清单。
-
-### 是否已经支持微信小程序或原生 App
-
-目前只能确认 Web 和特定 Taro H5 试点结果。微信构建已跑通，但开发者工具和真机仍待验证；其他平台尚不能声明支持。
-
-## 项目边界
-
-- 不替代官网素材授权判断。
-- 不把品牌 key 自动变成业务路由或新业务页面。
-- 不修改宿主业务数据、字段和核心逻辑来换取视觉效果。
-- 不用构建成功替代浏览器、开发者工具或真机验收。
-- 不把某个平台的 PASS 外推到其他平台。
-
-当前许可证见 [package.json](package.json)。品牌来源内容和素材仍受各自权利方条款约束。
+项目许可证见 [package.json](package.json)。品牌来源内容、字体、图片、视频和其他素材仍受各自权利方条款约束；技术上可提取或展示，不代表可以自由分发或商用。
