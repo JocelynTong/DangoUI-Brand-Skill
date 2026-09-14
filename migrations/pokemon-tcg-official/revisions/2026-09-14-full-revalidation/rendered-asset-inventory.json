@@ -1,0 +1,108 @@
+{
+  "schema": "rendered-asset-inventory/v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "pages": [
+    {
+      "id": "home",
+      "summary": {
+        "font": 6,
+        "image": 33,
+        "stylesheet": 4
+      },
+      "renderedAssets": [
+        {
+          "kind": "image",
+          "url": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1-large-up.jpg",
+          "usage": "hero campaign stage",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/full-page.jpg",
+            "sha256": "106ea8717099fb5a44df1a73f2ec239e9a0d492b9a384a5b8c74af7c0933e3ad"
+          }
+        },
+        {
+          "kind": "image",
+          "url": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/en-us/Logo-30th.png",
+          "usage": "hero expansion identity",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/full-page.jpg",
+            "sha256": "106ea8717099fb5a44df1a73f2ec239e9a0d492b9a384a5b8c74af7c0933e3ad"
+          }
+        },
+        {
+          "kind": "font",
+          "url": "https://fonts.googleapis.com/css?family=Kanit:700|PT+Sans:400,700&display=swap",
+          "usage": "display and body typography",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/full-page.jpg",
+            "sha256": "106ea8717099fb5a44df1a73f2ec239e9a0d492b9a384a5b8c74af7c0933e3ad"
+          }
+        }
+      ]
+    },
+    {
+      "id": "card-database",
+      "summary": {
+        "image": 133,
+        "stylesheet": 11,
+        "script": 15
+      },
+      "renderedAssets": [
+        {
+          "kind": "stylesheet",
+          "url": "https://assets.pokemon.com/static2/_ui/css/card-database.css",
+          "usage": "search/filter layout",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/full-page.jpg",
+            "sha256": "5c53e7bf130d115aa8a8fb1dca80507af0f14d3e554212f8bd13a95b4921bfd4"
+          }
+        },
+        {
+          "kind": "font",
+          "url": "https://fonts.googleapis.com/css?family=Roboto:400,700",
+          "usage": "database typography candidate",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/full-page.jpg",
+            "sha256": "5c53e7bf130d115aa8a8fb1dca80507af0f14d3e554212f8bd13a95b4921bfd4"
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-to-play",
+      "summary": {
+        "font": 5,
+        "image": 42,
+        "stylesheet": 3
+      },
+      "renderedAssets": [
+        {
+          "kind": "image",
+          "url": "https://tcg.pokemon.com/assets/img/learn-to-play/hero/card-header-asset_en-2x.png",
+          "usage": "learning hero",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/full-page.jpg",
+            "sha256": "3b64cedf17c2aa8cf7d353ef51e146540b9a07daa9dd2edd463c49242d9fd549"
+          }
+        },
+        {
+          "kind": "image",
+          "url": "https://tcg.pokemon.com/assets/img/learn-to-play/getting-started/getting-started-video-thumbnail.jpg",
+          "usage": "tutorial module",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/full-page.jpg",
+            "sha256": "3b64cedf17c2aa8cf7d353ef51e146540b9a07daa9dd2edd463c49242d9fd549"
+          }
+        },
+        {
+          "kind": "stylesheet",
+          "url": "https://tcg.pokemon.com/learn/learn.css",
+          "usage": "learning page layout",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/full-page.jpg",
+            "sha256": "3b64cedf17c2aa8cf7d353ef51e146540b9a07daa9dd2edd463c49242d9fd549"
+          }
+        }
+      ]
+    }
+  ]
+}

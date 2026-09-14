@@ -1,5 +1,5 @@
 <template>
-  <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango' }]" :style="themeVars">
+  <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango', 'theme-pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' }]" :style="themeVars">
     <aside class="panel" aria-label="Visual inspector">
       <div class="style-rail">
         <p class="section-heading"><strong>参考站</strong></p>
@@ -1304,6 +1304,7 @@
                       :class="[
                         `source-schema-demo--${runtimePreviewPageKind}`,
                         `source-schema-demo--${selectedStyleId}`,
+                        { 'source-schema-demo--pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' },
                         { 'source-schema-demo--dango': selectedStyleId === 'dango' },
                       ]"
                       aria-label="source-derived brand preview"
@@ -4995,11 +4996,11 @@ const isExplicitProofSurface = computed(() =>
   ["1", "desktop", "mobile"].includes(new URLSearchParams(window.location.search).get("proof")),
 );
 const isDesktopHeroProofSurface = computed(() =>
-  (selectedTemplate.value?.id === "pokemon-tcg-official-home" || selectedStyleId.value === "dango")
+  (selectedTemplate.value?.id === "pokemon-tcg-official-home" || selectedStyleId.value === "pokemon-tcg-official" || selectedStyleId.value === "dango")
     && new URLSearchParams(window.location.search).get("proof") === "desktop",
 );
 const isMobileProofSurface = computed(() =>
-  (selectedTemplate.value?.id === "pokemon-tcg-official-home" || selectedStyleId.value === "dango")
+  (selectedTemplate.value?.id === "pokemon-tcg-official-home" || selectedStyleId.value === "pokemon-tcg-official" || selectedStyleId.value === "dango")
     && new URLSearchParams(window.location.search).get("proof") === "mobile",
 );
 const selectedTemplateHasSchemaSections = computed(() =>
@@ -6061,7 +6062,7 @@ const SchemaPokemonDatabaseSection = defineComponent({
           }, item))]),
           h("div", { class: "pokemon-db__actions" }, [
             h("button", { type: "button", class: "pokemon-db__reset", onClick: reset }, "Reset"),
-            h(DuButton, { type: "primary", size: "normal", text: "Search", class: "pokemon-db__submit" }),
+            h(DuButton, { type: "primary", size: "normal", text: "Search", class: "pokemon-db__submit", onClick: submit }),
           ]),
           h("button", { type: "button", class: "pokemon-db__advanced-toggle", "aria-expanded": advanced.value ? "true" : "false", onClick: toggleAdvanced }, advanced.value ? "Hide Advanced Search" : "Show Advanced Search"),
           h("div", { class: ["pokemon-db__advanced", advanced.value ? "is-open" : ""], "data-height-state": advancedPhase.value === "triggered" ? "triggered-724px" : advancedPhase.value === "settled" ? "settled-1206.73px" : "0px" }, advanced.value ? [
@@ -6323,11 +6324,17 @@ const SchemaPokemonLearnSection = defineComponent({
       return renderSchemaSection(section, `pokemon-learn pokemon-learn--${schemaSectionTypeName(section)}`, [
         h("header", [h("span", content.kicker || "LEARN TO PLAY"), h("h2", schemaText(content.title, section.id)), content.description ? h("p", content.description) : null]),
         hero ? h("img", { class: "pokemon-learn__lead", src: hero, alt: content.title || "Pokémon TCG lesson" }) : null,
-        items.length ? h("div", { class: "pokemon-learn__lessons" }, items.map((item, index) => h("article", { class: index === openIndex.value ? "is-open" : "" }, [
-          h("button", { type: "button", "aria-expanded": index === openIndex.value ? "true" : "false", onClick: () => { openIndex.value = index; } }, [h("strong", item.title || item.label), h("span", index === openIndex.value ? "−" : "+")]),
-          index === openIndex.value ? h("p", item.description || item.body || "Learn how this part of the game works.") : null,
-          index === openIndex.value && cards[index % cards.length] ? renderImage(cards[index % cards.length], "pokemon-learn__diagram") : null,
-        ]))) : null,
+        items.length ? h("div", { class: "pokemon-learn__lessons" }, items.map((item, index) => h("article", { class: index === openIndex.value ? "is-open" : "" }, content.reversibleDetails === true
+          ? [h("details", { open: index === openIndex.value }, [
+              h("summary", { onClick: (event) => { event.preventDefault(); openIndex.value = openIndex.value === index ? -1 : index; } }, [h("strong", item.title || item.label), h("span", index === openIndex.value ? "−" : "+")]),
+              index === openIndex.value ? h("p", item.description || item.body || "Learn how this part of the game works.") : null,
+              index === openIndex.value && cards[index % cards.length] ? renderImage(cards[index % cards.length], "pokemon-learn__diagram") : null,
+            ])]
+          : [
+              h("button", { type: "button", "aria-expanded": index === openIndex.value ? "true" : "false", onClick: () => { openIndex.value = index; } }, [h("strong", item.title || item.label), h("span", index === openIndex.value ? "−" : "+")]),
+              index === openIndex.value ? h("p", item.description || item.body || "Learn how this part of the game works.") : null,
+              index === openIndex.value && cards[index % cards.length] ? renderImage(cards[index % cards.length], "pokemon-learn__diagram") : null,
+            ]))) : null,
         !items.length && cards.length ? h("div", { class: "pokemon-learn__resource-grid" }, cards.map((asset) => h("article", [renderImage(asset, "pokemon-learn__resource"), h("strong", asset.title || asset.alt)]))) : null,
       ]);
     };

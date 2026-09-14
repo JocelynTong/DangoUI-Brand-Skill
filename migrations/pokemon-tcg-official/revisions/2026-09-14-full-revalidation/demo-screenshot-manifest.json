@@ -1,0 +1,30 @@
+{
+  "schema":"demo-screenshot-manifest/v2","brand":"pokemon-tcg-official-v2","goalId":"pokemon-tcg-official-v2-full-revalidation","goalSha256":"37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845","attempt":4,"captureRuntime":"http://127.0.0.1:4177/",
+  "baselineCaptures":[
+    {"pageId":"pokemon-tcg-official-v2-home","viewport":[1440,900],"path":"migrations/pokemon-tcg-official-v2/demo-screenshots/home-desktop.png","sha256":"d2ba7a2f6d6ec077024f1c04901ef78541995f3983c166cebaf2c1a87ab5566e"},
+    {"pageId":"pokemon-tcg-official-v2-card-database","viewport":[1440,900],"path":"migrations/pokemon-tcg-official-v2/demo-screenshots/card-database-desktop.png","sha256":"e265d80d8f86e0581d68c48d36b5158bb737b676dafb7da35b64041fa260b70d"},
+    {"pageId":"pokemon-tcg-official-v2-held-out","viewport":[1440,900],"path":"migrations/pokemon-tcg-official-v2/demo-screenshots/held-out-desktop.png","sha256":"345f4b4732b3b2e2e6292d3a0ca0e01ef8293ff9377362ad27df97159474ab97"}
+  ],
+  "attempt3Captures":[
+    {"pageId":"pokemon-tcg-official-v2-learn","viewport":[1440,900],"state":"five-layer-initial","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/learn-desktop.png","sha256":"b39773dd8d30716696815ba06a012ae5edc5ed4f5639898816ea24647336c38a"},
+    {"pageId":"pokemon-tcg-official-v2-learn","viewport":[390,844],"state":"phone-initial","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/learn-mobile.png","sha256":"d8337f9c34c0579cfd4c26a425aa62a87310eb5123972db7b6057f8aa2787973"},
+    {"pageId":"pokemon-tcg-official-v2-learn","viewport":[390,844],"state":"resource-tail-reached","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/learn-mobile-resource-tail.png","sha256":"553f60052fbd385f5458b4ef73fe74e39324215d149cae8c707245681ad6141e"},
+    {"pageId":"pokemon-tcg-official-v2-home","viewport":[390,844],"state":"normal-phone-scrolled","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/home-normal-phone-scrolled.png","sha256":"f757477e0c1f444a9e6db12278ce1176cba094fae1b190f892cee4887d60fc0f"},
+    {"pageId":"pokemon-tcg-official-v2-card-database","viewport":[390,844],"state":"normal-phone-scrolled","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/card-database-normal-phone-scrolled.png","sha256":"e4a8077debc77d058fa6e44ba0e7164be0258b605c26cff1ab855286b87d379e"},
+    {"pageId":"pokemon-tcg-official-v2-held-out","viewport":[390,844],"state":"briefing-reached","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/held-out-mobile-briefing.png","sha256":"79f2952f221c56fafd50aba4c1a328f829109e1b75b603b4ad9333cb7a3bd4be"}
+  ],
+  "attempt4Captures":[
+    {"pageId":"pokemon-tcg-official-v2-card-database","viewport":[1440,900],"state":"compact-three-column-energy-matrix","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/card-database-desktop.png","sha256":"847fe355f22016bbadb468e3e5704da5e5500ed110f9043999ad3e27690b5ade"},
+    {"pageId":"pokemon-tcg-official-v2-card-database","viewport":[390,844],"state":"phone-stacked-energy-matrix","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/card-database-mobile.png","sha256":"57cb81e1ef8c21950133a0a8d35bcf93be0a21ddd4e5e45dc2a85caac7e1eb12"},
+    {"pageId":"pokemon-tcg-official-v2-held-out","viewport":[1440,900],"state":"high-contrast-filters-and-briefing","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/held-out-desktop.png","sha256":"d06db084c2d5fba4b3b2fa7ba34ed0ddff050ec9e3b794c3d342dc2b2f729570"},
+    {"pageId":"pokemon-tcg-official-v2-held-out","viewport":[390,844],"state":"high-contrast-briefing-reached","path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/held-out-mobile-briefing.png","sha256":"ec7a4a671db31743cebbf7a9fb0d3ef46022e979c95f739e664f3130163160c9"}
+  ],
+  "qa3RepairProbes":{"database":{"desktopEnergyColumns":3,"mobileEnergyColumns":1,"controlCount":11,"controlTreatment":["energy icon","text label","toggle affordance"],"toggleAriaPressed":["false","true","false"],"labelContrastRatio":13.59,"brokenImages":0,"verdict":"pass"},"heldOut":{"filterLabelContrastRatio":13.59,"openSummaryContrastRatio":5.53,"bodyCopyContrastRatio":14.01,"mobileScrollTop":[0,1577,0],"briefingVisibleAfter":true,"verdict":"pass"}},
+  "normalPhoneProbes":[
+    {"pageId":"pokemon-tcg-official-v2-home","viewport":[390,844],"scrollHeight":1073,"clientHeight":802,"scrollTop":{"before":0,"after":270.5,"restored":0},"indicatorRect":{"before":[9.5,778.3984375,371,33.5625],"after":[9.5,778.3984375,371,33.5625]},"indicatorStable":true,"verdict":"pass"},
+    {"pageId":"pokemon-tcg-official-v2-card-database","viewport":[390,844],"scrollHeight":1404,"clientHeight":802,"scrollTop":{"before":0,"after":602,"restored":0},"indicatorRect":{"before":[9.5,778.3984375,371,33.5625],"after":[9.5,778.3984375,371,33.5625]},"indicatorStable":true,"verdict":"pass"}
+  ],
+  "learningStructureProbe":{"pageId":"pokemon-tcg-official-v2-learn","viewport":[1440,900],"documentHeight":3930,"orderedSections":["learn-getting-started","learn-card-breakdown","learn-field-of-play","learn-resource-tail"],"approvedLayers":["learning-campaign-header","tutorial-media","card-annotation-pair","field-annotation-pair","resource-tail"],"resourceTailRect":[0,3182.046875,1440,638.1015625],"mobileResourceTailScrollTop":{"before":0,"after":2993,"restored":0},"brokenImages":0,"verdict":"pass"},
+  "heldOutMobileProbe":{"pageId":"pokemon-tcg-official-v2-held-out","viewport":[390,844],"scrollHeight":2380,"clientHeight":802,"scrollTop":{"before":0,"after":1577,"restored":0},"briefingRect":{"before":[9.5,1129.5,371,1149.609375],"after":[9.5,-447.5,371,1149.609375]},"briefingVisible":{"before":false,"after":true},"verdict":"pass"},
+  "runtimeAssetCheck":{"brokenImages":0,"sourceScreenshotReferences":0}
+}

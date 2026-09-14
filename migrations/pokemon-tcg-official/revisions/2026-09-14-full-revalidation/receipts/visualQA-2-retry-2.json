@@ -1,0 +1,29 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "95c8c825-5db3-43ab-a64e-eb3a009fedb9",
+  "stageId": "visualQA-2-retry-2",
+  "role": "visualQA",
+  "agentExecutionId": "/root/pokemon_v2_visual_qa_retry",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "verdict": "needs-evidence",
+  "inputs": [
+    {"path":"migrations/pokemon-tcg-official-v2/goal-contract.json","sha256":"37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845"},
+    {"path":"migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json","sha256":"c66f83a29e83d28b32641aed89bde81e38ed22065de829e53f6d0022c1f6c2de"},
+    {"path":"migrations/pokemon-tcg-official-v2/generative-proof.json","sha256":"96fe92722baef763c026b204b17676c92586117675222017a7d4f67d30c73fff"},
+    {"path":"migrations/pokemon-tcg-official-v2/qa-input-manifest.json","sha256":"e40f2ade8dcfc9377c41be9aa0a3e909e134834897d2941d6503ea63bcecce55"}
+  ],
+  "outputs": [
+    {"path":"migrations/pokemon-tcg-official-v2/visual-qa-assessment.json","sha256":"c1a8993679fe3141df574ff696e6fc2b9c78026377889824d570bb082b2c73f6"},
+    {"path":"migrations/pokemon-tcg-official-v2/visual-comparison-report.json","sha256":"5c4598da124bfb727681ab7a4f4d297852f38a8f3c73d901e96395157ee34d9c"},
+    {"path":"migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json","sha256":"f4d82bae552efe59da871536b6b16f02ef28daf097a32e8199f893f18aa954fe"},
+    {"path":"migrations/pokemon-tcg-official-v2/fidelity-report.json","sha256":"2f074f6e3cef5cb11369b34e9ce6c1ca923e09ed6f2d2449c66b5d4aefd7e696"},
+    {"path":"migrations/pokemon-tcg-official-v2/mockup-state-matrix.json","sha256":"a20f4462243f8300407e79bb1586ed00e50abdf15a6bb3ead827ed081ea9718e"},
+    {"path":"migrations/pokemon-tcg-official-v2/three-proof-verdict.json","sha256":"ca1e90955887c4037c61dc5f3f7bc58492f9ec15fda153d2b92e098f90a4b40a"}
+  ],
+  "blockingFindings": [
+    "Home and Card Database lack per-page normal-phone scroll and indicator-stability evidence.",
+    "The Learn demo does not visibly preserve the declared five-layer annotated learning composition, including the resource tail.",
+    "The held-out mobile capture does not prove the briefing is reachable and scrolling is restored."
+  ],
+  "failureOwnerRole": "demoImplementationAgent"
+}

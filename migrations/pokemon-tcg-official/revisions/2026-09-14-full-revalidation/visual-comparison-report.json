@@ -1,0 +1,11 @@
+{
+  "schema":"brand-visual-comparison/v1","brand":"pokemon-tcg-official-v2","attempt":4,"qaExecutionId":"/root/pokemon_v2_visual_qa_round4","verdict":"pass",
+  "comparisons":[
+    {"page":"home","desktop":"Campaign art, identity, CTA and control strip match as independent layers.","mobile":"Stage remains first with bounded crop; news follows.","differences":"Demo intentionally calibrates the frozen stage and first modular news sequence rather than mirroring the source long page.","blocking":false},
+    {"page":"card-database","desktop":"Three fields lead a compact 4/4/3 three-column matrix; every row has an icon, label and toggle; actions and disclosure close the panel.","mobile":"The same eleven rows stack in source order with readable labels and intact toggle affordances.","differences":"Header/nav are compressed to the proof surface; core search organism remains complete.","blocking":false},
+    {"page":"how-to-play","desktop":"Five-layer tutorial/card/field/resource sequence and alternating large color masses are preserved.","mobile":"Single-column reflow retains lead art, tutorial media, specimens and resource tail.","differences":"Demo condenses source repetition while preserving semantic section layers, not item counts.","blocking":false},
+    {"page":"held-out","desktop":"New fictional deck query precedes an independent battle-plan briefing with strong dark/cream section separation.","mobile":"Scrolled proof keeps briefing copy, card text and open-state labels readable inside the phone shell.","differences":"No source page uses this query-to-briefing combination.","blocking":false}
+  ],
+  "interactionEvidence":{"database":"Energy false→true→false; disclosure collapsed→expanded→collapsed.","heldOut":"Filter false→true→false; annotation collapsed→expanded→collapsed.","scroll":"Manifest probes show scrollTop changes and restores for home, database, learn and held-out."},
+  "blockingFindings":[]
+}

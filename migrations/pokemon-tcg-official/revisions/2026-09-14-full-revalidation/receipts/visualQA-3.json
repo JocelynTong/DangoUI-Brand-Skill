@@ -1,0 +1,74 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "84d073eb-4773-42fd-9ad3-e01d53445c85",
+  "runId": "849a0eba-e5e4-4828-8c51-fd3480719002",
+  "stageId": "visualQA-3",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 3,
+  "agentExecutionId": "/root/pokemon_v2_visual_qa_round3",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "inputs": [
+    {
+      "path": "migrations/pokemon-tcg-official-v2/goal-contract.json",
+      "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json",
+      "sha256": "91766ef7e7ff7da8eab0bea2be5bb54f47993086ff9c48e12b5294a8604e0672"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/generative-proof.json",
+      "sha256": "a6618f302f49c593fa7b344978a063d5d4d76b97a7ab697989c5d6517bac2a64"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/qa-input-manifest.json",
+      "sha256": "620da256159dc96ca0ad6bb89b97b1903660b579106281645f623b50547457d8"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "migrations/pokemon-tcg-official-v2/visual-qa-assessment.json",
+      "sha256": "149c3be1f2b4aca9b3bc22f11ef8345dd0e00a5df03d84c6bf499d7bcddaf307"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/visual-comparison-report.json",
+      "sha256": "b0f4b81a3296d09dbccd7883a9aa2725ea13619008c6a3be410ccfea1223367b"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json",
+      "sha256": "896732d8905e8986a7f01e4b2fcade64e985ab0af91d0d5c8b09f7e4b3e72358"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/fidelity-report.json",
+      "sha256": "102a1dca8a495f4851dbd95aba6ed49dafa4e0a1f83ff2d433e544095934d888"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/mockup-state-matrix.json",
+      "sha256": "2451cb5c7a330b63a08652f3a373e67bd104515552ed953e0a5b0feeb1532cde"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/three-proof-verdict.json",
+      "sha256": "685049765b2b7da067dfbfad0e51b309b1cb19a664ca568858922c7efccd10ef"
+    }
+  ],
+  "verdict": "needs-evidence",
+  "blockingFindings": [
+    {
+      "code": "UNSUPPORTED_VISUAL_PATTERN",
+      "scope": "card-database",
+      "finding": "Card Database desktop replaces the approved compact three-column energy matrix with eleven full-width stacked pills, drifting from the frozen scanning geometry, density, icon and toggle structure.",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    },
+    {
+      "code": "GENERATIVE_PROOF_NOT_APPROVED",
+      "scope": "pokemon-tcg-official-v2-held-out",
+      "finding": "The held-out desktop filter labels and mobile briefing labels and explanatory copy render near-white on light surfaces, so the required visible proof is not reliably readable.",
+      "earliestFailureNode": "demoImplementation",
+      "failureOwnerRole": "demoImplementationAgent"
+    }
+  ],
+  "failureOwnerRole": "demoImplementationAgent"
+}

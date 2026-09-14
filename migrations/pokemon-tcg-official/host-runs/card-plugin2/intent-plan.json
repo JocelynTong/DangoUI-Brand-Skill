@@ -1,0 +1,18 @@
+{
+  "schema": "brand-host-intent-plan/v1",
+  "mode": "apply-host",
+  "sourceUrl": "https://jocelyntong.github.io/DangoUI-Brand-Skill/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home",
+  "sourceRole": "demo-style-source",
+  "brand": "pokemon-tcg-official",
+  "hostProject": "card-plugin2",
+  "targetRoute": "/pages/plaza/index",
+  "targetFiles": [
+    "/tmp/card-plugin2-brand-pilot/frontend/src/pages/plaza/index.vue",
+    "/tmp/card-plugin2-brand-pilot/frontend/src/pages/plaza/index.scss"
+  ],
+  "preserveBusinessContent": true,
+  "preserveDataAndLogic": true,
+  "preserveRoutesAndInteractions": true,
+  "createNewBrandRoute": false,
+  "implementationStatus": "blocked-until-wild-design-decision"
+}

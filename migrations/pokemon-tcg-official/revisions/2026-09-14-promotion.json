@@ -1,0 +1,22 @@
+{
+  "schema": "brand-revision-promotion/v1",
+  "brand": "pokemon-tcg-official",
+  "revision": "2026-09-14-full-revalidation",
+  "sourceWorkspace": "pokemon-tcg-official-v2",
+  "archivedAt": "migrations/pokemon-tcg-official/revisions/2026-09-14-full-revalidation",
+  "promotedToPreview": "public/brand-previews/pokemon-tcg-official.json",
+  "result": {
+    "status": "fidelity-pass",
+    "overallScore": 97.5,
+    "pageScores": {
+      "home": 97.5,
+      "card-database": 95,
+      "how-to-play": 100
+    },
+    "protocol": "pass",
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass"
+  },
+  "reason": "Promoted into the existing brand identity. Revalidation must not create a second user-visible Registry project."
+}

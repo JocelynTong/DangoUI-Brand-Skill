@@ -22,6 +22,7 @@ const mode = resolveWorkflowMode(rawArgs.slice(1));
 const profile = opt(rawArgs, "--profile", "full");
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
+const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");
 }
@@ -62,6 +63,9 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
   }
 
   if (registryResolution.matched) {
+    if (forceRelearn && brand !== registryResolution.brand && !allowNewBrandId) {
+      fail(`EXISTING_BRAND_ID_REQUIRED: ${registryResolution.brand} already owns this source. Revalidate it as an internal revision; creating ${brand} requires explicit --allow-new-brand-id authorization.`);
+    }
     if (!forceRelearn) brand = registryResolution.brand;
     if (mode === "learn-brand" && command === "run" && !forceRelearn && !updateExisting) {
       process.stdout.write(`${JSON.stringify({
@@ -588,6 +592,27 @@ function executeWorkflow({ root, mode, brand, args, executed }) {
   }
 
   const wild = resolveWildDesignSet({ root, brand, args });
+  const requiredWildArtifacts = {
+    options: wild.options,
+    decision: wild.decision,
+    businessScope: wild.scope,
+    designDirection: wild.direction,
+    brandEvidence: wild.brandEvidence && fs.existsSync(wild.brandEvidence) ? wild.brandEvidence : "",
+  };
+  const missingWildArtifacts = Object.entries(requiredWildArtifacts)
+    .filter(([, file]) => !file || !fs.existsSync(path.resolve(root, file)))
+    .map(([key]) => key);
+  if (missingWildArtifacts.length) {
+    process.stdout.write(`${JSON.stringify({
+      ok: false,
+      workflow: mode,
+      step: "wild-design-selection",
+      blockingCode: "WILD_DESIGN_ARTIFACT_SET_INCOMPLETE",
+      missingArtifacts: missingWildArtifacts,
+      message: "Host implementation is blocked until business scope, rendered options, a user-bound decision, final direction, and brand evidence are all present.",
+    }, null, 2)}\n`);
+    process.exit(1);
+  }
   const wildResult = runNodeCheck({
     root,
     script: "skills/brand/scripts/validate-wild-design-decision.mjs",
@@ -920,7 +945,7 @@ function formatExtraArgs(args) {
 
 function stripCommandOnlyArgs(args) {
   const names = new Set(["--root", "--mode", "--profile", "--base-url", "--page", "--registry-base"]);
-  const flags = new Set(["--require-browser", "--force-relearn", "--update-existing"]);
+  const flags = new Set(["--require-browser", "--force-relearn", "--update-existing", "--allow-new-brand-id"]);
   const output = [];
   for (let index = 0; index < args.length; index += 1) {
     const token = args[index];
@@ -1040,13 +1065,13 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
     if (!signals.stylePack && !signals.modFile) {
       missing.push("--style-pack or --mod-file");
     }
-    if (signals.sourceUrl || signals.dembrandtInput) {
+    if (signals.dembrandtInput) {
       return {
         ok: false,
         mode,
         signals,
-        reasons: ["apply-host should consume an existing learned style, not raw website extraction inputs"],
-        message: "This input set mixes host apply with website learning. Apply-host must start from an existing MOD/style-pack, then target a host page.",
+        reasons: ["apply-host cannot consume raw extractor output"],
+        message: "This input set mixes host apply with website extraction. Apply-host may retain a source URL as provenance, but it must consume an existing MOD/style-pack instead of raw extractor output.",
       };
     }
     if (missing.length) {
@@ -1231,7 +1256,9 @@ function resolveWildDesignSet({ root, brand, args = [] }) {
   };
   const decision = opt(args, "--wild-design-decision", nearby("design-direction-decision.json"));
   const scope = opt(args, "--wild-design-business-scope", nearby("business-scope.json"));
-  const direction = opt(args, "--design-direction", nearby("design-direction.json"));
+  const directionCandidate = opt(args, "--design-direction", nearby("design-direction.json"));
+  const directionPayload = directionCandidate ? readJsonIfExists(path.resolve(root, directionCandidate)) : null;
+  const direction = directionPayload?.wildDesignDecision ? directionCandidate : "";
   const brandEvidence = opt(args, "--brand-evidence", path.join(migrationDir, "brand-evidence.json"));
   const cliArgs = [];
   if (options) cliArgs.push("--options", options);
@@ -1532,7 +1559,7 @@ function printHelp() {
 Usage:
   node ${script} learn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --profile fast --brand pokemon30 --source-url "https://pokemon30th.com/"
-  node ${script} learn --force-relearn --brand pokemon30-v2 --source-url "https://pokemon30th.com/"
+  node ${script} learn --force-relearn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} update --brand pokemon30 --source-url "https://pokemon30th.com/learn/"
   node ${script} apply --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} run --brand pokemon30 --source-url "https://pokemon30th.com/"
@@ -1546,7 +1573,8 @@ Behavior:
   - explicit aliases: \`learn\` => new learn-brand, \`update\` => existing learn-brand with inherited source history, \`apply\` => apply-host
   - \`update\` validates migrations/<brand>/source-manifest.json before extraction and only appends sources; a missing historical source blocks with LEARNED_SOURCE_DROPPED
   - learn-brand defaults to \`--profile full\`; use \`--profile fast\` for a bounded direction-validation run
-  - \`--force-relearn\` is an explicit maintainer-only escape hatch for versioned revalidation; use a new brand workspace and never overwrite a reviewed version in place
+  - \`--force-relearn\` revalidates an existing brand id and stores run history as internal revisions; it does not create a second Registry project
+  - a parallel brand id requires explicit user intent and the maintainer-only \`--allow-new-brand-id\` flag
   - \`detect\` only resolves the workflow intake and shows whether inputs belong to learning or host apply
   - if you mix the two flows, intake fails before any downstream step runs
   - raw \`run\` still resolves workflow mode automatically (${workflows})

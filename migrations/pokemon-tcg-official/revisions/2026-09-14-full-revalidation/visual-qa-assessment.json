@@ -1,0 +1,90 @@
+{
+  "schema": "brand-visual-qa-assessment/v2",
+  "brand": "pokemon-tcg-official-v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "attempt": 4,
+  "qaExecutionId": "/root/pokemon_v2_visual_qa_round4",
+  "independence": {"implementationRationaleRead": false, "priorVerdictRead": false, "productionSourceRead": false, "onlyFrozenManifestInputsUsed": true},
+  "pages": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "pokemon-tcg-official-v2-home",
+      "sourceScreenshot": {"path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/full-page.jpg", "sha256": "106ea8717099fb5a44df1a73f2ec239e9a0d492b9a384a5b8c74af7c0933e3ad"},
+      "demoScreenshot": {"path": "migrations/pokemon-tcg-official-v2/demo-screenshots/home-desktop.png", "sha256": "d2ba7a2f6d6ec077024f1c04901ef78541995f3983c166cebaf2c1a87ab5566e"},
+      "dimensions": {
+        "composition": {"rating": 4, "observations": [{"sourceRegion":[0,0,1,0.18],"demoRegion":[0,0,1,0.56],"finding":"The campaign stage remains first, dominant and layered above the news module."}]},
+        "assetAuthenticity": {"rating": 4, "observations": [{"sourceRegion":[0,0.09,1,0.13],"demoRegion":[0,0.03,1,0.43],"finding":"The same official 30th campaign hero variant, identity mark and focal characters are visible without a screenshot raster."}]},
+        "colorRoles": {"rating": 4, "observations": [{"sourceRegion":[0,0,1,0.2],"demoRegion":[0,0,1,0.56],"finding":"Black navigation and neutral content surfaces remain subordinate to campaign art; no invented action color dominates."}]},
+        "informationDensity": {"rating": 4, "observations": [{"sourceRegion":[0,0,1,0.35],"demoRegion":[0,0,1,0.88],"finding":"Stage-first reading order is followed by a distinct modular news sequence at desktop and phone."}]},
+        "typographyGraphics": {"rating": 4, "observations": [{"sourceRegion":[0.02,0.02,0.34,0.12],"demoRegion":[0.04,0.15,0.31,0.2],"finding":"Expansion identity, strong italic display headings and compact navigation retain the source hierarchy."}]},
+        "motionSemantics": {"rating": 3, "observations": [{"sourceRegion":[0,0.16,1,0.02],"demoRegion":[0.2,0.5,0.6,0.04],"finding":"The slide-control boundary is present and legible; static frozen evidence supports state semantics but not animation timing."}]},
+        "brandRecognition": {"rating": 4, "observations": [{"sourceRegion":[0,0,1,0.18],"demoRegion":[0,0,1,0.56],"finding":"Campaign composition, authentic art mass and expansion identity are recognizable before reading navigation labels."}]}
+      },
+      "visualPatterns": [{"id":"home-campaign-stage-v2","status":"supported","roleExpansion":false,"sourceRegion":[0,0,1,0.18],"demoRegion":[0,0,1,0.56],"finding":"All four independently declared stage layers are visible with the frozen asset variant and bounded responsive crop.","compositionLayers":[{"id":"campaign-art-field","status":"matched","finding":"Full-width art remains the dominant mass."},{"id":"expansion-identity","status":"matched","finding":"The 30th mark remains independently legible."},{"id":"campaign-action","status":"matched","finding":"CTA remains prominent but subordinate to art."},{"id":"slide-control-strip","status":"matched","finding":"Control strip closes the stage."}]}],
+      "mustPreserve": [{"id":"home-brand-stage","status":"pass"},{"id":"responsive-section-structure","status":"pass"}],
+      "mustNotReplace": [{"id":"no-old-verdict-reuse","violated":false},{"id":"no-screenshot-runtime","violated":false},{"id":"no-item-count-proxy","violated":false},{"id":"no-fake-controls","violated":false},{"id":"no-action-color-invention","violated":false}],
+      "blockingFindings": []
+    },
+    {
+      "sourcePageId": "card-database",
+      "demoPageId": "pokemon-tcg-official-v2-card-database",
+      "sourceScreenshot": {"path":"migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/full-page.jpg","sha256":"5c53e7bf130d115aa8a8fb1dca80507af0f14d3e554212f8bd13a95b4921bfd4"},
+      "demoScreenshot": {"path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/card-database-desktop.png","sha256":"847fe355f22016bbadb468e3e5704da5e5500ed110f9043999ad3e27690b5ade"},
+      "dimensions": {
+        "composition":{"rating":4,"observations":[{"sourceRegion":[0.08,0.1,0.84,0.58],"demoRegion":[0.08,0.08,0.84,0.75],"finding":"Query fields, 3-column energy matrix, action row and disclosure seam remain one dense organism."}]},
+        "assetAuthenticity":{"rating":3,"observations":[{"sourceRegion":[0.19,0.51,0.75,0.28],"demoRegion":[0.13,0.39,0.74,0.23],"finding":"DOM/CSS reconstruction preserves all eleven recognizable energy icons and toggle affordances without a source screenshot."}]},
+        "colorRoles":{"rating":4,"observations":[{"sourceRegion":[0.08,0.1,0.84,0.58],"demoRegion":[0.08,0.08,0.84,0.75],"finding":"Dark task surface, light controls and orange Search action match the bounded utility hierarchy; expanded white remains local."}]},
+        "informationDensity":{"rating":4,"observations":[{"sourceRegion":[0.19,0.24,0.75,0.62],"demoRegion":[0.13,0.18,0.74,0.61],"finding":"Desktop retains the compact 4/4/3 three-column energy matrix; phone stacks the same eleven choices in source order."}]},
+        "typographyGraphics":{"rating":4,"observations":[{"sourceRegion":[0.08,0.05,0.84,0.12],"demoRegion":[0.08,0.04,0.84,0.14],"finding":"Angular title plate, condensed heading and clear control labels preserve utility character and legibility."}]},
+        "motionSemantics":{"rating":4,"observations":[{"sourceRegion":[0.35,0.35,0.3,0.25],"demoRegion":[0.35,0.68,0.3,0.08],"finding":"Live QA observed checkbox false→true→false and Advanced Search collapsed→expanded→collapsed with restored label and body."}]},
+        "brandRecognition":{"rating":4,"observations":[{"sourceRegion":[0.08,0.1,0.84,0.58],"demoRegion":[0.08,0.08,0.84,0.75],"finding":"The distinctive dark database organism and complete energy-control matrix remain recognizable structurally."}]}
+      },
+      "visualPatterns": [
+        {"id":"card-database-search-organism-v2","status":"supported","roleExpansion":false,"sourceRegion":[0.08,0.1,0.84,0.58],"demoRegion":[0.08,0.08,0.84,0.75],"finding":"The repaired desktop layout visibly preserves the exact three-column icon/label/toggle matrix and all structural layers.","compositionLayers":[{"id":"query-fields","status":"matched","finding":"Three labeled query fields lead the task."},{"id":"energy-matrix","status":"matched","finding":"Eleven controls render in three desktop columns and one phone column."},{"id":"action-row","status":"matched","finding":"Reset and Search conclude the default task."},{"id":"advanced-disclosure-seam","status":"matched","finding":"Full-width reversible disclosure remains attached to the organism."}]},
+        {"id":"database-local-open-state-v2","status":"supported","roleExpansion":false,"sourceRegion":[0.35,0.35,0.3,0.25],"demoRegion":[0.35,0.68,0.3,0.08],"finding":"Live expanded state changes the label to HIDE ADVANCED SEARCH and reveals fields; collapse restores the initial state."}
+      ],
+      "mustPreserve":[{"id":"card-database-search-organism","status":"pass"},{"id":"responsive-section-structure","status":"pass"}],
+      "mustNotReplace":[{"id":"no-old-verdict-reuse","violated":false},{"id":"no-screenshot-runtime","violated":false},{"id":"no-item-count-proxy","violated":false},{"id":"no-fake-controls","violated":false},{"id":"no-action-color-invention","violated":false}],
+      "blockingFindings":[]
+    },
+    {
+      "sourcePageId":"how-to-play",
+      "demoPageId":"pokemon-tcg-official-v2-learn",
+      "sourceScreenshot":{"path":"migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/full-page.jpg","sha256":"3b64cedf17c2aa8cf7d353ef51e146540b9a07daa9dd2edd463c49242d9fd549"},
+      "demoScreenshot":{"path":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-3/learn-desktop.png","sha256":"b39773dd8d30716696815ba06a012ae5edc5ed4f5639898816ea24647336c38a"},
+      "dimensions": {
+        "composition":{"rating":4,"observations":[{"sourceRegion":[0,0,1,0.65],"demoRegion":[0.05,0.03,0.9,0.92],"finding":"Campaign introduction, tutorial, card anatomy, field anatomy and resource tail appear in the frozen order."}]},
+        "assetAuthenticity":{"rating":4,"observations":[{"sourceRegion":[0.14,0.2,0.72,0.42],"demoRegion":[0.12,0.17,0.76,0.44],"finding":"Localized header art, tutorial media, authentic card specimen and field diagrams retain their correct roles."}]},
+        "colorRoles":{"rating":4,"observations":[{"sourceRegion":[0.1,0.35,0.8,0.55],"demoRegion":[0,0.34,1,0.52],"finding":"Yellow card-learning and deep-blue field-learning surfaces remain section-scoped, while red is confined to open annotation text."}]},
+        "informationDensity":{"rating":4,"observations":[{"sourceRegion":[0,0.2,1,0.78],"demoRegion":[0.05,0.17,0.9,0.79],"finding":"The long-form sequence retains multiple distinct instructional sections rather than flattening them into equal cards."}]},
+        "typographyGraphics":{"rating":4,"observations":[{"sourceRegion":[0.12,0.08,0.76,0.25],"demoRegion":[0.07,0.03,0.86,0.25],"finding":"Large condensed headings, oversized specimens and fine annotation rules preserve the teaching hierarchy."}]},
+        "motionSemantics":{"rating":4,"observations":[{"sourceRegion":[0.12,0.35,0.5,0.42],"demoRegion":[0.12,0.37,0.45,0.12],"finding":"Native details states are visibly coupled to specimen explanations and are declared reversible."}]},
+        "brandRecognition":{"rating":4,"observations":[{"sourceRegion":[0,0.08,1,0.82],"demoRegion":[0,0.03,1,0.85],"finding":"The alternating illustrated lesson, yellow anatomy and blue play-field masses communicate the learned system without relying on a logo."}]}
+      },
+      "visualPatterns":[
+        {"id":"annotated-learning-sequence-v2","status":"supported","roleExpansion":false,"sourceRegion":[0,0,1,0.65],"demoRegion":[0.05,0.03,0.9,0.92],"finding":"All five frozen learning layers are independently visible and retain order on desktop and phone.","compositionLayers":[{"id":"learning-campaign-header","status":"matched","finding":"Illustrated introduction leads."},{"id":"tutorial-media","status":"matched","finding":"Large tutorial media precedes anatomy."},{"id":"card-annotation-pair","status":"matched","finding":"Expandable labels remain coupled to a large card."},{"id":"field-annotation-pair","status":"matched","finding":"Field terms remain coupled to diagrams."},{"id":"resource-tail","status":"matched","finding":"Three supporting resources close the lesson."}]},
+        {"id":"learning-local-open-state-v2","status":"supported","roleExpansion":false,"sourceRegion":[0.12,0.35,0.5,0.42],"demoRegion":[0.12,0.37,0.45,0.12],"finding":"Open-summary red is confined to the equivalent learning disclosure state."}
+      ],
+      "mustPreserve":[{"id":"learning-content-hierarchy","status":"pass"},{"id":"responsive-section-structure","status":"pass"}],
+      "mustNotReplace":[{"id":"no-old-verdict-reuse","violated":false},{"id":"no-screenshot-runtime","violated":false},{"id":"no-item-count-proxy","violated":false},{"id":"no-fake-controls","violated":false},{"id":"no-action-color-invention","violated":false}],
+      "blockingFindings":[]
+    }
+  ],
+  "generativeProofReview": {
+    "status":"pass",
+    "pageId":"pokemon-tcg-official-v2-held-out",
+    "desktopEvidence":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/held-out-desktop.png",
+    "mobileEvidence":"migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/held-out-mobile-briefing.png",
+    "finding":"A new fictional query-to-briefing structure visibly combines bounded search density with an annotated specimen. Desktop filter labels and mobile briefing/open-summary copy are readable; live controls change and restore state.",
+    "ruleChecks":[
+      {"ruleId":"dark-search-filter-organism","status":"reused","finding":"New deck-strategy fields, six filters, actions and optional depth stay in one task organism."},
+      {"ruleId":"annotated-learning-sequence","status":"reused","finding":"A distinct follow-up teaching section couples reversible annotations to an oversized specimen."},
+      {"ruleId":"state-color-boundaries","status":"reused","finding":"White expanded database text and red open learning text remain local rather than global brand colors."},
+      {"ruleId":"section-order-responsive-reflow","status":"reused","finding":"Phone scrolling preserves query-before-briefing order and restores scrollTop to zero."}
+    ]
+  },
+  "blockingFindings": [],
+  "reviewerRecommendation": "pass",
+  "failureOwnerRole": null
+}

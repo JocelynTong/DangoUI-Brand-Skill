@@ -1,0 +1,114 @@
+{
+  "schema": "brand-intent/vNext",
+  "brand": "pokemon-tcg-official-v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "role": "designTranslator",
+  "evidencePolicy": "Only observed claims and their rendered capture/DOM/computed bindings are authoritative. Aggregate palettes, CSS names, asset counts and Dembrandt hints remain candidates.",
+  "patterns": [
+    {
+      "id": "campaign-art-brand-stage", "status": "approved", "scope": "home opening campaign stage",
+      "observedFact": "A full-width 1440x816 featured stage below black navigation visibly combines official 30th expansion identity, character artwork, a large CTA and a bottom slide-control strip.",
+      "interpretation": "Identity comes from one authored campaign composition with independent identity, subject, action and control layers; the logo alone is not the stage.",
+      "recommendation": "Keep the campaign art dominant and reconstruct every required layer independently around the frozen official hero asset.",
+      "suitableFor": ["home opening", "major expansion campaign introduction"],
+      "notFor": ["utility forms", "generic cards", "logo-only branding", "source screenshot as runtime UI"],
+      "allowedTransformations": ["bounded responsive crop retaining focal characters and expansion identity", "proportional scaling", "mobile reflow retaining stage-first hierarchy", "DOM/CSS reconstruction with independent runtime assets"],
+      "evidenceRefs": ["home-brand-stage-observed", "home-responsive-section-structure"], "sourceRegion": [0, 0, 1, 0.18],
+      "compositionContractRef": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json#patterns[id=campaign-art-brand-stage]"
+    },
+    {
+      "id": "dark-search-filter-organism", "status": "approved", "scope": "card database search and filtering region",
+      "observedFact": "A dark bounded region contains labeled keyword fields, a three-column energy matrix, Reset/Search actions and an Advanced Search disclosure; at 390px controls stack without changing search-first order.",
+      "interpretation": "Query entry, categorical filtering, actions and optional complexity form one dense task organism rather than a decorative card grid.",
+      "recommendation": "Preserve all groups, their density, action row and disclosure seam as one unit.",
+      "suitableFor": ["card database", "high-density collection search"],
+      "notFor": ["marketing hero", "sparse single-field search", "fake enabled filters", "generic dark panel"],
+      "allowedTransformations": ["responsive vertical reflow", "content substitution within the same control roles", "reversible collapse of advanced fields"],
+      "evidenceRefs": ["card-database-search-organism-observed", "card-database-responsive-section-structure", "card-advanced-search-open"], "sourceRegion": [0.08, 0.1, 0.84, 0.58],
+      "compositionContractRef": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json#patterns[id=dark-search-filter-organism]"
+    },
+    {
+      "id": "annotated-learning-sequence", "status": "approved", "scope": "how-to-play long-form learning page",
+      "observedFact": "A campaign header and large tutorial module precede sequenced card and field modules where expandable labels are paired with oversized visual specimens; 390px retains the sequence in one column.",
+      "interpretation": "Learning alternates instruction with authentic specimens, and progressive disclosure explains the visible object in context.",
+      "recommendation": "Retain tutorial-to-card-to-field progression and visibly couple each annotation list to its specimen.",
+      "suitableFor": ["how-to-play education", "rules/tutorial content with authentic specimens"],
+      "notFor": ["flat FAQ", "equal marketing grid", "text-only docs", "accordion detached from its subject"],
+      "allowedTransformations": ["single-column mobile reflow preserving sequence", "representative learning-content substitution within the same roles", "bounded specimen scaling"],
+      "evidenceRefs": ["learning-content-hierarchy-observed", "learn-responsive-section-structure", "learn-card-name-details-open"], "sourceRegion": [0, 0, 1, 0.65],
+      "compositionContractRef": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json#patterns[id=annotated-learning-sequence]"
+    },
+    {
+      "id": "section-order-responsive-reflow", "status": "approved", "scope": "390px behavior across all three page families",
+      "observedFact": "All three pages retain desktop section order at 390px while multi-column modules become taller stacked sequences; database search remains first and learning tutorial/card/field order remains intact.",
+      "interpretation": "Responsive translation changes geometry, not editorial priority, asset weight, task order or disclosure truth.",
+      "recommendation": "Stack within existing sections and preserve each page-specific lead mass before supporting modules.",
+      "suitableFor": ["phone adaptation of home, card database and how-to-play"],
+      "notFor": ["lead-content reorder", "hiding required specimens", "item-count structure proxies", "invented mobile-only interactions"],
+      "allowedTransformations": ["column-to-stack reflow", "gap compression", "bounded focal crop", "longer document height"],
+      "evidenceRefs": ["home-responsive-section-structure", "card-database-responsive-section-structure", "learn-responsive-section-structure"], "sourceRegion": [0, 0, 1, 1],
+      "compositionContractRef": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json#patterns[id=section-order-responsive-reflow]"
+    },
+    {
+      "id": "state-color-boundaries", "status": "approved", "scope": "two captured open disclosure labels only",
+      "observedFact": "The expanded database disclosure label computes white; the open Card Name summary computes rgb(190, 14, 23).",
+      "interpretation": "These colors belong to different local open-state contexts and do not establish a shared primary/action palette.",
+      "recommendation": "Keep each color within its equivalent local surface and state role.",
+      "suitableFor": ["expanded database disclosure label", "open Card Name learning summary"],
+      "notFor": ["global primary", "generic CTA fill", "all active states", "page surfaces", "status semantics"],
+      "allowedRoles": ["database-expanded-disclosure-text", "learning-open-annotation-text"],
+      "forbiddenRoles": ["global-primary", "global-action", "surface", "semantic-status", "universal-active"],
+      "allowedTransformations": ["contrast-preserving use only in the equivalent local state"],
+      "evidenceRefs": ["card-advanced-search-open", "learn-card-name-details-open"], "sourceRegion": [0.12, 0.35, 0.53, 0.42]
+    }
+  ],
+  "semanticClaims": [
+    {
+      "id": "semantic-database-expanded-label-white", "kind": "color", "status": "approved", "evidenceDisposition": "validated", "value": "rgb(255, 255, 255)",
+      "meaning": "text of the expanded database Advanced Search disclosure", "allowedRoles": ["database-expanded-disclosure-text"], "forbiddenRoles": ["global-text", "global-primary", "button-fill", "all-open-states"], "origin": "rendered-observed-claim", "evidenceRefs": ["card-advanced-search-open"],
+      "evidenceBinding": {"capture": {"path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/interaction-advanced-settled.jpg", "sha256": "7a3d7e58f4452903f939c346bf480bc3af079990c8b116fb250608cac2a6f8ed"}, "sourceRegion": [0.35, 0.35, 0.3, 0.25], "visibleDom": {"selector": "#toggleWrapperMainText b", "visible": true, "boundingBox": {"x": 621.6, "y": 441.9, "width": 164.5, "height": 16}}, "computed": {"property": "color", "value": "rgb(255, 255, 255)"}, "sourcePageId": "card-database", "state": "expanded"}
+    },
+    {
+      "id": "semantic-learning-open-summary-red", "kind": "color", "status": "approved", "evidenceDisposition": "validated", "value": "rgb(190, 14, 23)",
+      "meaning": "text of the open Card Name learning annotation summary", "allowedRoles": ["learning-open-annotation-text"], "forbiddenRoles": ["global-primary", "generic-action", "error", "all-open-states", "surface-fill"], "origin": "rendered-observed-claim", "evidenceRefs": ["learn-card-name-details-open"],
+      "evidenceBinding": {"capture": {"path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/interaction-card-name-settled.jpg", "sha256": "cedf8c91384f71ddb8cb02087692b513572ee51c664fcab963a736fc7fb25616"}, "sourceRegion": [0.12, 0.35, 0.5, 0.42], "visibleDom": {"selector": "details.hotspot-gallery-accordion__panel[open] > summary", "visible": true, "boundingBox": {"x": 206, "y": 433.2, "width": 428, "height": 33.6}}, "computed": {"property": "color", "value": "rgb(190, 14, 23)"}, "sourcePageId": "how-to-play", "state": "open"}
+    }
+  ],
+  "styleRecipeDetails": [
+    {"id": "recipe-campaign-stage", "category": "composition-asset", "purpose": "dominant authored expansion introduction", "usage": "home opening", "notFor": ["utility page", "logo-only proof"], "patternRef": "campaign-art-brand-stage", "evidenceRefs": ["home-brand-stage-observed", "home-responsive-section-structure"]},
+    {"id": "recipe-database-organism", "category": "composition-density", "purpose": "query, filter, actions and optional complexity as one task unit", "usage": "collection search", "notFor": ["sparse search", "generic dark card"], "patternRef": "dark-search-filter-organism", "evidenceRefs": ["card-database-search-organism-observed", "card-advanced-search-open", "card-database-responsive-section-structure"]},
+    {"id": "recipe-learning-sequence", "category": "composition-type-asset", "purpose": "sequenced modules with large annotated specimens", "usage": "learning/rules pages", "notFor": ["flat FAQ", "equal card grid"], "patternRef": "annotated-learning-sequence", "evidenceRefs": ["learning-content-hierarchy-observed", "learn-card-name-details-open", "learn-responsive-section-structure"]},
+    {"id": "recipe-responsive-order", "category": "responsive-density", "purpose": "reflow geometry while preserving hierarchy", "usage": "390px observed page families", "notFor": ["section reorder", "layer removal"], "patternRef": "section-order-responsive-reflow", "evidenceRefs": ["home-responsive-section-structure", "card-database-responsive-section-structure", "learn-responsive-section-structure"]},
+    {"id": "recipe-local-open-colors", "category": "color-boundary", "purpose": "two local open states without globalizing colors", "usage": "equivalent captured disclosure contexts", "notFor": ["global palette", "CTA", "status colors"], "patternRef": "state-color-boundaries", "evidenceRefs": ["card-advanced-search-open", "learn-card-name-details-open"]}
+  ],
+  "interactionRecipes": [
+    {"id": "recipe-database-advanced-disclosure", "status": "approved", "purpose": "reveal optional filters and restore compact search", "trigger": "click Show Advanced Search; after settling click Hide Advanced Search", "states": ["default", "triggered", "settled", "restored"], "visualChange": ["Show label becomes Hide", "advanced body becomes visible", "restoration hides body and restores label"], "suitableFor": ["card database advanced filters"], "notFor": ["global active state", "decorative motion", "nonfunctional control", "persistent current navigation"], "allowedTransformations": ["change filter content while preserving reversible disclosure", "adapt body layout for phone"], "evidenceRefs": ["card-advanced-search-open"], "sourceRegion": [0.35, 0.35, 0.3, 0.25]},
+    {"id": "recipe-learning-native-details", "status": "approved", "purpose": "reveal an explanation attached to a specimen part", "trigger": "click Card Name summary; click again to restore", "states": ["default", "triggered", "settled", "restored"], "visualChange": ["native details open false to true", "copy appears", "summary computes rgb(190, 14, 23)", "second click restores closed state"], "suitableFor": ["annotated card/field learning modules"], "notFor": ["global accordion convention", "navigation", "selection", "fake hotspot"], "allowedTransformations": ["replace label/copy/specimen while preserving reversible disclosure"], "evidenceRefs": ["learn-card-name-details-open"], "sourceRegion": [0.12, 0.35, 0.5, 0.42]}
+  ],
+  "informationDensity": {
+    "observedFact": "Home spends its lead viewport on one campaign stage; the database packs three inputs, eleven energy choices, two actions and disclosure into one region; learning distributes dense explanation across a long tutorial/card/field sequence.",
+    "interpretation": "Density is purpose-specific: spectacular and low-choice at the home lead, compact and control-heavy for search, vertically cumulative for education.",
+    "recommendation": "Do not normalize these page families to one card density; preserve lead mass and order on phone.",
+    "evidenceRefs": ["home-brand-stage-observed", "card-database-search-organism-observed", "learning-content-hierarchy-observed", "home-responsive-section-structure", "card-database-responsive-section-structure", "learn-responsive-section-structure"]
+  },
+  "distinctivenessSignalContract": {
+    "highCapacityMinimum": {"signalCount": 3, "dimensionCount": 3, "minimumViewportAreaRatioPerSignal": 0.05},
+    "signals": [
+      {"id": "signal-campaign-visual-mass", "dimension": "visual mass", "minimumViewportAreaRatio": 0.5, "suitableFor": ["home opening"], "notFor": ["utility/list/form pages"], "evidenceRefs": ["home-brand-stage-observed"]},
+      {"id": "signal-authentic-expansion-art", "dimension": "asset", "minimumViewportAreaRatio": 0.18, "suitableFor": ["campaign stage"], "notFor": ["logo-only branding", "tiny decoration"], "evidenceRefs": ["home-brand-stage-observed"]},
+      {"id": "signal-task-organism", "dimension": "composition", "minimumViewportAreaRatio": 0.35, "suitableFor": ["database search"], "notFor": ["generic grid"], "evidenceRefs": ["card-database-search-organism-observed"]},
+      {"id": "signal-annotated-specimen", "dimension": "composition", "minimumViewportAreaRatio": 0.3, "suitableFor": ["learning modules"], "notFor": ["text-only FAQ"], "evidenceRefs": ["learning-content-hierarchy-observed", "learn-card-name-details-open"]},
+      {"id": "signal-reversible-disclosure", "dimension": "motion", "minimumViewportAreaRatio": 0.05, "suitableFor": ["advanced filters", "learning annotations"], "notFor": ["sole high-capacity proof", "decorative motion"], "evidenceRefs": ["card-advanced-search-open", "learn-card-name-details-open"]}
+    ]
+  },
+  "unresolvedClaims": [
+    {"id": "global-action-color", "reason": "Validated colors belong to two local open labels; palette frequency is seed-only and the goal forbids invention."},
+    {"id": "global-font-system", "reason": "Kanit/PT Sans and Roboto are inventory candidates; no observed claim binds a visible selector to computed font-family."},
+    {"id": "global-shadow-system", "reason": "No observed claim provides a rendered selector and computed shadow."},
+    {"id": "generic-motion-timing", "reason": "State change is proved, but no complete observed claim binds reusable duration/easing."},
+    {"id": "home-carousel-behavior", "reason": "Disk captures are absent from approved action evidence and no observed claim validates the chain."},
+    {"id": "video-modal-behavior", "reason": "Disk captures are absent from required action evidence and cannot be promoted."},
+    {"id": "universal-surface-palette", "reason": "Dark database, cream/blue learning and image-led campaign contexts do not prove a freely combinable palette."}
+  ]
+}

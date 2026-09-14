@@ -1,0 +1,105 @@
+{
+  "schema": "approved-visual-patterns/v1",
+  "brand": "pokemon-tcg-official-v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "patterns": [
+    {
+      "id": "campaign-art-brand-stage", "status": "approved", "scope": "home opening campaign stage",
+      "preserves": ["mustPreserve.home-brand-stage", "mustPreserve.responsive-section-structure"],
+      "observedFact": "A 1440x816 stage combines official expansion artwork, expansion identity, a large CTA and a bottom slide-control strip below black navigation.",
+      "interpretation": "One authored campaign composition supplies the dominant visual mass through independent identity, subject, action and control layers.",
+      "recommendation": "Retain all layers and keep official campaign art dominant.",
+      "suitableFor": ["home opening", "major expansion introduction"], "notFor": ["utility page", "generic card", "logo-only proof", "runtime screenshot"],
+      "allowedTransformations": ["bounded focal crop", "proportional scale", "mobile reflow retaining hierarchy", "independent DOM/CSS reconstruction"],
+      "sourceRegion": [0, 0, 1, 0.18], "evidenceRefs": ["home-brand-stage-observed", "home-responsive-section-structure"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-home-thirtieth-campaign-hero", "variant": "official booster-art-1-large-up.jpg rendered hero", "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/home/featured-switcher/thirty/booster-art-1-large-up.jpg"},
+        "requiredLayers": [
+          {"id": "campaign-art-field", "role": "dominant full-width visual mass and characters", "sourceRegion": [0, 0.093, 1, 0.724], "assetIdentity": "asset-home-thirtieth-campaign-hero"},
+          {"id": "expansion-identity", "role": "30th expansion mark", "sourceRegion": [0.02, 0.24, 0.34, 0.3], "assetIdentity": "asset-home-thirtieth-logo", "assetVariant": "official Logo-30th.png", "sourceUrl": "https://d1i787aglh9bmb.cloudfront.net/assets/img/me-expansions/thirty/logo/en-us/Logo-30th.png"},
+          {"id": "campaign-action", "role": "large expansion CTA", "sourceRegion": [0.05, 0.56, 0.3, 0.09]},
+          {"id": "slide-control-strip", "role": "bottom label and carousel boundary", "sourceRegion": [0, 0.817, 1, 0.066]}
+        ],
+        "hierarchy": ["art and characters dominate", "expansion identity anchors", "CTA is prominent but subordinate", "slide strip closes stage"],
+        "mustNot": ["use source screenshot at runtime", "replace with logo/type/color only", "flatten layers", "crop away identity or focal subjects"]
+      }
+    },
+    {
+      "id": "dark-search-filter-organism", "status": "approved", "scope": "card database search/filter region",
+      "preserves": ["mustPreserve.card-database-search-organism", "mustPreserve.responsive-section-structure"],
+      "observedFact": "A dark region combines three query inputs, eleven energy selectors, Reset/Search actions and an Advanced Search disclosure; phone evidence stacks controls but keeps search first.",
+      "interpretation": "The visible groups form one dense task organism with optional depth.", "recommendation": "Keep each structural group and reversible disclosure inside one boundary.",
+      "suitableFor": ["card database", "high-density collection search"], "notFor": ["marketing hero", "single-field search", "generic dark panel", "nonfunctional controls"],
+      "allowedTransformations": ["vertical phone reflow", "content substitution within roles", "reversible advanced-field collapse"],
+      "sourceRegion": [0.08, 0.1, 0.84, 0.58], "evidenceRefs": ["card-database-search-organism-observed", "card-database-responsive-section-structure", "card-advanced-search-open"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "organism-card-search", "variant": "#card-search default plus captured expanded/restored variants", "sourceSelector": "#card-search"},
+        "requiredLayers": [
+          {"id": "query-fields", "role": "Card Name, Card Text and Evolves From", "sourceRegion": [0.19, 0.24, 0.75, 0.2]},
+          {"id": "energy-matrix", "role": "three-column categorical filter", "sourceRegion": [0.19, 0.51, 0.75, 0.28]},
+          {"id": "action-row", "role": "Reset and Search completion", "sourceRegion": [0.73, 0.79, 0.21, 0.07]},
+          {"id": "advanced-disclosure-seam", "role": "optional-complexity boundary", "sourceRegion": [0.08, 0.86, 0.84, 0.06]}
+        ],
+        "hierarchy": ["query first", "energy choices second", "actions conclude default task", "disclosure adds depth"],
+        "mustNot": ["split into unrelated cards", "remove search-first order", "fake disclosure", "globalize expanded-label color"]
+      }
+    },
+    {
+      "id": "annotated-learning-sequence", "status": "approved", "scope": "how-to-play learning page",
+      "preserves": ["mustPreserve.learning-content-hierarchy", "mustPreserve.responsive-section-structure"],
+      "observedFact": "Campaign header and large tutorial media precede card and field modules pairing expandable labels with oversized specimens; phone retains this order.",
+      "interpretation": "Instruction alternates with authentic specimens so disclosure explains an object in context.", "recommendation": "Retain tutorial, card anatomy and field anatomy as distinct ordered layers.",
+      "suitableFor": ["how-to-play education", "rules/tutorial content"], "notFor": ["flat FAQ", "equal marketing grid", "text-only docs", "detached accordion"],
+      "allowedTransformations": ["single-column phone reflow", "content substitution within roles", "bounded specimen scaling"],
+      "sourceRegion": [0, 0, 1, 0.65], "evidenceRefs": ["learning-content-hierarchy-observed", "learn-responsive-section-structure", "learn-card-name-details-open"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "asset-learn-card-header", "variant": "official localized 2x card-header-asset_en-2x.png", "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/hero/card-header-asset_en-2x.png"},
+        "requiredLayers": [
+          {"id": "learning-campaign-header", "role": "illustrated page introduction", "sourceRegion": [0, 0.08, 1, 0.13], "assetIdentity": "asset-learn-card-header"},
+          {"id": "tutorial-media", "role": "large getting-started lesson", "sourceRegion": [0.14, 0.2, 0.72, 0.16], "assetIdentity": "asset-learn-getting-started-thumbnail", "assetVariant": "official getting-started-video-thumbnail.jpg", "sourceUrl": "https://tcg.pokemon.com/assets/img/learn-to-play/getting-started/getting-started-video-thumbnail.jpg"},
+          {"id": "card-annotation-pair", "role": "expandable anatomy beside large card specimen", "sourceRegion": [0.16, 0.37, 0.78, 0.25]},
+          {"id": "field-annotation-pair", "role": "expandable terms beside play-field diagrams", "sourceRegion": [0.16, 0.62, 0.78, 0.28]},
+          {"id": "resource-tail", "role": "supporting resources after primary instruction", "sourceRegion": [0.1, 0.9, 0.8, 0.08]}
+        ],
+        "hierarchy": ["campaign introduction", "tutorial media", "card anatomy", "field anatomy", "resources"],
+        "mustNot": ["detach labels from specimens", "reduce specimens to icons", "put resources first", "replace sequence with equal cards"]
+      }
+    },
+    {
+      "id": "section-order-responsive-reflow", "status": "approved", "scope": "390px translation of all three page families",
+      "preserves": ["mustPreserve.responsive-section-structure"],
+      "observedFact": "At 390px all pages retain section order while modules stack and document height increases.",
+      "interpretation": "Responsive behavior protects hierarchy and function while changing geometry.", "recommendation": "Stack within sections and preserve lead mass, layers and interaction truth.",
+      "suitableFor": ["phone layouts for all three observed pages"], "notFor": ["section reorder", "layer removal", "item-count proxy", "invented behavior"],
+      "allowedTransformations": ["column-to-stack reflow", "gap compression", "bounded crop", "greater page height"],
+      "sourceRegion": [0, 0, 1, 1], "evidenceRefs": ["home-responsive-section-structure", "card-database-responsive-section-structure", "learn-responsive-section-structure"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "structure-three-page-responsive-family", "variant": "home/card-database/how-to-play at 390x844"},
+        "requiredLayers": [
+          {"id": "home-stage-before-modules", "role": "campaign stage remains first dominant mass", "sourceRegion": [0, 0, 1, 0.35], "assetIdentity": "asset-home-thirtieth-campaign-hero"},
+          {"id": "database-search-before-results", "role": "controls stay ordered and search-first", "sourceRegion": [0, 0, 1, 0.72], "assetIdentity": "organism-card-search"},
+          {"id": "learn-tutorial-card-field-order", "role": "tutorial-to-card-to-field sequence", "sourceRegion": [0, 0, 1, 0.7], "assetIdentity": "asset-learn-card-header"}
+        ],
+        "hierarchy": ["preserve section order", "stack internal columns", "retain lead asset weight", "retain disclosures"],
+        "mustNot": ["infer from counts", "move support before lead", "hide required layer", "replace controls with decoration"]
+      }
+    },
+    {
+      "id": "state-color-boundaries", "status": "approved", "scope": "captured expanded database disclosure and open Card Name summary only",
+      "preserves": ["mustPreserve.card-database-search-organism", "mustPreserve.learning-content-hierarchy"],
+      "observedFact": "Expanded database disclosure text is white; open Card Name summary text is rgb(190, 14, 23).",
+      "interpretation": "Two colors signal local open states in different surfaces, not a global palette.", "recommendation": "Use each only in its evidence-matched context.",
+      "suitableFor": ["database expanded disclosure text", "learning open annotation text"], "notFor": ["global primary", "generic CTA", "surface", "status color", "all active states"],
+      "allowedRoles": ["database-expanded-disclosure-text", "learning-open-annotation-text"], "forbiddenRoles": ["global-primary", "global-action", "surface", "semantic-status", "universal-active"],
+      "allowedTransformations": ["contrast-preserving use in the same local state"], "sourceRegion": [0.12, 0.35, 0.53, 0.42], "evidenceRefs": ["card-advanced-search-open", "learn-card-name-details-open"]
+    }
+  ],
+  "mustPreserveMappings": [
+    {"goalRef": "mustPreserve.home-brand-stage", "patternIds": ["campaign-art-brand-stage"]},
+    {"goalRef": "mustPreserve.card-database-search-organism", "patternIds": ["dark-search-filter-organism", "state-color-boundaries"]},
+    {"goalRef": "mustPreserve.learning-content-hierarchy", "patternIds": ["annotated-learning-sequence", "state-color-boundaries"]},
+    {"goalRef": "mustPreserve.responsive-section-structure", "patternIds": ["section-order-responsive-reflow", "campaign-art-brand-stage", "dark-search-filter-organism", "annotated-learning-sequence"]}
+  ],
+  "unresolvedPatternCandidates": ["global action color", "global font system", "global shadow system", "generic motion timing", "home carousel behavior", "video modal behavior", "universal surface palette"]
+}

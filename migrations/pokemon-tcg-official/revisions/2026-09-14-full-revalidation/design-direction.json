@@ -1,0 +1,73 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "pokemon-tcg-official-v2",
+  "scope": "goal:pokemon-tcg-official-v2-full-revalidation pages:home|card-database|how-to-play|held-out",
+  "designObjective": "Prove Pokémon TCG as a purpose-specific visual system: an asset-dominant campaign stage, a dense dark search organism, and a long annotated learning sequence, then reuse those rules on a source-independent held-out surface without turning the result into a logo-and-primary-color skin.",
+  "decisionStatus": "approved",
+  "inputBindings": {
+    "goal": { "path": "migrations/pokemon-tcg-official-v2/goal-contract.json", "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845" },
+    "evidence": { "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json", "sha256": "0d10010991e0641bbaed0c338dc9a298d675ef07cc15d4c76688f693196ccf4b" },
+    "intent": { "path": "migrations/pokemon-tcg-official-v2/brand-intent.json", "sha256": "44c5090aaf5f3018e6d4f4d5d3ccab5f34559741b9cfb445fdeeb3c53cf3c888" },
+    "patterns": { "path": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json", "sha256": "be6cb1946019a184201bf37f8ab9f029499aaf428d271d796ed47f892487b329" }
+  },
+  "visualPriorityOrder": [
+    "content visibility and operability",
+    "page-purpose-specific composition and information density",
+    "authentic independent asset identity and layer hierarchy",
+    "local interaction-state truth without global color invention",
+    "responsive section order and specimen prominence",
+    "protocol completeness"
+  ],
+  "sections": [
+    {
+      "id": "home-campaign-stage",
+      "firstImpressionGoal": "One authored expansion scene dominates immediately, with navigation, campaign identity, focal subjects, featured card, CTA and slide controls remaining independently legible layers.",
+      "mustPreserve": ["full-width campaign visual mass", "frozen 30th Celebration hero asset identity", "independent navigation, identity, subject, card, CTA and slide-control layers", "stage-first low-choice density"],
+      "mayChange": ["bounded focal crop", "responsive coordinates", "supporting campaign copy"],
+      "mustNotDo": ["use a source screenshot at runtime", "flatten the stage into one poster", "treat logo or yellow as sufficient brand proof", "reuse the stage on utility pages", "invent carousel semantics not present in approved action evidence"]
+    },
+    {
+      "id": "card-database-search",
+      "firstImpressionGoal": "A compact, dark, task-first search organism visibly groups query inputs, categorical filters, actions and reversible advanced controls before results.",
+      "mustPreserve": ["single bounded search organism", "query-to-filter-to-action-to-disclosure order", "dense control grouping", "real reversible Advanced Search state", "search remains first on phone"],
+      "mayChange": ["representative query content", "filter labels within equivalent roles", "vertical stacking at phone width"],
+      "mustNotDo": ["convert controls to decorative chips", "split the organism into unrelated cards", "apply campaign art behind the form", "globalize white expanded-label color", "fake enabled controls"]
+    },
+    {
+      "id": "how-to-play-learning",
+      "firstImpressionGoal": "A long instructional journey alternates explanation with oversized authentic specimens, with each disclosure visibly attached to the object it explains.",
+      "mustPreserve": ["tutorial-to-card-to-field sequence", "large specimen prominence", "annotation-and-specimen coupling", "real reversible native-details state", "cumulative long-page rhythm"],
+      "mayChange": ["representative instructional copy", "specimen content", "single-column phone reflow"],
+      "mustNotDo": ["flatten into an FAQ", "make equal marketing cards", "detach accordions from specimens", "globalize the observed red open-label role", "hide specimens on phone"]
+    },
+    {
+      "id": "held-out-deck-lab",
+      "firstImpressionGoal": "A fictional deck-lab briefing feels native by combining a compact search organism with an annotated specimen sequence and one bounded campaign-like lead mass, while remaining structurally distinct from every source page.",
+      "mustPreserve": ["at least two approved pattern recipes", "source-independent content and structure", "purpose-specific density", "reversible interaction", "local state-color boundaries"],
+      "mayChange": ["subject matter", "section order", "labels", "asset content", "responsive arrangement"],
+      "mustNotDo": ["copy a source page composition one-for-one", "reuse source screenshots", "present fictional content as official", "combine all observed colors into a global palette", "use logo or official hero as the sole proof"]
+    }
+  ],
+  "highSalienceElements": ["campaign stage", "campaign controls", "database search organism", "learning module sequence", "learning specimen", "local open states"],
+  "responsiveStrategyMatrix": [
+    { "element": "campaign stage", "elementType": "media-composition", "strategy": "art-directed-crop", "evidenceRefs": ["home-brand-stage-observed", "home-responsive-section-structure"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["stage dominance", "asset identity", "independent layer legibility", "section order"] },
+    { "element": "campaign controls", "elementType": "control", "strategy": "responsive-reflow", "evidenceRefs": ["home-brand-stage-observed", "home-responsive-section-structure"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["reachable CTA", "separate slide-control strip", "44px phone targets"], "minimumReadableSize": "14px label / 44px target" },
+    { "element": "database search organism", "elementType": "form-composition", "strategy": "responsive-reflow", "evidenceRefs": ["card-database-search-organism-observed", "card-database-responsive-section-structure", "card-advanced-search-open"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["group order", "control density", "action row", "reversible disclosure"] },
+    { "element": "learning module sequence", "elementType": "content-composition", "strategy": "responsive-reflow", "evidenceRefs": ["learning-content-hierarchy-observed", "learn-responsive-section-structure"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["tutorial-card-field order", "specimen dominance", "annotation coupling"] },
+    { "element": "learning specimen", "elementType": "media", "strategy": "independent-scale", "evidenceRefs": ["learning-content-hierarchy-observed", "learn-card-name-details-open"], "viewports": ["1440x900", "390x844"], "mustPreserve": ["recognizable subject", "dominance over supporting copy", "associated disclosure remains adjacent"] },
+    { "element": "local open states", "elementType": "control", "strategy": "motion-degradation", "evidenceRefs": ["card-advanced-search-open", "learn-card-name-details-open"], "viewports": ["pointer", "390x844", "prefers-reduced-motion"], "mustPreserve": ["default-triggered-settled-restored truth", "white limited to database expanded label", "red limited to learning open annotation"], "minimumReadableSize": "14px label / 44px target" }
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "Independent 1440x900 content captures for Home, Card Database, Learn and held-out pages.",
+    "mobileCanvas": "Independent 390x844 content captures plus normal product routes retaining the phone mockup shell.",
+    "inspectorPolicy": "Exclude browser chrome, inspector rails, selection overlays, phone bezel and home indicator from source-fidelity crops.",
+    "sourceComparison": "Compare mapped source and Demo surfaces at the same viewport and state, with bounded region checks for each high-salience layer.",
+    "heldOutChallenge": "Create a clearly fictional Deck Lab page using at least two approved recipes and a new information structure; it must not reuse source screenshots or copy any source composition one-for-one."
+  },
+  "orchestratorDecision": {
+    "status": "approved-for-demo-dispatch",
+    "colorBoundary": "No global brand primary is approved; the observed white and red values remain local disclosure-state roles only.",
+    "assetBoundary": "Source screenshots remain QA-only. Runtime may use independently inventoried original assets or DOM/CSS reconstruction with provenance.",
+    "publication": "Keep pokemon-tcg-official-v2 private until Demo self-check, fresh independent Visual QA, three-proof fidelity and release gates all pass."
+  }
+}

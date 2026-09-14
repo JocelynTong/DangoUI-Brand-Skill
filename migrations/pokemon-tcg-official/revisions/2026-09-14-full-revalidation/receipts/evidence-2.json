@@ -1,0 +1,20 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "3416f013-a7a1-49c8-af15-3e67812795e8",
+  "stageId": "evidence-2",
+  "role": "brandResearcher",
+  "agentExecutionId": "/root/pokemon_v2_evidence_retry",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "verdict": "pass",
+  "inputs": [
+    { "path": "migrations/pokemon-tcg-official-v2/goal-contract.json", "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845" }
+  ],
+  "outputs": [
+    { "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json", "sha256": "0d10010991e0641bbaed0c338dc9a298d675ef07cc15d4c76688f693196ccf4b" },
+    { "path": "migrations/pokemon-tcg-official-v2/source-observation-manifest.json", "sha256": "18bb444ff05c6c3abec293c6caa9def8842d737011a1bbf3f5569f37ea0474f6" },
+    { "path": "migrations/pokemon-tcg-official-v2/rendered-asset-inventory.json", "sha256": "a3316c10b0f2c59b59c75c1edc052646089185979b2c9838d9ebdd31c060e3e4" },
+    { "path": "migrations/pokemon-tcg-official-v2/action-evidence.json", "sha256": "3f7dd099cbc3e07a3bcd4f6912e6bee712fe3743cd4e849d8a50f743192c753b" },
+    { "path": "migrations/pokemon-tcg-official-v2/third-party-evidence.dembrandt.json", "sha256": "3653dac8e0da182694d3a34a097e210eb6d80c93b70b623e377ef6820e918932" }
+  ],
+  "blockingFindings": []
+}

@@ -1,0 +1,363 @@
+{
+  "schema": "brand-evidence/v3",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "capturePersistenceProbe": {
+    "status": "passed",
+    "path": "migrations/pokemon-tcg-official-v2/evidence/capture-persistence-probe.png",
+    "sha256": "2c2a3010acbbf36782f2cf7d52aae12703182bf4b09e00a957dad3b47c4a7b8a",
+    "byteSignature": "ffd8ffe0",
+    "decoderCheck": "JPEG SOI/JFIF signature and browser-generated non-zero viewport raster verified after re-read"
+  },
+  "goalQuestions": [
+    {
+      "goalItem": "home-brand-stage",
+      "question": "Does the rendered home page visibly prioritize a campaign stage and retain its section hierarchy?",
+      "stopCondition": "desktop full-page + scroll-to-end + mobile full-page + visible DOM"
+    },
+    {
+      "goalItem": "card-database-search-organism",
+      "question": "Is search/filter composition visible and does advanced disclosure produce and restore a real state?",
+      "stopCondition": "default/triggered/settled/restored captures + exact DOM/computed property"
+    },
+    {
+      "goalItem": "learning-content-hierarchy",
+      "question": "Does the learn page visibly sequence tutorial, card/field knowledge and resources, including a real expandable state?",
+      "stopCondition": "full-page/continuous frames + native details interaction chain"
+    },
+    {
+      "goalItem": "responsive-section-structure",
+      "question": "Do all three pages preserve section order and hierarchy at 390 px?",
+      "stopCondition": "desktop and mobile full-page evidence for every required page"
+    }
+  ],
+  "claims": [
+    {
+      "id": "home-brand-stage-observed",
+      "sourcePageId": "home",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "state": "initial",
+      "statement": "The home page opens with a dominant full-width campaign stage above a modular news/content sequence.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/full-page.jpg",
+        "sha256": "106ea8717099fb5a44df1a73f2ec239e9a0d492b9a384a5b8c74af7c0933e3ad"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.18
+      ],
+      "visibleDom": {
+        "selector": ".featured-switcher",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 84,
+          "width": 1440,
+          "height": 816
+        }
+      },
+      "computed": {
+        "property": "display",
+        "value": "block"
+      },
+      "evidenceBasis": "rendered screenshot first; DOM used only for location"
+    },
+    {
+      "id": "card-database-search-organism-observed",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "state": "default",
+      "statement": "The database is organized around a dense, dark search/filter organism with keyword, energy, reset/search and expandable advanced filters.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/full-page.jpg",
+        "sha256": "5c53e7bf130d115aa8a8fb1dca80507af0f14d3e554212f8bd13a95b4921bfd4"
+      },
+      "sourceRegion": [
+        0.08,
+        0.1,
+        0.84,
+        0.58
+      ],
+      "visibleDom": {
+        "selector": "#card-search",
+        "visible": true,
+        "boundingBox": {
+          "x": 120,
+          "y": 200,
+          "width": 1200,
+          "height": 600
+        }
+      },
+      "computed": {
+        "property": "display",
+        "value": "block"
+      },
+      "evidenceBasis": "rendered screenshot plus visible control state"
+    },
+    {
+      "id": "learning-content-hierarchy-observed",
+      "sourcePageId": "how-to-play",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "state": "initial",
+      "statement": "The learn page uses a campaign header, large tutorial media, sequenced learning modules, annotated card/field sections and supporting resource cards.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/full-page.jpg",
+        "sha256": "3b64cedf17c2aa8cf7d353ef51e146540b9a07daa9dd2edd463c49242d9fd549"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.65
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 248,
+          "width": 1440,
+          "height": 9000
+        }
+      },
+      "computed": {
+        "property": "display",
+        "value": "block"
+      },
+      "evidenceBasis": "rendered full-page and continuous scroll frames"
+    },
+    {
+      "id": "home-responsive-section-structure",
+      "sourcePageId": "home",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "state": "mobile-initial",
+      "statement": "At 390 px, the same home hierarchy is retained while modules stack and the page becomes taller.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/mobile/full-page.jpg",
+        "sha256": "25d3e033b4b9a5d516eb4299403d0e0b0ff7dbe70db11ae4e3918997bdfd1825"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.35
+      ],
+      "visibleDom": {
+        "selector": "#site-wrapper",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 9037
+        }
+      },
+      "computed": {
+        "property": "width",
+        "value": "390px"
+      }
+    },
+    {
+      "id": "card-database-responsive-section-structure",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "state": "mobile-initial",
+      "statement": "At 390 px, database controls reflow vertically while preserving search-first order and advanced-filter disclosure.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/mobile/full-page.jpg",
+        "sha256": "3135971e9c71c87a61cc99e0cbbaaca828d648310b528e1d7ce6b0503b325021"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.72
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 2678
+        }
+      },
+      "computed": {
+        "property": "width",
+        "value": "390px"
+      }
+    },
+    {
+      "id": "learn-responsive-section-structure",
+      "sourcePageId": "how-to-play",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "state": "mobile-initial",
+      "statement": "At 390 px, tutorial and learning sections remain ordered but collapse into a single-column sequence.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/mobile/full-page.jpg",
+        "sha256": "150dfe8ddcf804e9277aad80ad9fb6bd134aa36c9c8c2acf49aef94e8bdd7d91"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.7
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 7928
+        }
+      },
+      "computed": {
+        "property": "width",
+        "value": "390px"
+      }
+    },
+    {
+      "id": "card-advanced-search-open",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "state": "expanded",
+      "statement": "The disclosure changes from Show Advanced Search to Hide Advanced Search and reveals the filter body.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/interaction-advanced-settled.jpg",
+        "sha256": "7a3d7e58f4452903f939c346bf480bc3af079990c8b116fb250608cac2a6f8ed"
+      },
+      "sourceRegion": [
+        0.35,
+        0.35,
+        0.3,
+        0.25
+      ],
+      "visibleDom": {
+        "selector": "#toggleWrapperMainText b",
+        "visible": true,
+        "boundingBox": {
+          "x": 621.6,
+          "y": 441.9,
+          "width": 164.5,
+          "height": 16
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(255, 255, 255)"
+      }
+    },
+    {
+      "id": "learn-card-name-details-open",
+      "sourcePageId": "how-to-play",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "state": "open",
+      "statement": "Opening the Card Name summary sets its native details element to open and reveals explanatory copy.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/interaction-card-name-settled.jpg",
+        "sha256": "cedf8c91384f71ddb8cb02087692b513572ee51c664fcab963a736fc7fb25616"
+      },
+      "sourceRegion": [
+        0.12,
+        0.35,
+        0.5,
+        0.42
+      ],
+      "visibleDom": {
+        "selector": "details.hotspot-gallery-accordion__panel[open] > summary",
+        "visible": true,
+        "boundingBox": {
+          "x": 206,
+          "y": 433.2,
+          "width": 428,
+          "height": 33.6
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(190, 14, 23)"
+      }
+    }
+  ],
+  "goalCoverage": [
+    {
+      "id": "home-brand-stage",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "home-brand-stage-observed"
+      ]
+    },
+    {
+      "id": "card-database-search-organism",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "card-database-search-organism-observed",
+        "card-advanced-search-open"
+      ]
+    },
+    {
+      "id": "learning-content-hierarchy",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "learning-content-hierarchy-observed",
+        "learn-card-name-details-open"
+      ]
+    },
+    {
+      "id": "responsive-section-structure",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "home-responsive-section-structure",
+        "card-database-responsive-section-structure",
+        "learn-responsive-section-structure"
+      ]
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "seedRef": "dembrandt.typography.heading",
+      "status": "validated",
+      "evidenceRefs": [
+        "home-brand-stage-observed",
+        "learning-content-hierarchy-observed"
+      ],
+      "reason": "PT Sans/Kanit candidates were checked against rendered headings and controls; semantic promotion remains downstream."
+    },
+    {
+      "seedRef": "dembrandt.palette.frequency",
+      "status": "unresolved",
+      "reason": "Aggregate palette frequency is seed-only and cannot establish action or primary color semantics; no mustPreserve item depends on it."
+    },
+    {
+      "seedRef": "dembrandt.components.controls",
+      "status": "validated",
+      "evidenceRefs": [
+        "card-advanced-search-open",
+        "learn-card-name-details-open"
+      ],
+      "reason": "Candidate control patterns were confirmed with visible before/after states."
+    }
+  ],
+  "verdict": "pass"
+}

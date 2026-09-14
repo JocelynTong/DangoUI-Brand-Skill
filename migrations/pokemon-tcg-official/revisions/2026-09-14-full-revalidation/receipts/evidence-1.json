@@ -1,0 +1,43 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "120e59bf-e55c-4326-bbcd-4c6bbb9d0519",
+  "stageId": "evidence-1",
+  "role": "brandResearcher",
+  "agentExecutionId": "/root/pokemon_v2_evidence",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "verdict": "needs-evidence",
+  "failureOwnerRole": "brandResearcher",
+  "inputs": [
+    {
+      "path": "migrations/pokemon-tcg-official-v2/goal-contract.json",
+      "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845"
+    }
+  ],
+  "outputs": [
+    {
+      "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json",
+      "sha256": "faf4c1bfa25bcc9cd409c15dfac04ca61ddcbc21d0994790d7d1ffc0cab6f132"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/source-observation-manifest.json",
+      "sha256": "98a681c1446f3003f7a3dd3e977900ea2d6ebb8dd2234ec74a67e579e4955fb0"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/rendered-asset-inventory.json",
+      "sha256": "913ae473ae95a548aaca93b1ea397775db993a3567af85ddd915da05a6bf1e10"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/action-evidence.json",
+      "sha256": "d35c66d1a78f4db1ce53cb86e061e4b1c2e9f3e81147cfbc5b6ec758ac2134f6"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/third-party-evidence.dembrandt.json",
+      "sha256": "55101b10562a2e4cfeb0e764304e542c8b92290ea4ab6f6d2479c483a07df5a2"
+    }
+  ],
+  "blockingFindings": [
+    "The browser rendered all required source pages, but its current capture interface could not persist source screenshots into the workspace.",
+    "Continuous full-page capture, lossless frames, timeline evidence, and responsive viewport evidence remain unavailable.",
+    "Observed DOM and computed-style facts may be retained, but the screenshot-first visibility gate cannot pass."
+  ]
+}

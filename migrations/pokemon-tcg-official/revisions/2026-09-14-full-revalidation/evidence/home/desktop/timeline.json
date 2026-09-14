@@ -1,0 +1,103 @@
+{
+  "schema": "brand-source-timeline/v1",
+  "pageId": "home",
+  "meta": {
+    "url": "https://tcg.pokemon.com/en-us/",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 6958,
+    "captureMode": "fixed-step-lossless-frames"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "timeMs": 0,
+      "label": "stable-initial",
+      "scrollTop": 0,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-0000.jpg",
+        "sha256": "04d541a336276ee5f9e60ea14f9a7c366d582a2ae5937b6e1a1c63e4899f5dc5"
+      }
+    },
+    {
+      "index": 1,
+      "timeMs": 500,
+      "label": "continuous-scroll",
+      "scrollTop": 900,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-0900.jpg",
+        "sha256": "103605be6efb75b4cf3b16b4eee7ebb8352e2eb9734441ba167cb837886539ab"
+      }
+    },
+    {
+      "index": 2,
+      "timeMs": 1000,
+      "label": "continuous-scroll",
+      "scrollTop": 1800,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-1800.jpg",
+        "sha256": "a31b15282992c7195b8c232a28ed70579f8005778bfd5bba8c8d9b42ce07e0d7"
+      }
+    },
+    {
+      "index": 3,
+      "timeMs": 1500,
+      "label": "continuous-scroll",
+      "scrollTop": 2700,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-2700.jpg",
+        "sha256": "8dc98c6f5e3eb4d9b69612bc5cda5af1d3c4013a3f797bcc5a8b89128b51d256"
+      }
+    },
+    {
+      "index": 4,
+      "timeMs": 2000,
+      "label": "continuous-scroll",
+      "scrollTop": 3600,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-3600.jpg",
+        "sha256": "69cf4ce8da05b41bd9c02415d4cf4fe5ae5ac75da5433ed2de0264b18b7db95c"
+      }
+    },
+    {
+      "index": 5,
+      "timeMs": 2500,
+      "label": "continuous-scroll",
+      "scrollTop": 4500,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-4500.jpg",
+        "sha256": "1efbc2cd476b603805e130250f90ceb9e004b89d1db1406209d270f484ac0b86"
+      }
+    },
+    {
+      "index": 6,
+      "timeMs": 3000,
+      "label": "continuous-scroll",
+      "scrollTop": 5400,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-5400.jpg",
+        "sha256": "eb227ada5177bc89209e522695538a1ec1ec529da3d40f8f9436a192ee63c484"
+      }
+    },
+    {
+      "index": 7,
+      "timeMs": 3500,
+      "label": "settled-end",
+      "scrollTop": 6058,
+      "scrollHeight": 6958,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/home/desktop/frames/scroll-6118.jpg",
+        "sha256": "07a3f7365ebe0dc243cd3963a8c54600d1a3d25311ffe4c50bb37de78d47faaa"
+      }
+    }
+  ]
+}

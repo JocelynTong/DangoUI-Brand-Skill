@@ -8,7 +8,7 @@ const args = process.argv.slice(2);
 const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
 const brand = opt("--brand", "");
-if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|status|resume-qa|resume-demo|finalize> --brand <brand>");
+if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
@@ -19,12 +19,17 @@ if (command === "prepare") prepare();
 else if (command === "next") next();
 else if (command === "record") record();
 else if (command === "status") status();
+else if (command === "resume-evidence") resumeEvidence();
 else if (command === "resume-qa") resumeQa();
 else if (command === "resume-demo") resumeDemo();
 else if (command === "finalize") finalize();
 else fail(`Unknown command: ${command}`);
 
 function prepare() {
+  if (fs.existsSync(manifestFile)) {
+    const existing = readJsonRequired(manifestFile);
+    fail(`EXECUTION_MANIFEST_ALREADY_EXISTS: execution-manifest.json already exists; prepare must not overwrite run history. Existing run ${existing.runId || "unknown"} is ${existing.status || "unknown"}. Resume or inspect it, or create a new versioned brand workspace.`);
+  }
   const goal = readJsonRequired(goalFile);
   if (goal.sealed !== true) fail("goal-contract.json must be sealed before prepare.");
   const contract = readJsonRequired(contractFile);
@@ -149,6 +154,26 @@ function status() {
   output({ ok: true, readOnly: before === after, proofStatus, nextAction: nextAction(manifest, proofStatus), manifest });
 }
 
+function resumeEvidence() {
+  const manifest = validateManifest();
+  const latestEvidence = [...manifest.stages].reverse().find((item) => item.role === "brandResearcher");
+  if (manifest.status !== "blocked" || latestEvidence?.verdict !== "needs-evidence") {
+    fail("resume-evidence requires a blocked workflow whose latest Evidence verdict is needs-evidence.");
+  }
+  const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
+  if (latestEvidence.attempt >= maxAttempts) fail("Evidence retry budget is exhausted.");
+  const retry = uniqueStage(manifest, "evidence", "brandResearcher", latestEvidence.attempt + 1);
+  retry.retryInput = {
+    goalSha256: manifest.goalSha256,
+    blockingFindings: array(latestEvidence.blockingFindings),
+  };
+  manifest.stages.push(retry);
+  manifest.currentStageId = retry.id;
+  manifest.status = "running";
+  writeJson(manifestFile, manifest);
+  output({ ok: true, status: manifest.status, resumedFrom: latestEvidence.id, nextStageId: retry.id, blockingFindings: retry.retryInput.blockingFindings });
+}
+
 function resumeQa() {
   const manifest = validateManifest();
   const latestQa = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
@@ -156,10 +181,11 @@ function resumeQa() {
     fail("resume-qa requires a blocked workflow whose latest Visual QA verdict is needs-evidence.");
   }
   const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
-  if (latestQa.attempt >= maxAttempts) fail("Visual QA retry budget is exhausted.");
+  const completedQaAttempts = manifest.stages.filter((item) => item.role === "visualQA" && ["complete", "failed"].includes(item.status)).length;
+  if (completedQaAttempts >= maxAttempts) fail("Visual QA retry budget is exhausted.");
   const assessmentFile = path.join(migrationDir, "visual-qa-assessment.json");
   const assessment = fs.existsSync(assessmentFile) ? readJsonRequired(assessmentFile) : {};
-  const retry = uniqueStage(manifest, "visualQA", "visualQA", latestQa.attempt + 1);
+  const retry = uniqueStage(manifest, "visualQA", "visualQA", completedQaAttempts + 1);
   retry.retryInput = {
     goalSha256: manifest.goalSha256,
     blockingFindings: array(latestQa.blockingFindings).length
@@ -181,8 +207,9 @@ function resumeDemo() {
     fail("resume-demo requires a blocked workflow whose latest Visual QA verdict is fail or needs-evidence.");
   }
   const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
-  const nextAttempt = Number(latestDemo?.attempt || 0) + 1;
-  if (nextAttempt > maxAttempts) fail("Demo retry budget is exhausted.");
+  const nextAttempt = manifest.stages.filter((item) => item.role === "demoImplementationAgent" && ["complete", "failed"].includes(item.status)).length + 1;
+  const authorizedContinuation = args.includes("--continue-existing");
+  if (nextAttempt > maxAttempts && !authorizedContinuation) fail("Demo retry budget is exhausted. An explicit user instruction to continue the same version is required; then rerun with --continue-existing.");
   const assessmentFile = path.join(migrationDir, "visual-qa-assessment.json");
   const assessment = fs.existsSync(assessmentFile) ? readJsonRequired(assessmentFile) : {};
   const retry = uniqueStage(manifest, "demo", "demoImplementationAgent", nextAttempt);
@@ -191,6 +218,7 @@ function resumeDemo() {
     blockingFindings: array(latestQa.blockingFindings).length
       ? array(latestQa.blockingFindings)
       : array(assessment.blockingFindings),
+    continuationAuthorization: authorizedContinuation ? "explicit-user-request-to-continue-existing-version" : null,
   };
   manifest.stages.push(retry);
   manifest.currentStageId = retry.id;
@@ -230,14 +258,19 @@ function advance(manifest, current) {
     }
     const nextStageName = order[index + 1];
     const nextRole = { evidence: "brandResearcher", interpreter: "designTranslator", demo: "demoImplementationAgent", visualQA: "visualQA" }[nextStageName];
-    const nextStage = uniqueStage(manifest, nextStageName, nextRole, current.attempt);
+    // Attempts are local to each role. An upstream retry must not consume the
+    // next role's budget, while a return to a previously completed role must
+    // advance that role's own attempt number.
+    const nextRoleAttempts = manifest.stages.filter((item) => item.role === nextRole && ["complete", "failed"].includes(item.status)).length;
+    const nextStage = uniqueStage(manifest, nextStageName, nextRole, nextRoleAttempts + 1);
     manifest.stages.push(nextStage);
     manifest.currentStageId = nextStage.id;
     return;
   }
   if (current.stage === "visualQA") {
     const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
-    if (current.attempt >= maxAttempts) {
+    const completedQaAttempts = manifest.stages.filter((item) => item.role === "visualQA" && ["complete", "failed"].includes(item.status)).length;
+    if (completedQaAttempts >= maxAttempts) {
       manifest.status = "blocked";
       manifest.currentStageId = null;
       return;
@@ -254,7 +287,8 @@ function advance(manifest, current) {
       demoImplementationAgent: ["demo", "demoImplementationAgent"],
       implementationAgent: ["demo", "demoImplementationAgent"],
     }[current.failureOwnerRole] || ["demo", "demoImplementationAgent"];
-    const retry = uniqueStage(manifest, routed[0], routed[1], current.attempt + 1);
+    const routedAttempts = manifest.stages.filter((item) => item.role === routed[1] && ["complete", "failed"].includes(item.status)).length;
+    const retry = uniqueStage(manifest, routed[0], routed[1], routedAttempts + 1);
     retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings };
     manifest.stages.push(retry);
     manifest.currentStageId = retry.id;
@@ -272,17 +306,19 @@ function dispatchInputs(manifest, current) {
   }
   if (current.stage === "evidence") return [goalInput];
   if (current.stage === "demo") {
-    const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes));
+    // A retry may follow an Orchestrator-owned protocol normalization. Freeze
+    // the bytes that actually exist at dispatch time, not stale producer hashes
+    // retained only as history in an earlier receipt.
+    const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes)).map((item) => hashedPath(item.path));
     return latestInputsByPath([goalInput, ...previousOutputs, hashedPath(`migrations/${brand}/design-direction.json`)]);
   }
   if (current.stage === "visualQA") {
     const goal = readJsonRequired(goalFile);
     const sourceScreenshots = array(goal.referencePages).map((item) => item?.screenshot).filter(Boolean).map(hashedPath);
     const demoScreenshots = array(goal.demoPages).map((item) => item?.screenshot).filter(Boolean).map(hashedPath);
-    // qa-input-manifest.json is authored/refreshed by Visual QA for this run. Treating
-    // it as a frozen input makes a valid receipt impossible because the same path
-    // would need to retain its old hash and report its new output hash simultaneously.
-    return [goalInput, ...sourceScreenshots, ...demoScreenshots, hashedPath(`migrations/${brand}/visual-pattern-inventory.json`), hashedPath(`migrations/${brand}/generative-proof.json`)];
+    // The Orchestrator seals the blind-input boundary before dispatch. QA consumes
+    // this manifest as a frozen input and must never author or refresh it itself.
+    return [goalInput, ...sourceScreenshots, ...demoScreenshots, hashedPath(`migrations/${brand}/visual-pattern-inventory.json`), hashedPath(`migrations/${brand}/generative-proof.json`), hashedPath(`migrations/${brand}/qa-input-manifest.json`)];
   }
   const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes));
   return latestInputsByPath([goalInput, ...previousOutputs]);
@@ -333,7 +369,7 @@ function nextAction(manifest, proofs) {
   if (manifest.status === "complete") return "Brand learning capability test is complete; the learned MOD may now enter apply-host as a separate workflow.";
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
-function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: name === "demo" || name === "visualQA" ? 2 : 1, status: "pending" }; }
+function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
 function uniqueStage(manifest, name, role, attempt) {
   const item = stage(name, role, attempt);
   const used = new Set(array(manifest?.stages).map((entry) => entry.id));

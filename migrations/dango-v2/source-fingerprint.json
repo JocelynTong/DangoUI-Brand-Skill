@@ -1,0 +1,58 @@
+{
+  "schema": "brand-source-fingerprint/v1",
+  "brand": "dango",
+  "rulesVersion": "3.0",
+  "sourceManifestSha256": "07db4fd61a8337327347e5a723aa83d62f059f021627b0faa18951ad05274db8",
+  "inputs": [
+    {
+      "kind": "source-observation-manifest",
+      "path": "migrations/dango-v2/source-observation-manifest.json",
+      "sha256": "26ce873aa559bb230fee177bdcccba0c144a7a2c2a98eb3e415dcc7700167315"
+    },
+    {
+      "kind": "rendered-asset-inventory",
+      "path": "migrations/dango-v2/rendered-asset-inventory.json",
+      "sha256": "94c7ba4ff959dbb5ba783d79cd962b486fc67d1f9a11214999be56e44b939c0d"
+    },
+    {
+      "kind": "action-evidence",
+      "path": "migrations/dango-v2/action-evidence.json",
+      "sha256": "a5297a4910da3fd2512b7b6018aa85996738b5b08de225dbda646bf4063f6869"
+    }
+  ],
+  "pages": [
+    {
+      "id": "introduction",
+      "url": "https://dumpling.echo.tech/get-started/introduction",
+      "contentSha256": "f73092bffe3186f0c44932e5bb15677e0da250b2cb3c7ff4572f1424c611f14c",
+      "renderSha256": "773ab056e919f2f0efa24836a46b63156da15c74720e1386b5e8697e6ce112b6",
+      "assetSha256": "f913202253c68c28710cd408ab799aa4c2ae83ae2376d405bb2c799444867331",
+      "interactionSha256": "7ade62a50959a558416bbdc396b544d1b94edee455ab8e272b205fd857d10f43",
+      "evidenceCompleteness": {
+        "renderHashes": 8,
+        "assets": 12,
+        "interactions": 1
+      }
+    },
+    {
+      "id": "button",
+      "url": "https://dumpling.echo.tech/style/button",
+      "contentSha256": "f9fdac14baec841299b3dfad7c93373c0a47032cfa0d5f4e9b8e61c56870e162",
+      "renderSha256": "57252df165bd3ad109f6dcf0c90ca864c776b677a448541531f43031d9526bfa",
+      "assetSha256": "f913202253c68c28710cd408ab799aa4c2ae83ae2376d405bb2c799444867331",
+      "interactionSha256": "7d9781a894ee3e12f82ce83cc95fd495b42a5d25ce51082469dcecd037a0d047",
+      "evidenceCompleteness": {
+        "renderHashes": 10,
+        "assets": 12,
+        "interactions": 1
+      }
+    }
+  ],
+  "generatedAt": "2026-09-14T14:26:39.842Z",
+  "generationPolicy": {
+    "content": "stable semantic observation fields plus computed evidence file hashes",
+    "render": "all declared screenshot and continuous-capture hashes for the page",
+    "assets": "page-scoped assets plus global assets when scope cannot be proven",
+    "interaction": "page-scoped action evidence and declared page interaction traces"
+  }
+}

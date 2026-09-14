@@ -1,0 +1,28 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "e9748f08-04e1-4ed5-9caf-f6eec4317e06",
+  "stageId": "visualQA-2",
+  "role": "visualQA",
+  "agentExecutionId": "/root/pokemon_v2_visual_qa",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "verdict": "needs-evidence",
+  "failureOwnerRole": "designDirectorOrchestrator",
+  "inputs": [
+    { "path": "migrations/pokemon-tcg-official-v2/goal-contract.json", "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845" },
+    { "path": "migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json", "sha256": "19e8e0d69e0f009760f1119e7ffa3a6b377ba95764fd5ae3376074ae814ce507" },
+    { "path": "migrations/pokemon-tcg-official-v2/generative-proof.json", "sha256": "bdb75fd34f90dfd72d492784ae6f98979b1722e172c00ab41d0b33813c3af18b" }
+  ],
+  "outputs": [
+    { "path": "migrations/pokemon-tcg-official-v2/visual-qa-assessment.json", "sha256": "1a8383199b184400dd4dc0b0c80b64b5d3c73ea78994984aec4fc1a9f215ff46" },
+    { "path": "migrations/pokemon-tcg-official-v2/visual-comparison-report.json", "sha256": "f7efb2567f9c7ffd98c2c300d586e0d96cfaba20b8c3f49d3aaed692b469bd89" },
+    { "path": "migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json", "sha256": "861ea3f47272d36d364435083313e8a903489e42e59b4d76f13719981b3bd94f" },
+    { "path": "migrations/pokemon-tcg-official-v2/fidelity-report.json", "sha256": "ee0a1bd7d58df07e93e98a0d3bcf0c9edc4626b1cbecefed2fb29ffe0174022c" },
+    { "path": "migrations/pokemon-tcg-official-v2/mockup-state-matrix.json", "sha256": "b75a557c50b1ba61c7f35eb961b1bbfc07ed6fe336b84e1800d4e8115ea9c551" },
+    { "path": "migrations/pokemon-tcg-official-v2/three-proof-verdict.json", "sha256": "ca1e90955887c4037c61dc5f3f7bc58492f9ec15fda153d2b92e098f90a4b40a" }
+  ],
+  "blockingFindings": [
+    "qa-input-manifest.json is missing.",
+    "The current validator does not accept the supplied v2 visual-pattern-inventory and generative-proof schemas.",
+    "Shared mockup change scope is unresolved and the strict matrix reports 24 missing cases."
+  ]
+}

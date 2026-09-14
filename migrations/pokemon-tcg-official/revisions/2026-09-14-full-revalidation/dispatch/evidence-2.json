@@ -1,0 +1,112 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "3416f013-a7a1-49c8-af15-3e67812795e8",
+  "runId": "849a0eba-e5e4-4828-8c51-fd3480719002",
+  "stageId": "evidence-2",
+  "stage": "evidence",
+  "role": "brandResearcher",
+  "attempt": 2,
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "mission": "Prove or leave explicitly unresolved every evidence requirement in the frozen goal using reproducible rendered facts; use Dembrandt only to discover and prioritize candidates.",
+  "roleContractVersion": "3.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/pokemon-tcg-official-v2/goal-contract.json",
+      "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845"
+    }
+  ],
+  "allowedInputs": [
+    "source DOM",
+    "computed styles",
+    "loaded assets",
+    "source screenshots",
+    "source interaction states",
+    "third-party extraction seeds"
+  ],
+  "forbiddenInputs": [
+    "demo implementation",
+    "demo screenshots",
+    "implementation rationale",
+    "previous QA verdict"
+  ],
+  "tasks": [
+    "turn each mustPreserve, reference page and required state into a falsifiable evidence question before extraction",
+    "run Dembrandt or another approved extractor as an internal candidate-discovery todo",
+    "before browsing the full page set, persist one real viewport screenshot in the run workspace, decode it, verify non-zero dimensions and recompute its SHA-256",
+    "cover every reference page",
+    "capture full-page and key-region screenshots before interpreting source code",
+    "create a section-fidelity manifest for every high-salience or goal-critical section",
+    "for long, multi-module, carousel, video, sticky or motion-bearing pages capture continuous playback plus lossless frames and a machine-readable timeline",
+    "identify visible patterns and visual weight from captures",
+    "locate the corresponding visible DOM and real interaction state",
+    "record computed property names and values",
+    "trace source rules only after the rendered fact is established",
+    "inventory loaded assets and their use",
+    "cache source URL, viewport, capture hash, asset hash and interaction traces",
+    "disposition goal-relevant and high-salience third-party seeds as validated, rejected, unresolved or out-of-scope",
+    "separate observed, inferred, not-observed and unavailable evidence",
+    "report goal coverage"
+  ],
+  "requirements": [
+    "a capture persistence probe passes before full-site evidence collection begins",
+    "every observed high-salience claim has a screenshot path and normalized sourceRegion",
+    "every page required by goal evidencePolicy has fullPageCapture, continuousCapture and timeline or an explicit unavailableReason",
+    "continuous capture covers stable initial state through reachable page end and can be traced back to lossless frames with time and scroll/state labels",
+    "motion and interaction evidence contains default, transition and settled states",
+    "every interaction claim has before/after state captures and a reproducible trigger",
+    "every computed claim records the exact property name and value",
+    "state semantics preserve the observed state name: is-open cannot be rewritten as active/current",
+    "every mustPreserve item has a traceable evidence reference or an unresolved/unavailable verdict",
+    "every core page has a source screenshot",
+    "CSS-only and third-party output remain candidate or seed evidence",
+    "when third-party seed evidence exists brand-evidence.json contains non-empty thirdPartySeedDispositions",
+    "validated seed dispositions reference observed claims",
+    "unresolved seed dispositions block any dependent mustPreserve item"
+  ],
+  "mustNot": [
+    "treat Dembrandt as a separate role or handoff authority",
+    "design the demo",
+    "invent unsupported brand rules",
+    "treat filenames or brand reputation as rendered facts",
+    "treat code existence as user-visible evidence",
+    "promote third-party seeds directly to observed claims",
+    "rename CSS properties or interaction states into stronger semantics"
+  ],
+  "expectedOutputs": [
+    "brand-evidence.json",
+    "source-observation-manifest.json",
+    "rendered-asset-inventory.json",
+    "action-evidence.json",
+    "third-party-evidence.dembrandt.json"
+  ],
+  "passCriteria": [
+    "all required reference pages are covered or explicitly unavailable",
+    "source observation page and interaction coverage meet the frozen goal",
+    "all required evidence paths and hashes exist",
+    "evidence-visibility-gate passes before Interpreter dispatch"
+  ],
+  "failCriteria": [
+    "EVIDENCE_CAPTURE_NOT_PERSISTABLE: the browser can render or return screenshot bytes but no supported path can persist and re-read the image from the run workspace",
+    "required page lacks full-page or continuous evidence",
+    "continuous capture cannot be traced to frames/timeline",
+    "long-page capture does not reach the page end",
+    "motion capture lacks transition state",
+    "critical claim lacks an evidence id",
+    "observed claim lacks visible capture/region/DOM state",
+    "interaction claim lacks before/after capture",
+    "computed property differs from the source rule",
+    "is-open is relabeled active/current",
+    "an inference is labeled observed",
+    "third-party seed exists without disposition",
+    "validated seed lacks an observed claim reference",
+    "a mustPreserve item depends on an unresolved seed"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"
+  ]
+}

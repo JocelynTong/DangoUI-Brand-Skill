@@ -1,0 +1,183 @@
+{
+  "schema": "brand-workflow-time-ledger/v1",
+  "runId": "card-plugin2-apply-host-20260914",
+  "timezone": "Asia/Shanghai",
+  "trackingStartedAt": "2026-09-14T20:07:39+08:00",
+  "scope": "All subsequent design-host and apply-host work for the card-plugin2 Plaza pilot.",
+  "categories": [
+    "design-reasoning",
+    "automation-execution",
+    "build-and-runtime",
+    "visual-qa",
+    "tool-or-network-wait",
+    "user-decision-wait",
+    "rework"
+  ],
+  "events": [
+    {
+      "id": "tracking-start",
+      "phase": "workflow-observability",
+      "category": "design-reasoning",
+      "startedAt": "2026-09-14T20:07:39+08:00",
+      "endedAt": "2026-09-14T20:07:39+08:00",
+      "durationSeconds": 0,
+      "result": "Time tracking enabled for all subsequent stages."
+    },
+    {
+      "id": "registry-and-formal-intake",
+      "phase": "route-intake",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T20:09:56+08:00",
+      "endedAt": "2026-09-14T20:11:43+08:00",
+      "durationSeconds": 107,
+      "result": "Registry matched pokemon-tcg-official; apply-host source provenance bug fixed and covered by regression test. Formal quality gates then blocked reuse because the public package remains draft and its learning proof fails."
+    },
+    {
+      "id": "pokemon-v2-goal-freeze",
+      "phase": "learn-brand-revalidation",
+      "category": "design-reasoning",
+      "startedAt": "2026-09-14T20:18:07+08:00",
+      "endedAt": "2026-09-14T20:18:41+08:00",
+      "durationSeconds": 34,
+      "result": "Created and froze an isolated pokemon-tcg-official-v2 full-revalidation goal so the old package and verdict cannot be silently reused."
+    },
+    {
+      "id": "pokemon-v2-automated-intake",
+      "phase": "learn-brand-revalidation",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T20:18:41+08:00",
+      "endedAt": "2026-09-14T20:20:31+08:00",
+      "durationSeconds": 110,
+      "result": "Ran third-party candidate extraction and site-evidence collection; workflow stopped before rendered evidence because the fetched source was an Incapsula interstitial."
+    },
+    {
+      "id": "pokemon-v2-source-blocker",
+      "phase": "rendered-evidence",
+      "category": "tool-or-network-wait",
+      "startedAt": "2026-09-14T20:20:31+08:00",
+      "endedAt": "2026-09-14T20:21:01+08:00",
+      "durationSeconds": 30,
+      "result": "Classified the Incapsula response as unavailable source evidence and routed collection to an isolated real-browser Evidence Agent."
+    },
+    {
+      "id": "pokemon-v2-evidence-dispatch",
+      "phase": "rendered-evidence",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T20:21:01+08:00",
+      "endedAt": "2026-09-14T20:21:52+08:00",
+      "durationSeconds": 51,
+      "result": "Prepared the execution manifest and dispatched a real Evidence Agent with forbidden access to old Demo, old QA conclusions, and the host project."
+    },
+    {
+      "id": "pokemon-v2-real-browser-evidence",
+      "phase": "rendered-evidence",
+      "category": "visual-qa",
+      "startedAt": "2026-09-14T20:21:52+08:00",
+      "endedAt": "2026-09-14T20:32:54+08:00",
+      "durationSeconds": 662,
+      "result": "Evidence Agent rendered all three official pages and reproduced two real interactions, but returned needs-evidence because screenshots, continuous frames, timelines, responsive captures, and asset bytes could not be persisted."
+    },
+    {
+      "id": "pokemon-v2-evidence-receipt",
+      "phase": "rendered-evidence",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T20:32:54+08:00",
+      "endedAt": "2026-09-14T20:33:32+08:00",
+      "durationSeconds": 38,
+      "result": "Verified output hashes, recorded the real subagent receipt, and machine-blocked the run before Interpreter, Design, QA, or host application."
+    },
+    {
+      "id": "browser-evidence-persistence-audit",
+      "phase": "rendered-evidence-infrastructure",
+      "category": "rework",
+      "startedAt": "2026-09-14T20:33:32+08:00",
+      "endedAt": "2026-09-14T20:39:35+08:00",
+      "durationSeconds": 363,
+      "result": "Confirmed full-page screenshots and responsive viewport control work in the authenticated browser, but the supported browser interface exposes image bytes only to the live session and provides no approved workspace persistence path. Unsupported indirect export was rejected and not bypassed."
+    },
+    {
+      "id": "capture-persistence-preflight-hardening",
+      "phase": "workflow-hardening",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T20:54:16+08:00",
+      "endedAt": "2026-09-14T20:55:49+08:00",
+      "durationSeconds": 93,
+      "result": "Added an early screenshot-persistence probe and stable EVIDENCE_CAPTURE_NOT_PERSISTABLE blocker to the Evidence contract, added regression coverage, prevented prepare from overwriting an existing execution manifest, synchronized installed skill mirrors, and passed the project build."
+    },
+    {
+      "id": "pokemon-v2-complete-evidence-retry",
+      "phase": "rendered-evidence",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T20:59:10+08:00",
+      "endedAt": "2026-09-14T21:10:30+08:00",
+      "durationSeconds": 680,
+      "result": "Used the supported browser-byte persistence bridge to capture and hash desktop/mobile source evidence, interaction timelines and asset observations; strict Evidence gate passed."
+    },
+    {
+      "id": "pokemon-v2-interpret-and-direct",
+      "phase": "interpretation-and-direction",
+      "category": "design-reasoning",
+      "startedAt": "2026-09-14T21:10:30+08:00",
+      "endedAt": "2026-09-14T21:17:42+08:00",
+      "durationSeconds": 432,
+      "result": "Independent Interpreter passed and the Design Director froze the evidence-bound design direction before implementation."
+    },
+    {
+      "id": "pokemon-v2-demo-implementation",
+      "phase": "brand-learning-capability-test",
+      "category": "automation-execution",
+      "startedAt": "2026-09-14T21:17:42+08:00",
+      "endedAt": "2026-09-14T21:27:36+08:00",
+      "durationSeconds": 594,
+      "result": "Built four proof routes, reversible controls, source-mapped visual inventory and a held-out generative page; build and implementation self-check passed."
+    },
+    {
+      "id": "pokemon-v2-qa-contract-repair",
+      "phase": "workflow-hardening",
+      "category": "rework",
+      "startedAt": "2026-09-14T21:33:36+08:00",
+      "endedAt": "2026-09-14T21:40:19+08:00",
+      "durationSeconds": 403,
+      "result": "Fixed role-local retry accounting, sealed the Orchestrator-owned blind-QA input manifest, normalized implementation proof artifacts to the enforced schemas, and declared shared mockup scope without fabricating a 24-case requirement."
+    },
+    {
+      "id": "pokemon-v2-fresh-blind-qa",
+      "phase": "visual-qa",
+      "category": "visual-qa",
+      "startedAt": "2026-09-14T21:40:19+08:00",
+      "endedAt": "2026-09-14T21:46:04+08:00",
+      "durationSeconds": 345,
+      "result": "Fresh independent QA cleared all protocol failures but rejected visual fidelity at 71.25/80: Learn composition and held-out mobile reachability are incomplete, and Home/Card Database lack page-specific scroll evidence."
+    },
+    {
+      "id": "pokemon-v2-in-place-remediation",
+      "phase": "brand-learning-capability-test",
+      "category": "rework",
+      "startedAt": "2026-09-14T21:46:04+08:00",
+      "endedAt": "2026-09-14T22:05:00+08:00",
+      "durationSeconds": 1136,
+      "result": "Continued in the existing pokemon-tcg-official-v2 workspace. Restored Learn's complete teaching sequence, added page-specific scroll evidence, restored the Card Database three-column energy matrix, and fixed held-out text contrast without changing the frozen goal or thresholds."
+    },
+    {
+      "id": "pokemon-v2-final-independent-qa",
+      "phase": "visual-qa",
+      "category": "visual-qa",
+      "startedAt": "2026-09-14T22:05:00+08:00",
+      "endedAt": "2026-09-14T22:12:52+08:00",
+      "durationSeconds": 472,
+      "result": "Fresh blind QA passed at 97.5 overall: Home 97.5, Card Database 95, Learn 100; protocol, Evidence Fidelity, Structural Fidelity and Generative Proof all passed, and the workflow finalized complete."
+    }
+  ],
+  "optimizationReview": {
+    "publicSafeCandidates": [],
+    "lightweightCandidates": [
+      "Automatically seal qa-input-manifest.json before QA dispatch.",
+      "Keep retry budgets role-local so upstream evidence retries do not consume downstream QA attempts.",
+      "Skip the 24-case shared mockup matrix when a frozen scope declaration proves shared shell code is unchanged."
+    ],
+    "parallelizationCandidates": [],
+    "mustRemainBlocking": [
+      "Do not apply a Registry package as reviewed when Evidence Fidelity, Structural Fidelity, or Generative Proof fails."
+    ]
+  }
+}

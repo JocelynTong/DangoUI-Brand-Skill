@@ -122,12 +122,14 @@
     {
       "id": "pokemon-tcg-official",
       "displayName": "Pokémon TCG Official",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "publicationStatus": "public-preview",
       "sourceUrl": "https://tcg.pokemon.com/en-us/",
       "sourceHost": "tcg.pokemon.com",
       "canonicalSources": [
-        "https://tcg.pokemon.com/en-us/"
+        "https://tcg.pokemon.com/en-us/",
+        "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+        "https://tcg.pokemon.com/en-us/learn/"
       ],
       "artifactFiles": [
         "brand-mod.json",
@@ -157,7 +159,7 @@
       "status": "fidelity-pass",
       "standardDemo": true,
       "businessApply": false,
-      "updatedAt": "2026-09-04T16:36:39.368Z"
+      "updatedAt": "2026-09-14T22:12:51.929Z"
     }
   ]
 }

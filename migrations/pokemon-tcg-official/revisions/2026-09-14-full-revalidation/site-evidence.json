@@ -1,0 +1,918 @@
+{
+  "schema": "brand-site-evidence/v1",
+  "brand": "pokemon-tcg-official-v2",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "createdAt": "2026-09-14T12:20:30.738Z",
+  "collection": {
+    "documents": [
+      {
+        "type": "html",
+        "url": "https://tcg.pokemon.com/en-us/",
+        "bytes": 199129
+      },
+      {
+        "type": "css-url",
+        "url": "https://fonts.googleapis.com/css?family=Kanit:700|PT+Sans:400,700&amp;display=swap",
+        "bytes": 545
+      },
+      {
+        "type": "css-url",
+        "url": "https://tcg.pokemon.com/global.css",
+        "bytes": 81785
+      },
+      {
+        "type": "css-url",
+        "url": "https://tcg.pokemon.com/home.css",
+        "bytes": 40727
+      }
+    ],
+    "sampleCount": 303,
+    "warningCount": 1,
+    "scope": "pokemon-tcg-official-v2",
+    "warnings": [
+      "css fetch failed: https://tcg.pokemon.com/header.css (HTTP 404)"
+    ]
+  },
+  "dominantToneDecision": {
+    "result": "black-gold",
+    "confidence": 0.682,
+    "minConfidence": 0.65,
+    "topFamilies": [
+      {
+        "family": "yellow-gold",
+        "score": 482.8
+      },
+      {
+        "family": "black",
+        "score": 278.2
+      },
+      {
+        "family": "white",
+        "score": 174.4
+      },
+      {
+        "family": "blue",
+        "score": 90
+      },
+      {
+        "family": "neutral",
+        "score": 40.6
+      },
+      {
+        "family": "purple",
+        "score": 29
+      }
+    ],
+    "competingTone": "blue-sky",
+    "competingScore": 156.84,
+    "reason": [
+      "Dark/brown canvas plus yellow/gold action colors outscore blue/cyan evidence.",
+      "Evidence came mainly from frame, cta-active, token, surface roles.",
+      "Top color families: yellow-gold 482.8, black 278.2, white 174.4, blue 90, neutral 40.6, purple 29."
+    ],
+    "assetCaveat": "Image/asset colors are intentionally down-weighted. They prove media atmosphere, not UI token dominance."
+  },
+  "familyScores": {
+    "yellow-gold": 482.8,
+    "black": 278.2,
+    "white": 174.4,
+    "blue": 90,
+    "neutral": 40.6,
+    "purple": 29,
+    "brown-gold": 27.6,
+    "orange": 17.4,
+    "green": 6.8,
+    "cyan": 5.8
+  },
+  "topColors": [
+    {
+      "color": "#000000",
+      "score": 207.2,
+      "family": "black"
+    },
+    {
+      "color": "#FFFFFF",
+      "score": 152.4,
+      "family": "white"
+    },
+    {
+      "color": "#DEAF4F",
+      "score": 53.4,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#191919",
+      "score": 33,
+      "family": "black"
+    },
+    {
+      "color": "#F1C736",
+      "score": 23.2,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#E1B33E",
+      "score": 23.2,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#131415",
+      "score": 22.2,
+      "family": "black"
+    },
+    {
+      "color": "#E2BA65",
+      "score": 22,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#EFE48C",
+      "score": 20,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#EDEDED",
+      "score": 17.8,
+      "family": "white"
+    },
+    {
+      "color": "#72D9FC",
+      "score": 17.4,
+      "family": "blue"
+    },
+    {
+      "color": "#FBF0BD",
+      "score": 16,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#CEB664",
+      "score": 16,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#836722",
+      "score": 16,
+      "family": "brown-gold"
+    },
+    {
+      "color": "#E0AB1D",
+      "score": 16,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#FEF33D",
+      "score": 16,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#003E59",
+      "score": 16,
+      "family": "blue"
+    },
+    {
+      "color": "#C6E7F7",
+      "score": 16,
+      "family": "blue"
+    },
+    {
+      "color": "#010101",
+      "score": 15.8,
+      "family": "black"
+    },
+    {
+      "color": "#C2812E",
+      "score": 11.6,
+      "family": "brown-gold"
+    },
+    {
+      "color": "#FFDD6F",
+      "score": 11.6,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#B13CC7",
+      "score": 11.6,
+      "family": "purple"
+    },
+    {
+      "color": "#F3A80D",
+      "score": 11.6,
+      "family": "yellow-gold"
+    },
+    {
+      "color": "#FFF8C1",
+      "score": 11.6,
+      "family": "yellow-gold"
+    }
+  ],
+  "roleEvidence": {
+    "token": [
+      {
+        "color": "#FBF0BD",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold-light"
+      },
+      {
+        "color": "#CEB664",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold-mid"
+      },
+      {
+        "color": "#836722",
+        "family": "brown-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold-dark"
+      },
+      {
+        "color": "#E0AB1D",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold-type"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold"
+      },
+      {
+        "color": "#EDEDED",
+        "family": "white",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gray"
+      },
+      {
+        "color": "#131415",
+        "family": "black",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-black"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-white"
+      },
+      {
+        "color": "#FEF33D",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-yellow"
+      },
+      {
+        "color": "#003E59",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-dark-teal"
+      },
+      {
+        "color": "#C6E7F7",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-light-blue"
+      },
+      {
+        "color": "#00B354",
+        "family": "green",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--checkmark-green"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-black"
+      },
+      {
+        "color": "#494949",
+        "family": "neutral",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-dark-grey"
+      },
+      {
+        "color": "#5A5A5A",
+        "family": "neutral",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-grey"
+      },
+      {
+        "color": "#FBF0BD",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--color-gold-light"
+      }
+    ],
+    "cta-active": [
+      {
+        "color": "#E2BA65",
+        "family": "yellow-gold",
+        "weight": 6,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold-btn"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 6.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card__button"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 6.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card__close-button"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 6.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card__close-button"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 6.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card__close-button"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 5.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card__close-button:hover"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 6.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "dialog.perspective-card__dialog::backdrop"
+      },
+      {
+        "color": "#FBF0BD",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#CEB664",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#836722",
+        "family": "brown-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#E2BA65",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#E0AB1D",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#EFE48C",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#EDEDED",
+        "family": "white",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      },
+      {
+        "color": "#131415",
+        "family": "black",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ":root"
+      }
+    ],
+    "hero": [
+      {
+        "color": "#EFE48C",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "--color-gold-banner"
+      },
+      {
+        "color": "#EFE48C",
+        "family": "yellow-gold",
+        "weight": 5,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--color-gold-banner"
+      }
+    ],
+    "surface": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".modal__overlay"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card__artwork"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".perspective-card--over .perspective-card__artwork"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": "dialog.perspective-card__dialog"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".modal__overlay"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".modal--full .modal__content"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".modal--full .modal__content"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".card--shadow .card__img-wrapper"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".card--shimmer .card__shine-shimmer::after"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 3.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".card--shimmer .card__shine-shimmer::after"
+      },
+      {
+        "color": "#F5F5F5",
+        "family": "white",
+        "weight": 4.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".newsletter-signup-modal__wrapper .newsletter-input"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".newsletter-signup-modal__wrapper .newsletter-input"
+      },
+      {
+        "color": "#00B354",
+        "family": "green",
+        "weight": 3.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".newsletter-signup-modal__wrapper .newsletter-success__check"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.2,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".select"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".image-group__item--card"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".news__item"
+      }
+    ],
+    "navigation": [
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 4.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".gallery__nav"
+      },
+      {
+        "color": "#5E5E5E",
+        "family": "neutral",
+        "weight": 5.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav__featured-dropdown .main-nav__dropdown-column::before"
+      },
+      {
+        "color": "#5E5E5E",
+        "family": "neutral",
+        "weight": 5.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav__dropdown-column::before"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav"
+      },
+      {
+        "color": "#494949",
+        "family": "neutral",
+        "weight": 4.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav"
+      },
+      {
+        "color": "#5A5A5A",
+        "family": "neutral",
+        "weight": 4.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav"
+      },
+      {
+        "color": "#191919",
+        "family": "black",
+        "weight": 5.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav::before"
+      },
+      {
+        "color": "#191919",
+        "family": "black",
+        "weight": 4.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav__list-wrapper::after"
+      },
+      {
+        "color": "#191919",
+        "family": "black",
+        "weight": 4.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".main-nav__list-wrapper::after"
+      },
+      {
+        "color": "#F7D548",
+        "family": "yellow-gold",
+        "weight": 4.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".battle-academy .header .headline"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 4.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".battle-academy .header .headline"
+      }
+    ],
+    "text": [
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".skippers__item-link:hover,.skippers__item-link:focus"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#DEAF4F",
+        "family": "yellow-gold",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".is-reduced-motion .reduce-motion__label::after"
+      },
+      {
+        "color": "#606060",
+        "family": "neutral",
+        "weight": 3.4,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".news-gallery__date"
+      }
+    ],
+    "frame": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".full-width-section__bg::after"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".full-width-section__bg::after"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".full-width-section__bg::after"
+      },
+      {
+        "color": "#010101",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".full-width-section__bg::after"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".full-width-section__bg::after"
+      },
+      {
+        "color": "#FFDE62",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-gold-background"
+      },
+      {
+        "color": "#FFD83E",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-gold-background"
+      },
+      {
+        "color": "#FFF8C9",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-gold-background"
+      },
+      {
+        "color": "#FFF9CC",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-gold-background"
+      },
+      {
+        "color": "#FFDA47",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-gold-background"
+      },
+      {
+        "color": "#FFD633",
+        "family": "yellow-gold",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-gold-background"
+      },
+      {
+        "color": "#43C3F0",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-blue-background"
+      },
+      {
+        "color": "#77DCFF",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-blue-background"
+      },
+      {
+        "color": "#43C5F0",
+        "family": "cyan",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-blue-background"
+      },
+      {
+        "color": "#2571CA",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-blue-background"
+      },
+      {
+        "color": "#2C78D0",
+        "family": "blue",
+        "weight": 3,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": "--gradient-blue-background"
+      }
+    ],
+    "unknown": [
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.2,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".full-width-section--none .full-width-section__content .column"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.4,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".skippers__item-link"
+      },
+      {
+        "color": "#EDEDED",
+        "family": "white",
+        "weight": 1.8,
+        "source": "https://tcg.pokemon.com/global.css",
+        "context": ".content-bg--flat"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".tcgl-callout__content"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 1.8,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".tcgl-callout__content"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.2,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".tcg-pocket.full-width-section--none .full-width-section__content .column"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.2,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".battle-academy.full-width-section--none .full-width-section__content .column"
+      },
+      {
+        "color": "#FFFFFF",
+        "family": "white",
+        "weight": 1.8,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".event-gallery__pagination"
+      },
+      {
+        "color": "#000000",
+        "family": "black",
+        "weight": 2.2,
+        "source": "https://tcg.pokemon.com/home.css",
+        "context": ".battle-academy.full-width-section--none .full-width-section__content .column"
+      }
+    ]
+  },
+  "gate": {
+    "ok": true,
+    "minConfidence": 0.65,
+    "message": "Tone evidence is strong enough to seed adapter/demo tokens."
+  }
+}

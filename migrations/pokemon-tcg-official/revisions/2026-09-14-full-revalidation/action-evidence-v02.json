@@ -1,0 +1,60 @@
+{
+  "schema": "action-evidence/v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "entries": [
+    {
+      "id": "card-advanced-search-open",
+      "sourcePageId": "card-database",
+      "selector": "#toggleWrapperMainText b",
+      "observedState": "expanded/open",
+      "trigger": "click Show Advanced Search; wait 600ms; click Hide Advanced Search to restore",
+      "className": "",
+      "beforeCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/interaction-advanced-default.jpg",
+        "sha256": "b901c2778c2543d1f457ab6bc8c992e70a524ddcd1a83c9086c0c3bc265dcdd0"
+      },
+      "transitionCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/interaction-advanced-triggered.jpg",
+        "sha256": "05dcc140ea9b444d8110cd74694777315af3c791a49fcfaf0a920b4715db2e9f"
+      },
+      "afterCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/interaction-advanced-settled.jpg",
+        "sha256": "7a3d7e58f4452903f939c346bf480bc3af079990c8b116fb250608cac2a6f8ed"
+      },
+      "restoredCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/interaction-advanced-restored.jpg",
+        "sha256": "a8d14c8acbc0d5c47a19fed40c50393cf7522b0bb89cb6b2347366916cc7dd60"
+      },
+      "computedProperty": "color",
+      "computedValue": "rgb(255, 255, 255)",
+      "sourceRule": "visible <b> disclosure; computed transition: all; text changes Show ↔ Hide"
+    },
+    {
+      "id": "learn-card-name-details-open",
+      "sourcePageId": "how-to-play",
+      "selector": "details.hotspot-gallery-accordion__panel[open] > summary",
+      "observedState": "open",
+      "trigger": "click SUMMARY CARD NAME; wait 500ms; click again to restore",
+      "className": "hotspot-gallery-accordion__panel large-up",
+      "beforeCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/interaction-card-name-default.jpg",
+        "sha256": "c90cd754e6fe57545eb50a3b2c9977efcd99ae1ffdaf0d5e7b9cfb85e2df3eec"
+      },
+      "transitionCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/interaction-card-name-triggered.jpg",
+        "sha256": "d6805ce64a781c05a3c0b021e0532e347533055f20bf2c17aab97b3ce7c28726"
+      },
+      "afterCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/interaction-card-name-settled.jpg",
+        "sha256": "cedf8c91384f71ddb8cb02087692b513572ee51c664fcab963a736fc7fb25616"
+      },
+      "restoredCapture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/how-to-play/desktop/interaction-card-name-restored.jpg",
+        "sha256": "0d7a9b9674fe5cb61f4adfc882d2651ad11b26add98aac9f42f359f7e2a27f44"
+      },
+      "computedProperty": "color",
+      "computedValue": "rgb(190, 14, 23)",
+      "sourceRule": "summary computed transition: color 0.3s; parent DETAILS open changes false → true → false"
+    }
+  ]
+}

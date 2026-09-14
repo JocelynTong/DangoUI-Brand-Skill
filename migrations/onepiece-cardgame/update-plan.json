@@ -1,0 +1,48 @@
+{
+  "schema": "brand-incremental-update-plan/v1",
+  "brand": "onepiece-cardgame",
+  "route": "reuse-no-op",
+  "rulesVersionChanged": false,
+  "sourceSetChanged": false,
+  "totalPages": 4,
+  "changedPages": [],
+  "cacheHits": [
+    "events",
+    "home",
+    "news",
+    "products"
+  ],
+  "pages": [
+    {
+      "id": "events",
+      "change": "unchanged",
+      "changedDimensions": []
+    },
+    {
+      "id": "home",
+      "change": "unchanged",
+      "changedDimensions": []
+    },
+    {
+      "id": "news",
+      "change": "unchanged",
+      "changedDimensions": []
+    },
+    {
+      "id": "products",
+      "change": "unchanged",
+      "changedDimensions": []
+    }
+  ],
+  "affectedStages": [],
+  "executionPolicy": {
+    "preserveBrandId": true,
+    "revisionRoot": "migrations/onepiece-cardgame/revisions/<run-id>",
+    "reuseUnchangedEvidence": true,
+    "recaptureOnlyChangedPages": true,
+    "qaScope": "none",
+    "createRegistryEntry": false
+  },
+  "budgetClass": "under-1-minute",
+  "generatedAt": "2026-09-14T14:26:39.976Z"
+}

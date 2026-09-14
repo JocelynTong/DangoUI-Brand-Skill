@@ -54,6 +54,12 @@ export async function resolvePublicStylePack({
 
   const demoBrand = brandFromDemoUrl(sourceUrl);
   const normalizedSource = normalizeSourceUrl(sourceUrl);
+  const localRegistryRoot = path.join(root, "public", "brand-registry", "v0.1");
+  const localIndexFile = path.join(localRegistryRoot, "index.json");
+  const localSourceFile = path.join(localRegistryRoot, "by-source.json");
+  const localPublishedBrand = fs.existsSync(localIndexFile) && fs.existsSync(localSourceFile)
+    ? demoBrand || readJson(localSourceFile).sources?.[normalizedSource] || ""
+    : "";
   const migrationsRoot = path.join(root, "migrations");
   if (fs.existsSync(migrationsRoot)) {
     for (const entry of fs.readdirSync(migrationsRoot, { withFileTypes: true })) {
@@ -64,6 +70,10 @@ export async function resolvePublicStylePack({
       const modSource = mod.manifest?.sourceUrl;
       const sourceMatches = modSource && normalizeSourceUrl(modSource) === normalizedSource;
       if (entry.name === demoBrand || sourceMatches) {
+        // A generated local Registry entry is the publication authority. A
+        // historical migration may keep an older manifest for audit, but must
+        // not shadow the promoted Registry version during /brand resolution.
+        if (localPublishedBrand) continue;
         return {
           matched: true,
           source: "host",
@@ -82,7 +92,6 @@ export async function resolvePublicStylePack({
     }
   }
 
-  const localRegistryRoot = path.join(root, "public", "brand-registry", "v0.1");
   let index;
   let brandId;
   let source = "public";

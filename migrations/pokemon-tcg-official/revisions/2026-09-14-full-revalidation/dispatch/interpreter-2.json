@@ -1,0 +1,95 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "72d6bbf3-dbf9-4f45-a01a-80b9a956674a",
+  "runId": "849a0eba-e5e4-4828-8c51-fd3480719002",
+  "stageId": "interpreter-2",
+  "stage": "interpreter",
+  "role": "designTranslator",
+  "attempt": 2,
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "mission": "Turn raw evidence into reusable visual intent: what each color, asset, motion, frame, or layout pattern means and where it should or should not be used.",
+  "roleContractVersion": "3.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/pokemon-tcg-official-v2/goal-contract.json",
+      "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json",
+      "sha256": "0d10010991e0641bbaed0c338dc9a298d675ef07cc15d4c76688f693196ccf4b"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/source-observation-manifest.json",
+      "sha256": "18bb444ff05c6c3abec293c6caa9def8842d737011a1bbf3f5569f37ea0474f6"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/rendered-asset-inventory.json",
+      "sha256": "a3316c10b0f2c59b59c75c1edc052646089185979b2c9838d9ebdd31c060e3e4"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/action-evidence.json",
+      "sha256": "3f7dd099cbc3e07a3bcd4f6912e6bee712fe3743cd4e849d8a50f743192c753b"
+    },
+    {
+      "path": "migrations/pokemon-tcg-official-v2/third-party-evidence.dembrandt.json",
+      "sha256": "3653dac8e0da182694d3a34a097e210eb6d80c93b70b623e377ef6820e918932"
+    }
+  ],
+  "allowedInputs": [
+    "action-evidence.json",
+    "source screenshots"
+  ],
+  "forbiddenInputs": [
+    "demo implementation",
+    "demo screenshots",
+    "implementation rationale",
+    "previous QA verdict"
+  ],
+  "tasks": [
+    "translate evidence into composition, color-role, type, boundary, asset, density and motion patterns",
+    "attach evidence ids",
+    "declare suitableFor, notFor and allowed transformations",
+    "leave unsupported claims unresolved"
+  ],
+  "requirements": [
+    "every pattern has evidenceRefs and normalized sourceRegion",
+    "every composition pattern freezes a compositionContract containing source asset identity/variant and required structural layers before implementation",
+    "every color role declares allowedRoles and forbiddenRoles",
+    "every promoted color, font, shadow or motion semantic is recorded in semanticClaims with validated disposition and evidenceRefs resolving to an observed Claim with visible screenshot/sourceRegion, DOM selector, computed property/value, page and state",
+    "aggregate palettes, CSS variable names and Dembrandt seeds remain candidates and cannot independently establish a semantic role",
+    "facts, interpretations and recommendations use separate fields",
+    "composition and information density are explicit"
+  ],
+  "mustNot": [
+    "modify the goal contract",
+    "implement pages",
+    "lower learn-brand fidelity for host convenience",
+    "promote a third-party summary directly to a rule"
+  ],
+  "expectedOutputs": [
+    "brand-intent.json",
+    "styleRecipeDetails",
+    "interactionRecipes",
+    "approved-visual-patterns"
+  ],
+  "passCriteria": [
+    "every mustPreserve item maps to a pattern",
+    "composition mustPreserve mappings freeze source asset identity/variant and at least two independently observable required layers",
+    "every core pattern has evidence, usage and notFor"
+  ],
+  "failCriteria": [
+    "pattern without evidence",
+    "promoted semantic role lacks a complete validated rendered-evidence chain",
+    "candidate-only aggregate palette, CSS variable or extractor seed is used as semantic proof",
+    "missing composition or density interpretation",
+    "goal changed"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"
+  ]
+}

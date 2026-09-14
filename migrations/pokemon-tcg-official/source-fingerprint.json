@@ -1,0 +1,71 @@
+{
+  "schema": "brand-source-fingerprint/v1",
+  "brand": "pokemon-tcg-official",
+  "rulesVersion": "3.0",
+  "sourceManifestSha256": "41ba9febd853f53d7c3ae224a9f4f2480d96e54b6b02107ddda6ce7bdd621644",
+  "inputs": [
+    {
+      "kind": "source-observation-manifest",
+      "path": "migrations/pokemon-tcg-official/source-observation-manifest.json",
+      "sha256": "5d413b1d943123fcff628c3c49a49e87dc814d41a51cc9425ea98a32ba469de9"
+    },
+    {
+      "kind": "rendered-asset-inventory",
+      "path": "migrations/pokemon-tcg-official/rendered-asset-inventory.json",
+      "sha256": "ebb8e14e2c151479c174424144f931df67ccac8d5db97826208d33bf339f8955"
+    },
+    {
+      "kind": "action-evidence",
+      "path": "migrations/pokemon-tcg-official/action-evidence-v02.json",
+      "sha256": "faacd8e514904ca8ca3daa758bdde4cd05f801bd5bae8e9bd3c053c59ffcfa1d"
+    }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://tcg.pokemon.com/en-us/",
+      "contentSha256": "34a4a5f64da843cae8f8707f765ea3d1dec2d8b5da24913bf7a46a282b8a4b28",
+      "renderSha256": "a5308ebc9b97005f17c827e37f650e06f57cdcb14a0387f448cf03afce425c3c",
+      "assetSha256": "7280918281657a79cfbd33468aca20b36b141090591d003199121c2fd2831015",
+      "interactionSha256": "1b891d952302df6ac1cf4acca4f4679b62ec578168c8746bb8b5181d4ba770b1",
+      "evidenceCompleteness": {
+        "renderHashes": 4,
+        "assets": 5,
+        "interactions": 3
+      }
+    },
+    {
+      "id": "card-database",
+      "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+      "contentSha256": "27632f04a7c3509db60ead15415d18203ea0d8a2f266b0d3140aaf1c70338fee",
+      "renderSha256": "3dc351438362ef38e65e44b748d1084376610f1774a84f7a8ff72acf51cac599",
+      "assetSha256": "25010b943ef3b73d30aad28ed8dc225140a1042a6c475090a944e8d20ad820f3",
+      "interactionSha256": "1e57d70e8824e0171ea0d0aedfd46765404565a75fed5e0f3befb3f2d2203ba7",
+      "evidenceCompleteness": {
+        "renderHashes": 4,
+        "assets": 4,
+        "interactions": 4
+      }
+    },
+    {
+      "id": "how-to-play",
+      "url": "https://tcg.pokemon.com/en-us/learn/",
+      "contentSha256": "b2c559fe8d025e083faa0f30d84ea0ce4c0172ca5c9a65180544b63c3fc3b473",
+      "renderSha256": "ce169e866d6afd392d4e14592b1dcb709720ecfb56d7b8eb05bcbd55b67862e1",
+      "assetSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "interactionSha256": "6d6605c3e59ef1d4011b8cd3ed0ef89d8e6fdb71ba3fc09acb5cf89fd7bc9226",
+      "evidenceCompleteness": {
+        "renderHashes": 4,
+        "assets": 0,
+        "interactions": 3
+      }
+    }
+  ],
+  "generatedAt": "2026-09-14T14:26:40.010Z",
+  "generationPolicy": {
+    "content": "stable semantic observation fields plus computed evidence file hashes",
+    "render": "all declared screenshot and continuous-capture hashes for the page",
+    "assets": "page-scoped assets plus global assets when scope cannot be proven",
+    "interaction": "page-scoped action evidence and declared page interaction traces"
+  }
+}

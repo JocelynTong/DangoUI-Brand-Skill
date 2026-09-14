@@ -1,0 +1,29 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "c0ea379a-29d8-4bdc-9fcd-1f8e932c7577",
+  "stageId": "demo-2",
+  "role": "demoImplementationAgent",
+  "agentExecutionId": "/root/pokemon_v2_demo",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "verdict": "pass",
+  "inputs": [
+    { "path": "migrations/pokemon-tcg-official-v2/goal-contract.json", "sha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845" },
+    { "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json", "sha256": "0d10010991e0641bbaed0c338dc9a298d675ef07cc15d4c76688f693196ccf4b" },
+    { "path": "migrations/pokemon-tcg-official-v2/source-observation-manifest.json", "sha256": "18bb444ff05c6c3abec293c6caa9def8842d737011a1bbf3f5569f37ea0474f6" },
+    { "path": "migrations/pokemon-tcg-official-v2/rendered-asset-inventory.json", "sha256": "a3316c10b0f2c59b59c75c1edc052646089185979b2c9838d9ebdd31c060e3e4" },
+    { "path": "migrations/pokemon-tcg-official-v2/action-evidence.json", "sha256": "3f7dd099cbc3e07a3bcd4f6912e6bee712fe3743cd4e849d8a50f743192c753b" },
+    { "path": "migrations/pokemon-tcg-official-v2/third-party-evidence.dembrandt.json", "sha256": "3653dac8e0da182694d3a34a097e210eb6d80c93b70b623e377ef6820e918932" },
+    { "path": "migrations/pokemon-tcg-official-v2/brand-intent.json", "sha256": "44c5090aaf5f3018e6d4f4d5d3ccab5f34559741b9cfb445fdeeb3c53cf3c888" },
+    { "path": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json", "sha256": "be6cb1946019a184201bf37f8ab9f029499aaf428d271d796ed47f892487b329" },
+    { "path": "migrations/pokemon-tcg-official-v2/design-direction.json", "sha256": "f9787b9683e22aa5cebf2c8401d396a4127114625226074e3ca274fa694f105b" }
+  ],
+  "outputs": [
+    { "path": "migrations/pokemon-tcg-official-v2/demo-screenshot-manifest.json", "sha256": "ea8fed3cbf4dec7d6fa58ae93f244f8d3c91d913bd3fe1d623c2dcce2e6e1a26" },
+    { "path": "migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json", "sha256": "19e8e0d69e0f009760f1119e7ffa3a6b377ba95764fd5ae3376074ae814ce507" },
+    { "path": "migrations/pokemon-tcg-official-v2/generative-proof.json", "sha256": "bdb75fd34f90dfd72d492784ae6f98979b1722e172c00ab41d0b33813c3af18b" },
+    { "path": "migrations/pokemon-tcg-official-v2/implementation-self-test.json", "sha256": "0c85dbce1e1fa661d4a8d90fb13131be955cfbc2c8ee279845eed9b01d4425e5" },
+    { "path": "public/brand-previews/pokemon-tcg-official-v2.json", "sha256": "27620499bcf5d7b04ba61ede620d68f823e61352f3fd5a5667d7f6f10090a531" },
+    { "path": "public/brand-previews/registry.json", "sha256": "c0ed235b04a6d866e0736f989432b7d6ec55f9f167f5ac15d7697dfa3b0f300b" }
+  ],
+  "blockingFindings": []
+}

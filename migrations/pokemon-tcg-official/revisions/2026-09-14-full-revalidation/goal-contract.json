@@ -1,0 +1,79 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "supersedes": "pokemon-tcg-official-cold-start-v2",
+  "correctionReason": "Revalidate the existing Pokémon TCG visual package against Brand Skill workflow v0.15 before public Registry reuse and card-plugin2 host apply.",
+  "brand": "pokemon-tcg-official-v2",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "versioned-full-revalidation",
+  "createdAt": "2026-09-14T20:18:07+08:00",
+  "sealed": true,
+  "goal": "Revalidate the official Pokémon TCG Home, Card Database and Learn visual language from rendered evidence, then prove the frozen rules on a source-independent held-out page so the package can safely feed the card-plugin2 host workflow.",
+  "nonGoals": [
+    "website-mirror",
+    "host-apply",
+    "overwrite-existing-reviewed-workspace",
+    "invent-brand-action-color"
+  ],
+  "implementationPolicy": {
+    "allowSourceScreenshotAsRuntimeAsset": false,
+    "requireIndependentRuntimeAssetsOrDomCssReconstruction": true,
+    "requireHighSalienceEvidenceTrace": true,
+    "reusePriorArtifactsOnlyAfterFreshHashAndEvidenceValidation": true
+  },
+  "evidencePolicy": {
+    "continuousCaptureRequired": true,
+    "requiredPageIds": ["home", "card-database", "how-to-play"],
+    "requiredPageStates": ["initial", "continuous-scroll", "settled-end"],
+    "requiredInteractionStates": ["default", "triggered", "settled", "restored"]
+  },
+  "referencePages": [
+    { "id": "home", "url": "https://tcg.pokemon.com/en-us/", "core": true },
+    { "id": "card-database", "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards", "core": true },
+    { "id": "how-to-play", "url": "https://tcg.pokemon.com/en-us/learn/", "core": true }
+  ],
+  "demoPages": [
+    { "id": "pokemon-tcg-official-v2-home", "mapsToSourcePageId": "home" },
+    { "id": "pokemon-tcg-official-v2-card-database", "mapsToSourcePageId": "card-database" },
+    { "id": "pokemon-tcg-official-v2-learn", "mapsToSourcePageId": "how-to-play" },
+    { "id": "pokemon-tcg-official-v2-held-out", "mapsToSourcePageId": null, "proofRole": "generative-held-out" }
+  ],
+  "mustPreserve": [
+    { "id": "home-brand-stage", "requiredOn": ["home"], "dimensions": ["composition", "assetAuthenticity", "informationDensity"] },
+    { "id": "card-database-search-organism", "requiredOn": ["card-database"], "dimensions": ["composition", "informationDensity", "interactionSemantics"] },
+    { "id": "learning-content-hierarchy", "requiredOn": ["how-to-play"], "dimensions": ["composition", "typographyGraphics", "interactionSemantics"] },
+    { "id": "responsive-section-structure", "requiredOn": ["home", "card-database", "how-to-play"], "dimensions": ["composition", "informationDensity"] }
+  ],
+  "mayTranslate": [
+    { "id": "responsive-phone-layout", "description": "Desktop structures may reflow to phone while preserving hierarchy, asset weight, density and interaction truth." },
+    { "id": "representative-content", "description": "Source-independent content is limited to the held-out proof." }
+  ],
+  "mustNotReplace": [
+    { "id": "no-old-verdict-reuse", "description": "Previous QA verdicts and hashes cannot prove this versioned run." },
+    { "id": "no-screenshot-runtime", "description": "Source screenshots are QA evidence only." },
+    { "id": "no-item-count-proxy", "description": "Counts do not substitute for section structure." },
+    { "id": "no-fake-controls", "description": "Enabled controls require captured state changes and restoration." },
+    { "id": "no-action-color-invention", "description": "Keep DangoUI action baseline unless rendered CTA or active evidence proves a brand role." }
+  ],
+  "learningProofContract": {
+    "evidenceFidelity": { "required": true },
+    "structuralFidelity": { "required": true },
+    "generativeProof": { "required": true },
+    "visibleLearningProof": { "required": true },
+    "compensationPolicy": "No proof can compensate for another."
+  },
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "dimensionMin": { "composition": 3, "assetAuthenticity": 3 },
+    "maxAttempts": 2
+  },
+  "timeBudget": {
+    "profile": "full",
+    "targetMinutes": [30, 45],
+    "stopOptionalExpansionAtMinutes": 60,
+    "blockAtMinutes": 75
+  }
+}

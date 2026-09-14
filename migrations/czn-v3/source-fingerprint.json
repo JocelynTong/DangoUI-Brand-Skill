@@ -1,0 +1,71 @@
+{
+  "schema": "brand-source-fingerprint/v1",
+  "brand": "czn",
+  "rulesVersion": "3.0",
+  "sourceManifestSha256": "8f19756e2bd9c52db91293853aaed6c46aa9c5056669771cbf33da3bf95af890",
+  "inputs": [
+    {
+      "kind": "source-observation-manifest",
+      "path": "migrations/czn-v3/source-observation-manifest.json",
+      "sha256": "6fef21690c2bf2e2ff11519dc58da2c09739e1dca00c6f03d849786cad100d42"
+    },
+    {
+      "kind": "rendered-asset-inventory",
+      "path": "migrations/czn-v3/rendered-asset-inventory.json",
+      "sha256": "081f0039150d5abbb6db6e396d2ed701e63c99a99c2d5e1230f1a19e0a1056eb"
+    },
+    {
+      "kind": "action-evidence",
+      "path": "migrations/czn-v3/action-evidence.json",
+      "sha256": "8a0060dd485dea2d657c18a035b03d34c57943863b0bf6ba0da88ee56424244a"
+    }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://czn.qq.com/",
+      "contentSha256": "940504f95eb1ed46b021bb88971de0a402d4adc808665218748b62e673981d65",
+      "renderSha256": "6204f081470b6ff386377d137d05ac061ad9dad0b0f1f4aed87f9e08e29e75fc",
+      "assetSha256": "42c85002cafc15e332d4c1185b12b680216ffb4032337d3927a49d5df5b84616",
+      "interactionSha256": "417b90d35114a7f53b7075321e0a1951f618e3e7167a8a1205d585bbdc9a9367",
+      "evidenceCompleteness": {
+        "renderHashes": 4,
+        "assets": 15,
+        "interactions": 2
+      }
+    },
+    {
+      "id": "gameplay",
+      "url": "https://czn.qq.com/",
+      "contentSha256": "238f6b8eaa7ac2889afa12d748c067254349de31ae0cdc8fcce5f398665be2cf",
+      "renderSha256": "c370627e8c417f953df5d835268901eafebed88752895afd8fa26df9a1c933aa",
+      "assetSha256": "624865960b1d07821988a91aedf3b924e23742123ce404848ef882a0d437b741",
+      "interactionSha256": "bcaa9dafef8a4f590e6fd7390ce5f81f20a14980e704f16dd4c0b52e57a3746c",
+      "evidenceCompleteness": {
+        "renderHashes": 4,
+        "assets": 10,
+        "interactions": 2
+      }
+    },
+    {
+      "id": "character",
+      "url": "https://czn.qq.com/",
+      "contentSha256": "c9ba0b5808ba5e55cd3a321d6ff1092ed3f3144d71ff8623b93ac3bb21f54c97",
+      "renderSha256": "751e336d1dc83513ccb73e00267c58e19932789710e0c937d2b5788959c1145b",
+      "assetSha256": "283bf87d4ae097af66026d9a176dd648de1bd1ee002104c11f8b7f051f60df30",
+      "interactionSha256": "62bb529044b262ff17ac6a46d219d32b3487fdb6f2859370297f84beca98a8a8",
+      "evidenceCompleteness": {
+        "renderHashes": 4,
+        "assets": 47,
+        "interactions": 2
+      }
+    }
+  ],
+  "generatedAt": "2026-09-14T14:26:39.904Z",
+  "generationPolicy": {
+    "content": "stable semantic observation fields plus computed evidence file hashes",
+    "render": "all declared screenshot and continuous-capture hashes for the page",
+    "assets": "page-scoped assets plus global assets when scope cannot be proven",
+    "interaction": "page-scoped action evidence and declared page interaction traces"
+  }
+}

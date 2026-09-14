@@ -1,0 +1,62 @@
+{
+  "schema": "brand-portfolio-update-plan/v1",
+  "totalBrands": 4,
+  "actionableBrands": 0,
+  "noOpBrands": 3,
+  "brands": [
+    {
+      "brand": "dango",
+      "route": "reuse-no-op",
+      "changedPages": [],
+      "cacheHits": 2,
+      "totalPages": 2,
+      "budgetClass": "under-1-minute"
+    },
+    {
+      "brand": "czn",
+      "route": "fingerprint-unavailable",
+      "reason": "BOOTSTRAP_REQUIRES_FIDELITY_PASS: only reviewed brands may establish a cache baseline without fresh browsing.",
+      "registryStatus": "implementation-ready-qa-pending"
+    },
+    {
+      "brand": "onepiece-cardgame",
+      "route": "reuse-no-op",
+      "changedPages": [],
+      "cacheHits": 4,
+      "totalPages": 4,
+      "budgetClass": "under-1-minute"
+    },
+    {
+      "brand": "pokemon-tcg-official",
+      "route": "reuse-no-op",
+      "changedPages": [],
+      "cacheHits": 3,
+      "totalPages": 3,
+      "budgetClass": "under-1-minute"
+    }
+  ],
+  "waves": [
+    {
+      "route": "fingerprint-unavailable",
+      "brands": [
+        "czn"
+      ]
+    },
+    {
+      "route": "reuse-no-op",
+      "brands": [
+        "dango",
+        "onepiece-cardgame",
+        "pokemon-tcg-official"
+      ]
+    }
+  ],
+  "schedulingPolicy": {
+    "maximumConcurrentBrowsers": 4,
+    "runCheapRoutesFirst": true,
+    "fullRelearnRequiresQueueBudget": true,
+    "unchangedBrandsConsumeBrowserSlots": false,
+    "registryIdentityStable": true
+  },
+  "generatedAt": "2026-09-14T14:26:40.045Z"
+}

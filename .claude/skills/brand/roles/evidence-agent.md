@@ -40,15 +40,16 @@ Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角�
 
 1. `Goal questions`：把每个 `mustPreserve`、reference page 和 required state 改写成可证伪的问题，并定义需要的截图、状态与停止条件。
 2. `Candidate extraction`：运行 Dembrandt 等抽取器，导入 `third-party-evidence.*.json`；仅用于生成候选清单和取证优先级。
-3. `Screenshot`：不依赖候选结论，先确认真实可见模式和视觉权重。
-4. `Continuous capture`：从稳定初始态开始，连续记录完整滚动、轮播/视频和关键交互；每帧关联时间、scrollTop 与状态标签。
-5. `Visible DOM`：定位截图/时间轴区域对应的实际节点。
-6. `Computed style`：读取该节点当前状态最终生效值。
-7. `Interaction state`：真实触发 hover、focus、open、active、scroll，并同时保留 default、transition、settled 状态。
-8. `Source rule`：追溯具体 CSS、资源或脚本，仅用于解释和复现。
-9. `Candidate disposition`：将与 Goal 或高显著度页面相关的抽取器候选逐项标为 `validated / rejected / unresolved / out-of-scope`，附 Claim 或原因。
-10. `Code-discovered visual backfill`：若当前可见 section 的绑定事件、CSS 变量、transform/perspective、伪元素渐变、混合模式或 transition 暗示录屏可能漏掉交互，先记为 candidate，再用固定输入轨迹反向补录；代码存在但未产生 computed 与像素变化不能标为 validated，隐藏且不可达的 dormant component 标为 unresolved。
-11. `Claim + Goal coverage`：记录事实并回填目标覆盖；禁止在本节点命名全局品牌语义。
+3. `Capture persistence probe`：正式浏览前先抓一张最小真实视口截图并写入本轮工作区，立即复读文件、验证图片可解码、尺寸非零并记录 SHA-256。只有浏览器会返回图片字节、但没有受支持的工作区写入通道时，必须立即返回 `NEEDS_EVIDENCE / EVIDENCE_CAPTURE_NOT_PERSISTABLE`；不得先花时间浏览全部页面，也不得把内存截图、聊天内图片或临时 UI 状态伪装成持久证据。
+4. `Screenshot`：探针通过后，不依赖候选结论，先确认真实可见模式和视觉权重。
+5. `Continuous capture`：从稳定初始态开始，连续记录完整滚动、轮播/视频和关键交互；每帧关联时间、scrollTop 与状态标签。
+6. `Visible DOM`：定位截图/时间轴区域对应的实际节点。
+7. `Computed style`：读取该节点当前状态最终生效值。
+8. `Interaction state`：真实触发 hover、focus、open、active、scroll，并同时保留 default、transition、settled 状态。
+9. `Source rule`：追溯具体 CSS、资源或脚本，仅用于解释和复现。
+10. `Candidate disposition`：将与 Goal 或高显著度页面相关的抽取器候选逐项标为 `validated / rejected / unresolved / out-of-scope`，附 Claim 或原因。
+11. `Code-discovered visual backfill`：若当前可见 section 的绑定事件、CSS 变量、transform/perspective、伪元素渐变、混合模式或 transition 暗示录屏可能漏掉交互，先记为 candidate，再用固定输入轨迹反向补录；代码存在但未产生 computed 与像素变化不能标为 validated，隐藏且不可达的 dormant component 标为 unresolved。
+12. `Claim + Goal coverage`：记录事实并回填目标覆盖；禁止在本节点命名全局品牌语义。
 
 CSS 扫描、变量名、类名、文件名和第三方报告只能产生 `candidate`，不能产生 `observed` Claim。
 
@@ -66,6 +67,7 @@ CSS 扫描、变量名、类名、文件名和第三方报告只能产生 `candi
 
 ## 节点自检
 
+- 正式采集前，截图持久化探针是否已在工作区生成可解码、非零尺寸且 SHA-256 可复算的图片？
 - 每个 `observed` Claim 是否存在可读取截图和归一化 Region？
 - Region 中是否真的可见该模式，而不是隐藏节点或视觉权重极低的偶发像素？
 - DOM 是否在当前视口可见且 bounding box 非零？

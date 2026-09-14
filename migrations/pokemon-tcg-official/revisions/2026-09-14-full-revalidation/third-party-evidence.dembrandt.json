@@ -1,0 +1,20 @@
+{
+  "schema": "third-party-evidence/v1",
+  "provider": "dembrandt",
+  "sourceType": "seed-only",
+  "sourceUrl": "https://tcg.pokemon.com/en-us/",
+  "extractionStatus": "attempted",
+  "note": "Dembrandt was run as candidate discovery only. Its candidates require rendered disposition in brand-evidence.json and do not establish facts.",
+  "candidateHints": {
+    "typography": [
+      "Kanit",
+      "PT Sans"
+    ],
+    "paletteFrequency": "unresolved",
+    "controls": [
+      "button",
+      "disclosure",
+      "details/summary"
+    ]
+  }
+}

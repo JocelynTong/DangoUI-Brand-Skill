@@ -431,7 +431,10 @@ function validateCompositionSupport(pattern, page, requirement, sourcePage) {
   const support = pattern?.compositionSupport;
   const approvedPattern = array(brandIntent?.patterns).find((item) => item?.id === pattern?.approvedPatternId);
   const approvedVisualPattern = array(approvedPatterns?.patterns).find((item) => item?.id === pattern?.approvedPatternId);
-  const approval = normalizeCompositionApproval(approvedVisualPattern || approvedPattern?.compositionContract, pattern?.compositionSupport);
+  const approval = normalizeCompositionApproval(
+    approvedVisualPattern?.compositionContract || approvedPattern?.compositionContract,
+    pattern?.compositionSupport,
+  );
   if (!approval || array(approval?.requiredLayers).length < 2) {
     hard("COMPOSITION_APPROVAL_INCOMPLETE", pattern?.approvedPatternId || pattern?.id, "The Interpreter-approved pattern must freeze its required structural layers before implementation.");
   }
@@ -545,9 +548,19 @@ function runNormalizationSelfTest() {
     sourceAsset: { identity: "hero", variant: "abc123" },
     requiredLayers: [{ id: "campaign-art", role: "campaign-art" }, { id: "featured-card", role: "featured-card" }],
   }, {});
+  const nested = {
+    id: "docs-shell",
+    compositionContract: {
+      sourceAsset: { identity: "docs-shell", variant: "desktop" },
+      requiredLayers: [{ id: "header", role: "navigation" }, { id: "content", role: "reading" }],
+    },
+  };
+  const nestedCurrent = normalizeCompositionApproval(nested.compositionContract, {});
   const checks = {
     legacyIdentity: legacy?.sourceAsset?.identity === "hero" && legacy?.sourceAsset?.variant === "abc123",
     currentIdentity: current?.sourceAsset?.identity === "hero" && current?.sourceAsset?.variant === "abc123",
+    nestedContractIdentity: nestedCurrent?.sourceAsset?.identity === "docs-shell"
+      && nestedCurrent?.sourceAsset?.variant === "desktop",
     strictMinimum: legacy?.requiredLayers?.length >= 2 && current?.requiredLayers?.length >= 2,
     equivalentLayerNames: sameLayer(legacy.requiredLayers[0], current.requiredLayers[0]),
     pixelRegionNotWhole: isWholeRegion([0, 84, 1440, 710]) === false,

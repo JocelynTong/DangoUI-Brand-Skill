@@ -1,0 +1,31 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "3ef0fd8c-aadc-4188-b33e-86ec4f7ec861",
+  "runId": "849a0eba-e5e4-4828-8c51-fd3480719002",
+  "stageId": "visualQA-4",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 4,
+  "agentExecutionId": "/root/pokemon_v2_visual_qa_round4",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "inputs": [
+    {"path":"migrations/pokemon-tcg-official-v2/goal-contract.json","sha256":"37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845"},
+    {"path":"migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json","sha256":"dab5ab4690fc0da57c35c976230f12c621dcc34cc6fb37778905688f9b1445d0"},
+    {"path":"migrations/pokemon-tcg-official-v2/generative-proof.json","sha256":"530b5aa20861af80c202ea337d4ed6626b14f4af82bdb06562300184775d7de0"},
+    {"path":"migrations/pokemon-tcg-official-v2/qa-input-manifest.json","sha256":"cfe1f089f1c9fa8791b5c6020dad06145e4c74a58539ce2926e4499f8a61b610"}
+  ],
+  "outputs": [
+    {"path":"migrations/pokemon-tcg-official-v2/visual-qa-assessment.json","sha256":"b31e74fcbb9cb4d34671754ecf232aa613dcb81286b635b6356239f0516ddfe5"},
+    {"path":"migrations/pokemon-tcg-official-v2/visual-comparison-report.json","sha256":"c743d69e17c0d97be9d6596bae8aba5f283e94470b81e9ebb9a5b61d1b6766a0"},
+    {"path":"migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json","sha256":"b74fdb789d1d3999cfba9da0d7c7c3ac36e72ce05fba3aedf54ba8a0e30a2275"},
+    {"path":"migrations/pokemon-tcg-official-v2/fidelity-report.json","sha256":"80c8559649e1cb0371bcf0c10150d7a6bcf05f5f97f14ccea6e62167ee9e1009"},
+    {"path":"migrations/pokemon-tcg-official-v2/mockup-state-matrix.json","sha256":"4abf09b58358beb4898b15d69fb398f76e5a55755884975e5036244fb1358f85"},
+    {"path":"migrations/pokemon-tcg-official-v2/three-proof-verdict.json","sha256":"0827ac2c2f6f728d36219da9a2da69303d061244ff204097f5d9fea9f4404c05"}
+  ],
+  "verdict": "pass",
+  "computedStatus": "fidelity-pass",
+  "threeProof": {"evidenceFidelity":"pass","structuralFidelity":"pass","generativeProof":"pass"},
+  "blockingFindings": [],
+  "failureOwnerRole": null,
+  "failureRouting": {"required":false,"routeTo":null,"reason":"No blocking finding."}
+}

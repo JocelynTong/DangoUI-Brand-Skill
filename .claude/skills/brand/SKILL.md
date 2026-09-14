@@ -98,6 +98,8 @@ node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand <bran
 
 Evidence Agent 是该节点的结果 owner；Dembrandt 只是它内部的 candidate extractor，不新增角色、不单独 handoff，也不拥有 PASS/FAIL 权。Evidence 必须从冻结 Goal 生成证据问题，再运行抽取器帮助排序候选，最后用真实渲染证据为相关 seed 写 `validated / rejected / unresolved / out-of-scope` disposition。存在第三方 seed 却没有 disposition 时，strict gate 不得交给 Interpreter。
 
+Evidence 正式浏览前先做一次截图持久化探针：将一张真实视口截图写入本轮工作区，复读并校验图片尺寸与 SHA-256。若浏览器只能在会话里显示或返回图片字节、却没有受支持的文件写入通道，立即以 `EVIDENCE_CAPTURE_NOT_PERSISTABLE` 停止，不再遍历全部页面；内存图片、聊天内图片和不可复读的临时 UI 状态不能替代证据文件。
+
 ## /brand 总入口（必经）
 
 无论是品牌学习还是宿主换肤，`/brand` 真正开始执行前都必须先走统一入口，而不是一上来散着跑各个 guard。
@@ -116,9 +118,21 @@ node skills/brand/scripts/run-brand-workflow.mjs run ...
 
 总入口在抽取前必须先按规范化来源 URL 或 Demo 深链查询公共 Registry。命中已审核版本时直接返回 `reuse-existing-style-pack`；进入宿主应用时自动把公开 JSON 规则安装到宿主 `migrations/{brand}/`，不要求用户理解或填写 `assetRoot`、`style-pack`、`mod-file`。只有未命中时才进入新的 `learn-brand` 抽取。公共 Registry 暂时不可达时必须明确报告，不能把网络失败当成“未收录”。官网运行时素材仍服从 manifest 的 `reusePolicy`，不得因为规则公开就自动推断素材可商用。
 
-维护者需要用新流程复验已存在的旧品牌包时，显式使用 `--force-relearn`，并把 `--brand` 指向新的版本化工作区（例如 `hpma-v2`）。该参数只允许 `learn-brand`，不得覆盖原有已审核目录；新工作区完成 Evidence、Interpreter、Design Direction、Demo、独立 QA 和三证前，不得替换 Registry 版本。
+维护者需要用新流程复验已存在的品牌包时，保持原 `brand id`，并在 `migrations/<brand>/revisions/<run-id>/` 保存隔离证据与历史 receipt；复验通过后晋升为该品牌的新 revision。不得因为复验、补证据或更新学习流程而创建第二个 Registry 项目。只有用户明确要求并行保留一个新品牌版本时，才允许使用新的 brand id。
 
 更新已经存在的 Demo 不等同于学习新品牌。使用 `node skills/brand/scripts/run-brand-workflow.mjs update --brand <brand> --source-url <url>`；入口必须先读取 `migrations/<brand>/source-manifest.json`，继承历次学习网站和页面，再允许追加或刷新来源。不得用本次单一输入覆盖历史来源；发现来源缺失时以 `LEARNED_SOURCE_DROPPED` 阻断。Registry 的 `canonicalSources` 只负责公开检索摘要，完整学习履历以品牌目录的 source manifest 为准。来源确需废弃时保留记录并显式标记 retired 和原因。
+
+面向大规模存量品牌，更新前必须先生成 source fingerprint，再运行增量规划器：
+
+```bash
+node skills/brand/scripts/plan-brand-update.mjs plan --brand <brand> --snapshot <source-fingerprint.json> --write
+```
+
+规划器只允许五种路由：`reuse-no-op`、`contract-migration-only`、`targeted-content-refresh`、`targeted-interaction-refresh`、`targeted-visual-refresh`、`full-relearn-existing-brand`。未变化页面必须命中缓存，不重复截图、解释、实现或 QA；局部更新只重跑受影响页面并附带轻量 smoke regression。Skill 自身规则升级不能默认触发全部品牌重新浏览；只有规则影响到既有学习结论时，才按依赖关系筛选受影响品牌。任何路由都保持原 brand id，写入内部 revision，不创建第二个 Registry 项目。
+
+批量运营先运行 `node skills/brand/scripts/plan-brand-portfolio.mjs --bootstrap-approved --write`。它为 Registry 内品牌生成或读取四维页面指纹（content/render/assets/interaction），把品牌排入按成本排序的处理波次，并保证 `reuse-no-op` 不占用浏览器并发槽。缺 Evidence 的历史品牌进入 `fingerprint-unavailable`，不得被误判为“发生变化”后全量重跑。
+
+线上巡检先运行 `probe-brand-source.mjs`；轻量签名未变化时停止，变化时才生成深指纹。`execute-brand-update.mjs` 把增量计划转换为可留 receipt 的节点状态机；`brand-portfolio-queue.mjs` 负责批量 claim/record、浏览器并发上限、失败隔离和断点续跑。单品牌失败不得阻塞其他品牌，且所有 dispatch 都显式禁止创建 Registry 项目。
 
 如果当前运行环境是 Claude 项目 skill 镜像，则使用：
 
@@ -432,7 +446,7 @@ npm run validate:brand-skill-release
 1. 选择 5-10 名 Taro/小程序开发者，每人带 1 个真实页面，不直接全员开放。
 2. 安装后在宿主项目运行 `node <skill-dir>/scripts/public-host-preflight.mjs --host . --platform h5`；前置检查不通过不得进入改造。
 3. 以 `/brand <品牌 URL 或证据目录>` 发起任务；必须先保留宿主业务基线，再完成 token、component、runtime、visual 五轨证据。
-4. 小程序项目第一轮仍以同构 H5 作为可复现视觉验收面；若目标声明 `weapp`，在没有独立构建与真机证据前返回 `DANGOUI_PLATFORM_UNVERIFIED`，不得外推 PASS。
+4. 千岛小程序项目先完成同构 H5 验收，再独立执行 `public-host-preflight.mjs --host . --platform qdmp`。Taro 当前仍以 `weapp` 作为构建目标和文件后缀，因此千岛运行端必须使用 `dangoui.weapp.js` 与 `.weapp.vue` adapter；这些名称只是技术兼容层，不代表验收平台是微信。禁止直接导入 DangoUI Vue SFC。没有独立构建与千岛开发者工具（Dimina）或千岛 App 真机证据时仍返回 `DANGOUI_PLATFORM_UNVERIFIED`，不得从 H5 或微信开发者工具结果外推 PASS。
 5. DangoUI 不满足项写入 `dangoui-capability-gaps.json`，严格校验后导出本地 Issue 草稿；由开发者人工确认再提交，skill 不自动发送内部代码、截图或路径。
 6. 两周或累计 10 个页面后复盘：安装成功率、五轨通过率、误判/越界率、gap 分类完整率；达到门槛再扩大范围。
 

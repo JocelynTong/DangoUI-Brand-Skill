@@ -1,0 +1,48 @@
+{
+  "schema": "brand-source-timeline/v1",
+  "pageId": "card-database",
+  "meta": {
+    "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 1532,
+    "captureMode": "fixed-step-lossless-frames"
+  },
+  "frames": [
+    {
+      "index": 0,
+      "timeMs": 0,
+      "label": "stable-initial",
+      "scrollTop": 0,
+      "scrollHeight": 1532,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/frames/scroll-0000.jpg",
+        "sha256": "880cbae61f4d8a0b26116a1e5520666b30433f3c358727ef75a8ed5db81b5ef1"
+      }
+    },
+    {
+      "index": 1,
+      "timeMs": 500,
+      "label": "continuous-scroll",
+      "scrollTop": 308,
+      "scrollHeight": 1532,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/frames/scroll-0308.jpg",
+        "sha256": "6e23403fbaeba06f969b5aab2bd8a69bc2a3e198f583da16ab3069f80b73df99"
+      }
+    },
+    {
+      "index": 2,
+      "timeMs": 1000,
+      "label": "settled-end",
+      "scrollTop": 632,
+      "scrollHeight": 1532,
+      "capture": {
+        "path": "migrations/pokemon-tcg-official-v2/evidence/card-database/desktop/frames/scroll-0632.jpg",
+        "sha256": "59f0762b2c7a378c77daa9171b409df6036a62bbd4d10cb3d0d53842d5e98f91"
+      }
+    }
+  ]
+}

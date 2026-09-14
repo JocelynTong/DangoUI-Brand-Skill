@@ -1,0 +1,84 @@
+{
+  "schema": "brand-visual-quality-result/v2",
+  "brand": "pokemon-tcg-official-v2",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalContractPath": "migrations/pokemon-tcg-official-v2/goal-contract.json",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "attempt": 4,
+  "status": "fidelity-pass",
+  "overallScore": 97.5,
+  "thresholds": {
+    "overall": 80,
+    "corePage": 70,
+    "composition": 3,
+    "assetAuthenticity": 3,
+    "maxAttempts": 2
+  },
+  "pageResults": [
+    {
+      "sourcePageId": "home",
+      "demoPageId": "pokemon-tcg-official-v2-home",
+      "score": 97.5,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 3,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "card-database",
+      "demoPageId": "pokemon-tcg-official-v2-card-database",
+      "score": 95,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 3,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 4,
+        "brandRecognition": 4
+      }
+    },
+    {
+      "sourcePageId": "how-to-play",
+      "demoPageId": "pokemon-tcg-official-v2-learn",
+      "score": 100,
+      "ratings": {
+        "composition": 4,
+        "assetAuthenticity": 4,
+        "colorRoles": 4,
+        "informationDensity": 4,
+        "typographyGraphics": 4,
+        "motionSemantics": 4,
+        "brandRecognition": 4
+      }
+    }
+  ],
+  "protocolFailures": [],
+  "hardFailures": [],
+  "blockingFindings": [],
+  "learningProof": {
+    "required": true,
+    "status": "learning-proof-pass",
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass",
+    "rule": "All three proofs must pass; scores cannot compensate for a failed proof."
+  },
+  "inputHashes": {
+    "goal": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+    "qaInputManifest": "cfe1f089f1c9fa8791b5c6020dad06145e4c74a58539ce2926e4499f8a61b610",
+    "assessment": "b31e74fcbb9cb4d34671754ecf232aa613dcb81286b635b6356239f0516ddfe5",
+    "visualPatternInventory": "dab5ab4690fc0da57c35c976230f12c621dcc34cc6fb37778905688f9b1445d0",
+    "generativeProof": "530b5aa20861af80c202ea337d4ed6626b14f4af82bdb06562300184775d7de0"
+  },
+  "generatedBy": {
+    "tool": "validate-brand-fidelity.mjs",
+    "version": "1.3"
+  },
+  "generatedAt": "2026-09-14T14:12:05.245Z"
+}

@@ -1,0 +1,522 @@
+{
+  "schema": "brand-subagent-execution/v1",
+  "runId": "849a0eba-e5e4-4828-8c51-fd3480719002",
+  "brand": "pokemon-tcg-official-v2",
+  "mode": "learn-brand",
+  "goalId": "pokemon-tcg-official-v2-full-revalidation",
+  "goalPath": "migrations/pokemon-tcg-official-v2/goal-contract.json",
+  "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+  "roleContractVersion": "3.0",
+  "status": "complete",
+  "createdAt": "2026-09-14T12:21:37.408Z",
+  "currentStageId": null,
+  "stages": [
+    {
+      "id": "evidence-1",
+      "stage": "evidence",
+      "role": "brandResearcher",
+      "attempt": 1,
+      "maxAttempts": 1,
+      "status": "failed",
+      "dispatchId": "120e59bf-e55c-4326-bbcd-4c6bbb9d0519",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/evidence-1.json",
+      "startedAt": "2026-09-14T12:21:40.118Z",
+      "verdict": "needs-evidence",
+      "agentExecutionId": "/root/pokemon_v2_evidence",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/evidence-1.json",
+      "receiptSha256": "66c0061a59474348bf73018d6e8274355888e9760fabd5b2a8f14f84a22efa75",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json",
+          "sha256": "faf4c1bfa25bcc9cd409c15dfac04ca61ddcbc21d0994790d7d1ffc0cab6f132"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/source-observation-manifest.json",
+          "sha256": "98a681c1446f3003f7a3dd3e977900ea2d6ebb8dd2234ec74a67e579e4955fb0"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/rendered-asset-inventory.json",
+          "sha256": "913ae473ae95a548aaca93b1ea397775db993a3567af85ddd915da05a6bf1e10"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/action-evidence.json",
+          "sha256": "d35c66d1a78f4db1ce53cb86e061e4b1c2e9f3e81147cfbc5b6ec758ac2134f6"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/third-party-evidence.dembrandt.json",
+          "sha256": "55101b10562a2e4cfeb0e764304e542c8b92290ea4ab6f6d2479c483a07df5a2"
+        }
+      ],
+      "blockingFindings": [
+        "The browser rendered all required source pages, but its current capture interface could not persist source screenshots into the workspace.",
+        "Continuous full-page capture, lossless frames, timeline evidence, and responsive viewport evidence remain unavailable.",
+        "Observed DOM and computed-style facts may be retained, but the screenshot-first visibility gate cannot pass."
+      ],
+      "failureOwnerRole": "brandResearcher",
+      "endedAt": "2026-09-14T12:32:54.417Z"
+    },
+    {
+      "id": "evidence-2",
+      "stage": "evidence",
+      "role": "brandResearcher",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "complete",
+      "retryInput": {
+        "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+        "blockingFindings": [
+          "The browser rendered all required source pages, but its current capture interface could not persist source screenshots into the workspace.",
+          "Continuous full-page capture, lossless frames, timeline evidence, and responsive viewport evidence remain unavailable.",
+          "Observed DOM and computed-style facts may be retained, but the screenshot-first visibility gate cannot pass."
+        ]
+      },
+      "dispatchId": "3416f013-a7a1-49c8-af15-3e67812795e8",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/evidence-2.json",
+      "startedAt": "2026-09-14T12:59:10.124Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/pokemon_v2_evidence_retry",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/evidence-2.json",
+      "receiptSha256": "ccf949c2913c5bc93b8f1b1d3e8087abb9e959bb69a65532bd730e8e3894e01e",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-evidence.json",
+          "sha256": "0d10010991e0641bbaed0c338dc9a298d675ef07cc15d4c76688f693196ccf4b"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/source-observation-manifest.json",
+          "sha256": "18bb444ff05c6c3abec293c6caa9def8842d737011a1bbf3f5569f37ea0474f6"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/rendered-asset-inventory.json",
+          "sha256": "a3316c10b0f2c59b59c75c1edc052646089185979b2c9838d9ebdd31c060e3e4"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/action-evidence.json",
+          "sha256": "3f7dd099cbc3e07a3bcd4f6912e6bee712fe3743cd4e849d8a50f743192c753b"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/third-party-evidence.dembrandt.json",
+          "sha256": "3653dac8e0da182694d3a34a097e210eb6d80c93b70b623e377ef6820e918932"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T13:10:30.211Z"
+    },
+    {
+      "id": "interpreter-2",
+      "stage": "interpreter",
+      "role": "designTranslator",
+      "attempt": 2,
+      "maxAttempts": 1,
+      "status": "complete",
+      "dispatchId": "72d6bbf3-dbf9-4f45-a01a-80b9a956674a",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/interpreter-2.json",
+      "startedAt": "2026-09-14T13:10:30.240Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/pokemon_v2_interpreter",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/interpreter-2.json",
+      "receiptSha256": "b3fd1d968d3cd8a97bc0ab215bd250e89cac064fe63bfbb37afbc698c13b3088",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-intent.json",
+          "sha256": "44c5090aaf5f3018e6d4f4d5d3ccab5f34559741b9cfb445fdeeb3c53cf3c888"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/approved-visual-patterns.json",
+          "sha256": "be6cb1946019a184201bf37f8ab9f029499aaf428d271d796ed47f892487b329"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T13:16:40.052Z"
+    },
+    {
+      "id": "demo-2",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "complete",
+      "dispatchId": "c0ea379a-29d8-4bdc-9fcd-1f8e932c7577",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/demo-2.json",
+      "startedAt": "2026-09-14T13:17:42.525Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/pokemon_v2_demo",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/demo-2.json",
+      "receiptSha256": "dc50b252be097b8f6661f538fa8a799172b919e9a2149f5bac5976ea98391d26",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshot-manifest.json",
+          "sha256": "ea8fed3cbf4dec7d6fa58ae93f244f8d3c91d913bd3fe1d623c2dcce2e6e1a26"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json",
+          "sha256": "19e8e0d69e0f009760f1119e7ffa3a6b377ba95764fd5ae3376074ae814ce507"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/generative-proof.json",
+          "sha256": "bdb75fd34f90dfd72d492784ae6f98979b1722e172c00ab41d0b33813c3af18b"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/implementation-self-test.json",
+          "sha256": "0c85dbce1e1fa661d4a8d90fb13131be955cfbc2c8ee279845eed9b01d4425e5"
+        },
+        {
+          "path": "public/brand-previews/pokemon-tcg-official-v2.json",
+          "sha256": "27620499bcf5d7b04ba61ede620d68f823e61352f3fd5a5667d7f6f10090a531"
+        },
+        {
+          "path": "public/brand-previews/registry.json",
+          "sha256": "c0ed235b04a6d866e0736f989432b7d6ec55f9f167f5ac15d7697dfa3b0f300b"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T13:27:36.481Z"
+    },
+    {
+      "id": "visualQA-2",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "failed",
+      "dispatchId": "e9748f08-04e1-4ed5-9caf-f6eec4317e06",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/visualQA-2.json",
+      "startedAt": "2026-09-14T13:27:36.511Z",
+      "verdict": "needs-evidence",
+      "agentExecutionId": "/root/pokemon_v2_visual_qa",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/visualQA-2.json",
+      "receiptSha256": "967c226ca9480d749a87e65ae804bd8afdede58f26299b58ffdbff1252801f87",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-qa-assessment.json",
+          "sha256": "1a8383199b184400dd4dc0b0c80b64b5d3c73ea78994984aec4fc1a9f215ff46"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-comparison-report.json",
+          "sha256": "f7efb2567f9c7ffd98c2c300d586e0d96cfaba20b8c3f49d3aaed692b469bd89"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json",
+          "sha256": "861ea3f47272d36d364435083313e8a903489e42e59b4d76f13719981b3bd94f"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/fidelity-report.json",
+          "sha256": "ee0a1bd7d58df07e93e98a0d3bcf0c9edc4626b1cbecefed2fb29ffe0174022c"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/mockup-state-matrix.json",
+          "sha256": "b75a557c50b1ba61c7f35eb961b1bbfc07ed6fe336b84e1800d4e8115ea9c551"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/three-proof-verdict.json",
+          "sha256": "ca1e90955887c4037c61dc5f3f7bc58492f9ec15fda153d2b92e098f90a4b40a"
+        }
+      ],
+      "blockingFindings": [
+        "qa-input-manifest.json is missing.",
+        "The current validator does not accept the supplied v2 visual-pattern-inventory and generative-proof schemas.",
+        "Shared mockup change scope is unresolved and the strict matrix reports 24 missing cases."
+      ],
+      "failureOwnerRole": "designDirectorOrchestrator",
+      "endedAt": "2026-09-14T13:33:36.759Z"
+    },
+    {
+      "id": "visualQA-2-retry-2",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "failed",
+      "retryInput": {
+        "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+        "blockingFindings": [
+          "qa-input-manifest.json is missing.",
+          "The current validator does not accept the supplied v2 visual-pattern-inventory and generative-proof schemas.",
+          "Shared mockup change scope is unresolved and the strict matrix reports 24 missing cases."
+        ]
+      },
+      "dispatchId": "95c8c825-5db3-43ab-a64e-eb3a009fedb9",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/visualQA-2-retry-2.json",
+      "startedAt": "2026-09-14T13:40:19.064Z",
+      "verdict": "needs-evidence",
+      "agentExecutionId": "/root/pokemon_v2_visual_qa_retry",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/visualQA-2-retry-2.json",
+      "receiptSha256": "4a420cd8f09a39aa882b3068a56a6377a956736afba6a1e31d328e367436ecba",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-qa-assessment.json",
+          "sha256": "c1a8993679fe3141df574ff696e6fc2b9c78026377889824d570bb082b2c73f6"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-comparison-report.json",
+          "sha256": "5c4598da124bfb727681ab7a4f4d297852f38a8f3c73d901e96395157ee34d9c"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json",
+          "sha256": "f4d82bae552efe59da871536b6b16f02ef28daf097a32e8199f893f18aa954fe"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/fidelity-report.json",
+          "sha256": "2f074f6e3cef5cb11369b34e9ce6c1ca923e09ed6f2d2449c66b5d4aefd7e696"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/mockup-state-matrix.json",
+          "sha256": "a20f4462243f8300407e79bb1586ed00e50abdf15a6bb3ead827ed081ea9718e"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/three-proof-verdict.json",
+          "sha256": "ca1e90955887c4037c61dc5f3f7bc58492f9ec15fda153d2b92e098f90a4b40a"
+        }
+      ],
+      "blockingFindings": [
+        "Home and Card Database lack per-page normal-phone scroll and indicator-stability evidence.",
+        "The Learn demo does not visibly preserve the declared five-layer annotated learning composition, including the resource tail.",
+        "The held-out mobile capture does not prove the briefing is reachable and scrolling is restored."
+      ],
+      "failureOwnerRole": "demoImplementationAgent",
+      "endedAt": "2026-09-14T13:46:04.533Z"
+    },
+    {
+      "id": "demo-2-retry-2",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "complete",
+      "retryInput": {
+        "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+        "blockingFindings": [
+          "Home and Card Database lack per-page normal-phone scroll and indicator-stability evidence.",
+          "The Learn demo does not visibly preserve the declared five-layer annotated learning composition, including the resource tail.",
+          "The held-out mobile capture does not prove the briefing is reachable and scrolling is restored."
+        ]
+      },
+      "dispatchId": "c0b0759d-c3f2-4eee-bc10-666ecd97fa81",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/demo-2-retry-2.json",
+      "startedAt": "2026-09-14T13:49:20.494Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/pokemon_v2_demo",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/demo-2-retry-2.json",
+      "receiptSha256": "b6ed3e01968680f0d961c20049acf28dcd2864e517b091d67b8ace8d40e879fd",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshot-manifest.json",
+          "sha256": "c5ca8d6fa1583059744f42db0265341922d5682dd19006dbbfa170a2e70e6567"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json",
+          "sha256": "91766ef7e7ff7da8eab0bea2be5bb54f47993086ff9c48e12b5294a8604e0672"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/generative-proof.json",
+          "sha256": "a6618f302f49c593fa7b344978a063d5d4d76b97a7ab697989c5d6517bac2a64"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/implementation-self-test.json",
+          "sha256": "5c52b01249b053adc2445a3ffc1b46f170ffeb29f5351f64db99c7b4c81480b8"
+        },
+        {
+          "path": "public/brand-previews/pokemon-tcg-official-v2.json",
+          "sha256": "854ff328ec7fc74099f733927839c497e6cad6b5380e93d9e9fbb01944547a10"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T13:54:26.641Z"
+    },
+    {
+      "id": "visualQA-3",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 3,
+      "maxAttempts": 2,
+      "status": "failed",
+      "dispatchId": "84d073eb-4773-42fd-9ad3-e01d53445c85",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/visualQA-3.json",
+      "startedAt": "2026-09-14T13:54:57.991Z",
+      "verdict": "needs-evidence",
+      "agentExecutionId": "/root/pokemon_v2_visual_qa_round3",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/visualQA-3.json",
+      "receiptSha256": "ad1a401c8882f7d110b19a80132ad99985be43b63ebb896142d2eddc8941897d",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-qa-assessment.json",
+          "sha256": "149c3be1f2b4aca9b3bc22f11ef8345dd0e00a5df03d84c6bf499d7bcddaf307"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-comparison-report.json",
+          "sha256": "b0f4b81a3296d09dbccd7883a9aa2725ea13619008c6a3be410ccfea1223367b"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json",
+          "sha256": "896732d8905e8986a7f01e4b2fcade64e985ab0af91d0d5c8b09f7e4b3e72358"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/fidelity-report.json",
+          "sha256": "102a1dca8a495f4851dbd95aba6ed49dafa4e0a1f83ff2d433e544095934d888"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/mockup-state-matrix.json",
+          "sha256": "2451cb5c7a330b63a08652f3a373e67bd104515552ed953e0a5b0feeb1532cde"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/three-proof-verdict.json",
+          "sha256": "685049765b2b7da067dfbfad0e51b309b1cb19a664ca568858922c7efccd10ef"
+        }
+      ],
+      "blockingFindings": [
+        {
+          "code": "UNSUPPORTED_VISUAL_PATTERN",
+          "scope": "card-database",
+          "finding": "Card Database desktop replaces the approved compact three-column energy matrix with eleven full-width stacked pills, drifting from the frozen scanning geometry, density, icon and toggle structure.",
+          "earliestFailureNode": "demoImplementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        },
+        {
+          "code": "GENERATIVE_PROOF_NOT_APPROVED",
+          "scope": "pokemon-tcg-official-v2-held-out",
+          "finding": "The held-out desktop filter labels and mobile briefing labels and explanatory copy render near-white on light surfaces, so the required visible proof is not reliably readable.",
+          "earliestFailureNode": "demoImplementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        }
+      ],
+      "failureOwnerRole": "demoImplementationAgent",
+      "endedAt": "2026-09-14T14:00:34.988Z"
+    },
+    {
+      "id": "demo-3",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 3,
+      "maxAttempts": 2,
+      "status": "complete",
+      "retryInput": {
+        "goalSha256": "37fd65bf8fbca5099e062e8afece13747c987b44424f7fe3b8334380e3f7a845",
+        "blockingFindings": [
+          {
+            "code": "UNSUPPORTED_VISUAL_PATTERN",
+            "scope": "card-database",
+            "finding": "Card Database desktop replaces the approved compact three-column energy matrix with eleven full-width stacked pills, drifting from the frozen scanning geometry, density, icon and toggle structure.",
+            "earliestFailureNode": "demoImplementation",
+            "failureOwnerRole": "demoImplementationAgent"
+          },
+          {
+            "code": "GENERATIVE_PROOF_NOT_APPROVED",
+            "scope": "pokemon-tcg-official-v2-held-out",
+            "finding": "The held-out desktop filter labels and mobile briefing labels and explanatory copy render near-white on light surfaces, so the required visible proof is not reliably readable.",
+            "earliestFailureNode": "demoImplementation",
+            "failureOwnerRole": "demoImplementationAgent"
+          }
+        ],
+        "continuationAuthorization": "explicit-user-request-to-continue-existing-version"
+      },
+      "dispatchId": "434daa3d-e83f-4542-90d0-0c385cf6af55",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/demo-3.json",
+      "startedAt": "2026-09-14T14:02:15.425Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/pokemon_v2_demo",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/demo-3.json",
+      "receiptSha256": "ecc8cb9a42b5e97d964aa0a7c3308e5f4e6dafa48d1472b66285a923e6d34a4a",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshot-manifest.json",
+          "sha256": "f5d8c91ebc5e7adef21e1f63f61ff1055023228196905791dcc51319f92de3cb"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-pattern-inventory.json",
+          "sha256": "dab5ab4690fc0da57c35c976230f12c621dcc34cc6fb37778905688f9b1445d0"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/generative-proof.json",
+          "sha256": "530b5aa20861af80c202ea337d4ed6626b14f4af82bdb06562300184775d7de0"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/implementation-self-test.json",
+          "sha256": "4090f726b3a0334a66273321031acfbf0387051d17b3dc12d43669184ee47b0e"
+        },
+        {
+          "path": "public/brand-previews/pokemon-tcg-official-v2.json",
+          "sha256": "854ff328ec7fc74099f733927839c497e6cad6b5380e93d9e9fbb01944547a10"
+        },
+        {
+          "path": "src/styles.css",
+          "sha256": "2f206603d5117d77e8ef1725b5e26938d1fdbe256e6b7fdb5342c3a06b5e9fb6"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/card-database-desktop.png",
+          "sha256": "847fe355f22016bbadb468e3e5704da5e5500ed110f9043999ad3e27690b5ade"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/card-database-mobile.png",
+          "sha256": "57cb81e1ef8c21950133a0a8d35bcf93be0a21ddd4e5e45dc2a85caac7e1eb12"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/held-out-desktop.png",
+          "sha256": "d06db084c2d5fba4b3b2fa7ba34ed0ddff050ec9e3b794c3d342dc2b2f729570"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/demo-screenshots/attempt-4/held-out-mobile-briefing.png",
+          "sha256": "ec7a4a671db31743cebbf7a9fb0d3ef46022e979c95f739e664f3130163160c9"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T14:07:39.340Z"
+    },
+    {
+      "id": "visualQA-4",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 4,
+      "maxAttempts": 2,
+      "status": "complete",
+      "dispatchId": "3ef0fd8c-aadc-4188-b33e-86ec4f7ec861",
+      "dispatchPath": "migrations/pokemon-tcg-official-v2/dispatch/visualQA-4.json",
+      "startedAt": "2026-09-14T14:08:08.175Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/pokemon_v2_visual_qa_round4",
+      "receiptPath": "migrations/pokemon-tcg-official-v2/receipts/visualQA-4.json",
+      "receiptSha256": "c73c1740fdcec8db45b56440af8e854eb86f2555e3c6a5a8f62acc9d587dd39e",
+      "outputHashes": [
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-qa-assessment.json",
+          "sha256": "b31e74fcbb9cb4d34671754ecf232aa613dcb81286b635b6356239f0516ddfe5"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/visual-comparison-report.json",
+          "sha256": "c743d69e17c0d97be9d6596bae8aba5f283e94470b81e9ebb9a5b61d1b6766a0"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/brand-distinctiveness-assessment.json",
+          "sha256": "b74fdb789d1d3999cfba9da0d7c7c3ac36e72ce05fba3aedf54ba8a0e30a2275"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/fidelity-report.json",
+          "sha256": "80c8559649e1cb0371bcf0c10150d7a6bcf05f5f97f14ccea6e62167ee9e1009"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/mockup-state-matrix.json",
+          "sha256": "4abf09b58358beb4898b15d69fb398f76e5a55755884975e5036244fb1358f85"
+        },
+        {
+          "path": "migrations/pokemon-tcg-official-v2/three-proof-verdict.json",
+          "sha256": "0827ac2c2f6f728d36219da9a2da69303d061244ff204097f5d9fea9f4404c05"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T14:12:51.895Z"
+    }
+  ],
+  "finalGates": {
+    "protocol": "pass",
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass",
+    "fidelity": "pass",
+    "finalizedAt": "2026-09-14T14:12:51.929Z"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "schema": "brand-source-fingerprint/v1",
+  "brand": "onepiece-cardgame",
+  "rulesVersion": "3.0",
+  "sourceManifestSha256": "3cb7baea89cc4a6df74838639fffb4be4b83c34a0971fca76a29f5e87951de45",
+  "inputs": [
+    {
+      "kind": "source-observation-manifest",
+      "path": "migrations/onepiece-cardgame/source-observation-manifest.json",
+      "sha256": "00b8632be3784cf14b5463b0f85c1281265993b6913d5f695bbd49756313505c"
+    },
+    {
+      "kind": "rendered-asset-inventory",
+      "path": "migrations/onepiece-cardgame/rendered-asset-inventory.json",
+      "sha256": "6bf8d1c3068634bd87ae4ee5851acc4e72c7e9c1bd2d0804d59956393c7d4e14"
+    },
+    {
+      "kind": "action-evidence",
+      "path": "migrations/onepiece-cardgame/action-evidence.json",
+      "sha256": "7a491ca50b7f0f9046af6f55fc605b218926bd25acd602f473ca0169629c10e9"
+    }
+  ],
+  "pages": [
+    {
+      "id": "home",
+      "url": "https://asia-en.onepiece-cardgame.com/",
+      "contentSha256": "e97c1a36927a2a36962eed22985b845ca2a3c75d6adaeec61f3e38693e59251a",
+      "renderSha256": "702d2e3cc290a21abf34b67590266b574180a99e568e9b798ed44534f6635852",
+      "assetSha256": "6239defd36a60d8f95e6a35fd5d25693541f6ec419a92cc36e41e138d52fe5ad",
+      "interactionSha256": "a09f8cd71b2f1b50eda691732ec28f0ab2cfc2086b3553eabec304a6b5494c0b",
+      "evidenceCompleteness": {
+        "renderHashes": 3,
+        "assets": 304,
+        "interactions": 3
+      }
+    },
+    {
+      "id": "news",
+      "url": "https://asia-en.onepiece-cardgame.com/news/",
+      "contentSha256": "72a2372bc49c3eb9ac2c3e11fd2f186608e8a19844adce26ee7f0e87890086cc",
+      "renderSha256": "7fc2b0528120faebcec2be6b364aaf4398d735fe19e6ea512616b6aace71d69b",
+      "assetSha256": "ea860e70b9782edf9f9f209f47def78ef5488967096cb645d82c014e037c57d2",
+      "interactionSha256": "ec3a7e4de7b0c0657b3c4fde77155b782187affe0d4e7f3cfd5796c6479c66bb",
+      "evidenceCompleteness": {
+        "renderHashes": 3,
+        "assets": 11,
+        "interactions": 1
+      }
+    },
+    {
+      "id": "products",
+      "url": "https://asia-en.onepiece-cardgame.com/products/?view=normal",
+      "contentSha256": "bca31a2f77afe23f7ba43b7b55e3278a20f5436b0a5cdea996b5bac4a913b922",
+      "renderSha256": "04e940ecc2d20bd23ddaadee287bd590b9ecc43ec5959602b3d7bbd0a0d431d0",
+      "assetSha256": "0a9fab460cf03fb8eb9fc9c00eec77bdae23ed32682a59a0e2d4ffe7f0710c49",
+      "interactionSha256": "b6c96fc86cf053a442c2cb464023fb4d235fcc509363393a5a0f811db9e46689",
+      "evidenceCompleteness": {
+        "renderHashes": 3,
+        "assets": 40,
+        "interactions": 1
+      }
+    },
+    {
+      "id": "events",
+      "url": "https://asia-en.onepiece-cardgame.com/events/",
+      "contentSha256": "3f37e085acc43beb7f8a2e0de67543538037df2c52597c99e0ed06b90e1038ad",
+      "renderSha256": "49c882f8ee37d077d02f7689a852aeaebfe6f4446af013117f69774737ca9ecd",
+      "assetSha256": "ea860e70b9782edf9f9f209f47def78ef5488967096cb645d82c014e037c57d2",
+      "interactionSha256": "7d2592107edcdd95fddc5c2b8c4cc23fb4ed5d97fc0473d3c536791da313fd9c",
+      "evidenceCompleteness": {
+        "renderHashes": 3,
+        "assets": 11,
+        "interactions": 1
+      }
+    }
+  ],
+  "generatedAt": "2026-09-14T14:26:39.944Z",
+  "generationPolicy": {
+    "content": "stable semantic observation fields plus computed evidence file hashes",
+    "render": "all declared screenshot and continuous-capture hashes for the page",
+    "assets": "page-scoped assets plus global assets when scope cannot be proven",
+    "interaction": "page-scoped action evidence and declared page interaction traces"
+  }
+}

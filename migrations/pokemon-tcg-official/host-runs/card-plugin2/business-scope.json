@@ -1,0 +1,38 @@
+{
+  "schema": "brand-host-business-scope/v1",
+  "hostProject": "card-plugin2",
+  "route": "/pages/plaza/index",
+  "pagePurpose": "Browse and filter community-created card decks, switch supported card games, and enter existing deck, event, author, and personal-deck flows.",
+  "requiredLayout": [
+    "game switcher",
+    "plaza and event navigation",
+    "current user entry",
+    "deck search",
+    "category filters",
+    "environment filters",
+    "loading empty error and populated list states",
+    "existing navigation outcomes"
+  ],
+  "mustPreserve": [
+    "existing route",
+    "existing Chinese business copy",
+    "PTCG and OPCG switch behavior",
+    "API calls and authentication behavior",
+    "filter values and list data",
+    "tap targets and navigation outcomes"
+  ],
+  "mustNotAdd": [
+    "new product metrics",
+    "new tournament ranking semantics",
+    "new brand-specific business content",
+    "new routes",
+    "new retention or community loops"
+  ],
+  "allowedChange": [
+    "visual tokens",
+    "typography styling",
+    "surface and boundary styling",
+    "evidence-backed decorative layers",
+    "existing component visual states"
+  ]
+}

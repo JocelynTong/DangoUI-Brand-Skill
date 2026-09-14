@@ -1,0 +1,36 @@
+{
+  "schema": "brand-incremental-update-plan/v1",
+  "brand": "dango",
+  "route": "reuse-no-op",
+  "rulesVersionChanged": false,
+  "sourceSetChanged": false,
+  "totalPages": 2,
+  "changedPages": [],
+  "cacheHits": [
+    "button",
+    "introduction"
+  ],
+  "pages": [
+    {
+      "id": "button",
+      "change": "unchanged",
+      "changedDimensions": []
+    },
+    {
+      "id": "introduction",
+      "change": "unchanged",
+      "changedDimensions": []
+    }
+  ],
+  "affectedStages": [],
+  "executionPolicy": {
+    "preserveBrandId": true,
+    "revisionRoot": "migrations/dango/revisions/<run-id>",
+    "reuseUnchangedEvidence": true,
+    "recaptureOnlyChangedPages": true,
+    "qaScope": "none",
+    "createRegistryEntry": false
+  },
+  "budgetClass": "under-1-minute",
+  "generatedAt": "2026-09-14T14:26:39.870Z"
+}

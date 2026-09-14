@@ -1735,13 +1735,41 @@ body:has(.theme-pokemon-tcg-official .template-phone--source-mobile-proof) { ove
 .pokemon-db input:not([type="checkbox"]), .pokemon-db select { width: 100%; min-height: 46px; padding: 10px 12px; border-radius: 3px; background: #fff; color: #222; }
 .pokemon-db__energy { margin: 30px 0; border: 0; padding: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
 .pokemon-db__energy legend { grid-column: 1 / -1; }
-.pokemon-db__energy button { min-height: 38px; border-radius: 22px; background: #ededed; border: 2px solid #bbb; }
+.pokemon-db__energy button {
+  --pokemon-energy-color: #8b8b8b;
+  min-height: 38px;
+  padding: 5px 10px;
+  display: grid;
+  grid-template-columns: 24px minmax(0, 1fr) 34px;
+  align-items: center;
+  gap: 8px;
+  border: 2px solid #bbb;
+  border-radius: 22px;
+  background: #ededed;
+  color: #222;
+  text-align: left;
+}
+.pokemon-db__energy button::before { content: ""; width: 20px; height: 20px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 12%, var(--pokemon-energy-color) 18% 100%); box-shadow: 0 0 0 2px rgba(0,0,0,.18); }
+.pokemon-db__energy button::after { content: ""; width: 30px; height: 16px; border-radius: 999px; background: radial-gradient(circle at 8px 50%, #fff 0 5px, transparent 6px), #9b9b9b; box-shadow: inset 0 0 0 1px rgba(0,0,0,.28); }
+.pokemon-db__energy button:nth-of-type(1) { --pokemon-energy-color: #68a94a; }
+.pokemon-db__energy button:nth-of-type(2) { --pokemon-energy-color: #df553d; }
+.pokemon-db__energy button:nth-of-type(3) { --pokemon-energy-color: #3f8fc2; }
+.pokemon-db__energy button:nth-of-type(4) { --pokemon-energy-color: #e4c840; }
+.pokemon-db__energy button:nth-of-type(5) { --pokemon-energy-color: #9b63ac; }
+.pokemon-db__energy button:nth-of-type(6) { --pokemon-energy-color: #bb7848; }
+.pokemon-db__energy button:nth-of-type(7) { --pokemon-energy-color: #48516b; }
+.pokemon-db__energy button:nth-of-type(8) { --pokemon-energy-color: #8d9da8; }
+.pokemon-db__energy button:nth-of-type(9) { --pokemon-energy-color: #b9aa8b; }
+.pokemon-db__energy button:nth-of-type(10) { --pokemon-energy-color: #8d73b8; }
+.pokemon-db__energy button:nth-of-type(11) { --pokemon-energy-color: #d777a4; }
+.pokemon-db__energy button.is-selected::after { background: radial-gradient(circle at 22px 50%, #fff 0 5px, transparent 6px), #e46b29; }
 .pokemon-db__energy button.is-selected { border-color: #e46b29; background: #fff; color: #222; box-shadow: inset 0 0 0 2px #e46b29; }
 
 /* Phone mockups are container-sized inside a desktop host viewport, so their
    approved one-column flow cannot depend on the outer window media query. */
 .template-phone .pokemon-db__field-grid,
 .template-phone .pokemon-db__energy { grid-template-columns: 1fr; }
+.template-phone.template-phone--source-desktop .pokemon-db__energy { grid-template-columns: repeat(3, minmax(0, 1fr)); }
 .template-phone .pokemon-db__card-grid { grid-template-columns: 1fr; }
 .pokemon-db__actions { display: flex; justify-content: flex-end; gap: 12px; padding-bottom: 26px; }
 .pokemon-db__actions button { min-width: 120px; padding: 13px 20px; border-radius: 5px; font-weight: 700; }
@@ -1780,15 +1808,26 @@ body:has(.theme-pokemon-tcg-official .template-phone--source-mobile-proof) { ove
 .schema-recipe--pokemon-learn-navy { background: #173b76; color: white; clip-path: polygon(0 2%, 14% 0, 31% 2%, 49% 0, 70% 2%, 86% 0, 100% 2%, 100% 100%, 0 100%); padding-block: 90px; }
 .pokemon-learn__lessons { display: grid; grid-template-columns: minmax(280px, .8fr) minmax(280px, 1.2fr); gap: 10px 32px; align-items: start; }
 .pokemon-learn__lessons article { grid-column: 1; border-top: 2px solid currentColor; }
-.pokemon-learn__lessons article button { width: 100%; display: flex; justify-content: space-between; padding: 15px 0; text-align: left; background: transparent; color: inherit; }
+.pokemon-learn__lessons article button,
+.pokemon-learn__lessons article summary { width: 100%; display: flex; justify-content: space-between; padding: 15px 0; text-align: left; background: transparent; color: inherit; cursor: pointer; list-style: none; }
+.pokemon-learn__lessons article summary::-webkit-details-marker { display: none; }
+.pokemon-learn__lessons article details[open] > summary { color: rgb(190, 14, 23); }
 .pokemon-learn__lessons article p { margin: 0 0 18px; }
 .pokemon-learn__diagram { grid-column: 2; width: 100%; max-height: 480px; object-fit: contain; }
 .pokemon-learn__lessons article.is-open .pokemon-learn__diagram { margin-top: 8px; }
 .schema-recipe--pokemon-heldout-entry { background: #111; color: white; display: grid; grid-template-columns: 1fr 250px; }
 .schema-recipe--pokemon-heldout-entry > header { align-self: center; }
 .schema-recipe--pokemon-heldout-entry .pokemon-learn__lead { max-height: 400px; }
-.schema-recipe--pokemon-heldout-painted { background: #f1eee1; border-block: 18px solid #173b76; }
+.schema-recipe--pokemon-heldout-painted { background: #f1eee1; border-block: 18px solid #173b76; color: #202020; }
 .schema-recipe--pokemon-heldout-painted > header { color: #173b76; }
+.schema-recipe--pokemon-heldout-painted .pokemon-learn__lessons article,
+.schema-recipe--pokemon-heldout-painted .pokemon-learn__lessons article summary,
+.schema-recipe--pokemon-heldout-painted .pokemon-learn__lessons article p { color: #202020; }
+.schema-recipe--pokemon-heldout-painted .pokemon-learn__lessons article details[open] > summary { color: rgb(190, 14, 23); }
+.schema-recipe--pokemon-learn-resources { padding-block: 72px 84px; background: #fff; color: #202020; }
+.schema-recipe--pokemon-learn-resources .pokemon-learn__resource-grid { margin-top: 28px; gap: 18px; }
+.schema-recipe--pokemon-learn-resources .pokemon-learn__resource-grid article { min-height: 0; border: 1px solid #d8d8d8; background: #f3f3f3; }
+.schema-recipe--pokemon-learn-resources .pokemon-learn__resource { aspect-ratio: 16 / 9; object-fit: contain; background: #e8edf2; }
 
 @media (max-width: 520px) {
   .source-schema-demo--pokemon-tcg-official .source-schema-demo__hero-scale-viewport.schema-recipe--pokemon-home-stage { min-height: 0; padding: 0; display: block; }

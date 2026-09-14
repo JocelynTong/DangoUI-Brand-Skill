@@ -1,0 +1,92 @@
+{
+  "schema": "component-mapping/v0.2",
+  "brand": "pokemon-tcg-official",
+  "catalog": "skills/brand/references/dangoui.design-system.json",
+  "runtimeFact": "One semantically exact, low-risk native slice is consumed: the database Search submit action is a real DuButton. Hero and page compositions remain custom to preserve the approved fidelity geometry.",
+  "mappings": [
+    {
+      "sourcePattern": "home-layered-campaign-stage",
+      "targetComponent": null,
+      "compositionCandidates": ["NavigationBar", "Swiper", "SwiperItem", "Image", "Button"],
+      "status": "composition-candidate-pending-runtime",
+      "api": {
+        "sourcePaths": ["node_modules/dangoui/src/navigation-bar/NavigationBar.vue","node_modules/dangoui/src/swiper/Swiper.vue","node_modules/dangoui/src/swiper/SwiperItem.vue","node_modules/dangoui/src/image/Image.vue","node_modules/dangoui/src/button/Button.vue"],
+        "props": {"Swiper":{"indicatorType":"bar-full|bar|number","autoplay":"boolean","extClass":"class"},"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix","width":"number|string","height":"number|string"},"Button":{"type":"primary|secondary|outline|text","size":"mini|small|normal|medium|large","text":"string"}},
+        "slots": {"Swiper":["default"],"Button":["default"]}
+      },
+      "runtimeSelectors": [".source-schema-demo__hero--compact-interactive", ".pokemon-featured-card", ".source-schema-demo__cta"],
+      "evidenceRefs": ["home-stage-composition","home-carousel-next"],
+      "boundary": "Current stage is custom DOM/CSS. DangoUI may supply controls/media primitives later, but layer coordinates, art-directed crop, black stage, card flip and campaign semantics remain composition/page logic."
+    },
+    {
+      "sourcePattern": "home-banded-editorial-journey",
+      "targetComponent": null,
+      "compositionCandidates": ["Image", "Button", "Swiper"],
+      "status": "composition-candidate-pending-runtime",
+      "api": {"sourcePaths":["node_modules/dangoui/src/image/Image.vue","node_modules/dangoui/src/button/Button.vue","node_modules/dangoui/src/swiper/Swiper.vue"],"props":{"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix"},"Button":{"type":"primary|secondary|outline|text","text":"string"},"Swiper":{"indicatorType":"bar-full|bar|number","autoplay":"boolean"}},"slots":{"Swiper":["default"]}},
+      "runtimeSelectors": [".pokemon-news", ".pokemon-tcgl", ".pokemon-pocket"],
+      "evidenceRefs": ["home-responsive-reflow"],
+      "boundary": "The editorial bands, overlapping device/character field and alternating grid are page compositions; DangoUI primitives cannot own their structure."
+    },
+    {
+      "sourcePattern": "database-dark-search-organism",
+      "targetComponent": "Button",
+      "compositionCandidates": ["Search", "Input", "Tag", "Button"],
+      "status": "native-runtime-consumed-with-composition-boundary",
+      "api": {"sourcePath":"node_modules/dangoui/src/button/Button.vue","verifiedProps":{"type":"primary","size":"normal","text":"Search"},"slots":["default"]},
+      "runtimeSelector": ".pokemon-db__submit.du-button",
+      "runtimeSelectors": [".pokemon-db__submit.du-button","[data-schema-section-id=\"card-database-search-shell\"]"],
+      "evidenceRefs": ["card-db-search-shell","card-db-responsive","card-db-search-state"],
+      "boundary": "Only the submit action uses native DuButton. No evidence authorizes a brand action-color token override, so the existing evidenced local button recipe remains scoped by .pokemon-db__submit. Charcoal organism, inputs, angled title plate, energy grouping, search state and responsive reading order stay style/page logic."
+    },
+    {
+      "sourcePattern": "database-advanced-drawer",
+      "targetComponent": null,
+      "compositionCandidates": ["Card", "Transition"],
+      "status": "fallback-pending-runtime",
+      "api": {"sourcePaths":["node_modules/dangoui/src/card/Card.vue","node_modules/dangoui/src/transition/Transition.vue"],"props":{"Card":{"mode":"normal|collapse","open":"boolean|null","defaultOpen":"boolean|null"},"Transition":{"name":"string","show":"boolean"}},"slots":{"Card":["default","left","right"]}},
+      "runtimeSelectors": ["[data-schema-section-id=\"card-database-advanced-filter\"]"],
+      "evidenceRefs": ["card-db-advanced-state","card-database-advanced-filter"],
+      "boundary": "DangoUI has no exact contract for the observed 0px → 724px → 1206.73px reversible drawer; disclosure state and timing remain page logic."
+    },
+    {
+      "sourcePattern": "database-reversible-search-results",
+      "targetComponent": null,
+      "compositionCandidates": ["Image", "Card"],
+      "status": "composition-candidate-pending-runtime",
+      "api": {"sourcePaths":["node_modules/dangoui/src/image/Image.vue","node_modules/dangoui/src/card/Card.vue"],"props":{"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix","width":"number|string","height":"number|string"},"Card":{"extClass":"class","showHeader":"boolean"}},"slots":{"Card":["default","left","right"]}},
+      "runtimeSelectors": ["[data-schema-section-id=\"card-database-results\"]"],
+      "evidenceRefs": ["card-db-search-state","card-db-results","card-database-search"],
+      "boundary": "Image/Card may host media later; query, typed state, sort, pagination, reversible reset and results grid remain application logic."
+    },
+    {
+      "sourcePattern": "learn-painted-card-anatomy",
+      "targetComponent": null,
+      "compositionCandidates": ["Card", "Image"],
+      "status": "fallback-pending-runtime",
+      "api": {"sourcePaths":["node_modules/dangoui/src/card/Card.vue","node_modules/dangoui/src/image/Image.vue"],"props":{"Card":{"mode":"normal|collapse","open":"boolean|null","defaultOpen":"boolean|null"},"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix","width":"number|string"}},"slots":{"Card":["default"]}},
+      "runtimeSelectors": ["[data-schema-section-id=\"learn-card-anatomy\"]"],
+      "evidenceRefs": ["learn-hierarchy"],
+      "boundary": "Painted yellow boundary and hotspot coordinates are unresolved style-only details and must not be represented as DangoUI Card behavior."
+    },
+    {
+      "sourcePattern": "learn-painted-field-pairs",
+      "targetComponent": null,
+      "compositionCandidates": ["Image"],
+      "status": "fallback-pending-runtime",
+      "api": {"sourcePaths":["node_modules/dangoui/src/image/Image.vue"],"props":{"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix","width":"number|string"}},"slots":{}},
+      "runtimeSelectors": ["[data-schema-section-id=\"learn-field-pairs\"]"],
+      "evidenceRefs": ["learn-hierarchy"],
+      "boundary": "Image can host each diagram, but ordered pair semantics, navy painted field and layout are not a native DangoUI component."
+    },
+    {
+      "sourcePattern": "learn-reduce-motion-control",
+      "targetComponent": null,
+      "status": "missing-unverified",
+      "api": null,
+      "runtimeSelectors": ["[data-reduced-motion]"],
+      "evidenceRefs": ["learn-reduce-motion"],
+      "boundary": "No visible source transition was observed, so neither a component mapping nor runtime implementation is authorized."
+    }
+  ]
+}
