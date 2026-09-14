@@ -1,0 +1,143 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "4d990de5-0677-43e6-a9c4-c991ad598f6f",
+  "runId": "0187366e-83fa-48d0-ba90-254c210db954",
+  "stageId": "visualQA-2-retry-2",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 2,
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "mission": "Review the rendered result as a user-facing product, not just a passing build.",
+  "roleContractVersion": "3.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/dango-v2/goal-contract.json",
+      "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"
+    },
+    {
+      "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+      "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+    },
+    {
+      "path": "migrations/dango-v2/captures/source/button/desktop/frame-00.png",
+      "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"
+    },
+    {
+      "path": "migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png",
+      "sha256": "2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"
+    },
+    {
+      "path": "migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png",
+      "sha256": "b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"
+    },
+    {
+      "path": "migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png",
+      "sha256": "f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"
+    },
+    {
+      "path": "migrations/dango-v2/visual-pattern-inventory.json",
+      "sha256": "9768b584548bd66f3b0824290ff2f6d88686862c09e363461b9f831670ef5453"
+    },
+    {
+      "path": "migrations/dango-v2/generative-proof.json",
+      "sha256": "1ae620fd8075428c9ca6de57c7ff673c86dfd9088169e78316f1fbbbfcce37c6"
+    }
+  ],
+  "allowedInputs": [
+    "source interaction captures",
+    "demo interaction captures",
+    "asset provenance manifest"
+  ],
+  "forbiddenInputs": [
+    "implementation rationale",
+    "implementation narrative",
+    "desired verdict",
+    "previous QA verdict",
+    "build pass as fidelity evidence",
+    "translation claims absent from goal contract"
+  ],
+  "tasks": [
+    "compare every source/demo pair",
+    "audit every high-salience section before accepting a full-page verdict",
+    "reject item count or DOM count as a proxy for section structure",
+    "audit every high-salience demo pattern against its evidence refs and source region",
+    "for composition claims verify hero asset identity and variant, then independently match every structural layer such as navigation, campaign copy, controls and cards",
+    "reject whole-page or broad-region evidence as a substitute for layer coverage",
+    "verify source/demo aspect and crop translations against goal-contract.mayTranslate",
+    "operate each declared control and require observable state change plus restoration",
+    "reject token-role expansion such as active color becoming section chrome",
+    "verify the generative variation is produced by learned invariants rather than mirroring, full-frame copying, or asset substitution",
+    "inspect every phone page inside the preserved mockup shell",
+    "for long-page or multi-module target/source evidence require at least two schema sections and probe the phone-screen scrollHeight, clientHeight and reversible scrollTop",
+    "score the fixed fidelity rubric",
+    "verify mustPreserve and mustNotReplace",
+    "attach visual evidence to every score and blocking finding",
+    "recommend pass, fail or insufficient-evidence"
+  ],
+  "requirements": [
+    "fresh independent agent execution id",
+    "Visual QA never edits production code; FAIL returns blockingFindings to the earliest real Evidence, Interpreter, Design Director or Implementation owner and the repaired implementation receives a fresh QA execution",
+    "apply-host compares source and host screenshots at the same viewport and reports masked design-system structural recognition separately from explicit-IP recognition",
+    "recognition track mode and threshold come from the frozen goal; any later change requires a supersession record",
+    "apply-host scores visualMass, asset, composition, type and motion independently",
+    "workflowCompletion, businessSafety and visualDistinctiveness are separate statuses and never one overall percentage",
+    "every implementation pattern is independently classified supported or unsupported",
+    "unsupported high-salience patterns are blocking and cannot be averaged away",
+    "Evidence Fidelity, Structural Fidelity, and Generative Proof each receive an explicit pass/fail status",
+    "failure of any proof blocks the result and cannot be averaged away",
+    "fixed rubric computes the verdict",
+    "every core page is scored",
+    "missing visual evidence cannot pass",
+    "every standard-demo phone page retains a phone + phone-screen mockup shell",
+    "when target/source evidence is long or multi-module, every page declares at least two sections and the browser gate proves phone-screen scrollHeight > clientHeight, scrollTop changes, and scrollTop is restored",
+    "shared mockup changes produce the complete brand/style/component by tabbar/no-tabbar by normal/proof matrix and pass validate-mockup-matrix.mjs --strict"
+  ],
+  "mustNot": [
+    "modify code",
+    "modify goal or thresholds",
+    "accept post-hoc implementation explanations",
+    "equate schema/browser/build pass with fidelity",
+    "write visual-quality-ready"
+  ],
+  "expectedOutputs": [
+    "visual-qa-assessment.json",
+    "visual-comparison-report.json",
+    "brand-distinctiveness-assessment.json",
+    "fidelity-report.json",
+    "mockup-state-matrix.json",
+    "three-proof verdict"
+  ],
+  "passCriteria": [
+    "Evidence Fidelity passes",
+    "Structural Fidelity passes",
+    "Generative Proof passes",
+    "computed overall and page thresholds pass",
+    "composition and authentic asset minima pass",
+    "every composition mustPreserve has matching asset identity/variant, structural layer coverage and authorized crop translation",
+    "all mustPreserve pass",
+    "no mustNotReplace violation"
+  ],
+  "failCriteria": [
+    "SCREENSHOT_AS_IMPLEMENTATION",
+    "EVIDENCE_LEAKAGE",
+    "ASSET_PROVENANCE_MISSING",
+    "UNSUPPORTED_VISUAL_PATTERN",
+    "MOCKUP_SHELL_MISSING",
+    "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+    "PAGE_NOT_SCROLLABLE",
+    "PAGE_SCROLL_NOT_RESTORED",
+    "a token or color role is expanded beyond its evidence-backed use",
+    "a mustPreserve item fails",
+    "a forbidden replacement occurs",
+    "a core page or dimension is below threshold",
+    "review is not independent"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"
+  ]
+}

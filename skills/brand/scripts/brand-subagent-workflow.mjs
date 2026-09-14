@@ -8,7 +8,7 @@ const args = process.argv.slice(2);
 const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
 const brand = opt("--brand", "");
-if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|status|finalize> --brand <brand>");
+if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|status|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
@@ -19,6 +19,8 @@ if (command === "prepare") prepare();
 else if (command === "next") next();
 else if (command === "record") record();
 else if (command === "status") status();
+else if (command === "resume-qa") resumeQa();
+else if (command === "resume-demo") resumeDemo();
 else if (command === "finalize") finalize();
 else fail(`Unknown command: ${command}`);
 
@@ -147,6 +149,56 @@ function status() {
   output({ ok: true, readOnly: before === after, proofStatus, nextAction: nextAction(manifest, proofStatus), manifest });
 }
 
+function resumeQa() {
+  const manifest = validateManifest();
+  const latestQa = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
+  if (manifest.status !== "blocked" || latestQa?.verdict !== "needs-evidence") {
+    fail("resume-qa requires a blocked workflow whose latest Visual QA verdict is needs-evidence.");
+  }
+  const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
+  if (latestQa.attempt >= maxAttempts) fail("Visual QA retry budget is exhausted.");
+  const assessmentFile = path.join(migrationDir, "visual-qa-assessment.json");
+  const assessment = fs.existsSync(assessmentFile) ? readJsonRequired(assessmentFile) : {};
+  const retry = uniqueStage(manifest, "visualQA", "visualQA", latestQa.attempt + 1);
+  retry.retryInput = {
+    goalSha256: manifest.goalSha256,
+    blockingFindings: array(latestQa.blockingFindings).length
+      ? array(latestQa.blockingFindings)
+      : array(assessment.blockingFindings),
+  };
+  manifest.stages.push(retry);
+  manifest.currentStageId = retry.id;
+  manifest.status = "running";
+  writeJson(manifestFile, manifest);
+  output({ ok: true, status: manifest.status, resumedFrom: latestQa.id, nextStageId: retry.id, blockingFindings: retry.retryInput.blockingFindings });
+}
+
+function resumeDemo() {
+  const manifest = validateManifest();
+  const latestQa = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
+  const latestDemo = [...manifest.stages].reverse().find((item) => item.role === "demoImplementationAgent");
+  if (manifest.status !== "blocked" || !["fail", "needs-evidence"].includes(latestQa?.verdict)) {
+    fail("resume-demo requires a blocked workflow whose latest Visual QA verdict is fail or needs-evidence.");
+  }
+  const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
+  const nextAttempt = Number(latestDemo?.attempt || 0) + 1;
+  if (nextAttempt > maxAttempts) fail("Demo retry budget is exhausted.");
+  const assessmentFile = path.join(migrationDir, "visual-qa-assessment.json");
+  const assessment = fs.existsSync(assessmentFile) ? readJsonRequired(assessmentFile) : {};
+  const retry = uniqueStage(manifest, "demo", "demoImplementationAgent", nextAttempt);
+  retry.retryInput = {
+    goalSha256: manifest.goalSha256,
+    blockingFindings: array(latestQa.blockingFindings).length
+      ? array(latestQa.blockingFindings)
+      : array(assessment.blockingFindings),
+  };
+  manifest.stages.push(retry);
+  manifest.currentStageId = retry.id;
+  manifest.status = "running";
+  writeJson(manifestFile, manifest);
+  output({ ok: true, status: manifest.status, resumedFrom: latestQa.id, nextStageId: retry.id, blockingFindings: retry.retryInput.blockingFindings });
+}
+
 function finalize() {
   const manifest = validateManifest();
   const fidelityFile = path.join(migrationDir, "fidelity-report.json");
@@ -178,7 +230,7 @@ function advance(manifest, current) {
     }
     const nextStageName = order[index + 1];
     const nextRole = { evidence: "brandResearcher", interpreter: "designTranslator", demo: "demoImplementationAgent", visualQA: "visualQA" }[nextStageName];
-    const nextStage = stage(nextStageName, nextRole, current.attempt);
+    const nextStage = uniqueStage(manifest, nextStageName, nextRole, current.attempt);
     manifest.stages.push(nextStage);
     manifest.currentStageId = nextStage.id;
     return;
@@ -202,7 +254,7 @@ function advance(manifest, current) {
       demoImplementationAgent: ["demo", "demoImplementationAgent"],
       implementationAgent: ["demo", "demoImplementationAgent"],
     }[current.failureOwnerRole] || ["demo", "demoImplementationAgent"];
-    const retry = stage(routed[0], routed[1], current.attempt + 1);
+    const retry = uniqueStage(manifest, routed[0], routed[1], current.attempt + 1);
     retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings };
     manifest.stages.push(retry);
     manifest.currentStageId = retry.id;
@@ -267,7 +319,8 @@ function readProofStatus() {
   return proofStatusFromFidelity(readJsonRequired(file));
 }
 function proofStatusFromFidelity(fidelity) {
-  const proofs = fidelity?.proofs || fidelity?.proofStatus || {};
+  const learningProof = fidelity?.learningProof || {};
+  const proofs = fidelity?.proofs || fidelity?.proofStatus || learningProof;
   const value = (key) => typeof proofs[key] === "string" ? proofs[key] : proofs[key]?.status || "pending";
   return { evidenceFidelity: value("evidenceFidelity"), structuralFidelity: value("structuralFidelity"), generativeProof: value("generativeProof") };
 }
@@ -281,6 +334,15 @@ function nextAction(manifest, proofs) {
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: name === "demo" || name === "visualQA" ? 2 : 1, status: "pending" }; }
+function uniqueStage(manifest, name, role, attempt) {
+  const item = stage(name, role, attempt);
+  const used = new Set(array(manifest?.stages).map((entry) => entry.id));
+  if (!used.has(item.id)) return item;
+  let suffix = 2;
+  while (used.has(`${item.id}-retry-${suffix}`)) suffix += 1;
+  item.id = `${item.id}-retry-${suffix}`;
+  return item;
+}
 function hashedPath(relativePath) { const file = path.resolve(root, relativePath); if (!fs.existsSync(file)) fail(`Required input missing: ${relativePath}`); return { path: relativePath, sha256: sha256File(file) }; }
 function verifyHashedPath(item) { if (!item?.path || !item?.sha256) fail("Receipt input/output must contain path and sha256."); const current = hashedPath(item.path); if (current.sha256 !== item.sha256) fail(`Receipt hash mismatch: ${item.path}`); }
 function verifyEvidenceVisibilityGate() {

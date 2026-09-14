@@ -1,0 +1,308 @@
+{
+  "schema": "brand-mod.v0.1",
+  "manifest": {
+    "brand": "dango-v2",
+    "displayName": "DangoUI v2",
+    "sourceUrl": "https://dumpling.echo.tech/",
+    "createdAt": "2026-09-14",
+    "version": "0.2.0-draft",
+    "scope": {
+      "for": [
+        "documentation learning test"
+      ],
+      "notFor": [
+        "host apply",
+        "generic purple skin",
+        "game-only content mod"
+      ]
+    },
+    "producer": {
+      "skill": "/brand",
+      "decoupledFrom": [
+        "/qdmp"
+      ],
+      "notes": "Versioned relearn; does not overwrite dango."
+    }
+  },
+  "tokens": {
+    "mapped": {
+      "--du-bg-2": {
+        "value": "#ffffff",
+        "source": "dango-v2-docs-shell-desktop"
+      },
+      "--du-bg-1": {
+        "value": "#ffffff",
+        "source": "dango-v2-button-page-shell"
+      },
+      "--du-text-1": {
+        "value": "#000000",
+        "source": "dango-v2-content-hierarchy"
+      },
+      "--du-border-1": {
+        "value": "#0000001f",
+        "source": "dango-v2-button-page-shell"
+      },
+      "--du-primary-solid-bg": {
+        "value": "#7C66FF",
+        "source": "dango-v2-primary-button"
+      }
+    },
+    "styleOnly": {
+      "--style-docs-navigation-current": {
+        "value": "#5854FF",
+        "reason": "Current-page navigation only."
+      },
+      "--style-primary-button-height": {
+        "value": "32px",
+        "reason": "Normal Primary only."
+      },
+      "--style-primary-button-radius": {
+        "value": "4px",
+        "reason": "Normal Primary only."
+      }
+    },
+    "evidence": {
+      "sourceFiles": [
+        "migrations/dango-v2/brand-evidence.json",
+        "migrations/dango-v2/brand-intent.json",
+        "migrations/dango-v2/dangoui-adapter.json"
+      ],
+      "method": "rendered-evidence-first DOM/CSS reconstruction"
+    },
+    "dtcg": {
+      "$description": "DangoUI v2 DTCG token contract generated from Brand MOD token mirrors.",
+      "$extensions": {
+        "echo.brand.schema": "brand-mod.tokens.dtcg/v0.1",
+        "echo.brand.sourceFile": "migrations/dango-v2/brand-mod.json",
+        "echo.brand.note": "DTCG is canonical for reusable token values; mapped/styleOnly are compatibility mirrors for current demo consumers."
+      },
+      "mapped": {
+        "du-bg-2": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dango-v2-docs-shell-desktop",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-2",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-bg-2",
+            "echo.brand.source": "dango-v2-docs-shell-desktop"
+          }
+        },
+        "du-bg-1": {
+          "$type": "color",
+          "$value": "#ffffff",
+          "$description": "dango-v2-button-page-shell",
+          "$extensions": {
+            "echo.brand.target": "--du-bg-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-bg-1",
+            "echo.brand.source": "dango-v2-button-page-shell"
+          }
+        },
+        "du-text-1": {
+          "$type": "color",
+          "$value": "#000000",
+          "$description": "dango-v2-content-hierarchy",
+          "$extensions": {
+            "echo.brand.target": "--du-text-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-text-1",
+            "echo.brand.source": "dango-v2-content-hierarchy"
+          }
+        },
+        "du-border-1": {
+          "$type": "color",
+          "$value": "#0000001f",
+          "$description": "dango-v2-button-page-shell",
+          "$extensions": {
+            "echo.brand.target": "--du-border-1",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-border-1",
+            "echo.brand.source": "dango-v2-button-page-shell"
+          }
+        },
+        "du-primary-solid-bg": {
+          "$type": "color",
+          "$value": "#7C66FF",
+          "$description": "dango-v2-primary-button",
+          "$extensions": {
+            "echo.brand.target": "--du-primary-solid-bg",
+            "echo.brand.channel": "mapped",
+            "echo.brand.status": "mapped",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--du-primary-solid-bg",
+            "echo.brand.source": "dango-v2-primary-button"
+          }
+        }
+      },
+      "styleOnly": {
+        "style-docs-navigation-current": {
+          "$type": "color",
+          "$value": "#5854FF",
+          "$description": "Current-page navigation only.",
+          "$extensions": {
+            "echo.brand.target": "--style-docs-navigation-current",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-docs-navigation-current",
+            "echo.brand.reason": "Current-page navigation only."
+          }
+        },
+        "style-primary-button-height": {
+          "$type": "dimension",
+          "$value": "32px",
+          "$description": "Normal Primary only.",
+          "$extensions": {
+            "echo.brand.target": "--style-primary-button-height",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-primary-button-height",
+            "echo.brand.reason": "Normal Primary only."
+          }
+        },
+        "style-primary-button-radius": {
+          "$type": "dimension",
+          "$value": "4px",
+          "$description": "Normal Primary only.",
+          "$extensions": {
+            "echo.brand.target": "--style-primary-button-radius",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.status": "styleOnly",
+            "echo.brand.usage": "",
+            "echo.brand.legacyKey": "--style-primary-button-radius",
+            "echo.brand.reason": "Normal Primary only."
+          }
+        }
+      }
+    }
+  },
+  "semanticRoles": {
+    "surface.page": {
+      "target": "--du-bg-2",
+      "sources": [
+        "dango-v2-docs-shell-desktop"
+      ]
+    },
+    "surface.card": {
+      "target": "--du-bg-1",
+      "sources": [
+        "dango-v2-button-page-shell"
+      ]
+    },
+    "text.primary": {
+      "target": "--du-text-1",
+      "sources": [
+        "dango-v2-content-hierarchy"
+      ]
+    },
+    "border.subtle": {
+      "target": "--du-border-1",
+      "sources": [
+        "dango-v2-button-page-shell"
+      ]
+    },
+    "action.primary.fill": {
+      "target": "--du-primary-solid-bg",
+      "kind": "actionEvidence",
+      "sources": [
+        "dango-v2-primary-button"
+      ],
+      "protocol": {
+        "bucket": "primary-action",
+        "rule": "Normal Primary only."
+      }
+    },
+    "navigation.current": {
+      "target": "--style-docs-navigation-current",
+      "sources": [
+        "dango-v2-active-navigation"
+      ],
+      "antiScopes": [
+        "Primary Button",
+        "section chrome"
+      ]
+    }
+  },
+  "componentVariants": [
+    {
+      "component": "DuButton",
+      "variant": "primary-normal"
+    },
+    {
+      "component": "DocumentationShell",
+      "variant": "desktop-grid"
+    },
+    {
+      "component": "DocumentationShell",
+      "variant": "mobile-reading"
+    }
+  ],
+  "slots": [
+    {
+      "id": "global-header",
+      "role": "orientation"
+    },
+    {
+      "id": "reading-column",
+      "role": "primary content"
+    },
+    {
+      "id": "right-outline",
+      "role": "local orientation"
+    }
+  ],
+  "assets": [
+    {
+      "id": "dango-v2-empty-hero",
+      "role": "hero-background",
+      "sourceKind": "none",
+      "implementation": "CSS none",
+      "reason": "Evidence has no marketing hero."
+    },
+    {
+      "id": "dango-v2-white-canvas",
+      "role": "section-background",
+      "sourceKind": "dom-css-reconstruction",
+      "implementation": "background #fff",
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop"
+      ]
+    }
+  ],
+  "layoutRules": {
+    "sectionBackgroundChain": {
+      "layers": [
+        {
+          "id": "page",
+          "assetId": "dango-v2-white-canvas"
+        }
+      ]
+    },
+    "overlay": {
+      "inspectorTag": {
+        "mustNotAffectLayout": true
+      }
+    },
+    "bottomBarReserve": {
+      "required": true
+    }
+  },
+  "platformOverrides": {
+    "web": {
+      "responsive": "container-query reflow"
+    }
+  },
+  "verification": {
+    "ruleCandidates": []
+  }
+}

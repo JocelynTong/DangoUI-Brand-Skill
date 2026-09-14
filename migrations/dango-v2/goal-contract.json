@@ -1,0 +1,122 @@
+{
+  "schema": "brand-goal/v2",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "brand": "dango-v2",
+  "mode": "learn-brand",
+  "profile": "full",
+  "goalType": "brand-learning-capability-test",
+  "runPurpose": "revalidate-dangoui-with-current-full-workflow-before-public-registry-release",
+  "sealed": true,
+  "goal": "Relearn the public DangoUI documentation visual language from rendered evidence, prove it on source-calibration and structurally different held-out documentation pages, and publish dango-v2 only after the current workflow, three independent proofs, release validation, and public Registry validation all pass.",
+  "nonGoals": [
+    "host-apply",
+    "website-mirror",
+    "branded-asset-template",
+    "overwrite-existing-dango",
+    "full-component-library-coverage"
+  ],
+  "implementationPolicy": {
+    "allowSourceScreenshotAsRuntimeAsset": false,
+    "requireIndependentRuntimeAssetsOrDomCssReconstruction": true,
+    "requireHighSalienceEvidenceTrace": true
+  },
+  "evidencePolicy": {
+    "continuousCaptureRequired": true,
+    "requiredPageIds": ["introduction", "button"],
+    "requiredPageStates": ["initial", "continuous-scroll", "settled-end", "restored"],
+    "requiredInteractionStates": ["default", "hover", "focus", "activated"],
+    "consumerRule": "Interpreter remains blocked until screenshot regions are bound to visible DOM, computed values, states, and source rules; extractor output remains seed-only."
+  },
+  "referencePages": [
+    {
+      "id": "introduction",
+      "url": "https://dumpling.echo.tech/get-started/introduction",
+      "core": true,
+      "screenshot": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png"
+    },
+    {
+      "id": "button",
+      "url": "https://dumpling.echo.tech/style/button",
+      "core": true,
+      "screenshot": "migrations/dango-v2/captures/source/button/desktop/frame-00.png"
+    }
+  ],
+  "demoPages": [
+    {
+      "id": "dango-v2-introduction-calibration",
+      "mapsToSourcePageId": "introduction",
+      "proofRole": "source-calibration",
+      "screenshot": "migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png"
+    },
+    {
+      "id": "dango-v2-button-calibration",
+      "mapsToSourcePageId": "button",
+      "proofRole": "structural-transfer",
+      "screenshot": "migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png"
+    },
+    {
+      "id": "dango-v2-release-checklist-held-out",
+      "mapsToSourcePageId": null,
+      "proofRole": "generative-held-out",
+      "screenshot": "migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png"
+    }
+  ],
+  "mustPreserve": [
+    {
+      "id": "docs-shell",
+      "requiredOn": ["introduction", "button"],
+      "dimensions": ["composition", "informationDensity", "responsiveStructure"]
+    },
+    {
+      "id": "content-hierarchy",
+      "requiredOn": ["introduction"],
+      "dimensions": ["typographyGraphics", "spacing", "surfaceHierarchy"]
+    },
+    {
+      "id": "accent-semantics",
+      "requiredOn": ["introduction", "button"],
+      "dimensions": ["colorRole", "interactionSemantics"]
+    },
+    {
+      "id": "button-state-system",
+      "requiredOn": ["button"],
+      "dimensions": ["componentGeometry", "interactionSemantics", "colorRole"]
+    }
+  ],
+  "mustNotReplace": [
+    {
+      "id": "no-code-only-color-role",
+      "description": "CSS variables, palette frequency, class names, or extractor labels cannot establish visible semantic roles."
+    },
+    {
+      "id": "no-premature-registry",
+      "description": "dango-v2 remains outside preview and public registries until the Demo Gate and final release gates pass."
+    },
+    {
+      "id": "no-host-adaptation",
+      "description": "This run learns DangoUI and does not modify any host business project."
+    },
+    {
+      "id": "no-self-referential-demo-learning",
+      "description": "The existing GitHub Pages Dango demo is not source evidence; only dumpling.echo.tech rendered pages are source evidence."
+    }
+  ],
+  "learningProofContract": {
+    "evidenceFidelity": {"required": true},
+    "structuralFidelity": {"required": true},
+    "generativeProof": {"required": true},
+    "visibleLearningProof": {"required": true},
+    "compensationPolicy": "No proof can compensate for another."
+  },
+  "releasePolicy": {
+    "publicRegistryRequired": true,
+    "canonicalSource": "https://dumpling.echo.tech/",
+    "version": "0.2.0",
+    "reusePolicy": "rules-public-assets-by-manifest"
+  },
+  "thresholds": {
+    "overall": 80,
+    "corePage": 75,
+    "maxAttempts": 2
+  }
+}

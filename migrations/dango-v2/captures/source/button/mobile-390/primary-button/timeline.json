@@ -1,0 +1,108 @@
+{
+  "schema": "brand-interaction-timeline/v1",
+  "sourcePageId": "button",
+  "interactionId": "primary-button-mobile-390",
+  "viewport": {
+    "width": 390,
+    "height": 844
+  },
+  "trigger": "pointer hover, programmatic focus, pointer click",
+  "frames": [
+    {
+      "index": 0,
+      "label": "default",
+      "capture": "migrations/dango-v2/captures/source/button/mobile-390/primary-button/default.png",
+      "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+      "computed": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "height": "32px",
+        "transform": "none",
+        "transition": "all",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineStyle": "none",
+        "outlineWidth": "3px"
+      }
+    },
+    {
+      "index": 1,
+      "label": "hover-transition",
+      "capture": "migrations/dango-v2/captures/source/button/mobile-390/primary-button/hover-transition.png",
+      "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+      "computed": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "height": "32px",
+        "transform": "none",
+        "transition": "all",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineStyle": "none",
+        "outlineWidth": "3px"
+      }
+    },
+    {
+      "index": 2,
+      "label": "hover",
+      "capture": "migrations/dango-v2/captures/source/button/mobile-390/primary-button/hover.png",
+      "sha256": "ac16f663bcb65bbe21c7d70bcb9cbc31f70d45da4fe7f6dcc2eadb14b2a36afd",
+      "computed": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "height": "32px",
+        "transform": "none",
+        "transition": "all",
+        "outlineColor": "rgb(255, 255, 255)",
+        "outlineStyle": "none",
+        "outlineWidth": "3px"
+      }
+    },
+    {
+      "index": 3,
+      "label": "focus",
+      "capture": "migrations/dango-v2/captures/source/button/mobile-390/primary-button/focus.png",
+      "sha256": "72091dde539aa70c0ec3f43119263d705e1c1485a6c3f9bd23da9c7573e661fa",
+      "computed": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "height": "32px",
+        "transform": "none",
+        "transition": "all",
+        "outlineColor": "rgb(0, 95, 204)",
+        "outlineStyle": "auto",
+        "outlineWidth": "1px"
+      }
+    },
+    {
+      "index": 4,
+      "label": "activated",
+      "capture": "migrations/dango-v2/captures/source/button/mobile-390/primary-button/activated.png",
+      "sha256": "72091dde539aa70c0ec3f43119263d705e1c1485a6c3f9bd23da9c7573e661fa",
+      "computed": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgb(124, 102, 255)",
+        "borderColor": "rgba(0, 0, 0, 0)",
+        "borderRadius": "4px",
+        "boxShadow": "none",
+        "height": "32px",
+        "transform": "none",
+        "transition": "all",
+        "outlineColor": "rgb(0, 95, 204)",
+        "outlineStyle": "auto",
+        "outlineWidth": "1px"
+      }
+    }
+  ],
+  "observedResult": "Hover preserves the default pixels and computed color. Focus produces the browser-visible focus treatment. Activation does not introduce a red or orange action color."
+}

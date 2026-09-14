@@ -1,0 +1,47 @@
+{
+  "schema": "brand-continuous-scroll-timeline/v1",
+  "sourcePageId": "introduction",
+  "viewportId": "desktop",
+  "meta": {
+    "url": "https://dumpling.echo.tech/get-started/introduction",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "scrollHeight": 1599
+  },
+  "frames": [
+    {
+      "index": 0,
+      "label": "initial",
+      "timeMs": 208,
+      "scrollTop": 0,
+      "scrollHeight": 1599,
+      "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+      "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+    },
+    {
+      "index": 1,
+      "label": "continuous-scroll",
+      "timeMs": 581,
+      "scrollTop": 648,
+      "scrollHeight": 1599,
+      "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-01.png",
+      "sha256": "a60fcaea5722dfce0db35bc9c7e2ed9051f0e06d3914b95d4f3dba6308604aa3"
+    },
+    {
+      "index": 2,
+      "label": "settled-end",
+      "timeMs": 963,
+      "scrollTop": 699,
+      "scrollHeight": 1599,
+      "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-02.png",
+      "sha256": "fc2ced028e6c2a27956d28bd575181d9c5714a3226d2d364c9f3fdfeec1a5faf"
+    }
+  ],
+  "restored": {
+    "scrollTop": 0,
+    "path": "migrations/dango-v2/captures/source/introduction/desktop/restored.png",
+    "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+  }
+}

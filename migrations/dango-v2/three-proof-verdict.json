@@ -1,0 +1,8 @@
+{
+  "schema":"brand-three-proof-verdict/v1","brand":"dango-v2","stageId":"visualQA-release-recovery","nonCompensating":true,"overall":"pass",
+  "proofs":[
+    {"id":"evidenceFidelity","status":"pass","evidence":["migrations/dango-v2/visual-comparison-report.json#pairs","migrations/dango-v2/captures/source/introduction/desktop/frame-00.png","migrations/dango-v2/captures/source/button/desktop/frame-00.png"]},
+    {"id":"structuralFidelity","status":"pass","evidence":["migrations/dango-v2/visual-pattern-inventory.json","migrations/dango-v2/shared-showcase-regression-matrix.json","migrations/dango-v2/fidelity-report.json"]},
+    {"id":"generativeProof","status":"pass","evidence":["migrations/dango-v2/generative-proof.json","migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png","migrations/dango-v2/fresh-browser-probes-final.json#pages/dango-v2-release-checklist"]}
+  ]
+}

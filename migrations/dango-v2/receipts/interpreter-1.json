@@ -1,0 +1,42 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "5592e731-c45f-4d11-b4b0-247123a2533e",
+  "runId": "0187366e-83fa-48d0-ba90-254c210db954",
+  "stageId": "interpreter-1",
+  "stage": "interpreter",
+  "role": "designTranslator",
+  "agentExecutionId": "/root/dango_v2_interpreter",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "verdict": "pass",
+  "inputs": [
+    {"path": "migrations/dango-v2/goal-contract.json", "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"},
+    {"path": "migrations/dango-v2/brand-evidence.json", "sha256": "79e6f0e1f81eb913118074c65739d9efc12cc3a4e4ba1b4989b43c811a958b32"},
+    {"path": "migrations/dango-v2/source-observation-manifest.json", "sha256": "26ce873aa559bb230fee177bdcccba0c144a7a2c2a98eb3e415dcc7700167315"},
+    {"path": "migrations/dango-v2/rendered-asset-inventory.json", "sha256": "94c7ba4ff959dbb5ba783d79cd962b486fc67d1f9a11214999be56e44b939c0d"},
+    {"path": "migrations/dango-v2/action-evidence.json", "sha256": "a5297a4910da3fd2512b7b6018aa85996738b5b08de225dbda646bf4063f6869"},
+    {"path": "migrations/dango-v2/action-evidence-v02.json", "sha256": "a8cef3eae7f1c13814a242b640cd0d3b0d8024caa6f9a843d2df05ac84e1712d"},
+    {"path": "migrations/dango-v2/third-party-evidence.dembrandt.json", "sha256": "0d02ea0bc274783fbe14ce5c7e6febe8d29ac46807589119680322ac645e5e6e"},
+    {"path": "migrations/dango-v2/section-fidelity-manifest.json", "sha256": "2434f6b3f2672758f98cb2db50bf59f93771eecac0591c1f79d8289fda77fa1d"},
+    {"path": "migrations/dango-v2/evidence-question-matrix.json", "sha256": "5fd450f00df19800beac5972a4e27e9324659bc689b80ff031309d4244f45924"}
+  ],
+  "outputs": [
+    {"path": "migrations/dango-v2/brand-intent.json", "sha256": "37a421094921ff5eaaf3abbd70eca1665f8d261ea03e94b17e2f7ace1efb6a94"},
+    {"path": "migrations/dango-v2/approved-visual-patterns.json", "sha256": "56bbd17343c11ced328c8914e9b3b4c18afc2f17ce19a46bb3a59682dfb73c3f"}
+  ],
+  "blockingFindings": [],
+  "nonBlockingUnresolved": [
+    "No complete rendered chain establishes a global font-family role.",
+    "No goal-scoped rendered claim establishes a brand shadow system.",
+    "No high-salience image or motion language is proven in the frozen scope.",
+    "Current evidence cannot support a high-carrier apply-host distinctiveness bundle of three dimensions each occupying at least 5% of the viewport."
+  ],
+  "checks": [
+    {"id": "frozen-input-hashes", "status": "pass"},
+    {"id": "evidence-visibility-gate-strict", "status": "pass"},
+    {"id": "semantic-rendered-chain-consumer", "status": "pass", "count": 9},
+    {"id": "must-preserve-pattern-coverage", "status": "pass", "mapped": 4, "required": 4},
+    {"id": "composition-contract-consumer", "status": "pass", "contracts": 2},
+    {"id": "approved-pattern-cross-file-consistency", "status": "pass", "patterns": 4}
+  ],
+  "summary": "Translated the frozen rendered Evidence into four narrowly scoped reusable patterns. Desktop/mobile documentation composition, editorial technical hierarchy, two distinct purple state roles, and the normal Primary button state contract are approved. Candidate-only palette, font-family, shadow, asset and motion claims were not promoted."
+}

@@ -1,0 +1,42 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "runId": "0187366e-83fa-48d0-ba90-254c210db954",
+  "stageId": "visualQA-release-recovery",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 1,
+  "runKind": "user-resumed-recovery",
+  "agentExecutionId": "/root/dango_v2_registry_qa",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "startedAndCompletedInFreshContext": true,
+  "verdict": "pass",
+  "threeProofVerdict": {
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass",
+    "compensationApplied": false
+  },
+  "inputFiles": [
+    {
+      "path": "migrations/dango-v2/goal-contract.json",
+      "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"
+    },
+    {
+      "path": "migrations/dango-v2/qa-input-manifest.json",
+      "sha256": "457fd95b38cac9c36dbe99c9ec708228b076998496b862daad1572d17b5e06c1"
+    }
+  ],
+  "outputFiles": [
+    {
+      "path": "migrations/dango-v2/visual-qa-assessment.json",
+      "sha256": "68d44e15b0eaf8d9a0696bdadbdb6e8d52d19398e5ce16a5299c604becd572d8"
+    },
+    {
+      "path": "migrations/dango-v2/fidelity-report.json",
+      "sha256": "85d04ae2a1c8e2ac6d03625769b488b21bcd4166f9b82d49656a3cd6620cdbe4"
+    }
+  ],
+  "blockingFindings": [],
+  "failureOwnerRole": null
+}

@@ -1,0 +1,55 @@
+{
+  "schema":"brand-visual-qa-assessment/v2",
+  "brand":"dango-v2",
+  "goalSha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "attempt":2,
+  "qaExecutionId":"/root/dango_v2_registry_qa",
+  "reviewerRecommendation":"pass",
+  "pages":[
+    {
+      "sourcePageId":"introduction","demoPageId":"dango-v2-introduction",
+      "sourceScreenshot":{"path":"migrations/dango-v2/captures/source/introduction/desktop/frame-00.png","sha256":"9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"},
+      "demoScreenshot":{"path":"migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png","sha256":"2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"},
+      "visualPatterns":[
+        {"id":"introduction-shell","status":"supported","roleExpansion":false,"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,0.687023],"finding":"Desktop preserves the header, taxonomy, reading column and outline; live 389px hides both rails and every shared showcase ancestor stays within the viewport.","compositionLayers":[{"id":"global-header","status":"matched","finding":"The full-width 56px utility header remains the top structural layer."},{"id":"left-navigation","status":"matched","finding":"Desktop retains the left documentation taxonomy; 389px intentionally hides it."},{"id":"reading-column","status":"matched","finding":"The primary sequential content column is preserved and becomes full available width at 389px."},{"id":"right-outline","status":"matched","finding":"Desktop retains local-page orientation; 389px intentionally hides it."}]},
+        {"id":"introduction-hierarchy","status":"supported","roleExpansion":false,"sourceRegion":[0.161111,0.088889,0.691667,0.786],"demoRegion":[0.138889,0.062222,0.736111,0.9],"finding":"Title, explanatory prose, technical process surface, layer notes and follow-up section retain the source editorial reading order and density."}
+      ],
+      "dimensions":{
+        "composition":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"The decisive desktop three-column shell is preserved, while 389px becomes one fully visible reading column with no clipped ancestor."}]},
+        "assetAuthenticity":{"rating":4,"observations":[{"sourceRegion":[0.161111,0.22,0.691667,0.397778],"demoRegion":[0.1986,0.251,0.478,0.268],"finding":"The technical flow is independently reconstructed with DOM/CSS; no source screenshot or full-frame raster implements the page."}]},
+        "colorRoles":{"rating":4,"observations":[{"sourceRegion":[0.008333,0.114444,0.121528,0.036111],"demoRegion":[0.008333,0.051,0.121528,0.027],"finding":"Purple remains scoped to the current navigation cue rather than expanding into page canvas or section chrome."}]},
+        "informationDensity":{"rating":4,"observations":[{"sourceRegion":[0.161111,0.088889,0.691667,0.786],"demoRegion":[0.1986,0.062,0.478,0.879],"finding":"The demo keeps a long technical reading sequence with multiple sections instead of collapsing into a sparse hero."}]},
+        "typographyGraphics":{"rating":4,"observations":[{"sourceRegion":[0.161111,0.088889,0.691667,0.786],"demoRegion":[0.1986,0.062,0.478,0.879],"finding":"Large H1, stepped H2s, restrained body copy and monospace technical model reproduce the source hierarchy clearly."}]},
+        "motionSemantics":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"No unsupported decorative motion appears; live phone-screen scroll changed from 0 to 710.67 and restored to 0."}]},
+        "brandRecognition":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Without relying on a logo, the flat docs shell, editorial hierarchy and scoped purple state cue remain recognizable."}]}
+      },
+      "mustPreserve":[{"id":"docs-shell","status":"pass","finding":"Desktop and 389px shell behaviors are visibly preserved."},{"id":"content-hierarchy","status":"pass","finding":"Title, process model and follow-up content remain sequential and legible."},{"id":"accent-semantics","status":"pass","finding":"Purple is limited to approved active/action roles."}],
+      "mustNotReplace":[{"id":"no-code-only-color-role","violated":false,"finding":"Color roles are visible in source and demo states."},{"id":"no-premature-registry","violated":false,"finding":"QA reviewed only the isolated migration/demo surface."},{"id":"no-host-adaptation","violated":false,"finding":"This is a learning demo, not host apply."},{"id":"no-self-referential-demo-learning","violated":false,"finding":"Source comparison is bound to dumpling.echo.tech captures."}],
+      "blockingFindings":[]
+    },
+    {
+      "sourcePageId":"button","demoPageId":"dango-v2-button",
+      "sourceScreenshot":{"path":"migrations/dango-v2/captures/source/button/desktop/frame-00.png","sha256":"b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"},
+      "demoScreenshot":{"path":"migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png","sha256":"b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"},
+      "visualPatterns":[
+        {"id":"button-shell","status":"supported","roleExpansion":false,"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,0.564617],"finding":"The desktop docs shell and long component-reference flow remain intact; live 389px reflows to one column with hidden rails and no horizontal overflow.","compositionLayers":[{"id":"global-header","status":"matched","finding":"The full-width utility header remains the top structural layer."},{"id":"left-navigation","status":"matched","finding":"Desktop retains the component taxonomy; 389px hides it."},{"id":"reading-column","status":"matched","finding":"The long live-example and API reading column is preserved and fully visible."},{"id":"right-outline","status":"matched","finding":"Desktop retains the local Button outline; 389px hides it."}]},
+        {"id":"button-reference","status":"supported","roleExpansion":false,"sourceRegion":[0,0,1,1],"demoRegion":[0.138889,0.12,0.736111,0.75],"finding":"Primary is live at 77.15625×32px with #7C66FF fill and 4px radius; click retains fill, adds focus outline, and scroll/focus restore succeeds."}
+      ],
+      "dimensions":{
+        "composition":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Examples, paired code, API/state constraints and tables retain the long component-documentation composition."}]},
+        "assetAuthenticity":{"rating":4,"observations":[{"sourceRegion":[0.161111,0.25,0.691667,0.6],"demoRegion":[0.1986,0.22,0.478,0.66],"finding":"Buttons, code and tables are live DOM/CSS; no source screenshot implements the demo."}]},
+        "colorRoles":{"rating":4,"observations":[{"sourceRegion":[0.17,0.45,0.2,0.1],"demoRegion":[0.2,0.23,0.19,0.08],"finding":"#7C66FF is confined to Primary while secondary, outline, text, loading and disabled remain distinct."}]},
+        "informationDensity":{"rating":4,"observations":[{"sourceRegion":[0.161111,0.088889,0.691667,0.85],"demoRegion":[0.1986,0.062,0.478,0.9],"finding":"Multiple examples, code relationships, API properties, events and theme variables are retained."}]},
+        "typographyGraphics":{"rating":4,"observations":[{"sourceRegion":[0.161111,0.088889,0.691667,0.85],"demoRegion":[0.1986,0.062,0.478,0.9],"finding":"Heading steps, labels, code and table typography maintain a clear reference hierarchy."}]},
+        "motionSemantics":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Live default and activated Primary retain the same fill and no transform; activation yields a visible focus outline."}]},
+        "brandRecognition":{"rating":4,"observations":[{"sourceRegion":[0,0,1,1],"demoRegion":[0,0,1,1],"finding":"Docs shell, paired examples/code and exact Primary geometry are structurally recognizable without explicit IP."}]}
+      },
+      "mustPreserve":[{"id":"docs-shell","status":"pass","finding":"Desktop and 389px shell responses pass."},{"id":"accent-semantics","status":"pass","finding":"Primary and current navigation purple remain bounded."},{"id":"button-state-system","status":"pass","finding":"Live geometry, fill, focus and restored state match the frozen contract."}],
+      "mustNotReplace":[{"id":"no-code-only-color-role","violated":false,"finding":"Primary color/state behavior was visibly checked."},{"id":"no-premature-registry","violated":false,"finding":"No Registry mutation occurred."},{"id":"no-host-adaptation","violated":false,"finding":"This remains an isolated learning test."},{"id":"no-self-referential-demo-learning","violated":false,"finding":"The source capture is dumpling.echo.tech."}],
+      "blockingFindings":[]
+    }
+  ],
+  "generativeProofReview":{"status":"pass","heldOutDemoPageId":"dango-v2-release-checklist","finding":"The original release-readiness subject changes content and section sequence while retaining frozen structural and state rules; it is neither a source mirror nor asset substitution.","ruleChecks":[{"recipeId":"dango-docs-shell-responsive","status":"reused","finding":"Held-out desktop uses the full docs shell and 389px uses one fully visible column with rails hidden."},{"recipeId":"dango-editorial-technical-hierarchy","status":"reused","finding":"A title and premise lead to a new three-stage artifact and separate checklist."},{"recipeId":"dango-purple-state-roles","status":"reused","finding":"Purple stays on current navigation and Primary action, not large surfaces."},{"recipeId":"dango-primary-button-state-contract","status":"reused","finding":"Run check uses compact Primary geometry, stable fill and visible focus/restored interaction."}]},
+  "sharedRegressionReview":{"status":"pass","matrixSha256":"1888948894089a752a466a262e0a3eae0af34ad4d85d4f92d0ee252f35fd349e","cellsReviewed":10,"finding":"All six dango-v2 responsive cells and four unaffected-brand default cells pass; normal phone shells stay bounded and proof surfaces alone expand full-width."},
+  "protocolReview":{"inputHashesMatch":true,"evidenceObservedFactSemanticHandoffOnly":true,"threeDesktopPagesReviewed":true,"threeMobile389PagesReviewed":true,"scrollRestoreReviewed":true,"buttonStatesReviewed":true,"blockingFindings":[]}
+}

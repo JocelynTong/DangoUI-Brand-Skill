@@ -1,0 +1,59 @@
+{
+  "schema": "brand-subagent-receipt/v1",
+  "dispatchId": "80266bce-4ca5-4c4a-a822-2cf0852939ce",
+  "runId": "0187366e-83fa-48d0-ba90-254c210db954",
+  "stageId": "visualQA-1",
+  "stage": "visualQA",
+  "role": "visualQA",
+  "attempt": 1,
+  "agentExecutionId": "/root/dango_v2_visual_qa",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "startedAndCompletedInFreshContext": true,
+  "completedAt": "2026-09-14T09:00:36Z",
+  "verdict": "needs-evidence",
+  "threeProofVerdict": {
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "needs-evidence",
+    "generativeProof": "pass",
+    "compensationApplied": false
+  },
+  "failureOwnerRole": "designDirectorOrchestrator",
+  "earliestFailureNode": "designDirectorOrchestrator:visualQA-dispatch-environment-and-qa-input-coverage",
+  "inputFiles": [
+    {"path": "migrations/dango-v2/goal-contract.json", "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"},
+    {"path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png", "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"},
+    {"path": "migrations/dango-v2/captures/source/button/desktop/frame-00.png", "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"},
+    {"path": "migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png", "sha256": "2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"},
+    {"path": "migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png", "sha256": "b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"},
+    {"path": "migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png", "sha256": "f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"},
+    {"path": "migrations/dango-v2/visual-pattern-inventory.json", "sha256": "19b160e3f4e836c5d402b4fbf7150f3d12f66e0b9e90d10f18b9fed9e3c38f4d"},
+    {"path": "migrations/dango-v2/generative-proof.json", "sha256": "308252afc6cf1cb6d71773c11dbb52d575dd2f85148958f0de7f56cd8ae5a6d2"}
+  ],
+  "inputs": [
+    {"path": "migrations/dango-v2/goal-contract.json", "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"},
+    {"path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png", "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"},
+    {"path": "migrations/dango-v2/captures/source/button/desktop/frame-00.png", "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"},
+    {"path": "migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png", "sha256": "2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"},
+    {"path": "migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png", "sha256": "b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"},
+    {"path": "migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png", "sha256": "f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"},
+    {"path": "migrations/dango-v2/visual-pattern-inventory.json", "sha256": "19b160e3f4e836c5d402b4fbf7150f3d12f66e0b9e90d10f18b9fed9e3c38f4d"},
+    {"path": "migrations/dango-v2/generative-proof.json", "sha256": "308252afc6cf1cb6d71773c11dbb52d575dd2f85148958f0de7f56cd8ae5a6d2"}
+  ],
+  "outputFiles": [
+    {"path": "migrations/dango-v2/visual-qa-assessment.json", "sha256": "b30ef44286e7ff94f5a8bc940d599c1f669ff89526aeacfac483989fe5d37bb1"},
+    {"path": "migrations/dango-v2/visual-comparison-report.json", "sha256": "ef014dc6ae182bcc81a9e399db6a29742f5bf4f2629cf03821b716a129e3feea"},
+    {"path": "migrations/dango-v2/brand-distinctiveness-assessment.json", "sha256": "e3aa9ce0df57c84281e5f939d95e85a7c191a12d8a29cb3611bbaae00f76cd5e"},
+    {"path": "migrations/dango-v2/fidelity-report.json", "sha256": "907a3f9b01507adc296b847b27ac3de47b0e5c51c51506323f1e88afe3865023"},
+    {"path": "migrations/dango-v2/mockup-state-matrix.json", "sha256": "d7462f833ec2c73624bf293d200ab7fb0f5cc81992dc1cfd6477decd0bf2d87a"}
+  ],
+  "outputs": [
+    {"path": "migrations/dango-v2/visual-qa-assessment.json", "sha256": "b30ef44286e7ff94f5a8bc940d599c1f669ff89526aeacfac483989fe5d37bb1"},
+    {"path": "migrations/dango-v2/visual-comparison-report.json", "sha256": "ef014dc6ae182bcc81a9e399db6a29742f5bf4f2629cf03821b716a129e3feea"},
+    {"path": "migrations/dango-v2/brand-distinctiveness-assessment.json", "sha256": "e3aa9ce0df57c84281e5f939d95e85a7c191a12d8a29cb3611bbaae00f76cd5e"},
+    {"path": "migrations/dango-v2/fidelity-report.json", "sha256": "907a3f9b01507adc296b847b27ac3de47b0e5c51c51506323f1e88afe3865023"},
+    {"path": "migrations/dango-v2/mockup-state-matrix.json", "sha256": "d7462f833ec2c73624bf293d200ab7fb0f5cc81992dc1cfd6477decd0bf2d87a"}
+  ],
+  "blockingCodes": ["LIVE_QA_OPERATION_UNAVAILABLE", "MOCKUP_MATRIX_EVIDENCE_INCOMPLETE"],
+  "handoff": "orchestrator:blocking-findings-only"
+}

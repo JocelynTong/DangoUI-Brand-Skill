@@ -1,0 +1,190 @@
+{
+  "schema": "brand-subagent-dispatch/v1",
+  "dispatchId": "c025e4a6-e93b-40d5-9b8c-660a11e2592b",
+  "runId": "0187366e-83fa-48d0-ba90-254c210db954",
+  "stageId": "demo-2",
+  "stage": "demo",
+  "role": "demoImplementationAgent",
+  "attempt": 2,
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "mission": "Build a brand-learning-capability-test that proves evidence-backed visual rules can generate distinct demo structures without mirroring a website, applying to a host, or disguising a branded asset template as learning.",
+  "roleContractVersion": "3.0",
+  "requiredInputs": [
+    {
+      "path": "migrations/dango-v2/goal-contract.json",
+      "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"
+    },
+    {
+      "path": "migrations/dango-v2/brand-evidence.json",
+      "sha256": "79e6f0e1f81eb913118074c65739d9efc12cc3a4e4ba1b4989b43c811a958b32"
+    },
+    {
+      "path": "migrations/dango-v2/source-observation-manifest.json",
+      "sha256": "26ce873aa559bb230fee177bdcccba0c144a7a2c2a98eb3e415dcc7700167315"
+    },
+    {
+      "path": "migrations/dango-v2/rendered-asset-inventory.json",
+      "sha256": "94c7ba4ff959dbb5ba783d79cd962b486fc67d1f9a11214999be56e44b939c0d"
+    },
+    {
+      "path": "migrations/dango-v2/action-evidence.json",
+      "sha256": "a5297a4910da3fd2512b7b6018aa85996738b5b08de225dbda646bf4063f6869"
+    },
+    {
+      "path": "migrations/dango-v2/action-evidence-v02.json",
+      "sha256": "a8cef3eae7f1c13814a242b640cd0d3b0d8024caa6f9a843d2df05ac84e1712d"
+    },
+    {
+      "path": "migrations/dango-v2/third-party-evidence.dembrandt.json",
+      "sha256": "0d02ea0bc274783fbe14ce5c7e6febe8d29ac46807589119680322ac645e5e6e"
+    },
+    {
+      "path": "migrations/dango-v2/section-fidelity-manifest.json",
+      "sha256": "2434f6b3f2672758f98cb2db50bf59f93771eecac0591c1f79d8289fda77fa1d"
+    },
+    {
+      "path": "migrations/dango-v2/evidence-question-matrix.json",
+      "sha256": "5fd450f00df19800beac5972a4e27e9324659bc689b80ff031309d4244f45924"
+    },
+    {
+      "path": "migrations/dango-v2/brand-intent.json",
+      "sha256": "37a421094921ff5eaaf3abbd70eca1665f8d261ea03e94b17e2f7ace1efb6a94"
+    },
+    {
+      "path": "migrations/dango-v2/approved-visual-patterns.json",
+      "sha256": "56bbd17343c11ced328c8914e9b3b4c18afc2f17ce19a46bb3a59682dfb73c3f"
+    },
+    {
+      "path": "src/App.vue",
+      "sha256": "e0bc10d2eff6324e01506f37c17af922b99e789e51f25368b4d3aa86dad88ae4"
+    },
+    {
+      "path": "public/brand-previews/dango-v2.json",
+      "sha256": "1a22a4086d91a6a48e28e589c71556cdedee3643c8e52f607b55d7973a1f197f"
+    },
+    {
+      "path": "migrations/dango-v2/brand-profile.dtcg.json",
+      "sha256": "25137d0c53855cf946fe9545e11324c7e2fdba5811e6777fe8941fc15278173d"
+    },
+    {
+      "path": "migrations/dango-v2/brand-mod.json",
+      "sha256": "f6e62fdc65455ac7ab94ba81c7d637a3a7c4b56b10eaef180851c265b6033110"
+    },
+    {
+      "path": "migrations/dango-v2/dangoui-adapter.json",
+      "sha256": "429cd07afcd527077253b0f0613c4dae3ebfa4e079321ac48b925f81644838a5"
+    },
+    {
+      "path": "migrations/dango-v2/component-mapping.json",
+      "sha256": "c641ea83cbc5206f61c0f60a89ef66f883226ca14276de450f539dd997355e08"
+    },
+    {
+      "path": "migrations/dango-v2/mapping-runtime-proof.json",
+      "sha256": "3dd749d7382988e1e6c32be657b1c8169e0e425f3df01a8e7eb83b3fda6e0628"
+    },
+    {
+      "path": "migrations/dango-v2/demo-screenshot-manifest.json",
+      "sha256": "b22d271e391bd7c1944892b3ce1db4bfcfbe43c46368acddb3388fcdeb7d0196"
+    },
+    {
+      "path": "migrations/dango-v2/visual-pattern-inventory.json",
+      "sha256": "19b160e3f4e836c5d402b4fbf7150f3d12f66e0b9e90d10f18b9fed9e3c38f4d"
+    },
+    {
+      "path": "migrations/dango-v2/generative-proof.json",
+      "sha256": "308252afc6cf1cb6d71773c11dbb52d575dd2f85148958f0de7f56cd8ae5a6d2"
+    },
+    {
+      "path": "migrations/dango-v2/implementation-self-test.json",
+      "sha256": "f9a59b5d902814b5a6e22773d8b8a6813315294273f0057474f3b6fa599079cb"
+    },
+    {
+      "path": "migrations/dango-v2/section-fidelity-implementation-manifest.json",
+      "sha256": "99c93ed0384be99286377da9da1a6538cded801e4239592e33af7311aae2d9fa"
+    },
+    {
+      "path": "migrations/dango-v2/source-manifest.json",
+      "sha256": "07db4fd61a8337327347e5a723aa83d62f059f021627b0faa18951ad05274db8"
+    },
+    {
+      "path": "migrations/dango-v2/design-direction.json",
+      "sha256": "846eb089e5f0fd462bedae2c89f726684281b6fb78603e70991d1f3a0adf135f"
+    }
+  ],
+  "allowedInputs": [
+    "source screenshots as read-only composition evidence",
+    "DangoUI schema",
+    "existing demo runtime",
+    "blocking findings on retry"
+  ],
+  "forbiddenInputs": [
+    "authority to modify goal contract",
+    "previous QA verdict before initial implementation"
+  ],
+  "tasks": [
+    "map each reference page to a distinct demo page",
+    "implement mustPreserve before optional details",
+    "rebuild composition with source DOM/CSS and independently inventoried original site assets",
+    "bind approved source assets",
+    "complete each section micro-gate before full-page QA",
+    "prove every actionable control changes and can restore observable state",
+    "inventory every high-salience visual pattern and runtime asset provenance before QA",
+    "run an evidence-support self-check",
+    "create a generative variation that reuses learned invariants with different content or structure",
+    "capture reproducible demo screenshots",
+    "record implemented, missing and pre-authorized transformations"
+  ],
+  "requirements": [
+    "brand color, official asset status and logo do not substitute for composition",
+    "source screenshots and crops are QA evidence only and never Demo runtime assets unless the sealed goal explicitly has goalType screenshot-recreation and implementationPolicy.allowSourceScreenshotAsRuntimeAsset true",
+    "every high-salience runtime asset records provenance sourceUrl, sourceSha256, role and sourceKind",
+    "allowed sourceKind values are original-site-asset, dom-css-reconstruction and generated-independent-asset",
+    "every high-salience visual pattern has an approved pattern id plus evidenceRefs and sourceRegion",
+    "every pattern claiming a composition mustPreserve id declares preserves and compositionSupport with source/demo asset identity plus variant, at least two bounded structural layers, and any aspect/crop translation",
+    "a color role may only be used in its declared allowedRoles",
+    "all transformations exist in goal-contract.mayTranslate before implementation",
+    "generative-proof.json identifies invariant learned rules, the deliberately varied input or structure, and why the result remains in-system without copying a full source composition",
+    "viewport and state are recorded",
+    "fresh independent Visual QA being pending is the expected next stage, not a Demo failure or needs-evidence verdict, when all implementation-owned gates pass"
+  ],
+  "mustNot": [
+    "change fidelity thresholds",
+    "invent a translation justification after implementation",
+    "self-approve visual fidelity",
+    "use an unproven placeholder as official",
+    "copy a source screenshot, screenshot crop, or reference-derived full-frame raster into the Demo runtime",
+    "claim screenshot-derived pixels as DOM/CSS reconstruction or original source assets"
+  ],
+  "expectedOutputs": [
+    "demo screenshot manifest",
+    "visual-pattern-inventory.json",
+    "generative-proof.json",
+    "implementation receipt"
+  ],
+  "passCriteria": [
+    "protocol/build gates pass",
+    "all target pages render",
+    "mustPreserve items have implementation locations",
+    "implementation-side evidence, structure and generative artifacts are complete enough to dispatch fresh Visual QA; only Visual QA/finalize may mark the three proofs passed"
+  ],
+  "failCriteria": [
+    "SCREENSHOT_AS_IMPLEMENTATION",
+    "EVIDENCE_LEAKAGE",
+    "ASSET_PROVENANCE_MISSING",
+    "unsupported high-salience visual pattern",
+    "color role expanded into an unapproved component role",
+    "mustNotReplace violated",
+    "core asset authenticity unknown",
+    "target page cannot render",
+    "goal rewritten",
+    "generative proof is missing, circular, or only demonstrates a website mirror or asset swap"
+  ],
+  "receiptRequirements": [
+    "agentExecutionId from a real spawned subagent",
+    "goalSha256 unchanged",
+    "input and output file sha256 values",
+    "pass/fail/needs-evidence verdict",
+    "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"
+  ]
+}

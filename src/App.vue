@@ -1,5 +1,5 @@
 <template>
-  <main class="shell" :class="`theme-${selectedStyleId}`" :style="themeVars">
+  <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango' }]" :style="themeVars">
     <aside class="panel" aria-label="Visual inspector">
       <div class="style-rail">
         <p class="section-heading"><strong>参考站</strong></p>
@@ -1304,6 +1304,7 @@
                       :class="[
                         `source-schema-demo--${runtimePreviewPageKind}`,
                         `source-schema-demo--${selectedStyleId}`,
+                        { 'source-schema-demo--dango': selectedStyleId === 'dango' },
                       ]"
                       aria-label="source-derived brand preview"
                       :data-page-id="selectedTemplate.id"
@@ -6541,6 +6542,8 @@ const sectionRendererRegistry = {
   "pokemon-learn-section": SchemaPokemonLearnSection,
   "dango-docs-page": SchemaDangoDocsPageSection,
   "dango-docs-continuation": SchemaDangoDocsContinuationSection,
+  "dango-button-contract": SchemaDangoDocsContinuationSection,
+  "dango-release-checklist": SchemaDangoDocsContinuationSection,
 };
 const isRuntimePreviewTemplate = computed(() =>
   Boolean(selectedStyle.value?.runtimePreview && (selectedTemplate.value?.id === selectedStyle.value.id || selectedTemplate.value?.id?.startsWith(`${selectedStyle.value.id}-`))),
@@ -9523,6 +9526,11 @@ async function loadRuntimeBrandPreviews() {
     const entries = Array.isArray(registry.brands) ? [...registry.brands] : [];
     // Dango is intentionally loaded as an implementation draft while it remains
     // outside the public registry. Blind QA decides whether it may be registered.
+    if (!entries.some((entry) => entry?.id === "dango")) {
+      entries.unshift({ id: "dango", path: "/brand-previews/dango.json", draftOnly: true });
+    }
+    // Versioned relearn candidates are runtime-only drafts. They intentionally
+    // stay outside the public registry until fresh QA and release gates pass.
     if (!entries.some((entry) => entry?.id === "dango")) {
       entries.unshift({ id: "dango", path: "/brand-previews/dango.json", draftOnly: true });
     }

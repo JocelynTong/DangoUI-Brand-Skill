@@ -1,0 +1,62 @@
+{
+  "schema": "brand-approved-visual-patterns/v1",
+  "brand": "dango-v2",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "status": "approved",
+  "patterns": [
+    {
+      "id": "dango-docs-shell-responsive",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile", "dango-v2-button-page-shell"],
+      "sourceRegion": [0, 0, 1, 1],
+      "suitableFor": ["technical documentation", "component reference", "long multi-section guides"],
+      "notFor": ["marketing hero", "uniformly scaled mobile grid"],
+      "allowedTransformations": ["responsive-reflow", "content substitution inside the reading column"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "dango-docs-shell-dom-css", "variant": "desktop-three-column-to-mobile-single-column", "sourceKind": "dom-css-reconstruction"},
+        "requiredLayers": [
+          {"id": "global-header", "role": "global navigation and utilities", "evidenceRefs": ["dango-v2-docs-shell-desktop"], "sourceRegion": [0, 0, 1, 0.062222]},
+          {"id": "left-navigation", "role": "documentation taxonomy", "evidenceRefs": ["dango-v2-docs-shell-desktop"], "sourceRegion": [0, 0.062222, 0.138889, 0.937778]},
+          {"id": "reading-column", "role": "primary sequential content", "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-button-page-shell"], "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778]},
+          {"id": "right-outline", "role": "local page orientation", "evidenceRefs": ["dango-v2-docs-shell-desktop"], "sourceRegion": [0.875, 0.062222, 0.125, 0.937778]}
+        ]
+      }
+    },
+    {
+      "id": "dango-editorial-technical-hierarchy",
+      "evidenceRefs": ["dango-v2-content-hierarchy"],
+      "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786],
+      "suitableFor": ["concept introductions", "technical workflows", "API explanations"],
+      "notFor": ["image-led storytelling", "equal-weight card mosaics"],
+      "allowedTransformations": ["content substitution", "vertical mobile reflow"],
+      "compositionContract": {
+        "sourceAsset": {"identity": "dango-introduction-content-dom", "variant": "title-prose-process-list-sections", "sourceKind": "dom-css-reconstruction"},
+        "requiredLayers": [
+          {"id": "title-and-introduction", "role": "establish page topic and premise", "evidenceRefs": ["dango-v2-content-hierarchy"], "sourceRegion": [0.161111, 0.088889, 0.691667, 0.125]},
+          {"id": "technical-process-surface", "role": "structured technical explanation", "evidenceRefs": ["dango-v2-content-hierarchy"], "sourceRegion": [0.161111, 0.22, 0.691667, 0.397778]},
+          {"id": "follow-up-content", "role": "continue hierarchy through lists and sections", "evidenceRefs": ["dango-v2-content-hierarchy"], "sourceRegion": [0.161111, 0.64, 0.691667, 0.234889]}
+        ]
+      }
+    },
+    {
+      "id": "dango-purple-state-roles",
+      "evidenceRefs": ["dango-v2-active-navigation", "dango-v2-primary-button"],
+      "sourceRegion": [0.008333, 0.114444, 0.121528, 0.036111],
+      "suitableFor": ["current navigation state", "primary button"],
+      "notFor": ["large surfaces", "generic accent", "all links"],
+      "allowedTransformations": ["semantic label substitution"],
+      "allowedRoles": ["current-page navigation cue", "primary action"],
+      "forbiddenRoles": ["page canvas", "section chrome", "unobserved hover surface"]
+    },
+    {
+      "id": "dango-primary-button-state-contract",
+      "evidenceRefs": ["dango-v2-primary-button", "dango-v2-primary-button-hover-no-change", "dango-v2-primary-button-focus", "dango-v2-primary-button-activated"],
+      "sourceRegion": [0, 0, 1, 1],
+      "suitableFor": ["normal-size primary action", "live component documentation example"],
+      "notFor": ["pill control", "hero CTA inference", "hover animation", "pressed-fill effect"],
+      "allowedTransformations": ["label-width expansion", "platform-equivalent independently visible focus indicator"],
+      "allowedRoles": ["32px-high primary action", "4px primary button radius", "stable purple fill", "independent focus outline"],
+      "forbiddenRoles": ["global radius", "global no-hover policy", "active/current reinterpretation"]
+    }
+  ]
+}

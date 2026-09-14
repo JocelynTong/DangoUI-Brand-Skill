@@ -58,7 +58,11 @@ const supportedSectionTypes = new Set([
   'czn-current-home',
   'czn-current-gameplay',
   'czn-current-character',
-  'czn-current-heldout'
+  'czn-current-heldout',
+  'dango-docs-page',
+  'dango-docs-continuation',
+  'dango-button-contract',
+  'dango-release-checklist'
 ])
 const assetValueKeys = new Set([
   'src',

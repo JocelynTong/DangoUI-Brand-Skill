@@ -1,0 +1,486 @@
+{
+  "schema": "brand-evidence/v2",
+  "brand": "dango-v2",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "status": "evidence-pass-for-frozen-scope",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "questionMatrix": "migrations/dango-v2/evidence-question-matrix.json",
+  "observationManifest": "migrations/dango-v2/source-observation-manifest.json",
+  "evidenceOrder": [
+    "rendered screenshot",
+    "visible DOM",
+    "computed property",
+    "source rule",
+    "third-party candidate disposition"
+  ],
+  "claims": [
+    {
+      "id": "dango-v2-docs-shell-desktop",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "At 1440×900, a 56px full-width header sits above a 200px left navigation, a 1060px reading area and a 180px right outline.",
+      "observedFact": "At 1440×900, a 56px full-width header sits above a 200px left navigation, a 1060px reading area and a 180px right outline.",
+      "visibleDom": {
+        "selector": "header",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 56
+        }
+      },
+      "computed": {
+        "property": "height",
+        "value": "56px"
+      },
+      "supportingComputed": [
+        {
+          "selector": "aside:first-of-type",
+          "property": "width",
+          "value": "200px"
+        },
+        {
+          "selector": "main",
+          "property": "width",
+          "value": "1060px"
+        },
+        {
+          "selector": "aside:last-of-type",
+          "property": "width",
+          "value": "180px"
+        }
+      ]
+    },
+    {
+      "id": "dango-v2-docs-shell-mobile",
+      "status": "observed",
+      "kind": "layout",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/introduction/mobile-390/frame-00.png",
+        "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "At 390×844 both sidebars are absent and main reflows to a 390px single column; the fixed header partially occludes the source title.",
+      "observedFact": "At 390×844 both sidebars are absent and main reflows to a 390px single column; the fixed header partially occludes the source title.",
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 1660.6875
+        }
+      },
+      "computed": {
+        "property": "width",
+        "value": "390px"
+      }
+    },
+    {
+      "id": "dango-v2-active-navigation",
+      "status": "observed",
+      "kind": "color",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "current-page",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      },
+      "sourceRegion": [
+        0.008333,
+        0.114444,
+        0.121528,
+        0.036111
+      ],
+      "visibleFact": "The current-page row uses purple text over a pale-purple rounded background.",
+      "observedFact": "The current-page row uses purple text over a pale-purple rounded background.",
+      "visibleDom": {
+        "selector": "a[aria-current=\"page\"]",
+        "state": "current-page",
+        "visible": true,
+        "boundingBox": {
+          "x": 12,
+          "y": 103,
+          "width": 175,
+          "height": 32.5
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(88, 84, 255)"
+      },
+      "supportingComputed": [
+        {
+          "property": "background-color",
+          "value": "rgba(88, 84, 255, 0.08)"
+        },
+        {
+          "property": "border-radius",
+          "value": "8px"
+        }
+      ]
+    },
+    {
+      "id": "dango-v2-content-hierarchy",
+      "status": "observed",
+      "kind": "typography",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "introduction",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+        "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+      },
+      "sourceRegion": [
+        0.161111,
+        0.088889,
+        0.691667,
+        0.786
+      ],
+      "visibleFact": "Introduction is led by a 36px/700 H1, 24px/600 H2s, explanatory prose, a technical process block, lists and following sections.",
+      "observedFact": "Introduction is led by a 36px/700 H1, 24px/600 H2s, explanatory prose, a technical process block, lists and following sections.",
+      "visibleDom": {
+        "selector": "main h1",
+        "visible": true,
+        "boundingBox": {
+          "x": 232,
+          "y": 80,
+          "width": 996,
+          "height": 60.1875
+        }
+      },
+      "computed": {
+        "property": "font-size",
+        "value": "36px"
+      },
+      "supportingComputed": [
+        {
+          "selector": "main h1",
+          "property": "font-weight",
+          "value": "700"
+        },
+        {
+          "selector": "main h2",
+          "property": "font-size",
+          "value": "24px"
+        },
+        {
+          "selector": "main h2",
+          "property": "font-weight",
+          "value": "600"
+        }
+      ]
+    },
+    {
+      "id": "dango-v2-button-page-shell",
+      "status": "observed",
+      "kind": "composition",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "initial",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/button/desktop/frame-00.png",
+        "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "Button retains the three-column docs shell and a long live-component documentation flow from examples to API and theme variables.",
+      "observedFact": "Button retains the three-column docs shell and a long live-component documentation flow from examples to API and theme variables.",
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "boundingBox": {
+          "x": 200,
+          "y": 0,
+          "width": 1060,
+          "height": 4186.765625
+        }
+      },
+      "computed": {
+        "property": "width",
+        "value": "1060px"
+      }
+    },
+    {
+      "id": "dango-v2-primary-button",
+      "status": "observed",
+      "kind": "component",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "default",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/default.png",
+        "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "The normal Primary button is 77.15625×32px with white text, rgb(124,102,255) fill and 4px radius.",
+      "observedFact": "The normal Primary button is 77.15625×32px with white text, rgb(124,102,255) fill and 4px radius.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+        "state": "default",
+        "visible": true,
+        "boundingBox": {
+          "x": 12,
+          "y": 53,
+          "width": 77.15625,
+          "height": 32
+        }
+      },
+      "computed": {
+        "property": "background-color",
+        "value": "rgb(124, 102, 255)"
+      },
+      "supportingComputed": [
+        {
+          "property": "color",
+          "value": "rgb(255, 255, 255)"
+        },
+        {
+          "property": "height",
+          "value": "32px"
+        },
+        {
+          "property": "border-radius",
+          "value": "4px"
+        }
+      ]
+    },
+    {
+      "id": "dango-v2-primary-button-hover-no-change",
+      "status": "observed",
+      "kind": "interaction",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "hover",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/hover.png",
+        "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "Default, 25ms hover-transition and 180ms settled-hover crops are pixel-identical and keep the same computed fill; no visible hover change was observed.",
+      "observedFact": "Default, 25ms hover-transition and 180ms settled-hover crops are pixel-identical and keep the same computed fill; no visible hover change was observed.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:hover",
+        "state": "hover",
+        "visible": true,
+        "boundingBox": {
+          "x": 12,
+          "y": 53,
+          "width": 77.15625,
+          "height": 32
+        }
+      },
+      "computed": {
+        "property": "background-color",
+        "value": "rgb(124, 102, 255)"
+      },
+      "beforeCapture": "migrations/dango-v2/captures/source/button/desktop/primary-button/default.png",
+      "afterCapture": "migrations/dango-v2/captures/source/button/desktop/primary-button/hover.png"
+    },
+    {
+      "id": "dango-v2-primary-button-focus",
+      "status": "observed",
+      "kind": "interaction",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "focus",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/focus.png",
+        "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "Focus produces a thin browser-visible outline while the purple fill remains unchanged.",
+      "observedFact": "Focus produces a thin browser-visible outline while the purple fill remains unchanged.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt:focus",
+        "state": "focus",
+        "visible": true,
+        "boundingBox": {
+          "x": 12,
+          "y": 53,
+          "width": 77.15625,
+          "height": 32
+        }
+      },
+      "computed": {
+        "property": "outline-style",
+        "value": "auto"
+      },
+      "supportingComputed": [
+        {
+          "property": "outline-width",
+          "value": "1px"
+        },
+        {
+          "property": "outline-color",
+          "value": "rgb(0, 95, 204)"
+        }
+      ]
+    },
+    {
+      "id": "dango-v2-primary-button-activated",
+      "status": "observed",
+      "kind": "interaction",
+      "salience": "high",
+      "required": true,
+      "sourcePageId": "button",
+      "state": "activated-settled-focus-retained",
+      "capture": {
+        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/activated.png",
+        "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleFact": "After click settles, the crop is pixel-identical to focus and the fill remains purple.",
+      "observedFact": "After click settles, the crop is pixel-identical to focus and the fill remains purple.",
+      "visibleDom": {
+        "selector": ".du-button.du-button--normal.du-button--primary.du-c-primary-bt",
+        "state": "activated-settled-focus-retained",
+        "visible": true,
+        "boundingBox": {
+          "x": 12,
+          "y": 53,
+          "width": 77.15625,
+          "height": 32
+        }
+      },
+      "computed": {
+        "property": "background-color",
+        "value": "rgb(124, 102, 255)"
+      }
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "id": "seed-primary-7c66ff",
+      "seedRef": "dembrandt.colors.semantic.primary",
+      "status": "validated",
+      "evidenceRefs": [
+        "dango-v2-primary-button"
+      ],
+      "scope": "Visible Primary button fill only"
+    },
+    {
+      "id": "seed-accent-5854ff",
+      "seedRef": "dembrandt.colors.palette.#5854ff",
+      "status": "validated",
+      "evidenceRefs": [
+        "dango-v2-active-navigation"
+      ],
+      "scope": "Visible current-page navigation cue only"
+    },
+    {
+      "id": "seed-radius-4px",
+      "seedRef": "dembrandt.borderRadius.4px",
+      "status": "validated",
+      "evidenceRefs": [
+        "dango-v2-primary-button"
+      ],
+      "scope": "Primary button geometry"
+    },
+    {
+      "id": "seed-radius-9999px",
+      "seedRef": "dembrandt.borderRadius.9999px",
+      "status": "out-of-scope",
+      "reason": "The frozen goal does not require the unrelated pill-like nodes; no goal claim depends on this aggregate seed."
+    },
+    {
+      "id": "seed-shadow-largest",
+      "seedRef": "dembrandt.shadows.highest-count",
+      "status": "rejected",
+      "reason": "The sampled Primary action has computed box-shadow none and the high-salience documentation shell is predominantly flat; the low-count aggregate shadow does not establish a goal-level rule."
+    }
+  ],
+  "goalCoverage": [
+    {
+      "goalItem": "docs-shell",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile",
+        "dango-v2-button-page-shell"
+      ]
+    },
+    {
+      "goalItem": "content-hierarchy",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "dango-v2-content-hierarchy"
+      ]
+    },
+    {
+      "goalItem": "accent-semantics",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "dango-v2-active-navigation",
+        "dango-v2-primary-button"
+      ]
+    },
+    {
+      "goalItem": "button-state-system",
+      "verdict": "proved",
+      "evidenceRefs": [
+        "dango-v2-primary-button",
+        "dango-v2-primary-button-hover-no-change",
+        "dango-v2-primary-button-focus",
+        "dango-v2-primary-button-activated"
+      ]
+    }
+  ],
+  "unresolved": []
+}

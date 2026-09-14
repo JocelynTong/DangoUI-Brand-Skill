@@ -15393,6 +15393,89 @@ html[data-mockup-popup="select"] .du-popup:has(.du-popup__content.du-popup--bott
   .dango-docs-continuation__action { align-items: flex-start; flex-direction: column; }
 }
 
+/* The docs proof normally reflows from its named inline-size container. A real
+   narrow browser can still inherit the desktop preview canvas before that
+   container is resolved, so bind the approved 390px strategy to the viewport
+   as well. This is a reflow, never a center-crop of the desktop grid. */
+@media (max-width: 699px) {
+  body:has(.source-schema-demo--dango),
+  .shell.theme-dango:has(.source-schema-demo--dango),
+  .shell.theme-dango:has(.source-schema-demo--dango) > .workspace,
+  .shell.theme-dango:has(.source-schema-demo--dango) .demo-stage,
+  .shell.theme-dango:has(.source-schema-demo--dango) .component-showcase,
+  .shell.theme-dango:has(.source-schema-demo--dango) .template-preview {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100vw;
+  }
+
+  .shell.theme-dango:has(.source-schema-demo--dango) > .workspace,
+  .shell.theme-dango:has(.source-schema-demo--dango) .demo-stage,
+  .shell.theme-dango:has(.source-schema-demo--dango) .component-showcase,
+  .shell.theme-dango:has(.source-schema-demo--dango) .template-preview {
+    height: auto;
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    overflow: visible;
+  }
+
+  .theme-dango .phone:has(.source-schema-demo--dango) {
+    box-sizing: border-box;
+    width: min(390px, 100vw) !important;
+    min-width: 0;
+    max-width: 100vw !important;
+  }
+
+  .theme-dango .phone:has(.source-schema-demo--dango) .phone-screen,
+  .theme-dango .phone:has(.source-schema-demo--dango) .phone-screen > .contents,
+  .theme-dango .source-schema-demo--dango,
+  .theme-dango .source-schema-demo--dango > section,
+  .theme-dango .dango-docs,
+  .theme-dango .dango-docs__layout {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .theme-dango .dango-docs__layout {
+    display: block;
+    min-height: 760px;
+  }
+
+  .theme-dango .dango-docs__sidebar,
+  .theme-dango .dango-docs__outline {
+    display: none !important;
+  }
+
+  .theme-dango .dango-docs__article {
+    box-sizing: border-box;
+    width: 100% !important;
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;
+    padding: 34px 16px 58px;
+    transform: none;
+  }
+
+  .theme-dango .dango-docs-continuation {
+    display: block;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .theme-dango .dango-docs-continuation__main {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    padding: 0 16px 72px;
+  }
+}
+
 /* Independent Dango calibration surfaces. Normal routes keep the shared phone
    frame; proof modes remove inspector and chassis from the compared viewport. */
 body:has(.theme-dango .template-phone--source-desktop) { overflow: auto; }

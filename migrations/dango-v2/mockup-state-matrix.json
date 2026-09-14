@@ -1,0 +1,971 @@
+{
+  "schema": "mockup-state-matrix/v1",
+  "brand": "dango-v2",
+  "attempt": 2,
+  "ownerRole": "demoImplementationAgent",
+  "implementationExecutionId": "/root/dango_v2_demo",
+  "verdict": "implementation-evidence-ready-fresh-qa-pending",
+  "fixturePolicy": "Browser-only tabbar and scroll fixtures exercise shared mockup geometry; no application or shared platform source is modified.",
+  "observations": [
+    {
+      "pageType": "brand",
+      "bottomChrome": "tabbar",
+      "mode": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": false,
+        "parentRole": "phone",
+        "position": "absolute",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 390,
+        "screenWidth": 372,
+        "phoneRadius": 41.4666,
+        "screenRadius": 31.5936,
+        "bottomChromeRadius": 31.5936,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1377,
+        "clientHeight": 803,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 120,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--tabbar--normal.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "tabbar",
+      "mode": "proof=1",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 1440,
+        "screenWidth": 1440,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1310,
+        "clientHeight": 1310,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--tabbar--proof-1.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "tabbar",
+      "mode": "proof=desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 1440,
+        "screenWidth": 1440,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1310,
+        "clientHeight": 1310,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--tabbar--proof-desktop.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "tabbar",
+      "mode": "proof=mobile",
+      "viewport": {
+        "width": 700,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 1440,
+        "screenWidth": 1440,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1310,
+        "clientHeight": 1310,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--tabbar--proof-mobile.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "no-tabbar",
+      "mode": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": false,
+        "parentRole": "phone",
+        "position": "absolute",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 390,
+        "screenWidth": 372,
+        "phoneRadius": 41.4666,
+        "screenRadius": 31.5936,
+        "bottomChromeRadius": 31.5936,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1377,
+        "clientHeight": 803,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 120,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--no-tabbar--normal.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=1",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 1440,
+        "screenWidth": 1440,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1310,
+        "clientHeight": 1310,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--no-tabbar--proof-1.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 1440,
+        "screenWidth": 1440,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1310,
+        "clientHeight": 1310,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--no-tabbar--proof-desktop.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "brand",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=mobile",
+      "viewport": {
+        "width": 700,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 1440,
+        "screenWidth": 1440,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1310,
+        "clientHeight": 1310,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/brand--no-tabbar--proof-mobile.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "tabbar",
+      "mode": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": false,
+        "parentRole": "phone",
+        "position": "absolute",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 390,
+        "screenWidth": 372,
+        "phoneRadius": 41.4666,
+        "screenRadius": 31.5936,
+        "bottomChromeRadius": 31.5936,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1302,
+        "clientHeight": 803,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 120,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--tabbar--normal.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": true
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "tabbar",
+      "mode": "proof=1",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--tabbar--proof-1.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "tabbar",
+      "mode": "proof=desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--tabbar--proof-desktop.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "tabbar",
+      "mode": "proof=mobile",
+      "viewport": {
+        "width": 700,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 700,
+        "screenWidth": 700,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 361,
+        "clientHeight": 361,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--tabbar--proof-mobile.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "no-tabbar",
+      "mode": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": false,
+        "parentRole": "phone",
+        "position": "absolute",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 390,
+        "screenWidth": 372,
+        "phoneRadius": 41.4666,
+        "screenRadius": 31.5936,
+        "bottomChromeRadius": 31.5936,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1349,
+        "clientHeight": 803,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 120,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--no-tabbar--normal.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": true
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=1",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--no-tabbar--proof-1.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--no-tabbar--proof-desktop.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "style",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=mobile",
+      "viewport": {
+        "width": 700,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 700,
+        "screenWidth": 700,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 361,
+        "clientHeight": 361,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/style--no-tabbar--proof-mobile.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "tabbar",
+      "mode": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": false,
+        "parentRole": "phone",
+        "position": "absolute",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 390,
+        "screenWidth": 372,
+        "phoneRadius": 41.4666,
+        "screenRadius": 31.5936,
+        "bottomChromeRadius": 31.5936,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1302,
+        "clientHeight": 803,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 120,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--tabbar--normal.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": true
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "tabbar",
+      "mode": "proof=1",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--tabbar--proof-1.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "tabbar",
+      "mode": "proof=desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--tabbar--proof-desktop.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "tabbar",
+      "mode": "proof=mobile",
+      "viewport": {
+        "width": 700,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": "color(srgb 1 1 1)",
+        "backgroundSemantics": "matches-tabbar"
+      },
+      "geometry": {
+        "phoneWidth": 700,
+        "screenWidth": 700,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 361,
+        "clientHeight": 361,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--tabbar--proof-mobile.png",
+      "fixture": {
+        "tabbarInjected": true,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "no-tabbar",
+      "mode": "normal",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": false,
+        "parentRole": "phone",
+        "position": "absolute",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 390,
+        "screenWidth": 372,
+        "phoneRadius": 41.4666,
+        "screenRadius": 31.5936,
+        "bottomChromeRadius": 31.5936,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 1349,
+        "clientHeight": 803,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 120,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--no-tabbar--normal.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": true
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=1",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--no-tabbar--proof-1.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=desktop",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 900,
+        "screenWidth": 900,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 464,
+        "clientHeight": 464,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--no-tabbar--proof-desktop.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    },
+    {
+      "pageType": "component",
+      "bottomChrome": "no-tabbar",
+      "mode": "proof=mobile",
+      "viewport": {
+        "width": 700,
+        "height": 1000
+      },
+      "indicator": {
+        "hidden": true,
+        "parentRole": "phone",
+        "position": "relative",
+        "backgroundColor": "color(srgb 1 1 1)",
+        "tabbarBackgroundColor": null,
+        "backgroundSemantics": "transparent"
+      },
+      "geometry": {
+        "phoneWidth": 700,
+        "screenWidth": 700,
+        "phoneRadius": 0,
+        "screenRadius": 0,
+        "bottomChromeRadius": 0,
+        "screenWidthAligned": true,
+        "screenRadiusAligned": true,
+        "bottomChromeRadiusAligned": true
+      },
+      "scroll": {
+        "scrollHeight": 361,
+        "clientHeight": 361,
+        "beforeScrollTop": 0,
+        "afterScrollTop": 0,
+        "restoredScrollTop": 0,
+        "indicatorRectDeltaPx": 0
+      },
+      "browserEvidence": "migrations/dango-v2/captures/mockup-matrix-implementation/component--no-tabbar--proof-mobile.png",
+      "fixture": {
+        "tabbarInjected": false,
+        "scrollSpacerInjected": false
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "schema": "brand-browser-probe-runbook/v1",
+  "brand": "dango-v2",
+  "purpose": "Reproduce the implementation-side 24-case mockup matrix without modifying application source or QA-owned artifacts.",
+  "prerequisites": [
+    "Run from the repository root.",
+    "Google Chrome is available at /Applications/Google Chrome.app/Contents/MacOS/Google Chrome, or set CHROME_PATH.",
+    "Headless Chrome execution may require sandbox escalation."
+  ],
+  "commands": [
+    "npm run dev",
+    "node migrations/dango-v2/capture-mockup-matrix-implementation.mjs",
+    "node skills/brand/scripts/validate-mockup-matrix.mjs --file migrations/dango-v2/mockup-state-matrix-implementation.json --strict"
+  ],
+  "outputs": [
+    "migrations/dango-v2/mockup-state-matrix-implementation.json",
+    "migrations/dango-v2/captures/mockup-matrix-implementation/*.png"
+  ],
+  "protectedQaArtifact": {
+    "path": "migrations/dango-v2/mockup-state-matrix.json",
+    "sha256AfterImplementationProbe": "d7462f833ec2c73624bf293d200ab7fb0f5cc81992dc1cfd6477decd0bf2d87a"
+  }
+}

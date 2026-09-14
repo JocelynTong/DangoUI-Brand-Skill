@@ -1,0 +1,40 @@
+{
+  "schema": "public-brand-manifest.v0.1",
+  "id": "dango",
+  "displayName": "DangoUI",
+  "version": "0.2.0",
+  "publicationStatus": "public-preview",
+  "canonicalSources": [
+    "https://dumpling.echo.tech/"
+  ],
+  "sourceHost": "dumpling.echo.tech",
+  "preview": "/brand-previews/dango.json",
+  "artifacts": {
+    "brand-mod": "/brand-registry/v0.1/brands/dango/0.2.0/brand-mod.json",
+    "brand-evidence": "/brand-registry/v0.1/brands/dango/0.2.0/brand-evidence.json",
+    "brand-intent": "/brand-registry/v0.1/brands/dango/0.2.0/brand-intent.json",
+    "dangoui-adapter": "/brand-registry/v0.1/brands/dango/0.2.0/dangoui-adapter.json",
+    "component-mapping": "/brand-registry/v0.1/brands/dango/0.2.0/component-mapping.json",
+    "design-direction": "/brand-registry/v0.1/brands/dango/0.2.0/design-direction.json",
+    "source-manifest": "/brand-registry/v0.1/brands/dango/0.2.0/source-manifest.json",
+    "fidelity-report": "/brand-registry/v0.1/brands/dango/0.2.0/fidelity-report.json"
+  },
+  "platformSupport": {
+    "web": "verified",
+    "taroH5": "planned",
+    "weapp": "unverified",
+    "ios": "unverified",
+    "android": "unverified",
+    "flutter": "unverified",
+    "harmonyos": "unverified"
+  },
+  "reusePolicy": {
+    "metadataAndRules": "public",
+    "runtimeAssets": "excluded"
+  },
+  "verification": {
+    "web": "fidelity-pass",
+    "standardDemo": true
+  },
+  "updatedAt": "2026-09-14T00:00:00.000Z"
+}

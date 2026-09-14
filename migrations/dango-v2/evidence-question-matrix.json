@@ -1,0 +1,12 @@
+{
+  "schema": "brand-evidence-question-matrix/v1",
+  "brand": "dango-v2",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "createdBeforeExtraction": true,
+  "questions": [
+    {"id":"q-docs-shell","question":"Do Introduction and Button visibly share a fixed documentation shell, and does it reflow rather than uniformly scale at 390px?","pages":["introduction","button"],"requiredEvidence":["desktop and mobile full-page screenshots","header/aside/main bounding boxes","continuous scroll to end","restored scroll capture"],"stopCondition":"Both pages and both viewports are captured from scrollTop 0 through the reachable end and restored."},
+    {"id":"q-content-hierarchy","question":"Does Introduction visibly establish a repeatable title, prose, technical diagram/list, and section hierarchy with measured typography and surfaces?","pages":["introduction"],"requiredEvidence":["visible title/content region","H1/H2 computed typography","full-page reading order"],"stopCondition":"Visible hierarchy is bound to screenshot regions, non-zero DOM boxes, and exact computed values."},
+    {"id":"q-accent-semantics","question":"Where do purple accents actually appear on Introduction and Button, and are they restrained navigation/action states rather than a page canvas?","pages":["introduction","button"],"requiredEvidence":["current-page navigation region","Primary button region","exact computed colors"],"stopCondition":"At least one visible navigation state and one visible component state are measured on rendered pages."},
+    {"id":"q-button-state-system","question":"What visibly changes across default, hover transition, settled hover, focus, and activated Primary button states?","pages":["button"],"requiredEvidence":["before/transition/after crops","real pointer/focus/click triggers","exact computed property values"],"stopCondition":"Every required state is captured; unchanged states are recorded as observed no-change, not inferred behavior."}
+  ]
+}

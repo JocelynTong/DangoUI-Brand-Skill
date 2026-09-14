@@ -1,0 +1,419 @@
+{
+  "schema": "brand-intent/vNext",
+  "brand": "dango-v2",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "status": "approved-for-direction",
+  "interpretationBoundary": {
+    "facts": "Only rendered claims with visible screenshot regions, visible DOM and exact computed values are treated as facts.",
+    "interpretations": "The narrowest reusable meaning is inferred from the observed page and state scope; no local state is promoted to a global brand role.",
+    "recommendations": "Downstream work may translate structure and content while preserving each pattern contract, but may not invent unsupported assets, motion, shadows or color roles."
+  },
+  "patterns": [
+    {
+      "id": "dango-docs-shell-responsive",
+      "status": "approved",
+      "scope": "cross-page documentation shell",
+      "mustPreserveRefs": ["docs-shell"],
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile",
+        "dango-v2-button-page-shell"
+      ],
+      "sourceRegion": [0, 0, 1, 1],
+      "fact": "At 1440×900 the pages use a 56px full-width header above a 200px left navigation, 1060px main reading area and 180px right outline; at 390px both sidebars are absent and the main becomes a single 390px column.",
+      "interpretation": "The brand's primary composition is a restrained documentation frame that separates navigation, reading and local orientation, then reflows to reading-first mobile content instead of scaling the desktop grid.",
+      "recommendation": "Reuse the shell for multi-section technical documentation and preserve reading-first responsive reflow.",
+      "composition": {
+        "desktop": "header plus left navigation, main reading column and right outline",
+        "mobile": "header plus one reading column with both sidebars removed",
+        "informationDensity": "dense navigation around a generous central reading surface; long content remains vertically scrollable",
+        "responsiveStructure": "responsive-reflow"
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "dango-docs-shell-dom-css",
+          "variant": "desktop-three-column-to-mobile-single-column",
+          "sourceKind": "dom-css-reconstruction"
+        },
+        "requiredLayers": [
+          {
+            "id": "global-header",
+            "role": "global navigation and utilities",
+            "evidenceRefs": ["dango-v2-docs-shell-desktop"],
+            "sourceRegion": [0, 0, 1, 0.062222]
+          },
+          {
+            "id": "left-navigation",
+            "role": "documentation taxonomy",
+            "evidenceRefs": ["dango-v2-docs-shell-desktop"],
+            "sourceRegion": [0, 0.062222, 0.138889, 0.937778]
+          },
+          {
+            "id": "reading-column",
+            "role": "primary sequential content",
+            "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-button-page-shell"],
+            "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778]
+          },
+          {
+            "id": "right-outline",
+            "role": "local page orientation",
+            "evidenceRefs": ["dango-v2-docs-shell-desktop"],
+            "sourceRegion": [0.875, 0.062222, 0.125, 0.937778]
+          }
+        ],
+        "readingOrder": ["global-header", "left-navigation", "reading-column", "right-outline"],
+        "mobileTransformation": "Remove both sidebars and reflow the reading column to viewport width; do not uniformly scale the desktop columns."
+      },
+      "suitableFor": ["technical documentation", "component reference", "long multi-section guides"],
+      "notFor": ["marketing hero", "single-action campaign page", "dense desktop grid squeezed into mobile"],
+      "allowedTransformations": ["responsive-reflow", "content substitution inside the reading column", "section count changes while retaining navigation-reading-orientation roles"],
+      "forbiddenTransformations": ["uniform desktop scaling on mobile", "turning sidebars into decorative rails", "using a source screenshot as runtime composition"]
+    },
+    {
+      "id": "dango-editorial-technical-hierarchy",
+      "status": "approved",
+      "scope": "documentation reading column",
+      "mustPreserveRefs": ["content-hierarchy"],
+      "evidenceRefs": ["dango-v2-content-hierarchy"],
+      "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786],
+      "fact": "Introduction combines a 36px/700 H1, 24px/600 H2 headings, explanatory prose, a flat technical process block, lists and following sections.",
+      "interpretation": "Hierarchy is created by type scale, weight, spacing and a quiet technical surface rather than ornamental imagery or shadow depth.",
+      "recommendation": "Build documentation sections as a readable sequence of title, explanation, structured technical artifact and follow-up sections.",
+      "composition": {
+        "readingOrder": ["page title", "introductory prose", "technical process surface", "structured list", "following section heading"],
+        "informationDensity": "moderate-to-dense technical content with clear vertical grouping",
+        "surfaceHierarchy": "white reading canvas with a flat light technical block"
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "dango-introduction-content-dom",
+          "variant": "title-prose-process-list-sections",
+          "sourceKind": "dom-css-reconstruction"
+        },
+        "requiredLayers": [
+          {
+            "id": "title-and-introduction",
+            "role": "establish page topic and premise",
+            "evidenceRefs": ["dango-v2-content-hierarchy"],
+            "sourceRegion": [0.161111, 0.088889, 0.691667, 0.125]
+          },
+          {
+            "id": "technical-process-surface",
+            "role": "hold structured technical explanation without decorative depth",
+            "evidenceRefs": ["dango-v2-content-hierarchy"],
+            "sourceRegion": [0.161111, 0.22, 0.691667, 0.397778]
+          },
+          {
+            "id": "follow-up-content",
+            "role": "continue the documented hierarchy through lists and sections",
+            "evidenceRefs": ["dango-v2-content-hierarchy"],
+            "sourceRegion": [0.161111, 0.64, 0.691667, 0.234889]
+          }
+        ],
+        "readingOrder": ["title-and-introduction", "technical-process-surface", "follow-up-content"]
+      },
+      "suitableFor": ["concept introductions", "technical workflows", "API explanations with structured prose"],
+      "notFor": ["image-led storytelling", "large promotional slogans", "card mosaics with equal visual weight"],
+      "allowedTransformations": ["replace technical content", "add or remove subordinate sections", "reflow structured content vertically on narrow screens"],
+      "forbiddenTransformations": ["replace hierarchy with one undifferentiated panel", "add unsupported elevation as the primary hierarchy mechanism", "use typography alone without the observed content sequence"]
+    },
+    {
+      "id": "dango-purple-state-roles",
+      "status": "approved",
+      "scope": "current-page navigation cue and primary action only",
+      "mustPreserveRefs": ["accent-semantics"],
+      "evidenceRefs": ["dango-v2-active-navigation", "dango-v2-primary-button"],
+      "sourceRegion": [0.008333, 0.114444, 0.121528, 0.036111],
+      "fact": "The current-page row uses rgb(88,84,255) text on rgba(88,84,255,0.08), while the normal Primary button uses rgb(124,102,255) fill with white text.",
+      "interpretation": "Purple distinguishes selected navigation context and the primary action; the two measured purples are state-specific roles, not interchangeable global canvas colors.",
+      "recommendation": "Apply the exact measured values only to their validated roles and keep surrounding documentation surfaces quiet.",
+      "composition": {
+        "informationDensity": "small, sparse state cues inside a predominantly neutral documentation shell"
+      },
+      "colorRoles": [
+        {
+          "value": "rgb(88, 84, 255)",
+          "allowedRoles": ["current-page navigation text"],
+          "forbiddenRoles": ["primary button fill", "section background", "page canvas", "generic link color"]
+        },
+        {
+          "value": "rgba(88, 84, 255, 0.08)",
+          "allowedRoles": ["current-page navigation background"],
+          "forbiddenRoles": ["content panel fill", "hero background", "hover state inferred without evidence"]
+        },
+        {
+          "value": "rgb(124, 102, 255)",
+          "allowedRoles": ["default primary button fill", "hover primary button fill", "activated-settled primary button fill"],
+          "forbiddenRoles": ["current-page navigation text", "page canvas", "decorative section chrome"]
+        }
+      ],
+      "suitableFor": ["current navigation state", "primary button"],
+      "notFor": ["large decorative surfaces", "all links", "all interactive states", "brand-wide purple wash"],
+      "allowedTransformations": ["preserve semantic role when content labels change"],
+      "forbiddenTransformations": ["merge the two purples into one universal accent", "extend purple to unobserved hover surfaces", "infer palette roles from frequency or variable names"]
+    },
+    {
+      "id": "dango-primary-button-state-contract",
+      "status": "approved",
+      "scope": "normal-size primary button",
+      "mustPreserveRefs": ["button-state-system"],
+      "evidenceRefs": [
+        "dango-v2-primary-button",
+        "dango-v2-primary-button-hover-no-change",
+        "dango-v2-primary-button-focus",
+        "dango-v2-primary-button-activated"
+      ],
+      "sourceRegion": [0, 0, 1, 1],
+      "fact": "The observed Primary button is 77.15625×32px with a 4px radius, white text and purple fill; hover and settled activation do not change the fill, while focus adds a 1px rgb(0,95,204) browser outline.",
+      "interpretation": "The control is compact and visually stable across pointer and activation states; keyboard focus visibility is a separate boundary owned by the outline, not a purple fill mutation.",
+      "recommendation": "Preserve compact geometry, stable fill and an independently visible focus outline for this documented Primary state system.",
+      "composition": {
+        "componentGeometry": "32px high normal control with 4px corner radius",
+        "informationDensity": "compact inline action suitable for dense documentation examples"
+      },
+      "suitableFor": ["normal-size primary action", "live component documentation example"],
+      "notFor": ["generic pill control", "large hero CTA inferred from this crop", "hover animation", "pressed-fill effect"],
+      "allowedTransformations": ["label-width expansion while retaining height and radius", "platform-equivalent focus indicator that remains independently visible"],
+      "forbiddenTransformations": ["invent hover transform or shadow", "darken fill on click without evidence", "remove focus visibility", "reinterpret activated-settled-focus-retained as active/current"]
+    }
+  ],
+  "semanticClaims": [
+    {
+      "id": "semantic-docs-shell-desktop-layout",
+      "kind": "layout",
+      "status": "approved",
+      "role": "desktop-documentation-shell",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop"],
+      "allowedRoles": ["desktop documentation shell"],
+      "forbiddenRoles": ["mobile fixed three-column shell", "generic application dashboard"]
+    },
+    {
+      "id": "semantic-docs-shell-mobile-layout",
+      "kind": "layout",
+      "status": "approved",
+      "role": "mobile-reading-reflow",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-docs-shell-mobile"],
+      "allowedRoles": ["390px documentation reading column"],
+      "forbiddenRoles": ["proof that the desktop grid should be uniformly scaled"]
+    },
+    {
+      "id": "semantic-document-title-type",
+      "kind": "typography",
+      "status": "approved",
+      "role": "documentation-page-title",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-content-hierarchy"],
+      "allowedRoles": ["top-level documentation page title at 36px/700", "section heading at the separately observed 24px/600"],
+      "forbiddenRoles": ["global font-family claim", "marketing display headline", "promotion of extractor typography counts"]
+    },
+    {
+      "id": "semantic-current-page-purple",
+      "kind": "color",
+      "status": "approved",
+      "role": "current-page-navigation-cue",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-active-navigation"],
+      "allowedRoles": ["rgb(88,84,255) current-page text", "rgba(88,84,255,0.08) current-page background"],
+      "forbiddenRoles": ["primary action fill", "page background", "generic accent"]
+    },
+    {
+      "id": "semantic-primary-action-purple",
+      "kind": "color",
+      "status": "approved",
+      "role": "normal-primary-button-fill",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-primary-button"],
+      "allowedRoles": ["rgb(124,102,255) primary button fill", "white primary button label"],
+      "forbiddenRoles": ["navigation-current text", "section background", "universal accent"]
+    },
+    {
+      "id": "semantic-primary-button-radius",
+      "kind": "radius",
+      "status": "approved",
+      "role": "normal-primary-button-corner",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-primary-button"],
+      "allowedRoles": ["4px normal primary button radius"],
+      "forbiddenRoles": ["global component radius", "pill control", "card radius"]
+    },
+    {
+      "id": "semantic-primary-hover-stability",
+      "kind": "interaction",
+      "status": "approved",
+      "role": "primary-button-hover-no-visible-change",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-primary-button-hover-no-change"],
+      "allowedRoles": ["preserve primary fill through sampled hover transition and settled hover"],
+      "forbiddenRoles": ["global no-hover rule", "invented hover animation"]
+    },
+    {
+      "id": "semantic-primary-focus-outline",
+      "kind": "interaction",
+      "status": "approved",
+      "role": "primary-button-focus-indicator",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-primary-button-focus"],
+      "allowedRoles": ["thin independently visible focus outline around the sampled Primary button"],
+      "forbiddenRoles": ["brand focus token for all controls", "fill change", "focus suppression"]
+    },
+    {
+      "id": "semantic-primary-activated-stability",
+      "kind": "interaction",
+      "status": "approved",
+      "role": "activated-settled-focus-retained",
+      "origin": "rendered-observed-claim",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": ["dango-v2-primary-button-activated"],
+      "allowedRoles": ["settled post-click Primary state retaining focus and unchanged fill"],
+      "forbiddenRoles": ["active navigation", "persistent selected button", "invented pressed fill"]
+    }
+  ],
+  "colorRoles": [
+    {
+      "id": "current-page-navigation",
+      "allowedRoles": ["current-page text", "current-page pale background"],
+      "forbiddenRoles": ["global accent", "large surface", "primary action"]
+    },
+    {
+      "id": "primary-button",
+      "allowedRoles": ["primary action fill and white label"],
+      "forbiddenRoles": ["navigation current state", "large surface", "decorative chrome"]
+    }
+  ],
+  "styleRecipeDetails": [
+    {
+      "id": "recipe-responsive-docs-shell",
+      "patternRef": "dango-docs-shell-responsive",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile", "dango-v2-button-page-shell"],
+      "sourceRegion": [0, 0, 1, 1],
+      "instruction": "Compose the desktop navigation-reading-outline frame and reflow to one reading column at 390px.",
+      "suitableFor": ["long technical documentation"],
+      "notFor": ["marketing hero", "uniformly scaled mobile grid"],
+      "allowedTransformations": ["responsive-reflow", "content substitution"]
+    },
+    {
+      "id": "recipe-editorial-technical-sequence",
+      "patternRef": "dango-editorial-technical-hierarchy",
+      "evidenceRefs": ["dango-v2-content-hierarchy"],
+      "sourceRegion": [0.161111, 0.088889, 0.691667, 0.786],
+      "instruction": "Use title, prose, flat technical surface, structured list and following sections as distinct reading layers.",
+      "suitableFor": ["technical explanation"],
+      "notFor": ["ornamental asset-led section"],
+      "allowedTransformations": ["replace content while preserving hierarchy"]
+    },
+    {
+      "id": "recipe-scoped-purple-states",
+      "patternRef": "dango-purple-state-roles",
+      "evidenceRefs": ["dango-v2-active-navigation", "dango-v2-primary-button"],
+      "sourceRegion": [0.008333, 0.114444, 0.121528, 0.036111],
+      "instruction": "Keep navigation-current purple and primary-action purple separate and local to their observed roles.",
+      "suitableFor": ["current navigation", "primary action"],
+      "notFor": ["section chrome", "global purple wash"],
+      "allowedTransformations": ["semantic label substitution"]
+    }
+  ],
+  "interactionRecipes": [
+    {
+      "id": "recipe-primary-button-observed-states",
+      "patternRef": "dango-primary-button-state-contract",
+      "evidenceRefs": ["dango-v2-primary-button", "dango-v2-primary-button-hover-no-change", "dango-v2-primary-button-focus", "dango-v2-primary-button-activated"],
+      "sourceRegion": [0, 0, 1, 1],
+      "states": {
+        "default": "purple fill, white label, 32px height, 4px radius",
+        "hover": "no visible or computed fill change in the sampled transition and settled state",
+        "focus": "1px auto outline in rgb(0,95,204), fill unchanged",
+        "activated": "settled crop retains focus appearance and unchanged fill"
+      },
+      "purpose": "Keep the compact primary action stable while preserving keyboard focus visibility.",
+      "suitableFor": ["normal primary button"],
+      "notFor": ["global interaction behavior", "invented hover/pressed motion"],
+      "allowedTransformations": ["platform-equivalent independently visible focus indicator"]
+    }
+  ],
+  "assetRoleBoundaries": {
+    "approved": [
+      {
+        "role": "composition-bearing source structure",
+        "identity": "DOM/CSS documentation shell and technical content",
+        "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-button-page-shell", "dango-v2-content-hierarchy"],
+        "allowedTransformations": ["independent DOM/CSS reconstruction"]
+      }
+    ],
+    "forbidden": ["source screenshots as runtime assets", "icon-font inventory as proof of a visible high-salience asset", "unobserved hero, campaign, illustration or background assets"]
+  },
+  "distinctivenessSignalContract": {
+    "scope": "candidate guidance for a later apply-host decision; this learn-brand run does not authorize host application",
+    "signals": [
+      {
+        "id": "signal-docs-shell-composition",
+        "dimension": "composition",
+        "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-button-page-shell"],
+        "minimumViewportAreaRatio": 0.8,
+        "suitableFor": ["high-capacity documentation route"],
+        "notFor": ["transactional form", "small embedded widget"]
+      },
+      {
+        "id": "signal-editorial-type-hierarchy",
+        "dimension": "type",
+        "evidenceRefs": ["dango-v2-content-hierarchy"],
+        "minimumViewportAreaRatio": 0.1,
+        "suitableFor": ["documentation introduction", "technical guide"],
+        "notFor": ["logo-only branding", "dense data table"]
+      },
+      {
+        "id": "signal-scoped-purple-state-cue",
+        "dimension": "color",
+        "evidenceRefs": ["dango-v2-active-navigation", "dango-v2-primary-button"],
+        "minimumViewportAreaRatio": 0.003,
+        "suitableFor": ["current-page cue", "primary action"],
+        "notFor": ["high-carrier-page signal by itself", "large surface fill"]
+      }
+    ],
+    "minimumCombination": {
+      "lowOrMediumCarrier": ["signal-docs-shell-composition", "signal-editorial-type-hierarchy", "signal-scoped-purple-state-cue"],
+      "highCarrier": "unresolved: current Evidence does not prove three signals across three dimensions that each occupy at least 5% of the viewport; request more Evidence rather than inflating small purple controls or inventing asset/motion signals"
+    }
+  },
+  "mustPreserveMappings": [
+    {"goalItem": "docs-shell", "patternRefs": ["dango-docs-shell-responsive"], "status": "mapped"},
+    {"goalItem": "content-hierarchy", "patternRefs": ["dango-editorial-technical-hierarchy"], "status": "mapped"},
+    {"goalItem": "accent-semantics", "patternRefs": ["dango-purple-state-roles"], "status": "mapped"},
+    {"goalItem": "button-state-system", "patternRefs": ["dango-primary-button-state-contract"], "status": "mapped"}
+  ],
+  "unresolvedClaims": [
+    {
+      "id": "global-font-family",
+      "reason": "The observed claim validates H1/H2 size and weight but does not contain a complete rendered evidence chain for a reusable global font-family role.",
+      "failureOwnerRole": "brandResearcher"
+    },
+    {
+      "id": "brand-shadow-system",
+      "reason": "The aggregate shadow seed was rejected and no goal-scoped rendered shadow claim exists.",
+      "failureOwnerRole": "brandResearcher"
+    },
+    {
+      "id": "high-salience-image-or-motion-language",
+      "reason": "The rendered asset inventory contains only font/icon candidates and no observed hero, illustration, background or motion-bearing brand asset in the frozen scope.",
+      "failureOwnerRole": "brandResearcher"
+    }
+  ],
+  "antiPatterns": [
+    "Do not turn the aggregate palette into freely combinable tokens.",
+    "Do not promote current-page navigation purple to a universal accent.",
+    "Do not invent hover, pressed, transform or shadow feedback for the sampled Primary button.",
+    "Do not copy source screenshots into runtime output.",
+    "Do not claim icon-font inventory as visible asset language without a rendered goal claim.",
+    "Do not treat the observed mobile title occlusion as a desirable reusable invariant."
+  ]
+}

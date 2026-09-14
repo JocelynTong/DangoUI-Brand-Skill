@@ -1,0 +1,16 @@
+{
+  "schema":"brand-generative-proof/v1","brand":"dango-v2","goalSha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286","attempt":2,"status":"implemented-independent-qa-pending",
+  "challenge":{"id":"dango-v2-release-checklist-held-out","heldOut":true,"sourceContentIndependent":true,"mapsToSourcePageId":null,"selectedAfterRuleFreeze":true,"contentChange":"Introduction and Button subjects are replaced by an original release-readiness guide.","structureChange":"A three-stage readiness artifact is followed by a separate checklist and reversible run action; neither source page has this section sequence."},
+  "frozenRules":[
+    {"recipeId":"dango-docs-shell-responsive","frozenBeforeChallenge":true,"application":"Preserve the evidence-backed header, taxonomy, reading column, outline and mobile reading order."},
+    {"recipeId":"dango-editorial-technical-hierarchy","frozenBeforeChallenge":true,"application":"Use title, prose, structured technical artifact and follow-up hierarchy for a new technical subject."},
+    {"recipeId":"dango-purple-state-roles","frozenBeforeChallenge":true,"application":"Use #5854FF only for current navigation and do not expand it into section chrome."},
+    {"recipeId":"dango-primary-button-state-contract","frozenBeforeChallenge":true,"application":"Use the 32px, 4px-radius #7C66FF Primary action with stable fill and visible focus."}
+  ],
+  "invariants":["dango-docs-shell-responsive","dango-editorial-technical-hierarchy","dango-purple-state-roles","dango-primary-button-state-contract"],
+  "variedInput":"A release-readiness guide with a three-stage structured artifact, checklist follow-up and reversible run state; this topic and structure do not appear on either source page.",
+  "output":{"demoPageId":"dango-v2-release-checklist","route":"/#/brand/dango-v2/pages/dango-v2-release-checklist","screenshot":{"path":"migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png","sha256":"f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4","viewport":{"width":1440,"height":1204},"state":"initial-held-out"}},
+  "checks":{"brandCueSubstitution":false,"sourceScreenshotAtRuntime":false,"sourceCropAtRuntime":false,"officialAssetSwapOnly":false,"copyOnlyVariation":false,"structureRulesApplied":["dango-docs-shell-responsive","dango-editorial-technical-hierarchy","dango-purple-state-roles","dango-primary-button-state-contract"],"reversibleInteraction":{"before":"default","after":"activated-focus-retained","restored":"default","selfCheck":"pass"},"implementationSelfCheck":"pass","blindQaStatus":"pending"},
+  "whyInSystem":"The held-out page reuses the bounded documentation shell, hierarchy and compact action rules while changing both subject matter and inner artifact structure. It does not mirror a source composition or merely swap an asset.",
+  "prohibitedShortcuts":["source screenshot runtime","source crop runtime","generic purple section backgrounds","copy-only variation"],"visualVerdict":"not-self-assessed"
+}

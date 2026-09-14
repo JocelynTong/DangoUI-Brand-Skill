@@ -1,0 +1,59 @@
+{
+  "schema": "brand-evidence-repair-handoff/v1",
+  "brand": "dango-v2",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "ownerRole": "brandResearcher",
+  "agentExecutionId": "/root/dango_v2_evidence_hash_repair",
+  "scope": "Repair only the stale Button source screenshot hash reported by fresh QA.",
+  "sourceVerification": {
+    "url": "https://dumpling.echo.tech/style/button",
+    "path": "migrations/dango-v2/captures/source/button/desktop/frame-00.png",
+    "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013",
+    "dimensions": {"width": 1440, "height": 900},
+    "content": "Rendered Dango UI Button documentation initial viewport with visible title, three-column documentation shell, examples and code reference.",
+    "readability": "pass",
+    "replacementAssessment": "not-replaced-in-error",
+    "crossChecks": [
+      "migrations/dango-v2/captures/source/button/desktop/timeline.json#frames[0]",
+      "migrations/dango-v2/source-observation-manifest.json#pages[button]",
+      "migrations/dango-v2/qa-input-manifest.json",
+      "migrations/dango-v2/fresh-qa-input-handoff.json"
+    ]
+  },
+  "repair": {
+    "claimId": "dango-v2-button-page-shell",
+    "file": "migrations/dango-v2/brand-evidence.json",
+    "oldCaptureSha256": "e9a2df8b4c8e1d9afb096c2cd23d7f91777f56d8f755f50cb39a7b9e2c3b69e2",
+    "newCaptureSha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013",
+    "resultingFileSha256": "b06eef0f67c044883c13b1d171f03ebd34a2d0f49cb41c8bb7815dcfce02d161",
+    "manifestChanges": [],
+    "dispositionChanges": []
+  },
+  "handoffSemanticRepair": {
+    "field": "observedFact",
+    "claimCount": 9,
+    "method": "Copied each existing visibleFact verbatim into the required observedFact field.",
+    "factsChanged": false,
+    "dispositionsChanged": false
+  },
+  "gate": {
+    "command": "node skills/brand/scripts/brand-guard.mjs evidence-visibility-gate --brand dango-v2 --strict",
+    "verdict": "pass",
+    "blockingCount": 0,
+    "warningCount": 0
+  },
+  "handoffArtifactGate": {
+    "command": "node skills/brand/scripts/brand-guard.mjs handoff-artifact-gate --mode learn-brand --brand dango-v2 --strict",
+    "verdict": "pass",
+    "blockingCount": 0,
+    "evidenceClaimRequiredFieldCount": 9,
+    "evidenceClaimRequiredFieldVerdict": "pass",
+    "unrelatedWarnings": 2
+  },
+  "handoff": {
+    "status": "ready-for-fresh-qa",
+    "clearsFinding": "qa-dango-v2-button-evidence-capture-hash-stale",
+    "doesNotModify": ["goal-contract", "brand-intent", "approved-visual-patterns", "demo", "visual-qa-assessment", "registry"]
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "schema": "brand-site-evidence/v1",
+  "brand": "dango-v2",
+  "sourceUrl": "https://dumpling.echo.tech/",
+  "createdAt": "2026-09-14T08:27:29.525Z",
+  "collection": {
+    "documents": [
+      {
+        "type": "html",
+        "url": "https://dumpling.echo.tech/",
+        "bytes": 111
+      }
+    ],
+    "sampleCount": 0,
+    "warningCount": 0,
+    "scope": "dango-v2",
+    "warnings": []
+  },
+  "dominantToneDecision": {
+    "result": "",
+    "confidence": 0,
+    "minConfidence": 0.65,
+    "topFamilies": [],
+    "competingTone": "blue-sky",
+    "competingScore": 0,
+    "reason": [
+      "Dark/brown canvas plus yellow/gold action colors outscore blue/cyan evidence."
+    ],
+    "assetCaveat": "Image/asset colors are intentionally down-weighted. They prove media atmosphere, not UI token dominance."
+  },
+  "familyScores": {},
+  "topColors": [],
+  "roleEvidence": {},
+  "gate": {
+    "ok": false,
+    "minConfidence": 0.65,
+    "message": "Tone evidence is weak. Keep as draft and ask for screenshot/design confirmation before changing adapter/demo tokens."
+  }
+}

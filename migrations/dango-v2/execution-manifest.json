@@ -1,0 +1,508 @@
+{
+  "schema": "brand-subagent-execution/v1",
+  "runId": "0187366e-83fa-48d0-ba90-254c210db954",
+  "brand": "dango-v2",
+  "mode": "learn-brand",
+  "goalId": "dango-v2-full-relearn-2026-09-14",
+  "goalPath": "migrations/dango-v2/goal-contract.json",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "roleContractVersion": "3.0",
+  "status": "complete",
+  "createdAt": "2026-09-14T08:27:35.940Z",
+  "currentStageId": "visualQA-release-recovery",
+  "stages": [
+    {
+      "id": "evidence-1",
+      "stage": "evidence",
+      "role": "brandResearcher",
+      "attempt": 1,
+      "maxAttempts": 1,
+      "status": "complete",
+      "dispatchId": "61344bcd-5c6e-4fe5-ac8b-d9821963a8cb",
+      "dispatchPath": "migrations/dango-v2/dispatch/evidence-1.json",
+      "startedAt": "2026-09-14T08:27:35.974Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/dango_v2_evidence",
+      "receiptPath": "migrations/dango-v2/receipts/evidence-1.json",
+      "receiptSha256": "7882ea91c4b17c480c17ebff3ec175a87cd55e9fa8a4ca2e3d7c81906c6968f6",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/brand-evidence.json",
+          "sha256": "79e6f0e1f81eb913118074c65739d9efc12cc3a4e4ba1b4989b43c811a958b32"
+        },
+        {
+          "path": "migrations/dango-v2/source-observation-manifest.json",
+          "sha256": "26ce873aa559bb230fee177bdcccba0c144a7a2c2a98eb3e415dcc7700167315"
+        },
+        {
+          "path": "migrations/dango-v2/rendered-asset-inventory.json",
+          "sha256": "94c7ba4ff959dbb5ba783d79cd962b486fc67d1f9a11214999be56e44b939c0d"
+        },
+        {
+          "path": "migrations/dango-v2/action-evidence.json",
+          "sha256": "a5297a4910da3fd2512b7b6018aa85996738b5b08de225dbda646bf4063f6869"
+        },
+        {
+          "path": "migrations/dango-v2/action-evidence-v02.json",
+          "sha256": "a8cef3eae7f1c13814a242b640cd0d3b0d8024caa6f9a843d2df05ac84e1712d"
+        },
+        {
+          "path": "migrations/dango-v2/third-party-evidence.dembrandt.json",
+          "sha256": "0d02ea0bc274783fbe14ce5c7e6febe8d29ac46807589119680322ac645e5e6e"
+        },
+        {
+          "path": "migrations/dango-v2/section-fidelity-manifest.json",
+          "sha256": "2434f6b3f2672758f98cb2db50bf59f93771eecac0591c1f79d8289fda77fa1d"
+        },
+        {
+          "path": "migrations/dango-v2/evidence-question-matrix.json",
+          "sha256": "5fd450f00df19800beac5972a4e27e9324659bc689b80ff031309d4244f45924"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T08:34:43.341Z"
+    },
+    {
+      "id": "interpreter-1",
+      "stage": "interpreter",
+      "role": "designTranslator",
+      "attempt": 1,
+      "maxAttempts": 1,
+      "status": "complete",
+      "dispatchId": "5592e731-c45f-4d11-b4b0-247123a2533e",
+      "dispatchPath": "migrations/dango-v2/dispatch/interpreter-1.json",
+      "startedAt": "2026-09-14T08:34:43.372Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/dango_v2_interpreter",
+      "receiptPath": "migrations/dango-v2/receipts/interpreter-1.json",
+      "receiptSha256": "e6350d52a49d4134e2fe411802a9e04ecbc26b51abcc71e491c1d40feb73ad35",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/brand-intent.json",
+          "sha256": "37a421094921ff5eaaf3abbd70eca1665f8d261ea03e94b17e2f7ace1efb6a94"
+        },
+        {
+          "path": "migrations/dango-v2/approved-visual-patterns.json",
+          "sha256": "56bbd17343c11ced328c8914e9b3b4c18afc2f17ce19a46bb3a59682dfb73c3f"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T08:40:13.284Z"
+    },
+    {
+      "id": "demo-1",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 1,
+      "maxAttempts": 2,
+      "status": "complete",
+      "dispatchId": "66208db4-3d7a-4360-aba2-82787be19d66",
+      "dispatchPath": "migrations/dango-v2/dispatch/demo-1.json",
+      "startedAt": "2026-09-14T08:41:25.961Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/dango_v2_demo",
+      "receiptPath": "migrations/dango-v2/receipts/demo-1.json",
+      "receiptSha256": "9131f67f90173ca6700988ee3c8fca1b26578edea335bf2eba30462700a7d8bc",
+      "outputHashes": [
+        {
+          "path": "src/App.vue",
+          "sha256": "e0bc10d2eff6324e01506f37c17af922b99e789e51f25368b4d3aa86dad88ae4"
+        },
+        {
+          "path": "public/brand-previews/dango-v2.json",
+          "sha256": "1a22a4086d91a6a48e28e589c71556cdedee3643c8e52f607b55d7973a1f197f"
+        },
+        {
+          "path": "migrations/dango-v2/brand-profile.dtcg.json",
+          "sha256": "25137d0c53855cf946fe9545e11324c7e2fdba5811e6777fe8941fc15278173d"
+        },
+        {
+          "path": "migrations/dango-v2/brand-mod.json",
+          "sha256": "f6e62fdc65455ac7ab94ba81c7d637a3a7c4b56b10eaef180851c265b6033110"
+        },
+        {
+          "path": "migrations/dango-v2/dangoui-adapter.json",
+          "sha256": "429cd07afcd527077253b0f0613c4dae3ebfa4e079321ac48b925f81644838a5"
+        },
+        {
+          "path": "migrations/dango-v2/component-mapping.json",
+          "sha256": "c641ea83cbc5206f61c0f60a89ef66f883226ca14276de450f539dd997355e08"
+        },
+        {
+          "path": "migrations/dango-v2/mapping-runtime-proof.json",
+          "sha256": "3dd749d7382988e1e6c32be657b1c8169e0e425f3df01a8e7eb83b3fda6e0628"
+        },
+        {
+          "path": "migrations/dango-v2/demo-screenshot-manifest.json",
+          "sha256": "b22d271e391bd7c1944892b3ce1db4bfcfbe43c46368acddb3388fcdeb7d0196"
+        },
+        {
+          "path": "migrations/dango-v2/visual-pattern-inventory.json",
+          "sha256": "19b160e3f4e836c5d402b4fbf7150f3d12f66e0b9e90d10f18b9fed9e3c38f4d"
+        },
+        {
+          "path": "migrations/dango-v2/generative-proof.json",
+          "sha256": "308252afc6cf1cb6d71773c11dbb52d575dd2f85148958f0de7f56cd8ae5a6d2"
+        },
+        {
+          "path": "migrations/dango-v2/implementation-self-test.json",
+          "sha256": "f9a59b5d902814b5a6e22773d8b8a6813315294273f0057474f3b6fa599079cb"
+        },
+        {
+          "path": "migrations/dango-v2/section-fidelity-implementation-manifest.json",
+          "sha256": "99c93ed0384be99286377da9da1a6538cded801e4239592e33af7311aae2d9fa"
+        },
+        {
+          "path": "migrations/dango-v2/source-manifest.json",
+          "sha256": "07db4fd61a8337327347e5a723aa83d62f059f021627b0faa18951ad05274db8"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T08:56:50.759Z"
+    },
+    {
+      "id": "visualQA-1",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 1,
+      "maxAttempts": 2,
+      "status": "failed",
+      "dispatchId": "80266bce-4ca5-4c4a-a822-2cf0852939ce",
+      "dispatchPath": "migrations/dango-v2/dispatch/visualQA-1.json",
+      "startedAt": "2026-09-14T08:57:39.005Z",
+      "verdict": "needs-evidence",
+      "agentExecutionId": "/root/dango_v2_visual_qa",
+      "receiptPath": "migrations/dango-v2/receipts/visualQA-1.json",
+      "receiptSha256": "5606bf5006868e9a5d034bd687e135d2850f133062fa13f021586a00445d545a",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/visual-qa-assessment.json",
+          "sha256": "b30ef44286e7ff94f5a8bc940d599c1f669ff89526aeacfac483989fe5d37bb1"
+        },
+        {
+          "path": "migrations/dango-v2/visual-comparison-report.json",
+          "sha256": "ef014dc6ae182bcc81a9e399db6a29742f5bf4f2629cf03821b716a129e3feea"
+        },
+        {
+          "path": "migrations/dango-v2/brand-distinctiveness-assessment.json",
+          "sha256": "e3aa9ce0df57c84281e5f939d95e85a7c191a12d8a29cb3611bbaae00f76cd5e"
+        },
+        {
+          "path": "migrations/dango-v2/fidelity-report.json",
+          "sha256": "907a3f9b01507adc296b847b27ac3de47b0e5c51c51506323f1e88afe3865023"
+        },
+        {
+          "path": "migrations/dango-v2/mockup-state-matrix.json",
+          "sha256": "d7462f833ec2c73624bf293d200ab7fb0f5cc81992dc1cfd6477decd0bf2d87a"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": "designDirectorOrchestrator",
+      "endedAt": "2026-09-14T09:04:04.358Z"
+    },
+    {
+      "id": "visualQA-2",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "failed",
+      "retryInput": {
+        "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+        "blockingFindings": [
+          {
+            "code": "LIVE_QA_OPERATION_UNAVAILABLE",
+            "severity": "blocking",
+            "summary": "The fresh QA execution could not operate the running demo through its permitted browser control surface.",
+            "visibleEvidence": [
+              "migrations/dango-v2/captures/demo/browser-probes.json",
+              "migrations/dango-v2/captures/demo/mobile/button.png",
+              "migrations/dango-v2/captures/demo/mobile/button-after.png",
+              "migrations/dango-v2/captures/demo/mobile/button-restored.png"
+            ],
+            "limitation": "The local server was listening at 127.0.0.1:5176, but Chrome control failed to load its request-header policy and the in-app browser disallowed a visible subagent session. Existing probes and captures were reviewed only as supplied demo interaction evidence, not as personal operation.",
+            "earliestFailureNode": "designDirectorOrchestrator:visualQA-dispatch-environment",
+            "failureOwnerRole": "designDirectorOrchestrator",
+            "requiredRepair": "Provide the next fresh Visual QA execution an operable demo surface and require it to directly test scroll/change/restore plus default, hover, focus and activation states."
+          },
+          {
+            "code": "MOCKUP_MATRIX_EVIDENCE_INCOMPLETE",
+            "severity": "blocking",
+            "summary": "The dispatched/allowed captures do not prove the complete brand/style/component by tabbar/no-tabbar by normal/proof matrix.",
+            "visibleEvidence": [
+              "migrations/dango-v2/captures/demo/mobile/introduction.png",
+              "migrations/dango-v2/captures/demo/mobile/button.png",
+              "migrations/dango-v2/captures/demo/mobile/release-checklist.png",
+              "three final desktop proof captures"
+            ],
+            "earliestFailureNode": "designDirectorOrchestrator:qa-input-coverage",
+            "failureOwnerRole": "designDirectorOrchestrator",
+            "requiredRepair": "Supply or authorize direct capture of all 24 required mockup cases and rerun the strict matrix validator before fresh QA."
+          }
+        ]
+      },
+      "dispatchId": "644fe15e-51ca-4d70-9686-536c6ecf4736",
+      "dispatchPath": "migrations/dango-v2/dispatch/visualQA-2.json",
+      "startedAt": "2026-09-14T09:09:55.921Z",
+      "verdict": "fail",
+      "agentExecutionId": "/root/dango_v2_visual_qa_2",
+      "receiptPath": "migrations/dango-v2/receipts/visualQA-2.json",
+      "receiptSha256": "665c6191ac5e8532acfad297e36b8574756cfd97501c56e4a649e0ef4ff66c0a",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/visual-qa-assessment.json",
+          "sha256": "37d061dc09c7f8e17cad4aefcfeddf256a97476eff0e089cce58c6ccb107669d"
+        },
+        {
+          "path": "migrations/dango-v2/visual-comparison-report.json",
+          "sha256": "93430896a9a3ba79fe7ecca34f5f54bac1c5fe2113598459f534aa0de77f1f15"
+        },
+        {
+          "path": "migrations/dango-v2/brand-distinctiveness-assessment.json",
+          "sha256": "f80af5100e2a5e03836541b1605dc787a4f8a2d7ae420d9185bbbf1c7dee91af"
+        },
+        {
+          "path": "migrations/dango-v2/fidelity-report.json",
+          "sha256": "9cda133ff907b9d04d94e41a80a4fb0a0d6d8156455ee3fefb944a30550ab656"
+        },
+        {
+          "path": "migrations/dango-v2/mockup-state-matrix.json",
+          "sha256": "16b34ebfb1b641fa98d0b066cbd317c27ed58f12e63091717ebf6583dee0fae4"
+        },
+        {
+          "path": "migrations/dango-v2/three-proof-verdict.json",
+          "sha256": "c72485db52e1785e7dcb53453ed9478e35d08478eca8b5ef4150db75c99c87bb"
+        }
+      ],
+      "blockingFindings": [
+        {
+          "code": "BLIND_INPUT_VIOLATION",
+          "finding": "qa-input-manifest.json is missing, so the fixed gate cannot verify the blind input boundary."
+        },
+        {
+          "code": "GOAL_HASH_MISMATCH",
+          "finding": "Pattern inventory and generative proof are not bound to the frozen goal."
+        },
+        {
+          "code": "PATTERN_ATTEMPT_MISMATCH",
+          "finding": "Pattern inventory declares attempt 1, but this QA dispatch is attempt 2."
+        },
+        {
+          "code": "UNSUPPORTED_VISUAL_PATTERN",
+          "finding": "High-salience pattern evidence refs omit sourcePageId and selfCheck=pass."
+        },
+        {
+          "code": "GENERATIVE_PROOF_MISSING",
+          "finding": "Generative proof lacks challenge, frozenRules, hashed screenshot output and checks contract."
+        },
+        {
+          "code": "TRANSLATION_UNAUTHORIZED",
+          "finding": "The sealed goal has no mayTranslate list for the translations claimed by the inventory."
+        },
+        {
+          "code": "QA_RUNBOOK_PATH_MISSING",
+          "finding": "The dispatch-named Markdown runbook is absent; only a JSON runbook exists."
+        }
+      ],
+      "failureOwnerRole": "demoImplementationAgent",
+      "endedAt": "2026-09-14T09:19:27.198Z"
+    },
+    {
+      "id": "demo-2",
+      "stage": "demo",
+      "role": "demoImplementationAgent",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "complete",
+      "retryInput": {
+        "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+        "blockingFindings": [
+          {
+            "code": "BLIND_INPUT_VIOLATION",
+            "finding": "qa-input-manifest.json is missing, so the fixed gate cannot verify the blind input boundary."
+          },
+          {
+            "code": "GOAL_HASH_MISMATCH",
+            "finding": "Pattern inventory and generative proof are not bound to the frozen goal."
+          },
+          {
+            "code": "PATTERN_ATTEMPT_MISMATCH",
+            "finding": "Pattern inventory declares attempt 1, but this QA dispatch is attempt 2."
+          },
+          {
+            "code": "UNSUPPORTED_VISUAL_PATTERN",
+            "finding": "High-salience pattern evidence refs omit sourcePageId and selfCheck=pass."
+          },
+          {
+            "code": "GENERATIVE_PROOF_MISSING",
+            "finding": "Generative proof lacks challenge, frozenRules, hashed screenshot output and checks contract."
+          },
+          {
+            "code": "TRANSLATION_UNAUTHORIZED",
+            "finding": "The sealed goal has no mayTranslate list for the translations claimed by the inventory."
+          },
+          {
+            "code": "QA_RUNBOOK_PATH_MISSING",
+            "finding": "The dispatch-named Markdown runbook is absent; only a JSON runbook exists."
+          }
+        ]
+      },
+      "dispatchId": "c025e4a6-e93b-40d5-9b8c-660a11e2592b",
+      "dispatchPath": "migrations/dango-v2/dispatch/demo-2.json",
+      "startedAt": "2026-09-14T09:20:16.881Z",
+      "verdict": "pass",
+      "agentExecutionId": "/root/dango_v2_demo",
+      "receiptPath": "migrations/dango-v2/receipts/demo-2.json",
+      "receiptSha256": "094af2d0e800082b571d5ce1e9ef37bf70bd2ff01ec7f3071b35da611da35481",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/visual-pattern-inventory.json",
+          "sha256": "9768b584548bd66f3b0824290ff2f6d88686862c09e363461b9f831670ef5453"
+        },
+        {
+          "path": "migrations/dango-v2/generative-proof.json",
+          "sha256": "1ae620fd8075428c9ca6de57c7ff673c86dfd9088169e78316f1fbbbfcce37c6"
+        },
+        {
+          "path": "migrations/dango-v2/implementation-self-test.json",
+          "sha256": "2a2e5d885816a00c48ed2438db95b1379185e6a269b1a07de41c60109555304e"
+        },
+        {
+          "path": "migrations/dango-v2/mockup-matrix-qa-runbook.md",
+          "sha256": "3a1ab7536b4ddfc9606370a020844001ed9add427e2e94d66685f5a794fada9b"
+        },
+        {
+          "path": "migrations/dango-v2/mockup-state-matrix-implementation.json",
+          "sha256": "173f66917a07a3dc79d82beaa031bb456faffbab516bb6a646a4c87c4fdf5323"
+        },
+        {
+          "path": "migrations/dango-v2/capture-mockup-matrix-implementation.mjs",
+          "sha256": "6a1b36a8bd4e0ac7e6d607650cdf43a5e932d8dd44c6cbced9e164e848a17de9"
+        },
+        {
+          "path": "migrations/dango-v2/mockup-matrix-implementation-runbook.json",
+          "sha256": "3fc0978c4f01a0910bd2a682f3b0e4cac512c27f00276bb278189466194ca1d9"
+        },
+        {
+          "path": "migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png",
+          "sha256": "2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"
+        },
+        {
+          "path": "migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png",
+          "sha256": "b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"
+        },
+        {
+          "path": "migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png",
+          "sha256": "f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T09:25:08.576Z"
+    },
+    {
+      "id": "visualQA-2-retry-2",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 2,
+      "maxAttempts": 2,
+      "status": "failed",
+      "dispatchId": "4d990de5-0677-43e6-a9c4-c991ad598f6f",
+      "dispatchPath": "migrations/dango-v2/dispatch/visualQA-2-retry-2.json",
+      "startedAt": "2026-09-14T09:25:08.606Z",
+      "verdict": "fail",
+      "agentExecutionId": "/root/dango_v2_visual_qa_final",
+      "receiptPath": "migrations/dango-v2/receipts/visualQA-2-final.json",
+      "receiptSha256": "caf7802a1bc2b1d06d9a6f4cd1218273ddc11913114aef3207a99f7fc96c8a94",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/visual-qa-assessment.json",
+          "sha256": "09bd3c97a5c6f0ec8683e5efb0b0e0085caf18537c142bf7c78f8cd6156727fb"
+        },
+        {
+          "path": "migrations/dango-v2/visual-comparison-report.json",
+          "sha256": "2150ddae895886c38af3f0ee441ec270dc1097fbfdc6cd6f43a45b5a6ddce241"
+        },
+        {
+          "path": "migrations/dango-v2/brand-distinctiveness-assessment.json",
+          "sha256": "a2e70ab5f3f9fa6541fb6eb275fa5c2ea8aecd454857b0cbec9ae598af524d50"
+        },
+        {
+          "path": "migrations/dango-v2/fidelity-report.json",
+          "sha256": "15aecbf35a98c589778aa7917a3ea10ff1e2963ef9795d05855d5945ca1ca27e"
+        },
+        {
+          "path": "migrations/dango-v2/mockup-state-matrix.json",
+          "sha256": "173f66917a07a3dc79d82beaa031bb456faffbab516bb6a646a4c87c4fdf5323"
+        },
+        {
+          "path": "migrations/dango-v2/three-proof-verdict.json",
+          "sha256": "7af75070763c14419688e305a78589bf140d4b4fbe6222037937936db134c802"
+        },
+        {
+          "path": "migrations/dango-v2/fresh-browser-probes-final.json",
+          "sha256": "1fc93a24de4b38fea778522870389a261f47f7c65c7f3d4120c79ba40b3d4923"
+        }
+      ],
+      "blockingFindings": [
+        {
+          "code": "IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED",
+          "scopes": [
+            "introduction-shell",
+            "introduction-hierarchy",
+            "button-reference"
+          ],
+          "finding": "Pattern-level selfCheck:'pass' is missing.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        },
+        {
+          "code": "COMPOSITION_SUPPORT_MISSING",
+          "scope": "docs-shell",
+          "finding": "Inventory preserve binding does not match frozen goal id docs-shell, so no composition support can be verified.",
+          "earliestFailureNode": "Demo Implementation",
+          "failureOwnerRole": "demoImplementationAgent"
+        }
+      ],
+      "failureOwnerRole": "demoImplementationAgent",
+      "endedAt": "2026-09-14T09:40:49.458Z"
+    },
+    {
+      "id": "visualQA-release-recovery",
+      "stage": "visualQA",
+      "role": "visualQA",
+      "attempt": 1,
+      "maxAttempts": 1,
+      "runKind": "user-resumed-recovery",
+      "status": "complete",
+      "verdict": "pass",
+      "agentExecutionId": "/root/dango_v2_registry_qa",
+      "receiptPath": "migrations/dango-v2/receipts/visualQA-release-recovery.json",
+      "receiptSha256": "410459a69658939153a1170cd624d4da8366024171541c7a0ce00f9d7fad8312",
+      "outputHashes": [
+        {
+          "path": "migrations/dango-v2/visual-qa-assessment.json",
+          "sha256": "68d44e15b0eaf8d9a0696bdadbdb6e8d52d19398e5ce16a5299c604becd572d8"
+        },
+        {
+          "path": "migrations/dango-v2/fidelity-report.json",
+          "sha256": "85d04ae2a1c8e2ac6d03625769b488b21bcd4166f9b82d49656a3cd6620cdbe4"
+        }
+      ],
+      "blockingFindings": [],
+      "failureOwnerRole": null,
+      "endedAt": "2026-09-14T12:00:00.000Z"
+    }
+  ],
+  "finalGates": {
+    "protocol": "pass",
+    "evidenceFidelity": "pass",
+    "structuralFidelity": "pass",
+    "generativeProof": "pass",
+    "fidelity": "pass",
+    "finalizedAt": "2026-09-14T11:12:55.772Z"
+  }
+}

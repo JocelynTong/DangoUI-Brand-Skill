@@ -1,0 +1,33 @@
+{
+  "schema": "brand-blind-qa-input/v1",
+  "brand": "dango-v2",
+  "attempt": 2,
+  "qaExecutionId": "/root/dango_v2_registry_qa",
+  "implementationExecutionId": "/root/dango_v2_mobile_repair",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "forbiddenInputsAbsent": {"implementationRationale":true,"priorVerdict":true,"buildPassAsVisualEvidence":true,"mainConversation":true},
+  "allowedInputs": [
+    {"kind":"fresh-qa-input-handoff","path":"migrations/dango-v2/fresh-qa-input-handoff.json","sha256":"3137a461abbcced81ebd1ba2e83d63e7cbf797205b2d46a6c84dac67e98c9059"},
+    {"kind":"goal-contract","path":"migrations/dango-v2/goal-contract.json","sha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"},
+    {"kind":"brand-evidence","path":"migrations/dango-v2/brand-evidence.json","sha256":"b06eef0f67c044883c13b1d171f03ebd34a2d0f49cb41c8bb7815dcfce02d161"},
+    {"kind":"brand-intent","path":"migrations/dango-v2/brand-intent.json","sha256":"37a421094921ff5eaaf3abbd70eca1665f8d261ea03e94b17e2f7ace1efb6a94"},
+    {"kind":"approved-visual-patterns","path":"migrations/dango-v2/approved-visual-patterns.json","sha256":"56bbd17343c11ced328c8914e9b3b4c18afc2f17ce19a46bb3a59682dfb73c3f"},
+    {"kind":"visual-pattern-inventory","path":"migrations/dango-v2/visual-pattern-inventory.json","sha256":"4e2e5a0abe6b66e17dbd0bfbbe5b12b52a5bb86e7bb0fb5717e03e0997530dd1"},
+    {"kind":"generative-proof","path":"migrations/dango-v2/generative-proof.json","sha256":"1ae620fd8075428c9ca6de57c7ff673c86dfd9088169e78316f1fbbbfcce37c6"},
+    {"kind":"demo-runtime-style","path":"src/styles.css","sha256":"c98c29dcf7ae68a8557eb0e8c252441ee1b2b668fbd1ecbc429ffa9192751930"},
+    {"kind":"demo-screenshot-manifest","path":"migrations/dango-v2/demo-screenshot-manifest.json","sha256":"f79c3ad5d2af2588c4bdd12e3ae248674fff405416f93c5b9a8b897701ed3b66"},
+    {"kind":"demo-browser-probes","path":"migrations/dango-v2/captures/demo/browser-probes.json","sha256":"8d1cf371bc22f7163d916e1550dff6f9fa2189a60499c983b71cdf67160ab435"},
+    {"kind":"section-fidelity-implementation","path":"migrations/dango-v2/section-fidelity-implementation-manifest.json","sha256":"d3b08226413a8aacff53570fe8f0632bc16c3d2b23cc88b2eb7e3a6a3e564410"},
+    {"kind":"mockup-state-matrix-implementation","path":"migrations/dango-v2/mockup-state-matrix-implementation.json","sha256":"173f66917a07a3dc79d82beaa031bb456faffbab516bb6a646a4c87c4fdf5323"},
+    {"kind":"implementation-self-test","path":"migrations/dango-v2/implementation-self-test.json","sha256":"b4a158b3c2a528aadb219b6dbceb2a3680e193bddf51a1ca2fa45e22fcbaffc8"},
+    {"kind":"shared-showcase-regression-matrix","path":"migrations/dango-v2/shared-showcase-regression-matrix.json","sha256":"1888948894089a752a466a262e0a3eae0af34ad4d85d4f92d0ee252f35fd349e"},
+    {"kind":"source-screenshot","path":"migrations/dango-v2/captures/source/introduction/desktop/frame-00.png","sha256":"9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"},
+    {"kind":"source-screenshot","path":"migrations/dango-v2/captures/source/button/desktop/frame-00.png","sha256":"b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"},
+    {"kind":"demo-screenshot","path":"migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png","sha256":"2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"},
+    {"kind":"demo-screenshot","path":"migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png","sha256":"b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"},
+    {"kind":"demo-screenshot","path":"migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png","sha256":"f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"},
+    {"kind":"demo-screenshot-mobile-browser-389","path":"migrations/dango-v2/captures/demo/mobile/introduction-browser-389.png","sha256":"19a26842943c4b31b3599a2e0b742198bc8a45ad57f3fb0698a3781c5d698a81"},
+    {"kind":"demo-screenshot-mobile-browser-389","path":"migrations/dango-v2/captures/demo/mobile/button-browser-389.png","sha256":"92a700dfdc1f9dae316b43e976c18dd87e69453375f42f53e227e9f7bef78a19"},
+    {"kind":"demo-screenshot-mobile-browser-389","path":"migrations/dango-v2/captures/demo/mobile/release-checklist-browser-389.png","sha256":"6d6c00f447892aa8e09cd3b43078c9c221734b08308481c2328c0017c54aca83"}
+  ]
+}

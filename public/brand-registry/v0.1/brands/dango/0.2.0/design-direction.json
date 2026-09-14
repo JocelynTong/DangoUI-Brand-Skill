@@ -1,0 +1,210 @@
+{
+  "schema": "brand-design-direction/v1",
+  "brand": "dango-v2",
+  "scope": "goal:dango-v2-full-relearn-2026-09-14 pages:introduction|button|release-checklist-held-out",
+  "designObjective": "Prove DangoUI as a restrained, high-density documentation system: a responsive navigation-reading-outline shell, editorial technical hierarchy, compact state-accurate controls, and a source-independent held-out guide that reuses those rules without turning purple into generic decoration.",
+  "decisionStatus": "approved",
+  "inputBindings": {
+    "goal": {
+      "path": "migrations/dango-v2/goal-contract.json",
+      "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"
+    },
+    "evidence": {
+      "path": "migrations/dango-v2/brand-evidence.json",
+      "sha256": "79e6f0e1f81eb913118074c65739d9efc12cc3a4e4ba1b4989b43c811a958b32"
+    },
+    "intent": {
+      "path": "migrations/dango-v2/brand-intent.json",
+      "sha256": "37a421094921ff5eaaf3abbd70eca1665f8d261ea03e94b17e2f7ace1efb6a94"
+    },
+    "patterns": {
+      "path": "migrations/dango-v2/approved-visual-patterns.json",
+      "sha256": "56bbd17343c11ced328c8914e9b3b4c18afc2f17ce19a46bb3a59682dfb73c3f"
+    }
+  },
+  "visualPriorityOrder": [
+    "content visibility, legibility and complete reading access",
+    "documentation shell composition and orientation hierarchy",
+    "technical content sequence and information density",
+    "narrow current-navigation and primary-action purple roles",
+    "compact control geometry and truthful interaction states",
+    "responsive reflow without desktop-grid squeezing",
+    "protocol completeness"
+  ],
+  "sections": [
+    {
+      "id": "introduction-documentation-calibration",
+      "firstImpressionGoal": "A quiet four-zone desktop documentation frame makes the long-form Introduction immediately readable, with the technical process surface carrying the main visual mass; mobile becomes one continuous reading column rather than a miniature desktop grid.",
+      "mustPreserve": [
+        "56px global header",
+        "desktop left navigation and right outline around the reading column",
+        "36px title and 24px section hierarchy",
+        "flat light technical-process surface",
+        "title-to-prose-to-process-to-list reading order",
+        "mobile single-column responsive reflow"
+      ],
+      "mayChange": [
+        "documentation copy",
+        "technical process content",
+        "subordinate section count",
+        "mobile line wrapping needed for full readability"
+      ],
+      "mustNotDo": [
+        "use the source screenshot as runtime content",
+        "replace the technical sequence with an equal card grid",
+        "add unsupported shadow depth or decorative imagery",
+        "uniformly scale the desktop shell on mobile",
+        "copy source horizontal clipping as a brand requirement"
+      ]
+    },
+    {
+      "id": "button-reference-calibration",
+      "firstImpressionGoal": "A dense component-reference page pairs independently reviewable live button modules with code, keeping compact controls and their exact state semantics visible without turning the page into a generic component gallery.",
+      "mustPreserve": [
+        "page title and concise component description",
+        "import/code surface",
+        "multiple independently reviewable button modules",
+        "live-example and code relationship on desktop",
+        "32px normal Primary button with 4px radius",
+        "stable purple fill through hover and activation",
+        "independently visible focus outline"
+      ],
+      "mayChange": [
+        "example labels",
+        "code snippets",
+        "module ordering",
+        "mobile stacking while every module remains reachable"
+      ],
+      "mustNotDo": [
+        "collapse all examples into one showcase strip",
+        "invent hover transforms, shadows or pressed fills",
+        "merge navigation purple and Primary-button purple",
+        "remove keyboard focus visibility",
+        "allow wide control rows to become permanently unreachable"
+      ]
+    },
+    {
+      "id": "held-out-release-checklist",
+      "firstImpressionGoal": "A new release-readiness guide feels native to the same DangoUI documentation system through shell roles, technical hierarchy, compact truthful actions and restrained purple state cues, while using content and structure that do not exist on the source pages.",
+      "mustPreserve": [
+        "responsive documentation shell roles",
+        "clear title-prose-structured-artifact-follow-up hierarchy",
+        "at least two schema sections",
+        "one reversible compact interaction",
+        "current-navigation and Primary-action purple roles remain separate",
+        "normal phone mockup remains visible and scrollable"
+      ],
+      "mayChange": [
+        "release-checklist content",
+        "section count and order",
+        "technical artifact format",
+        "navigation labels"
+      ],
+      "mustNotDo": [
+        "mirror either source page",
+        "reuse source screenshots at runtime",
+        "claim unsupported global typography, motion or elevation",
+        "use purple as a page or section background",
+        "treat changed copy alone as generative proof"
+      ]
+    }
+  ],
+  "highSalienceElements": [
+    "global documentation header",
+    "desktop left navigation",
+    "primary reading column",
+    "desktop right outline",
+    "technical process surface",
+    "live-example and code reference modules",
+    "normal Primary button",
+    "current-page navigation cue"
+  ],
+  "responsiveStrategyMatrix": [
+    {
+      "element": "global documentation header",
+      "elementType": "control",
+      "strategy": "responsive-reflow",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["global orientation", "brand mark", "reachable utilities", "56px desktop height"],
+      "minimumReadableSize": "12px labels / 44px interactive targets where controls are enabled"
+    },
+    {
+      "element": "desktop left navigation",
+      "elementType": "control",
+      "strategy": "structural-substitution",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["desktop taxonomy role", "current-page truth", "mobile reading priority"],
+      "minimumReadableSize": "14px navigation text / no hidden fake controls"
+    },
+    {
+      "element": "primary reading column",
+      "elementType": "text",
+      "strategy": "responsive-reflow",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile", "dango-v2-content-hierarchy"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["primary reading role", "sequential hierarchy", "vertical reachability", "safe mobile inset"],
+      "minimumReadableSize": "16px body / 36px page title desktop with readable mobile wrapping"
+    },
+    {
+      "element": "desktop right outline",
+      "elementType": "control",
+      "strategy": "structural-substitution",
+      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["desktop local-orientation role", "mobile removal without lost reading access"],
+      "minimumReadableSize": "12px outline text when rendered"
+    },
+    {
+      "element": "technical process surface",
+      "elementType": "text",
+      "strategy": "responsive-reflow",
+      "evidenceRefs": ["dango-v2-content-hierarchy"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["flat light surface", "technical sequence", "hierarchy distinct from prose", "complete readable content"],
+      "minimumReadableSize": "12px-equivalent monospaced technical content without permanent horizontal loss"
+    },
+    {
+      "element": "live-example and code reference modules",
+      "elementType": "text",
+      "strategy": "responsive-reflow",
+      "evidenceRefs": ["dango-v2-button-reference-density", "dango-v2-button-page-shell"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["multiple modules", "example-code relationship", "module labels", "independent reviewability"],
+      "minimumReadableSize": "12px code / 14px example labels with vertical mobile stacking"
+    },
+    {
+      "element": "normal Primary button",
+      "elementType": "control",
+      "strategy": "independent-scale",
+      "evidenceRefs": ["dango-v2-primary-button", "dango-v2-primary-button-hover-no-change", "dango-v2-primary-button-focus", "dango-v2-primary-button-activated"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["32px visual control height", "4px radius", "stable #7C66FF fill", "white label", "separate focus outline"],
+      "minimumReadableSize": "32px documented visual height with an accessible hit target or explicit documentation-only boundary"
+    },
+    {
+      "element": "current-page navigation cue",
+      "elementType": "control",
+      "strategy": "structural-substitution",
+      "evidenceRefs": ["dango-v2-active-navigation"],
+      "viewports": ["1440x900", "390x844"],
+      "mustPreserve": ["#5854FF text role", "8% purple background role", "current-location semantics", "no expansion to generic accent"],
+      "minimumReadableSize": "14px current-location label when navigation is rendered"
+    }
+  ],
+  "proofSurfacePlan": {
+    "desktopCanvas": "Independent 1440x900 source/demo captures for Introduction and Button plus a held-out documentation guide; calibration content viewport excludes inspector chrome.",
+    "mobileCanvas": "Independent 390x844 captures prove single-column reflow and complete reading access while the normal user route retains the visible phone mockup and a separate explicit proof mode exposes the calibration canvas.",
+    "inspectorPolicy": "Exclude app rail, browser chrome, debug overlays, selection outlines and annotations from fidelity captures; validate the normal mockup route separately from proof canvases.",
+    "sourceComparison": "Compare source and demo at the same viewport with bounded regions for shell, hierarchy, reference modules and controls; operate scroll and Primary states, then confirm restoration. Judge held-out only on frozen-rule reuse and structural novelty."
+  },
+  "orchestratorDecision": {
+    "status": "approved-for-demo-dispatch",
+    "selectedDirection": "responsive technical documentation system",
+    "readabilityCorrection": "Preserve the observed mobile reading-first reflow, but do not reproduce source horizontal clipping where it would hide content; this is an accessibility/readability correction, not a new brand pattern.",
+    "colorBoundary": "#5854FF remains current-navigation only and #7C66FF remains the observed normal Primary fill; neither becomes generic section chrome.",
+    "assetBoundary": "Use DOM/CSS reconstruction and independent Demo content; source screenshots remain QA evidence only.",
+    "publication": "Keep dango-v2 outside preview and public Registry until implementation self-test, fresh independent Blind QA, all three proof gates, handoff/retro gates, build, registry build and release validation pass."
+  }
+}

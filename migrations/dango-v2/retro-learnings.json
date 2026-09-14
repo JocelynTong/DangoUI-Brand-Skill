@@ -1,0 +1,56 @@
+{
+  "schema": "brand-retro-learnings/v1",
+  "brand": "dango-v2",
+  "attempt": 2,
+  "status": "landed",
+  "learnings": [
+    {
+      "problem": "The fidelity validator treated an approved visual pattern wrapper as the composition contract and falsely reported its frozen layers as missing.",
+      "resolution": "Resolve approvedVisualPattern.compositionContract before normalization and cover the nested current schema in the normalization self-test.",
+      "landing": "skills/brand/scripts/validate-brand-fidelity.mjs",
+      "target": "skills/brand",
+      "source": "dango-v2 structural fidelity repair",
+      "repeatability": "cross-brand",
+      "gateCandidate": "NESTED_COMPOSITION_CONTRACT_RESOLUTION"
+    },
+    {
+      "problem": "Document-level width probes passed while a narrower shared showcase ancestor clipped the mobile page on both sides.",
+      "resolution": "Validate every visible ancestor boundary in addition to document scroll width, and require the content rectangle to remain inside each clipping owner.",
+      "landing": "migrations/dango-v2/shared-showcase-regression-matrix.json",
+      "target": "skills/brand section and mockup QA",
+      "source": "fresh Blind QA at 389 CSS pixels",
+      "repeatability": "cross-brand",
+      "gateCandidate": "ANCESTOR_CLIP_MASKS_INNER_FIT"
+    },
+    {
+      "problem": "The current Button source capture was valid but one Evidence claim retained the hash of an older capture revision.",
+      "resolution": "Bind every Evidence claim to the current captured file hash and cross-check it against the source timeline and Blind QA input manifest before handoff.",
+      "landing": "migrations/dango-v2/evidence-hash-repair-handoff.json",
+      "target": "skills/brand evidence handoff",
+      "source": "dango-v2 fresh QA",
+      "repeatability": "cross-brand",
+      "gateCandidate": "EVIDENCE_CAPTURE_HASH_DRIFT"
+    }
+  ],
+  "decisions": [
+    {
+      "problem": "The Demo passed desktop visual review before its real narrow-browser shell was exercised.",
+      "resolution": "Keep desktop proof surfaces and normal phone routes separate, and require a real browser-width probe for both the page and its shared showcase ancestors.",
+      "landing": "dango-v2 release QA protocol",
+      "target": "migrations/dango-v2",
+      "source": "independent Blind QA",
+      "repeatability": "case-specific"
+    }
+  ],
+  "ruleCandidates": [
+    {
+      "problem": "No-horizontal-overflow can be a false positive when overflow-hidden ancestors crop a wider child.",
+      "resolution": "Promote ancestor content visibility and clipping-owner bounds to an explicit visual QA signal after confirmation in another brand.",
+      "landing": "workflow-contract verification.ruleCandidates",
+      "target": "skills/brand",
+      "source": "dango-v2 shared showcase regression",
+      "repeatability": "candidate-warning",
+      "gateCandidate": "VISIBLE_CONTENT_BOUNDS_CLIPPED"
+    }
+  ]
+}

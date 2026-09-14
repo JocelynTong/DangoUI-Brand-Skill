@@ -1,0 +1,39 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "dispatchId":"644fe15e-51ca-4d70-9686-536c6ecf4736",
+  "stageId":"visualQA-2",
+  "role":"visualQA",
+  "agentExecutionId":"/root/dango_v2_visual_qa_2",
+  "goalSha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "verdict":"fail",
+  "inputs":[
+    {"path":"migrations/dango-v2/goal-contract.json","sha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"},
+    {"path":"migrations/dango-v2/captures/source/introduction/desktop/frame-00.png","sha256":"9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"},
+    {"path":"migrations/dango-v2/captures/source/button/desktop/frame-00.png","sha256":"b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"},
+    {"path":"migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png","sha256":"2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"},
+    {"path":"migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png","sha256":"b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"},
+    {"path":"migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png","sha256":"f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"},
+    {"path":"migrations/dango-v2/visual-pattern-inventory.json","sha256":"19b160e3f4e836c5d402b4fbf7150f3d12f66e0b9e90d10f18b9fed9e3c38f4d"},
+    {"path":"migrations/dango-v2/generative-proof.json","sha256":"308252afc6cf1cb6d71773c11dbb52d575dd2f85148958f0de7f56cd8ae5a6d2"},
+    {"path":"migrations/dango-v2/mockup-state-matrix-implementation.json","sha256":"173f66917a07a3dc79d82beaa031bb456faffbab516bb6a646a4c87c4fdf5323"},
+    {"path":"migrations/dango-v2/mockup-matrix-implementation-runbook.json","sha256":"3fc0978c4f01a0910bd2a682f3b0e4cac512c27f00276bb278189466194ca1d9"}
+  ],
+  "outputs":[
+    {"path":"migrations/dango-v2/visual-qa-assessment.json","sha256":"37d061dc09c7f8e17cad4aefcfeddf256a97476eff0e089cce58c6ccb107669d"},
+    {"path":"migrations/dango-v2/visual-comparison-report.json","sha256":"93430896a9a3ba79fe7ecca34f5f54bac1c5fe2113598459f534aa0de77f1f15"},
+    {"path":"migrations/dango-v2/brand-distinctiveness-assessment.json","sha256":"f80af5100e2a5e03836541b1605dc787a4f8a2d7ae420d9185bbbf1c7dee91af"},
+    {"path":"migrations/dango-v2/fidelity-report.json","sha256":"9cda133ff907b9d04d94e41a80a4fb0a0d6d8156455ee3fefb944a30550ab656"},
+    {"path":"migrations/dango-v2/mockup-state-matrix.json","sha256":"16b34ebfb1b641fa98d0b066cbd317c27ed58f12e63091717ebf6583dee0fae4"},
+    {"path":"migrations/dango-v2/three-proof-verdict.json","sha256":"c72485db52e1785e7dcb53453ed9478e35d08478eca8b5ef4150db75c99c87bb"}
+  ],
+  "blockingFindings":[
+    {"code":"BLIND_INPUT_VIOLATION","finding":"qa-input-manifest.json is missing, so the fixed gate cannot verify the blind input boundary."},
+    {"code":"GOAL_HASH_MISMATCH","finding":"Pattern inventory and generative proof are not bound to the frozen goal."},
+    {"code":"PATTERN_ATTEMPT_MISMATCH","finding":"Pattern inventory declares attempt 1, but this QA dispatch is attempt 2."},
+    {"code":"UNSUPPORTED_VISUAL_PATTERN","finding":"High-salience pattern evidence refs omit sourcePageId and selfCheck=pass."},
+    {"code":"GENERATIVE_PROOF_MISSING","finding":"Generative proof lacks challenge, frozenRules, hashed screenshot output and checks contract."},
+    {"code":"TRANSLATION_UNAUTHORIZED","finding":"The sealed goal has no mayTranslate list for the translations claimed by the inventory."},
+    {"code":"QA_RUNBOOK_PATH_MISSING","finding":"The dispatch-named Markdown runbook is absent; only a JSON runbook exists."}
+  ],
+  "failureOwnerRole":"demoImplementationAgent"
+}

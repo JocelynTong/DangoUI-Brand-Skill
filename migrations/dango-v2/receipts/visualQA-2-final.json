@@ -1,0 +1,43 @@
+{
+  "schema":"brand-subagent-receipt/v1",
+  "dispatchId":"4d990de5-0677-43e6-a9c4-c991ad598f6f",
+  "runId":"0187366e-83fa-48d0-ba90-254c210db954",
+  "stageId":"visualQA-2-retry-2",
+  "stage":"visualQA",
+  "role":"visualQA",
+  "attempt":2,
+  "agentExecutionId":"/root/dango_v2_visual_qa_final",
+  "goalId":"dango-v2-full-relearn-2026-09-14",
+  "goalSha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "inputs":[
+    {"path":"migrations/dango-v2/goal-contract.json","sha256":"2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"},
+    {"path":"migrations/dango-v2/captures/source/introduction/desktop/frame-00.png","sha256":"9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"},
+    {"path":"migrations/dango-v2/captures/source/button/desktop/frame-00.png","sha256":"b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"},
+    {"path":"migrations/dango-v2/captures/demo/final/dango-v2-introduction-calibration-proof-desktop.png","sha256":"2c229bff7bc7fca0f6228556ee258649ba04af03c261780bd4d7452cdbb33464"},
+    {"path":"migrations/dango-v2/captures/demo/final/dango-v2-button-calibration-proof-desktop.png","sha256":"b2bc052bb67565f0a0d6c88ad8c559f6ad2426f5504488136181467b0bc6cc1a"},
+    {"path":"migrations/dango-v2/captures/demo/final/dango-v2-release-checklist-held-out-proof-desktop.png","sha256":"f651516a4e598aed03f4dcc450ebbd1d7a6bb46fec97c2751edde543028f34f4"},
+    {"path":"migrations/dango-v2/visual-pattern-inventory.json","sha256":"9768b584548bd66f3b0824290ff2f6d88686862c09e363461b9f831670ef5453"},
+    {"path":"migrations/dango-v2/generative-proof.json","sha256":"1ae620fd8075428c9ca6de57c7ff673c86dfd9088169e78316f1fbbbfcce37c6"},
+    {"path":"migrations/dango-v2/captures/demo/browser-probes.json","sha256":"d37db1feed01f342447d5f8b18d6cc95888c90957fa5b20dbf4ff74a31d2a990"},
+    {"path":"migrations/dango-v2/fresh-browser-probes-final.json","sha256":"1fc93a24de4b38fea778522870389a261f47f7c65c7f3d4120c79ba40b3d4923"},
+    {"path":"migrations/dango-v2/qa-input-manifest.json","sha256":"6fd765b9d448d01bdcd5bd4b475eadc92777f24287124c94b7eb87291c04a05c"}
+  ],
+  "outputs":[
+    {"path":"migrations/dango-v2/visual-qa-assessment.json","sha256":"09bd3c97a5c6f0ec8683e5efb0b0e0085caf18537c142bf7c78f8cd6156727fb"},
+    {"path":"migrations/dango-v2/visual-comparison-report.json","sha256":"2150ddae895886c38af3f0ee441ec270dc1097fbfdc6cd6f43a45b5a6ddce241"},
+    {"path":"migrations/dango-v2/brand-distinctiveness-assessment.json","sha256":"a2e70ab5f3f9fa6541fb6eb275fa5c2ea8aecd454857b0cbec9ae598af524d50"},
+    {"path":"migrations/dango-v2/fidelity-report.json","sha256":"15aecbf35a98c589778aa7917a3ea10ff1e2963ef9795d05855d5945ca1ca27e"},
+    {"path":"migrations/dango-v2/mockup-state-matrix.json","sha256":"173f66917a07a3dc79d82beaa031bb456faffbab516bb6a646a4c87c4fdf5323"},
+    {"path":"migrations/dango-v2/three-proof-verdict.json","sha256":"7af75070763c14419688e305a78589bf140d4b4fbe6222037937936db134c802"},
+    {"path":"migrations/dango-v2/fresh-browser-probes-final.json","sha256":"1fc93a24de4b38fea778522870389a261f47f7c65c7f3d4120c79ba40b3d4923"}
+  ],
+  "verdict":"fail",
+  "status":"REWORK",
+  "proofs":{"evidenceFidelity":"pass","structuralFidelity":"fail","generativeProof":"pass"},
+  "blockingFindings":[
+    {"code":"IMPLEMENTATION_PATTERN_SELF_CHECK_FAILED","scopes":["introduction-shell","introduction-hierarchy","button-reference"],"finding":"Pattern-level selfCheck:'pass' is missing.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"},
+    {"code":"COMPOSITION_SUPPORT_MISSING","scope":"docs-shell","finding":"Inventory preserve binding does not match frozen goal id docs-shell, so no composition support can be verified.","earliestFailureNode":"Demo Implementation","failureOwnerRole":"demoImplementationAgent"}
+  ],
+  "failureOwnerRole":"demoImplementationAgent",
+  "machineGates":{"brandFidelity":{"status":"fidelity-fail","overallScore":91.88,"protocolFailures":0},"mockupMatrix":{"status":"pass","observedCases":24,"expectedCases":24}}
+}

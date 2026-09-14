@@ -1,0 +1,785 @@
+{
+  "schema": "brand-shared-showcase-regression-matrix/v1",
+  "brand": "dango-v2",
+  "ownerRole": "demoImplementationAgent",
+  "repairRevision": 3,
+  "sharedSurface": ".workspace > .demo-stage > .component-showcase > .template-preview",
+  "verdict": "pass",
+  "summary": {
+    "total": 10,
+    "passing": 10,
+    "failures": []
+  },
+  "observations": [
+    {
+      "id": "dango-v2-introduction-desktop",
+      "brand": "dango-v2",
+      "pageId": "dango-v2-introduction",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "query": "?proof=desktop",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-v2-introduction-desktop.png",
+      "sha256": "54920685eae7472d80a55f73dd9bb8119fe9f17db00ce3f80b9512d9b7fdff3b",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1310.171875,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".demo-stage": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1310.171875,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".component-showcase": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1310.171875,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1310.171875,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1310.171875,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1310.171875,
+            "overflowX": "visible",
+            "padding": "0px"
+          }
+        },
+        "docs": {
+          "x": 0,
+          "width": 1440,
+          "right": 1440,
+          "fullyVisible": true
+        },
+        "article": {
+          "x": 200,
+          "width": 860,
+          "right": 1060,
+          "fullyVisible": true
+        },
+        "sidebarDisplay": "block",
+        "outlineDisplay": "grid"
+      },
+      "pass": true
+    },
+    {
+      "id": "dango-v2-introduction-mobile-389",
+      "brand": "dango-v2",
+      "pageId": "dango-v2-introduction",
+      "viewport": {
+        "width": 389,
+        "height": 844
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-v2-introduction-mobile-389.png",
+      "sha256": "19a26842943c4b31b3599a2e0b742198bc8a45ad57f3fb0698a3781c5d698a81",
+      "geometry": {
+        "innerWidth": 389,
+        "documentScrollWidth": 389,
+        "rects": {
+          ".workspace": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".demo-stage": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".component-showcase": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 9,
+            "width": 371,
+            "right": 380,
+            "height": 801.359375,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": {
+          "x": 9,
+          "width": 371,
+          "right": 380,
+          "fullyVisible": true
+        },
+        "article": {
+          "x": 9,
+          "width": 371,
+          "right": 380,
+          "fullyVisible": true
+        },
+        "sidebarDisplay": "none",
+        "outlineDisplay": "none"
+      },
+      "pass": true
+    },
+    {
+      "id": "dango-v2-button-desktop",
+      "brand": "dango-v2",
+      "pageId": "dango-v2-button",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "query": "?proof=desktop",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-v2-button-desktop.png",
+      "sha256": "1bbce05ccb0453899afb44ecadac4e25a348c0524e4ae609e63861cbcbcfe7ce",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1593.5,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".demo-stage": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1593.5,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".component-showcase": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1593.5,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1593.5,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1593.5,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1593.5,
+            "overflowX": "visible",
+            "padding": "0px"
+          }
+        },
+        "docs": {
+          "x": 0,
+          "width": 1440,
+          "right": 1440,
+          "fullyVisible": true
+        },
+        "article": {
+          "x": 200,
+          "width": 860,
+          "right": 1060,
+          "fullyVisible": true
+        },
+        "sidebarDisplay": "block",
+        "outlineDisplay": "grid"
+      },
+      "pass": true
+    },
+    {
+      "id": "dango-v2-button-mobile-389",
+      "brand": "dango-v2",
+      "pageId": "dango-v2-button",
+      "viewport": {
+        "width": 389,
+        "height": 844
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-v2-button-mobile-389.png",
+      "sha256": "92a700dfdc1f9dae316b43e976c18dd87e69453375f42f53e227e9f7bef78a19",
+      "geometry": {
+        "innerWidth": 389,
+        "documentScrollWidth": 389,
+        "rects": {
+          ".workspace": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".demo-stage": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".component-showcase": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 9,
+            "width": 371,
+            "right": 380,
+            "height": 801.359375,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": {
+          "x": 9,
+          "width": 371,
+          "right": 380,
+          "fullyVisible": true
+        },
+        "article": {
+          "x": 9,
+          "width": 371,
+          "right": 380,
+          "fullyVisible": true
+        },
+        "sidebarDisplay": "none",
+        "outlineDisplay": "none"
+      },
+      "pass": true
+    },
+    {
+      "id": "dango-v2-release-checklist-desktop",
+      "brand": "dango-v2",
+      "pageId": "dango-v2-release-checklist",
+      "viewport": {
+        "width": 1440,
+        "height": 900
+      },
+      "query": "?proof=desktop",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-v2-release-checklist-desktop.png",
+      "sha256": "5937027c7c581198787442a6027a222889e56c06c316f0019fa7e1ef7ee87926",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1204,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".demo-stage": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1204,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".component-showcase": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1204,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1204,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1204,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 0,
+            "width": 1440,
+            "right": 1440,
+            "height": 1204,
+            "overflowX": "visible",
+            "padding": "0px"
+          }
+        },
+        "docs": {
+          "x": 0,
+          "width": 1440,
+          "right": 1440,
+          "fullyVisible": true
+        },
+        "article": {
+          "x": 200,
+          "width": 860,
+          "right": 1060,
+          "fullyVisible": true
+        },
+        "sidebarDisplay": "block",
+        "outlineDisplay": "grid"
+      },
+      "pass": true
+    },
+    {
+      "id": "dango-v2-release-checklist-mobile-389",
+      "brand": "dango-v2",
+      "pageId": "dango-v2-release-checklist",
+      "viewport": {
+        "width": 389,
+        "height": 844
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-v2-release-checklist-mobile-389.png",
+      "sha256": "6d6c00f447892aa8e09cd3b43078c9c221734b08308481c2328c0017c54aca83",
+      "geometry": {
+        "innerWidth": 389,
+        "documentScrollWidth": 389,
+        "rects": {
+          ".workspace": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".demo-stage": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".component-showcase": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 0,
+            "width": 389,
+            "right": 389,
+            "height": 819.359375,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 9,
+            "width": 371,
+            "right": 380,
+            "height": 801.359375,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": {
+          "x": 9,
+          "width": 371,
+          "right": 380,
+          "fullyVisible": true
+        },
+        "article": {
+          "x": 9,
+          "width": 371,
+          "right": 380,
+          "fullyVisible": true
+        },
+        "sidebarDisplay": "none",
+        "outlineDisplay": "none"
+      },
+      "pass": true
+    },
+    {
+      "id": "dango-default",
+      "brand": "dango",
+      "pageId": "dango-introduction-calibration",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/dango-default.png",
+      "sha256": "93320f50d6cea9fdff995c6bccfc1eb8525a299616c2d28c2276f3c773c9cd23",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 460,
+            "width": 980,
+            "right": 1440,
+            "height": 1000,
+            "overflowX": "hidden",
+            "padding": "24px 43.2px"
+          },
+          ".demo-stage": {
+            "x": 503.1875,
+            "width": 893.625,
+            "right": 1396.8125,
+            "height": 952,
+            "overflowX": "visible",
+            "padding": "28px"
+          },
+          ".component-showcase": {
+            "x": 531.1875,
+            "width": 837.625,
+            "right": 1368.8125,
+            "height": 896,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 764,
+            "width": 372,
+            "right": 1136,
+            "height": 803.453125,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": null,
+        "article": null,
+        "sidebarDisplay": null,
+        "outlineDisplay": null
+      },
+      "pass": true
+    },
+    {
+      "id": "czn-default",
+      "brand": "czn",
+      "pageId": "czn-home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/czn-default.png",
+      "sha256": "b812cd518cac9ffdb26a6aa658192b456309ebec21183121279bf53e9d9e95a3",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 460,
+            "width": 980,
+            "right": 1440,
+            "height": 1000,
+            "overflowX": "hidden",
+            "padding": "24px 43.2px"
+          },
+          ".demo-stage": {
+            "x": 503.1875,
+            "width": 893.625,
+            "right": 1396.8125,
+            "height": 952,
+            "overflowX": "visible",
+            "padding": "28px"
+          },
+          ".component-showcase": {
+            "x": 531.1875,
+            "width": 837.625,
+            "right": 1368.8125,
+            "height": 896,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 764,
+            "width": 372,
+            "right": 1136,
+            "height": 803.453125,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": null,
+        "article": null,
+        "sidebarDisplay": null,
+        "outlineDisplay": null
+      },
+      "pass": true
+    },
+    {
+      "id": "onepiece-cardgame-default",
+      "brand": "onepiece-cardgame",
+      "pageId": "onepiece-cardgame-home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/onepiece-cardgame-default.png",
+      "sha256": "1db6c85dc452b906bc3d4a4229899d2b77387d71daa5dcfcf2cf89dfdc8ca685",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 460,
+            "width": 980,
+            "right": 1440,
+            "height": 1000,
+            "overflowX": "hidden",
+            "padding": "24px 43.2px"
+          },
+          ".demo-stage": {
+            "x": 503.1875,
+            "width": 893.625,
+            "right": 1396.8125,
+            "height": 952,
+            "overflowX": "visible",
+            "padding": "28px"
+          },
+          ".component-showcase": {
+            "x": 531.1875,
+            "width": 837.625,
+            "right": 1368.8125,
+            "height": 896,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 764,
+            "width": 372,
+            "right": 1136,
+            "height": 803.453125,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": null,
+        "article": null,
+        "sidebarDisplay": null,
+        "outlineDisplay": null
+      },
+      "pass": true
+    },
+    {
+      "id": "pokemon-tcg-official-default",
+      "brand": "pokemon-tcg-official",
+      "pageId": "pokemon-tcg-official-home",
+      "viewport": {
+        "width": 1440,
+        "height": 1000
+      },
+      "query": "",
+      "screenshot": "migrations/dango-v2/captures/shared-showcase-regression/pokemon-tcg-official-default.png",
+      "sha256": "11a5e839c50f13bed971bb02bcbede1f1988ab91cd6dc246be5a0d58b309bc67",
+      "geometry": {
+        "innerWidth": 1440,
+        "documentScrollWidth": 1440,
+        "rects": {
+          ".workspace": {
+            "x": 460,
+            "width": 980,
+            "right": 1440,
+            "height": 1000,
+            "overflowX": "hidden",
+            "padding": "24px 43.2px"
+          },
+          ".demo-stage": {
+            "x": 503.1875,
+            "width": 893.625,
+            "right": 1396.8125,
+            "height": 952,
+            "overflowX": "visible",
+            "padding": "28px"
+          },
+          ".component-showcase": {
+            "x": 531.1875,
+            "width": 837.625,
+            "right": 1368.8125,
+            "height": 896,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".template-preview": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone": {
+            "x": 755,
+            "width": 390,
+            "right": 1145,
+            "height": 821.453125,
+            "overflowX": "visible",
+            "padding": "0px"
+          },
+          ".phone-screen": {
+            "x": 764,
+            "width": 372,
+            "right": 1136,
+            "height": 803.453125,
+            "overflowX": "hidden",
+            "padding": "0px"
+          }
+        },
+        "docs": null,
+        "article": null,
+        "sidebarDisplay": null,
+        "outlineDisplay": null
+      },
+      "pass": true
+    }
+  ]
+}

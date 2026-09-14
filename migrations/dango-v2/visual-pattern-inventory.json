@@ -1,0 +1,358 @@
+{
+  "schema": "brand-visual-pattern-inventory/v1",
+  "brand": "dango-v2",
+  "goalSha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286",
+  "attempt": 2,
+  "implementationRepair": {
+    "revision": 3,
+    "owner": "/root/dango_v2_mobile_repair",
+    "reason": "Fresh QA traced the remaining 389px crop to the shared component-showcase ancestor after the docs grid had correctly reflowed.",
+    "responsiveResult": "All shared preview ancestors span the 389px viewport without clipping; all three pages reflow to one reading column, navigation sidebars and outline are hidden, and article content remains fully visible.",
+    "probe": "migrations/dango-v2/captures/demo/browser-probes.json#probes.*.narrowViewport",
+    "crossBrandRegression": "migrations/dango-v2/shared-showcase-regression-matrix.json"
+  },
+  "runtimeAssetPolicy": {
+    "sourceScreenshotsUsedAtRuntime": false,
+    "compositionMethod": "DOM/CSS reconstruction with independent Demo content",
+    "highSalienceRuntimeAssets": []
+  },
+  "pages": [
+    {
+      "demoPageId": "dango-v2-introduction",
+      "sourcePageId": "introduction",
+      "proofRole": "source-mapped",
+      "patterns": [
+        {
+          "id": "introduction-shell",
+          "salience": "high",
+          "description": "Responsive documentation shell with global header, left taxonomy, primary reading column and right outline.",
+          "selfCheck": "pass",
+          "approvedPatternId": "dango-docs-shell-responsive",
+          "preserves": [
+            "docs-shell"
+          ],
+          "evidenceRefs": [
+            {
+              "evidenceId": "dango-v2-docs-shell-desktop",
+              "sourcePageId": "introduction",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "selfCheck": "pass"
+            },
+            {
+              "evidenceId": "dango-v2-docs-shell-mobile",
+              "sourcePageId": "introduction",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "selfCheck": "pass"
+            }
+          ],
+          "demoRegion": [0, 0, 1, 0.687023],
+          "implementationLocation": "src/App.vue#SchemaDangoDocsPageSection + src/styles.css#.dango-docs",
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "dango-docs-shell-dom-css",
+              "variant": "desktop-three-column-to-mobile-single-column"
+            },
+            "demoAsset": {
+              "identity": "dango-docs-shell-dom-css",
+              "variant": "desktop-three-column-to-mobile-single-column"
+            },
+            "layers": [
+              {
+                "id": "global-header",
+                "role": "global navigation and utilities",
+                "sourceRegion": [0, 0, 1, 0.062222],
+                "demoRegion": [0, 0, 1, 0.042748]
+              },
+              {
+                "id": "left-navigation",
+                "role": "documentation taxonomy",
+                "sourceRegion": [0, 0.062222, 0.138889, 0.937778],
+                "demoRegion": [0, 0.042748, 0.2, 0.644275]
+              },
+              {
+                "id": "reading-column",
+                "role": "primary sequential content",
+                "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778],
+                "demoRegion": [0.2, 0.042748, 0.48, 0.644275]
+              },
+              {
+                "id": "right-outline",
+                "role": "local page orientation",
+                "sourceRegion": [0.875, 0.062222, 0.125, 0.937778],
+                "demoRegion": [0.75, 0.042748, 0.25, 0.644275]
+              }
+            ],
+            "translation": {
+              "mode": "none",
+              "cropMode": "same-viewport-top-slice",
+              "retainedFocalPoints": ["global-header", "reading-column"]
+            },
+            "responsivePreservation": "Exact evidence-backed desktop three-column and mobile single-column behavior; no discretionary translation is claimed."
+          }
+        },
+        {
+          "id": "introduction-hierarchy",
+          "salience": "high",
+          "description": "Editorial technical hierarchy built from title, prose, process surface and follow-up sections.",
+          "selfCheck": "pass",
+          "approvedPatternId": "dango-editorial-technical-hierarchy",
+          "preserves": [
+            "content-hierarchy"
+          ],
+          "evidenceRefs": [
+            {
+              "evidenceId": "dango-v2-content-hierarchy",
+              "sourcePageId": "introduction",
+              "sourceRegion": [
+                0.161111,
+                0.088889,
+                0.691667,
+                0.786
+              ],
+              "selfCheck": "pass"
+            }
+          ],
+          "demoRegion": [
+            0.138889,
+            0.062222,
+            0.736111,
+            0.9
+          ],
+          "implementationLocation": "src/App.vue#dangoTechnicalFlow + SchemaDangoDocsContinuationSection",
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "dango-introduction-content-dom",
+              "variant": "title-prose-process-list-sections"
+            },
+            "demoAsset": {
+              "identity": "dango-introduction-content-dom",
+              "variant": "title-prose-process-list-sections"
+            },
+            "layers": [
+              {
+                "id": "title-and-introduction",
+                "role": "establish page topic and premise",
+                "sourceRegion": [0.161111, 0.088889, 0.691667, 0.125],
+                "demoRegion": [0.2, 0.062222, 0.48, 0.16]
+              },
+              {
+                "id": "technical-process-surface",
+                "role": "structured technical explanation",
+                "sourceRegion": [0.161111, 0.22, 0.691667, 0.397778],
+                "demoRegion": [0.2, 0.23, 0.48, 0.3]
+              },
+              {
+                "id": "follow-up-content",
+                "role": "continue hierarchy through lists and sections",
+                "sourceRegion": [0.161111, 0.64, 0.691667, 0.234889],
+                "demoRegion": [0.2, 0.55, 0.48, 0.35]
+              }
+            ],
+            "translation": {"mode": "none"},
+            "responsivePreservation": "Observed vertical mobile reflow is preserved exactly; no discretionary translation is claimed."
+          }
+        }
+      ]
+    },
+    {
+      "demoPageId": "dango-v2-button",
+      "sourcePageId": "button",
+      "proofRole": "source-mapped",
+      "patterns": [
+        {
+          "id": "button-shell",
+          "salience": "high",
+          "description": "Shared responsive documentation shell around the component reference content.",
+          "selfCheck": "pass",
+          "approvedPatternId": "dango-docs-shell-responsive",
+          "preserves": ["docs-shell"],
+          "evidenceRefs": [
+            {
+              "evidenceId": "dango-v2-button-page-shell",
+              "sourcePageId": "button",
+              "sourceRegion": [0, 0, 1, 1],
+              "selfCheck": "pass"
+            }
+          ],
+          "demoRegion": [0, 0, 1, 0.564617],
+          "implementationLocation": "src/App.vue#SchemaDangoDocsPageSection + src/styles.css#.dango-docs",
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "dango-docs-shell-dom-css",
+              "variant": "desktop-three-column-to-mobile-single-column"
+            },
+            "demoAsset": {
+              "identity": "dango-docs-shell-dom-css",
+              "variant": "desktop-three-column-to-mobile-single-column"
+            },
+            "layers": [
+              {
+                "id": "global-header",
+                "role": "global navigation and utilities",
+                "sourceRegion": [0, 0, 1, 0.062222],
+                "demoRegion": [0, 0, 1, 0.035132]
+              },
+              {
+                "id": "left-navigation",
+                "role": "documentation taxonomy",
+                "sourceRegion": [0, 0.062222, 0.138889, 0.937778],
+                "demoRegion": [0, 0.035132, 0.2, 0.529485]
+              },
+              {
+                "id": "reading-column",
+                "role": "primary sequential content",
+                "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778],
+                "demoRegion": [0.2, 0.035132, 0.48, 0.529485]
+              },
+              {
+                "id": "right-outline",
+                "role": "local page orientation",
+                "sourceRegion": [0.875, 0.062222, 0.125, 0.937778],
+                "demoRegion": [0.75, 0.035132, 0.25, 0.529485]
+              }
+            ],
+            "translation": {
+              "mode": "none",
+              "cropMode": "same-viewport-top-slice",
+              "retainedFocalPoints": ["global-header", "reading-column"]
+            },
+            "responsivePreservation": "Exact evidence-backed desktop three-column and mobile single-column behavior; no discretionary translation is claimed."
+          }
+        },
+        {
+          "id": "button-reference",
+          "salience": "high",
+          "description": "Primary button reference pattern with live specimen, paired code and API follow-up.",
+          "selfCheck": "pass",
+          "approvedPatternId": "dango-primary-button-state-contract",
+          "preserves": [
+            "button-state-system",
+            "accent-semantics"
+          ],
+          "evidenceRefs": [
+            {
+              "evidenceId": "dango-v2-primary-button",
+              "sourcePageId": "button",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "selfCheck": "pass"
+            },
+            {
+              "evidenceId": "dango-v2-primary-button-focus",
+              "sourcePageId": "button",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "selfCheck": "pass"
+            }
+          ],
+          "demoRegion": [
+            0.138889,
+            0.12,
+            0.736111,
+            0.75
+          ],
+          "implementationLocation": "src/App.vue#dangoButtonSpecimen + src/styles.css#button.dango-docs__primary",
+          "stateSupport": {
+            "runtimeIdentity": "DuButton",
+            "variant": "primary-normal",
+            "states": ["default", "hover", "focus", "activated", "restored"]
+          }
+        }
+      ]
+    },
+    {
+      "demoPageId": "dango-v2-release-checklist",
+      "sourcePageId": null,
+      "proofRole": "generative-held-out",
+      "patterns": [
+        {
+          "id": "held-out-guide",
+          "salience": "high",
+          "description": "Generative documentation guide that reuses the learned shell with a new checklist information structure.",
+          "selfCheck": "pass",
+          "approvedPatternId": "dango-docs-shell-responsive",
+          "preserves": [
+            "docs-shell",
+            "accent-semantics"
+          ],
+          "evidenceRefs": [
+            {
+              "evidenceId": "dango-v2-docs-shell-desktop",
+              "sourcePageId": "introduction",
+              "sourceRegion": [
+                0,
+                0,
+                1,
+                1
+              ],
+              "selfCheck": "pass"
+            }
+          ],
+          "demoRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "implementationLocation": "public/brand-previews/dango-v2.json#dango-v2-release-checklist",
+          "compositionSupport": {
+            "sourceAsset": {
+              "identity": "dango-docs-shell-dom-css",
+              "variant": "desktop-three-column-to-mobile-single-column"
+            },
+            "demoAsset": {
+              "identity": "dango-docs-shell-dom-css",
+              "variant": "desktop-three-column-to-mobile-single-column"
+            },
+            "layers": [
+              {
+                "id": "global-header",
+                "role": "global navigation and utilities",
+                "sourceRegion": [0, 0, 1, 0.062222],
+                "demoRegion": [0, 0, 1, 0.046512]
+              },
+              {
+                "id": "left-navigation",
+                "role": "documentation taxonomy",
+                "sourceRegion": [0, 0.062222, 0.138889, 0.937778],
+                "demoRegion": [0, 0.046512, 0.2, 0.7]
+              },
+              {
+                "id": "reading-column",
+                "role": "primary sequential content",
+                "sourceRegion": [0.138889, 0.062222, 0.736111, 0.937778],
+                "demoRegion": [0.2, 0.046512, 0.48, 0.7]
+              },
+              {
+                "id": "right-outline",
+                "role": "local page orientation",
+                "sourceRegion": [0.875, 0.062222, 0.125, 0.937778],
+                "demoRegion": [0.75, 0.046512, 0.25, 0.7]
+              }
+            ],
+            "translation": {"mode": "none"},
+            "responsivePreservation": "The approved responsive shell invariant is preserved; the held-out inner structure is generative proof, not an aspect/crop translation."
+          }
+        }
+      ]
+    }
+  ]
+}
