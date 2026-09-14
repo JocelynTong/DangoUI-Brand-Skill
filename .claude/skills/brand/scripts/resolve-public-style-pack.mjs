@@ -35,6 +35,12 @@ async function fetchJson(url) {
   return response.json();
 }
 
+async function fetchBytes(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Registry evidence request failed (${response.status}): ${url}`);
+  return Buffer.from(await response.arrayBuffer());
+}
+
 function remoteUrl(base, publicPath) {
   if (/^https?:\/\//.test(publicPath)) return publicPath;
   const baseUrl = new URL(base);
@@ -130,6 +136,19 @@ export async function resolvePublicStylePack({
         : await fetchJson(remoteUrl(registryBase, artifactPath));
       const target = path.join(targetRoot, fileName);
       fs.writeFileSync(target, `${JSON.stringify(value, null, 2)}\n`);
+      installedFiles.push(path.relative(root, target));
+    }
+    for (const evidenceAsset of manifest.evidenceAssets || []) {
+      if (!evidenceAsset?.path || !evidenceAsset?.installPath) continue;
+      const target = path.resolve(targetRoot, evidenceAsset.installPath);
+      if (!target.startsWith(`${path.resolve(targetRoot)}${path.sep}`)) {
+        throw new Error(`Registry evidence install path escapes brand root: ${evidenceAsset.installPath}`);
+      }
+      const value = source === "local"
+        ? fs.readFileSync(path.join(root, "public", evidenceAsset.path.replace(/^\//, "")))
+        : await fetchBytes(remoteUrl(registryBase, evidenceAsset.path));
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, value);
       installedFiles.push(path.relative(root, target));
     }
   }

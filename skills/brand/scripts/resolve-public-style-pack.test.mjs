@@ -13,13 +13,23 @@ fs.mkdirSync(artifactRoot, { recursive: true });
 fs.writeFileSync(path.join(registryRoot, "index.json"), JSON.stringify({ brands: [{ id: "demo", displayName: "Demo", version: "1.0.0", canonicalSources: ["https://example.com/"], manifest: "/brand-registry/v0.1/brands/demo/1.0.0/manifest.json", reusePolicy: { metadataAndRules: "public" } }] }));
 fs.writeFileSync(path.join(registryRoot, "by-source.json"), JSON.stringify({ sources: { "https://example.com/": "demo" } }));
 fs.writeFileSync(path.join(artifactRoot, "brand-mod.json"), JSON.stringify({ schema: "brand-mod.v0.1" }));
-fs.writeFileSync(path.join(artifactRoot, "manifest.json"), JSON.stringify({ artifacts: { "brand-mod": "/brand-registry/v0.1/brands/demo/1.0.0/brand-mod.json" } }));
+fs.mkdirSync(path.join(artifactRoot, "evidence", "captures", "source", "home"), { recursive: true });
+fs.writeFileSync(path.join(artifactRoot, "evidence", "captures", "source", "home", "full-page.png"), Buffer.from("png-evidence"));
+fs.writeFileSync(path.join(artifactRoot, "manifest.json"), JSON.stringify({
+  artifacts: { "brand-mod": "/brand-registry/v0.1/brands/demo/1.0.0/brand-mod.json" },
+  evidenceAssets: [{
+    path: "/brand-registry/v0.1/brands/demo/1.0.0/evidence/captures/source/home/full-page.png",
+    installPath: "captures/source/home/full-page.png",
+  }],
+}));
 
 const result = await resolvePublicStylePack({ sourceUrl: "https://example.com", root: fixtureRoot, install: true });
 assert.equal(result.matched, true);
 assert.equal(result.brand, "demo");
 assert.equal(result.modFile, "migrations/demo/brand-mod.json");
 assert.equal(JSON.parse(fs.readFileSync(path.join(fixtureRoot, result.modFile))).schema, "brand-mod.v0.1");
+assert.equal(fs.readFileSync(path.join(fixtureRoot, "migrations/demo/captures/source/home/full-page.png"), "utf8"), "png-evidence");
+assert.ok(result.installedFiles.includes("migrations/demo/captures/source/home/full-page.png"));
 
 const deepLink = await resolvePublicStylePack({ sourceUrl: "https://demo.example/#/brand/demo/pages/home", root: fixtureRoot });
 assert.equal(deepLink.matched, true);

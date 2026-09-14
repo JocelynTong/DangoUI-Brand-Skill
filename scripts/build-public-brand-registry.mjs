@@ -1,5 +1,6 @@
 import fs from 'node:fs'
 import path from 'node:path'
+import crypto from 'node:crypto'
 
 const root = process.cwd()
 const sourceFile = path.join(root, 'public', 'brand-previews', 'registry.json')
@@ -22,11 +23,38 @@ function writeJson(file, value) {
   fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`)
 }
 
+function collectReferencedPngs(value, found = new Set()) {
+  if (typeof value === 'string') {
+    const clean = value.split('#')[0]
+    if (/\.png$/i.test(clean)) found.add(clean)
+    return found
+  }
+  if (Array.isArray(value)) {
+    for (const item of value) collectReferencedPngs(item, found)
+    return found
+  }
+  if (value && typeof value === 'object') {
+    for (const item of Object.values(value)) collectReferencedPngs(item, found)
+  }
+  return found
+}
+
+function migrationRelativePath(brand, referencedPath) {
+  const normalized = referencedPath.replaceAll('\\', '/')
+  const prefix = `${brand.migrationRoot.replaceAll('\\', '/').replace(/\/$/, '')}/`
+  return normalized.startsWith(prefix) ? normalized.slice(prefix.length) : normalized.replace(/^\.\//, '')
+}
+
+function sha256(file) {
+  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
+}
+
 const brands = []
 const bySource = {}
 for (const brand of published) {
   const brandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
   const artifacts = {}
+  const artifactValues = []
   for (const name of brand.artifactFiles || []) {
     const sourceArtifact = path.join(root, brand.migrationRoot, name)
     if (!fs.existsSync(sourceArtifact)) throw new Error(`${brand.id}: missing artifact ${name}`)
@@ -34,11 +62,33 @@ for (const brand of published) {
     for (const pattern of forbiddenText) {
       if (pattern.test(text)) throw new Error(`${brand.id}/${name}: contains non-public reference ${pattern}`)
     }
-    JSON.parse(text)
+    const value = JSON.parse(text)
+    artifactValues.push(value)
     const target = path.join(brandRoot, name)
     fs.mkdirSync(path.dirname(target), { recursive: true })
     fs.copyFileSync(sourceArtifact, target)
     artifacts[name.replace(/\.json$/, '')] = `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${name}`
+  }
+  const evidenceAssets = []
+  const publishedEvidencePaths = new Set()
+  const referencedPngs = new Set()
+  for (const value of artifactValues) collectReferencedPngs(value, referencedPngs)
+  for (const reference of [...referencedPngs].sort()) {
+    const relativePath = migrationRelativePath(brand, reference)
+    if (publishedEvidencePaths.has(relativePath)) continue
+    const sourceAsset = path.resolve(root, brand.migrationRoot, relativePath)
+    const migrationRoot = path.resolve(root, brand.migrationRoot)
+    if (!sourceAsset.startsWith(`${migrationRoot}${path.sep}`) || !fs.existsSync(sourceAsset)) continue
+    const publicRelativePath = path.posix.join('evidence', relativePath.replaceAll('\\', '/'))
+    const target = path.join(brandRoot, publicRelativePath)
+    fs.mkdirSync(path.dirname(target), { recursive: true })
+    fs.copyFileSync(sourceAsset, target)
+    publishedEvidencePaths.add(relativePath)
+    evidenceAssets.push({
+      path: `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${publicRelativePath}`,
+      installPath: relativePath.replaceAll('\\', '/'),
+      sha256: sha256(sourceAsset),
+    })
   }
   const canonicalSources = [...new Set((brand.canonicalSources || [brand.sourceUrl]).map(normalizeSource))]
   for (const sourceUrl of canonicalSources) {
@@ -57,6 +107,7 @@ for (const brand of published) {
     sourceHost: brand.sourceHost,
     preview: brand.path,
     artifacts,
+    evidenceAssets,
     platformSupport: brand.platformSupport,
     reusePolicy: brand.reusePolicy,
     verification: { web: brand.status, standardDemo: brand.standardDemo },
