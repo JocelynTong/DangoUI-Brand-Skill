@@ -40,6 +40,10 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   else hostPackage = readJson(packageFile);
   if (!fs.existsSync(path.join(hostRoot, "src"))) warnings.push("HOST_SRC_DIRECTORY_MISSING");
 
+  const layoutChecks = inspectHostLayout(hostRoot);
+  for (const issue of layoutChecks.issues) blocking.push(`${issue.code}:${issue.file}`);
+  for (const issue of layoutChecks.warnings) warnings.push(`${issue.code}:${issue.file}`);
+
   const dependencies = { ...(hostPackage?.dependencies || {}), ...(hostPackage?.devDependencies || {}) };
   const dangouiDeclared = Boolean(dependencies.dangoui);
   if (!dangouiDeclared) {
@@ -71,6 +75,7 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
       declaredVersion: dependencies.dangoui || null,
       maximumClaim: dangouiDeclared ? "runtime-verification-required" : "PARTIAL_STYLE_ONLY",
     },
+    hostLayout: layoutChecks,
     blocking,
     warnings,
   };
@@ -79,6 +84,59 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
     fs.writeFileSync(path.join(migrationRoot, "apply-host-preflight.json"), `${JSON.stringify(result, null, 2)}\n`);
   }
   return result;
+}
+
+function inspectHostLayout(hostRoot) {
+  const files = collectFiles(hostRoot, (file) => /\.(?:vue|tsx?|jsx?)$/i.test(file), 400);
+  const issues = [];
+  const warnings = [];
+  for (const file of files) {
+    const source = fs.readFileSync(file, "utf8");
+    if (/\.vue$/i.test(file)) {
+      const template = source.match(/<template(?:\s[^>]*)?>([\s\S]*?)<\/template>/i)?.[1] || "";
+      const opened = (template.match(/<view(?=[\s>])/gi) || []).length;
+      const closed = (template.match(/<\/view\s*>/gi) || []).length;
+      if (opened !== closed) issues.push({
+        code: "TEMPLATE_VIEW_TAG_UNBALANCED",
+        file: path.relative(hostRoot, file),
+        opened,
+        closed,
+      });
+    }
+    if (/<scroll-view\b[^>]*\bscroll-x(?:\s*=\s*["']?(?:true|\{\{\s*true\s*\}\})["']?)?/i.test(source)) warnings.push({
+      code: "HORIZONTAL_SCROLL_REQUIRES_VIEWPORT_QA",
+      file: path.relative(hostRoot, file),
+    });
+  }
+  return {
+    scannedFiles: files.length,
+    issues,
+    warnings,
+    qaContract: [
+      "target page width equals viewport width",
+      "primary vertical scroll container has no unintended horizontal range",
+      "first-level content blocks remain inside viewport after brand shadow and border styles",
+    ],
+  };
+}
+
+function collectFiles(root, accept, limit) {
+  if (!fs.existsSync(root)) return [];
+  const stat = fs.statSync(root);
+  if (stat.isFile()) return accept(root) ? [root] : [];
+  const found = [];
+  const visit = (dir) => {
+    if (found.length >= limit) return;
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (["node_modules", "dist", ".git"].includes(entry.name)) continue;
+      const file = path.join(dir, entry.name);
+      if (entry.isDirectory()) visit(file);
+      else if (accept(file)) found.push(file);
+      if (found.length >= limit) return;
+    }
+  };
+  visit(root);
+  return found;
 }
 
 function collectPngReferences(value, found) {

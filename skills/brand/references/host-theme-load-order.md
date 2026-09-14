@@ -26,4 +26,6 @@ Rules:
 
 After static validation, the implementation receipt must record `themeLoadOrderProof` from a cold load and a route navigation. Each observation lists the theme stylesheet once and proves no stylesheet injected later wins a themed probe. The ordinary cascade probes remain required; a build pass or source import alone is insufficient.
 
+For Taro/Vue hosts, apply-host preflight also checks `<view>` tag balance before agent dispatch. Fresh platform QA must record three geometry probes after theme borders and shadows are active: page width equals viewport width, the primary vertical scroll container has no unintended horizontal range, and first-level content blocks remain inside the viewport. A successful build cannot replace these probes because permissive template compilation may still produce a valid but incorrectly nested flex tree.
+
 Use `layered-global-entry` only when the host already controls a global cascade-layer declaration. Declare the complete order once (for example `@layer reset, host, brandTheme, utilities, overrides;`), import every participating global stylesheet through that entry, and put theme rules in the declared `brandTheme` layer. Do not introduce layers locally to one lazy route: unlayered rules outrank layered rules and recreate the same ambiguity.
