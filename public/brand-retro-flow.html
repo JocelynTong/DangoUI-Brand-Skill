@@ -5,43 +5,43 @@ flowchart-elk TD
  S([开始：/brand + 品牌来源或现有项目]) --> H{有现有宿主项目<br/>需要适配吗？}
  H -- "否：learn-brand" --> R[查询 Registry<br/>继承 source manifest]
  H -- "是：apply-host" --> B[读取宿主基线<br/>业务、路由、结构、回退点]
- R --> J1(( ))
- B --> J1
+ R --- J1(( ))
+ B --- J1
  J1 --> E[Evidence Agent：视觉优先采证<br/>截图、DOM、样式、资产、动效]
  E --> EG{Evidence Gate<br/>证据真实且完整？}
+ EG -- "通过" --> I[Brand Interpreter<br/>解释 intent、token、recipe 与适用边界]
  EG -- "不通过" --> EF[补采页面、资产、动效语义<br/>补充使用场景说明]
  EF -- "重新采证" --> E
- EG -- "通过" --> I[Brand Interpreter<br/>解释 intent、token、recipe 与适用边界]
  I --> DG{Direction Gate<br/>方向成立？}
+ DG -- "通过" --> M[DangoUI Mapping<br/>token、component、slot、layout recipe]
  DG -- "不通过" --> DF[重做 2–3 个结构方向]
  DF -- "重新解释" --> I
- DG -- "通过" --> M[DangoUI Mapping<br/>token、component、slot、layout recipe]
  M --> CG{Capability Gate<br/>DangoUI 能承接？}
+ CG -- "通过" --> MODE{当前模式？}
  CG -- "不通过" --> CF[补能力、明确降级方案<br/>或暂停并升级]
  CF -- "重验 Mapping" --> M
- CG -- "通过" --> MODE{当前模式？}
  MODE -- "learn-brand" --> D[Demo Designer<br/>用不同结构证明品牌语言可生成]
  MODE -- "apply-host" --> A[Host Adapter<br/>最小换肤并保留业务效率]
- D --> J2(( ))
- A --> J2
+ D --- J2(( ))
+ A --- J2
  J2 --> Q[QA / TPP Agent<br/>Evidence、Structural、Generative Proof]
  Q --> FG{最终 Gate<br/>目标达成？}
+ FG -- "通过" --> C[Orchestrator：形成阶段结论<br/>区分已证明与未证明]
  FG -- "不通过" --> O[Orchestrator 读取 blocking issue<br/>定位责任阶段]
  O --> RW[[执行对应阶段返工<br/>并通过该阶段 Gate]]
  RW -- "重新做 QA / TPP" --> Q
- FG -- "通过" --> C[Orchestrator：形成阶段结论<br/>区分已证明与未证明]
  C --> OUT{交付模式？}
  OUT -- "learn-brand" --> P[发布品牌能力<br/>Demo、Registry、manifest、version]
  OUT -- "apply-host" --> HP[交付宿主变更<br/>patch、验收记录、rollback point]
- P --> J3(( ))
- HP --> J3
+ P --- J3(( ))
+ HP --- J3
  J3 --> END([结束：可追溯、可复验、可回退])
  classDef default fill:#fff,stroke:#30353c,color:#20242b,stroke-width:1.4px;
  classDef decision fill:#fff,stroke:#20242b,color:#20242b,stroke-width:1.6px;
  classDef terminal fill:#fff,stroke:#20242b,color:#20242b,stroke-width:2px;
  class H,EG,DG,CG,MODE,FG,OUT decision;
  class S,END terminal;
- classDef junction fill:#30353c,stroke:#30353c,color:#30353c;
+ classDef junction fill:transparent,stroke:transparent,color:transparent;
  class J1,J2,J3 junction;
  linkStyle default stroke:#4d545d,stroke-width:1.4px,fill:none;
 </pre><p class="fallback">最终 Gate 不通过时不会直接回到最终 Gate：先定位责任阶段，完成该阶段返工和 Gate 复验，再重新进入 QA / TPP。</p></section>
@@ -56,30 +56,4 @@ flowchart-elk TD
 <div class="note"><b>12｜胡腾第二次讨论</b><p>明确 Skill、DangoUI、adapter、宿主和生产验收的责任边界。</p></div>
 <div class="note"><b>13–14｜阶段结论与复用</b><p>流程跑完不等于能力完成；成功必须留下来源、规则、版本、验收证据和回退点。</p></div>
 <div class="rule"><strong>“跑通”的定义</strong>失败能被发现，能进入对应处理动作，能返回正确阶段复验；全部条件满足后才允许交付。</div></aside></div></main>
-<script type="module">
-import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.esm.min.mjs';
-mermaid.initialize({startOnLoad:false,theme:'base',securityLevel:'strict',flowchart:{curve:'linear',htmlLabels:true,nodeSpacing:42,rankSpacing:54},themeVariables:{fontFamily:'-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif',fontSize:'14px',primaryColor:'#ffffff',primaryTextColor:'#20242b',primaryBorderColor:'#30353c',lineColor:'#4d545d',secondaryColor:'#ffffff',tertiaryColor:'#ffffff',edgeLabelBackground:'#ffffff'}});
-await mermaid.run();
-const svg=document.querySelector('.mermaid svg');
-const toSvg=(element,x,y)=>{const point=svg.createSVGPoint();point.x=x;point.y=y;return point.matrixTransform(element.getCTM())};
-const toLocal=(element,point)=>point.matrixTransform(element.getCTM().inverse());
-for(const node of svg.querySelectorAll('g.node')){
-  const polygon=node.querySelector('polygon');
-  const match=node.id.match(/^flowchart-(.+)-\d+$/);
-  if(!polygon||!match)continue;
-  const box=polygon.getBBox();
-  const center=toSvg(polygon,box.x+box.width/2,box.y+box.height/2);
-  const key=match[1];
-  const paths=[...svg.querySelectorAll('g.edgePaths path[id]')].filter(path=>path.id.includes(`L_${key}_`));
-  if(!paths.length)continue;
-  const tips={left:toSvg(polygon,box.x,box.y+box.height/2),right:toSvg(polygon,box.x+box.width,box.y+box.height/2),bottom:toSvg(polygon,box.x+box.width/2,box.y+box.height)};
-  for(const path of paths){
-    const samplePoint=path.getPointAtLength(Math.min(24,path.getTotalLength()));
-    const sample=toSvg(path,samplePoint.x,samplePoint.y);
-    const dx=sample.x-center.x,dy=sample.y-center.y;
-    const tip=Math.abs(dx)>Math.abs(dy)*.35?(dx<0?tips.left:tips.right):tips.bottom;
-    const local=toLocal(path,tip);
-    path.setAttribute('d',path.getAttribute('d').replace(/^M\s*[-\d.]+[, ]+[-\d.]+/,`M ${local.x},${local.y}`));
-  }
-}
-</script></body></html>
+<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,theme:'base',securityLevel:'strict',flowchart:{curve:'stepAfter',htmlLabels:true,nodeSpacing:42,rankSpacing:54},themeVariables:{fontFamily:'-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif',fontSize:'14px',primaryColor:'#ffffff',primaryTextColor:'#20242b',primaryBorderColor:'#30353c',lineColor:'#4d545d',secondaryColor:'#ffffff',tertiaryColor:'#ffffff',edgeLabelBackground:'#ffffff'}});</script></body></html>
