@@ -28,7 +28,7 @@ function box(x,y,w,h,lines,terminal=false){const shape=el('rect',{x:x-w/2,y:y-h/
 function diamond(x,y,w,h,lines){const shape=el('polygon',{points:`${x},${y-h/2} ${x+w/2},${y} ${x},${y+h/2} ${x-w/2},${y}`,fill:'#fff',stroke:'#20242b','stroke-width':1.6});mark(shape,lines[0]);lines.forEach((t,i)=>label(x,y-(lines.length-1)*10+i*20,t,14,600));}
 function down(y1,y2,txt=''){line(cx,y1,cx,y2);if(txt)label(cx+31,(y1+y2)/2+4,txt,12)}
 function fail(gateY,boxY,ownerY,ownerHalfWidth,lines,back){path(`M ${cx+95} ${gateY} H ${side-120}`);label((cx+95+side-120)/2,gateY-8,'不通过',12);box(side,boxY,240,64,lines);path(`M ${side+120} ${boxY} H 900 V ${ownerY} H ${cx+ownerHalfWidth}`);label(850,(boxY+ownerY)/2,back,12)}
-box(cx,45,300,52,['开始：/brand + 品牌来源或现有项目'],true);down(71,115);diamond(cx,165,190,100,['需要换肤？']);
+box(cx,45,470,70,['开始：/brand + README 支持的来源','官网 / 活动页 / 截图 / Figma / DESIGN.md / DTCG / 现有项目'],true);down(80,115);diamond(cx,165,190,100,['需要换肤？']);
 path(`M ${cx-95} 165 H 210 V 235`);label(260,151,'否：learn-brand',12);box(210,275,250,64,['查询 Registry','继承 source manifest']);
 path(`M ${cx+95} 165 H 570 V 235`);label(525,151,'是：apply-host',12);box(570,275,250,64,['读取宿主基线','业务、路由、结构、回退点']);path('M 210 307 V 340 H 390',false);path('M 570 307 V 340 H 390',false);down(340,390);
 box(cx,430,310,80,['Evidence Agent：视觉优先采证','截图、DOM、样式、资产、动效']);down(470,515);diamond(cx,565,190,100,['Evidence Gate','证据真实且完整？']);down(615,680,'通过');
