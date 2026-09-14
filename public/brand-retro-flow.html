@@ -8,9 +8,12 @@ const svg=document.querySelector('#flow'),NS='http://www.w3.org/2000/svg',cx=390
 svg.innerHTML='<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#30353c"/></marker></defs>';
 const journal={
 '查询 Registry':['断点 03｜状态继承','2026-09-12','2026-09-12','新增案例有来源，但旧 Demo 更新时会失忆、失忆后发生视觉漂移。','每次开始先查询 Registry，继承 source manifest、版本与已有证据。'],
-'Evidence Agent：视觉优先采证':['断点 04–05｜胡腾第一次讨论与证据缺口','2026-08-28','2026-09-01','先抓代码和颜色，漏掉真正决定“像不像”的视觉元素；资产抓到了也不知道用在哪里。','改成视觉优先采证，并为页面、资产、动效补来源、语义和使用场景。'],
-'Brand Interpreter':['断点 06–07｜解释与方向','2026-09-01','2026-09-04','只有 token 换色，没有解释构图、层级、节奏和适用边界；方向未确认就钻入 CSS。','先产出 intent、recipe 与适用边界，再由 Direction Gate 确认方向。'],
-'DangoUI Mapping':['断点 08–09｜能力映射','2026-09-04','2026-09-10','为了接近官网而硬编码，掩盖了 DangoUI 缺失的能力。','显式映射 token、component、slot 和 layout recipe；缺口必须补能力或声明降级。'],
+'Evidence Agent：视觉优先采证':['断点 04｜胡腾第一次讨论：视觉优先','2026-08-28','2026-09-01','先抓代码和颜色，漏掉真正决定“像不像”的构图、资产和动效。','把采证顺序改为先看真实页面和视觉表现，再回查 DOM、样式与代码。'],
+'Evidence Gate':['断点 05｜证据完整性','2026-09-01','2026-09-01','资产虽然抓到了，却没有来源、语义和使用场景，后续无法判断怎么用。','Evidence Gate 要求每项证据同时记录来源、视觉语义、适用场景和禁用边界。'],
+'Brand Interpreter':['断点 06｜品牌语言解释','2026-09-01','2026-09-04','只有 token 换色，没有解释构图、层级、节奏以及“何时何地适用”。','补齐 intent、recipe、suitableFor 与 notFor，把证据翻译成可迁移的品牌语言。'],
+'Direction Gate':['断点 07｜方向确认','2026-09-04','2026-09-04','方向没有被确认就直接进入实现，之后只能在错误方向上反复钻 CSS 细节。','实现前先比较 2–3 个结构方向；方向不成立就返回 Interpreter 重做解释。'],
+'DangoUI Mapping':['断点 08｜映射真实性','2026-09-04','2026-09-10','为了接近官网而硬编码不存在的 DangoUI 能力，形成“看似接入、实际绕开”。','逐项映射 token、component、slot 和 layout recipe，并验证真实运行时消费。'],
+'Capability Gate':['断点 09｜能力缺口','2026-09-10','2026-09-10','DangoUI 无法承接的视觉能力没有被显式暴露，缺口被页面代码掩盖。','能力不足时必须补能力、声明降级方案，或暂停并升级；不得继续伪装成通过。'],
 'Demo Designer':['断点 10｜Demo 证明不足','2026-09-06','2026-09-10','固定模板让不同品牌最后看起来都一样。','用 2–3 个不同结构的 Demo 证明品牌语言具备生成性，而不是复刻单页。'],
 'Host Adapter':['断点 10｜宿主适配','2026-09-09','2026-09-10','把官网强视觉硬塞进业务页，会伤害工具效率。','只做最小换肤，按业务页面强弱区分适配范围并保留回退点。'],
 'QA / TPP Agent':['断点 11｜ONE PIECE / CZN','2026-09-04；2026-09-13','2026-09-14','build 和 DOM 通过了，但真实页面仍可能没有学会品牌。','同时验收真实页面、响应式、资产、滚动和交互，三类证据不可互相替代。'],
@@ -22,7 +25,7 @@ const el=(n,a={})=>{const x=document.createElementNS(NS,n);for(const[k,v]of Obje
 function showJournal(key){const [title,happened,resolved,issue,solution]=journal[key],panel=document.querySelector('#journal');panel.closest('.notes').hidden=false;document.querySelector('#journal-title').textContent=title;document.querySelector('#journal-happened').textContent=happened;document.querySelector('#journal-resolved').textContent=resolved;document.querySelector('#journal-issue').textContent=issue;document.querySelector('#journal-solution').textContent=solution;panel.hidden=false;document.querySelectorAll('.hotspot').forEach(n=>n.setAttribute('stroke-width',n.dataset.key===key?'3':'2.2'));if(innerWidth<=1100)panel.scrollIntoView({block:'start'});}
 function mark(shape,key){if(!journal[key])return;shape.setAttribute('stroke','#b42318');shape.setAttribute('stroke-width','2.2');shape.setAttribute('class','hotspot');shape.setAttribute('role','button');shape.setAttribute('tabindex','0');shape.dataset.key=key;shape.setAttribute('aria-label',`${journal[key][0]}，点击查看卡点与解决日记`);shape.addEventListener('click',()=>showJournal(key));shape.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();showJournal(key)}})}
 function box(x,y,w,h,lines,terminal=false){const shape=el('rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:terminal?h/2:0,fill:'#fff',stroke:'#20242b','stroke-width':terminal?2:1.5});mark(shape,lines[0]);lines.forEach((t,i)=>label(x,y-(lines.length-1)*10+i*20,t,i?13:14,i?400:600));}
-function diamond(x,y,w,h,lines){el('polygon',{points:`${x},${y-h/2} ${x+w/2},${y} ${x},${y+h/2} ${x-w/2},${y}`,fill:'#fff',stroke:'#20242b','stroke-width':1.6});lines.forEach((t,i)=>label(x,y-(lines.length-1)*10+i*20,t,14,600));}
+function diamond(x,y,w,h,lines){const shape=el('polygon',{points:`${x},${y-h/2} ${x+w/2},${y} ${x},${y+h/2} ${x-w/2},${y}`,fill:'#fff',stroke:'#20242b','stroke-width':1.6});mark(shape,lines[0]);lines.forEach((t,i)=>label(x,y-(lines.length-1)*10+i*20,t,14,600));}
 function down(y1,y2,txt=''){line(cx,y1,cx,y2);if(txt)label(cx+31,(y1+y2)/2+4,txt,12)}
 function fail(gateY,boxY,ownerY,ownerHalfWidth,lines,back){path(`M ${cx+95} ${gateY} H ${side-120}`);label((cx+95+side-120)/2,gateY-8,'不通过',12);box(side,boxY,240,64,lines);path(`M ${side+120} ${boxY} H 900 V ${ownerY} H ${cx+ownerHalfWidth}`);label(850,(boxY+ownerY)/2,back,12)}
 box(cx,45,300,52,['开始：/brand + 品牌来源或现有项目'],true);down(71,115);diamond(cx,165,190,100,['有现有宿主项目','需要适配吗？']);
