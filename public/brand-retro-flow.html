@@ -1,50 +1,6 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Brand Skill：标准流程与历史断点</title>
 <style>*{box-sizing:border-box}body{margin:0;background:#fff;color:#20242b;font:14px/1.55 -apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC",sans-serif}.app{max-width:1320px;margin:auto;padding:28px 24px 56px}.head{padding-bottom:18px;border-bottom:1px solid #d8dce1}.head h1{margin:0 0 6px;font-size:26px}.head p{margin:0;color:#626973}.layout{display:grid;grid-template-columns:minmax(660px,820px) minmax(260px,340px);gap:34px;align-items:start;margin-top:24px}.diagram{min-width:0}.mermaid{display:flex;justify-content:center;background:#fff}.mermaid svg{width:100%!important;max-width:none!important;height:auto}.notes{border-left:1px solid #aeb4bc;padding-left:22px}.notes h2{margin:0 0 12px;font-size:16px}.note{padding:10px 0;border-top:1px solid #e2e5e9}.note:first-of-type{border-top:0}.note b{display:block;margin-bottom:3px;font-size:12px}.note p{margin:0;color:#4d545d;font-size:12px}.rule{margin-top:18px;padding:12px 0;border-top:2px solid #20242b;border-bottom:1px solid #20242b;font-size:12px}.rule strong{display:block;margin-bottom:4px}.fallback{margin-top:16px;color:#626973;font-size:12px}@media(max-width:1100px){.app{padding:20px 14px 42px}.layout{grid-template-columns:1fr}.notes{border-left:0;border-top:1px solid #aeb4bc;padding:18px 0 0}.head h1{font-size:22px}}</style></head>
-<body><main class="app"><header class="head"><h1>Brand Skill：标准流程与历史断点</h1><p>实线表示正常流转；“不通过”进入明确动作，完成后沿回箭重新验收。</p></header><div class="layout"><section class="diagram" aria-label="Brand Skill 标准计算机流程图"><pre class="mermaid">
-flowchart-elk TD
- S([开始：/brand + 品牌来源或现有项目]) --> H{有现有宿主项目<br/>需要适配吗？}
- H -- "否：learn-brand" --> R[查询 Registry<br/>继承 source manifest]
- H -- "是：apply-host" --> B[读取宿主基线<br/>业务、路由、结构、回退点]
- R --- J1(( ))
- B --- J1
- J1 --> E[Evidence Agent：视觉优先采证<br/>截图、DOM、样式、资产、动效]
- E --> EG{Evidence Gate<br/>证据真实且完整？}
- EG -- "通过" --> I[Brand Interpreter<br/>解释 intent、token、recipe 与适用边界]
- EG -- "不通过" --> EF[补采页面、资产、动效语义<br/>补充使用场景说明]
- EF -- "重新采证" --> E
- I --> DG{Direction Gate<br/>方向成立？}
- DG -- "通过" --> M[DangoUI Mapping<br/>token、component、slot、layout recipe]
- DG -- "不通过" --> DF[重做 2–3 个结构方向]
- DF -- "重新解释" --> I
- M --> CG{Capability Gate<br/>DangoUI 能承接？}
- CG -- "通过" --> MODE{当前模式？}
- CG -- "不通过" --> CF[补能力、明确降级方案<br/>或暂停并升级]
- CF -- "重验 Mapping" --> M
- MODE -- "learn-brand" --> D[Demo Designer<br/>用不同结构证明品牌语言可生成]
- MODE -- "apply-host" --> A[Host Adapter<br/>最小换肤并保留业务效率]
- D --- J2(( ))
- A --- J2
- J2 --> Q[QA / TPP Agent<br/>Evidence、Structural、Generative Proof]
- Q --> FG{最终 Gate<br/>目标达成？}
- FG -- "通过" --> C[Orchestrator：形成阶段结论<br/>区分已证明与未证明]
- FG -- "不通过" --> O[Orchestrator 读取 blocking issue<br/>定位责任阶段]
- O --> RW[[执行对应阶段返工<br/>并通过该阶段 Gate]]
- RW -- "重新做 QA / TPP" --> Q
- C --> OUT{交付模式？}
- OUT -- "learn-brand" --> P[发布品牌能力<br/>Demo、Registry、manifest、version]
- OUT -- "apply-host" --> HP[交付宿主变更<br/>patch、验收记录、rollback point]
- P --- J3(( ))
- HP --- J3
- J3 --> END([结束：可追溯、可复验、可回退])
- classDef default fill:#fff,stroke:#30353c,color:#20242b,stroke-width:1.4px;
- classDef decision fill:#fff,stroke:#20242b,color:#20242b,stroke-width:1.6px;
- classDef terminal fill:#fff,stroke:#20242b,color:#20242b,stroke-width:2px;
- class H,EG,DG,CG,MODE,FG,OUT decision;
- class S,END terminal;
- classDef junction fill:transparent,stroke:transparent,color:transparent;
- class J1,J2,J3 junction;
- linkStyle default stroke:#4d545d,stroke-width:1.4px,fill:none;
-</pre><p class="fallback">最终 Gate 不通过时不会直接回到最终 Gate：先定位责任阶段，完成该阶段返工和 Gate 复验，再重新进入 QA / TPP。</p></section>
+<body><main class="app"><header class="head"><h1>Brand Skill：标准流程与历史断点</h1><p>主干严格垂直；只有“不通过”从菱形侧边进入处理动作，完成后回到责任节点复验。</p></header><div class="layout"><section class="diagram" aria-label="Brand Skill 标准计算机流程图"><svg id="flow" viewBox="0 0 940 2200" style="display:block;width:100%;height:auto;background:#fff" role="img" aria-label="Brand Skill 标准计算机流程图"></svg><p class="fallback">最终 Gate 不通过时不会直接回到最终 Gate：先定位责任阶段，完成该阶段返工和 Gate 复验，再重新进入 QA / TPP。</p></section>
 <aside class="notes" aria-label="历史断点索引"><h2>历史断点索引</h2>
 <div class="note"><b>01–02｜组织方式</b><p>所有目标曾塞给主 agent。xwr 讨论后，改为按目标拆角色、产物和 Gate。</p></div>
 <div class="note"><b>03｜状态继承</b><p>旧 Demo 更新会失忆；现在先查 Registry 和 source manifest。</p></div>
@@ -56,4 +12,22 @@ flowchart-elk TD
 <div class="note"><b>12｜胡腾第二次讨论</b><p>明确 Skill、DangoUI、adapter、宿主和生产验收的责任边界。</p></div>
 <div class="note"><b>13–14｜阶段结论与复用</b><p>流程跑完不等于能力完成；成功必须留下来源、规则、版本、验收证据和回退点。</p></div>
 <div class="rule"><strong>“跑通”的定义</strong>失败能被发现，能进入对应处理动作，能返回正确阶段复验；全部条件满足后才允许交付。</div></aside></div></main>
-<script type="module">import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11.12.0/dist/mermaid.esm.min.mjs';mermaid.initialize({startOnLoad:true,theme:'base',securityLevel:'strict',flowchart:{curve:'stepAfter',htmlLabels:true,nodeSpacing:42,rankSpacing:54},themeVariables:{fontFamily:'-apple-system,BlinkMacSystemFont,Segoe UI,PingFang SC,sans-serif',fontSize:'14px',primaryColor:'#ffffff',primaryTextColor:'#20242b',primaryBorderColor:'#30353c',lineColor:'#4d545d',secondaryColor:'#ffffff',tertiaryColor:'#ffffff',edgeLabelBackground:'#ffffff'}});</script></body></html>
+<script>
+const svg=document.querySelector('#flow'),NS='http://www.w3.org/2000/svg',cx=390,side=745;
+svg.innerHTML='<defs><marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8Z" fill="#30353c"/></marker></defs>';
+const el=(n,a={})=>{const x=document.createElementNS(NS,n);for(const[k,v]of Object.entries(a))x.setAttribute(k,v);svg.append(x);return x}, line=(x1,y1,x2,y2,arrow=true)=>el('line',{x1,y1,x2,y2,stroke:'#4d545d','stroke-width':1.5,'marker-end':arrow?'url(#arrow)':''}), path=(d,arrow=true)=>el('path',{d,fill:'none',stroke:'#4d545d','stroke-width':1.5,'marker-end':arrow?'url(#arrow)':''}), label=(x,y,t,size=14,weight=400)=>{const q=el('text',{x,y,'text-anchor':'middle','font-size':size,'font-weight':weight,fill:'#20242b'});q.textContent=t;return q};
+function box(x,y,w,h,lines,terminal=false){el('rect',{x:x-w/2,y:y-h/2,width:w,height:h,rx:terminal?h/2:0,fill:'#fff',stroke:'#20242b','stroke-width':terminal?2:1.5});lines.forEach((t,i)=>label(x,y-(lines.length-1)*10+i*20,t,i?13:14,i?400:600));}
+function diamond(x,y,w,h,lines){el('polygon',{points:`${x},${y-h/2} ${x+w/2},${y} ${x},${y+h/2} ${x-w/2},${y}`,fill:'#fff',stroke:'#20242b','stroke-width':1.6});lines.forEach((t,i)=>label(x,y-(lines.length-1)*10+i*20,t,14,600));}
+function down(y1,y2,txt=''){line(cx,y1,cx,y2);if(txt)label(cx+31,(y1+y2)/2+4,txt,12)}
+function fail(gateY,boxY,ownerY,lines,back){path(`M ${cx+70} ${gateY} H ${side-120}`);label((cx+70+side-120)/2,gateY-8,'不通过',12);box(side,boxY,240,64,lines);path(`M ${side+120} ${boxY} H 900 V ${ownerY} H ${cx+111}`);label(850,(boxY+ownerY)/2,back,12)}
+box(cx,45,300,52,['开始：/brand + 品牌来源或现有项目'],true);down(71,115);diamond(cx,165,190,100,['有现有宿主项目','需要适配吗？']);
+path(`M ${cx-95} 165 H 210 V 235`);label(260,151,'否：learn-brand',12);box(210,275,250,64,['查询 Registry','继承 source manifest']);
+path(`M ${cx+95} 165 H 570 V 235`);label(525,151,'是：apply-host',12);box(570,275,250,64,['读取宿主基线','业务、路由、结构、回退点']);path('M 210 307 V 340 H 390',false);path('M 570 307 V 340 H 390',false);down(340,390);
+box(cx,430,310,80,['Evidence Agent：视觉优先采证','截图、DOM、样式、资产、动效']);down(470,515);diamond(cx,565,190,100,['Evidence Gate','证据真实且完整？']);down(615,680,'通过');
+box(cx,720,330,80,['Brand Interpreter','解释 intent、token、recipe 与适用边界']);down(760,805);diamond(cx,855,190,100,['Direction Gate','方向成立？']);down(905,970,'通过');
+box(cx,1010,330,80,['DangoUI Mapping','token、component、slot、layout recipe']);down(1050,1095);diamond(cx,1145,190,100,['Capability Gate','DangoUI 能承接？']);down(1195,1240,'通过');
+diamond(cx,1290,150,90,['当前模式？']);path(`M ${cx-75} 1290 H 210 V 1360`);label(245,1277,'learn-brand',12);box(210,1400,260,70,['Demo Designer','用不同结构证明品牌语言可生成']);path(`M ${cx+75} 1290 H 570 V 1360`);label(540,1277,'apply-host',12);box(570,1400,260,70,['Host Adapter','最小换肤并保留业务效率']);path('M 210 1435 V 1470 H 390',false);path('M 570 1435 V 1470 H 390',false);down(1470,1510);
+box(cx,1550,330,80,['QA / TPP Agent','Evidence、Structural、Generative Proof']);down(1590,1635);diamond(cx,1685,190,100,['最终 Gate','目标达成？']);down(1735,1800,'通过');box(cx,1840,330,80,['Orchestrator：形成阶段结论','区分已证明与未证明']);down(1880,1915);diamond(cx,1960,150,80,['交付模式？']);
+path(`M ${cx-75} 1960 H 230 V 2010`);label(255,1947,'learn-brand',12);box(230,2045,270,58,['发布品牌能力','Demo、Registry、manifest、version']);path(`M ${cx+75} 1960 H 550 V 2010`);label(525,1947,'apply-host',12);box(550,2045,270,58,['交付宿主变更','patch、验收记录、rollback point']);path('M 230 2074 V 2100 H 390',false);path('M 550 2074 V 2100 H 390',false);down(2100,2140);box(cx,2170,300,52,['结束：可追溯、可复验、可回退'],true);
+fail(565,565,430,['补采页面、资产、动效语义','补充使用场景说明'],'重新采证');fail(855,855,720,['重做 2–3 个结构方向'],'重新解释');fail(1145,1145,1010,['补能力、明确降级方案','或暂停并升级'],'重验 Mapping');fail(1685,1685,1550,['读取 blocking issue 并定位责任阶段','完成返工及该阶段 Gate 复验'],'重新做 QA / TPP');
+</script></body></html>
