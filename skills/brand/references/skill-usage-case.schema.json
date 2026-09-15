@@ -1,0 +1,30 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/brand/skill-usage-case.schema.json",
+  "title": "Brand Skill usage case submission",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "caseId", "skillId", "workflow", "workflowNode", "category", "abstractMechanismCode", "frameworkClass", "platformClass", "summary", "reproduction", "gate", "falsePositiveAssessment", "severity", "contractRef", "fingerprint", "independenceHash", "lifecycle", "occurrenceCount", "createdAt"],
+  "properties": {
+    "schemaVersion": { "const": "1.0" },
+    "caseId": { "type": "string", "pattern": "^case_[a-f0-9]{16}$" },
+    "skillId": { "const": "brand" },
+    "workflow": { "enum": ["learn-brand", "design-host", "apply-host", "retro", "maintain"] },
+    "workflowNode": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+    "category": { "enum": ["quality", "contract", "safety", "data-loss", "permission", "reliability", "privacy", "other"] },
+    "abstractMechanismCode": { "type": "string", "pattern": "^[A-Z][A-Z0-9_]{2,95}$" },
+    "frameworkClass": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+    "platformClass": { "type": "string", "pattern": "^[a-z0-9][a-z0-9-]{0,63}$" },
+    "summary": { "type": "string", "minLength": 12, "maxLength": 500 },
+    "reproduction": { "type": "string", "minLength": 8, "maxLength": 1200 },
+    "gate": { "type": "string", "minLength": 8, "maxLength": 800 },
+    "falsePositiveAssessment": { "type": "string", "minLength": 8, "maxLength": 800 },
+    "fingerprint": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "independenceHash": { "type": "string", "pattern": "^sha256:[a-f0-9]{64}$" },
+    "lifecycle": { "const": "reviewed-local" },
+    "occurrenceCount": { "type": "integer", "minimum": 1 },
+    "createdAt": { "type": "string", "format": "date-time" },
+    "severity": { "enum": ["low", "medium", "high", "critical"] },
+    "contractRef": { "type": "string", "pattern": "^[a-zA-Z0-9._#/-]{1,160}$" }
+  }
+}

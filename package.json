@@ -33,6 +33,7 @@
     "brand:trial:init": "node skills/brand/scripts/validate-trial-channel.mjs init",
     "validate:brand-trial": "node skills/brand/scripts/validate-trial-channel.mjs validate",
     "test:brand-trial": "node skills/brand/scripts/validate-trial-channel.test.mjs",
+    "test:skill-usage-reporting": "node skills/brand/scripts/skill-usage-reporting.test.mjs",
     "brand:subagents": "node skills/brand/scripts/brand-subagent-workflow.mjs",
     "brand:retro": "node skills/brand/scripts/brand-guard.mjs issue-retro",
     "brand:sources": "node skills/brand/scripts/brand-source-manifest.mjs",

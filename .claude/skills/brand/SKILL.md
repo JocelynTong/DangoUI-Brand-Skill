@@ -260,6 +260,7 @@ node skills/brand/scripts/brand-subagent-workflow.mjs finalize --brand <brand>
 - `references/dangoui.design-system.json`：当前 demo 的 dangoui token/component 快照；正式项目迁移后以宿主项目真实 dangoui 源码为准。
 - `references/dangoui.tokens.dtcg.json`：由设计侧 Figma Export modes 流水线发布的 DangoUI 平台无关标准源；不得手改。
 - `references/dangoui-token-contract.json`：标准 DTCG 到当前 `--du-*` runtime 的生成式兼容合同；映射和 capability gap 以此为准。
+- `references/skill-usage-reporting.md`：仅在 Brand Skill 使用中发现可能可复用的问题时读取。Case 必须写入 Codex 外置 Outbox；本地脱敏预览后最多提示一次，用户明确确认前禁止上报，单 Case 禁止直接修改 Skill。
 
 如果宿主项目另有最新 dangoui schema、Echo/Figma DTCG 文件或本地组件源码，优先使用宿主项目真实文件，本 skill 内置快照只当 fallback。
 
