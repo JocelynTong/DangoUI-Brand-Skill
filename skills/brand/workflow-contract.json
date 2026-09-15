@@ -289,6 +289,12 @@
       "visualQA": {"budgetSeconds": 60, "output": "preview-smoke-report.json", "mustNot": ["edit production code", "rerun learn-brand proof", "perform full-host QA before user approval"]}
     }
   },
+  "qdmpPreviewHandshake": {
+    "prepareCommand": "node skills/brand/scripts/qdmp-preview-handshake.mjs --host <host-root> --write",
+    "requiredOrder": ["resolve frontend root", "resolve AppID without exposing appSecret", "write source and compiled project.config.json", "import compileRoot", "bind the resolved application", "restart the project session", "verify simulator AppID and default route"],
+    "warning": "Hot reload does not refresh a Dimina project identity after AppID changes; a project-session restart is required.",
+    "passEvidence": ["bound application name", "simulator URL contains expected appId", "compiled status", "expected default route", "375px screenshot from the current session"]
+  },
   "sectionQualityModel": {
     "artifact": "migrations/{brand}/section-fidelity-manifest.json",
     "gate": "node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict",

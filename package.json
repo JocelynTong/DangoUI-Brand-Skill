@@ -29,6 +29,7 @@
     "test:brand-registry-reuse": "node skills/brand/scripts/resolve-public-style-pack.test.mjs",
     "test:brand-apply-preflight": "node skills/brand/scripts/apply-host-preflight.test.mjs",
     "test:brand-apply-routing": "node skills/brand/scripts/brand-subagent-workflow.apply-host.test.mjs",
+    "test:qdmp-preview-handshake": "node skills/brand/scripts/qdmp-preview-handshake.test.mjs",
     "brand:trial:init": "node skills/brand/scripts/validate-trial-channel.mjs init",
     "validate:brand-trial": "node skills/brand/scripts/validate-trial-channel.mjs validate",
     "test:brand-trial": "node skills/brand/scripts/validate-trial-channel.test.mjs",

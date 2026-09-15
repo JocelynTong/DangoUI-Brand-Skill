@@ -1,0 +1,25 @@
+import assert from "node:assert/strict";
+import fs from "node:fs";
+import os from "node:os";
+import path from "node:path";
+import { prepareQdmpPreview } from "./qdmp-preview-handshake.mjs";
+
+const root = fs.mkdtempSync(path.join(os.tmpdir(), "qdmp-handshake-"));
+const frontend = path.join(root, "frontend");
+fs.mkdirSync(path.join(frontend, "dist"), { recursive: true });
+fs.mkdirSync(path.join(frontend, "src"), { recursive: true });
+fs.mkdirSync(path.join(root, "backend", "config"), { recursive: true });
+fs.writeFileSync(path.join(frontend, "project.config.json"), JSON.stringify({ miniprogramRoot: "./dist", appid: "" }));
+fs.writeFileSync(path.join(frontend, "dist", "project.config.json"), JSON.stringify({ miniprogramRoot: "./", appid: "" }));
+fs.writeFileSync(path.join(frontend, "src", "app.config.js"), "export default { pages: ['pages/home/index'] }\n");
+fs.writeFileSync(path.join(root, "backend", "config", "qdmp_openapi.json"), JSON.stringify({ appId: "fixture-app", appSecret: "must-not-leak" }));
+
+const result = prepareQdmpPreview({ host: root, write: true });
+assert.equal(result.appId, "fixture-app");
+assert.equal(result.defaultRoute, "pages/home/index");
+assert.equal(result.importDirectory, path.join(frontend, "dist"));
+assert.equal(JSON.parse(fs.readFileSync(path.join(frontend, "project.config.json"))).appid, "fixture-app");
+assert.equal(JSON.parse(fs.readFileSync(path.join(frontend, "dist", "project.config.json"))).appid, "fixture-app");
+assert.doesNotMatch(JSON.stringify(result), /must-not-leak/);
+fs.rmSync(root, { recursive: true, force: true });
+console.log("qdmp preview handshake regression passed");
