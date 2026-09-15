@@ -354,7 +354,8 @@ node skills/brand/scripts/resolve-public-style-pack.mjs --source-url <URL> --ins
 - 宿主换肤改代码前必须先生成视觉机会判断：页面类型、业务目标、视觉承载力、allowedLayers、assetSlots、motionSlots、showcaseFit、overApplyRisk 和 recommendation。细则见 `references/host-visual-opportunity-map.md`。如果所有目标页都是低承载，不能为了展示能力硬塞强视觉；应保守完成 P0，并额外给出活动页/专题页 mock 作为产品讨论材料。
 - 默认在宿主 git 仓库改动前创建 rollback checkpoint commit；`/brand rollback` 回到最近一次 `/brand` 前的 checkpoint。
 - 必须启动或复用宿主项目 dev server，给出当前业务项目预览地址；不要把 demo 站 URL 当成业务项目验收地址。
-- 千岛开发者工具预览前运行 `node skills/brand/scripts/qdmp-preview-handshake.mjs --host <宿主根目录> --write`。它只解析 AppID、前端根目录、`miniprogramRoot` 和默认路由，不输出 appSecret；导入目录必须使用回执中的 `importDirectory`。构建后重新运行并传入 `--simulator-url <实际 URL> --compiled --screenshot-captured`，只有 AppID、route、当前 target WXML/WXSS 构建指纹、编译状态和本轮 375px 截图属于同一项目会话时才返回 `connected`。Dimina 0.2.3 修改 AppID 或发现旧 CSS 后必须重启整个项目会话，热更新不算刷新资源身份。
+- 千岛开发者工具预览前运行 `node skills/brand/scripts/qdmp-preview-handshake.mjs --host <宿主根目录> --write`。它只解析 AppID、前端根目录、`miniprogramRoot` 和默认路由，不输出 appSecret；导入目录必须使用回执中的 `importDirectory`。构建后重新运行并传入 `--simulator-url <实际 URL> --compiled --screenshot-captured`，脚本会直接探测同源 `/<appId>/main/app-config.json`；只有该资源返回有效 JSON，且 AppID、route、当前 target WXML/WXSS 构建指纹、编译状态和本轮 375px 截图属于同一项目会话时才返回 `connected`。404 必须以 `QDMP_SIMULATOR_OUTPUT_UNMOUNTED` 立即阻断，禁止重跑 learn-brand 或宿主实施来掩盖开发工具输出目录未挂载。Dimina 0.2.3 修改 AppID 或发现旧 CSS 后必须重启整个项目会话，热更新不算刷新资源身份。
+- QDMP 预览失败按 `references/qdmp-preview-reliability.md` 路由。会话污染类问题必须完成“同一开发工具进程内关闭项目并重开”的第二次握手；一次成功启动不足以关闭 incident。
 - 必须验证默认初始状态：根地址、默认首页、默认 TabBar 选中页、首屏可见区域都要实际套用主题。
 - 默认入口读取 app/page 配置，不能靠文件名猜；默认先 in-place 换肤已有入口和已有页面，不因 brand key 新建路由。
 - 只有用户明确允许时才创建业务 preview route；若误生成未请求 preview artifacts，checkpoint 保护下自动清理并重建验证。

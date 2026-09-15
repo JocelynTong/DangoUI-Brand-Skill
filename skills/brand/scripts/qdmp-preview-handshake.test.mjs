@@ -26,8 +26,13 @@ assert.equal(JSON.parse(fs.readFileSync(path.join(frontend, "project.config.json
 assert.equal(JSON.parse(fs.readFileSync(path.join(frontend, "dist", "project.config.json"))).appid, "fixture-app");
 assert.doesNotMatch(JSON.stringify(result), /must-not-leak/);
 assert.equal(result.buildFingerprint.length, 64);
-const connected = prepareQdmpPreview({ host: root, simulatorUrl: "http://localhost:1/simulator.html?appId=fixture-app&page=pages/home/index", compiled: true, screenshotCaptured: true });
+const simulatorUrl = "http://localhost:1/simulator.html?appId=fixture-app&page=pages/home/index";
+const notMounted = prepareQdmpPreview({ host: root, simulatorUrl, compiled: true, screenshotCaptured: true, runtimeProbe: { ok: false, code: "QDMP_SIMULATOR_OUTPUT_UNMOUNTED", status: 404 } });
+assert.notEqual(notMounted.status, "connected");
+assert.equal(notMounted.status, "blocked");
+assert.equal(notMounted.verification.runtimeResourceReachable, false);
+const connected = prepareQdmpPreview({ host: root, simulatorUrl, compiled: true, screenshotCaptured: true, runtimeProbe: { ok: true, status: 200 } });
 assert.equal(connected.status, "connected");
-assert.deepEqual(Object.values(connected.verification), [true, true, true, true]);
+assert.deepEqual(Object.values(connected.verification), [true, true, true, true, true]);
 fs.rmSync(root, { recursive: true, force: true });
 console.log("qdmp preview handshake regression passed");

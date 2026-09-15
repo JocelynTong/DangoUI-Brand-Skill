@@ -291,9 +291,10 @@
   },
   "qdmpPreviewHandshake": {
     "prepareCommand": "node skills/brand/scripts/qdmp-preview-handshake.mjs --host <host-root> --write",
-    "requiredOrder": ["resolve frontend root", "resolve AppID without exposing appSecret", "write source and compiled project.config.json", "import compileRoot", "bind the resolved application", "restart the project session", "verify simulator AppID and default route"],
+    "requiredOrder": ["resolve frontend root", "resolve AppID without exposing appSecret", "write source and compiled project.config.json", "import compileRoot", "bind the resolved application", "restart the project session", "probe runtime app-config.json", "verify simulator AppID and default route"],
     "warning": "Hot reload does not refresh a Dimina project identity after AppID changes; a project-session restart is required.",
-    "passEvidence": ["bound application name", "buildFingerprint from current app.json, target WXML and target WXSS", "simulator URL contains expected appId", "compiled status", "expected default route", "375px screenshot from the current session"]
+    "passEvidence": ["bound application name", "buildFingerprint from current app.json, target WXML and target WXSS", "simulator URL contains expected appId", "runtime app-config.json returns valid JSON", "compiled status", "expected default route", "375px screenshot from the current session"],
+    "blockingError": "QDMP_SIMULATOR_OUTPUT_UNMOUNTED means compilation succeeded but the developer-tool preview server did not mount the compiled output; fail fast and fix or restart the developer-tool session instead of repeating learn-brand or host implementation."
   },
   "sectionQualityModel": {
     "artifact": "migrations/{brand}/section-fidelity-manifest.json",

@@ -1,0 +1,51 @@
+{
+  "schema": "brand-host-platform-incident/v1",
+  "incidentId": "qdmp-preview-session-output-unmounted-20260915",
+  "status": "closed",
+  "brand": "pokemon-tcg-official",
+  "hostProject": "card-plugin2.0",
+  "targetRoute": "pages/plaza/index",
+  "reportedImpact": {
+    "timeToFirstPreviewMinutes": 60,
+    "symptom": "The host implementation and compiled CSS were current, but the QDMP simulator showed the stale or empty application and requested app-config.json returned HTTP 404.",
+    "workflowRisk": "apply-host could repeat learn-brand, implementation, rebuild and QA work even though the failure belonged to the developer-tool preview server."
+  },
+  "observedMismatch": {
+    "expected": "The simulator serves the current compile output for echoMEdABUi3U8c9JI5T and renders pages/plaza/index.",
+    "actual": "GET /echoMEdABUi3U8c9JI5T/main/app-config.json returned 404 while the same file existed in the hashed compiler output directory.",
+    "evidence": [
+      "QDMP 0.2.3 simulator session on localhost:62738",
+      "/Users/jocelyn/Library/Application Support/千岛开发者工具/dimina-fe-output/f0eca917b259/echoMEdABUi3U8c9JI5T/main/app-config.json",
+      "skills/brand/scripts/qdmp-preview-handshake.mjs runtime probe"
+    ]
+  },
+  "rootCause": {
+    "ownerLayer": "Dimina Kit devkit preview server used by the QDMP developer tool",
+    "mechanism": "The installed @dimina-kit/devkit 0.1.2-dev.20260524104239 reused a module-level Express app. Reopening projects appended new static routes after an older session's asset-miss handler, so the older handler returned 404 before the current output directory could be served.",
+    "whyExistingGatePassed": "The previous handshake trusted AppID, route, compiled and screenshot flags but never requested the runtime manifest. Build success proved only that files existed on disk, not that the simulator served them.",
+    "missedByRole": ["orchestrator preview handshake", "visual QA runtime preflight"],
+    "notCausedBy": ["learn-brand evidence", "Pokemon style pack", "host implementation", "Taro build output"]
+  },
+  "resolution": {
+    "platform": "Upgraded 千岛开发者工具 from 0.2.3 to the signed stable 0.5.6 release. Its Dimina Kit server creates one Express app per start() and isolates project sessions.",
+    "brandSkill": "The QDMP preview handshake now probes /<appId>/main/app-config.json and requires a successful valid-JSON response before status can become connected.",
+    "errorCodes": {
+      "QDMP_SIMULATOR_OUTPUT_UNMOUNTED": "The simulator responded but did not serve the compiled runtime manifest.",
+      "QDMP_RUNTIME_CONFIG_INVALID": "The runtime manifest responded but was not valid JSON.",
+      "QDMP_SIMULATOR_UNREACHABLE": "The simulator origin could not be reached."
+    },
+    "rollback": "/Users/jocelyn/Downloads/千岛开发者工具-0.2.3-backup.app"
+  },
+  "verification": {
+    "developerToolVersion": "0.5.6",
+    "firstOpen": {"simulatorPort": 63307, "runtimeManifestStatus": 200, "handshake": "connected", "visualResult": "Pokemon yellow/red Plaza theme rendered in the QDMP simulator."},
+    "sameProcessReopen": {"simulatorPort": 63339, "runtimeManifestStatus": 200, "handshake": "connected", "visualResult": "The same route rendered again after closing and reopening the project without restarting the developer tool."},
+    "buildFingerprint": "c6c83147e72576294c50d5765d1438bef7e1def45f6b027e8becc92a3ac68da6"
+  },
+  "ruleLanding": [
+    {"target": "skills/brand/scripts/qdmp-preview-handshake.mjs", "rule": "Runtime reachability is mandatory; user-provided compiled and screenshot flags cannot establish connected status by themselves."},
+    {"target": "skills/brand/workflow-contract.json", "rule": "Route a manifest 404 to the developer-tool preview layer and stop before relearning, reimplementation or release certification."},
+    {"target": "skills/brand/references/qdmp-preview-reliability.md", "rule": "Use the fixed diagnosis order and require a same-process reopen regression for session-contamination incidents."}
+  ],
+  "closure": "Closed only after the current host rendered in QDMP and two independent project sessions returned HTTP 200 with connected handshakes."
+}
