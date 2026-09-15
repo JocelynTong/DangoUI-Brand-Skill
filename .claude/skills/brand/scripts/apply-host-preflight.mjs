@@ -8,14 +8,15 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   const startedAt = new Date();
   const rootPath = path.resolve(root);
   const migrationRoot = path.join(rootPath, "migrations", brand || "");
-  const hostRoot = path.resolve(rootPath, hostTarget || ".");
+  const requestedHostRoot = path.resolve(rootPath, hostTarget || ".");
+  const hostRoot = resolveProjectRoot(requestedHostRoot);
   const blocking = [];
   const warnings = [];
   const required = ["brand-mod.json", "brand-evidence.json", "brand-intent.json"];
   if (["standard", "certification"].includes(profile)) required.push("component-mapping.json");
 
   if (!brand) blocking.push("BRAND_REQUIRED");
-  if (!fs.existsSync(hostRoot)) blocking.push("HOST_TARGET_MISSING");
+  if (!fs.existsSync(requestedHostRoot)) blocking.push("HOST_TARGET_MISSING");
   const files = {};
   for (const name of required) {
     const file = path.join(migrationRoot, name);
@@ -41,6 +42,7 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   if (!fs.existsSync(path.join(hostRoot, "src"))) warnings.push("HOST_SRC_DIRECTORY_MISSING");
 
   const layoutChecks = inspectHostLayout(hostRoot);
+  const targetResolution = resolveHostTarget(hostRoot);
   for (const issue of layoutChecks.issues) blocking.push(`${issue.code}:${issue.file}`);
   for (const issue of layoutChecks.warnings) warnings.push(`${issue.code}:${issue.file}`);
 
@@ -76,6 +78,7 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
       maximumClaim: dangouiDeclared ? "runtime-verification-required" : "PARTIAL_STYLE_ONLY",
     },
     hostLayout: layoutChecks,
+    targetResolution,
     blocking,
     warnings,
   };
@@ -86,6 +89,19 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   return result;
 }
 
+function resolveHostTarget(hostRoot) {
+  if (!fs.existsSync(hostRoot)) return { strategy: "unresolved", route: null };
+  if (fs.statSync(hostRoot).isFile()) return { strategy: "explicit-file", route: path.basename(hostRoot) };
+  const candidates = collectFiles(hostRoot, (file) => /(?:app\.config|router|routes)\.(?:js|ts|json)$/i.test(file), 30);
+  for (const file of candidates) {
+    const source = fs.readFileSync(file, "utf8");
+    const pages = source.match(/\bpages\s*:\s*\[([\s\S]*?)\]/)?.[1];
+    const route = pages?.match(/["']([^"']+)["']/)?.[1];
+    if (route) return { strategy: "default-home-first-route", route, source: path.relative(hostRoot, file) };
+  }
+  return { strategy: "host-root-fallback", route: null, warning: "DEFAULT_HOME_ROUTE_NOT_DETECTED" };
+}
+
 function inspectHostLayout(hostRoot) {
   const files = collectFiles(hostRoot, (file) => /\.(?:vue|tsx?|jsx?)$/i.test(file), 400);
   const issues = [];
@@ -93,8 +109,12 @@ function inspectHostLayout(hostRoot) {
   for (const file of files) {
     const source = fs.readFileSync(file, "utf8");
     if (/\.vue$/i.test(file)) {
-      const template = source.match(/<template(?:\s[^>]*)?>([\s\S]*?)<\/template>/i)?.[1] || "";
-      const opened = (template.match(/<view(?=[\s>])/gi) || []).length;
+      const templateStart = source.search(/<template(?:\s[^>]*)?>/i);
+      const templateEnd = source.lastIndexOf("</template>");
+      const template = templateStart >= 0 && templateEnd > templateStart
+        ? source.slice(source.indexOf(">", templateStart) + 1, templateEnd)
+        : "";
+      const opened = (template.match(/<view(?=[\s>])[^>]*>/gi) || []).filter((tag) => !/\/\s*>$/.test(tag)).length;
       const closed = (template.match(/<\/view\s*>/gi) || []).length;
       if (opened !== closed) issues.push({
         code: "TEMPLATE_VIEW_TAG_UNBALANCED",
@@ -118,6 +138,15 @@ function inspectHostLayout(hostRoot) {
       "first-level content blocks remain inside viewport after brand shadow and border styles",
     ],
   };
+}
+
+function resolveProjectRoot(target) {
+  if (!fs.existsSync(target) || fs.statSync(target).isFile() || fs.existsSync(path.join(target, "package.json"))) return target;
+  const packages = collectFiles(target, (file) => path.basename(file) === "package.json", 40)
+    .map((file) => path.dirname(file))
+    .filter((dir) => fs.existsSync(path.join(dir, "src")));
+  const withAppConfig = packages.find((dir) => collectFiles(path.join(dir, "src"), (file) => /app\.config\.(?:js|ts|json)$/i.test(file), 1).length);
+  return withAppConfig || packages[0] || target;
 }
 
 function collectFiles(root, accept, limit) {

@@ -70,7 +70,7 @@ node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict
 
 `design-host` 是面向用户和设计组织的完整 Pipeline 名；现有脚本继续使用 `apply-host` 表示其中已经批准后的实现阶段，以保持命令兼容。不得因为进入 `apply-host` 就跳过 Brief、设计方向和设计评审。
 
-`apply-host` 默认使用 `fast` 档：目标是 8–15 分钟内交付当前页面的可评审结果。命中完整且哈希有效的 Registry 冻结包后，Preflight 直接复用 Evidence、Intent 与 Mapping，禁止重新派发 Brand Researcher / Design Translator。`standard` 用于受影响范围正式交付，`certification` 才执行全宿主、真实 DangoUI runtime、capability-gap 与平台级认证；不得把 certification 静默塞进首次预览。三个档位都保留业务安全、资产可用、回滚和 fresh Visual QA，只改变同步覆盖范围与可声明等级。
+`apply-host` 默认使用 `fast` 档：目标是在 5 分钟内让用户看到宿主首页首屏；用户明确指定页面时改为该页首屏。命中完整且哈希有效的 Registry 冻结包后，Preflight 直接复用 Evidence、Intent 与 Mapping，禁止重新派发 Brand Researcher / Design Translator。首次预览保留 2–3 个轻量样式方向选择，选定后只执行首屏实现与 Smoke QA，并停在 `awaiting-user`。只有用户显式 `approve`、`revise` 或 `certify` 后才继续。`standard` 用于受影响范围正式交付，`certification` 才执行全宿主、真实 DangoUI runtime、capability-gap 与平台级认证；不得把完整 QA 或 certification 静默塞进首次预览。
 
 apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract](references/host-theme-load-order.md) 建立单一全局主题入口并运行 `validate-host-theme-order.mjs`，再以真实宿主 desktop/mobile 证明 cascade winner。Host Strategist 完成机会判断后、任何结构冻结或实现之前，必须执行 Wild Design MVP 选择门：以同一业务内容生成 2-3 个轻量可视方向，分别说明信息密度、视觉资产、页面结构和动效强度，并标出一个推荐项。用户可选单项、混合、全部否定，或明确跳过并采用推荐项；技术映射、组件选择和普通 QA 不得转嫁给用户。候选写入 `design-direction-options.json`、选择写入 `design-direction-decision.json`，运行 `validate-wild-design-decision.mjs`；`awaiting-user` 和 `none-fit` 均阻断实现。最终 `design-direction.json` 必须绑定选择文件 hash 与选中项，后续 subagent 不得自行换方向。随后必须生成只读的 `brand-distinctiveness-assessment.json`：同视口对照 source/host，遮蔽品牌名、Logo 和显式品牌文字后做 blind recognition，并分别评 visual mass / asset / composition / type / motion。高承载页至少需要 3 个跨 3 个维度、各占视口至少 5% 的可见证据 signal；字体、小 Logo、微图标和 archive 气质不算强表达。先运行 `validate-brand-distinctiveness.mjs`，再把结果传给 `validate-host-apply-gate.mjs --distinctiveness`。Visual QA 只读，FAIL 退回 Evidence、Interpreter/Design Director 或 Host Implementation 的真实 owner，修复后 fresh QA。技术 Gate 或业务安全通过不能补偿视觉辨识度 FAIL；最终必须分列 `workflowCompletion`、`businessSafety`、`visualDistinctiveness`，禁止用单一 overall 百分比误导。没有真实 DangoUI runtime/component consumer 时最高只能报 `PARTIAL_STYLE_ONLY` / `conservative-application`。细则见 `workflow-contract.json` 与角色契约。
 
@@ -335,6 +335,8 @@ node skills/brand/scripts/resolve-public-style-pack.mjs --source-url <URL> --ins
 
 - 以 `{assetRoot}` 的 JSON 作为事实来源；不要凭品牌名或审美直觉改样式。
 - 进入 apply-host 后，第一步也必须先执行统一入口：`node skills/brand/scripts/run-brand-workflow.mjs run --mode apply-host --brand <brand> --source-url <URL> --host-target <target> --plan-file <plan>`；若在 Claude 项目镜像中执行，则改用 `.claude/skills/brand/scripts/run-brand-workflow.mjs`。
+- 用户未指定目标页面时，`--host-target` 指向宿主根目录，由 Preflight 读取路由配置的首个声明页面作为默认首页；禁止因此扫描或换肤整个宿主。用户明确指定页面时只处理该页及其直接依赖。
+- fast 首次预览通过后必须停在 `awaiting-user`。用户确认后运行 `node skills/brand/scripts/brand-subagent-workflow.mjs approve-preview --brand <brand> --decision <approve|revise|certify>`；未收到决定不得开始完整 QA。
 - `dangoui-adapter.tokens` 里的现有 `--du-*` 可以进入主题 token；`demoOnlyVisualControls` 只能进入页面样式层、主题 class、asset 或 ReviewQueue。
 - `component-mapping.json` 决定组件组合方式；不要把页面组合误判为需要新增 dangoui 组件。
 - 应用前必须诊断宿主：默认入口、目标文件、样式入口、组件类名、DangoUI API、硬编码视觉值、当前 token 消费点。

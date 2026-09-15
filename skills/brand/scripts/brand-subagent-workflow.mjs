@@ -8,7 +8,7 @@ const args = process.argv.slice(2);
 const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
 const brand = opt("--brand", "");
-if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
+if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-preview|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
@@ -18,6 +18,7 @@ const contractFile = path.join(root, "skills", "brand", "workflow-contract.json"
 if (command === "prepare") prepare();
 else if (command === "next") next();
 else if (command === "record") record();
+else if (command === "approve-preview") approvePreview();
 else if (command === "status") status();
 else if (command === "resume-evidence") resumeEvidence();
 else if (command === "resume-qa") resumeQa();
@@ -158,6 +159,32 @@ function record() {
   output({ ok: true, status: manifest.status, completedStage: current.id, durationMs: current.durationMs, elapsedMs: manifest.elapsedMs, nextStageId: manifest.currentStageId || null, blockingFindings: current.blockingFindings });
 }
 
+function approvePreview() {
+  const manifest = validateManifest();
+  if (manifest.mode !== "apply-host" || manifest.status !== "awaiting-user" || manifest.previewDecision?.status !== "pending") {
+    fail("PREVIEW_NOT_AWAITING_USER: approve-preview requires a passing apply-host preview awaiting user review.");
+  }
+  const decision = opt("--decision", "");
+  if (!['approve', 'revise', 'certify'].includes(decision)) fail("approve-preview requires --decision <approve|revise|certify>.");
+  manifest.previewDecision = { status: decision, decidedAt: new Date().toISOString(), source: "explicit-user" };
+  if (decision === "revise") {
+    const attempts = manifest.stages.filter((item) => item.stage === "hostImplementation").length + 1;
+    const retry = uniqueStage(manifest, "hostImplementation", "hostImplementationAgent", attempts);
+    manifest.stages.push(retry);
+    manifest.currentStageId = retry.id;
+    manifest.status = "running";
+  } else {
+    const qa = uniqueStage(manifest, "visualQA", "visualQA", 1);
+    manifest.stages.push(qa);
+    manifest.currentStageId = qa.id;
+    manifest.status = "running";
+    manifest.deliveryLevel = decision === "certify" ? "release-certification-requested" : "scoped-delivery";
+  }
+  manifest.updatedAt = new Date().toISOString();
+  writeJson(manifestFile, manifest);
+  output({ ok: true, status: manifest.status, decision, nextStageId: manifest.currentStageId });
+}
+
 function status() {
   const before = fs.existsSync(manifestFile) ? sha256File(manifestFile) : null;
   const manifest = validateManifest();
@@ -277,6 +304,15 @@ function advance(manifest, current) {
   }
   const order = stageOrderForMode(manifest.mode);
   if (current.verdict === "pass") {
+    if (manifest.mode === "apply-host" && current.stage === "previewQA") {
+      manifest.status = "awaiting-user";
+      manifest.currentStageId = null;
+      manifest.firstPreviewAt = current.endedAt;
+      manifest.timeToFirstPreviewMs = manifest.stages.reduce((sum, item) => sum + Number(item.durationMs || 0), 0);
+      manifest.previewSla = { targetMs: 300000, status: manifest.timeToFirstPreviewMs <= 300000 ? "pass" : "miss" };
+      manifest.previewDecision = { status: "pending" };
+      return;
+    }
     const index = order.indexOf(current.stage);
     if (index === order.length - 1) {
       manifest.status = "passed";
@@ -389,6 +425,7 @@ function proofStatusFromFidelity(fidelity) {
 function allProofsPass(proofs) { return Object.values(proofs).every((value) => value === "pass"); }
 function nextAction(manifest, proofs) {
   if (manifest.mode === "apply-host") {
+    if (manifest.status === "awaiting-user") return "Show the runnable first preview, then record approve, revise or certify with approve-preview; do not start full QA yet.";
     if (manifest.status === "passed") return "Run finalize to close the apply-host manifest after its passing independent Visual QA receipt.";
     if (manifest.status === "complete") return "Host application is complete and has a passing independent Visual QA receipt.";
     return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}.` : "Inspect the blocked host stage and preserve the frozen apply-host goal.";
@@ -408,7 +445,7 @@ function initialStageForMode(mode) {
 }
 function stageOrderForMode(mode) {
   return mode === "apply-host"
-    ? ["hostStrategy", "hostImplementation", "visualQA"]
+    ? ["hostStrategy", "hostImplementation", "previewQA", "visualQA"]
     : ["evidence", "interpreter", "demo", "visualQA"];
 }
 function roleForStage(name) {
@@ -418,6 +455,7 @@ function roleForStage(name) {
     demo: "demoImplementationAgent",
     hostStrategy: "hostStrategist",
     hostImplementation: "hostImplementationAgent",
+    previewQA: "visualQA",
     visualQA: "visualQA",
   }[name];
 }
@@ -431,7 +469,9 @@ function dispatchScopeRules(manifest) {
   }
   return [
     "Reuse the frozen Registry Evidence, Intent and Mapping; do not dispatch or simulate Brand Researcher or Design Translator.",
-    "Limit synchronous work to the explicitly targeted route, changed selectors, critical desktop/mobile viewport, asset loading, rollback and one primary business journey.",
+    "Default to the host home route unless the user explicitly names another page; limit the first preview to that route's first viewport.",
+    "Keep two or three style options and the explicit user decision before implementation; reuse frozen brand rules and shared host content for every option.",
+    "Stop after first-viewport implementation and Smoke QA with status awaiting-user; do not start scoped full QA until approve-preview records an explicit decision.",
     "Do not run or block on a full-host coverage matrix, capability-gap certification or unrequested platform proof; report PARTIAL_STYLE_ONLY when runtime proof is absent.",
   ];
 }

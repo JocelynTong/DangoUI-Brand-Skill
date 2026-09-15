@@ -251,12 +251,13 @@
   "applyHostExecutionProfiles": {
     "default": "fast",
     "fast": {
-      "targetMinutes": [8, 15],
-      "purpose": "Produce a reviewable result on the explicitly targeted host page using an already reviewed Registry bundle.",
+      "targetMinutes": [0, 5],
+      "purpose": "Show a first-viewport preview on the explicit target, or the host home route by default, using an already reviewed Registry bundle.",
       "registryPolicy": "A complete frozen bundle is trusted after hash/file preflight; Brand Researcher and Design Translator are not dispatched.",
-      "coverageScope": "Changed route, changed selectors, desktop/mobile critical viewport, asset loading, rollback and one primary business journey.",
-      "qualityBoundary": "May report PARTIAL_STYLE_ONLY; may not claim full-host, DangoUI runtime or platform certification.",
-      "stopRule": "At 15 minutes report the slow node and preserve a runnable review result; do not silently expand into certification."
+      "coverageScope": "The first viewport of the explicit target; otherwise the first route declared by the host is the default home page.",
+      "qualityBoundary": "Smoke QA proves load, visible brand application and intact geometry only; it may not claim scoped delivery, full-host, DangoUI runtime or platform certification.",
+      "stopRule": "At 5 minutes stop, report the slow node and preserve the latest runnable preview; do not continue into full QA or certification before user review.",
+      "pauseRule": "A passing Smoke QA changes the workflow to awaiting-user. Only an explicit approve, revise or certify decision may continue it."
     },
     "standard": {
       "targetMinutes": [15, 25],
@@ -273,6 +274,19 @@
       "coverageScope": "Complete declared host matrix and all release-blocking journeys/platform proofs.",
       "qualityBoundary": "Required for full-host and platform PASS claims.",
       "stopRule": "Failures remain explicit blockers; certification must never be inserted silently into fast preview."
+    }
+  },
+  "applyHostPreviewFirst": {
+    "timeToFirstPreviewMs": 300000,
+    "defaultTarget": "host-home-first-declared-route",
+    "explicitTargetSyntax": "/brand + brand source + requested host page",
+    "styleChoice": "required before implementation; two or three lightweight directions sharing the same host content and frozen brand pack",
+    "stages": ["scope-and-style-choice", "first-viewport-implementation", "smoke-qa", "awaiting-user", "scoped-full-qa-or-release-certification"],
+    "smokeChecks": ["target page loads", "selected brand direction is visibly applied", "page width equals viewport and first-level blocks do not overflow"],
+    "roles": {
+      "hostStrategist": {"budgetSeconds": 60, "output": "host-scope.json plus style options", "mustNot": ["scan the full host by default", "relearn the brand", "produce a full coverage matrix for fast preview"]},
+      "hostImplementationAgent": {"budgetSeconds": 180, "output": "runnable first-viewport preview plus implementation receipt", "mustNot": ["edit routes, APIs, data or business copy", "modify out-of-scope pages", "start release certification"]},
+      "visualQA": {"budgetSeconds": 60, "output": "preview-smoke-report.json", "mustNot": ["edit production code", "rerun learn-brand proof", "perform full-host QA before user approval"]}
     }
   },
   "sectionQualityModel": {
@@ -706,7 +720,7 @@
         },
         {
           "id": "load-existing-mod",
-          "role": "brandResearcher",
+          "role": "router",
           "label": "Load existing MOD/style-pack/evidence/intent instead of relearning the demo URL",
           "required": true,
           "outputs": ["brand-mod.json", "brand-evidence.json", "brand-intent.json"]
@@ -745,13 +759,6 @@
           "gates": ["node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase dispatch"]
         },
         {
-          "id": "tpp-test",
-          "role": "visualQA",
-          "label": "Run TPP blocking gate before applying into host",
-          "required": true,
-          "blocking": true
-        },
-        {
           "id": "map-to-dangoui",
           "role": "dangouiMapper",
           "label": "Map learned intent to host DangoUI/runtime components, preserving host APIs",
@@ -767,9 +774,25 @@
           "producerGates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt", "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"]
         },
         {
-          "id": "visual-qa",
+          "id": "preview-smoke-qa",
           "role": "visualQA",
-          "label": "Review rendered host result for business fit, over-application, C-side expression, and interaction contract quality",
+          "label": "Verify the selected direction is visible, the target loads, and first-viewport geometry remains intact",
+          "required": true,
+          "readOnly": true,
+          "outputs": ["preview-smoke-report.json", "timeToFirstPreviewMs"]
+        },
+        {
+          "id": "await-user-preview-decision",
+          "role": "designDirectorOrchestrator",
+          "label": "Pause after the first preview and wait for explicit approve, revise or certify",
+          "required": true,
+          "blocking": true,
+          "outputs": ["previewDecision"]
+        },
+        {
+          "id": "scoped-visual-qa",
+          "role": "visualQA",
+          "label": "After approval, review the affected route for business fit, complete-page geometry and interaction quality",
           "required": true,
           "outputs": ["visual-qa-report.json", "brand-distinctiveness-assessment.json", "p0-acceptance report"],
           "readOnly": true,

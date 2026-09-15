@@ -14,6 +14,7 @@ for (const name of ["brand-mod.json", "brand-evidence.json", "brand-intent.json"
   fs.writeFileSync(path.join(migration, name), "{}\n");
 }
 fs.writeFileSync(path.join(host, "package.json"), JSON.stringify({ dependencies: { dangoui: "1.0.0" } }));
+fs.writeFileSync(path.join(host, "src", "app.config.ts"), "export default { pages: ['pages/home/index', 'pages/other/index'] }\n");
 const page = path.join(host, "src", "page.vue");
 fs.writeFileSync(page, "<template><view><view>broken</view></template>\n");
 
@@ -28,6 +29,12 @@ result = runApplyHostPreflight({ root, brand, hostTarget: "host", write: false }
 assert.equal(result.verdict, "pass");
 assert.equal(result.hostLayout.issues.length, 0);
 assert.equal(result.hostLayout.qaContract.length, 3);
+assert.equal(result.targetResolution.strategy, "default-home-first-route");
+assert.equal(result.targetResolution.route, "pages/home/index");
+
+fs.writeFileSync(page, "<template><view><view class=\"ornament\" /></view></template>\n");
+result = runApplyHostPreflight({ root, brand, hostTarget: "host", write: false });
+assert.equal(result.hostLayout.issues.length, 0, "self-closing Taro view is balanced");
 
 const evidence = path.join(migration, "captures", "source", "home", "full-page.png");
 fs.mkdirSync(path.dirname(evidence), { recursive: true });

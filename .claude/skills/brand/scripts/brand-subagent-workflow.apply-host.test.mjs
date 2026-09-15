@@ -80,8 +80,20 @@ writeOutput("structural-targets.json", "{}");
 run("next");
 recordCurrent("/root/host-implementation", writeOutput("host-rendered-proof.json", "rendered host"));
 manifest = readManifest();
-assert.equal(manifest.currentStageId, "visualQA-1");
+assert.equal(manifest.currentStageId, "previewQA-1");
 
+run("next");
+recordCurrent("/root/host-preview-qa", writeOutput("preview-smoke-report.json", "preview qa"));
+manifest = readManifest();
+assert.equal(manifest.status, "awaiting-user");
+assert.equal(manifest.currentStageId, null);
+assert.equal(manifest.previewDecision.status, "pending");
+assert.ok(Number.isFinite(manifest.timeToFirstPreviewMs));
+const previewStatus = run("status");
+assert.match(previewStatus.nextAction, /approve, revise or certify/);
+
+const approved = run("approve-preview", "--decision", "approve");
+assert.equal(approved.nextStageId, "visualQA-1");
 run("next");
 recordCurrent("/root/host-visual-qa", writeOutput("visual-qa-report.json", "host qa"));
 manifest = readManifest();
