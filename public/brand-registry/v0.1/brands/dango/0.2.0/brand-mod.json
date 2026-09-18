@@ -63,9 +63,9 @@
     },
     "evidence": {
       "sourceFiles": [
-        "migrations/dango-v2/brand-evidence.json",
-        "migrations/dango-v2/brand-intent.json",
-        "migrations/dango-v2/dangoui-adapter.json"
+        "migrations/dango/brand-evidence.json",
+        "migrations/dango/brand-intent.json",
+        "migrations/dango/dangoui-adapter.json"
       ],
       "method": "rendered-evidence-first DOM/CSS reconstruction"
     },
@@ -73,7 +73,7 @@
       "$description": "DangoUI v2 DTCG token contract generated from Brand MOD token mirrors.",
       "$extensions": {
         "echo.brand.schema": "brand-mod.tokens.dtcg/v0.1",
-        "echo.brand.sourceFile": "migrations/dango-v2/brand-mod.json",
+        "echo.brand.sourceFile": "migrations/dango/brand-mod.json",
         "echo.brand.note": "DTCG is canonical for reusable token values; mapped/styleOnly are compatibility mirrors for current demo consumers."
       },
       "mapped": {

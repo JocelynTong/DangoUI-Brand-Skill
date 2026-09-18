@@ -2,7 +2,14 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { fileURLToPath } from "node:url";
 import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
+
+const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
+const skillScript = (name) => path.join(skillScriptsDir, name);
+const resolveSkillScript = (script) => script.includes("skills/brand/scripts/")
+  ? skillScript(path.basename(script))
+  : script;
 
 const originalArgs = process.argv.slice(2);
 const normalized = normalizeEntryCommand(originalArgs);
@@ -19,7 +26,7 @@ if (!["run", "plan", "status", "tpp", "detect"].includes(command)) {
 }
 
 const mode = resolveWorkflowMode(rawArgs.slice(1));
-const profile = opt(rawArgs, "--profile", mode === "apply-host" ? "fast" : "full");
+const profile = opt(rawArgs, "--profile", ["design-host", "apply-host"].includes(mode) ? "fast" : "full");
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
 const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
@@ -29,8 +36,8 @@ if (forceRelearn && mode !== "learn-brand") {
 if (mode === "learn-brand" && !["fast", "full"].includes(profile)) {
   fail(`Unknown learn-brand profile: ${profile}. Use fast or full.`);
 }
-if (mode === "apply-host" && !["fast", "standard", "certification"].includes(profile)) {
-  fail(`Unknown apply-host profile: ${profile}. Use fast, standard or certification.`);
+if (["design-host", "apply-host"].includes(mode) && !["fast", "standard", "certification"].includes(profile)) {
+  fail(`Unknown ${mode} profile: ${profile}. Use fast, standard or certification.`);
 }
 const root = opt(rawArgs, "--root", process.cwd());
 let brand = resolveBrand(rawArgs.slice(1));
@@ -44,7 +51,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       sourceUrl: requestedSourceUrl,
       root,
       registryBase: opt(rawArgs, "--registry-base", undefined),
-      install: mode === "apply-host" && command === "run",
+      install: ["design-host", "apply-host"].includes(mode) && command === "run",
     });
   } catch (error) {
     registryResolution = { matched: false, reason: "registry-unavailable", error: error.message };
@@ -85,7 +92,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       process.exit(0);
     }
 
-    if (mode === "apply-host") {
+    if (["design-host", "apply-host"].includes(mode)) {
       rawArgs = withoutOption(rawArgs, "--source-url");
       rawArgs = withoutOption(rawArgs, "--registry-base");
       if (!opt(rawArgs, "--brand", "")) rawArgs.push("--brand", brand);
@@ -200,18 +207,19 @@ if (command === "plan") {
 }
 
 if (command === "run") {
-  if (mode === "apply-host") {
+  if (["design-host", "apply-host"].includes(mode)) {
     const hostTarget = opt(passthroughArgs, "--host-target", "") || opt(passthroughArgs, "--host-target-or-plan", "");
     const preflight = spawnSync("node", [
-      "skills/brand/scripts/apply-host-preflight.mjs",
+      skillScript("apply-host-preflight.mjs"),
       "--root", root,
       "--brand", brand,
       "--host-target", hostTarget,
       "--profile", profile,
+      "--phase", mode === "design-host" ? "design" : "implementation",
     ], { cwd: root, encoding: "utf8" });
     executed.push({
       step: "apply-host-preflight",
-      command: `node skills/brand/scripts/apply-host-preflight.mjs --root ${root} --brand ${brand} --host-target ${hostTarget} --profile ${profile}`,
+      command: `node skills/brand/scripts/apply-host-preflight.mjs --root ${root} --brand ${brand} --host-target ${hostTarget} --profile ${profile} --phase ${mode === "design-host" ? "design" : "implementation"}`,
       exitCode: preflight.status,
       stdout: preflight.stdout,
       stderr: preflight.stderr,
@@ -222,7 +230,7 @@ if (command === "run") {
         workflow: mode,
         profile,
         brand,
-        step: "apply-host-preflight",
+        step: `${mode}-preflight`,
         blockingCode: "APPLY_HOST_PREFLIGHT_BLOCKED",
         preflight: safeParseJson(preflight.stdout),
         message: "Host apply stopped before agent dispatch or implementation because the bounded preflight failed.",
@@ -233,6 +241,7 @@ if (command === "run") {
   executeWorkflow({
     root,
     mode,
+    profile,
     brand,
     args: passthroughArgs,
     executed,
@@ -368,11 +377,11 @@ function buildGuardCommands(modeName, passthroughArgs) {
   const filtered = stripCommandOnlyArgs(passthroughArgs);
   const commands = [];
 
-  if (modeName === "apply-host" && opt(filtered, "--plan-file", "")) {
+  if (["design-host", "apply-host"].includes(modeName) && opt(filtered, "--plan-file", "")) {
     commands.push(["validate-intent", ...filtered]);
   }
 
-  commands.push(["tpp-test", "--mode", modeName, ...filtered]);
+  commands.push(["tpp-test", "--mode", modeName === "design-host" ? "apply-host" : modeName, ...filtered]);
   return commands;
 }
 
@@ -534,7 +543,8 @@ function runTppPreviewChecks({ root, mode, brand, args, executed }) {
 }
 
 function runNodeCheck({ root, script, label, enabled, scriptArgs = [], executed }) {
-  if (!enabled) {
+  const executableScript = resolveSkillScript(script);
+  if (!enabled && !fs.existsSync(executableScript)) {
     return {
       status: "missing",
       command: `node ${script}${formatExtraArgs(scriptArgs)}`,
@@ -543,7 +553,7 @@ function runNodeCheck({ root, script, label, enabled, scriptArgs = [], executed 
     };
   }
 
-  const result = spawnSync("node", [script, ...scriptArgs], {
+  const result = spawnSync("node", [executableScript, ...scriptArgs], {
     cwd: root,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
@@ -613,7 +623,7 @@ function extractVisualQualityLevel(result, brand) {
   return match?.[1] || "";
 }
 
-function executeWorkflow({ root, mode, brand, args, executed }) {
+function executeWorkflow({ root, mode, profile, brand, args, executed }) {
   if (mode === "learn-brand") {
     runLearnBrand({
       root,
@@ -624,25 +634,180 @@ function executeWorkflow({ root, mode, brand, args, executed }) {
     return;
   }
 
+  if (mode === "apply-host") {
+    const wild = resolveWildDesignSet({ root, brand, args });
+    const required = { plan: opt(args, "--application-plan", path.join("migrations", brand, "brand-application-plan.json")), options: wild.options, decision: wild.decision, scope: wild.scope, direction: wild.direction, brandEvidence: wild.brandEvidence, brandMod: wild.brandMod };
+    const missing = Object.entries(required).filter(([, file]) => !file || !fs.existsSync(path.resolve(root, file))).map(([key]) => key);
+    if (missing.length) {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "verify-frozen-design", blockingCode: "FROZEN_DESIGN_REQUIRED", missingArtifacts: missing, learnBrandDispatched: false, nextAction: "Return to design-host, complete direction selection and freeze all design artifacts before implementation.", message: "Apply-host stopped before editing because its approved design input is incomplete." }, null, 2)}\n`);
+      process.exit(1);
+    }
+    const planGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-brand-application-plan.mjs", label: "brand-application-plan", enabled: true, scriptArgs: ["--plan", required.plan], executed });
+    const directionGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-wild-design-decision.mjs", label: "frozen-design-direction", enabled: true, scriptArgs: wild.args, executed });
+    if (planGate.status !== "passed" || directionGate.status !== "passed") {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "verify-frozen-design", blockingCode: "FROZEN_DESIGN_INVALID", planGate, directionGate, nextAction: "Repair and reapprove the direction in design-host; apply-host may not redesign it." }, null, 2)}\n`);
+      process.exit(1);
+    }
+    if (opt(args, "--plan-file", "")) runOrThrow({ root, commandArgs: ["validate-intent", ...stripCommandOnlyArgs(args)], executed, step: "validate-intent", failureMessage: "Host-apply intent validation failed." });
+    return;
+  }
+
+  const applicationPlanArg = opt(args, "--application-plan", "");
+  if (mode === "design-host" && applicationPlanArg) {
+    const applicationPlanFile = path.resolve(root, applicationPlanArg);
+    if (!fs.existsSync(applicationPlanFile)) {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "brand-application-plan", blockingCode: "BRAND_APPLICATION_PLAN_MISSING", path: applicationPlanArg }, null, 2)}\n`);
+      process.exit(1);
+    }
+    const planGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-brand-application-plan.mjs", label: "brand-application-plan", enabled: true, scriptArgs: ["--plan", applicationPlanFile], executed });
+    if (planGate.status !== "passed") {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "brand-application-plan", blockingCode: "BRAND_APPLICATION_PLAN_INVALID", gate: planGate }, null, 2)}\n`);
+      process.exit(1);
+    }
+    const plan = readJsonIfExists(applicationPlanFile);
+    const options = (Array.isArray(plan?.options) ? plan.options : [])
+      .filter((item) => item?.disposition !== "rejected")
+      .map((item, index) => ({
+        id: item.id,
+        name: item.name || item.id,
+        recommended: item.recommended === true || index === 0,
+        visualNarrative: item.visualNarrative,
+        preview: path.resolve(path.dirname(applicationPlanFile), item.previewEvidence.path),
+        previewSha256: item.previewEvidence.sha256,
+        compositionRoles: (item.compositionRoles || []).map((role) => role.role),
+        assetRoles: (item.assetArtDirection?.assetAssignments || []).map((asset) => asset.role),
+      }));
+    const rejectedDirections = (Array.isArray(plan?.options) ? plan.options : [])
+      .filter((item) => item?.disposition === "rejected")
+      .map((item) => ({ id: item.id, reason: item.rejectionReason, codes: item.rejectionCodes || [] }));
+    process.stdout.write(`${JSON.stringify({
+      ok: true,
+      workflow: mode,
+      profile,
+      status: "awaiting-user",
+      step: "direction-selection",
+      pauseReason: "style-choice",
+      hostTarget: opt(args, "--host-target", ""),
+      hostFilesModified: false,
+      applicationPlan: applicationPlanFile,
+      hostBinding: plan.hostBinding,
+      styleOptions: options,
+      rejectedDirections,
+      allowedNextActions: ["select", "none-fit"],
+      nextAction: "Show the validated static direction images and wait for an explicit selection. Do not edit the host yet.",
+      message: "Validated design-host directions are ready for user selection; rejected directions remain visible only as audit evidence.",
+    }, null, 2)}\n`);
+    process.exit(0);
+  }
+
+  // A fresh fast preview must never inherit an old host's choice merely because
+  // a similarly named artifact exists somewhere under the brand migration.
+  // The current run has to bind its own rendered option set explicitly.
+  const explicitOptions = opt(args, "--wild-design-options", "");
+  if (profile === "fast" && !explicitOptions) {
+    process.stdout.write(`${JSON.stringify({
+      ok: true,
+      workflow: mode,
+      profile,
+      status: "preparing-style-options",
+      step: "wild-design-selection",
+      pauseReason: "style-options-required",
+      learnBrandDispatched: false,
+      hostFilesModified: false,
+      nextAction: "Generate two or three rendered first-viewport options for this host, then rerun with --wild-design-options. Do not reuse another host run's decision.",
+      message: "Apply preview is correctly routed and stopped before host edits while this run's style options are prepared.",
+    }, null, 2)}\n`);
+    process.exit(0);
+  }
+
   const wild = resolveWildDesignSet({ root, brand, args });
-  const requiredWildArtifacts = {
+  const requiredChoiceArtifacts = {
     options: wild.options,
-    decision: wild.decision,
     businessScope: wild.scope,
-    designDirection: wild.direction,
     brandEvidence: wild.brandEvidence && fs.existsSync(wild.brandEvidence) ? wild.brandEvidence : "",
+    brandMod: wild.brandMod && fs.existsSync(wild.brandMod) ? wild.brandMod : "",
   };
-  const missingWildArtifacts = Object.entries(requiredWildArtifacts)
+  const missingChoiceArtifacts = Object.entries(requiredChoiceArtifacts)
     .filter(([, file]) => !file || !fs.existsSync(path.resolve(root, file)))
     .map(([key]) => key);
-  if (missingWildArtifacts.length) {
+  if (missingChoiceArtifacts.length) {
     process.stdout.write(`${JSON.stringify({
       ok: false,
       workflow: mode,
       step: "wild-design-selection",
       blockingCode: "WILD_DESIGN_ARTIFACT_SET_INCOMPLETE",
-      missingArtifacts: missingWildArtifacts,
-      message: "Host implementation is blocked until business scope, rendered options, a user-bound decision, final direction, and brand evidence are all present.",
+      missingArtifacts: missingChoiceArtifacts,
+      message: "Style choice is blocked until this host run has rendered options, frozen business scope, and brand evidence.",
+    }, null, 2)}\n`);
+    process.exit(1);
+  }
+
+  const decisionPayload = wild.decision ? readJsonIfExists(path.resolve(root, wild.decision)) : null;
+  if (!decisionPayload || decisionPayload.status === "awaiting-user") {
+    const optionGateArgs = [
+      "--options-only",
+      "--options", wild.options,
+      "--business-scope", wild.scope,
+      "--brand-evidence", wild.brandEvidence,
+      "--brand-mod", wild.brandMod,
+    ];
+    if (wild.history) optionGateArgs.push("--history", wild.history);
+    const optionGate = runNodeCheck({
+      root,
+      script: "skills/brand/scripts/validate-wild-design-decision.mjs",
+      label: "wild-design-options",
+      enabled: fs.existsSync(path.join(root, "skills/brand/scripts/validate-wild-design-decision.mjs")),
+      scriptArgs: optionGateArgs,
+      executed,
+    });
+    if (optionGate.status !== "passed") {
+      process.stdout.write(`${JSON.stringify({
+        ok: false,
+        workflow: mode,
+        profile,
+        status: "rework-style-options",
+        step: "wild-design-selection",
+        blockingCode: "WILD_DESIGN_OPTIONS_GATE_BLOCKED",
+        learnBrandDispatched: false,
+        hostFilesModified: false,
+        gate: optionGate,
+        nextAction: "Regenerate the rendered directions with dominant source-backed brand media and distinct visual narratives before showing them to the user.",
+        message: "Style options were rejected before user review because they do not yet carry enough visible brand expression.",
+      }, null, 2)}\n`);
+      process.exit(1);
+    }
+    process.stdout.write(`${JSON.stringify({
+      ok: true,
+      workflow: mode,
+      profile,
+      status: "awaiting-user",
+      step: "wild-design-selection",
+      pauseReason: "style-choice",
+      learnBrandDispatched: false,
+      hostFilesModified: false,
+      styleOptions: wild.options,
+      allowedNextActions: ["select", "none-fit"],
+      nextAction: "Show the rendered options and wait for the user's explicit selection. Do not edit the host yet.",
+      message: "Style options are ready. Apply preview paused normally for the user's choice.",
+    }, null, 2)}\n`);
+    process.exit(0);
+  }
+
+  const missingSelectedArtifacts = {
+    decision: wild.decision,
+    designDirection: wild.direction,
+  };
+  const missingAfterSelection = Object.entries(missingSelectedArtifacts)
+    .filter(([, file]) => !file || !fs.existsSync(path.resolve(root, file)))
+    .map(([key]) => key);
+  if (missingAfterSelection.length) {
+    process.stdout.write(`${JSON.stringify({
+      ok: false,
+      workflow: mode,
+      step: "wild-design-selection",
+      blockingCode: "WILD_DESIGN_SELECTED_CONTRACT_INCOMPLETE",
+      missingArtifacts: missingAfterSelection,
+      message: "The selected option cannot enter implementation until its bound decision and final design direction are complete.",
     }, null, 2)}\n`);
     process.exit(1);
   }
@@ -1018,6 +1183,9 @@ function normalizeEntryCommand(args) {
       args: ["run", "--mode", "apply-host", ...rest],
     };
   }
+  if (command === "design") {
+    return { args: ["run", "--mode", "design-host", ...rest] };
+  }
   if (command === "update") {
     return {
       args: ["run", "--mode", "learn-brand", "--update-existing", ...rest],
@@ -1029,7 +1197,7 @@ function normalizeEntryCommand(args) {
 function resolveWorkflowMode(args) {
   const explicit = opt(args, "--mode", "");
   if (explicit) {
-    if (!["learn-brand", "apply-host"].includes(explicit)) {
+    if (!["learn-brand", "design-host", "apply-host"].includes(explicit)) {
       fail(`Unsupported workflow mode: ${explicit}`);
     }
     return explicit;
@@ -1037,7 +1205,8 @@ function resolveWorkflowMode(args) {
 
   const hostTarget = opt(args, "--host-target", "") || opt(args, "--host-target-or-plan", "");
   const planFile = opt(args, "--plan-file", "");
-  return hostTarget || planFile ? "apply-host" : "learn-brand";
+  if (hostTarget || planFile) return opt(args, "--design-direction", "") || opt(args, "--application-plan", "") ? "apply-host" : "design-host";
+  return "learn-brand";
 }
 
 function resolveBrand(args) {
@@ -1089,7 +1258,7 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
     }
   }
 
-  if (mode === "apply-host") {
+  if (["design-host", "apply-host"].includes(mode)) {
     const missing = [];
     if (!brand) missing.push("--brand");
     if (!signals.hostTarget && !signals.planFile) {
@@ -1103,8 +1272,8 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
         ok: false,
         mode,
         signals,
-        reasons: ["apply-host cannot consume raw extractor output"],
-        message: "This input set mixes host apply with website extraction. Apply-host may retain a source URL as provenance, but it must consume an existing MOD/style-pack instead of raw extractor output.",
+        reasons: [`${mode} cannot consume raw extractor output`],
+        message: `This input set mixes ${mode} with website extraction. Host work may retain a source URL as provenance, but it must consume an existing MOD/style-pack instead of raw extractor output.`,
       };
     }
     if (missing.length) {
@@ -1112,8 +1281,8 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
         ok: false,
         mode,
         signals,
-        reasons: [`missing apply-host inputs: ${missing.join(", ")}`],
-        message: "This input set does not match apply-host. Applying to a host project needs both a host target and an existing learned style pack or MOD.",
+        reasons: [`missing ${mode} inputs: ${missing.join(", ")}`],
+        message: `This input set does not match ${mode}. Host design or implementation needs both a host target and an existing learned style pack or MOD.`,
       };
     }
   }
@@ -1128,7 +1297,7 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
 }
 
 function runBrandGuard(root, guardArgs, options = {}) {
-  const result = spawnSync("node", ["skills/brand/scripts/brand-guard.mjs", ...guardArgs], {
+  const result = spawnSync("node", [skillScript("brand-guard.mjs"), ...guardArgs], {
     cwd: root,
     encoding: "utf8",
     stdio: ["ignore", "pipe", "pipe"],
@@ -1244,12 +1413,13 @@ function buildHowToTest({ root, mode, brand }) {
   const scope = wild.scope || `migrations/${brand}/business-scope.json`;
   const direction = wild.direction || `migrations/${brand}/design-direction.json`;
   const brandEvidence = wild.brandEvidence || `migrations/${brand}/brand-evidence.json`;
-  const wildDesign = brand ? `node skills/brand/scripts/validate-wild-design-decision.mjs --options ${options} --decision ${decision} --business-scope ${scope} --brand-evidence ${brandEvidence} --design-direction ${direction}` : "";
+  const brandMod = wild.brandMod || `migrations/${brand}/brand-mod.json`;
+  const wildDesign = brand ? `node skills/brand/scripts/validate-wild-design-decision.mjs --options ${options} --decision ${decision} --business-scope ${scope} --brand-evidence ${brandEvidence} --brand-mod ${brandMod} --design-direction ${direction}` : "";
   return {
     plan: `node skills/brand/scripts/run-brand-workflow.mjs plan --mode ${mode}${brandArgs}`,
     tpp: `node skills/brand/scripts/run-brand-workflow.mjs tpp --mode ${mode}${brandArgs}`,
     handoffArtifacts: `node skills/brand/scripts/brand-guard.mjs handoff-artifact-gate --mode ${mode}${brandArgs} --strict`,
-    ...(mode === "apply-host" ? { wildDesign } : {}),
+    ...(["design-host", "apply-host"].includes(mode) ? { wildDesign } : {}),
     p0Acceptance: `node skills/brand/scripts/brand-guard.mjs p0-acceptance --mode ${mode}${brandArgs}`,
     status: `node skills/brand/scripts/run-brand-workflow.mjs status --mode ${mode}${brandArgs}`,
     run: `node skills/brand/scripts/run-brand-workflow.mjs run --mode ${mode}${brandArgs}`,
@@ -1293,18 +1463,22 @@ function resolveWildDesignSet({ root, brand, args = [] }) {
   const directionPayload = directionCandidate ? readJsonIfExists(path.resolve(root, directionCandidate)) : null;
   const direction = directionPayload?.wildDesignDecision ? directionCandidate : "";
   const brandEvidence = opt(args, "--brand-evidence", path.join(migrationDir, "brand-evidence.json"));
+  const brandMod = opt(args, "--brand-mod", path.join(migrationDir, "brand-mod.json"));
+  const history = opt(args, "--wild-design-history", path.join(migrationDir, "style-option-history.json"));
   const cliArgs = [];
   if (options) cliArgs.push("--options", options);
   if (decision) cliArgs.push("--decision", decision);
   if (scope) cliArgs.push("--business-scope", scope);
   if (direction) cliArgs.push("--design-direction", direction);
   if (brandEvidence && fs.existsSync(brandEvidence)) cliArgs.push("--brand-evidence", brandEvidence);
-  return { options, decision, scope, direction, brandEvidence, args: cliArgs };
+  if (brandMod && fs.existsSync(brandMod)) cliArgs.push("--brand-mod", brandMod);
+  if (history && fs.existsSync(history)) cliArgs.push("--history", history);
+  return { options, decision, scope, direction, brandEvidence, brandMod, history: fs.existsSync(history) ? history : "", args: cliArgs };
 }
 
 function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
   const migrationDir = brand ? path.join(root, "migrations", brand) : "";
-  const wild = mode === "apply-host" ? resolveWildDesignSet({ root, brand, args }) : null;
+  const wild = ["design-host", "apply-host"].includes(mode) ? resolveWildDesignSet({ root, brand, args }) : null;
   const previewFile = brand ? path.join(root, "public", "brand-previews", `${brand}.json`) : "";
   const previewRegistry = path.join(root, "public", "brand-previews", "registry.json");
   const files = {
@@ -1336,7 +1510,7 @@ function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
   const exists = Object.fromEntries(
     Object.entries(files).map(([key, value]) => [key, Boolean(value) && fs.existsSync(value)]),
   );
-  const wildDesignGate = mode === "apply-host" && exists.wildOptions && exists.wildDecision && exists.wildScope && exists.designDirection
+  const wildDesignGate = ["design-host", "apply-host"].includes(mode) && exists.wildOptions && exists.wildDecision && exists.wildScope && exists.designDirection
     ? runSilentNodeCheck({
       root,
       script: "skills/brand/scripts/validate-wild-design-decision.mjs",
@@ -1594,8 +1768,10 @@ Usage:
   node ${script} learn --profile fast --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --force-relearn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} update --brand pokemon30 --source-url "https://pokemon30th.com/learn/"
+  node ${script} design --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} apply --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} run --brand pokemon30 --source-url "https://pokemon30th.com/"
+  node ${script} run --mode design-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} run --mode apply-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} status --mode learn-brand --brand pokemon30
   node ${script} detect --brand pokemon30 --source-url "https://pokemon30th.com/"
@@ -1603,13 +1779,14 @@ Usage:
   node ${script} plan --mode learn-brand --brand pokemon30 --source-url "https://pokemon30th.com/"
 
 Behavior:
-  - explicit aliases: \`learn\` => new learn-brand, \`update\` => existing learn-brand with inherited source history, \`apply\` => apply-host
+  - explicit aliases: \`learn\` => new learn-brand, \`update\` => existing learn-brand with inherited source history, \`design\` => design-host, \`apply\` => apply-host
   - \`update\` validates migrations/<brand>/source-manifest.json before extraction and only appends sources; a missing historical source blocks with LEARNED_SOURCE_DROPPED
   - learn-brand defaults to \`--profile full\`; use \`--profile fast\` for a bounded direction-validation run
   - \`--force-relearn\` revalidates an existing brand id and stores run history as internal revisions; it does not create a second Registry project
   - a parallel brand id requires explicit user intent and the maintainer-only \`--allow-new-brand-id\` flag
-  - \`detect\` only resolves the workflow intake and shows whether inputs belong to learning or host apply
-  - if you mix the two flows, intake fails before any downstream step runs
+  - \`detect\` resolves whether the intake belongs to brand learning, host direction design or frozen-direction implementation
+  - design-host must stop for an explicit user direction decision; apply-host cannot generate or repair design directions
+  - if you mix the flows, intake fails before any downstream step runs
   - raw \`run\` still resolves workflow mode automatically (${workflows})
   - \`plan\` only shows the resolved workflow and current missing outputs
   - \`tpp\` only verifies the blocking gate through total-entry

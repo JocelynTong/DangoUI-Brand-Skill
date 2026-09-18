@@ -1,0 +1,81 @@
+{
+  "schema": "wild-design-options/v2",
+  "workflow": "apply-host",
+  "sourceBrand": "pokemon-tcg-official",
+  "frozenBrandEvidenceSha256": "8dea8282171124872b9d6efb3c72d132bd56ca64f49ec92e3ffbd815043cb8be",
+  "sharedLayoutContract": ["app-header", "plaza-hero", "deck-search", "environment-filters", "deck-results"],
+  "options": [
+    {
+      "id": "arena-night",
+      "name": "赛场夜战",
+      "recommended": false,
+      "sameBusinessScopeHash": "fbc3c2676d2596ce1cf6d5746447de44db1d1fb6e19fccb42e4b8b243c3afaf4",
+      "brandEvidenceRefs": ["home-stage-composition", "card-db-results"],
+      "previewEvidence": [{
+        "kind": "rendered-host-preview",
+        "path": "high-fidelity-direction-board-v2.png",
+        "viewport": "390x844",
+        "hostRoute": "/pages/plaza/index",
+        "sha256": "8ff4588a8b6f44c73c78ff57a465652de3f45763a4faa02162bf1d416c19c261",
+        "sourceVisualSignals": [
+          {"evidenceRef": "home-stage-composition", "patternRef": "home-layered-campaign-stage", "visibleApplication": "championship photography becomes the dominant plaza stage"},
+          {"evidenceRef": "card-db-results", "patternRef": "database-reversible-results-and-drawer", "visibleApplication": "card art and dark result organism anchor the first featured deck"}
+        ],
+        "designSystemMappings": {"tokens": ["color.surface.inverse", "color.brand.primary", "color.status.danger", "radius.container.lg"], "components": ["Navigation", "Button", "Search", "Tag", "Card"]}
+      }],
+      "designSystemConsumption": {"mode": "simulated-preview", "tokens": {"status": "simulated", "refs": ["surface.inverse", "brand.yellow", "brand.red"]}, "components": {"status": "simulated", "refs": ["Navigation", "Button", "Search", "Tag", "Card"]}, "assets": {"status": "consumed", "refs": ["official/championships.jpg", "official/SV06_EN_33.png"]}, "composition": {"status": "consumed", "refs": ["home-layered-campaign-stage", "database-reversible-results-and-drawer"]}},
+      "differences": {"informationDensity": "medium", "visualAssets": "tournament photography and card art", "pageStructure": "shared host structure with immersive stage emphasis", "motionIntensity": "low"},
+      "styleDirectionContract": {"tokens": "black arena with Pokemon yellow and action red", "typography": "large condensed event headline", "components": "dark stage plus high-contrast pills and deck cards", "materials": "broadcast stage, hard light, tournament photography", "motion": "restrained stage reveal"},
+      "visualChoiceContract": {"dominantColorRole": "black tournament field", "typographyCharacter": "broadcast event headline", "assetStrategy": "championship photography dominates", "materialLanguage": "arena lighting and hard panels", "motionCharacter": "stage reveal", "imagePolicy": "full-bleed tournament imagery", "forbiddenFallbacks": ["do not reduce tournament photography to a thumbnail", "do not turn the arena into a white generic card"]},
+      "directionContract": {"businessCapabilities": ["app-header", "plaza-hero", "deck-search", "environment-filters", "deck-results"], "layout": ["full-height-arena-stage", "floating-search", "versus-feature-card", "bottom-sheet-filters"], "style": "arena-night"}
+    },
+    {
+      "id": "collector-editorial",
+      "name": "收藏编辑部",
+      "recommended": true,
+      "sameBusinessScopeHash": "fbc3c2676d2596ce1cf6d5746447de44db1d1fb6e19fccb42e4b8b243c3afaf4",
+      "brandEvidenceRefs": ["home-stage-composition", "learn-hierarchy"],
+      "previewEvidence": [{
+        "kind": "rendered-host-preview",
+        "path": "high-fidelity-direction-board-v2.png",
+        "viewport": "390x844",
+        "hostRoute": "/pages/plaza/index",
+        "sha256": "8ff4588a8b6f44c73c78ff57a465652de3f45763a4faa02162bf1d416c19c261",
+        "sourceVisualSignals": [
+          {"evidenceRef": "home-stage-composition", "patternRef": "home-banded-editorial-journey", "visibleApplication": "yellow and red editorial bands form the plaza hero"},
+          {"evidenceRef": "learn-hierarchy", "patternRef": "learn-media-entry", "visibleApplication": "Pokemon character art becomes a large editorial entry asset"}
+        ],
+        "designSystemMappings": {"tokens": ["color.brand.primary", "color.status.danger", "color.surface.warm", "border.strong"], "components": ["Navigation", "Button", "Search", "EditorialCard", "Tag"]}
+      }],
+      "designSystemConsumption": {"mode": "simulated-preview", "tokens": {"status": "simulated", "refs": ["brand.yellow", "brand.red", "surface.warm"]}, "components": {"status": "simulated", "refs": ["Navigation", "Button", "Search", "EditorialCard", "Tag"]}, "assets": {"status": "consumed", "refs": ["official/booster-art-1.jpg", "official/pikachu.png", "official/SV06_EN_33.png"]}, "composition": {"status": "consumed", "refs": ["home-banded-editorial-journey", "learn-media-entry"]}},
+      "differences": {"informationDensity": "medium-high", "visualAssets": "character and card art as editorial cutouts", "pageStructure": "shared host structure with magazine rhythm", "motionIntensity": "low"},
+      "styleDirectionContract": {"tokens": "warm paper with broad yellow and red fields", "typography": "oversized playful editorial headline", "components": "outlined search and mixed editorial deck cards", "materials": "printed paper, dots, cutout artwork", "motion": "subtle card lift"},
+      "visualChoiceContract": {"dominantColorRole": "warm paper and yellow editorial field", "typographyCharacter": "playful magazine headline", "assetStrategy": "character and product cutouts", "materialLanguage": "printed editorial collage", "motionCharacter": "paper-card lift", "imagePolicy": "large cutout art with intentional crop", "forbiddenFallbacks": ["do not shrink character art into an icon", "do not replace editorial bands with neutral surfaces"]},
+      "directionContract": {"businessCapabilities": ["app-header", "plaza-hero", "deck-search", "environment-filters", "deck-results"], "layout": ["asymmetric-editorial-cover", "utility-search", "staggered-deck-collage", "scrapbook-my-decks"], "style": "collector-editorial"}
+    },
+    {
+      "id": "card-database",
+      "name": "卡牌数据库",
+      "recommended": false,
+      "sameBusinessScopeHash": "fbc3c2676d2596ce1cf6d5746447de44db1d1fb6e19fccb42e4b8b243c3afaf4",
+      "brandEvidenceRefs": ["card-db-search-shell", "card-db-results"],
+      "previewEvidence": [{
+        "kind": "rendered-host-preview",
+        "path": "high-fidelity-direction-board-v2.png",
+        "viewport": "390x844",
+        "hostRoute": "/pages/plaza/index",
+        "sha256": "8ff4588a8b6f44c73c78ff57a465652de3f45763a4faa02162bf1d416c19c261",
+        "sourceVisualSignals": [
+          {"evidenceRef": "card-db-search-shell", "patternRef": "database-dark-search-organism", "visibleApplication": "charcoal grid search organism owns the first viewport"},
+          {"evidenceRef": "card-db-results", "patternRef": "database-reversible-results-and-drawer", "visibleApplication": "dense card mosaic and metadata form deck results"}
+        ],
+        "designSystemMappings": {"tokens": ["color.surface.inverse", "color.brand.primary", "color.action.primary", "spacing.dense"], "components": ["Navigation", "Search", "Filter", "ResultCard", "Button"]}
+      }],
+      "designSystemConsumption": {"mode": "simulated-preview", "tokens": {"status": "simulated", "refs": ["surface.inverse", "brand.yellow", "action.red", "spacing.dense"]}, "components": {"status": "simulated", "refs": ["Navigation", "Search", "Filter", "ResultCard", "Button"]}, "assets": {"status": "consumed", "refs": ["official/SV06_EN_33.png", "official/2M6P_EN_23.png"]}, "composition": {"status": "consumed", "refs": ["database-dark-search-organism", "database-reversible-results-and-drawer"]}},
+      "differences": {"informationDensity": "high", "visualAssets": "card mosaic and compact metadata", "pageStructure": "shared host structure with search-first hierarchy", "motionIntensity": "minimal"},
+      "styleDirectionContract": {"tokens": "charcoal search shell, warm result canvas, yellow labels", "typography": "utilitarian database headline", "components": "integrated search-filter organism and dense results", "materials": "technical grid and archival cards", "motion": "minimal filter feedback"},
+      "visualChoiceContract": {"dominantColorRole": "charcoal search organism", "typographyCharacter": "technical database hierarchy", "assetStrategy": "dense card mosaic", "materialLanguage": "technical grid and archival result trays", "motionCharacter": "filter-state feedback", "imagePolicy": "card art remains dense and comparable", "forbiddenFallbacks": ["do not split search and filters into unrelated generic controls", "do not replace card mosaic with text-only rows"]},
+      "directionContract": {"businessCapabilities": ["app-header", "plaza-hero", "deck-search", "environment-filters", "deck-results"], "layout": ["database-control-console", "stats-strip", "advanced-filter-grid", "dense-sortable-results"], "style": "card-database"}
+    }
+  ]
+}

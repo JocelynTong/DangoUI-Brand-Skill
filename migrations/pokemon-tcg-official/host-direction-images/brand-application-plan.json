@@ -1,0 +1,131 @@
+{
+  "schema": "brand-application-plan/v1",
+  "hostClassification": "balanced",
+  "brandSystemBinding": {
+    "brandModPath": "../brand-mod.json",
+    "brandModSha256": "646ea94b34493ce40866ef644427d1d997540bfd8fe21cdf77c7c13935e39367",
+    "patternsPath": "approved-visual-patterns.json",
+    "patternsSha256": "6f575451adecd2e8bcd3c5dcb377c42a0cc50b89f231a35a31655597a427f6ba"
+  },
+  "hostBinding": {
+    "targetRoute": "/pages/plaza/index",
+    "viewport": { "width": 390, "height": 844 },
+    "baselinePath": "host-baseline-content.json",
+    "baselineSha256": "fd92f41f90ad285f13645f68bb4e003e4a9e78a2b6f2c91972caba8cec8d1f34"
+  },
+  "options": [
+    {
+      "id": "immersive-arena-flow",
+      "visualNarrative": "完整品牌场景建立竞技氛围，搜索跨越场景与任务，焦点对局将用户带入连续牌组流。",
+      "semanticColorApplications": [
+        { "id": "page-surface", "semanticRole": "surface.page", "renderedValue": "#EDEDED", "source": "brand-semantic-token", "tokenRef": "surface.page", "scope": "business-stream background" },
+        { "id": "card-surface", "semanticRole": "surface.card", "renderedValue": "#FFFFFF", "source": "brand-semantic-token", "tokenRef": "surface.card", "scope": "search and result surfaces" },
+        { "id": "primary-text", "semanticRole": "text.primary", "renderedValue": "#131415", "source": "brand-semantic-token", "tokenRef": "text.primary", "scope": "primary UI copy" },
+        { "id": "secondary-text", "semanticRole": "text.secondary", "renderedValue": "#494949", "source": "brand-semantic-token", "tokenRef": "text.secondary", "scope": "secondary UI copy" },
+        { "id": "campaign-stage", "semanticRole": "style-only.campaign-stage", "renderedValue": "#131415", "source": "brand-pattern-style", "scope": "identity-environment and task-bridge only", "patternRef": "home-layered-campaign-stage", "componentVariantRef": "campaign-carousel-composition", "evidenceRefs": ["home-stage-composition"] },
+        { "id": "energy-yellow", "semanticRole": "decoration.energy-yellow", "renderedValue": "#FFCB05", "source": "brand-asset-palette", "scope": "identity-environment and featured-content decorative fields", "assetRef": "home-booster-art", "assetSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "extractionMethod": "visual palette sample from frozen home campaign art", "prohibitedUses": ["action", "state/status", "text", "navigation", "global"] },
+        { "id": "energy-red", "semanticRole": "decoration.energy-red", "renderedValue": "#EF3340", "source": "brand-asset-palette", "scope": "identity-environment and featured-content decorative fields", "assetRef": "home-booster-art", "assetSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "extractionMethod": "visual palette sample from frozen home campaign art", "prohibitedUses": ["action", "state/status", "text", "navigation", "global"] },
+        { "id": "scene-palette", "semanticRole": "asset.intrinsic", "renderedValue": "source pixels", "source": "asset-intrinsic-only", "scope": "inside-asset-pixels" }
+      ],
+      "compositionRoles": [
+        { "role": "navigation-shell", "hostJob": "保留品牌切换、页面标题、头像与平台胶囊安全区", "brandMechanisms": ["导航叠入已批准的完整动态场景"], "evidenceRefs": ["asset:booster-art-1"], "designSystemBinding": { "status": "style-only", "refs": ["navigation.custom-immersive"] }, "semanticColorRefs": ["scene-palette", "card-surface", "primary-text"], "viewportBudget": { "firstViewportAreaRatio": 0.1 } },
+        { "role": "identity-environment", "hostJob": "进入页面时建立宝可梦竞技语境", "brandMechanisms": ["完整角色场景", "速度背景", "素材内高能色彩", "获批黑色 Campaign Stage", "资产取色能量场"], "evidenceRefs": ["asset:booster-art-1", "home-stage-composition"], "designSystemBinding": { "status": "style-only", "refs": ["campaign-carousel-composition"] }, "semanticColorRefs": ["scene-palette", "campaign-stage", "energy-yellow", "energy-red"], "viewportBudget": { "firstViewportAreaRatio": 0.36 } },
+        { "role": "task-bridge", "hostJob": "立即搜索牌组或作者", "brandMechanisms": ["数据库检索组织", "Campaign Stage 内的任务桥接"], "evidenceRefs": ["card-db-search-shell", "home-stage-composition"], "designSystemBinding": { "status": "mapped", "refs": ["Search", "Button", "campaign-carousel-composition"] }, "semanticColorRefs": ["card-surface", "primary-text", "secondary-text", "campaign-stage"], "viewportBudget": { "firstViewportAreaRatio": 0.08 } },
+        { "role": "featured-content", "hostJob": "展示本周环境焦点并进入真实构筑", "brandMechanisms": ["对局叙事", "卡牌实物", "非语义能量装饰"], "evidenceRefs": ["asset:booster-art-1"], "designSystemBinding": { "status": "style-only", "refs": ["Card.featured"] }, "semanticColorRefs": ["card-surface", "primary-text", "secondary-text", "scene-palette", "energy-yellow", "energy-red"], "viewportBudget": { "firstViewportAreaRatio": 0.2 } },
+        { "role": "business-stream", "hostJob": "筛选并连续浏览真实牌组", "brandMechanisms": ["连续业务流", "已批准的中性页面与卡面层级"], "evidenceRefs": ["card-db-search-shell"], "designSystemBinding": { "status": "mapped", "refs": ["Tabs", "Tag", "List"] }, "semanticColorRefs": ["page-surface", "card-surface", "primary-text", "secondary-text"], "viewportBudget": { "firstViewportAreaRatio": 0.26 } }
+      ],
+      "assetArtDirection": {
+        "sceneStrategy": "validated-composite",
+        "sceneContract": { "focalHierarchy": ["皮卡丘主角", "牌组标题与导航", "搜索入口", "焦点内容"], "cropPolicy": "保持皮卡丘全脸与动作，速度背景横向延伸", "depthPlan": "角色前景、伙伴中景、速度环境后景", "lightingPlan": "保留场景自身明亮主光，内容区逐步压暗", "textSafeZone": "左上标题与左下任务文案避开角色脸部", "coherenceChecks": ["perspective", "light-direction", "motion-direction"] },
+        "assetAssignments": [
+          { "assetRef": "asset:booster-art-1", "role": "campaign-scene", "sourceKind": "official-independent-asset", "usage": "完整身份环境", "crop": "390×330 cover，中心偏右", "focalPoint": "58%,42%", "zPlane": "environment-subject" },
+          { "assetRef": "asset:home-30-logo", "role": "campaign-identity", "sourceKind": "official-independent-asset", "usage": "主场景内的活动身份标记，不提升为宿主全局 Logo", "crop": "透明图完整显示", "focalPoint": "50%,50%", "zPlane": "identity-overlay", "assetSha256": "15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d" },
+          { "assetRef": "asset:home-feature-card", "role": "collectible-proof", "sourceKind": "official-independent-asset", "usage": "列表入口的官方卡牌实物证明", "crop": "完整卡面", "focalPoint": "50%,50%", "zPlane": "business-proof", "assetSha256": "07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83" },
+          { "assetRef": "asset:card-db-pikachu-27", "role": "material-texture", "sourceKind": "official-independent-asset", "usage": "低对比卡牌纹理，仅形成暗部材质，不承载文案或交互语义", "crop": "重复完整卡面并降低透明度", "focalPoint": "50%,50%", "zPlane": "material-underlay", "assetSha256": "409209950e8519c533e2d0840cfd25cc0b956c5d6b8a77a96fd25330ab778283" },
+          { "assetRef": "host:deck-014", "role": "business-content", "sourceKind": "host-owned-business-art", "usage": "真实焦点牌组", "crop": "保持卡面比例", "focalPoint": "50%,45%", "zPlane": "featured-content" }
+        ]
+      },
+      "roleTransitions": [
+        { "from": "navigation-shell", "to": "identity-environment", "relationship": "overlay", "businessContinuity": "导航能力在场景之上保持可达" },
+        { "from": "identity-environment", "to": "task-bridge", "relationship": "edge-bridge", "businessContinuity": "搜索压在场景与内容边界，首个任务无需滚动" },
+        { "from": "task-bridge", "to": "featured-content", "relationship": "direct-handoff", "businessContinuity": "搜索之后立即露出焦点对局" },
+        { "from": "featured-content", "to": "business-stream", "relationship": "continuous-flow", "businessContinuity": "筛选和全部牌组紧接焦点模块" }
+      ],
+      "visualRichnessSelfReview": { "posterThenGeneric": false, "stickerCollage": false, "hostTaskVisible": true, "distinctAssetRoles": ["campaign-identity", "campaign-scene", "material-texture", "collectible-proof", "business-content"], "repeatedHeroAsTexture": false, "unifiedAtmosphere": { "environment": "完整速度场景进入暗色卡牌材质画布，而非重复 Hero 铺底", "lighting": "主场景亮光向焦点模块的红黄能量收束", "depth": "品牌标志、主场景、低对比卡牌纹理、焦点卡与列表形成五层" } },
+      "previewEvidence": { "path": "a-immersive-arena-flow-v2.svg", "sha256": "b16e540b7a70a57d6b30c923b7e722f3c9e72aa8e95367493d53d4a430955f13" }
+    },
+    {
+      "id": "collector-editorial",
+      "visualNarrative": "以收藏档案和编辑部拼贴组织内容，让品牌资产成为一份可浏览、可收藏的卡牌刊物。",
+      "semanticColorApplications": [
+        { "id": "page-surface", "semanticRole": "surface.page", "renderedValue": "#EDEDED", "source": "brand-semantic-token", "tokenRef": "surface.page", "scope": "catalog background" },
+        { "id": "card-surface", "semanticRole": "surface.card", "renderedValue": "#FFFFFF", "source": "brand-semantic-token", "tokenRef": "surface.card", "scope": "editorial cards and search" },
+        { "id": "primary-text", "semanticRole": "text.primary", "renderedValue": "#131415", "source": "brand-semantic-token", "tokenRef": "text.primary", "scope": "primary UI copy" },
+        { "id": "secondary-text", "semanticRole": "text.secondary", "renderedValue": "#494949", "source": "brand-semantic-token", "tokenRef": "text.secondary", "scope": "secondary UI copy" },
+        { "id": "energy-yellow", "semanticRole": "decoration.energy-yellow", "renderedValue": "#FFCB05", "source": "brand-asset-palette", "scope": "identity-environment and featured-content decorative fields", "assetRef": "home-booster-art", "assetSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "extractionMethod": "visual palette sample from frozen home campaign art", "prohibitedUses": ["action", "state/status", "text", "navigation", "global"] },
+        { "id": "energy-red", "semanticRole": "decoration.energy-red", "renderedValue": "#EF3340", "source": "brand-asset-palette", "scope": "identity-environment and featured-content decorative fields", "assetRef": "home-booster-art", "assetSha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "extractionMethod": "visual palette sample from frozen home campaign art", "prohibitedUses": ["action", "state/status", "text", "navigation", "global"] },
+        { "id": "scene-palette", "semanticRole": "asset.intrinsic", "renderedValue": "source pixels", "source": "asset-intrinsic-only", "scope": "inside-asset-pixels" }
+      ],
+      "compositionRoles": [
+        { "role": "navigation-shell", "hostJob": "提供页面身份、品牌切换和我的入口", "brandMechanisms": ["白色收藏册页眉", "精简精灵球标志"], "evidenceRefs": ["surface.card"], "designSystemBinding": { "status": "style-only", "refs": ["navigation.custom-contained"] }, "semanticColorRefs": ["card-surface", "primary-text"], "viewportBudget": { "firstViewportAreaRatio": 0.09 } },
+        { "role": "identity-environment", "hostJob": "把首页定义为可浏览的牌组档案", "brandMechanisms": ["品牌场景窗口", "卡牌实物陈列", "资产取色编辑构图"], "evidenceRefs": ["asset:booster-art-1"], "designSystemBinding": { "status": "style-only", "refs": ["surface.editorial-paper"] }, "semanticColorRefs": ["scene-palette", "page-surface", "primary-text", "energy-yellow", "energy-red"], "viewportBudget": { "firstViewportAreaRatio": 0.3 } },
+        { "role": "task-bridge", "hostJob": "从封面直接搜索牌组", "brandMechanisms": ["实体检索条", "中性行动入口"], "evidenceRefs": ["card-db-search-shell"], "designSystemBinding": { "status": "mapped", "refs": ["Search", "Button"] }, "semanticColorRefs": ["card-surface", "primary-text", "secondary-text"], "viewportBudget": { "firstViewportAreaRatio": 0.07 } },
+        { "role": "featured-content", "hostJob": "以本周精选并列展示真实构筑", "brandMechanisms": ["倾斜收藏卡片", "编号编辑节奏", "非语义能量装饰"], "evidenceRefs": ["asset:booster-art-1"], "designSystemBinding": { "status": "style-only", "refs": ["Card.editorial"] }, "semanticColorRefs": ["card-surface", "primary-text", "secondary-text", "scene-palette", "energy-yellow", "energy-red"], "viewportBudget": { "firstViewportAreaRatio": 0.25 } },
+        { "role": "business-stream", "hostJob": "按分类继续浏览全部牌组", "brandMechanisms": ["索引式列表", "中性分隔线", "收藏编号"], "evidenceRefs": ["card-db-search-shell"], "designSystemBinding": { "status": "mapped", "refs": ["Tag", "List"] }, "semanticColorRefs": ["page-surface", "card-surface", "primary-text", "secondary-text"], "viewportBudget": { "firstViewportAreaRatio": 0.29 } }
+      ],
+      "assetArtDirection": {
+        "sceneStrategy": "type-led-field",
+        "sceneContract": { "focalHierarchy": ["好牌组值得收藏", "卡牌拼贴", "搜索入口", "本周精选"], "cropPolicy": "品牌场景仅进入右侧编辑窗口，卡牌保留实体比例", "depthPlan": "纸面底层、几何色块、场景窗口、抬升卡牌", "lightingPlan": "明亮纸面为环境光，卡牌用柔和投影制造实体感", "textSafeZone": "左侧红黄几何区域固定为标题安全区" },
+        "assetAssignments": [
+          { "assetRef": "asset:booster-art-1", "role": "environment", "sourceKind": "official-independent-asset", "usage": "收藏封面右侧场景窗口", "crop": "右侧竖向裁切", "focalPoint": "54%,42%", "zPlane": "editorial-window" },
+          { "assetRef": "asset:home-30-logo", "role": "campaign-identity", "sourceKind": "official-independent-asset", "usage": "收藏刊物封面活动标识", "crop": "透明图完整显示", "focalPoint": "50%,50%", "zPlane": "editorial-title", "assetSha256": "15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d" },
+          { "assetRef": "asset:home-feature-card", "role": "collectible-proof", "sourceKind": "official-independent-asset", "usage": "封面主收藏卡", "crop": "完整卡面并轻微倾斜", "focalPoint": "50%,50%", "zPlane": "lifted-card", "assetSha256": "07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83" },
+          { "assetRef": "asset:card-db-pikachu-27", "role": "supporting-card", "sourceKind": "official-independent-asset", "usage": "封面辅助收藏卡", "crop": "完整卡面", "focalPoint": "50%,50%", "zPlane": "lifted-card", "assetSha256": "409209950e8519c533e2d0840cfd25cc0b956c5d6b8a77a96fd25330ab778283" },
+          { "assetRef": "asset:card-db-pikachu-85", "role": "material-texture", "sourceKind": "official-independent-asset", "usage": "纸面低对比卡牌印刷纹理", "crop": "重复完整卡面并降低透明度", "focalPoint": "50%,50%", "zPlane": "paper-underlay", "assetSha256": "402ce224e23ba2935aaf1c178be6eca698c60945e90e2417dafe3e5f86d1600a" },
+          { "assetRef": "asset:card-db-pikachu-88", "role": "featured-proof", "sourceKind": "official-independent-asset", "usage": "本周精选左侧实物卡", "crop": "完整卡面", "focalPoint": "50%,50%", "zPlane": "editorial-card", "assetSha256": "c2b793212bbbb7ed97e9221522523454a6a192562cc78b5aa6ce671e6979fdb8" },
+          { "assetRef": "asset:card-db-pikachu-101", "role": "featured-proof", "sourceKind": "official-independent-asset", "usage": "本周精选右侧实物卡", "crop": "完整卡面", "focalPoint": "50%,50%", "zPlane": "editorial-card", "assetSha256": "ff3e31bbd8f0d1228577a5b664d158d67ad59d32b39ba07270e36fce153840fa" },
+          { "assetRef": "host:deck-014", "role": "business-content", "sourceKind": "host-owned-business-art", "usage": "封面与精选中的真实卡牌", "crop": "完整卡面", "focalPoint": "50%,50%", "zPlane": "lifted-card" }
+        ]
+      },
+      "roleTransitions": [
+        { "from": "navigation-shell", "to": "identity-environment", "relationship": "contained-transition", "businessContinuity": "页眉与封面共享收藏档案语义" },
+        { "from": "identity-environment", "to": "task-bridge", "relationship": "overlapping-index-tab", "businessContinuity": "搜索像档案标签压在封面下沿" },
+        { "from": "task-bridge", "to": "featured-content", "relationship": "editorial-sequence", "businessContinuity": "搜索之后进入本周精选" },
+        { "from": "featured-content", "to": "business-stream", "relationship": "catalog-index", "businessContinuity": "精选自然降级为完整索引" }
+      ],
+      "visualRichnessSelfReview": { "posterThenGeneric": false, "stickerCollage": false, "hostTaskVisible": true, "distinctAssetRoles": ["campaign-identity", "environment", "material-texture", "collectible-proof", "featured-proof", "business-content"], "repeatedHeroAsTexture": false, "unifiedAtmosphere": { "environment": "活动标识、纸张、低对比卡牌印刷纹理和档案索引贯穿首屏", "lighting": "统一柔光和卡片投影", "depth": "纸面纹理、印刷色块、场景窗、实体卡片形成收藏桌面层级" } },
+      "previewEvidence": { "path": "b-collector-editorial-v3.svg", "sha256": "a11c24972b39a245a7eeebd56e4d48b144a242b89dd4e707658d0cc53d189aba" }
+    },
+    {
+      "id": "arena-command-center",
+      "disposition": "rejected",
+      "rejectionReason": "赛事图片中的蓝色被错误提升为导航、面板、行动与数据状态等 UI 语义色；冻结 Brand MOD 没有批准蓝色语义 Token 或对应 Pattern。",
+      "rejectionCodes": ["ASSET_COLOR_PROMOTED_TO_UI_SEMANTIC", "SEMANTIC_COLOR_EVIDENCE_UNBOUND"],
+      "incidentRef": "../quality-attempts/semantic-color-promotion/incident-retro.json",
+      "visualNarrative": "把品牌赛事氛围压缩为高密度控制台，用实时环境、对局信号和检索结果服务高频工具任务。",
+      "compositionRoles": [
+        { "role": "navigation-shell", "hostJob": "保留标题、账户入口和平台安全区", "brandMechanisms": ["赛事照片内嵌导航", "蓝色数据灯"], "evidenceRefs": ["asset:championships"], "designSystemBinding": { "status": "style-only", "refs": ["navigation.custom-immersive"] }, "viewportBudget": { "firstViewportAreaRatio": 0.09 } },
+        { "role": "identity-environment", "hostJob": "以紧凑赛事现场确认品牌与竞技语境", "brandMechanisms": ["冠军赛现场", "夜间数据场", "蓝色扫描光"], "evidenceRefs": ["asset:championships"], "designSystemBinding": { "status": "style-only", "refs": ["surface.data-arena"] }, "viewportBudget": { "firstViewportAreaRatio": 0.16 } },
+        { "role": "task-bridge", "hostJob": "立即进入构筑搜索与快速筛选", "brandMechanisms": ["指令面板", "高对比蓝色行动", "筛选胶片"], "evidenceRefs": ["pattern:command-search"], "designSystemBinding": { "status": "mapped", "refs": ["Search", "Button", "Tag"] }, "viewportBudget": { "firstViewportAreaRatio": 0.21 } },
+        { "role": "featured-content", "hostJob": "展示当前热门对局和环境统计", "brandMechanisms": ["双栏对局信号", "竞技数据", "卡牌实物"], "evidenceRefs": ["pattern:meta-signal"], "designSystemBinding": { "status": "capability-gap", "refs": ["DataPanel.compound"] }, "viewportBudget": { "firstViewportAreaRatio": 0.22 } },
+        { "role": "business-stream", "hostJob": "按热度连续进入牌组结果", "brandMechanisms": ["数据边框", "状态轨道", "紧凑结果卡"], "evidenceRefs": ["pattern:database-results"], "designSystemBinding": { "status": "mapped", "refs": ["List", "Badge"] }, "viewportBudget": { "firstViewportAreaRatio": 0.32 } }
+      ],
+      "assetArtDirection": {
+        "sceneStrategy": "validated-composite",
+        "sceneContract": { "focalHierarchy": ["构筑指令", "快速筛选", "实时环境", "结果列表"], "cropPolicy": "赛事图仅占紧凑顶部，保留冠军标识与人物动作", "depthPlan": "赛事背景、透明导航、发光控制面板、数据结果", "lightingPlan": "冷蓝主光统一面板，黄色只用于对局与关键状态", "textSafeZone": "标题放在赛事图左侧暗区", "coherenceChecks": ["perspective", "light-direction", "motion-direction"] },
+        "assetAssignments": [
+          { "assetRef": "asset:championships", "role": "campaign-scene", "sourceKind": "official-independent-asset", "usage": "紧凑赛事环境", "crop": "390×182 横向裁切", "focalPoint": "50%,46%", "zPlane": "environment" },
+          { "assetRef": "host:deck-014", "role": "business-content", "sourceKind": "host-owned-business-art", "usage": "实时环境与列表内容", "crop": "完整卡面", "focalPoint": "50%,50%", "zPlane": "data-panel" }
+        ]
+      },
+      "roleTransitions": [
+        { "from": "navigation-shell", "to": "identity-environment", "relationship": "embedded-shell", "businessContinuity": "标题直接嵌入赛事环境" },
+        { "from": "identity-environment", "to": "task-bridge", "relationship": "command-dock", "businessContinuity": "赛事环境收束为可立即执行的搜索指令" },
+        { "from": "task-bridge", "to": "featured-content", "relationship": "instrument-stack", "businessContinuity": "筛选条件直接影响实时环境面板" },
+        { "from": "featured-content", "to": "business-stream", "relationship": "data-drilldown", "businessContinuity": "环境信号向下展开为对应牌组结果" }
+      ],
+      "visualRichnessSelfReview": { "posterThenGeneric": false, "stickerCollage": false, "hostTaskVisible": true, "unifiedAtmosphere": { "environment": "赛事现场转译为深夜数据库环境", "lighting": "冷蓝扫描光贯穿控制面板与结果卡，黄色作为竞技信号", "depth": "照片环境、半透明指令层、数据面板与列表分层" } },
+      "previewEvidence": { "path": "c-arena-command-center.svg", "sha256": "dff310ecc6d66ef703038eaabb20021e9e81bba431903a0f85753f06908fbca1" }
+    }
+  ]
+}

@@ -3,6 +3,13 @@ import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
+
+const installedSkillRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
+const workflowContractFile = (root) => {
+  const projectContract = path.join(root, "skills", "brand", "workflow-contract.json");
+  return fs.existsSync(projectContract) ? projectContract : path.join(installedSkillRoot, "workflow-contract.json");
+};
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -1203,7 +1210,7 @@ function handoffArtifactGate() {
   const strict = has("--strict");
   if (!brand) fail("handoff-artifact-gate requires --brand.");
 
-  const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+  const contractFile = workflowContractFile(root);
   const contract = readJsonLoose(contractFile);
   if (!contract?.workflows?.[mode]) fail(`Workflow contract missing for mode "${mode}": ${contractFile}`);
 
@@ -1317,7 +1324,7 @@ function externalGoodcaseGate() {
   const resolvedReportFile = path.resolve(root, reportFile);
   if (!fs.existsSync(resolvedReportFile)) fail(`External goodcase adoption report not found: ${resolvedReportFile}`);
 
-  const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+  const contractFile = workflowContractFile(root);
   const contract = readJsonLoose(contractFile);
   const policy = contract?.externalGoodcaseAdoption || {};
   const report = readJsonLoose(resolvedReportFile);
@@ -2783,7 +2790,7 @@ function resolveTppWorkflow() {
   const planFile = opt("--plan-file", "");
   const sourceUrl = opt("--source-url", "");
 
-  if (explicit === "learn-brand" || explicit === "apply-host") {
+  if (["learn-brand", "design-host", "apply-host"].includes(explicit)) {
     return {
       mode: explicit,
       decidedBy: "explicit-mode",
@@ -2794,20 +2801,22 @@ function resolveTppWorkflow() {
       },
       summary: explicit === "learn-brand"
         ? "显式指定为品牌学习流。"
-        : "显式指定为宿主换肤流。",
+        : explicit === "design-host"
+          ? "显式指定为宿主设计流。"
+          : "显式指定为宿主实施流。",
     };
   }
 
   if (hostTarget || planFile) {
     return {
-      mode: "apply-host",
+      mode: "design-host",
       decidedBy: "host-input",
       evidence: {
         sourceUrl: Boolean(sourceUrl),
         hostTarget: Boolean(hostTarget),
         planFile: Boolean(planFile),
       },
-      summary: "检测到宿主目标或计划文件，自动归类为宿主换肤流。",
+      summary: "检测到宿主目标或计划文件，自动归类为宿主设计流；只有冻结方向后才进入 apply-host。",
     };
   }
 
@@ -2836,7 +2845,7 @@ function printWorkflowContractCommand() {
 }
 
 function getWorkflowContract(root, mode) {
-  const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+  const contractFile = workflowContractFile(root);
   const contract = readJsonLoose(contractFile);
   if (!contract?.workflows?.[mode]) {
     fail(`Workflow contract missing for mode "${mode}": ${contractFile}`);

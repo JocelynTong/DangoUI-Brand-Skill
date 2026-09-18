@@ -1,0 +1,81 @@
+{
+  "schema": "arena-visual-assessment/v1",
+  "assessmentId": "arena-a-candidate-b2-2026-09-15",
+  "input": "../arena-official-assets/screenshots/mobile-390-b2.png",
+  "reference": "../../migrations/pokemon-tcg-official/host-runs/card-plugin2/style-choice/high-fidelity-direction-board-v2.png",
+  "evaluationMode": "independent-blind-visual-qa",
+  "verdict": "PASS",
+  "releaseGate": {
+    "threshold": 82,
+    "score": 85,
+    "meetsThreshold": true,
+    "hardBlockerFree": true,
+    "coreFloorsMet": true,
+    "approvedForUserReview": true
+  },
+  "hardBlockers": [],
+  "scores": [
+    {
+      "dimension": "ensemble-relation",
+      "score": 16,
+      "maximum": 20,
+      "finding": "Pikachu, Mewtwo, crossing arena beams and the stage now participate in one competitive moment. The protagonist is no longer an isolated mascot and no unrelated asset strip interrupts the event."
+    },
+    {
+      "dimension": "spatial-depth",
+      "score": 12,
+      "maximum": 15,
+      "finding": "The foreground Pikachu, receding Mewtwo, curved beam field, atmospheric falloff and illuminated floor establish a readable near/mid/far arena."
+    },
+    {
+      "dimension": "unified-light",
+      "score": 12,
+      "maximum": 15,
+      "finding": "Blue-green arena light, red lower rim, shared shadow falloff and floor particles bind character and environment into one material world. Some foreground illumination remains slightly soft, but it no longer breaks scene plausibility."
+    },
+    {
+      "dimension": "visual-hierarchy",
+      "score": 14,
+      "maximum": 15,
+      "finding": "The title and protagonist form one immediate focal story; Mewtwo and beams support it. The CTA is isolated on a calm lower field and the next news organism begins only after the hero boundary."
+    },
+    {
+      "dimension": "brand-distinctiveness",
+      "score": 14,
+      "maximum": 15,
+      "finding": "With logo and explicit brand text mentally masked, the character confrontation, arena energy, collectible-battle staging and yellow/red/blue dramatic roles remain highly distinctive."
+    },
+    {
+      "dimension": "direction-fidelity",
+      "score": 9,
+      "maximum": 10,
+      "finding": "B2 preserves A's full-height night arena, protagonist/opponent relationship, explosive event headline, audience-facing spectacle and integrated primary action without reverting to a generic dark card page."
+    },
+    {
+      "dimension": "host-usability",
+      "score": 8,
+      "maximum": 10,
+      "finding": "Page ownership, My Decks and Browse Popular Decks are clear; the CTA remains reachable and the following content organism is visible. Final platform smoke still needs to verify the real mini-app capsule safe zone and search reachability, but the screenshot shows no visual obstruction."
+    }
+  ],
+  "coreFloorCheck": {
+    "ensemble-relation": "PASS",
+    "spatial-depth": "PASS",
+    "unified-light": "PASS",
+    "visual-hierarchy": "PASS",
+    "brand-distinctiveness": "PASS",
+    "direction-fidelity": "PASS",
+    "host-usability": "PASS"
+  },
+  "deltaFromCandidateB": {
+    "previousScore": 73,
+    "scoreChange": 12,
+    "resolved": [
+      "Removed the unrelated tournament-photo and floating-card collage from the hero.",
+      "Restored one continuous arena material and light world.",
+      "Separated the next content organism from the cinematic stage.",
+      "Reduced competing secondary focal points."
+    ]
+  },
+  "decision": "PASS. Candidate B2 reaches 85/100, exceeds the 82-point release threshold, has no hard blocker, and meets every core dimension floor. It is approved for user review subject only to routine real-device/platform smoke, which must not be represented as an additional visual redesign requirement."
+}

@@ -1,0 +1,38 @@
+{
+  "target": {
+    "file": "reference/a-target-hero-crop.png",
+    "requiredSignals": [
+      "single arena perspective",
+      "shared red-blue-yellow light rig",
+      "foreground Pikachu",
+      "grounded rival behind",
+      "crowd overlap in front",
+      "lightning bounce on environment"
+    ]
+  },
+  "candidates": [
+    {
+      "file": "candidates/arena-background-v1.png",
+      "status": "usable-component",
+      "strengths": ["strong arena depth", "dense crowd", "coherent red-blue lighting", "clear platform perspective"],
+      "blockingGaps": ["no characters", "not a complete Hero by itself"]
+    },
+    {
+      "file": "candidates/hero-integrated-composite-v2.png",
+      "status": "prototype-only",
+      "strengths": ["all required narrative actors present", "crowd overlap", "lightning and arena share a composition"],
+      "blockingGaps": ["Pikachu source is only 280x276", "rival is recovered from the board and retains source-patch contamination", "rendering fidelity mismatch still reads as compositing"]
+    },
+    {
+      "file": "candidates/hero-source-recovery-v2.png",
+      "status": "reference-recovery-only",
+      "strengths": ["closest character scale and pose to direction A", "preserves original lighting relationship"],
+      "blockingGaps": ["source UI residue", "mask discontinuities", "not production-ready"]
+    }
+  ],
+  "bestCleanAsset": "candidates/arena-background-v1.png",
+  "bestCompletePrototype": "candidates/hero-integrated-composite-v2.png",
+  "productionVerdict": "FAIL",
+  "reason": "The clean generated layers are usable, but no production-ready integrated Pikachu-plus-rival Hero could be created under the current image-generation constraint and available local character resolution. Shipping either composite would repeat the sticker problem the user rejected.",
+  "requiredNextInput": "A clean high-resolution character-group render or two clean high-resolution transparent character sources created under an approved generation path. Once supplied, the arena background and lightning overlay here are ready for a unified-light composite."
+}

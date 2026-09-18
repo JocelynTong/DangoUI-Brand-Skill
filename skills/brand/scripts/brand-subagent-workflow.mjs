@@ -35,7 +35,7 @@ function prepare() {
   if (goal.sealed !== true) fail("goal-contract.json must be sealed before prepare.");
   const contract = readJsonRequired(contractFile);
   const mode = goal.mode || "learn-brand";
-  const executionProfile = goal.executionProfile || (mode === "apply-host" ? "fast" : "full");
+  const executionProfile = goal.executionProfile || (["design-host", "apply-host"].includes(mode) ? "fast" : "full");
   const initialStage = initialStageForMode(mode);
   const manifest = {
     schema: "brand-subagent-execution/v1",
@@ -81,7 +81,7 @@ function next() {
     mission: roleContract.goal,
     roleContractVersion: manifest.roleContractVersion,
     executionProfile: manifest.executionProfile,
-    profileContract: manifest.mode === "apply-host"
+    profileContract: ["design-host", "apply-host"].includes(manifest.mode)
       ? contract.applyHostExecutionProfiles?.[manifest.executionProfile] || null
       : contract.executionProfiles?.[manifest.executionProfile] || null,
     requiredInputs: inputs,
@@ -270,6 +270,16 @@ function resumeDemo() {
 
 function finalize() {
   const manifest = validateManifest();
+  if (manifest.mode === "design-host") {
+    if (manifest.status !== "awaiting-user-direction") return output({ ok: false, status: "blocked", workflowStatus: manifest.status, message: "Design-host must finish Host Strategy and Brand Application before direction approval." }, 2);
+    verifyFrozenDesignGate();
+    manifest.status = "complete";
+    manifest.currentStageId = null;
+    manifest.completedAt = new Date().toISOString();
+    manifest.finalGates = { protocol: "pass", frozenDirection: "pass", finalizedAt: manifest.completedAt };
+    writeJson(manifestFile, manifest);
+    return output({ ok: true, status: "complete", finalGates: manifest.finalGates });
+  }
   if (manifest.mode === "apply-host") {
     const qaStage = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
     if (manifest.status !== "passed" || qaStage?.verdict !== "pass") {
@@ -304,6 +314,12 @@ function advance(manifest, current) {
   }
   const order = stageOrderForMode(manifest.mode);
   if (current.verdict === "pass") {
+    if (manifest.mode === "design-host" && current.stage === "brandApplication") {
+      manifest.status = "awaiting-user-direction";
+      manifest.currentStageId = null;
+      manifest.directionDecision = { status: "pending", requiredOutputs: ["design-direction-decision.json", "design-direction.json"] };
+      return;
+    }
     if (manifest.mode === "apply-host" && current.stage === "previewQA") {
       manifest.status = "awaiting-user";
       manifest.currentStageId = null;
@@ -359,8 +375,13 @@ function advance(manifest, current) {
 function dispatchInputs(manifest, current) {
   const goalInput = hashedPath(relative(goalFile));
   if (current.role === "hostImplementationAgent") {
-    const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes));
-    return latestInputsByPath([goalInput, ...previousOutputs, hashedPath(`migrations/${brand}/preedit-baseline-bundle.json`)]);
+    return latestInputsByPath([
+      goalInput,
+      hashedPath(`migrations/${brand}/brand-application-plan.json`),
+      hashedPath(`migrations/${brand}/design-direction-decision.json`),
+      hashedPath(`migrations/${brand}/design-direction.json`),
+      hashedPath(`migrations/${brand}/preedit-baseline-bundle.json`),
+    ]);
   }
   if (current.stage === "evidence") return [goalInput];
   if (current.stage === "demo") {
@@ -387,6 +408,7 @@ function dispatchInputs(manifest, current) {
 }
 
 function verifyHostPreeditGate(phase) {
+  verifyFrozenDesignGate();
   const validator = path.join(root, "skills", "brand", "scripts", "validate-host-structural-diff.mjs");
   const bundle = path.join(migrationDir, "preedit-baseline-bundle.json");
   const targets = path.join(migrationDir, "structural-targets.json");
@@ -397,6 +419,21 @@ function verifyHostPreeditGate(phase) {
   } catch (error) {
     const details = String(error.stdout || error.stderr || error.message || "").trim();
     fail(`Host Implementation ${phase} pre-edit baseline gate failed.${details ? `\n${details}` : ""}`);
+  }
+}
+
+function verifyFrozenDesignGate() {
+  const required = ["brand-application-plan.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json"];
+  for (const name of required) {
+    const file = path.join(migrationDir, name);
+    if (!fs.existsSync(file)) fail(`FROZEN_DESIGN_REQUIRED: missing ${relative(file)}; return to design-host instead of designing inside apply-host.`);
+  }
+  try {
+    execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", path.join(migrationDir, "brand-application-plan.json")], { cwd: root, stdio: "pipe" });
+    execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-wild-design-decision.mjs"), "--options", path.join(migrationDir, "design-direction-options.json"), "--decision", path.join(migrationDir, "design-direction-decision.json"), "--business-scope", path.join(migrationDir, "business-scope.json"), "--brand-evidence", path.join(migrationDir, "brand-evidence.json"), "--brand-mod", path.join(migrationDir, "brand-mod.json"), "--design-direction", path.join(migrationDir, "design-direction.json")], { cwd: root, stdio: "pipe" });
+  } catch (error) {
+    const details = String(error.stdout || error.stderr || error.message || "").trim();
+    fail(`FROZEN_DESIGN_INVALID: apply-host cannot redesign or repair direction artifacts.${details ? `\n${details}` : ""}`);
   }
 }
 
@@ -424,6 +461,11 @@ function proofStatusFromFidelity(fidelity) {
 }
 function allProofsPass(proofs) { return Object.values(proofs).every((value) => value === "pass"); }
 function nextAction(manifest, proofs) {
+  if (manifest.mode === "design-host") {
+    if (manifest.status === "awaiting-user-direction") return "Show the static directions and wait for an explicit user selection; freeze design-direction-decision.json and design-direction.json, then finalize design-host.";
+    if (manifest.status === "complete") return "Design-host is complete; start a separate apply-host run using the frozen direction artifacts.";
+    return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}.` : "Inspect the blocked design-host stage.";
+  }
   if (manifest.mode === "apply-host") {
     if (manifest.status === "awaiting-user") return "Show the runnable first preview, then record approve, revise or certify with approve-preview; do not start full QA yet.";
     if (manifest.status === "passed") return "Run finalize to close the apply-host manifest after its passing independent Visual QA receipt.";
@@ -440,13 +482,14 @@ function nextAction(manifest, proofs) {
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
 function initialStageForMode(mode) {
   if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
-  if (mode === "apply-host") return stage("hostStrategy", "hostStrategist", 1);
+  if (mode === "design-host") return stage("hostStrategy", "hostStrategist", 1);
+  if (mode === "apply-host") return stage("hostImplementation", "hostImplementationAgent", 1);
   fail(`Unsupported goal mode: ${mode}`);
 }
 function stageOrderForMode(mode) {
-  return mode === "apply-host"
-    ? ["hostStrategy", "hostImplementation", "previewQA", "visualQA"]
-    : ["evidence", "interpreter", "demo", "visualQA"];
+  if (mode === "design-host") return ["hostStrategy", "brandApplication"];
+  if (mode === "apply-host") return ["hostImplementation", "previewQA", "visualQA"];
+  return ["evidence", "interpreter", "demo", "visualQA"];
 }
 function roleForStage(name) {
   return {
@@ -454,12 +497,18 @@ function roleForStage(name) {
     interpreter: "designTranslator",
     demo: "demoImplementationAgent",
     hostStrategy: "hostStrategist",
+    brandApplication: "brandApplicationDesigner",
     hostImplementation: "hostImplementationAgent",
     previewQA: "visualQA",
     visualQA: "visualQA",
   }[name];
 }
 function dispatchScopeRules(manifest) {
+  if (manifest.mode === "design-host") return [
+    "Do not modify, compile or inject host source while generating directions.",
+    "Use the frozen host baseline and existing Brand MOD; do not relearn the brand.",
+    "Produce static target-viewport directions and stop for explicit user selection.",
+  ];
   if (manifest.mode !== "apply-host") return [];
   if (manifest.executionProfile === "certification") {
     return ["Run the complete declared host coverage matrix and all release-blocking platform/runtime gates."];
@@ -470,18 +519,17 @@ function dispatchScopeRules(manifest) {
   return [
     "Reuse the frozen Registry Evidence, Intent and Mapping; do not dispatch or simulate Brand Researcher or Design Translator.",
     "Default to the host home route unless the user explicitly names another page; limit the first preview to that route's first viewport.",
-    "Keep two or three style options and the explicit user decision before implementation; reuse frozen brand rules and shared host content for every option.",
+    "Consume the one frozen design direction; do not generate, compare or reinterpret style options inside apply-host.",
     "Stop after first-viewport implementation and Smoke QA with status awaiting-user; do not start scoped full QA until approve-preview records an explicit decision.",
     "Do not run or block on a full-host coverage matrix, capability-gap certification or unrequested platform proof; report PARTIAL_STYLE_ONLY when runtime proof is absent.",
   ];
 }
 function failureRouteForMode(mode, failureOwnerRole) {
   if (mode === "apply-host") {
-    return {
-      hostStrategist: ["hostStrategy", "hostStrategist"],
-      designDirectorOrchestrator: ["hostStrategy", "hostStrategist"],
-      hostImplementationAgent: ["hostImplementation", "hostImplementationAgent"],
-    }[failureOwnerRole] || ["hostImplementation", "hostImplementationAgent"];
+    return ["hostImplementation", "hostImplementationAgent"];
+  }
+  if (mode === "design-host") {
+    return failureOwnerRole === "hostStrategist" ? ["hostStrategy", "hostStrategist"] : ["brandApplication", "brandApplicationDesigner"];
   }
   return {
     brandResearcher: ["evidence", "brandResearcher"],

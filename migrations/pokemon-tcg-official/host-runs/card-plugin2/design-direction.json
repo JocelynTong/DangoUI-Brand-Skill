@@ -1,0 +1,26 @@
+{
+  "schema": "brand-host-design-direction/v1",
+  "hostProject": "card-plugin2",
+  "targetRoute": "/pages/plaza/index",
+  "status": "approved-for-demo",
+  "wildDesignDecision": {
+    "sha256": "b5970942d8214a3e826dec2eb2b426ac10522777054b356b4cdb41e9ae1b16bf",
+    "selectedOptionIds": ["arena-night"],
+    "selectedContractSha256": "5eca9f6fba056ce09c33ffb07c39e0b916e2a3137f4ad90d8a8aa726ae760ac4",
+    "selectedVisualChoiceSha256": "37b10e3d22bc77b38d495643896a5bd712e29aa2ec0449eaf6860a26aacb1169"
+  },
+  "frozen": {
+    "businessCapabilities": ["app-header", "plaza-hero", "deck-search", "environment-filters", "deck-results"],
+    "layout": {
+      "upperViewport": ["full-height-arena-stage", "floating-search", "versus-feature-card", "bottom-sheet-filters"]
+    }
+  },
+  "exploratory": ["visual assets", "character and card imagery", "background treatment", "transitions", "motion timing"],
+  "designSystemGate": {
+    "requiredBeforeCompletionClaim": true,
+    "tokens": "must resolve through the approved DangoUI semantic and brand token chain",
+    "components": "must consume real DangoUI runtime components where capability exists",
+    "exceptions": "must be classified as capability-gap or correct-boundary; page-private silent substitution is forbidden",
+    "claimBoundary": "without runtime proof the result remains PARTIAL_STYLE_ONLY"
+  }
+}

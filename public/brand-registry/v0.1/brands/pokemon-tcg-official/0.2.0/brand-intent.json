@@ -17,7 +17,10 @@
       "action-evidence/**"
     ],
     "forbiddenConclusionSourcesRead": [],
-    "forbiddenConclusionSources": ["pokemon-tcg-pitch-black", "pokemon30"],
+    "forbiddenConclusionSources": [
+      "pokemon-tcg-pitch-black",
+      "pokemon30"
+    ],
     "demoInputsConsumed": false
   },
   "brandThesis": "Official Pokémon TCG communicates through sharply separated page-purpose systems rather than one universal skin: campaign pages use a black cinematic stage and authentic collectible art; the database uses a restrained light title plate around a dense charcoal search organism; learning pages use oversized instructional hierarchy, authentic cards and diagrams, and painted yellow/navy section boundaries.",
@@ -25,59 +28,153 @@
     {
       "id": "purpose-specific-color-role",
       "rule": "Color belongs to a page or section role and must not be promoted into a freely interchangeable global palette.",
-      "evidenceRefs": ["home-stage-composition", "card-db-search-shell", "learn-hierarchy"]
+      "evidenceRefs": [
+        "home-stage-composition",
+        "card-db-search-shell",
+        "learn-hierarchy"
+      ]
     },
     {
       "id": "authentic-object-as-proof",
       "rule": "When a campaign, result, or lesson concerns cards, independent official card/product assets carry the subject identity; screenshots never do.",
-      "evidenceRefs": ["home-stage-composition", "card-db-results", "learn-hierarchy"]
+      "evidenceRefs": [
+        "home-stage-composition",
+        "card-db-results",
+        "learn-hierarchy"
+      ]
     },
     {
       "id": "hierarchy-preserved-on-phone",
       "rule": "Phone layouts may stack, repeat explanatory visuals, or reduce columns, but retain section order, asset weight, and control truth.",
-      "evidenceRefs": ["home-responsive-reflow", "card-db-responsive", "learn-hierarchy"]
+      "evidenceRefs": [
+        "home-responsive-reflow",
+        "card-db-responsive",
+        "learn-hierarchy"
+      ]
     },
     {
       "id": "bounded-long-form-sections",
       "rule": "Long pages remain a sequence of visually bounded organisms; item count is not an acceptable proxy for section structure.",
-      "evidenceRefs": ["home-responsive-reflow", "card-db-search-shell", "learn-hierarchy"]
+      "evidenceRefs": [
+        "home-responsive-reflow",
+        "card-db-search-shell",
+        "learn-hierarchy"
+      ]
     }
   ],
   "colorRoles": [
     {
       "id": "campaign-black-stage",
       "observedValue": "near-black/black",
-      "support": {"type": "screenshot-region", "capture": "captures/source/home/desktop/full-page.png", "region": [0, 0, 1440, 795]},
-      "allowedRoles": ["home navigation cap", "home campaign-stage surround", "carousel control strip"],
-      "forbiddenRoles": ["generic page background", "database result surface", "learning instructional body"]
+      "support": {
+        "type": "screenshot-region",
+        "capture": "captures/source/home/desktop/full-page.png",
+        "region": [
+          0,
+          0,
+          1440,
+          795
+        ]
+      },
+      "allowedRoles": [
+        "home navigation cap",
+        "home campaign-stage surround",
+        "carousel control strip"
+      ],
+      "forbiddenRoles": [
+        "generic page background",
+        "database result surface",
+        "learning instructional body"
+      ]
     },
     {
       "id": "database-charcoal-organism",
       "observedValue": "dark charcoal",
-      "support": {"type": "screenshot+visible-dom", "evidenceRef": "card-db-search-shell", "selector": "form#filters.form-analytics", "region": [80, 114, 1280, 724]},
-      "allowedRoles": ["database search field organism", "collapsed and expanded advanced-filter shell"],
-      "forbiddenRoles": ["global navigation assumption", "card result surface", "home campaign art"]
+      "support": {
+        "type": "screenshot+visible-dom",
+        "evidenceRef": "card-db-search-shell",
+        "selector": "form#filters.form-analytics",
+        "region": [
+          80,
+          114,
+          1280,
+          724
+        ]
+      },
+      "allowedRoles": [
+        "database search field organism",
+        "collapsed and expanded advanced-filter shell"
+      ],
+      "forbiddenRoles": [
+        "global navigation assumption",
+        "card result surface",
+        "home campaign art"
+      ]
     },
     {
       "id": "database-light-title-and-results",
       "observedValue": "white/off-white with pale texture in results",
-      "support": {"type": "computed+screenshot", "evidenceRef": "card-db-results", "computed": {"property": "background-image", "value": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)"}},
-      "allowedRoles": ["database title plate", "database results mosaic", "form input surfaces"],
-      "forbiddenRoles": ["claiming a flat untextured result background", "learning painted section boundary"]
+      "support": {
+        "type": "computed+screenshot",
+        "evidenceRef": "card-db-results",
+        "computed": {
+          "property": "background-image",
+          "value": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)"
+        }
+      },
+      "allowedRoles": [
+        "database title plate",
+        "database results mosaic",
+        "form input surfaces"
+      ],
+      "forbiddenRoles": [
+        "claiming a flat untextured result background",
+        "learning painted section boundary"
+      ]
     },
     {
       "id": "learning-yellow-paint",
       "observedValue": "warm yellow paint edge / pale cream field",
-      "support": {"type": "screenshot-region", "capture": "captures/source/how-to-play/desktop/full-page.png", "region": [0, 1959, 1440, 3335]},
-      "allowedRoles": ["card-breakdown instructional boundary and field"],
-      "forbiddenRoles": ["global active state", "database primary action", "generic card background"]
+      "support": {
+        "type": "screenshot-region",
+        "capture": "captures/source/how-to-play/desktop/full-page.png",
+        "region": [
+          0,
+          1959,
+          1440,
+          3335
+        ]
+      },
+      "allowedRoles": [
+        "card-breakdown instructional boundary and field"
+      ],
+      "forbiddenRoles": [
+        "global active state",
+        "database primary action",
+        "generic card background"
+      ]
     },
     {
       "id": "learning-navy-paint",
       "observedValue": "deep navy/royal blue",
-      "support": {"type": "screenshot-region", "capture": "captures/source/how-to-play/desktop/full-page.png", "region": [0, 5294, 1440, 3329]},
-      "allowedRoles": ["field-of-play instructional organism"],
-      "forbiddenRoles": ["global brand background", "home campaign surround", "database search shell"]
+      "support": {
+        "type": "screenshot-region",
+        "capture": "captures/source/how-to-play/desktop/full-page.png",
+        "region": [
+          0,
+          5294,
+          1440,
+          3329
+        ]
+      },
+      "allowedRoles": [
+        "field-of-play instructional organism"
+      ],
+      "forbiddenRoles": [
+        "global brand background",
+        "home campaign surround",
+        "database search shell"
+      ]
     }
   ],
   "typography": {
@@ -85,18 +182,31 @@
       {
         "scope": "card-database controls",
         "family": "Flexo-Regular, arial, sans-serif",
-        "support": {"evidenceRef": "card-db-search-state", "computedProperty": "font-family"},
+        "support": {
+          "evidenceRef": "card-db-search-state",
+          "computedProperty": "font-family"
+        },
         "rule": "Use a readable rounded sans for database labels and controls; do not infer the same face for other pages."
       },
       {
         "scope": "learn section hierarchy",
         "family": "unresolved exact family",
-        "support": {"evidenceRef": "learn-hierarchy", "type": "screenshot-only"},
+        "support": {
+          "evidenceRef": "learn-hierarchy",
+          "type": "screenshot-only"
+        },
         "rule": "Preserve the observed scale contrast: oversized section headings over compact instructional definitions."
       }
     ],
-    "assetOnlyNotApplicationProof": ["pt-sans-v17-latin-regular.woff2", "pt-sans-v17-latin-700.woff2", "kanit-v15-latin-700italic.woff2"],
-    "forbidden": ["claiming exact Home/Learn font family without computed evidence", "using typography alone as a substitute for section composition"]
+    "assetOnlyNotApplicationProof": [
+      "pt-sans-v17-latin-regular.woff2",
+      "pt-sans-v17-latin-700.woff2",
+      "kanit-v15-latin-700italic.woff2"
+    ],
+    "forbidden": [
+      "claiming exact Home/Learn font family without computed evidence",
+      "using typography alone as a substitute for section composition"
+    ]
   },
   "density": {
     "home": "Low-to-medium density campaign stage followed by large editorial/product bands; large whitespace in the captured page is not evidence to invent content.",
@@ -108,26 +218,132 @@
     "home": "Black navigation and carousel cap the hero; later modules are separate bands or alternating square grids.",
     "cardDatabase": "Light clipped/angled title plate, charcoal form field, grey drawer tab, then light textured result mosaic.",
     "learn": "Painted irregular yellow and navy edges visibly announce topic changes; these boundaries belong only to the observed instructional organisms.",
-    "forbidden": ["one universal container treatment", "flattening every section into generic cards", "using source screenshots as boundaries"]
+    "forbidden": [
+      "one universal container treatment",
+      "flattening every section into generic cards",
+      "using source screenshots as boundaries"
+    ]
   },
   "motionAndInteraction": {
-    "homeCarousel": {"status": "approved", "semantics": "Next changes slide pixels and can restore the initial slide/scroll state; unchanged H1 is not proof of no change.", "evidenceRef": "home-carousel-next"},
-    "databaseSearch": {"status": "required", "sequence": ["empty", "Pikachu entered", "results settled with Search Results and 1/12", "reset to empty"], "evidenceRef": "card-database-search"},
-    "advancedFilter": {"status": "required", "sequence": ["Show Advanced Search / 0px", "Hide Advanced Search / 724px", "settled expanded / 1206.73px", "restored Show / 0px"], "evidenceRef": "card-database-advanced-filter"},
-    "learnAccordion": {"status": "approved", "semantics": "Exclusive open panel changes and restores; phone may pair each definition with its repeated card visual.", "evidenceRef": "learn-card-accordion"},
-    "reduceMotion": {"status": "unresolved", "observed": "No visible, body-class, aria-pressed, text, or computed-style change after two clicks.", "implementationRule": "Do not invent a toggle state, animation suppression effect, or pressed styling.", "evidenceRef": "learn-reduce-motion"}
+    "homeCarousel": {
+      "status": "approved",
+      "semantics": "Next changes slide pixels and can restore the initial slide/scroll state; unchanged H1 is not proof of no change.",
+      "evidenceRef": "home-carousel-next"
+    },
+    "databaseSearch": {
+      "status": "required",
+      "sequence": [
+        "empty",
+        "Pikachu entered",
+        "results settled with Search Results and 1/12",
+        "reset to empty"
+      ],
+      "evidenceRef": "card-database-search"
+    },
+    "advancedFilter": {
+      "status": "required",
+      "sequence": [
+        "Show Advanced Search / 0px",
+        "Hide Advanced Search / 724px",
+        "settled expanded / 1206.73px",
+        "restored Show / 0px"
+      ],
+      "evidenceRef": "card-database-advanced-filter"
+    },
+    "learnAccordion": {
+      "status": "approved",
+      "semantics": "Exclusive open panel changes and restores; phone may pair each definition with its repeated card visual.",
+      "evidenceRef": "learn-card-accordion"
+    },
+    "reduceMotion": {
+      "status": "unresolved",
+      "observed": "No visible, body-class, aria-pressed, text, or computed-style change after two clicks.",
+      "implementationRule": "Do not invent a toggle state, animation suppression effect, or pressed styling.",
+      "evidenceRef": "learn-reduce-motion"
+    }
   },
   "assetUsage": [
-    {"assetRef": "home-booster-art", "use": "Home campaign stage only, as stage art with observed desktop/phone crop translation.", "notFor": ["generic backdrop", "held-out proof by itself"]},
-    {"assetRef": "home-30-logo", "use": "Home campaign identity layer paired with its campaign stage.", "notFor": ["sitewide logo", "database", "learning"]},
-    {"assetRef": "home-feature-card", "use": "Full collectible proof layer overlapping/below the campaign identity depending on viewport.", "notFor": ["search result substitution", "cropped texture"]},
-    {"assetRef": "home-tcgl-characters", "use": "Overlapping transparent product-ecosystem composition in the TCGL band.", "notFor": ["campaign hero replacement", "isolated decorative icons"]},
-    {"assetRef": "home-editorial-squares", "use": "Alternating square editorial grid; full-width squares on phone.", "notFor": ["background wallpaper", "card database results"]},
-    {"assetRef": "learn-header-card", "use": "Right-aligned partial fan in the learning hero; cropped top band on phone.", "notFor": ["database result", "Home campaign card"]},
-    {"assetRef": "learn-video-thumbnail", "use": "16:9 getting-started media card only.", "notFor": ["full-bleed hero"]},
-    {"assetRef": "learn-card", "use": "Full card for anatomy/hotspot explanation; repeat alongside phone definitions when preserving pairing.", "notFor": ["generic decorative card", "database result"]},
-    {"assetRef": "field-diagrams", "use": "Matching diagram variant beside its field-location definition; definition/diagram pairs on phone.", "notFor": ["unlabeled decoration", "combined generic field texture"]},
-    {"assetRef": "card-db-pikachu-27|85|88|101", "use": "Authentic full-card result assets in the Pikachu result mosaic.", "notFor": ["Home hero", "Learn anatomy substitution", "results before search"]}
+    {
+      "assetRef": "home-booster-art",
+      "use": "Home campaign stage only, as stage art with observed desktop/phone crop translation.",
+      "notFor": [
+        "generic backdrop",
+        "held-out proof by itself"
+      ]
+    },
+    {
+      "assetRef": "home-30-logo",
+      "use": "Home campaign identity layer paired with its campaign stage.",
+      "notFor": [
+        "sitewide logo",
+        "database",
+        "learning"
+      ]
+    },
+    {
+      "assetRef": "home-feature-card",
+      "use": "Full collectible proof layer overlapping/below the campaign identity depending on viewport.",
+      "notFor": [
+        "search result substitution",
+        "cropped texture"
+      ]
+    },
+    {
+      "assetRef": "home-tcgl-characters",
+      "use": "Overlapping transparent product-ecosystem composition in the TCGL band.",
+      "notFor": [
+        "campaign hero replacement",
+        "isolated decorative icons"
+      ]
+    },
+    {
+      "assetRef": "home-editorial-squares",
+      "use": "Alternating square editorial grid; full-width squares on phone.",
+      "notFor": [
+        "background wallpaper",
+        "card database results"
+      ]
+    },
+    {
+      "assetRef": "learn-header-card",
+      "use": "Right-aligned partial fan in the learning hero; cropped top band on phone.",
+      "notFor": [
+        "database result",
+        "Home campaign card"
+      ]
+    },
+    {
+      "assetRef": "learn-video-thumbnail",
+      "use": "16:9 getting-started media card only.",
+      "notFor": [
+        "full-bleed hero"
+      ]
+    },
+    {
+      "assetRef": "learn-card",
+      "use": "Full card for anatomy/hotspot explanation; repeat alongside phone definitions when preserving pairing.",
+      "notFor": [
+        "generic decorative card",
+        "database result"
+      ]
+    },
+    {
+      "assetRef": "field-diagrams",
+      "use": "Matching diagram variant beside its field-location definition; definition/diagram pairs on phone.",
+      "notFor": [
+        "unlabeled decoration",
+        "combined generic field texture"
+      ]
+    },
+    {
+      "assetRef": "card-db-pikachu-27|85|88|101",
+      "use": "Authentic full-card result assets in the Pikachu result mosaic.",
+      "notFor": [
+        "Home hero",
+        "Learn anatomy substitution",
+        "results before search"
+      ]
+    }
   ],
   "patterns": [
     {
@@ -135,96 +351,307 @@
       "status": "approved",
       "meaning": "A black campaign stage establishes one dominant campaign through separate navigation, campaign art, identity, CTA, collectible and carousel-control layers.",
       "usage": "Home campaign entry only; preserve the independent layers and evidenced desktop-to-phone reading order.",
-      "notFor": ["database shell", "learning section", "generic held-out hero"],
-      "evidenceRefs": ["home-stage-composition", "home-carousel-next"],
-      "sourceRegion": [0, 84, 1440, 710],
-      "compositionContract": {"assetIdentity": ["home-booster-art@c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca", "home-30-logo@15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d", "home-feature-card@07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83"], "requiredLayers": ["black navigation", "campaign art", "campaign identity", "CTA", "featured full card", "carousel controls"]}
+      "notFor": [
+        "database shell",
+        "learning section",
+        "generic held-out hero"
+      ],
+      "evidenceRefs": [
+        "home-stage-composition",
+        "home-carousel-next"
+      ],
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        710
+      ],
+      "compositionContract": {
+        "assetIdentity": [
+          "home-booster-art@c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca",
+          "home-30-logo@15119a32b5e137776c85e70cf903ff0262ea811a609f37e120de21250308d98d",
+          "home-feature-card@07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83"
+        ],
+        "requiredLayers": [
+          "black navigation",
+          "campaign art",
+          "campaign identity",
+          "CTA",
+          "featured full card",
+          "carousel controls"
+        ]
+      }
     },
     {
       "id": "home-banded-editorial-journey",
       "status": "approved",
       "meaning": "Discrete editorial, ecosystem and alternating image/copy bands move Home from campaign to discovery.",
       "usage": "Home editorial and product-ecosystem sections; collapse columns without flattening distinct organisms.",
-      "notFor": ["search forms", "dense instructional definitions", "identical generic cards"],
-      "evidenceRefs": ["home-responsive-reflow"],
-      "sourceRegion": [0, 794, 1440, 5111]
+      "notFor": [
+        "search forms",
+        "dense instructional definitions",
+        "identical generic cards"
+      ],
+      "evidenceRefs": [
+        "home-responsive-reflow"
+      ],
+      "sourceRegion": [
+        0,
+        794,
+        1440,
+        5111
+      ]
     },
     {
       "id": "database-dark-search-organism",
       "status": "approved",
       "meaning": "A dense query task is bounded inside charcoal between a light title plate and explicit reset, search and drawer controls.",
       "usage": "Card-database query construction; retain control order and state truth when stacked on phone.",
-      "notFor": ["generic settings forms", "Home navigation", "Learn accordion"],
-      "evidenceRefs": ["card-db-search-shell", "card-db-responsive", "card-db-search-state"],
-      "sourceRegion": [80, 114, 1280, 724]
+      "notFor": [
+        "generic settings forms",
+        "Home navigation",
+        "Learn accordion"
+      ],
+      "evidenceRefs": [
+        "card-db-search-shell",
+        "card-db-responsive",
+        "card-db-search-state"
+      ],
+      "sourceRegion": [
+        80,
+        114,
+        1280,
+        724
+      ]
     },
     {
       "id": "database-reversible-results-and-drawer",
       "status": "approved",
       "meaning": "Results and advanced filters are disclosed through separate reversible state machines rather than presented as static decoration.",
       "usage": "The evidenced Pikachu search and advanced-filter flows only.",
-      "notFor": ["pre-populated default results", "static galleries", "generic accordions"],
-      "evidenceRefs": ["card-db-search-state", "card-db-results", "card-database-search", "card-db-advanced-state", "card-database-advanced-filter"],
-      "sourceRegion": [80, 114, 1280, 1207]
+      "notFor": [
+        "pre-populated default results",
+        "static galleries",
+        "generic accordions"
+      ],
+      "evidenceRefs": [
+        "card-db-search-state",
+        "card-db-results",
+        "card-database-search",
+        "card-db-advanced-state",
+        "card-database-advanced-filter"
+      ],
+      "sourceRegion": [
+        80,
+        114,
+        1280,
+        1207
+      ]
     },
     {
       "id": "learn-media-entry",
       "status": "approved",
       "meaning": "A partial card fan and oversized hierarchy lead into a 16:9 starter-media blade and learning resources.",
       "usage": "How to Play entry only, preserving media identity and phone order.",
-      "notFor": ["Home campaign", "database results"],
-      "evidenceRefs": ["learn-hierarchy"],
-      "sourceRegion": [0, 84, 1440, 1875],
-      "compositionContract": {"assetIdentity": ["learn-header-card@70c404722e9479b0204aaae420482fce43d77378ca356e162ec834424758b758", "learn-video-thumbnail@ecb137f9c0462465cb3288bab34d1e59c3dafc3c437f9f41680a39ab45d6be0b"], "requiredLayers": ["partial card-fan hero", "hero title", "getting-started title", "video blade", "resource cards"]}
+      "notFor": [
+        "Home campaign",
+        "database results"
+      ],
+      "evidenceRefs": [
+        "learn-hierarchy"
+      ],
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        1875
+      ],
+      "compositionContract": {
+        "assetIdentity": [
+          "learn-header-card@70c404722e9479b0204aaae420482fce43d77378ca356e162ec834424758b758",
+          "learn-video-thumbnail@ecb137f9c0462465cb3288bab34d1e59c3dafc3c437f9f41680a39ab45d6be0b"
+        ],
+        "requiredLayers": [
+          "partial card-fan hero",
+          "hero title",
+          "getting-started title",
+          "video blade",
+          "resource cards"
+        ]
+      }
     },
     {
       "id": "learn-painted-card-anatomy",
       "status": "approved",
       "meaning": "A warm painted field binds exclusive definitions and hotspots to one authentic full card.",
       "usage": "Card-anatomy instruction only; retain definition/card proximity on phone.",
-      "notFor": ["global yellow sections", "database filters", "decorative card galleries"],
-      "evidenceRefs": ["learn-hierarchy", "learn-accordion"],
-      "sourceRegion": [0, 1959, 1440, 3335],
-      "compositionContract": {"assetIdentity": ["learn-card@9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95"], "requiredLayers": ["yellow paint boundary", "oversized heading", "exclusive definitions", "authentic full card", "hotspots"]}
+      "notFor": [
+        "global yellow sections",
+        "database filters",
+        "decorative card galleries"
+      ],
+      "evidenceRefs": [
+        "learn-hierarchy",
+        "learn-accordion"
+      ],
+      "sourceRegion": [
+        0,
+        1959,
+        1440,
+        3335
+      ],
+      "compositionContract": {
+        "assetIdentity": [
+          "learn-card@9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95"
+        ],
+        "requiredLayers": [
+          "yellow paint boundary",
+          "oversized heading",
+          "exclusive definitions",
+          "authentic full card",
+          "hotspots"
+        ]
+      }
     },
     {
       "id": "learn-painted-field-pairs",
       "status": "approved",
       "meaning": "A navy painted field teaches play locations through ordered definition-to-diagram pairs.",
       "usage": "Field-of-play instruction only; preserve exact definition/diagram pairing through reflow.",
-      "notFor": ["generic blue bands", "Home ecosystem", "database shell"],
-      "evidenceRefs": ["learn-hierarchy"],
-      "sourceRegion": [0, 5294, 1440, 3329],
-      "compositionContract": {"assetIdentity": ["field-diagrams@e7593a3bfe70f9ab0a26a1fea6c52ab73fcff808d80644b5f4a888d56f60e6b0"], "requiredLayers": ["navy paint boundary", "oversized heading", "ordered definitions", "matching diagrams"]}
+      "notFor": [
+        "generic blue bands",
+        "Home ecosystem",
+        "database shell"
+      ],
+      "evidenceRefs": [
+        "learn-hierarchy"
+      ],
+      "sourceRegion": [
+        0,
+        5294,
+        1440,
+        3329
+      ],
+      "compositionContract": {
+        "assetIdentity": [
+          "field-diagrams@e7593a3bfe70f9ab0a26a1fea6c52ab73fcff808d80644b5f4a888d56f60e6b0"
+        ],
+        "requiredLayers": [
+          "navy paint boundary",
+          "oversized heading",
+          "ordered definitions",
+          "matching diagrams"
+        ]
+      }
     },
     {
       "id": "bounded-long-form-sections",
       "status": "approved",
       "meaning": "Across Home, Card Database and Learn, long pages preserve purpose-specific organisms and their reading order instead of using item count as a structure proxy.",
       "usage": "Held-out structural proof only: use at least two source-independent organisms with distinct purposes and an explicit entry-to-instruction order.",
-      "notFor": ["copying any source page composition", "transferring page-owned colors or assets", "claiming section count alone as fidelity"],
-      "evidenceRefs": ["home-responsive-reflow", "card-db-search-shell", "learn-hierarchy"],
-      "sourceRegions": [[0, 794, 1440, 5111], [80, 114, 1280, 724], [0, 84, 1440, 8539]],
-      "compositionContract": {"assetIdentity": [], "requiredLayers": ["purpose-specific entry organism", "purpose-specific instruction or task organism", "explicit reading order between organisms"], "forbiddenTransfer": ["source screenshots", "official campaign assets", "unapproved color/type/frame/motion roles"]}
+      "notFor": [
+        "copying any source page composition",
+        "transferring page-owned colors or assets",
+        "claiming section count alone as fidelity"
+      ],
+      "evidenceRefs": [
+        "home-responsive-reflow",
+        "card-db-search-shell",
+        "learn-hierarchy"
+      ],
+      "sourceRegions": [
+        [
+          0,
+          794,
+          1440,
+          5111
+        ],
+        [
+          80,
+          114,
+          1280,
+          724
+        ],
+        [
+          0,
+          84,
+          1440,
+          8539
+        ]
+      ],
+      "compositionContract": {
+        "assetIdentity": [],
+        "requiredLayers": [
+          "purpose-specific entry organism",
+          "purpose-specific instruction or task organism",
+          "explicit reading order between organisms"
+        ],
+        "forbiddenTransfer": [
+          "source screenshots",
+          "official campaign assets",
+          "unapproved color/type/frame/motion roles"
+        ]
+      }
     },
     {
       "id": "championship-transparent-split-to-stack",
       "status": "approved-attempt-11-revision-2",
       "meaning": "The Championship section is a transparent equal-weight editorial/image pair on the continuous white Home canvas; desktop is copy-left/image-right and phone is image-first.",
       "usage": "One event story with one exact official square image, one heading, one paragraph and one outbound CTA.",
-      "notFor": ["generic two-column templates", "opaque cards", "global heroes", "sitewide image-first policy"],
-      "evidenceRefs": ["section-identity-boundary", "desktop-transparent-two-column-layering", "mobile-image-first-reflow", "official-asset-identity"],
-      "sourceRegion": [0, 84, 1440, 720],
-      "compositionContract": {"assetIdentity": ["championships.jpg@0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d", "championships-2x.jpg@862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db"], "requiredLayers": ["white page canvas", "transparent section nodes", "editorial copy field", "official square image field", "single CTA"]}
+      "notFor": [
+        "generic two-column templates",
+        "opaque cards",
+        "global heroes",
+        "sitewide image-first policy"
+      ],
+      "evidenceRefs": [
+        "section-identity-boundary",
+        "desktop-transparent-two-column-layering",
+        "mobile-image-first-reflow",
+        "official-asset-identity"
+      ],
+      "sourceRegion": [
+        0,
+        84,
+        1440,
+        720
+      ],
+      "compositionContract": {
+        "assetIdentity": [
+          "championships.jpg@0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+          "championships-2x.jpg@862a5f138e77cb6e0a8fdb44538a19d9ddfa3d60328b2113b6ae48f8000895db"
+        ],
+        "requiredLayers": [
+          "white page canvas",
+          "transparent section nodes",
+          "editorial copy field",
+          "official square image field",
+          "single CTA"
+        ]
+      }
     },
     {
       "id": "championship-centered-type-hierarchy",
       "status": "approved-attempt-11-revision-2",
       "meaning": "Centered Kanit heading, PT Sans body and PT Sans CTA preserve distinct editorial roles at the two frozen endpoints.",
       "usage": "At 1440 use h2/body/CTA 48/18/18px; at 390 use 32/18/18px with frozen line heights. Values are section-local.",
-      "notFor": ["global typography scale", "navigation", "forms", "invented desktop child bounding boxes"],
-      "evidenceRefs": ["desktop-transparent-two-column-layering", "mobile-typography-hierarchy", "quality-attempts/11/interpreter-revision2/brand-intent.json#sourceCssEvidence"],
-      "sourceRegion": [0, 0, 720, 720]
+      "notFor": [
+        "global typography scale",
+        "navigation",
+        "forms",
+        "invented desktop child bounding boxes"
+      ],
+      "evidenceRefs": [
+        "desktop-transparent-two-column-layering",
+        "mobile-typography-hierarchy",
+        "quality-attempts/11/interpreter-revision2/brand-intent.json#sourceCssEvidence"
+      ],
+      "sourceRegion": [
+        0,
+        0,
+        720,
+        720
+      ]
     }
   ],
   "styleRecipeDetails": [
@@ -233,35 +660,180 @@
       "status": "approved",
       "meaning": "Campaign black, database charcoal/light texture, learning yellow paint and learning navy paint identify different page purposes rather than one interchangeable skin.",
       "usage": "Select boundaries by evidenced page purpose and preserve their ownership and information density.",
-      "notFor": ["global palette expansion", "uniform generic cards", "cross-page role substitution"],
-      "evidenceRefs": ["home-stage-composition", "card-db-search-shell", "card-db-results", "learn-hierarchy"]
+      "notFor": [
+        "global palette expansion",
+        "uniform generic cards",
+        "cross-page role substitution"
+      ],
+      "evidenceRefs": [
+        "home-stage-composition",
+        "card-db-search-shell",
+        "card-db-results",
+        "learn-hierarchy"
+      ]
     },
     {
       "id": "championship-cta-frame-and-shadow",
       "status": "approved-attempt-11-revision-2",
       "meaning": "The Championship CTA uses a near-black default surface, a mandatory 2px inset frame and the frozen separation shadow.",
       "usage": "Championship Series outbound CTA only, together with its approved interaction recipe.",
-      "notFor": ["global buttons", "labels", "tabs", "replacement shadows"],
-      "evidenceRefs": ["desktop-cta-states-and-destination", "mobile-cta-interactions", "quality-attempts/11/evidence/captures/assets/global.css:6#.button", "quality-attempts/11/evidence/captures/assets/global.css:6#.button__bg::after"],
-      "recipe": {"insetFramePx": 2, "shadow": "0 16px 24px -16px rgba(0,0,0,0.35)"}
+      "notFor": [
+        "global buttons",
+        "labels",
+        "tabs",
+        "replacement shadows"
+      ],
+      "evidenceRefs": [
+        "desktop-cta-states-and-destination",
+        "mobile-cta-interactions",
+        "quality-attempts/11/evidence/captures/assets/global.css:6#.button",
+        "quality-attempts/11/evidence/captures/assets/global.css:6#.button__bg::after"
+      ],
+      "recipe": {
+        "insetFramePx": 2,
+        "shadow": "0 16px 24px -16px rgba(0,0,0,0.35)"
+      }
     }
   ],
   "interactionRecipes": [
-    {"id": "home-carousel-reversible-change", "status": "approved", "purpose": "Change slide pixels and restore the initial slide state.", "usage": "Home carousel next action only.", "notFor": ["unchanged H1 as proof", "static decorative controls"], "evidenceRefs": ["home-carousel-next"]},
-    {"id": "database-search-reversible-results", "status": "required", "purpose": "Preserve empty, typed, settled-results and restored-empty states.", "usage": "Evidenced Pikachu database search only.", "notFor": ["pre-populated results", "non-reversible search"], "evidenceRefs": ["card-database-search", "card-db-search-state"]},
-    {"id": "database-advanced-filter-disclosure", "status": "required", "purpose": "Reveal and restore filters while changing the label and preserving observed intermediate and settled heights.", "usage": "Card-database advanced-filter drawer only.", "notFor": ["generic accordions", "unchanged state labels"], "evidenceRefs": ["card-database-advanced-filter", "card-db-advanced-state"]},
-    {"id": "learn-exclusive-accordion", "status": "approved", "purpose": "Keep one card-definition panel open and permit restoration while retaining card proximity.", "usage": "Learn card-anatomy definitions only.", "notFor": ["multi-open behavior", "generic navigation"], "evidenceRefs": ["learn-card-accordion", "learn-accordion"]},
-    {"id": "championship-cta-gold-pointer-reveal", "status": "approved-attempt-11-revision-2", "purpose": "Pointer hover reveals full gold; keyboard focus remains near-black with a visible outline.", "usage": "Championship Series Learn more CTA only, preserving its verified destination.", "notFor": ["gold focus", "global action color", "invented pressed/loading/disabled states"], "evidenceRefs": ["desktop-cta-states-and-destination", "mobile-cta-interactions", "quality-attempts/11/interpreter-revision2/brand-intent.json#recipes/recipe.cta.black-to-gold-reveal"]},
-    {"id": "learn-reduce-motion", "status": "unresolved", "purpose": "No behavior may be prescribed until an observable effect is captured.", "usage": "Keep unresolved; return to Brand Researcher if required.", "notFor": ["invented toggle state", "invented animation suppression", "pressed styling"], "evidenceRefs": ["learn-reduce-motion"]}
+    {
+      "id": "home-carousel-reversible-change",
+      "status": "approved",
+      "purpose": "Change slide pixels and restore the initial slide state.",
+      "usage": "Home carousel next action only.",
+      "notFor": [
+        "unchanged H1 as proof",
+        "static decorative controls"
+      ],
+      "evidenceRefs": [
+        "home-carousel-next"
+      ]
+    },
+    {
+      "id": "database-search-reversible-results",
+      "status": "required",
+      "purpose": "Preserve empty, typed, settled-results and restored-empty states.",
+      "usage": "Evidenced Pikachu database search only.",
+      "notFor": [
+        "pre-populated results",
+        "non-reversible search"
+      ],
+      "evidenceRefs": [
+        "card-database-search",
+        "card-db-search-state"
+      ]
+    },
+    {
+      "id": "database-advanced-filter-disclosure",
+      "status": "required",
+      "purpose": "Reveal and restore filters while changing the label and preserving observed intermediate and settled heights.",
+      "usage": "Card-database advanced-filter drawer only.",
+      "notFor": [
+        "generic accordions",
+        "unchanged state labels"
+      ],
+      "evidenceRefs": [
+        "card-database-advanced-filter",
+        "card-db-advanced-state"
+      ]
+    },
+    {
+      "id": "learn-exclusive-accordion",
+      "status": "approved",
+      "purpose": "Keep one card-definition panel open and permit restoration while retaining card proximity.",
+      "usage": "Learn card-anatomy definitions only.",
+      "notFor": [
+        "multi-open behavior",
+        "generic navigation"
+      ],
+      "evidenceRefs": [
+        "learn-card-accordion",
+        "learn-accordion"
+      ]
+    },
+    {
+      "id": "championship-cta-gold-pointer-reveal",
+      "status": "approved-attempt-11-revision-2",
+      "purpose": "Pointer hover reveals full gold; keyboard focus remains near-black with a visible outline.",
+      "usage": "Championship Series Learn more CTA only, preserving its verified destination.",
+      "notFor": [
+        "gold focus",
+        "global action color",
+        "invented pressed/loading/disabled states"
+      ],
+      "evidenceRefs": [
+        "desktop-cta-states-and-destination",
+        "mobile-cta-interactions",
+        "quality-attempts/11/interpreter-revision2/brand-intent.json#recipes/recipe.cta.black-to-gold-reveal"
+      ]
+    },
+    {
+      "id": "learn-reduce-motion",
+      "status": "unresolved",
+      "purpose": "No behavior may be prescribed until an observable effect is captured.",
+      "usage": "Keep unresolved; return to Brand Researcher if required.",
+      "notFor": [
+        "invented toggle state",
+        "invented animation suppression",
+        "pressed styling"
+      ],
+      "evidenceRefs": [
+        "learn-reduce-motion"
+      ]
+    }
   ],
   "unresolvedClaims": [
-    {"id": "reduce-motion-effect", "reason": "Captured interaction produced no observable state change.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "exact-home-learn-fonts", "reason": "No computed font-family evidence was supplied for these page regions.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "exact-global-color-values", "reason": "Most roles are screenshot-supported but lack computed color values; preserve roles and visible relationships, not invented hex precision.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "failed-background-assets", "reason": "header_bg-small.jpg and new-to-tcg-small.jpg did not return valid image content and may not be invented.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "championship-desktop-child-bounding-boxes", "status": "unresolved-non-blocking", "reason": "Attempt 11 approved desktop type-role sizes from source CSS but did not freeze exact child rectangles.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "championship-responsive-breakpoint", "status": "unresolved-non-blocking", "reason": "Only the 1440 and 390 layout endpoints are frozen.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "championship-desktop-focus-outline-computed-value", "status": "unresolved-non-blocking", "reason": "Desktop focus is visually frozen; exact outline computed value is independently recorded only at 390.", "owner": "brandResearcher", "requiredForDemo": false},
-    {"id": "championship-dembrandt-score", "status": "unresolved-non-blocking", "reason": "Dembrandt was unavailable in the Attempt 11 Evidence run.", "owner": "brandResearcher", "requiredForDemo": false}
+    {
+      "id": "reduce-motion-effect",
+      "reason": "Captured interaction produced no observable state change.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "exact-home-learn-fonts",
+      "reason": "No computed font-family evidence was supplied for these page regions.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "exact-global-color-values",
+      "reason": "Most roles are screenshot-supported but lack computed color values; preserve roles and visible relationships, not invented hex precision.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "failed-background-assets",
+      "reason": "header_bg-small.jpg and new-to-tcg-small.jpg did not return valid image content and may not be invented.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "championship-desktop-child-bounding-boxes",
+      "status": "unresolved-non-blocking",
+      "reason": "Attempt 11 approved desktop type-role sizes from source CSS but did not freeze exact child rectangles.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "championship-responsive-breakpoint",
+      "status": "unresolved-non-blocking",
+      "reason": "Only the 1440 and 390 layout endpoints are frozen.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "championship-desktop-focus-outline-computed-value",
+      "status": "unresolved-non-blocking",
+      "reason": "Desktop focus is visually frozen; exact outline computed value is independently recorded only at 390.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    },
+    {
+      "id": "championship-dembrandt-score",
+      "status": "unresolved-non-blocking",
+      "reason": "Dembrandt was unavailable in the Attempt 11 Evidence run.",
+      "owner": "brandResearcher",
+      "requiredForDemo": false
+    }
   ]
 }

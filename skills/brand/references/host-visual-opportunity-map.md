@@ -22,6 +22,8 @@
 | showcaseFit | 是否适合强视觉：`none` / `contained` / `primary` |
 | riskIfOverApplied | 强塞视觉会破坏什么，例如效率、可读性、表单完成率、信息密度 |
 | recommendation | 建议采用的落地方式 |
+| hostFirstImpression | 首屏判断：`taskPriority`、`informationDensity`、`contentFlow`、`returnFrequency`、`firstActionUrgency`、`existingMediaSlots` |
+| heroDecision | `none` / `compact` / `contained` / `immersive`，并记录实际占比和基于宿主证据的理由 |
 
 ## 页面类型
 
@@ -33,6 +35,19 @@
 - `hybrid`：同时承担浏览和操作的页面，需要按区块拆开判断。
 
 ## 承载力判断
+
+### 先形成宿主初印象，再决定 Hero
+
+不要从“品牌有强视觉”反推宿主必须有大 Hero。Host Strategist 先看宿主默认入口截图、页面结构和真实业务内容，形成 `hostFirstImpression`：
+
+- `taskPriority`：`efficiency-first / balanced / immersion-first`。
+- `informationDensity`：`high / medium / low`。
+- `contentFlow`：`continuous-flow / sectioned / landing`，判断首页是否需要让列表、表单或结果自然向下增长。
+- `returnFrequency`：`frequent / occasional / first-visit`，高频回访用户通常不应反复穿过大型宣传区。
+- `firstActionUrgency`：`immediate / soon / exploratory`，记录搜索、筛选、发布或浏览结果应该多早可达。
+- `existingMediaSlots`：宿主本来是否存在头图、封面、Banner、视频或沉浸导航，而不是为了品牌展示凭空制造槽位。
+
+随后输出 `heroDecision`。高度比例是本次宿主结论，不是全局规则：例如一个高频、连续流、搜索优先的卡组工具首页可以判断为紧凑沉浸头部，并在本轮选择约 `1/3` 首屏；同为移动端的活动落地页可能需要更高，而密集表单可能完全不需要 Hero。机器 Gate 检查判断证据、字段完整性和实现是否遵守本轮决定，不用单一固定比例替代设计负责人判断。
 
 `low`：
 

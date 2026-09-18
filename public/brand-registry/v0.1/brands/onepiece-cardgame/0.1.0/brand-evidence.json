@@ -1,55 +1,1125 @@
 {
-  "schema":"brand-evidence/v4","brand":"onepiece-cardgame","sourceUrl":"https://asia-en.onepiece-cardgame.com/","capturedAt":"2026-09-01T14:03:00+08:00","status":"screenshot-first-v4","observationManifest":"migrations/onepiece-cardgame/source-observation-manifest.json",
-  "claimPolicy":{"factOnly":true,"normalizedRegionFormat":"[x,y,width,height] relative to capture","forbiddenInference":"No global brand semantic role is named in this evidence layer."},
-  "acceptedLiveDomEvidence":[
-    {"pageId":"home","package":"migrations/onepiece-cardgame/home-live-dom-evidence.json","schema":"brand-live-dom-evidence/v1","status":"accepted-with-unavailable-font-glyph-recapture","strictGate":"skills/brand/scripts/validate-live-dom-evidence.mjs","claimCount":14,"unavailableClaimRefs":["home-font-asset-alfa-slab-one","home-font-asset-noto-serif","home-font-asset-poppins","home-font-asset-oswald"],"claimRefs":["home-news-paper-surface","home-new-arrival-navy","home-products-cool-overlay","home-events-black-title-bar","home-events-red-asset","home-videos-warm-overlay","home-footer-navy","home-type-display-alfa-slab","home-type-editorial-noto-serif","home-type-metadata-oswald","home-welcome-cta-hover-motion","home-type-body-poppins","home-hero-carousel-full-cycle","home-footer-illustration-organism"],"consumerRule":"Unavailable font-resource claims cannot be consumed. Each accepted claim is consumed without weakening its capture, sourceRegion, visibleDom, computed, sourceRule, motion-state or illustration-layer fields. Computed font-family without an exact visually inspected glyph capture cannot pass."},
-    {"pageId":"home","package":"migrations/onepiece-cardgame/footer-motion-evidence-v10.json","schema":"footer-animated-organism/v1","status":"accepted","claimRefs":["home-footer-illustration-organism"],"consumerRule":"Asset identities alone are non-consumable. Consumers must preserve the directly visible default/transition/settled/late composition, one-shot reveal, finite composite swap, infinite card loops, and footer play/pause behavior."}
+  "schema": "brand-evidence/v4",
+  "brand": "onepiece-cardgame",
+  "sourceUrl": "https://asia-en.onepiece-cardgame.com/",
+  "capturedAt": "2026-09-01T14:03:00+08:00",
+  "status": "screenshot-first-v4",
+  "observationManifest": "migrations/onepiece-cardgame/source-observation-manifest.json",
+  "claimPolicy": {
+    "factOnly": true,
+    "normalizedRegionFormat": "[x,y,width,height] relative to capture",
+    "forbiddenInference": "No global brand semantic role is named in this evidence layer."
+  },
+  "acceptedLiveDomEvidence": [
+    {
+      "pageId": "home",
+      "package": "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+      "schema": "brand-live-dom-evidence/v1",
+      "status": "accepted-with-unavailable-font-glyph-recapture",
+      "strictGate": "skills/brand/scripts/validate-live-dom-evidence.mjs",
+      "claimCount": 14,
+      "unavailableClaimRefs": [
+        "home-font-asset-alfa-slab-one",
+        "home-font-asset-noto-serif",
+        "home-font-asset-poppins",
+        "home-font-asset-oswald"
+      ],
+      "claimRefs": [
+        "home-news-paper-surface",
+        "home-new-arrival-navy",
+        "home-products-cool-overlay",
+        "home-events-black-title-bar",
+        "home-events-red-asset",
+        "home-videos-warm-overlay",
+        "home-footer-navy",
+        "home-type-display-alfa-slab",
+        "home-type-editorial-noto-serif",
+        "home-type-metadata-oswald",
+        "home-welcome-cta-hover-motion",
+        "home-type-body-poppins",
+        "home-hero-carousel-full-cycle",
+        "home-footer-illustration-organism"
+      ],
+      "consumerRule": "Unavailable font-resource claims cannot be consumed. Each accepted claim is consumed without weakening its capture, sourceRegion, visibleDom, computed, sourceRule, motion-state or illustration-layer fields. Computed font-family without an exact visually inspected glyph capture cannot pass."
+    },
+    {
+      "pageId": "home",
+      "package": "migrations/onepiece-cardgame/footer-motion-evidence-v10.json",
+      "schema": "footer-animated-organism/v1",
+      "status": "accepted",
+      "claimRefs": [
+        "home-footer-illustration-organism"
+      ],
+      "consumerRule": "Asset identities alone are non-consumable. Consumers must preserve the directly visible default/transition/settled/late composition, one-shot reveal, finite composite swap, infinite card loops, and footer play/pause behavior."
+    }
   ],
-  "claims":[
-    {"id":"v4-home-hero-composition","sourcePageId":"home","claim":"At scrollTop 0, campaign artwork fills the viewport; the central character is larger than surrounding copy, product pack and navigation.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0,0,1,1],"visibleDom":{"selector":".mainCol .firstCol","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":0,"width":1280,"height":720}}},
-    {"id":"v4-home-header-controls","sourcePageId":"home","claim":"A compact icon-and-text navigation row is visible along the top edge over the campaign image, without a separate opaque header band.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0,0,1,0.075],"visibleDom":{"selector":"#top .headerCol.is-top .gnaviCol","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":0,"width":1280,"height":54}}},
-    {"id":"v4-home-page-density","sourcePageId":"home","claim":"The 6871px page contains repeated News, Products, Events and Videos modules after the campaign and Welcome area; the timeline reaches scrollTop 6151.","status":"observed","salience":"high","kind":"content-density","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json","frameRange":[0,33]},"sourceRegion":[0,0,1,1],"visibleDom":{"selector":"body","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":0,"width":1280,"height":6871}}},
-    {"id":"v4-home-hero-asset","sourcePageId":"home","claim":"The opening image combines character, campaign lettering and product packaging as the largest visible media asset.","status":"observed","salience":"high","kind":"asset","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0,0,1,1],"visibleDom":{"selector":".mainCol .firstCol img","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":0,"width":1280,"height":720}}},
-    {"id":"v4-news-feature-composition","sourcePageId":"news","claim":"The page begins with a two-column feature area: a tall Latest News panel at left and Important Notice plus a 2×2 Recommended image grid at right.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0,0.06,1,0.78],"visibleDom":{"selector":"main","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":43,"width":1280,"height":677}}},
-    {"id":"v4-news-heading-controls","sourcePageId":"news","claim":"LATEST INFORMATION is followed immediately by a horizontal row of compact rectangular category controls before the repeated news entries.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/frame-005.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json","frameIndex":5,"state":"settled-1"},"sourceRegion":[0.07,0.18,0.86,0.22],"visibleDom":{"selector":"main .filterCol","visible":true,"visibility":"visible","boundingBox":{"x":89,"y":130,"width":1101,"height":158}}},
-    {"id":"v4-news-item-density","sourcePageId":"news","claim":"Latest Information shows multiple image-led entries in aligned rows, with small date/category metadata beneath each image, before pagination.","status":"observed","salience":"high","kind":"content-density","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json","frameRange":[4,13]},"sourceRegion":[0.07,0.30,0.86,0.34],"visibleDom":{"selector":"main .articleList","visible":true,"visibility":"visible","boundingBox":{"x":89,"y":860,"width":1101,"height":974}}},
-    {"id":"v4-news-thumbnail-assets","sourcePageId":"news","claim":"News entries use campaign and announcement thumbnails as the primary card surface; text metadata occupies a visibly smaller area below each image.","status":"observed","salience":"high","kind":"asset","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/frame-007.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json","frameIndex":7,"state":"settled-2"},"sourceRegion":[0.07,0.05,0.86,0.65],"visibleDom":{"selector":"main .articleList img","visible":true,"visibility":"visible","boundingBox":{"x":89,"y":36,"width":1101,"height":468}}},
-    {"id":"v4-products-grid-composition","sourcePageId":"products","claim":"Filters and view controls sit above a four-column catalog grid on the light map-textured surface.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0.035,0.07,0.93,0.93],"visibleDom":{"selector":"main","visible":true,"visibility":"visible","boundingBox":{"x":45,"y":50,"width":1190,"height":670}}},
-    {"id":"v4-products-heading-controls","sourcePageId":"products","claim":"A large PRODUCTS heading sits above category buttons, while a separate grid/list view control is aligned to the right.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0.035,0.07,0.93,0.17],"visibleDom":{"selector":"main h2.titleSub","visible":true,"visibility":"visible","boundingBox":{"x":52,"y":69.328,"width":284.242,"height":46.664}}},
-    {"id":"v4-products-item-density","sourcePageId":"products","claim":"Twelve product cards are visible in the first three four-item rows; each pairs one large product image with compact category and title text.","status":"observed","salience":"high","kind":"content-density","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json","frameRange":[0,11]},"sourceRegion":[0.035,0.13,0.93,0.47],"visibleDom":{"selector":"main .productList","visible":true,"visibility":"visible","boundingBox":{"x":45,"y":351,"width":1190,"height":1268}}},
-    {"id":"v4-products-image-assets","sourcePageId":"products","claim":"Each catalog item is led by an isolated merchandise image on a pale rectangular media area; copy remains subordinate below it.","status":"observed","salience":"high","kind":"asset","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/frame-005.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json","frameIndex":5,"state":"settled-1"},"sourceRegion":[0.035,0.02,0.93,0.78],"visibleDom":{"selector":"main .productList img","visible":true,"visibility":"visible","boundingBox":{"x":45,"y":14,"width":1190,"height":562}}},
-    {"id":"v4-events-banner-composition","sourcePageId":"events","claim":"The page opens with a wide DISCOVER YOUR EVENT banner, then one large featured event banner and two smaller side-by-side banners.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/frame-000.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json","frameIndex":0,"state":"initial"},"sourceRegion":[0,0,1,0.68],"visibleDom":{"selector":"main","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":0,"width":1280,"height":720}}},
-    {"id":"v4-events-heading-card-groups","sourcePageId":"events","claim":"Centered section headings and short copy alternate with event-card groups; CHAMPIONSHIP is shown on a warm textured band above a two-card row.","status":"observed","salience":"high","kind":"composition","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/frame-011.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json","frameIndex":11,"state":"settled-4"},"sourceRegion":[0.04,0,0.92,0.82],"visibleDom":{"selector":"main .eventCol","visible":true,"visibility":"visible","boundingBox":{"x":51,"y":0,"width":1178,"height":590}}},
-    {"id":"v4-events-card-density","sourcePageId":"events","claim":"Multiple event groups contain large and small cards retaining image, event title and compact metadata across a 4176px scroll height.","status":"observed","salience":"high","kind":"content-density","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json","frameRange":[0,23]},"sourceRegion":[0,0,1,0.76],"visibleDom":{"selector":"main","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":0,"width":1280,"height":4176}}},
-    {"id":"v4-events-image-assets","sourcePageId":"events","claim":"Illustrated event banners and card images are the largest elements within each event group; logos and text-only placeholders occupy secondary cards.","status":"observed","salience":"high","kind":"asset","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/frame-013.png","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json","frameIndex":13,"state":"settled-5"},"sourceRegion":[0.07,0.04,0.86,0.72],"visibleDom":{"selector":"main .eventCol img","visible":true,"visibility":"visible","boundingBox":{"x":90,"y":29,"width":1100,"height":518}}},
-    {"id":"v4-home-menu-open-color","sourcePageId":"home","claim":"Clicking FOR BEGINNERS yields the actual is-open class state; computed color is rgb(255, 245, 7) and the background remains transparent.","status":"observed","salience":"high","kind":"interaction","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-frame-008.png","continuousCapture":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/source-menu-open.gif","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-timeline.json","frameIndex":8,"state":"menu-open"},"sourceRegion":[0.102,0.018,0.11,0.055],"visibleDom":{"selector":"#top .headerCol.is-top .gnaviCol .js-buttonMenu.is-open","visible":true,"visibility":"visible","boundingBox":{"x":138.656,"y":20.094,"width":122.219,"height":16.664}},"computed":{"property":"color","value":"rgb(255, 245, 7)"},"secondaryComputed":[{"property":"backgroundColor","value":"rgba(0, 0, 0, 0)"}]},
-    {"id":"v4-home-welcome-hover","sourcePageId":"home","claim":"Pointer movement over Begin Your Adventure changes transform from none to matrix(1.03, 0, 0, 1.03, 0, 0) through frames labeled hover-transition.","status":"observed","salience":"high","kind":"interaction","capture":{"path":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/frame-011.png","continuousCapture":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/source-welcome-hover.gif","timeline":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/hover-timeline.json","frameIndex":11,"state":"hover-transition"},"sourceRegion":[0.382,0.60,0.236,0.10],"visibleDom":{"selector":".mainCol .welcomeColBtn:hover","visible":true,"visibility":"visible","boundingBox":{"x":500,"y":458.422,"width":280,"height":46.664}},"computed":{"property":"transform","value":"matrix(1.03, 0, 0, 1.03, 0, 0)"},"secondaryComputed":[{"property":"transition","value":"0.3s"}]},
-    {"id":"a12-home-mobile-sections-static","sourcePageId":"home","claim":"At 390px the Welcome, New Arrival, Events, Recommend, Videos and Footer nav/legal regions are all directly visible in the 7576px source capture and retain readable, section-specific mobile layouts.","status":"observed","salience":"high","kind":"responsive-composition","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png","state":"mobile-default","viewport":{"width":390,"height":844}},"sourceRegion":[0,0.126,1,0.874],"visibleDom":{"selector":"main > section, footer.footerCol","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":954.7,"width":390,"height":6621.3}},"computed":{"property":"width","value":"390px"},"evidencePackage":"migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json"},
-    {"id":"a12-home-events-pickup-organism-mobile","sourcePageId":"home","claim":"The mobile Pickup Event block visibly combines a black title bar, red framed field, six vertically stacked white event rows and overlapping square thumbnails; the red frame source resolves to the mobile pickup-event asset.","status":"observed","salience":"high","kind":"composition-asset","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/12/evidence/events-complete-390.jpg","state":"mobile-default","scrollTopApprox":3863},"sourceRegion":[0,0.43,1,0.57],"visibleDom":{"selector":"section.eventsCol > .eventsColInner > .eventsList","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":3863,"width":373.36,"height":1125}},"computed":{"property":"borderImageSource","value":"url(../images/top/sp/bg_pikup-events.webp)"},"dispositionNote":"border-image slice/width remain unresolved; screenshot proves the organism, not its nine-slice mechanics."},
-    {"id":"a12-home-recommend-videos-media-rails","sourcePageId":"home","claim":"Recommend displays a wanted-poster card with a partial next card, while Videos displays multiple thumbnail links in a cropped horizontal row; both are media-led rails at 390px.","status":"observed","salience":"high","kind":"media-organization","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/12/evidence/recommend-390.png","secondaryPath":"migrations/onepiece-cardgame/quality-attempts/12/evidence/videos-390.png","state":"mobile-default"},"sourceRegion":[0,0,1,1],"visibleDom":{"selector":".recommendCol .swiper-wrapper, .movieCol .swiper-wrapper","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":5270,"width":390,"height":830}},"computed":{"property":"display","value":"flex"},"dispositionNote":"Static rail and crop are proved; drag and active-slide states are unresolved."},
-    {"id":"a12-home-footer-nav-legal-mobile","sourcePageId":"home","claim":"The mobile footer visibly retains social actions, a single-column primary navigation with accordion controls, Contact, Cookie Policy, Privacy Policy, Global Entrance and the logo/copyright/legal notice field.","status":"observed","salience":"high","kind":"navigation-action","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/12/evidence/footer-complete-390.jpg","state":"mobile-default","scrollTop":5952},"sourceRegion":[0,0,1,1],"visibleDom":{"selector":"footer.footerCol nav.gnaviCol, footer.footerCol .footerContactCol, footer.footerCol .footerTxtCol","visible":true,"visibility":"visible","boundingBox":{"x":23.4,"y":5951.8,"width":343.2,"height":1624.7}},"computed":{"property":"backgroundColor","value":"#002156"},"dispositionNote":"Default operability and targets are proved; expanded accordion and cookie modal after-states are unresolved."},
-    {"id":"a13-home-events-six-item-assets","sourcePageId":"home","claim":"At 390px Pickup Event renders six visible rows whose image currentSrc values resolve to five independent official 300x300 WebP assets; Jakarta and Manila intentionally share the same official BCG Fest thumbnail in the source DOM.","status":"observed","salience":"high","kind":"asset-provenance","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/events-390.png","state":"mobile-events-loaded","viewport":{"width":390,"height":844}},"sourceRegion":[0,0.11,0.96,0.89],"visibleDom":{"selector":".eventsListItem img","visible":true,"visibility":"visible","boundingBox":{"x":0,"y":95.508,"width":104,"height":779.976}},"computed":{"property":"objectFit","value":"cover"},"secondaryComputed":[{"property":"objectPosition","value":"50% 50%"},{"property":"width","value":"104px"},{"property":"height","value":"104px"}],"evidencePackage":"migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"},
-    {"id":"a13-home-recommend-five-distinct-assets","sourcePageId":"home","claim":"Real horizontal drags lazy-load five distinct official 640x360 Recommend images; each uses a 243.367x137.273 image inside a 270.398x137.273 clipped media container with cover/center crop.","status":"observed","salience":"high","kind":"asset-provenance-interaction","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-390.png","secondaryPaths":["migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-later-390.png","migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-final-390.png","migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-item5-active-390.png"],"state":"mobile-drag-sequence"},"sourceRegion":[0.15,0.31,0.70,0.17],"visibleDom":{"selector":".recommendListItem.swiper-slide-active img","visible":true,"visibility":"visible","boundingBox":{"x":74.329,"y":261.914,"width":243.367,"height":137.273}},"computed":{"property":"objectFit","value":"cover"},"secondaryComputed":[{"property":"objectPosition","value":"50% 50%"},{"property":"transform","value":"matrix(1, 0, 0, 1, -1091.99, 0)"}],"evidencePackage":"migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"},
-    {"id":"a13-home-new-arrival-next-state","sourcePageId":"home","claim":"Clicking the real New Arrival Next slide control changes the active slide from 1/10 to 2/10, wrapper transform from 0 to -181.998px, and Previous from disabled/0.35/none to enabled/1/auto.","status":"observed","salience":"high","kind":"interaction","capture":{"path":"migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/new-arrival-after-next.png","beforePath":"migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/new-arrival-before.png","state":"after-next-click"},"sourceRegion":[0.04,0.28,0.92,0.61],"visibleDom":{"selector":".newarrivalColBox.swiper-wrapper, .newarrivalColWrap .swiper-button-prev, .newarrivalColWrap .swiper-button-next","visible":true,"visibility":"visible","boundingBox":{"x":15.588,"y":505.891,"width":348.812,"height":241.687}},"computed":{"property":"transform","value":"matrix(1, 0, 0, 1, -181.998, 0)"},"secondaryComputed":[{"property":"opacity","before":"0.35","after":"1"},{"property":"pointerEvents","before":"none","after":"auto"},{"property":"aria-disabled","before":"true","after":"false"}],"sourceRule":{"kind":"Swiper runtime inline transform and state class/ARIA","selector":".newarrivalColBox.swiper-wrapper"},"evidencePackage":"migrations/onepiece-cardgame/quality-attempts/13/evidence/rail-state-probes.json"},
-    {"id":"a13-held-out-source-boundary","sourcePageId":null,"claim":"The held-out page is a separate Demo generative-proof contract, has mapsToSourcePageId=null, and is not an official Home region or source claim.","status":"out-of-scope","salience":"high","kind":"contract-boundary","capture":null,"evidenceRefs":["migrations/onepiece-cardgame/goal-contract.json","migrations/onepiece-cardgame/generative-proof.json#challenge"],"dispositionNote":"This is a frozen-contract boundary only; no official-site observation is asserted."}
+  "claims": [
+    {
+      "id": "v4-home-hero-composition",
+      "sourcePageId": "home",
+      "claim": "At scrollTop 0, campaign artwork fills the viewport; the central character is larger than surrounding copy, product pack and navigation.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".mainCol .firstCol",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "id": "v4-home-header-controls",
+      "sourcePageId": "home",
+      "claim": "A compact icon-and-text navigation row is visible along the top edge over the campaign image, without a separate opaque header band.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.075
+      ],
+      "visibleDom": {
+        "selector": "#top .headerCol.is-top .gnaviCol",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 54
+        }
+      }
+    },
+    {
+      "id": "v4-home-page-density",
+      "sourcePageId": "home",
+      "claim": "The 6871px page contains repeated News, Products, Events and Videos modules after the campaign and Welcome area; the timeline reaches scrollTop 6151.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "content-density",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json",
+        "frameRange": [
+          0,
+          33
+        ]
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 6871
+        }
+      }
+    },
+    {
+      "id": "v4-home-hero-asset",
+      "sourcePageId": "home",
+      "claim": "The opening image combines character, campaign lettering and product packaging as the largest visible media asset.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "asset",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".mainCol .firstCol img",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "id": "v4-news-feature-composition",
+      "sourcePageId": "news",
+      "claim": "The page begins with a two-column feature area: a tall Latest News panel at left and Important Notice plus a 2×2 Recommended image grid at right.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0,
+        0.06,
+        1,
+        0.78
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 43,
+          "width": 1280,
+          "height": 677
+        }
+      }
+    },
+    {
+      "id": "v4-news-heading-controls",
+      "sourcePageId": "news",
+      "claim": "LATEST INFORMATION is followed immediately by a horizontal row of compact rectangular category controls before the repeated news entries.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/frame-005.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json",
+        "frameIndex": 5,
+        "state": "settled-1"
+      },
+      "sourceRegion": [
+        0.07,
+        0.18,
+        0.86,
+        0.22
+      ],
+      "visibleDom": {
+        "selector": "main .filterCol",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 89,
+          "y": 130,
+          "width": 1101,
+          "height": 158
+        }
+      }
+    },
+    {
+      "id": "v4-news-item-density",
+      "sourcePageId": "news",
+      "claim": "Latest Information shows multiple image-led entries in aligned rows, with small date/category metadata beneath each image, before pagination.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "content-density",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-news-full.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json",
+        "frameRange": [
+          4,
+          13
+        ]
+      },
+      "sourceRegion": [
+        0.07,
+        0.3,
+        0.86,
+        0.34
+      ],
+      "visibleDom": {
+        "selector": "main .articleList",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 89,
+          "y": 860,
+          "width": 1101,
+          "height": 974
+        }
+      }
+    },
+    {
+      "id": "v4-news-thumbnail-assets",
+      "sourcePageId": "news",
+      "claim": "News entries use campaign and announcement thumbnails as the primary card surface; text metadata occupies a visibly smaller area below each image.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "asset",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/frame-007.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/news/timeline.json",
+        "frameIndex": 7,
+        "state": "settled-2"
+      },
+      "sourceRegion": [
+        0.07,
+        0.05,
+        0.86,
+        0.65
+      ],
+      "visibleDom": {
+        "selector": "main .articleList img",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 89,
+          "y": 36,
+          "width": 1101,
+          "height": 468
+        }
+      }
+    },
+    {
+      "id": "v4-products-grid-composition",
+      "sourcePageId": "products",
+      "claim": "Filters and view controls sit above a four-column catalog grid on the light map-textured surface.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0.035,
+        0.07,
+        0.93,
+        0.93
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 45,
+          "y": 50,
+          "width": 1190,
+          "height": 670
+        }
+      }
+    },
+    {
+      "id": "v4-products-heading-controls",
+      "sourcePageId": "products",
+      "claim": "A large PRODUCTS heading sits above category buttons, while a separate grid/list view control is aligned to the right.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0.035,
+        0.07,
+        0.93,
+        0.17
+      ],
+      "visibleDom": {
+        "selector": "main h2.titleSub",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 52,
+          "y": 69.328,
+          "width": 284.242,
+          "height": 46.664
+        }
+      }
+    },
+    {
+      "id": "v4-products-item-density",
+      "sourcePageId": "products",
+      "claim": "Twelve product cards are visible in the first three four-item rows; each pairs one large product image with compact category and title text.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "content-density",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-products-full.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json",
+        "frameRange": [
+          0,
+          11
+        ]
+      },
+      "sourceRegion": [
+        0.035,
+        0.13,
+        0.93,
+        0.47
+      ],
+      "visibleDom": {
+        "selector": "main .productList",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 45,
+          "y": 351,
+          "width": 1190,
+          "height": 1268
+        }
+      }
+    },
+    {
+      "id": "v4-products-image-assets",
+      "sourcePageId": "products",
+      "claim": "Each catalog item is led by an isolated merchandise image on a pale rectangular media area; copy remains subordinate below it.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "asset",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/frame-005.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/products/timeline.json",
+        "frameIndex": 5,
+        "state": "settled-1"
+      },
+      "sourceRegion": [
+        0.035,
+        0.02,
+        0.93,
+        0.78
+      ],
+      "visibleDom": {
+        "selector": "main .productList img",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 45,
+          "y": 14,
+          "width": 1190,
+          "height": 562
+        }
+      }
+    },
+    {
+      "id": "v4-events-banner-composition",
+      "sourcePageId": "events",
+      "claim": "The page opens with a wide DISCOVER YOUR EVENT banner, then one large featured event banner and two smaller side-by-side banners.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/frame-000.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json",
+        "frameIndex": 0,
+        "state": "initial"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.68
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 720
+        }
+      }
+    },
+    {
+      "id": "v4-events-heading-card-groups",
+      "sourcePageId": "events",
+      "claim": "Centered section headings and short copy alternate with event-card groups; CHAMPIONSHIP is shown on a warm textured band above a two-card row.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/frame-011.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json",
+        "frameIndex": 11,
+        "state": "settled-4"
+      },
+      "sourceRegion": [
+        0.04,
+        0,
+        0.92,
+        0.82
+      ],
+      "visibleDom": {
+        "selector": "main .eventCol",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 51,
+          "y": 0,
+          "width": 1178,
+          "height": 590
+        }
+      }
+    },
+    {
+      "id": "v4-events-card-density",
+      "sourcePageId": "events",
+      "claim": "Multiple event groups contain large and small cards retaining image, event title and compact metadata across a 4176px scroll height.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "content-density",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-events-full.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json",
+        "frameRange": [
+          0,
+          23
+        ]
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        0.76
+      ],
+      "visibleDom": {
+        "selector": "main",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1280,
+          "height": 4176
+        }
+      }
+    },
+    {
+      "id": "v4-events-image-assets",
+      "sourcePageId": "events",
+      "claim": "Illustrated event banners and card images are the largest elements within each event group; logos and text-only placeholders occupy secondary cards.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "asset",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/frame-013.png",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/events/timeline.json",
+        "frameIndex": 13,
+        "state": "settled-5"
+      },
+      "sourceRegion": [
+        0.07,
+        0.04,
+        0.86,
+        0.72
+      ],
+      "visibleDom": {
+        "selector": "main .eventCol img",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 90,
+          "y": 29,
+          "width": 1100,
+          "height": 518
+        }
+      }
+    },
+    {
+      "id": "v4-home-menu-open-color",
+      "sourcePageId": "home",
+      "claim": "Clicking FOR BEGINNERS yields the actual is-open class state; computed color is rgb(255, 245, 7) and the background remains transparent.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-frame-008.png",
+        "continuousCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/source-menu-open.gif",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-interactions/menu-timeline.json",
+        "frameIndex": 8,
+        "state": "menu-open"
+      },
+      "sourceRegion": [
+        0.102,
+        0.018,
+        0.11,
+        0.055
+      ],
+      "visibleDom": {
+        "selector": "#top .headerCol.is-top .gnaviCol .js-buttonMenu.is-open",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 138.656,
+          "y": 20.094,
+          "width": 122.219,
+          "height": 16.664
+        }
+      },
+      "computed": {
+        "property": "color",
+        "value": "rgb(255, 245, 7)"
+      },
+      "secondaryComputed": [
+        {
+          "property": "backgroundColor",
+          "value": "rgba(0, 0, 0, 0)"
+        }
+      ]
+    },
+    {
+      "id": "v4-home-welcome-hover",
+      "sourcePageId": "home",
+      "claim": "Pointer movement over Begin Your Adventure changes transform from none to matrix(1.03, 0, 0, 1.03, 0, 0) through frames labeled hover-transition.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "capture": {
+        "path": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/frame-011.png",
+        "continuousCapture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/source-welcome-hover.gif",
+        "timeline": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/hover-timeline.json",
+        "frameIndex": 11,
+        "state": "hover-transition"
+      },
+      "sourceRegion": [
+        0.382,
+        0.6,
+        0.236,
+        0.1
+      ],
+      "visibleDom": {
+        "selector": ".mainCol .welcomeColBtn:hover",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 500,
+          "y": 458.422,
+          "width": 280,
+          "height": 46.664
+        }
+      },
+      "computed": {
+        "property": "transform",
+        "value": "matrix(1.03, 0, 0, 1.03, 0, 0)"
+      },
+      "secondaryComputed": [
+        {
+          "property": "transition",
+          "value": "0.3s"
+        }
+      ]
+    },
+    {
+      "id": "a12-home-mobile-sections-static",
+      "sourcePageId": "home",
+      "claim": "At 390px the Welcome, New Arrival, Events, Recommend, Videos and Footer nav/legal regions are all directly visible in the 7576px source capture and retain readable, section-specific mobile layouts.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "responsive-composition",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png",
+        "state": "mobile-default",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceRegion": [
+        0,
+        0.126,
+        1,
+        0.874
+      ],
+      "visibleDom": {
+        "selector": "main > section, footer.footerCol",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 954.7,
+          "width": 390,
+          "height": 6621.3
+        }
+      },
+      "computed": {
+        "property": "width",
+        "value": "390px"
+      },
+      "evidencePackage": "migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json"
+    },
+    {
+      "id": "a12-home-events-pickup-organism-mobile",
+      "sourcePageId": "home",
+      "claim": "The mobile Pickup Event block visibly combines a black title bar, red framed field, six vertically stacked white event rows and overlapping square thumbnails; the red frame source resolves to the mobile pickup-event asset.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition-asset",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/12/evidence/events-complete-390.jpg",
+        "state": "mobile-default",
+        "scrollTopApprox": 3863
+      },
+      "sourceRegion": [
+        0,
+        0.43,
+        1,
+        0.57
+      ],
+      "visibleDom": {
+        "selector": "section.eventsCol > .eventsColInner > .eventsList",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 3863,
+          "width": 373.36,
+          "height": 1125
+        }
+      },
+      "computed": {
+        "property": "borderImageSource",
+        "value": "url(../images/top/sp/bg_pikup-events.webp)"
+      },
+      "dispositionNote": "border-image slice/width remain unresolved; screenshot proves the organism, not its nine-slice mechanics."
+    },
+    {
+      "id": "a12-home-recommend-videos-media-rails",
+      "sourcePageId": "home",
+      "claim": "Recommend displays a wanted-poster card with a partial next card, while Videos displays multiple thumbnail links in a cropped horizontal row; both are media-led rails at 390px.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "media-organization",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/12/evidence/recommend-390.png",
+        "secondaryPath": "migrations/onepiece-cardgame/quality-attempts/12/evidence/videos-390.png",
+        "state": "mobile-default"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": ".recommendCol .swiper-wrapper, .movieCol .swiper-wrapper",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 5270,
+          "width": 390,
+          "height": 830
+        }
+      },
+      "computed": {
+        "property": "display",
+        "value": "flex"
+      },
+      "dispositionNote": "Static rail and crop are proved; drag and active-slide states are unresolved."
+    },
+    {
+      "id": "a12-home-footer-nav-legal-mobile",
+      "sourcePageId": "home",
+      "claim": "The mobile footer visibly retains social actions, a single-column primary navigation with accordion controls, Contact, Cookie Policy, Privacy Policy, Global Entrance and the logo/copyright/legal notice field.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "navigation-action",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/12/evidence/footer-complete-390.jpg",
+        "state": "mobile-default",
+        "scrollTop": 5952
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "visibleDom": {
+        "selector": "footer.footerCol nav.gnaviCol, footer.footerCol .footerContactCol, footer.footerCol .footerTxtCol",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 23.4,
+          "y": 5951.8,
+          "width": 343.2,
+          "height": 1624.7
+        }
+      },
+      "computed": {
+        "property": "backgroundColor",
+        "value": "#002156"
+      },
+      "dispositionNote": "Default operability and targets are proved; expanded accordion and cookie modal after-states are unresolved."
+    },
+    {
+      "id": "a13-home-events-six-item-assets",
+      "sourcePageId": "home",
+      "claim": "At 390px Pickup Event renders six visible rows whose image currentSrc values resolve to five independent official 300x300 WebP assets; Jakarta and Manila intentionally share the same official BCG Fest thumbnail in the source DOM.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "asset-provenance",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/events-390.png",
+        "state": "mobile-events-loaded",
+        "viewport": {
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceRegion": [
+        0,
+        0.11,
+        0.96,
+        0.89
+      ],
+      "visibleDom": {
+        "selector": ".eventsListItem img",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 0,
+          "y": 95.508,
+          "width": 104,
+          "height": 779.976
+        }
+      },
+      "computed": {
+        "property": "objectFit",
+        "value": "cover"
+      },
+      "secondaryComputed": [
+        {
+          "property": "objectPosition",
+          "value": "50% 50%"
+        },
+        {
+          "property": "width",
+          "value": "104px"
+        },
+        {
+          "property": "height",
+          "value": "104px"
+        }
+      ],
+      "evidencePackage": "migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"
+    },
+    {
+      "id": "a13-home-recommend-five-distinct-assets",
+      "sourcePageId": "home",
+      "claim": "Real horizontal drags lazy-load five distinct official 640x360 Recommend images; each uses a 243.367x137.273 image inside a 270.398x137.273 clipped media container with cover/center crop.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "asset-provenance-interaction",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-390.png",
+        "secondaryPaths": [
+          "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-later-390.png",
+          "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-final-390.png",
+          "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/recommend-item5-active-390.png"
+        ],
+        "state": "mobile-drag-sequence"
+      },
+      "sourceRegion": [
+        0.15,
+        0.31,
+        0.7,
+        0.17
+      ],
+      "visibleDom": {
+        "selector": ".recommendListItem.swiper-slide-active img",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 74.329,
+          "y": 261.914,
+          "width": 243.367,
+          "height": 137.273
+        }
+      },
+      "computed": {
+        "property": "objectFit",
+        "value": "cover"
+      },
+      "secondaryComputed": [
+        {
+          "property": "objectPosition",
+          "value": "50% 50%"
+        },
+        {
+          "property": "transform",
+          "value": "matrix(1, 0, 0, 1, -1091.99, 0)"
+        }
+      ],
+      "evidencePackage": "migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"
+    },
+    {
+      "id": "a13-home-new-arrival-next-state",
+      "sourcePageId": "home",
+      "claim": "Clicking the real New Arrival Next slide control changes the active slide from 1/10 to 2/10, wrapper transform from 0 to -181.998px, and Previous from disabled/0.35/none to enabled/1/auto.",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "capture": {
+        "path": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/new-arrival-after-next.png",
+        "beforePath": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/new-arrival-before.png",
+        "state": "after-next-click"
+      },
+      "sourceRegion": [
+        0.04,
+        0.28,
+        0.92,
+        0.61
+      ],
+      "visibleDom": {
+        "selector": ".newarrivalColBox.swiper-wrapper, .newarrivalColWrap .swiper-button-prev, .newarrivalColWrap .swiper-button-next",
+        "visible": true,
+        "visibility": "visible",
+        "boundingBox": {
+          "x": 15.588,
+          "y": 505.891,
+          "width": 348.812,
+          "height": 241.687
+        }
+      },
+      "computed": {
+        "property": "transform",
+        "value": "matrix(1, 0, 0, 1, -181.998, 0)"
+      },
+      "secondaryComputed": [
+        {
+          "property": "opacity",
+          "before": "0.35",
+          "after": "1"
+        },
+        {
+          "property": "pointerEvents",
+          "before": "none",
+          "after": "auto"
+        },
+        {
+          "property": "aria-disabled",
+          "before": "true",
+          "after": "false"
+        }
+      ],
+      "sourceRule": {
+        "kind": "Swiper runtime inline transform and state class/ARIA",
+        "selector": ".newarrivalColBox.swiper-wrapper"
+      },
+      "evidencePackage": "migrations/onepiece-cardgame/quality-attempts/13/evidence/rail-state-probes.json"
+    },
+    {
+      "id": "a13-held-out-source-boundary",
+      "sourcePageId": null,
+      "claim": "The held-out page is a separate Demo generative-proof contract, has mapsToSourcePageId=null, and is not an official Home region or source claim.",
+      "status": "out-of-scope",
+      "salience": "high",
+      "kind": "contract-boundary",
+      "capture": null,
+      "evidenceRefs": [
+        "migrations/onepiece-cardgame/goal-contract.json",
+        "migrations/onepiece-cardgame/generative-proof.json#challenge"
+      ],
+      "dispositionNote": "This is a frozen-contract boundary only; no official-site observation is asserted."
+    }
   ],
-  "thirdPartySeedDispositions":[
-    {"id":"v3-home-hero","seedRef":"brand-evidence-v3#home-full-viewport-campaign-hero","status":"validated","evidenceRefs":["v4-home-hero-composition"]},
-    {"id":"v3-menu-open","seedRef":"brand-evidence-v3#header-menu-open-yellow-indicator","status":"validated","evidenceRefs":["v4-home-menu-open-color"]},
-    {"id":"v3-welcome-hover","seedRef":"brand-evidence-v3#welcome-button-hover-motion","status":"validated","evidenceRefs":["v4-home-welcome-hover"]},
-    {"id":"v3-products-heading","seedRef":"brand-evidence-v3#products-hard-black-heading-no-color-chrome","status":"validated","evidenceRefs":["v4-products-heading-controls"]},
-    {"id":"v3-global-yellow","seedRef":"brand-evidence-v3#global-yellow-interaction-system","status":"unresolved","reason":"v4 captures prove the narrow is-open change and yellow inside artwork; this node does not assign a broader semantic role."}
-    ,{"id":"a11-mobile-midpage-gaps","seedRef":"quality-attempts/11 mobile failures for Welcome/New Arrival/Events/Recommend/Videos/Footer","status":"validated","evidenceRefs":["a12-home-mobile-sections-static","a12-home-events-pickup-organism-mobile","a12-home-recommend-videos-media-rails","a12-home-footer-nav-legal-mobile"],"reason":"Validated only as official static section evidence. Attempt 12 does not validate Demo parity or uncaptured interaction states."},
-    {"id":"a13-events-runtime-item-assets","seedRef":"attempt13 blocker#events-visible-six-items-real-thumbs","status":"validated","evidenceRefs":["a13-home-events-six-item-assets"],"reason":"All six rows bind to official loaded currentSrc values; the one duplicate identity is the source DOM's Jakarta/Manila reuse."},
-    {"id":"a13-recommend-distinct-posters","seedRef":"attempt13 blocker#recommend-five-distinct-assets","status":"validated","evidenceRefs":["a13-home-recommend-five-distinct-assets"]},
-    {"id":"a13-new-arrival-state-transition","seedRef":"attempt13 blocker#new-arrival-prev-next-state","status":"validated","evidenceRefs":["a13-home-new-arrival-next-state"]},
-    {"id":"a13-held-out-as-source-home","seedRef":"attempt13 blocker#held-out-source-home-evidence","status":"out-of-scope","evidenceRefs":["a13-held-out-source-boundary"],"reason":"Frozen generative-proof challenge explicitly maps to no source page; mixing it into Home evidence would be fabricated provenance."}
+  "thirdPartySeedDispositions": [
+    {
+      "id": "v3-home-hero",
+      "seedRef": "brand-evidence-v3#home-full-viewport-campaign-hero",
+      "status": "validated",
+      "evidenceRefs": [
+        "v4-home-hero-composition"
+      ]
+    },
+    {
+      "id": "v3-menu-open",
+      "seedRef": "brand-evidence-v3#header-menu-open-yellow-indicator",
+      "status": "validated",
+      "evidenceRefs": [
+        "v4-home-menu-open-color"
+      ]
+    },
+    {
+      "id": "v3-welcome-hover",
+      "seedRef": "brand-evidence-v3#welcome-button-hover-motion",
+      "status": "validated",
+      "evidenceRefs": [
+        "v4-home-welcome-hover"
+      ]
+    },
+    {
+      "id": "v3-products-heading",
+      "seedRef": "brand-evidence-v3#products-hard-black-heading-no-color-chrome",
+      "status": "validated",
+      "evidenceRefs": [
+        "v4-products-heading-controls"
+      ]
+    },
+    {
+      "id": "v3-global-yellow",
+      "seedRef": "brand-evidence-v3#global-yellow-interaction-system",
+      "status": "unresolved",
+      "reason": "v4 captures prove the narrow is-open change and yellow inside artwork; this node does not assign a broader semantic role."
+    },
+    {
+      "id": "a11-mobile-midpage-gaps",
+      "seedRef": "quality-attempts/11 mobile failures for Welcome/New Arrival/Events/Recommend/Videos/Footer",
+      "status": "validated",
+      "evidenceRefs": [
+        "a12-home-mobile-sections-static",
+        "a12-home-events-pickup-organism-mobile",
+        "a12-home-recommend-videos-media-rails",
+        "a12-home-footer-nav-legal-mobile"
+      ],
+      "reason": "Validated only as official static section evidence. Attempt 12 does not validate Demo parity or uncaptured interaction states."
+    },
+    {
+      "id": "a13-events-runtime-item-assets",
+      "seedRef": "attempt13 blocker#events-visible-six-items-real-thumbs",
+      "status": "validated",
+      "evidenceRefs": [
+        "a13-home-events-six-item-assets"
+      ],
+      "reason": "All six rows bind to official loaded currentSrc values; the one duplicate identity is the source DOM's Jakarta/Manila reuse."
+    },
+    {
+      "id": "a13-recommend-distinct-posters",
+      "seedRef": "attempt13 blocker#recommend-five-distinct-assets",
+      "status": "validated",
+      "evidenceRefs": [
+        "a13-home-recommend-five-distinct-assets"
+      ]
+    },
+    {
+      "id": "a13-new-arrival-state-transition",
+      "seedRef": "attempt13 blocker#new-arrival-prev-next-state",
+      "status": "validated",
+      "evidenceRefs": [
+        "a13-home-new-arrival-next-state"
+      ]
+    },
+    {
+      "id": "a13-held-out-as-source-home",
+      "seedRef": "attempt13 blocker#held-out-source-home-evidence",
+      "status": "out-of-scope",
+      "evidenceRefs": [
+        "a13-held-out-source-boundary"
+      ],
+      "reason": "Frozen generative-proof challenge explicitly maps to no source page; mixing it into Home evidence would be fabricated provenance."
+    }
   ],
-  "goalCoverage":[
-    {"goalRef":"mustPreserve#hero-composition","status":"proved","pageIds":["home"],"evidenceRefs":["v4-home-hero-composition","v4-home-hero-asset","home-hero-carousel-full-cycle"],"liveDomEvidencePackage":"migrations/onepiece-cardgame/home-live-dom-evidence.json"},
-    {"goalRef":"mustPreserve#news-editorial-hierarchy","status":"proved","pageIds":["news"],"evidenceRefs":["v4-news-feature-composition","v4-news-heading-controls","v4-news-item-density","v4-news-thumbnail-assets"]},
-    {"goalRef":"mustPreserve#product-density","status":"proved","pageIds":["products"],"evidenceRefs":["v4-products-grid-composition","v4-products-heading-controls","v4-products-item-density","v4-products-image-assets"]},
-    {"goalRef":"mustPreserve#events-editorial-hierarchy","status":"proved","pageIds":["events"],"evidenceRefs":["v4-events-banner-composition","v4-events-heading-card-groups","v4-events-card-density","v4-events-image-assets"]},
-    {"goalRef":"mustPreserve#role-color-system","status":"proved-narrowly","pageIds":["home","news","products","events"],"evidenceRefs":["v4-home-menu-open-color","v4-products-heading-controls","v4-news-heading-controls","v4-events-heading-card-groups","home-news-paper-surface","home-new-arrival-navy","home-products-cool-overlay","home-events-black-title-bar","home-events-red-asset","home-videos-warm-overlay","home-footer-navy"],"liveDomEvidencePackage":"migrations/onepiece-cardgame/home-live-dom-evidence.json","note":"Visible relationships and actual is-open state only; Home v5 preserves distinct layered/asset-backed surfaces and does not promote any sampled value to a global token."}
+  "goalCoverage": [
+    {
+      "goalRef": "mustPreserve#hero-composition",
+      "status": "proved",
+      "pageIds": [
+        "home"
+      ],
+      "evidenceRefs": [
+        "v4-home-hero-composition",
+        "v4-home-hero-asset",
+        "home-hero-carousel-full-cycle"
+      ],
+      "liveDomEvidencePackage": "migrations/onepiece-cardgame/home-live-dom-evidence.json"
+    },
+    {
+      "goalRef": "mustPreserve#news-editorial-hierarchy",
+      "status": "proved",
+      "pageIds": [
+        "news"
+      ],
+      "evidenceRefs": [
+        "v4-news-feature-composition",
+        "v4-news-heading-controls",
+        "v4-news-item-density",
+        "v4-news-thumbnail-assets"
+      ]
+    },
+    {
+      "goalRef": "mustPreserve#product-density",
+      "status": "proved",
+      "pageIds": [
+        "products"
+      ],
+      "evidenceRefs": [
+        "v4-products-grid-composition",
+        "v4-products-heading-controls",
+        "v4-products-item-density",
+        "v4-products-image-assets"
+      ]
+    },
+    {
+      "goalRef": "mustPreserve#events-editorial-hierarchy",
+      "status": "proved",
+      "pageIds": [
+        "events"
+      ],
+      "evidenceRefs": [
+        "v4-events-banner-composition",
+        "v4-events-heading-card-groups",
+        "v4-events-card-density",
+        "v4-events-image-assets"
+      ]
+    },
+    {
+      "goalRef": "mustPreserve#role-color-system",
+      "status": "proved-narrowly",
+      "pageIds": [
+        "home",
+        "news",
+        "products",
+        "events"
+      ],
+      "evidenceRefs": [
+        "v4-home-menu-open-color",
+        "v4-products-heading-controls",
+        "v4-news-heading-controls",
+        "v4-events-heading-card-groups",
+        "home-news-paper-surface",
+        "home-new-arrival-navy",
+        "home-products-cool-overlay",
+        "home-events-black-title-bar",
+        "home-events-red-asset",
+        "home-videos-warm-overlay",
+        "home-footer-navy"
+      ],
+      "liveDomEvidencePackage": "migrations/onepiece-cardgame/home-live-dom-evidence.json",
+      "note": "Visible relationships and actual is-open state only; Home v5 preserves distinct layered/asset-backed surfaces and does not promote any sampled value to a global token."
+    }
   ]
 }

@@ -1,0 +1,193 @@
+{
+  "schema": "brand-composition-generality-test/v1",
+  "testedAt": "2026-09-18T05:15:43.471Z",
+  "hypothesis": "The apply-host composition contract transfers semantic tokens and evidence-backed asset roles without reusing a brand-specific layout template.",
+  "commonCapabilitiesUnderTest": [
+    "host-classification",
+    "semantic-token-binding",
+    "asset-role-separation",
+    "identity-environment",
+    "material-field",
+    "business-content-preservation",
+    "missing-evidence-blocking"
+  ],
+  "results": [
+    {
+      "brand": "pokemon-tcg-official",
+      "status": "pass",
+      "tokenCount": 4,
+      "declaredAssetRoles": [
+        "hero-background",
+        "section-background",
+        "campaign-identity",
+        "featured-card",
+        "instructional-card",
+        "database-result-card",
+        "instruction-diagram"
+      ],
+      "availableAssetRoles": [
+        "hero-background",
+        "campaign-identity",
+        "featured-card",
+        "instructional-card",
+        "database-result-card"
+      ],
+      "checks": {
+        "semanticFoundation": true,
+        "roleSeparation": true,
+        "identityEnvironmentAvailable": true,
+        "businessOrProductProofAvailable": true,
+        "materialCapabilityDeclared": true,
+        "noLayoutTemplateDependency": true
+      },
+      "blockers": [],
+      "unavailableAssets": []
+    },
+    {
+      "brand": "onepiece-cardgame",
+      "status": "pass",
+      "tokenCount": 9,
+      "declaredAssetRoles": [
+        "hero-background",
+        "brand-mark",
+        "product-media",
+        "accessory-product-media",
+        "campaign-title",
+        "featured-product-card",
+        "section-background",
+        "action-indicator",
+        "metadata-icon",
+        "media-action"
+      ],
+      "availableAssetRoles": [
+        "hero-background",
+        "product-media",
+        "accessory-product-media",
+        "campaign-title",
+        "featured-product-card"
+      ],
+      "checks": {
+        "semanticFoundation": true,
+        "roleSeparation": true,
+        "identityEnvironmentAvailable": true,
+        "businessOrProductProofAvailable": true,
+        "materialCapabilityDeclared": true,
+        "noLayoutTemplateDependency": true
+      },
+      "blockers": [],
+      "unavailableAssets": [
+        {
+          "id": "onepiece-logo",
+          "role": "brand-mark",
+          "files": [
+            {
+              "path": "public/assets/brand-assets/onepiece-cardgame/source/logo-op.png",
+              "exists": true,
+              "binaryAvailable": false
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "brand": "re1999",
+      "status": "blocked",
+      "tokenCount": 8,
+      "declaredAssetRoles": [
+        "section-background",
+        "hero-background",
+        "brand-mark",
+        "font",
+        "role-art",
+        "selected-bg"
+      ],
+      "availableAssetRoles": [
+        "font"
+      ],
+      "checks": {
+        "semanticFoundation": true,
+        "roleSeparation": true,
+        "identityEnvironmentAvailable": false,
+        "businessOrProductProofAvailable": false,
+        "materialCapabilityDeclared": true,
+        "noLayoutTemplateDependency": true
+      },
+      "blockers": [
+        "IDENTITY_ASSET_BINARY_UNAVAILABLE",
+        "CONTENT_ASSET_BINARY_UNAVAILABLE"
+      ],
+      "unavailableAssets": [
+        {
+          "id": "re1999-page-texture",
+          "role": "section-background",
+          "files": [
+            {
+              "path": "public/assets/brand-assets/re1999/img/BG2.png",
+              "exists": true,
+              "binaryAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "re1999-hero-background",
+          "role": "hero-background",
+          "files": [
+            {
+              "path": "public/assets/brand-assets/re1999/img/BG.png",
+              "exists": true,
+              "binaryAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "re1999-logo-watermark",
+          "role": "brand-mark",
+          "files": [
+            {
+              "path": "public/assets/re1999-logo.png",
+              "exists": true,
+              "binaryAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "re1999-role-art-character1",
+          "role": "role-art",
+          "files": [
+            {
+              "path": "public/assets/brand-assets/re1999/img/character/1.png",
+              "exists": true,
+              "binaryAvailable": false
+            }
+          ]
+        },
+        {
+          "id": "re1999-selected-icon-pair",
+          "role": "selected-bg",
+          "files": [
+            {
+              "path": "public/assets/brand-assets/re1999/img/icon/b.png",
+              "exists": true,
+              "binaryAvailable": false
+            },
+            {
+              "path": "public/assets/brand-assets/re1999/img/icon/bc.png",
+              "exists": true,
+              "binaryAvailable": false
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "passed": [
+      "pokemon-tcg-official",
+      "onepiece-cardgame"
+    ],
+    "blocked": [
+      "re1999"
+    ],
+    "generalityVerdict": "cross-brand-mechanism-supported"
+  }
+}

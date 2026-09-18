@@ -1,9 +1,59 @@
 {
-  "schema":"component-mapping/v0.2","brand":"dango-v2","catalog":"skills/brand/references/dangoui.design-system.json",
-  "mappings":[
-    {"sourcePattern":"dango-primary-button-state-contract","targetComponent":"DuButton","status":"native-runtime-consumed","api":{"runtimeImport":"DuButton from dangoui","sourcePath":"node_modules/dangoui/src/button/Button.vue","props":{"type":"primary","size":"normal","extClass":"dango-docs__primary"}},"runtimeSelector":"button.du-button.dango-docs__primary","evidenceRefs":["dango-v2-primary-button","dango-v2-primary-button-focus"],"boundary":"Only the normal Primary specimen; navigation purple and other variants are excluded."},
-    {"sourcePattern":"dango-docs-shell-responsive","targetComponent":null,"status":"style-only-composition","recipe":"desktop navigation-reading-outline to mobile reading column","evidenceRefs":["dango-v2-docs-shell-desktop","dango-v2-docs-shell-mobile"],"boundary":"No catalog component owns the whole documentation shell."},
-    {"sourcePattern":"dango-editorial-technical-hierarchy","targetComponent":null,"status":"style-only-composition","recipe":"title-prose-process-follow-up","evidenceRefs":["dango-v2-content-hierarchy"],"boundary":"Technical flow is semantic DOM/CSS, not a Card proxy."},
-    {"sourcePattern":"dango-purple-state-roles","targetComponent":null,"status":"style-only-runtime-consumed","recipe":"current-navigation-only","runtimeSelector":".dango-docs__nav-group > span.is-current","evidenceRefs":["dango-v2-active-navigation"],"boundary":"#5854FF is not expanded beyond current navigation."}
+  "schema": "component-mapping/v0.2",
+  "brand": "dango-v2",
+  "catalog": "skills/brand/references/dangoui.design-system.json",
+  "mappings": [
+    {
+      "sourcePattern": "dango-primary-button-state-contract",
+      "targetComponent": "DuButton",
+      "status": "native-runtime-consumed",
+      "api": {
+        "runtimeImport": "DuButton from dangoui",
+        "sourcePath": "node_modules/dangoui/src/button/Button.vue",
+        "props": {
+          "type": "primary",
+          "size": "normal",
+          "extClass": "dango-docs__primary"
+        }
+      },
+      "runtimeSelector": "button.du-button.dango-docs__primary",
+      "evidenceRefs": [
+        "dango-v2-primary-button",
+        "dango-v2-primary-button-focus"
+      ],
+      "boundary": "Only the normal Primary specimen; navigation purple and other variants are excluded."
+    },
+    {
+      "sourcePattern": "dango-docs-shell-responsive",
+      "targetComponent": null,
+      "status": "style-only-composition",
+      "recipe": "desktop navigation-reading-outline to mobile reading column",
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile"
+      ],
+      "boundary": "No catalog component owns the whole documentation shell."
+    },
+    {
+      "sourcePattern": "dango-editorial-technical-hierarchy",
+      "targetComponent": null,
+      "status": "style-only-composition",
+      "recipe": "title-prose-process-follow-up",
+      "evidenceRefs": [
+        "dango-v2-content-hierarchy"
+      ],
+      "boundary": "Technical flow is semantic DOM/CSS, not a Card proxy."
+    },
+    {
+      "sourcePattern": "dango-purple-state-roles",
+      "targetComponent": null,
+      "status": "style-only-runtime-consumed",
+      "recipe": "current-navigation-only",
+      "runtimeSelector": ".dango-docs__nav-group > span.is-current",
+      "evidenceRefs": [
+        "dango-v2-active-navigation"
+      ],
+      "boundary": "#5854FF is not expanded beyond current navigation."
+    }
   ]
 }

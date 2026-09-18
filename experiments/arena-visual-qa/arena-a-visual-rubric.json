@@ -1,0 +1,185 @@
+{
+  "schema": "arena-visual-rubric/v1",
+  "name": "Arena Night A — Host Visual Acceptance",
+  "purpose": "Judge whether a host implementation preserves the selected A direction as a cohesive competitive arena scene instead of a branded sticker collage.",
+  "reference": {
+    "selectedDirection": "arena-night",
+    "board": "../../migrations/pokemon-tcg-official/host-runs/card-plugin2/style-choice/high-fidelity-direction-board-v2.png",
+    "viewport": "390x844",
+    "route": "/pages/plaza/index"
+  },
+  "scoring": {
+    "maximum": 100,
+    "passThreshold": 82,
+    "reviseThreshold": 72,
+    "rules": [
+      "PASS requires total >= 82, zero hard blockers, and every core dimension at or above its dimension floor.",
+      "REVISE requires total 72–81, zero hard blockers, and no core dimension below 60% of its maximum.",
+      "FAIL applies to total < 72, any hard blocker, or any core dimension below its floor.",
+      "Build success, platform import, brand logo, official assets, and correct business behavior cannot compensate for a visual hard blocker."
+    ]
+  },
+  "dimensions": [
+    {
+      "id": "ensemble-relation",
+      "label": "群像关系与事件性",
+      "weight": 20,
+      "coreFloor": 14,
+      "question": "Does the first screen depict one shared competitive event, with subjects visibly reacting to the same action?",
+      "fullScoreEvidence": [
+        "At least two meaningful subjects or forces form a visible relationship: confrontation, pursuit, support, or audience reaction.",
+        "The protagonist is embedded in the arena action rather than floating as a mascot cutout.",
+        "Foreground effects, secondary character, crowd and arena all reinforce the same frozen moment."
+      ],
+      "automaticFailureSignals": [
+        "A single isolated character pasted on an unrelated background.",
+        "Cards, characters and photography appear as independent stickers with no shared action.",
+        "The hero can lose every secondary layer without changing its story."
+      ]
+    },
+    {
+      "id": "spatial-depth",
+      "label": "空间纵深与透视",
+      "weight": 15,
+      "coreFloor": 10,
+      "question": "Can the viewer read foreground, action plane and arena/background as one space?",
+      "fullScoreEvidence": [
+        "Clear near/mid/far depth with intentional overlap and scale progression.",
+        "Subject feet/body, effects and architecture agree on horizon and camera angle.",
+        "Cropping suggests the scene continues beyond the viewport without looking accidental."
+      ],
+      "automaticFailureSignals": [
+        "Every asset sits on the same flat z-plane.",
+        "Scale or camera angle makes a character/card visibly incompatible with the background.",
+        "Large empty space isolates the hero instead of creating cinematic breathing room."
+      ]
+    },
+    {
+      "id": "unified-light",
+      "label": "光源、色温与材质统一",
+      "weight": 15,
+      "coreFloor": 10,
+      "question": "Do all prominent layers appear illuminated by the same arena environment?",
+      "fullScoreEvidence": [
+        "One dominant key light plus a coherent secondary arena/rim light.",
+        "Highlights, shadows, bloom and atmospheric haze share direction and color temperature.",
+        "Cutout edges and contrast are integrated into the scene rather than revealing asset provenance."
+      ],
+      "automaticFailureSignals": [
+        "Photographic background and cartoon/3D foreground retain incompatible lighting.",
+        "A glowing effect exists but does not illuminate nearby subjects or environment.",
+        "Different assets have visibly unrelated black levels, sharpness or shadow language."
+      ]
+    },
+    {
+      "id": "visual-hierarchy",
+      "label": "主次层级与首屏节奏",
+      "weight": 15,
+      "coreFloor": 10,
+      "question": "Is there one immediate focal story, followed by a legible title and a clear primary action?",
+      "fullScoreEvidence": [
+        "One dominant focal subject/action is understood in under two seconds.",
+        "Secondary character/effects frame the focal point rather than competing with it.",
+        "Navigation, title and search occupy protected contrast zones and do not cover faces or critical action.",
+        "The first continuation module does not repeat the same visual story at equal strength."
+      ],
+      "automaticFailureSignals": [
+        "Logo, title, cards, mascot, capsule and CTA all compete in one zone.",
+        "The hero and the next module both act as separate dominant VS moments.",
+        "Text is placed over uncontrolled detail without a stable contrast field."
+      ]
+    },
+    {
+      "id": "brand-distinctiveness",
+      "label": "品牌辨识与竞技语义",
+      "weight": 15,
+      "coreFloor": 10,
+      "question": "After masking logos and explicit Pokémon words, does the composition still read as an energetic collectible-battle world?",
+      "fullScoreEvidence": [
+        "Recognizable collectible-battle relationship, arena energy and character-led spectacle remain after blind masking.",
+        "Yellow/red/blue are used as dramatic roles, not merely decorative blocks.",
+        "At least three strong signals across asset, composition and light/effect dimensions each occupy meaningful viewport area."
+      ],
+      "automaticFailureSignals": [
+        "Recognition depends mainly on logo or a single mascot.",
+        "Removing character cutouts leaves a generic esports or dark-card app.",
+        "Brand color and cards are present but do not create a brand-specific world."
+      ]
+    },
+    {
+      "id": "direction-fidelity",
+      "label": "A 方向还原度",
+      "weight": 10,
+      "coreFloor": 7,
+      "question": "Does the implementation preserve the selected A composition contract rather than merely its dark palette?",
+      "fullScoreEvidence": [
+        "Cinematic full-height stage dominates the first viewport.",
+        "Character confrontation, audience/arena context, explosive action light and integrated search are all represented.",
+        "The emotional promise remains: competitive heat, decisive next match, and spectacle."
+      ],
+      "automaticFailureSignals": [
+        "Only dark background, yellow accent and Pokémon imagery survive.",
+        "The selected group composition is replaced by a single mascot or tournament photograph.",
+        "Implementation introduces a different hero story than the approved preview."
+      ]
+    },
+    {
+      "id": "host-usability",
+      "label": "宿主可用性与平台适配",
+      "weight": 10,
+      "coreFloor": 7,
+      "question": "Can users still identify the page, search decks, switch plaza/event, and operate native mini-app controls safely?",
+      "fullScoreEvidence": [
+        "Native capsule has a protected no-content/no-tap zone.",
+        "Custom navigation respects status bar and capsule bounds across target devices.",
+        "Page identity, search and tab state are readable and immediately operable.",
+        "Hero crop remains useful at narrow width and does not hide the primary subject or CTA."
+      ],
+      "automaticFailureSignals": [
+        "Content or avatar collides with the native capsule/status area.",
+        "Search placeholder/action is illegible or visually appears disabled when usable.",
+        "Page switching or filtering becomes visually ambiguous.",
+        "The hero consumes the first screen without exposing a usable primary task."
+      ]
+    }
+  ],
+  "globalHardBlockers": [
+    {
+      "id": "STICKER_COLLAGE",
+      "owner": "Host Implementation Agent",
+      "test": "Two or more high-salience assets retain visibly independent light, scale, edge or perspective and do not form one event."
+    },
+    {
+      "id": "ISOLATED_MASCOT",
+      "owner": "Design Director",
+      "test": "The principal character has no relational subject, environmental reaction or action consequence."
+    },
+    {
+      "id": "A_CONTRACT_REPLACED",
+      "owner": "Design Director",
+      "test": "The implementation preserves colors/assets but replaces the chosen A group composition and emotional promise."
+    },
+    {
+      "id": "SCENE_LIGHT_MISMATCH",
+      "owner": "Host Implementation Agent",
+      "test": "Dominant foreground and background layers cannot plausibly share a key light and environment."
+    },
+    {
+      "id": "NATIVE_CHROME_COLLISION",
+      "owner": "Host Implementation Agent",
+      "test": "Custom content intrudes into status/capsule safe zones or competes with native chrome."
+    },
+    {
+      "id": "PRIMARY_TASK_OBSCURED",
+      "owner": "Host Strategist",
+      "test": "The cinematic treatment makes search, tab state or page identity unclear or unusable."
+    }
+  ],
+  "reviewProtocol": {
+    "inputs": ["fresh 390x844 screenshot", "selected A reference", "same-route functional smoke result"],
+    "blindPass": "First judge screenshot with logo and explicit Pokémon words masked; then unmask for fidelity and provenance checks.",
+    "comparison": "Place reference and implementation at equal viewport height; score only what is visibly rendered.",
+    "requiredOutput": ["dimension scores", "hard blockers", "top three mismatches", "owner routing", "PASS|REVISE|FAIL"],
+    "independence": "QA must not receive implementation rationale or reuse a previous verdict."
+  }
+}

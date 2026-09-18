@@ -1,0 +1,102 @@
+{
+  "schema": "arena-visual-assessment/v1",
+  "assessmentId": "arena-a-candidate-b-2026-09-15",
+  "input": "../arena-official-assets/screenshots/mobile-390.png",
+  "reference": "../../migrations/pokemon-tcg-official/host-runs/card-plugin2/style-choice/high-fidelity-direction-board-v2.png",
+  "evaluationMode": "independent-blind-visual-qa",
+  "verdict": "FAIL",
+  "releaseGate": {
+    "threshold": 82,
+    "score": 73,
+    "meetsThreshold": false,
+    "hardBlockerFree": false,
+    "approvedForUserReview": false
+  },
+  "hardBlockers": [
+    "STICKER_COLLAGE"
+  ],
+  "scores": [
+    {
+      "dimension": "ensemble-relation",
+      "score": 14,
+      "maximum": 20,
+      "finding": "The central Pikachu and Mewtwo finally create a readable character relationship, and the arena beams imply a shared event. The tournament photo and two cards below, however, do not participate in that event and form a second unrelated collage."
+    },
+    {
+      "dimension": "spatial-depth",
+      "score": 10,
+      "maximum": 15,
+      "finding": "Character overlap, scale difference, beam arcs and the lower arena ellipse establish near/mid/far cues. The card and photo layers ignore the established camera space and flatten the lower half."
+    },
+    {
+      "dimension": "unified-light",
+      "score": 8,
+      "maximum": 15,
+      "finding": "The blue, green and red arena lights provide a plausible shared atmosphere for the two characters, but the photographic feed and bright card faces retain separate exposure, sharpness and material treatment."
+    },
+    {
+      "dimension": "visual-hierarchy",
+      "score": 12,
+      "maximum": 15,
+      "finding": "The headline and central character moment are immediate and strong. The diagonal title is visually integrated, but the feed label, photo, cards, online count and CTA compete as several secondary focal points before the first task section."
+    },
+    {
+      "dimension": "brand-distinctiveness",
+      "score": 13,
+      "maximum": 15,
+      "finding": "Even after masking the logo and explicit brand text, the character confrontation, arena effects, collectible cards and yellow/red/blue role system remain strongly recognizable as a collectible-battle world."
+    },
+    {
+      "dimension": "direction-fidelity",
+      "score": 8,
+      "maximum": 10,
+      "finding": "The candidate restores A's full-height arena stage, protagonist/opponent relationship, explosive headline and competitive mood. It remains less cohesive and less cinematic than the approved A reference because the lower asset stack becomes a promotional collage."
+    },
+    {
+      "dimension": "host-usability",
+      "score": 8,
+      "maximum": 10,
+      "finding": "Page identity, My Decks and Browse Popular Decks are readable, and the next search task becomes visible. The primary search action sits below the large stage, while the upper LIVE/ROUND labels resemble controls without clear interaction semantics."
+    }
+  ],
+  "coreFloorCheck": {
+    "ensemble-relation": "PASS_AT_FLOOR",
+    "spatial-depth": "PASS_AT_FLOOR",
+    "unified-light": "FAIL_BELOW_FLOOR",
+    "visual-hierarchy": "PASS",
+    "brand-distinctiveness": "PASS",
+    "direction-fidelity": "PASS",
+    "host-usability": "PASS"
+  },
+  "topMismatches": [
+    {
+      "priority": 1,
+      "problem": "The lower tournament photo and card pair read as unrelated pasted assets.",
+      "requiredCorrection": "Choose one continuation: either integrate the cards into the character action with the same light/perspective, or remove them from the hero and place official deck content in a clearly separated functional module.",
+      "owner": "Host Implementation Agent"
+    },
+    {
+      "priority": 2,
+      "problem": "The hero contains two visual worlds: illustrated arena above and photographic/collectible collage below.",
+      "requiredCorrection": "Keep one material world across the hero. If the tournament feed must remain, contain it as a deliberate broadcast panel with consistent frame, grade and depth instead of blending it into the character stage.",
+      "owner": "Design Director"
+    },
+    {
+      "priority": 3,
+      "problem": "Too many secondary focal points weaken the main confrontation.",
+      "requiredCorrection": "Retain the character/title focal pair and one primary CTA; demote or move LIVE, ROUND, feed, online count and extra cards into the next content organism.",
+      "owner": "Host Strategist"
+    }
+  ],
+  "deltaFromPrevious": {
+    "previousScore": 43,
+    "scoreChange": 30,
+    "improvements": [
+      "Restored a protagonist/opponent relationship.",
+      "Created an arena atmosphere and readable depth cues.",
+      "Recovered A's competitive emotional promise and blind brand recognition."
+    ],
+    "remainingBlock": "The character arena and official asset strip have not been resolved into one coherent composition."
+  },
+  "decision": "Do not release to the user yet. Candidate B is a substantial directional improvement but remains 9 points below the release threshold, has one hard blocker, and fails the unified-light core floor."
+}

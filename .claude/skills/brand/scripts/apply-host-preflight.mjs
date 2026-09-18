@@ -4,7 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { pathToFileURL } from "node:url";
 
-export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget, profile = "fast", write = true } = {}) {
+export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget, profile = "fast", phase = "implementation", write = true } = {}) {
   const startedAt = new Date();
   const rootPath = path.resolve(root);
   const migrationRoot = path.join(rootPath, "migrations", brand || "");
@@ -22,6 +22,16 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
     const file = path.join(migrationRoot, name);
     files[name] = file;
     if (!fs.existsSync(file)) blocking.push(`FROZEN_PACK_FILE_MISSING:${name}`);
+  }
+  const frozenDesignFiles = ["brand-application-plan.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json", "preedit-baseline-bundle.json", "structural-targets.json"];
+  if (phase === "implementation") {
+    for (const name of frozenDesignFiles) {
+      const file = path.join(migrationRoot, name);
+      files[name] = file;
+      if (!fs.existsSync(file)) blocking.push(`FROZEN_DESIGN_FILE_MISSING:${name}`);
+    }
+  } else if (phase !== "design") {
+    blocking.push(`UNKNOWN_PREFLIGHT_PHASE:${phase}`);
   }
 
   const referencedEvidence = new Set();
@@ -47,6 +57,7 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   for (const issue of layoutChecks.warnings) warnings.push(`${issue.code}:${issue.file}`);
 
   const dependencies = { ...(hostPackage?.dependencies || {}), ...(hostPackage?.devDependencies || {}) };
+  const hostSurface = classifyHostSurface({ hostPackage, dependencies });
   const dangouiDeclared = Boolean(dependencies.dangoui);
   if (!dangouiDeclared) {
     if (profile === "certification") blocking.push("DANGOUI_RUNTIME_NOT_DECLARED");
@@ -60,6 +71,7 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
     schema: "brand-apply-host-preflight/v1",
     brand,
     profile,
+    phase,
     hostTarget: path.relative(rootPath, hostRoot) || ".",
     startedAt: startedAt.toISOString(),
     completedAt: endedAt.toISOString(),
@@ -72,11 +84,17 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
       cacheKey,
       reuseDecision: blocking.some((item) => item.startsWith("FROZEN_")) ? "blocked" : "reuse-without-relearning",
     },
+    frozenDesign: {
+      required: phase === "implementation",
+      requiredFiles: frozenDesignFiles,
+      reuseDecision: phase === "design" ? "not-yet-required" : blocking.some((item) => item.startsWith("FROZEN_DESIGN_")) ? "return-to-design-host" : "consume-without-redesign",
+    },
     runtime: {
       dangouiDeclared,
       declaredVersion: dependencies.dangoui || null,
       maximumClaim: dangouiDeclared ? "runtime-verification-required" : "PARTIAL_STYLE_ONLY",
     },
+    hostSurface,
     hostLayout: layoutChecks,
     targetResolution,
     blocking,
@@ -87,6 +105,23 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
     fs.writeFileSync(path.join(migrationRoot, "apply-host-preflight.json"), `${JSON.stringify(result, null, 2)}\n`);
   }
   return result;
+}
+
+function classifyHostSurface({ hostPackage, dependencies }) {
+  const scripts = hostPackage?.scripts || {};
+  const isTaro = Boolean(dependencies["@tarojs/taro"] || dependencies["@tarojs/cli"]);
+  const isQdmp = Boolean(dependencies["taro-plugin-qd"] || Object.values(scripts).some((script) => /\bqdmp\b/i.test(script)));
+  const hasMiniBuild = Object.values(scripts).some((script) => /taro\s+build[^\n]*(?:weapp|mini)|\bqdmp\s+build/i.test(script));
+  const hasH5Build = Object.values(scripts).some((script) => /taro\s+build[^\n]*h5/i.test(script));
+  if (isTaro && (isQdmp || hasMiniBuild)) return {
+    formFactor: "mobile",
+    platform: isQdmp ? "qdmp-miniapp" : "taro-miniapp",
+    compatibility: hasH5Build ? ["mobile-miniapp", "mobile-h5"] : ["mobile-miniapp"],
+    defaultPreviewViewport: "375x812",
+    forbiddenPreviewPatterns: ["persistent-desktop-sidebar", "desktop-control-panel-compressed-into-mobile", "primary-content-column-below-72-percent"],
+  };
+  if (hasH5Build) return { formFactor: "responsive", platform: "web-h5", compatibility: ["mobile-h5", "desktop-web"], defaultPreviewViewport: "375x812" };
+  return { formFactor: "responsive", platform: "web", compatibility: ["desktop-web", "mobile-web"], defaultPreviewViewport: "1440x900" };
 }
 
 function resolveHostTarget(hostRoot) {
@@ -198,6 +233,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     brand: option(args, "--brand"),
     hostTarget: option(args, "--host-target", "."),
     profile: option(args, "--profile", "fast"),
+    phase: option(args, "--phase", "implementation"),
     write: !args.includes("--no-write"),
   });
   process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);

@@ -1,0 +1,33 @@
+{
+  "schema": "arena-official-assets-b3/v1",
+  "heroAssets": [
+    {
+      "role": "same-source-ensemble",
+      "path": "../../../migrations/pokemon-tcg-official/rendered-assets/official/booster-art-1.jpg",
+      "sha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca"
+    },
+    {
+      "role": "integrated-electric-energy",
+      "path": "./assets/lightning-overlay-v1.png",
+      "sha256": "62720a4fd132886e72a9877b8b524e5d16af5cacd0a7a55e5fab3d759037488c",
+      "origin": "experiments/arena-integrated-art/candidates/lightning-overlay-v1.png",
+      "blend": "screen"
+    },
+    {
+      "role": "navigation-brand-mark",
+      "path": "../../../migrations/pokemon-tcg-official/rendered-assets/official/tcg-logo.png",
+      "sha256": "fe118657977a9a4da35c1642e4c972b04186fa212365282faa77162dde840d35"
+    }
+  ],
+  "cssVisualLayers": [
+    "red and blue opposing spotlights",
+    "overhead arena light ring",
+    "radial speed lines",
+    "red and blue side flares",
+    "ten foreground audience silhouettes",
+    "elliptical battle floor",
+    "tilted outlined headline with red impact slash"
+  ],
+  "heroContent": ["event eyebrow", "competitive headline", "supporting sentence", "one primary CTA"],
+  "heroForbiddenAndAbsent": ["cards", "tournament photograph", "feed content", "online count"]
+}

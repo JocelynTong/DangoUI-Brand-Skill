@@ -1,0 +1,105 @@
+{
+  "schema": "arena-a-fidelity-assessment/v2",
+  "candidateId": "B3",
+  "input": "../arena-official-assets/b3/screenshots/mobile-390-b3.png",
+  "reference": "../../migrations/pokemon-tcg-official/host-runs/card-plugin2/style-choice/high-fidelity-direction-board-v2.png#A",
+  "evaluationMode": "independent-blind-visual-qa",
+  "verdict": "PASS",
+  "referenceFidelityScores": [
+    {
+      "criterion": "ensemble-conflict",
+      "score": 4,
+      "floor": 4,
+      "status": "PASS",
+      "finding": "Pikachu is the dominant foreground actor, Mewtwo is a legible opposing force behind it, and the foreground crowd plus arena beams reinforce one shared match event. The headline partially occludes Mewtwo, but not enough to remove the confrontation."
+    },
+    {
+      "criterion": "electric-burst",
+      "score": 5,
+      "floor": 4,
+      "status": "PASS",
+      "finding": "A concentrated electrical discharge originates around and below the protagonist, illuminates the character edge and floor, throws particles through the stage, and becomes the composition's action/light engine."
+    },
+    {
+      "criterion": "action-direction",
+      "score": 4,
+      "floor": 4,
+      "status": "PASS",
+      "finding": "Lightning rises from the lower focal point, character overlap establishes front-versus-back tension, arena diagonals cross the frame, and the angled headline/underline continues the attack vector toward the opponent."
+    },
+    {
+      "criterion": "event-poster-impact",
+      "score": 5,
+      "floor": 4,
+      "status": "PASS",
+      "finding": "The first glance reads as a premium battle-event poster: extreme scale, decisive headline, bright electrical climax, controlled dark surround, crowd silhouettes and a clear event CTA form one spectacle."
+    }
+  ],
+  "failedReferenceCriteria": [],
+  "aReferenceFidelity": {
+    "score": 18,
+    "maximum": 20,
+    "allCriteriaMeetFloor": true,
+    "status": "PASS"
+  },
+  "generalQualityScores": [
+    {
+      "dimension": "spatial-depth",
+      "score": 13,
+      "maximum": 15,
+      "floor": 10,
+      "status": "PASS",
+      "finding": "Crowd silhouettes, electrical foreground, protagonist, opponent and receding arena beams form distinct near/mid/far planes."
+    },
+    {
+      "dimension": "unified-light-material",
+      "score": 13,
+      "maximum": 15,
+      "floor": 10,
+      "status": "PASS",
+      "finding": "Gold electrical light affects the lower arena and character edges while cooler stadium beams preserve environmental depth; the scene reads as one stylized poster material."
+    },
+    {
+      "dimension": "visual-hierarchy",
+      "score": 13,
+      "maximum": 15,
+      "floor": 10,
+      "status": "PASS",
+      "finding": "Headline and protagonist form the primary lockup, burst and opponent support them, and the CTA occupies an isolated lower zone. Mewtwo could be slightly less occluded, but the hierarchy remains decisive."
+    },
+    {
+      "dimension": "blind-brand-distinctiveness",
+      "score": 14,
+      "maximum": 15,
+      "floor": 10,
+      "status": "PASS",
+      "finding": "After mentally masking logo and explicit brand text, the character confrontation, electrical combat, collectible-event staging and color-role system remain distinctive."
+    },
+    {
+      "dimension": "host-usability",
+      "score": 8,
+      "maximum": 10,
+      "floor": 7,
+      "status": "PASS",
+      "finding": "My Decks, the primary Browse Popular Decks CTA and the transition to the arena-news organism remain clear and tappable; visible controls avoid the top-right safe area."
+    }
+  ],
+  "generalVisualQuality": {
+    "score": 61,
+    "maximum": 70,
+    "threshold": 57,
+    "allDimensionFloorsMet": true,
+    "status": "PASS"
+  },
+  "globalHardBlockers": [],
+  "releaseGate": {
+    "aReferenceFidelity": "PASS",
+    "generalVisualQuality": "PASS",
+    "globalHardBlockerFree": true,
+    "platformSmoke": "NOT_EVALUATED_BY_VISUAL_QA",
+    "visualReleaseDecision": "PASS"
+  },
+  "singleShortestCorrectionPath": null,
+  "nonBlockingPolish": "If another visual pass is performed, move or tighten the headline slightly so more of Mewtwo's face/torso remains visible; this is polish, not a release blocker.",
+  "decision": "PASS. B3 clears all four A-reference hard floors (18/20), clears general visual quality (61/70), and has no global visual hard blocker. It is visually approved for user review; platform smoke remains a separate technical check."
+}

@@ -45,6 +45,23 @@ function migrationRelativePath(brand, referencedPath) {
   return normalized.startsWith(prefix) ? normalized.slice(prefix.length) : normalized.replace(/^\.\//, '')
 }
 
+function rewritePublishedMigrationReferences(value, brand) {
+  const sourcePrefix = `${brand.migrationRoot.replaceAll('\\', '/').replace(/\/$/, '')}/`
+  const publishedPrefix = `migrations/${brand.id}/`
+  if (typeof value === 'string') {
+    return value.replaceAll('\\', '/').startsWith(sourcePrefix)
+      ? `${publishedPrefix}${value.replaceAll('\\', '/').slice(sourcePrefix.length)}`
+      : value
+  }
+  if (Array.isArray(value)) return value.map((item) => rewritePublishedMigrationReferences(item, brand))
+  if (value && typeof value === 'object') {
+    return Object.fromEntries(
+      Object.entries(value).map(([key, item]) => [key, rewritePublishedMigrationReferences(item, brand)]),
+    )
+  }
+  return value
+}
+
 function sha256(file) {
   return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
 }
@@ -64,9 +81,13 @@ for (const brand of published) {
     }
     const value = JSON.parse(text)
     artifactValues.push(value)
+    const publishedValue = rewritePublishedMigrationReferences(value, brand)
+    const sourcePrefix = `${brand.migrationRoot.replaceAll('\\', '/').replace(/\/$/, '')}/`
+    if (sourcePrefix !== `migrations/${brand.id}/` && JSON.stringify(publishedValue).includes(sourcePrefix)) {
+      throw new Error(`${brand.id}/${name}: retained internal migration reference ${sourcePrefix}`)
+    }
     const target = path.join(brandRoot, name)
-    fs.mkdirSync(path.dirname(target), { recursive: true })
-    fs.copyFileSync(sourceArtifact, target)
+    writeJson(target, publishedValue)
     artifacts[name.replace(/\.json$/, '')] = `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${name}`
   }
   const evidenceAssets = []

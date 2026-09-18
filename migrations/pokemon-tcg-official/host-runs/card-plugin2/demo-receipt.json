@@ -1,0 +1,21 @@
+{
+  "schema": "brand-host-demo-receipt/v1",
+  "hostProject": "card-plugin2",
+  "targetRoute": "/pages/plaza/index",
+  "direction": "arena-night × card-database",
+  "freezeScope": ["businessCapabilities", "layout"],
+  "exploratoryScope": ["visualAssets", "imagePolicy", "backgroundTreatment", "motionCharacter", "motionTiming"],
+  "implementation": {
+    "status": "demo",
+    "build": "PASS",
+    "qdmpPreview": "PASS",
+    "appId": "echoMEdABUi3U8c9JI5T",
+    "observedRoute": "pages/plaza/index",
+    "visibleSignals": ["official championship stage", "floating dark search", "database filter workbench"]
+  },
+  "designSystemGate": {
+    "status": "PARTIAL_STYLE_ONLY",
+    "reason": "The host does not yet prove real DangoUI runtime token and component consumption. Demo styling uses a scoped host stylesheet and may not be certified as design-system complete.",
+    "nextRequired": ["token closure mapping", "component runtime mapping", "capability-gap classification", "fresh runtime and visual QA"]
+  }
+}

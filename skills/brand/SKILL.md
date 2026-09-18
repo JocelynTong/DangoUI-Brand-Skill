@@ -54,11 +54,11 @@ node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict
 
 该 Gate 检查同视口 source/demo 截图、结构层、阅读顺序、响应式、资产 provenance 与交互状态变化；条目数量、DOM 数量和 build pass 不能代替区块结构验收。
 
-### 2. 宿主设计（`design-host`，代码落地阶段为 `apply-host`）
+### 2. 宿主设计（`design-host`）
 
 适用场景：用户已经在某个千岛项目、业务项目或本地宿主项目里安装了 `/brand`，现在要把某个已有品牌视觉语言真正落到这个宿主里看结果。
 
-固定链路：
+完整链路：
 
 `Design Brief` → 设计调研 → 设计方向 → 设计产出 → 设计评审 → `apply-host` → 开发验收
 
@@ -68,11 +68,41 @@ node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict
 - 保留宿主原业务内容、数据、逻辑、组件 API，只改视觉语言。
 - 最终验收地址必须是宿主项目自己的地址，不是 demo 站地址。
 
-`design-host` 是面向用户和设计组织的完整 Pipeline 名；现有脚本继续使用 `apply-host` 表示其中已经批准后的实现阶段，以保持命令兼容。不得因为进入 `apply-host` 就跳过 Brief、设计方向和设计评审。
+`design-host` 与 `apply-host` 是两个可独立验收的 Pipeline。`design-host` 只读取真实宿主并生成静态方向，负责宿主判断、素材选择与编排、构图、DangoUI capability 预判和用户方向冻结；它不得修改、编译或注入宿主源码。`apply-host` 只消费通过校验的 `brand-application-plan.json`、方向选择、最终方向和结构基线，负责映射、实施、构建与 QA；缺少或失效时必须退回 `design-host`，不得现场重新设计。品牌证据或素材本身缺失时退回 `learn-brand`。
 
-`apply-host` 默认使用 `fast` 档：目标是在 5 分钟内让用户看到宿主首页首屏；用户明确指定页面时改为该页首屏。命中完整且哈希有效的 Registry 冻结包后，Preflight 直接复用 Evidence、Intent 与 Mapping，禁止重新派发 Brand Researcher / Design Translator。首次预览保留 2–3 个轻量样式方向选择，选定后只执行首屏实现与 Smoke QA，并停在 `awaiting-user`。只有用户显式 `approve`、`revise` 或 `certify` 后才继续。`standard` 用于受影响范围正式交付，`certification` 才执行全宿主、真实 DangoUI runtime、capability-gap 与平台级认证；不得把完整 QA 或 certification 静默塞进首次预览。
+`design-host` 的 fast 档负责在约 5 分钟内给出宿主首页（或用户指定页面）的 2–3 张静态方向图，并停在方向选择。方向获批后，`apply-host` 的 fast 档只执行首屏机械实施与 Smoke QA，目标是在约 5 分钟内给出真实宿主预览并停在 `awaiting-user`。命中完整且哈希有效的 Registry 冻结包后，两者都直接复用 Evidence、Intent 与 Mapping，禁止重新派发 Brand Researcher / Design Translator。只有用户显式 `approve`、`revise` 或 `certify` 后才继续；`standard` 用于受影响范围正式交付，`certification` 才执行全宿主、真实 DangoUI runtime、capability-gap 与平台级认证。
+
+HTML/CSS 只能作为 `design-host` 的内部渲染画布。交给用户选择的结果必须是每个方向各自独立的 PNG/JPG/SVG，并可附一张静态总览图；不得把内部 H5 当成交付物，也不得让任何候选或跨品牌对照落在默认可视区域之外。
+
+方向选择采用双层预览：第一层图片定义视觉上限，第二层轻量 H5 验证 Token、Assets、DangoUI 映射和移动端约束。H5 必须提交 `visual-retention-report.json`，分别审查主构图、核心 Assets、品牌材质、光影气氛、字体层级、动势和首屏重心；至少 5/7 通过，且主构图、核心 Assets、品牌材质必须全部通过。未通过的酷炫概念不得进入用户正式选择或 `apply-host`。
+
+图片生成之前必须通过 `concept-asset-manifest.json` 来源 Gate。资产分为 `evidence-source`、`derived-approved`、`generated-proposal`、`host-business`：正式概念只允许前三者中的前两类承担品牌身份，`host-business` 只能保持业务内容角色，`generated-proposal` 只能探索且不得进入正式概念、Brand MOD 或视觉保留率计算。任何 `generated/` 路径默认不是官网证据；只有绑定父 Evidence 与显式批准记录后才能升级为 `derived-approved`。图片模型只可执行批准素材的裁切、合成、光影统一和表现增强，不得决定品牌色、材质语言、场景类型、组件风格或信息架构。
+
+来源 Gate 失败的素材只能出现在内部 JSON 审计记录中。用户可见方向图、总览图、H5、报告和页面不得加载、缩略显示或继续转换这些素材。只要仍可从冻结 Evidence 重新取材，Pipeline 就必须在后台淘汰失败候选、重新构图和复验，不能把“0 个方向”、失败码、占位图或内部 Gate 报告当成用户交付；只有至少 2 个通过来源 Gate 的方向才允许进入选择页。若证据客观不足且无法继续，才在对话中简要报告缺失项和所需输入，不生成伪画廊。阻断发生在渲染之前，不能用“失败案例展示”为理由把非法素材重新暴露为候选。
+
+小程序宿主在首屏候选生成前必须检查目标页 NavigationBar 配置，并冻结 `native-preserved / custom-immersive / custom-contained` 之一。NavigationBar 不是默认不可修改的外壳：用户选择且证据支持沉浸式构图时，可以把该页切为自定义导航并让主视觉延伸到状态栏；但必须避让平台原生胶囊和安全区，并在 Smoke QA 验证标题、头像、品牌切换、Tabs 的可达性与不同宽度无重叠。不得先按原生导航画稿、实施末尾再靠 CSS 补沉浸头部。
+
+`apply-host` 的方向选择阶段必须生成独立的 `host-grounded-preview`：先冻结真实宿主目标路由、视口、截图/DOM/内容状态及 SHA-256，再在隔离画布中使用真实业务内容生成 2–3 个方向。五分钟 Gate 默认每案只生成一张目标视口的 SVG/PNG/WebP/JPEG 首屏图，不为展示方向而搭 H5、启动宿主 runtime 或实现交互。只有动效、展开、滚动或状态迁移本身决定方向时才补充状态图/轻量 storyboard；只有用户明确要求交互测试，或静态状态无法诚实区分方案时，才生成交互 HTML。候选不得修改、编译或注入宿主源码；生成前后宿主源码树 hash 必须一致。用户选定后才允许 `Host Implementation Agent` 把唯一方向落入真实 runtime。脱离宿主基线的通用 demo、虚构业务数据，以及选定前的 `host-native-preview` / runtime 试装都不能进入选择 Gate。
+
+生成候选前必须检索同一品牌、宿主页面与视口类别的历史方向，并明确区分 `reference / promising / selected / approved`。用户说“方向不错”“朝这个方向”“再试试”只表示可提炼氛围、景深、内容进入、焦点层级或素材组合机制，不等于冻结模板，也不得复制原布局。只有用户明确选择或批准的结果才可按截图、源码 revision、素材 hash 与 viewport 固化为 `approved-direction-master.json`；含糊反馈必须记录在 `prior-direction-index.json` 后继续探索。新候选既不能遗忘已经有效的机制，也必须在构图上形成真实变化。
+
+方向设计必须读取 [宿主品牌构图语法](references/host-brand-composition-grammar.md)，使用 `identity-environment / task-bridge / featured-content / business-stream / navigation-shell` 等通用角色描述品牌如何进入宿主；这些角色按真实宿主任务选用，可缺省、重排或改变关系。Hero、搜索、VS、卡组列表只是具体实例，不得成为跨项目固定模板。每个角色必须同时绑定宿主工作、品牌证据、DangoUI 能力或 gap、视口预算；否则以 `ROLE_WITHOUT_HOST_JOB` 阻断。
+
+方向候选的单张画面必须是“未来宿主页面截图”，不能是设计提案卡：禁止阶段标题、方向解释、设计术语、色板、设备陈列、额外外框和与宿主无关的说明栏。每案至少完整呈现真实宿主的 navigation、primary task、business switch 与 business content；只展示 Hero、品牌色块或一个概念模块仍按 Demo 判失败。A/B/C 标识只能存在于选择容器之外，不能进入候选页面截图。
+
+`host-grounded-preview` 还必须以 `frozenBrandModSha256` 绑定本轮准确的 `brand-mod.json`，并提交 `brandSystemClosure`，证明同一张候选图同时消费了品牌 token、来源品牌 asset 与来源构图 pattern。Token 必须绑定证据、可见 selector、CSS property 和最终值；品牌 asset 必须存在于冻结 Evidence/Brand Mod、带 source hash、角色和首屏面积；构图必须列出可见区域与参与资产。宿主业务卡图可以保留为内容，但不得冒充品牌 identity/environment asset。只有 token、asset、composition 分别存在却没有同图共现证明时，Gate 必须失败。
+
+颜色必须额外完成语义闭环：品牌素材像素中的固有颜色不能因为照片、插画或卡面里出现了蓝/红/黄，就推广为导航、按钮、文本或状态色。候选的每个构图角色必须引用 `semanticColorApplications`。全局 UI 语义色来自冻结 Brand MOD 已批准的 token，或明确保留的宿主 token；已经冻结的 visual pattern 可通过 `brand-pattern-style` 在对应 Brand MOD component/style-only recipe、证据和局部构图角色内使用颜色或材质；冻结资产还可通过 `brand-asset-palette` 为局部非语义装饰/材质场提供取色，但必须绑定资产 id/hash、取色方法，并明确禁止 action、state/status、text、navigation 和 global 使用。素材只原样出现时使用 `asset-intrinsic-only`，scope 必须是 `inside-asset-pixels`。否则以 `ASSET_COLOR_PROMOTED_TO_UI_SEMANTIC`、`ASSET_PALETTE_SEMANTIC_PROMOTION`、`PATTERN_STYLE_EVIDENCE_UNBOUND`、`SEMANTIC_COLOR_EVIDENCE_UNBOUND` 或 `COLOR_ROLE_EXPANSION_UNAUTHORIZED` 阻断。这个 Gate 不能反向把所有非 token 视觉清空成 DangoUI 黑白默认皮肤。
+
+首次样式选择必须使用 `wild-design-options/v2`：以真实宿主目标页（默认首页）和同一组业务能力生成 2–3 个首屏可视方向。生成前必须消费 Preflight 的 `hostSurface`，先确定宿主是手机、桌面还是响应式；375px 手机画板不能把 PC 固定侧栏压窄后冒充移动方案。手机端候选禁止固定桌面侧栏，主内容宽度至少保留视口的 72%，声明最小 44px 触控目标并证明无意外横向溢出。还要先完成 `hostFirstImpression`：根据首屏主要任务、信息密度、内容是否连续向下流动、回访频率、首个业务动作紧迫度和现有媒体槽位，把宿主判断为 `efficiency-first / balanced / immersion-first`，再逐案给出 `heroDecision`、实际高度比例与理由。Hero 比例不是跨项目常量：工具型连续流首页通常应采用无 Hero 或紧凑沉浸头部，活动/内容展示页才可能采用更高占比；判断必须由宿主截图与业务结构支持，禁止为了过 gate 机械套 `1/3`、`55%` 或其他固定数字。冻结的是内容、功能和交互结果，不是几何布局；每个候选必须采用可从模糊轮廓区分的不同构图骨架，禁止同模板换色。每个候选都必须绑定宿主路由、视口、精确 SHA-256 的首屏预览图、至少两个在画面中可见的来源品牌信号，以及具体 DangoUI token/component 映射；只给色板、文字描述或品牌名/Logo 不算可视方向，也不得进入实现。候选在展示给用户前先运行 `validate-wild-design-decision.mjs --options-only`。视觉可承载页面的每案必须通过 `firstViewportVisualProof` 声明一个来源可追溯的主视觉或完整场景，并实际表达 asset、composition、material、typography、motion、color 中至少三个维度；静态图不能证明的 motion 必须标记 `not-evaluated` 或补状态 storyboard，不能靠文字宣称。主视觉面积应与 `hostFirstImpression` 和 `heroDecision` 一致，宿主结果列表中的小缩略图不能单独充当品牌主视觉。每案还要声明视觉中心、主行动位置、内容进入方式和结果容器形态，任意两案至少三项不同，并由环境、光影、景深、纹理、动效中的至少三层组成统一氛围。三案的视觉叙事和资产策略必须不同，不能只改变搜索、列表、网格的布局。
+
+选定强主视觉方向后，首屏 Hero 必须先通过“单一场景完整性”检查：主角色、环境、透视、光源与运动方向应来自一张完整品牌画面或一个经设计验证的统一合成场景。禁止把互不关联的官网照片、透明角色、卡牌和光斑作为独立贴层堆叠来冒充视觉还原；即使每项都有品牌证据，这种 sticker collage 仍判定视觉 FAIL。界面层只叠加导航、标题、搜索和必要行动，不得与主场景争夺视觉中心。
+
+图片丰富度不按“至少几张”判断，而按素材角色是否形成有效构图判断。视觉可承载方向的 `visualRichnessSelfReview` 必须列出实际 `distinctAssetRoles`，并与 `assetAssignments` 一致：品牌身份、环境/材质、收藏或产品证明、宿主业务内容各自承担清楚的工作，不得把同一张 Hero 降透明度后重复铺满页面冒充纹理，也不得把多张素材平铺成贴纸墙。需要材质时，优先使用来源可追溯的纹理、frame、卡面印刷细节或经批准 pattern；不存在证据时宁可保留中性表面并标记 gap。机器以 `ASSET_ROLE_COMPOSITION_UNPROVEN` / `REPEATED_HERO_AS_TEXTURE` 阻断只堆数量或重复 Hero 的候选。
 
 apply-host 交接以机器 Gate 为准：先按 [host theme load-order contract](references/host-theme-load-order.md) 建立单一全局主题入口并运行 `validate-host-theme-order.mjs`，再以真实宿主 desktop/mobile 证明 cascade winner。Host Strategist 完成机会判断后、任何结构冻结或实现之前，必须执行 Wild Design MVP 选择门：以同一业务内容生成 2-3 个轻量可视方向，分别说明信息密度、视觉资产、页面结构和动效强度，并标出一个推荐项。用户可选单项、混合、全部否定，或明确跳过并采用推荐项；技术映射、组件选择和普通 QA 不得转嫁给用户。候选写入 `design-direction-options.json`、选择写入 `design-direction-decision.json`，运行 `validate-wild-design-decision.mjs`；`awaiting-user` 和 `none-fit` 均阻断实现。最终 `design-direction.json` 必须绑定选择文件 hash 与选中项，后续 subagent 不得自行换方向。随后必须生成只读的 `brand-distinctiveness-assessment.json`：同视口对照 source/host，遮蔽品牌名、Logo 和显式品牌文字后做 blind recognition，并分别评 visual mass / asset / composition / type / motion。高承载页至少需要 3 个跨 3 个维度、各占视口至少 5% 的可见证据 signal；字体、小 Logo、微图标和 archive 气质不算强表达。先运行 `validate-brand-distinctiveness.mjs`，再把结果传给 `validate-host-apply-gate.mjs --distinctiveness`。Visual QA 只读，FAIL 退回 Evidence、Interpreter/Design Director 或 Host Implementation 的真实 owner，修复后 fresh QA。技术 Gate 或业务安全通过不能补偿视觉辨识度 FAIL；最终必须分列 `workflowCompletion`、`businessSafety`、`visualDistinctiveness`，禁止用单一 overall 百分比误导。没有真实 DangoUI runtime/component consumer 时最高只能报 `PARTIAL_STYLE_ONLY` / `conservative-application`。细则见 `workflow-contract.json` 与角色契约。
+
+设计系统映射不是把选中的视觉稿重建成 DangoUI 默认外观。选中的方向始终是最终视觉验收目标；DangoUI 负责行为、语义、稳定 API 和能够准确表达的 token/component 能力。DangoUI 默认 radius、spacing 或组件皮肤与选中方向冲突时，不得为了“用了组件库”而接受视觉降级；应通过组件 props/slots/class、品牌 token、style-only recipe、品牌资产和页面 composition 保留所选结果，无法表达的部分进入 capability gap。样式选择页只展示候选最终目标，不再并列一个会误导用户的“DangoUI 默认还原版”。
 
 当目标要求真实 DangoUI 组件消费而非 style-only 时，必须读取 [公开宿主 Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)，先用 `dangoui-runtime-gate.mjs prepare` 解析宿主包管理器和安装方案，再在实现、构建、浏览器验证后运行 `verify`。验证不得省略 token closure：必须分别由 Token Mapper、Runtime Integrator、Rendered-state QA、Business/Visual QA 对 source inventory、semantic mapping、runtime consumption、rendered states、business/visual safety 五轨签字；任何一轨不能被另一轨补偿。表单控件还必须把单一边界与 focus-ring owner 作为独立 computed-style 检查，不能只验证颜色和状态类。`verify` 必须携带 `--token-root` 与 `--token-closure`，后者会被 strict 复核。本地源码路径不能作为公开依赖；H5 PASS 不能外推为小程序 PASS。
 
@@ -89,6 +119,13 @@ DangoUI 能力缺口收集是 apply-host 的必需本地产物。先由 `collect
 - Demo Designer：[roles/demo-designer.md](roles/demo-designer.md)
 - Blind QA / TPP：[roles/blind-qa-tpp.md](roles/blind-qa-tpp.md)
 - Learn-brand 自测流程：[workflows/learn-brand.md](workflows/learn-brand.md)
+- Apply-host 按当前节点读取独立岗位契约，不得用一份总文档替代角色边界：
+  - 宿主策略：[roles/host-strategist.md](roles/host-strategist.md)
+  - 品牌应用设计：[roles/brand-application-designer.md](roles/brand-application-designer.md)
+  - 宿主实施：[roles/host-implementation-agent.md](roles/host-implementation-agent.md)
+  - 宿主视觉验收：[roles/host-visual-qa.md](roles/host-visual-qa.md)
+
+每个岗位文档独立吸收后续 case；只沉淀会改变该岗位决策、边界、失败码或验收方式的可复用机制。Brand Application Designer 对“是否会运用品牌系统”负责，最小数量 Gate 不能替代其语义、组合与结果验收。
 
 Evidence 节点的机器放行命令为：
 
@@ -163,6 +200,7 @@ node .claude/skills/brand/scripts/run-brand-workflow.mjs run ...
 - `Design Director / Orchestrator`：顶层负责 Agent；冻结目标、拆解和派发任务、主持设计方向、路由失败并作最终审美签字。它不是 learn-brand 的串行 subagent。
 - `Dangoui Mapper`：只把已解释的品牌意图映射到 DangoUI token/component/props/slots/style-only recipe，不新造未支持 API。
 - `Host Strategist`：在宿主项目里判断页面业务目标、视觉承载力、Atomic Design 层级、asset/motion/showcase 落点和过度应用风险。
+- `Brand Application Designer`：只在 apply-host 方向选择阶段，把冻结品牌 token、asset 与 composition pattern 组织成适合真实宿主的 2–3 个视觉策略；对素材语义、场景组合、业务融合和遮蔽品牌文字后的结构辨识度负责，不以数量达标代替会运用。
 - `Demo Implementation Agent`：只为 learn-brand 构建品牌学习能力测试，产出 pattern inventory、可复现截图和 generative proof；不修改宿主项目。
 - `Host Implementation Agent`：只在 apply-host 中消费已经验证的 MOD、brand intent 和 host strategy，保留宿主路由、内容、数据、组件 API 和核心交互。
 - `Visual QA`：从用户看到的页面验收视觉还原、可读性、滚动、动效中间态、资产加载和“是否生硬”。标准 learn-brand Demo 的每个 phone page 都必须保留 `phone` + `phone-screen` mockup shell；目标或源证据呈现长页/多模块时，页面至少有两个 schema sections，并由浏览器实际证明 `phone-screen.scrollHeight > clientHeight`、`scrollTop` 可改变且能恢复。缺失时使用明确 blocker code：`MOCKUP_SHELL_MISSING`、`MULTI_MODULE_PAGE_SECTIONS_MISSING`、`PAGE_NOT_SCROLLABLE`、`PAGE_SCROLL_NOT_RESTORED`。

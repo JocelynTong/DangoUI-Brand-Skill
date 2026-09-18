@@ -1,0 +1,82 @@
+{
+  "schema": "arena-visual-assessment/v1",
+  "assessmentId": "arena-a-current-2026-09-15",
+  "input": "/var/folders/9f/_7r40dr92lj4f9tndd0h9n9w0000gn/T/codex-clipboard-0325f45f-7149-42aa-904f-f737f48f9fc8.png",
+  "reference": "../../migrations/pokemon-tcg-official/host-runs/card-plugin2/style-choice/high-fidelity-direction-board-v2.png",
+  "verdict": "FAIL",
+  "score": 43,
+  "hardBlockers": [
+    "STICKER_COLLAGE",
+    "A_CONTRACT_REPLACED",
+    "SCENE_LIGHT_MISMATCH"
+  ],
+  "scores": [
+    {
+      "dimension": "ensemble-relation",
+      "score": 5,
+      "maximum": 20,
+      "finding": "Pikachu, two cards and tournament photography do not react to one another. The scene has objects, but no event."
+    },
+    {
+      "dimension": "spatial-depth",
+      "score": 6,
+      "maximum": 15,
+      "finding": "Foreground cutouts overlap, but scale, horizon and camera angle do not establish a shared arena volume."
+    },
+    {
+      "dimension": "unified-light",
+      "score": 3,
+      "maximum": 15,
+      "finding": "Bright studio-like Pikachu and flat card assets are incompatible with the photographic championship background; no shared cast light or atmosphere exists."
+    },
+    {
+      "dimension": "visual-hierarchy",
+      "score": 7,
+      "maximum": 15,
+      "finding": "The mascot dominates by size, while logo, title, cards and native capsule crowd the upper zone. The featured matchup repeats a second dominant card battle immediately below."
+    },
+    {
+      "dimension": "brand-distinctiveness",
+      "score": 8,
+      "maximum": 15,
+      "finding": "Pokémon recognition is explicit, but mostly depends on logo, mascot and card images. Masked, the underlying composition becomes a generic dark promotional card app."
+    },
+    {
+      "dimension": "direction-fidelity",
+      "score": 4,
+      "maximum": 10,
+      "finding": "Dark stage, yellow and imagery remain, but A's confrontation, crowd energy, electrical burst, unified spectacle and strong diagonal action are absent."
+    },
+    {
+      "dimension": "host-usability",
+      "score": 10,
+      "maximum": 10,
+      "finding": "Page title, search, plaza/event switch and filter affordance are visible; no decisive functional obstruction is shown in this screenshot."
+    }
+  ],
+  "topMismatches": [
+    {
+      "priority": 1,
+      "problem": "No group relationship or shared action",
+      "requiredCorrection": "Use or build one cohesive hero composition containing a primary character, an opposing/secondary force, arena/audience context and one shared action effect. Do not reconstruct it from unrelated foreground stickers.",
+      "owner": "Design Director"
+    },
+    {
+      "priority": 2,
+      "problem": "No shared light or material world",
+      "requiredCorrection": "Choose a hero source whose subjects and environment are rendered together, or perform a deliberate compositing pass with matched key light, rim light, shadows, haze, edge treatment and black levels.",
+      "owner": "Host Implementation Agent"
+    },
+    {
+      "priority": 3,
+      "problem": "Hero story and next module compete",
+      "requiredCorrection": "Let the hero own spectacle. Make the following deck module quieter and task-oriented, or visually connect it as a continuation instead of staging another equal-weight VS moment.",
+      "owner": "Host Strategist"
+    }
+  ],
+  "doNotAttempt": [
+    "Do not fix this by enlarging Pikachu, adding more floating cards, adding more glow, or changing accent colors.",
+    "Do not use logo size or official asset count as evidence of improvement.",
+    "Do not ask the user to choose again until a candidate clears the internal >=82 Gate."
+  ]
+}

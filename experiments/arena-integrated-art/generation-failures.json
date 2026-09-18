@@ -1,0 +1,29 @@
+{
+  "scope": "arena-integrated-art test line A",
+  "date": "2026-09-15",
+  "reference": "reference/a-target-hero-crop.png",
+  "attempts": [
+    {
+      "strategy": "single-pass integrated scene using named characters",
+      "result": "blocked",
+      "error": "image generation output moderation_blocked",
+      "requestId": "04491493-75e8-4a6c-b0cb-ef9f7b60c0cc"
+    },
+    {
+      "strategy": "single-pass integrated scene using generic physical descriptions with the same reference",
+      "result": "blocked",
+      "error": "image generation output moderation_blocked",
+      "requestId": "e85b22f7-192b-4fd6-b973-610fd1713a88"
+    },
+    {
+      "strategy": "IP-neutral arena environment generation",
+      "result": "success",
+      "output": "candidates/arena-background-v1.png"
+    },
+    {
+      "strategy": "IP-neutral transparent lightning overlay generation",
+      "result": "success",
+      "output": "candidates/lightning-overlay-v1.png"
+    }
+  ]
+}

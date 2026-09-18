@@ -1,0 +1,25 @@
+{
+  "schema": "brand-apply-host-plan/v2",
+  "sourceUrl": "https://www.pokemon.com/us/pokemon-tcg/",
+  "brand": "pokemon-tcg-official",
+  "hostTarget": "/Users/jocelyn/Downloads/宝可梦项目备份2/frontend",
+  "targetRoute": "/pages/plaza/index",
+  "preserveBusinessContent": true,
+  "preserveDataAndLogic": true,
+  "createNewBrandRoute": false,
+  "profile": "fast",
+  "hostFirstImpression": {
+    "taskPriority": "efficiency-first",
+    "informationDensity": "high",
+    "contentFlow": "continuous-flow",
+    "returnFrequency": "frequent",
+    "firstActionUrgency": "immediate",
+    "existingMediaSlots": [],
+    "evidence": "默认页是 scroll-view 中的品牌切换、Tab、搜索、两行筛选和无限卡组列表；首页没有既有 Banner 或媒体槽位。"
+  },
+  "heroDecision": {
+    "mode": "compact",
+    "targetRatio": 0.333,
+    "rationale": "这是高频搜索与筛选工具首页；允许沉浸式品牌头部，但必须让搜索和真实卡组流快速进入视野，并保持页面连续滚动。"
+  }
+}

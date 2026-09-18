@@ -1,0 +1,42 @@
+{
+  "schema": "visual-retention-report/v1",
+  "threshold": { "minimumPassedDimensions": 5, "requiredDimensions": ["primaryComposition", "coreAssets", "brandMaterial"] },
+  "directions": [
+    {
+      "id": "holographic-scan-lab",
+      "conceptProvenanceStatus": "fail",
+      "visibility": "internal-audit-only",
+      "evaluationSkipped": true,
+      "dimensions": {
+        "primaryComposition": "pass",
+        "coreAssets": "pass",
+        "brandMaterial": "fail",
+        "lightingAtmosphere": "pass",
+        "typographyHierarchy": "fail",
+        "motionIntent": "pass",
+        "firstViewportFocus": "fail"
+      },
+      "passedDimensions": 4,
+      "status": "blocked",
+      "reason": "The H5 keeps the scanner chamber but promotes unapproved blue/purple refraction into UI material, and the concept does not prove Pokémon-specific identity."
+    },
+    {
+      "id": "tournament-table-workbench",
+      "conceptProvenanceStatus": "fail",
+      "visibility": "internal-audit-only",
+      "evaluationSkipped": true,
+      "dimensions": {
+        "primaryComposition": "pass",
+        "coreAssets": "pass",
+        "brandMaterial": "pass",
+        "lightingAtmosphere": "pass",
+        "typographyHierarchy": "pass",
+        "motionIntent": "fail",
+        "firstViewportFocus": "pass"
+      },
+      "passedDimensions": 6,
+      "status": "blocked",
+      "reason": "Visual retention alone reaches 6/7, but the concept background is generated-proposal rather than official evidence or an approved derivative, so the direction is blocked before formal selection."
+    }
+  ]
+}

@@ -6,19 +6,19 @@
   "decisionStatus": "approved",
   "inputBindings": {
     "goal": {
-      "path": "migrations/dango-v2/goal-contract.json",
+      "path": "migrations/dango/goal-contract.json",
       "sha256": "2d87bacdf197465b46ab3b299c445ab94980da9f622841c154eb2b5605131286"
     },
     "evidence": {
-      "path": "migrations/dango-v2/brand-evidence.json",
+      "path": "migrations/dango/brand-evidence.json",
       "sha256": "79e6f0e1f81eb913118074c65739d9efc12cc3a4e4ba1b4989b43c811a958b32"
     },
     "intent": {
-      "path": "migrations/dango-v2/brand-intent.json",
+      "path": "migrations/dango/brand-intent.json",
       "sha256": "37a421094921ff5eaaf3abbd70eca1665f8d261ea03e94b17e2f7ace1efb6a94"
     },
     "patterns": {
-      "path": "migrations/dango-v2/approved-visual-patterns.json",
+      "path": "migrations/dango/approved-visual-patterns.json",
       "sha256": "56bbd17343c11ced328c8914e9b3b4c18afc2f17ce19a46bb3a59682dfb73c3f"
     }
   },
@@ -124,72 +124,159 @@
       "element": "global documentation header",
       "elementType": "control",
       "strategy": "responsive-reflow",
-      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["global orientation", "brand mark", "reachable utilities", "56px desktop height"],
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "global orientation",
+        "brand mark",
+        "reachable utilities",
+        "56px desktop height"
+      ],
       "minimumReadableSize": "12px labels / 44px interactive targets where controls are enabled"
     },
     {
       "element": "desktop left navigation",
       "elementType": "control",
       "strategy": "structural-substitution",
-      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["desktop taxonomy role", "current-page truth", "mobile reading priority"],
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "desktop taxonomy role",
+        "current-page truth",
+        "mobile reading priority"
+      ],
       "minimumReadableSize": "14px navigation text / no hidden fake controls"
     },
     {
       "element": "primary reading column",
       "elementType": "text",
       "strategy": "responsive-reflow",
-      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile", "dango-v2-content-hierarchy"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["primary reading role", "sequential hierarchy", "vertical reachability", "safe mobile inset"],
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile",
+        "dango-v2-content-hierarchy"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "primary reading role",
+        "sequential hierarchy",
+        "vertical reachability",
+        "safe mobile inset"
+      ],
       "minimumReadableSize": "16px body / 36px page title desktop with readable mobile wrapping"
     },
     {
       "element": "desktop right outline",
       "elementType": "control",
       "strategy": "structural-substitution",
-      "evidenceRefs": ["dango-v2-docs-shell-desktop", "dango-v2-docs-shell-mobile"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["desktop local-orientation role", "mobile removal without lost reading access"],
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "desktop local-orientation role",
+        "mobile removal without lost reading access"
+      ],
       "minimumReadableSize": "12px outline text when rendered"
     },
     {
       "element": "technical process surface",
       "elementType": "text",
       "strategy": "responsive-reflow",
-      "evidenceRefs": ["dango-v2-content-hierarchy"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["flat light surface", "technical sequence", "hierarchy distinct from prose", "complete readable content"],
+      "evidenceRefs": [
+        "dango-v2-content-hierarchy"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "flat light surface",
+        "technical sequence",
+        "hierarchy distinct from prose",
+        "complete readable content"
+      ],
       "minimumReadableSize": "12px-equivalent monospaced technical content without permanent horizontal loss"
     },
     {
       "element": "live-example and code reference modules",
       "elementType": "text",
       "strategy": "responsive-reflow",
-      "evidenceRefs": ["dango-v2-button-reference-density", "dango-v2-button-page-shell"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["multiple modules", "example-code relationship", "module labels", "independent reviewability"],
+      "evidenceRefs": [
+        "dango-v2-button-reference-density",
+        "dango-v2-button-page-shell"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "multiple modules",
+        "example-code relationship",
+        "module labels",
+        "independent reviewability"
+      ],
       "minimumReadableSize": "12px code / 14px example labels with vertical mobile stacking"
     },
     {
       "element": "normal Primary button",
       "elementType": "control",
       "strategy": "independent-scale",
-      "evidenceRefs": ["dango-v2-primary-button", "dango-v2-primary-button-hover-no-change", "dango-v2-primary-button-focus", "dango-v2-primary-button-activated"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["32px visual control height", "4px radius", "stable #7C66FF fill", "white label", "separate focus outline"],
+      "evidenceRefs": [
+        "dango-v2-primary-button",
+        "dango-v2-primary-button-hover-no-change",
+        "dango-v2-primary-button-focus",
+        "dango-v2-primary-button-activated"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "32px visual control height",
+        "4px radius",
+        "stable #7C66FF fill",
+        "white label",
+        "separate focus outline"
+      ],
       "minimumReadableSize": "32px documented visual height with an accessible hit target or explicit documentation-only boundary"
     },
     {
       "element": "current-page navigation cue",
       "elementType": "control",
       "strategy": "structural-substitution",
-      "evidenceRefs": ["dango-v2-active-navigation"],
-      "viewports": ["1440x900", "390x844"],
-      "mustPreserve": ["#5854FF text role", "8% purple background role", "current-location semantics", "no expansion to generic accent"],
+      "evidenceRefs": [
+        "dango-v2-active-navigation"
+      ],
+      "viewports": [
+        "1440x900",
+        "390x844"
+      ],
+      "mustPreserve": [
+        "#5854FF text role",
+        "8% purple background role",
+        "current-location semantics",
+        "no expansion to generic accent"
+      ],
       "minimumReadableSize": "14px current-location label when navigation is rendered"
     }
   ],

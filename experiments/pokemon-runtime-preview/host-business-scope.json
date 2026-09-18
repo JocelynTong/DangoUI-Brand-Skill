@@ -1,0 +1,20 @@
+{
+  "route": "/pages/plaza/index",
+  "capabilities": [
+    "switch-card-game-brand",
+    "switch-deck-and-event-tabs",
+    "search-decks",
+    "filter-by-category",
+    "filter-by-environment",
+    "browse-continuous-deck-results",
+    "open-deck-detail",
+    "open-my-decks"
+  ],
+  "preserve": [
+    "existing-route",
+    "existing-api-and-state",
+    "existing-event-handlers",
+    "continuous-scroll-and-load-more",
+    "business-copy-and-result-data"
+  ]
+}

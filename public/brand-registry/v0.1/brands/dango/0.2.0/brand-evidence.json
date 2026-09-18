@@ -4,8 +4,8 @@
   "goalId": "dango-v2-full-relearn-2026-09-14",
   "status": "evidence-pass-for-frozen-scope",
   "sourceUrl": "https://dumpling.echo.tech/",
-  "questionMatrix": "migrations/dango-v2/evidence-question-matrix.json",
-  "observationManifest": "migrations/dango-v2/source-observation-manifest.json",
+  "questionMatrix": "migrations/dango/evidence-question-matrix.json",
+  "observationManifest": "migrations/dango/source-observation-manifest.json",
   "evidenceOrder": [
     "rendered screenshot",
     "visible DOM",
@@ -23,7 +23,7 @@
       "sourcePageId": "introduction",
       "state": "initial",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+        "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
         "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
       },
       "sourceRegion": [
@@ -75,7 +75,7 @@
       "sourcePageId": "introduction",
       "state": "initial",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/introduction/mobile-390/frame-00.png",
+        "path": "migrations/dango/captures/source/introduction/mobile-390/frame-00.png",
         "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
       },
       "sourceRegion": [
@@ -110,7 +110,7 @@
       "sourcePageId": "introduction",
       "state": "current-page",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+        "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
         "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
       },
       "sourceRegion": [
@@ -156,7 +156,7 @@
       "sourcePageId": "introduction",
       "state": "initial",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/introduction/desktop/frame-00.png",
+        "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
         "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
       },
       "sourceRegion": [
@@ -208,7 +208,7 @@
       "sourcePageId": "button",
       "state": "initial",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/button/desktop/frame-00.png",
+        "path": "migrations/dango/captures/source/button/desktop/frame-00.png",
         "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"
       },
       "sourceRegion": [
@@ -243,7 +243,7 @@
       "sourcePageId": "button",
       "state": "default",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/default.png",
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
         "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
       },
       "sourceRegion": [
@@ -293,7 +293,7 @@
       "sourcePageId": "button",
       "state": "hover",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/hover.png",
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/hover.png",
         "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
       },
       "sourceRegion": [
@@ -319,8 +319,8 @@
         "property": "background-color",
         "value": "rgb(124, 102, 255)"
       },
-      "beforeCapture": "migrations/dango-v2/captures/source/button/desktop/primary-button/default.png",
-      "afterCapture": "migrations/dango-v2/captures/source/button/desktop/primary-button/hover.png"
+      "beforeCapture": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+      "afterCapture": "migrations/dango/captures/source/button/desktop/primary-button/hover.png"
     },
     {
       "id": "dango-v2-primary-button-focus",
@@ -331,7 +331,7 @@
       "sourcePageId": "button",
       "state": "focus",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/focus.png",
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/focus.png",
         "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
       },
       "sourceRegion": [
@@ -377,7 +377,7 @@
       "sourcePageId": "button",
       "state": "activated-settled-focus-retained",
       "capture": {
-        "path": "migrations/dango-v2/captures/source/button/desktop/primary-button/activated.png",
+        "path": "migrations/dango/captures/source/button/desktop/primary-button/activated.png",
         "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
       },
       "sourceRegion": [

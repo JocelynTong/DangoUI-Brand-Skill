@@ -1,0 +1,55 @@
+{
+  "schema": "host-baseline-content/v2",
+  "capturedAt": "2026-09-17T18:00:00+08:00",
+  "captureMethod": "live QDMP simulator visual inspection plus accessibility tree and source manifest",
+  "route": "pages/plaza/index",
+  "viewport": { "width": 375, "height": 812, "device": "iPhone X simulator", "scale": "85%" },
+  "navigation": { "mode": "native-preserved", "title": "卡组工具" },
+  "runtimeSurface": {
+    "application": "千岛开发者工具",
+    "window": "card-plugin - 千岛开发者工具",
+    "simulatorEntry": "pages/plaza/index?scene=1001",
+    "renderHostBackground": "#F6F7F8",
+    "compileState": "编译完成，已重启"
+  },
+  "screenshotObservation": {
+    "status": "visually-observed-live",
+    "firstViewport": [
+      "native title 卡组工具",
+      "red current-game mark and 宝可梦集换式卡牌 switch",
+      "卡组广场/赛事 tabs and 我的 entry",
+      "search field",
+      "分类 and 环境 horizontal filters",
+      "four real deck rows visible with card images"
+    ],
+    "visualFinding": "The current first viewport is compact, high-density and task-first. There is no standalone hero; search/filter enters before the continuous list."
+  },
+  "domContentSnapshot": {
+    "businessSwitch": ["宝可梦集换式卡牌 / PTCG", "航海王集换式卡牌 / OPCG"],
+    "tabs": ["卡组广场", "赛事"],
+    "primaryTask": "搜索卡组",
+    "filters": {
+      "分类": ["全部", "玩家发布", "参赛卡组"],
+      "环境": ["全部", "标准赛制18.0", "标准赛制17.5", "标准赛制17.0", "标准赛制16.0", "标准赛制15.0"]
+    },
+    "loadedResultCountObserved": 10,
+    "firstResults": [
+      { "title": "收", "tag": "玩家发布", "environment": "标准赛制18.0", "author": "小乐", "favorites": "0", "views": "9" },
+      { "title": "自爆多龙", "tag": "玩家发布", "environment": "标准赛制18.0", "author": "Mono", "favorites": "0", "views": "0" },
+      { "title": "自爆多龙", "tag": "玩家发布", "environment": "标准赛制18.0", "author": "清凌", "favorites": "0", "views": "7" },
+      { "title": "密勒顿ex", "tag": "玩家发布", "environment": "标准赛制18.0", "author": "曦", "favorites": "0", "views": "13" }
+    ]
+  },
+  "sourceFiles": [
+    { "path": "../../frontend/src/pages/plaza/index.vue", "sha256": "9685088daca991888a008edec4e2cf3e0438cd36d9dcbbf67e84677794dfe1c7" },
+    { "path": "../../frontend/src/pages/plaza/index.scss", "sha256": "65962d7e12e35c974cc18b371b4f3c588bc178d9aad8defd95686ecbc32ea781" },
+    { "path": "../../frontend/src/app.config.js", "sha256": "749ecddcaa6f2413068b2e8b21f9f0253b791fcd1ccc88514886ce3466fa23d0" },
+    { "path": "../../frontend/src/pages/plaza/index.config.js", "sha256": "e554c5ff886c371aa43008f1d2b2897db6a45d370e5b75f3addcafe4af9258f6" }
+  ],
+  "hostSourceTreeSha256": "32c645ad99e5cf1f98ac17ebdae5c3171f08c902c996d6c0ee73af061077e362",
+  "realHostMedia": {
+    "policy": "business-content-only",
+    "examples": ["../../frontend/src/assets/pk_thumb/014.jpg", "../../frontend/src/assets/pk_thumb/003.jpg", "../../frontend/src/assets/pk_thumb/007.jpg"],
+    "mustNotCountAs": "source-brand identity/environment proof"
+  }
+}

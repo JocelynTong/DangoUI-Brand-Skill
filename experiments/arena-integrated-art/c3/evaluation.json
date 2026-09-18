@@ -1,0 +1,24 @@
+{
+  "sourceGroup": "../../../../public/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg",
+  "method": "single indivisible group layer with one feather mask, shared color grade, rear/front lightning passes, amber contact glow, and foreground crowd occlusion",
+  "viewport": "390x844",
+  "variants": [
+    {
+      "file": "previews/c3a-balanced-390x844.png",
+      "verdict": "reject",
+      "reason": "Strong depth but excessive vignette and an obvious oval layer boundary."
+    },
+    {
+      "file": "previews/c3b-screen-charge-390x844.png",
+      "verdict": "reject",
+      "reason": "Screen blend destroys local contrast and overexposes the whole arena to magenta."
+    },
+    {
+      "file": "previews/c3c-integrated-charge-390x844.png",
+      "verdict": "best-of-c3-but-reject",
+      "reason": "Crowd overlap, lightning depth and group staging work, but the booster source's embedded horizontal speed background remains perceptible after feathering."
+    }
+  ],
+  "comparisonVerdict": "C3 does not clearly exceed B3 at 18/20 A-fidelity and should not be applied to the host.",
+  "hostModified": false
+}

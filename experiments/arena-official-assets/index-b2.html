@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pokémon TCG Arena — Official Assets Study B2</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./styles-b2.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="arena-hero arena-hero--b2" aria-labelledby="arena-title-b2">
+        <img
+          class="arena-hero__world"
+          src="../../migrations/pokemon-tcg-official/rendered-assets/official/booster-art-1.jpg"
+          alt="皮卡丘、梦幻和超梦组成的官方 Pokémon TCG 群像"
+        />
+        <div class="arena-hero__red-light" aria-hidden="true"></div>
+        <div class="arena-hero__blue-light" aria-hidden="true"></div>
+        <div class="arena-hero__ceiling" aria-hidden="true"></div>
+        <div class="arena-hero__crowd" aria-hidden="true"></div>
+        <div class="arena-hero__floor" aria-hidden="true"></div>
+
+        <header class="arena-nav">
+          <img
+            class="arena-nav__logo"
+            src="../../migrations/pokemon-tcg-official/rendered-assets/official/tcg-logo.png"
+            alt="Pokémon Trading Card Game"
+          />
+          <button class="deck-link" type="button">
+            <span class="deck-link__label">我的牌组</span>
+            <span class="deck-link__count">06</span>
+          </button>
+        </header>
+
+        <div class="arena-hero__scorebar" aria-label="赛事状态">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span>LIVE · TRAINER BATTLE</span>
+          <span class="arena-hero__round">ROUND 04</span>
+        </div>
+
+        <div class="arena-hero__copy">
+          <p class="arena-hero__eyebrow">PTCG 广场 · 今夜主赛场</p>
+          <h1 id="arena-title-b2">不是围观。<br /><em>一起上场。</em></h1>
+          <p class="arena-hero__lede">发现牌组，追踪环境，找到你的下一位对手。</p>
+        </div>
+
+        <div class="arena-hero__actions">
+          <button class="primary-action" type="button">
+            <span>浏览热门牌组</span>
+            <span class="primary-action__arrow" aria-hidden="true">↗</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="battle-feed" aria-labelledby="battle-feed-title">
+        <header class="battle-feed__header">
+          <div>
+            <span class="battle-feed__kicker">ARENA FEED · LIVE</span>
+            <h2 id="battle-feed-title">赛场战报</h2>
+          </div>
+          <button type="button">查看全部 <span aria-hidden="true">↗</span></button>
+        </header>
+
+        <article class="battle-feed__feature">
+          <div class="battle-feed__media">
+            <img
+              src="../../migrations/pokemon-tcg-official/rendered-assets/official/championships.jpg"
+              alt="Pokémon International Championships 选手对战现场"
+            />
+            <span>INTERNATIONAL CHAMPIONSHIPS</span>
+          </div>
+          <div class="battle-feed__cards" aria-label="热门牌组卡牌">
+            <img
+              src="../../migrations/pokemon-tcg-official/rendered-assets/official/SV06_EN_33.png"
+              alt="官方宝可梦卡牌"
+            />
+            <img
+              src="../../migrations/pokemon-tcg-official/rendered-assets/official/2M6P_EN_23.png"
+              alt="官方皮卡丘卡牌"
+            />
+          </div>
+          <div class="battle-feed__copy">
+            <span>本周热门 · 标准赛制</span>
+            <strong>两套进攻轴，<br />谁能占住主赛场？</strong>
+            <button type="button">查看牌组详情</button>
+          </div>
+        </article>
+      </section>
+    </main>
+  </body>
+</html>

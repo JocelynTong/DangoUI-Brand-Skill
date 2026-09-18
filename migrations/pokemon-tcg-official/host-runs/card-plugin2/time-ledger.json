@@ -166,6 +166,15 @@
       "endedAt": "2026-09-14T22:12:52+08:00",
       "durationSeconds": 472,
       "result": "Fresh blind QA passed at 97.5 overall: Home 97.5, Card Database 95, Learn 100; protocol, Evidence Fidelity, Structural Fidelity and Generative Proof all passed, and the workflow finalized complete."
+    },
+    {
+      "id": "apply-host-navigationbar-architecture-rework",
+      "phase": "host-layout-demo",
+      "category": "rework",
+      "startedAt": "2026-09-15T10:20:00+08:00",
+      "endedAt": "2026-09-15T10:27:18+08:00",
+      "durationSeconds": 438,
+      "result": "The first host demo incorrectly treated the native NavigationBar as fixed, weakening the selected immersive composition and forcing header rework. Verified custom navigation in the QDMP developer tool, moved title/brand/account controls into the navigation region, preserved the native capsule safe area, and promoted navigation mode selection to a pre-style-choice apply-host requirement."
     }
   ],
   "optimizationReview": {
@@ -173,7 +182,8 @@
     "lightweightCandidates": [
       "Automatically seal qa-input-manifest.json before QA dispatch.",
       "Keep retry budgets role-local so upstream evidence retries do not consume downstream QA attempts.",
-      "Skip the 24-case shared mockup matrix when a frozen scope declaration proves shared shell code is unchanged."
+      "Skip the 24-case shared mockup matrix when a frozen scope declaration proves shared shell code is unchanged.",
+      "Detect the target mini-app page navigation mode before style generation and include native/custom NavigationBar handling in every first-viewport option."
     ],
     "parallelizationCandidates": [],
     "mustRemainBlocking": [

@@ -1,0 +1,57 @@
+{
+  "schema": "arena-official-assets-self-check/v1",
+  "variant": "B3",
+  "status": "PASS_CANDIDATE",
+  "goal": "Maximize A-demo-like visual impact while retaining B2's clean Hero content boundary.",
+  "reviewedRender": {
+    "path": "screenshots/mobile-390-b3.png",
+    "viewport": [390, 844],
+    "heroBoundary": [0, 700]
+  },
+  "runtimeProbe": {
+    "heroSize": [390, 700],
+    "heroPrimaryActions": 1,
+    "heroForbiddenNodes": {"cards": 0, "photos": 0, "activityOrOnlineCount": 0},
+    "heroImages": ["same-source ensemble", "transparent lightning overlay", "navigation logo"],
+    "foregroundCrowdFigures": 10,
+    "postHeroTop": 700,
+    "allImagesLoaded": true,
+    "consoleOrPageErrors": 0
+  },
+  "checks": {
+    "visualExplosion": {
+      "status": "PASS",
+      "evidence": "Lightning originates visually beneath the central character, branches around both sides of the ensemble, and terminates into the foreground stage. Red/blue flares and speed lines create opposing-team pressure rather than uniform glow."
+    },
+    "ensembleIntegration": {
+      "status": "PASS",
+      "evidence": "Pikachu remains central while Mew and Mewtwo are visible behind it in the same raster. Lightning wraps the group instead of isolating a transparent mascot from its background."
+    },
+    "foregroundDepth": {
+      "status": "PASS",
+      "evidence": "Ten varied spectator silhouettes overlap the electric stage edge, producing a foreground plane distinct from the character plane and distant arena lights."
+    },
+    "headlineImpact": {
+      "status": "PASS",
+      "evidence": "The two-line headline uses a counter-clockwise tilt, forward skew, hard black outline, yellow second line, red impact slash, and offset eyebrow. It stays readable against the electric field at 390 px."
+    },
+    "heroContentBoundary": {
+      "status": "PASS",
+      "evidence": "Hero contains no cards, tournament photographs, Feed content, or online count. One primary CTA closes at the bottom; battle-feed starts at y=700."
+    },
+    "lightSourceCoherence": {
+      "status": "PASS_WITH_INTENTIONAL_EXAGGERATION",
+      "evidence": "The base characters remain one original light system. The golden overlay acts as a single V-shaped arena energy event, while red and blue remain spatially separated side lights.",
+      "risk": "The energy intensity is intentionally poster-like and exceeds photographic realism; that is aligned with this B3 test goal."
+    },
+    "brandWeakening": {
+      "status": "PASS",
+      "evidence": "The official ensemble remains dominant, Pokémon TCG logo is visible, yellow/red/blue combat roles are legible, and the next organism carries official tournament/card content without contaminating the Hero."
+    }
+  },
+  "comparison": {
+    "versusB2": "B3 is significantly more explosive and closer to the A Demo's event-poster character. B2 is calmer and more production-conservative.",
+    "recommendedUse": "Use B3 as the upper-bound visual target. If applied to the host, preserve its composition and reduce only energy opacity in measured increments; do not remove the foreground crowd or return cards/photos to the Hero."
+  },
+  "verdict": "B3 passes the requested impact test. It achieves the strongest arena atmosphere of the official-assets branch without reintroducing the lone-character or mixed-content Hero failures."
+}

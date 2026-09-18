@@ -1,0 +1,10 @@
+{
+  "schema": "direction-evidence/v1",
+  "directions": [
+    {"id":"campaign-flow","patternRefs":["home-layered-campaign-stage","home-banded-editorial-journey"],"assetRefs":["home-booster-art","home-30-logo","home-feature-card"],"hostJob":"让用户先感知当期品牌活动，再进入卡组检索与内容流"},
+    {"id":"database-flow","patternRefs":["database-dark-search-organism","database-reversible-search-results"],"assetRefs":["card-db-pikachu-27"],"hostJob":"把查找与筛选作为首要任务，并直接展示真实卡面结果"},
+    {"id":"editorial-flow","patternRefs":["home-banded-editorial-journey"],"assetRefs":["home-feature-card"],"hostJob":"以编辑精选建立收藏语境，再进入牌组内容"},
+    {"id":"event-flow","patternRefs":["home-banded-editorial-journey","database-reversible-search-results"],"assetRefs":["home-booster-art","card-db-pikachu-27"],"hostJob":"以赛事信息流建立紧迫感，同时保留检索入口"},
+    {"id":"collection-wall","patternRefs":["database-reversible-search-results"],"assetRefs":["card-db-pikachu-27"],"hostJob":"让真实卡面成为首屏视觉中心并支持快速浏览"}
+  ]
+}

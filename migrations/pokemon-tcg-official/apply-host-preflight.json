@@ -1,0 +1,84 @@
+{
+  "schema": "brand-apply-host-preflight/v1",
+  "brand": "pokemon-tcg-official",
+  "profile": "fast",
+  "phase": "design",
+  "hostTarget": "../宝可梦项目备份2/frontend",
+  "startedAt": "2026-09-18T08:20:12.014Z",
+  "completedAt": "2026-09-18T08:20:12.022Z",
+  "durationMs": 8,
+  "verdict": "pass",
+  "frozenPack": {
+    "trusted": true,
+    "requiredFiles": [
+      "brand-mod.json",
+      "brand-evidence.json",
+      "brand-intent.json"
+    ],
+    "referencedEvidenceCount": 10,
+    "cacheKey": "4a89431114b9db6093d496721afe16af66354d5943e2fcf93dd3bac1d11ea765",
+    "reuseDecision": "reuse-without-relearning"
+  },
+  "frozenDesign": {
+    "required": false,
+    "requiredFiles": [
+      "brand-application-plan.json",
+      "design-direction-options.json",
+      "design-direction-decision.json",
+      "business-scope.json",
+      "design-direction.json",
+      "preedit-baseline-bundle.json",
+      "structural-targets.json"
+    ],
+    "reuseDecision": "not-yet-required"
+  },
+  "runtime": {
+    "dangouiDeclared": false,
+    "declaredVersion": null,
+    "maximumClaim": "PARTIAL_STYLE_ONLY"
+  },
+  "hostSurface": {
+    "formFactor": "mobile",
+    "platform": "qdmp-miniapp",
+    "compatibility": [
+      "mobile-miniapp",
+      "mobile-h5"
+    ],
+    "defaultPreviewViewport": "375x812",
+    "forbiddenPreviewPatterns": [
+      "persistent-desktop-sidebar",
+      "desktop-control-panel-compressed-into-mobile",
+      "primary-content-column-below-72-percent"
+    ]
+  },
+  "hostLayout": {
+    "scannedFiles": 50,
+    "issues": [],
+    "warnings": [
+      {
+        "code": "HORIZONTAL_SCROLL_REQUIRES_VIEWPORT_QA",
+        "file": "src/pages/build/index.vue"
+      },
+      {
+        "code": "HORIZONTAL_SCROLL_REQUIRES_VIEWPORT_QA",
+        "file": "src/pages/plaza/index.vue"
+      }
+    ],
+    "qaContract": [
+      "target page width equals viewport width",
+      "primary vertical scroll container has no unintended horizontal range",
+      "first-level content blocks remain inside viewport after brand shadow and border styles"
+    ]
+  },
+  "targetResolution": {
+    "strategy": "default-home-first-route",
+    "route": "pages/plaza/index",
+    "source": "src/app.config.js"
+  },
+  "blocking": [],
+  "warnings": [
+    "HORIZONTAL_SCROLL_REQUIRES_VIEWPORT_QA:src/pages/build/index.vue",
+    "HORIZONTAL_SCROLL_REQUIRES_VIEWPORT_QA:src/pages/plaza/index.vue",
+    "DANGOUI_RUNTIME_NOT_DECLARED:PARTIAL_STYLE_ONLY"
+  ]
+}

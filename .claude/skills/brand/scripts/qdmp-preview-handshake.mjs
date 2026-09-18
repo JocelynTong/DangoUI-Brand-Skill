@@ -4,7 +4,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 
-export function prepareQdmpPreview({ host, appId, write = false, simulatorUrl = "", compiled = false, screenshotCaptured = false } = {}) {
+export function prepareQdmpPreview({ host, appId, write = false, simulatorUrl = "", compiled = false, screenshotCaptured = false, runtimeProbe = null } = {}) {
   const requestedRoot = path.resolve(host || ".");
   const projectRoot = resolveFrontendRoot(requestedRoot);
   const sourceConfig = path.join(projectRoot, "project.config.json");
@@ -22,16 +22,18 @@ export function prepareQdmpPreview({ host, appId, write = false, simulatorUrl = 
   const buildFingerprint = hash(buildFiles.map((file) => `${path.relative(compileRoot, file)}:${hash(fs.readFileSync(file))}`).join("\n"));
   const observed = simulatorUrl ? new URL(simulatorUrl) : null;
   const observedRoute = observed?.searchParams.get("page") || observed?.searchParams.get("entry") || null;
+  const runtimeResourceUrl = observed ? new URL(`/${resolvedAppId}/main/app-config.json`, observed.origin).href : null;
   const verification = {
     simulatorAppIdMatches: observed ? observed.searchParams.get("appId") === resolvedAppId : null,
     simulatorRouteMatches: observed ? observedRoute?.split("?")[0] === route : null,
     compiled: Boolean(compiled),
     screenshotCaptured: Boolean(screenshotCaptured),
+    runtimeResourceReachable: observed ? runtimeProbe?.ok === true : null,
   };
   const connected = Object.values(verification).every((value) => value === true);
   return {
     schema: "qdmp-preview-handshake/v1",
-    status: connected ? "connected" : write ? "prepared" : "dry-run",
+    status: connected ? "connected" : observed ? "blocked" : write ? "prepared" : "dry-run",
     appId: resolvedAppId,
     projectRoot,
     compileRoot,
@@ -39,6 +41,8 @@ export function prepareQdmpPreview({ host, appId, write = false, simulatorUrl = 
     defaultRoute: route,
     buildFingerprint,
     observedSimulatorUrl: simulatorUrl || null,
+    runtimeResourceUrl,
+    runtimeProbe,
     verification,
     configs: configs.map((file) => ({ file, appId: write ? readJson(file).appid : resolvedAppId })),
     checks: {
@@ -47,6 +51,20 @@ export function prepareQdmpPreview({ host, appId, write = false, simulatorUrl = 
       buildRequired: !fs.existsSync(distConfig),
     },
   };
+}
+
+export async function probeQdmpRuntime(simulatorUrl, appId, { timeoutMs = 3000 } = {}) {
+  const observed = new URL(simulatorUrl);
+  const resourceUrl = new URL(`/${appId}/main/app-config.json`, observed.origin).href;
+  try {
+    const response = await fetch(resourceUrl, { signal: AbortSignal.timeout(timeoutMs), cache: "no-store" });
+    const body = await response.text();
+    if (!response.ok) return { ok: false, code: "QDMP_SIMULATOR_OUTPUT_UNMOUNTED", status: response.status, resourceUrl };
+    try { JSON.parse(body); } catch { return { ok: false, code: "QDMP_RUNTIME_CONFIG_INVALID", status: response.status, resourceUrl }; }
+    return { ok: true, status: response.status, resourceUrl };
+  } catch (error) {
+    return { ok: false, code: "QDMP_SIMULATOR_UNREACHABLE", error: error.message, resourceUrl };
+  }
 }
 
 function resolveFrontendRoot(root) {
@@ -85,13 +103,18 @@ function option(args, name, fallback = "") { const index = args.indexOf(name); r
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
   try {
     const args = process.argv.slice(2);
+    const simulatorUrl = option(args, "--simulator-url");
+    const resolvedHost = option(args, "--host", ".");
+    const prepared = prepareQdmpPreview({ host: resolvedHost, appId: option(args, "--app-id") });
+    const runtimeProbe = simulatorUrl ? await probeQdmpRuntime(simulatorUrl, prepared.appId) : null;
     const result = prepareQdmpPreview({
-      host: option(args, "--host", "."),
+      host: resolvedHost,
       appId: option(args, "--app-id"),
       write: args.includes("--write"),
-      simulatorUrl: option(args, "--simulator-url"),
+      simulatorUrl,
       compiled: args.includes("--compiled"),
       screenshotCaptured: args.includes("--screenshot-captured"),
+      runtimeProbe,
     });
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
   } catch (error) {

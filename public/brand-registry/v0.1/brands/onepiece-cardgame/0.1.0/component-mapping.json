@@ -1,12 +1,275 @@
 {
-  "schema":"component-mapping/v0.2","brand":"onepiece-cardgame","catalog":"skills/brand/references/dangoui.design-system.json",
-  "runtimeFact":"The fidelity-pass runtime remains page-owned composition. One low-risk footer motion control now uses a real DuButton with extClass preserving the frozen circular control; larger organisms remain bounded composition/style-only.",
-  "mappings":[
-    {"sourcePattern":"campaign-hero-stage","targetComponent":null,"compositionCandidates":["Swiper","Image","Button","NavigationBar"],"status":"composition-candidate-pending-runtime","api":{"sourcePaths":["node_modules/dangoui/src/swiper/Swiper.vue","node_modules/dangoui/src/image/Image.vue","node_modules/dangoui/src/button/Button.vue","node_modules/dangoui/src/navigation-bar/NavigationBar.vue"],"props":{"Swiper":{"autoplay":"boolean","indicatorType":"bar-full|bar|number","extClass":"class"},"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix","width":"number|string","height":"number|string"},"Button":{"type":"primary|secondary|outline|text","size":"mini|small|normal|medium|large","text":"string"}},"slots":{"Swiper":["default"],"Button":["default"]}},"runtimeSelectors":[".schema-recipe--onepiece-campaign-hero-stage",".source-schema-demo__hero-controls"],"evidenceRefs":["home-seven-variant-hero-system","campaign-hero-stage"],"boundary":"The seven fixed artwork identities, focal crops, title/product layers and play state remain page composition. Candidate primitives are not evidence of native runtime consumption."},
-    {"sourcePattern":"image-pill-hover-feedback","targetComponent":null,"compositionCandidates":["Button","Image"],"status":"style-only-composition-pending-runtime","api":{"sourcePaths":["node_modules/dangoui/src/button/Button.vue","node_modules/dangoui/src/image/Image.vue"],"props":{"Button":{"type":"primary|secondary|outline|text","text":"string","extClass":"class"},"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix"}},"slots":{"Button":["default"]}},"runtimeSelectors":[".source-schema-demo__actions--home-welcome .source-schema-demo__cta"],"evidenceRefs":["welcome-button-image-pill","welcome-button-hover-motion"],"boundary":"The official image face, 999px geometry, hover scale and glow are a Welcome-only recipe. A generic DuButton must not imply a reusable primary action."},
-    {"sourcePattern":"black-white-taxonomy-control","targetComponent":null,"compositionCandidates":["Tabs"],"status":"composition-candidate-pending-runtime","api":{"sourcePaths":["node_modules/dangoui/src/tabs/Tabs.vue"],"props":{"Tabs":{"color":"palette name","type":"default|tag|text","value":"string","size":"normal|large","indicator":"string"}},"slots":{"Tabs":["default","left","right"]}},"runtimeSelectors":[".schema-recipe--black-white-taxonomy-control.source-schema-demo__tabs"],"evidenceRefs":["black-white-taxonomy-control"],"boundary":"Current filters are plain buttons. Their rectangular black/white taxonomy is not a verified DuTabs instance."},
-    {"sourcePattern":"product-first-catalog-density","targetComponent":null,"compositionCandidates":["Card","Image"],"status":"composition-candidate-pending-runtime","api":{"sourcePaths":["node_modules/dangoui/src/card/Card.vue","node_modules/dangoui/src/image/Image.vue"],"props":{"Card":{"mode":"normal|collapse","size":"normal|large","showHeader":"boolean","extClass":"class"},"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix","width":"number|string","height":"number|string","radius":"number|string"}},"slots":{"Card":["default","left","right"]}},"runtimeSelectors":[".schema-recipe--editorial-module-rhythm .source-schema-demo__product-grid",".source-schema-demo__product-card"],"evidenceRefs":["product-first-catalog-density","hard-black-unboxed-heading"],"boundary":"Browse density, square media and no-per-card-CTA policy remain catalog composition; Card + Image are candidates, not current native consumers."},
-    {"sourcePattern":"editorial-module-rhythm","targetComponent":null,"compositionCandidates":["Card","Image","Button"],"status":"composition-candidate-pending-runtime","api":{"sourcePaths":["node_modules/dangoui/src/card/Card.vue","node_modules/dangoui/src/image/Image.vue","node_modules/dangoui/src/button/Button.vue"],"props":{"Card":{"showHeader":"boolean","extClass":"class"},"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix"},"Button":{"type":"primary|secondary|outline|text","text":"string"}},"slots":{"Card":["default","left","right"],"Button":["default"]}},"runtimeSelectors":[".source-schema-demo__home-editorial",".opcg-news-feature",".source-schema-demo__event-editorial-board"],"evidenceRefs":["editorial-module-rhythm"],"boundary":"News, products and events have distinct editorial structures. Primitives may host atoms later but cannot replace the information architecture with one generic Card."},
-    {"sourcePattern":"home-footer-illustration-organism","targetComponent":"DuButton","compositionCandidates":["Image","Button"],"status":"native-atom-runtime-consumed","api":{"sourcePath":"node_modules/dangoui/src/button/Button.vue","sourcePaths":["node_modules/dangoui/src/image/Image.vue","node_modules/dangoui/src/button/Button.vue"],"props":{"Image":{"src":"string","mode":"aspectFit|aspectFill|widthFix"},"Button":{"type":"primary|secondary|outline|text","size":"mini|small|normal|medium|large","text":"string","extClass":"class"}},"slots":{"Button":["default"]}},"runtimeSelector":".source-schema-demo__footer-control .onepiece-footer-motion-control.du-button","runtimeSelectors":[".source-schema-demo__footer-illustration",".source-schema-demo__footer-control .onepiece-footer-motion-control.du-button"],"evidenceRefs":["home-footer-illustration-organism"],"boundary":"Only the pause/resume atom is a native DuButton (type=text, size=mini, extClass). Layer order, entrance/loop motion, pause state and the full illustration organism remain page logic; this does not generalize to other CTA recipes."}
+  "schema": "component-mapping/v0.2",
+  "brand": "onepiece-cardgame",
+  "catalog": "skills/brand/references/dangoui.design-system.json",
+  "runtimeFact": "The fidelity-pass runtime remains page-owned composition. One low-risk footer motion control now uses a real DuButton with extClass preserving the frozen circular control; larger organisms remain bounded composition/style-only.",
+  "mappings": [
+    {
+      "sourcePattern": "campaign-hero-stage",
+      "targetComponent": null,
+      "compositionCandidates": [
+        "Swiper",
+        "Image",
+        "Button",
+        "NavigationBar"
+      ],
+      "status": "composition-candidate-pending-runtime",
+      "api": {
+        "sourcePaths": [
+          "node_modules/dangoui/src/swiper/Swiper.vue",
+          "node_modules/dangoui/src/image/Image.vue",
+          "node_modules/dangoui/src/button/Button.vue",
+          "node_modules/dangoui/src/navigation-bar/NavigationBar.vue"
+        ],
+        "props": {
+          "Swiper": {
+            "autoplay": "boolean",
+            "indicatorType": "bar-full|bar|number",
+            "extClass": "class"
+          },
+          "Image": {
+            "src": "string",
+            "mode": "aspectFit|aspectFill|widthFix",
+            "width": "number|string",
+            "height": "number|string"
+          },
+          "Button": {
+            "type": "primary|secondary|outline|text",
+            "size": "mini|small|normal|medium|large",
+            "text": "string"
+          }
+        },
+        "slots": {
+          "Swiper": [
+            "default"
+          ],
+          "Button": [
+            "default"
+          ]
+        }
+      },
+      "runtimeSelectors": [
+        ".schema-recipe--onepiece-campaign-hero-stage",
+        ".source-schema-demo__hero-controls"
+      ],
+      "evidenceRefs": [
+        "home-seven-variant-hero-system",
+        "campaign-hero-stage"
+      ],
+      "boundary": "The seven fixed artwork identities, focal crops, title/product layers and play state remain page composition. Candidate primitives are not evidence of native runtime consumption."
+    },
+    {
+      "sourcePattern": "image-pill-hover-feedback",
+      "targetComponent": null,
+      "compositionCandidates": [
+        "Button",
+        "Image"
+      ],
+      "status": "style-only-composition-pending-runtime",
+      "api": {
+        "sourcePaths": [
+          "node_modules/dangoui/src/button/Button.vue",
+          "node_modules/dangoui/src/image/Image.vue"
+        ],
+        "props": {
+          "Button": {
+            "type": "primary|secondary|outline|text",
+            "text": "string",
+            "extClass": "class"
+          },
+          "Image": {
+            "src": "string",
+            "mode": "aspectFit|aspectFill|widthFix"
+          }
+        },
+        "slots": {
+          "Button": [
+            "default"
+          ]
+        }
+      },
+      "runtimeSelectors": [
+        ".source-schema-demo__actions--home-welcome .source-schema-demo__cta"
+      ],
+      "evidenceRefs": [
+        "welcome-button-image-pill",
+        "welcome-button-hover-motion"
+      ],
+      "boundary": "The official image face, 999px geometry, hover scale and glow are a Welcome-only recipe. A generic DuButton must not imply a reusable primary action."
+    },
+    {
+      "sourcePattern": "black-white-taxonomy-control",
+      "targetComponent": null,
+      "compositionCandidates": [
+        "Tabs"
+      ],
+      "status": "composition-candidate-pending-runtime",
+      "api": {
+        "sourcePaths": [
+          "node_modules/dangoui/src/tabs/Tabs.vue"
+        ],
+        "props": {
+          "Tabs": {
+            "color": "palette name",
+            "type": "default|tag|text",
+            "value": "string",
+            "size": "normal|large",
+            "indicator": "string"
+          }
+        },
+        "slots": {
+          "Tabs": [
+            "default",
+            "left",
+            "right"
+          ]
+        }
+      },
+      "runtimeSelectors": [
+        ".schema-recipe--black-white-taxonomy-control.source-schema-demo__tabs"
+      ],
+      "evidenceRefs": [
+        "black-white-taxonomy-control"
+      ],
+      "boundary": "Current filters are plain buttons. Their rectangular black/white taxonomy is not a verified DuTabs instance."
+    },
+    {
+      "sourcePattern": "product-first-catalog-density",
+      "targetComponent": null,
+      "compositionCandidates": [
+        "Card",
+        "Image"
+      ],
+      "status": "composition-candidate-pending-runtime",
+      "api": {
+        "sourcePaths": [
+          "node_modules/dangoui/src/card/Card.vue",
+          "node_modules/dangoui/src/image/Image.vue"
+        ],
+        "props": {
+          "Card": {
+            "mode": "normal|collapse",
+            "size": "normal|large",
+            "showHeader": "boolean",
+            "extClass": "class"
+          },
+          "Image": {
+            "src": "string",
+            "mode": "aspectFit|aspectFill|widthFix",
+            "width": "number|string",
+            "height": "number|string",
+            "radius": "number|string"
+          }
+        },
+        "slots": {
+          "Card": [
+            "default",
+            "left",
+            "right"
+          ]
+        }
+      },
+      "runtimeSelectors": [
+        ".schema-recipe--editorial-module-rhythm .source-schema-demo__product-grid",
+        ".source-schema-demo__product-card"
+      ],
+      "evidenceRefs": [
+        "product-first-catalog-density",
+        "hard-black-unboxed-heading"
+      ],
+      "boundary": "Browse density, square media and no-per-card-CTA policy remain catalog composition; Card + Image are candidates, not current native consumers."
+    },
+    {
+      "sourcePattern": "editorial-module-rhythm",
+      "targetComponent": null,
+      "compositionCandidates": [
+        "Card",
+        "Image",
+        "Button"
+      ],
+      "status": "composition-candidate-pending-runtime",
+      "api": {
+        "sourcePaths": [
+          "node_modules/dangoui/src/card/Card.vue",
+          "node_modules/dangoui/src/image/Image.vue",
+          "node_modules/dangoui/src/button/Button.vue"
+        ],
+        "props": {
+          "Card": {
+            "showHeader": "boolean",
+            "extClass": "class"
+          },
+          "Image": {
+            "src": "string",
+            "mode": "aspectFit|aspectFill|widthFix"
+          },
+          "Button": {
+            "type": "primary|secondary|outline|text",
+            "text": "string"
+          }
+        },
+        "slots": {
+          "Card": [
+            "default",
+            "left",
+            "right"
+          ],
+          "Button": [
+            "default"
+          ]
+        }
+      },
+      "runtimeSelectors": [
+        ".source-schema-demo__home-editorial",
+        ".opcg-news-feature",
+        ".source-schema-demo__event-editorial-board"
+      ],
+      "evidenceRefs": [
+        "editorial-module-rhythm"
+      ],
+      "boundary": "News, products and events have distinct editorial structures. Primitives may host atoms later but cannot replace the information architecture with one generic Card."
+    },
+    {
+      "sourcePattern": "home-footer-illustration-organism",
+      "targetComponent": "DuButton",
+      "compositionCandidates": [
+        "Image",
+        "Button"
+      ],
+      "status": "native-atom-runtime-consumed",
+      "api": {
+        "sourcePath": "node_modules/dangoui/src/button/Button.vue",
+        "sourcePaths": [
+          "node_modules/dangoui/src/image/Image.vue",
+          "node_modules/dangoui/src/button/Button.vue"
+        ],
+        "props": {
+          "Image": {
+            "src": "string",
+            "mode": "aspectFit|aspectFill|widthFix"
+          },
+          "Button": {
+            "type": "primary|secondary|outline|text",
+            "size": "mini|small|normal|medium|large",
+            "text": "string",
+            "extClass": "class"
+          }
+        },
+        "slots": {
+          "Button": [
+            "default"
+          ]
+        }
+      },
+      "runtimeSelector": ".source-schema-demo__footer-control .onepiece-footer-motion-control.du-button",
+      "runtimeSelectors": [
+        ".source-schema-demo__footer-illustration",
+        ".source-schema-demo__footer-control .onepiece-footer-motion-control.du-button"
+      ],
+      "evidenceRefs": [
+        "home-footer-illustration-organism"
+      ],
+      "boundary": "Only the pause/resume atom is a native DuButton (type=text, size=mini, extClass). Layer order, entrance/loop motion, pause state and the full illustration organism remain page logic; this does not generalize to other CTA recipes."
+    }
   ]
 }

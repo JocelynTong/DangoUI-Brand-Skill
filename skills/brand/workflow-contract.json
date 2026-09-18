@@ -91,9 +91,9 @@
       "qualityReasoning": "Test visible user outcomes across route, branch, state, family, language, viewport, and journey instead of accepting representative nodes.",
       "methodologyReasoning": "Convert repeated mechanisms into tested gates while keeping one-brand accidents as candidates."
     },
-    "programObjective": "Prove a reusable two-pipeline system: learn-brand derives an evidence-backed, generative brand model; design-host applies that frozen model to a real host while preserving business behavior. A branded host screenshot or a page-level CSS change is evidence for one slice, never the objective itself.",
+    "programObjective": "Prove a reusable three-pipeline system: learn-brand derives an evidence-backed generative brand model; design-host diagnoses the host and freezes a user-selected visual direction without mutating runtime source; apply-host mechanically implements that frozen direction while preserving business behavior. Certification is a later release gate. A branded screenshot or page-level CSS change is evidence for one slice, never the objective itself.",
     "objectiveHierarchy": ["twoPipelineProgram", "pipeline", "phase", "journey", "page", "componentFamily", "state", "coverageCell"],
-    "progressRule": "Report progress at its native hierarchy level. Never convert host coverage-cell completion into learn-brand completion or overall two-pipeline completion. The twoPipelineProgram passes only when both pipelines independently pass their required gates and a second held-out brand/host transfer proves reuse.",
+    "progressRule": "Report progress at its native hierarchy level. Never convert host coverage-cell completion into learn-brand, design-host or overall program completion. The program passes only when learn-brand, design-host and apply-host independently pass their required gates and a second held-out brand/host transfer proves reuse.",
     "antiProxyRule": "Do not use changed CSS files, screenshot count, build success, route count, representative components, or host coverage percentages as a proxy for reusable pipeline completion."
   },
   "hostCoverageMatrix": {
@@ -152,7 +152,7 @@
     },
     "statusModel": ["workflowCompletion", "businessSafety", "visualDistinctiveness", "designSystemStructuralRecognition", "explicitIpRecognition"],
     "nonCompensationRule": "Technical gates and business safety never compensate for visualDistinctiveness FAIL. Never publish a single overall completion percentage.",
-    "failureOwners": ["designDirectorOrchestrator", "designTranslator", "brandResearcher", "hostImplementationAgent"]
+    "failureOwners": ["designDirectorOrchestrator", "designTranslator", "brandResearcher", "hostStrategist", "brandApplicationDesigner", "hostImplementationAgent"]
   },
   "programStrategyGate": {
     "artifacts": ["program-goal-tree.json", "host-opportunity-map.json"],
@@ -280,11 +280,45 @@
     "timeToFirstPreviewMs": 300000,
     "defaultTarget": "host-home-first-declared-route",
     "explicitTargetSyntax": "/brand + brand source + requested host page",
-    "styleChoice": "required before implementation; two or three lightweight directions sharing the same host content and frozen brand pack",
+    "styleChoice": "required before implementation; two or three isolated host-grounded first-viewport directions derived from one frozen real-host baseline, preserving business capabilities and real content while using distinct composition skeletons, visible source-brand signals and explicit DangoUI mappings (wild-design-options/v2). Host source must remain unchanged until selection.",
+    "preImplementationStateMachine": {
+      "preparing-style-options": "Registry and host preflight passed, but this host run has no explicitly bound rendered option set. Generate options without editing host files and never dispatch learn-brand.",
+      "awaiting-user/style-choice": "Rendered options, frozen business scope, and brand evidence exist. Pause normally for select or none-fit; host files remain unchanged.",
+      "selected/ready-to-implement": "Only an explicit user-bound decision plus its final design-direction contract may unlock host implementation.",
+      "rules": [
+        "A fresh apply-host run must not discover or inherit another host run's decision implicitly.",
+        "Missing style choice is an expected pause state, not a workflow failure.",
+        "learn-brand is never dispatched from any apply-host pre-implementation state.",
+        "Before awaiting-user, every rendered option passes an options-only Wild Design gate.",
+        "A source/provenance rejection is an internal retry state, not a user-visible deliverable. While frozen Evidence contains usable assets, silently reject, re-source, recompose and revalidate until at least two options pass. Never publish a zero-option gallery, placeholder tiles, failure-code page or internal Gate report. If evidence is genuinely insufficient, report the concise blocker in conversation instead of generating a gallery.",
+        "Every selectable apply-host option is rendered outside host source from a frozen real-host baseline, binds the target route plus screenshot/DOM/content artifact hashes, and consumes live-baseline data or a traceable captured host state. The same host source-tree hash must be recorded before and after option generation. Detached generic demos, invented content, and runtime/host-native implementations before user selection are forbidden.",
+        "Each option image is the future host surface itself, not a proposal card: no stage headings, rationale panels, palettes, device galleries, design vocabulary or non-host chrome. Navigation, primary task, business switch and real business content must all remain visibly represented; option labels live outside the captured host surface.",
+        "Every option binds the exact frozen brand-mod SHA-256 and carries brandSystemClosure proving source-brand token roles, frozen-package assets and an evidence-backed composition pattern coexist in the same rendered preview. Host business thumbnails remain content only and cannot satisfy source-brand identity/environment asset requirements.",
+        "For a visual-capable page, every option contains a source-backed dominant brand visual whose area follows the hostFirstImpression and heroDecision for this host; host result thumbnails cannot satisfy this alone.",
+        "Every option visibly expresses at least three of asset, composition, material, typography, motion and color, and uses a distinct asset-led visual narrative."
+        ,"Design-system mapping preserves the selected option as the visual acceptance target. DangoUI supplies behavior, semantics and stable APIs; tokens and stock component appearance are reused only where they fit, while style-only recipes, assets, slots and composition remain required for unsupported expression. Silent fallback to stock DangoUI appearance is forbidden."
+        ,"Every option declares visual center, primary action placement, content entry and result presentation; every pair differs in at least three landmarks.",
+        "A strong direction declares at least three coherent atmosphere layers such as environment, lighting, depth, texture or motion."
+        ,"Host form factor is detected before option generation. Phone-first hosts forbid persistent desktop side rails, primary content below 72% viewport width, touch targets below 44px and unintended horizontal overflow."
+        ,"Every mobile option records hostFirstImpression from real host evidence: task priority, information density, content flow, return frequency, first-action urgency and existing media slots. Hero height and business-content entry are case decisions derived from that classification, not universal numeric thresholds; implementation must preserve the recorded content-flow model and selected heroDecision."
+      ]
+    },
+    "miniAppNavigationPolicy": {
+      "requiredBeforeStyleChoice": true,
+      "modes": ["native-preserved", "custom-immersive", "custom-contained"],
+      "rule": "Inspect the target page navigation configuration before rendering options. A selected immersive composition may change that page to custom navigation; preserve and avoid the platform status area and native capsule instead of treating NavigationBar as an immutable host shell.",
+      "smokeChecks": ["safe-area offset is correct", "native capsule is unobstructed", "title, account and brand switch remain reachable", "tabs do not overlap navigation actions", "complex-background text remains readable", "narrow viewport does not overlap"]
+    },
+    "heroSceneIntegrity": {
+      "requiredForStrongVisualDirections": true,
+      "rule": "Use one coherent evidence-backed scene whose subject, environment, perspective, lighting and motion direction agree. Independent photos, transparent characters, cards and glow effects may not be stacked as a sticker collage merely because each asset has brand evidence.",
+      "failWhen": ["multiple unrelated focal subjects compete", "lighting or perspective conflicts", "brand assets read as pasted stickers", "UI obscures the scene focal point"]
+    },
     "stages": ["scope-and-style-choice", "first-viewport-implementation", "smoke-qa", "awaiting-user", "scoped-full-qa-or-release-certification"],
     "smokeChecks": ["target page loads", "selected brand direction is visibly applied", "page width equals viewport and first-level blocks do not overflow"],
     "roles": {
-      "hostStrategist": {"budgetSeconds": 60, "output": "host-scope.json plus style options", "mustNot": ["scan the full host by default", "relearn the brand", "produce a full coverage matrix for fast preview"]},
+      "hostStrategist": {"budgetSeconds": 60, "output": "host scope, first impression and visual opportunity", "mustNot": ["scan the full host by default", "relearn the brand", "produce a full coverage matrix for fast preview"]},
+      "brandApplicationDesigner": {"budgetSeconds": 120, "output": "two or three host-grounded previews plus brand-application-plan.json", "mustNot": ["edit host source before selection", "treat minimum token or asset counts as quality", "produce same-skeleton layout variants", "invent unsupported brand language"]},
       "hostImplementationAgent": {"budgetSeconds": 180, "output": "runnable first-viewport preview plus implementation receipt", "mustNot": ["edit routes, APIs, data or business copy", "modify out-of-scope pages", "start release certification"]},
       "visualQA": {"budgetSeconds": 60, "output": "preview-smoke-report.json", "mustNot": ["edit production code", "rerun learn-brand proof", "perform full-host QA before user approval"]}
     }
@@ -380,6 +414,7 @@
       "retry": {"maxAttempts": 2, "triggers": ["schema mismatch", "consumer probe missing"], "mayReturnTo": "designTranslator"}
     },
     "hostStrategist": {
+      "roleFile": "roles/host-strategist.md",
       "goal": "Decide where the learned visual language can safely land in a host product based on business job, page type, visual capacity, Atomic Design layer, asset slot, motion slot, and over-application risk.",
       "owns": ["host route and journey inventory", "host visual opportunity", "route-branch-state-family coverage", "showcase placement", "business purpose", "not-for boundaries"],
       "outputs": ["host-opportunity-map.json", "intent-plan.json", "visualPlacementPolicy", "host-coverage-matrix.json", "journey inventory", "deferred debt"],
@@ -394,8 +429,23 @@
       "mustNot": ["skip a parent entry while approving a child page", "equate KEEP with no design work", "use logo or palette alone as a high-capacity signal", "declare full-host completion", "invent a Hero or card treatment without a page-level business rationale", "use host coverage as two-pipeline progress"],
       "passCriteria": ["route and journey inventory is complete for frozen scope", "all matrix cells are dispositioned", "default entry and parent launch paths are covered"],
       "failCriteria": ["ROUTE_INVENTORY_INCOMPLETE", "DEFAULT_ENTRY_UNCOVERED", "PARENT_ROUTE_SKIPPED", "COMPONENT_FAMILY_VARIANT_MISSING", "KEEP_WITHOUT_ACCEPTANCE", "DEFER_WITHOUT_SCOPE_IMPACT"],
-      "handoff": {"to": "hostImplementationAgent", "include": ["frozen host coverage matrix", "journeys", "change budgets", "protected semantics"], "exclude": ["source page as implementation spec"]},
+      "handoff": {"to": "brandApplicationDesigner", "include": ["host first impression", "frozen business scope", "visual capacity", "change budgets", "protected semantics"], "exclude": ["source page as implementation spec"]},
       "retry": {"maxAttempts": 2, "triggers": ["coverage gap", "business scope conflict"], "mayReturnTo": ["designDirectorOrchestrator", "designTranslator"]}
+    },
+    "brandApplicationDesigner": {
+      "roleFile": "roles/brand-application-designer.md",
+      "goal": "Translate the frozen brand system into two or three visibly distinct, host-grounded application strategies that preserve real business content and prove correct use rather than mere presence of tokens and assets.",
+      "owns": ["brand application narrative", "asset role and crop", "token semantic placement", "composition mechanism", "host-content integration", "motion character", "preselection visual self-review"],
+      "outputs": ["brand-application-plan.json", "design-direction-options.json", "two or three host-grounded first-viewport images by default", "optional state storyboard only when interaction is direction-defining", "brandSystemClosure"],
+      "inputs": {"required": ["validated brand-mod.json", "brand-evidence.json", "brand-intent.json", "hostFirstImpression", "business-scope.json", "frozen host baseline"], "allowed": ["approved source assets", "DangoUI mapping and capability gaps", "host screenshots, DOM and real content"], "forbidden": ["host source mutation before selection", "unapproved brand assets", "invented business content", "DangoUI default appearance as the visual target"]},
+      "tasks": ["derive a host-specific brand narrative", "assign every high-salience asset and token a source-backed semantic role", "compose subject, environment, typography, controls and business content as one scene", "create structurally distinct options without changing business capabilities", "measure crop and first-viewport visual mass", "perform masked recognition and host-task self-review before presenting options"],
+      "requirements": ["source correctness, semantic correctness, composition correctness and rendered effectiveness are independent", "minimum token, asset and pattern counts only qualify an option for review and never establish quality", "host business thumbnails remain content rather than brand identity", "each option visibly integrates brand atmosphere and real host task instead of stacking a brand poster above a generic page", "the five-minute selection gate defaults to static target-viewport images and does not build HTML or host runtime unless interaction itself is direction-defining", "claims not visible in static evidence are marked not-evaluated or receive a state storyboard", "every option binds the exact brand mod and passes options-only Wild Design validation"],
+      "decisionRights": ["choose approved asset variants and crops", "choose host-appropriate visual narrative and composition", "reject a brand mechanism that conflicts with the host primary task", "request missing brand evidence"],
+      "mustNot": ["relearn the brand", "modify host production source", "reduce the work to palette substitution", "make three options share one composition skeleton", "use isolated stickers as a coherent scene", "claim quality from count thresholds"],
+      "passCriteria": ["validate-brand-application-plan.mjs passes", "options remain recognizable after names and logos are masked", "source semantics and composition relationships are traceable", "real host task and content enter the brand scene naturally", "options differ materially in narrative and composition", "brandSystemClosure and visual self-review pass"],
+      "failCriteria": ["TOKEN_ONLY_PREVIEW", "ASSET_DECORATION_ONLY", "HOST_ASSET_AS_BRAND_IDENTITY", "BRAND_POSTER_GENERIC_BODY_SPLIT", "SAME_SKELETON_VARIANTS", "MASKED_RECOGNITION_WEAK", "HOST_TASK_OBSCURED"],
+      "handoff": {"to": "designDirectorOrchestrator", "include": ["rendered options", "brand application plan", "closure evidence", "self-review"], "exclude": ["permission to implement before explicit user selection"]},
+      "retry": {"maxAttempts": 2, "triggers": ["options gate failure", "user rejects all options", "visual QA routes an application-quality failure"], "mayReturnTo": ["hostStrategist", "designTranslator", "brandResearcher"]}
     },
     "demoImplementationAgent": {
       "goal": "Build a brand-learning-capability-test that proves evidence-backed visual rules can generate distinct demo structures without mirroring a website, applying to a host, or disguising a branded asset template as learning.",
@@ -416,6 +466,7 @@
       "retry": {"maxAttempts": 2, "triggers": ["qa-blocking-finding"], "inputsOnRetry": ["goal-contract.json", "blocking findings", "evidence refs"]}
     },
     "hostImplementationAgent": {
+      "roleFile": "roles/host-implementation-agent.md",
       "goal": "Apply an already learned and independently validated brand language to a real host while preserving host routes, business content, data, component APIs, and core interactions.",
       "owns": ["selector-map", "host theme CSS", "host asset wiring", "host build and computed verification"],
       "outputs": ["selector-map.json", "host project preview URL", "computed verification result", "host implementation receipt"],
@@ -424,8 +475,8 @@
         "allowed": ["DangoUI schema", "host source and rendered DOM", "host business constraints", "host QA blocking findings"],
         "forbidden": ["source website composition as a host page specification", "permission to replace host business content", "learn-brand Demo as the host target"]
       },
-      "tasks": ["diagnose the host before editing", "implement every frozen host coverage cell", "map validated intent into approved host layers", "preserve business efficiency and component contracts", "verify matched rendered selectors and final computed cascade winners on the real host at desktop and mobile", "record CJK typography, real touch-target and semantic-color probes", "exercise declared journeys including Taro back-navigation and scroll restoration", "publish a fixed-port strict preview receipt"],
-      "requirements": ["consume the learned MOD and host strategy instead of relearning the website", "use the host project's own preview URL", "do not force showcase composition into low-capacity utility pages", "every coverage cell has implemented, kept or deferred receipt matching the frozen decision", "dispatch includes an orchestrator-authored preedit baseline bundle covering every route target; producer must block if it is missing and may not create or refresh it", "receipt revalidates baseline artifact hashes and every edited source runs structural diff against its own frozen baseline", "before receipt define host-theme-order/v1 and pass validate-host-theme-order.mjs: one shared theme entry imported once by a declared global application entry, never by lazy pages/routes/components", "theme loading cannot depend on unknown runtime style injection, !important, IDs, or selector weight above the contract ceiling; layered strategy is allowed only with one complete global layer-order declaration", "before receipt run validate-host-apply-gate.mjs with real rendered probes for root surface, primary control, representative card and active state", "each cascade probe records winning selector, source stylesheet, specificity, declaration source order, expected value and computed value", "CJK text uses a CJK-capable computed family and records weight, size, line-height and letter-spacing", "interactive controls measure the actual hit-test owner at no less than 44 by 44 CSS pixels unless approved", "when DangoUI runtime is unavailable mappingStatus is PARTIAL_STYLE_ONLY, runtime coverage is zero and coverage wording is conservative-application", "high-capacity placement freezes at least three material evidence-backed signals spanning three distinctiveness dimensions; small signatures, logos, names and micro-icons do not count"],
+      "tasks": ["diagnose the host before editing", "implement every frozen host coverage cell", "map validated intent into approved host layers", "preserve business efficiency and component contracts", "verify matched rendered selectors and final computed cascade winners on the real host at desktop and mobile", "validate every high-salience mobile raster with validate-mobile-raster-resolution.mjs before device preview", "record CJK typography, real touch-target and semantic-color probes", "exercise declared journeys including Taro back-navigation and scroll restoration", "publish a fixed-port strict preview receipt"],
+      "requirements": ["consume the learned MOD and host strategy instead of relearning the website", "use the host project's own preview URL", "do not force showcase composition into low-capacity utility pages", "mobile Hero and other full-width high-salience raster assets have a native source width of at least 1440 pixels; upscaling a smaller source does not pass, and simulator appearance cannot substitute for this asset gate", "every coverage cell has implemented, kept or deferred receipt matching the frozen decision", "dispatch includes an orchestrator-authored preedit baseline bundle covering every route target; producer must block if it is missing and may not create or refresh it", "receipt revalidates baseline artifact hashes and every edited source runs structural diff against its own frozen baseline", "before receipt define host-theme-order/v1 and pass validate-host-theme-order.mjs: one shared theme entry imported once by a declared global application entry, never by lazy pages/routes/components", "theme loading cannot depend on unknown runtime style injection, !important, IDs, or selector weight above the contract ceiling; layered strategy is allowed only with one complete global layer-order declaration", "before receipt run validate-host-apply-gate.mjs with real rendered probes for root surface, primary control, representative card and active state", "each cascade probe records winning selector, source stylesheet, specificity, declaration source order, expected value and computed value", "CJK text uses a CJK-capable computed family and records weight, size, line-height and letter-spacing", "interactive controls measure the actual hit-test owner at no less than 44 by 44 CSS pixels unless approved", "when DangoUI runtime is unavailable mappingStatus is PARTIAL_STYLE_ONLY, runtime coverage is zero and coverage wording is conservative-application", "high-capacity placement freezes at least three material evidence-backed signals spanning three distinctiveness dimensions; small signatures, logos, names and micro-icons do not count"],
       "decisionRights": ["choose implementation code within the frozen matrix", "add semantic styling hooks that pass structural diff", "report framework risk or unsupported capability"],
       "mustNot": ["modify learn-brand evidence or fidelity artifacts", "treat host adaptation as proof that the brand was learned", "replace host routes, data, content, or APIs without explicit authorization", "use a global CSS fallback to hide uncovered DOM variants", "treat selector match as visible completion", "claim full-host completion from a journey or family slice", "use source classes or stylesheet presence as a substitute for rendered cascade proof", "claim complete DangoUI mapping without a verified runtime consumer", "pass high capacity using only generic black, white, warm neutral, hard border or archive mood", "create, refresh or self-attest a structural baseline after receiving dispatch or editing a target file"],
       "passCriteria": ["host coverage matrix validator passes for the declared scope", "default entry and parent launch paths are reachable", "all required journeys and interactions pass with restoration", "build and fixed preview health pass", "fresh Visual QA accepts the rendered result"],
@@ -434,6 +485,7 @@
       "retry": {"maxAttempts": 2, "triggers": ["qa blocking finding"], "inputsOnRetry": ["frozen matrix", "blocking findings", "evidence refs"], "requiresFreshQa": true}
     },
     "visualQA": {
+      "roleFiles": {"learn-brand": "roles/blind-qa-tpp.md", "apply-host": "roles/host-visual-qa.md"},
       "goal": "Review the rendered result as a user-facing product, not just a passing build.",
       "owns": ["visual fidelity", "over-application", "readability", "scrolling", "interaction contract", "asset loading"],
       "outputs": ["visual-qa-assessment.json", "visual-comparison-report.json", "brand-distinctiveness-assessment.json", "fidelity-report.json", "mockup-state-matrix.json", "three-proof verdict"],
@@ -711,8 +763,39 @@
         "Evidence Fidelity, Structural Fidelity, and Generative Proof must all pass independently; no aggregate score can compensate for a failed proof."
       ]
     },
+    "design-host": {
+      "goal": "Decide how an existing learned visual language should serve a real host, produce static host-grounded directions, and freeze one approved visual target without modifying host source.",
+      "inputs": {
+        "requiredOneOf": ["brandKey", "sourceUrl", "stylePack"],
+        "required": ["hostTargetOrPlan"]
+      },
+      "steps": [
+        {"id": "route-intake", "role": "router", "label": "Resolve brand package, host target and read-only design scope", "required": true, "outputs": ["workflow-mode", "resolved-inputs", "registry-resolution"]},
+        {"id": "load-existing-mod", "role": "router", "label": "Load the frozen Brand MOD, evidence, intent and approved patterns without relearning", "required": true, "outputs": ["brand-mod.json", "brand-evidence.json", "brand-intent.json"]},
+        {"id": "diagnose-host", "role": "hostStrategist", "label": "Freeze host entry, viewport, real content baseline, primary task and protected behavior", "required": true, "outputs": ["business-scope.json", "host baseline", "host-opportunity-map.json"]},
+        {"id": "assess-host-visual-capacity", "role": "hostStrategist", "label": "Classify host capacity, Atomic layers, asset/material/motion slots and over-application risk", "required": true, "blocking": true, "outputs": ["intent-plan.json", "visualPlacementPolicy"]},
+        {"id": "freeze-concept-assets", "role": "brandApplicationDesigner", "label": "Classify concept inputs as evidence-source, derived-approved, generated-proposal or host-business and block provenance leakage before image generation", "required": true, "blocking": true, "outputs": ["concept-asset-manifest.json"]},
+        {"id": "compose-directions", "role": "brandApplicationDesigner", "label": "Compose two or three static host-grounded concept images only from provenance-approved tokens, assets and patterns", "required": true, "blocking": true, "outputs": ["brand-application-plan.json", "design-direction-options.json", "static concept images"]},
+        {"id": "map-implementability", "role": "brandApplicationDesigner", "label": "Map each concept feature to tokens, official assets, DangoUI capability, CSS/motion or an explicit downgrade", "required": true, "blocking": true, "outputs": ["implementability-map.json"]},
+        {"id": "render-lightweight-h5", "role": "brandApplicationDesigner", "label": "Render lightweight isolated H5 candidates for the strongest concepts without modifying host source", "required": true, "blocking": true, "outputs": ["H5 direction previews", "static H5 preview images"]},
+        {"id": "validate-visual-retention", "role": "designDirectorOrchestrator", "label": "Require at least five of seven retained dimensions including composition, core assets and brand material", "required": true, "blocking": true, "outputs": ["visual-retention-report.json"]},
+        {"id": "await-direction-decision", "role": "designDirectorOrchestrator", "label": "Pause for explicit selection and freeze the single implementation target", "required": true, "blocking": true, "outputs": ["design-direction-decision.json", "design-direction.json"]},
+        {"id": "freeze-host-structural-baselines", "role": "designDirectorOrchestrator", "label": "Freeze pre-edit structural targets and baseline bundle after direction approval", "required": true, "blocking": true, "outputs": ["structural-targets.json", "preedit-baseline-bundle.json"]}
+      ],
+      "outputs": ["host-opportunity-map.json", "business-scope.json", "brand-application-plan.json", "design-direction-options.json", "design-direction-decision.json", "design-direction.json", "preedit-baseline-bundle.json"],
+      "boundaries": [
+        "Do not modify, compile or inject host source.",
+        "Do not relearn the brand or invent missing assets.",
+        "generated-proposal assets never define brand identity, enter Brand MOD or participate in formal visual-retention scoring; only evidence-source and explicitly approved derived assets may do so.",
+        "Assets rejected by the provenance gate remain internal JSON audit records only; user-facing images, contact sheets, H5 previews and reports must not load, thumbnail or transform them.",
+        "Do not implement before an explicit user direction decision.",
+        "Direction images use the real host task, content, route and viewport but remain isolated static artifacts.",
+        "HTML/CSS may be used only as an internal rendering canvas; user-facing selection receives separate static images plus an optional static contact sheet, never the internal H5 surface.",
+        "Every selectable and held-out cross-brand result must remain visible in the delivered contact sheet; horizontal overflow or off-canvas placement is a delivery failure."
+      ]
+    },
     "apply-host": {
-      "goal": "Apply an existing learned visual language into a real host project while preserving host business logic and content.",
+      "goal": "Mechanically implement one frozen design-host direction in the real host runtime while preserving host business logic and content.",
       "inputs": {
         "requiredOneOf": ["brandKey", "sourceUrl", "stylePack"],
         "required": ["hostTargetOrPlan"]
@@ -733,37 +816,12 @@
           "outputs": ["brand-mod.json", "brand-evidence.json", "brand-intent.json"]
         },
         {
-          "id": "diagnose-host",
-          "role": "hostImplementationAgent",
-          "label": "Read-only diagnosis of host entry, real selector map, visual debt, and current token/component consumption",
-          "required": true,
-          "outputs": ["selector-map.json", "host visual debt report"]
-        },
-        {
-          "id": "assess-host-visual-capacity",
-          "role": "hostStrategist",
-          "label": "Classify host page type, visual capacity, Atomic Design layers, asset slots, motion slots, and showcase fit before editing",
+          "id": "verify-frozen-design",
+          "role": "router",
+          "label": "Validate the approved design-host plan, decision, direction hashes and pre-edit baseline; return invalid design artifacts to design-host",
           "required": true,
           "blocking": true,
-          "outputs": ["host-opportunity-map.json", "intent-plan.json", "visualPlacementPolicy"]
-        },
-        {
-          "id": "wild-design-selection",
-          "role": "designDirectorOrchestrator",
-          "label": "Show two or three visual directions for the same business scope, declare token/component/asset/composition consumption per option, and bind the user's choice before implementation",
-          "required": true,
-          "blocking": true,
-          "outputs": ["design-direction-options.json", "design-direction-decision.json"],
-          "gates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>"]
-        },
-        {
-          "id": "freeze-host-structural-baselines",
-          "role": "designDirectorOrchestrator",
-          "label": "Freeze a pre-edit structural baseline for every route target after opportunity-map approval and before Host Implementation dispatch",
-          "required": true,
-          "blocking": true,
-          "outputs": ["structural-targets.json", "structural-baselines/*.json", "preedit-baseline-bundle.json"],
-          "gates": ["node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase dispatch"]
+          "outputs": ["frozen design intake receipt"]
         },
         {
           "id": "map-to-dangoui",
@@ -778,7 +836,7 @@
           "label": "Apply and verify preview in host project",
           "required": true,
           "outputs": ["host project preview URL", "rendered cascade proof", "host structural manifest/result", "host implementation receipt"],
-          "producerGates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt", "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"]
+          "producerGates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt", "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"]
         },
         {
           "id": "preview-smoke-qa",
@@ -803,7 +861,7 @@
           "required": true,
           "outputs": ["visual-qa-report.json", "brand-distinctiveness-assessment.json", "p0-acceptance report"],
           "readOnly": true,
-          "gates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>", "node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>", "node skills/brand/scripts/validate-host-apply-gate.mjs --receipt <receipt> --capability-audit <audit> --plan <intent-plan> --qa <visual-qa-report.json> --distinctiveness <brand-distinctiveness-result.json> --capability-gaps <dangoui-capability-gaps.json> --wild-options <design-direction-options.json> --wild-decision <design-direction-decision.json> --wild-business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --design-direction <design-direction.json>"],
+          "gates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>", "node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>", "node skills/brand/scripts/validate-host-apply-gate.mjs --receipt <receipt> --capability-audit <audit> --plan <intent-plan> --qa <visual-qa-report.json> --distinctiveness <brand-distinctiveness-result.json> --capability-gaps <dangoui-capability-gaps.json> --wild-options <design-direction-options.json> --wild-decision <design-direction-decision.json> --wild-business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>"],
           "onFail": {"required": ["blockingFindings", "failureOwnerRole=<earliest-real-owner>"], "next": "return to Evidence, Interpreter/Design Director, or Host Implementation according to cause; then fresh Visual QA"},
           "externalOptional": ["gstack-style design review"]
         },
@@ -825,6 +883,8 @@
       "boundaries": [
         "Preserve host route, business content, and component API unless user explicitly asks otherwise.",
         "Do not create a new brand route by default.",
+        "Do not generate style options, select assets, redesign composition or repair missing brand evidence inside apply-host.",
+        "Invalid or incomplete direction artifacts return to design-host; missing brand-system evidence returns to learn-brand.",
         "Final preview URL must be the host project URL, not the demo URL.",
         "Do not inject showcase moments into low-capacity utility/list/form pages without an explicit business purpose and visualPlacementPolicy.",
         "External orchestration may advise review, but Brand gates decide PASS/PARTIAL/FAIL.",

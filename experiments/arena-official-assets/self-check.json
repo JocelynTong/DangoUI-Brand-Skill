@@ -1,0 +1,36 @@
+{
+  "schema": "arena-official-assets-self-check/v1",
+  "status": "PASS_CANDIDATE",
+  "reviewedRenders": [
+    {"path": "screenshots/mobile-390.png", "viewport": [390, 844]},
+    {"path": "screenshots/desktop-1440.png", "viewport": [1440, 900]}
+  ],
+  "checks": {
+    "isolatedCharacter": {
+      "status": "PASS",
+      "acceptance": "Pikachu must read as part of an ensemble and arena system; no lone transparent mascot over an empty field.",
+      "evidence": "Pikachu, Mew, and Mewtwo are contained in one official raster with shared perspective; the broadcast ribbon contains four human competitors; two cards form the collectible foreground."
+    },
+    "lightingConflict": {
+      "status": "PASS_WITH_NOTE",
+      "acceptance": "All newly composed foreground objects need a shared lower-stage anchor; the Championships photo must read as a screen/ribbon, not the same camera space.",
+      "evidence": "The character ensemble stays within its original light system. Both cards share one lower stage baseline and added drop-shadow direction. The Championships image is bounded by an angled blue frame, ARENA FEED label, and color veil, so it reads as a screen rather than a competing scene.",
+      "note": "The two card illustrations have their own printed artwork lighting; this is acceptable because they are readable as physical card surfaces, not live characters in the arena."
+    },
+    "brandWeakening": {
+      "status": "PASS",
+      "acceptance": "At least three non-text Pokémon TCG signals remain visible after removing the logo: ensemble art, authentic cards, and official Championships environment.",
+      "evidence": "Blind signals are the three-character official art, two authentic full cards, Championships venue graphics, and the red/blue battle-floor rings. The logo is reinforcement, not the only identifier."
+    },
+    "informationHierarchy": {
+      "status": "PASS",
+      "evidence": "Navigation and HUD are subordinate; headline owns the first read, ensemble owns the second, cards/broadcast create lower-stage narrative, and CTA closes the path."
+    },
+    "assetPolicy": {
+      "status": "PASS_FOR_EXPERIMENT",
+      "evidence": "All raster and font assets resolve to persisted repository files declared in asset-manifest.json. No generated arena image and no source screenshot are used.",
+      "scopeRisk": "This is a host-direction experiment, not a claim that the combination itself is an approved source-site pattern. Final adoption still needs parent apply-host review."
+    }
+  },
+  "verdict": "This is materially closer to the requested A-style arena atmosphere than the current empty-arena plus lone-Pikachu implementation. It should be tested as the official-assets control line before generating any new hero raster."
+}

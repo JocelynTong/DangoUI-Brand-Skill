@@ -2,13 +2,149 @@
   "schema": "dangoui-adapter/v0.2",
   "brand": "pokemon-tcg-official",
   "mode": "evidence-first-partial-runtime",
-  "catalog": {"file":"skills/brand/references/dangoui.design-system.json","package":"dangoui","version":"3.6.16"},
+  "catalog": {
+    "file": "skills/brand/references/dangoui.design-system.json",
+    "package": "dangoui",
+    "version": "3.6.16"
+  },
   "tokenMappings": [
-    {"sourceToken":"mapped.du-bg-1","sourceValue":"#FFFFFF","targetToken":"--du-bg-1","targetExists":true,"mappingType":"mapped","evidenceRefs":["site-evidence:topColors:#FFFFFF"],"allowedRoles":["light content surface","input surface"],"forbiddenRoles":["campaign stage"],"consumerLocations":[".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official", ".pokemon-db__title-plate"],"computedVerification":"runtime-probe.json: --du-bg-1=#fff on all six Pokémon surfaces; .pokemon-db__title-plate consumes rgb(255,255,255).","status":"runtime-consumed"},
-    {"sourceToken":"mapped.du-bg-2","sourceValue":"#EDEDED","targetToken":"--du-bg-2","targetExists":true,"mappingType":"mapped","evidenceRefs":["site-evidence:roleEvidence.unknown:.content-bg--flat"],"allowedRoles":["restrained page surface","title surface"],"forbiddenRoles":["campaign stage","card surface"],"consumerLocations":[".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official", ".pokemon-db"],"computedVerification":"runtime-probe.json: --du-bg-2=#ededed and database background=rgb(237,237,237).","status":"runtime-consumed"},
-    {"sourceToken":"mapped.du-text-1","sourceValue":"#131415","targetToken":"--du-text-1","targetExists":true,"mappingType":"mapped","evidenceRefs":["site-evidence:roleEvidence.token:--color-black"],"allowedRoles":["primary text on light surfaces"],"forbiddenRoles":["text on dark campaign media"],"consumerLocations":[".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official", ".pokemon-db__title-plate h1"],"computedVerification":"mapping-runtime/runtime-probe.json: all six Pokémon surfaces declare --du-text-1=#131415; .pokemon-db__title-plate h1 computes rgb(19,20,21) on rgb(255,255,255).","status":"runtime-consumed"},
-    {"sourceToken":"mapped.du-text-2","sourceValue":"#494949","targetToken":"--du-text-2","targetExists":true,"mappingType":"mapped","evidenceRefs":["site-evidence:roleEvidence.navigation:.main-nav"],"allowedRoles":["secondary neutral copy"],"forbiddenRoles":["primary copy","active accent"],"consumerLocations":[".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official", ".pokemon-db__empty"],"computedVerification":"runtime-probe.json: --du-text-2=#494949 on all six Pokémon surfaces; empty-state copy consumes it.","status":"runtime-consumed"},
-    {"sourceToken":"styleOnly.style-font-database","sourceValue":"Flexo-Regular, arial, sans-serif","targetToken":"--style-font-database","targetExists":false,"mappingType":"style-only","evidenceRefs":["card-db-search-state"],"allowedRoles":["database labels","database controls"],"forbiddenRoles":["home campaign","global typography"],"consumerLocations":[".pokemon-db"],"computedVerification":"runtime-probe.json: .pokemon-db declares and consumes Flexo-Regular, Arial, sans-serif; foreign themes expose no token.","status":"runtime-consumed"},
-    {"sourceToken":"styleOnly.style-database-results-texture","sourceValue":"url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)","targetToken":"--style-database-results-texture","targetExists":false,"mappingType":"style-only","evidenceRefs":["card-db-results"],"allowedRoles":["database results mosaic"],"forbiddenRoles":["campaign hero","learning field","global background"],"consumerLocations":[".pokemon-db__results"],"computedVerification":"runtime-probe.json: search-results state declares and consumes content_bg.png; foreign themes expose no token.","status":"runtime-consumed"}
+    {
+      "sourceToken": "mapped.du-bg-1",
+      "sourceValue": "#FFFFFF",
+      "targetToken": "--du-bg-1",
+      "targetExists": true,
+      "mappingType": "mapped",
+      "evidenceRefs": [
+        "site-evidence:topColors:#FFFFFF"
+      ],
+      "allowedRoles": [
+        "light content surface",
+        "input surface"
+      ],
+      "forbiddenRoles": [
+        "campaign stage"
+      ],
+      "consumerLocations": [
+        ".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official",
+        ".pokemon-db__title-plate"
+      ],
+      "computedVerification": "runtime-probe.json: --du-bg-1=#fff on all six Pokémon surfaces; .pokemon-db__title-plate consumes rgb(255,255,255).",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "mapped.du-bg-2",
+      "sourceValue": "#EDEDED",
+      "targetToken": "--du-bg-2",
+      "targetExists": true,
+      "mappingType": "mapped",
+      "evidenceRefs": [
+        "site-evidence:roleEvidence.unknown:.content-bg--flat"
+      ],
+      "allowedRoles": [
+        "restrained page surface",
+        "title surface"
+      ],
+      "forbiddenRoles": [
+        "campaign stage",
+        "card surface"
+      ],
+      "consumerLocations": [
+        ".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official",
+        ".pokemon-db"
+      ],
+      "computedVerification": "runtime-probe.json: --du-bg-2=#ededed and database background=rgb(237,237,237).",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "mapped.du-text-1",
+      "sourceValue": "#131415",
+      "targetToken": "--du-text-1",
+      "targetExists": true,
+      "mappingType": "mapped",
+      "evidenceRefs": [
+        "site-evidence:roleEvidence.token:--color-black"
+      ],
+      "allowedRoles": [
+        "primary text on light surfaces"
+      ],
+      "forbiddenRoles": [
+        "text on dark campaign media"
+      ],
+      "consumerLocations": [
+        ".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official",
+        ".pokemon-db__title-plate h1"
+      ],
+      "computedVerification": "mapping-runtime/runtime-probe.json: all six Pokémon surfaces declare --du-text-1=#131415; .pokemon-db__title-plate h1 computes rgb(19,20,21) on rgb(255,255,255).",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "mapped.du-text-2",
+      "sourceValue": "#494949",
+      "targetToken": "--du-text-2",
+      "targetExists": true,
+      "mappingType": "mapped",
+      "evidenceRefs": [
+        "site-evidence:roleEvidence.navigation:.main-nav"
+      ],
+      "allowedRoles": [
+        "secondary neutral copy"
+      ],
+      "forbiddenRoles": [
+        "primary copy",
+        "active accent"
+      ],
+      "consumerLocations": [
+        ".theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official",
+        ".pokemon-db__empty"
+      ],
+      "computedVerification": "runtime-probe.json: --du-text-2=#494949 on all six Pokémon surfaces; empty-state copy consumes it.",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "styleOnly.style-font-database",
+      "sourceValue": "Flexo-Regular, arial, sans-serif",
+      "targetToken": "--style-font-database",
+      "targetExists": false,
+      "mappingType": "style-only",
+      "evidenceRefs": [
+        "card-db-search-state"
+      ],
+      "allowedRoles": [
+        "database labels",
+        "database controls"
+      ],
+      "forbiddenRoles": [
+        "home campaign",
+        "global typography"
+      ],
+      "consumerLocations": [
+        ".pokemon-db"
+      ],
+      "computedVerification": "runtime-probe.json: .pokemon-db declares and consumes Flexo-Regular, Arial, sans-serif; foreign themes expose no token.",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "styleOnly.style-database-results-texture",
+      "sourceValue": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)",
+      "targetToken": "--style-database-results-texture",
+      "targetExists": false,
+      "mappingType": "style-only",
+      "evidenceRefs": [
+        "card-db-results"
+      ],
+      "allowedRoles": [
+        "database results mosaic"
+      ],
+      "forbiddenRoles": [
+        "campaign hero",
+        "learning field",
+        "global background"
+      ],
+      "consumerLocations": [
+        ".pokemon-db__results"
+      ],
+      "computedVerification": "runtime-probe.json: search-results state declares and consumes content_bg.png; foreign themes expose no token.",
+      "status": "runtime-consumed"
+    }
   ]
 }

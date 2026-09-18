@@ -9,209 +9,1502 @@
     "thirdPartyEvidence": "Dembrandt values remain seed-only and do not establish semantic color or action roles."
   },
   "mustPreserveMappings": [
-    {"mustPreserveId":"hero-composition","patternIds":["campaign-hero-stage","home-seven-variant-hero-system"]},
-    {"mustPreserveId":"news-editorial-hierarchy","patternIds":["editorial-module-rhythm"]},
-    {"mustPreserveId":"product-density","patternIds":["product-first-catalog-density"]},
-    {"mustPreserveId":"events-editorial-hierarchy","patternIds":["editorial-module-rhythm"]},
-    {"mustPreserveId":"role-color-system","patternIds":["nautical-story-surface","hard-black-unboxed-heading","black-white-taxonomy-control","top-header-menu-open-indicator"]}
+    {
+      "mustPreserveId": "hero-composition",
+      "patternIds": [
+        "campaign-hero-stage",
+        "home-seven-variant-hero-system"
+      ]
+    },
+    {
+      "mustPreserveId": "news-editorial-hierarchy",
+      "patternIds": [
+        "editorial-module-rhythm"
+      ]
+    },
+    {
+      "mustPreserveId": "product-density",
+      "patternIds": [
+        "product-first-catalog-density"
+      ]
+    },
+    {
+      "mustPreserveId": "events-editorial-hierarchy",
+      "patternIds": [
+        "editorial-module-rhythm"
+      ]
+    },
+    {
+      "mustPreserveId": "role-color-system",
+      "patternIds": [
+        "nautical-story-surface",
+        "hard-black-unboxed-heading",
+        "black-white-taxonomy-control",
+        "top-header-menu-open-indicator"
+      ]
+    }
   ],
   "patterns": [
     {
-      "id":"home-seven-variant-hero-system","status":"approved","scope":"Home desktop hero carousel only","salience":"high","kind":"composition-asset-system","preserves":["hero-composition"],"implementationPatternIds":["home-seven-variant-hero"],
-      "observedFact":"The accepted Home carousel-cycle claim and rendered inventory establish seven desktop hero variants: ST31, ST32, ST33, ST34, ST35, ST36 and one independent mv.webp campaign; the initial capture has ST36 active.",
-      "interpretation":"Carousel-system identity and active-frame identity are separate. Each slide is a fixed artwork variant, not a recolorable template, and slide colors do not establish shared chrome.",
-      "recommendation":"Implement seven stable identities and assess system fidelity separately from ST36 active-frame fidelity.",
-      "meaning":"One full-viewport campaign at a time rotates through a bounded official set.",
-      "suitableFor":["Home desktop campaign carousel"],"notFor":["global wallpaper","generic banner","global color tokens"],
-      "allowedTransformations":["viewport-proportional scaling","bounded focal crop","matching desktop-to-mobile sibling substitution only"],
-      "evidenceRefs":[{"evidenceId":"home-hero-carousel-full-cycle","sourcePageId":"home","sourceRegion":[0,0,1,0.105],"capture":"output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"},{"evidenceId":"v4-home-hero-composition","sourcePageId":"home","sourceRegion":[0,0,1,1],"capture":"output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png"}],
-      "informationDensity":{"mode":"one-campaign-per-viewport","systemVariantCount":7},
-      "compositionContract":{"sourceAsset":{"identity":"official-st36-home-campaign","variant":"st36-yellow-captain-kid","activeVariant":"st36","activeIdentity":"STARTER DECK -Yellow Eustass Captain Kid- [ST-36]","titleAsset":{"sourceUrl":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/6t1eEHjI5TzLJ4uy/st36_logo_jp.webp","requiredIdentity":"st36","forbiddenIdentity":"st32","role":"campaign-title-copy"},"productAsset":{"localPath":"/assets/brand-assets/onepiece-cardgame/source/product-st36.webp","requiredIdentity":"st36","role":"featured-product-media"}},"variants":[
-        {"id":"st31","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/hZSHu19IBbka6MYl/st31_mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/Bae1SnNknrszaTfX/st31_mv_sp.webp"},
-        {"id":"st32","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/jo3RRrqUeatmAZEU/st32_mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/2VwFKS3XqvORy6r0/st32_mv_sp.webp"},
-        {"id":"st33","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/J8kLcpMwlHfAYE57/st33_mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/giPAQMLyFaPC6tEi/st33_mv_sp.webp"},
-        {"id":"st34","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/Nzt3fu5X77ECIsVX/st34_mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/hW1RHxe7Vb21T3xK/st34_mv_sp.webp"},
-        {"id":"st35","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/pfeovNM8BZiPn1mB/st35_mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/iPTA1rzuG5sohwtI/st35_mv_sp.webp"},
-        {"id":"st36","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/ErcHcnq2S84pIhCz/st36_mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/uKxvnfPrG1gmaVjH/st36_mv_sp.webp"},
-        {"id":"independent-mv","desktop":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/fsIAlbTmSh7C45aU/mv.webp","mobile":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/sVVIyc0FsV7foFwX/mv_sp.webp"}],
-        "requiredLayers":[{"id":"top-navigation","role":"transparent-overlay-navigation","sourceRegion":[0.08,0.01,0.84,0.07]},{"id":"campaign-media","role":"campaign-artwork-and-featured-product-media","sourceRegion":[0.23,0.07,0.75,0.81]},{"id":"campaign-copy","role":"st36-campaign-title-copy-and-date","sourceRegion":[0.03,0.25,0.34,0.58]},{"id":"carousel-controls","role":"variant-navigation-and-playback-control","sourceRegion":[0.02,0.88,0.96,0.11]}],
-        "forbiddenSubstitutions":["merge slides into recolorable template","mobile asset claimed as desktop variant","derive global color roles from artwork","source screenshot as runtime asset"]}
+      "id": "home-seven-variant-hero-system",
+      "status": "approved",
+      "scope": "Home desktop hero carousel only",
+      "salience": "high",
+      "kind": "composition-asset-system",
+      "preserves": [
+        "hero-composition"
+      ],
+      "implementationPatternIds": [
+        "home-seven-variant-hero"
+      ],
+      "observedFact": "The accepted Home carousel-cycle claim and rendered inventory establish seven desktop hero variants: ST31, ST32, ST33, ST34, ST35, ST36 and one independent mv.webp campaign; the initial capture has ST36 active.",
+      "interpretation": "Carousel-system identity and active-frame identity are separate. Each slide is a fixed artwork variant, not a recolorable template, and slide colors do not establish shared chrome.",
+      "recommendation": "Implement seven stable identities and assess system fidelity separately from ST36 active-frame fidelity.",
+      "meaning": "One full-viewport campaign at a time rotates through a bounded official set.",
+      "suitableFor": [
+        "Home desktop campaign carousel"
+      ],
+      "notFor": [
+        "global wallpaper",
+        "generic banner",
+        "global color tokens"
+      ],
+      "allowedTransformations": [
+        "viewport-proportional scaling",
+        "bounded focal crop",
+        "matching desktop-to-mobile sibling substitution only"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-hero-carousel-full-cycle",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.105
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        },
+        {
+          "evidenceId": "v4-home-hero-composition",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home/frame-000.png"
+        }
+      ],
+      "informationDensity": {
+        "mode": "one-campaign-per-viewport",
+        "systemVariantCount": 7
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "official-st36-home-campaign",
+          "variant": "st36-yellow-captain-kid",
+          "activeVariant": "st36",
+          "activeIdentity": "STARTER DECK -Yellow Eustass Captain Kid- [ST-36]",
+          "titleAsset": {
+            "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/6t1eEHjI5TzLJ4uy/st36_logo_jp.webp",
+            "requiredIdentity": "st36",
+            "forbiddenIdentity": "st32",
+            "role": "campaign-title-copy"
+          },
+          "productAsset": {
+            "localPath": "/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+            "requiredIdentity": "st36",
+            "role": "featured-product-media"
+          }
+        },
+        "variants": [
+          {
+            "id": "st31",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/hZSHu19IBbka6MYl/st31_mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/Bae1SnNknrszaTfX/st31_mv_sp.webp"
+          },
+          {
+            "id": "st32",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/jo3RRrqUeatmAZEU/st32_mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/2VwFKS3XqvORy6r0/st32_mv_sp.webp"
+          },
+          {
+            "id": "st33",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/J8kLcpMwlHfAYE57/st33_mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/giPAQMLyFaPC6tEi/st33_mv_sp.webp"
+          },
+          {
+            "id": "st34",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/Nzt3fu5X77ECIsVX/st34_mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/hW1RHxe7Vb21T3xK/st34_mv_sp.webp"
+          },
+          {
+            "id": "st35",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/pfeovNM8BZiPn1mB/st35_mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/iPTA1rzuG5sohwtI/st35_mv_sp.webp"
+          },
+          {
+            "id": "st36",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/ErcHcnq2S84pIhCz/st36_mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/uKxvnfPrG1gmaVjH/st36_mv_sp.webp"
+          },
+          {
+            "id": "independent-mv",
+            "desktop": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/fsIAlbTmSh7C45aU/mv.webp",
+            "mobile": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/08/06/sVVIyc0FsV7foFwX/mv_sp.webp"
+          }
+        ],
+        "requiredLayers": [
+          {
+            "id": "top-navigation",
+            "role": "transparent-overlay-navigation",
+            "sourceRegion": [
+              0.08,
+              0.01,
+              0.84,
+              0.07
+            ]
+          },
+          {
+            "id": "campaign-media",
+            "role": "campaign-artwork-and-featured-product-media",
+            "sourceRegion": [
+              0.23,
+              0.07,
+              0.75,
+              0.81
+            ]
+          },
+          {
+            "id": "campaign-copy",
+            "role": "st36-campaign-title-copy-and-date",
+            "sourceRegion": [
+              0.03,
+              0.25,
+              0.34,
+              0.58
+            ]
+          },
+          {
+            "id": "carousel-controls",
+            "role": "variant-navigation-and-playback-control",
+            "sourceRegion": [
+              0.02,
+              0.88,
+              0.96,
+              0.11
+            ]
+          }
+        ],
+        "forbiddenSubstitutions": [
+          "merge slides into recolorable template",
+          "mobile asset claimed as desktop variant",
+          "derive global color roles from artwork",
+          "source screenshot as runtime asset"
+        ]
+      }
     },
     {
-      "id":"campaign-hero-stage","status":"approved","scope":"home hero only","salience":"high","kind":"composition","preserves":["hero-composition"],
-      "observedFact":"The frozen home capture shows the yellow STARTER DECK -Yellow Eustass Captain Kid- [ST-36] desktop campaign variant as the active viewport-filling frame. Navigation, ST-36 product/campaign copy, Eustass Kid and his weapon, lower notices, a right-side promotion and carousel controls share that one composition.",
-      "interpretation":"For this source-fidelity target, campaign identity is the captured yellow Eustass Kid ST-36 desktop variant plus its relative layer hierarchy; a different official campaign such as a green Zoro variant may share a carousel system but is not the same asset identity or variant. Yellow remains artwork-internal color, not reusable chrome.",
-      "recommendation":"Preserve the frozen yellow Eustass Kid ST-36 desktop identity and layer hierarchy when claiming a match to this evidence. A different official campaign may be used only as an explicitly labelled generative campaign substitution; it must never be reported as an identity/variant match to the frozen source.",
-      "meaning":"A single dominant campaign stage carries launch and event narrative.",
-      "suitableFor":["home campaign landing","single featured product campaign"],
-      "notFor":["global page background","generic card chrome","dense catalog","routine form"],
-      "allowedTransformations":["viewport-proportional scaling","authorized bounded crop retaining product, copy and character focal points"],
-      "campaignAssetTranslationPolicy":{
-        "sourceFidelity":{"requiredIdentity":"yellow-eustass-captain-kid-st36-campaign","requiredVariant":"desktop-st36_mv-rendered-active","assetSubstitutionAllowed":false,"rule":"A different character, deck, campaign, colorway, mobile variant or carousel slide cannot satisfy the frozen hero-composition source-fidelity claim."},
-        "mayTranslate":{
-          "allowedOnlyFor":["generative proof explicitly testing the campaign-stage system","a separately declared campaign variant whose changed identity is part of the held-out content change"],
-          "requiredDisclosure":{"identityMatch":false,"variantMatch":false,"translationType":"campaign-asset-substitution"},
-          "stillRequired":["independently reconstruct the approved layer hierarchy","record the substitute asset's own source identity and variant","do not use the substitution to pass the frozen source-fidelity or hero-composition mustPreserve check"]
+      "id": "campaign-hero-stage",
+      "status": "approved",
+      "scope": "home hero only",
+      "salience": "high",
+      "kind": "composition",
+      "preserves": [
+        "hero-composition"
+      ],
+      "observedFact": "The frozen home capture shows the yellow STARTER DECK -Yellow Eustass Captain Kid- [ST-36] desktop campaign variant as the active viewport-filling frame. Navigation, ST-36 product/campaign copy, Eustass Kid and his weapon, lower notices, a right-side promotion and carousel controls share that one composition.",
+      "interpretation": "For this source-fidelity target, campaign identity is the captured yellow Eustass Kid ST-36 desktop variant plus its relative layer hierarchy; a different official campaign such as a green Zoro variant may share a carousel system but is not the same asset identity or variant. Yellow remains artwork-internal color, not reusable chrome.",
+      "recommendation": "Preserve the frozen yellow Eustass Kid ST-36 desktop identity and layer hierarchy when claiming a match to this evidence. A different official campaign may be used only as an explicitly labelled generative campaign substitution; it must never be reported as an identity/variant match to the frozen source.",
+      "meaning": "A single dominant campaign stage carries launch and event narrative.",
+      "suitableFor": [
+        "home campaign landing",
+        "single featured product campaign"
+      ],
+      "notFor": [
+        "global page background",
+        "generic card chrome",
+        "dense catalog",
+        "routine form"
+      ],
+      "allowedTransformations": [
+        "viewport-proportional scaling",
+        "authorized bounded crop retaining product, copy and character focal points"
+      ],
+      "campaignAssetTranslationPolicy": {
+        "sourceFidelity": {
+          "requiredIdentity": "yellow-eustass-captain-kid-st36-campaign",
+          "requiredVariant": "desktop-st36_mv-rendered-active",
+          "assetSubstitutionAllowed": false,
+          "rule": "A different character, deck, campaign, colorway, mobile variant or carousel slide cannot satisfy the frozen hero-composition source-fidelity claim."
+        },
+        "mayTranslate": {
+          "allowedOnlyFor": [
+            "generative proof explicitly testing the campaign-stage system",
+            "a separately declared campaign variant whose changed identity is part of the held-out content change"
+          ],
+          "requiredDisclosure": {
+            "identityMatch": false,
+            "variantMatch": false,
+            "translationType": "campaign-asset-substitution"
+          },
+          "stillRequired": [
+            "independently reconstruct the approved layer hierarchy",
+            "record the substitute asset's own source identity and variant",
+            "do not use the substitution to pass the frozen source-fidelity or hero-composition mustPreserve check"
+          ]
         }
       },
-      "evidenceRefs":[{"evidenceId":"home-full-viewport-campaign-hero","sourcePageId":"home","sourceRegion":[0,0,1,1],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-top.png"}],
-      "informationDensity":{"mode":"single-dominant-stage","requiredVisibleLayers":["campaign-navigation","campaign-message-and-date","character-and-weapon-focal","featured-product-card","campaign-carousel-navigation"],"constraint":"Supporting notices and controls remain subordinate to the character/campaign focal composition."},
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-full-viewport-campaign-hero",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-top.png"
+        }
+      ],
+      "informationDensity": {
+        "mode": "single-dominant-stage",
+        "requiredVisibleLayers": [
+          "campaign-navigation",
+          "campaign-message-and-date",
+          "character-and-weapon-focal",
+          "featured-product-card",
+          "campaign-carousel-navigation"
+        ],
+        "constraint": "Supporting notices and controls remain subordinate to the character/campaign focal composition."
+      },
       "compositionContract": {
-        "sourceAsset":{"identity":"yellow-eustass-captain-kid-st36-campaign","variant":"desktop-st36_mv-rendered-active","campaignLabel":"STARTER DECK -Yellow Eustass Captain Kid- [ST-36]","dominantCharacter":"Eustass Kid","dominantArtworkColor":"yellow","sourceAssetUrl":"https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/ErcHcnq2S84pIhCz/st36_mv.webp","sourceScreenshot":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-top.png","sourceRegion":[0,0,1,1],"intrinsicSize":[1280,720]},
-        "requiredLayers":[
-          {"id":"top-navigation","role":"campaign-navigation","sourceRegion":[0,0,1,0.08]},
-          {"id":"left-campaign-copy","role":"campaign-message-and-date","sourceRegion":[0.03,0.25,0.34,0.58]},
-          {"id":"right-character-weapon","role":"character-and-weapon-focal","sourceRegion":[0.3,0.07,0.68,0.87]},
-          {"id":"lower-product-card","role":"featured-product-card","sourceRegion":[0.23,0.27,0.11,0.3]},
-          {"id":"carousel-controls","role":"campaign-carousel-navigation","sourceRegion":[0.02,0.88,0.96,0.11]}
-        ],
-        "forbiddenSubstitutions":["green Zoro campaign represented as the same identity or variant","any other character, deck or carousel slide represented as the same identity or variant","mobile st36_mv_sp variant represented as the desktop variant","invented logo/title/CTA overlays","generic yellow-black campaign chrome","source screenshot used as runtime asset"]
-      }
-    },
-    {
-      "id":"nautical-story-surface","status":"approved","scope":"welcome/onboarding story section","salience":"high","kind":"color-role","preserves":["role-color-system"],
-      "observedFact":"The visible Welcome section uses a warm parchment/map field with nautical cartography and oversized translucent lettering behind a centered entry action.",
-      "interpretation":"Warm paper color is a story/onboarding surface, distinct from campaign artwork and catalog controls.",
-      "recommendation":"Use it as a bounded section surface with map texture; never promote it to a global border or every-card fill.",
-      "meaning":"Warm nautical paper marks explanatory or world-building content.","suitableFor":["onboarding","story introduction","bounded welcome section"],"notFor":["global page background","every card","data grid","active control"],
-      "allowedTransformations":["crop/repeat the independent source texture without copying the screenshot","adjust overlay opacity while retaining map legibility"],
-      "allowedRoles":["onboarding-section-background","story-surface","subtle-nautical-texture"],"forbiddenRoles":["global-border","generic-card-fill","active-state","button-fill","section-title-chrome"],
-      "evidenceRefs":[{"evidenceId":"source-home-welcome-visible-region","sourcePageId":"home","sourceRegion":[0,0.07,1,0.31],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome.png"}]
-    },
-    {
-      "id":"hard-black-unboxed-heading","status":"approved","scope":"catalog page heading","salience":"high","kind":"typography-color-role","preserves":["role-color-system"],
-      "observedFact":"PRODUCTS is large hard-black display type directly on the light map surface with a transparent heading background.","interpretation":"Hierarchy comes from weight, scale and contrast rather than a colored title bar.","recommendation":"Keep primary catalog headings unboxed and black on the light surface.",
-      "meaning":"Hard black display type supplies section authority without colored chrome.","suitableFor":["primary catalog heading","major editorial heading on a light surface"],"notFor":["yellow title bar","pill heading","button fill","body copy"],"allowedTransformations":["responsive type scaling retaining display weight and transparent background"],
-      "allowedRoles":["primary-display-heading","hard-black-type"],"forbiddenRoles":["background-fill","active-state","button-fill","decorative-border"],
-      "evidenceRefs":[{"evidenceId":"products-hard-black-heading-no-color-chrome","sourcePageId":"products","sourceRegion":[0.041,0.096,0.222,0.065],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-products-top.png"}]
-    },
-    {
-      "id":"black-white-taxonomy-control","status":"approved","scope":"compact catalog taxonomy current state","salience":"high","kind":"color-role","preserves":["role-color-system"],
-      "observedFact":"The current ALL filter is a compact zero-radius black rectangle with white text; neighboring categories are outlined, and the page title remains unboxed.","interpretation":"Black/white inversion identifies the selected compact taxonomy option without borrowing campaign yellow.","recommendation":"Use black fill only on the selected compact taxonomy control and retain square geometry.",
-      "meaning":"Black-white inversion is the proven catalog selection role.","suitableFor":["catalog filters","compact content taxonomy"],"notFor":["section title background","yellow active chrome","large campaign CTA","every card"],"allowedTransformations":["wrap categories on narrow viewports while preserving compact square black-white state"],
-      "allowedRoles":["selected-catalog-filter-fill","selected-catalog-filter-text","compact-taxonomy-border"],"forbiddenRoles":["global-active-color","section-title-chrome","campaign-cta","card-background"],
-      "evidenceRefs":[{"evidenceId":"products-black-white-rectangular-filter","sourcePageId":"products","sourceRegion":[0.114,0.189,0.05,0.034],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-products-top.png"}]
-    },
-    {
-      "id":"top-header-menu-open-indicator","status":"approved","scope":"top header dropdown-open state only","salience":"high","kind":"interaction-color-role","preserves":["role-color-system"],
-      "observedFact":"Opening the captured top dropdown changes its label and arrow border from white to #FFF507 while its background stays transparent.","interpretation":"Yellow denotes this disclosure-open state only; no global yellow active/current system was observed.","recommendation":"Reuse yellow only for an equivalent top-menu disclosure state or inside official campaign artwork.",
-      "meaning":"A narrow yellow signal confirms an open top-navigation disclosure.","suitableFor":["top header dropdown-open feedback"],"notFor":["current page navigation","tabs active","section title","button fill","category semantics","large page background"],"allowedTransformations":["apply to equivalent label/icon or top-border indicator while keeping background transparent"],
-      "allowedRoles":["top-menu-open-label","top-menu-open-arrow-border","official-campaign-artwork-internal-color"],"forbiddenRoles":["global-active","current-page","selected-tab","section-title","button-fill","category-color","page-background"],
-      "evidenceRefs":[
-        {"evidenceId":"header-navigation-default-white","sourcePageId":"home","sourceRegion":[0.108,0.223,0.096,0.185],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-header-menu-before.png"},
-        {"evidenceId":"header-menu-open-yellow-indicator","sourcePageId":"home","sourceRegion":[0.108,0.112,0.102,0.099],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-header-menu-after.png"},
-        {"evidenceId":"top-menu-open-yellow-label","sourcePageId":"home","sourceRegion":[0.108,0.112,0.102,0.099],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-header-menu-after.png"}
-      ]
-    },
-    {
-      "id":"image-pill-hover-feedback","status":"approved","scope":"captured Home Welcome CTA only","salience":"high","kind":"asset-motion",
-      "observedFact":"The 280px Welcome CTA gets its black pill face from bg_welcome_btn.webp; hover scales it to 1.03 over 0.3s and reveals a blurred #352115 shadow while text remains white.","interpretation":"The image-faced pill and warm hover glow are proven only for the Home Welcome narrative entry, not as a universal high-priority or transactional button system.","recommendation":"Preserve this recipe only when reconstructing the captured Home Welcome entry. For a new event, reservation, registration or transactional action, use a separately evidenced ordinary action pattern; if none exists, use a neutral low-brand-salience control and keep it outside the approved brand-pattern claim.",
-      "meaning":"A source image-faced pill provides focused invitation and tactile hover response.","suitableFor":["captured Home Welcome onboarding entry"],"notFor":["dense repeated actions","generic rectangular filters","section title chrome","red or yellow active fill","event reservation","transactional action","registration or ticketing","seat booking","schedule controls","held-out generative CTA","generic high-priority action"],"allowedTransformations":["proportional responsive scaling of the captured Home Welcome CTA","retain scale(1.03), 0.3s transition and warm blurred shadow within the Home Welcome CTA"],
-      "translationBoundary":{"mayTranslate":["responsive size of the Home Welcome CTA while retaining its official face and observed hover state"],"mustNotTranslate":["official Welcome button face into an Events reservation control","Welcome hover motion into evidence for transaction or booking semantics","rounded image-pill geometry into a generic brand CTA"],"fallbackWhenNoActionEvidence":"Use a neutral, low-brand-salience action control. Label it as a demo utility control, not an approved ONE PIECE brand pattern."},
-      "evidenceRefs":[
-        {"evidenceId":"welcome-button-image-pill","sourcePageId":"home","sourceRegion":[0.391,0.512,0.219,0.065],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome.png"},
-        {"evidenceId":"welcome-button-hover-motion","sourcePageId":"home","sourceRegion":[0.391,0.512,0.219,0.065],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome-hover.png"},
-        {"evidenceId":"welcome-cta-hover-scale-shadow","sourcePageId":"home","sourceRegion":[0.391,0.512,0.219,0.065],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome-hover.png"}
-      ],
-      "assetContract":{"identity":"official-welcome-button-face","variant":"desktop-bg-welcome-btn","sourceUrl":"https://asia-en.onepiece-cardgame.com/renewal/images/top/pc/bg_welcome_btn.webp","sourceKind":"original-site-asset","role":"single-welcome-entry-face"}
-    },
-    {
-      "id":"editorial-module-rhythm","status":"approved","scope":"home editorial sections and source-independent editorial translations","salience":"high","kind":"editorial-information-architecture",
-      "observedFact":"In the rendered home-page capture, News, Products and Events are visibly separate editorial sections: News uses repeated media/list groupings, Products pairs compact release rows with a larger product-focused feature, and Events separates a dominant event rail from a narrower schedule panel. Their structures are not one repeated generic card template.",
-      "interpretation":"The reusable rule is differentiated editorial rhythm: each content family receives a primary module shape and a denser supporting structure appropriate to its information, while strong display headings and compact metadata maintain continuity across sections.",
-      "recommendation":"For a source-independent editorial page, combine one dominant content rail or feature with a structurally distinct compact supporting module; retain terse metadata and avoid wrapping every item in the same generic card. Do not recreate the captured Events section one-for-one.",
-      "meaning":"Distinct primary and supporting module shapes create editorial pacing across news, merchandise and event information.",
-      "suitableFor":["news or announcement index","product release editorial module","event announcement with an independently designed primary rail and compact schedule/support panel","held-out editorial content using source-independent fixtures"],
-      "notFor":["one repeated generic card component for all content types","one-to-one recreation of the official Events section","dense admin table","single campaign hero","asset-only branding"],
-      "allowedTransformations":["change content, ordering and module proportions for a new editorial subject","stack primary and supporting modules on narrow viewports","replace source content with independent fixtures while retaining differentiated hierarchy and compact metadata"],
-      "transformationBoundary":{
-        "invariants":["at least one visually dominant editorial module","at least one structurally distinct compact supporting module","terse metadata remains subordinate to title/media","content families do not collapse into identical card shells"],
-        "mayChange":["content subject","item count","module order","desktop columns","media identity"],
-        "mustNotCopy":["official Events page content","official Events section item-for-item layout","source screenshot or crop","source-specific red panel as a global action/color rule"]
-      },
-      "compositionConstraints":{
-        "requiredLayers":[{"id":"display-heading","role":"section-identity"},{"id":"primary-editorial-module","role":"dominant-content"},{"id":"compact-supporting-module","role":"dense-secondary-information"}],
-        "hierarchy":"The primary module must carry more visual weight than supporting rows or panels; metadata remains concise and secondary.",
-        "useConstraint":"A held-out translation proves the recipe only through new content and a new arrangement; copying the source Events composition is forbidden."
-      },
-      "informationDensity":{"mode":"differentiated-editorial-rhythm","minimumModuleShapes":2,"requiredHierarchy":["one dominant primary module","one denser structurally distinct supporting module","terse subordinate metadata"],"wrapperPolicy":"Content families must not collapse into identical generic card shells."},
-      "compositionContract":{
-        "sourceAsset":{
-          "identity":"official-home-editorial-system",
-          "variant":"desktop-full-page-capture",
-          "sourcePageId":"home",
-          "sourceScreenshot":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png",
-          "sourceRegion":[0,0.23,1,0.52]
+        "sourceAsset": {
+          "identity": "yellow-eustass-captain-kid-st36-campaign",
+          "variant": "desktop-st36_mv-rendered-active",
+          "campaignLabel": "STARTER DECK -Yellow Eustass Captain Kid- [ST-36]",
+          "dominantCharacter": "Eustass Kid",
+          "dominantArtworkColor": "yellow",
+          "sourceAssetUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/ErcHcnq2S84pIhCz/st36_mv.webp",
+          "sourceScreenshot": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-top.png",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "intrinsicSize": [
+            1280,
+            720
+          ]
         },
-        "requiredLayers":[
-          {"id":"display-heading","role":"section-identity","sourceRegion":[0.02,0.52,0.28,0.05]},
-          {"id":"primary-editorial-module","role":"dominant-content","sourceRegion":[0.02,0.56,0.58,0.13]},
-          {"id":"compact-supporting-module","role":"dense-secondary-information","sourceRegion":[0.6,0.56,0.35,0.1]}
+        "requiredLayers": [
+          {
+            "id": "top-navigation",
+            "role": "campaign-navigation",
+            "sourceRegion": [
+              0,
+              0,
+              1,
+              0.08
+            ]
+          },
+          {
+            "id": "left-campaign-copy",
+            "role": "campaign-message-and-date",
+            "sourceRegion": [
+              0.03,
+              0.25,
+              0.34,
+              0.58
+            ]
+          },
+          {
+            "id": "right-character-weapon",
+            "role": "character-and-weapon-focal",
+            "sourceRegion": [
+              0.3,
+              0.07,
+              0.68,
+              0.87
+            ]
+          },
+          {
+            "id": "lower-product-card",
+            "role": "featured-product-card",
+            "sourceRegion": [
+              0.23,
+              0.27,
+              0.11,
+              0.3
+            ]
+          },
+          {
+            "id": "carousel-controls",
+            "role": "campaign-carousel-navigation",
+            "sourceRegion": [
+              0.02,
+              0.88,
+              0.96,
+              0.11
+            ]
+          }
         ],
-        "forbiddenSubstitutions":["campaign hero asset or hero composition","one repeated generic card shell","official Events section copied one-for-one","source screenshot or crop used as runtime asset"]
-      },
-      "evidenceRefs":[
-        {"evidenceId":"source-home-news-module-region","sourcePageId":"home","sourceRegion":[0,0.23,1,0.18],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"},
-        {"evidenceId":"source-home-products-module-region","sourcePageId":"home","sourceRegion":[0,0.4,1,0.17],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"},
-        {"evidenceId":"source-home-events-module-region","sourcePageId":"home","sourceRegion":[0,0.57,1,0.18],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"}
+        "forbiddenSubstitutions": [
+          "green Zoro campaign represented as the same identity or variant",
+          "any other character, deck or carousel slide represented as the same identity or variant",
+          "mobile st36_mv_sp variant represented as the desktop variant",
+          "invented logo/title/CTA overlays",
+          "generic yellow-black campaign chrome",
+          "source screenshot used as runtime asset"
+        ]
+      }
+    },
+    {
+      "id": "nautical-story-surface",
+      "status": "approved",
+      "scope": "welcome/onboarding story section",
+      "salience": "high",
+      "kind": "color-role",
+      "preserves": [
+        "role-color-system"
+      ],
+      "observedFact": "The visible Welcome section uses a warm parchment/map field with nautical cartography and oversized translucent lettering behind a centered entry action.",
+      "interpretation": "Warm paper color is a story/onboarding surface, distinct from campaign artwork and catalog controls.",
+      "recommendation": "Use it as a bounded section surface with map texture; never promote it to a global border or every-card fill.",
+      "meaning": "Warm nautical paper marks explanatory or world-building content.",
+      "suitableFor": [
+        "onboarding",
+        "story introduction",
+        "bounded welcome section"
+      ],
+      "notFor": [
+        "global page background",
+        "every card",
+        "data grid",
+        "active control"
+      ],
+      "allowedTransformations": [
+        "crop/repeat the independent source texture without copying the screenshot",
+        "adjust overlay opacity while retaining map legibility"
+      ],
+      "allowedRoles": [
+        "onboarding-section-background",
+        "story-surface",
+        "subtle-nautical-texture"
+      ],
+      "forbiddenRoles": [
+        "global-border",
+        "generic-card-fill",
+        "active-state",
+        "button-fill",
+        "section-title-chrome"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "source-home-welcome-visible-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.07,
+            1,
+            0.31
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome.png"
+        }
       ]
     },
     {
-      "id":"product-first-catalog-density","status":"approved","scope":"products catalog browsing","salience":"high","kind":"composition-information-density","preserves":["product-density"],"implementationPatternIds":["products-dense-catalog"],
-      "observedFact":"The Products source shows a heading/filter/view-control band followed by a four-column product-first grid with terse category, title and release-date metadata; a second row is visible in the first viewport.","interpretation":"Catalog identity comes from high product visibility, minimal wrappers and continuous browsing rhythm rather than generic cards with action chrome.","recommendation":"Retain product-first cells, terse metadata and a continuous grid; responsive reflow may reduce columns without reducing source-proven browsing density.",
-      "meaning":"Dense product imagery and terse metadata drive catalog scanning.","suitableFor":["product gallery","collectible catalog","browse-first inventory"],"notFor":["same generic SaaS card repeated","per-card CTA","sparse marketing feature row"],"allowedTransformations":["reflow four desktop columns to two phone columns","retain heading, filters, product cells and browsing navigation in reading order"],
-      "informationDensity":{"sourceColumns":4,"minimumProvenItems":8,"metadataPerCell":["category","product title","release date"],"wrapperPolicy":"product-first; no elevated generic card shell"},
-      "evidenceRefs":[
-        {"evidenceId":"products-hard-black-heading-no-color-chrome","sourcePageId":"products","sourceRegion":[0,0,1,0.55],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png"},
-        {"evidenceId":"products-black-white-rectangular-filter","sourcePageId":"products","sourceRegion":[0,0,1,0.55],"capture":"output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png"}
+      "id": "hard-black-unboxed-heading",
+      "status": "approved",
+      "scope": "catalog page heading",
+      "salience": "high",
+      "kind": "typography-color-role",
+      "preserves": [
+        "role-color-system"
       ],
-      "compositionContract":{
-        "sourceAsset":{"identity":"source-products-catalog-page","variant":"desktop-normal-view","sourcePageId":"products","sourceScreenshot":"output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png","sourceRegion":[0,0,1,0.55],"intrinsicSize":[1280,2699]},
-        "requiredLayers":[
-          {"id":"catalog-heading","role":"unboxed-page-heading","sourceRegion":[0.04,0.09,0.23,0.08]},
-          {"id":"category-filters","role":"compact-catalog-filter-navigation","sourceRegion":[0.04,0.18,0.32,0.05]},
-          {"id":"product-grid","role":"dense-product-first-catalog","sourceRegion":[0.04,0.3,0.92,0.65]},
-          {"id":"catalog-pagination","role":"catalog-page-navigation","sourceRegion":[0.4,0.265,0.2,0.035]}
+      "observedFact": "PRODUCTS is large hard-black display type directly on the light map surface with a transparent heading background.",
+      "interpretation": "Hierarchy comes from weight, scale and contrast rather than a colored title bar.",
+      "recommendation": "Keep primary catalog headings unboxed and black on the light surface.",
+      "meaning": "Hard black display type supplies section authority without colored chrome.",
+      "suitableFor": [
+        "primary catalog heading",
+        "major editorial heading on a light surface"
+      ],
+      "notFor": [
+        "yellow title bar",
+        "pill heading",
+        "button fill",
+        "body copy"
+      ],
+      "allowedTransformations": [
+        "responsive type scaling retaining display weight and transparent background"
+      ],
+      "allowedRoles": [
+        "primary-display-heading",
+        "hard-black-type"
+      ],
+      "forbiddenRoles": [
+        "background-fill",
+        "active-state",
+        "button-fill",
+        "decorative-border"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "products-hard-black-heading-no-color-chrome",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0.041,
+            0.096,
+            0.222,
+            0.065
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-top.png"
+        }
+      ]
+    },
+    {
+      "id": "black-white-taxonomy-control",
+      "status": "approved",
+      "scope": "compact catalog taxonomy current state",
+      "salience": "high",
+      "kind": "color-role",
+      "preserves": [
+        "role-color-system"
+      ],
+      "observedFact": "The current ALL filter is a compact zero-radius black rectangle with white text; neighboring categories are outlined, and the page title remains unboxed.",
+      "interpretation": "Black/white inversion identifies the selected compact taxonomy option without borrowing campaign yellow.",
+      "recommendation": "Use black fill only on the selected compact taxonomy control and retain square geometry.",
+      "meaning": "Black-white inversion is the proven catalog selection role.",
+      "suitableFor": [
+        "catalog filters",
+        "compact content taxonomy"
+      ],
+      "notFor": [
+        "section title background",
+        "yellow active chrome",
+        "large campaign CTA",
+        "every card"
+      ],
+      "allowedTransformations": [
+        "wrap categories on narrow viewports while preserving compact square black-white state"
+      ],
+      "allowedRoles": [
+        "selected-catalog-filter-fill",
+        "selected-catalog-filter-text",
+        "compact-taxonomy-border"
+      ],
+      "forbiddenRoles": [
+        "global-active-color",
+        "section-title-chrome",
+        "campaign-cta",
+        "card-background"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "products-black-white-rectangular-filter",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0.114,
+            0.189,
+            0.05,
+            0.034
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-top.png"
+        }
+      ]
+    },
+    {
+      "id": "top-header-menu-open-indicator",
+      "status": "approved",
+      "scope": "top header dropdown-open state only",
+      "salience": "high",
+      "kind": "interaction-color-role",
+      "preserves": [
+        "role-color-system"
+      ],
+      "observedFact": "Opening the captured top dropdown changes its label and arrow border from white to #FFF507 while its background stays transparent.",
+      "interpretation": "Yellow denotes this disclosure-open state only; no global yellow active/current system was observed.",
+      "recommendation": "Reuse yellow only for an equivalent top-menu disclosure state or inside official campaign artwork.",
+      "meaning": "A narrow yellow signal confirms an open top-navigation disclosure.",
+      "suitableFor": [
+        "top header dropdown-open feedback"
+      ],
+      "notFor": [
+        "current page navigation",
+        "tabs active",
+        "section title",
+        "button fill",
+        "category semantics",
+        "large page background"
+      ],
+      "allowedTransformations": [
+        "apply to equivalent label/icon or top-border indicator while keeping background transparent"
+      ],
+      "allowedRoles": [
+        "top-menu-open-label",
+        "top-menu-open-arrow-border",
+        "official-campaign-artwork-internal-color"
+      ],
+      "forbiddenRoles": [
+        "global-active",
+        "current-page",
+        "selected-tab",
+        "section-title",
+        "button-fill",
+        "category-color",
+        "page-background"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "header-navigation-default-white",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.108,
+            0.223,
+            0.096,
+            0.185
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-header-menu-before.png"
+        },
+        {
+          "evidenceId": "header-menu-open-yellow-indicator",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.108,
+            0.112,
+            0.102,
+            0.099
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-header-menu-after.png"
+        },
+        {
+          "evidenceId": "top-menu-open-yellow-label",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.108,
+            0.112,
+            0.102,
+            0.099
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-header-menu-after.png"
+        }
+      ]
+    },
+    {
+      "id": "image-pill-hover-feedback",
+      "status": "approved",
+      "scope": "captured Home Welcome CTA only",
+      "salience": "high",
+      "kind": "asset-motion",
+      "observedFact": "The 280px Welcome CTA gets its black pill face from bg_welcome_btn.webp; hover scales it to 1.03 over 0.3s and reveals a blurred #352115 shadow while text remains white.",
+      "interpretation": "The image-faced pill and warm hover glow are proven only for the Home Welcome narrative entry, not as a universal high-priority or transactional button system.",
+      "recommendation": "Preserve this recipe only when reconstructing the captured Home Welcome entry. For a new event, reservation, registration or transactional action, use a separately evidenced ordinary action pattern; if none exists, use a neutral low-brand-salience control and keep it outside the approved brand-pattern claim.",
+      "meaning": "A source image-faced pill provides focused invitation and tactile hover response.",
+      "suitableFor": [
+        "captured Home Welcome onboarding entry"
+      ],
+      "notFor": [
+        "dense repeated actions",
+        "generic rectangular filters",
+        "section title chrome",
+        "red or yellow active fill",
+        "event reservation",
+        "transactional action",
+        "registration or ticketing",
+        "seat booking",
+        "schedule controls",
+        "held-out generative CTA",
+        "generic high-priority action"
+      ],
+      "allowedTransformations": [
+        "proportional responsive scaling of the captured Home Welcome CTA",
+        "retain scale(1.03), 0.3s transition and warm blurred shadow within the Home Welcome CTA"
+      ],
+      "translationBoundary": {
+        "mayTranslate": [
+          "responsive size of the Home Welcome CTA while retaining its official face and observed hover state"
         ],
-        "allowedTranslation":{"id":"responsive-phone-layout","sourceColumns":4,"demoColumns":2,"rule":"Reflow to two phone columns while retaining layer order and at least eight products."},
-        "forbiddenSubstitutions":["generic SaaS card wrappers","yellow-black section title chrome","per-card red CTA","removing browsing navigation","reducing below eight products"]
+        "mustNotTranslate": [
+          "official Welcome button face into an Events reservation control",
+          "Welcome hover motion into evidence for transaction or booking semantics",
+          "rounded image-pill geometry into a generic brand CTA"
+        ],
+        "fallbackWhenNoActionEvidence": "Use a neutral, low-brand-salience action control. Label it as a demo utility control, not an approved ONE PIECE brand pattern."
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "welcome-button-image-pill",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.391,
+            0.512,
+            0.219,
+            0.065
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome.png"
+        },
+        {
+          "evidenceId": "welcome-button-hover-motion",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.391,
+            0.512,
+            0.219,
+            0.065
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome-hover.png"
+        },
+        {
+          "evidenceId": "welcome-cta-hover-scale-shadow",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.391,
+            0.512,
+            0.219,
+            0.065
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome-hover.png"
+        }
+      ],
+      "assetContract": {
+        "identity": "official-welcome-button-face",
+        "variant": "desktop-bg-welcome-btn",
+        "sourceUrl": "https://asia-en.onepiece-cardgame.com/renewal/images/top/pc/bg_welcome_btn.webp",
+        "sourceKind": "original-site-asset",
+        "role": "single-welcome-entry-face"
       }
     },
-    {"id":"home-display-font-resource","status":"approved","scope":"Home short oversized English section labels matching NEWS","salience":"high","kind":"typography-resource","evidenceClaimId":"home-font-asset-alfa-slab-one","requiredFamily":"Alfa Slab One","requiredWeight":400,"implementationRule":"CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required.","fallbackBoundary":"Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed slab-display fallback; never report fallback typography as exact implementation.","suitableFor":["short oversized Home English labels"],"notFor":["body","metadata","long title","family-name-only implementation"],"evidenceRefs":[{"evidenceId":"home-font-asset-alfa-slab-one","sourcePageId":"home","sourceRegion":[0.03,0.097,0.594,0.861],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png"}]},
-    {"id":"home-editorial-font-resource","status":"approved","scope":"Home Welcome narrative statement","salience":"high","kind":"typography-resource","evidenceClaimId":"home-font-asset-noto-serif","requiredFamily":"Noto Serif","requiredWeight":700,"implementationRule":"CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required.","fallbackBoundary":"Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed editorial-serif fallback; never report fallback typography as exact implementation.","suitableFor":["Home Welcome narrative title"],"notFor":["display labels","metadata","utility copy","family-name-only implementation"],"evidenceRefs":[{"evidenceId":"home-font-asset-noto-serif","sourcePageId":"home","sourceRegion":[0,0.083,1,0.917],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png"}]},
-    {"id":"home-utility-font-resource","status":"approved","scope":"Home top navigation and proven ordinary sans roles","salience":"high","kind":"typography-resource","evidenceClaimId":"home-font-asset-poppins","requiredFamily":"Poppins","requiredWeight":500,"implementationRule":"CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required.","fallbackBoundary":"Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed neutral-sans fallback; never report fallback typography as exact implementation.","suitableFor":["Home top navigation","Home utility/body sans copy"],"notFor":["display","editorial serif","condensed metadata","family-name-only implementation"],"evidenceRefs":[{"evidenceId":"home-font-asset-poppins","sourcePageId":"home","sourceRegion":[0.108,0.01,0.64,0.075],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"}]},
-    {"id":"home-condensed-metadata-font-resource","status":"approved","scope":"Home hero availability date matching the captured active slide","salience":"high","kind":"typography-resource","evidenceClaimId":"home-font-asset-oswald","requiredFamily":"Oswald","observedComputedWeight":800,"importedWeightRange":[300,400,500,600,700],"implementationRule":"CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required. Do not globalize the possibly synthesized 800 weight.","fallbackBoundary":"Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed condensed-sans fallback; never report fallback typography as exact implementation.","suitableFor":["Home hero availability date","short campaign metadata matching the captured role"],"notFor":["paragraph","narrative lead","global display","family-name-only implementation"],"evidenceRefs":[{"evidenceId":"home-font-asset-oswald","sourcePageId":"home","sourceRegion":[0.025,0.75,0.313,0.07],"capture":"output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"}]},
-    {"id":"home-footer-illustration-organism","status":"approved","scope":"Home page-closing illustration immediately before the structural navy footer","salience":"high","kind":"composition-asset-motion","observedFact":"At 1280×720, a 553.33px layered character/wave/card/type organism performs a one-shot fadein→is-in reveal, a finite inItem composite swap, then three persistent independent card loops (5s/8s/8s). footer .js-bgAnimeBtn pauses only those three loops.","interpretation":"A spatial-temporal narrative closure distinct from the navy footer; neither poster styling nor generic motion carries the identity.","recommendation":"Consume the exact compositionContract in approved-visual-patterns.json; preserve every layer, normalized hierarchy, finite-to-infinite state boundary and loop-only control scope.","suitableFor":["Home page-closing illustration"],"notFor":["pale diagonal poster composition","static-only substitute","generic animation","plain navy band","single-image approximation","global wallpaper"],"compositionContractRef":"migrations/onepiece-cardgame/approved-visual-patterns.json#homeV5ClaimTranslations[claimId=home-footer-illustration-organism].compositionContract","responsiveTranslation":{"mayChange":["uniform scale","container height","outer background overscan crop","proportional overlap offsets","vertical staging at narrow widths"],"mustPreserve":["all eight semantic layers","left-dominant character/right-card/lower-right-type hierarchy","three distinct cards","catch above logo","finite inItem-to-showItem swap","5s/8s/8s infinite loops","loop-only pause control","placement before navy footer"],"forbidden":["pale diagonal poster composition","single-raster flattening","static-only substitute","generic animation","dropped card/text/logo layers","uniform loop duration","pause affecting reveal"]},"motionBoundary":{"oneShotReveal":".footerIllust.fadein → .footerIllust.fadein.is-in; class persists","finiteSwap":".inItem: inCard 0.6s + inItem 0.8s, one iteration, then opacity 0","infiniteLoops":{"card01":"5s","card02":"8s","card03":"8s"},"control":"footer .js-bgAnimeBtn pauses/resumes only card01/card02/card03 loops; reveal and finite swap stay settled","reducedMotion":"unresolved; no preference/emulation evidence available"},"evidenceRefs":[{"evidenceId":"footer-v10-transition-120ms","sourcePageId":"home","state":"transition-120ms","sourceRegion":[0,0.768,1,0.232],"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png"},{"evidenceId":"footer-v10-transition-500ms","sourcePageId":"home","state":"transition-500ms","sourceRegion":[0,0.768,1,0.232],"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png"},{"evidenceId":"footer-v10-settled","sourcePageId":"home","state":"settled-full","sourceRegion":[0,0.159,1,0.769],"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png"},{"evidenceId":"footer-v10-late-loop","sourcePageId":"home","state":"late-loop","sourceRegion":[0,0.159,1,0.769],"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png"},{"evidenceId":"footer-v10-paused","sourcePageId":"home","state":"paused","sourceRegion":[0,0.159,1,0.769],"capture":"output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png"}]},
-    {"id":"home-390-responsive-reflow","status":"approved","scope":"Home at a true 390px-class browser viewport plus its Demo inspection host","salience":"high","kind":"responsive-composition-contract","observedFact":"The source is a 390px-wide, 7576px-tall responsive document, while the attempt-11 Demo host reduced the preview to 10px and Home canvas to 0px.","interpretation":"Mobile fidelity requires two independent layers: an inspection host that exposes a usable canvas, and section-level Home reflow. A desktop phone mockup is presentation chrome, not responsive proof or brand content.","recommendation":"Implement the complete two-layer contract at quality-attempts/11/interpreter-mobile-contract.json, then recapture at an exact shared 390x844 viewport.","suitableFor":["Home true narrow viewport inspection","Demo host mobile inspection mode"],"notFor":["desktop-only phone mockup as responsive proof","device shell as brand asset","scale-only whole-page miniature","other source pages without mobile evidence"],"allowedRoles":["demo-mobile-inspection-infrastructure","home-mobile-reflow"],"forbiddenRoles":["brand-device-frame","global-page-scaling","desktop-split-at-mobile"],"contractRef":"migrations/onepiece-cardgame/quality-attempts/11/interpreter-mobile-contract.json","evidenceRefs":[{"evidenceId":"attempt-11-mobile-responsive-checklist","sourcePageId":"home","sourceRegion":[0,0,1,1],"capture":"migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png"}]},
-    {"id":"home-mobile-section-organisms-attempt12","status":"approved-with-attempt13-supersession","scope":"Home Welcome, New Arrival, Events, Recommend, Videos and Footer nav/legal at the observed 390x844 viewport","salience":"high","kind":"section-organism-contract","observedFact":"Attempt 12 evidence verifies each section's default layers, reading order, relative media/text/control geometry, responsive organization and semantic actions. Attempt 13 subsequently resolves the scoped New Arrival next/previous state and Events/Recommend item identity; other uncaptured pressed/modal/accordion-open states remain unresolved.","interpretation":"Mobile structural fidelity is section-specific. Counts are diagnostic only: New Arrival is a controlled clipped rail; Events is a bg_pikup-events red-frame organism; Recommend and Videos are Swiper media organizations; Footer navigation/legal is semantic operable structure.","recommendation":"Consume the attempt-12 organism contract together with the narrower attempt-13 asset/interaction/route contract; attempt 13 governs wherever they overlap.","suitableFor":["official Home 390px-class section reconstruction"],"notFor":["count-only QA","generic white event rows","static Recommend/Video summaries","interaction claims beyond attempt-13 scope","non-semantic footer controls"],"allowedRoles":["home-mobile-section-organism"],"forbiddenRoles":["item-count-fidelity-proxy","generic-card-normalization","invented-interaction-parity"],"contractRef":"migrations/onepiece-cardgame/quality-attempts/12/interpreter/section-contract.json","supersededFields":{"by":"migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json","fields":["New Arrival next/previous active identity and reversible transform state","Events six positional asset identities","Recommend five positional media identities"]},"evidenceRefs":[{"evidenceId":"attempt-12-section-checklist","sourcePageId":"home","capture":"migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json"},{"evidenceId":"attempt-12-dom-computed-probes","sourcePageId":"home","capture":"migrations/onepiece-cardgame/quality-attempts/12/evidence/dom-computed-probes.json"}]},
-    {"id":"home-mobile-item-identity-and-reversible-rails-attempt13","status":"approved","scope":"Home Events, Recommend and New Arrival at the observed 390px viewport, plus the generative held-out Demo boundary","salience":"high","kind":"asset-identity-interaction-route-contract","observedFact":"Attempt 13 proves six positional Events identities with exactly one source-authored duplicate pair (Jakarta/Manila), five pairwise-distinct Recommend 640x360 identities, and a real New Arrival Next transition from 1 / 10 at 0px to 2 / 10 at -181.998px with Previous changing disabled to enabled.","interpretation":"Item media identity and reversible state are structural brand fidelity, not replaceable decoration. The held-out proof is a separate Demo artifact and cannot become content on source-mapped Home.","recommendation":"Consume the attempt-13 contract verbatim and run all four blocking acceptance probes before QA.","suitableFor":["official Home mobile Events asset binding","official Home mobile Recommend rail","official Home mobile New Arrival controls","separate held-out generative Demo route"],"notFor":["generated source-item art","unapproved repeated thumbnails","no-op arrows","held-out content embedded in Home"],"allowedRoles":["source-item-asset-identity","reversible-rail-control","generative-held-out-page-boundary"],"forbiddenRoles":["generated-source-item-substitute","count-only-fidelity","fake-control","source-home-held-out-container"],"contractRef":"migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json","evidenceRefs":[{"evidenceId":"attempt13-item-asset-manifest","sourcePageId":"home","capture":"migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"},{"evidenceId":"attempt13-rail-state-probes","sourcePageId":"home","capture":"migrations/onepiece-cardgame/quality-attempts/13/evidence/rail-state-probes.json"},{"evidenceId":"attempt13-held-out-boundary","sourcePageId":null,"capture":"migrations/onepiece-cardgame/goal-contract.json"}]}
+    {
+      "id": "editorial-module-rhythm",
+      "status": "approved",
+      "scope": "home editorial sections and source-independent editorial translations",
+      "salience": "high",
+      "kind": "editorial-information-architecture",
+      "observedFact": "In the rendered home-page capture, News, Products and Events are visibly separate editorial sections: News uses repeated media/list groupings, Products pairs compact release rows with a larger product-focused feature, and Events separates a dominant event rail from a narrower schedule panel. Their structures are not one repeated generic card template.",
+      "interpretation": "The reusable rule is differentiated editorial rhythm: each content family receives a primary module shape and a denser supporting structure appropriate to its information, while strong display headings and compact metadata maintain continuity across sections.",
+      "recommendation": "For a source-independent editorial page, combine one dominant content rail or feature with a structurally distinct compact supporting module; retain terse metadata and avoid wrapping every item in the same generic card. Do not recreate the captured Events section one-for-one.",
+      "meaning": "Distinct primary and supporting module shapes create editorial pacing across news, merchandise and event information.",
+      "suitableFor": [
+        "news or announcement index",
+        "product release editorial module",
+        "event announcement with an independently designed primary rail and compact schedule/support panel",
+        "held-out editorial content using source-independent fixtures"
+      ],
+      "notFor": [
+        "one repeated generic card component for all content types",
+        "one-to-one recreation of the official Events section",
+        "dense admin table",
+        "single campaign hero",
+        "asset-only branding"
+      ],
+      "allowedTransformations": [
+        "change content, ordering and module proportions for a new editorial subject",
+        "stack primary and supporting modules on narrow viewports",
+        "replace source content with independent fixtures while retaining differentiated hierarchy and compact metadata"
+      ],
+      "transformationBoundary": {
+        "invariants": [
+          "at least one visually dominant editorial module",
+          "at least one structurally distinct compact supporting module",
+          "terse metadata remains subordinate to title/media",
+          "content families do not collapse into identical card shells"
+        ],
+        "mayChange": [
+          "content subject",
+          "item count",
+          "module order",
+          "desktop columns",
+          "media identity"
+        ],
+        "mustNotCopy": [
+          "official Events page content",
+          "official Events section item-for-item layout",
+          "source screenshot or crop",
+          "source-specific red panel as a global action/color rule"
+        ]
+      },
+      "compositionConstraints": {
+        "requiredLayers": [
+          {
+            "id": "display-heading",
+            "role": "section-identity"
+          },
+          {
+            "id": "primary-editorial-module",
+            "role": "dominant-content"
+          },
+          {
+            "id": "compact-supporting-module",
+            "role": "dense-secondary-information"
+          }
+        ],
+        "hierarchy": "The primary module must carry more visual weight than supporting rows or panels; metadata remains concise and secondary.",
+        "useConstraint": "A held-out translation proves the recipe only through new content and a new arrangement; copying the source Events composition is forbidden."
+      },
+      "informationDensity": {
+        "mode": "differentiated-editorial-rhythm",
+        "minimumModuleShapes": 2,
+        "requiredHierarchy": [
+          "one dominant primary module",
+          "one denser structurally distinct supporting module",
+          "terse subordinate metadata"
+        ],
+        "wrapperPolicy": "Content families must not collapse into identical generic card shells."
+      },
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "official-home-editorial-system",
+          "variant": "desktop-full-page-capture",
+          "sourcePageId": "home",
+          "sourceScreenshot": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png",
+          "sourceRegion": [
+            0,
+            0.23,
+            1,
+            0.52
+          ]
+        },
+        "requiredLayers": [
+          {
+            "id": "display-heading",
+            "role": "section-identity",
+            "sourceRegion": [
+              0.02,
+              0.52,
+              0.28,
+              0.05
+            ]
+          },
+          {
+            "id": "primary-editorial-module",
+            "role": "dominant-content",
+            "sourceRegion": [
+              0.02,
+              0.56,
+              0.58,
+              0.13
+            ]
+          },
+          {
+            "id": "compact-supporting-module",
+            "role": "dense-secondary-information",
+            "sourceRegion": [
+              0.6,
+              0.56,
+              0.35,
+              0.1
+            ]
+          }
+        ],
+        "forbiddenSubstitutions": [
+          "campaign hero asset or hero composition",
+          "one repeated generic card shell",
+          "official Events section copied one-for-one",
+          "source screenshot or crop used as runtime asset"
+        ]
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "source-home-news-module-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.23,
+            1,
+            0.18
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"
+        },
+        {
+          "evidenceId": "source-home-products-module-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.4,
+            1,
+            0.17
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"
+        },
+        {
+          "evidenceId": "source-home-events-module-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.57,
+            1,
+            0.18
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "id": "product-first-catalog-density",
+      "status": "approved",
+      "scope": "products catalog browsing",
+      "salience": "high",
+      "kind": "composition-information-density",
+      "preserves": [
+        "product-density"
+      ],
+      "implementationPatternIds": [
+        "products-dense-catalog"
+      ],
+      "observedFact": "The Products source shows a heading/filter/view-control band followed by a four-column product-first grid with terse category, title and release-date metadata; a second row is visible in the first viewport.",
+      "interpretation": "Catalog identity comes from high product visibility, minimal wrappers and continuous browsing rhythm rather than generic cards with action chrome.",
+      "recommendation": "Retain product-first cells, terse metadata and a continuous grid; responsive reflow may reduce columns without reducing source-proven browsing density.",
+      "meaning": "Dense product imagery and terse metadata drive catalog scanning.",
+      "suitableFor": [
+        "product gallery",
+        "collectible catalog",
+        "browse-first inventory"
+      ],
+      "notFor": [
+        "same generic SaaS card repeated",
+        "per-card CTA",
+        "sparse marketing feature row"
+      ],
+      "allowedTransformations": [
+        "reflow four desktop columns to two phone columns",
+        "retain heading, filters, product cells and browsing navigation in reading order"
+      ],
+      "informationDensity": {
+        "sourceColumns": 4,
+        "minimumProvenItems": 8,
+        "metadataPerCell": [
+          "category",
+          "product title",
+          "release date"
+        ],
+        "wrapperPolicy": "product-first; no elevated generic card shell"
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "products-hard-black-heading-no-color-chrome",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.55
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png"
+        },
+        {
+          "evidenceId": "products-black-white-rectangular-filter",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.55
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png"
+        }
+      ],
+      "compositionContract": {
+        "sourceAsset": {
+          "identity": "source-products-catalog-page",
+          "variant": "desktop-normal-view",
+          "sourcePageId": "products",
+          "sourceScreenshot": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.55
+          ],
+          "intrinsicSize": [
+            1280,
+            2699
+          ]
+        },
+        "requiredLayers": [
+          {
+            "id": "catalog-heading",
+            "role": "unboxed-page-heading",
+            "sourceRegion": [
+              0.04,
+              0.09,
+              0.23,
+              0.08
+            ]
+          },
+          {
+            "id": "category-filters",
+            "role": "compact-catalog-filter-navigation",
+            "sourceRegion": [
+              0.04,
+              0.18,
+              0.32,
+              0.05
+            ]
+          },
+          {
+            "id": "product-grid",
+            "role": "dense-product-first-catalog",
+            "sourceRegion": [
+              0.04,
+              0.3,
+              0.92,
+              0.65
+            ]
+          },
+          {
+            "id": "catalog-pagination",
+            "role": "catalog-page-navigation",
+            "sourceRegion": [
+              0.4,
+              0.265,
+              0.2,
+              0.035
+            ]
+          }
+        ],
+        "allowedTranslation": {
+          "id": "responsive-phone-layout",
+          "sourceColumns": 4,
+          "demoColumns": 2,
+          "rule": "Reflow to two phone columns while retaining layer order and at least eight products."
+        },
+        "forbiddenSubstitutions": [
+          "generic SaaS card wrappers",
+          "yellow-black section title chrome",
+          "per-card red CTA",
+          "removing browsing navigation",
+          "reducing below eight products"
+        ]
+      }
+    },
+    {
+      "id": "home-display-font-resource",
+      "status": "approved",
+      "scope": "Home short oversized English section labels matching NEWS",
+      "salience": "high",
+      "kind": "typography-resource",
+      "evidenceClaimId": "home-font-asset-alfa-slab-one",
+      "requiredFamily": "Alfa Slab One",
+      "requiredWeight": 400,
+      "implementationRule": "CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required.",
+      "fallbackBoundary": "Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed slab-display fallback; never report fallback typography as exact implementation.",
+      "suitableFor": [
+        "short oversized Home English labels"
+      ],
+      "notFor": [
+        "body",
+        "metadata",
+        "long title",
+        "family-name-only implementation"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-alfa-slab-one",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.03,
+            0.097,
+            0.594,
+            0.861
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png"
+        }
+      ]
+    },
+    {
+      "id": "home-editorial-font-resource",
+      "status": "approved",
+      "scope": "Home Welcome narrative statement",
+      "salience": "high",
+      "kind": "typography-resource",
+      "evidenceClaimId": "home-font-asset-noto-serif",
+      "requiredFamily": "Noto Serif",
+      "requiredWeight": 700,
+      "implementationRule": "CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required.",
+      "fallbackBoundary": "Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed editorial-serif fallback; never report fallback typography as exact implementation.",
+      "suitableFor": [
+        "Home Welcome narrative title"
+      ],
+      "notFor": [
+        "display labels",
+        "metadata",
+        "utility copy",
+        "family-name-only implementation"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-noto-serif",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.083,
+            1,
+            0.917
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png"
+        }
+      ]
+    },
+    {
+      "id": "home-utility-font-resource",
+      "status": "approved",
+      "scope": "Home top navigation and proven ordinary sans roles",
+      "salience": "high",
+      "kind": "typography-resource",
+      "evidenceClaimId": "home-font-asset-poppins",
+      "requiredFamily": "Poppins",
+      "requiredWeight": 500,
+      "implementationRule": "CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required.",
+      "fallbackBoundary": "Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed neutral-sans fallback; never report fallback typography as exact implementation.",
+      "suitableFor": [
+        "Home top navigation",
+        "Home utility/body sans copy"
+      ],
+      "notFor": [
+        "display",
+        "editorial serif",
+        "condensed metadata",
+        "family-name-only implementation"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-poppins",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.108,
+            0.01,
+            0.64,
+            0.075
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"
+        }
+      ]
+    },
+    {
+      "id": "home-condensed-metadata-font-resource",
+      "status": "approved",
+      "scope": "Home hero availability date matching the captured active slide",
+      "salience": "high",
+      "kind": "typography-resource",
+      "evidenceClaimId": "home-font-asset-oswald",
+      "requiredFamily": "Oswald",
+      "observedComputedWeight": 800,
+      "importedWeightRange": [
+        300,
+        400,
+        500,
+        600,
+        700
+      ],
+      "implementationRule": "CSS family declaration is insufficient; a delivered or network-loaded resource plus document.fonts.check=true and visible glyph proof are required. Do not globalize the possibly synthesized 800 weight.",
+      "fallbackBoundary": "Only while the exact font-file URL remains unavailable-cross-origin, use a disclosed condensed-sans fallback; never report fallback typography as exact implementation.",
+      "suitableFor": [
+        "Home hero availability date",
+        "short campaign metadata matching the captured role"
+      ],
+      "notFor": [
+        "paragraph",
+        "narrative lead",
+        "global display",
+        "family-name-only implementation"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-oswald",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.025,
+            0.75,
+            0.313,
+            0.07
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"
+        }
+      ]
+    },
+    {
+      "id": "home-footer-illustration-organism",
+      "status": "approved",
+      "scope": "Home page-closing illustration immediately before the structural navy footer",
+      "salience": "high",
+      "kind": "composition-asset-motion",
+      "observedFact": "At 1280×720, a 553.33px layered character/wave/card/type organism performs a one-shot fadein→is-in reveal, a finite inItem composite swap, then three persistent independent card loops (5s/8s/8s). footer .js-bgAnimeBtn pauses only those three loops.",
+      "interpretation": "A spatial-temporal narrative closure distinct from the navy footer; neither poster styling nor generic motion carries the identity.",
+      "recommendation": "Consume the exact compositionContract in approved-visual-patterns.json; preserve every layer, normalized hierarchy, finite-to-infinite state boundary and loop-only control scope.",
+      "suitableFor": [
+        "Home page-closing illustration"
+      ],
+      "notFor": [
+        "pale diagonal poster composition",
+        "static-only substitute",
+        "generic animation",
+        "plain navy band",
+        "single-image approximation",
+        "global wallpaper"
+      ],
+      "compositionContractRef": "migrations/onepiece-cardgame/approved-visual-patterns.json#homeV5ClaimTranslations[claimId=home-footer-illustration-organism].compositionContract",
+      "responsiveTranslation": {
+        "mayChange": [
+          "uniform scale",
+          "container height",
+          "outer background overscan crop",
+          "proportional overlap offsets",
+          "vertical staging at narrow widths"
+        ],
+        "mustPreserve": [
+          "all eight semantic layers",
+          "left-dominant character/right-card/lower-right-type hierarchy",
+          "three distinct cards",
+          "catch above logo",
+          "finite inItem-to-showItem swap",
+          "5s/8s/8s infinite loops",
+          "loop-only pause control",
+          "placement before navy footer"
+        ],
+        "forbidden": [
+          "pale diagonal poster composition",
+          "single-raster flattening",
+          "static-only substitute",
+          "generic animation",
+          "dropped card/text/logo layers",
+          "uniform loop duration",
+          "pause affecting reveal"
+        ]
+      },
+      "motionBoundary": {
+        "oneShotReveal": ".footerIllust.fadein → .footerIllust.fadein.is-in; class persists",
+        "finiteSwap": ".inItem: inCard 0.6s + inItem 0.8s, one iteration, then opacity 0",
+        "infiniteLoops": {
+          "card01": "5s",
+          "card02": "8s",
+          "card03": "8s"
+        },
+        "control": "footer .js-bgAnimeBtn pauses/resumes only card01/card02/card03 loops; reveal and finite swap stay settled",
+        "reducedMotion": "unresolved; no preference/emulation evidence available"
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "footer-v10-transition-120ms",
+          "sourcePageId": "home",
+          "state": "transition-120ms",
+          "sourceRegion": [
+            0,
+            0.768,
+            1,
+            0.232
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png"
+        },
+        {
+          "evidenceId": "footer-v10-transition-500ms",
+          "sourcePageId": "home",
+          "state": "transition-500ms",
+          "sourceRegion": [
+            0,
+            0.768,
+            1,
+            0.232
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png"
+        },
+        {
+          "evidenceId": "footer-v10-settled",
+          "sourcePageId": "home",
+          "state": "settled-full",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png"
+        },
+        {
+          "evidenceId": "footer-v10-late-loop",
+          "sourcePageId": "home",
+          "state": "late-loop",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png"
+        },
+        {
+          "evidenceId": "footer-v10-paused",
+          "sourcePageId": "home",
+          "state": "paused",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png"
+        }
+      ]
+    },
+    {
+      "id": "home-390-responsive-reflow",
+      "status": "approved",
+      "scope": "Home at a true 390px-class browser viewport plus its Demo inspection host",
+      "salience": "high",
+      "kind": "responsive-composition-contract",
+      "observedFact": "The source is a 390px-wide, 7576px-tall responsive document, while the attempt-11 Demo host reduced the preview to 10px and Home canvas to 0px.",
+      "interpretation": "Mobile fidelity requires two independent layers: an inspection host that exposes a usable canvas, and section-level Home reflow. A desktop phone mockup is presentation chrome, not responsive proof or brand content.",
+      "recommendation": "Implement the complete two-layer contract at quality-attempts/11/interpreter-mobile-contract.json, then recapture at an exact shared 390x844 viewport.",
+      "suitableFor": [
+        "Home true narrow viewport inspection",
+        "Demo host mobile inspection mode"
+      ],
+      "notFor": [
+        "desktop-only phone mockup as responsive proof",
+        "device shell as brand asset",
+        "scale-only whole-page miniature",
+        "other source pages without mobile evidence"
+      ],
+      "allowedRoles": [
+        "demo-mobile-inspection-infrastructure",
+        "home-mobile-reflow"
+      ],
+      "forbiddenRoles": [
+        "brand-device-frame",
+        "global-page-scaling",
+        "desktop-split-at-mobile"
+      ],
+      "contractRef": "migrations/onepiece-cardgame/quality-attempts/11/interpreter-mobile-contract.json",
+      "evidenceRefs": [
+        {
+          "evidenceId": "attempt-11-mobile-responsive-checklist",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png"
+        }
+      ]
+    },
+    {
+      "id": "home-mobile-section-organisms-attempt12",
+      "status": "approved-with-attempt13-supersession",
+      "scope": "Home Welcome, New Arrival, Events, Recommend, Videos and Footer nav/legal at the observed 390x844 viewport",
+      "salience": "high",
+      "kind": "section-organism-contract",
+      "observedFact": "Attempt 12 evidence verifies each section's default layers, reading order, relative media/text/control geometry, responsive organization and semantic actions. Attempt 13 subsequently resolves the scoped New Arrival next/previous state and Events/Recommend item identity; other uncaptured pressed/modal/accordion-open states remain unresolved.",
+      "interpretation": "Mobile structural fidelity is section-specific. Counts are diagnostic only: New Arrival is a controlled clipped rail; Events is a bg_pikup-events red-frame organism; Recommend and Videos are Swiper media organizations; Footer navigation/legal is semantic operable structure.",
+      "recommendation": "Consume the attempt-12 organism contract together with the narrower attempt-13 asset/interaction/route contract; attempt 13 governs wherever they overlap.",
+      "suitableFor": [
+        "official Home 390px-class section reconstruction"
+      ],
+      "notFor": [
+        "count-only QA",
+        "generic white event rows",
+        "static Recommend/Video summaries",
+        "interaction claims beyond attempt-13 scope",
+        "non-semantic footer controls"
+      ],
+      "allowedRoles": [
+        "home-mobile-section-organism"
+      ],
+      "forbiddenRoles": [
+        "item-count-fidelity-proxy",
+        "generic-card-normalization",
+        "invented-interaction-parity"
+      ],
+      "contractRef": "migrations/onepiece-cardgame/quality-attempts/12/interpreter/section-contract.json",
+      "supersededFields": {
+        "by": "migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json",
+        "fields": [
+          "New Arrival next/previous active identity and reversible transform state",
+          "Events six positional asset identities",
+          "Recommend five positional media identities"
+        ]
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "attempt-12-section-checklist",
+          "sourcePageId": "home",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json"
+        },
+        {
+          "evidenceId": "attempt-12-dom-computed-probes",
+          "sourcePageId": "home",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/dom-computed-probes.json"
+        }
+      ]
+    },
+    {
+      "id": "home-mobile-item-identity-and-reversible-rails-attempt13",
+      "status": "approved",
+      "scope": "Home Events, Recommend and New Arrival at the observed 390px viewport, plus the generative held-out Demo boundary",
+      "salience": "high",
+      "kind": "asset-identity-interaction-route-contract",
+      "observedFact": "Attempt 13 proves six positional Events identities with exactly one source-authored duplicate pair (Jakarta/Manila), five pairwise-distinct Recommend 640x360 identities, and a real New Arrival Next transition from 1 / 10 at 0px to 2 / 10 at -181.998px with Previous changing disabled to enabled.",
+      "interpretation": "Item media identity and reversible state are structural brand fidelity, not replaceable decoration. The held-out proof is a separate Demo artifact and cannot become content on source-mapped Home.",
+      "recommendation": "Consume the attempt-13 contract verbatim and run all four blocking acceptance probes before QA.",
+      "suitableFor": [
+        "official Home mobile Events asset binding",
+        "official Home mobile Recommend rail",
+        "official Home mobile New Arrival controls",
+        "separate held-out generative Demo route"
+      ],
+      "notFor": [
+        "generated source-item art",
+        "unapproved repeated thumbnails",
+        "no-op arrows",
+        "held-out content embedded in Home"
+      ],
+      "allowedRoles": [
+        "source-item-asset-identity",
+        "reversible-rail-control",
+        "generative-held-out-page-boundary"
+      ],
+      "forbiddenRoles": [
+        "generated-source-item-substitute",
+        "count-only-fidelity",
+        "fake-control",
+        "source-home-held-out-container"
+      ],
+      "contractRef": "migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json",
+      "evidenceRefs": [
+        {
+          "evidenceId": "attempt13-item-asset-manifest",
+          "sourcePageId": "home",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"
+        },
+        {
+          "evidenceId": "attempt13-rail-state-probes",
+          "sourcePageId": "home",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/13/evidence/rail-state-probes.json"
+        },
+        {
+          "evidenceId": "attempt13-held-out-boundary",
+          "sourcePageId": null,
+          "capture": "migrations/onepiece-cardgame/goal-contract.json"
+        }
+      ]
+    }
   ],
-  "homeV5ClaimTranslations":"migrations/onepiece-cardgame/approved-visual-patterns.json#homeV5ClaimTranslations",
-  "styleRecipeDetails":[
-    {"patternId":"home-seven-variant-hero-system","purpose":"seven-identity full-cycle campaign composition","scope":"Home desktop Hero carousel only"},
-    {"patternId":"campaign-hero-stage","purpose":"dominant campaign composition","scope":"home hero only"},
-    {"patternId":"nautical-story-surface","purpose":"bounded warm story surface","scope":"welcome/onboarding only"},
-    {"patternId":"hard-black-unboxed-heading","purpose":"unboxed display hierarchy","scope":"major heading on light surface"},
-    {"patternId":"black-white-taxonomy-control","purpose":"compact selected taxonomy state","scope":"catalog filters only"},
-    {"patternId":"editorial-module-rhythm","purpose":"differentiated primary/supporting editorial pacing","scope":"editorial sections and source-independent held-out content"},
-    {"patternId":"product-first-catalog-density","purpose":"dense browse rhythm","scope":"products catalog"},
-    {"patternId":"home-display-font-resource","purpose":"resource-backed Alfa Slab One display identity","scope":"Home short oversized English section labels"},
-    {"patternId":"home-editorial-font-resource","purpose":"resource-backed Noto Serif narrative voice","scope":"Home Welcome narrative statement"},
-    {"patternId":"home-utility-font-resource","purpose":"resource-backed Poppins neutral utility voice","scope":"Home top navigation and proven ordinary sans roles"},
-    {"patternId":"home-condensed-metadata-font-resource","purpose":"resource-backed Oswald condensed campaign metadata","scope":"Home hero availability date"},
-    {"patternId":"home-footer-illustration-organism","purpose":"layered narrative page closure distinct from the navy footer field","scope":"Home immediately before .footerColInner"},
-    {"patternId":"home-390-responsive-reflow","purpose":"true-narrow canvas exposure plus evidence-bounded Home section reflow","scope":"Home and its Demo inspection host at 390px-class true browser viewports"},
-    {"patternId":"home-mobile-section-organisms-attempt12","purpose":"six frozen mobile organism contracts with semantic actions and blocking structure-not-count acceptance","scope":"Home Welcome through Footer nav/legal at observed 390px"},
-    {"patternId":"home-mobile-item-identity-and-reversible-rails-attempt13","purpose":"positionally exact official media, reversible New Arrival controls, and held-out route separation","scope":"Home Events/Recommend/New Arrival at observed 390px plus separate held-out Demo route"}
+  "homeV5ClaimTranslations": "migrations/onepiece-cardgame/approved-visual-patterns.json#homeV5ClaimTranslations",
+  "styleRecipeDetails": [
+    {
+      "patternId": "home-seven-variant-hero-system",
+      "purpose": "seven-identity full-cycle campaign composition",
+      "scope": "Home desktop Hero carousel only"
+    },
+    {
+      "patternId": "campaign-hero-stage",
+      "purpose": "dominant campaign composition",
+      "scope": "home hero only"
+    },
+    {
+      "patternId": "nautical-story-surface",
+      "purpose": "bounded warm story surface",
+      "scope": "welcome/onboarding only"
+    },
+    {
+      "patternId": "hard-black-unboxed-heading",
+      "purpose": "unboxed display hierarchy",
+      "scope": "major heading on light surface"
+    },
+    {
+      "patternId": "black-white-taxonomy-control",
+      "purpose": "compact selected taxonomy state",
+      "scope": "catalog filters only"
+    },
+    {
+      "patternId": "editorial-module-rhythm",
+      "purpose": "differentiated primary/supporting editorial pacing",
+      "scope": "editorial sections and source-independent held-out content"
+    },
+    {
+      "patternId": "product-first-catalog-density",
+      "purpose": "dense browse rhythm",
+      "scope": "products catalog"
+    },
+    {
+      "patternId": "home-display-font-resource",
+      "purpose": "resource-backed Alfa Slab One display identity",
+      "scope": "Home short oversized English section labels"
+    },
+    {
+      "patternId": "home-editorial-font-resource",
+      "purpose": "resource-backed Noto Serif narrative voice",
+      "scope": "Home Welcome narrative statement"
+    },
+    {
+      "patternId": "home-utility-font-resource",
+      "purpose": "resource-backed Poppins neutral utility voice",
+      "scope": "Home top navigation and proven ordinary sans roles"
+    },
+    {
+      "patternId": "home-condensed-metadata-font-resource",
+      "purpose": "resource-backed Oswald condensed campaign metadata",
+      "scope": "Home hero availability date"
+    },
+    {
+      "patternId": "home-footer-illustration-organism",
+      "purpose": "layered narrative page closure distinct from the navy footer field",
+      "scope": "Home immediately before .footerColInner"
+    },
+    {
+      "patternId": "home-390-responsive-reflow",
+      "purpose": "true-narrow canvas exposure plus evidence-bounded Home section reflow",
+      "scope": "Home and its Demo inspection host at 390px-class true browser viewports"
+    },
+    {
+      "patternId": "home-mobile-section-organisms-attempt12",
+      "purpose": "six frozen mobile organism contracts with semantic actions and blocking structure-not-count acceptance",
+      "scope": "Home Welcome through Footer nav/legal at observed 390px"
+    },
+    {
+      "patternId": "home-mobile-item-identity-and-reversible-rails-attempt13",
+      "purpose": "positionally exact official media, reversible New Arrival controls, and held-out route separation",
+      "scope": "Home Events/Recommend/New Arrival at observed 390px plus separate held-out Demo route"
+    }
   ],
-  "interactionRecipes":[
-    {"patternId":"top-header-menu-open-indicator","purpose":"dropdown-open feedback","scope":"top-header menu disclosure only"},
-    {"patternId":"image-pill-hover-feedback","purpose":"captured Home Welcome entry hover feedback","scope":"Home Welcome CTA only; prohibited for event reservation and transactional actions"},
-    {"patternId":"home-mobile-item-identity-and-reversible-rails-attempt13","purpose":"Next advances 1 / 10→2 / 10 at approximately -182px and enables Previous; Previous must restore the complete initial state","scope":"Home New Arrival previous/next controls only"}
+  "interactionRecipes": [
+    {
+      "patternId": "top-header-menu-open-indicator",
+      "purpose": "dropdown-open feedback",
+      "scope": "top-header menu disclosure only"
+    },
+    {
+      "patternId": "image-pill-hover-feedback",
+      "purpose": "captured Home Welcome entry hover feedback",
+      "scope": "Home Welcome CTA only; prohibited for event reservation and transactional actions"
+    },
+    {
+      "patternId": "home-mobile-item-identity-and-reversible-rails-attempt13",
+      "purpose": "Next advances 1 / 10→2 / 10 at approximately -182px and enables Previous; Previous must restore the complete initial state",
+      "scope": "Home New Arrival previous/next controls only"
+    }
   ],
-  "unresolvedClaims":[
-    {"id":"yellow-role-boundary","status":"resolved-as-local-only","reason":"No screenshot-backed evidence supports yellow tabs, yellow section titles or yellow button fills; the approved role is limited to the captured top-menu open indicator and color internal to official campaign artwork."},
-    {"id":"third-party-red-seed","status":"unresolved","reason":"The third-party #E30000 accent seed has no rendered action-node evidence and cannot establish a CTA or active role."},
-    {"id":"global-radius-or-shadow-system","status":"unresolved","reason":"Third-party frequency seeds do not establish semantic component roles."}
+  "unresolvedClaims": [
+    {
+      "id": "yellow-role-boundary",
+      "status": "resolved-as-local-only",
+      "reason": "No screenshot-backed evidence supports yellow tabs, yellow section titles or yellow button fills; the approved role is limited to the captured top-menu open indicator and color internal to official campaign artwork."
+    },
+    {
+      "id": "third-party-red-seed",
+      "status": "unresolved",
+      "reason": "The third-party #E30000 accent seed has no rendered action-node evidence and cannot establish a CTA or active role."
+    },
+    {
+      "id": "global-radius-or-shadow-system",
+      "status": "unresolved",
+      "reason": "Third-party frequency seeds do not establish semantic component roles."
+    }
   ]
 }

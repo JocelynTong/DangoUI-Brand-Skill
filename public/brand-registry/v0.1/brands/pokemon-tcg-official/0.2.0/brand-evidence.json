@@ -1,28 +1,391 @@
 {
-  "schema":"brand-evidence/v2","brand":"pokemon-tcg-official","goalId":"pokemon-tcg-official-cold-start-v2","status":"PASS",
-  "claims":[
-    {"id":"home-stage-composition","sourcePageId":"home","status":"observed","salience":"high","kind":"composition","claim":"Black navigation caps a layered campaign stage.","capture":{"path":"migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png"},"sourceRegion":[0,0,1440,795],"visibleDom":{"selector":"header.main-header#default","visible":true,"boundingBox":{"x":0,"y":84,"width":1440,"height":710.24}}},
-    {"id":"home-responsive-reflow","sourcePageId":"home","status":"observed","salience":"high","kind":"composition","claim":"Campaign and editorial modules reflow to one column at 390px.","capture":{"path":"migrations/pokemon-tcg-official/captures/source/home/mobile-390/full-page.png"},"sourceRegion":[0,0,390,6694],"visibleDom":{"selector":"body","visible":true,"boundingBox":{"x":0,"y":0,"width":390,"height":6694}}},
-    {"id":"card-db-search-shell","sourcePageId":"card-database","status":"observed","salience":"high","kind":"composition","claim":"A light title plate leads into a dark search organism with keyword fields, energy pills, reset/search actions and advanced drawer.","capture":{"path":"migrations/pokemon-tcg-official/captures/source/card-database/desktop/full-page.png"},"sourceRegion":[80,114,1280,724],"visibleDom":{"selector":"form#filters.form-analytics","visible":true,"boundingBox":{"x":80,"y":183.5,"width":1280,"height":654.63}}},
-    {"id":"card-db-results","sourcePageId":"card-database","status":"observed","salience":"high","kind":"visual","claim":"Pikachu search renders a light textured four-column authentic-card grid with sort and pagination.","capture":{"path":"migrations/pokemon-tcg-official/action-evidence/v2/search-settled.png"},"sourceRegion":[208,790,1024,1250],"visibleDom":{"selector":"section.card-results.mosaic","visible":true,"boundingBox":{"x":208,"y":790.13,"width":1024,"height":1249.78}},"computed":{"property":"background-image","value":"url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)"}},
-    {"id":"card-db-search-state","sourcePageId":"card-database","status":"observed","salience":"high","kind":"interaction","claim":"Pikachu input, submit results and reset are visibly reversible.","capture":{"path":"migrations/pokemon-tcg-official/action-evidence/v2/search-settled.png"},"sourceRegion":[80,184,1280,1856],"visibleDom":{"selector":"#cardName","visible":true,"boundingBox":{"x":282,"y":336,"width":244,"height":43}},"computed":{"property":"font-family","value":"Flexo-Regular, arial, sans-serif"}},
-    {"id":"card-db-advanced-state","sourcePageId":"card-database","status":"observed","salience":"high","kind":"interaction","claim":"Advanced trigger changes Show to Hide and expands #filtersAdvanced from 0px to 724px, then restores.","capture":{"path":"migrations/pokemon-tcg-official/action-evidence/v2/advanced-triggered.png"},"sourceRegion":[80,806,1280,724],"visibleDom":{"selector":"#filtersAdvanced.filters-advanced","visible":true,"boundingBox":{"x":80,"y":806.13,"width":1280,"height":724}},"computed":{"property":"height","value":"724px"}},
-    {"id":"card-db-responsive","sourcePageId":"card-database","status":"observed","salience":"high","kind":"composition","claim":"At 390px fields, energy pills and actions stack vertically while reading order remains intact.","capture":{"path":"migrations/pokemon-tcg-official/captures/source/card-database/mobile-390/full-page.png"},"sourceRegion":[0,0,390,2453],"visibleDom":{"selector":"body","visible":true,"boundingBox":{"x":0,"y":0,"width":390,"height":2453}}},
-    {"id":"learn-hierarchy","sourcePageId":"how-to-play","status":"observed","salience":"high","kind":"composition","claim":"Learning uses card-art hero, oversized headings and painted instructional organisms.","capture":{"path":"migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png"},"sourceRegion":[0,0,1440,8623],"visibleDom":{"selector":"main.main","visible":true,"boundingBox":{"x":0,"y":635,"width":1440,"height":9962}}},
-    {"id":"learn-accordion","sourcePageId":"how-to-play","status":"observed","salience":"high","kind":"interaction","claim":"Card anatomy accordion changes and restores the exclusive open panel.","capture":{"path":"migrations/pokemon-tcg-official/action-evidence/learn-accordion-triggered.png"},"sourceRegion":[206,282,428,554],"visibleDom":{"selector":"details.hotspot-gallery-accordion__panel","visible":true,"boundingBox":{"x":206,"y":365,"width":428,"height":222.59}},"computed":{"property":"display","value":"block"}}
+  "schema": "brand-evidence/v2",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "status": "PASS",
+  "claims": [
+    {
+      "id": "home-stage-composition",
+      "sourcePageId": "home",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "Black navigation caps a layered campaign stage.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/home/desktop/full-page.png"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1440,
+        795
+      ],
+      "visibleDom": {
+        "selector": "header.main-header#default",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 84,
+          "width": 1440,
+          "height": 710.24
+        }
+      }
+    },
+    {
+      "id": "home-responsive-reflow",
+      "sourcePageId": "home",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "Campaign and editorial modules reflow to one column at 390px.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/home/mobile-390/full-page.png"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        6694
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 6694
+        }
+      }
+    },
+    {
+      "id": "card-db-search-shell",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "A light title plate leads into a dark search organism with keyword fields, energy pills, reset/search actions and advanced drawer.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/card-database/desktop/full-page.png"
+      },
+      "sourceRegion": [
+        80,
+        114,
+        1280,
+        724
+      ],
+      "visibleDom": {
+        "selector": "form#filters.form-analytics",
+        "visible": true,
+        "boundingBox": {
+          "x": 80,
+          "y": 183.5,
+          "width": 1280,
+          "height": 654.63
+        }
+      }
+    },
+    {
+      "id": "card-db-results",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "visual",
+      "claim": "Pikachu search renders a light textured four-column authentic-card grid with sort and pagination.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/action-evidence/v2/search-settled.png"
+      },
+      "sourceRegion": [
+        208,
+        790,
+        1024,
+        1250
+      ],
+      "visibleDom": {
+        "selector": "section.card-results.mosaic",
+        "visible": true,
+        "boundingBox": {
+          "x": 208,
+          "y": 790.13,
+          "width": 1024,
+          "height": 1249.78
+        }
+      },
+      "computed": {
+        "property": "background-image",
+        "value": "url(https://assets.pokemon.com/static2/_ui/img/chrome/content_bg.png)"
+      }
+    },
+    {
+      "id": "card-db-search-state",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "claim": "Pikachu input, submit results and reset are visibly reversible.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/action-evidence/v2/search-settled.png"
+      },
+      "sourceRegion": [
+        80,
+        184,
+        1280,
+        1856
+      ],
+      "visibleDom": {
+        "selector": "#cardName",
+        "visible": true,
+        "boundingBox": {
+          "x": 282,
+          "y": 336,
+          "width": 244,
+          "height": 43
+        }
+      },
+      "computed": {
+        "property": "font-family",
+        "value": "Flexo-Regular, arial, sans-serif"
+      }
+    },
+    {
+      "id": "card-db-advanced-state",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "claim": "Advanced trigger changes Show to Hide and expands #filtersAdvanced from 0px to 724px, then restores.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/action-evidence/v2/advanced-triggered.png"
+      },
+      "sourceRegion": [
+        80,
+        806,
+        1280,
+        724
+      ],
+      "visibleDom": {
+        "selector": "#filtersAdvanced.filters-advanced",
+        "visible": true,
+        "boundingBox": {
+          "x": 80,
+          "y": 806.13,
+          "width": 1280,
+          "height": 724
+        }
+      },
+      "computed": {
+        "property": "height",
+        "value": "724px"
+      }
+    },
+    {
+      "id": "card-db-responsive",
+      "sourcePageId": "card-database",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "At 390px fields, energy pills and actions stack vertically while reading order remains intact.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/card-database/mobile-390/full-page.png"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        2453
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 2453
+        }
+      }
+    },
+    {
+      "id": "learn-hierarchy",
+      "sourcePageId": "how-to-play",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "Learning uses card-art hero, oversized headings and painted instructional organisms.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/captures/source/how-to-play/desktop/full-page.png"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1440,
+        8623
+      ],
+      "visibleDom": {
+        "selector": "main.main",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 635,
+          "width": 1440,
+          "height": 9962
+        }
+      }
+    },
+    {
+      "id": "learn-accordion",
+      "sourcePageId": "how-to-play",
+      "status": "observed",
+      "salience": "high",
+      "kind": "interaction",
+      "claim": "Card anatomy accordion changes and restores the exclusive open panel.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/action-evidence/learn-accordion-triggered.png"
+      },
+      "sourceRegion": [
+        206,
+        282,
+        428,
+        554
+      ],
+      "visibleDom": {
+        "selector": "details.hotspot-gallery-accordion__panel",
+        "visible": true,
+        "boundingBox": {
+          "x": 206,
+          "y": 365,
+          "width": 428,
+          "height": 222.59
+        }
+      },
+      "computed": {
+        "property": "display",
+        "value": "block"
+      }
+    }
   ],
-  "goalCoverage":[{"goalRef":"home-brand-stage","status":"proved","evidenceRefs":["home-stage-composition"]},{"goalRef":"card-database-search-organism","status":"proved","evidenceRefs":["card-db-search-shell","card-db-results","card-db-search-state","card-db-advanced-state"]},{"goalRef":"learning-content-hierarchy","status":"proved","evidenceRefs":["learn-hierarchy","learn-accordion"]},{"goalRef":"responsive-section-structure","status":"proved","evidenceRefs":["home-responsive-reflow","card-db-responsive","learn-hierarchy"]}],
-  "thirdPartySeedDispositions":[
-    {"id":"dembrandt-semantic-colors","seedRef":"third-party-evidence.dembrandt.json#/computedEvidence/semanticColors/*","candidateCount":2,"status":"unresolved","reason":"The extractor reports aggregate black/white values without selectors or screenshot regions. No complete rendered Claim proves these values as semantic roles, so they remain seed-only."},
-    {"id":"dembrandt-palette","seedRef":"third-party-evidence.dembrandt.json#/computedEvidence/palette/*","candidateCount":2,"status":"unresolved","reason":"Frequency includes manifest, reduced-motion and hidden sources. Aggregate counts cannot establish a visible brand role without page-scoped screenshot, Region, visible DOM and computed-property bindings."},
-    {"id":"dembrandt-button-variants","seedRef":"third-party-evidence.dembrandt.json#/computedEvidence/buttonVariants/*","candidateCount":3,"status":"unresolved","reason":"The candidates mix reduced-motion, carousel and expansion controls and provide no stable selectors or screenshot Regions. They are not promoted until each visible state is independently bound to rendered action evidence."},
-    {"id":"dembrandt-radii","seedRef":"third-party-evidence.dembrandt.json#/computedEvidence/radii/*","candidateCount":10,"status":"unresolved","reason":"These are aggregate geometry hints, including cookie controls and anonymous elements. No item has the complete rendered evidence chain needed to assign a reusable role."},
-    {"id":"dembrandt-shadows","seedRef":"third-party-evidence.dembrandt.json#/computedEvidence/shadows/*","candidateCount":8,"status":"unresolved","reason":"The shadow aggregates omit visible selectors and source Regions. They cannot be distinguished from incidental or hidden UI and remain seed-only."},
-    {"id":"dembrandt-typography","seedRef":"third-party-evidence.dembrandt.json#/computedEvidence/typography/styles/*","candidateCount":20,"status":"unresolved","reason":"Font summaries have empty selectors and no capture Regions. They may prioritize later inspection but cannot independently prove page-scoped typography semantics."},
-    {"id":"dembrandt-primary-color-hint","seedRef":"third-party-evidence.dembrandt.json#/candidateHints/primaryColorSeed","candidateCount":1,"status":"rejected","reason":"The extractor returned an empty value, so there is no candidate that can be validated against rendered evidence."},
-    {"id":"dembrandt-accent-color-hint","seedRef":"third-party-evidence.dembrandt.json#/candidateHints/accentColorSeed","candidateCount":1,"status":"rejected","reason":"The extractor returned an empty value and empty source; no visible accent claim is supported."},
-    {"id":"dembrandt-action-fill-hints","seedRef":"third-party-evidence.dembrandt.json#/candidateHints/{primaryActionFillSeed,activeStateFillSeed}","candidateCount":2,"status":"rejected","reason":"Both extractor hints are null. Action roles must instead come from before/after rendered action evidence."},
-    {"id":"dembrandt-radius-hints","seedRef":"third-party-evidence.dembrandt.json#/candidateHints/{cardRadiusSeed,controlRadiusSeed}","candidateCount":2,"status":"unresolved","reason":"The values are aggregate seeds without a visible page, state, selector or Region; they are not reusable role evidence."},
-    {"id":"dembrandt-shadow-hint","seedRef":"third-party-evidence.dembrandt.json#/candidateHints/shadowSeed","candidateCount":1,"status":"unresolved","reason":"Highest-frequency extraction alone cannot distinguish a visible structural shadow from incidental UI; no complete rendered Claim validates it."}
-  ],"routerCorrectionHistory":{"oldCardsUrl":"https://tcg.pokemon.com/en-us/cards/","status":"official-404","required":false},"consumerDecision":{"status":"PASS","nextRole":"designTranslator"}
+  "goalCoverage": [
+    {
+      "goalRef": "home-brand-stage",
+      "status": "proved",
+      "evidenceRefs": [
+        "home-stage-composition"
+      ]
+    },
+    {
+      "goalRef": "card-database-search-organism",
+      "status": "proved",
+      "evidenceRefs": [
+        "card-db-search-shell",
+        "card-db-results",
+        "card-db-search-state",
+        "card-db-advanced-state"
+      ]
+    },
+    {
+      "goalRef": "learning-content-hierarchy",
+      "status": "proved",
+      "evidenceRefs": [
+        "learn-hierarchy",
+        "learn-accordion"
+      ]
+    },
+    {
+      "goalRef": "responsive-section-structure",
+      "status": "proved",
+      "evidenceRefs": [
+        "home-responsive-reflow",
+        "card-db-responsive",
+        "learn-hierarchy"
+      ]
+    }
+  ],
+  "thirdPartySeedDispositions": [
+    {
+      "id": "dembrandt-semantic-colors",
+      "seedRef": "third-party-evidence.dembrandt.json#/computedEvidence/semanticColors/*",
+      "candidateCount": 2,
+      "status": "unresolved",
+      "reason": "The extractor reports aggregate black/white values without selectors or screenshot regions. No complete rendered Claim proves these values as semantic roles, so they remain seed-only."
+    },
+    {
+      "id": "dembrandt-palette",
+      "seedRef": "third-party-evidence.dembrandt.json#/computedEvidence/palette/*",
+      "candidateCount": 2,
+      "status": "unresolved",
+      "reason": "Frequency includes manifest, reduced-motion and hidden sources. Aggregate counts cannot establish a visible brand role without page-scoped screenshot, Region, visible DOM and computed-property bindings."
+    },
+    {
+      "id": "dembrandt-button-variants",
+      "seedRef": "third-party-evidence.dembrandt.json#/computedEvidence/buttonVariants/*",
+      "candidateCount": 3,
+      "status": "unresolved",
+      "reason": "The candidates mix reduced-motion, carousel and expansion controls and provide no stable selectors or screenshot Regions. They are not promoted until each visible state is independently bound to rendered action evidence."
+    },
+    {
+      "id": "dembrandt-radii",
+      "seedRef": "third-party-evidence.dembrandt.json#/computedEvidence/radii/*",
+      "candidateCount": 10,
+      "status": "unresolved",
+      "reason": "These are aggregate geometry hints, including cookie controls and anonymous elements. No item has the complete rendered evidence chain needed to assign a reusable role."
+    },
+    {
+      "id": "dembrandt-shadows",
+      "seedRef": "third-party-evidence.dembrandt.json#/computedEvidence/shadows/*",
+      "candidateCount": 8,
+      "status": "unresolved",
+      "reason": "The shadow aggregates omit visible selectors and source Regions. They cannot be distinguished from incidental or hidden UI and remain seed-only."
+    },
+    {
+      "id": "dembrandt-typography",
+      "seedRef": "third-party-evidence.dembrandt.json#/computedEvidence/typography/styles/*",
+      "candidateCount": 20,
+      "status": "unresolved",
+      "reason": "Font summaries have empty selectors and no capture Regions. They may prioritize later inspection but cannot independently prove page-scoped typography semantics."
+    },
+    {
+      "id": "dembrandt-primary-color-hint",
+      "seedRef": "third-party-evidence.dembrandt.json#/candidateHints/primaryColorSeed",
+      "candidateCount": 1,
+      "status": "rejected",
+      "reason": "The extractor returned an empty value, so there is no candidate that can be validated against rendered evidence."
+    },
+    {
+      "id": "dembrandt-accent-color-hint",
+      "seedRef": "third-party-evidence.dembrandt.json#/candidateHints/accentColorSeed",
+      "candidateCount": 1,
+      "status": "rejected",
+      "reason": "The extractor returned an empty value and empty source; no visible accent claim is supported."
+    },
+    {
+      "id": "dembrandt-action-fill-hints",
+      "seedRef": "third-party-evidence.dembrandt.json#/candidateHints/{primaryActionFillSeed,activeStateFillSeed}",
+      "candidateCount": 2,
+      "status": "rejected",
+      "reason": "Both extractor hints are null. Action roles must instead come from before/after rendered action evidence."
+    },
+    {
+      "id": "dembrandt-radius-hints",
+      "seedRef": "third-party-evidence.dembrandt.json#/candidateHints/{cardRadiusSeed,controlRadiusSeed}",
+      "candidateCount": 2,
+      "status": "unresolved",
+      "reason": "The values are aggregate seeds without a visible page, state, selector or Region; they are not reusable role evidence."
+    },
+    {
+      "id": "dembrandt-shadow-hint",
+      "seedRef": "third-party-evidence.dembrandt.json#/candidateHints/shadowSeed",
+      "candidateCount": 1,
+      "status": "unresolved",
+      "reason": "Highest-frequency extraction alone cannot distinguish a visible structural shadow from incidental UI; no complete rendered Claim validates it."
+    }
+  ],
+  "routerCorrectionHistory": {
+    "oldCardsUrl": "https://tcg.pokemon.com/en-us/cards/",
+    "status": "official-404",
+    "required": false
+  },
+  "consumerDecision": {
+    "status": "PASS",
+    "nextRole": "designTranslator"
+  }
 }

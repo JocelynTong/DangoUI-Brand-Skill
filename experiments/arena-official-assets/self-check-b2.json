@@ -1,0 +1,55 @@
+{
+  "schema": "arena-official-assets-self-check/v1",
+  "variant": "B2",
+  "status": "PASS_CANDIDATE",
+  "reviewedRender": {
+    "path": "screenshots/mobile-390-b2.png",
+    "viewport": [390, 844],
+    "heroBoundary": [0, 700]
+  },
+  "runtimeProbe": {
+    "heroSize": [390, 700],
+    "heroPrimaryActions": 1,
+    "heroForbiddenNodes": {
+      "cards": 0,
+      "broadcast": 0,
+      "activityOrOnlineCount": 0
+    },
+    "postHeroTop": 700,
+    "postHeroImages": 3,
+    "allImagesLoaded": true,
+    "consoleOrPageErrors": 0,
+    "ctaBottom": 670
+  },
+  "checks": {
+    "heroPurity": {
+      "status": "PASS",
+      "evidence": "Hero imagery contains only the official same-source ensemble and navigation brand mark. Tournament photography and both cards have no nodes inside the Hero. The only primary action is 浏览热门牌组."
+    },
+    "isolatedCharacter": {
+      "status": "PASS",
+      "evidence": "Pikachu, Mew, and Mewtwo remain inside one official raster with shared perspective and illumination. Pikachu is central, while both secondary characters stay visibly connected behind it."
+    },
+    "arenaAtmosphere": {
+      "status": "PASS",
+      "evidence": "A continuous ceiling light ring, opposing red/blue beams, crowd-light field, and elliptical battle floor surround the ensemble. The bottom half is occupied by stage depth rather than promotional cards."
+    },
+    "visualImpactAt390": {
+      "status": "PASS",
+      "evidence": "At 390 px, the ensemble occupies the center of the first screen, the 56 px-class headline remains the first reading layer, and the CTA closes at y=670 before the Hero boundary."
+    },
+    "contentOrganismSeparation": {
+      "status": "PASS",
+      "evidence": "赛场战报 begins at y=700 with its own dark technical grid, section heading, feed photograph, two-card group, metadata, and action. It is not visually or structurally part of the Hero."
+    },
+    "lightingConflict": {
+      "status": "PASS",
+      "evidence": "The Hero uses one character raster only; every other Hero light is a contextual CSS atmosphere layer. The differently lit tournament photo and printed cards are isolated in the next organism."
+    },
+    "brandWeakening": {
+      "status": "PASS",
+      "evidence": "Even without reading the logo, the official three-character composition, red/blue arena split, and battle-floor geometry preserve Pokémon TCG recognition. The official logo remains reinforcement in navigation."
+    }
+  },
+  "verdict": "B2 is cleaner and more forceful than B1 at 390 px. Removing feed, cards, and activity data from the Hero restores the ensemble as the single visual story while keeping richer TCG content immediately below the fold."
+}

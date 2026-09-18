@@ -1,0 +1,53 @@
+{
+  "schema": "arena-official-assets/v1",
+  "intent": "Use only persisted official Pokémon TCG assets from the repository; construct the night-arena context with CSS rather than a generated full-frame background.",
+  "assets": [
+    {
+      "role": "ensemble-world",
+      "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/booster-art-1.jpg",
+      "sourceId": "home-booster-art",
+      "sha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca",
+      "reason": "Pikachu, Mew, and Mewtwo already share perspective and illumination in one official composition, removing the isolated-character failure."
+    },
+    {
+      "role": "arena-broadcast",
+      "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/championships.jpg",
+      "sourceId": "home-editorial-squares",
+      "sha256": "0f7fb0ab417f1b2076343573a676b71629722e30e252147f11f4ef3966eb918d",
+      "reason": "Adds real competitors, Pokémon venue graphics, and a verifiable tournament context inside an in-world broadcast ribbon."
+    },
+    {
+      "role": "brand-mark",
+      "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/tcg-logo.png",
+      "sha256": "fe118657977a9a4da35c1642e4c972b04186fa212365282faa77162dde840d35",
+      "reason": "Preserves Pokémon TCG identity rather than leaving the scene as generic esports."
+    },
+    {
+      "role": "foreground-collectible-left",
+      "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/SV06_EN_33.png",
+      "sourceId": "learn-card",
+      "sha256": "9fc8bb864f89a13406a0191ed4cd1387300bfccc9e2ab9eb0c107f7987a2ee95",
+      "reason": "Makes the host's deck-building subject physically present in the foreground."
+    },
+    {
+      "role": "foreground-collectible-right",
+      "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/2M6P_EN_23.png",
+      "sourceId": "home-feature-card",
+      "sha256": "07d6945552ed54badc3be9bfe73e5554cfb3f9b04e8049077762b53721311d83",
+      "reason": "Connects the ensemble backdrop to an authentic collectible instead of a detached mascot sticker."
+    }
+  ],
+  "nonAssetLayers": [
+    "red and blue arena spotlights",
+    "overhead light ring",
+    "crowd bokeh field",
+    "elliptical battle floor",
+    "broadcast score bar and live state"
+  ],
+  "forbidden": [
+    "generated arena raster",
+    "standalone Pikachu cutout as hero",
+    "official screenshot as runtime image",
+    "mixing unrelated daylight cast shadows into foreground assets"
+  ]
+}

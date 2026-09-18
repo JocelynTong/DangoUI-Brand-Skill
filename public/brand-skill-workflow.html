@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>DangoUI Brand Skill 标准流程图</title>
 <style>
-*{box-sizing:border-box}body{margin:0;background:#f7f7f7;color:#111;font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}main{width:min(1060px,calc(100% - 24px));margin:auto;padding:28px 0 52px}header{text-align:center;margin-bottom:18px}h1{margin:0 0 7px;font-size:26px}header p{margin:0;color:#555;font-size:13px}.frame{overflow-x:auto;border:1px solid #bbb;background:#fff;padding:18px}.frame svg{display:block;width:100%;min-width:820px;height:auto}.node{fill:#fff;stroke:#222;stroke-width:2}.decision{fill:#fff;stroke:#222;stroke-width:2.5}.guard{fill:#fff7f6;stroke:#d92d20;stroke-width:3}.success{fill:#f0fff8;stroke:#087a55;stroke-width:3}.edge{fill:none;stroke:#222;stroke-width:2;marker-end:url(#arrow)}.return-edge{fill:none;stroke:#b54708;stroke-width:2;stroke-dasharray:7 5;marker-end:url(#arrow-no)}.title{font-size:17px;font-weight:700;text-anchor:middle;fill:#111}.sub{font-size:13px;text-anchor:middle;fill:#555}.guard-title{fill:#b42318}.label{font-size:13px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:5;stroke-linejoin:round}.yes{fill:#087a55}.no{fill:#b54708}.loop-note{font-size:12px;fill:#b54708}.legend{margin:14px 0 0;text-align:center;color:#555;font-size:12px}.legend b{color:#d92d20}@media(max-width:620px){main{width:100%;padding-top:20px}h1{font-size:21px}.frame{border-left:0;border-right:0;padding:12px}.frame svg{min-width:760px}.hint{display:block}.legend{padding:0 14px}}@media(min-width:621px){.hint{display:none}}
+*{box-sizing:border-box}body{margin:0;background:#f7f7f7;color:#111;font-family:Arial,"PingFang SC","Microsoft YaHei",sans-serif}main{width:min(1060px,calc(100% - 24px));margin:auto;padding:28px 0 52px}header{text-align:center;margin-bottom:18px}h1{margin:0 0 7px;font-size:26px}header p{margin:0;color:#555;font-size:13px}.frame{overflow-x:auto;border:1px solid #bbb;background:#fff;padding:18px}.frame svg{display:block;width:100%;min-width:820px;height:auto}.node{fill:#fff;stroke:#222;stroke-width:2}.decision{fill:#fff;stroke:#222;stroke-width:2.5}.guard{fill:#fff7f6;stroke:#d92d20;stroke-width:3}.success{fill:#f0fff8;stroke:#087a55;stroke-width:3}.edge{fill:none;stroke:#222;stroke-width:2;marker-end:url(#arrow)}.return-edge{fill:none;stroke:#b54708;stroke-width:2;stroke-dasharray:7 5;marker-end:url(#arrow-no)}.title{font-size:17px;font-weight:700;text-anchor:middle;fill:#111}.sub{font-size:13px;text-anchor:middle;fill:#555}.guard-title{fill:#b42318}.label{font-size:13px;font-weight:700;paint-order:stroke;stroke:#fff;stroke-width:5;stroke-linejoin:round}.yes{fill:#087a55}.no{fill:#b54708}.loop-note{font-size:12px;fill:#b54708}.legend{margin:14px 0 0;text-align:center;color:#555;font-size:12px}.legend b{color:#d92d20}.pipelines{margin-top:34px}.pipelines h2{margin:0 0 6px;font-size:22px}.pipelines>p{margin:0 0 18px;color:#666;font-size:13px}.pipeline{margin-top:14px;border:1px solid #bbb;background:#fff;padding:18px}.pipeline-head{display:flex;align-items:baseline;gap:12px;margin-bottom:14px}.pipeline-head b{font-size:18px}.pipeline-head span{color:#666;font-size:12px}.rail{display:grid;grid-template-columns:repeat(6,minmax(130px,1fr));gap:24px;overflow-x:auto;padding:3px}.step{position:relative;min-height:118px;border:2px solid #222;padding:13px;background:#fff}.step:not(:last-child)::after{content:"→";position:absolute;right:-22px;top:42px;font-size:22px;font-weight:700}.step strong{display:block;margin-bottom:7px;font-size:14px}.step small{display:block;color:#555;line-height:1.45}.step.gate{border-color:#d92d20;background:#fff7f6}.step.done{border-color:#087a55;background:#f0fff8}.owner{display:inline-block;margin-top:9px;color:#315eb8;font-size:11px;font-weight:700}.pipeline-note{margin:12px 0 0;color:#555;font-size:12px}.pipeline-note b{color:#111}@media(max-width:620px){main{width:100%;padding-top:20px}h1{font-size:21px}.frame{border-left:0;border-right:0;padding:12px}.frame svg{min-width:760px}.hint{display:block}.legend{padding:0 14px}.pipelines{padding:0 12px}.pipeline{padding:12px}.rail{grid-template-columns:repeat(6,180px)}}@media(min-width:621px){.hint{display:none}}
 </style>
 </head>
 <body><main><header><h1>DangoUI Brand Skill 工作流</h1><p>标准图例：矩形 = 处理；菱形 = 判断；实线 = 正向；橙色虚线 = NO 回退</p></header>
@@ -62,4 +62,34 @@
 <path class="return-edge" d="M965 2099 H985 V1681 H704"/><text class="loop-note" x="784" y="1665">修正后返回宿主应用</text>
 </svg></div>
 <p class="legend"><b>红框</b>：提高换肤成功率的四个闭环　｜　橙色虚线：NO 修正后的真实回指路径<span class="hint"><br>手机端可横向滑动查看完整支路。</span></p>
+<section class="pipelines" aria-labelledby="pipeline-title">
+  <h2 id="pipeline-title">H5 基础验证之后：两条正式 Pipeline</h2>
+  <p>学习与应用相互独立。Apply-host 只消费已经冻结的品牌包，绝不偷偷重跑 Learn-brand。</p>
+
+  <article class="pipeline">
+    <div class="pipeline-head"><b>Pipeline A · Learn-brand</b><span>把官网学成可复用、可生成的品牌能力</span></div>
+    <div class="rail">
+      <div class="step"><strong>1 · 冻结目标与来源</strong><small>URL、页面、视口、交互与证据范围</small><i class="owner">Design Director</i></div>
+      <div class="step"><strong>2 · 可见证据</strong><small>截图、DOM、computed、素材与真实状态</small><i class="owner">Brand Researcher</i></div>
+      <div class="step"><strong>3 · 解释视觉机制</strong><small>角色、语义、构图、使用与禁用边界</small><i class="owner">Design Translator</i></div>
+      <div class="step"><strong>4 · DTCG / DangoUI</strong><small>标准 token、组件映射与 style-only 能力</small><i class="owner">DangoUI Mapper</i></div>
+      <div class="step"><strong>5 · 生成能力测试</strong><small>用已学规律生成不同结构，不镜像官网</small><i class="owner">Demo Implementation</i></div>
+      <div class="step gate"><strong>6 · 三证独立通过</strong><small>Evidence、Structural、Generative 均 PASS</small><i class="owner">Fresh Visual QA</i></div>
+    </div>
+    <p class="pipeline-note"><b>产物：</b>冻结 Evidence + Brand Intent + Brand Mod + assets/patterns + 可复用 Registry revision。</p>
+  </article>
+
+  <article class="pipeline">
+    <div class="pipeline-head"><b>Pipeline B · Apply-host</b><span>把已学品牌能力适配到真实宿主并可靠交付</span></div>
+    <div class="rail">
+      <div class="step"><strong>1 · 复用品牌包</strong><small>Registry 命中、hash 校验；禁止重新学习</small><i class="owner">Router</i></div>
+      <div class="step"><strong>2 · 判断宿主</strong><small>首要任务、页面类型、内容流、容量与保护边界</small><i class="owner">Host Strategist</i></div>
+      <div class="step gate"><strong>3 · 学会运用</strong><small>语义、素材、构图、氛围与真实业务融合成 2–3 案</small><i class="owner">Brand Application Designer</i></div>
+      <div class="step"><strong>4 · 用户选定方向</strong><small>冻结唯一视觉目标；此前宿主源码保持不变</small><i class="owner">Design Director + User</i></div>
+      <div class="step"><strong>5 · 忠实实施</strong><small>DangoUI 行为/API + 品牌样式与资产；不重新设计</small><i class="owner">Host Implementation</i></div>
+      <div class="step done"><strong>6 · 独立验收</strong><small>业务安全、方向还原、品牌辨识度、真机与响应式</small><i class="owner">Fresh Visual QA</i></div>
+    </div>
+    <p class="pipeline-note"><b>5 分钟目标：</b>默认首页首屏先出真实选择预览；选择后实施并 Smoke QA，停在 awaiting-user，再由用户决定扩页或认证。</p>
+  </article>
+</section>
 </main></body></html>

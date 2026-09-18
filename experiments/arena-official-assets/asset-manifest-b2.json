@@ -1,0 +1,29 @@
+{
+  "schema": "arena-official-assets-b2/v1",
+  "hero": {
+    "rasterAssets": [
+      {
+        "role": "same-source-ensemble",
+        "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/booster-art-1.jpg",
+        "sha256": "c7609567e43b67b883bab3f166a9638ea34d5a2009b91210dcf242a0f201a1ca"
+      },
+      {
+        "role": "navigation-brand-mark",
+        "path": "../../migrations/pokemon-tcg-official/rendered-assets/official/tcg-logo.png",
+        "sha256": "fe118657977a9a4da35c1642e4c972b04186fa212365282faa77162dde840d35"
+      }
+    ],
+    "contextLayers": ["arena light ring", "red/blue beams", "crowd lights", "elliptical battle floor"],
+    "content": ["title", "supporting sentence", "one primary CTA"],
+    "forbiddenAndAbsent": ["tournament photo", "cards", "feed organism", "online count"]
+  },
+  "postHeroOrganism": {
+    "id": "battle-feed",
+    "startsAfterHero": true,
+    "rasterAssets": [
+      "../../migrations/pokemon-tcg-official/rendered-assets/official/championships.jpg",
+      "../../migrations/pokemon-tcg-official/rendered-assets/official/SV06_EN_33.png",
+      "../../migrations/pokemon-tcg-official/rendered-assets/official/2M6P_EN_23.png"
+    ]
+  }
+}

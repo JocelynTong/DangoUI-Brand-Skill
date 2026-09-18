@@ -1,0 +1,155 @@
+{
+  "schema": "arena-a-fidelity-rubric/v2",
+  "name": "Arena Night A — Reference Fidelity Hard Gate",
+  "status": "blocking",
+  "supersedes": "arena-a-visual-rubric.json direction-fidelity weighted compensation model",
+  "changeReason": "Candidate B2 received a false PASS because general polish, brand recognition and usability compensated for missing high-salience properties of the user-selected A reference. Reference fidelity is now evaluated before and independently of general visual quality.",
+  "reference": {
+    "selectedDirection": "arena-night",
+    "canonicalBoard": "../../migrations/pokemon-tcg-official/host-runs/card-plugin2/style-choice/high-fidelity-direction-board-v2.png",
+    "canonicalPanel": "A / 赛场夜战",
+    "viewport": "390x844",
+    "comparisonRule": "Compare the candidate and canonical A panel at equal phone height. Judge rendered pixels only; asset provenance, implementation rationale and build status are excluded."
+  },
+  "gateOrder": [
+    "A_REFERENCE_FIDELITY",
+    "GENERAL_VISUAL_QUALITY",
+    "HOST_USABILITY",
+    "PLATFORM_SMOKE"
+  ],
+  "nonCompensationRule": "If A_REFERENCE_FIDELITY fails, the overall verdict is FAIL. General visual quality, brand recognition, official assets, technical compliance, usability, build success and platform smoke cannot raise or compensate for that verdict.",
+  "aReferenceFidelity": {
+    "scoring": {
+      "scalePerCriterion": "0–5",
+      "criterionFloor": 4,
+      "maximum": 20,
+      "passRule": "All four criteria must individually score >=4. Average, total score and strengths in another criterion cannot compensate for one criterion below floor.",
+      "failureVerdict": "FAIL_A_REFERENCE_FIDELITY"
+    },
+    "criteria": [
+      {
+        "id": "ensemble-conflict",
+        "label": "群像冲突",
+        "floor": 4,
+        "referenceInvariant": "The A hero is a multi-subject confrontation, not a mascot portrait. Pikachu is the dominant foreground actor; at least one opposing character is clearly legible; additional arena/crowd silhouettes amplify a shared battle event.",
+        "scoreAnchors": {
+          "0": "No character event or only decorative brand objects.",
+          "1": "One isolated mascot on a background.",
+          "2": "A second character exists but is hidden, tiny, passive or unrelated.",
+          "3": "Two characters are visible and share a setting, but confrontation/reaction is weak and the scene still reads as a portrait.",
+          "4": "Primary and opposing subjects form an unmistakable confrontation; supporting arena/crowd cues reinforce the same event.",
+          "5": "A rich but controlled ensemble forms one decisive battle moment, with foreground protagonist, opponent, environmental reaction and audience/arena energy."
+        },
+        "hardFailureSignals": [
+          "Pikachu remains the only immediately legible character.",
+          "Opponent is visible only after careful inspection or functions as a background watermark.",
+          "Characters share a frame but have no visible opposition, reaction or common target.",
+          "Cards, photos or UI chrome are used to simulate a group scene."
+        ]
+      },
+      {
+        "id": "electric-burst",
+        "label": "电光爆发",
+        "floor": 4,
+        "referenceInvariant": "A uses a concentrated, high-energy electrical burst around the protagonist as both action evidence and scene light. It must visibly affect nearby subjects, floor and atmosphere.",
+        "scoreAnchors": {
+          "0": "No energy effect.",
+          "1": "Small decorative spark, glow or color streak.",
+          "2": "Energy is visible but disconnected from character action and does not illuminate the scene.",
+          "3": "A coherent energy source exists and affects part of the scene, but lacks the explosive visual mass or focal force of A.",
+          "4": "A strong electrical burst is attached to the protagonist's action and creates visible rim/cast light, particles and atmospheric response.",
+          "5": "The burst becomes the organizing light/action engine of the composition, radiating through subjects, floor, effects and crowd while preserving readability."
+        },
+        "hardFailureSignals": [
+          "Lighting is primarily passive colored beams with no explosion or discharge.",
+          "Glow exists only behind/under a character and has no scene consequence.",
+          "Generic particles or gradients substitute for directional electricity.",
+          "Energy can be removed without changing the depicted action."
+        ]
+      },
+      {
+        "id": "action-direction",
+        "label": "动作方向",
+        "floor": 4,
+        "referenceInvariant": "A's subjects, lightning, spotlight and arena diagonals converge into a forceful directional flow. The eye should enter, hit the protagonist/action and continue toward the opponent or CTA—not stop at a centered static mascot.",
+        "scoreAnchors": {
+          "0": "No readable directional flow.",
+          "1": "Centered/static portrait with symmetric background.",
+          "2": "A few diagonal decorations exist but subjects remain static and disconnected.",
+          "3": "The composition has a readable diagonal or forward motion, but character poses/effects do not fully support it.",
+          "4": "Character pose, opponent placement, electrical trajectory and arena lines form one clear attack/counterattack direction.",
+          "5": "Multiple directional vectors converge and release with poster-like control, producing immediate kinetic tension without visual confusion."
+        },
+        "hardFailureSignals": [
+          "The protagonist is upright, centered and front-facing without a force vector.",
+          "Opponent placement does not establish attack/counterattack geometry.",
+          "Background beams move independently of character poses.",
+          "Typography supplies all perceived motion while the scene itself remains static."
+        ]
+      },
+      {
+        "id": "event-poster-impact",
+        "label": "赛事海报冲击",
+        "floor": 4,
+        "referenceInvariant": "The first glance must feel like a premium battle-event poster: one spectacular image mass, decisive headline, extreme scale contrast, controlled darkness and a charged crowd/arena atmosphere.",
+        "scoreAnchors": {
+          "0": "Generic app header or content card.",
+          "1": "Branded hero with logo and character but no event spectacle.",
+          "2": "Promotional composition with several elements but weak focal mass and emotional escalation.",
+          "3": "Competent event poster with clear headline and subject, but insufficient scale, atmosphere or dramatic climax compared with A.",
+          "4": "Immediate premium event-poster impact: dominant spectacle, strong type-image lockup, controlled supporting information and arena tension.",
+          "5": "Matches A's first-glance intensity and cinematic density while remaining original, readable and usable in the host."
+        },
+        "hardFailureSignals": [
+          "The hero reads primarily as an app landing page rather than an event poster.",
+          "Large dark/empty areas weaken rather than intensify the spectacle.",
+          "Headline is dramatic but the underlying image mass is passive.",
+          "Logo, labels or UI metadata are doing the emotional work that the scene should do."
+        ]
+      }
+    ]
+  },
+  "generalVisualQuality": {
+    "prerequisite": "Evaluate only after A_REFERENCE_FIDELITY passes.",
+    "dimensions": [
+      {"id": "spatial-depth", "maximum": 15, "floor": 10},
+      {"id": "unified-light-material", "maximum": 15, "floor": 10},
+      {"id": "visual-hierarchy", "maximum": 15, "floor": 10},
+      {"id": "blind-brand-distinctiveness", "maximum": 15, "floor": 10},
+      {"id": "host-usability", "maximum": 10, "floor": 7}
+    ],
+    "maximum": 70,
+    "passThreshold": 57,
+    "passRule": "Total >=57 and every dimension meets its floor. No dimension may compensate for another floor failure."
+  },
+  "overallReleaseRule": {
+    "required": [
+      "A_REFERENCE_FIDELITY: all four criteria >=4",
+      "GENERAL_VISUAL_QUALITY: >=57/70 and every dimension floor met",
+      "No global hard blocker from arena-a-visual-rubric.json",
+      "Host/platform smoke passed independently"
+    ],
+    "visualScoreDisplay": "Report A fidelity as four separate 0–5 scores and general quality separately. Do not collapse both into a single compensating percentage.",
+    "approvedVerdict": "PASS",
+    "rejectedVerdicts": ["FAIL_A_REFERENCE_FIDELITY", "FAIL_GENERAL_VISUAL_QUALITY", "FAIL_GLOBAL_BLOCKER", "FAIL_PLATFORM_SMOKE"]
+  },
+  "qaOutputContract": {
+    "requiredFields": [
+      "candidateId",
+      "referenceFidelityScores",
+      "failedReferenceCriteria",
+      "generalQualityScores",
+      "globalHardBlockers",
+      "verdict",
+      "singleShortestCorrectionPath"
+    ],
+    "correctionRule": "If reference fidelity fails, the shortest correction path must address the lowest-scoring A criterion first and may not prescribe polish, spacing or token changes as the primary fix.",
+    "independence": "Each B3/C3 candidate is judged from a fresh screenshot by a QA context that did not implement it and has not received its rationale."
+  },
+  "retroactiveFinding": {
+    "candidate": "B2",
+    "previousVerdict": "PASS 85/100",
+    "correctedVerdict": "FAIL_A_REFERENCE_FIDELITY",
+    "reason": "B2 achieved general cohesion and usability but did not meet A floors for electric burst, action direction and event-poster impact. The previous weighted model allowed unrelated strengths to compensate, creating a false PASS."
+  }
+}
