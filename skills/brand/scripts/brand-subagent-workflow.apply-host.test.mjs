@@ -88,6 +88,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 60);
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.candidateCount, 2);
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.scriptRelativeToSkillRoot, "scripts/render-static-h5.mjs");
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.execution.sandboxPermissions, "require_escalated");
   fixture.recordCurrent("/root/design-visual-qa", fixture.writeOutput("design-host-visual-qa.json"));
   manifest = fixture.readManifest();
   assert.equal(manifest.status, "awaiting-user-direction");

@@ -81,5 +81,5 @@ try {
   });
   process.stdout.write(`${JSON.stringify({ ok: true, html, output, viewport: { width, height }, bytes: fs.statSync(output).size })}\n`);
 } finally {
-  fs.rmSync(profile, { recursive: true, force: true });
+  fs.rmSync(profile, { recursive: true, force: true, maxRetries: 5, retryDelay: 100 });
 }
