@@ -37,6 +37,7 @@ Before generating new candidates, search the host workspace, migration history a
 - `brand-application-plan.json`
 - One compact `visual-program.json` per candidate, following [Visual Program](../references/visual-program.md); reference hashed inputs instead of copying large source artifacts.
 - In fast mode, derive the compact host brief inside this role from the frozen baseline, then produce exactly three compact programs and render the best two structurally distinct low-risk programs. Do not dispatch a separate Host Strategist. Standard/certification may explore 6–9 and render 2–3. Treat rank order as render priority, never as aesthetic approval.
+- Static H5 directions must keep the primary search, filter and action controls fully inside normal-flow containers. Never bridge a primary control across an `overflow:hidden` boundary with negative positioning; that is a blocking structural defect, not a stylistic choice.
 - Two or three isolated static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the default for the five-minute selection gate.
 - Optional deterministic screenshots derived from those H5 files when the conversation surface needs an image; they are display derivatives, not separate design work.
 - `design-direction-options.json`

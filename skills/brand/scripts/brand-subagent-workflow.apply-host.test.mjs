@@ -75,15 +75,15 @@ function createFixture(mode, brand, executionProfile = undefined) {
   const designerDispatch = fixture.run("next");
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 3);
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.renderCount, 2);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 205);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 60);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 195);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 90);
   assert.ok(designerDispatch.dispatchRequest.fastDesignHints.frozenInputHashes);
   assert.ok(designerDispatch.dispatchRequest.expectedOutputs.includes("fast-host-brief.json"));
   fixture.recordCurrent("/root/brand-application-designer", fixture.writeOutput("design-direction-options.json"));
   manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "designVisualQA-1");
   const visualQaDispatch = fixture.run("next");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 60);
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 45);
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.candidateCount, 2);
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.scriptRelativeToSkillRoot, "scripts/render-static-h5.mjs");
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.exactViewportViaCdp, true);
