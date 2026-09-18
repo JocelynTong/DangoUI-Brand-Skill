@@ -21,7 +21,7 @@ const brand = "timeout-fixture";
 const migration = path.join(root, "migrations", brand);
 fs.mkdirSync(path.join(root, "skills", "brand"), { recursive: true });
 fs.mkdirSync(migration, { recursive: true });
-fs.writeFileSync(path.join(root, "skills", "brand", "workflow-contract.json"), JSON.stringify({ roleContractVersion: "test", roles: { hostStrategist: { goal: "test" } } }));
+fs.writeFileSync(path.join(root, "skills", "brand", "workflow-contract.json"), JSON.stringify({ roleContractVersion: "test", roles: { hostStrategist: { goal: "test" }, brandApplicationDesigner: { goal: "test" } } }));
 fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "timeout", thresholds: { maxAttempts: 2 } }));
 const workflow = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs");
 const run = (...args) => spawnSync(process.execPath, [workflow, ...args, "--brand", brand, "--root", root], { encoding: "utf8" });
@@ -34,7 +34,7 @@ const dispatch = JSON.parse(fs.readFileSync(path.join(root, manifest.stages[0].d
 const outputFile = path.join(migration, "strategy.json");
 fs.writeFileSync(outputFile, "{}\n");
 const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
-const fakeTimeout = { dispatchId: dispatch.dispatchId, stageId: dispatch.stageId, role: dispatch.role, agentExecutionId: "/root/host-strategist", goalSha256: manifest.goalSha256, verdict: "fail", inputs: dispatch.requiredInputs, outputs: [{ path: `migrations/${brand}/strategy.json`, sha256: sha(outputFile) }], blockingFindings: [{ code: "TIME_BUDGET_EXCEEDED", stopObservedAt: new Date(Date.now() + 300000).toISOString() }] };
+const fakeTimeout = { dispatchId: dispatch.dispatchId, stageId: dispatch.stageId, role: dispatch.role, agentExecutionId: "/root/brand-application-designer", goalSha256: manifest.goalSha256, verdict: "fail", inputs: dispatch.requiredInputs, outputs: [{ path: `migrations/${brand}/strategy.json`, sha256: sha(outputFile) }], blockingFindings: [{ code: "TIME_BUDGET_EXCEEDED", stopObservedAt: new Date(Date.now() + 300000).toISOString() }] };
 const fakeReceipt = path.join(migration, "fake-timeout.json");
 fs.writeFileSync(fakeReceipt, JSON.stringify(fakeTimeout));
 const rejected = run("record", "--receipt", `migrations/${brand}/fake-timeout.json`);

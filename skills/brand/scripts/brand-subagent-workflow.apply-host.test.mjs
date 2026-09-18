@@ -69,18 +69,16 @@ function createFixture(mode, brand, executionProfile = undefined) {
 {
   const fixture = createFixture("design-host", "design-fixture");
   const prepared = fixture.run("prepare");
-  assert.match(prepared.next, /hostStrategy/);
+  assert.match(prepared.next, /brandApplication/);
   let manifest = fixture.readManifest();
-  assert.equal(manifest.currentStageId, "hostStrategy-1");
-  const strategyDispatch = fixture.run("next");
-  assert.deepEqual(strategyDispatch.dispatchRequest.expectedOutputs, ["fast-host-brief.json"]);
-  assert.equal(strategyDispatch.dispatchRequest.fastDesignHints.targetSeconds, 45);
-  fixture.recordCurrent("/root/host-strategist", fixture.writeOutput("fast-host-brief.json"));
+  assert.equal(manifest.currentStageId, "brandApplication-1");
   const designerDispatch = fixture.run("next");
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 3);
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.renderCount, 2);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 165);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 205);
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 60);
+  assert.ok(designerDispatch.dispatchRequest.fastDesignHints.frozenInputHashes);
+  assert.ok(designerDispatch.dispatchRequest.expectedOutputs.includes("fast-host-brief.json"));
   fixture.recordCurrent("/root/brand-application-designer", fixture.writeOutput("design-direction-options.json"));
   manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "designVisualQA-1");

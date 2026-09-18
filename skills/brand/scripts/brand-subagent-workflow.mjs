@@ -36,7 +36,7 @@ function prepare() {
   const contract = readJsonRequired(contractFile);
   const mode = goal.mode || "learn-brand";
   const executionProfile = goal.executionProfile || (["design-host", "apply-host"].includes(mode) ? "fast" : "full");
-  const initialStage = initialStageForMode(mode);
+  const initialStage = initialStageForMode(mode, executionProfile);
   const manifest = {
     schema: "brand-subagent-execution/v1",
     runId: crypto.randomUUID(),
@@ -149,11 +149,11 @@ function fastDesignHostOverride(manifest, current) {
     return { id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, sourceUrl: asset.sourceUrl || null, localPath: asset.localPath || null, localAvailable: Boolean(localFile && fs.existsSync(localFile)), targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) };
   });
   return {
-    mission: "Produce three compact program candidates, select two genuinely distinct programs, render two static H5 directions, and close the existing validators without reading unrelated brand history.",
-    tasks: ["write exactly three compact visual programs", "rank them and stop if fewer than two distinct lead assets/strategies survive", "render exactly two target-viewport static H5 files", "write plan and options using the supplied asset matrix, then run the two required validators once"],
-    requirements: ["use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving the final 60 seconds for independent QA"],
-    expectedOutputs: ["three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "two static H5 directions"],
-    hints: { candidateProgramCount: 3, renderCount: 2, targetSeconds: 165, qaReserveSeconds: 60, sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
+    mission: "Derive the compact host brief directly from frozen inputs, produce three program candidates, render two distinct static H5 directions, and close the validators without reading unrelated brand history.",
+    tasks: ["write fast-host-brief.json directly from the frozen host baseline", "write exactly three compact visual programs", "rank them and stop if fewer than two distinct lead assets/strategies survive", "render exactly two target-viewport static H5 files", "write plan and options using dispatch-provided hashes verbatim, then run the two required validators once"],
+    requirements: ["do not spawn or emulate a separate Host Strategist in fast mode", "copy all baseline hashes from fastDesignHints.frozenInputHashes; never transcribe or recompute them manually", "use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving the final 60 seconds for independent QA"],
+    expectedOutputs: ["fast-host-brief.json", "three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "two static H5 directions"],
+    hints: { candidateProgramCount: 3, renderCount: 2, targetSeconds: 205, qaReserveSeconds: 60, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
   };
 }
 
@@ -402,7 +402,7 @@ function advance(manifest, current) {
     manifest.currentStageId = null;
     return;
   }
-  const order = stageOrderForMode(manifest.mode);
+  const order = stageOrderForMode(manifest.mode, manifest.executionProfile);
   if (current.verdict === "pass") {
     if (manifest.mode === "design-host" && current.stage === "designVisualQA") {
       manifest.status = "awaiting-user-direction";
@@ -600,14 +600,14 @@ function nextAction(manifest, proofs) {
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
-function initialStageForMode(mode) {
+function initialStageForMode(mode, executionProfile = "full") {
   if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
-  if (mode === "design-host") return stage("hostStrategy", "hostStrategist", 1);
+  if (mode === "design-host") return executionProfile === "fast" ? stage("brandApplication", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
   if (mode === "apply-host") return stage("hostImplementation", "hostImplementationAgent", 1);
   fail(`Unsupported goal mode: ${mode}`);
 }
-function stageOrderForMode(mode) {
-  if (mode === "design-host") return ["hostStrategy", "brandApplication", "designVisualQA"];
+function stageOrderForMode(mode, executionProfile = "full") {
+  if (mode === "design-host") return executionProfile === "fast" ? ["brandApplication", "designVisualQA"] : ["hostStrategy", "brandApplication", "designVisualQA"];
   if (mode === "apply-host") return ["hostImplementation", "previewQA", "visualQA"];
   return ["evidence", "interpreter", "demo", "visualQA"];
 }
