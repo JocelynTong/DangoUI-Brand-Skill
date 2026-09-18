@@ -52,6 +52,7 @@ function prepare() {
     currentStageId: initialStage.id,
     stages: [initialStage],
     finalGates: {},
+    telemetry: { dispatchCount: 0, inputFiles: 0, inputBytes: 0, outputFiles: 0, outputBytes: 0, additionalReadBytes: 0 },
   };
   writeJson(manifestFile, manifest);
   output({ ok: true, manifest: relative(manifestFile), runId: manifest.runId, next: `Run next to obtain the ${initialStage.stage} dispatch request.` });
@@ -94,6 +95,19 @@ function next() {
     expectedOutputs: roleContract.outputs || [],
     passCriteria: roleContract.passCriteria || [],
     failCriteria: roleContract.failCriteria || [],
+    contextPolicy: {
+      strategy: "minimum-role-packet",
+      readOnlyListedInputs: true,
+      forbiddenBulkReads: [
+        "skills/brand/workflow-contract.json",
+        "skills/brand/references/legacy-full-guidance.md",
+        "skills/brand/references/dangoui-token-contract.json",
+        "skills/brand/references/dangoui.tokens.dtcg.json",
+        "skills/brand/references/dangoui.design-system.json",
+      ],
+      exception: "Read a targeted reference or query a specific JSON key only when the dispatch packet cannot answer a required decision; record that extra read in the receipt.",
+      queryCommand: "node skills/brand/scripts/query-brand-context.mjs <get|search> --source <contract|tokens|runtime|workflow> ...",
+    },
     receiptRequirements: ["agentExecutionId from a real spawned subagent", "goalSha256 unchanged", "input and output file sha256 values", "pass/fail/needs-evidence verdict", "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"],
   };
   const dispatchFile = path.join(migrationDir, "dispatch", `${current.id}.json`);
@@ -102,6 +116,7 @@ function next() {
   current.dispatchPath = relative(dispatchFile);
   current.status = "dispatched";
   current.startedAt = new Date().toISOString();
+  addTelemetry(manifest, "dispatch", inputs);
   writeJson(manifestFile, manifest);
   output({ ok: true, dispatchRequest: request, dispatchFile: relative(dispatchFile), instruction: "The outer Orchestrator must now spawn a real subagent with exactly this packet." });
 }
@@ -141,6 +156,7 @@ function record() {
   if (current.role === "visualQA") {
     const latestDemo = [...manifest.stages].reverse().find((item) => ["demoImplementationAgent", "implementationAgent"].includes(item.role) && item.status === "complete");
     if (latestDemo?.agentExecutionId === receipt.agentExecutionId) fail("Visual QA must use a different subagent from Demo implementation.");
+    if (receipt.verdict !== "pass") validateDeltaScope(receipt.deltaScope);
   }
   current.status = receipt.verdict === "pass" ? "complete" : "failed";
   current.verdict = receipt.verdict;
@@ -150,11 +166,15 @@ function record() {
   current.outputHashes = array(receipt.outputs);
   current.blockingFindings = array(receipt.blockingFindings);
   current.failureOwnerRole = receipt.failureOwnerRole || null;
+  current.deltaScope = receipt.deltaScope || null;
+  current.additionalReads = array(receipt.additionalReads);
   current.endedAt = new Date().toISOString();
   current.durationMs = Math.max(0, Date.parse(current.endedAt) - Date.parse(current.startedAt));
   advance(manifest, current);
   manifest.updatedAt = current.endedAt;
   manifest.elapsedMs = manifest.stages.reduce((sum, item) => sum + Number(item.durationMs || 0), 0);
+  addTelemetry(manifest, "receipt", receiptOutputs, current.additionalReads);
+  writeTelemetry(manifest);
   writeJson(manifestFile, manifest);
   output({ ok: true, status: manifest.status, completedStage: current.id, durationMs: current.durationMs, elapsedMs: manifest.elapsedMs, nextStageId: manifest.currentStageId || null, blockingFindings: current.blockingFindings });
 }
@@ -173,6 +193,17 @@ function approvePreview() {
     manifest.stages.push(retry);
     manifest.currentStageId = retry.id;
     manifest.status = "running";
+  } else if (decision === "approve" && manifest.executionProfile === "fast" && frozenPreviewArtifactsUnchanged(manifest)) {
+    const previewQa = [...manifest.stages].reverse().find((item) => item.stage === "previewQA" && item.verdict === "pass");
+    manifest.currentStageId = null;
+    manifest.status = "passed";
+    manifest.deliveryLevel = "fast-preview-approved";
+    manifest.qaReuse = {
+      status: "reused",
+      sourceStageId: previewQa?.id || null,
+      reason: "Explicit approval with unchanged frozen inputs, implementation outputs and Smoke QA outputs.",
+      reusedAt: new Date().toISOString(),
+    };
   } else {
     const qa = uniqueStage(manifest, "visualQA", "visualQA", 1);
     manifest.stages.push(qa);
@@ -182,7 +213,26 @@ function approvePreview() {
   }
   manifest.updatedAt = new Date().toISOString();
   writeJson(manifestFile, manifest);
-  output({ ok: true, status: manifest.status, decision, nextStageId: manifest.currentStageId });
+  output({ ok: true, status: manifest.status, decision, nextStageId: manifest.currentStageId, qaReuse: manifest.qaReuse || null });
+}
+
+function frozenPreviewArtifactsUnchanged(manifest) {
+  const stages = manifest.stages.filter((item) => ["hostImplementation", "previewQA"].includes(item.stage) && item.status === "complete");
+  if (!stages.some((item) => item.stage === "hostImplementation") || !stages.some((item) => item.stage === "previewQA")) return false;
+  const artifacts = [];
+  for (const stageItem of stages) {
+    artifacts.push(...array(stageItem.outputHashes));
+    if (stageItem.dispatchPath) {
+      const dispatchFile = path.join(root, stageItem.dispatchPath);
+      if (!fs.existsSync(dispatchFile)) return false;
+      artifacts.push(...array(readJsonRequired(dispatchFile).requiredInputs));
+    }
+  }
+  return latestInputsByPath(artifacts).every((item) => {
+    if (!item?.path || !item?.sha256) return false;
+    const file = path.resolve(root, item.path);
+    return fs.existsSync(file) && sha256File(file) === item.sha256;
+  });
 }
 
 function status() {
@@ -231,6 +281,7 @@ function resumeQa() {
     blockingFindings: array(latestQa.blockingFindings).length
       ? array(latestQa.blockingFindings)
       : array(assessment.blockingFindings),
+    deltaScope: latestQa.deltaScope || assessment.deltaScope || null,
   };
   manifest.stages.push(retry);
   manifest.currentStageId = retry.id;
@@ -259,6 +310,7 @@ function resumeDemo() {
     blockingFindings: array(latestQa.blockingFindings).length
       ? array(latestQa.blockingFindings)
       : array(assessment.blockingFindings),
+    deltaScope: latestQa.deltaScope || assessment.deltaScope || null,
     continuationAuthorization: authorizedContinuation ? "explicit-user-request-to-continue-existing-version" : null,
   };
   manifest.stages.push(retry);
@@ -363,7 +415,7 @@ function advance(manifest, current) {
     const routed = failureRouteForMode(manifest.mode, current.failureOwnerRole);
     const routedAttempts = manifest.stages.filter((item) => item.role === routed[1] && ["complete", "failed"].includes(item.status)).length;
     const retry = uniqueStage(manifest, routed[0], routed[1], routedAttempts + 1);
-    retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings };
+    retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings, deltaScope: current.deltaScope };
     manifest.stages.push(retry);
     manifest.currentStageId = retry.id;
     return;
@@ -374,6 +426,8 @@ function advance(manifest, current) {
 
 function dispatchInputs(manifest, current) {
   const goalInput = hashedPath(relative(goalFile));
+  const scopedPaths = array(current.retryInput?.deltaScope?.inputPaths);
+  if (scopedPaths.length) return latestInputsByPath([goalInput, ...scopedPaths.map(hashedPath)]);
   if (current.role === "hostImplementationAgent") {
     return latestInputsByPath([
       goalInput,
@@ -405,6 +459,34 @@ function dispatchInputs(manifest, current) {
   }
   const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes));
   return latestInputsByPath([goalInput, ...previousOutputs]);
+}
+
+function validateDeltaScope(scope) {
+  if (!scope || !array(scope.affectedSections).length || !array(scope.inputPaths).length || !array(scope.regressionSections).length) {
+    fail("Failed Visual QA receipts require deltaScope with affectedSections, inputPaths and regressionSections.");
+  }
+  for (const item of scope.inputPaths) hashedPath(item);
+}
+
+function addTelemetry(manifest, kind, files, additionalReads = []) {
+  manifest.telemetry ||= { dispatchCount: 0, inputFiles: 0, inputBytes: 0, outputFiles: 0, outputBytes: 0, additionalReadBytes: 0 };
+  const bytes = (items) => array(items).reduce((sum, item) => {
+    const file = path.resolve(root, typeof item === "string" ? item : item.path || "");
+    return sum + (fs.existsSync(file) && fs.statSync(file).isFile() ? fs.statSync(file).size : Number(item?.bytes || 0));
+  }, 0);
+  if (kind === "dispatch") {
+    manifest.telemetry.dispatchCount += 1;
+    manifest.telemetry.inputFiles += array(files).length;
+    manifest.telemetry.inputBytes += bytes(files);
+  } else {
+    manifest.telemetry.outputFiles += array(files).length;
+    manifest.telemetry.outputBytes += bytes(files);
+    manifest.telemetry.additionalReadBytes += bytes(additionalReads);
+  }
+}
+
+function writeTelemetry(manifest) {
+  writeJson(path.join(migrationDir, "workflow-telemetry.json"), { schema: "brand-workflow-telemetry/v1", runId: manifest.runId, updatedAt: new Date().toISOString(), ...manifest.telemetry });
 }
 
 function verifyHostPreeditGate(phase) {

@@ -35,14 +35,15 @@ Before generating new candidates, search the host workspace, migration history a
 ## Outputs
 
 - `brand-application-plan.json`
-- Two or three isolated `host-grounded-preview` images at the real target viewport. Static SVG/PNG/WebP/JPEG is the default for the five-minute selection gate.
+- Two or three isolated static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the default for the five-minute selection gate.
+- Optional deterministic screenshots derived from those H5 files when the conversation surface needs an image; they are display derivatives, not separate design work.
 - `design-direction-options.json`
 - `brandSystemClosure` for every option.
 - `brandSystemBinding` plus `semanticColorApplications` for every option; every rendered composition role must reference the color applications it consumes.
 - User selection is handed to Design Director, who freezes `design-direction-decision.json` and `design-direction.json`.
 - When applicable, `prior-direction-index.json`; only explicitly approved results produce `approved-direction-master.json`.
 
-Validate the plan before showing images:
+Validate the plan before showing directions:
 
 ```bash
 node skills/brand/scripts/validate-brand-application-plan.mjs --plan <brand-application-plan.json>
@@ -65,9 +66,9 @@ Every selected role must bind a real host job, evidence-backed brand mechanism, 
 
 ## Five-minute preview medium
 
-Direction selection is a visual decision, not an implementation demo. Default to one static first-viewport image per option, produced from the frozen host content and target viewport. Do not build HTML, start the host runtime or implement interactions merely to show a direction.
+Direction selection is a visual decision, not an implementation demo. Default to one lightweight static H5 first viewport per option, produced from the frozen host content and target viewport. Do not call an image-generation model, start the host runtime or implement interactions merely to show a direction.
 
-Use an additional state image or a lightweight storyboard only when motion, expansion, scrolling or another state transition is itself decisive to the direction. Generate interactive HTML only when the user explicitly requests interaction testing or when two directions cannot be distinguished truthfully with static states. Runtime implementation remains forbidden before selection.
+Use an additional H5 state or a lightweight storyboard only when motion, expansion, scrolling or another state transition is itself decisive to the direction. Add interactive behavior only when the user explicitly requests interaction testing or when two directions cannot be distinguished truthfully with static states. A screenshot may be rendered once from the same H5 for display, but must not become another design/QA loop. Runtime implementation remains forbidden before selection.
 
 ## Decision rights
 

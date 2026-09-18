@@ -4,6 +4,7 @@ import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
+import { runCachedValidator } from "./validator-cache.mjs";
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
 const skillScript = (name) => path.join(skillScriptsDir, name);
@@ -568,7 +569,7 @@ function runNodeCheck({ root, script, label, enabled, scriptArgs = [], executed 
   executed.push(record);
 
   return {
-    status: result.status === 0 ? "passed" : "failed",
+    status: (result.status ?? result.exitCode) === 0 ? "passed" : "failed",
     command: record.command,
     stdout: result.stdout,
     stderr: result.stderr,
@@ -586,17 +587,17 @@ function runSilentNodeCheck({ root, script, scriptArgs = [] }) {
     };
   }
 
-  const result = spawnSync("node", [script, ...scriptArgs], {
-    cwd: root,
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  const result = scriptArgs.includes("--write")
+    ? spawnSync("node", [script, ...scriptArgs], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] })
+    : runCachedValidator({ root, script, args: scriptArgs });
   return {
-    status: result.status === 0 ? "passed" : "failed",
+    status: (result.status ?? result.exitCode) === 0 ? "passed" : "failed",
     command: `node ${script}${formatExtraArgs(scriptArgs)}`,
-    exitCode: result.status,
+    exitCode: result.status ?? result.exitCode,
     stdout: result.stdout || "",
     stderr: result.stderr || "",
+    cacheStatus: result.cacheStatus || "bypass",
+    cacheKey: result.cacheKey || null,
   };
 }
 
@@ -607,6 +608,7 @@ function summarizeSilentCheck(result) {
     status: result.status,
     command: result.command,
     exitCode: result.exitCode ?? null,
+    cacheStatus: result.cacheStatus || "bypass",
     summary: text
       .split(/\r?\n/)
       .filter(Boolean)
@@ -694,7 +696,7 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
       styleOptions: options,
       rejectedDirections,
       allowedNextActions: ["select", "none-fit"],
-      nextAction: "Show the validated static direction images and wait for an explicit selection. Do not edit the host yet.",
+      nextAction: "Show the validated static H5 directions and wait for an explicit selection. Do not edit the host yet or generate separate direction images by default.",
       message: "Validated design-host directions are ready for user selection; rejected directions remain visible only as audit evidence.",
     }, null, 2)}\n`);
     process.exit(0);

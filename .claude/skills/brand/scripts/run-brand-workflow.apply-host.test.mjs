@@ -69,10 +69,10 @@ try {
   writeJson(scope, { schema: "business-scope/v1", target: "home" });
   const evidenceHash = fileHash(path.join(migration, "brand-evidence.json"));
   const scopeHash = fileHash(scope);
-  const previewA = path.join(migration, "option-a.svg");
-  const previewB = path.join(migration, "option-b.svg");
-  fs.writeFileSync(previewA, '<svg><g id="a"/></svg>');
-  fs.writeFileSync(previewB, '<svg><g id="b"/></svg>');
+  const previewA = path.join(migration, "option-a.html");
+  const previewB = path.join(migration, "option-b.html");
+  fs.writeFileSync(previewA, '<main id="a">Static host direction A</main>');
+  fs.writeFileSync(previewB, '<main id="b">Static host direction B</main>');
   const hostPage = path.join(host, "src", "pages", "home", "index.vue");
   const visualOption = (id, recommended, preview) => ({
     id,

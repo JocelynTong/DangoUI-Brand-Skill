@@ -9,14 +9,14 @@ import { spawnSync } from "node:child_process";
 
 const script = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs");
 
-function createFixture(mode, brand) {
+function createFixture(mode, brand, executionProfile = undefined) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), `brand-${mode}-test-`));
   const migration = path.join(root, "migrations", brand);
   const skillDir = path.join(root, "skills", "brand");
   const scriptsDir = path.join(skillDir, "scripts");
   fs.mkdirSync(path.join(migration, "receipts"), { recursive: true });
   fs.mkdirSync(scriptsDir, { recursive: true });
-  fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode, goalId: `${brand}-${mode}-goal`, thresholds: { maxAttempts: 2 } }));
+  fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode, executionProfile, goalId: `${brand}-${mode}-goal`, thresholds: { maxAttempts: 2 } }));
   fs.writeFileSync(path.join(skillDir, "workflow-contract.json"), JSON.stringify({
     roleContractVersion: "test",
     roles: {
@@ -61,7 +61,8 @@ function createFixture(mode, brand) {
     fs.writeFileSync(receiptPath, JSON.stringify(receipt));
     return run("record", "--receipt", `migrations/${brand}/receipts/${current.id}.json`);
   };
-  return { run, readManifest, writeOutput, recordCurrent };
+  const mutateOutput = (name, content) => fs.writeFileSync(path.join(migration, name), content);
+  return { run, readManifest, writeOutput, recordCurrent, mutateOutput };
 }
 
 // Direction generation stops before runtime mutation or implementation dispatch.
@@ -109,6 +110,8 @@ function createFixture(mode, brand) {
   const implementationDispatch = fixture.run("next");
   assert.ok(implementationDispatch.dispatchRequest.scopeRules.some((item) => item.includes("frozen design direction")));
   assert.ok(implementationDispatch.dispatchRequest.requiredInputs.some((item) => item.path.endsWith("design-direction-decision.json")));
+  assert.equal(implementationDispatch.dispatchRequest.contextPolicy.strategy, "minimum-role-packet");
+  assert.ok(implementationDispatch.dispatchRequest.contextPolicy.forbiddenBulkReads.some((item) => item.endsWith("workflow-contract.json")));
   fixture.recordCurrent("/root/host-implementation", fixture.writeOutput("host-rendered-proof.json", "rendered host"));
   manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "previewQA-1");
@@ -121,16 +124,73 @@ function createFixture(mode, brand) {
   assert.ok(Number.isFinite(manifest.timeToFirstPreviewMs));
 
   const approved = fixture.run("approve-preview", "--decision", "approve");
-  assert.equal(approved.nextStageId, "visualQA-1");
-  fixture.run("next");
-  fixture.recordCurrent("/root/host-visual-qa", fixture.writeOutput("visual-qa-report.json", "host qa"));
+  assert.equal(approved.nextStageId, null);
+  assert.equal(approved.status, "passed");
+  assert.equal(approved.qaReuse.status, "reused");
   manifest = fixture.readManifest();
   assert.equal(manifest.status, "passed");
+  assert.equal(manifest.stages.filter((item) => item.role === "visualQA").length, 1);
   assert.equal(manifest.stages.some((item) => ["hostStrategy", "brandApplication", "evidence", "interpreter", "demo"].includes(item.stage)), false);
 
   const finalized = fixture.run("finalize");
   assert.equal(finalized.status, "complete");
   assert.equal(fixture.readManifest().status, "complete");
+}
+
+// A changed implementation/QA artifact invalidates fast QA reuse and routes to
+// a fresh scoped Visual QA instead of trusting a stale receipt.
+{
+  const fixture = createFixture("apply-host", "changed-preview-fixture");
+  for (const name of [
+    "brand-application-plan.json",
+    "design-direction-options.json",
+    "design-direction-decision.json",
+    "business-scope.json",
+    "design-direction.json",
+    "brand-evidence.json",
+    "brand-mod.json",
+    "preedit-baseline-bundle.json",
+    "structural-targets.json",
+  ]) fixture.writeOutput(name);
+
+  fixture.run("prepare");
+  fixture.run("next");
+  fixture.recordCurrent("/root/changed-host-implementation", fixture.writeOutput("host-rendered-proof.json", "rendered host v1"));
+  fixture.run("next");
+  fixture.recordCurrent("/root/changed-host-preview-qa", fixture.writeOutput("preview-smoke-report.json", "preview qa v1"));
+  fixture.mutateOutput("host-rendered-proof.json", "rendered host changed after smoke QA");
+
+  const approved = fixture.run("approve-preview", "--decision", "approve");
+  assert.equal(approved.qaReuse, null);
+  assert.equal(approved.status, "running");
+  assert.equal(approved.nextStageId, "visualQA-1");
+  assert.equal(fixture.readManifest().stages.filter((item) => item.role === "visualQA").length, 2);
+}
+
+// Standard/certification profiles always retain independent post-approval QA,
+// even when every frozen artifact is unchanged.
+{
+  const fixture = createFixture("apply-host", "standard-preview-fixture", "standard");
+  for (const name of [
+    "brand-application-plan.json",
+    "design-direction-options.json",
+    "design-direction-decision.json",
+    "business-scope.json",
+    "design-direction.json",
+    "brand-evidence.json",
+    "brand-mod.json",
+    "preedit-baseline-bundle.json",
+    "structural-targets.json",
+  ]) fixture.writeOutput(name);
+  fixture.run("prepare");
+  fixture.run("next");
+  fixture.recordCurrent("/root/standard-host-implementation", fixture.writeOutput("host-rendered-proof.json", "standard rendered host"));
+  fixture.run("next");
+  fixture.recordCurrent("/root/standard-host-preview-qa", fixture.writeOutput("preview-smoke-report.json", "standard preview qa"));
+  const approved = fixture.run("approve-preview", "--decision", "approve");
+  assert.equal(approved.qaReuse, null);
+  assert.equal(approved.status, "running");
+  assert.equal(approved.nextStageId, "visualQA-1");
 }
 
 process.stdout.write("brand design-host/apply-host split routing regression passed\n");
