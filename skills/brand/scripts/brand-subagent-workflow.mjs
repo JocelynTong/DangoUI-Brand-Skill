@@ -128,22 +128,32 @@ function next() {
 function fastDesignHostOverride(manifest, current) {
   if (manifest.mode !== "design-host" || manifest.executionProfile !== "fast") return null;
   if (current.role === "hostStrategist") return {
-    mission: "In one bounded pass, identify the host primary task, frozen business scope and visual-capacity zones needed by the Designer; do not produce implementation or full-host certification artifacts.",
-    tasks: ["identify the default route and primary task", "freeze business capabilities that every direction preserves", "classify the first viewport and divide it into productive/expressive zones", "write only the three required fast outputs"],
-    requirements: ["finish the fast strategy handoff within 60 seconds when the frozen packet is sufficient"],
-    expectedOutputs: ["host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"],
-    hints: { targetSeconds: 60, omitInFast: ["program-goal-tree.json", "intent-plan.json", "host-coverage-matrix.json"] },
+    mission: "In one compact file, identify the host primary task, frozen business scope and visual-capacity zones needed by the Designer; do not produce implementation or full-host certification artifacts.",
+    tasks: ["identify the default route and primary task", "freeze the capabilities every direction preserves", "classify productive/expressive first-viewport zones", "write one fast-host-brief.json"],
+    requirements: ["finish the fast strategy handoff within 45 seconds when the frozen packet is sufficient", "fast-host-brief.json contains hostOpportunity, businessScope and experienceZones sections"],
+    expectedOutputs: ["fast-host-brief.json"],
+    hints: { targetSeconds: 45, outputSchema: { hostOpportunity: "object", businessScope: "object", experienceZones: "array" }, omitInFast: ["program-goal-tree.json", "intent-plan.json", "host-coverage-matrix.json", "host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"] },
+  };
+  if (current.role === "visualQA" && current.stage === "designVisualQA") return {
+    mission: "Independently render the two frozen static H5 directions at the target viewport and issue a visual pass/fail without editing artifacts.",
+    tasks: ["verify every referenced local asset exists or every remote asset loads", "render both H5 files at the target viewport", "compare brand visual mass, source-asset use, composition and task clarity", "write one design-host-visual-qa.json receipt"],
+    requirements: ["finish within the reserved 60-second QA window", "missing local assets are blocking", "do not inspect prior runs or producer rationale"],
+    expectedOutputs: ["design-host-visual-qa.json", "two deterministic viewport captures"],
+    hints: { targetSeconds: 60, candidateCount: 2 },
   };
   if (current.role !== "brandApplicationDesigner") return null;
   const modFile = path.join(migrationDir, "brand-mod.json");
   const mod = fs.existsSync(modFile) ? readJsonRequired(modFile) : {};
-  const assets = array(mod.assets).filter((asset) => asset?.id && asset?.sourceSha256 && asset?.status !== "rejected").map((asset) => ({ id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) }));
+  const assets = array(mod.assets).filter((asset) => asset?.id && asset?.sourceSha256 && asset?.status !== "rejected").map((asset) => {
+    const localFile = asset.localPath ? path.resolve(root, asset.localPath) : null;
+    return { id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, sourceUrl: asset.sourceUrl || null, localPath: asset.localPath || null, localAvailable: Boolean(localFile && fs.existsSync(localFile)), targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) };
+  });
   return {
-    mission: "Produce four compact program candidates, select two genuinely distinct programs, render two static H5 directions, and close the existing validators without reading unrelated brand history.",
-    tasks: ["write exactly four compact visual programs", "rank them and stop if fewer than two distinct lead assets/strategies survive", "render exactly two target-viewport static H5 files", "write plan and options using the supplied asset matrix, then run the two required validators once"],
-    requirements: ["use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "do not generate screenshots or extra state variants before independent QA", "reserve at least 45 seconds before deadline for receipt recording"],
-    expectedOutputs: ["four visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "two static H5 directions"],
-    hints: { candidateProgramCount: 4, renderCount: 2, sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
+    mission: "Produce three compact program candidates, select two genuinely distinct programs, render two static H5 directions, and close the existing validators without reading unrelated brand history.",
+    tasks: ["write exactly three compact visual programs", "rank them and stop if fewer than two distinct lead assets/strategies survive", "render exactly two target-viewport static H5 files", "write plan and options using the supplied asset matrix, then run the two required validators once"],
+    requirements: ["use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving the final 60 seconds for independent QA"],
+    expectedOutputs: ["three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "two static H5 directions"],
+    hints: { candidateProgramCount: 3, renderCount: 2, targetSeconds: 165, qaReserveSeconds: 60, sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
   };
 }
 

@@ -34,7 +34,7 @@ Each candidate owns one compact `visualProgram` with:
 
 ## Internal candidate competition
 
-Fast mode generates four compact programs and renders two; standard/certification may generate 6–9 and render 2–3. Run the deterministic preselector before rendering:
+Fast mode generates three compact programs and renders two; standard/certification may generate 6–9 and render 2–3. Run the deterministic preselector before rendering:
 
 ```bash
 node skills/brand/scripts/rank-visual-programs.mjs --dir <visual-program-dir> --limit 3 --output <competition.json>
