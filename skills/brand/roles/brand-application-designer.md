@@ -14,6 +14,7 @@ In `design-host`, translate a frozen brand system into two or three host-grounde
 - Motion character and host-content entry.
 - Meaningful differences between candidate directions.
 - Preselection visual self-review.
+- Visual Program: productive/expressive zones, focal hierarchy, scene graph, content transition and purposeful motion.
 
 ## Required inputs
 
@@ -35,6 +36,8 @@ Before generating new candidates, search the host workspace, migration history a
 ## Outputs
 
 - `brand-application-plan.json`
+- One compact `visual-program.json` per candidate, following [Visual Program](../references/visual-program.md); reference hashed inputs instead of copying large source artifacts.
+- Before rendering, produce 6–9 compact programs when the host and evidence support them, run `rank-visual-programs.mjs`, and render only the 2–3 structurally distinct low-risk programs. Treat its order as render priority, never as aesthetic approval.
 - Two or three isolated `host-grounded-preview` images at the real target viewport. Static SVG/PNG/WebP/JPEG is the default for the five-minute selection gate.
 - `design-direction-options.json`
 - `brandSystemClosure` for every option.
@@ -46,6 +49,7 @@ Validate the plan before showing images:
 
 ```bash
 node skills/brand/scripts/validate-brand-application-plan.mjs --plan <brand-application-plan.json>
+node skills/brand/scripts/validate-visual-program.mjs --file <visual-program.json>
 ```
 
 ## Application-quality model
@@ -100,6 +104,7 @@ Use an additional state image or a lightweight storyboard only when motion, expa
 - Source semantics and composition relationships are traceable.
 - Real host task and content enter the brand scene naturally.
 - Options differ materially in narrative and composition, not merely layout labels.
+- Productive and expressive regions have explicit host purposes, and the transition between atmosphere and repeated work is designed.
 - `brandSystemClosure`, options-only Wild Design Gate and visual self-review pass.
 - Earlier directions are classified accurately; promising mechanisms inform new exploration, while only explicitly approved targets are frozen.
 

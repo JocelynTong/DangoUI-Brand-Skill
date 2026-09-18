@@ -1,0 +1,18 @@
+{
+  "schema": "visual-program/v1",
+  "hostClassification": "immersion-first",
+  "experienceZones": [
+    {"id":"arena-reveal","mode":"expressive","hostJob":"establish competitive energy before deck discovery","viewportBudget":"contained-first-view","brandMechanismRefs":["asset:championships-runtime","composition:arena-depth","pattern:yellow-live-signal"],"interactionFrequency":"once-per-entry"},
+    {"id":"task-bridge","mode":"blended","hostJob":"carry the user from the arena scene into search and category choice","viewportBudget":"compact","brandMechanismRefs":["pattern:dark-glass-command","pattern:yellow-active-signal"],"interactionFrequency":"repeated"},
+    {"id":"deck-stream","mode":"productive","hostJob":"browse and compare real decks","viewportBudget":"continuous-flow","brandMechanismRefs":["token:dark-surface","pattern:card-rail"],"interactionFrequency":"repeated"}
+  ],
+  "focalHierarchy":{"primary":"championship confrontation scene","secondary":"search bridge","action":"enter deck discovery"},
+  "sceneGraph":[
+    {"layer":"environment","sourceRefs":["asset:championships-runtime"],"job":"competitive world"},
+    {"layer":"signal","sourceRefs":["pattern:yellow-live-signal"],"job":"focus and urgency"},
+    {"layer":"interface","sourceRefs":["pattern:dark-glass-command"],"job":"task bridge"},
+    {"layer":"business-content","sourceRefs":["host:deck-results"],"job":"repeatable work"}
+  ],
+  "contentTransition":{"from":"arena-reveal","to":"deck-stream","mechanism":"depth-to-rail","continuitySignal":"yellow focus line and dark field continue through the task bridge"},
+  "motionIntent":{"mode":"expressive","purpose":"reveal competitive depth once, then settle into stable task controls","reducedMotionFallback":"static layered scene"}
+}

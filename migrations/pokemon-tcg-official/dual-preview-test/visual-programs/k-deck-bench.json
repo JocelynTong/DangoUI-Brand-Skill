@@ -1,0 +1,16 @@
+{
+  "schema": "visual-program/v1",
+  "hostClassification": "efficiency-first",
+  "experienceZones": [
+    {"id":"workbench-heading","mode":"blended","hostJob":"identify the deck-building context without delaying work","viewportBudget":"minimal","brandMechanismRefs":["asset:field-breakdown-deck","pattern:three-color-signal"],"interactionFrequency":"once-per-entry"},
+    {"id":"filter-workspace","mode":"productive","hostJob":"filter and compare decks quickly","viewportBudget":"dominant","brandMechanismRefs":["token:navy-workspace","pattern:card-rail"],"interactionFrequency":"repeated"}
+  ],
+  "focalHierarchy":{"primary":"filter workspace","secondary":"horizontal card rail","action":"search and filter"},
+  "sceneGraph":[
+    {"layer":"identity-strip","sourceRefs":["asset:field-breakdown-deck"],"job":"context"},
+    {"layer":"workspace","sourceRefs":["token:navy-workspace","pattern:card-rail"],"job":"task"},
+    {"layer":"business-content","sourceRefs":["host:deck-results"],"job":"repeatable-work"}
+  ],
+  "contentTransition":{"from":"workbench-heading","to":"filter-workspace","mechanism":"direct-handoff","continuitySignal":"navy rail and color signal"},
+  "motionIntent":{"mode":"productive","purpose":"confirm filters and horizontal selection","reducedMotionFallback":"instant state change"}
+}

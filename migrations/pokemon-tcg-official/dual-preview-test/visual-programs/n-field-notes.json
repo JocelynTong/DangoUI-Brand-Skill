@@ -1,0 +1,16 @@
+{
+  "schema": "visual-program/v1",
+  "hostClassification": "balanced",
+  "experienceZones": [
+    {"id":"field-note-cover","mode":"blended","hostJob":"frame the current deck set as a curated field note","viewportBudget":"compact","brandMechanismRefs":["asset:field-breakdown-active-spot","pattern:field-note-caption"],"interactionFrequency":"once-per-entry"},
+    {"id":"annotated-results","mode":"productive","hostJob":"retrieve and compare real decks with compact annotations","viewportBudget":"continuous-flow","brandMechanismRefs":["pattern:numbered-index","pattern:card-detail-crop"],"interactionFrequency":"repeated"}
+  ],
+  "focalHierarchy":{"primary":"featured deck detail","secondary":"numbered result index","action":"inspect a deck"},
+  "sceneGraph":[
+    {"layer":"source-detail","sourceRefs":["asset:field-breakdown-active-spot"],"job":"authentic product evidence"},
+    {"layer":"annotation-system","sourceRefs":["pattern:field-note-caption","pattern:numbered-index"],"job":"editorial hierarchy"},
+    {"layer":"business-content","sourceRefs":["host:deck-results"],"job":"repeatable comparison"}
+  ],
+  "contentTransition":{"from":"field-note-cover","to":"annotated-results","mechanism":"caption-to-index","continuitySignal":"the same annotation rhythm labels the featured item and result list"},
+  "motionIntent":{"mode":"none","purpose":"keep detailed comparison stable and readable","reducedMotionFallback":"static"}
+}

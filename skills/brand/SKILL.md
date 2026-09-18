@@ -86,7 +86,7 @@ HTML/CSS 只能作为 `design-host` 的内部渲染画布。交给用户选择�
 
 生成候选前必须检索同一品牌、宿主页面与视口类别的历史方向，并明确区分 `reference / promising / selected / approved`。用户说“方向不错”“朝这个方向”“再试试”只表示可提炼氛围、景深、内容进入、焦点层级或素材组合机制，不等于冻结模板，也不得复制原布局。只有用户明确选择或批准的结果才可按截图、源码 revision、素材 hash 与 viewport 固化为 `approved-direction-master.json`；含糊反馈必须记录在 `prior-direction-index.json` 后继续探索。新候选既不能遗忘已经有效的机制，也必须在构图上形成真实变化。
 
-方向设计必须读取 [宿主品牌构图语法](references/host-brand-composition-grammar.md)，使用 `identity-environment / task-bridge / featured-content / business-stream / navigation-shell` 等通用角色描述品牌如何进入宿主；这些角色按真实宿主任务选用，可缺省、重排或改变关系。Hero、搜索、VS、卡组列表只是具体实例，不得成为跨项目固定模板。每个角色必须同时绑定宿主工作、品牌证据、DangoUI 能力或 gap、视口预算；否则以 `ROLE_WITHOUT_HOST_JOB` 阻断。
+方向设计必须读取 [宿主品牌构图语法](references/host-brand-composition-grammar.md)，使用 `identity-environment / task-bridge / featured-content / business-stream / navigation-shell` 等通用角色描述品牌如何进入宿主；这些角色按真实宿主任务选用，可缺省、重排或改变关系。Hero、搜索、VS、卡组列表只是具体实例，不得成为跨项目固定模板。每个角色必须同时绑定宿主工作、品牌证据、DangoUI 能力或 gap、视口预算；否则以 `ROLE_WITHOUT_HOST_JOB` 阻断。分配视觉强度、场景层级与动效意图时读取 [Visual Program](references/visual-program.md)，每案只提交引用 hashed inputs 的轻量 `visual-program.json`，禁止复制 Brand MOD、Evidence 或宿主 DOM 增加上下文消耗。
 
 方向候选的单张画面必须是“未来宿主页面截图”，不能是设计提案卡：禁止阶段标题、方向解释、设计术语、色板、设备陈列、额外外框和与宿主无关的说明栏。每案至少完整呈现真实宿主的 navigation、primary task、business switch 与 business content；只展示 Hero、品牌色块或一个概念模块仍按 Demo 判失败。A/B/C 标识只能存在于选择容器之外，不能进入候选页面截图。
 

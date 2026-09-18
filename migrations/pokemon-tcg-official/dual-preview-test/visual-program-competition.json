@@ -1,0 +1,256 @@
+{
+  "schema": "visual-program-competition/v1",
+  "generatedAt": "2026-09-18T17:04:09.633Z",
+  "policy": {
+    "purpose": "deterministic render preselection; not an aesthetic verdict",
+    "renderLimit": 3,
+    "ranking": "base eligibility plus greedy strategy diversity"
+  },
+  "candidateCount": 6,
+  "shortlist": [
+    {
+      "renderPriority": 1,
+      "id": "i-live-rail",
+      "baseScore": 14,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "balanced",
+        "zoneModes": [
+          "expressive",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "short-strip",
+          "continuous-flow"
+        ],
+        "focalAction": "search",
+        "transition": "task-bridge",
+        "sceneJobs": [
+          "identity",
+          "repeatable-work",
+          "task-entry"
+        ],
+        "motion": "productive",
+        "leadBrandAsset": "asset:30thYoshirotten-169"
+      }
+    },
+    {
+      "renderPriority": 2,
+      "id": "m-arena-reveal",
+      "baseScore": 14,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "immersion-first",
+        "zoneModes": [
+          "expressive",
+          "blended",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "contained-first-view",
+          "compact",
+          "continuous-flow"
+        ],
+        "focalAction": "enter deck discovery",
+        "transition": "depth-to-rail",
+        "sceneJobs": [
+          "competitive world",
+          "focus and urgency",
+          "repeatable work",
+          "task bridge"
+        ],
+        "motion": "expressive",
+        "leadBrandAsset": "asset:championships-runtime"
+      }
+    },
+    {
+      "renderPriority": 3,
+      "id": "k-deck-bench",
+      "baseScore": 14,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "efficiency-first",
+        "zoneModes": [
+          "blended",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "minimal",
+          "dominant"
+        ],
+        "focalAction": "search and filter",
+        "transition": "direct-handoff",
+        "sceneJobs": [
+          "context",
+          "repeatable-work",
+          "task"
+        ],
+        "motion": "productive",
+        "leadBrandAsset": "asset:field-breakdown-deck"
+      }
+    }
+  ],
+  "candidates": [
+    {
+      "id": "i-live-rail",
+      "baseScore": 14,
+      "brandRefCount": 5,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "balanced",
+        "zoneModes": [
+          "expressive",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "short-strip",
+          "continuous-flow"
+        ],
+        "focalAction": "search",
+        "transition": "task-bridge",
+        "sceneJobs": [
+          "identity",
+          "repeatable-work",
+          "task-entry"
+        ],
+        "motion": "productive",
+        "leadBrandAsset": "asset:30thYoshirotten-169"
+      }
+    },
+    {
+      "id": "j-collector-index",
+      "baseScore": 11,
+      "brandRefCount": 4,
+      "risks": [
+        "PRODUCTIVE_ZONE_MISSING"
+      ],
+      "strategySignature": {
+        "hostClassification": "balanced",
+        "zoneModes": [
+          "expressive",
+          "blended"
+        ],
+        "zoneBudgets": [
+          "compact",
+          "continuous-flow"
+        ],
+        "focalAction": "search collection",
+        "transition": "contained-transition",
+        "sceneJobs": [
+          "archive-continuity",
+          "collection-context",
+          "repeatable-work"
+        ],
+        "motion": "none",
+        "leadBrandAsset": "asset:wcs26-binder-inserts"
+      }
+    },
+    {
+      "id": "k-deck-bench",
+      "baseScore": 14,
+      "brandRefCount": 4,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "efficiency-first",
+        "zoneModes": [
+          "blended",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "minimal",
+          "dominant"
+        ],
+        "focalAction": "search and filter",
+        "transition": "direct-handoff",
+        "sceneJobs": [
+          "context",
+          "repeatable-work",
+          "task"
+        ],
+        "motion": "productive",
+        "leadBrandAsset": "asset:field-breakdown-deck"
+      }
+    },
+    {
+      "id": "l-command-strip",
+      "baseScore": 14,
+      "brandRefCount": 4,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "efficiency-first",
+        "zoneModes": [
+          "blended",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "minimal",
+          "dominant"
+        ],
+        "focalAction": "search and filter",
+        "transition": "overlap-handoff",
+        "sceneJobs": [
+          "continuous results",
+          "fast brand orientation",
+          "primary task"
+        ],
+        "motion": "productive",
+        "leadBrandAsset": "asset:championships-2x"
+      }
+    },
+    {
+      "id": "m-arena-reveal",
+      "baseScore": 14,
+      "brandRefCount": 7,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "immersion-first",
+        "zoneModes": [
+          "expressive",
+          "blended",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "contained-first-view",
+          "compact",
+          "continuous-flow"
+        ],
+        "focalAction": "enter deck discovery",
+        "transition": "depth-to-rail",
+        "sceneJobs": [
+          "competitive world",
+          "focus and urgency",
+          "repeatable work",
+          "task bridge"
+        ],
+        "motion": "expressive",
+        "leadBrandAsset": "asset:championships-runtime"
+      }
+    },
+    {
+      "id": "n-field-notes",
+      "baseScore": 14,
+      "brandRefCount": 4,
+      "risks": [],
+      "strategySignature": {
+        "hostClassification": "balanced",
+        "zoneModes": [
+          "blended",
+          "productive"
+        ],
+        "zoneBudgets": [
+          "compact",
+          "continuous-flow"
+        ],
+        "focalAction": "inspect a deck",
+        "transition": "caption-to-index",
+        "sceneJobs": [
+          "authentic product evidence",
+          "editorial hierarchy",
+          "repeatable comparison"
+        ],
+        "motion": "none",
+        "leadBrandAsset": "asset:field-breakdown-active-spot"
+      }
+    }
+  ]
+}

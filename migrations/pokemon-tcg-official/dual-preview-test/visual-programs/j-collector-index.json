@@ -1,0 +1,16 @@
+{
+  "schema": "visual-program/v1",
+  "hostClassification": "balanced",
+  "experienceZones": [
+    {"id":"collector-cover","mode":"expressive","hostJob":"frame decks as a collectible archive","viewportBudget":"compact","brandMechanismRefs":["asset:wcs26-binder-inserts","composition:collector-file"],"interactionFrequency":"once-per-entry"},
+    {"id":"indexed-results","mode":"blended","hostJob":"browse and retrieve saved decks","viewportBudget":"continuous-flow","brandMechanismRefs":["pattern:paper-folio","pattern:numbered-index"],"interactionFrequency":"repeated"}
+  ],
+  "focalHierarchy":{"primary":"three-card numbered folio","secondary":"collector cover","action":"search collection"},
+  "sceneGraph":[
+    {"layer":"environment","sourceRefs":["asset:wcs26-binder-inserts"],"job":"collection-context"},
+    {"layer":"material","sourceRefs":["pattern:paper-folio"],"job":"archive-continuity"},
+    {"layer":"business-content","sourceRefs":["host:deck-results"],"job":"repeatable-work"}
+  ],
+  "contentTransition":{"from":"collector-cover","to":"indexed-results","mechanism":"contained-transition","continuitySignal":"paper field and numbering system"},
+  "motionIntent":{"mode":"none","purpose":"preserve deliberate archive reading","reducedMotionFallback":"static"}
+}
