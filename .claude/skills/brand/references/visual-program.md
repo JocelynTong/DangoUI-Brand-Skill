@@ -34,7 +34,7 @@ Each candidate owns one compact `visualProgram` with:
 
 ## Internal candidate competition
 
-Generate 6–9 compact programs before expensive rendering when the evidence and host surface can support that range. Run the deterministic preselector, then render only 2–3 programs:
+Fast mode generates four compact programs and renders two; standard/certification may generate 6–9 and render 2–3. Run the deterministic preselector before rendering:
 
 ```bash
 node skills/brand/scripts/rank-visual-programs.mjs --dir <visual-program-dir> --limit 3 --output <competition.json>

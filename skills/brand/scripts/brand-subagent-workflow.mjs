@@ -71,6 +71,7 @@ function next() {
   const roleContract = contract.roles?.[current.role];
   if (!roleContract) fail(`Missing role contract for ${current.role}.`);
   const inputs = dispatchInputs(manifest, current);
+  const fastOverride = fastDesignHostOverride(manifest, current);
   const request = {
     schema: "brand-subagent-dispatch/v1",
     dispatchId: crypto.randomUUID(),
@@ -81,7 +82,7 @@ function next() {
     attempt: current.attempt,
     goalId: manifest.goalId,
     goalSha256: manifest.goalSha256,
-    mission: roleContract.goal,
+    mission: fastOverride?.mission || roleContract.goal,
     roleContractVersion: manifest.roleContractVersion,
     executionProfile: manifest.executionProfile,
     profileContract: ["design-host", "apply-host"].includes(manifest.mode)
@@ -90,11 +91,11 @@ function next() {
     requiredInputs: inputs,
     allowedInputs: roleContract.inputs?.allowed || [],
     forbiddenInputs: roleContract.inputs?.forbidden || [],
-    tasks: roleContract.tasks || [],
-    requirements: roleContract.requirements || [],
+    tasks: fastOverride?.tasks || roleContract.tasks || [],
+    requirements: [...(roleContract.requirements || []), ...(fastOverride?.requirements || [])],
     scopeRules: dispatchScopeRules(manifest),
     mustNot: roleContract.mustNot || [],
-    expectedOutputs: roleContract.outputs || [],
+    expectedOutputs: fastOverride?.expectedOutputs || roleContract.outputs || [],
     passCriteria: roleContract.passCriteria || [],
     failCriteria: roleContract.failCriteria || [],
     contextPolicy: {
@@ -111,6 +112,7 @@ function next() {
       queryCommand: "node skills/brand/scripts/query-brand-context.mjs <get|search> --source <contract|tokens|runtime|workflow> ...",
     },
     receiptRequirements: ["agentExecutionId from a real spawned subagent", "goalSha256 unchanged", "input and output file sha256 values", "pass/fail/needs-evidence verdict", "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"],
+    fastDesignHints: fastOverride?.hints || null,
   };
   const dispatchFile = path.join(migrationDir, "dispatch", `${current.id}.json`);
   writeJson(dispatchFile, request);
@@ -121,6 +123,28 @@ function next() {
   addTelemetry(manifest, "dispatch", inputs);
   writeJson(manifestFile, manifest);
   output({ ok: true, dispatchRequest: request, dispatchFile: relative(dispatchFile), instruction: "The outer Orchestrator must now spawn a real subagent with exactly this packet." });
+}
+
+function fastDesignHostOverride(manifest, current) {
+  if (manifest.mode !== "design-host" || manifest.executionProfile !== "fast") return null;
+  if (current.role === "hostStrategist") return {
+    mission: "In one bounded pass, identify the host primary task, frozen business scope and visual-capacity zones needed by the Designer; do not produce implementation or full-host certification artifacts.",
+    tasks: ["identify the default route and primary task", "freeze business capabilities that every direction preserves", "classify the first viewport and divide it into productive/expressive zones", "write only the three required fast outputs"],
+    requirements: ["finish the fast strategy handoff within 60 seconds when the frozen packet is sufficient"],
+    expectedOutputs: ["host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"],
+    hints: { targetSeconds: 60, omitInFast: ["program-goal-tree.json", "intent-plan.json", "host-coverage-matrix.json"] },
+  };
+  if (current.role !== "brandApplicationDesigner") return null;
+  const modFile = path.join(migrationDir, "brand-mod.json");
+  const mod = fs.existsSync(modFile) ? readJsonRequired(modFile) : {};
+  const assets = array(mod.assets).filter((asset) => asset?.id && asset?.sourceSha256 && asset?.status !== "rejected").map((asset) => ({ id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) }));
+  return {
+    mission: "Produce four compact program candidates, select two genuinely distinct programs, render two static H5 directions, and close the existing validators without reading unrelated brand history.",
+    tasks: ["write exactly four compact visual programs", "rank them and stop if fewer than two distinct lead assets/strategies survive", "render exactly two target-viewport static H5 files", "write plan and options using the supplied asset matrix, then run the two required validators once"],
+    requirements: ["use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "do not generate screenshots or extra state variants before independent QA", "reserve at least 45 seconds before deadline for receipt recording"],
+    expectedOutputs: ["four visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "two static H5 directions"],
+    hints: { candidateProgramCount: 4, renderCount: 2, sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
+  };
 }
 
 function record() {

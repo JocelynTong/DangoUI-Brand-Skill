@@ -72,9 +72,13 @@ function createFixture(mode, brand, executionProfile = undefined) {
   assert.match(prepared.next, /hostStrategy/);
   let manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "hostStrategy-1");
-  fixture.run("next");
+  const strategyDispatch = fixture.run("next");
+  assert.deepEqual(strategyDispatch.dispatchRequest.expectedOutputs, ["host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"]);
+  assert.equal(strategyDispatch.dispatchRequest.fastDesignHints.targetSeconds, 60);
   fixture.recordCurrent("/root/host-strategist", fixture.writeOutput("host-opportunity-map.json"));
-  fixture.run("next");
+  const designerDispatch = fixture.run("next");
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 4);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.renderCount, 2);
   fixture.recordCurrent("/root/brand-application-designer", fixture.writeOutput("design-direction-options.json"));
   manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "designVisualQA-1");
