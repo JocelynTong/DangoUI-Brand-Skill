@@ -1,0 +1,16 @@
+{
+  "schema": "visual-program/v1",
+  "hostClassification": "balanced",
+  "experienceZones": [
+    {"id":"arena-entry","mode":"expressive","hostJob":"establish tournament context","viewportBudget":"short-strip","brandMechanismRefs":["asset:30thYoshirotten-169","composition:event-news-strip"],"interactionFrequency":"once-per-entry"},
+    {"id":"deck-results","mode":"productive","hostJob":"scan and filter real decks","viewportBudget":"continuous-flow","brandMechanismRefs":["token:dark-surface","pattern:yellow-emphasis"],"interactionFrequency":"repeated"}
+  ],
+  "focalHierarchy":{"primary":"tournament environment and headline","secondary":"live deck rail","action":"search"},
+  "sceneGraph":[
+    {"layer":"event-cover","sourceRefs":["asset:30thYoshirotten-169"],"job":"identity"},
+    {"layer":"interface","sourceRefs":["token:dark-surface","token:yellow-emphasis"],"job":"task-entry"},
+    {"layer":"business-content","sourceRefs":["host:deck-results"],"job":"repeatable-work"}
+  ],
+  "contentTransition":{"from":"arena-entry","to":"deck-results","mechanism":"task-bridge","continuitySignal":"dark field and yellow live signal"},
+  "motionIntent":{"mode":"productive","purpose":"confirm filtering and result changes","reducedMotionFallback":"instant state change"}
+}

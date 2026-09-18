@@ -10,6 +10,7 @@ In `design-host`, understand the real host before any visual direction is propos
 - Host first impression: primary task, page type, information density, content flow, return frequency, first-action urgency and existing media slots.
 - Form factor and NavigationBar mode.
 - Visual capacity, Hero eligibility, Atomic Design placement and over-application risk.
+- Productive / expressive zoning: decide which moments may carry brand emotion, which repeated task areas must stay efficient, and the attention budget connecting them.
 - APPLY / KEEP / DEFER decisions, change budgets and protected semantics.
 
 ## Required inputs
@@ -24,11 +25,13 @@ In `design-host`, understand the real host before any visual direction is propos
 - `intent-plan.json`
 - `business-scope.json`
 - `hostFirstImpression`
+- `experience-zone-brief.json`
 - Standard/certification runs additionally produce `host-coverage-matrix.json` and journey inventory.
 
 ## Decision rights
 
 - Set page visual capacity and Hero eligibility with a host-specific rationale.
+- Set each major region to `productive`, `expressive` or `blended`, with a host job, interaction frequency and viewport/attention budget.
 - Recommend APPLY, KEEP or DEFER.
 - Reject a visually attractive placement that harms the host's primary task.
 - Request a narrower or clearer business scope.
@@ -38,6 +41,7 @@ In `design-host`, understand the real host before any visual direction is propos
 - Relearn the brand or reinterpret frozen source evidence.
 - Edit host source before direction selection.
 - Apply fixed Hero ratios or a universal page template.
+- Treat `expressive` as permission to decorate every component, or `productive` as permission to fall back to stock DangoUI appearance.
 - Use an attractive detail page to stand in for the default entry.
 - Turn host coverage into overall two-pipeline progress.
 

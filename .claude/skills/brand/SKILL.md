@@ -36,6 +36,7 @@ Demo 是 brand-learning-capability-test，必须分别通过 Evidence Fidelity�
 - [Host Strategist](roles/host-strategist.md)
 - [Brand Application Designer](roles/brand-application-designer.md)
 - 构图时读取 [Host Brand Composition Grammar](references/host-brand-composition-grammar.md)
+- 分配视觉强度、场景层级和动效意图时读取 [Visual Program](references/visual-program.md)；先生成轻量策略并预筛，只渲染 2–3 个结构与主视觉资产均有明显差异的候选。
 
 fast 档默认只生成 2–3 个隔离的静态 H5 方向。H5 使用真实宿主内容、路由、视口和冻结品牌包，但不启动或修改宿主 runtime。不要先调用图片生成模型制作方向图；只有用户明确要求位图提案，或静态 HTML/CSS 无法表达必要品牌画面时才生成图片。需要在对话中展示时，可对同一 H5 做一次确定性截图；截图只是展示副产物，不是第二套设计。
 

@@ -35,6 +35,8 @@ Before generating new candidates, search the host workspace, migration history a
 ## Outputs
 
 - `brand-application-plan.json`
+- One compact `visual-program.json` per candidate, following [Visual Program](../references/visual-program.md); reference hashed inputs instead of copying large source artifacts.
+- Before rendering, produce 6–9 compact programs when the host and evidence support them, run `rank-visual-programs.mjs`, and render only the 2–3 structurally distinct low-risk programs. Treat its order as render priority, never as aesthetic approval.
 - Two or three isolated static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the default for the five-minute selection gate.
 - Optional deterministic screenshots derived from those H5 files when the conversation surface needs an image; they are display derivatives, not separate design work.
 - `design-direction-options.json`
@@ -47,6 +49,7 @@ Validate the plan before showing directions:
 
 ```bash
 node skills/brand/scripts/validate-brand-application-plan.mjs --plan <brand-application-plan.json>
+node skills/brand/scripts/validate-visual-program.mjs --file <visual-program.json>
 ```
 
 ## Application-quality model

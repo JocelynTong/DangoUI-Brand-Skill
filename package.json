@@ -71,6 +71,8 @@
     "test:brand-wild-design": "node skills/brand/scripts/validate-wild-design-decision.test.mjs",
     "validate:brand-application-plan": "node skills/brand/scripts/validate-brand-application-plan.mjs",
     "test:brand-application-plan": "node skills/brand/scripts/validate-brand-application-plan.test.mjs",
+    "test:brand-visual-program": "node skills/brand/scripts/validate-visual-program.test.mjs",
+    "test:brand-visual-program-ranking": "node skills/brand/scripts/rank-visual-programs.test.mjs",
     "test:brand-concept-provenance": "node skills/brand/scripts/validate-concept-asset-provenance.test.mjs",
     "test:brand-generality": "node skills/brand/scripts/test-brand-composition-generality.mjs --write migrations/cross-theme-generality/report.json",
     "validate:brand-program-strategy": "node skills/brand/scripts/validate-program-strategy.mjs",
