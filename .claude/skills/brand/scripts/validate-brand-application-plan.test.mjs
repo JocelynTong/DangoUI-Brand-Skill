@@ -12,7 +12,7 @@ const digest = (file) => createHash('sha256').update(fs.readFileSync(file)).dige
 fs.writeFileSync(path.join(dir, 'host.json'), '{}')
 fs.writeFileSync(path.join(dir, 'patterns.json'), JSON.stringify({ patterns: [{ id: 'campaign-stage', evidenceRefs: ['evidence:stage'] }] }))
 fs.writeFileSync(path.join(dir, 'brand-mod.json'), JSON.stringify({ semanticRoles: { 'surface.page': { status: 'mapped', value: '#ffffff' } }, componentVariants: [{ id: 'campaign', approvedPatternId: 'campaign-stage' }], assets: [{ id: 'hero-art', sourceSha256: 'asset-sha' }], verification: { patterns: 'patterns.json' } }))
-for (const id of ['a', 'b']) fs.writeFileSync(path.join(dir, `${id}.png`), `image-${id}`)
+for (const id of ['a', 'b']) fs.writeFileSync(path.join(dir, `${id}.html`), `<!doctype html><title>${id}</title>`)
 const role = (name, ratio) => ({ role: name, hostJob: `${name} job`, brandMechanisms: ['source-backed mechanism'], evidenceRefs: ['evidence:1'], designSystemBinding: { status: 'mapped', refs: ['token:1'] }, semanticColorRefs: ['page-surface'], viewportBudget: { firstViewportAreaRatio: ratio } })
 const option = (id, roles, relationships, strategy = 'single-source-scene') => ({
   id,
@@ -26,7 +26,7 @@ const option = (id, roles, relationships, strategy = 'single-source-scene') => (
   },
   roleTransitions: relationships.map((relationship, index) => ({ from: roles[index], to: roles[index + 1], relationship, businessContinuity: 'primary task remains visible' })),
   visualRichnessSelfReview: { posterThenGeneric: false, stickerCollage: false, hostTaskVisible: true, distinctAssetRoles: ['environment'], repeatedHeroAsTexture: false, unifiedAtmosphere: { environment: 'scene', lighting: 'shared source', depth: 'three planes' } },
-  previewEvidence: { path: `${id}.png`, sha256: digest(path.join(dir, `${id}.png`)) }
+  previewEvidence: { path: `${id}.html`, sha256: digest(path.join(dir, `${id}.html`)) }
 })
 const valid = {
   schema: 'brand-application-plan/v1',
@@ -41,10 +41,13 @@ const valid = {
 const file = path.join(dir, 'plan.json')
 const run = (data) => { fs.writeFileSync(file, JSON.stringify(data)); return spawnSync(process.execPath, [validator, '--plan', file], { encoding: 'utf8' }) }
 assert.equal(run(valid).status, 0)
-const html = structuredClone(valid)
-html.options[0].previewEvidence.path = 'a.html'
-html.options[0].previewEvidence.sha256 = 'x'
-assert.match(run(html).stdout, /BRAND_APPLICATION_PREVIEW_NOT_STATIC_IMAGE/)
+fs.writeFileSync(path.join(dir, 'a.png'), 'image-a')
+const imageDefault = structuredClone(valid)
+imageDefault.options[0].previewEvidence = { path: 'a.png', sha256: digest(path.join(dir, 'a.png')) }
+assert.match(run(imageDefault).stdout, /DESIGN_HOST_STATIC_H5_REQUIRED/)
+const imageException = structuredClone(imageDefault)
+imageException.previewMediumException = { approvedBy: 'explicit-user' }
+assert.equal(run(imageException).status, 0)
 const generic = structuredClone(valid)
 generic.options[0].visualRichnessSelfReview.posterThenGeneric = true
 assert.match(run(generic).stdout, /BRAND_APPLICATION_VISUAL_RICHNESS_FAILED/)
@@ -77,16 +80,12 @@ assert.equal(run(decorativePalette).status, 0)
 const promotedPalette = structuredClone(decorativePalette)
 promotedPalette.options[0].semanticColorApplications.at(-1).scope = 'navigation action state'
 assert.match(run(promotedPalette).stdout, /ASSET_PALETTE_SEMANTIC_PROMOTION/)
-fs.writeFileSync(path.join(dir, 'a.svg'), '<svg xmlns="http://www.w3.org/2000/svg"><rect fill="#1268ff"/></svg>')
-const undeclaredPaint = structuredClone(valid)
-undeclaredPaint.options[0].previewEvidence = { path: 'a.svg', sha256: digest(path.join(dir, 'a.svg')) }
-assert.match(run(undeclaredPaint).stdout, /UNDECLARED_RENDERED_UI_COLOR/)
 const auditedRejection = structuredClone(valid)
 auditedRejection.options.push({ id: 'c', disposition: 'rejected', rejectionReason: 'asset color escaped into UI semantics', rejectionCodes: ['ASSET_COLOR_PROMOTED_TO_UI_SEMANTIC'], incidentRef: 'incident-retro.json' })
 assert.equal(run(auditedRejection).status, 0)
 const same = structuredClone(valid)
 same.options[1] = structuredClone(same.options[0])
 same.options[1].id = 'b'
-same.options[1].previewEvidence = { path: 'b.png', sha256: digest(path.join(dir, 'b.png')) }
+same.options[1].previewEvidence = { path: 'b.html', sha256: digest(path.join(dir, 'b.html')) }
 assert.match(run(same).stdout, /SAME_GRAMMAR_RESKIN/)
 console.log('validate-brand-application-plan tests passed')

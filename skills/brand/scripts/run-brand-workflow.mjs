@@ -5,8 +5,10 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
 import { runCachedValidator } from "./validator-cache.mjs";
+import { verifySkillIntegrity } from "./verify-brand-skill-integrity.mjs";
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
+verifySkillIntegrity(path.dirname(skillScriptsDir), { allowMissing: true });
 const skillScript = (name) => path.join(skillScriptsDir, name);
 const resolveSkillScript = (script) => script.includes("skills/brand/scripts/")
   ? skillScript(path.basename(script))
@@ -219,7 +221,7 @@ if (command === "run") {
       "--phase", mode === "design-host" ? "design" : "implementation",
     ], { cwd: root, encoding: "utf8" });
     executed.push({
-      step: "apply-host-preflight",
+      step: `${mode}-preflight`,
       command: `node skills/brand/scripts/apply-host-preflight.mjs --root ${root} --brand ${brand} --host-target ${hostTarget} --profile ${profile} --phase ${mode === "design-host" ? "design" : "implementation"}`,
       exitCode: preflight.status,
       stdout: preflight.stdout,
@@ -232,9 +234,9 @@ if (command === "run") {
         profile,
         brand,
         step: `${mode}-preflight`,
-        blockingCode: "APPLY_HOST_PREFLIGHT_BLOCKED",
+        blockingCode: `${mode.toUpperCase().replaceAll('-', '_')}_PREFLIGHT_BLOCKED`,
         preflight: safeParseJson(preflight.stdout),
-        message: "Host apply stopped before agent dispatch or implementation because the bounded preflight failed.",
+        message: `${mode} stopped before dispatch because its bounded preflight failed.`,
       }, null, 2)}\n`);
       process.exit(preflight.status || 1);
     }
@@ -382,7 +384,7 @@ function buildGuardCommands(modeName, passthroughArgs) {
     commands.push(["validate-intent", ...filtered]);
   }
 
-  commands.push(["tpp-test", "--mode", modeName === "design-host" ? "apply-host" : modeName, ...filtered]);
+  commands.push(["tpp-test", "--mode", modeName, ...filtered]);
   return commands;
 }
 

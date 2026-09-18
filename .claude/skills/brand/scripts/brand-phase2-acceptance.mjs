@@ -32,7 +32,7 @@ const workflow = fs.readFileSync(path.join(root, "skills/brand/scripts/brand-sub
 check("delta-rework-contract", workflow.includes("validateDeltaScope(receipt.deltaScope)") && workflow.includes("current.retryInput?.deltaScope?.inputPaths"));
 check("run-telemetry-contract", workflow.includes("workflow-telemetry.json") && workflow.includes("additionalReadBytes"));
 const contract = JSON.parse(fs.readFileSync(path.join(root, "skills/brand/workflow-contract.json"), "utf8"));
-check("phase2-contract-version", contract.version === "0.17" && contract.roleContractVersion === "3.2", { version: contract.version, roleContractVersion: contract.roleContractVersion });
+check("phase2-contract-version", Number(contract.version) >= 0.17 && Number(contract.roleContractVersion) >= 3.2, { version: contract.version, roleContractVersion: contract.roleContractVersion });
 
 const report = { schema: "brand-phase2-acceptance/v1", verdict: "PASS", completedAt: new Date().toISOString(), guarantees: ["large JSON is queried by allowlisted source and bounded output", "unchanged validators reuse a content fingerprint result", "failed QA must provide a delta scope and retry reads only scoped inputs", "workflow records input, output and additional-read byte telemetry"], checks };
 fs.mkdirSync(path.join(root, "output"), { recursive: true });

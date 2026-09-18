@@ -31,6 +31,7 @@
     "test:brand-apply-routing": "node skills/brand/scripts/brand-subagent-workflow.apply-host.test.mjs && node skills/brand/scripts/run-brand-workflow.apply-host.test.mjs",
     "test:brand-phase1": "node skills/brand/scripts/brand-phase1-acceptance.mjs",
     "test:brand-phase2": "node skills/brand/scripts/brand-phase2-acceptance.mjs",
+    "test:brand-design-host-hardening": "node skills/brand/scripts/design-host-hardening.test.mjs && node skills/brand/scripts/validate-brand-application-plan.test.mjs && node skills/brand/scripts/rank-visual-programs.test.mjs",
     "test:qdmp-preview-handshake": "node skills/brand/scripts/qdmp-preview-handshake.test.mjs",
     "brand:trial:init": "node skills/brand/scripts/validate-trial-channel.mjs init",
     "validate:brand-trial": "node skills/brand/scripts/validate-trial-channel.mjs validate",

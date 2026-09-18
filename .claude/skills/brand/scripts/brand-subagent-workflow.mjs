@@ -49,6 +49,7 @@ function prepare() {
     roleContractVersion: contract.roleContractVersion || null,
     status: "running",
     createdAt: new Date().toISOString(),
+    deadlineAt: mode === "design-host" && executionProfile === "fast" ? new Date(Date.now() + 300000).toISOString() : null,
     currentStageId: initialStage.id,
     stages: [initialStage],
     finalGates: {},
@@ -60,6 +61,7 @@ function prepare() {
 
 function next() {
   const manifest = validateManifest();
+  enforceDesignHostDeadline(manifest);
   if (manifest.status !== "running") return output({ ok: false, status: manifest.status, message: "Workflow is not dispatchable." }, 2);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
   if (!current || current.status !== "pending") fail("Current stage is not pending; record its receipt or inspect status.");
@@ -127,6 +129,7 @@ function record() {
   const receiptFile = path.resolve(root, receiptArg);
   const receipt = readJsonRequired(receiptFile);
   const manifest = validateManifest();
+  enforceDesignHostDeadline(manifest);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
   if (!current || current.status !== "dispatched") fail("No dispatched current stage is waiting for a receipt.");
   if (current.role === "hostImplementationAgent") verifyHostPreeditGate("receipt");
@@ -366,7 +369,7 @@ function advance(manifest, current) {
   }
   const order = stageOrderForMode(manifest.mode);
   if (current.verdict === "pass") {
-    if (manifest.mode === "design-host" && current.stage === "brandApplication") {
+    if (manifest.mode === "design-host" && current.stage === "designVisualQA") {
       manifest.status = "awaiting-user-direction";
       manifest.currentStageId = null;
       manifest.directionDecision = { status: "pending", requiredOutputs: ["design-direction-decision.json", "design-direction.json"] };
@@ -569,7 +572,7 @@ function initialStageForMode(mode) {
   fail(`Unsupported goal mode: ${mode}`);
 }
 function stageOrderForMode(mode) {
-  if (mode === "design-host") return ["hostStrategy", "brandApplication"];
+  if (mode === "design-host") return ["hostStrategy", "brandApplication", "designVisualQA"];
   if (mode === "apply-host") return ["hostImplementation", "previewQA", "visualQA"];
   return ["evidence", "interpreter", "demo", "visualQA"];
 }
@@ -580,12 +583,26 @@ function roleForStage(name) {
     demo: "demoImplementationAgent",
     hostStrategy: "hostStrategist",
     brandApplication: "brandApplicationDesigner",
+    designVisualQA: "visualQA",
     hostImplementation: "hostImplementationAgent",
     previewQA: "visualQA",
     visualQA: "visualQA",
   }[name];
 }
+function enforceDesignHostDeadline(manifest) {
+  if (manifest.mode !== "design-host" || manifest.executionProfile !== "fast" || !manifest.deadlineAt || Date.now() <= Date.parse(manifest.deadlineAt)) return;
+  manifest.status = "timed-out";
+  manifest.currentStageId = null;
+  manifest.timeout = { code: "DESIGN_HOST_FAST_BUDGET_EXCEEDED", budgetMs: 300000, deadlineAt: manifest.deadlineAt, observedAt: new Date().toISOString() };
+  writeJson(manifestFile, manifest);
+  fail("DESIGN_HOST_FAST_BUDGET_EXCEEDED: stop instead of silently exceeding the five-minute preview budget.");
+}
 function dispatchScopeRules(manifest) {
+  if (manifest.mode === "design-host" && manifest.currentStageId?.startsWith("designVisualQA-")) return [
+    "Render every shortlisted static H5 at the frozen target viewport; do not accept JSON fields or producer self-review as visual proof.",
+    "Reject generic enterprise styling, repeated lead assets, weak brand visual mass, and candidates that differ only by list/grid arrangement.",
+    "Remain independent: do not edit the H5, host source, Brand MOD or direction plan; return blocking findings to Brand Application Designer.",
+  ];
   if (manifest.mode === "design-host") return [
     "Do not modify, compile or inject host source while generating directions.",
     "Use the frozen host baseline and existing Brand MOD; do not relearn the brand.",

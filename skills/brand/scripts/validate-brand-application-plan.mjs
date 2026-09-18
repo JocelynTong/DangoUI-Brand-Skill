@@ -74,7 +74,7 @@ if (!plan.hostBinding?.targetRoute || !plan.hostBinding?.viewport || !plan.hostB
   else if (sha(baseline) !== plan.hostBinding.baselineSha256) fail('BRAND_APPLICATION_HOST_BASELINE_HASH_MISMATCH', 'Frozen host baseline hash does not match.', { path: plan.hostBinding.baselinePath })
 }
 if (!['efficiency-first', 'balanced', 'immersion-first'].includes(plan.hostClassification)) fail('BRAND_APPLICATION_HOST_CLASSIFICATION_REQUIRED', 'Classify the host before allocating visual capacity.')
-if (selectableOptions.length < 2 || selectableOptions.length > 3) fail('BRAND_APPLICATION_OPTION_COUNT_INVALID', 'Provide two or three selectable image directions.')
+if (selectableOptions.length < 2 || selectableOptions.length > 3) fail('BRAND_APPLICATION_OPTION_COUNT_INVALID', 'Provide two or three selectable static H5 directions.')
 
 const signatures = new Set()
 for (const option of options) {
@@ -167,20 +167,14 @@ for (const option of options) {
   if (!reviewedAssetRoles.size || [...reviewedAssetRoles].some((role) => !assignedAssetRoles.has(role))) fail('ASSET_ROLE_COMPOSITION_UNPROVEN', 'Visual self-review must name the distinct assigned roles used to compose identity, material and business content; asset count alone is not proof.', { option: optionId })
   if (review?.repeatedHeroAsTexture !== false) fail('REPEATED_HERO_AS_TEXTURE', 'A hero image cannot be repeated or faded across the page to stand in for a material system.', { option: optionId })
   const preview = option.previewEvidence
-  if (!preview?.path || !preview?.sha256) fail('BRAND_APPLICATION_IMAGE_EVIDENCE_REQUIRED', 'Every option needs a hash-bound target-viewport image.', { option: optionId })
+  if (!preview?.path || !preview?.sha256) fail('BRAND_APPLICATION_H5_EVIDENCE_REQUIRED', 'Every option needs a hash-bound static H5 preview.', { option: optionId })
   else {
-    const image = path.resolve(path.dirname(planFile), preview.path)
-    const ext = path.extname(image).toLowerCase()
-    if (!['.svg', '.png', '.jpg', '.jpeg', '.webp'].includes(ext)) fail('BRAND_APPLICATION_PREVIEW_NOT_STATIC_IMAGE', 'The five-minute gate accepts image evidence by default, not HTML.', { option: optionId, path: preview.path })
-    if (!fs.existsSync(image)) fail('BRAND_APPLICATION_PREVIEW_MISSING', 'Direction image does not exist.', { option: optionId, path: preview.path })
-    else if (sha(image) !== preview.sha256) fail('BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'Direction image hash does not match.', { option: optionId, path: preview.path })
-    else if (ext === '.svg') {
-      const declared = new Set(colorApplications.map((entry) => expandedHex(entry.renderedValue)).filter((entry) => /^#[0-9a-f]{6}$/.test(entry)))
-      const svg = fs.readFileSync(image, 'utf8')
-      const rendered = new Set((svg.match(/#[0-9a-fA-F]{3,8}\b/g) || []).map(expandedHex))
-      const undeclared = [...rendered].filter((entry) => !declared.has(entry))
-      if (undeclared.length) fail('UNDECLARED_RENDERED_UI_COLOR', 'SVG preview contains colors absent from semanticColorApplications. Asset pixels must remain in image files, not become SVG UI paint.', { option: optionId, colors: undeclared })
-    }
+    const previewFile = path.resolve(path.dirname(planFile), preview.path)
+    const ext = path.extname(previewFile).toLowerCase()
+    const explicitImageException = plan.previewMediumException?.approvedBy === 'explicit-user'
+    if (ext !== '.html' && !explicitImageException) fail('DESIGN_HOST_STATIC_H5_REQUIRED', 'Fast design-host accepts static HTML by default. Images require an explicit user exception.', { option: optionId, path: preview.path })
+    if (!fs.existsSync(previewFile)) fail('BRAND_APPLICATION_PREVIEW_MISSING', 'Direction preview does not exist.', { option: optionId, path: preview.path })
+    else if (sha(previewFile) !== preview.sha256) fail('BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'Direction preview hash does not match.', { option: optionId, path: preview.path })
   }
   const signature = JSON.stringify({ roles: roleNames, transitions: transitions.map((item) => item.relationship), narrative: option.visualNarrative, sceneStrategy: direction?.sceneStrategy })
   if (signatures.has(signature)) fail('SAME_GRAMMAR_RESKIN', 'Directions must not reuse the same composition grammar and narrative.', { option: optionId })

@@ -1,5 +1,6 @@
 import fs from "node:fs";
 import path from "node:path";
+import { buildSkillIntegrity } from "../skills/brand/scripts/verify-brand-skill-integrity.mjs";
 
 const root = process.cwd();
 const skillsRoot = path.join(root, "skills");
@@ -22,12 +23,20 @@ for (const entry of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
   if (!fs.existsSync(path.join(source, "SKILL.md"))) continue;
 
   syncDirectory(source, claudeTarget);
+  writeIntegrity(claudeTarget, entry.name);
   console.log(`Synced ${path.relative(root, source)} -> ${path.relative(root, claudeTarget)}`);
 
   if (codexSkillsRoot && fs.existsSync(path.dirname(codexTarget))) {
     syncDirectory(source, codexTarget);
+    writeIntegrity(codexTarget, entry.name);
     console.log(`Synced ${path.relative(root, source)} -> ${codexTarget}`);
   }
+}
+
+function writeIntegrity(target, skillName) {
+  if (skillName !== "brand") return;
+  const manifest = buildSkillIntegrity(target);
+  fs.writeFileSync(path.join(target, ".brand-skill-integrity.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 function syncDirectory(from, to) {

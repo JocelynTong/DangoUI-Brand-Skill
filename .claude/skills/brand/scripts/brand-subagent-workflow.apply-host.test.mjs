@@ -77,6 +77,10 @@ function createFixture(mode, brand, executionProfile = undefined) {
   fixture.run("next");
   fixture.recordCurrent("/root/brand-application-designer", fixture.writeOutput("design-direction-options.json"));
   manifest = fixture.readManifest();
+  assert.equal(manifest.currentStageId, "designVisualQA-1");
+  fixture.run("next");
+  fixture.recordCurrent("/root/design-visual-qa", fixture.writeOutput("design-host-visual-qa.json"));
+  manifest = fixture.readManifest();
   assert.equal(manifest.status, "awaiting-user-direction");
   assert.equal(manifest.currentStageId, null);
   assert.equal(manifest.stages.some((item) => item.stage === "hostImplementation"), false);

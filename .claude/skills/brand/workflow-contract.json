@@ -1,6 +1,6 @@
 {
-  "version": "0.17",
-  "roleContractVersion": "3.2",
+  "version": "0.18",
+  "roleContractVersion": "3.3",
   "command": "/brand",
   "owner": "brand",
   "description": "Machine-readable workflow contract for brand learning and host apply. The contract keeps Brand native, borrows external orchestration ideas when useful, and prevents Markdown-only rules from becoming fake gates.",
@@ -779,6 +779,7 @@
         {"id": "map-implementability", "role": "brandApplicationDesigner", "label": "Map each concept feature to tokens, official assets, DangoUI capability, CSS/motion or an explicit downgrade", "required": true, "blocking": true, "outputs": ["implementability-map.json"]},
         {"id": "validate-static-h5", "role": "brandApplicationDesigner", "label": "Validate the isolated static H5 directions without modifying or starting the host runtime", "required": true, "blocking": true, "outputs": ["static H5 direction previews", "optional deterministic screenshots for conversation display"]},
         {"id": "validate-visual-retention", "role": "designDirectorOrchestrator", "label": "Require at least five of seven retained dimensions including composition, core assets and brand material", "required": true, "blocking": true, "outputs": ["visual-retention-report.json"]},
+        {"id": "designVisualQA", "role": "visualQA", "label": "Independently render each static H5 at the target viewport and reject generic, same-asset or weakly differentiated directions", "required": true, "blocking": true, "outputs": ["design-host-visual-qa.json", "rendered direction captures"]},
         {"id": "await-direction-decision", "role": "designDirectorOrchestrator", "label": "Pause for explicit selection and freeze the single implementation target", "required": true, "blocking": true, "outputs": ["design-direction-decision.json", "design-direction.json"]},
         {"id": "freeze-host-structural-baselines", "role": "designDirectorOrchestrator", "label": "Freeze pre-edit structural targets and baseline bundle after direction approval", "required": true, "blocking": true, "outputs": ["structural-targets.json", "preedit-baseline-bundle.json"]}
       ],

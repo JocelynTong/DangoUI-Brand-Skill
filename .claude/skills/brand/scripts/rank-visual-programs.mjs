@@ -62,7 +62,13 @@ const candidates = files.map((file) => {
     signature: signature(program),
     brandRefCount: brandRefs.length,
     risks,
-    baseScore: Math.max(0, 10 + Math.min(brandRefs.length, 4) - risks.length * 3),
+    scoreBreakdown: {
+      evidence: Math.min(brandRefs.length, 4),
+      sceneDepth: Math.min((program.sceneGraph || []).length, 4),
+      zoneVariety: new Set(zones.map((zone) => zone.mode)).size,
+      riskPenalty: risks.length * 3,
+    },
+    baseScore: Math.max(0, 6 + Math.min(brandRefs.length, 4) + Math.min((program.sceneGraph || []).length, 4) + new Set(zones.map((zone) => zone.mode)).size - risks.length * 3),
   }
 })
 
@@ -87,8 +93,20 @@ while (pool.length && selected.length < Math.min(limit, candidates.length)) {
     const priorityB = b.baseScore + noveltyB * 2
     return priorityB - priorityA || b.baseScore - a.baseScore || a.id.localeCompare(b.id)
   })
-  selected.push(pool.shift())
+  const next = pool.shift()
+  const duplicateLeadAsset = selected.some((item) => item.signature.leadBrandAsset && item.signature.leadBrandAsset === next.signature.leadBrandAsset)
+  const tooSimilar = selected.some((item) => distance(item.signature, next.signature) < 3)
+  if (duplicateLeadAsset || tooSimilar) {
+    next.risks.push(duplicateLeadAsset ? 'SHORTLIST_LEAD_ASSET_DUPLICATED' : 'SHORTLIST_STRATEGY_NOT_DISTINCT')
+    continue
+  }
+  selected.push(next)
 }
+
+const requiredShortlist = Math.min(limit, candidates.length)
+const blocking = []
+if (selected.length < requiredShortlist) blocking.push('VISUAL_PROGRAM_COMPETITION_INSUFFICIENT_DISTINCT_CANDIDATES')
+if (new Set(candidates.map((candidate) => candidate.baseScore)).size === 1) blocking.push('VISUAL_PROGRAM_SCORING_FLAT')
 
 const result = {
   schema: 'visual-program-competition/v1',
@@ -99,6 +117,8 @@ const result = {
     ranking: 'base eligibility plus greedy strategy diversity',
   },
   candidateCount: candidates.length,
+  verdict: blocking.length ? 'blocked' : 'pass',
+  blocking,
   shortlist: selected.map((candidate, index) => ({
     renderPriority: index + 1,
     id: candidate.id,
@@ -110,6 +130,7 @@ const result = {
     id: candidate.id,
     baseScore: candidate.baseScore,
     brandRefCount: candidate.brandRefCount,
+    scoreBreakdown: candidate.scoreBreakdown,
     risks: candidate.risks,
     strategySignature: candidate.signature,
   })),
@@ -120,3 +141,4 @@ if (outputFile) {
   fs.writeFileSync(outputFile, `${JSON.stringify(result, null, 2)}\n`)
 }
 console.log(JSON.stringify(result, null, 2))
+if (blocking.length) process.exitCode = 1

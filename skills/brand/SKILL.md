@@ -44,6 +44,8 @@ fast 档默认只生成 2–3 个隔离的静态 H5 方向。H5 使用真实宿�
 
 用户明确选择前停止；不得实施、构建宿主或创建 runtime 试装。
 
+运行前校验安装包完整性；任一脚本与同步清单 hash 不一致时以 `BRAND_SKILL_MIXED_VERSION` 阻断。候选同主素材、策略距离不足或排名完全失去区分度时不得进入 shortlist。静态 H5 产出后必须由独立 Visual QA 在目标视口渲染复核；fast 从 prepare 起超过五分钟即停止并报告超时，不得把合同文字当作已达成 SLA。
+
 ## apply-host
 
 职责链：`Host Implementation → Smoke QA → awaiting-user`。当前岗位只读：

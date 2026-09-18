@@ -3518,7 +3518,7 @@ function p0Acceptance() {
   const requireDevPreview = has("--require-dev-preview");
 
   if (!brand) fail("p0-acceptance requires --brand or a source URL that can infer the brand key.");
-  if (!["learn-brand", "apply-host"].includes(mode)) fail("--mode must be learn-brand or apply-host.");
+  if (!["learn-brand", "design-host", "apply-host"].includes(mode)) fail("--mode must be learn-brand, design-host or apply-host.");
 
   const migrationRoot = path.join(root, "migrations", brand);
   const hostMigrationRoot = findHostMigrationRoot(root, brand, planFileOpt, hostTarget);
