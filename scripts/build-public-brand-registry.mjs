@@ -72,7 +72,13 @@ for (const brand of published) {
   const brandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
   const artifacts = {}
   const artifactValues = []
-  for (const name of brand.artifactFiles || []) {
+  const artifactFiles = [...new Set(brand.artifactFiles || [])]
+  const sourceModFile = path.join(root, brand.migrationRoot, 'brand-mod.json')
+  if (fs.existsSync(sourceModFile)) {
+    const patterns = JSON.parse(fs.readFileSync(sourceModFile, 'utf8'))?.verification?.patterns
+    if (patterns && !artifactFiles.includes(patterns)) artifactFiles.push(patterns)
+  }
+  for (const name of artifactFiles) {
     const sourceArtifact = path.join(root, brand.migrationRoot, name)
     if (!fs.existsSync(sourceArtifact)) throw new Error(`${brand.id}: missing artifact ${name}`)
     const text = fs.readFileSync(sourceArtifact, 'utf8')
