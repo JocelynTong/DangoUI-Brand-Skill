@@ -139,6 +139,7 @@ function record() {
   if (!receipt.agentExecutionId || !String(receipt.agentExecutionId).startsWith("/root/") || receipt.agentExecutionId === "/root") fail("Receipt must identify a real spawned subagent execution.");
   if (receipt.goalSha256 !== manifest.goalSha256) fail("Receipt goal hash does not match the frozen goal.");
   if (!['pass', 'fail', 'needs-evidence'].includes(receipt.verdict)) fail("Receipt verdict must be pass, fail or needs-evidence.");
+  if (containsRoleTimeoutClaim(receipt)) fail("ROLE_TIMEOUT_CLAIM_FORBIDDEN: only the workflow clock may emit DESIGN_HOST_FAST_BUDGET_EXCEEDED; discard this receipt and keep the stage pending.");
   const receiptInputs = array(receipt.inputs);
   for (const required of array(dispatch.requiredInputs)) {
     const received = receiptInputs.find((item) => item.path === required.path);
@@ -596,6 +597,15 @@ function enforceDesignHostDeadline(manifest) {
   manifest.timeout = { code: "DESIGN_HOST_FAST_BUDGET_EXCEEDED", budgetMs: 300000, deadlineAt: manifest.deadlineAt, observedAt: new Date().toISOString() };
   writeJson(manifestFile, manifest);
   fail("DESIGN_HOST_FAST_BUDGET_EXCEEDED: stop instead of silently exceeding the five-minute preview budget.");
+}
+function containsRoleTimeoutClaim(receipt) {
+  const visit = (value) => {
+    if (typeof value === "string") return /(?:DESIGN_HOST_FAST_BUDGET_EXCEEDED|TIME_BUDGET_EXCEEDED)/i.test(value);
+    if (Array.isArray(value)) return value.some(visit);
+    if (value && typeof value === "object") return Object.entries(value).some(([key, child]) => /stopObservedAt|deadlineAt/i.test(key) || visit(child));
+    return false;
+  };
+  return visit(receipt);
 }
 function dispatchScopeRules(manifest) {
   if (manifest.mode === "design-host" && manifest.currentStageId?.startsWith("designVisualQA-")) return [

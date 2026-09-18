@@ -27,7 +27,22 @@ const workflow = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs"
 const run = (...args) => spawnSync(process.execPath, [workflow, ...args, "--brand", brand, "--root", root], { encoding: "utf8" });
 assert.equal(run("prepare").status, 0);
 const manifestFile = path.join(migration, "execution-manifest.json");
-const manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+let manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+assert.equal(run("next").status, 0);
+manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+const dispatch = JSON.parse(fs.readFileSync(path.join(root, manifest.stages[0].dispatchPath), "utf8"));
+const outputFile = path.join(migration, "strategy.json");
+fs.writeFileSync(outputFile, "{}\n");
+const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+const fakeTimeout = { dispatchId: dispatch.dispatchId, stageId: dispatch.stageId, role: dispatch.role, agentExecutionId: "/root/host-strategist", goalSha256: manifest.goalSha256, verdict: "fail", inputs: dispatch.requiredInputs, outputs: [{ path: `migrations/${brand}/strategy.json`, sha256: sha(outputFile) }], blockingFindings: [{ code: "TIME_BUDGET_EXCEEDED", stopObservedAt: new Date(Date.now() + 300000).toISOString() }] };
+const fakeReceipt = path.join(migration, "fake-timeout.json");
+fs.writeFileSync(fakeReceipt, JSON.stringify(fakeTimeout));
+const rejected = run("record", "--receipt", `migrations/${brand}/fake-timeout.json`);
+assert.notEqual(rejected.status, 0);
+assert.match(rejected.stderr, /ROLE_TIMEOUT_CLAIM_FORBIDDEN/);
+assert.equal(JSON.parse(fs.readFileSync(manifestFile, "utf8")).stages[0].status, "dispatched");
+
+manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
 manifest.deadlineAt = new Date(Date.now() - 1000).toISOString();
 fs.writeFileSync(manifestFile, JSON.stringify(manifest));
 const timedOut = run("next");
@@ -35,6 +50,5 @@ assert.notEqual(timedOut.status, 0);
 assert.match(timedOut.stderr, /DESIGN_HOST_FAST_BUDGET_EXCEEDED/);
 assert.equal(JSON.parse(fs.readFileSync(manifestFile, "utf8")).status, "timed-out");
 
-const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 assert.ok(sha(manifestFile));
 console.log("design-host hardening tests passed");
