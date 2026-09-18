@@ -73,10 +73,10 @@ function createFixture(mode, brand, executionProfile = undefined) {
   let manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "brandApplication-1");
   const designerDispatch = fixture.run("next");
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 3);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 2);
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.renderCount, 2);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 195);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 90);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 165);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 120);
   assert.ok(designerDispatch.dispatchRequest.fastDesignHints.frozenInputHashes);
   assert.ok(designerDispatch.dispatchRequest.expectedOutputs.includes("fast-host-brief.json"));
   fixture.recordCurrent("/root/brand-application-designer", fixture.writeOutput("design-direction-options.json"));
