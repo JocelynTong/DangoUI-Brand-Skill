@@ -136,10 +136,10 @@ function fastDesignHostOverride(manifest, current) {
   };
   if (current.role === "visualQA" && current.stage === "designVisualQA") return {
     mission: "Independently render the two frozen static H5 directions at the target viewport and issue a visual pass/fail without editing artifacts.",
-    tasks: ["verify every referenced local asset exists or every remote asset loads", "render both H5 files at the target viewport", "compare brand visual mass, source-asset use, composition and task clarity", "write one design-host-visual-qa.json receipt"],
-    requirements: ["finish within the reserved 60-second QA window", "missing local assets are blocking", "do not inspect prior runs or producer rationale"],
+    tasks: ["verify every referenced local asset exists or every remote asset loads", "immediately render each H5 with the supplied deterministic renderer", "compare brand visual mass, source-asset use, composition and task clarity", "write one design-host-visual-qa.json receipt"],
+    requirements: ["finish within the reserved 60-second QA window", "use the deterministic renderer before trying any browser UI or ad-hoc Chrome command", "missing local assets or missing captures are blocking", "do not inspect prior runs or producer rationale"],
     expectedOutputs: ["design-host-visual-qa.json", "two deterministic viewport captures"],
-    hints: { targetSeconds: 60, candidateCount: 2 },
+    hints: { targetSeconds: 60, candidateCount: 2, deterministicRenderer: { command: "node", scriptRelativeToSkillRoot: "scripts/render-static-h5.mjs", arguments: ["--html", "<absolute-h5>", "--output", "<absolute-png>", "--width", "<viewport-width>", "--height", "<viewport-height>"] }, forbiddenRenderFallbacks: ["file URL in app browser", "bare Chrome screenshot command without an isolated user-data-dir"] },
   };
   if (current.role !== "brandApplicationDesigner") return null;
   const modFile = path.join(migrationDir, "brand-mod.json");
