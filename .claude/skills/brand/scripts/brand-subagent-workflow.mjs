@@ -135,11 +135,11 @@ function fastDesignHostOverride(manifest, current) {
     hints: { targetSeconds: 45, outputSchema: { hostOpportunity: "object", businessScope: "object", experienceZones: "array" }, omitInFast: ["program-goal-tree.json", "intent-plan.json", "host-coverage-matrix.json", "host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"] },
   };
   if (current.role === "visualQA" && current.stage === "designVisualQA") return {
-    mission: "Independently render the two frozen static H5 directions at the target viewport and issue a visual pass/fail without editing artifacts.",
-    tasks: ["render both H5 files in one supplied deterministic-renderer invocation", "inspect both PNGs in parallel", "check only asset load, clipping/overflow, brand visual mass, composition difference and primary-task clarity", "immediately write the compact QA JSON and receipt"],
-    requirements: ["target 45 seconds and record immediately; do not write narrative commentary or investigate non-blocking details", "run the deterministic renderer with escalated execution because macOS blocks headless Chrome inside the filesystem sandbox", "use the deterministic renderer before trying any browser UI or ad-hoc Chrome command", "any clipped primary control, missing asset or missing capture is blocking", "do not inspect prior runs or producer rationale"],
-    expectedOutputs: ["design-host-visual-qa.json", "two deterministic viewport captures"],
-    hints: { targetSeconds: 45, candidateCount: 2, inspectImagesInParallel: true, compactVerdictFields: ["verdict", "evidenceFidelity", "structuralFidelity", "generativeProof", "blockingFindings"], deterministicRenderer: { command: "node", scriptRelativeToSkillRoot: "scripts/render-static-h5.mjs", arguments: ["--html", "<absolute-h5-1>", "--output", "<absolute-png-1>", "--html", "<absolute-h5-2>", "--output", "<absolute-png-2>", "--width", "<viewport-width>", "--height", "<viewport-height>"], exactViewportViaCdp: true, execution: { sandboxPermissions: "require_escalated", reason: "Headless Chrome rendering is blocked by the macOS command sandbox; this read-only capture needs browser-process permission.", approvedPrefix: ["node", "<skill-root>/scripts/render-static-h5.mjs"] } }, forbiddenRenderFallbacks: ["file URL in app browser", "bare Chrome screenshot command without an isolated user-data-dir"] },
+    mission: "Independently inspect the two frozen static H5 directions at the target viewport; report protocol findings while reserving expressive approval for the user.",
+    tasks: ["run the H5 expressive-moment validator on the frozen plan", "open each H5 directly at the target viewport without saving screenshots", "check asset load, clipping/overflow, brand continuity, composition difference and primary-task clarity", "write compact QA JSON and receipt with user expressive approval pending"],
+    requirements: ["target 45 seconds and record immediately", "do not generate PNG, JPG, contact sheet or other screenshot artifact", "a machine pass only makes an H5 eligible for human visual review", "any clipped primary control, missing asset or missing H5 is blocking", "do not inspect prior runs or producer rationale"],
+    expectedOutputs: ["design-host-visual-qa.json", "H5 expressive audit JSON"],
+    hints: { targetSeconds: 45, candidateCount: 2, medium: "static-h5-only", validator: "scripts/validate-design-host-expressive-h5.mjs", compactVerdictFields: ["verdict", "evidenceFidelity", "structuralFidelity", "generativeProof", "blockingFindings", "humanExpressiveApproval"] },
   };
   if (current.role !== "brandApplicationDesigner") return null;
   const modFile = path.join(migrationDir, "brand-mod.json");
@@ -180,6 +180,7 @@ function record() {
     if (!received || received.sha256 !== required.sha256) fail(`Receipt is missing frozen dispatch input: ${required.path}`);
   }
   const receiptOutputs = array(receipt.outputs);
+  if (manifest.mode === "design-host" && receiptOutputs.some((item) => /\.(?:png|jpe?g|webp|avif|gif|pdf)$/i.test(item.path || ""))) fail("DESIGN_HOST_H5_ONLY: image and screenshot outputs are forbidden; deliver static H5 and JSON only.");
   const overwrittenOutputPaths = new Set(receiptOutputs.map((item) => item.path));
   for (const item of receiptInputs) {
     // Retry dispatches intentionally freeze the previous implementation as input,
@@ -191,6 +192,16 @@ function record() {
   for (const item of receiptOutputs) verifyHashedPath(item);
   if (current.role === "brandResearcher" && receipt.verdict === "pass") verifyEvidenceVisibilityGate();
   if (array(receipt.outputs).length === 0) fail("Receipt must include at least one hashed output.");
+  if (manifest.mode === "design-host" && current.stage === "brandApplication" && receipt.verdict === "pass") {
+    const plan = path.join(migrationDir, "brand-application-plan.json");
+    if (!receiptOutputs.some((item) => path.resolve(root, item.path) === plan) || !fs.existsSync(plan)) fail("DESIGN_HOST_PLAN_REQUIRED: designer receipt must hash the frozen H5 plan.");
+    try { execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", plan], { cwd: root, stdio: "pipe" }); }
+    catch (error) { fail(`DESIGN_HOST_H5_GATE_FAILED: ${error.stdout?.toString() || error.message}`); }
+  }
+  if (manifest.mode === "design-host" && current.stage === "designVisualQA" && receipt.verdict === "pass") {
+    const audit = path.join(migrationDir, "design-host-h5-audit.json");
+    if (!receiptOutputs.some((item) => path.resolve(root, item.path) === audit) || !fs.existsSync(audit) || readJsonRequired(audit).status !== "eligible-for-human-review") fail("DESIGN_HOST_H5_AUDIT_REQUIRED: QA receipt must hash a passing H5 audit; user expressive approval remains pending.");
+  }
   if (current.role === "visualQA") {
     const latestDemo = [...manifest.stages].reverse().find((item) => ["demoImplementationAgent", "implementationAgent"].includes(item.role) && item.status === "complete");
     if (latestDemo?.agentExecutionId === receipt.agentExecutionId) fail("Visual QA must use a different subagent from Demo implementation.");
@@ -407,7 +418,7 @@ function advance(manifest, current) {
     if (manifest.mode === "design-host" && current.stage === "designVisualQA") {
       manifest.status = "awaiting-user-direction";
       manifest.currentStageId = null;
-      manifest.directionDecision = { status: "pending", requiredOutputs: ["design-direction-decision.json", "design-direction.json"] };
+      manifest.directionDecision = { status: "pending", humanExpressiveApproval: "pending", requiredOutputs: ["design-direction-decision.json", "design-direction.json"] };
       return;
     }
     if (manifest.mode === "apply-host" && current.stage === "previewQA") {
@@ -643,7 +654,7 @@ function containsRoleTimeoutClaim(receipt) {
 }
 function dispatchScopeRules(manifest) {
   if (manifest.mode === "design-host" && manifest.currentStageId?.startsWith("designVisualQA-")) return [
-    "Render every shortlisted static H5 at the frozen target viewport; do not accept JSON fields or producer self-review as visual proof.",
+    "Open every shortlisted static H5 at the frozen target viewport without producing screenshots; do not accept JSON fields or producer self-review as visual proof.",
     "Reject generic enterprise styling, repeated lead assets, weak brand visual mass, and candidates that differ only by list/grid arrangement.",
     "Remain independent: do not edit the H5, host source, Brand MOD or direction plan; return blocking findings to Brand Application Designer.",
   ];

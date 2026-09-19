@@ -12,7 +12,7 @@ const digest = (file) => createHash('sha256').update(fs.readFileSync(file)).dige
 fs.writeFileSync(path.join(dir, 'host.json'), '{}')
 fs.writeFileSync(path.join(dir, 'patterns.json'), JSON.stringify({ patterns: [{ id: 'campaign-stage', evidenceRefs: ['evidence:stage'] }] }))
 fs.writeFileSync(path.join(dir, 'brand-mod.json'), JSON.stringify({ semanticRoles: { 'surface.page': { status: 'mapped', value: '#ffffff' } }, componentVariants: [{ id: 'campaign', approvedPatternId: 'campaign-stage' }], assets: [{ id: 'hero-art', sourceSha256: 'asset-sha' }], verification: { patterns: 'patterns.json' } }))
-for (const id of ['a', 'b']) fs.writeFileSync(path.join(dir, `${id}.html`), `<!doctype html><title>${id}</title>`)
+for (const id of ['a', 'b']) fs.writeFileSync(path.join(dir, `${id}.html`), `<!doctype html><title>${id}</title><section data-brand-moment="expressive" data-host-job="explore" data-brand-source="evidence:1" data-brand-mechanisms="asset shape">Explore</section><main data-brand-moment="productive" data-host-job="search" data-brand-source="evidence:1" data-brand-mechanisms="shape typography">Search</main>`)
 const role = (name, ratio) => ({ role: name, hostJob: `${name} job`, brandMechanisms: ['source-backed mechanism'], evidenceRefs: ['evidence:1'], designSystemBinding: { status: 'mapped', refs: ['token:1'] }, semanticColorRefs: ['page-surface'], viewportBudget: { firstViewportAreaRatio: ratio } })
 const option = (id, roles, relationships, strategy = 'single-source-scene') => ({
   id,
@@ -47,7 +47,11 @@ imageDefault.options[0].previewEvidence = { path: 'a.png', sha256: digest(path.j
 assert.match(run(imageDefault).stdout, /DESIGN_HOST_STATIC_H5_REQUIRED/)
 const imageException = structuredClone(imageDefault)
 imageException.previewMediumException = { approvedBy: 'explicit-user' }
-assert.equal(run(imageException).status, 0)
+assert.match(run(imageException).stdout, /DESIGN_HOST_STATIC_H5_REQUIRED/)
+const poster = structuredClone(valid)
+fs.writeFileSync(path.join(dir, 'poster.html'), '<section data-brand-moment="expressive" data-host-job="explore" data-brand-source="evidence:1" data-brand-mechanisms="asset shape"></section><main data-brand-moment="productive" data-host-job="search" data-brand-source="evidence:1" data-brand-mechanisms="typography"></main>')
+poster.options[0].previewEvidence = { path: 'poster.html', sha256: digest(path.join(dir, 'poster.html')) }
+assert.match(run(poster).stdout, /POSTER_THEN_GENERIC/)
 const generic = structuredClone(valid)
 generic.options[0].visualRichnessSelfReview.posterThenGeneric = true
 assert.match(run(generic).stdout, /BRAND_APPLICATION_VISUAL_RICHNESS_FAILED/)

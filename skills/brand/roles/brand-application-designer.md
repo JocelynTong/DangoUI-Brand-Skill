@@ -39,7 +39,8 @@ Before generating new candidates, search the host workspace, migration history a
 - In fast mode, derive the compact host brief inside this role from the frozen baseline, then produce and render exactly two structurally distinct low-risk programs. Both must pass the competition gate; do not generate a discarded third program or dispatch a separate Host Strategist. Standard/certification may explore 6–9 and render 2–3. Treat rank order as render priority, never as aesthetic approval.
 - Static H5 directions must keep the primary search, filter and action controls fully inside normal-flow containers. Never bridge a primary control across an `overflow:hidden` boundary with negative positioning; that is a blocking structural defect, not a stylistic choice.
 - Two or three isolated static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the default for the five-minute selection gate.
-- Optional deterministic screenshots derived from those H5 files when the conversation surface needs an image; they are display derivatives, not separate design work.
+- Mark the actual entry/exploration and real-task containers with `data-brand-moment="expressive|productive"`, `data-host-job`, `data-brand-source`, and `data-brand-mechanisms` (`asset`, `typography`, `shape`, `material`, `spatial`, `motion`). The source must resolve to the frozen option. Carry a non-image mechanism into task content; run `scripts/validate-design-host-expressive-h5.mjs --plan <plan>` before delivery. These declarations are inspectable evidence, not aesthetic approval.
+- No proposal screenshots or image derivatives: deliver the H5 files directly with JSON evidence.
 - `design-direction-options.json`
 - `brandSystemClosure` for every option.
 - `brandSystemBinding` plus `semanticColorApplications` for every option; every rendered composition role must reference the color applications it consumes.
@@ -72,7 +73,7 @@ Every selected role must bind a real host job, evidence-backed brand mechanism, 
 
 Direction selection is a visual decision, not an implementation demo. Default to one lightweight static H5 first viewport per option, produced from the frozen host content and target viewport. Do not call an image-generation model, start the host runtime or implement interactions merely to show a direction.
 
-Use an additional H5 state or a lightweight storyboard only when motion, expansion, scrolling or another state transition is itself decisive to the direction. Add interactive behavior only when the user explicitly requests interaction testing or when two directions cannot be distinguished truthfully with static states. A screenshot may be rendered once from the same H5 for display, but must not become another design/QA loop. Runtime implementation remains forbidden before selection.
+Use an additional H5 state only when motion, expansion, scrolling or another state transition is decisive to the direction. Add interactive behavior only when the user explicitly requests interaction testing or when two directions cannot be distinguished truthfully with static states. Never render a proposal screenshot; show the H5 directly. Runtime implementation remains forbidden before selection.
 
 ## Decision rights
 

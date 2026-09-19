@@ -7,6 +7,7 @@ const skillsRoot = path.join(root, "skills");
 const claudeSkillsRoot = path.join(root, ".claude", "skills");
 const codexSkillsRoot = path.join(process.env.CODEX_HOME || path.join(process.env.HOME || "", ".codex"), "skills");
 const ignoredEntries = new Set([".DS_Store"]);
+const repoOnly = process.argv.includes("--repo-only");
 
 if (!fs.existsSync(skillsRoot)) {
   console.error("Missing skills directory");
@@ -26,7 +27,7 @@ for (const entry of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
   writeIntegrity(claudeTarget, entry.name);
   console.log(`Synced ${path.relative(root, source)} -> ${path.relative(root, claudeTarget)}`);
 
-  if (codexSkillsRoot && fs.existsSync(path.dirname(codexTarget))) {
+  if (!repoOnly && codexSkillsRoot && fs.existsSync(path.dirname(codexTarget))) {
     syncDirectory(source, codexTarget);
     writeIntegrity(codexTarget, entry.name);
     console.log(`Synced ${path.relative(root, source)} -> ${codexTarget}`);

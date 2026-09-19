@@ -54,7 +54,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
       goalSha256: manifest.goalSha256,
       verdict: "pass",
       inputs: dispatch.requiredInputs,
-      outputs: [output],
+      outputs: Array.isArray(output) ? output : [output],
       blockingFindings: [],
     };
     const receiptPath = path.join(migration, "receipts", `${current.id}.json`);
@@ -79,18 +79,22 @@ function createFixture(mode, brand, executionProfile = undefined) {
   assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 120);
   assert.ok(designerDispatch.dispatchRequest.fastDesignHints.frozenInputHashes);
   assert.ok(designerDispatch.dispatchRequest.expectedOutputs.includes("fast-host-brief.json"));
-  fixture.recordCurrent("/root/brand-application-designer", fixture.writeOutput("design-direction-options.json"));
+  const h5Plan = fixture.writeOutput("brand-application-plan.json");
+  fixture.recordCurrent("/root/brand-application-designer", [fixture.writeOutput("design-direction-options.json"), h5Plan]);
   manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "designVisualQA-1");
   const visualQaDispatch = fixture.run("next");
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 45);
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.candidateCount, 2);
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.scriptRelativeToSkillRoot, "scripts/render-static-h5.mjs");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.exactViewportViaCdp, true);
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer.execution.sandboxPermissions, "require_escalated");
-  fixture.recordCurrent("/root/design-visual-qa", fixture.writeOutput("design-host-visual-qa.json"));
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.medium, "static-h5-only");
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.validator, "scripts/validate-design-host-expressive-h5.mjs");
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer, undefined);
+  assert.throws(() => fixture.recordCurrent("/root/design-visual-qa", fixture.writeOutput("direction.png", "image")), /DESIGN_HOST_H5_ONLY/);
+  const h5Audit = fixture.writeOutput("design-host-h5-audit.json", JSON.stringify({ status: "eligible-for-human-review" }));
+  fixture.recordCurrent("/root/design-visual-qa", [fixture.writeOutput("design-host-visual-qa.json"), h5Audit]);
   manifest = fixture.readManifest();
   assert.equal(manifest.status, "awaiting-user-direction");
+  assert.equal(manifest.directionDecision.humanExpressiveApproval, "pending");
   assert.equal(manifest.currentStageId, null);
   assert.equal(manifest.stages.some((item) => item.stage === "hostImplementation"), false);
   assert.match(fixture.run("status").nextAction, /explicit user selection/);

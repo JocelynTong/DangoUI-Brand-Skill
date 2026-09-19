@@ -2,6 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { spawnSync } from 'node:child_process'
 
 const args = process.argv.slice(2)
 const value = (flag) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : '' }
@@ -169,10 +170,10 @@ for (const option of options) {
   const preview = option.previewEvidence
   if (!preview?.path || !preview?.sha256) fail('BRAND_APPLICATION_H5_EVIDENCE_REQUIRED', 'Every option needs a hash-bound static H5 preview.', { option: optionId })
   else {
-    const previewFile = path.resolve(path.dirname(planFile), preview.path)
+    const directPreview = path.resolve(path.dirname(planFile), preview.path)
+    const previewFile = fs.existsSync(directPreview) ? directPreview : path.resolve(path.dirname(planFile), '..', preview.path)
     const ext = path.extname(previewFile).toLowerCase()
-    const explicitImageException = plan.previewMediumException?.approvedBy === 'explicit-user'
-    if (ext !== '.html' && !explicitImageException) fail('DESIGN_HOST_STATIC_H5_REQUIRED', 'Fast design-host accepts static HTML by default. Images require an explicit user exception.', { option: optionId, path: preview.path })
+    if (ext !== '.html') fail('DESIGN_HOST_STATIC_H5_REQUIRED', 'Design-host directions must be static H5; image previews are not accepted.', { option: optionId, path: preview.path })
     if (!fs.existsSync(previewFile)) fail('BRAND_APPLICATION_PREVIEW_MISSING', 'Direction preview does not exist.', { option: optionId, path: preview.path })
     else if (sha(previewFile) !== preview.sha256) fail('BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'Direction preview hash does not match.', { option: optionId, path: preview.path })
   }
@@ -181,5 +182,12 @@ for (const option of options) {
   signatures.add(signature)
 }
 
-console.log(JSON.stringify({ ok: failures.length === 0, optionCount: selectableOptions.length, rejectedOptionCount: options.length - selectableOptions.length, failures }, null, 2))
+if (!failures.some((item) => ['BRAND_APPLICATION_PREVIEW_MISSING', 'BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'DESIGN_HOST_STATIC_H5_REQUIRED'].includes(item.code))) {
+  const audit = spawnSync(process.execPath, [new URL('./validate-design-host-expressive-h5.mjs', import.meta.url).pathname, '--plan', planFile], { encoding: 'utf8' })
+  if (audit.status !== 0) {
+    try { failures.push(...JSON.parse(audit.stdout).failures) }
+    catch { fail('EXPRESSIVE_H5_AUDIT_FAILED', audit.stderr || 'H5 audit did not return valid JSON.') }
+  }
+}
+console.log(JSON.stringify({ ok: failures.length === 0, optionCount: selectableOptions.length, rejectedOptionCount: options.length - selectableOptions.length, expressiveStatus: failures.length ? 'blocked' : 'eligible-for-human-review', failures }, null, 2))
 process.exit(failures.length ? 1 : 0)
