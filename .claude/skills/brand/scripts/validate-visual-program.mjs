@@ -38,6 +38,8 @@ if (!focal.primary || !focal.action) fail('VISUAL_PROGRAM_FOCAL_CENTER_MISSING',
 
 const graph = Array.isArray(program.sceneGraph) ? program.sceneGraph : []
 if (graph.length < 2 || graph.some((node) => !node.layer || !node.job || !Array.isArray(node.sourceRefs) || !node.sourceRefs.length)) fail('VISUAL_PROGRAM_SCENE_RELATIONSHIP_MISSING', 'Scene graph needs at least two sourced layers with explicit jobs.')
+if (!Array.isArray(program.compositionSequence) || program.compositionSequence.length < 3 || !program.compositionSequence.includes('business-stream')) fail('VISUAL_PROGRAM_COMPOSITION_SEQUENCE_MISSING', 'Declare the actual major-region order, including the business stream.')
+if (!program.contentEntryForm || !program.resultContainerForm) fail('VISUAL_PROGRAM_CONTENT_GRAMMAR_MISSING', 'Declare how business content enters and which container form presents results.')
 
 const transition = program.contentTransition || {}
 if (!transition.from || !transition.to || !transition.mechanism || !transition.continuitySignal) fail('VISUAL_PROGRAM_TRANSITION_MISSING', 'Define how brand atmosphere hands off to business work.')

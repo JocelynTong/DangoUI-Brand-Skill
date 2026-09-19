@@ -36,6 +36,7 @@ function prepare() {
   const contract = readJsonRequired(contractFile);
   const mode = goal.mode || "learn-brand";
   const executionProfile = goal.executionProfile || (["design-host", "apply-host"].includes(mode) ? "fast" : "full");
+  if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must freeze three selectable H5 directions before the clock starts.");
   const initialStage = initialStageForMode(mode, executionProfile);
   const manifest = {
     schema: "brand-subagent-execution/v1",
@@ -135,11 +136,11 @@ function fastDesignHostOverride(manifest, current) {
     hints: { targetSeconds: 45, outputSchema: { hostOpportunity: "object", businessScope: "object", experienceZones: "array" }, omitInFast: ["program-goal-tree.json", "intent-plan.json", "host-coverage-matrix.json", "host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"] },
   };
   if (current.role === "visualQA" && current.stage === "designVisualQA") return {
-    mission: "Independently inspect the two frozen static H5 directions at the target viewport; report protocol findings while reserving expressive approval for the user.",
-    tasks: ["run the H5 expressive-moment validator on the frozen plan", "open each H5 directly at the target viewport without saving screenshots", "check asset load, clipping/overflow, brand continuity, composition difference and primary-task clarity", "write compact QA JSON and receipt with user expressive approval pending"],
-    requirements: ["target 45 seconds and record immediately", "do not generate PNG, JPG, contact sheet or other screenshot artifact", "a machine pass only makes an H5 eligible for human visual review", "any clipped primary control, missing asset or missing H5 is blocking", "do not inspect prior runs or producer rationale"],
+    mission: "Independently inspect all three frozen static H5 directions at the target viewport; report protocol findings while reserving expressive approval for the user.",
+    tasks: ["run the H5 expressive-moment validator on the frozen plan", "serve the isolated H5 workspace at 127.0.0.1 using the supplied static-file server and open each H5 URL at the target viewport without saving screenshots", "check asset load, clipping/overflow, brand continuity, composition difference, real-data provenance and primary-task clarity", "write compact QA JSON, H5 audit JSON and receipt with user expressive approval pending"],
+    requirements: ["target 60 seconds and record immediately", "the static-file server is not host runtime and must not modify host source", "do not generate PNG, JPG, contact sheet or other screenshot artifact", "a machine pass only makes an H5 eligible for human visual review", "any clipped primary control, unsupported business record, missing asset or missing H5 is blocking", "do not inspect prior runs or producer rationale"],
     expectedOutputs: ["design-host-visual-qa.json", "H5 expressive audit JSON"],
-    hints: { targetSeconds: 45, candidateCount: 2, medium: "static-h5-only", validator: "scripts/validate-design-host-expressive-h5.mjs", compactVerdictFields: ["verdict", "evidenceFidelity", "structuralFidelity", "generativeProof", "blockingFindings", "humanExpressiveApproval"] },
+    hints: { targetSeconds: 60, candidateCount: 3, medium: "static-h5-only", validator: "scripts/validate-design-host-expressive-h5.mjs", staticServer: { scriptRelativeToSkillRoot: "scripts/serve-design-host-h5.mjs", arguments: ["--root", "<isolated-run-root>", "--port", "0"], open: "<baseUrl>/<relative-H5-path>", execution: { sandboxPermissions: "require_escalated", reason: "The macOS command sandbox denies loopback listen; a read-only localhost H5 server needs bind permission." } }, compactVerdictFields: ["verdict", "evidenceFidelity", "structuralFidelity", "generativeProof", "blockingFindings", "humanExpressiveApproval"] },
   };
   if (current.role !== "brandApplicationDesigner") return null;
   const modFile = path.join(migrationDir, "brand-mod.json");
@@ -149,11 +150,11 @@ function fastDesignHostOverride(manifest, current) {
     return { id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, sourceUrl: asset.sourceUrl || null, localPath: asset.localPath || null, localAvailable: Boolean(localFile && fs.existsSync(localFile)), targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) };
   });
   return {
-    mission: "Derive the compact host brief directly from frozen inputs, produce and render two distinct static H5 directions, and close the validators without reading unrelated brand history.",
-    tasks: ["write fast-host-brief.json directly from the frozen host baseline", "write exactly two compact visual programs with different lead assets and strategies", "run the competition gate and stop unless both programs survive", "render exactly two target-viewport static H5 files", "write plan and options using dispatch-provided hashes verbatim, then run the two required validators once"],
-    requirements: ["do not spawn or emulate a separate Host Strategist in fast mode", "copy all baseline hashes from fastDesignHints.frozenInputHashes; never transcribe or recompute them manually", "use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "keep primary search/filter/action controls fully inside normal-flow containers; never place them across an overflow:hidden boundary with negative top/bottom offsets", "do not generate screenshots or extra state variants before independent QA", "finish and record by 210 seconds after workflow prepare, preserving at least 90 seconds for independent QA"],
-    expectedOutputs: ["fast-host-brief.json", "two visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "two static H5 directions"],
-    hints: { candidateProgramCount: 2, renderCount: 2, targetSeconds: 165, qaReserveSeconds: 120, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
+    mission: "Derive the compact host brief directly from frozen inputs, produce three genuinely distinct static H5 directions, and close the validators without reading unrelated brand history.",
+    tasks: ["write fast-host-brief.json directly from the frozen host baseline", "write at least three compact visual programs with different scene graphs, content entries and lead assets", "run the competition gate and stop unless three programs survive", "render three complete target-viewport static H5 files", "write plan and options using dispatch-provided hashes verbatim, then run the required validators once"],
+    requirements: ["do not spawn or emulate a separate Host Strategist in fast mode", "copy all baseline hashes from fastDesignHints.frozenInputHashes; never transcribe or recompute them manually", "use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not invent API-derived business records, names or counts; use a hash-bound captured state or clearly neutral schema placeholders", "vary scene graph, content entry and result container; a shared hero-search-list skeleton is not three directions", "keep primary search/filter/action controls fully inside normal-flow containers; never place them across an overflow:hidden boundary with negative positioning", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving 75 seconds for independent QA"],
+    expectedOutputs: ["fast-host-brief.json", "three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "three static H5 directions"],
+    hints: { candidateProgramCount: 3, renderCount: 3, targetSeconds: 195, qaReserveSeconds: 75, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
   };
 }
 
@@ -654,7 +655,7 @@ function containsRoleTimeoutClaim(receipt) {
 }
 function dispatchScopeRules(manifest) {
   if (manifest.mode === "design-host" && manifest.currentStageId?.startsWith("designVisualQA-")) return [
-    "Open every shortlisted static H5 at the frozen target viewport without producing screenshots; do not accept JSON fields or producer self-review as visual proof.",
+    "Open every shortlisted static H5 through the isolated 127.0.0.1 static-file server at the frozen target viewport without producing screenshots; file: URL denial is not a reason to skip visual QA.",
     "Reject generic enterprise styling, repeated lead assets, weak brand visual mass, and candidates that differ only by list/grid arrangement.",
     "Remain independent: do not edit the H5, host source, Brand MOD or direction plan; return blocking findings to Brand Application Designer.",
   ];

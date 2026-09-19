@@ -20,6 +20,12 @@ Corrective rule: an expressive direction must identify a meaningful entry/explor
 
 Preventive machine signal: inspect the delivered H5 itself for rendered expressive/productive regions, source-backed mechanism markers, and continuity into real task content. A plan's prose or self-review cannot substitute for these. Machine PASS means **eligible for user visual review**, never **user-approved expressive quality**.
 
+## Failure learned from Pokémon backup 4, H5-only run `42b8131`
+
+The workflow hard-coded two programs and two H5 outputs, so the user could not choose among the requested three directions. Both rendered proposals still followed a scene/header → search/filter → deck-results spine, while their prose described different roles. The H5 CSS introduced broad dark-blue backgrounds, borders and controls that were absent from the plan's frozen semantic color applications. Nearly one radius treatment governed the surface. Both pages also invented named decks and engagement counts even though the host populates those fields through a dynamic API. The expressive marker gate passed, but independent browser QA could not open the `file:` H5 and the run timed out. These are separate failures: insufficient choice, weak composition diversity, unproven color use, unsupported business data and missing visual inspection.
+
+Correction: fast design-host delivers three complete H5 options, never two. Preselection and delivered-H5 gates compare first scene role, content-entry form and result container; each pair must differ across all three. The delivered CSS color literals must resolve to explicitly declared color applications with provenance and scope. Dynamic records need a captured, hash-bound host state; absent that, show an unmistakable neutral schema placeholder rather than plausible but invented data. Shape/radius variation is a brand- and component-role decision, not a universal quota: QA should reject arbitrary repetition or novelty, while the machine gate can only verify declared structural evidence. A static local HTTP preview may be used for inspection; it is not host runtime and creates no screenshot artifact.
+
 ## Medium boundary
 
 Design-host deliverables and QA evidence are static H5 plus structured JSON only. Brand assets inside H5 remain allowed. Do not create proposal PNG/JPG, screenshot derivatives, contact sheets or an image-generation stage. Source-learning evidence in learn-brand is a separate input pipeline, not a design-host deliverable.

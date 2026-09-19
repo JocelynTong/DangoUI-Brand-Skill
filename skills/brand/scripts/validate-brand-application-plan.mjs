@@ -65,6 +65,7 @@ const identityRoles = new Set(['brand-identity', 'environment', 'campaign-scene'
 const allowedSceneStrategies = new Set(['single-source-scene', 'validated-composite', 'material-field', 'type-led-field', 'no-identity-environment'])
 const options = Array.isArray(plan.options) ? plan.options : []
 const selectableOptions = options.filter((option) => option.disposition !== 'rejected')
+let dynamicHostContent = false
 
 if (plan.schema !== 'brand-application-plan/v1') fail('BRAND_APPLICATION_PLAN_SCHEMA_INVALID', 'Expected brand-application-plan/v1.')
 if (!plan.hostBinding?.targetRoute || !plan.hostBinding?.viewport || !plan.hostBinding?.baselinePath || !plan.hostBinding?.baselineSha256) {
@@ -73,9 +74,10 @@ if (!plan.hostBinding?.targetRoute || !plan.hostBinding?.viewport || !plan.hostB
   const baseline = path.resolve(path.dirname(planFile), plan.hostBinding.baselinePath)
   if (!fs.existsSync(baseline)) fail('BRAND_APPLICATION_HOST_BASELINE_MISSING', 'Frozen host baseline does not exist.', { path: plan.hostBinding.baselinePath })
   else if (sha(baseline) !== plan.hostBinding.baselineSha256) fail('BRAND_APPLICATION_HOST_BASELINE_HASH_MISMATCH', 'Frozen host baseline hash does not match.', { path: plan.hostBinding.baselinePath })
+  else dynamicHostContent = /\bv-for\b|\{\{|\bsearchDecks\b|\bfetch\s*\(/.test(fs.readFileSync(baseline, 'utf8'))
 }
 if (!['efficiency-first', 'balanced', 'immersion-first'].includes(plan.hostClassification)) fail('BRAND_APPLICATION_HOST_CLASSIFICATION_REQUIRED', 'Classify the host before allocating visual capacity.')
-if (selectableOptions.length < 2 || selectableOptions.length > 3) fail('BRAND_APPLICATION_OPTION_COUNT_INVALID', 'Provide two or three selectable static H5 directions.')
+if (selectableOptions.length !== 3) fail('BRAND_APPLICATION_OPTION_COUNT_INVALID', 'Design-host requires exactly three selectable, complete static H5 directions.')
 
 const signatures = new Set()
 for (const option of options) {
@@ -87,6 +89,14 @@ for (const option of options) {
   const roles = Array.isArray(option.compositionRoles) ? option.compositionRoles : []
   const roleNames = roles.map((entry) => entry.role)
   if (!option.id || !option.visualNarrative) fail('BRAND_APPLICATION_OPTION_IDENTITY_REQUIRED', 'Every option needs id and visualNarrative.', { option: optionId })
+  if (dynamicHostContent) {
+    const content = option.businessContentEvidence
+    if (!['schema-placeholder', 'captured-host-state'].includes(content?.mode)) fail('DYNAMIC_BUSINESS_CONTENT_EVIDENCE_REQUIRED', 'API-driven host records need a hash-bound captured state or neutral schema placeholders; invented names and counts are forbidden.', { option: optionId })
+    if (content?.mode === 'captured-host-state') {
+      const source = content.path ? path.resolve(path.dirname(planFile), content.path) : ''
+      if (!source || !fs.existsSync(source) || content.sha256 !== sha(source)) fail('CAPTURED_BUSINESS_CONTENT_HASH_MISMATCH', 'Captured host records must resolve to the exact frozen source hash.', { option: optionId })
+    }
+  }
   if (!roles.length || new Set(roleNames).size !== roleNames.length || roleNames.some((role) => !allowedRoles.has(role))) fail('BRAND_APPLICATION_ROLE_SET_INVALID', 'Composition roles must be unique reusable grammar roles.', { option: optionId, roles: roleNames })
   if (!roleNames.includes('business-stream')) fail('BRAND_APPLICATION_BUSINESS_STREAM_REQUIRED', 'A host direction must show how repeatable business work continues.', { option: optionId })
   for (const role of roles) {

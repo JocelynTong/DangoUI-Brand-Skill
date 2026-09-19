@@ -22,6 +22,9 @@ const valid = {
     { layer: 'environment', sourceRefs: ['asset:arena'], job: 'identity' },
     { layer: 'interface', sourceRefs: ['token:text'], job: 'task' }
   ],
+  compositionSequence: ['identity-environment', 'task-bridge', 'business-stream'],
+  contentEntryForm: 'edge-handoff',
+  resultContainerForm: 'card-stack',
   contentTransition: { from: 'entry', to: 'results', mechanism: 'task-bridge', continuitySignal: 'shared edge' },
   motionIntent: { mode: 'productive', purpose: 'state feedback', reducedMotionFallback: 'static' }
 }

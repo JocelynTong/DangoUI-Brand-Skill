@@ -13,6 +13,9 @@ const make = (id, hostClassification, modes, transition, action) => ({
   experienceZones: modes.map((mode, index) => ({ id: `${id}-${index}`, mode, hostJob: `job-${index}`, viewportBudget: index ? 'continuous-flow' : 'compact', interactionFrequency: index ? 'repeated' : 'once-per-entry', brandMechanismRefs: [`asset:${id}`, `pattern:${transition}`] })),
   focalHierarchy: { primary: id, secondary: 'content', action },
   sceneGraph: [{ layer: 'environment', job: id, sourceRefs: [`asset:${id}`] }, { layer: 'business', job: 'work', sourceRefs: ['host:list'] }],
+  compositionSequence: [id === 'a' || id === 'b' || id === 'x' || id === 'y' || id === 'z' ? 'identity-environment' : id === 'c' ? 'task-bridge' : 'featured-content', 'navigation-shell', 'business-stream'],
+  contentEntryForm: id === 'b' || ['x', 'y', 'z'].includes(id) ? 'entry-a' : `entry-${id}`,
+  resultContainerForm: id === 'b' || ['x', 'y', 'z'].includes(id) ? 'result-a' : `result-${id}`,
   contentTransition: { from: `${id}-0`, to: `${id}-1`, mechanism: transition, continuitySignal: id },
   motionIntent: { mode: 'productive', purpose: 'state feedback', reducedMotionFallback: 'instant' },
 })
@@ -30,6 +33,9 @@ assert.equal(report.shortlist.length, 2)
 assert.equal(report.shortlist.some((item) => item.id === 'c'), true)
 assert.equal(report.candidates.some((item) => item.risks.some((risk) => risk.startsWith('VISUAL_PROGRAM_SAME_STRATEGY'))), true)
 assert.equal(report.verdict, 'pass')
+const three = spawnSync(process.execPath, [script, '--dir', dir, '--limit', '3'], { encoding: 'utf8' })
+assert.equal(three.status, 0, three.stdout)
+assert.equal(JSON.parse(three.stdout).shortlist.length, 3)
 
 const flat = fs.mkdtempSync(path.join(os.tmpdir(), 'visual-program-flat-'))
 for (const id of ['x', 'y', 'z']) {

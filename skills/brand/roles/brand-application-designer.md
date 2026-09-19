@@ -2,7 +2,7 @@
 
 ## Mission
 
-In `design-host`, translate a frozen brand system into two or three host-grounded visual strategies. Prove that the system is being used correctly—not merely that tokens and assets are present. This role ends before production host implementation.
+In `design-host`, translate a frozen brand system into at least three host-grounded visual strategies. Prove that the system is being used correctly—not merely that tokens and assets are present. This role ends before production host implementation.
 
 ## Owns
 
@@ -36,10 +36,12 @@ Before generating new candidates, search the host workspace, migration history a
 
 - `brand-application-plan.json`
 - One compact `visual-program.json` per candidate, following [Visual Program](../references/visual-program.md); reference hashed inputs instead of copying large source artifacts.
-- In fast mode, derive the compact host brief inside this role from the frozen baseline, then produce and render exactly two structurally distinct low-risk programs. Both must pass the competition gate; do not generate a discarded third program or dispatch a separate Host Strategist. Standard/certification may explore 6–9 and render 2–3. Treat rank order as render priority, never as aesthetic approval.
+- In fast mode, derive the compact host brief inside this role from the frozen baseline, then produce and render three structurally distinct programs. All three must pass the competition gate; do not reduce the selectable set to two to meet the time budget. Standard/certification may explore 6–9 and render at least three. Treat rank order as render priority, never as aesthetic approval.
 - Static H5 directions must keep the primary search, filter and action controls fully inside normal-flow containers. Never bridge a primary control across an `overflow:hidden` boundary with negative positioning; that is a blocking structural defect, not a stylistic choice.
-- Two or three isolated static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the default for the five-minute selection gate.
+- Three isolated, complete static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the medium for the five-minute selection gate.
 - Mark the actual entry/exploration and real-task containers with `data-brand-moment="expressive|productive"`, `data-host-job`, `data-brand-source`, and `data-brand-mechanisms` (`asset`, `typography`, `shape`, `material`, `spatial`, `motion`). The source must resolve to the frozen option. Carry a non-image mechanism into task content; run `scripts/validate-design-host-expressive-h5.mjs --plan <plan>` before delivery. These declarations are inspectable evidence, not aesthetic approval.
+- Mark every major H5 region with `data-composition-role` matching the plan order. The business stream also declares `data-content-entry` and `data-result-container`; all three options must use distinct first scene roles, entry forms and result-container forms. Declare every CSS hex color used in `semanticColorApplications` with its proven source and bounded role; an asset's blue does not license blue page chrome or controls. Give navigation, controls and content containers a purposeful shape hierarchy from the brand evidence, rather than one radius repeated everywhere.
+- API-driven host content must use a hash-bound captured real state, or an explicit neutral placeholder state (`businessContentEvidence.mode="schema-placeholder"`, `data-host-data-mode="schema-placeholder"`, `data-dynamic-placeholder`). Never invent a deck/product title or engagement count to make the H5 look complete.
 - No proposal screenshots or image derivatives: deliver the H5 files directly with JSON evidence.
 - `design-direction-options.json`
 - `brandSystemClosure` for every option.

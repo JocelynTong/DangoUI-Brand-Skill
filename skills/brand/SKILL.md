@@ -10,7 +10,7 @@ description: 从品牌官网、活动页、DESIGN.md、截图、Figma 或 DTCG �
 ## 先选择模式
 
 - `learn-brand`：学习品牌并产出 Evidence、Intent、Brand MOD、DangoUI mapping 与品牌学习 Demo；默认不改宿主。
-- `design-host`：读取已学习品牌和真实宿主，生成 2–3 个宿主内视觉方向并等待用户选择；不得修改、编译或注入宿主源码。
+- `design-host`：读取已学习品牌和真实宿主，生成至少 3 个完整宿主内视觉方向并等待用户选择；不得修改、编译或注入宿主源码。
 - `apply-host`：只实施 design-host 已冻结的唯一方向，保护业务内容、数据、路由、交互和组件 API；设计输入无效时退回 design-host，品牌证据缺失时退回 learn-brand。
 
 统一入口：
@@ -36,16 +36,16 @@ Demo 是 brand-learning-capability-test，必须分别通过 Evidence Fidelity�
 - [Host Strategist](roles/host-strategist.md)
 - [Brand Application Designer](roles/brand-application-designer.md)
 - 构图时读取 [Host Brand Composition Grammar](references/host-brand-composition-grammar.md)
-- 分配视觉强度、场景层级和动效意图时读取 [Visual Program](references/visual-program.md)；先生成轻量策略并预筛，只渲染 2–3 个结构与主视觉资产均有明显差异的候选。
+- 分配视觉强度、场景层级和动效意图时读取 [Visual Program](references/visual-program.md)；fast 至少渲染 3 个场景图、内容入口与结果容器均有实质差异的候选。
 - 对 expressive/productive 的取舍与可执行门槛，读取 [Expressive moments playbook](references/expressive-moments-playbook.md)；机器通过仅表示可交用户审美复核。
 
-design-host 只生成 2–3 个隔离的静态 H5 方向和结构化 JSON；不生成方向 PNG/JPG、截图副产物或联系表。H5 使用真实宿主内容、路由、视口和冻结品牌包，但不启动或修改宿主 runtime；在对话中直接展示 H5 文件链接。品牌素材可以嵌入 H5，不能把整页方向改为图片。
+design-host 至少生成 3 个隔离的完整静态 H5 方向和结构化 JSON；不生成方向 PNG/JPG、截图副产物或联系表。H5 使用真实宿主内容、路由、视口和冻结品牌包，但不启动或修改宿主 runtime；在对话中直接展示 H5 文件链接。动态 API 内容没有冻结真实记录时只能显示明确的 schema/加载占位，不能编造商品、卡组名称或数据。品牌素材可以嵌入 H5，不能把整页方向改为图片。
 
 每个方向必须绑定真实宿主 baseline、Brand MOD hash、来源 token、asset 与 composition；保留 navigation、primary task、business switch 和 business content；与其他方向在视觉中心、行动位置、内容进入方式和结果容器中至少三项不同；通过来源、语义颜色、移动端视口、品牌系统闭环和 visual-retention Gate。
 
 用户明确选择前停止；不得实施、构建宿主或创建 runtime 试装。
 
-运行前校验安装包完整性；任一脚本与同步清单 hash 不一致时以 `BRAND_SKILL_MIXED_VERSION` 阻断。候选同主素材、策略距离不足或排名完全失去区分度时不得进入 shortlist。静态 H5 产出后必须运行 expressive H5 validator，由独立 Visual QA 在目标视口直接打开复核、不保存截图；fast 从 prepare 起超过五分钟即停止并报告超时。QA 协议通过不等于 expressive 审美通过。
+运行前校验安装包完整性；任一脚本与同步清单 hash 不一致时以 `BRAND_SKILL_MIXED_VERSION` 阻断。候选同主素材、策略距离不足或排名完全失去区分度时不得进入 shortlist。静态 H5 产出后必须运行 expressive H5 validator，由独立 Visual QA 通过本地 127.0.0.1 静态文件服务在目标视口打开复核、不保存截图；`file:` 链接被浏览器拒绝时不能直接跳过 QA。fast 从 prepare 起超过五分钟即停止并报告超时。QA 协议通过不等于 expressive 审美通过。
 
 ## apply-host
 

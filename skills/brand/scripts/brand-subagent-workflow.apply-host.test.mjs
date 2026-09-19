@@ -67,16 +67,21 @@ function createFixture(mode, brand, executionProfile = undefined) {
 
 // Direction generation stops before runtime mutation or implementation dispatch.
 {
+  const fixture = createFixture("design-host", "two-direction-goal");
+  fixture.mutateOutput("goal-contract.json", JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "invalid-two", thresholds: { minimumSelectableDirections: 2, maximumSelectableDirections: 2 } }));
+  assert.throws(() => fixture.run("prepare"), /DESIGN_HOST_THREE_DIRECTIONS_REQUIRED/);
+}
+{
   const fixture = createFixture("design-host", "design-fixture");
   const prepared = fixture.run("prepare");
   assert.match(prepared.next, /brandApplication/);
   let manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "brandApplication-1");
   const designerDispatch = fixture.run("next");
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 2);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.renderCount, 2);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 165);
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 120);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.candidateProgramCount, 3);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.renderCount, 3);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.targetSeconds, 195);
+  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.qaReserveSeconds, 75);
   assert.ok(designerDispatch.dispatchRequest.fastDesignHints.frozenInputHashes);
   assert.ok(designerDispatch.dispatchRequest.expectedOutputs.includes("fast-host-brief.json"));
   const h5Plan = fixture.writeOutput("brand-application-plan.json");
@@ -84,10 +89,11 @@ function createFixture(mode, brand, executionProfile = undefined) {
   manifest = fixture.readManifest();
   assert.equal(manifest.currentStageId, "designVisualQA-1");
   const visualQaDispatch = fixture.run("next");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 45);
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.candidateCount, 2);
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 60);
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.candidateCount, 3);
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.medium, "static-h5-only");
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.validator, "scripts/validate-design-host-expressive-h5.mjs");
+  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.staticServer.scriptRelativeToSkillRoot, "scripts/serve-design-host-h5.mjs");
   assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer, undefined);
   assert.throws(() => fixture.recordCurrent("/root/design-visual-qa", fixture.writeOutput("direction.png", "image")), /DESIGN_HOST_H5_ONLY/);
   const h5Audit = fixture.writeOutput("design-host-h5-audit.json", JSON.stringify({ status: "eligible-for-human-review" }));

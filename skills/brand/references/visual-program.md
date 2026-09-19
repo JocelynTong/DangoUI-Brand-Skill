@@ -19,6 +19,8 @@ Each candidate owns one compact `visualProgram` with:
 - `experienceZones`: productive, expressive or blended regions, each with a host job, viewport budget, interaction frequency and evidence-backed brand mechanisms.
 - `focalHierarchy`: one primary visual center, secondary information and primary action.
 - `sceneGraph`: sourced environment, subject, type, controls and business-content layers with explicit jobs.
+- `compositionSequence`: actual major-region order in the delivered H5, including `business-stream`.
+- `contentEntryForm` and `resultContainerForm`: distinct, observable forms for how dynamic business content enters and how results are held.
 - `contentTransition`: how brand atmosphere hands off to repeatable business work.
 - `motionIntent`: mode, user-facing purpose and reduced-motion fallback.
 
@@ -29,12 +31,12 @@ Each candidate owns one compact `visualProgram` with:
 3. Asset presence without a scene relationship is not composition.
 4. Competing primary focal centers fail preselection review.
 5. “More atmosphere” is not a sufficient motion purpose.
-6. Alternatives differ in zone relationships or scene graph, not only labels, colors or asset swaps.
+6. All three alternatives differ in first scene role, content-entry form and result-container form; a repeated hero → search → list skeleton fails even if labels, colors, assets or role prose change.
 7. Keep this artifact compact: reference source ids and hashes instead of copying Brand MOD, evidence or host DOM.
 
 ## Internal candidate competition
 
-Fast mode generates and renders exactly two deliberately distant compact programs; standard/certification may generate 6–9 and render 2–3. Run the deterministic preselector before rendering:
+Fast mode generates and renders three deliberately distant compact programs; standard/certification may generate 6–9 and render at least three. Run the deterministic preselector before rendering:
 
 ```bash
 node skills/brand/scripts/rank-visual-programs.mjs --dir <visual-program-dir> --limit 3 --output <competition.json>

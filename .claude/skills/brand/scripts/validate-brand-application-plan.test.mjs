@@ -12,7 +12,15 @@ const digest = (file) => createHash('sha256').update(fs.readFileSync(file)).dige
 fs.writeFileSync(path.join(dir, 'host.json'), '{}')
 fs.writeFileSync(path.join(dir, 'patterns.json'), JSON.stringify({ patterns: [{ id: 'campaign-stage', evidenceRefs: ['evidence:stage'] }] }))
 fs.writeFileSync(path.join(dir, 'brand-mod.json'), JSON.stringify({ semanticRoles: { 'surface.page': { status: 'mapped', value: '#ffffff' } }, componentVariants: [{ id: 'campaign', approvedPatternId: 'campaign-stage' }], assets: [{ id: 'hero-art', sourceSha256: 'asset-sha' }], verification: { patterns: 'patterns.json' } }))
-for (const id of ['a', 'b']) fs.writeFileSync(path.join(dir, `${id}.html`), `<!doctype html><title>${id}</title><section data-brand-moment="expressive" data-host-job="explore" data-brand-source="evidence:1" data-brand-mechanisms="asset shape">Explore</section><main data-brand-moment="productive" data-host-job="search" data-brand-source="evidence:1" data-brand-mechanisms="shape typography">Search</main>`)
+const roleOrders = {
+  a: ['navigation-shell', 'identity-environment', 'task-bridge', 'business-stream'],
+  b: ['navigation-shell', 'task-bridge', 'featured-content', 'business-stream'],
+  c: ['featured-content', 'navigation-shell', 'business-stream', 'identity-environment'],
+}
+for (const id of ['a', 'b', 'c']) {
+  const sections = roleOrders[id].map((name, index) => `<section data-composition-role="${name}"${index === 0 ? ' data-brand-moment="expressive" data-host-job="explore" data-brand-source="evidence:1" data-brand-mechanisms="asset shape"' : ''}${name === 'business-stream' ? ` data-content-entry="entry-${id}" data-result-container="result-${id}" data-brand-moment="productive" data-host-job="search" data-brand-source="evidence:1" data-brand-mechanisms="shape typography"` : ''}>${name}</section>`).join('')
+  fs.writeFileSync(path.join(dir, `${id}.html`), `<!doctype html><title>${id}</title>${sections}`)
+}
 const role = (name, ratio) => ({ role: name, hostJob: `${name} job`, brandMechanisms: ['source-backed mechanism'], evidenceRefs: ['evidence:1'], designSystemBinding: { status: 'mapped', refs: ['token:1'] }, semanticColorRefs: ['page-surface'], viewportBudget: { firstViewportAreaRatio: ratio } })
 const option = (id, roles, relationships, strategy = 'single-source-scene') => ({
   id,
@@ -35,12 +43,24 @@ const valid = {
   hostBinding: { targetRoute: '/pages/home', viewport: { width: 390, height: 844 }, baselinePath: 'host.json', baselineSha256: digest(path.join(dir, 'host.json')) },
   options: [
     option('a', ['navigation-shell', 'identity-environment', 'task-bridge', 'business-stream'], ['overlay', 'edge-bridge', 'direct-handoff']),
-    option('b', ['navigation-shell', 'task-bridge', 'featured-content', 'business-stream'], ['contained-transition', 'interleaving', 'persistent-shell'], 'material-field')
+    option('b', ['navigation-shell', 'task-bridge', 'featured-content', 'business-stream'], ['contained-transition', 'interleaving', 'persistent-shell'], 'material-field'),
+    option('c', ['featured-content', 'navigation-shell', 'business-stream', 'identity-environment'], ['persistent-shell', 'direct-handoff', 'overlay'], 'type-led-field')
   ]
 }
 const file = path.join(dir, 'plan.json')
 const run = (data) => { fs.writeFileSync(file, JSON.stringify(data)); return spawnSync(process.execPath, [validator, '--plan', file], { encoding: 'utf8' }) }
-assert.equal(run(valid).status, 0)
+assert.equal(run(valid).status, 0, run(valid).stdout)
+const onlyTwo = structuredClone(valid)
+onlyTwo.options.pop()
+assert.match(run(onlyTwo).stdout, /BRAND_APPLICATION_OPTION_COUNT_INVALID/)
+const unprovenBlue = structuredClone(valid)
+fs.writeFileSync(path.join(dir, 'unproven-blue.html'), `${fs.readFileSync(path.join(dir, 'a.html'), 'utf8')}<style>.page{background:#173d5b}</style>`)
+unprovenBlue.options[0].previewEvidence = { path: 'unproven-blue.html', sha256: digest(path.join(dir, 'unproven-blue.html')) }
+assert.match(run(unprovenBlue).stdout, /H5_COLOR_PROVENANCE_MISSING/)
+const dynamicHost = structuredClone(valid)
+fs.writeFileSync(path.join(dir, 'dynamic-host.vue'), '<template><view v-for="deck in decks">{{ deck.name }}</view></template>')
+dynamicHost.hostBinding = { ...dynamicHost.hostBinding, baselinePath: 'dynamic-host.vue', baselineSha256: digest(path.join(dir, 'dynamic-host.vue')) }
+assert.match(run(dynamicHost).stdout, /DYNAMIC_BUSINESS_CONTENT_EVIDENCE_REQUIRED/)
 fs.writeFileSync(path.join(dir, 'a.png'), 'image-a')
 const imageDefault = structuredClone(valid)
 imageDefault.options[0].previewEvidence = { path: 'a.png', sha256: digest(path.join(dir, 'a.png')) }
@@ -85,7 +105,7 @@ const promotedPalette = structuredClone(decorativePalette)
 promotedPalette.options[0].semanticColorApplications.at(-1).scope = 'navigation action state'
 assert.match(run(promotedPalette).stdout, /ASSET_PALETTE_SEMANTIC_PROMOTION/)
 const auditedRejection = structuredClone(valid)
-auditedRejection.options.push({ id: 'c', disposition: 'rejected', rejectionReason: 'asset color escaped into UI semantics', rejectionCodes: ['ASSET_COLOR_PROMOTED_TO_UI_SEMANTIC'], incidentRef: 'incident-retro.json' })
+auditedRejection.options.push({ id: 'd', disposition: 'rejected', rejectionReason: 'asset color escaped into UI semantics', rejectionCodes: ['ASSET_COLOR_PROMOTED_TO_UI_SEMANTIC'], incidentRef: 'incident-retro.json' })
 assert.equal(run(auditedRejection).status, 0)
 const same = structuredClone(valid)
 same.options[1] = structuredClone(same.options[0])

@@ -51,6 +51,7 @@ Required decision: which shell is supported by the platform and selected directi
    - a viewport budget and continuation behavior.
 4. Define relationships between roles: overlay, edge-bridge, contained transition, interleaving, persistent shell or direct handoff.
 5. Generate alternatives by changing role order, relationship, visual narrative and content-entry behavior—not by renaming the same modules or changing colors.
+6. For a three-option fast selection, make each opening role, business-content entry and result container observably different in the H5. A hero/header followed by search then list is one skeleton even if assets, copy or role names vary.
 
 ## Reusable mechanisms versus instances
 

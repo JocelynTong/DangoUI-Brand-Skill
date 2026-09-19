@@ -23,6 +23,9 @@ const signature = (program) => ({
   focalAction: program.focalHierarchy?.action,
   transition: program.contentTransition?.mechanism,
   sceneJobs: normalize((program.sceneGraph || []).map((node) => node.job)),
+  compositionSequence: program.compositionSequence || [],
+  contentEntryForm: program.contentEntryForm || '',
+  resultContainerForm: program.resultContainerForm || '',
   motion: program.motionIntent?.mode,
   leadBrandAsset: normalize([
     ...(program.experienceZones || []).flatMap((zone) => zone.brandMechanismRefs || []),
@@ -55,6 +58,7 @@ const candidates = files.map((file) => {
   ])
   const brandRefs = sourceRefs.filter((ref) => !String(ref).startsWith('host:'))
   if (brandRefs.length < 2) risks.push('BRAND_EVIDENCE_TOO_THIN')
+  if (!Array.isArray(program.compositionSequence) || !program.compositionSequence.includes('business-stream') || !program.contentEntryForm || !program.resultContainerForm) risks.push('CONTENT_GRAMMAR_MISSING')
   return {
     id: path.basename(file, '.json'),
     file: absolute,
@@ -96,14 +100,15 @@ while (pool.length && selected.length < Math.min(limit, candidates.length)) {
   const next = pool.shift()
   const duplicateLeadAsset = selected.some((item) => item.signature.leadBrandAsset && item.signature.leadBrandAsset === next.signature.leadBrandAsset)
   const tooSimilar = selected.some((item) => distance(item.signature, next.signature) < 3)
-  if (duplicateLeadAsset || tooSimilar) {
-    next.risks.push(duplicateLeadAsset ? 'SHORTLIST_LEAD_ASSET_DUPLICATED' : 'SHORTLIST_STRATEGY_NOT_DISTINCT')
+  const sameContentGrammar = selected.some((item) => item.signature.contentEntryForm === next.signature.contentEntryForm || item.signature.resultContainerForm === next.signature.resultContainerForm || item.signature.compositionSequence.find((role) => role !== 'navigation-shell') === next.signature.compositionSequence.find((role) => role !== 'navigation-shell'))
+  if (duplicateLeadAsset || tooSimilar || sameContentGrammar || next.risks.includes('CONTENT_GRAMMAR_MISSING')) {
+    next.risks.push(duplicateLeadAsset ? 'SHORTLIST_LEAD_ASSET_DUPLICATED' : sameContentGrammar ? 'SHORTLIST_CONTENT_GRAMMAR_DUPLICATED' : 'SHORTLIST_STRATEGY_NOT_DISTINCT')
     continue
   }
   selected.push(next)
 }
 
-const requiredShortlist = Math.min(limit, candidates.length)
+const requiredShortlist = limit
 const blocking = []
 if (selected.length < requiredShortlist) blocking.push('VISUAL_PROGRAM_COMPETITION_INSUFFICIENT_DISTINCT_CANDIDATES')
 if (new Set(candidates.map((candidate) => candidate.baseScore)).size === 1) blocking.push('VISUAL_PROGRAM_SCORING_FLAT')
