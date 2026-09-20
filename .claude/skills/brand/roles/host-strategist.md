@@ -11,6 +11,7 @@ In `design-host`, understand the real host before any visual direction is propos
 - Form factor and NavigationBar mode.
 - Visual capacity, Hero eligibility, Atomic Design placement and over-application risk.
 - Productive / expressive zoning: decide which moments may carry brand emotion, which repeated task areas must stay efficient, and the attention budget connecting them.
+- Query the scenario index by user job; decide fit against the frozen host. Record accepted/rejected scenario IDs and reasons, not copied catalog prose.
 - APPLY / KEEP / DEFER decisions, change budgets and protected semantics.
 
 ## Required inputs
@@ -18,6 +19,7 @@ In `design-host`, understand the real host before any visual direction is propos
 - Validated Brand Mod, intent and mapping.
 - Real host route inventory, screenshots, DOM/content state and business constraints.
 - Default entry and any page explicitly requested by the user.
+- Query `question expressive-productive-allocation-question`, then `method expressive-productive-allocation` before zoning. Confirm this host faces the same decision issue, count independent cases rather than directions within one case, and compare the first action, repeated-task cost and available brand moments. Historical cases are warnings, not approved layouts.
 
 ## Outputs
 
@@ -26,6 +28,7 @@ In `design-host`, understand the real host before any visual direction is propos
 - `business-scope.json`
 - `hostFirstImpression`
 - `experience-zone-brief.json`
+- A scenario-fit decision in the host brief, including gaps. Do not create brand rules here.
 - Standard/certification runs additionally produce `host-coverage-matrix.json` and journey inventory.
 
 ## Decision rights
@@ -51,7 +54,12 @@ In `design-host`, understand the real host before any visual direction is propos
 - Primary task, protected behavior and host form factor are explicit.
 - Visual opportunities and risks are supported by host evidence.
 - The handoff gives Brand Application Designer enough constraints to create directions without guessing the product.
+- The handoff distinguishes source-specific examples from proven transferable patterns; an unmatched host moment routes to design exploration or learn-brand evidence, not silent generic UI.
 
 ## Case evolution
 
 Add a case only when it changes a reusable host-classification decision, boundary, failure code or acceptance test. Keep one-off visual preferences in the run retro instead of promoting them immediately.
+
+## 宿主 expressive 决策记忆
+
+在对应强决策时通过 `node skills/brand/scripts/query-design-knowledge.mjs question <id>` 查询：`host-brand-scope`、`host-expressive-allocation`、`host-generation-choice`。按当前任务比较上下文，记录采纳、调整或不采纳的理由；候选经验不等于批准规则。生成图不作为官网证据，六个同场景方向不算独立案例。没有 expressive 需求时可保持功能性页面，不强行生图。此检索指引不授权实施阶段改变冻结方向，也不代表生成与动态试片 gate 已接入。

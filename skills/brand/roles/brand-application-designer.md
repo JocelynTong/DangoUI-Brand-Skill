@@ -11,6 +11,7 @@ In `design-host`, translate a frozen brand system into at least three host-groun
 - Token semantic placement and material language.
 - Color provenance closure: distinguish brand semantic tokens, approved pattern-scoped style recipes, decorative palettes derived from frozen brand assets, preserved host semantics and colors that exist only inside source asset pixels.
 - Composition mechanism connecting subject, environment, typography, controls and real business content.
+- Pattern consumption: name the frozen source pattern or bounded module recipe for each major region, preserve its required relationship between layers, and record any host-specific substitution. Do not cite a whole-page pattern merely because one of its assets appears.
 - Motion character and host-content entry.
 - Meaningful differences between candidate directions.
 - Preselection visual self-review.
@@ -21,6 +22,8 @@ In `design-host`, translate a frozen brand system into at least three host-groun
 - Host Strategist's `hostFirstImpression`, business scope and visual capacity.
 - Frozen host screenshot/DOM/content baseline.
 - Approved assets, composition patterns and DangoUI mapping/capability boundaries.
+- Host Strategist's scenario-fit decision and the targeted records returned by `query-design-knowledge.mjs`; the catalog is a starting constraint, not visual approval.
+- Query `question expressive-productive-allocation-question`, then its method, relevant independent cases and hypotheses before choosing composition intensity. Record at least two candidate allocations' attention and task tradeoffs; test whether a source-backed non-image mechanism should continue into real content. A one-case hypothesis marked `candidate` is a question to test, not a required look or approved recipe; a quiet task area may win if evidence and user review support it. A task pattern may constrain behavior but must not choose the visual solution.
 - Any prior direction for the same brand + host surface, with explicit status distinguishing reference, promising direction, selected direction and approved result.
 
 ## Prior-direction recovery
@@ -35,6 +38,9 @@ Before generating new candidates, search the host workspace, migration history a
 ## Outputs
 
 - `brand-application-plan.json`
+- For a goal with `knowledgeScenarioId`, each option records `scenarioBinding` (`id`, `hostJob`, `hostContext`, selected `componentRefs`, `stateEvidence`). Bind every catalog-required component but choose optional components by host fit; do not reproduce the reference example as a fixed template. Render required regions as `data-scenario-region`; consume mapped DangoUI CSS variables rather than copied hex values. The validator checks these mechanical bindings, while independent QA and the user judge visual quality.
+- When a matched scenario lists `brandRecipeRefs`, query those records before sketching. A `visual-trial-not-approved` recipe is a bounded candidate, not an approved token or required component treatment. Record which role treatments are used or rejected and why; do not transfer an energy-choice pill to unrelated filter controls merely because both use Tag.
+- For any source-specific token, asset, component or composition, query the relevant adoption decision. Reuse requires `status=approved` and a granted scope covering this host region; a blocked or candidate record is review context only, never permission to style the direction.
 - One compact `visual-program.json` per candidate, following [Visual Program](../references/visual-program.md); reference hashed inputs instead of copying large source artifacts.
 - In fast mode, derive the compact host brief inside this role from the frozen baseline, then produce and render three structurally distinct programs. All three must pass the competition gate; do not reduce the selectable set to two to meet the time budget. Standard/certification may explore 6–9 and render at least three. Treat rank order as render priority, never as aesthetic approval.
 - Static H5 directions must keep the primary search, filter and action controls fully inside normal-flow containers. Never bridge a primary control across an `overflow:hidden` boundary with negative positioning; that is a blocking structural defect, not a stylistic choice.
@@ -45,6 +51,7 @@ Before generating new candidates, search the host workspace, migration history a
 - No proposal screenshots or image derivatives: deliver the H5 files directly with JSON evidence.
 - `design-direction-options.json`
 - `brandSystemClosure` for every option.
+- In the existing plan, record per-role pattern fit, consumed required layers, omitted layers with evidence-backed reason, and the source-specific-to-host adaptation. If the needed adaptation exceeds the approved pattern's allowed transforms, request a new design decision or evidence instead of relabeling the pattern.
 - `brandSystemBinding` plus `semanticColorApplications` for every option; every rendered composition role must reference the color applications it consumes.
 - User selection is handed to Design Director, who freezes `design-direction-decision.json` and `design-direction.json`.
 - When applicable, `prior-direction-index.json`; only explicitly approved results produce `approved-direction-master.json`.
@@ -62,6 +69,7 @@ node skills/brand/scripts/validate-visual-program.mjs --file <visual-program.jso
 2. Semantic correctness: each item keeps its proven brand role; host thumbnails remain business content.
 3. Composition correctness: brand subject, environment, type, actions and host content form one deliberate scene rather than a sticker collage or a poster above a generic page.
 4. Rendered effectiveness: after masking names, logos and explicit IP text, the composition still carries structural brand recognition and serves the host's primary task.
+5. Reuse correctness: a cited pattern's applicability, required layers and allowed substitutions survive in the rendered H5; a different information order alone does not establish a distinct expressive strategy.
 
 Minimum token/asset/pattern counts are only an anti-empty qualification gate. They never establish visual quality and cannot compensate for failure in any of the four dimensions above.
 
@@ -121,3 +129,7 @@ Use an additional H5 state only when motion, expansion, scrolling or another sta
 ## Case evolution
 
 Record recurring application failures as named patterns with: observed mismatch, why self-review missed it, corrected decision rule, machine-checkable signal where possible, and regression fixture. Do not turn one user's taste into a universal rule.
+
+## 宿主 expressive 决策记忆
+
+在对应强决策时通过 `node skills/brand/scripts/query-design-knowledge.mjs question <id>` 查询：`host-generation-brief`、`host-reconstruction-risk`。按当前任务比较上下文，记录采纳、调整或不采纳的理由；候选经验不等于批准规则。生成图不作为官网证据，六个同场景方向不算独立案例。没有 expressive 需求时可保持功能性页面，不强行生图。此检索指引不授权实施阶段改变冻结方向，也不代表生成与动态试片 gate 已接入。

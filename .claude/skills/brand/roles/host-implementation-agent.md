@@ -51,3 +51,7 @@ Implement the one explicitly selected visual direction in the real host runtime 
 ## Case evolution
 
 Add cases that change reusable runtime, framework, platform, cascade, asset-quality or business-preservation rules. Route aesthetic application failures back to Brand Application Designer instead of accumulating them as CSS implementation rules.
+
+## 宿主 expressive 决策记忆
+
+在对应强决策时通过 `node skills/brand/scripts/query-design-knowledge.mjs question <id>` 查询：`host-repair-or-reselect`、`host-acceptance`。按当前任务比较上下文，记录采纳、调整或不采纳的理由；候选经验不等于批准规则。生成图不作为官网证据，六个同场景方向不算独立案例。没有 expressive 需求时可保持功能性页面，不强行生图。此检索指引不授权实施阶段改变冻结方向，也不代表生成与动态试片 gate 已接入。

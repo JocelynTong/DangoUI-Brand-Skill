@@ -1,0 +1,23 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "design-asset-adoption",
+  "status": "pilot-candidate",
+  "ownerRole": "Design Director",
+  "purpose": "Decide whether a source observation or generated design asset can be reused at a component, scenario, page or global scope.",
+  "procedure": [
+    "Classify subject as token, asset, component or composition; never infer approval from appearance on an official site.",
+    "Record the source's purpose, page, region, state and provenance; distinguish observation from interpretation.",
+    "Compare relevant pages and states in the same role; list missing and conflicting evidence.",
+    "Run subject-specific checks, then grant only the narrowest supported scope.",
+    "Require named design approval and independent visual validation before reusable application; retain rejected or blocked decisions as negative cases."
+  ],
+  "subjectChecks": {
+    "token": ["semanticRole", "stateSet", "contrast", "targetTokenMapping"],
+    "asset": ["sourceAndRights", "subjectAndCrop", "sceneFit", "noFakeBusinessData"],
+    "component": ["behaviorAndStates", "dangouiCapability", "hostInteractionPreservation"],
+    "composition": ["contentHierarchy", "taskPath", "expressiveProductiveBoundary", "responsiveBehavior"]
+  },
+  "scopeOrder": ["observation", "component", "scenario", "page", "global"],
+  "notFor": ["automatically approving a source color from its frequency or pixel value", "treating generated images or demo screenshots as source assets", "replacing independent visual QA with a complete JSON record"],
+  "caseRefs": ["pokemon-database-orange-not-global-cta"]
+}

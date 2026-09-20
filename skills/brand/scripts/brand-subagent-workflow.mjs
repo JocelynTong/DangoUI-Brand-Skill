@@ -36,6 +36,11 @@ function prepare() {
   const contract = readJsonRequired(contractFile);
   const mode = goal.mode || "learn-brand";
   const executionProfile = goal.executionProfile || (["design-host", "apply-host"].includes(mode) ? "fast" : "full");
+  const knowledgeScenarioId = goal.knowledgeScenarioId || null;
+  if (knowledgeScenarioId) {
+    const index = readJsonRequired(path.join(root, "public", "knowledge", "v0.1", "index.json"));
+    if (mode !== "design-host" || !array(index.scenarios).some((item) => item.id === knowledgeScenarioId)) fail(`KNOWLEDGE_SCENARIO_UNKNOWN: ${knowledgeScenarioId}`);
+  }
   if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must freeze three selectable H5 directions before the clock starts.");
   const initialStage = initialStageForMode(mode, executionProfile);
   const manifest = {
@@ -44,6 +49,7 @@ function prepare() {
     brand,
     mode,
     executionProfile,
+    knowledgeScenarioId,
     goalId: goal.goalId,
     goalPath: relative(goalFile),
     goalSha256: sha256File(goalFile),
@@ -154,7 +160,7 @@ function fastDesignHostOverride(manifest, current) {
     tasks: ["write fast-host-brief.json directly from the frozen host baseline", "write at least three compact visual programs with different scene graphs, content entries and lead assets", "run the competition gate and stop unless three programs survive", "render three complete target-viewport static H5 files", "write plan and options using dispatch-provided hashes verbatim, then run the required validators once"],
     requirements: ["do not spawn or emulate a separate Host Strategist in fast mode", "copy all baseline hashes from fastDesignHints.frozenInputHashes; never transcribe or recompute them manually", "use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not invent API-derived business records, names or counts; use a hash-bound captured state or clearly neutral schema placeholders", "vary scene graph, content entry and result container; a shared hero-search-list skeleton is not three directions", "keep primary search/filter/action controls fully inside normal-flow containers; never place them across an overflow:hidden boundary with negative positioning", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving 75 seconds for independent QA"],
     expectedOutputs: ["fast-host-brief.json", "three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "three static H5 directions"],
-    hints: { candidateProgramCount: 3, renderCount: 3, targetSeconds: 195, qaReserveSeconds: 75, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
+    hints: { candidateProgramCount: 3, renderCount: 3, targetSeconds: 195, qaReserveSeconds: 75, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), knowledgeScenarioId: manifest.knowledgeScenarioId, knowledgeQuery: "node skills/brand/scripts/query-design-knowledge.mjs question expressive-productive-allocation-question; if applicable, query its methodRef, caseRefs and hypothesisRefs; count independent cases, not alternatives; treat candidate hypotheses as test questions rather than approved recipes; query pattern <id> only when the host task fits; query method design-asset-adoption and relevant decision <id> before using source-specific brand assets; query policy primary-color-and-cta when assigning brand primary or CTA; query scenario <id> for machine binding; query each brandRecipeRefs id with recipe <id>; query component <name> only as needed", sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
   };
 }
 
@@ -191,12 +197,16 @@ function record() {
     if (!overwrittenOutputPaths.has(item.path)) verifyHashedPath(item);
   }
   for (const item of receiptOutputs) verifyHashedPath(item);
-  if (current.role === "brandResearcher" && receipt.verdict === "pass") verifyEvidenceVisibilityGate();
+  if (manifest.mode === "learn-brand" && current.role === "brandResearcher" && receipt.verdict === "pass") {
+    verifyEvidenceVisibilityGate();
+    verifyLearnBrandHandoff("evidence");
+  }
+  if (manifest.mode === "learn-brand" && current.role === "designTranslator" && receipt.verdict === "pass") verifyLearnBrandHandoff("interpreter");
   if (array(receipt.outputs).length === 0) fail("Receipt must include at least one hashed output.");
   if (manifest.mode === "design-host" && current.stage === "brandApplication" && receipt.verdict === "pass") {
     const plan = path.join(migrationDir, "brand-application-plan.json");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === plan) || !fs.existsSync(plan)) fail("DESIGN_HOST_PLAN_REQUIRED: designer receipt must hash the frozen H5 plan.");
-    try { execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", plan], { cwd: root, stdio: "pipe" }); }
+    try { execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", plan, ...(manifest.knowledgeScenarioId ? ["--require-scenario", manifest.knowledgeScenarioId] : [])], { cwd: root, stdio: "pipe" }); }
     catch (error) { fail(`DESIGN_HOST_H5_GATE_FAILED: ${error.stdout?.toString() || error.message}`); }
   }
   if (manifest.mode === "design-host" && current.stage === "designVisualQA" && receipt.verdict === "pass") {
@@ -711,6 +721,15 @@ function verifyEvidenceVisibilityGate() {
   } catch (error) {
     const output = String(error?.stdout || error?.stderr || "").trim();
     fail(`Evidence receipt cannot pass before screenshot-first visibility gate passes.${output ? `\n${output}` : ""}`);
+  }
+}
+function verifyLearnBrandHandoff(stage) {
+  const validator = path.join(root, "skills", "brand", "scripts", "validate-learn-brand-handoff.mjs");
+  try {
+    execFileSync(process.execPath, [validator, "--root", root, "--brand", brand, "--goal-file", goalFile, "--stage", stage], { cwd: root, stdio: "pipe" });
+  } catch (error) {
+    const report = String(error?.stdout || error?.stderr || "").trim();
+    fail(`LEARN_BRAND_${stage.toUpperCase()}_HANDOFF_BLOCKED: ${report}`);
   }
 }
 function verifyDesignDirectionGate() {

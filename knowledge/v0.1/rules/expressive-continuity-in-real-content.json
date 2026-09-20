@@ -1,0 +1,20 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "expressive-continuity-in-real-content",
+  "version": 1,
+  "status": "candidate",
+  "question": "Does source-backed brand expression survive from entry into real task content without hiding the first action?",
+  "statement": "一个 expressive 入口若要考虑获批，至少一种有来源的非图片品牌机制应延续到真实任务内容，同时首个动作和结果扫读仍清楚。",
+  "appliesWhen": ["A brand-led entry hands off to repeated search, filtering, browsing or another frequent task"],
+  "notFor": ["Forcing a Hero or minimum image area", "Requiring the same motif in every component", "Treating a machine marker as aesthetic approval"],
+  "originCaseIds": ["pokemon-backup4-expressive-false-positive"],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "falsificationQuestion": "Can a user-approved direction intentionally end the entry expression and still remain source-recognizable and task-efficient without the proposed continuity mechanism?",
+  "nextTest": "换一个品牌或宿主，冻结真实任务内容与视口，比较至少两种分配方式，再由独立 QA 和用户验收视觉效果。",
+  "reviewer": null,
+  "reviewedAt": null,
+  "revisionHistory": [
+    { "version": 1, "sourceCaseId": "pokemon-backup4-expressive-false-positive", "change": "Replaced entry-image-mass inference with a task-content continuity hypothesis.", "status": "candidate" }
+  ]
+}

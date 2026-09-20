@@ -166,6 +166,19 @@ for (const option of options) {
   for (const asset of assets) {
     if (!asset.assetRef || !asset.role || !asset.sourceKind || !asset.usage || !asset.crop || !asset.focalPoint || !asset.zPlane) fail('ASSET_ASSIGNMENT_INCOMPLETE', 'Asset assignments require identity, role, provenance, usage, crop, focal point and z-plane.', { option: optionId, assetRef: asset.assetRef })
     if (asset.sourceKind === 'host-owned-business-art' && identityRoles.has(asset.role)) fail('HOST_ASSET_AS_BRAND_IDENTITY', 'Host business content cannot be promoted to brand identity or environment.', { option: optionId, assetRef: asset.assetRef })
+    const sourceAsset = brandAssets.get(asset.assetRef)
+    if (sourceAsset?.targetScope && asset.sourceKind !== 'host-owned-business-art') {
+      const decisionFile = asset.adoptionDecisionPath ? path.resolve(path.dirname(planFile), asset.adoptionDecisionPath) : ''
+      if (!decisionFile || !fs.existsSync(decisionFile)) {
+        fail('ASSET_ADOPTION_DECISION_REQUIRED', 'A source-scoped brand asset needs a reviewed decision before it can move into a real host.', { option: optionId, assetRef: asset.assetRef, sourceScope: sourceAsset.targetScope, hostRoute: plan.hostBinding?.targetRoute })
+      } else {
+        let decision = null
+        try { decision = JSON.parse(fs.readFileSync(decisionFile, 'utf8')) } catch { /* reported below */ }
+        if (decision?.subjectType !== 'asset' || decision?.subject !== asset.assetRef || decision?.status !== 'approved' || !decision?.reviewer || decision?.grantedScope !== `page:${plan.hostBinding?.targetRoute}`) {
+          fail('ASSET_ADOPTION_SCOPE_UNAPPROVED', 'The asset decision must explicitly approve this asset for this host route with a named reviewer.', { option: optionId, assetRef: asset.assetRef, decisionPath: asset.adoptionDecisionPath })
+        }
+      }
+    }
   }
   const transitions = Array.isArray(option.roleTransitions) ? option.roleTransitions : []
   if (roles.length > 1 && transitions.length < roles.length - 1) fail('BRAND_APPLICATION_ROLE_TRANSITION_MISSING', 'Describe how selected roles connect so the result is not a poster followed by a generic page.', { option: optionId })
@@ -197,6 +210,19 @@ if (!failures.some((item) => ['BRAND_APPLICATION_PREVIEW_MISSING', 'BRAND_APPLIC
   if (audit.status !== 0) {
     try { failures.push(...JSON.parse(audit.stdout).failures) }
     catch { fail('EXPRESSIVE_H5_AUDIT_FAILED', audit.stderr || 'H5 audit did not return valid JSON.') }
+  }
+}
+if (value('--require-scenario') || selectableOptions.some((option) => option.scenarioBinding)) {
+  const knowledgeArgs = [new URL('./validate-design-knowledge.mjs', import.meta.url).pathname, '--plan', planFile]
+  if (value('--require-scenario')) knowledgeArgs.push('--require-scenario', value('--require-scenario'))
+  if (brandBinding?.brandModPath) {
+    const knowledgeModFile = path.resolve(path.dirname(planFile), brandBinding.brandModPath)
+    if (fs.existsSync(knowledgeModFile)) knowledgeArgs.push('--brand-mod', knowledgeModFile)
+  }
+  const knowledgeAudit = spawnSync(process.execPath, knowledgeArgs, { encoding: 'utf8' })
+  if (knowledgeAudit.status !== 0) {
+    try { failures.push(...JSON.parse(knowledgeAudit.stdout).failures.map((item) => ({ code: item.code, message: item.detail, option: item.option }))) }
+    catch { fail('DESIGN_KNOWLEDGE_AUDIT_FAILED', knowledgeAudit.stderr || 'Knowledge audit did not return valid JSON.') }
   }
 }
 console.log(JSON.stringify({ ok: failures.length === 0, optionCount: selectableOptions.length, rejectedOptionCount: options.length - selectableOptions.length, expressiveStatus: failures.length ? 'blocked' : 'eligible-for-human-review', failures }, null, 2))

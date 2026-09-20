@@ -112,4 +112,22 @@ same.options[1] = structuredClone(same.options[0])
 same.options[1].id = 'b'
 same.options[1].previewEvidence = { path: 'b.html', sha256: digest(path.join(dir, 'b.html')) }
 assert.match(run(same).stdout, /SAME_GRAMMAR_RESKIN/)
+const scopedMod = JSON.parse(fs.readFileSync(path.join(dir, 'brand-mod.json'), 'utf8'))
+scopedMod.assets.push(...['a', 'b', 'c'].map((id) => ({ id: `asset:${id}`, sourceSha256: `sha-${id}`, targetScope: 'source homepage campaign' })))
+fs.writeFileSync(path.join(dir, 'scoped-brand-mod.json'), JSON.stringify(scopedMod))
+const scoped = structuredClone(valid)
+scoped.brandSystemBinding.brandModPath = 'scoped-brand-mod.json'
+scoped.brandSystemBinding.brandModSha256 = digest(path.join(dir, 'scoped-brand-mod.json'))
+assert.match(run(scoped).stdout, /ASSET_ADOPTION_DECISION_REQUIRED/)
+for (const item of scoped.options) {
+  const name = `approval-${item.id}.json`
+  item.assetArtDirection.assetAssignments[0].adoptionDecisionPath = name
+  fs.writeFileSync(path.join(dir, name), JSON.stringify({ subjectType: 'asset', subject: `asset:${item.id}`, status: 'candidate', grantedScope: 'page:/pages/home', reviewer: 'Design Director' }))
+}
+assert.match(run(scoped).stdout, /ASSET_ADOPTION_SCOPE_UNAPPROVED/)
+for (const item of scoped.options) {
+  const name = item.assetArtDirection.assetAssignments[0].adoptionDecisionPath
+  fs.writeFileSync(path.join(dir, name), JSON.stringify({ subjectType: 'asset', subject: `asset:${item.id}`, status: 'approved', grantedScope: 'page:/pages/home', reviewer: 'Design Director' }))
+}
+assert.equal(run(scoped).status, 0, run(scoped).stdout)
 console.log('validate-brand-application-plan tests passed')

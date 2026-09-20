@@ -10,7 +10,7 @@
 
 > 当前阶段：公开 Web MVP / controlled alpha。Web 流程已经形成闭环，适合在测试项目或独立分支体验；微信开发者工具、移动端真机和更多真实业务仍在验证中。
 
-[查看公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看标准双 Pipeline 流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-skill-workflow.html) · [查看互动复盘流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
+[查看公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看标准双 Pipeline 流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/flow/index.html) · [查看互动复盘流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
 
 ## 先用一句话理解
 

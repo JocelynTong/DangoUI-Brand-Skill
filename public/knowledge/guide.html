@@ -1,0 +1,171 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设计判断知识库｜DangoUI</title><style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#1c292b;background:#fff}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}a{color:#9f402b;text-underline-offset:3px}.top{height:56px;border-bottom:1px solid #e0e3e1;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:0 max(24px,calc((100vw - 1280px)/2));font-size:13px}.top strong{white-space:nowrap}.top a{color:#51605f;white-space:nowrap}.reader{max-width:1280px;margin:auto;display:grid;grid-template-columns:280px minmax(0,1fr);gap:64px;padding:44px 24px 100px}.toc{position:sticky;top:28px;align-self:start;max-height:calc(100vh - 56px);overflow:auto;padding:0 22px 24px 0;border-right:1px solid #e0e3e1}.toc h2{font-size:15px;margin:0 0 22px}.toc a{display:block;text-decoration:none;color:#394849;line-height:1.45}.toc a:hover,.toc a:focus{color:#9f402b;text-decoration:underline}.toc-group{margin:0 0 24px}.toc-chapter{font-size:13px;font-weight:750;margin-bottom:12px}.toc-branch{padding-left:22px;margin:0 0 11px}.toc-branch span{display:block;color:#84908d;font-size:11px;margin-bottom:5px}.toc-branch a{font-size:12px;padding:4px 0}.content{min-width:0;max-width:800px}.intro{padding:0 0 36px;border-bottom:1px solid #d5dcd7;scroll-margin-top:22px}.eyebrow,.chapter-number{color:#a4442b;font-size:11px;font-weight:750;letter-spacing:.12em}.intro h1{font-size:clamp(36px,4vw,52px);letter-spacing:-.04em;line-height:1.15;margin:12px 0}.intro p{font-size:16px;color:#53605e;line-height:1.7;margin:0}.chapter{padding-top:56px;scroll-margin-top:20px}.chapter h2{font-size:32px;letter-spacing:-.025em;margin:9px 0 32px}.branch-title{font-size:14px;color:#64716e;margin:38px 0 6px}.reader-entry{padding:28px 0 42px;border-bottom:1px solid #e2e6e2;scroll-margin-top:24px}.entry-meta{font-size:12px;color:#697673}.entry-meta strong{color:#a43d24;font-weight:700}.reader-entry h3{font-size:25px;letter-spacing:-.02em;line-height:1.3;margin:10px 0 18px}.reader-entry h4{font-size:16px;margin:26px 0 7px}.reader-entry p,.reader-entry li{font-size:15px;line-height:1.8;color:#384a4a}.reader-entry p{margin:10px 0}.reader-entry ul{padding-left:23px}.reader-entry li{margin:5px 0}.reader-entry code{background:#eff2ef;padding:2px 4px;font-size:.9em}.reader-entry .source{font-size:13px;border-top:1px solid #edf0ed;margin-top:24px;padding-top:12px}.back-link{font-size:12px;display:inline-block;margin-top:15px}@media(max-width:800px){.top{padding:0 18px}.top a:last-child{display:none}.reader{display:block;padding:26px 18px 70px}.toc{position:static;max-height:none;border-right:0;border-bottom:1px solid #e0e3e1;padding:0 0 15px;margin-bottom:40px}.toc-group{margin-bottom:13px}.toc-branch{display:none}.content{max-width:none}.intro h1{font-size:36px}.chapter{padding-top:44px}}
+@media(max-width:800px){.toc{max-height:360px;overflow:auto}.toc-branch{display:block}}</style></head><body><header class="top"><strong>DangoUI · 设计判断知识库</strong><a href="/knowledge/token-debug.html">Token 验收</a><a href="/knowledge/">场景库</a></header><div class="reader"><nav id="decision-directory" class="toc" aria-label="知识库大纲"><h2>目录</h2><div class="toc-group"><a class="toc-chapter" href="#topic-section-expressive-productive">01　方案取舍</a><div class="toc-branch"><span>决策问题</span><a href="#expressive-productive-allocation-question">面对真实任务，品牌表达该加强在哪里、收敛在哪里？</a></div><div class="toc-branch"><span>判断方法</span><a href="#expressive-productive-allocation">在真实任务里，怎样决定哪里 expressive、哪里 productive？</a></div><div class="toc-branch"><span>案例与反馈</span><a href="#pokemon-backup4-expressive-false-positive">反例：首屏有品牌，不等于任务里有品牌</a></div><div class="toc-branch"><span>候选规则</span><a href="#expressive-continuity-in-real-content">候选规则：品牌表达要穿过入口，进入真实任务</a></div></div><div class="toc-group"><a class="toc-chapter" href="#topic-section-brand-evidence-to-design">02　品牌证据与映射</a><div class="toc-branch"><span>通用决策</span><a href="#primary-color-and-cta">如何判断品牌身份、界面色系与主要行动色？</a></div><div class="toc-branch"><span>判断方法</span><a href="#source-selection">先决定看哪些页面，再开始采样</a><a href="#cross-page-token-promotion">一个颜色何时才有资格成为 token？</a><a href="#design-asset-adoption">一个官网元素怎样成为可复用设计资产？</a></div><div class="toc-branch"><span>案例与反馈</span><a href="#pokemon-database-orange-not-global-cta">反例：数据库的橘色不是全站 CTA</a></div><div class="toc-branch"><span>具体资产判定</span><a href="#pokemon-database-search-orange">决策：数据库 Search 橘色不得成为全局 CTA</a></div></div><div class="toc-group"><a class="toc-chapter" href="#topic-section-host-expressive-delivery">03　宿主表达与还原</a><div class="toc-branch"><span>品牌边界与表达位置</span><a href="#host-brand-scope">这个特征是品牌不变量，还是某个页面的表达？</a><a href="#host-expressive-allocation">哪个区域值得 expressive，哪个应保持高效？</a></div><div class="toc-branch"><span>生成与还原风险</span><a href="#host-generation-choice">用现有素材、代码，还是生图？</a><a href="#host-generation-brief">哪些给生图自由，哪些必须锁定？</a><a href="#host-reconstruction-risk">概念图的吸引力是否依赖难以还原的空间关系？</a></div><div class="toc-branch"><span>验收与返工</span><a href="#host-repair-or-reselect">继续修实现，还是退回素材或方向？</a><a href="#host-acceptance">功能通过之后，视觉是否真的成立？</a></div><div class="toc-branch"><span>判断方法</span><a href="#expressive-generation-and-reconstruction">宿主 expressive 决策与生成还原</a></div><div class="toc-branch"><span>案例与反馈</span><a href="#pokemon-generated-deck-scenes">宝可梦生成场景：结果与失败</a></div><div class="toc-branch"><span>候选规则</span><a href="#prefer-reconstructible-dynamic-scenes">优先可动态还原的表达</a></div></div><div class="toc-group"><a class="toc-chapter" href="#topic-section-shared">04　跨议题支撑（不算新决策或新案例）</a><div class="toc-branch"><span>跨主题参考</span><a href="#knowledge-promotion">什么时候把一次观察变成可复用知识？</a><a href="#search-filter-results">搜索、筛选与浏览结果</a></div></div></nav><main class="content"><div class="intro"><span class="eyebrow">DESIGN DECISION LIBRARY</span><h1>设计判断知识库</h1><p>从目录选择问题，查看判断方法、实际案例与当前状态。收录不等于批准。</p></div><section id="topic-section-expressive-productive" class="chapter"><p class="chapter-number">01 / 决策主题</p><h2>方案取舍</h2><div class="chapter-branch"><h3 class="branch-title">决策问题</h3><article id="expressive-productive-allocation-question" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>面对真实任务，品牌表达该加强在哪里、收敛在哪里？</h3><p>这是一类反复出现的<strong>决策问题</strong>，不是某一次设计结论。每个独立案例都应记录自己的任务条件、两个以上可行方向、当时的选择与理由、实际验收结果。一个案例里的多个设计方向只是备选，不会让案例数增加。</p>
+<h4>目前学到了多少</h4>
+<p>现在只有「宝可梦备份 4」一个历史反例。Field Search 和 Card Index 是同一轮里的两个方向；两案都不批准，是这一个案例的事后判断。它提醒我们：入口有品牌素材、机器门禁通过，仍可能在真实搜索和结果区失去品牌表达。</p>
+<p>从这个反例提出了「品牌机制延续到任务内容」的候选假设，但没有独立正向案例证明它普遍成立。它可能在另一个场景成立，也可能被一个有意保持安静、却仍获用户认可的高频任务页面推翻。不能把它写成每页必须执行的视觉配方。</p>
+<h4>案例怎样变成专家能力</h4>
+<p>下一次遇到同一问题，先用决策方法比较任务频率、首个动作、来源品牌机制及各方案的注意力成本，再记录人的真实反馈。随着不同案例增加，比较<strong>哪些条件导致不同取舍</strong>，形成有适用范围和例外的条件化判断。案例数量本身不是投票；没有跨情境验证与审阅，就维持候选状态。</p>
+<p>橘色 CTA、品牌主色如何定，是另一类决策问题。它的案例不能算作这条 expressive / productive 议题的第二例。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">判断方法</h3><article id="expressive-productive-allocation" class="reader-entry"><div class="entry-meta">判断方法 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>在真实任务里，怎样决定哪里 expressive、哪里 productive？</h3><p>这是一条<strong>设计决策方法</strong>，不是页面版式。它回答的不是“要不要放 Hero”，而是：品牌在哪一刻值得吸引注意，用户在哪一刻需要低干扰地完成任务，两者怎样交接。一次试装只提供案例；只有反复验证过的判断才可能晋级为规则。</p>
+<p>现在从<strong>宝可梦备份 4 的事后决策档案</strong>开始读：旧记录只证明预选器推荐过 Field Search，不保留完整的设计师选案理由。我们把“历史事实”和“今天的专家复盘”分开，再比较当时两案为何都不应晋级。复盘提出下文的候选规则，而不是直接封成最佳实践。</p>
+<h4>专家先看五件事</h4>
+<ul>
+<li><strong>用户来做什么</strong>：第一动作是什么，多久会重复一次？高频搜索、筛选和阅读结果通常需要更稳定的操作节奏；首次进入、探索或重要转场可能容纳更强的表达。</li>
+<li><strong>注意力有多少</strong>：首屏空间、内容密度、视口及可用素材是什么？不要预设 Hero 面积，也不要因为页面是工具就自动判成“只要灰色表格”。</li>
+<li><strong>品牌凭什么这样表达</strong>：从来源中找构图、字体、形状、材质、动效及素材的职责和适用范围。官网首页的氛围不能自动搬进数据库；数据库控件的颜色也不能自动变成全局主色。</li>
+<li><strong>任务会不会被打断</strong>：表达之后是否自然到达搜索、筛选、反馈和真实结果？内容是否仍可扫读、比较、返回修改？</li>
+<li><strong>能否在任务区认出同一语言</strong>：遮住 Logo 和主图，结果与控件仍有没有可追溯的品牌机制？如果只剩通用列表，表达没有完成交接。</li>
+</ul>
+<h4>每次决策留下什么</h4>
+<p>先写一句可检验的判断：“在这个宿主的这个时刻，为了这个用户任务，允许哪种品牌机制增强哪种感受；到哪个操作节点必须收敛。”然后并列记录至少两个方案的收益与代价，不用单一审美分数代替权衡。</p>
+<ul>
+<li><strong>Expressive 收益</strong>：识别、期待、探索、记忆点；必须说明来源机制和出现的时刻。</li>
+<li><strong>Productive 代价</strong>：首个动作的距离、首屏可见结果数、扫描与比较成本、状态反馈；必须用同一真实宿主内容和视口比较。</li>
+<li><strong>交接机制</strong>：品牌元素怎样引导到行动，且至少有一项非图片机制延续到真实业务内容。</li>
+<li><strong>边界和退路</strong>：来源未批准、真实数据缺失或画面压住任务时，缩小使用范围、换方案或退回取证，不凭空补品牌色和卡组数据。</li>
+</ul>
+<h4>验证后怎样学会下一次</h4>
+<p>结构和来源脚本只检查可观察的底线；独立视觉 QA 与用户判断画面是否有效。若机器 PASS、用户仍认为平庸，记录<strong>哪种推断错了</strong>，而不是只把这个案例贴成“失败页面”。把修正写成下一次能执行的条件、反例和检查信号；在另一个宿主或品牌复验之前保持候选，不宣布通用真理。</p>
+<p>飞轮的最小记录是：<strong>案例里的已知证据与备选方案 → 专家决定及放弃理由 → 人的反馈 → 规则版本与反证问题 → 下一案例的正向或反向验证</strong>。负例能提出规则，却不能单独证明规则成立。只有不同情境的正向案例和独立审阅，才可能把候选规则晋级；脚本检查记录与最低独立性，不替设计负责人签审美结论。</p>
+<p>宝可梦备份 4 的教训是：主图占比和标记齐全，不能证明 expressive 已进入任务内容。一个方向有入口氛围却落回普通卡片，另一个以官方卡牌开场却落回通用白名单。这促成“品牌机制必须穿过入口，进入真实内容”的候选规则；它不是要求每页复制某个 Hero 或卡片。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">案例与反馈</h3><article id="pokemon-backup4-expressive-false-positive" class="reader-entry"><div class="entry-meta">案例 <span aria-hidden="true">·</span> <strong>未批准</strong></div><h3>反例：首屏有品牌，不等于任务里有品牌</h3><p><strong>结果：机器协议通过，用户视觉不满意；不能记为 expressive 获批。</strong> 本案例记录的是设计判断和门禁的误判，不是可复制的宝可梦页面模板。</p>
+<h4>决策档案，不是假装当时已经想清楚</h4>
+<p>这是事后复盘。旧记录没有设计师完整的选案理由，也没有用户批准；不能把今天的解释冒充当时的决策。已知当时预选器推荐 Field Search，但它主要比较结构签名和证据数量，没有判出画面是否真的打动人。</p>
+<p>面对这份 case，专家要问：在“反复搜索卡组”的任务里，品牌氛围能否从入口延续到真实结果，同时不挤掉第一个搜索动作？Field Search 的入口有官方场景，任务区却退回普通渐变卡；Card Index 的入口有官方卡牌，后续却退回通用白列表。两案各有第一眼，但都缺少入口到任务的视觉交接。因此复盘后的决定是<strong>两案都不批准为可复用配方</strong>，保留搜索任务骨架，退回构图设计。</p>
+<p>原先的隐含判断是“官方素材占比够、结构门禁通过，expressive 就成立”。用户反馈推翻了这一点。修订成候选规则：遮住 Logo 和主图后，真实任务内容里仍须看得见有来源的非图片品牌机制，而且首动作不能被遮挡。它只是一条由负例提出的假设，还没有被另一品牌或宿主正向验证。</p>
+<h4>当时如何判断，漏看了什么</h4>
+<p>宝可梦备份 4 的一轮 fast design-host 在 239.084 秒内完成并被机器标为 SLA PASS。检查覆盖了素材载入、溢出、品牌画面占比、方案结构差异和任务清晰度。它们证明页面可以交给人看，不能证明品牌表达有说服力。</p>
+<p>Field Search 把官方场景压成深色背景后，真实任务内容又回到普通渐变卡片；Card Index 用官方卡牌作入口，后续是通用白色列表。设计时把“入口用了官方素材”和“品牌机制贯穿任务”混成了一项。结果是 expressive 停在第一眼，productive 区虽然可操作，却失去品牌识别。</p>
+<h4>这次抽象出什么判断</h4>
+<p>对这类需要反复搜索和浏览的宿主，不是简单把更多画面面积交给 expressive，也不是要求所有控件都夸张。设计负责人应先比较第一动作和首屏可见内容，再要求来源可追溯的字体、形状、材质、空间节奏或动效机制至少有一种延续到真实结果。遮住 Logo 与主图后如果只剩通用列表，就要重新设计交接，而不是再加一张大图。</p>
+<h4>下次怎样验证</h4>
+<p>候选方向同时提交入口与真实任务区，在同一宿主内容和视口下比较首动作、结果可见度与品牌连续性。脚本只拦缺来源、缺任务区、缺延续机制；独立视觉 QA 和用户仍有权否定美感。若下一次跨宿主复验仍有效，才考虑晋级为更稳定的方法；目前保持候选。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">候选规则</h3><article id="expressive-continuity-in-real-content" class="reader-entry"><div class="entry-meta">候选规则 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>候选规则：品牌表达要穿过入口，进入真实任务</h3><p>这条规则来自宝可梦备份 4 的失败复盘，<strong>尚未获批为通用设计规范</strong>。它不要求更大的 Hero，也不要求每个组件都夸张；它提醒设计师别把一张官方主图当成整页 expressive 已经成立。</p>
+<h4>决策时怎么用</h4>
+<p>先冻结真实内容、视口和第一个动作，再比较至少两种 expressive / productive 分配。找出有来源的字体、形状、材质、空间节奏或动效机制，说明它如何从入口引向搜索与结果。遮住 Logo 和主图后，任务区若完全退回通用界面，就暂不批准这一方向。</p>
+<h4>它可能错在哪里</h4>
+<p>某些品牌与高频工具任务可能有意让表达只发生在进入的一瞬，而任务区保持极安静；只要用户仍能认出系统、操作更高效，强制延续机制反而可能造成噪音。因此下一例必须允许这种反例胜出，不把本规则写成审美定律。</p>
+<h4>怎样从候选晋级</h4>
+<p>目前只有一条负面来源案例，没有独立正向案例。至少再有两个不同宿主或品牌的真实案例，保存备选方案、独立 QA、用户视觉确认及反证检查，设计负责人才能考虑缩小范围后的批准。数量是最低防误判门槛，不是自动批准条件。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div></section><section id="topic-section-brand-evidence-to-design" class="chapter"><p class="chapter-number">02 / 决策主题</p><h2>品牌证据与映射</h2><div class="chapter-branch"><h3 class="branch-title">通用决策</h3><article id="primary-color-and-cta" class="reader-entry"><div class="entry-meta">通用判定 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>如何判断品牌身份、界面色系与主要行动色？</h3><p>先比较，再命名。这是遇到任何品牌色彩判断时可依次使用的决策方法，不是某个品牌的配色答案。一次案例能暴露判断缺口、提出方法，但不能替下一品牌提供事实或自动批准 token。</p>
+<h4>01 · 先分清在判断什么</h4>
+<ul>
+<li><strong>品牌身份</strong>：跨页面持续识别该品牌的标志、字形、色彩或组合。多色标志可以保持多色；不必强行挑一个十六进制值。</li>
+<li><strong>界面色系</strong>：导航、背景、文字、边框、控件等共同形成的视觉秩序。它可以是一组配色，也可以按浅色／深色背景反转，不必只有一个“主色”。</li>
+<li><strong>主要行动色</strong>：具体任务中首要按钮的语义与默认、悬停、焦点等状态。它可能属于界面色系，却不能只因为同色就等同于品牌身份。</li>
+<li><strong>目标 token</strong>：以上判断进入 DangoUI 等设计系统后的落点。名称、值和作用范围必须与目标组件职责对应；判断成立不代表映射获批。</li>
+</ul>
+<h4>02 · 比较有资格回答问题的来源</h4>
+<p>先看当前官网首页或其他身份入口，再看独立核心页面；活动专区要单独标记。每条观察注明页面、区域、用途、背景与交互状态。判断行动色时只比较<strong>同职责</strong>按钮，并读取真正绘制颜色的那层与文字颜色；别把透明外壳当按钮色。</p>
+<p>官网 CSS 声明次数、页面上可见控件数、Logo 像素和宣传图颜色是不同的证据池，不能合并成一个频次。隐藏轮播副本不计可见按钮；页脚工具按钮可以记录，但不要悄悄混入内容 CTA 的分母。</p>
+<p><strong>总数不是每一个按钮的实物证据。</strong> 每个核心页面至少留一个可重新找到的代表控件：官网地址、元素定位、所在区域、默认态和实际绘制的底色／字色。同时直说还有多少计数只有汇总、没有逐控件证明。连代表控件都找不到，就只能保留计数假设，不能把它交给下一步当已核实事实。</p>
+<h4>03 · 先解释体系，再选值</h4>
+<p>依次比较来源权威性、跨页覆盖、相同职责、所在背景和状态，再参考显著度与<strong>同职责内</strong>出现频次。问：是单一颜色反复承担同一角色，还是两色在不同背景下成对反转？若后者更能解释观察，就记录“色系／行动体系”，不要硬选一个 hex 当全部主色。</p>
+<p>同时寻找反例：不同颜色是否来自另一个站点壳、活动、任务或交互状态？若是，保留局部例外；若同职责出现无法解释的冲突，不得宣称全局。案例中的具体色值和数量只能留在案例或品牌判断记录，不能写成这条通用规则。</p>
+<h4>04 · 分别给出范围与交接资格</h4>
+<p>分别输出品牌身份判断、界面色系判断、主要行动判断、局部例外和缺口。每项注明“观察范围”“可申请范围”“已批准范围”，不要用一个 PASS 覆盖所有层。全局 token 至少要比较身份入口与独立相关页面的同职责状态，没有悬而未决的冲突；这只是最低门槛，不是机器投票批准。</p>
+<p>最后才核对目标 token 的语义、默认／悬停／焦点、对比度、真实渲染和独立视觉 QA。若这些缺失，可以确认有证据支持的<strong>界面色系候选</strong>，同时让全局按钮 token 保持未映射。不得因为 Logo 是多色就写“界面主色未定”，也不得因为一类按钮占多数就批准所有任务的主要按钮。</p>
+<p><strong>局部检查和完整品牌检查必须并列显示。</strong> 如果这轮只复核颜色与动作色，就冻结一个明确限定两维的新目标；它通过只表示这两维的结构交接成立，不会替六维品牌学习补票。Evidence、Interpreter 必须与各自冻结目标同版本，旧版 PASS 不得继承。前后 H5 应从版本化 Interpreter 读取候选值，在相同任务中试装；页面变色只证明候选确实生效，不证明全局 token 或视觉质量获批。</p>
+<h4>本规则如何从案例继续生长</h4>
+<p>宝可梦卡牌数据库曾把局部橘色 Search 误推向全局 CTA；后续跨页观察又暴露了“多色标志被误当作界面色系不可判断”、汇总频次缺实物支撑，以及局部检查容易被误读为完整放行的问题。这是同一案例的连续返工，不算多个独立验证。这些是规则修订来源，不是规则里的通用品牌答案。遇到下一品牌，要重新采集、尝试反证，并把新案例的条件与反馈带回来修订本规则。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">判断方法</h3><article id="source-selection" class="reader-entry"><div class="entry-meta">判断方法 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>先决定看哪些页面，再开始采样</h3><p>官网不是一张统一皮肤。首页通常负责让人认识品牌，工具页负责完成任务，学习页负责解释内容。同一个品牌在这些地方可以有不同按钮、密度和素材安排。Evidence Agent 的工作是把这些差异如实带回来，不是挑一个最容易采集的页面代表全站。</p>
+<h4>怎样做</h4>
+<ul>
+<li>先把本次目标翻译成问题：要学习品牌入口、检索任务，还是教学层级？</li>
+<li>给每个问题列出应该看的页面和状态。首页没有因为工具页更易量化就自动出局。</li>
+<li>每条观察都带页面、区域、控件、状态与可见证据；打不开的页面写明缺口和替代来源的局限。</li>
+<li>把“看到了什么”交给 Interpreter；不要在取证时替它命名全局 token。</li>
+</ul>
+<h4>宝可梦的教训</h4>
+<p>卡牌数据库适合证明 Search、Reset 与筛选如何工作；TCG 首页更适合观察品牌入口与主视觉。数据库 Search 按钮的橘色是真实的局部读数，却不能替首页回答“品牌主 CTA 是什么”。</p>
+<h4>交给下一步时</h4>
+<p>下一位应能看见每个来源为什么被选、还缺哪些页面与状态。缺口不能藏在“采样数很多”之后。本方法仍为候选流程，不等于任何品牌事实已经获批。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="cross-page-token-promotion" class="reader-entry"><div class="entry-meta">判断方法 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>一个颜色何时才有资格成为 token？</h3><p>先问“它做什么”，再问“它是什么颜色”。相同的橘色可能分别用于搜索、提醒或活动；用途不同就不能合并。不同颜色也可能都是各自场景里的首要行动，不能机械地投票选出现次数最多的值。</p>
+<h4>比较办法</h4>
+<ul>
+<li>对拟命名的角色列出相关核心页面，逐页记录相同职责的控件及默认、悬停、焦点等实际观察到的状态。</li>
+<li>每页至少留一个能重新找到的实物按钮：官网地址、元素定位、所在区域和实际绘制的底色／字色。另列“只汇总计数、未逐控件复核”的数量，不把总数冒充全部实物证明。</li>
+<li>一行没有证据就写“未观察”，不要拿另一页的控件代填。</li>
+<li>分开写一致、冲突与解释。活动 CTA、数据库 Search 和普通提交按钮可能本来就有不同范围。</li>
+<li>只批准证据能覆盖的最窄范围：全局、场景、组件、单一状态，或暂不映射。</li>
+</ul>
+<h4>放行判断</h4>
+<p>要成为全局 token，核心页面不能未比对，冲突不能悬而不决。页面专用样式可以留在局部配方，但不能借“来源官网”四个字进入 DangoUI 全局变量。脚本检查记录是否齐全；设计负责人判断语义解释是否合理。</p>
+<h4>这次反例</h4>
+<p>宝可梦卡牌数据库 Search 按钮的橘色只能支持局部控件观察。首页冠军赛 CTA 的历史记录又是深色默认、金色悬停且限定在区块内。它们不能推出一个通用的宝可梦 CTA 颜色。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="design-asset-adoption" class="reader-entry"><div class="entry-meta">判断方法 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>一个官网元素怎样成为可复用设计资产？</h3><p>这是一道<strong>晋级闸门</strong>，适用于 token、素材、组件和构图。官网出现过，只说明“看到了”；不能直接说明“该在每个宿主都这么用”。先识别它承担的职责，再决定证据允许它走多远。</p>
+<h4>所有对象都过同一条主线</h4>
+<ul>
+<li><strong>是什么</strong>：颜色值、图片、控件还是内容编排？原样观察与我们的解释分开写。</li>
+<li><strong>做什么</strong>：它在来源页面的哪个区域、哪个状态，帮助用户完成什么？</li>
+<li><strong>在哪里成立</strong>：比较承担相同职责的核心页面和状态。缺页、冲突和活动特例不能藏起来。</li>
+<li><strong>可以用到哪里</strong>：只批准证据支持的最窄范围——控件、场景、页面或全局；没有依据就停在观察。</li>
+<li><strong>谁来签字</strong>：脚本拦缺项，设计负责人判断语义，独立视觉 QA 与人确认落地效果。任何一项不能替代另一项。</li>
+</ul>
+<h4>四类对象再分别检查</h4>
+<ul>
+<li><strong>Token</strong>：语义角色、默认及交互状态、文字对比度，以及 DangoUI 目标 token 是否同义。像素颜色相同不算同义。</li>
+<li><strong>Assets</strong>：来源和使用权、画面主体、裁切方式及场景适配；活动图不能冒充动态业务结果。</li>
+<li><strong>Components</strong>：功能与状态能否对应 DangoUI，是否保留宿主原有交互、数据与组件 API。只看外形不够。</li>
+<li><strong>Composition</strong>：内容层级、用户任务路径、expressive 与 productive 的交接、不同视口下的结构。不能只因素材相同就复刻整页。</li>
+</ul>
+<h4>宝可梦橘色说明了什么</h4>
+<p>数据库 Search 按钮的橘色是局部观察；当时没拿首页及相关任务页的同职责行动来比较，却让它像全站主 CTA 一样进入试装。这条决策只能记作“全局晋级被阻断”，不能写成“宝可梦 CTA = 橘色”。</p>
+<h4>保存结果，而不只保存结论</h4>
+<p>每次决策同时保留对象类型、来源、申请范围、批准范围、缺口、专项检查、审阅人与状态。下游只能消费<strong>已批准且范围匹配</strong>的记录；候选和阻断记录供学习与避免重犯，不是设计食材。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">案例与反馈</h3><article id="pokemon-database-orange-not-global-cta" class="reader-entry"><div class="entry-meta">案例 <span aria-hidden="true">·</span> <strong>未批准</strong></div><h3>反例：数据库的橘色不是全站 CTA</h3><p><strong>结论：未批准，不能复用为品牌主 CTA token。</strong> 这不是说官网没有橘色，而是说我们把一个局部事实扩大成了全局规则。</p>
+<h4>看到了什么</h4>
+<p>宝可梦官网卡牌数据库的 Search 按钮，默认背景现场读数是 <code>rgb(238, 107, 47)</code>。它回答“这个检索按钮现在是什么色”，没有回答“首页主行动、活动行动、其他页面是否也是这个角色”。这轮读数的匹配来源画面未完成持久化，正式 Evidence 仍为 <code>NEEDS_EVIDENCE</code>。</p>
+<h4>错在何处</h4>
+<p>我们跳过首页同角色对照，把局部 Search 色带进卡组广场试装，还暗示它代表官网 CTA。页面只发生几个控件数值的小变动，用户看不到本质区别。设计负责人和 Interpreter 没有在语义晋级前拦住越权。</p>
+<h4>正确保留什么</h4>
+<p>保留“数据库 Search 的局部候选读数”和这次失败经过；撤回“宝可梦全局 CTA 是橘色”的推断。后续只有完成当前首页、相关任务页和状态对照，才能重新讨论适用范围。失败试装不得当作已批准的视觉模板。</p>
+<h4>同一案例的后续试验（不是第二个独立案例）</h4>
+<p>后来在 TCG 首页、学习页和产品页记录到黑白反相的内容按钮：汇总为 28 个，并为每页补了至少一个可复查的实物控件。这支持“这组三页的界面／内容行动存在黑白处理”这一局部候选；它没有证明 28 个按钮都逐一留存了定位，也没有证明数据库 Search 与内容浏览是同一职责。</p>
+<p>现在的前后 H5 让相同搜索任务从 DangoUI 原生紫色按钮试换为黑底白字，试装值直接来自版本化 Interpreter 判断。两维局部结构检查通过，六维品牌交接仍阻断，独立视觉 QA 与用户审美验收也未完成。因此它只是<strong>可以讨论的试验</strong>，不是“宝可梦全局 primary 色已定”。这次返工揭示的通用判断已写进“品牌主色与 CTA 如何判断”，下一个品牌必须重新取证，不能照搬黑白值。</p><p class="source">来源：<a href="https://www.pokemon.com/us/pokemon-tcg/pokemon-cards" target="_blank" rel="noopener noreferrer">原始页面 ↗</a>（来源入口，不代表已批准）</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">具体资产判定</h3><article id="pokemon-database-search-orange" class="reader-entry"><div class="entry-meta">具体判定 <span aria-hidden="true">·</span> <strong>已阻断</strong></div><h3>决策：数据库 Search 橘色不得成为全局 CTA</h3><p><strong>当前结果：阻断全局晋级。</strong> 宝可梦卡牌数据库的 Search 按钮曾读到 <code>rgb(238, 107, 47)</code>，但这只能描述这个按钮当时的默认背景。它不是已批准的品牌主行动色，也没有获准映射到 DangoUI 全局 token。</p>
+<p>这次补看了三个当前官网页面：首页 30 周年主视觉的探索按钮是白色，数据库 Search 是橘色，教学页抽样的内容入口是白色描边。它们做的事不同，并非同一职责的三个按钮；而且目前只读了默认态，没读悬停与焦点态。因此批准范围仍只停在<strong>局部观察</strong>，不能交给 design-host 当全局食材。[本次逐页读数](../../../migrations/pokemon-tcg-official/primary-color-live-review-2026-09-20.json)。</p>
+<p>要重开这项决定，先找不同页面<strong>做同一件事</strong>的主按钮，补默认、悬停、焦点与禁用状态，再检查语义、对比度及 DangoUI 目标 token。最后还需设计负责人和独立视觉 QA 复核。没有这些，就保留这条阻断记录和对应失败案例，而不是换一个色值继续猜。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div></section><section id="topic-section-host-expressive-delivery" class="chapter"><p class="chapter-number">03 / 决策主题</p><h2>宿主表达与还原</h2><div class="chapter-branch"><h3 class="branch-title">品牌边界与表达位置</h3><article id="host-brand-scope" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>这个特征是品牌不变量，还是某个页面的表达？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：角色一致性、跨页面证据、反例。</p>
+<p>需避免：同色不等于同语义；黑底和卡套不能因首页出现就全局化。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="host-expressive-allocation" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>哪个区域值得 expressive，哪个应保持高效？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：用户任务、访问频率、主要行动、首屏预算。</p>
+<p>需避免：不默认首页必有大 hero；创作展示和检索任务可能并存。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">生成与还原风险</h3><article id="host-generation-choice" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>用现有素材、代码，还是生图？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：需要的表达、动态内容、现有素材缺口、实现成本。</p>
+<p>需避免：生图是可选手段；没有视觉缺口时不为用而用。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="host-generation-brief" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>哪些给生图自由，哪些必须锁定？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：品牌证据、宿主需求、动态槽位、表达意图。</p>
+<p>需避免：分开写品牌不变量与场景自由度；不能让生图代替业务优先级判断。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="host-reconstruction-risk" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>概念图的吸引力是否依赖难以还原的空间关系？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：承托面、遮挡依赖、反射折射、可拆分性。</p>
+<p>需避免：复杂交叉遮挡默认降低优先级；不是禁用纸艺风格。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">验收与返工</h3><article id="host-repair-or-reselect" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>继续修实现，还是退回素材或方向？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：最早错误节点、背景结构漂移、已冻结目标、返工记录。</p>
+<p>需避免：环境变了不能只调卡位；不以反复补CSS替代上游返工。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="host-acceptance" class="reader-entry"><div class="entry-meta">决策问题 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>功能通过之后，视觉是否真的成立？</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>决策输入：动态替换结果、同视口对照、人的反馈。</p>
+<p>需避免：技术与审美分开；用户否决不能被测试通过覆盖。</p>
+<p>检索输出要说明这次与旧案例的相同点、不同点、所选路径与代价。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">判断方法</h3><article id="expressive-generation-and-reconstruction" class="reader-entry"><div class="entry-meta">判断方法 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>宿主 expressive 决策与生成还原</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>正式流程中，生成与试片在冻结前，apply-host 消费冻结结果并复核；判断责任属于宿主链路而不是新增设计负责人岗位职责。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">案例与反馈</h3><article id="pokemon-generated-deck-scenes" class="reader-entry"><div class="entry-meta">案例 <span aria-hidden="true">·</span> <strong>未批准</strong></div><h3>宝可梦生成场景：结果与失败</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>用户对B/C透视调整后反馈：“嗯，看着好多了，再随机试试三个方案吧”。纸艺补前景后反馈：“还是不太行，以后少出这种前后景复杂的”。</p>
+<p>原因复盘：生图简报过度限定黑底/卡套；独立缩卡破坏场景尺度；拆图重建折纸结构后继续用旧坐标；缺少前景遮挡。恢复坐标和接触阴影改善B/C，纸艺仍未通过。</p>
+<p>反例边界：固定插画或已有可靠分层素材时，复杂前景仍可成立。本轮没有验证无hero首页，也未跑第二独立品牌。</p><p class="source">来源：<a href="http://127.0.0.1:4187/#/brand-pilot" target="_blank" rel="noopener noreferrer">本地实验页，非官网或长期证据服务 ↗</a>（来源入口，不代表已批准）</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div><div class="chapter-branch"><h3 class="branch-title">候选规则</h3><article id="prefer-reconstructible-dynamic-scenes" class="reader-entry"><div class="entry-meta">候选规则 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>优先可动态还原的表达</h3><p>本记录来自同一宝可梦牌组广场的连续调试，六个方向只算一个案例。场景是生成提案而非官网证据；方法为候选，不能视为跨品牌审美保证。先对照当前宿主任务、动态内容、首屏预算及素材条件，明确采用、调整或不采用的理由。用户纠正和反例应追加到修订记录中，不覆盖旧反馈。没有命中经验时明确是新问题，不编造先例。技术检查只能证明运行下限，人的视觉否决不能被脚本通过抵消。</p>
+<p>这是当前项目的默认取舍，不是禁止纸艺风格或复杂构图。保留反例并等待另一独立品牌和宿主验证，不用方案数量凑通过次数。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div></section><section id="topic-section-shared" class="chapter"><p class="chapter-number">04 / 决策主题</p><h2>跨议题支撑（不算新决策或新案例）</h2><div class="chapter-branch"><h3 class="branch-title">跨主题参考</h3><article id="knowledge-promotion" class="reader-entry"><div class="entry-meta">判断方法 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>什么时候把一次观察变成可复用知识？</h3><p>知识库不是“记录过就默认正确”。一条内容可以是候选、局部获批、全局获批、驳回或退役；人在阅读时必须一眼知道它处于哪一步。</p>
+<h4>设计负责人的签字</h4>
+<ul>
+<li>先读原始证据、跨页面冲突、适用和禁用场景，而不是只读漂亮的 Demo。</li>
+<li>在记录里写明批准的最窄范围、审阅人、决定依据和来源版本；不确定时保留候选。</li>
+<li>经真实页面试装和独立 QA 后，才考虑晋级可复用配方。用户指出视觉不符，即使脚本通过也要回到失败节点。</li>
+<li>来源变化或旧结论被推翻时，保留历史，标记失效并回归依赖它的下游。</li>
+</ul>
+<h4>谁不能代签</h4>
+<p>Evidence Agent 只交事实；Interpreter 提解释；脚本拦缺项。它们都不能代替设计负责人对语义范围和视觉质量签字。人类审美验收也不能被“所有字段填齐”替代。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article><article id="search-filter-results" class="reader-entry"><div class="entry-meta">任务模式 <span aria-hidden="true">·</span> <strong>候选 · 待验证</strong></div><h3>搜索、筛选与浏览结果</h3><p>这是一条<strong>任务 pattern</strong>，不是宝可梦页面模板。它帮助用户从一批会变化的内容里找到目标，再调整条件继续探索。卡牌、商品、文章或资料库都可能用到它；每个品牌可以有不同的视觉表达，但任务链不能被换肤改断。</p>
+<h4>先看任务如何走</h4>
+<ul>
+<li>用户进入时，能知道这里可以找什么；不是只能欣赏一张品牌大图。</li>
+<li>用户输入关键词或选择条件，系统明确回应当前搜索是否开始、正在加载还是完成。</li>
+<li>有结果时，用户能看清内容并知道结果对应哪些条件；没有结果或出错时，能恢复并重试。</li>
+<li>用户可以继续调整条件，不必返回起点重新来过。</li>
+</ul>
+<h4>什么必须稳定，什么可以表达</h4>
+<p><strong>Productive 骨架</strong>是查询、筛选、反馈和结果四个区域，以及初始、加载、有结果、空结果、错误五种状态。Search、Input、Tag、Button、Card 是可选用的 DangoUI 材料，不是规定每个页面必须长成同一套卡片。</p>
+<p><strong>Expressive 空间</strong>主要在进入任务的氛围、查询区的品牌细节，以及结果容器的节奏。品牌视觉可以引导目光进入检索，却不能把搜索藏起来；可以修饰结果容器，却不能把活动素材当作真实结果。每个颜色、形状、素材和构图都要分别交代来源、适用场景及 DangoUI 映射，不能因为同属一个官网就全局通用。</p>
+<h4>什么时候用，什么时候别用</h4>
+<p>用于真实的动态集合，且用户确实要反复搜索、组合条件和浏览结果。不用于固定活动展板，也不用于只有视觉卡片、没有可验证筛选行为的页面。若宿主没有冻结的真实结果，只能做明确标记的结构或加载占位，不能编造卡组数据。</p>
+<h4>这次宝可梦案例教会了什么</h4>
+<p>卡牌数据库证明了局部 Search 控件和筛选行为值得观察；TCG 首页可供研究品牌入口与视觉叙事。它们是两个不同来源职责，不能让数据库按钮的橘色替首页回答“全站主 CTA 是什么”。此前试装的失败反例只证明一种错误推断，不批准那版视觉成为模板。</p>
+<h4>如何从候选晋级</h4>
+<p>目前是<strong>试点候选</strong>。需要在真实宿主中验证任务链、全部关键状态、DangoUI 组件与 token 消费，再由独立 QA 和人对视觉效果验收。没有跨页面品牌依据的颜色或素材只能留在局部观察，不得进入正式配方。</p><a class="back-link" href="#decision-directory">返回目录 ↑</a></article></div></section></main></div></body></html>

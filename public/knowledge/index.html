@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>场景库试点｜检索、筛选与浏览结果</title>
+<style>
+  :root{color-scheme:light;font-family:system-ui,-apple-system,sans-serif;color:#202529;background:#f4f5f3}
+  *{box-sizing:border-box}body{margin:0}main{max-width:1080px;margin:auto;padding:32px 24px 80px}
+  a{color:inherit}.crumb{font-size:13px;color:#5c6664}.hero{padding:48px 0 42px;border-bottom:1px solid #cfd5d1}.eyebrow{font-size:12px;letter-spacing:.12em;font-weight:700;color:#366c59}.hero h1{font-size:clamp(32px,5vw,56px);line-height:1.12;letter-spacing:-.04em;margin:14px 0}.hero p{font-size:18px;line-height:1.7;max-width:720px;color:#48524e;margin:0}.badge{display:inline-block;margin-top:22px;padding:6px 10px;border:1px solid #92a299;border-radius:50px;font-size:12px}
+  section{padding:38px 0;border-bottom:1px solid #cfd5d1}h2{font-size:25px;letter-spacing:-.025em;margin:0 0 16px}h3{font-size:18px;margin:0 0 10px}.intro{line-height:1.7;color:#59645e;margin:0 0 20px}.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.card{background:#fff;border:1px solid #d6dbd6;border-radius:14px;padding:22px;min-height:180px}.card p{line-height:1.65;color:#515c56;margin:0}.num{font-size:12px;color:#477560;font-weight:700;margin-bottom:22px}.case{border-left:4px solid #a45648}.case .num{color:#8f493e}.note{background:#e9eeea;border-radius:14px;padding:22px;line-height:1.7}.muted{font-size:13px;color:#5c6664}.small{font-size:14px}
+  .visual-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}.visual{background:#fff;border:1px solid #d6dbd6;border-radius:14px;overflow:hidden}.visual-head{padding:16px 18px;min-height:107px}.visual-head strong{display:block;margin:3px 0}.visual-head span{font-size:12px;color:#5c6664;line-height:1.5}.visual-media{height:410px;background:#e8eae7;overflow:hidden}.visual-media iframe{width:100%;height:100%;border:0}.source-link{display:flex;flex-direction:column;justify-content:center;gap:16px;padding:28px;line-height:1.65}.source-link a{font-weight:700;text-underline-offset:3px}.source-link span{font-size:13px;color:#515c56}.visual-foot{padding:14px 18px;font-size:12px;line-height:1.55;color:#515c56;border-top:1px solid #d6dbd6}.visual-foot a{font-weight:700;text-underline-offset:3px}
+  @media(max-width:750px){main{padding:22px 18px 60px}.hero{padding:36px 0}.grid,.visual-grid{grid-template-columns:1fr}.card{min-height:0}.visual-media{height:470px}}
+</style>
+<main>
+  <div class="crumb"><a href="../index.html">DangoUI</a> / 场景库 / 检索、筛选与浏览结果</div>
+  <header class="hero">
+    <div class="eyebrow">SCENARIO 001 · 试点草案</div>
+    <h1>让人找到想要的内容，<br>同时感受到品牌。</h1>
+    <p>以“查找卡组”为例：这里存的是任务如何组成、哪里允许品牌表达，以及失败案例。它不是一套新的黑白页面样式，也不是已通过审美验收的宝可梦模板。</p>
+    <span class="badge">状态：候选知识 · 尚未批准为可复用视觉配方</span>
+    <p style="margin-top:18px;font-size:14px"><a href="guide.html">先看设计专家如何判断 expressive 与 productive ↗</a>　·　<a href="../index.html#/mapping-audit">查看官网 token、DangoUI 组件前后对比与页面应用 ↗</a></p>
+  </header>
+  <section>
+    <h2>先看案例，不从空白框猜样式</h2>
+    <p class="intro">左边和中间提供实时官网入口，右边是实际调用 DangoUI 组件的运行态试验。旧截图已撤出展示；官网当前画面需要重新核对，不能用过时留档代替。</p>
+    <div class="visual-grid">
+      <article class="visual"><div class="visual-head"><div class="eyebrow">官网来源 · expressive</div><strong>查看当前品牌首页</strong><span>历史记录归纳过角色、叙事和空间关系；请以官网当前画面复核。</span></div><div class="visual-media source-link"><a href="https://tcg.pokemon.com/en-us/" target="_blank" rel="noopener noreferrer">打开宝可梦 TCG 官网 ↗</a><span>这是实时网址，不是已批准的画面截图；官网内容可能更新。</span></div><div class="visual-foot">旧截图撤出公开展示，不作为当前品牌学习的批准证据。</div></article>
+      <article class="visual"><div class="visual-head"><div class="eyebrow">官网来源 · productive</div><strong>查看当前卡牌数据库</strong><span>检索结构需要在官网实时页面重新核对，不能沿用错误截图。</span></div><div class="visual-media source-link"><a href="https://www.pokemon.com/us/pokemon-tcg/pokemon-cards" target="_blank" rel="noopener noreferrer">打开官网卡牌数据库 ↗</a><span>搜索、筛选、结果状态与 computed 样式须逐项复核。</span></div><div class="visual-foot">旧 <code>database-dark-search-organism</code> 配方保持待复核，不因链接存在而自动获批。</div></article>
+      <article class="visual"><div class="visual-head"><div class="eyebrow">DangoUI 运行态 · 未批准候选</div><strong>五种组件真的参与检索</strong><span>Search / Input / Tag / Button / Card 均来自组件运行时；浅色面消费已映射 token。</span></div><div class="visual-media"><iframe src="../index.html#/knowledge-runtime?embed=1" title="使用 DangoUI 组件的卡组检索试验"></iframe></div><div class="visual-foot"><a href="../index.html#/knowledge-runtime">打开运行态 H5 ↗</a>　已经证明组件消费；expressive 构图与真实宿主仍未验收。</div></article>
+    </div>
+    <div class="note" style="margin-top:14px">运行态对照：<a href="../index.html#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database">查看现有宝可梦 Demo 的数据库页 ↗</a>。那一页目前仅搜索提交按钮已核实消费原生 <code>DuButton</code>；右侧新试验则直接消费 Search、Input、Tag、Button、Card。两者都不是“已选中的宿主换肤方向”。</div>
+    <p class="muted">当前缺口：官网首页的 expressive 构图怎样合理接入“查找卡组”，尚无已验证的跨场景配方。演示用静态 H5 已撤下，不能作为获批方向。</p>
+  </section>
+  <section>
+    <h2>做一个页面时，依次拿三种“材料”</h2>
+    <div class="grid">
+      <div class="card"><div class="num">01 / DangoUI 组件</div><h3>拿得到的零件</h3><p>Search、Input、Tag、Button、Card。复用已有组件能力和语义，不在场景库复制另一份组件定义。</p></div>
+      <div class="card"><div class="num">02 / 任务场景</div><h3>把零件组织成任务</h3><p>输入条件 → 调整筛选 → 看反馈 → 浏览真实结果。初始、加载、结果、无结果、失败，都有位置。</p></div>
+      <div class="card"><div class="num">03 / 已学品牌</div><h3>决定它长什么样</h3><p>从冻结的品牌 token、素材和构图配方选择合适的表达；不得把素材颜色随意变成按钮或页面底色。</p></div>
+    </div>
+  </section>
+  <section>
+    <h2>expressive 和 productive 各放哪里？</h2>
+    <p class="intro">这不是规定“上面一张大图、下面一排列表”。它只规定任务要顺利完成，品牌表达要有来源。</p>
+    <div class="grid">
+      <div class="card"><div class="num">进入任务 · EXPRESSIVE</div><h3>可以建立探索氛围</h3><p>允许品牌主题、资产、字体与空间关系组成第一眼场景，但必须把人自然带到搜索动作；不强制 Hero。</p></div>
+      <div class="card"><div class="num">持续操作 · PRODUCTIVE</div><h3>要快速找得到</h3><p>搜索、筛选和反馈始终清楚可用。品牌可以进入控件的字体、形状和局部材质，不牺牲阅读或操作效率。</p></div>
+      <div class="card"><div class="num">浏览结果 · BLENDED</div><h3>真实内容与品牌共处</h3><p>结果容器可有品牌构图机制；业务记录必须来自真实宿主，不能把活动图当结果，更不能编造卡组数据。</p></div>
+    </div>
+  </section>
+  <section>
+    <h2>从宝可梦备份 4 学到的，是反例</h2>
+    <p class="intro">之前三份 H5 是一次实验，不是场景库推荐你照抄的三个版式。它们的机器检查曾通过，但你指出了实际审美问题。</p>
+    <div class="grid">
+      <div class="card case"><div class="num">旧方案 01 · ARENA SEARCH</div><h3>有第一眼，但没有闭环</h3><p>入口能看到一些 expressive 意图；仍需验证素材、token 和后续检索任务是否形成同一场景。</p></div>
+      <div class="card case"><div class="num">旧方案 02 · SEARCH CONSOLE</div><h3>效率不能等于通用后台</h3><p>任务结构清楚不代表品牌学会了。品牌机制若只剩点缀，不能当作 expressive 通过。</p></div>
+      <div class="card case"><div class="num">旧方案 03 · INDEX FIRST</div><h3>换排列不等于换构图</h3><p>列表顺序或容器变化不能充当真正不同的品牌场景；需要重新设计内容与品牌素材的关系。</p></div>
+    </div>
+    <p class="muted">上述是问题归纳，不是新的 QA 判决。三案尚未重新制作或获得你的审美认可。</p>
+  </section>
+  <section>
+    <h2>这次脚本究竟帮什么忙？</h2>
+    <div class="note">Designer 必须写清“采用哪个场景、哪些组件和任务状态”；H5 必须找得到搜索、筛选、反馈、结果四个区域；用到 DangoUI 映射 token 时，值不能擅自漂移。<strong>脚本只能阻止可检查的错误，不能宣布画面惊艳。</strong> 下一次 design-host 仍要交付真实的三份 H5，由独立 QA 与你看效果。</div>
+    <p class="small">场景知识记录：<a href="v0.1/scenarios/search-filter-results.json">查看结构化条目</a>。此页只帮助人理解条目，不是待换肤的宿主页面。</p>
+  </section>
+</main>
+</html>

@@ -4520,7 +4520,18 @@ function scoreActionEvidence() {
   if (!file) fail("--file is required");
   const full = path.resolve(root, file);
   const parsed = readJsonLoose(full);
-  const entries = Array.isArray(parsed) ? parsed : Array.isArray(parsed?.entries) ? parsed.entries : [];
+  const frequencyReview = parsed?.schema === "brand-primary-role-frequency-review/v1";
+  const entries = frequencyReview
+    ? (parsed.sources || []).flatMap((page) => (page.styles || []).map((style) => ({
+      role: "cta",
+      text: style.role,
+      selector: ".button__bg",
+      sourcePageId: page.pageId,
+      sourceUrl: page.url,
+      actionScore: style.count,
+      styles: { backgroundColor: style.background, color: style.foreground },
+    })))
+    : Array.isArray(parsed) ? parsed : Array.isArray(parsed?.entries) ? parsed.entries : [];
   if (!entries.length) fail(`No action evidence entries found in ${file}`);
 
   const buckets = {
@@ -4570,10 +4581,12 @@ function scoreActionEvidence() {
     brand,
     source: file,
     createdAt: new Date().toISOString(),
+    evidenceScope: frequencyReview ? "sampled-content-actions-only" : "individual-action-samples",
+    promotionStatus: frequencyReview ? parsed.status : "unreviewed",
     candidates: Object.fromEntries(Object.entries(buckets).map(([key, values]) => [key, rankActionColors(values)])),
     gate: {
-      ok: Boolean(rankActionColors(buckets.primaryActionFill)[0] || rankActionColors(buckets.activeStateFill)[0]),
-      message: "Use primaryActionFill for CTA token candidates, activeStateFill for selected/active tokens, neutralActionSurface for white/off-white controls, and actionTextBorder for label/border colors.",
+      ok: Boolean(rankActionColors(buckets.primaryActionFill)[0] || rankActionColors(buckets.activeStateFill)[0] || rankActionColors(buckets.neutralActionSurface)[0]),
+      message: "This gate confirms sampled action colors, including neutral black/white systems; it does not approve a global token. Compare same-role states and obtain design approval before promotion.",
     },
   };
 

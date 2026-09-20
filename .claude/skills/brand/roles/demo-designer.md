@@ -30,6 +30,7 @@
 - `generative-proof.json`
 - 截图与交互状态清单
 - Implementation self-test receipt
+- 逐组件的 `source pattern → Brand MOD decision → DangoUI consumer → rendered computed style` 对照。只有手写静态 H5、局部 CSS 覆写或样式相似时标 `visual-trial`，不能计入正式 runtime 映射证明。
 
 ## 节点自检
 
@@ -64,3 +65,4 @@ Blind QA 只接收可操作 Demo、原始 source captures、Pattern Inventory、
 - Pattern 或 Evidence 缺失：退回 Interpreter/Evidence。
 - 实现偏离已批准 Pattern：本节点 `REWORK`。
 - Runtime 能力不支持：明确报告，不得伪造完成。
+- 组件前后无可观察的品牌变化且 Goal 需要该变化：报告 `MAPPING_COVERAGE_GAP`，退回 Interpreter；不能用页面级手写换色替组件交差。

@@ -1,0 +1,24 @@
+{
+  "schema": "brand-knowledge-pattern/v0.1",
+  "id": "search-filter-results",
+  "title": "搜索、筛选与浏览结果",
+  "status": "pilot-candidate",
+  "level": "task-pattern",
+  "userJob": "从动态集合中找到符合条件的内容，并能调整条件继续探索。",
+  "appliesWhen": ["结果来自真实动态数据", "用户需要搜索或组合筛选", "用户需要判断并调整搜索条件"],
+  "notFor": ["固定内容的活动展示", "没有真实筛选行为的装饰性卡片墙", "用品牌素材假装业务结果"],
+  "sequence": ["进入任务", "输入或调整条件", "提交并得到反馈", "浏览结果或处理空与错误状态", "继续调整"],
+  "requiredRegions": ["query", "filters", "feedback", "results"],
+  "requiredStates": ["initial", "loading", "results", "empty", "error"],
+  "componentRefs": ["Search", "Input", "Tag", "Button", "Card"],
+  "productiveInvariants": ["搜索条件与结果之间有可理解的因果关系", "加载、空结果和错误不能伪装成真实记录", "可返回修改条件", "品牌表达不能掩盖主任务"],
+  "expressiveSlots": [
+    { "id": "entry", "purpose": "建立品牌探索氛围", "boundary": "可以强表达，但素材与构图需有已批准的品牌依据，并把用户交给检索任务。" },
+    { "id": "query", "purpose": "让高频操作保持清楚", "boundary": "可承接经核准的字体、形状和状态 token，不得把局部按钮颜色升成全局 CTA。" },
+    { "id": "results", "purpose": "让业务结果有品牌辨识度", "boundary": "可设计容器节奏，不得以活动图片冒充动态结果或遮挡结果信息。" }
+  ],
+  "sourceScenario": "public/knowledge/v0.1/scenarios/search-filter-results.json",
+  "supportingMethods": ["source-selection", "cross-page-token-promotion", "knowledge-promotion"],
+  "negativeCases": ["pokemon-database-orange-not-global-cta"],
+  "promotionGate": "先在至少一个真实宿主中证明任务、状态、品牌来源和 DangoUI 映射都成立，再经独立视觉 QA 与人工审美批准；当前未通过。"
+}

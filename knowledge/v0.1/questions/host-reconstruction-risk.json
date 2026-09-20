@@ -1,0 +1,26 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-reconstruction-risk",
+  "title": "概念图的吸引力是否依赖难以还原的空间关系？",
+  "status": "open-single-case",
+  "scope": "host-generation；当前种子仅覆盖宝可梦动态牌组场景",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-generated-deck-scenes"
+  ],
+  "hypothesisRefs": [
+    "prefer-reconstructible-dynamic-scenes"
+  ],
+  "nextEvidenceNeeded": "在另一独立品牌/宿主验证，不沿用宝可梦卡位",
+  "requiredContext": [
+    "承托面",
+    "遮挡依赖",
+    "反射折射",
+    "可拆分性"
+  ],
+  "pitfalls": [
+    "复杂交叉遮挡默认降低优先级",
+    "不是禁用纸艺风格"
+  ],
+  "observationLevel": "case-observed"
+}

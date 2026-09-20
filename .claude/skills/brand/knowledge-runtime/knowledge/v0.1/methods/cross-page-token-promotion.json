@@ -1,0 +1,18 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "cross-page-token-promotion",
+  "status": "pilot-candidate",
+  "ownerRole": "Brand Interpreter",
+  "question": "Do observed values on different pages and states support the same semantic role and proposed token scope?",
+  "procedure": [
+    "Compare the same intended role across every relevant frozen core page, not merely matching hex values or CSS names.",
+    "Keep at least one inspectable painted-control proof per core page (URL, selector, visible region, state, background and foreground); distinguish this from the number of controls counted only in an aggregate.",
+    "Record an observed Claim or an explicit unavailable reason for each relevant page and state.",
+    "Describe agreement and conflicts; a local search action does not establish a global primary CTA.",
+    "Choose the narrowest supported scope: global, scenario, component, state-only or unmapped.",
+    "A global token with an unexplained conflict or an unreviewed core page must not be handed to Demo or host design."
+  ],
+  "requiredReviewFields": ["pageIds", "observations", "conflictDisposition", "scope", "rationale"],
+  "notFor": ["Inferring semantics from pixel frequency", "Treating a single page as cross-page agreement"],
+  "caseRefs": ["pokemon-database-orange-not-global-cta"]
+}

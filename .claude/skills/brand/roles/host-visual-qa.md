@@ -29,6 +29,7 @@ Independently review the rendered host as a user-facing product. This role is a 
 
 - Business safety, workflow completion and visual distinctiveness are separate statuses.
 - Token/asset counts and build success cannot compensate for weak application quality.
+- A changed page color does not prove DangoUI mapping. Trace a representative high-salience color and shape from source evidence through Brand MOD, native component consumer and rendered computed style; direct page CSS or unapproved local variables are a blocking provenance gap when full skinning is claimed.
 - Mask names, logos and explicit IP text when testing design-system structural recognition.
 - Verify the chosen direction rather than comparing the result with generic DangoUI defaults.
 
@@ -56,4 +57,3 @@ Independently review the rendered host as a user-facing product. This role is a 
 ## Case evolution
 
 Every missed user-visible defect creates an incident retro and a candidate QA rule. Promote it only when the mechanism is repeatable; then add the smallest observable check and a regression fixture without broadening unrelated projects.
-

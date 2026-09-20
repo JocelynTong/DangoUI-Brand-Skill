@@ -1,0 +1,33 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>品牌工作流 · 角色树</title><style>*{box-sizing:border-box}body{margin:0;background:#101318;color:#e7edf5;font:15px/1.6 system-ui}main{max-width:1120px;margin:36px auto;padding:0 24px 60px}h1{font-size:27px;margin-bottom:8px}p{color:#a8b5c9;margin:6px 0 22px}.tree,.tree ul{list-style:none;padding:0;margin:0}.tree ul{margin-left:18px;padding-left:26px;border-left:1px solid #46556b}.tree li{position:relative;padding:9px 0}.tree ul>li:before{content:'';position:absolute;left:-26px;top:32px;width:26px;border-top:1px solid #46556b}.node{display:block;background:#1a2330;border:1px solid #354459;border-radius:9px;padding:11px 15px;max-width:880px}.role{color:#b7dfc7;font-size:12px;display:block;margin-bottom:3px}.desc{font-size:13px;color:#aab8cc;display:block;margin-top:3px}.tool .role{color:#e7d09d}.human .role{color:#d7b8ff}.root{background:#253447}.branch>.node{background:#202a3b}details>summary{cursor:pointer;list-style:none}details>summary:after{content:'−';float:right;color:#92a5c1}details:not([open])>summary:after{content:'+'}button{background:#243145;color:#e5edf8;border:1px solid #46556b;padding:8px 14px;border-radius:6px;margin:0 8px 18px 0;cursor:pointer}footer{margin-top:28px;color:#a8b5c9;font-size:13px}@media(max-width:650px){main{padding:0 12px}.tree ul{margin-left:8px;padding-left:14px}.tree ul>li:before{left:-14px;width:14px}.node{padding:9px 11px}h1{font-size:23px}}</style><main><h1>品牌工作流 · 角色树</h1><p>按阶段自上而下阅读；缩进表示子阶段或分支。点击分支可收起。</p><button onclick="document.querySelectorAll('details').forEach(x=>x.open=true)">全部展开</button><button onclick="document.querySelectorAll('details').forEach(x=>x.open=false)">收起分支</button>
+<ul class="tree"><li><div class="node root"><span class="role">Design Director / Orchestrator · 设计负责人 / 编排</span>冻结目标、组织派发、处理回退与最终验收<span class="desc">贯穿全程，不替代各角色的专业判断；生图引擎和脚本属于工具。</span></div><ul>
+<li class="branch"><details open><summary class="node">Pipeline 1 · learn-brand — 学习品牌</summary><ul>
+<li><div class="node"><span class="role">1 · Evidence Agent</span>来源取证<span class="desc">采集页面与状态，建立可追溯事实。</span></div></li>
+<li><div class="node"><span class="role">2 · Brand Interpreter</span>解释品牌语言，查询决策库<span class="desc">区分品牌不变量与场景限定规则。</span></div></li>
+<li><div class="node"><span class="role">3 · Demo Designer</span>构建学习能力 Demo<span class="desc">用新页面证明能迁移品牌系统。</span></div></li>
+<li><div class="node"><span class="role">4 · Blind QA / TPP</span>独立验证来源、结构与生成能力<span class="desc">失败退回最早责任节点；通过的品牌产物交给 Pipeline 2。</span></div></li>
+</ul></details></li>
+<li class="branch"><details open><summary class="node">Pipeline 2 · 宿主应用 — design-host → apply-host</summary><ul>
+<li><details open><summary class="node">A · design-host — 判断、试片与选案</summary><ul>
+<li><div class="node"><span class="role">5 · Host Strategist</span>读宿主任务 → 查决策库 → 逐区域分配表达强度<span class="desc">明确主要行动、动态内容与首屏预算；不默认首页必须有 hero。</span></div></li>
+<li><details open><summary class="node"><span class="role">6 · Brand Application Designer</span>按区域选择表达手段</summary><ul>
+<li><div class="node">none · 不增加 expressive<span class="desc">功能优先，记录为什么不需要加强表达。</span></div></li>
+<li><div class="node">existing · 现有素材 / 代码<span class="desc">使用品牌系统与已有资产形成候选方向。</span></div></li>
+<li><details open><summary class="node">generated · 生图分支</summary><ul>
+<li><div class="node"><span class="role">Brand Application Designer</span>区域简报与拆分风险判断<span class="desc">锁定品牌及业务约束，明确生成自由度；复杂遮挡默认降低优先级。</span></div></li>
+<li><div class="node tool"><span class="role">工具 · 图像生成引擎，由应用设计角色调用</span>生成候选场景与配套素材</div></li>
+<li><div class="node"><span class="role">Brand Application Designer</span>隔离动态 H5 试片与运行自检<span class="desc">替换真实结构的数据，验证空间关系；此时不修改正式宿主。</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li><div class="node"><span class="role">7 · Host Visual QA</span>独立复核候选 / 动态试片<span class="desc">融合或透视失败 → 应用设计；区域分配错误 → 宿主策略。</span></div></li>
+<li><div class="node tool"><span class="role">工具门 · validate-host-expression</span>校验决策引用、输入与交接证据<span class="desc">generated 额外要求概念图、H5 和绑定版本的运行/视觉记录。缺失、过期或视觉拒绝 → 停止。</span></div></li>
+<li><div class="node human"><span class="role">8 · 用户 ＋ Design Director / Orchestrator</span>用户选案 → 编排者冻结方向和输入<span class="desc">概念图与动态效果一起确认，实施时不能静默换案。</span></div></li>
+</ul></details></li>
+<li><details open><summary class="node">B · apply-host — 实施与验收</summary><ul>
+<li><div class="node tool"><span class="role">工具门 · 表达计划复核 + 原有冻结设计检查</span>确认交接输入齐全且未过期</div></li>
+<li><div class="node"><span class="role">9 · Host Implementation Agent</span>在真实宿主实施冻结方向<span class="desc">负责素材、响应式、数据、图层与交互；保护业务。无法还原则报告缺口并退回。</span></div></li>
+<li><div class="node"><span class="role">10 · Host Visual QA</span>独立检查真实宿主<span class="desc">验证业务安全、视觉保真与运行效果；按原因退回实现或上游设计。</span></div></li>
+<li><div class="node human"><span class="role">用户</span>最终验收</div></li>
+</ul></details></li>
+<li><div class="node"><span class="role">11 · 原决策角色记录；Design Director / Orchestrator 组织复盘</span>回写决策库 → 下次判断前检索<span class="desc">保留依据、取舍、反例与反馈；候选经验不因单次成功自动升级。</span></div></li>
+</ul></details></li>
+</ul></li></ul><footer>状态边界：交接门已接入口；角色树不是自动调度已完成的声明。生图与试片由 agent 执行。真实宿主端到端、跨品牌效果和安装同步尚待验证；脚本通过不等于审美通过。</footer></main></html>

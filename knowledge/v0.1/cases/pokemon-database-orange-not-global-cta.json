@@ -1,0 +1,29 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "pokemon-database-orange-not-global-cta",
+  "status": "negative-regression",
+  "brand": "pokemon-tcg-official",
+  "finding": "The Card Database Search button has a verified local orange background, but this does not establish the Pokémon TCG site's global primary CTA color.",
+  "observedSource": {
+    "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+    "selector": "#simpleSubmit",
+    "state": "default",
+    "property": "background-color",
+    "value": "rgb(238, 107, 47)",
+    "record": "migrations/pokemon-tcg-official/evidence-live-sampling-2026-09-19.json",
+    "evidenceStatus": "candidate-not-approved"
+  },
+  "missingComparison": "The canonical Pokémon TCG home page CTA role and its states were not compared before local color was applied to a host-search trial.",
+  "invalidInference": "Database Search orange is the brand-wide CTA token.",
+  "safeConclusion": "The value is at most a Card Database Search control observation until cross-page role comparison and approval.",
+  "sameCaseFollowUp": {
+    "status": "scoped-color-and-action-diagnostic-passed-full-brand-blocked",
+    "independentCase": false,
+    "observedChange": "Three TCG core pages yielded a black/white interface-action treatment candidate; one representative painted control per page now has URL, selector, region, default-state background and foreground. The 28-control frequency remains an aggregate, not 28 individual proofs.",
+    "decision": "Use black fill and white text only as a reversible light-surface trial value read from versioned Interpreter intent; keep global primary-action token unmapped.",
+    "remainingGaps": ["same-job Search comparison", "hover/focus states", "complete six-dimension learn-brand handoff", "independent visual QA", "user visual acceptance"],
+    "artifacts": ["migrations/pokemon-tcg-official/token-review-goal-2026-09-20.json", "migrations/pokemon-tcg-official/token-review-evidence-2026-09-20.json", "migrations/pokemon-tcg-official/token-review-intent-2026-09-20.json", "public/knowledge/token-debug.html"]
+  },
+  "consequence": "The H5 trial made only small control changes and failed to establish meaningful brand expression.",
+  "reviewStatus": "not-approved"
+}

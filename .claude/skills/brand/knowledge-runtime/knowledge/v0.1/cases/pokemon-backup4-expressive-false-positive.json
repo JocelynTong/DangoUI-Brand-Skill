@@ -1,0 +1,54 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "pokemon-backup4-expressive-false-positive",
+  "status": "negative-regression",
+  "brand": "pokemon-tcg-official",
+  "contextKey": "pokemon-tcg-official|qiandao-deck-search",
+  "finding": "Rendered directions passed protocol checks, but source-backed brand expression did not continue into real search and results content.",
+  "observedSource": {
+    "url": "https://tcg.pokemon.com/en-us/",
+    "label": "Pokémon TCG brand source, not proof of the failed host rendering",
+    "record": "skills/brand/references/expressive-moments-playbook.md",
+    "runId": "3f2dafe",
+    "evidenceStatus": "historical-run-analysis"
+  },
+  "invalidInference": "Brand image mass, a recognizable entry asset and machine PASS prove that expressive quality survives into the productive task area.",
+  "safeConclusion": "Protocol PASS only permits visual review. A candidate must show source-backed non-image continuity into real task content without hiding the primary action.",
+  "consequence": "The user rejected the expressive outcome despite a 239.084-second SLA PASS and no blocking machine finding.",
+  "reviewStatus": "not-approved",
+  "methodRef": "expressive-productive-allocation",
+  "proposedRuleStatus": "pilot-candidate",
+  "decisionTrace": {
+    "recordType": "retrospective-analysis-not-original-designer-rationale",
+    "decisionQuestion": "反复搜索卡组的页面：品牌表达能否从入口延续到搜索与真实结果，同时不削弱第一个动作？",
+    "knownInputs": [
+      "宿主任务是搜索、筛选和浏览卡组；用户必须能到达搜索动作和结果。",
+      "品牌来源有官方场景和卡牌画面；跨场景使用范围尚未获独立批准。",
+      "该轮比较过渲染方向并通过机器门禁，但没有获得人的审美批准。"
+    ],
+    "alternatives": [
+      {
+        "id": "field-search",
+        "label": "Field Search",
+        "documentedObservation": "官方场景变成深色入口背景，后续业务内容又回到普通渐变卡片。",
+        "expressiveBenefit": "第一眼能认出官方场景。",
+        "productiveCostOrGap": "有来源的品牌机制没有明显延续到可检索的真实内容。",
+        "retrospectiveDisposition": "不批准为可复用 expressive 解法。"
+      },
+      {
+        "id": "card-index",
+        "label": "Card Index",
+        "documentedObservation": "官方卡牌作为入口焦点，后续业务内容变成通用白色列表。",
+        "expressiveBenefit": "入口有清楚的品牌对象。",
+        "productiveCostOrGap": "结果虽然易读，却与入口的品牌机制脱节。",
+        "retrospectiveDisposition": "不批准为可复用 expressive 解法。"
+      }
+    ],
+    "selectionAtTime": "旧预选器推荐 Field Search；记录不足以说明当时设计师的完整理由，也不代表用户批准。",
+    "expertDecisionAfterFeedback": "两案都不批准为可复用配方；保留任务骨架，退回 design-host 构图，并比较一种能把有来源的非图片机制延续到真实结果的新方向。",
+    "why": "机器看到了品牌画面占比和方案结构差异，却没有衡量用户否定的入口到任务区的视觉交接。",
+    "feedback": { "source": "用户视觉验收", "summary": "虽然协议 PASS，expressive 的实际效果仍不满意。", "status": "rejected-aesthetic-outcome" },
+    "ruleChange": { "from": "入口有官方素材、品牌画面占比够，就算 expressive 成立。", "to": "有来源的品牌机制应延续到真实任务内容，且不能遮住首个动作。", "status": "candidate", "ruleId": "expressive-continuity-in-real-content" },
+    "nextCaseQuestion": "换一个品牌或宿主后，能否在保留首个动作和结果扫读效率的同时，让入口表达延续到真实结果？"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "schema": "brand-role-style-recipes/v0.1",
+  "brand": "pokemon-tcg-official",
+  "status": "visual-trial-not-approved",
+  "source": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+  "scope": "database search task only",
+  "shapeRoles": [
+    {"id":"query-field","component":"Search","cssVariable":"--style-database-query-radius","trialValue":"3px","observedForm":"nearly square text-entry field","evidenceStatus":"visual-estimate-needs-computed-source"},
+    {"id":"secondary-field","component":"Input","cssVariable":"--style-database-input-radius","trialValue":"3px","observedForm":"nearly square text-entry field","evidenceStatus":"visual-estimate-needs-computed-source"},
+    {"id":"energy-choice","component":"Tag","cssVariable":"--style-database-choice-radius","trialValue":"999px","observedForm":"pill-shaped energy choices","evidenceStatus":"source-screenshot-visible"}
+  ],
+  "promotionRule": "Confirm source computed values and user visual approval before promoting trial values into an approved Brand MOD or general token."
+}

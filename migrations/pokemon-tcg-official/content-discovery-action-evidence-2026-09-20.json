@@ -1,0 +1,57 @@
+{
+  "schema": "brand-role-matched-action-evidence/v1",
+  "ownerRole": "Evidence Agent",
+  "observedAt": "2026-09-20",
+  "status": "SCOPED_DEFAULT_STATE_OBSERVATIONS",
+  "actionRole": "informational cross-page content discovery (Learn More)",
+  "method": "Live browser DOM; inspect painted .button__bg and .button__txt computed styles, not the transparent outer anchor. One representative per independent page. No screenshot archive.",
+  "samples": [
+    {
+      "pageId": "home",
+      "pageUrl": "https://tcg.pokemon.com/en-us/",
+      "selector": "a.button[href='../en-us/product-guide/']",
+      "targetUrl": "https://tcg.pokemon.com/en-us/product-guide/",
+      "visibleLabel": "了解更多",
+      "viewport": [1920, 863],
+      "dpr": 2,
+      "matchCount": 1,
+      "rect": { "x": 505, "y": 4197, "width": 190, "height": 56 },
+      "state": "default",
+      "paintedBackground": "rgb(0, 0, 0)",
+      "paintedText": "rgb(255, 255, 255)"
+    },
+    {
+      "pageId": "learn",
+      "pageUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "selector": "a.button.button--black.media-text-blade__cta[href='../product-guide/']",
+      "targetUrl": "https://tcg.pokemon.com/en-us/product-guide/",
+      "visibleLabel": "Learn More",
+      "viewport": [1280, 720],
+      "dpr": 2,
+      "matchCount": 1,
+      "rect": { "x": 897, "y": 4957, "width": 198, "height": 56 },
+      "state": "default",
+      "paintedBackground": "rgb(0, 0, 0)",
+      "paintedText": "rgb(255, 255, 255)"
+    },
+    {
+      "pageId": "product-guide",
+      "pageUrl": "https://tcg.pokemon.com/en-us/product-guide/",
+      "selector": "a.button.button--black.media-text-blade__cta[href='../learn/']",
+      "targetUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "visibleLabel": "Learn more",
+      "viewport": [1280, 720],
+      "dpr": 2,
+      "matchCount": 1,
+      "rect": { "x": 897, "y": 4849, "width": 198, "height": 56 },
+      "state": "default",
+      "paintedBackground": "rgb(0, 0, 0)",
+      "paintedText": "rgb(255, 255, 255)"
+    }
+  ],
+  "unobserved": [
+    "hover and focus states for these same controls",
+    "cross-page Search controls of the same task role",
+    "all buttons on these pages"
+  ]
+}

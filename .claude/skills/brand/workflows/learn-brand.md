@@ -21,6 +21,8 @@ Design Director 不占用一个串行 subagent 节点；它贯穿全程，并在
 
 `Required Inputs → Role Work → Self-check → Deliverables → Consumer Gate → PASS / REWORK / NEEDS_EVIDENCE / BLOCKED`
 
+当调试需要用户参与判断时，每个节点还必须交可直接打开的静态 H5 可视化结果，而不是只给 JSON、计数或 PASS/BLOCKED：Evidence 展示可见来源样本与缺口；Interpreter 展示同职责比较、候选/驳回与适用范围；DangoUI mapping 展示实际 token 值及未映射空位；Demo/宿主展示同任务同内容的前后运行态；QA 展示独立验收和阻断点。每步标明「看见了什么 → 作了什么判断 → 下游能否接收」，附来源记录；缺少获批输出时可视化呈现空位或安全回退，不得补造成功画面。候选试装和正式获批版本必须在视觉上明确区分。
+
 ## 四级质量体系
 
 1. **L1 节点自检**：Producer 在交付前检查自己的产物。
@@ -35,7 +37,13 @@ Design Director 不占用一个串行 subagent 节点；它贯穿全程，并在
 - 顶层 Design Director 必须在派发 Demo 前批准第一眼焦点、视觉优先级、元素级响应策略与 proof surface。`responsive: true`、整页统一缩放或实现者临场选择适配方式均不构成批准。
 - Demo 在交给 QA 前必须完成真实浏览器自测。
 - Evidence、Interpreter 与 Design Direction 尚未通过时，产物只能留在 migration workspace；不得写入公开 preview registry，也不得在参考站伪装成已学会的品牌。注册展示是 Demo Gate 之后的发布动作，不是 Evidence collector 的副作用。
+- Evidence PASS 的交接必须运行 `validate-learn-brand-handoff.mjs --stage evidence`，逐维交代来源 Claim 数量与未解决项；Interpreter PASS 必须运行同脚本的 `--stage interpreter`，逐维写映射目标、来源引用和优先级理由。默认核对 color、typography、radius、spacing、shadow、action-color；冻结 Goal 可用 `evidencePolicy.requiredVisualDimensions` 明确调整。历史收据不因新脚本自动改写，但不得再拿旧 PASS 宣称当前链路闭环。
+- 若 Interpreter 把 `color` 或 `action-color` token 宣称为全局，`crossPageReview` 必须引用 `primary-color-and-cta` 策略，分别标明品牌身份色与主行动色的关系，并记录跨页同职责按钮的默认、悬停、焦点状态。首页活动按钮、数据库搜索按钮不可仅因都叫 CTA 就视为同职责；证据不足时保留宿主原有语义 token，交接为 BLOCKED，不猜一个全局色值。
+- 对品牌 primary 的争议，Evidence 必须交逐页可见控件/状态频次及排除项；Interpreter 再按身份来源、同职责复现、视觉显著度、任务相关性和频次排序。只阻断橘色却露出 DangoUI 默认紫色并不能算品牌学习 Demo；可提出证据明确标注的局部候选 H5 与默认态并排供人验收，但未经状态/QA 不得晋级全局或正式宿主。
+- 数量决定取证和复核顺序，不自动产生语义 token。交接优先看 Goal 关联与可见显著度，再看 observed Claim 数量；高频素材色不可覆盖低频但任务关键的动作状态。缺一维或只映射四个颜色都不得以完整通过交接。
+- 多个 core 来源页面存在时，拟交付为 token 的映射必须按知识库 `cross-page-token-promotion` 记录逐页同角色比对；全局 token 遇到未观察页面或未解决冲突即阻断。Evidence 与 Interpreter 只按需读取方法和相关判例，具体品牌值不得写进方法或角色 JD。
 - QA 发现问题时必须路由到 `earliestFailureNode`，不能默认只修最终页面。
+- 面向用户的验收必须附同一任务的前后可视化 H5；局部 token 决策修正也要并排展示旧应用效果和改后运行态，并把官网观察、未批准试验与真实 DangoUI/宿主状态分别标清。阻断不等于可以只给错误码；若尚无可批准的改后品牌画面，展示安全回退并明确“非换肤通过”。
 - 高显著度页面必须先拆成 section micro-gates；条目数量、DOM 数量和 build pass 都不能代替区块结构与交互验收。
 - 重试默认复用已哈希的 URL、视口、截图、资产和交互轨迹，只重抓失败区块与必要回归。
 - `brand=dango` 只表示 DangoUI 是当前被学习的品牌，不代表进入 DangoUI 宿主换肤。只提供 `source-url` 时必须保持 `learn-brand`；没有显式 `host-target`，不得创建 Host Adapter 页面、修改宿主组件或把其他品牌迁移到 DangoUI。

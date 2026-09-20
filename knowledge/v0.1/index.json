@@ -1,0 +1,169 @@
+{
+  "schema": "brand-knowledge-index/v0.1",
+  "questions": [
+    {
+      "id": "expressive-productive-allocation-question",
+      "path": "knowledge/v0.1/questions/expressive-productive-allocation.json",
+      "guide": "knowledge/v0.1/questions/expressive-productive-allocation.md"
+    },
+    {
+      "id": "host-brand-scope",
+      "path": "knowledge/v0.1/questions/host-brand-scope.json",
+      "guide": "knowledge/v0.1/questions/host-brand-scope.md"
+    },
+    {
+      "id": "host-expressive-allocation",
+      "path": "knowledge/v0.1/questions/host-expressive-allocation.json",
+      "guide": "knowledge/v0.1/questions/host-expressive-allocation.md"
+    },
+    {
+      "id": "host-generation-choice",
+      "path": "knowledge/v0.1/questions/host-generation-choice.json",
+      "guide": "knowledge/v0.1/questions/host-generation-choice.md"
+    },
+    {
+      "id": "host-generation-brief",
+      "path": "knowledge/v0.1/questions/host-generation-brief.json",
+      "guide": "knowledge/v0.1/questions/host-generation-brief.md"
+    },
+    {
+      "id": "host-reconstruction-risk",
+      "path": "knowledge/v0.1/questions/host-reconstruction-risk.json",
+      "guide": "knowledge/v0.1/questions/host-reconstruction-risk.md"
+    },
+    {
+      "id": "host-repair-or-reselect",
+      "path": "knowledge/v0.1/questions/host-repair-or-reselect.json",
+      "guide": "knowledge/v0.1/questions/host-repair-or-reselect.md"
+    },
+    {
+      "id": "host-acceptance",
+      "path": "knowledge/v0.1/questions/host-acceptance.json",
+      "guide": "knowledge/v0.1/questions/host-acceptance.md"
+    }
+  ],
+  "methods": [
+    {
+      "id": "expressive-productive-allocation",
+      "path": "knowledge/v0.1/methods/expressive-productive-allocation.json",
+      "guide": "knowledge/v0.1/methods/expressive-productive-allocation.md"
+    },
+    {
+      "id": "design-asset-adoption",
+      "path": "knowledge/v0.1/methods/design-asset-adoption.json",
+      "guide": "knowledge/v0.1/methods/design-asset-adoption.md"
+    },
+    {
+      "id": "source-selection",
+      "path": "knowledge/v0.1/methods/source-selection.json",
+      "guide": "knowledge/v0.1/methods/source-selection.md"
+    },
+    {
+      "id": "cross-page-token-promotion",
+      "path": "knowledge/v0.1/methods/cross-page-token-promotion.json",
+      "guide": "knowledge/v0.1/methods/cross-page-token-promotion.md"
+    },
+    {
+      "id": "knowledge-promotion",
+      "path": "knowledge/v0.1/methods/knowledge-promotion.json",
+      "guide": "knowledge/v0.1/methods/knowledge-promotion.md"
+    },
+    {
+      "id": "expressive-generation-and-reconstruction",
+      "path": "knowledge/v0.1/methods/expressive-generation-and-reconstruction.json",
+      "guide": "knowledge/v0.1/methods/expressive-generation-and-reconstruction.md"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "search-filter-results",
+      "path": "knowledge/v0.1/patterns/search-filter-results.json",
+      "guide": "knowledge/v0.1/patterns/search-filter-results.md"
+    }
+  ],
+  "rules": [
+    {
+      "id": "expressive-continuity-in-real-content",
+      "path": "knowledge/v0.1/rules/expressive-continuity-in-real-content.json",
+      "guide": "knowledge/v0.1/rules/expressive-continuity-in-real-content.md"
+    },
+    {
+      "id": "prefer-reconstructible-dynamic-scenes",
+      "path": "knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.json",
+      "guide": "knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.md"
+    }
+  ],
+  "decisions": [
+    {
+      "id": "pokemon-database-search-orange",
+      "path": "knowledge/v0.1/decisions/pokemon-database-search-orange.json",
+      "guide": "knowledge/v0.1/decisions/pokemon-database-search-orange.md"
+    }
+  ],
+  "policies": [
+    {
+      "id": "primary-color-and-cta",
+      "path": "knowledge/v0.1/policies/primary-color-and-cta.json",
+      "guide": "knowledge/v0.1/policies/primary-color-and-cta.md"
+    }
+  ],
+  "decisionTopics": [
+    {
+      "id": "expressive-productive",
+      "title": "方案取舍",
+      "description": "决定品牌表达该进入真实任务的哪里，而不是只留在首屏。",
+      "branches": [
+        { "label": "决策问题", "refs": [{ "kind": "question", "id": "expressive-productive-allocation-question" }] },
+        { "label": "判断方法", "refs": [{ "kind": "method", "id": "expressive-productive-allocation" }] },
+        { "label": "案例与反馈", "refs": [{ "kind": "case", "id": "pokemon-backup4-expressive-false-positive" }] },
+        { "label": "候选规则", "refs": [{ "kind": "rule", "id": "expressive-continuity-in-real-content" }] }
+      ]
+    },
+    {
+      "id": "brand-evidence-to-design",
+      "title": "品牌证据与映射",
+      "description": "决定官网事实能以什么语义、在多大范围进入 DangoUI。",
+      "branches": [
+        { "label": "通用决策", "refs": [{ "kind": "policy", "id": "primary-color-and-cta" }] },
+        { "label": "判断方法", "refs": [{ "kind": "method", "id": "source-selection" }, { "kind": "method", "id": "cross-page-token-promotion" }, { "kind": "method", "id": "design-asset-adoption" }] },
+        { "label": "案例与反馈", "refs": [{ "kind": "case", "id": "pokemon-database-orange-not-global-cta" }] },
+        { "label": "具体资产判定", "refs": [{ "kind": "decision", "id": "pokemon-database-search-orange" }] }
+      ]
+    },
+    {
+      "id": "host-expressive-delivery",
+      "title": "宿主表达与还原",
+      "description": "决定该用什么生成、哪些结构必须可还原，以及失败后返工还是重选。",
+      "branches": [
+        { "label": "品牌边界与表达位置", "refs": [{ "kind": "question", "id": "host-brand-scope" }, { "kind": "question", "id": "host-expressive-allocation" }] },
+        { "label": "生成与还原风险", "refs": [{ "kind": "question", "id": "host-generation-choice" }, { "kind": "question", "id": "host-generation-brief" }, { "kind": "question", "id": "host-reconstruction-risk" }] },
+        { "label": "验收与返工", "refs": [{ "kind": "question", "id": "host-repair-or-reselect" }, { "kind": "question", "id": "host-acceptance" }] },
+        { "label": "判断方法", "refs": [{ "kind": "method", "id": "expressive-generation-and-reconstruction" }] },
+        { "label": "案例与反馈", "refs": [{ "kind": "case", "id": "pokemon-generated-deck-scenes" }] },
+        { "label": "候选规则", "refs": [{ "kind": "rule", "id": "prefer-reconstructible-dynamic-scenes" }] }
+      ]
+    }
+  ],
+  "sharedKnowledge": {
+    "title": "跨议题支撑（不算新决策或新案例）",
+    "refs": [{ "kind": "method", "id": "knowledge-promotion" }, { "kind": "pattern", "id": "search-filter-results" }]
+  },
+  "cases": [
+    {
+      "id": "pokemon-backup4-expressive-false-positive",
+      "path": "knowledge/v0.1/cases/pokemon-backup4-expressive-false-positive.json",
+      "guide": "knowledge/v0.1/cases/pokemon-backup4-expressive-false-positive.md"
+    },
+    {
+      "id": "pokemon-database-orange-not-global-cta",
+      "path": "knowledge/v0.1/cases/pokemon-database-orange-not-global-cta.json",
+      "guide": "knowledge/v0.1/cases/pokemon-database-orange-not-global-cta.md"
+    },
+    {
+      "id": "pokemon-generated-deck-scenes",
+      "path": "knowledge/v0.1/cases/pokemon-generated-deck-scenes.json",
+      "guide": "knowledge/v0.1/cases/pokemon-generated-deck-scenes.md"
+    }
+  ],
+  "existingCatalog": "public/knowledge/v0.1/index.json"
+}

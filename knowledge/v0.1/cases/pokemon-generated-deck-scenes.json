@@ -1,0 +1,122 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "pokemon-generated-deck-scenes",
+  "status": "mixed-negative-regression",
+  "contextKey": "pokemon-tcg-official|qiandao-deck-search",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "reviewStatus": "not-approved",
+  "observedSource": {
+    "url": "http://127.0.0.1:4187/#/brand-pilot",
+    "label": "本地实验页，非官网或长期证据服务",
+    "record": "knowledge/v0.1/cases/pokemon-generated-deck-scenes.md",
+    "evidenceStatus": "retrospective-user-feedback"
+  },
+  "invalidInference": "生图好看、六方案或交互测试通过，即证明可稳定跨品牌落地。",
+  "safeConclusion": "当前项目优先空间关系清楚、可动态替换的 expressive；复杂遮挡降为非默认候选",
+  "decisionTrace": {
+    "recordType": "retrospective-analysis-not-original-designer-rationale",
+    "decisionQuestion": "已有品牌约束如何支持 expressive 生成，同时保持动态宿主可还原？",
+    "knownInputs": [
+      "{'brand': 'Pokemon TCG', 'task': '牌组展示兼快速检索', 'dynamicContent': '五个卡位和三组本地示例', 'preference': '用户要求默认少出复杂前后景'}",
+      "六方案仅一个独立案例",
+      "无法证明跨品牌稳定性",
+      "部分理由为事后复盘，不伪装为当时已明确的选案依据"
+    ],
+    "alternatives": [
+      {
+        "id": "0",
+        "documentedObservation": "用户指出差异化不足",
+        "expressiveBenefit": "共享暗色卡套场景",
+        "productiveCostOrGap": "同一检索任务中比较动态还原、首屏预算与人工返工成本；未量化成本。",
+        "retrospectiveDisposition": "用户指出差异化不足"
+      },
+      {
+        "id": "1",
+        "documentedObservation": "透视修正后用户说好多了，不等于全面验收",
+        "expressiveBenefit": "明亮竞技与日光桌面",
+        "productiveCostOrGap": "同一检索任务中比较动态还原、首屏预算与人工返工成本；未量化成本。",
+        "retrospectiveDisposition": "透视修正后用户说好多了，不等于全面验收"
+      },
+      {
+        "id": "2",
+        "documentedObservation": "补前景后用户仍说不太行",
+        "expressiveBenefit": "复杂折纸遮挡",
+        "productiveCostOrGap": "同一检索任务中比较动态还原、首屏预算与人工返工成本；未量化成本。",
+        "retrospectiveDisposition": "补前景后用户仍说不太行"
+      }
+    ],
+    "selectionAtTime": "用户逐轮提出方向和修正；不能事后声称完整决策机制已在最初执行。",
+    "expertDecisionAfterFeedback": "当前项目优先空间关系清楚、可动态替换的 expressive；复杂遮挡降为非默认候选",
+    "why": "本轮复杂遮挡依赖背景结构及局部纸槽，拆图漂移与遮挡缺失导致反复人工修补",
+    "feedback": {
+      "source": "本轮用户对话，见人读案例",
+      "summary": "B/C透视修正后反馈好多了；E补前景后仍不太行。",
+      "status": "mixed-not-approved-aesthetic-outcome"
+    },
+    "ruleChange": {
+      "from": "先追求概念图表现，落地后补遮挡",
+      "to": "生成前评估动态拆分风险，默认少选复杂前后景",
+      "status": "candidate",
+      "ruleId": "prefer-reconstructible-dynamic-scenes"
+    },
+    "nextCaseQuestion": "另一品牌和宿主：先评表达区域，再生成与动态替换；记录人的纠正类型与次数"
+  },
+  "independentCaseNote": "与既有 pokemon-backup4 案例同品牌同任务；不能作为它的独立正例。",
+  "sourceSeed": {
+    "id": "pokemon-deck-scenes",
+    "independentCaseKey": "pokemon-deck-plaza",
+    "recordType": "retrospective",
+    "status": "mixed-with-rejected-direction",
+    "context": {
+      "brand": "Pokemon TCG",
+      "task": "牌组展示兼快速检索",
+      "dynamicContent": "五个卡位和三组本地示例",
+      "preference": "用户要求默认少出复杂前后景"
+    },
+    "alternatives": [
+      {
+        "option": "共享暗色卡套场景",
+        "result": "用户指出差异化不足"
+      },
+      {
+        "option": "明亮竞技与日光桌面",
+        "result": "透视修正后用户说好多了，不等于全面验收"
+      },
+      {
+        "option": "复杂折纸遮挡",
+        "result": "补前景后用户仍说不太行"
+      }
+    ],
+    "decision": "当前项目优先空间关系清楚、可动态替换的 expressive；复杂遮挡降为非默认候选",
+    "rationale": "本轮复杂遮挡依赖背景结构及局部纸槽，拆图漂移与遮挡缺失导致反复人工修补",
+    "tradeoff": "减少部分复杂空间表达，换取更可控的动态还原；并非证明所有复杂表达都不可行",
+    "counterexamples": "固定插画、不替换内部内容，或已有可靠分层素材时，复杂前景仍可能合理",
+    "evidenceRefs": [
+      "experiments/brand-constrained/retrospective.md",
+      "experiments/brand-constrained/v2/prompts.md",
+      "experiments/brand-constrained/v3-prompts.md"
+    ],
+    "feedback": [
+      {
+        "quote": "嗯，看着好多了，再随机试试三个方案吧",
+        "scope": "B/C 透视调整后"
+      },
+      {
+        "quote": "还是不太行，以后少出这种前后景复杂的",
+        "scope": "E 纸艺前景补丁后"
+      }
+    ],
+    "limits": [
+      "六方案仅一个独立案例",
+      "无法证明跨品牌稳定性",
+      "部分理由为事后复盘，不伪装为当时已明确的选案依据"
+    ],
+    "nextValidation": "另一品牌和宿主：先评表达区域，再生成与动态替换；记录人的纠正类型与次数",
+    "revisions": [
+      {
+        "date": "2026-09-20",
+        "change": "从设计负责人职责移回宿主 expressive 判断、生成与实施执行环节"
+      }
+    ]
+  }
+}

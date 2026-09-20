@@ -1,0 +1,23 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-brand-scope",
+  "title": "这个特征是品牌不变量，还是某个页面的表达？",
+  "status": "open-single-case",
+  "scope": "learn-brand；当前种子仅覆盖宝可梦动态牌组场景",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-generated-deck-scenes"
+  ],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "在另一独立品牌/宿主验证，不沿用宝可梦卡位",
+  "requiredContext": [
+    "角色一致性",
+    "跨页面证据",
+    "反例"
+  ],
+  "pitfalls": [
+    "同色不等于同语义",
+    "黑底和卡套不能因首页出现就全局化"
+  ],
+  "observationLevel": "case-observed"
+}

@@ -1,0 +1,31 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "prefer-reconstructible-dynamic-scenes",
+  "version": 1,
+  "status": "candidate",
+  "statement": "当前项目优先空间关系清楚、可动态替换的 expressive；复杂遮挡降为非默认候选",
+  "appliesWhen": [
+    "动态内容需替换",
+    "依靠生成图拆层落地且缺少可靠前景素材"
+  ],
+  "notFor": [
+    "固定整幅插画",
+    "已经有可靠分层资产",
+    "用户明确选定复杂遮挡且试片已通过"
+  ],
+  "falsificationQuestion": "在复杂遮挡场景里，是否能用可靠分层资产减少返工且获得人的认可？",
+  "nextTest": "另一品牌和宿主：先评表达区域，再生成与动态替换；记录人的纠正类型与次数",
+  "originCaseIds": [
+    "pokemon-generated-deck-scenes"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "status": "candidate",
+      "date": "2026-09-20",
+      "reason": "用户纠正后的事后复盘，不是已批准通用规则"
+    }
+  ]
+}

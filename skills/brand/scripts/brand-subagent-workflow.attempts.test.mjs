@@ -19,6 +19,9 @@ const goalFile = path.join(migration, "goal-contract.json");
 fs.writeFileSync(goalFile, JSON.stringify(goal));
 fs.writeFileSync(path.join(skillDir, "workflow-contract.json"), JSON.stringify({ roleContractVersion: "test", roles: { designTranslator: { goal: "translate" } } }));
 fs.writeFileSync(path.join(skillDir, "scripts", "brand-guard.mjs"), "process.exit(0);\n");
+// This fixture tests retry numbering; handoff coverage is exercised by its
+// dedicated validator tests, so keep the gate dependency isolated here.
+fs.writeFileSync(path.join(skillDir, "scripts", "validate-learn-brand-handoff.mjs"), "process.exit(0);\n");
 const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
 const manifest = {
   schema: "brand-subagent-execution/v1", runId: "run", brand, mode: "learn-brand", goalId: goal.goalId,

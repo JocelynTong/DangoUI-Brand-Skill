@@ -1,0 +1,11 @@
+{
+  "schema": "dangoui-knowledge-index/v0.1",
+  "componentSource": "skills/brand/references/dangoui.design-system.json",
+  "components": ["Search", "Input", "Tag", "Button", "Card"],
+  "brandRecipes": [
+    { "id": "pokemon-database-shape-roles", "path": "public/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/role-style-recipes.json" }
+  ],
+  "scenarios": [
+    { "id": "search-filter-results", "path": "public/knowledge/v0.1/scenarios/search-filter-results.json" }
+  ]
+}

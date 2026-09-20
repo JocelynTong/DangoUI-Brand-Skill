@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { validateHostExpression } from './validate-host-expression.mjs';
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
@@ -348,11 +349,12 @@ if (command === "tpp") {
 }
 
 const outputAudit = auditWorkflowOutputs({ root, mode, brand, args: passthroughArgs });
-const completed = outputAudit.missingOutputs.length === 0;
+const learnBrandHandoff = mode === "learn-brand" ? inspectLearnBrandHandoff({ root, brand }) : null;
+const completed = outputAudit.missingOutputs.length === 0 && (!learnBrandHandoff || learnBrandHandoff.status === "PASS");
 const progress = buildProgressSummary({ mode, outputAudit, executed });
 
 process.stdout.write(`${JSON.stringify({
-  ok: true,
+  ok: completed,
   command,
   workflow: mode,
   profile,
@@ -363,6 +365,7 @@ process.stdout.write(`${JSON.stringify({
   intake,
   executed,
   completed,
+  learnBrandHandoff,
   progress,
   stepStatus: outputAudit.stepStatus,
   outputStatus: outputAudit.outputStatus,
@@ -371,10 +374,26 @@ process.stdout.write(`${JSON.stringify({
   nextAction: outputAudit.nextAction,
   previewArtifacts: outputAudit.previewArtifacts,
   howToTest: buildHowToTest({ root, mode, brand }),
-  message: completed
-    ? "Brand workflow gate passed and the expected outputs are present."
-    : "Brand workflow gate passed, but the expected outputs are still incomplete. Keep going until the missing outputs are generated.",
+  message: learnBrandHandoff?.status === "BLOCKED"
+    ? "Learn-brand role handoff is blocked. Repair Evidence or Interpreter before claiming completion."
+    : completed
+      ? "Brand workflow outputs and role handoffs are complete."
+      : "Collection or downstream work remains pending; no complete brand-learning verdict has been issued.",
 }, null, 2)}\n`);
+if (learnBrandHandoff?.status === "BLOCKED") process.exitCode = 1;
+
+function inspectLearnBrandHandoff({ root, brand }) {
+  const migration = path.join(root, "migrations", brand);
+  const evidenceFile = path.join(migration, "brand-evidence.json");
+  const intentFile = path.join(migration, "brand-intent.json");
+  if (!fs.existsSync(evidenceFile)) return { status: "PENDING", stage: "evidence", reason: "brand-evidence.json is not present" };
+  for (const stage of ["evidence", "interpreter"]) {
+    if (stage === "interpreter" && !fs.existsSync(intentFile)) return { status: "PENDING", stage, reason: "brand-intent.json is not present" };
+    const result = spawnSync(process.execPath, [skillScript("validate-learn-brand-handoff.mjs"), "--root", root, "--brand", brand, "--stage", stage], { cwd: root, encoding: "utf8" });
+    if (result.status !== 0) return { status: "BLOCKED", stage, report: safeParseJson(result.stdout), error: result.stderr || null };
+  }
+  return { status: "PASS" };
+}
 
 function buildGuardCommands(modeName, passthroughArgs) {
   const filtered = stripCommandOnlyArgs(passthroughArgs);
@@ -628,6 +647,12 @@ function extractVisualQualityLevel(result, brand) {
 }
 
 function executeWorkflow({ root, mode, profile, brand, args, executed }) {
+  if(mode === 'apply-host' || (mode === 'design-host' && opt(args, '--application-plan', ''))) {
+    const expressionFile=path.resolve(root,opt(args,'--expression-plan',path.join('migrations',brand,'host-expression-plan.json')));
+    const gate=validateHostExpression(root,expressionFile);
+    if(!gate.ok){process.stdout.write(JSON.stringify({ok:false,step:'host-expression',...gate,nextAction:'Complete region decisions; generated regions require concept + dynamic H5 + bound runtime and visual review evidence.'},null,2)+'\n');process.exit(1);}
+  }
+
   if (mode === "learn-brand") {
     runLearnBrand({
       root,

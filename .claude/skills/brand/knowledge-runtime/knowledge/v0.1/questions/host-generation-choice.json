@@ -1,0 +1,24 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-generation-choice",
+  "title": "用现有素材、代码，还是生图？",
+  "status": "open-single-case",
+  "scope": "host-planning；当前种子仅覆盖宝可梦动态牌组场景",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-generated-deck-scenes"
+  ],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "在另一独立品牌/宿主验证，不沿用宝可梦卡位",
+  "requiredContext": [
+    "需要的表达",
+    "动态内容",
+    "现有素材缺口",
+    "实现成本"
+  ],
+  "pitfalls": [
+    "生图是可选手段",
+    "没有视觉缺口时不为用而用"
+  ],
+  "observationLevel": "open-question-not-comparatively-validated"
+}
