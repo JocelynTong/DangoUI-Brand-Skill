@@ -28,4 +28,4 @@ Correction: fast design-host delivers three complete H5 options, never two. Pres
 
 ## Medium boundary
 
-Design-host deliverables and QA evidence are static H5 plus structured JSON only. Brand assets inside H5 remain allowed. Do not create proposal PNG/JPG, screenshot derivatives, contact sheets or an image-generation stage. Source-learning evidence in learn-brand is a separate input pipeline, not a design-host deliverable.
+Design-host follows the sealed route in `design-host-route.json`. A `generated` route creates at least three Demo images, sends them to an independent visual reviewer, and waits for explicit user direction confirmation before H5 reconstruction. Explicit `h5-only` and `existing/none` routes skip image generation and enter isolated H5 directly. H5 QA cannot override a failed or incomplete route-order gate.

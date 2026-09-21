@@ -8,16 +8,18 @@ const args = process.argv.slice(2);
 const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
 const brand = opt("--brand", "");
-if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-preview|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
+if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-concepts|approve-preview|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
 const manifestFile = path.join(migrationDir, "execution-manifest.json");
 const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+const designHostRouteFile = path.join(migrationDir, "design-host-route.json");
 
 if (command === "prepare") prepare();
 else if (command === "next") next();
 else if (command === "record") record();
+else if (command === "approve-concepts") approveConcepts();
 else if (command === "approve-preview") approvePreview();
 else if (command === "status") status();
 else if (command === "resume-evidence") resumeEvidence();
@@ -42,7 +44,9 @@ function prepare() {
     if (mode !== "design-host" || !array(index.scenarios).some((item) => item.id === knowledgeScenarioId)) fail(`KNOWLEDGE_SCENARIO_UNKNOWN: ${knowledgeScenarioId}`);
   }
   if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must freeze three selectable H5 directions before the clock starts.");
-  const initialStage = initialStageForMode(mode, executionProfile);
+  if (mode === "design-host") initializeDesignHostRoute(goal);
+  if (mode === "apply-host") verifyDesignHostRoute("before-apply-host");
+  const initialStage = initialStageForMode(mode, executionProfile, mode === "design-host" ? readJsonRequired(designHostRouteFile).technique : null);
   const manifest = {
     schema: "brand-subagent-execution/v1",
     runId: crypto.randomUUID(),
@@ -72,6 +76,8 @@ function next() {
   if (manifest.status !== "running") return output({ ok: false, status: manifest.status, message: "Workflow is not dispatchable." }, 2);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
   if (!current || current.status !== "pending") fail("Current stage is not pending; record its receipt or inspect status.");
+  if (manifest.mode === "design-host" && current.stage === "conceptGeneration") verifyDesignHostRoute("before-concept-dispatch");
+  if (manifest.mode === "design-host" && current.stage === "h5Reconstruction") verifyDesignHostRoute("before-h5-dispatch");
   if (current.stage === "demo") verifyDesignDirectionGate();
   if (current.role === "hostImplementationAgent") verifyHostPreeditGate("dispatch");
   const contract = readJsonRequired(contractFile);
@@ -135,6 +141,20 @@ function next() {
 
 function fastDesignHostOverride(manifest, current) {
   if (manifest.mode !== "design-host" || manifest.executionProfile !== "fast") return null;
+  if (current.stage === "conceptGeneration") return {
+    mission: "Produce at least three distinct generated Demo images from the frozen host, brand evidence and expression plan; do not create H5.",
+    tasks: ["verify declared image capability", "produce three Demo image options", "record producer identity, provenance and hashes in design-host-route.json"],
+    requirements: ["no H5 output", "preserve host business structure", "use model=gpt-6-astra with fork_turns=none for the actual visual Demo subtask"],
+    expectedOutputs: ["at least three PNG/JPG/WebP Demo images", "design-host-route.json"],
+    hints: { medium: "demo-images", requiredModel: "gpt-6-astra", forkTurns: "none" },
+  };
+  if (current.stage === "conceptVisualQA") return {
+    mission: "Independently inspect all generated Demo images before any H5 reconstruction.",
+    tasks: ["open every Demo image", "check provenance, host-task fidelity, composition difference and legibility", "record the independent review in design-host-route.json"],
+    requirements: ["do not create or edit H5", "reviewer execution must differ from producer", "a pass pauses for explicit user direction confirmation"],
+    expectedOutputs: ["design-host-concept-qa.json", "design-host-route.json"],
+    hints: { medium: "demo-images", candidateCount: 3 },
+  };
   if (current.role === "hostStrategist") return {
     mission: "In one compact file, identify the host primary task, frozen business scope and visual-capacity zones needed by the Designer; do not produce implementation or full-host certification artifacts.",
     tasks: ["identify the default route and primary task", "freeze the capabilities every direction preserves", "classify productive/expressive first-viewport zones", "write one fast-host-brief.json"],
@@ -147,7 +167,7 @@ function fastDesignHostOverride(manifest, current) {
     tasks: ["run the H5 expressive-moment validator on the frozen plan", "serve the isolated H5 workspace at 127.0.0.1 using the supplied static-file server and open each H5 URL at the target viewport without saving screenshots", "check asset load, clipping/overflow, brand continuity, composition difference, real-data provenance and primary-task clarity", "write compact QA JSON, H5 audit JSON and receipt with user expressive approval pending"],
     requirements: ["target 60 seconds and record immediately", "the static-file server is not host runtime and must not modify host source", "do not generate PNG, JPG, contact sheet or other screenshot artifact", "a machine pass only makes an H5 eligible for human visual review", "any clipped primary control, unsupported business record, missing asset or missing H5 is blocking", "do not inspect prior runs or producer rationale"],
     expectedOutputs: ["design-host-visual-qa.json", "H5 expressive audit JSON"],
-    hints: { targetSeconds: 60, candidateCount: 3, medium: "static-h5-only", validator: "scripts/validate-design-host-expressive-h5.mjs", staticServer: { scriptRelativeToSkillRoot: "scripts/serve-design-host-h5.mjs", arguments: ["--root", "<isolated-run-root>", "--port", "0"], open: "<baseUrl>/<relative-H5-path>", execution: { sandboxPermissions: "require_escalated", reason: "The macOS command sandbox denies loopback listen; a read-only localhost H5 server needs bind permission." } }, compactVerdictFields: ["verdict", "evidenceFidelity", "structuralFidelity", "generativeProof", "blockingFindings", "humanExpressiveApproval"] },
+    hints: { targetSeconds: 60, candidateCount: 3, medium: "h5-reconstruction", validator: "scripts/validate-design-host-expressive-h5.mjs", staticServer: { scriptRelativeToSkillRoot: "scripts/serve-design-host-h5.mjs", arguments: ["--root", "<isolated-run-root>", "--port", "0"], open: "<baseUrl>/<relative-H5-path>", execution: { sandboxPermissions: "require_escalated", reason: "The macOS command sandbox denies loopback listen; a read-only localhost H5 server needs bind permission." } }, compactVerdictFields: ["verdict", "blockingFindings", "humanExpressiveApproval"] },
   };
   if (current.role !== "brandApplicationDesigner") return null;
   const modFile = path.join(migrationDir, "brand-mod.json");
@@ -157,10 +177,10 @@ function fastDesignHostOverride(manifest, current) {
     return { id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, sourceUrl: asset.sourceUrl || null, localPath: asset.localPath || null, localAvailable: Boolean(localFile && fs.existsSync(localFile)), targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) };
   });
   return {
-    mission: "Derive the compact host brief directly from frozen inputs, produce three genuinely distinct static H5 directions, and close the validators without reading unrelated brand history.",
-    tasks: ["write fast-host-brief.json directly from the frozen host baseline", "write at least three compact visual programs with different scene graphs, content entries and lead assets", "run the competition gate and stop unless three programs survive", "render three complete target-viewport static H5 files", "write plan and options using dispatch-provided hashes verbatim, then run the required validators once"],
+    mission: "Reconstruct the user-approved Demo direction as isolated H5 without redesigning it.",
+    tasks: ["read the explicit concept selection", "render the approved target-viewport H5", "write plan and options using frozen hashes", "run the H5 validators"],
     requirements: ["do not spawn or emulate a separate Host Strategist in fast mode", "copy all baseline hashes from fastDesignHints.frozenInputHashes; never transcribe or recompute them manually", "use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not invent API-derived business records, names or counts; use a hash-bound captured state or clearly neutral schema placeholders", "vary scene graph, content entry and result container; a shared hero-search-list skeleton is not three directions", "keep primary search/filter/action controls fully inside normal-flow containers; never place them across an overflow:hidden boundary with negative positioning", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving 75 seconds for independent QA"],
-    expectedOutputs: ["fast-host-brief.json", "three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "three static H5 directions"],
+    expectedOutputs: ["brand-application-plan.json", "design-direction-options.json", "approved-direction H5 reconstruction", "design-host-route.json"],
     hints: { candidateProgramCount: 3, renderCount: 3, targetSeconds: 195, qaReserveSeconds: 75, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), knowledgeScenarioId: manifest.knowledgeScenarioId, knowledgeQuery: "node skills/brand/scripts/query-design-knowledge.mjs question expressive-productive-allocation-question; if applicable, query its methodRef, caseRefs and hypothesisRefs; count independent cases, not alternatives; treat candidate hypotheses as test questions rather than approved recipes; query pattern <id> only when the host task fits; query method design-asset-adoption and relevant decision <id> before using source-specific brand assets; query policy primary-color-and-cta when assigning brand primary or CTA; query scenario <id> for machine binding; query each brandRecipeRefs id with recipe <id>; query component <name> only as needed", sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
   };
 }
@@ -188,7 +208,14 @@ function record() {
     if (!received || received.sha256 !== required.sha256) fail(`Receipt is missing frozen dispatch input: ${required.path}`);
   }
   const receiptOutputs = array(receipt.outputs);
-  if (manifest.mode === "design-host" && receiptOutputs.some((item) => /\.(?:png|jpe?g|webp|avif|gif|pdf)$/i.test(item.path || ""))) fail("DESIGN_HOST_H5_ONLY: image and screenshot outputs are forbidden; deliver static H5 and JSON only.");
+  if (manifest.mode === "design-host") {
+    const route = readJsonRequired(designHostRouteFile);
+    const hasImage = receiptOutputs.some((item) => /\.(?:png|jpe?g|webp|avif)$/i.test(item.path || ""));
+    const hasH5 = receiptOutputs.some((item) => /\.(?:html?|css|jsx?|tsx?|vue)$/i.test(item.path || ""));
+    if (route.technique === "generated" && current.stage === "conceptGeneration" && hasH5) fail("H5_BEFORE_DEMO_REVIEW_FORBIDDEN");
+    if (current.stage !== "conceptGeneration" && hasImage) fail("DEMO_IMAGE_OUTPUT_OUT_OF_STAGE");
+    if (route.technique === "generated" && ["hostStrategy", "conceptVisualQA"].includes(current.stage) && hasH5) fail("H5_BEFORE_DEMO_USER_CONFIRMATION_FORBIDDEN");
+  }
   const overwrittenOutputPaths = new Set(receiptOutputs.map((item) => item.path));
   for (const item of receiptInputs) {
     // Retry dispatches intentionally freeze the previous implementation as input,
@@ -204,13 +231,21 @@ function record() {
   }
   if (manifest.mode === "learn-brand" && current.role === "designTranslator" && receipt.verdict === "pass") verifyLearnBrandHandoff("interpreter");
   if (array(receipt.outputs).length === 0) fail("Receipt must include at least one hashed output.");
-  if (manifest.mode === "design-host" && current.stage === "brandApplication" && receipt.verdict === "pass") {
+  if (manifest.mode === "design-host" && current.stage === "h5Reconstruction" && receipt.verdict === "pass") {
+    verifyDesignHostRoute("before-h5-qa");
     const plan = path.join(migrationDir, "brand-application-plan.json");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === plan) || !fs.existsSync(plan)) fail("DESIGN_HOST_PLAN_REQUIRED: designer receipt must hash the frozen H5 plan.");
     try { execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", plan, ...(manifest.knowledgeScenarioId ? ["--require-scenario", manifest.knowledgeScenarioId] : [])], { cwd: root, stdio: "pipe" }); }
     catch (error) { fail(`DESIGN_HOST_H5_GATE_FAILED: ${error.stdout?.toString() || error.message}`); }
   }
+  if (manifest.mode === "design-host" && current.stage === "conceptGeneration" && receipt.verdict === "pass") verifyDesignHostRoute("after-concept-generation");
+  if (manifest.mode === "design-host" && current.stage === "conceptVisualQA" && receipt.verdict === "pass") {
+    const route = readJsonRequired(designHostRouteFile);
+    if (route.demoVisualReview?.reviewerExecutionId === route.demoImages?.producerExecutionId) fail("DEMO_VISUAL_REVIEW_NOT_INDEPENDENT");
+    if (route.demoVisualReview?.status !== "pass") fail("DEMO_VISUAL_REVIEW_REQUIRED");
+  }
   if (manifest.mode === "design-host" && current.stage === "designVisualQA" && receipt.verdict === "pass") {
+    verifyDesignHostRoute("before-final-selection");
     const audit = path.join(migrationDir, "design-host-h5-audit.json");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === audit) || !fs.existsSync(audit) || readJsonRequired(audit).status !== "eligible-for-human-review") fail("DESIGN_HOST_H5_AUDIT_REQUIRED: QA receipt must hash a passing H5 audit; user expressive approval remains pending.");
   }
@@ -385,6 +420,12 @@ function finalize() {
   const manifest = validateManifest();
   if (manifest.mode === "design-host") {
     if (manifest.status !== "awaiting-user-direction") return output({ ok: false, status: "blocked", workflowStatus: manifest.status, message: "Design-host must finish Host Strategy and Brand Application before direction approval." }, 2);
+    const decision = readJsonRequired(path.join(migrationDir, "design-direction-decision.json"));
+    const selectedOptionId = decision.selectedOptionId || decision.optionId || decision.selection?.optionId;
+    if (!selectedOptionId) fail("FINAL_DIRECTION_SELECTION_REQUIRED: design-direction-decision.json must contain an explicit selected option.");
+    const route = readJsonRequired(designHostRouteFile);
+    route.finalSelection = { status: "selected", selectionSource: "explicit-user", selectedOptionId, selectedAt: new Date().toISOString() };
+    writeJson(designHostRouteFile, route);
     verifyFrozenDesignGate();
     manifest.status = "complete";
     manifest.currentStageId = null;
@@ -427,6 +468,11 @@ function advance(manifest, current) {
   }
   const order = stageOrderForMode(manifest.mode, manifest.executionProfile);
   if (current.verdict === "pass") {
+    if (manifest.mode === "design-host" && current.stage === "conceptVisualQA") {
+      manifest.status = "awaiting-concept-direction";
+      manifest.currentStageId = null;
+      return;
+    }
     if (manifest.mode === "design-host" && current.stage === "designVisualQA") {
       manifest.status = "awaiting-user-direction";
       manifest.currentStageId = null;
@@ -566,6 +612,7 @@ function verifyHostPreeditGate(phase) {
 }
 
 function verifyFrozenDesignGate() {
+  verifyDesignHostRoute("before-apply-host");
   const required = ["brand-application-plan.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json"];
   for (const name of required) {
     const file = path.join(migrationDir, name);
@@ -578,6 +625,56 @@ function verifyFrozenDesignGate() {
     const details = String(error.stdout || error.stderr || error.message || "").trim();
     fail(`FROZEN_DESIGN_INVALID: apply-host cannot redesign or repair direction artifacts.${details ? `\n${details}` : ""}`);
   }
+}
+
+function initializeDesignHostRoute(goal) {
+  const requested = goal.designHostRoute || {};
+  const intent = requested.intent || "auto";
+  const technique = requested.technique || (intent === "image-then-h5" ? "generated" : "existing");
+  if (technique === "generated" && requested.imageCapability?.status !== "available") {
+    fail("IMAGE_GENERATION_CAPABILITY_REQUIRED: generated design-host must stop before creating H5 when image capability is unavailable.");
+  }
+  const route = {
+    schema: "design-host-route/v1",
+    intent,
+    decisionOwner: intent === "auto" ? "brandApplicationDesigner" : "user",
+    technique,
+    imageCapability: requested.imageCapability || { status: technique === "generated" ? "unavailable" : "not-required" },
+    demoImages: { status: technique === "generated" ? "pending" : "not-required" },
+    demoVisualReview: { status: technique === "generated" ? "pending" : "not-required" },
+    userDirectionReview: { status: technique === "generated" ? "pending" : "not-required" },
+    h5Reconstruction: { status: "pending" },
+    h5QA: { status: "pending" },
+    finalSelection: { status: "pending" },
+  };
+  writeJson(designHostRouteFile, route);
+  verifyDesignHostRoute("before-concept-dispatch");
+}
+
+function verifyDesignHostRoute(stageName) {
+  if (!fs.existsSync(designHostRouteFile)) fail("DESIGN_HOST_ROUTE_REQUIRED");
+  try {
+    execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-design-host-route.mjs"), "--file", designHostRouteFile, "--stage", stageName], { cwd: root, stdio: "pipe" });
+  } catch (error) {
+    fail(`DESIGN_HOST_ROUTE_ORDER_FAILED: ${String(error.stdout || "").trim()} ${String(error.stderr || "").trim()} ${error.message}`.trim());
+  }
+}
+
+function approveConcepts() {
+  const manifest = validateManifest();
+  if (manifest.mode !== "design-host" || manifest.status !== "awaiting-concept-direction") fail("CONCEPTS_NOT_AWAITING_USER");
+  const selected = opt("--selection", "");
+  if (!selected) fail("approve-concepts requires --selection <option-id>.");
+  const route = readJsonRequired(designHostRouteFile);
+  route.userDirectionReview = { status: "approved", selectionSource: "explicit-user", selectedOptionIds: [selected], approvedAt: new Date().toISOString() };
+  writeJson(designHostRouteFile, route);
+  verifyDesignHostRoute("before-h5-dispatch");
+  const nextStage = uniqueStage(manifest, "h5Reconstruction", "brandApplicationDesigner", 1);
+  manifest.stages.push(nextStage);
+  manifest.currentStageId = nextStage.id;
+  manifest.status = "running";
+  writeJson(manifestFile, manifest);
+  output({ ok: true, status: "running", selectedOptionId: selected, nextStage: nextStage.id });
 }
 
 function latestInputsByPath(items) {
@@ -623,14 +720,18 @@ function nextAction(manifest, proofs) {
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
-function initialStageForMode(mode, executionProfile = "full") {
+function initialStageForMode(mode, executionProfile = "full", technique = null) {
   if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
-  if (mode === "design-host") return executionProfile === "fast" ? stage("brandApplication", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
+  if (mode === "design-host") return executionProfile === "fast" ? stage(technique === "generated" ? "conceptGeneration" : "h5Reconstruction", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
   if (mode === "apply-host") return stage("hostImplementation", "hostImplementationAgent", 1);
   fail(`Unsupported goal mode: ${mode}`);
 }
 function stageOrderForMode(mode, executionProfile = "full") {
-  if (mode === "design-host") return executionProfile === "fast" ? ["brandApplication", "designVisualQA"] : ["hostStrategy", "brandApplication", "designVisualQA"];
+  if (mode === "design-host") {
+    const route = readJsonRequired(designHostRouteFile);
+    const body = route.technique === "generated" ? ["conceptGeneration", "conceptVisualQA", "h5Reconstruction", "designVisualQA"] : ["h5Reconstruction", "designVisualQA"];
+    return executionProfile === "fast" ? body : ["hostStrategy", ...body];
+  }
   if (mode === "apply-host") return ["hostImplementation", "previewQA", "visualQA"];
   return ["evidence", "interpreter", "demo", "visualQA"];
 }
@@ -641,6 +742,9 @@ function roleForStage(name) {
     demo: "demoImplementationAgent",
     hostStrategy: "hostStrategist",
     brandApplication: "brandApplicationDesigner",
+    conceptGeneration: "brandApplicationDesigner",
+    conceptVisualQA: "visualQA",
+    h5Reconstruction: "brandApplicationDesigner",
     designVisualQA: "visualQA",
     hostImplementation: "hostImplementationAgent",
     previewQA: "visualQA",

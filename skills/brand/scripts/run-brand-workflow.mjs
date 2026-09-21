@@ -137,6 +137,31 @@ if (!intake.ok) {
   process.exit(1);
 }
 
+if (command === "run" && mode === "design-host") {
+  const routeFile = path.join(root, "migrations", brand, "design-host-route.json");
+  if (mode === "design-host" && !fs.existsSync(routeFile)) {
+    const intent = opt(rawArgs, "--design-medium", "auto");
+    const technique = intent === "h5-only" ? "existing" : opt(rawArgs, "--expression-technique", intent === "image-then-h5" ? "generated" : "existing");
+    fs.mkdirSync(path.dirname(routeFile), { recursive: true });
+    fs.writeFileSync(routeFile, `${JSON.stringify({
+      schema: "design-host-route/v1", intent,
+      decisionOwner: intent === "auto" ? "brandApplicationDesigner" : "user",
+      technique,
+      imageCapability: { status: technique === "generated" ? opt(rawArgs, "--image-capability", "unavailable") : "not-required" },
+      demoImages: { status: technique === "generated" ? "pending" : "not-required" },
+      demoVisualReview: { status: technique === "generated" ? "pending" : "not-required" },
+      userDirectionReview: { status: technique === "generated" ? "pending" : "not-required" },
+      h5Reconstruction: { status: "pending" }, h5QA: { status: "pending" }, finalSelection: { status: "pending" },
+    }, null, 2)}\n`);
+  }
+  const routeStage = "before-concept-dispatch";
+  const routeGate = spawnSync(process.execPath, [skillScript("validate-design-host-route.mjs"), "--file", routeFile, "--stage", routeStage], { cwd: root, encoding: "utf8" });
+  if (routeGate.status !== 0) {
+    process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "design-host-route", blockingCode: "DESIGN_HOST_ROUTE_ORDER_FAILED", routeGate: safeParseJson(routeGate.stdout), message: "The requested medium sequence is not executable; no H5 or host edit was started." }, null, 2)}\n`);
+    process.exit(routeGate.status || 1);
+  }
+}
+
 const contract = runBrandGuard(root, ["workflow-contract", "--mode", mode], { allowFailure: false });
 const workflowContractPayload = safeParseJson(contract.stdout);
 const workflowDefinition = workflowContractPayload?.workflowContract || null;
@@ -674,6 +699,16 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
   }
 
   if (mode === "apply-host") {
+    const routeFile = path.join(root, "migrations", brand, "design-host-route.json");
+    if (!fs.existsSync(routeFile)) {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "design-host-route", blockingCode: "DESIGN_HOST_ROUTE_REQUIRED", message: "Apply-host stopped before editing because the frozen route-order artifact is missing." }, null, 2)}\n`);
+      process.exit(1);
+    }
+    const routeGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-design-host-route.mjs", label: "design-host-route", enabled: true, scriptArgs: ["--file", routeFile, "--stage", "before-apply-host"], executed });
+    if (routeGate.status !== "passed") {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "design-host-route", blockingCode: "DESIGN_HOST_ROUTE_ORDER_FAILED", routeGate, message: "Apply-host stopped before editing because the frozen design sequence is incomplete." }, null, 2)}\n`);
+      process.exit(1);
+    }
     const wild = resolveWildDesignSet({ root, brand, args });
     const required = { plan: opt(args, "--application-plan", path.join("migrations", brand, "brand-application-plan.json")), options: wild.options, decision: wild.decision, scope: wild.scope, direction: wild.direction, brandEvidence: wild.brandEvidence, brandMod: wild.brandMod };
     const missing = Object.entries(required).filter(([, file]) => !file || !fs.existsSync(path.resolve(root, file))).map(([key]) => key);
