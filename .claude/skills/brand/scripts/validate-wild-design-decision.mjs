@@ -45,7 +45,7 @@ if (strictVisualPreview && (!brandModFile || !brandMod)) fail('WILD_DESIGN_BRAND
 else if (strictVisualPreview && options?.frozenBrandModSha256 !== sha(brandModFile)) fail('WILD_DESIGN_BRAND_MOD_MISMATCH', 'Options must bind the exact supplied brand-mod SHA-256.')
 if (!['wild-design-options/v1', 'wild-design-options/v2'].includes(options?.schema)) fail('WILD_DESIGN_OPTIONS_SCHEMA_INVALID', 'Expected wild-design-options/v1 or wild-design-options/v2.')
 if (!['design-host', 'apply-host'].includes(options?.workflow)) fail('WILD_DESIGN_WORKFLOW_INVALID', 'MVP supports design-host direction artifacts and legacy apply-host artifacts only.')
-if (items.length < 2 || items.length > 3) fail('WILD_DESIGN_OPTION_COUNT_INVALID', 'Provide two or three options.')
+if (options?.workflow === 'design-host' ? items.length !== 3 : items.length < 2 || items.length > 3) fail('WILD_DESIGN_OPTION_COUNT_INVALID', 'Design-host requires three selectable options; legacy apply-host accepts two or three.')
 const ids = new Set()
 const byId = new Map()
 let recommendations = 0
@@ -177,9 +177,13 @@ for (const item of items) {
   for (const evidence of item.previewEvidence || []) {
     const [relative, fragment] = String(evidence.path || '').split('#')
     const previewFile = path.resolve(path.dirname(optionsFile), relative)
+    const previewExtension = path.extname(relative).toLowerCase()
     if (!relative || !fs.existsSync(previewFile)) fail('WILD_DESIGN_PREVIEW_MISSING', 'Preview evidence file does not exist.', { option: item.id, path: evidence.path })
     else if (fragment && !fs.readFileSync(previewFile, 'utf8').includes(`id="${fragment}"`)) fail('WILD_DESIGN_PREVIEW_FRAGMENT_MISSING', 'Preview fragment does not exist.', { option: item.id, fragment })
     else if (!evidence.sha256 || evidence.sha256 !== sha(previewFile)) fail('WILD_DESIGN_PREVIEW_BINDING_MISMATCH', 'Preview evidence must bind the exact preview file SHA-256.', { option: item.id, path: evidence.path })
+    if (strictVisualPreview && options?.workflow === 'design-host' && previewExtension !== '.html') {
+      fail('DESIGN_HOST_STATIC_H5_REQUIRED', 'design-host accepts static H5 directions only.', { option: item.id, path: evidence.path })
+    }
     if (strictVisualPreview && item.responsiveProof?.targetFormFactor === 'mobile' && fs.existsSync(previewFile) && path.extname(previewFile).toLowerCase() === '.html') {
       const renderedSource = readPreviewBundle(previewFile)
       const sideRailClasses = [...renderedSource.html.matchAll(/<aside\b[^>]*class=["']([^"']+)["'][^>]*>/gi)]
@@ -196,7 +200,7 @@ for (const item of items) {
     }
     if (strictVisualPreview) {
       if (evidence.kind !== 'rendered-host-grounded-preview') fail('WILD_DESIGN_RENDERED_HOST_PREVIEW_REQUIRED', 'v2 options require a rendered visual derived from the frozen host baseline, not a textual direction.', { option: item.id })
-      if (!['.svg', '.png', '.jpg', '.jpeg', '.webp', '.html'].includes(path.extname(relative).toLowerCase())) fail('WILD_DESIGN_VISUAL_PREVIEW_FILE_REQUIRED', 'v2 preview evidence must be a renderable visual file.', { option: item.id, path: evidence.path })
+      if (!['.svg', '.png', '.jpg', '.jpeg', '.webp', '.html'].includes(previewExtension)) fail('WILD_DESIGN_VISUAL_PREVIEW_FILE_REQUIRED', 'v2 preview evidence must be a renderable visual file.', { option: item.id, path: evidence.path })
       if (!evidence.hostRoute || !evidence.viewport) fail('WILD_DESIGN_HOST_VIEWPORT_BINDING_REQUIRED', 'v2 previews must bind the real host route and viewport.', { option: item.id })
       if (evidence.previewOrigin !== 'host-baseline-derived') fail('WILD_DESIGN_PREVIEW_EVIDENCE_NOT_HOST_GROUNDED', 'v2 preview evidence must derive from the frozen host baseline rather than a detached generic demo or a preselected runtime implementation.', { option: item.id })
       if (consumption?.hostBinding?.targetRoute && evidence.hostRoute !== consumption.hostBinding.targetRoute) fail('WILD_DESIGN_HOST_ROUTE_BINDING_MISMATCH', 'Preview evidence route must match the bound host baseline route.', { option: item.id, hostRoute: evidence.hostRoute, targetRoute: consumption.hostBinding.targetRoute })

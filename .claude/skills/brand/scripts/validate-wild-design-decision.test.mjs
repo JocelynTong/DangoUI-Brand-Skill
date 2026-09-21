@@ -62,6 +62,8 @@ fs.writeFileSync(path.join(dir, 'catalog.svg'), '<svg><g id="catalog"/><text>cha
 assert.notEqual(run(selected, true).status, 0)
 
 const strictOptions = { ...JSON.parse(fs.readFileSync(optionsFile)), schema: 'wild-design-options/v2', frozenBrandModSha256: brandModHash, options: [option('catalog', true), option('immersive')] }
+fs.writeFileSync(optionsFile, JSON.stringify({ ...strictOptions, workflow: 'design-host' }))
+assert.match(run({ ...selected, optionsSha256: createHash('sha256').update(fs.readFileSync(optionsFile)).digest('hex') }, true).stdout, /WILD_DESIGN_OPTION_COUNT_INVALID/)
 const hostSourceFile = path.join(dir, 'host-page.vue')
 fs.writeFileSync(hostSourceFile, '<template><view>{{ decks }}</view></template>')
 const hostSourceHash = createHash('sha256').update(fs.readFileSync(hostSourceFile)).digest('hex')
@@ -160,6 +162,18 @@ assert.match(repeatedResult.stdout, /WILD_DESIGN_HISTORICAL_DUPLICATE/)
 fs.writeFileSync(optionsFile, JSON.stringify(strictOptions))
 const optionsOnly = spawnSync(process.execPath, [validator, '--options', optionsFile, '--options-only', '--business-scope', scopeFile, '--brand-evidence', brandEvidenceFile, '--brand-mod', brandModFile], { encoding: 'utf8' })
 assert.equal(optionsOnly.status, 0)
+const designHostRasterDefault = structuredClone(strictOptions)
+designHostRasterDefault.workflow = 'design-host'
+fs.writeFileSync(optionsFile, JSON.stringify(designHostRasterDefault))
+const designHostRasterResult = spawnSync(process.execPath, [validator, '--options', optionsFile, '--options-only', '--business-scope', scopeFile, '--brand-evidence', brandEvidenceFile, '--brand-mod', brandModFile], { encoding: 'utf8' })
+assert.notEqual(designHostRasterResult.status, 0)
+assert.match(designHostRasterResult.stdout, /DESIGN_HOST_STATIC_H5_REQUIRED/)
+for (const item of designHostRasterDefault.options) item.previewMediumException = { approvedBy: 'explicit-user', reason: 'User requested bitmap proposals.' }
+fs.writeFileSync(optionsFile, JSON.stringify(designHostRasterDefault))
+const designHostRasterException = spawnSync(process.execPath, [validator, '--options', optionsFile, '--options-only', '--business-scope', scopeFile, '--brand-evidence', brandEvidenceFile, '--brand-mod', brandModFile], { encoding: 'utf8' })
+assert.notEqual(designHostRasterException.status, 0)
+assert.match(designHostRasterException.stdout, /DESIGN_HOST_STATIC_H5_REQUIRED/)
+fs.writeFileSync(optionsFile, JSON.stringify(strictOptions))
 const railHtml = path.join(dir, 'mobile-rail.html')
 fs.writeFileSync(path.join(dir, 'mobile-rail.css'), '.desk-rail{position:absolute;left:0;top:0;bottom:0;width:62px}')
 fs.writeFileSync(railHtml, '<link rel="stylesheet" href="mobile-rail.css"><aside class="desk-rail"></aside>')

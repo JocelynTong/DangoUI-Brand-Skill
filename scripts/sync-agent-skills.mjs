@@ -1,11 +1,13 @@
 import fs from "node:fs";
 import path from "node:path";
+import { buildSkillIntegrity } from "../skills/brand/scripts/verify-brand-skill-integrity.mjs";
 
 const root = process.cwd();
 const skillsRoot = path.join(root, "skills");
 const claudeSkillsRoot = path.join(root, ".claude", "skills");
 const codexSkillsRoot = path.join(process.env.CODEX_HOME || path.join(process.env.HOME || "", ".codex"), "skills");
 const ignoredEntries = new Set([".DS_Store"]);
+const repoOnly = process.argv.includes("--repo-only");
 
 if (!fs.existsSync(skillsRoot)) {
   console.error("Missing skills directory");
@@ -22,12 +24,28 @@ for (const entry of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
   if (!fs.existsSync(path.join(source, "SKILL.md"))) continue;
 
   syncDirectory(source, claudeTarget);
+  writeIntegrity(claudeTarget, entry.name);
   console.log(`Synced ${path.relative(root, source)} -> ${path.relative(root, claudeTarget)}`);
 
-  if (codexSkillsRoot && fs.existsSync(path.dirname(codexTarget))) {
+  if (!repoOnly && codexSkillsRoot && fs.existsSync(path.dirname(codexTarget))) {
     syncDirectory(source, codexTarget);
+    writeIntegrity(codexTarget, entry.name);
     console.log(`Synced ${path.relative(root, source)} -> ${codexTarget}`);
   }
+}
+
+function writeIntegrity(target, skillName) {
+  if (skillName !== "brand") return;
+  // Installed skills must carry their knowledge dependency closure, just like the public zip.
+  const runtime = path.join(target, "knowledge-runtime");
+  const catalog = JSON.parse(fs.readFileSync(path.join(root, "public/knowledge/v0.1/index.json"), "utf8"));
+  for (const rel of ["knowledge/v0.1", "public/knowledge/v0.1", catalog.componentSource, ...(catalog.brandRecipes || []).map(item => item.path)]) {
+    const destination = path.join(runtime, rel);
+    fs.mkdirSync(path.dirname(destination), {recursive:true});
+    fs.cpSync(path.join(root, rel), destination, {recursive:true});
+  }
+  const manifest = buildSkillIntegrity(target);
+  fs.writeFileSync(path.join(target, ".brand-skill-integrity.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 }
 
 function syncDirectory(from, to) {

@@ -1,0 +1,11 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { validateHandoff } from './validate-component-motion-handoff.mjs';
+const plan = {components:[{id:'tabs',role:'tablist',states:['selected','keyboard']}],motions:[{id:'hero',trigger:'mount',durationMs:700,iterations:1,reducedMotion:'disabled'}]};
+const observed = {components:[{id:'tabs',role:'tablist',states:{selected:'pass',keyboard:'pass'}}],motions:[{...plan.motions[0],observedInBrowser:true}]};
+test('complete evidence passes',()=>assert.equal(validateHandoff(plan,observed).ok,true));
+test('button pretending to be tabs fails',()=>{const o=structuredClone(observed);o.components[0].role='button';assert.equal(validateHandoff(plan,o).ok,false)});
+test('missing animation fails',()=>assert.equal(validateHandoff(plan,{...observed,motions:[]}).ok,false));
+test('untested keyboard state fails',()=>{const o=structuredClone(observed);delete o.components[0].states.keyboard;assert.equal(validateHandoff(plan,o).ok,false)});
+test('looping instead of single entrance fails',()=>{const o=structuredClone(observed);o.motions[0].iterations='infinite';assert.equal(validateHandoff(plan,o).ok,false)});
+test('reduced-motion support must match',()=>{const o=structuredClone(observed);o.motions[0].reducedMotion='untested';assert.equal(validateHandoff(plan,o).ok,false)});

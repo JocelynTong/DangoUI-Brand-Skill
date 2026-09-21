@@ -1,0 +1,33 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "source-selection",
+  "status": "pilot-candidate",
+  "ownerRole": "Evidence Agent",
+  "question": "Which source pages can prove each frozen Goal question without treating a convenient page as the brand representative?",
+  "procedure": [
+    "Start from the frozen Goal and list the intended visual roles: identity, campaign, task, content and interaction.",
+    "For every role, record the canonical or prominent page and any task-specific page; a task page cannot silently replace a canonical page.",
+    "Record page purpose, visible region, viewport, state and availability before extracting values.",
+    "If a source is unavailable, preserve its intended role and record the replacement as a bounded source, not as equivalent brand authority."
+  ],
+  "outputFields": [
+    "goalRef",
+    "visualRole",
+    "pageId",
+    "sourceUrl",
+    "pagePurpose",
+    "state",
+    "availability",
+    "replacementFor",
+    "limitation"
+  ],
+  "notFor": [
+    "Approving brand semantics",
+    "Ranking colors by raw frequency",
+    "Promoting a task button into a global CTA"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "readerPurpose": "执行判断的步骤与取舍"
+}

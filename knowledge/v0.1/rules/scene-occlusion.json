@@ -1,0 +1,43 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "scene-occlusion",
+  "version": 2,
+  "status": "candidate",
+  "statement": "识别对象边界、坐标关系、承托关系和遮挡顺序，再选择与表达目标相称的实现方式；把可变内容和稳定环境分开验证。",
+  "appliesWhen": [
+    "对象轮廓",
+    "空间关系",
+    "可变与固定部分",
+    "可用素材及平台能力"
+  ],
+  "notFor": [
+    "无接触或无交叠的悬浮构图无需强加前景；可靠分层素材无需重复拆图。"
+  ],
+  "falsificationQuestion": "是否存在遵循本判断仍破坏选图或任务的情境？",
+  "nextTest": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "originCaseIds": [
+    "opcg-a1-live-host-layering"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "status": "candidate",
+      "date": "2026-09-21",
+      "reason": "用户纠正后的限定案例复盘，未获通用批准"
+    },
+    {
+      "version": 2,
+      "status": "candidate",
+      "date": "2026-09-21",
+      "reason": "从局部补丁上提为通用决策原则，保留案例证据限制，不晋级为共识"
+    }
+  ],
+  "solutionFamilies": [
+    "明确平面构图用原生布局",
+    "清晰交叠用同坐标分层与遮罩",
+    "复杂视角用可靠三维或分层资产；能力不足时调整方案"
+  ],
+  "readerPurpose": "待验证的条件化结论与例外"
+}

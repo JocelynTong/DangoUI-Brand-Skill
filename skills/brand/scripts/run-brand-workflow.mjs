@@ -1,11 +1,15 @@
 #!/usr/bin/env node
+import { validateHostExpression } from './validate-host-expression.mjs';
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
+import { runCachedValidator } from "./validator-cache.mjs";
+import { verifySkillIntegrity } from "./verify-brand-skill-integrity.mjs";
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
+verifySkillIntegrity(path.dirname(skillScriptsDir), { allowMissing: true });
 const skillScript = (name) => path.join(skillScriptsDir, name);
 const resolveSkillScript = (script) => script.includes("skills/brand/scripts/")
   ? skillScript(path.basename(script))
@@ -15,6 +19,16 @@ const originalArgs = process.argv.slice(2);
 const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
+
+if (command === "init") {
+  const result = spawnSync(process.execPath, [skillScript("initialize-brand.mjs"), ...rawArgs.slice(1)], { stdio: "inherit" });
+  process.exit(result.status ?? 1);
+}
+
+if (command === "artifacts") {
+  const result = spawnSync(process.execPath, [skillScript("brand-artifacts.mjs"), ...rawArgs.slice(1)], { stdio: "inherit" });
+  process.exit(result.status ?? 1);
+}
 
 if (!command || ["-h", "--help", "help"].includes(command)) {
   printHelp();
@@ -218,7 +232,7 @@ if (command === "run") {
       "--phase", mode === "design-host" ? "design" : "implementation",
     ], { cwd: root, encoding: "utf8" });
     executed.push({
-      step: "apply-host-preflight",
+      step: `${mode}-preflight`,
       command: `node skills/brand/scripts/apply-host-preflight.mjs --root ${root} --brand ${brand} --host-target ${hostTarget} --profile ${profile} --phase ${mode === "design-host" ? "design" : "implementation"}`,
       exitCode: preflight.status,
       stdout: preflight.stdout,
@@ -231,9 +245,9 @@ if (command === "run") {
         profile,
         brand,
         step: `${mode}-preflight`,
-        blockingCode: "APPLY_HOST_PREFLIGHT_BLOCKED",
+        blockingCode: `${mode.toUpperCase().replaceAll('-', '_')}_PREFLIGHT_BLOCKED`,
         preflight: safeParseJson(preflight.stdout),
-        message: "Host apply stopped before agent dispatch or implementation because the bounded preflight failed.",
+        message: `${mode} stopped before dispatch because its bounded preflight failed.`,
       }, null, 2)}\n`);
       process.exit(preflight.status || 1);
     }
@@ -345,11 +359,12 @@ if (command === "tpp") {
 }
 
 const outputAudit = auditWorkflowOutputs({ root, mode, brand, args: passthroughArgs });
-const completed = outputAudit.missingOutputs.length === 0;
+const learnBrandHandoff = mode === "learn-brand" ? inspectLearnBrandHandoff({ root, brand }) : null;
+const completed = outputAudit.missingOutputs.length === 0 && (!learnBrandHandoff || learnBrandHandoff.status === "PASS");
 const progress = buildProgressSummary({ mode, outputAudit, executed });
 
 process.stdout.write(`${JSON.stringify({
-  ok: true,
+  ok: completed,
   command,
   workflow: mode,
   profile,
@@ -360,6 +375,7 @@ process.stdout.write(`${JSON.stringify({
   intake,
   executed,
   completed,
+  learnBrandHandoff,
   progress,
   stepStatus: outputAudit.stepStatus,
   outputStatus: outputAudit.outputStatus,
@@ -368,10 +384,26 @@ process.stdout.write(`${JSON.stringify({
   nextAction: outputAudit.nextAction,
   previewArtifacts: outputAudit.previewArtifacts,
   howToTest: buildHowToTest({ root, mode, brand }),
-  message: completed
-    ? "Brand workflow gate passed and the expected outputs are present."
-    : "Brand workflow gate passed, but the expected outputs are still incomplete. Keep going until the missing outputs are generated.",
+  message: learnBrandHandoff?.status === "BLOCKED"
+    ? "Learn-brand role handoff is blocked. Repair Evidence or Interpreter before claiming completion."
+    : completed
+      ? "Brand workflow outputs and role handoffs are complete."
+      : "Collection or downstream work remains pending; no complete brand-learning verdict has been issued.",
 }, null, 2)}\n`);
+if (learnBrandHandoff?.status === "BLOCKED") process.exitCode = 1;
+
+function inspectLearnBrandHandoff({ root, brand }) {
+  const migration = path.join(root, "migrations", brand);
+  const evidenceFile = path.join(migration, "brand-evidence.json");
+  const intentFile = path.join(migration, "brand-intent.json");
+  if (!fs.existsSync(evidenceFile)) return { status: "PENDING", stage: "evidence", reason: "brand-evidence.json is not present" };
+  for (const stage of ["evidence", "interpreter"]) {
+    if (stage === "interpreter" && !fs.existsSync(intentFile)) return { status: "PENDING", stage, reason: "brand-intent.json is not present" };
+    const result = spawnSync(process.execPath, [skillScript("validate-learn-brand-handoff.mjs"), "--root", root, "--brand", brand, "--stage", stage], { cwd: root, encoding: "utf8" });
+    if (result.status !== 0) return { status: "BLOCKED", stage, report: safeParseJson(result.stdout), error: result.stderr || null };
+  }
+  return { status: "PASS" };
+}
 
 function buildGuardCommands(modeName, passthroughArgs) {
   const filtered = stripCommandOnlyArgs(passthroughArgs);
@@ -381,7 +413,7 @@ function buildGuardCommands(modeName, passthroughArgs) {
     commands.push(["validate-intent", ...filtered]);
   }
 
-  commands.push(["tpp-test", "--mode", modeName === "design-host" ? "apply-host" : modeName, ...filtered]);
+  commands.push(["tpp-test", "--mode", modeName, ...filtered]);
   return commands;
 }
 
@@ -568,7 +600,7 @@ function runNodeCheck({ root, script, label, enabled, scriptArgs = [], executed 
   executed.push(record);
 
   return {
-    status: result.status === 0 ? "passed" : "failed",
+    status: (result.status ?? result.exitCode) === 0 ? "passed" : "failed",
     command: record.command,
     stdout: result.stdout,
     stderr: result.stderr,
@@ -586,17 +618,17 @@ function runSilentNodeCheck({ root, script, scriptArgs = [] }) {
     };
   }
 
-  const result = spawnSync("node", [script, ...scriptArgs], {
-    cwd: root,
-    encoding: "utf8",
-    stdio: ["ignore", "pipe", "pipe"],
-  });
+  const result = scriptArgs.includes("--write")
+    ? spawnSync("node", [script, ...scriptArgs], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] })
+    : runCachedValidator({ root, script, args: scriptArgs });
   return {
-    status: result.status === 0 ? "passed" : "failed",
+    status: (result.status ?? result.exitCode) === 0 ? "passed" : "failed",
     command: `node ${script}${formatExtraArgs(scriptArgs)}`,
-    exitCode: result.status,
+    exitCode: result.status ?? result.exitCode,
     stdout: result.stdout || "",
     stderr: result.stderr || "",
+    cacheStatus: result.cacheStatus || "bypass",
+    cacheKey: result.cacheKey || null,
   };
 }
 
@@ -607,6 +639,7 @@ function summarizeSilentCheck(result) {
     status: result.status,
     command: result.command,
     exitCode: result.exitCode ?? null,
+    cacheStatus: result.cacheStatus || "bypass",
     summary: text
       .split(/\r?\n/)
       .filter(Boolean)
@@ -624,6 +657,12 @@ function extractVisualQualityLevel(result, brand) {
 }
 
 function executeWorkflow({ root, mode, profile, brand, args, executed }) {
+  if(mode === 'apply-host' || (mode === 'design-host' && opt(args, '--application-plan', ''))) {
+    const expressionFile=path.resolve(root,opt(args,'--expression-plan',path.join('migrations',brand,'host-expression-plan.json')));
+    const gate=validateHostExpression(root,expressionFile);
+    if(!gate.ok){process.stdout.write(JSON.stringify({ok:false,step:'host-expression',...gate,nextAction:'Complete region decisions; generated regions require concept + dynamic H5 + bound runtime and visual review evidence.'},null,2)+'\n');process.exit(1);}
+  }
+
   if (mode === "learn-brand") {
     runLearnBrand({
       root,
@@ -694,7 +733,7 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
       styleOptions: options,
       rejectedDirections,
       allowedNextActions: ["select", "none-fit"],
-      nextAction: "Show the validated static direction images and wait for an explicit selection. Do not edit the host yet.",
+      nextAction: "Show the validated static H5 directions and wait for an explicit selection. Do not edit the host yet or generate separate direction images by default.",
       message: "Validated design-host directions are ready for user selection; rejected directions remain visible only as audit evidence.",
     }, null, 2)}\n`);
     process.exit(0);

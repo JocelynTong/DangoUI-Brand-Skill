@@ -1,4 +1,5 @@
 <template>
+  <a href="/knowledge/guide.html" class="knowledge-link">设计决策库</a>
   <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango', 'theme-pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' }]" :style="themeVars">
     <aside class="panel" aria-label="Visual inspector">
       <div class="style-rail">

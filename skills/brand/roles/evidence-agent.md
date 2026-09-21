@@ -38,6 +38,8 @@ Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角�
 
 严格执行以下证据顺序：
 
+在冻结 Goal 后，按需查询 `node skills/brand/scripts/query-design-knowledge.mjs basis host-brand-scope`；若相关负面案例存在，再查对应 `case <id>`。知识条目指导选页与记录缺口，不代替当前官网的 rendered Evidence，也不授权本角色批准 token。
+
 1. `Goal questions`：把每个 `mustPreserve`、reference page 和 required state 改写成可证伪的问题，并定义需要的截图、状态与停止条件。
 2. `Candidate extraction`：运行 Dembrandt 等抽取器，导入 `third-party-evidence.*.json`；仅用于生成候选清单和取证优先级。
 3. `Capture persistence probe`：正式浏览前先抓一张最小真实视口截图并写入本轮工作区，立即复读文件、验证图片可解码、尺寸非零并记录 SHA-256。只有浏览器会返回图片字节、但没有受支持的工作区写入通道时，必须立即返回 `NEEDS_EVIDENCE / EVIDENCE_CAPTURE_NOT_PERSISTABLE`；不得先花时间浏览全部页面，也不得把内存截图、聊天内图片或临时 UI 状态伪装成持久证据。
@@ -58,6 +60,8 @@ CSS 扫描、变量名、类名、文件名和第三方报告只能产生 `candi
 - `brand-evidence.json`
 - `brand-evidence.json.goalCoverage`：Goal 条目到 Claim 的覆盖与结论
 - `brand-evidence.json.thirdPartySeedDispositions`：第三方候选的验证、驳回、未解决或越界记录
+- 对 Goal 涉及的颜色、字体、形状、间距、阴影和动作状态逐维提交 `dimensionCoverage`：`observed / unresolved / not-observed / unavailable / out-of-scope`、页面/状态、可见 Region、computed property/value 与 Claim ID。只有 CSS 样本而没有最终渲染值时必须报 `unresolved`，不能把该维度隐去。
+- 每个维度的 `claimIds` 只引用 observed Claim，`sourceCount` 必须等于这些引用的数量；色板样本数、CSS 声明数和 DOM 节点数不能充当来源 Claim 数。`out-of-scope` 要写原因，必需维度的 unresolved 不得交 PASS。
 - `brand-intent.json.semanticClaims` 的上游证据绑定：当下游要把颜色、字体、阴影、动效等提升为品牌语义时，每项必须能回指本节点的完整 rendered Claim。
 - source screenshot manifest 与 Region 坐标
 - `source-observation-manifest.json`，逐页记录 URL、viewport、全页截图、连续播放文件、逐帧目录、时间轴、页面覆盖率和交互覆盖率
@@ -105,6 +109,7 @@ Interpreter 只接收同时具有 `capture + region + visible DOM/state + comput
 ## 失败与返工
 
 - 缺截图、Region 或真实状态：`REWORK / Evidence Agent`。
+- 高显著度维度缺 computed 结论：报 `NEEDS_EVIDENCE` 并阻止依赖该维度的映射宣称完整；不要求所有维度都有全局 token。
 - 页面或交互无法访问：`NEEDS_EVIDENCE`，明确缺失项。
 - Dembrandt 失败但页面仍可真实取证：记录工具失败并继续由 Evidence Agent 完成目标；只有冻结 Goal 明确要求该抽取器产物时才阻塞。
 - Dembrandt 候选与真实页面冲突：以可复现的渲染证据为准，标记 `rejected`，不得为了保留抽取器结论改写 Claim。

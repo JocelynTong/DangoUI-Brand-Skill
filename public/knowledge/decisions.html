@@ -1,0 +1,186 @@
+<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>设计资产决策库｜DangoUI 品牌知识</title><style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#18252b;background:#f3f5f3}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0}a{color:#a43d24;text-underline-offset:3px}.shell{max-width:1160px;margin:auto;padding:24px 28px 90px}.top{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:13px 0;border-bottom:1px solid #c9d1cc;font-size:13px}.top strong{letter-spacing:.08em}.top a{color:#344b4b}.hero{padding:64px 0 52px;border-bottom:1px solid #c9d1cc}.kicker{font-size:12px;font-weight:800;letter-spacing:.18em;color:#a43d24}.hero h1{font-size:clamp(38px,5vw,64px);line-height:1.1;letter-spacing:-.045em;margin:15px 0 18px;max-width:880px}.hero p{font-size:18px;line-height:1.65;color:#46575b;max-width:820px}.flag{display:inline-block;border-left:4px solid #ab452c;background:#fff0eb;padding:10px 16px;font-size:13px;font-weight:700}.layout{display:grid;grid-template-columns:230px minmax(0,1fr);gap:34px;padding-top:28px}.rail{position:sticky;top:22px;align-self:start}.rail h2{font-size:13px;color:#667275;letter-spacing:.12em;margin:6px 0 17px}.rail a{display:block;padding:10px 4px;border-bottom:1px solid #dbe0dc;text-decoration:none;color:#25363b;font-size:13px;line-height:1.4}.rail a:hover{color:#a43d24}.entries{min-width:0}.entry{scroll-margin-top:24px;background:#fff;border:1px solid #d3d9d5;padding:34px 42px;margin-bottom:18px}.entry.negative{border-left:5px solid #b03f2c}.entry-top{display:flex;justify-content:space-between;gap:14px;font-size:11px;letter-spacing:.08em;font-weight:800;color:#a43d24}.entry-top b{font-size:11px;background:#f6e9e4;padding:5px 8px;color:#883a2d}.entry h3{font-size:clamp(25px,3vw,36px);letter-spacing:-.035em;line-height:1.2;margin:24px 0 17px}.entry h4{font-size:17px;margin:28px 0 7px}.entry p,.entry li{font-size:15px;line-height:1.75;color:#38494d}.entry ul{padding-left:22px;margin:8px 0}.entry li{margin:7px 0}.entry code{background:#edf0ee;padding:2px 4px;font-size:.9em}.source{border-top:1px solid #e1e6e2;margin-top:24px;padding-top:15px}details{border-top:1px solid #e1e6e2;margin-top:26px;padding-top:15px}summary{cursor:pointer;color:#56676a;font-size:13px}pre{overflow:auto;font-size:11px;line-height:1.5;padding:16px;background:#f1f4f2;max-height:340px}.foot{font-size:13px;color:#627073;line-height:1.7;margin-top:16px}@media(max-width:760px){.shell{padding:15px 17px 55px}.hero{padding:42px 0}.layout{display:block}.rail{position:static;margin-bottom:22px}.rail a{display:inline-block;margin-right:14px}.entry{padding:24px 21px}}
+.map{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#cbd4ce;border:1px solid #cbd4ce;margin-top:24px}.map div{background:#fff;padding:18px 16px;min-height:112px}.map b{display:block;font-size:14px;margin-bottom:8px}.map span{font-size:12px;line-height:1.5;color:#596a6c}.map .active{background:#eaf2ee}@media(max-width:760px){.map{grid-template-columns:repeat(2,1fr)}}
+.pattern-visual{background:#eef3f0;border:1px solid #d5e0d9;padding:22px;margin:18px 0 25px}.visual-label{font-size:11px;font-weight:800;letter-spacing:.12em;color:#496354;text-transform:uppercase;margin-bottom:10px}.sequence{display:grid;grid-template-columns:repeat(5,1fr);gap:5px;margin-bottom:22px}.sequence div{background:#fff;padding:12px 10px;min-height:84px;display:flex;flex-direction:column;gap:8px}.sequence small{font-size:10px;color:#a43d24;font-weight:800}.sequence span{font-size:12px;line-height:1.45;font-weight:650}.slots{display:grid;grid-template-columns:repeat(3,1fr);gap:5px}.slots div{background:#dce9e0;padding:12px}.slots b{display:block;font-size:12px;text-transform:uppercase;margin-bottom:5px}.slots span{font-size:12px;line-height:1.4}.entry .visual-note{font-size:12px;margin:13px 0 0;color:#5a7066}@media(max-width:760px){.sequence{grid-template-columns:repeat(2,1fr)}.slots{grid-template-columns:1fr}}
+.decision-visual{background:#202c2e;color:#fff;padding:24px;margin:18px 0 26px}.decision-visual .visual-label{color:#a9d5c0}.decision-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:7px}.decision-steps div{background:#fff;color:#1d3032;min-height:166px;padding:15px;display:flex;flex-direction:column;gap:7px}.decision-steps small{color:#a43d24;font-weight:800}.decision-steps b{font-size:17px}.decision-steps span{font-size:12px;line-height:1.5}.decision-steps em{font-size:11px;line-height:1.5;font-style:normal;color:#536668;margin-top:auto;border-top:1px solid #d8e2dd;padding-top:8px}.decision-visual p{font-size:12px;color:#d4e4dc;margin:16px 0 0}@media(max-width:760px){.decision-steps{grid-template-columns:repeat(2,1fr)}}</style><div class="shell"><nav class="top"><strong>统一目录 / 品牌证据与映射 / 具体判定</strong><a href="/knowledge/guide.html#decision-directory">返回分类树 ↗</a></nav><header class="hero"><div class="kicker">设计资产决策库 · 最小试点</div><h1>先证明可复用的范围，<br>再把设计资产交给下游。</h1><p>同一条晋级方法适用于 token、素材、组件与构图；专项检查各不相同。已阻断的记录供人和 AI 避免重犯，不是可拿来使用的资产。</p><span class="flag">本轮只有一条阻断决策，没有任何获批的宝可梦全局 CTA 色</span></header><div class="layout"><aside class="rail"><h2>方法与记录</h2><a href="#primary-color-and-cta">品牌主色与 CTA 如何判断</a><a href="#adoption-method">设计资产晋级方法</a><a href="#pokemon-database-search-orange">数据库 Search 橘色的全局晋级已阻断</a><p class="foot">这是判定记录；主知识库回答“专家怎样权衡表达与任务，并从案例修正判断”。</p></aside><main class="entries"><article id="primary-color-and-cta" class="entry"><div class="entry-top"><span>可复用决策规则 · token / component</span><b>pilot-candidate</b></div><div class="decision-visual"><div class="visual-label">遇到同类问题，依次判断</div><div class="decision-steps" style="grid-template-columns:repeat(auto-fit,minmax(200px,1fr))"><div><small>01</small><b>分清角色</b><span>看到的是品牌标志、界面色系、行动样式，还是目标 token？</span><em>留下：各自独立的判断对象</em></div><div><small>02</small><b>比较来源</b><span>哪些独立的品牌入口和任务页面在什么背景、状态使用了它？</span><em>留下：逐页证据与缺口</em></div><div><small>03</small><b>判断体系</b><span>单色、成对配色，还是随背景反转，哪种解释最符合观察？</span><em>留下：身份、界面与行动体系的分项结论</em></div><div><small>04</small><b>处理例外</b><span>冲突来自同一职责，还是另一站点、活动、背景或任务？</span><em>留下：例外与未解决冲突</em></div><div><small>05</small><b>映射验收</b><span>目标设计系统的哪个语义 token 能接，尚缺什么证明？</span><em>留下：获批范围或未映射候选</em></div></div></div><h3>品牌身份、界面色系与行动色的分项比较</h3>
+<ul>
+<li>分开品牌身份、界面色系、主要行动色和目标 token。多色标志不必压成一个色值，也不代表界面色系无法判断。</li>
+<li>优先比较身份入口与相关核心页。每条观察记录区域、职责、背景和状态；行动色只比较同职责控件，读取实际绘制层的底色与字色。</li>
+<li>CSS 声明次数、可见控件、Logo 像素和宣传素材属于不同证据池；隐藏轮播副本不计可见按钮，工具按钮不混入内容 CTA 分母。保留代表控件定位，并明确汇总中未逐项举证的数量。</li>
+<li>先解释一致、反相和局部例外，再考虑同职责频次；冲突未解决时不宣称全局。颜色只是观察，语义与范围需另作判断。</li>
+<li>分别交付身份、界面色系、行动色、例外与缺口，核对目标 token 状态、对比度和真实渲染。允许界面色系有候选、全局按钮暂不映射。</li>
+<li>局部两维检查与完整品牌检查分开；目标、Evidence 和解释产物版本一致，旧 PASS 不继承。候选试装变色只证明生效，不自动批准视觉或全局语义。</li>
+</ul><details><summary>查看机器可读的比较与例外规则</summary><pre>{
+  &quot;schema&quot;: &quot;brand-decision-policy/v0.1&quot;,
+  &quot;id&quot;: &quot;primary-color-and-cta&quot;,
+  &quot;status&quot;: &quot;pilot-candidate&quot;,
+  &quot;subjectTypes&quot;: [
+    &quot;token&quot;,
+    &quot;component&quot;
+  ],
+  &quot;decisionQuestions&quot;: [
+    &quot;What carries brand identity across contexts: a color, a palette, or a multicolor mark?&quot;,
+    &quot;Which colors dominate the interface system in relevant page contexts?&quot;,
+    &quot;Which semantic treatment does a primary action use by surface and state?&quot;,
+    &quot;How far may each finding map into the target design system?&quot;
+  ],
+  &quot;decisionSequence&quot;: [
+    {
+      &quot;id&quot;: &quot;separate-roles&quot;,
+      &quot;title&quot;: &quot;分清角色&quot;,
+      &quot;question&quot;: &quot;看到的是品牌标志、界面色系、行动样式，还是目标 token？&quot;,
+      &quot;rule&quot;: &quot;分成不同判断。多色标志无需硬选一个色值，也不代表界面色系无法判断。&quot;,
+      &quot;output&quot;: &quot;各自独立的判断对象&quot;
+    },
+    {
+      &quot;id&quot;: &quot;compare-sources&quot;,
+      &quot;title&quot;: &quot;比较来源&quot;,
+      &quot;question&quot;: &quot;哪些独立的品牌入口和任务页面在什么背景、状态使用了它？&quot;,
+      &quot;rule&quot;: &quot;记录实际绘制值、页面、区域、用途和状态；CSS 声明、Logo 像素、宣传图和可见控件分池统计。&quot;,
+      &quot;output&quot;: &quot;逐页证据与缺口&quot;
+    },
+    {
+      &quot;id&quot;: &quot;name-system&quot;,
+      &quot;title&quot;: &quot;判断体系&quot;,
+      &quot;question&quot;: &quot;单色、成对配色，还是随背景反转，哪种解释最符合观察？&quot;,
+      &quot;rule&quot;: &quot;先比页面覆盖与职责，再比显著度和同职责频次。色系可以是双颜色，不跨任务投票，也不强迫只剩一个 hex。&quot;,
+      &quot;output&quot;: &quot;身份、界面与行动体系的分项结论&quot;
+    },
+    {
+      &quot;id&quot;: &quot;bound-exceptions&quot;,
+      &quot;title&quot;: &quot;处理例外&quot;,
+      &quot;question&quot;: &quot;冲突来自同一职责，还是另一站点、活动、背景或任务？&quot;,
+      &quot;rule&quot;: &quot;说明每个冲突，把局部例外留在最窄范围；解释不了的同职责冲突阻断更广的结论。&quot;,
+      &quot;output&quot;: &quot;例外与未解决冲突&quot;
+    },
+    {
+      &quot;id&quot;: &quot;map-and-approve&quot;,
+      &quot;title&quot;: &quot;映射验收&quot;,
+      &quot;question&quot;: &quot;目标设计系统的哪个语义 token 能接，尚缺什么证明？&quot;,
+      &quot;rule&quot;: &quot;色系判断不等于 token 批准。检查语义、默认／悬停／焦点、对比度和真实渲染，独立视觉复核后才讨论全局复用。&quot;,
+      &quot;output&quot;: &quot;获批范围或未映射候选&quot;
+    }
+  ],
+  &quot;sourceStrategy&quot;: {
+    &quot;identityPriority&quot;: &quot;Start with current identity-bearing pages such as the official homepage and core brand entry, then compare at least one independent core page; an event-specific home section is not automatically global.&quot;,
+    &quot;actionPriority&quot;: &quot;Compare controls doing the same primary-action job on the target task page and other relevant pages; do not substitute a campaign CTA or database Search for another role without a documented match.&quot;,
+    &quot;minimumForGlobal&quot;: &quot;At least two independent relevant page contexts including a current identity-bearing source for brand-primary, plus observed states and no unresolved conflict. Counts are a floor, not a vote or automatic approval.&quot;
+  },
+  &quot;frequencyMethod&quot;: {
+    &quot;unit&quot;: &quot;visible controls doing a recorded semantic job, counted per independent page and state; inspect the actually painted child/background layer and text layer, not just the transparent outer button; do not count raw CSS declarations or repeated carousel clones&quot;,
+    &quot;exclude&quot;: [
+      &quot;logo pixels from action-color counts&quot;,
+      &quot;hidden or duplicated controls&quot;,
+      &quot;footer utility controls from the content-CTA denominator only after recording them separately&quot;,
+      &quot;campaign imagery and card artwork from UI token counts&quot;
+    ],
+    &quot;reviewOrder&quot;: &quot;First compare page authority and task role, then page coverage, visible prominence and within-role frequency; inspect hover/focus and contrast before approval.&quot;,
+    &quot;requiredReport&quot;: [
+      &quot;sourcePages&quot;,
+      &quot;countedControlsByRoleAndTreatment&quot;,
+      &quot;excludedControls&quot;,
+      &quot;identityVsActionDecision&quot;,
+      &quot;exceptions&quot;,
+      &quot;unresolvedStates&quot;
+    ]
+  },
+  &quot;evidenceHandoff&quot;: {
+    &quot;aggregateVsControl&quot;: &quot;A per-page frequency total is a sampling summary, not proof that every counted control has a retained selector. Preserve at least one independently re-checkable painted control per core page with URL, selector, nonempty region, default state, actual background and foreground; state clearly how many counted controls lack individual proof.&quot;,
+    &quot;scopeSeparation&quot;: &quot;A frozen goal for a two-dimension diagnostic can pass its own structural handoff while the original six-dimension learn-brand goal remains blocked. Both goal IDs and statuses must be shown together; a scoped PASS never inherits or replaces full-brand approval.&quot;,
+    &quot;versionRule&quot;: &quot;Evidence and Interpreter records must name the same frozen goal version they answer. A previous PASS with a different goal ID cannot approve a new packet.&quot;,
+    &quot;trialLineage&quot;: &quot;A reversible before/after trial reads candidate values from the versioned Interpreter output and names the unchanged task, viewport and content. A visible difference proves only that the candidate rendered, not that its target token or aesthetic outcome is approved.&quot;
+  },
+  &quot;defaultHypothesis&quot;: &quot;A primary action normally starts from the design system&#39;s semantic primary-action role, but whether its value equals the brand identity primary color is a separate evidence-backed decision.&quot;,
+  &quot;exceptionRule&quot;: &quot;A CTA color or treatment that differs from brand-primary may be approved only at the narrowest supported scope after same-role cross-page and state comparison; a local campaign or tool-page exception is never silently global.&quot;,
+  &quot;fallback&quot;: &quot;When evidence is incomplete, keep the target&#39;s existing semantic primary-action token and mark brand value unresolved; do not assign a sampled hex or RGB value as global primary.&quot;,
+  &quot;outputs&quot;: [
+    &quot;brandIdentityDecision&quot;,
+    &quot;interfacePaletteDecision&quot;,
+    &quot;primaryActionDecision&quot;,
+    &quot;ctaExceptions&quot;,
+    &quot;pageStateComparison&quot;,
+    &quot;unresolvedGaps&quot;,
+    &quot;reviewer&quot;
+  ],
+  &quot;caseRefs&quot;: [
+    &quot;pokemon-database-orange-not-global-cta&quot;
+  ],
+  &quot;readerPurpose&quot;: &quot;专项判断步骤&quot;
+}</pre></details></article><article id="adoption-method" class="entry"><div class="entry-top"><span>通用判定方法</span><b>pilot-candidate</b></div><h3>设计资产的职责、证据与复用范围审查</h3>
+<ul>
+<li>明确对象是什么、在来源中做什么、拟在目标里做什么，再比较职责与情境是否相符。</li>
+<li>Token 检查语义、状态和对比度；素材检查来源、使用权、主体和裁切；组件检查行为与 API；构图检查层级、任务路径和响应式关系。</li>
+<li>区分观察范围、申请范围与批准范围，记录冲突、证据缺口和例外，不能从局部出现直接推向全局复用。</li>
+<li>专业角色提供判断依据，独立验收检查真实落地；记录审阅人、来源版本和可用范围。只有已批准且范围匹配的资产可供正式下游消费。</li>
+</ul></article><article id="pokemon-database-search-orange" class="entry negative"><div class="entry-top"><span>设计资产决策 · token</span><b>blocked · 仅限 observation</b></div><h3>数据库 Search 橘色的全局晋级已阻断</h3>
+<p>申请把数据库 Search 默认态 <code>rgb(238, 107, 47)</code> 作为全局 CTA 的依据不足，批准范围只停在局部观察。</p>
+<p>补看的官网首页探索按钮为白色，数据库 Search 为橘色，教学页入口为白色描边；这些控件职责不同，且未覆盖完整交互状态，不能推导统一主行动色。</p>
+<p>重新申请需补同职责跨页状态、语义、对比度及目标映射证据，再经独立检查。来源记录保存在同名结构化判定中。</p><details><summary>查看决策记录与未通过的检查</summary><pre>{
+  &quot;schema&quot;: &quot;brand-adoption-decision/v0.1&quot;,
+  &quot;id&quot;: &quot;pokemon-database-search-orange&quot;,
+  &quot;subjectType&quot;: &quot;token&quot;,
+  &quot;policyRef&quot;: &quot;primary-color-and-cta&quot;,
+  &quot;brand&quot;: &quot;pokemon-tcg-official&quot;,
+  &quot;subject&quot;: &quot;Card Database Search default background&quot;,
+  &quot;sourceRefs&quot;: [
+    &quot;https://www.pokemon.com/us/pokemon-tcg/pokemon-cards&quot;,
+    &quot;migrations/pokemon-tcg-official/cta-cross-page-review-2026-09-20.json&quot;,
+    &quot;migrations/pokemon-tcg-official/primary-color-live-review-2026-09-20.json&quot;
+  ],
+  &quot;observedValue&quot;: &quot;rgb(238, 107, 47)&quot;,
+  &quot;sourcePurpose&quot;: &quot;submit a card database search&quot;,
+  &quot;requestedRole&quot;: &quot;global primary-action / CTA&quot;,
+  &quot;requestedScope&quot;: &quot;global&quot;,
+  &quot;pageStateComparison&quot;: [
+    {
+      &quot;url&quot;: &quot;https://tcg.pokemon.com/en-us/&quot;,
+      &quot;context&quot;: &quot;identity-bearing campaign hero&quot;,
+      &quot;role&quot;: &quot;campaign-discovery&quot;,
+      &quot;states&quot;: [
+        &quot;default&quot;
+      ],
+      &quot;identitySource&quot;: true
+    },
+    {
+      &quot;url&quot;: &quot;https://www.pokemon.com/us/pokemon-tcg/pokemon-cards&quot;,
+      &quot;context&quot;: &quot;task&quot;,
+      &quot;role&quot;: &quot;database-search&quot;,
+      &quot;states&quot;: [
+        &quot;default&quot;
+      ],
+      &quot;identitySource&quot;: false
+    },
+    {
+      &quot;url&quot;: &quot;https://tcg.pokemon.com/en-us/learn/&quot;,
+      &quot;context&quot;: &quot;learning content&quot;,
+      &quot;role&quot;: &quot;tutorial-discovery&quot;,
+      &quot;states&quot;: [
+        &quot;default&quot;
+      ],
+      &quot;identitySource&quot;: false
+    }
+  ],
+  &quot;grantedScope&quot;: &quot;observation&quot;,
+  &quot;status&quot;: &quot;blocked&quot;,
+  &quot;commonChecks&quot;: {
+    &quot;provenance&quot;: &quot;partial&quot;,
+    &quot;sameRoleCrossPage&quot;: &quot;missing&quot;,
+    &quot;scopeFit&quot;: &quot;fail&quot;,
+    &quot;independentVisualQA&quot;: &quot;not-run&quot;
+  },
+  &quot;specificChecks&quot;: {
+    &quot;semanticRole&quot;: &quot;conflict&quot;,
+    &quot;stateSet&quot;: &quot;incomplete&quot;,
+    &quot;contrast&quot;: &quot;not-checked&quot;,
+    &quot;targetTokenMapping&quot;: &quot;not-approved&quot;
+  },
+  &quot;missingEvidence&quot;: [
+    &quot;same-role CTA comparison across independent pages&quot;,
+    &quot;hover and focus states&quot;,
+    &quot;independent visual approval&quot;
+  ],
+  &quot;rationale&quot;: &quot;Current homepage hero CTA is white, database Search is orange, and sampled learning-page links are white outline. They perform different jobs, so three pages of observation still cannot establish a global primary-action color.&quot;,
+  &quot;reviewer&quot;: null,
+  &quot;relatedCase&quot;: &quot;pokemon-database-orange-not-global-cta&quot;,
+  &quot;readerPurpose&quot;: &quot;一次具体判定的结果与依据&quot;
+}</pre></details></article></main></div></div></html>

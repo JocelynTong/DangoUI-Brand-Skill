@@ -1,0 +1,41 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "expressive-continuity-in-real-content",
+  "version": 2,
+  "status": "candidate",
+  "question": "Does source-backed brand expression survive from entry into real task content without hiding the first action?",
+  "statement": "当任务目标需要持续品牌识别时，可让有来源的界面语言延续到真实内容；若高频操作更适合安静区域，则允许表达在入口收敛，依据任务与用户反馈判断。",
+  "appliesWhen": [
+    "The task calls for continued brand recognition and the chosen mechanism preserves task efficiency"
+  ],
+  "notFor": [
+    "Forcing a Hero or minimum image area",
+    "Requiring the same motif in every component",
+    "Treating a machine marker as aesthetic approval",
+    "Forcing visual continuity into intentionally quiet high-frequency task areas"
+  ],
+  "originCaseIds": [
+    "pokemon-backup4-expressive-false-positive"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "falsificationQuestion": "Can a user-approved direction intentionally end the entry expression and still remain source-recognizable and task-efficient without the proposed continuity mechanism?",
+  "nextTest": "换一个品牌或宿主，冻结真实任务内容与视口，比较至少两种分配方式，再由独立 QA 和用户验收视觉效果。",
+  "reviewer": null,
+  "reviewedAt": null,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "sourceCaseId": "pokemon-backup4-expressive-false-positive",
+      "change": "Replaced entry-image-mass inference with a task-content continuity hypothesis.",
+      "status": "candidate"
+    },
+    {
+      "version": 2,
+      "sourceCaseId": "pokemon-backup4-expressive-false-positive",
+      "change": "Align structured rule with existing human-guide boundary: continuation is conditional, not a universal approval requirement. No new positive evidence.",
+      "status": "candidate"
+    }
+  ],
+  "readerPurpose": "待验证的条件化结论与例外"
+}

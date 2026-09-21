@@ -1,0 +1,46 @@
+{
+  "schema": "dangoui-scenario/v0.1",
+  "id": "search-filter-results",
+  "title": "检索、筛选与浏览结果",
+  "status": "pilot-candidate",
+  "level": "task-module",
+  "userJob": "从一组动态记录中找到符合条件的项目，并能调整条件继续探索。",
+  "suitableFor": ["存在可检索的动态集合", "搜索或筛选后需要浏览结果", "用户可能反复调整条件"],
+  "notFor": ["固定内容的活动展示", "没有真实筛选行为的装饰性卡片墙", "把品牌活动素材伪装成业务结果"],
+  "requiredStates": ["initial", "loading", "results", "empty", "error"],
+  "requiredRegions": ["query", "filters", "feedback", "results"],
+  "componentRefs": ["Search", "Input", "Tag", "Button", "Card"],
+  "brandRecipeRefs": ["pokemon-database-shape-roles"],
+  "requiredComponentRefs": ["Search", "Button"],
+  "exampleRefs": {
+    "expressiveSource": "https://tcg.pokemon.com/en-us/",
+    "productiveSource": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+    "approvedPatternId": "database-dark-search-organism",
+    "existingRuntimeDemoRoute": "#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-card-database",
+    "componentExperimentRoute": "#/knowledge-runtime",
+    "componentExperimentStatus": "runtime-consumed-not-visually-approved"
+  },
+  "hostSlots": ["queryFields", "filterChoices", "resultItem", "resultMetadata", "navigation"],
+  "invariants": [
+    "搜索条件和结果之间有可理解的因果关系",
+    "加载、无结果和错误状态不能伪装成真实记录",
+    "用户能返回修改条件，而不必重新开始",
+    "品牌表达不能吞掉首要检索操作或改变业务数据语义"
+  ],
+  "brandExpressionSlots": [
+    { "id": "entry", "purpose": "建立探索氛围", "rule": "可表达，但须有来源支持并与检索动作形成交接；不要求 Hero。" },
+    { "id": "task", "purpose": "高频检索操作", "rule": "以清晰和效率优先，可承接品牌字体、形状或局部材质。" },
+    { "id": "result", "purpose": "浏览业务内容", "rule": "结果容器可以承接品牌构图机制，不得以品牌资产冒充动态结果。" }
+  ],
+  "sourceCases": [
+    {
+      "id": "pokemon-backup4-r2",
+      "kind": "negative-regression",
+      "finding": "三份静态 H5 结构不同，但 token 语义越界、活动素材跨场景移用，02/03 的 expressive 构图不足；机器 PASS 不代表用户认可。",
+      "brandPatternRefs": ["database-dark-search-organism", "database-reversible-search-results", "home-layered-campaign-stage"],
+      "brandRegistry": "public/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/approved-visual-patterns.json",
+      "approval": "not-approved"
+    }
+  ],
+  "promotionRule": "在独立宿主中证明任务正确、品牌配方边界与真实状态均成立，且取得人工审美认可后才可从 pilot-candidate 晋级。"
+}

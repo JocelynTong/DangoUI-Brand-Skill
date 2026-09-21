@@ -1,0 +1,18 @@
+{
+  "status": "fresh-qa-passed",
+  "userFeedback": "Background abruptly ends between the third and fourth result. Other aspects accepted.",
+  "missedBy": "First-screen and interaction QA did not inspect the fixed raster's termination inside the long list.",
+  "earliestOwner": "Host Implementation and Host Visual QA",
+  "cause": "Width-scaled 853x1844 image ends at 216.178vw while the real list extends farther.",
+  "repair": "Preserve scene coordinates; blend only final paper texture from 175vw through 216.3vw into matching #f2e4c7 full-content background.",
+  "candidateCheck": "Inspect first screen, raster termination and final record. Assert blend covers raster end, endpoint equals canvas color and decorative layers do not intercept input.",
+  "scope": "Candidate rule for finite generated backgrounds applied to variable-height host content; one observed case, not universal visual approval.",
+  "freshQA": {
+    "reviewer": "opcg_a1_qa",
+    "observations": [
+      "No hard edge at rows3-4 through final record",
+      "Consistent canvas below final record",
+      "Last detail and FAB new-deck entry work; no publication"
+    ]
+  }
+}

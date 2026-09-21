@@ -1,0 +1,69 @@
+{
+  "schema": "brand-adoption-decision/v0.1",
+  "id": "pokemon-database-search-orange",
+  "subjectType": "token",
+  "policyRef": "primary-color-and-cta",
+  "brand": "pokemon-tcg-official",
+  "subject": "Card Database Search default background",
+  "sourceRefs": [
+    "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+    "migrations/pokemon-tcg-official/cta-cross-page-review-2026-09-20.json",
+    "migrations/pokemon-tcg-official/primary-color-live-review-2026-09-20.json"
+  ],
+  "observedValue": "rgb(238, 107, 47)",
+  "sourcePurpose": "submit a card database search",
+  "requestedRole": "global primary-action / CTA",
+  "requestedScope": "global",
+  "pageStateComparison": [
+    {
+      "url": "https://tcg.pokemon.com/en-us/",
+      "context": "identity-bearing campaign hero",
+      "role": "campaign-discovery",
+      "states": [
+        "default"
+      ],
+      "identitySource": true
+    },
+    {
+      "url": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+      "context": "task",
+      "role": "database-search",
+      "states": [
+        "default"
+      ],
+      "identitySource": false
+    },
+    {
+      "url": "https://tcg.pokemon.com/en-us/learn/",
+      "context": "learning content",
+      "role": "tutorial-discovery",
+      "states": [
+        "default"
+      ],
+      "identitySource": false
+    }
+  ],
+  "grantedScope": "observation",
+  "status": "blocked",
+  "commonChecks": {
+    "provenance": "partial",
+    "sameRoleCrossPage": "missing",
+    "scopeFit": "fail",
+    "independentVisualQA": "not-run"
+  },
+  "specificChecks": {
+    "semanticRole": "conflict",
+    "stateSet": "incomplete",
+    "contrast": "not-checked",
+    "targetTokenMapping": "not-approved"
+  },
+  "missingEvidence": [
+    "same-role CTA comparison across independent pages",
+    "hover and focus states",
+    "independent visual approval"
+  ],
+  "rationale": "Current homepage hero CTA is white, database Search is orange, and sampled learning-page links are white outline. They perform different jobs, so three pages of observation still cannot establish a global primary-action color.",
+  "reviewer": null,
+  "relatedCase": "pokemon-database-orange-not-global-cta",
+  "readerPurpose": "一次具体判定的结果与依据"
+}

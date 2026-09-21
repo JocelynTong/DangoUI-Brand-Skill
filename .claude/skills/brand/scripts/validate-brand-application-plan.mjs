@@ -2,6 +2,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { spawnSync } from 'node:child_process'
 
 const args = process.argv.slice(2)
 const value = (flag) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : '' }
@@ -64,6 +65,7 @@ const identityRoles = new Set(['brand-identity', 'environment', 'campaign-scene'
 const allowedSceneStrategies = new Set(['single-source-scene', 'validated-composite', 'material-field', 'type-led-field', 'no-identity-environment'])
 const options = Array.isArray(plan.options) ? plan.options : []
 const selectableOptions = options.filter((option) => option.disposition !== 'rejected')
+let dynamicHostContent = false
 
 if (plan.schema !== 'brand-application-plan/v1') fail('BRAND_APPLICATION_PLAN_SCHEMA_INVALID', 'Expected brand-application-plan/v1.')
 if (!plan.hostBinding?.targetRoute || !plan.hostBinding?.viewport || !plan.hostBinding?.baselinePath || !plan.hostBinding?.baselineSha256) {
@@ -72,9 +74,10 @@ if (!plan.hostBinding?.targetRoute || !plan.hostBinding?.viewport || !plan.hostB
   const baseline = path.resolve(path.dirname(planFile), plan.hostBinding.baselinePath)
   if (!fs.existsSync(baseline)) fail('BRAND_APPLICATION_HOST_BASELINE_MISSING', 'Frozen host baseline does not exist.', { path: plan.hostBinding.baselinePath })
   else if (sha(baseline) !== plan.hostBinding.baselineSha256) fail('BRAND_APPLICATION_HOST_BASELINE_HASH_MISMATCH', 'Frozen host baseline hash does not match.', { path: plan.hostBinding.baselinePath })
+  else dynamicHostContent = /\bv-for\b|\{\{|\bsearchDecks\b|\bfetch\s*\(/.test(fs.readFileSync(baseline, 'utf8'))
 }
 if (!['efficiency-first', 'balanced', 'immersion-first'].includes(plan.hostClassification)) fail('BRAND_APPLICATION_HOST_CLASSIFICATION_REQUIRED', 'Classify the host before allocating visual capacity.')
-if (selectableOptions.length < 2 || selectableOptions.length > 3) fail('BRAND_APPLICATION_OPTION_COUNT_INVALID', 'Provide two or three selectable image directions.')
+if (selectableOptions.length !== 3) fail('BRAND_APPLICATION_OPTION_COUNT_INVALID', 'Design-host requires exactly three selectable, complete static H5 directions.')
 
 const signatures = new Set()
 for (const option of options) {
@@ -86,6 +89,14 @@ for (const option of options) {
   const roles = Array.isArray(option.compositionRoles) ? option.compositionRoles : []
   const roleNames = roles.map((entry) => entry.role)
   if (!option.id || !option.visualNarrative) fail('BRAND_APPLICATION_OPTION_IDENTITY_REQUIRED', 'Every option needs id and visualNarrative.', { option: optionId })
+  if (dynamicHostContent) {
+    const content = option.businessContentEvidence
+    if (!['schema-placeholder', 'captured-host-state'].includes(content?.mode)) fail('DYNAMIC_BUSINESS_CONTENT_EVIDENCE_REQUIRED', 'API-driven host records need a hash-bound captured state or neutral schema placeholders; invented names and counts are forbidden.', { option: optionId })
+    if (content?.mode === 'captured-host-state') {
+      const source = content.path ? path.resolve(path.dirname(planFile), content.path) : ''
+      if (!source || !fs.existsSync(source) || content.sha256 !== sha(source)) fail('CAPTURED_BUSINESS_CONTENT_HASH_MISMATCH', 'Captured host records must resolve to the exact frozen source hash.', { option: optionId })
+    }
+  }
   if (!roles.length || new Set(roleNames).size !== roleNames.length || roleNames.some((role) => !allowedRoles.has(role))) fail('BRAND_APPLICATION_ROLE_SET_INVALID', 'Composition roles must be unique reusable grammar roles.', { option: optionId, roles: roleNames })
   if (!roleNames.includes('business-stream')) fail('BRAND_APPLICATION_BUSINESS_STREAM_REQUIRED', 'A host direction must show how repeatable business work continues.', { option: optionId })
   for (const role of roles) {
@@ -155,6 +166,19 @@ for (const option of options) {
   for (const asset of assets) {
     if (!asset.assetRef || !asset.role || !asset.sourceKind || !asset.usage || !asset.crop || !asset.focalPoint || !asset.zPlane) fail('ASSET_ASSIGNMENT_INCOMPLETE', 'Asset assignments require identity, role, provenance, usage, crop, focal point and z-plane.', { option: optionId, assetRef: asset.assetRef })
     if (asset.sourceKind === 'host-owned-business-art' && identityRoles.has(asset.role)) fail('HOST_ASSET_AS_BRAND_IDENTITY', 'Host business content cannot be promoted to brand identity or environment.', { option: optionId, assetRef: asset.assetRef })
+    const sourceAsset = brandAssets.get(asset.assetRef)
+    if (sourceAsset?.targetScope && asset.sourceKind !== 'host-owned-business-art') {
+      const decisionFile = asset.adoptionDecisionPath ? path.resolve(path.dirname(planFile), asset.adoptionDecisionPath) : ''
+      if (!decisionFile || !fs.existsSync(decisionFile)) {
+        fail('ASSET_ADOPTION_DECISION_REQUIRED', 'A source-scoped brand asset needs a reviewed decision before it can move into a real host.', { option: optionId, assetRef: asset.assetRef, sourceScope: sourceAsset.targetScope, hostRoute: plan.hostBinding?.targetRoute })
+      } else {
+        let decision = null
+        try { decision = JSON.parse(fs.readFileSync(decisionFile, 'utf8')) } catch { /* reported below */ }
+        if (decision?.subjectType !== 'asset' || decision?.subject !== asset.assetRef || decision?.status !== 'approved' || !decision?.reviewer || decision?.grantedScope !== `page:${plan.hostBinding?.targetRoute}`) {
+          fail('ASSET_ADOPTION_SCOPE_UNAPPROVED', 'The asset decision must explicitly approve this asset for this host route with a named reviewer.', { option: optionId, assetRef: asset.assetRef, decisionPath: asset.adoptionDecisionPath })
+        }
+      }
+    }
   }
   const transitions = Array.isArray(option.roleTransitions) ? option.roleTransitions : []
   if (roles.length > 1 && transitions.length < roles.length - 1) fail('BRAND_APPLICATION_ROLE_TRANSITION_MISSING', 'Describe how selected roles connect so the result is not a poster followed by a generic page.', { option: optionId })
@@ -167,25 +191,39 @@ for (const option of options) {
   if (!reviewedAssetRoles.size || [...reviewedAssetRoles].some((role) => !assignedAssetRoles.has(role))) fail('ASSET_ROLE_COMPOSITION_UNPROVEN', 'Visual self-review must name the distinct assigned roles used to compose identity, material and business content; asset count alone is not proof.', { option: optionId })
   if (review?.repeatedHeroAsTexture !== false) fail('REPEATED_HERO_AS_TEXTURE', 'A hero image cannot be repeated or faded across the page to stand in for a material system.', { option: optionId })
   const preview = option.previewEvidence
-  if (!preview?.path || !preview?.sha256) fail('BRAND_APPLICATION_IMAGE_EVIDENCE_REQUIRED', 'Every option needs a hash-bound target-viewport image.', { option: optionId })
+  if (!preview?.path || !preview?.sha256) fail('BRAND_APPLICATION_H5_EVIDENCE_REQUIRED', 'Every option needs a hash-bound static H5 preview.', { option: optionId })
   else {
-    const image = path.resolve(path.dirname(planFile), preview.path)
-    const ext = path.extname(image).toLowerCase()
-    if (!['.svg', '.png', '.jpg', '.jpeg', '.webp'].includes(ext)) fail('BRAND_APPLICATION_PREVIEW_NOT_STATIC_IMAGE', 'The five-minute gate accepts image evidence by default, not HTML.', { option: optionId, path: preview.path })
-    if (!fs.existsSync(image)) fail('BRAND_APPLICATION_PREVIEW_MISSING', 'Direction image does not exist.', { option: optionId, path: preview.path })
-    else if (sha(image) !== preview.sha256) fail('BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'Direction image hash does not match.', { option: optionId, path: preview.path })
-    else if (ext === '.svg') {
-      const declared = new Set(colorApplications.map((entry) => expandedHex(entry.renderedValue)).filter((entry) => /^#[0-9a-f]{6}$/.test(entry)))
-      const svg = fs.readFileSync(image, 'utf8')
-      const rendered = new Set((svg.match(/#[0-9a-fA-F]{3,8}\b/g) || []).map(expandedHex))
-      const undeclared = [...rendered].filter((entry) => !declared.has(entry))
-      if (undeclared.length) fail('UNDECLARED_RENDERED_UI_COLOR', 'SVG preview contains colors absent from semanticColorApplications. Asset pixels must remain in image files, not become SVG UI paint.', { option: optionId, colors: undeclared })
-    }
+    const directPreview = path.resolve(path.dirname(planFile), preview.path)
+    const previewFile = fs.existsSync(directPreview) ? directPreview : path.resolve(path.dirname(planFile), '..', preview.path)
+    const ext = path.extname(previewFile).toLowerCase()
+    if (ext !== '.html') fail('DESIGN_HOST_STATIC_H5_REQUIRED', 'Design-host directions must be static H5; image previews are not accepted.', { option: optionId, path: preview.path })
+    if (!fs.existsSync(previewFile)) fail('BRAND_APPLICATION_PREVIEW_MISSING', 'Direction preview does not exist.', { option: optionId, path: preview.path })
+    else if (sha(previewFile) !== preview.sha256) fail('BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'Direction preview hash does not match.', { option: optionId, path: preview.path })
   }
   const signature = JSON.stringify({ roles: roleNames, transitions: transitions.map((item) => item.relationship), narrative: option.visualNarrative, sceneStrategy: direction?.sceneStrategy })
   if (signatures.has(signature)) fail('SAME_GRAMMAR_RESKIN', 'Directions must not reuse the same composition grammar and narrative.', { option: optionId })
   signatures.add(signature)
 }
 
-console.log(JSON.stringify({ ok: failures.length === 0, optionCount: selectableOptions.length, rejectedOptionCount: options.length - selectableOptions.length, failures }, null, 2))
+if (!failures.some((item) => ['BRAND_APPLICATION_PREVIEW_MISSING', 'BRAND_APPLICATION_PREVIEW_HASH_MISMATCH', 'DESIGN_HOST_STATIC_H5_REQUIRED'].includes(item.code))) {
+  const audit = spawnSync(process.execPath, [new URL('./validate-design-host-expressive-h5.mjs', import.meta.url).pathname, '--plan', planFile], { encoding: 'utf8' })
+  if (audit.status !== 0) {
+    try { failures.push(...JSON.parse(audit.stdout).failures) }
+    catch { fail('EXPRESSIVE_H5_AUDIT_FAILED', audit.stderr || 'H5 audit did not return valid JSON.') }
+  }
+}
+if (value('--require-scenario') || selectableOptions.some((option) => option.scenarioBinding)) {
+  const knowledgeArgs = [new URL('./validate-design-knowledge.mjs', import.meta.url).pathname, '--plan', planFile]
+  if (value('--require-scenario')) knowledgeArgs.push('--require-scenario', value('--require-scenario'))
+  if (brandBinding?.brandModPath) {
+    const knowledgeModFile = path.resolve(path.dirname(planFile), brandBinding.brandModPath)
+    if (fs.existsSync(knowledgeModFile)) knowledgeArgs.push('--brand-mod', knowledgeModFile)
+  }
+  const knowledgeAudit = spawnSync(process.execPath, knowledgeArgs, { encoding: 'utf8' })
+  if (knowledgeAudit.status !== 0) {
+    try { failures.push(...JSON.parse(knowledgeAudit.stdout).failures.map((item) => ({ code: item.code, message: item.detail, option: item.option }))) }
+    catch { fail('DESIGN_KNOWLEDGE_AUDIT_FAILED', knowledgeAudit.stderr || 'Knowledge audit did not return valid JSON.') }
+  }
+}
+console.log(JSON.stringify({ ok: failures.length === 0, optionCount: selectableOptions.length, rejectedOptionCount: options.length - selectableOptions.length, expressiveStatus: failures.length ? 'blocked' : 'eligible-for-human-review', failures }, null, 2))
 process.exit(failures.length ? 1 : 0)

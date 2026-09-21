@@ -1,0 +1,83 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "expressive-generation-and-reconstruction",
+  "status": "pilot-candidate",
+  "ownerRole": "四个平级宿主角色共同使用；无知识审批管理层",
+  "procedure": [
+    "按决策问题检索案例，比较当前上下文与适用边界",
+    "形成区域表达计划，再选择现有素材、代码或生图",
+    "生成前分离品牌证据、场景自由度、业务约束与动态还原风险",
+    "候选图先做动态H5试片，再冻结方向供宿主实施",
+    "分别记录机器运行检查、人的视觉反馈与规则修订"
+  ],
+  "notFor": [
+    "把单一案例当普适规则",
+    "把生成场景晋级为官网证据",
+    "让实施者静默重设计冻结方向"
+  ],
+  "ruleRefs": [
+    "prefer-reconstructible-dynamic-scenes",
+    "visual-authority",
+    "scene-occlusion",
+    "scene-continuity",
+    "dynamic-scene-proof"
+  ],
+  "decisionModel": {
+    "problem": "用不依赖品牌、组件名或具体技术的问句描述矛盾",
+    "context": "说明目标、约束和适用/不适用条件",
+    "principle": "描述应保持的关系，不预设唯一视觉配方",
+    "alternatives": "列可选方法、收益、代价及切换条件",
+    "evidence": "案例保留事实、纠正、结果与反例",
+    "consensus": "候选经跨情境验证与评审后才晋级；共识保留边界和版本，反例触发修订"
+  },
+  "readerPurpose": "执行判断的步骤与取舍",
+  "decisionProcedures": [
+    {
+      "questionId": "visual-authority",
+      "principle": "先确定各来源的职责、作用范围和冲突优先级，再建立从选定依据到页面各区域的映射；偏离必须有显式理由与确认。",
+      "options": [
+        "固定来源约束，生成只探索许可范围",
+        "选定新方向后提取其内部系统并标明为派生系统"
+      ],
+      "failureSignals": [
+        "相互冲突的依据被无说明地混用，或只迁移主色而改变选定明暗、结构、材质。"
+      ]
+    },
+    {
+      "questionId": "scene-occlusion",
+      "principle": "识别对象边界、坐标关系、承托关系和遮挡顺序，再选择与表达目标相称的实现方式；把可变内容和稳定环境分开验证。",
+      "options": [
+        "明确平面构图用原生布局",
+        "清晰交叠用同坐标分层与遮罩",
+        "复杂视角用可靠三维或分层资产；能力不足时调整方案"
+      ],
+      "failureSignals": [
+        "对象与环境的尺度、透视、接触或遮挡矛盾；加阴影不能抵消几何错误。"
+      ]
+    },
+    {
+      "questionId": "scene-continuity",
+      "principle": "先定义哪些区域应连续、哪些应明确分区，再决定裁切、延伸、平铺或底色衔接；用极端内容长度和视口检验边界。",
+      "options": [
+        "边界本来有分区则保留分区",
+        "可重复纹理按周期铺展",
+        "不可重复场景采用受控裁切或延伸、与匹配底色衔接"
+      ],
+      "failureSignals": [
+        "仅首屏成立；内容变长或容器改变后断层、拉伸或语义元素重复。"
+      ]
+    },
+    {
+      "questionId": "dynamic-scene-proof",
+      "principle": "从设计目标提取不变量和允许变化的部分，按真实数据与交互状态验证；分别记录几何、功能和视觉结论。",
+      "options": [
+        "确定性约束由脚本验证",
+        "空间与材质由真实渲染检查",
+        "审美与任务适合度由独立评审及用户反馈确认"
+      ],
+      "failureSignals": [
+        "用构建成功代替视觉通过，或只验证一个静态状态；为了测试整齐而更改真实数据。"
+      ]
+    }
+  ]
+}

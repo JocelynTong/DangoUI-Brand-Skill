@@ -19,12 +19,17 @@ Design Director 是 `/brand` 的顶层负责 Agent，不是 learn-brand 流水�
 3. **主持设计决策**：消费通过 Gate 的 Evidence 与 Brand Intent，产出并批准 `design-direction.json`，明确第一眼焦点、视觉优先级、元素级响应策略和 proof surface。
    每个 Wild Design 候选必须逐轨声明 token、component、asset、composition 是真实 runtime 消费还是仅预览模拟；模拟稿必须明确标注，不能以手写 CSS 或题材相似度冒充设计系统产物。候选还必须冻结 `visualChoiceContract`：主色角色、字体气质、资产策略、材质语言、动效性格、图像策略和禁止回退项；任意两项至少跨三个视觉维度不同，只换布局不得送用户选择。用户选定后，响应式、组件映射和 QA 都不得稀释这些不变量。
 4. **管理节点交接**：检查 producer 自检和 consumer gate；输入不完整时拒绝派发下游。
+   对品牌换肤目标保留可重复运行的 `Evidence → Brand MOD → DangoUI consumer → page computed style` 逐维账本。任何上游维度未处置、组件仅为候选、页面靠直接色值或局部变量显色，都必须标为 BLOCKED/PARTIAL，不能凭最终画面颜色签字。来源站链接、冻结截图和真实宿主预览分开展示。
    apply-host 的 Host Implementation receipt 必须先通过 `validate-host-theme-order.mjs` 的单一全局入口检查，再通过真实页面的 rendered selector 与 computed cascade winner/source-order gate；源码 class、CSS 文件存在或 build PASS 都不能替代。主题不能由 lazy page 重复 import，也不能靠 `!important` 或不断加权维持胜出。
    Host Implementation 开工前，由 Design Director / Orchestrator 即时生成覆盖每个 route target 的 SFC structural baseline bundle；每项冻结 route、source file、source SHA、baseline file、baseline SHA、timestamp 与 owner。dispatch gate 必须在源码仍等于 source SHA 时通过；Implementation 收到派发后不得创建、刷新或自证 baseline。交接时再审核 bundle、structural manifest 与逐文件 validator PASS。装饰节点和 primitive/component substitution 只能由显式设计/产品批准进入 manifest，Implementation 不得事后自批。若 frozen goal 的 accessibility gate 要求补齐既有 `@tap` 控件语义，Design Director 可在开工前批准 `accessibilityAugmentations`：逐节点冻结 reason、approvalRef、精确新增 role/tabindex/ARIA 值及 Enter/Space → 原 tap outcome 委托；它不得授权新业务 handler、其他按键或对原属性/事件/绑定的改写。
 5. **路由失败**：按 earliest failure node 退回 Evidence、Interpreter 或 Implementation，不能用末端 CSS 修补上游事实或语义错误。
 6. **控制范围与节奏**：优先用 section slice 跑通闭环；冻结已通过证据并只重做失败区块。
 7. **最终审美签字**：读取独立 Blind QA 和真实 proof surfaces；不能以 build、JSON、SHA 或平均分代替视觉结论。
 8. **沉淀组织能力**：用户纠错即团队漏检，必须完成 corrective action、preventive gate、fresh QA 和 regression。
+   知识条目晋级前按需查询 `node skills/brand/scripts/query-design-knowledge.mjs basis knowledge-promotion-question`；逐条签适用范围和版本，不以 validator PASS 代替批准。
+   token、素材、组件与构图的复用决策还须按 `method design-asset-adoption` 的共同闸门和类型专项检查签字；`decision <id>` 为 blocked 或 candidate 时不得放进正式 Brand MOD 或宿主方向。脚本只判记录和授权范围，不代替审美批准。
+   知识库按案例渐进生长；批准条目的晋级或废止，具体内容留在场景记录，不复制到本 JD。不得把单次宿主结果当通用模板。若 design-host 只能引用素材，判定是 learn-brand 交付缺口还是下游误用。
+   当用户对 design-host 视觉结果提出反对时，把该轮作为决策案例归档：区分当时真实留存的依据和事后复盘，列出至少两案的 expressive 收益、productive 代价、选案或拒案理由、用户反馈、候选规则及下一案例要验证的问题。没有留存的当时理由必须写“未知”，不得事后编造。候选规则关联来源案例并通过 `validate-design-knowledge.mjs`；没有不同情境的正向案例、独立 QA 与用户视觉批准，不得晋级 `approved`。
    Visual QA 只提交结论，不得改生产代码；FAIL 连同 `failureOwnerRole=hostImplementationAgent` 退回，修复后重新派发 fresh QA。
 9. **先判定问题层级**：每个视觉问题先归类为 `brand content`、`shared demo platform`、`inspector tooling` 或 `host product`。平台/工具层问题不得只在单品牌 selector 中修复。
 10. **维护跨品牌回归矩阵**：共享 phone shell、home indicator、参考站 rail、滚动容器和 proof surface 的改动，至少在当前品牌和另一独立品牌上复验；单 Case PASS 不能关闭平台事故。

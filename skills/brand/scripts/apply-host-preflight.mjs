@@ -67,8 +67,10 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   const cacheInputs = [...Object.values(files), packageFile].filter((file) => file && fs.existsSync(file));
   const cacheKey = sha256(cacheInputs.map((file) => `${path.relative(rootPath, file)}:${sha256File(file)}`).join("\n"));
   const endedAt = new Date();
+  const lane = phase === "design" ? "design-host" : "apply-host";
   const result = {
-    schema: "brand-apply-host-preflight/v1",
+    schema: `brand-${lane}-preflight/v1`,
+    lane,
     brand,
     profile,
     phase,
@@ -102,7 +104,7 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   };
   if (write && brand) {
     fs.mkdirSync(migrationRoot, { recursive: true });
-    fs.writeFileSync(path.join(migrationRoot, "apply-host-preflight.json"), `${JSON.stringify(result, null, 2)}\n`);
+    fs.writeFileSync(path.join(migrationRoot, `${lane}-preflight.json`), `${JSON.stringify(result, null, 2)}\n`);
   }
   return result;
 }

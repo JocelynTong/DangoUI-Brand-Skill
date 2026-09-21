@@ -1,0 +1,28 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "spu-search-compact-header-regression",
+  "status": "observed-runtime-not-visual-approval",
+  "reviewStatus": "not-approved",
+  "contextKey": "onepiece-cardgame|spu-common-plugin|sprite-search",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "observedSource": {
+    "url": "http://127.0.0.1:4192/roco-lib/#/pages/sprite-list/index",
+    "evidenceStatus": "existing-host-runtime-regression"
+  },
+  "evidenceFiles": [
+    "knowledge/v0.1/evidence/spu-search-regression/report.json"
+  ],
+  "invalidInference": "另一宿主的已有搜索页可用，就证明新流程能自动选案、稳定还原并获得用户认可。",
+  "safeConclusion": "在记录的视口和搜索状态中，紧凑头部保留搜索和结果的首屏可达性；是否符合品牌与用户审美仍需独立判断。",
+  "independentCaseNote": "不同宿主与任务，已有实现的回归；不计作新流程独立正向选案成功。",
+  "followUp": {
+    "direction": "search-system-v3",
+    "userFeedback": "入口方向认可；001、002位置需修。其他页面换肤及时间成本评估延后。",
+    "judgments": [
+      "品牌提供官方素材、字体、组件和构图；宿主保留原始业务对象、素材、数据与交互。",
+      "任务区也需要落实排版、边界、密度与状态，不能只换主色。",
+      "迁移时核对旧transform、定位上下文和层级，不只覆盖top/left。"
+    ],
+    "generalization": "同一案例修订，不增加独立案例数，不代表跨宿主泛化通过。"
+  }
+}

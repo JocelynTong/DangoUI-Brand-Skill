@@ -2,7 +2,7 @@ import { createApp, defineComponent, h } from "vue";
 import "./dangoui-theme.local.css";
 import "dangoui/style.css";
 import "./styles.css";
-import App from "./App.vue";
+import App from "./VariantLibrary.vue";
 
 const app = createApp(App);
 

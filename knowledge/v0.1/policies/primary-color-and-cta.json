@@ -1,0 +1,97 @@
+{
+  "schema": "brand-decision-policy/v0.1",
+  "id": "primary-color-and-cta",
+  "status": "pilot-candidate",
+  "subjectTypes": [
+    "token",
+    "component"
+  ],
+  "decisionQuestions": [
+    "What carries brand identity across contexts: a color, a palette, or a multicolor mark?",
+    "Which colors dominate the interface system in relevant page contexts?",
+    "Which semantic treatment does a primary action use by surface and state?",
+    "How far may each finding map into the target design system?"
+  ],
+  "decisionSequence": [
+    {
+      "id": "separate-roles",
+      "title": "分清角色",
+      "question": "看到的是品牌标志、界面色系、行动样式，还是目标 token？",
+      "rule": "分成不同判断。多色标志无需硬选一个色值，也不代表界面色系无法判断。",
+      "output": "各自独立的判断对象"
+    },
+    {
+      "id": "compare-sources",
+      "title": "比较来源",
+      "question": "哪些独立的品牌入口和任务页面在什么背景、状态使用了它？",
+      "rule": "记录实际绘制值、页面、区域、用途和状态；CSS 声明、Logo 像素、宣传图和可见控件分池统计。",
+      "output": "逐页证据与缺口"
+    },
+    {
+      "id": "name-system",
+      "title": "判断体系",
+      "question": "单色、成对配色，还是随背景反转，哪种解释最符合观察？",
+      "rule": "先比页面覆盖与职责，再比显著度和同职责频次。色系可以是双颜色，不跨任务投票，也不强迫只剩一个 hex。",
+      "output": "身份、界面与行动体系的分项结论"
+    },
+    {
+      "id": "bound-exceptions",
+      "title": "处理例外",
+      "question": "冲突来自同一职责，还是另一站点、活动、背景或任务？",
+      "rule": "说明每个冲突，把局部例外留在最窄范围；解释不了的同职责冲突阻断更广的结论。",
+      "output": "例外与未解决冲突"
+    },
+    {
+      "id": "map-and-approve",
+      "title": "映射验收",
+      "question": "目标设计系统的哪个语义 token 能接，尚缺什么证明？",
+      "rule": "色系判断不等于 token 批准。检查语义、默认／悬停／焦点、对比度和真实渲染，独立视觉复核后才讨论全局复用。",
+      "output": "获批范围或未映射候选"
+    }
+  ],
+  "sourceStrategy": {
+    "identityPriority": "Start with current identity-bearing pages such as the official homepage and core brand entry, then compare at least one independent core page; an event-specific home section is not automatically global.",
+    "actionPriority": "Compare controls doing the same primary-action job on the target task page and other relevant pages; do not substitute a campaign CTA or database Search for another role without a documented match.",
+    "minimumForGlobal": "At least two independent relevant page contexts including a current identity-bearing source for brand-primary, plus observed states and no unresolved conflict. Counts are a floor, not a vote or automatic approval."
+  },
+  "frequencyMethod": {
+    "unit": "visible controls doing a recorded semantic job, counted per independent page and state; inspect the actually painted child/background layer and text layer, not just the transparent outer button; do not count raw CSS declarations or repeated carousel clones",
+    "exclude": [
+      "logo pixels from action-color counts",
+      "hidden or duplicated controls",
+      "footer utility controls from the content-CTA denominator only after recording them separately",
+      "campaign imagery and card artwork from UI token counts"
+    ],
+    "reviewOrder": "First compare page authority and task role, then page coverage, visible prominence and within-role frequency; inspect hover/focus and contrast before approval.",
+    "requiredReport": [
+      "sourcePages",
+      "countedControlsByRoleAndTreatment",
+      "excludedControls",
+      "identityVsActionDecision",
+      "exceptions",
+      "unresolvedStates"
+    ]
+  },
+  "evidenceHandoff": {
+    "aggregateVsControl": "A per-page frequency total is a sampling summary, not proof that every counted control has a retained selector. Preserve at least one independently re-checkable painted control per core page with URL, selector, nonempty region, default state, actual background and foreground; state clearly how many counted controls lack individual proof.",
+    "scopeSeparation": "A frozen goal for a two-dimension diagnostic can pass its own structural handoff while the original six-dimension learn-brand goal remains blocked. Both goal IDs and statuses must be shown together; a scoped PASS never inherits or replaces full-brand approval.",
+    "versionRule": "Evidence and Interpreter records must name the same frozen goal version they answer. A previous PASS with a different goal ID cannot approve a new packet.",
+    "trialLineage": "A reversible before/after trial reads candidate values from the versioned Interpreter output and names the unchanged task, viewport and content. A visible difference proves only that the candidate rendered, not that its target token or aesthetic outcome is approved."
+  },
+  "defaultHypothesis": "A primary action normally starts from the design system's semantic primary-action role, but whether its value equals the brand identity primary color is a separate evidence-backed decision.",
+  "exceptionRule": "A CTA color or treatment that differs from brand-primary may be approved only at the narrowest supported scope after same-role cross-page and state comparison; a local campaign or tool-page exception is never silently global.",
+  "fallback": "When evidence is incomplete, keep the target's existing semantic primary-action token and mark brand value unresolved; do not assign a sampled hex or RGB value as global primary.",
+  "outputs": [
+    "brandIdentityDecision",
+    "interfacePaletteDecision",
+    "primaryActionDecision",
+    "ctaExceptions",
+    "pageStateComparison",
+    "unresolvedGaps",
+    "reviewer"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "readerPurpose": "专项判断步骤"
+}

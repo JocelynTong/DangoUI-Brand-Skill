@@ -1,3 +1,4 @@
+import { buildSkillIntegrity } from './verify-brand-skill-integrity.mjs'
 import { createHash } from 'node:crypto'
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -17,6 +18,18 @@ await cp(source, target, {
   },
 })
 
+// Ship the knowledge dependency closure alongside the skill.
+const knowledgeRoot = path.join(target, 'knowledge-runtime')
+for (const rel of ['knowledge/v0.1', 'public/knowledge/v0.1']) {
+  await mkdir(path.dirname(path.join(knowledgeRoot,rel)),{recursive:true})
+  await cp(path.join(root,rel),path.join(knowledgeRoot,rel),{recursive:true})
+}
+const catalog=JSON.parse(await readFile(path.join(root,'public/knowledge/v0.1/index.json'),'utf8'))
+for(const rel of [catalog.componentSource,...(catalog.brandRecipes||[]).map(r=>r.path)]){
+ await mkdir(path.dirname(path.join(knowledgeRoot,rel)),{recursive:true})
+ await cp(path.join(root,rel),path.join(knowledgeRoot,rel))
+}
+
 async function files(dir) {
   const result = []
   for (const name of await readdir(dir)) {
@@ -27,6 +40,7 @@ async function files(dir) {
   return result
 }
 
+await writeFile(path.join(target,'.brand-skill-integrity.json'),JSON.stringify(buildSkillIntegrity(target),null,2)+'\n')
 const manifest = []
 for (const file of (await files(target)).sort()) {
   const data = await readFile(file)

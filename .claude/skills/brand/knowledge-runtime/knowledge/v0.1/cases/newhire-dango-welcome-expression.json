@@ -1,0 +1,101 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "newhire-dango-welcome-expression",
+  "status": "selected-direction-runtime-awaiting-user",
+  "contextKey": "dango|new-hire-landing|current-task",
+  "methodRef": "expressive-productive-allocation",
+  "reviewStatus": "direction-selected-runtime-not-approved",
+  "readerPurpose": "已发生的事实、反馈与验证边界",
+  "decisionTrace": {
+    "recordType": "documented-feedback-and-repair",
+    "decisionQuestion": "基础系统正确但表达不足时，怎样增强欢迎体验且保护真实任务？",
+    "knownInputs": [
+      "用户指出 expressive 偏少",
+      "用户要求方向差异",
+      "用户选 A 欢迎之门"
+    ],
+    "alternatives": [
+      {
+        "id": "a",
+        "documentedObservation": "生成插画欢迎场景",
+        "disposition": "selected"
+      },
+      {
+        "id": "b",
+        "documentedObservation": "阶段路径",
+        "disposition": "not-selected"
+      },
+      {
+        "id": "c",
+        "documentedObservation": "章节工作台",
+        "disposition": "not-selected"
+      }
+    ],
+    "selectionAtTime": "用户回复 A",
+    "expertDecisionAfterFeedback": "装饰与业务分离，并在真实导航占用下复核首动作。",
+    "feedback": {
+      "status": "direction-selected-runtime-not-approved"
+    },
+    "nextCaseQuestion": "能否在不同任务密度下主动分配表达强度？"
+  },
+  "observations": [
+    "375×812主按钮底边初为855.5px，减少插画高度和间距后为758px。",
+    "仅CSS导入、主题和图片变化，业务源文件保持字节一致。",
+    "50测试文件330测试通过；未找到原片与入职PDF。"
+  ],
+  "safeConclusion": "选定插画可作为欢迎表达层，真实数据与操作仍由宿主提供。",
+  "invalidInference": "方向选择和自动测试通过不等于生产验收或通用审美规律。",
+  "evidenceFiles": [
+    "output/newhire-a-runtime/freeze.json",
+    "output/newhire-a-runtime/regression.log"
+  ],
+  "componentCorrection": {
+    "feedback": "用户指出栏目切换未用对组件",
+    "cause": "普通按钮继承圆角焦点框，选中态用黑色内阴影冒充Tabs",
+    "source": "https://dumpling.echo.tech/bar/tabs",
+    "repair": "React LearningTabs adapter, short primary indicator, pointer/keyboard focus split, original selectTab callback retained",
+    "tests": "332 passed",
+    "boundary": "React adaptation, not native Vue DuTabs"
+  },
+  "componentAudit": {
+    "source": "https://dumpling.echo.tech/data/steps",
+    "repairs": [
+      "只读进度使用 Steps，区分完成、当前和未开始",
+      "资料保持原生 details 展开，统一分隔线与展开图标",
+      "禁用按钮不继承上浮动效"
+    ],
+    "preserved": "阶段回顾按钮和业务回调保留；React 适配，不声称使用 Vue 原生组件",
+    "verification": "52 files / 333 tests passed; tsc and build passed"
+  },
+  "motionCorrection": {
+    "feedback": "用户指出预览动效在宿主中遗漏",
+    "source": "newhire-dango-v2/a.html .welcome img reveal .7s ease-out",
+    "cause": "从 img 到 CSS pseudo-element 迁移只带了静态布局，遗漏 animation",
+    "repair": "宿主装饰伪元素恢复单次 700ms opacity/translateY 动画，尊重 prefers-reduced-motion",
+    "lesson": "设计交接应对照动态属性与触发时机，不能只比静态截图"
+  },
+  "libraryTransfer": {
+    "scope": "OriginalLibrary and reference-catalog CSS only",
+    "decision": "Extend selected A white surface, purple accents, thin separators and typography into library; retain existing welcome art, no new generated assets",
+    "business": "OriginalLibrary.tsx unchanged; entitlements, original source, missing-media fallback and callbacks preserved",
+    "regression": "28 relevant tests passed; build passed",
+    "approval": "awaiting user; does not demonstrate cross-host stability"
+  },
+  "journeyTransfer": {
+    "scope": "journey-tasks CSS only",
+    "knowledge": {
+      "questionId": "dynamic-scene-proof",
+      "disposition": "adapt",
+      "reason": "采用真实交互状态验证；空间拆层部分不适用于表单任务"
+    },
+    "decisions": [
+      "保留欢迎图与单次入场",
+      "选择紫色仅表示当前选择，待审核/退回/通过用独立语义色",
+      "长证据链接可换行；单列表单适配窄屏"
+    ],
+    "limits": [
+      "same-host only",
+      "visual approval pending"
+    ]
+  }
+}

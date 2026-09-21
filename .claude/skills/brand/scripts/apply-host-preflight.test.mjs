@@ -27,6 +27,8 @@ assert.equal(result.hostLayout.issues[0].closed, 1);
 fs.writeFileSync(page, "<template><view><scroll-view scroll-y>ok</scroll-view></view></template>\n");
 result = runApplyHostPreflight({ root, brand, hostTarget: "host", phase: "design", write: false });
 assert.equal(result.verdict, "pass");
+assert.equal(result.schema, "brand-design-host-preflight/v1");
+assert.equal(result.lane, "design-host");
 assert.equal(result.hostLayout.issues.length, 0);
 assert.equal(result.hostLayout.qaContract.length, 3);
 assert.equal(result.targetResolution.strategy, "default-home-first-route");
@@ -61,6 +63,7 @@ for (const name of ["brand-application-plan.json", "design-direction-options.jso
 }
 const implementationWithDesign = runApplyHostPreflight({ root, brand, hostTarget: "host", profile: "fast", phase: "implementation", write: false });
 assert.equal(implementationWithDesign.verdict, "pass");
+assert.equal(implementationWithDesign.schema, "brand-apply-host-preflight/v1");
 assert.equal(implementationWithDesign.frozenDesign.reuseDecision, "consume-without-redesign");
 
 const certification = runApplyHostPreflight({ root, brand, hostTarget: "host", profile: "certification", phase: "implementation", write: false });

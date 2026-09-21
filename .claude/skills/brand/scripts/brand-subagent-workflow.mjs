@@ -36,22 +36,31 @@ function prepare() {
   const contract = readJsonRequired(contractFile);
   const mode = goal.mode || "learn-brand";
   const executionProfile = goal.executionProfile || (["design-host", "apply-host"].includes(mode) ? "fast" : "full");
-  const initialStage = initialStageForMode(mode);
+  const knowledgeScenarioId = goal.knowledgeScenarioId || null;
+  if (knowledgeScenarioId) {
+    const index = readJsonRequired(path.join(root, "public", "knowledge", "v0.1", "index.json"));
+    if (mode !== "design-host" || !array(index.scenarios).some((item) => item.id === knowledgeScenarioId)) fail(`KNOWLEDGE_SCENARIO_UNKNOWN: ${knowledgeScenarioId}`);
+  }
+  if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must freeze three selectable H5 directions before the clock starts.");
+  const initialStage = initialStageForMode(mode, executionProfile);
   const manifest = {
     schema: "brand-subagent-execution/v1",
     runId: crypto.randomUUID(),
     brand,
     mode,
     executionProfile,
+    knowledgeScenarioId,
     goalId: goal.goalId,
     goalPath: relative(goalFile),
     goalSha256: sha256File(goalFile),
     roleContractVersion: contract.roleContractVersion || null,
     status: "running",
     createdAt: new Date().toISOString(),
+    deadlineAt: mode === "design-host" && executionProfile === "fast" ? new Date(Date.now() + 300000).toISOString() : null,
     currentStageId: initialStage.id,
     stages: [initialStage],
     finalGates: {},
+    telemetry: { dispatchCount: 0, inputFiles: 0, inputBytes: 0, outputFiles: 0, outputBytes: 0, additionalReadBytes: 0 },
   };
   writeJson(manifestFile, manifest);
   output({ ok: true, manifest: relative(manifestFile), runId: manifest.runId, next: `Run next to obtain the ${initialStage.stage} dispatch request.` });
@@ -59,6 +68,7 @@ function prepare() {
 
 function next() {
   const manifest = validateManifest();
+  enforceDesignHostDeadline(manifest);
   if (manifest.status !== "running") return output({ ok: false, status: manifest.status, message: "Workflow is not dispatchable." }, 2);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
   if (!current || current.status !== "pending") fail("Current stage is not pending; record its receipt or inspect status.");
@@ -68,6 +78,7 @@ function next() {
   const roleContract = contract.roles?.[current.role];
   if (!roleContract) fail(`Missing role contract for ${current.role}.`);
   const inputs = dispatchInputs(manifest, current);
+  const fastOverride = fastDesignHostOverride(manifest, current);
   const request = {
     schema: "brand-subagent-dispatch/v1",
     dispatchId: crypto.randomUUID(),
@@ -75,10 +86,11 @@ function next() {
     stageId: current.id,
     stage: current.stage,
     role: current.role,
+    collaboration: ["design-host", "apply-host"].includes(manifest.mode) ? contract.hostCollaboration : null,
     attempt: current.attempt,
     goalId: manifest.goalId,
     goalSha256: manifest.goalSha256,
-    mission: roleContract.goal,
+    mission: fastOverride?.mission || roleContract.goal,
     roleContractVersion: manifest.roleContractVersion,
     executionProfile: manifest.executionProfile,
     profileContract: ["design-host", "apply-host"].includes(manifest.mode)
@@ -87,14 +99,28 @@ function next() {
     requiredInputs: inputs,
     allowedInputs: roleContract.inputs?.allowed || [],
     forbiddenInputs: roleContract.inputs?.forbidden || [],
-    tasks: roleContract.tasks || [],
-    requirements: roleContract.requirements || [],
+    tasks: fastOverride?.tasks || roleContract.tasks || [],
+    requirements: [...(roleContract.requirements || []), ...(fastOverride?.requirements || [])],
     scopeRules: dispatchScopeRules(manifest),
     mustNot: roleContract.mustNot || [],
-    expectedOutputs: roleContract.outputs || [],
+    expectedOutputs: fastOverride?.expectedOutputs || roleContract.outputs || [],
     passCriteria: roleContract.passCriteria || [],
     failCriteria: roleContract.failCriteria || [],
+    contextPolicy: {
+      strategy: "minimum-role-packet",
+      readOnlyListedInputs: true,
+      forbiddenBulkReads: [
+        "skills/brand/workflow-contract.json",
+        "skills/brand/references/legacy-full-guidance.md",
+        "skills/brand/references/dangoui-token-contract.json",
+        "skills/brand/references/dangoui.tokens.dtcg.json",
+        "skills/brand/references/dangoui.design-system.json",
+      ],
+      exception: "Read a targeted reference or query a specific JSON key only when the dispatch packet cannot answer a required decision; record that extra read in the receipt.",
+      queryCommand: "node skills/brand/scripts/query-brand-context.mjs <get|search> --source <contract|tokens|runtime|workflow> ...",
+    },
     receiptRequirements: ["agentExecutionId from a real spawned subagent", "goalSha256 unchanged", "input and output file sha256 values", "pass/fail/needs-evidence verdict", "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"],
+    fastDesignHints: fastOverride?.hints || null,
   };
   const dispatchFile = path.join(migrationDir, "dispatch", `${current.id}.json`);
   writeJson(dispatchFile, request);
@@ -102,8 +128,41 @@ function next() {
   current.dispatchPath = relative(dispatchFile);
   current.status = "dispatched";
   current.startedAt = new Date().toISOString();
+  addTelemetry(manifest, "dispatch", inputs);
   writeJson(manifestFile, manifest);
   output({ ok: true, dispatchRequest: request, dispatchFile: relative(dispatchFile), instruction: "The outer Orchestrator must now spawn a real subagent with exactly this packet." });
+}
+
+function fastDesignHostOverride(manifest, current) {
+  if (manifest.mode !== "design-host" || manifest.executionProfile !== "fast") return null;
+  if (current.role === "hostStrategist") return {
+    mission: "In one compact file, identify the host primary task, frozen business scope and visual-capacity zones needed by the Designer; do not produce implementation or full-host certification artifacts.",
+    tasks: ["identify the default route and primary task", "freeze the capabilities every direction preserves", "classify productive/expressive first-viewport zones", "write one fast-host-brief.json"],
+    requirements: ["finish the fast strategy handoff within 45 seconds when the frozen packet is sufficient", "fast-host-brief.json contains hostOpportunity, businessScope and experienceZones sections"],
+    expectedOutputs: ["fast-host-brief.json"],
+    hints: { targetSeconds: 45, outputSchema: { hostOpportunity: "object", businessScope: "object", experienceZones: "array" }, omitInFast: ["program-goal-tree.json", "intent-plan.json", "host-coverage-matrix.json", "host-opportunity-map.json", "business-scope.json", "experience-zone-brief.json"] },
+  };
+  if (current.role === "visualQA" && current.stage === "designVisualQA") return {
+    mission: "Independently inspect all three frozen static H5 directions at the target viewport; report protocol findings while reserving expressive approval for the user.",
+    tasks: ["run the H5 expressive-moment validator on the frozen plan", "serve the isolated H5 workspace at 127.0.0.1 using the supplied static-file server and open each H5 URL at the target viewport without saving screenshots", "check asset load, clipping/overflow, brand continuity, composition difference, real-data provenance and primary-task clarity", "write compact QA JSON, H5 audit JSON and receipt with user expressive approval pending"],
+    requirements: ["target 60 seconds and record immediately", "the static-file server is not host runtime and must not modify host source", "do not generate PNG, JPG, contact sheet or other screenshot artifact", "a machine pass only makes an H5 eligible for human visual review", "any clipped primary control, unsupported business record, missing asset or missing H5 is blocking", "do not inspect prior runs or producer rationale"],
+    expectedOutputs: ["design-host-visual-qa.json", "H5 expressive audit JSON"],
+    hints: { targetSeconds: 60, candidateCount: 3, medium: "static-h5-only", validator: "scripts/validate-design-host-expressive-h5.mjs", staticServer: { scriptRelativeToSkillRoot: "scripts/serve-design-host-h5.mjs", arguments: ["--root", "<isolated-run-root>", "--port", "0"], open: "<baseUrl>/<relative-H5-path>", execution: { sandboxPermissions: "require_escalated", reason: "The macOS command sandbox denies loopback listen; a read-only localhost H5 server needs bind permission." } }, compactVerdictFields: ["verdict", "evidenceFidelity", "structuralFidelity", "generativeProof", "blockingFindings", "humanExpressiveApproval"] },
+  };
+  if (current.role !== "brandApplicationDesigner") return null;
+  const modFile = path.join(migrationDir, "brand-mod.json");
+  const mod = fs.existsSync(modFile) ? readJsonRequired(modFile) : {};
+  const assets = array(mod.assets).filter((asset) => asset?.id && asset?.sourceSha256 && asset?.status !== "rejected").map((asset) => {
+    const localFile = asset.localPath ? path.resolve(root, asset.localPath) : null;
+    return { id: asset.id, role: asset.role, sourceKind: asset.sourceKind, sourceSha256: asset.sourceSha256, sourceUrl: asset.sourceUrl || null, localPath: asset.localPath || null, localAvailable: Boolean(localFile && fs.existsSync(localFile)), targetScope: asset.targetScope, antiScopes: array(asset.antiScopes) };
+  });
+  return {
+    mission: "Derive the compact host brief directly from frozen inputs, produce three genuinely distinct static H5 directions, and close the validators without reading unrelated brand history.",
+    tasks: ["write fast-host-brief.json directly from the frozen host baseline", "write at least three compact visual programs with different scene graphs, content entries and lead assets", "run the competition gate and stop unless three programs survive", "render three complete target-viewport static H5 files", "write plan and options using dispatch-provided hashes verbatim, then run the required validators once"],
+    requirements: ["do not spawn or emulate a separate Host Strategist in fast mode", "copy all baseline hashes from fastDesignHints.frozenInputHashes; never transcribe or recompute them manually", "use at least one supplied sourceBrandAsset in each option brandSystemClosure with role brand-identity, environment, campaign-scene or brand-texture", "never reference localPath when localAvailable is false; use its sourceUrl or choose another asset", "do not invent API-derived business records, names or counts; use a hash-bound captured state or clearly neutral schema placeholders", "vary scene graph, content entry and result container; a shared hero-search-list skeleton is not three directions", "keep primary search/filter/action controls fully inside normal-flow containers; never place them across an overflow:hidden boundary with negative positioning", "do not generate screenshots or extra state variants before independent QA", "finish and record by 225 seconds after workflow prepare, preserving 75 seconds for independent QA"],
+    expectedOutputs: ["fast-host-brief.json", "three visual-program JSON files", "visual-program-competition.json", "brand-application-plan.json", "design-direction-options.json", "three static H5 directions"],
+    hints: { candidateProgramCount: 3, renderCount: 3, targetSeconds: 195, qaReserveSeconds: 75, frozenInputHashes: Object.fromEntries(dispatchInputs(manifest, current).map((item) => [item.path, item.sha256])), knowledgeScenarioId: manifest.knowledgeScenarioId, knowledgeQuery: "node skills/brand/scripts/query-design-knowledge.mjs question expressive-productive-allocation-question; if applicable, query its methodRef, caseRefs and hypothesisRefs; count independent cases, not alternatives; treat candidate hypotheses as test questions rather than approved recipes; query pattern <id> only when the host task fits; query method design-asset-adoption and relevant decision <id> before using source-specific brand assets; query policy primary-color-and-cta when assigning brand primary or CTA; query scenario <id> for machine binding; query each brandRecipeRefs id with recipe <id>; query component <name> only as needed", sourceBrandAssets: assets, identityClosureRoles: ["brand-identity", "environment", "campaign-scene", "brand-texture"], validatorOrder: ["validate-brand-application-plan.mjs", "validate-wild-design-decision.mjs --options-only"] },
+  };
 }
 
 function record() {
@@ -112,6 +171,7 @@ function record() {
   const receiptFile = path.resolve(root, receiptArg);
   const receipt = readJsonRequired(receiptFile);
   const manifest = validateManifest();
+  enforceDesignHostDeadline(manifest);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
   if (!current || current.status !== "dispatched") fail("No dispatched current stage is waiting for a receipt.");
   if (current.role === "hostImplementationAgent") verifyHostPreeditGate("receipt");
@@ -121,12 +181,14 @@ function record() {
   if (!receipt.agentExecutionId || !String(receipt.agentExecutionId).startsWith("/root/") || receipt.agentExecutionId === "/root") fail("Receipt must identify a real spawned subagent execution.");
   if (receipt.goalSha256 !== manifest.goalSha256) fail("Receipt goal hash does not match the frozen goal.");
   if (!['pass', 'fail', 'needs-evidence'].includes(receipt.verdict)) fail("Receipt verdict must be pass, fail or needs-evidence.");
+  if (containsRoleTimeoutClaim(receipt)) fail("ROLE_TIMEOUT_CLAIM_FORBIDDEN: only the workflow clock may emit DESIGN_HOST_FAST_BUDGET_EXCEEDED; discard this receipt and keep the stage pending.");
   const receiptInputs = array(receipt.inputs);
   for (const required of array(dispatch.requiredInputs)) {
     const received = receiptInputs.find((item) => item.path === required.path);
     if (!received || received.sha256 !== required.sha256) fail(`Receipt is missing frozen dispatch input: ${required.path}`);
   }
   const receiptOutputs = array(receipt.outputs);
+  if (manifest.mode === "design-host" && receiptOutputs.some((item) => /\.(?:png|jpe?g|webp|avif|gif|pdf)$/i.test(item.path || ""))) fail("DESIGN_HOST_H5_ONLY: image and screenshot outputs are forbidden; deliver static H5 and JSON only.");
   const overwrittenOutputPaths = new Set(receiptOutputs.map((item) => item.path));
   for (const item of receiptInputs) {
     // Retry dispatches intentionally freeze the previous implementation as input,
@@ -136,11 +198,26 @@ function record() {
     if (!overwrittenOutputPaths.has(item.path)) verifyHashedPath(item);
   }
   for (const item of receiptOutputs) verifyHashedPath(item);
-  if (current.role === "brandResearcher" && receipt.verdict === "pass") verifyEvidenceVisibilityGate();
+  if (manifest.mode === "learn-brand" && current.role === "brandResearcher" && receipt.verdict === "pass") {
+    verifyEvidenceVisibilityGate();
+    verifyLearnBrandHandoff("evidence");
+  }
+  if (manifest.mode === "learn-brand" && current.role === "designTranslator" && receipt.verdict === "pass") verifyLearnBrandHandoff("interpreter");
   if (array(receipt.outputs).length === 0) fail("Receipt must include at least one hashed output.");
+  if (manifest.mode === "design-host" && current.stage === "brandApplication" && receipt.verdict === "pass") {
+    const plan = path.join(migrationDir, "brand-application-plan.json");
+    if (!receiptOutputs.some((item) => path.resolve(root, item.path) === plan) || !fs.existsSync(plan)) fail("DESIGN_HOST_PLAN_REQUIRED: designer receipt must hash the frozen H5 plan.");
+    try { execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", plan, ...(manifest.knowledgeScenarioId ? ["--require-scenario", manifest.knowledgeScenarioId] : [])], { cwd: root, stdio: "pipe" }); }
+    catch (error) { fail(`DESIGN_HOST_H5_GATE_FAILED: ${error.stdout?.toString() || error.message}`); }
+  }
+  if (manifest.mode === "design-host" && current.stage === "designVisualQA" && receipt.verdict === "pass") {
+    const audit = path.join(migrationDir, "design-host-h5-audit.json");
+    if (!receiptOutputs.some((item) => path.resolve(root, item.path) === audit) || !fs.existsSync(audit) || readJsonRequired(audit).status !== "eligible-for-human-review") fail("DESIGN_HOST_H5_AUDIT_REQUIRED: QA receipt must hash a passing H5 audit; user expressive approval remains pending.");
+  }
   if (current.role === "visualQA") {
     const latestDemo = [...manifest.stages].reverse().find((item) => ["demoImplementationAgent", "implementationAgent"].includes(item.role) && item.status === "complete");
     if (latestDemo?.agentExecutionId === receipt.agentExecutionId) fail("Visual QA must use a different subagent from Demo implementation.");
+    if (receipt.verdict !== "pass") validateDeltaScope(receipt.deltaScope);
   }
   current.status = receipt.verdict === "pass" ? "complete" : "failed";
   current.verdict = receipt.verdict;
@@ -150,11 +227,15 @@ function record() {
   current.outputHashes = array(receipt.outputs);
   current.blockingFindings = array(receipt.blockingFindings);
   current.failureOwnerRole = receipt.failureOwnerRole || null;
+  current.deltaScope = receipt.deltaScope || null;
+  current.additionalReads = array(receipt.additionalReads);
   current.endedAt = new Date().toISOString();
   current.durationMs = Math.max(0, Date.parse(current.endedAt) - Date.parse(current.startedAt));
   advance(manifest, current);
   manifest.updatedAt = current.endedAt;
   manifest.elapsedMs = manifest.stages.reduce((sum, item) => sum + Number(item.durationMs || 0), 0);
+  addTelemetry(manifest, "receipt", receiptOutputs, current.additionalReads);
+  writeTelemetry(manifest);
   writeJson(manifestFile, manifest);
   output({ ok: true, status: manifest.status, completedStage: current.id, durationMs: current.durationMs, elapsedMs: manifest.elapsedMs, nextStageId: manifest.currentStageId || null, blockingFindings: current.blockingFindings });
 }
@@ -173,6 +254,17 @@ function approvePreview() {
     manifest.stages.push(retry);
     manifest.currentStageId = retry.id;
     manifest.status = "running";
+  } else if (decision === "approve" && manifest.executionProfile === "fast" && frozenPreviewArtifactsUnchanged(manifest)) {
+    const previewQa = [...manifest.stages].reverse().find((item) => item.stage === "previewQA" && item.verdict === "pass");
+    manifest.currentStageId = null;
+    manifest.status = "passed";
+    manifest.deliveryLevel = "fast-preview-approved";
+    manifest.qaReuse = {
+      status: "reused",
+      sourceStageId: previewQa?.id || null,
+      reason: "Explicit approval with unchanged frozen inputs, implementation outputs and Smoke QA outputs.",
+      reusedAt: new Date().toISOString(),
+    };
   } else {
     const qa = uniqueStage(manifest, "visualQA", "visualQA", 1);
     manifest.stages.push(qa);
@@ -182,7 +274,26 @@ function approvePreview() {
   }
   manifest.updatedAt = new Date().toISOString();
   writeJson(manifestFile, manifest);
-  output({ ok: true, status: manifest.status, decision, nextStageId: manifest.currentStageId });
+  output({ ok: true, status: manifest.status, decision, nextStageId: manifest.currentStageId, qaReuse: manifest.qaReuse || null });
+}
+
+function frozenPreviewArtifactsUnchanged(manifest) {
+  const stages = manifest.stages.filter((item) => ["hostImplementation", "previewQA"].includes(item.stage) && item.status === "complete");
+  if (!stages.some((item) => item.stage === "hostImplementation") || !stages.some((item) => item.stage === "previewQA")) return false;
+  const artifacts = [];
+  for (const stageItem of stages) {
+    artifacts.push(...array(stageItem.outputHashes));
+    if (stageItem.dispatchPath) {
+      const dispatchFile = path.join(root, stageItem.dispatchPath);
+      if (!fs.existsSync(dispatchFile)) return false;
+      artifacts.push(...array(readJsonRequired(dispatchFile).requiredInputs));
+    }
+  }
+  return latestInputsByPath(artifacts).every((item) => {
+    if (!item?.path || !item?.sha256) return false;
+    const file = path.resolve(root, item.path);
+    return fs.existsSync(file) && sha256File(file) === item.sha256;
+  });
 }
 
 function status() {
@@ -231,6 +342,7 @@ function resumeQa() {
     blockingFindings: array(latestQa.blockingFindings).length
       ? array(latestQa.blockingFindings)
       : array(assessment.blockingFindings),
+    deltaScope: latestQa.deltaScope || assessment.deltaScope || null,
   };
   manifest.stages.push(retry);
   manifest.currentStageId = retry.id;
@@ -259,6 +371,7 @@ function resumeDemo() {
     blockingFindings: array(latestQa.blockingFindings).length
       ? array(latestQa.blockingFindings)
       : array(assessment.blockingFindings),
+    deltaScope: latestQa.deltaScope || assessment.deltaScope || null,
     continuationAuthorization: authorizedContinuation ? "explicit-user-request-to-continue-existing-version" : null,
   };
   manifest.stages.push(retry);
@@ -312,12 +425,12 @@ function advance(manifest, current) {
     manifest.currentStageId = null;
     return;
   }
-  const order = stageOrderForMode(manifest.mode);
+  const order = stageOrderForMode(manifest.mode, manifest.executionProfile);
   if (current.verdict === "pass") {
-    if (manifest.mode === "design-host" && current.stage === "brandApplication") {
+    if (manifest.mode === "design-host" && current.stage === "designVisualQA") {
       manifest.status = "awaiting-user-direction";
       manifest.currentStageId = null;
-      manifest.directionDecision = { status: "pending", requiredOutputs: ["design-direction-decision.json", "design-direction.json"] };
+      manifest.directionDecision = { status: "pending", humanExpressiveApproval: "pending", requiredOutputs: ["design-direction-decision.json", "design-direction.json"] };
       return;
     }
     if (manifest.mode === "apply-host" && current.stage === "previewQA") {
@@ -363,7 +476,7 @@ function advance(manifest, current) {
     const routed = failureRouteForMode(manifest.mode, current.failureOwnerRole);
     const routedAttempts = manifest.stages.filter((item) => item.role === routed[1] && ["complete", "failed"].includes(item.status)).length;
     const retry = uniqueStage(manifest, routed[0], routed[1], routedAttempts + 1);
-    retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings };
+    retry.retryInput = { goalSha256: manifest.goalSha256, blockingFindings: current.blockingFindings, deltaScope: current.deltaScope };
     manifest.stages.push(retry);
     manifest.currentStageId = retry.id;
     return;
@@ -374,6 +487,8 @@ function advance(manifest, current) {
 
 function dispatchInputs(manifest, current) {
   const goalInput = hashedPath(relative(goalFile));
+  const scopedPaths = array(current.retryInput?.deltaScope?.inputPaths);
+  if (scopedPaths.length) return latestInputsByPath([goalInput, ...scopedPaths.map(hashedPath)]);
   if (current.role === "hostImplementationAgent") {
     return latestInputsByPath([
       goalInput,
@@ -405,6 +520,34 @@ function dispatchInputs(manifest, current) {
   }
   const previousOutputs = manifest.stages.filter((item) => item.status === "complete").flatMap((item) => array(item.outputHashes));
   return latestInputsByPath([goalInput, ...previousOutputs]);
+}
+
+function validateDeltaScope(scope) {
+  if (!scope || !array(scope.affectedSections).length || !array(scope.inputPaths).length || !array(scope.regressionSections).length) {
+    fail("Failed Visual QA receipts require deltaScope with affectedSections, inputPaths and regressionSections.");
+  }
+  for (const item of scope.inputPaths) hashedPath(item);
+}
+
+function addTelemetry(manifest, kind, files, additionalReads = []) {
+  manifest.telemetry ||= { dispatchCount: 0, inputFiles: 0, inputBytes: 0, outputFiles: 0, outputBytes: 0, additionalReadBytes: 0 };
+  const bytes = (items) => array(items).reduce((sum, item) => {
+    const file = path.resolve(root, typeof item === "string" ? item : item.path || "");
+    return sum + (fs.existsSync(file) && fs.statSync(file).isFile() ? fs.statSync(file).size : Number(item?.bytes || 0));
+  }, 0);
+  if (kind === "dispatch") {
+    manifest.telemetry.dispatchCount += 1;
+    manifest.telemetry.inputFiles += array(files).length;
+    manifest.telemetry.inputBytes += bytes(files);
+  } else {
+    manifest.telemetry.outputFiles += array(files).length;
+    manifest.telemetry.outputBytes += bytes(files);
+    manifest.telemetry.additionalReadBytes += bytes(additionalReads);
+  }
+}
+
+function writeTelemetry(manifest) {
+  writeJson(path.join(migrationDir, "workflow-telemetry.json"), { schema: "brand-workflow-telemetry/v1", runId: manifest.runId, updatedAt: new Date().toISOString(), ...manifest.telemetry });
 }
 
 function verifyHostPreeditGate(phase) {
@@ -480,14 +623,14 @@ function nextAction(manifest, proofs) {
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
-function initialStageForMode(mode) {
+function initialStageForMode(mode, executionProfile = "full") {
   if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
-  if (mode === "design-host") return stage("hostStrategy", "hostStrategist", 1);
+  if (mode === "design-host") return executionProfile === "fast" ? stage("brandApplication", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
   if (mode === "apply-host") return stage("hostImplementation", "hostImplementationAgent", 1);
   fail(`Unsupported goal mode: ${mode}`);
 }
-function stageOrderForMode(mode) {
-  if (mode === "design-host") return ["hostStrategy", "brandApplication"];
+function stageOrderForMode(mode, executionProfile = "full") {
+  if (mode === "design-host") return executionProfile === "fast" ? ["brandApplication", "designVisualQA"] : ["hostStrategy", "brandApplication", "designVisualQA"];
   if (mode === "apply-host") return ["hostImplementation", "previewQA", "visualQA"];
   return ["evidence", "interpreter", "demo", "visualQA"];
 }
@@ -498,12 +641,35 @@ function roleForStage(name) {
     demo: "demoImplementationAgent",
     hostStrategy: "hostStrategist",
     brandApplication: "brandApplicationDesigner",
+    designVisualQA: "visualQA",
     hostImplementation: "hostImplementationAgent",
     previewQA: "visualQA",
     visualQA: "visualQA",
   }[name];
 }
+function enforceDesignHostDeadline(manifest) {
+  if (manifest.mode !== "design-host" || manifest.executionProfile !== "fast" || !manifest.deadlineAt || Date.now() <= Date.parse(manifest.deadlineAt)) return;
+  manifest.status = "timed-out";
+  manifest.currentStageId = null;
+  manifest.timeout = { code: "DESIGN_HOST_FAST_BUDGET_EXCEEDED", budgetMs: 300000, deadlineAt: manifest.deadlineAt, observedAt: new Date().toISOString() };
+  writeJson(manifestFile, manifest);
+  fail("DESIGN_HOST_FAST_BUDGET_EXCEEDED: stop instead of silently exceeding the five-minute preview budget.");
+}
+function containsRoleTimeoutClaim(receipt) {
+  const visit = (value) => {
+    if (typeof value === "string") return /(?:DESIGN_HOST_FAST_BUDGET_EXCEEDED|TIME_BUDGET_EXCEEDED)/i.test(value);
+    if (Array.isArray(value)) return value.some(visit);
+    if (value && typeof value === "object") return Object.entries(value).some(([key, child]) => /stopObservedAt|deadlineAt/i.test(key) || visit(child));
+    return false;
+  };
+  return visit(receipt);
+}
 function dispatchScopeRules(manifest) {
+  if (manifest.mode === "design-host" && manifest.currentStageId?.startsWith("designVisualQA-")) return [
+    "Open every shortlisted static H5 through the isolated 127.0.0.1 static-file server at the frozen target viewport without producing screenshots; file: URL denial is not a reason to skip visual QA.",
+    "Reject generic enterprise styling, repeated lead assets, weak brand visual mass, and candidates that differ only by list/grid arrangement.",
+    "Remain independent: do not edit the H5, host source, Brand MOD or direction plan; return blocking findings to Brand Application Designer.",
+  ];
   if (manifest.mode === "design-host") return [
     "Do not modify, compile or inject host source while generating directions.",
     "Use the frozen host baseline and existing Brand MOD; do not relearn the brand.",
@@ -556,6 +722,15 @@ function verifyEvidenceVisibilityGate() {
   } catch (error) {
     const output = String(error?.stdout || error?.stderr || "").trim();
     fail(`Evidence receipt cannot pass before screenshot-first visibility gate passes.${output ? `\n${output}` : ""}`);
+  }
+}
+function verifyLearnBrandHandoff(stage) {
+  const validator = path.join(root, "skills", "brand", "scripts", "validate-learn-brand-handoff.mjs");
+  try {
+    execFileSync(process.execPath, [validator, "--root", root, "--brand", brand, "--goal-file", goalFile, "--stage", stage], { cwd: root, stdio: "pipe" });
+  } catch (error) {
+    const report = String(error?.stdout || error?.stderr || "").trim();
+    fail(`LEARN_BRAND_${stage.toUpperCase()}_HANDOFF_BLOCKED: ${report}`);
   }
 }
 function verifyDesignDirectionGate() {

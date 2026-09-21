@@ -1,0 +1,78 @@
+{
+  "schema": "host-collaboration/v1",
+  "topology": "flat-peers",
+  "roles": [
+    {
+      "id": "hostStrategist",
+      "name": "宿主分析",
+      "input": "真实任务、路由、数据状态、品牌输入",
+      "output": "任务与保护边界、表达机会、空间预算",
+      "decision": "哪里值得表达、哪里必须高效",
+      "stage": "design-host"
+    },
+    {
+      "id": "brandApplicationDesigner",
+      "name": "视觉设计",
+      "input": "宿主分析结论、来源依据、相关决策",
+      "output": "候选方向、动态可行性试片、选定视觉契约",
+      "decision": "采用哪种视觉机制及其取舍",
+      "stage": "design-host"
+    },
+    {
+      "id": "hostImplementationAgent",
+      "name": "宿主实现",
+      "input": "已选择方向、不可变基线、实际数据与平台约束",
+      "output": "真实宿主实现、运行证据、已知差异",
+      "decision": "在冻结目标内选择实现方法",
+      "stage": "apply-host"
+    },
+    {
+      "id": "visualQA",
+      "name": "独立验收",
+      "input": "选定目标、运行产物、保护边界",
+      "output": "通过或定位到责任节点的缺陷",
+      "decision": "证据是否支持视觉与业务结论",
+      "stage": "acceptance"
+    }
+  ],
+  "coordination": {
+    "roleIds": [
+      "router",
+      "designDirectorOrchestrator"
+    ],
+    "kind": "coordination-not-management-layer",
+    "owns": [
+      "路由",
+      "派发",
+      "冻结已确认输入",
+      "记录状态",
+      "按失败类型回退"
+    ],
+    "doesNotOwn": [
+      "代替用户选案",
+      "代替专业角色作设计判断",
+      "替代独立验收"
+    ]
+  },
+  "handoff": "角色之间按产物依赖交接，依赖不代表上下级；不再给分析、拆图、生图、脚本各加负责人。",
+  "tools": [
+    "生图引擎",
+    "渲染器",
+    "查询脚本",
+    "验证器"
+  ],
+  "knowledgeLoop": [
+    "按阶段检索问题",
+    "对照上下文与反例",
+    "记录采用/调整/拒绝及理由",
+    "执行并观察",
+    "回写案例与修订候选",
+    "跨情境评审后形成有边界的共识"
+  ],
+  "failureRouting": {
+    "任务理解错误": "hostStrategist",
+    "视觉依据或方向不自洽": "brandApplicationDesigner",
+    "还原或交互错误": "hostImplementationAgent",
+    "证据不充分": "visualQA"
+  }
+}

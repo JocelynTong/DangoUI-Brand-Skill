@@ -44,8 +44,8 @@ try {
   const host = path.join(fixtureRoot, "host");
   fs.mkdirSync(migration, { recursive: true });
   fs.mkdirSync(path.join(host, "src", "pages", "home"), { recursive: true });
-  writeJson(path.join(migration, "brand-mod.json"), { schema: "fixture/v1", tokens: ["token:surface", "token:action", "token:text"], assets: ["asset:a", "asset:b"], layoutRules: ["pattern:a", "pattern:b"] });
-  writeJson(path.join(migration, "brand-evidence.json"), { schema: "fixture/v1", evidence: ["evidence:a", "evidence:b", "token:surface", "token:action", "token:text", "asset:a", "asset:b", "pattern:a", "pattern:b"] });
+  writeJson(path.join(migration, "brand-mod.json"), { schema: "fixture/v1", tokens: ["token:surface", "token:action", "token:text"], assets: ["asset:a", "asset:b", "asset:c"], layoutRules: ["pattern:a", "pattern:b", "pattern:c"] });
+  writeJson(path.join(migration, "brand-evidence.json"), { schema: "fixture/v1", evidence: ["evidence:a", "evidence:b", "evidence:c", "token:surface", "token:action", "token:text", "asset:a", "asset:b", "asset:c", "pattern:a", "pattern:b", "pattern:c"] });
   writeJson(path.join(migration, "brand-intent.json"), { schema: "fixture/v1", intent: [] });
   writeJson(path.join(host, "package.json"), { name: "fresh-host", dependencies: {} });
   fs.writeFileSync(path.join(host, "src", "app.config.ts"), "export default { pages: ['pages/home/index'] };\n");
@@ -69,10 +69,12 @@ try {
   writeJson(scope, { schema: "business-scope/v1", target: "home" });
   const evidenceHash = fileHash(path.join(migration, "brand-evidence.json"));
   const scopeHash = fileHash(scope);
-  const previewA = path.join(migration, "option-a.svg");
-  const previewB = path.join(migration, "option-b.svg");
-  fs.writeFileSync(previewA, '<svg><g id="a"/></svg>');
-  fs.writeFileSync(previewB, '<svg><g id="b"/></svg>');
+  const previewA = path.join(migration, "option-a.html");
+  const previewB = path.join(migration, "option-b.html");
+  const previewC = path.join(migration, "option-c.html");
+  fs.writeFileSync(previewA, '<main id="a">Static host direction A</main>');
+  fs.writeFileSync(previewB, '<main id="b">Static host direction B</main>');
+  fs.writeFileSync(previewC, '<main id="c">Static host direction C</main>');
   const hostPage = path.join(host, "src", "pages", "home", "index.vue");
   const visualOption = (id, recommended, preview) => ({
     id,
@@ -86,11 +88,11 @@ try {
     styleDirectionContract: { tokens: id, typography: id, components: id, materials: id, motion: id },
     visualChoiceContract: { dominantColorRole: `${id}-color`, typographyCharacter: `${id}-type`, assetStrategy: `${id}-asset`, materialLanguage: `${id}-material`, motionCharacter: `${id}-motion`, imagePolicy: `${id}-image`, forbiddenFallbacks: ["keep dominant visual"] },
     brandSystemClosure: { tokenApplications: [{ tokenRef: "token:surface", evidenceRef: `evidence:${id}`, renderedSelector: `#${id}`, cssProperty: "background-color", renderedValue: "#102040" }, { tokenRef: "token:action", evidenceRef: `evidence:${id}`, renderedSelector: `#${id} button`, cssProperty: "background-color", renderedValue: "#ffcc00" }, { tokenRef: "token:text", evidenceRef: `evidence:${id}`, renderedSelector: `#${id} h1`, cssProperty: "color", renderedValue: "#ffffff" }], assetApplications: [{ assetRef: `asset:${id}`, evidenceRef: `evidence:${id}`, sourceSha256: "a".repeat(64), sourceKind: "official-independent-asset", renderedSelector: `#${id} .hero`, role: "campaign-scene", firstViewportAreaRatio: 0.4 }], compositionApplications: [{ patternRef: `pattern:${id}`, evidenceRef: `evidence:${id}`, renderedRegion: `#${id} .hero`, assetRefs: [`asset:${id}`] }], coPresence: { previewEvidencePath: path.basename(preview), tokenRefs: ["token:surface", "token:action", "token:text"], assetRefs: [`asset:${id}`], patternRefs: [`pattern:${id}`] } },
-    firstViewportVisualProof: { visualNarrative: `${id}-narrative`, visibleDimensions: ["asset", "composition", "material"], atmosphereLayers: ["environment", "lighting", "depth"], compositionSignature: id === "a" ? { visualCenter: "full-scene", primaryActionPlacement: "bottom-overlay", contentEntry: "bottom-sheet", resultPresentation: "vertical-list" } : { visualCenter: "asymmetric-stage", primaryActionPlacement: "side-panel", contentEntry: "horizontal-rail", resultPresentation: "mosaic-grid" }, dominantMedia: [{ assetRef: `asset:${id}`, evidenceRef: `evidence:${id}`, renderedSelector: `#${id}`, role: "hero-scene", sourceKind: "official-independent-asset", firstViewportAreaRatio: 0.4 }] },
+    firstViewportVisualProof: { visualNarrative: `${id}-narrative`, visibleDimensions: ["asset", "composition", "material"], atmosphereLayers: ["environment", "lighting", "depth"], compositionSignature: id === "a" ? { visualCenter: "full-scene", primaryActionPlacement: "bottom-overlay", contentEntry: "bottom-sheet", resultPresentation: "vertical-list" } : id === "b" ? { visualCenter: "asymmetric-stage", primaryActionPlacement: "side-panel", contentEntry: "horizontal-rail", resultPresentation: "mosaic-grid" } : { visualCenter: "task-led-command", primaryActionPlacement: "top-inline", contentEntry: "direct-results", resultPresentation: "editorial-rail" }, dominantMedia: [{ assetRef: `asset:${id}`, evidenceRef: `evidence:${id}`, renderedSelector: `#${id}`, role: "hero-scene", sourceKind: "official-independent-asset", firstViewportAreaRatio: 0.4 }] },
     responsiveProof: { targetFormFactor: "mobile", pageType: "browse-list", viewportWidth: 375, persistentSideRail: false, primaryContentWidthRatio: 0.9, touchTargetMinPx: 44, horizontalOverflow: false, heroHeightRatio: 0.5, firstBusinessContentTopRatio: 0.68, contentContainerFlow: "document-flow", hostFirstImpression: { taskPriority: "efficiency-first", informationDensity: "high", contentFlow: "continuous-flow", returnFrequency: "frequent", firstActionUrgency: "immediate", existingMediaSlots: [], evidence: "Host page source and route show a continuous home flow." }, heroDecision: { mode: "compact", rationale: "Keep the primary host task visible in the first viewport." } },
     directionContract: { businessCapabilities: ["home"], layout: [`${id}-hero`, `${id}-content`] },
   });
-  writeJson(options, { schema: "wild-design-options/v2", workflow: "design-host", sourceBrand: brand, frozenBrandEvidenceSha256: evidenceHash, frozenBrandModSha256: fileHash(path.join(migration, "brand-mod.json")), sharedLayoutContract: ["home"], options: [visualOption("a", true, previewA), visualOption("b", false, previewB)] });
+  writeJson(options, { schema: "wild-design-options/v2", workflow: "design-host", sourceBrand: brand, frozenBrandEvidenceSha256: evidenceHash, frozenBrandModSha256: fileHash(path.join(migration, "brand-mod.json")), sharedLayoutContract: ["home"], options: [visualOption("a", true, previewA), visualOption("b", false, previewB), visualOption("c", false, previewC)] });
   const beforeChoice = treeHash(host);
   const awaitingChoice = runFixture([
     "run", "--root", fixtureRoot, "--mode", "design-host", "--profile", "fast",

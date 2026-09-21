@@ -1,0 +1,24 @@
+{
+  "schema": "brand-role-matched-action-interpretation/v1",
+  "ownerRole": "Brand Interpreter",
+  "evidenceRef": "migrations/pokemon-tcg-official/content-discovery-action-evidence-2026-09-20.json",
+  "status": "ROLE_SCOPED_CANDIDATE_NOT_APPROVED",
+  "decision": {
+    "role": "informational cross-page content discovery (Learn More)",
+    "defaultTreatment": { "background": "#000000", "text": "#FFFFFF" },
+    "support": "Three representative controls with the same informational cross-page role, one on each of three independent TCG pages, share the same default treatment.",
+    "scope": "Three sampled TCG-family content-discovery links in their observed contexts, default state only",
+    "notPromotedTo": [
+      "global Pokémon brand primary color",
+      "DangoUI global primary-action token",
+      "database Search action treatment",
+      "all states or all surfaces"
+    ],
+    "reason": "Role matching narrows the claim; it does not transfer a content-navigation treatment to a search-submit control. Hover/focus and context coverage remain incomplete."
+  },
+  "nextEvidenceNeeded": [
+    "Inspect same-role Search submit controls across independent pages or justify an explicit local exception",
+    "Inspect hover and focus on the intended action role",
+    "Complete the six-dimension learn-brand handoff before Brand MOD promotion"
+  ]
+}

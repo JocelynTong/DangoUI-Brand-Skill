@@ -1,5 +1,6 @@
 #!/usr/bin/env node
 import fs from "node:fs";
+import { validateHandoff } from "./validate-component-motion-handoff.mjs";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
 import { createHash } from "node:crypto";
@@ -20,6 +21,11 @@ if(Object.values(wildFiles).every(Boolean)){
 const gapsFile=value("--capability-gaps");
 if(!gapsFile)fail("DANGOUI_CAPABILITY_GAPS_REQUIRED","Host apply requires a classified local DangoUI capability-gap report.");
 else{const gapGate=path.resolve(path.dirname(new URL(import.meta.url).pathname),"validate-dangoui-gaps.mjs"),gapResult=spawnSync(process.execPath,[gapGate,"--report",path.resolve(gapsFile)],{encoding:"utf8"});if(gapResult.status!==0)fail("DANGOUI_CAPABILITY_GAPS_FAILED",(gapResult.stdout||gapResult.stderr||"Capability-gap validation failed.").trim())}
+// Plans that freeze component/motion expectations must prove them in the real host.
+if (plan.componentMotionExpectations) {
+  const result = validateHandoff(plan.componentMotionExpectations, receipt.componentMotionObservations);
+  if (!result.ok) fail("COMPONENT_MOTION_HANDOFF_FAILED", "Frozen component states or motion were not verified.", { details: result.failures });
+}
 const proof=receipt.renderedCascadeProof;
 if(!proof?.previewUrl||!proof?.capturedAt||!proof?.executionId)fail("RENDERED_CASCADE_PROOF_MISSING","Receipt needs previewUrl, capturedAt and executionId from a real rendered execution.");
 const loadProof=receipt.themeLoadOrderProof;

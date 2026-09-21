@@ -1,0 +1,998 @@
+{
+  "schema": "brand-skill-integrity/v1",
+  "files": [
+    {
+      "path": "agents/openai.yaml",
+      "sha256": "7d204bbe6edaf49fd3e4b9d149fd82b5bc0f5c5412ca826e9eb9c9b0eca13dd1"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/newhire-dango-welcome-expression.json",
+      "sha256": "df931b2d3604e28e20b3803f580d35ccc5cfa555f5b26dcd15ff2b45050481c0"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/newhire-dango-welcome-expression.md",
+      "sha256": "96001774208b6ba7643fb3493eaeef96c619bd495e8a3274d055a49732ffba47"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/opcg-a1-live-host-layering.json",
+      "sha256": "c638098b401128ff1b2f21cdaceffa93707598d725f6a7039ec05a9ef94fb340"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/opcg-a1-live-host-layering.md",
+      "sha256": "21b42891b38696b8c0e2a41bdd3c4024277470577700cc3c4c6159fbd0afc433"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/pokemon-backup4-expressive-false-positive.json",
+      "sha256": "26d3380d2208f92694a5fe24ec664c639582c7c7338c5237891a5d25bf9b7be2"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/pokemon-backup4-expressive-false-positive.md",
+      "sha256": "935699c172a73890c7f7a5ade55ab7c57598a7cf73bd578ea3d1017889900d53"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/pokemon-database-orange-not-global-cta.json",
+      "sha256": "008416c151c0783a6ae4518b616b7fba89f4ba2078a7437edcdc01d769b427d6"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/pokemon-database-orange-not-global-cta.md",
+      "sha256": "ba148eee673a42054e85950e551cc11089ffa6aab986f8248f464f450f5e441d"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/pokemon-generated-deck-scenes.json",
+      "sha256": "f73334ac5f62d356777f68ecfba7c7904d16c693d5f6e9e02934637714c4e4d1"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/pokemon-generated-deck-scenes.md",
+      "sha256": "65f00778c06a0c230593869797898e808e63a2fd68d60b52dd86ea481eb5e436"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/spu-search-compact-header-regression.json",
+      "sha256": "5a53350628f036fa1c70f4b935622b759cc4680c950b730bb527479408ed4b68"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/cases/spu-search-compact-header-regression.md",
+      "sha256": "c042464a5c737ed6f06f3394dbac7c05457b45503be580863a3ec0137e8bdac7"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/decisions/pokemon-database-search-orange.json",
+      "sha256": "9f04cbfa5b1f0e08480b142721a5c52ec06f0b584498a01da73563c38d369712"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/decisions/pokemon-database-search-orange.md",
+      "sha256": "f9c9efbf77c0e9be2efd79f3f51df69127116118ee00bd5115f9f14291582442"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/evidence/opcg-a1/continuity-incident.json",
+      "sha256": "584a9e366c3e57fd80d2948848cc05ef1478b63b3a78d2808d18b388e9f4e483"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/evidence/opcg-a1/foreground-contour.json",
+      "sha256": "6eeb62bc84a74d8449155a6dcea7a58f33319749f5e4820be4f15ecc703b49c9"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/evidence/opcg-a1/foreground-qa.json",
+      "sha256": "aa83c7e09ea972b34e92418f130f8a9a6ca700adf45c9993bc00778253637ed1"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/evidence/spu-search-regression/report.json",
+      "sha256": "ce6c0b390a7c7f542fc94c3a18faa1308c55e537f3af0b77006765c01bf1fd91"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/index.json",
+      "sha256": "3a5f115f8291ecbe04bcae58f92bb968b2f4fed87351a2d2a06879a98ae1b085"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/cross-page-token-promotion.json",
+      "sha256": "0e048587e5768365b41e24c04d584036611361c159326347d59ccd7609d4ddc4"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/cross-page-token-promotion.md",
+      "sha256": "0165080a60d9e5b6ad259e488fe07db9b8038596b361f550f4f758ce3e5e651b"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/design-asset-adoption.json",
+      "sha256": "7df48e4bd491a3451529c6f61e7606e261da239d5657d741634da7bc32018aa1"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/design-asset-adoption.md",
+      "sha256": "daf97416b0563e52a79ff1ed4f32b76eebb78384d38eb8a0fcf1d28725b2a044"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/expressive-generation-and-reconstruction.json",
+      "sha256": "7c494cf9e4aa5f3640200291ee60301ac223c081446db2e1b5e7074765fb3d31"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/expressive-generation-and-reconstruction.md",
+      "sha256": "e3565b7ad04cec1162be995c04ee5a9bed03b8510bff418674f631e95d88e99e"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/expressive-productive-allocation.json",
+      "sha256": "f4f178b073fe6b23df05fdbc909d93d4b2c01da0628abc9b94701d9d3919aff6"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/expressive-productive-allocation.md",
+      "sha256": "30060741303fec24423cff5db8b4ab0837509e294c5e4a04c61eb34288aa66f6"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/knowledge-promotion.json",
+      "sha256": "29c453365d20945153e8e2ddcda301369627ff2fe0c0b6fa503fdfac2230ec56"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/knowledge-promotion.md",
+      "sha256": "f1ac8fb132bb590bbaa13c84e2be7de0848169327433daaeb7d4ccfd22692c89"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/source-selection.json",
+      "sha256": "464242b8ef1667f17d5c7cd0b37e49b6648953794180e3ee1f296b8621c62b21"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/methods/source-selection.md",
+      "sha256": "6e23a12f157318a45a6492e2bbaa1576c03a2caf7ec5192c0275b75b99706c78"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/patterns/search-filter-results.json",
+      "sha256": "abbebfc147428536c077f9c9188dd02bf0cb3daaf3f8de67dc8f602048940d7e"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/patterns/search-filter-results.md",
+      "sha256": "5e24c62c414dd9b51ea6210a30f1a01bfdc9002a908974fd09a1b7c2e32cd156"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/policies/primary-color-and-cta.json",
+      "sha256": "369641703f5501c18bb12a116ee1200512b8c129fab1a1655aab7e1bd69f9c0e"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/policies/primary-color-and-cta.md",
+      "sha256": "a4982ee32e601579f2f6bbfb96d0a62c582538b31262f4ae4302857cb4b1335d"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/cross-page-token-promotion-question.json",
+      "sha256": "18df75437b0ec249927955c6e51f910812bed351c6fee0668db28a1a0762410c"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/cross-page-token-promotion-question.md",
+      "sha256": "b5f9484732f4266af415c3c3b031c5dc37a2f3483209c2459be339b70b6ac361"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/design-asset-adoption-question.json",
+      "sha256": "43a0c7ccbe201e709aa4de1bb9cbaefee55278159d02ea9a7bc5c16e1b47cc94"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/design-asset-adoption-question.md",
+      "sha256": "75221e3da0f60dfadef4ebe035bb20523ebd13e9547b392e26338e52541ff417"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/dynamic-scene-proof.json",
+      "sha256": "15be7876d2344b9f7b7f4f04fbca7453ed8e957bed2bb91b12eecd795602d4f2"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/dynamic-scene-proof.md",
+      "sha256": "b5ee748eaf5491465e6ad1b3767b32bb2ed91356771e67de54daa47c173c937f"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/expressive-productive-allocation.json",
+      "sha256": "6bff64e837cbf3254c87866ccc4975e7ce5685697665587389f5e57908e4122c"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/expressive-productive-allocation.md",
+      "sha256": "386309ef492fe434656b4085f1a4df6d82174895700aee53cf737ad83d26aa1b"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-acceptance.json",
+      "sha256": "600264c9a609a703e5c881d800cbfddcc32147711165c36a9ede11cd7b8afc26"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-acceptance.md",
+      "sha256": "370e69a55736b8bde890a7724176fbe2a214958d6f3f716cd1517f17bdc8ad9e"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-brand-scope.json",
+      "sha256": "6b2809d31ac0f41e51a273fbd63f2a32f2a5acba04bf3c87cbc7544b9bef34f7"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-brand-scope.md",
+      "sha256": "de6b079a5a07f4ba868b95de82fdd42230c2ad3a723f0c1ccc9ee3c0b5d66797"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-expressive-allocation.json",
+      "sha256": "6f7c93099296a20c554b0294d86ae114e80d2add7eb08930498ec22e5d54126d"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-expressive-allocation.md",
+      "sha256": "eee30bd36de010cc01378e9f21e5fd212aa3af2ffc650ef610aeba2848ed299b"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-generation-brief.json",
+      "sha256": "04d5003f3189fc47c2e106a816981861a082fea9b257516572b329a34059b214"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-generation-brief.md",
+      "sha256": "d1013b8e0e2bdafcfe1ef1f82d806b92e0bfe4d52ec16de8d5ecff26b7082145"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-generation-choice.json",
+      "sha256": "348a767351bcf0ecc968804a9894c82abf8c807e53a549d937a399e059ddb1ba"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-generation-choice.md",
+      "sha256": "f242cf57f45901b5f6a9efeac1793ba1bae32634a79f7812050113680d944ada"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-reconstruction-risk.json",
+      "sha256": "b04b91181003429cc977939a1b4c5a2288cdaefdcc904f555a6831e98660e800"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-reconstruction-risk.md",
+      "sha256": "cfcccf5a8b23b135de92484bd81f1397c8624a11220500e392e07d127e951d7d"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-repair-or-reselect.json",
+      "sha256": "83249b9b3eb00cadc3cb0b4124ce4f8216c6d21028a503767817964218e136fa"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/host-repair-or-reselect.md",
+      "sha256": "c666bdad0e042d2f30619acbdcd8318bf94ae77afd56e3d4c72d15f7e42c7935"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/knowledge-promotion-question.json",
+      "sha256": "58f256a8bed8f215528b3cd6dc93f4615c83d3b479c9194692fab63f76eb3641"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/knowledge-promotion-question.md",
+      "sha256": "49a6f6457a04a5d87daff39199107c3a33cb7a3071ce70692a8fe4cd3c7679cd"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/scene-continuity.json",
+      "sha256": "d71c983e44a0ba66e6d761657097818ca461e127ed9c94b50ca7f0fb1e70c7be"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/scene-continuity.md",
+      "sha256": "0a6441d9db11e0a01fcf0603ae04bd4b0187b44f15d286c79743b1c3eab0c34f"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/scene-occlusion.json",
+      "sha256": "95268d21f2776094b27df391d8e14aa4913bf9ce257ef0ff0d3c65a82d464ce0"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/scene-occlusion.md",
+      "sha256": "8fe4169e753a303cc95d0168efc22951894d61814d2aae940806c311bffa94d7"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/visual-authority.json",
+      "sha256": "5d1114621ddafcabe2e3af4dc25eff088eea22d4b8a10b6afdd1220d03e95a32"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/questions/visual-authority.md",
+      "sha256": "16c65569639399fbbff61817e9864df5f978cf9818325991a1cdb7673053ffef"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/dynamic-scene-proof.json",
+      "sha256": "aa95f68f74b67c544b8b5c2946925de43198deff586d9f99697ea7e8f548ae2e"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/dynamic-scene-proof.md",
+      "sha256": "d2cc8b863c88f3741535f94f737676783cb85d99539d262645313da682e299d3"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/expressive-continuity-in-real-content.json",
+      "sha256": "4e1f42bd0865f9ee5f78403191773017550e0eeff4b104971b7ddac6a9e6e66d"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/expressive-continuity-in-real-content.md",
+      "sha256": "2bfa7a401d46d10d1862221161a9349a8dc9e55a3d81eed6e5492f63ce48c704"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.json",
+      "sha256": "0781357461f0de9584e5f1343555371da461ced646971778ce7c8096528282a4"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.md",
+      "sha256": "69078b37673559da4c3e3831878861cba130057eea6cfd6c9b2c1a0b28d86ee6"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/scene-continuity.json",
+      "sha256": "2d9814bdf91ddf5de6ccc919e783121accb534297ac0ea3b8fa8bfb501a74908"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/scene-continuity.md",
+      "sha256": "2bf7ca2cbb264771d24f14191c0e3f28919d0b27614661507a85e9119fda05dc"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/scene-occlusion.json",
+      "sha256": "f47e27b37e034cf0af8b1c20843c8bb5dee0165141ea578f30f703686533b767"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/scene-occlusion.md",
+      "sha256": "0b28357a96e29f1f21575803aec6c08d78e1b1911807523cf3c4feba3c1448a0"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/visual-authority.json",
+      "sha256": "5e477cf0048e6aa2f8ad24d1e91769f54e837a38f97349e25f57209dce215cde"
+    },
+    {
+      "path": "knowledge-runtime/knowledge/v0.1/rules/visual-authority.md",
+      "sha256": "5ddbdae9da5dff68a998f5534d698c727f62e5084fb0caf2edd213494b5ee103"
+    },
+    {
+      "path": "knowledge-runtime/public/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/role-style-recipes.json",
+      "sha256": "405276fd44719641e4464b518d1580cbf54dbc6ba4c5a5e4dc13606c61b3dbbe"
+    },
+    {
+      "path": "knowledge-runtime/public/knowledge/v0.1/index.json",
+      "sha256": "0d7dd1d4d8f4b98673170c47c90d09f88e7a41d20b6d83c2bcffc6ca57cb9bd4"
+    },
+    {
+      "path": "knowledge-runtime/public/knowledge/v0.1/scenarios/search-filter-results.json",
+      "sha256": "c432bfccd3589b7461e02138a07afa336f15ae0087380c19397246ce6f7f6a37"
+    },
+    {
+      "path": "knowledge-runtime/skills/brand/references/dangoui.design-system.json",
+      "sha256": "8ad5da661d05e1ac74e95bc55562ab0ce690f89323315f124bc6368755c348b2"
+    },
+    {
+      "path": "references/artifact-lifecycle.md",
+      "sha256": "1991f67345e5a7dbce414c80bc70bb255bcf723f6d1d68acced55ea0f9b5527b"
+    },
+    {
+      "path": "references/atomic-acceptance-rubric.md",
+      "sha256": "ef23ff94cf4b3c90c1bf294cc48e58fe88e418d1ac634fce30c7543f51417ccf"
+    },
+    {
+      "path": "references/brand-dtcg-migration-asset-standard.md",
+      "sha256": "2b95b4661886fa545380ef79d3c2ddb332537cbead522b0574bc346f763cf8be"
+    },
+    {
+      "path": "references/dangoui-capability-gaps.schema.json",
+      "sha256": "b3f2d0e1f833696cbad4f3264d153a97403085622f657f2430d3411cf828bb5c"
+    },
+    {
+      "path": "references/dangoui-token-contract.json",
+      "sha256": "2ad5e7e82594bd872e852f75f96356602156fbdfe0e7fd4ebc5290c45b86d45e"
+    },
+    {
+      "path": "references/dangoui-token-source.manifest.json",
+      "sha256": "8598b7e940d63a9cb4e38b6ebdc052d9b08c93c5559424db59cfdb1ff469110e"
+    },
+    {
+      "path": "references/dangoui.design-system.json",
+      "sha256": "8ad5da661d05e1ac74e95bc55562ab0ce690f89323315f124bc6368755c348b2"
+    },
+    {
+      "path": "references/dangoui.tokens.dtcg.json",
+      "sha256": "14e7d15c15f68917ed2b97b44225148e45e8f9e78f15ca9f770adaa6bf88fee4"
+    },
+    {
+      "path": "references/decision-reading-policy.json",
+      "sha256": "24821fc0bc082c50e147631568df8dd7003daa8a249054a6d8079c73058c9652"
+    },
+    {
+      "path": "references/expressive-moments-playbook.md",
+      "sha256": "af13c104cd1b093301d23e27d19aabd6db1aeefdb195004e52a8360ca936fac0"
+    },
+    {
+      "path": "references/expressive-reconstruction.md",
+      "sha256": "64a7c863086147c3a382c4ddcca2438c1131e87ff7421edeb61ca69e064830d7"
+    },
+    {
+      "path": "references/host-brand-composition-grammar.md",
+      "sha256": "78abe56880772ea7c468015c819956ab4d729e7b8052b22542228eb6b2bf3c39"
+    },
+    {
+      "path": "references/host-collaboration.json",
+      "sha256": "56429c7fc470450605c44c7c05cd0a2c9c704814f6dcda73ece44e296c714bb3"
+    },
+    {
+      "path": "references/host-expression-handoff.md",
+      "sha256": "5d5da71679916b45e2076ee81b580767399e33aa39bfb05277115d4826d54528"
+    },
+    {
+      "path": "references/host-structural-diff-contract.md",
+      "sha256": "17a21a03c64aad049402901489d76933c7d9a6a86ca27fa6885b408f318b3c17"
+    },
+    {
+      "path": "references/host-theme-load-order.md",
+      "sha256": "2f19b88c8c5aade1e81ded362d9d2a91b3a52b16cb4160f3f3c8251adfeafa3d"
+    },
+    {
+      "path": "references/host-visual-opportunity-map.md",
+      "sha256": "7ba78ad218b7f80e0d2e2e34dc6a6f8771bb1d85039d08f1a924d9300bdb57c6"
+    },
+    {
+      "path": "references/legacy-full-guidance.md",
+      "sha256": "e910789ed47d2d21a99a9e2bf911a7f50ea3af47d162f46d562f0a96e60cb20e"
+    },
+    {
+      "path": "references/mapping-rules.md",
+      "sha256": "8e8256608697ed3b701039b63031d14919dc04e8ca620a53db6682993256cb4d"
+    },
+    {
+      "path": "references/output-template.md",
+      "sha256": "5dd146eb27db61e2de01bf678cea6bf2da19a3a0d2e618920894a9a5b900d8af"
+    },
+    {
+      "path": "references/qdmp-preview-reliability.md",
+      "sha256": "dc222e24b0172e88ad66f18b2599a954f41930760cf721ef3eb10b445ee42ff6"
+    },
+    {
+      "path": "references/skill-usage-case.schema.json",
+      "sha256": "40c7dfe476b584641cb2d0649e4f7f9161d70fa608ce161387e189d9e1ba0930"
+    },
+    {
+      "path": "references/skill-usage-reporting.md",
+      "sha256": "cbcff92171c6b0638ae2aedd62fb794feaa403c0b99505893ad7f60f89552b2a"
+    },
+    {
+      "path": "references/visual-program.md",
+      "sha256": "ea8231ec530b967c3dbb01d808de11d8f02347ff191533b501977adbb98d925a"
+    },
+    {
+      "path": "roles/blind-qa-tpp.md",
+      "sha256": "32dad6e5f5e93acbb2fd14822c76cab5aff265fd24037b0fb884971683988e59"
+    },
+    {
+      "path": "roles/brand-application-designer.md",
+      "sha256": "8855465fe0b2a3e4bafbcf9adfc208dabf135f2222a4a3a234ce90f7fb282a15"
+    },
+    {
+      "path": "roles/brand-interpreter.md",
+      "sha256": "1337a788db4b037ef50f13bb3c8e1ba9f21db6d6044b80120dc5bee60c5c00c4"
+    },
+    {
+      "path": "roles/demo-designer.md",
+      "sha256": "780b7ed8d6a1a43ce12b7ddbf8e492aec0822642cfcb22f25c548feda1ea1641"
+    },
+    {
+      "path": "roles/design-director.md",
+      "sha256": "6e11dd6248f378a065f88b9ab50666769f037778d5cc6cbfa3fe8c4e34ba297b"
+    },
+    {
+      "path": "roles/evidence-agent.md",
+      "sha256": "cabfae427e8f21ce496c75df3c406d38b5b2d0bcce191d4e30fd4370e282cc21"
+    },
+    {
+      "path": "roles/host-implementation-agent.md",
+      "sha256": "219b947febe4cf4ade2876aa2d2711a6e088305a5c13859ab9f535af16ac8ebc"
+    },
+    {
+      "path": "roles/host-strategist.md",
+      "sha256": "a123877ff57812ef69253432bcf002fe6d920d716516dc14a850d55dbd0d3fb0"
+    },
+    {
+      "path": "roles/host-visual-qa.md",
+      "sha256": "64bdb074f2d361bdb5a54e433f456705b406b1da94e0900905254c9cfbb1fbe1"
+    },
+    {
+      "path": "roles/role-contract-template.md",
+      "sha256": "d9e333844c136132fb374f0dffdeb3653355076961bdc4bd0876f8d744762cb9"
+    },
+    {
+      "path": "scripts/aggregate-skill-usage-cases.mjs",
+      "sha256": "47b67cea4d3ca4b0326d2db016235bebe3ec7f59a38dc620da728f1b55ebc409"
+    },
+    {
+      "path": "scripts/apply-host-preflight.mjs",
+      "sha256": "1521401b1de6b07e75537da5c0dad67173d15cc14cfb8a5d15e4db5aa3cb2473"
+    },
+    {
+      "path": "scripts/apply-host-preflight.test.mjs",
+      "sha256": "87b262e4ca9d5beed526aad241ac065b448563c57b9f67f28e5c2432945a7ac6"
+    },
+    {
+      "path": "scripts/audit-brand-chain.mjs",
+      "sha256": "50d57a0120afd1f7d2f7b0c030ec87040f540f76407ee7947b415619b10670a5"
+    },
+    {
+      "path": "scripts/audit-brand-chain.test.mjs",
+      "sha256": "7a62dcf7eae494e59d684832f6b3a4a43994d3d5ef418fd706d5189887acd4a0"
+    },
+    {
+      "path": "scripts/brand-artifacts.mjs",
+      "sha256": "36e90c7de7953a78019a0b4419b542af813b9274d28401c29f762e31f07e1251"
+    },
+    {
+      "path": "scripts/brand-artifacts.test.mjs",
+      "sha256": "ea9539d5fda8d840a98a063575f3373a6151b4bc2b1adb0f4fce9ae5316f9ea2"
+    },
+    {
+      "path": "scripts/brand-guard.mjs",
+      "sha256": "10c814fe709cd33ed65e8726c7362f23fb933a0b30e073e289ea3ea5baf1f4b6"
+    },
+    {
+      "path": "scripts/brand-phase1-acceptance.mjs",
+      "sha256": "bc0386fb5497042d58d445024964f25be33c78066b342e06b277d7a41464b2e3"
+    },
+    {
+      "path": "scripts/brand-phase2-acceptance.mjs",
+      "sha256": "9e36c72c8465917bdd44ae8dace16631131eef878141ebfb7925ba180ffdc696"
+    },
+    {
+      "path": "scripts/brand-portfolio-queue.mjs",
+      "sha256": "578bc533b6e6c62920e4a5cd120713dfd9252f8314ecc6889885c0c230b1906f"
+    },
+    {
+      "path": "scripts/brand-source-manifest.mjs",
+      "sha256": "4c65cffd5a20443a9accb719c2c916c5352b43a312b4a249e78ec20dac44e024"
+    },
+    {
+      "path": "scripts/brand-source-manifest.test.mjs",
+      "sha256": "211185af304db0b96ef9a1b4d2150c37c0bb1e570460ad74be5478c2f298a0b2"
+    },
+    {
+      "path": "scripts/brand-subagent-workflow.apply-host.test.mjs",
+      "sha256": "59d477cda0a1571abd3f4d1723b140c86d8739f11d0e5a46773306b1a3eacfb1"
+    },
+    {
+      "path": "scripts/brand-subagent-workflow.attempts.test.mjs",
+      "sha256": "9992562a5f3993574444ba8f6226a9f9350f1eee60ee998693b7eb35ce32e2f2"
+    },
+    {
+      "path": "scripts/brand-subagent-workflow.mjs",
+      "sha256": "dcb67d9958456a3c11d035d47e978f8ec71cab0b30627e092c551c45e3fe7115"
+    },
+    {
+      "path": "scripts/brand-subagent-workflow.prepare.test.mjs",
+      "sha256": "75036aca8fb2ecbe6055b806f5ef34e5fd039014639b954b769a1606f17e57c6"
+    },
+    {
+      "path": "scripts/check-expressive-runtime.mjs",
+      "sha256": "eec56d7120327d147c8ddbaa814d1dc916d5a893fe54ab738f766eee78e8d15e"
+    },
+    {
+      "path": "scripts/check-expressive-runtime.test.mjs",
+      "sha256": "4d2d93957b17b3e03f00a5bf8fd2145165629982329b046b8563e1827deb6425"
+    },
+    {
+      "path": "scripts/collect-dangoui-gaps.mjs",
+      "sha256": "99ae76e21af348d82602a1568b81b3fcad6a139febe74bc327655a20c50a7554"
+    },
+    {
+      "path": "scripts/create-dangoui-mapping-doc.mjs",
+      "sha256": "6ec4728cb6553c8e157930f98665926649fe6edcdae7c4cdfe97abdb738f2062"
+    },
+    {
+      "path": "scripts/dangoui-capability-gaps.test.mjs",
+      "sha256": "f40ac5a84d2319d9cb7c4c8de76d762a95d69c5eabf13072e7c876507646cd35"
+    },
+    {
+      "path": "scripts/dangoui-runtime-gate.mjs",
+      "sha256": "d33bbd8bd57c8db0e0e3a1e91cb91bc905f4b9e8d2a12deb48801cf0ce1102fa"
+    },
+    {
+      "path": "scripts/dangoui-runtime-gate.test.mjs",
+      "sha256": "f87e7b92c6dae1c99d247244fbea60ccac395d5a6cda28194166c53164320ffd"
+    },
+    {
+      "path": "scripts/design-host-hardening.test.mjs",
+      "sha256": "c81681d158904d3b23b314d2a378e8c99e2e45266a466b89d5f1046d07597c3b"
+    },
+    {
+      "path": "scripts/design-knowledge.test.mjs",
+      "sha256": "3851e596e1f3258e914c05cdfde459fb0a8b32aa451f6ac3f61ef7f1018c32b2"
+    },
+    {
+      "path": "scripts/evidence-capture-preflight.test.mjs",
+      "sha256": "e8ff75cdf558080a85205b680d89ed127d8dd5f05af5ea321fdc16e221d4d82c"
+    },
+    {
+      "path": "scripts/evidence-visibility-gate.test.mjs",
+      "sha256": "2ced5a7185a8a70c0ba789143c52747754b22325e1f95f3a65fbc88594dd0c49"
+    },
+    {
+      "path": "scripts/execute-brand-update.mjs",
+      "sha256": "400931fbdb53f6d1dd0f65c59431274fab09c779094a07795f7bc239577a6050"
+    },
+    {
+      "path": "scripts/export-dangoui-gap-issue.mjs",
+      "sha256": "64711053c433822c832cc6987b8b4d57c59ebcd89454e917e9711cf222cd276e"
+    },
+    {
+      "path": "scripts/export-skill-usage-case-issue.mjs",
+      "sha256": "dc158c42360f77a8c3edd33655083a6b3cb0694a61e3cbbc059c6f0b77cddf4b"
+    },
+    {
+      "path": "scripts/fixtures/preedit/negative-producer-bundle.json",
+      "sha256": "2db67c500c3780b5692824b8fb35a2c250292e76dcf90bb7084fdf9cd2bf9cf1"
+    },
+    {
+      "path": "scripts/fixtures/preedit/positive-targets.json",
+      "sha256": "0ed791c678c85df956b0735c3a374e253b5fb8b83008c3a762bc2d2e928e6900"
+    },
+    {
+      "path": "scripts/fixtures/preedit/source.vue",
+      "sha256": "4225bb070ae59e89d7afa6c38bb681f91579353853b2654cd21dd0e11c244ff2"
+    },
+    {
+      "path": "scripts/generate-source-fingerprint.mjs",
+      "sha256": "e274c340ae24b4fea87dc2af079cbde85c11577b37afc7f6683af1759249bea5"
+    },
+    {
+      "path": "scripts/generate-source-fingerprint.test.mjs",
+      "sha256": "e5211c35f73c85e645660c7109e6285192097dd5c13be58e620e3f51b53663b2"
+    },
+    {
+      "path": "scripts/incremental-execution.test.mjs",
+      "sha256": "c0ea2bed1328d8adf954ceb6a60ae7ea391f2ad996b7d06743d46baf2fe23bdc"
+    },
+    {
+      "path": "scripts/initialize-brand.mjs",
+      "sha256": "92c51a4841dece9c61ca1e2890f2cc6ca963baa5d8416a3bcc0f85fbc5e32a45"
+    },
+    {
+      "path": "scripts/initialize-brand.test.mjs",
+      "sha256": "37a51a125e7271c5fd4a6e21e7836429c0fee03cb1b3b1d8eabeb3316a685473"
+    },
+    {
+      "path": "scripts/package-public-skill.mjs",
+      "sha256": "0a0603decb7d0412eee481932c1ccbb9408b9f04d40d9ca42cee96d73ef9e4ac"
+    },
+    {
+      "path": "scripts/plan-brand-portfolio.mjs",
+      "sha256": "4a2fe7c60b0dd2d7e9c3f752a0d9143ec284bdffb4e16806f9c209e24b51e459"
+    },
+    {
+      "path": "scripts/plan-brand-update.mjs",
+      "sha256": "7c4d30b1c3a8f15108bf7e3039c4d5996a43f0d28db048f2dd47747a337eb0ec"
+    },
+    {
+      "path": "scripts/plan-brand-update.test.mjs",
+      "sha256": "3969712adbefd80776fb9f174bf3d8ad38376ec264464936ef26872f891362c6"
+    },
+    {
+      "path": "scripts/prepare-skill-usage-case.mjs",
+      "sha256": "a7f125bfb4e98447107eb9ac8ba34597c614bf493f19d9fc08c2656d687419cf"
+    },
+    {
+      "path": "scripts/probe-brand-source.mjs",
+      "sha256": "32163107ff243b8ac9ba225e1d49f97f92db46085883540ee46c5c61b7aa407c"
+    },
+    {
+      "path": "scripts/probe-brand-source.test.mjs",
+      "sha256": "4344fd79aa4934ca27d6f73e6ff0f297d6f1754c282b6c2a26c54434ba6fc489"
+    },
+    {
+      "path": "scripts/promote-skill-usage-mechanism.mjs",
+      "sha256": "9b4b17777e70747357b8e628f08437c9942c405ecbf1344aaadb14621c6e1a62"
+    },
+    {
+      "path": "scripts/public-host-preflight.mjs",
+      "sha256": "3c7ac521a66f3b1d0870db79aba61b5bc39b1422d72bed165ed8344022950dc8"
+    },
+    {
+      "path": "scripts/public-host-preflight.test.mjs",
+      "sha256": "06364086f45f4c7c92a3b4691a7c84d032811559c236fc511a9abecc9ff9a886"
+    },
+    {
+      "path": "scripts/qdmp-preview-handshake.mjs",
+      "sha256": "98fea87d0b6686117fa759d70b016a3af4c01e9287199444b376e41fd249fb03"
+    },
+    {
+      "path": "scripts/qdmp-preview-handshake.test.mjs",
+      "sha256": "9c99783694e1047330ae2a694d2fe67c63c35e6bcb3ad3196582df4d755847b4"
+    },
+    {
+      "path": "scripts/query-brand-context.mjs",
+      "sha256": "379d8277133f4d7867b4d61b45a8990a635db32bb74855d67a2d3a7ee3d04b96"
+    },
+    {
+      "path": "scripts/query-design-knowledge.mjs",
+      "sha256": "1c5ffe7e872eb3af40d72796ddc63b0e50281dfda8c7ab186dd318c2f3e15303"
+    },
+    {
+      "path": "scripts/query-design-knowledge.test.mjs",
+      "sha256": "fdc1b7fd46080bfc97fea0aea31da9a2e4e6af93bd333c4deedd6c5ce6957485"
+    },
+    {
+      "path": "scripts/rank-visual-programs.mjs",
+      "sha256": "519ec1d061fefbde241d237b013856c3516e5fff745765644b2dfa5f6c45e4a6"
+    },
+    {
+      "path": "scripts/rank-visual-programs.test.mjs",
+      "sha256": "ff0dc2cdf468335a46ebc1378fa7a344a287f9a268caa9fb12efccc91bac6b57"
+    },
+    {
+      "path": "scripts/record-wild-design-history.mjs",
+      "sha256": "e546d7644d67582d094ad2466839b88c9c149deb0e5ffedb4896c84f135f214d"
+    },
+    {
+      "path": "scripts/render-layered-scene.mjs",
+      "sha256": "c90f889da04517dd93ace83d2bc0591b2f4524df2d93c089613675f6966d9ac4"
+    },
+    {
+      "path": "scripts/render-static-h5.mjs",
+      "sha256": "481bbd149cb1490fefbbc561d324902c30fc0a1dcb8613e2aa0fda1fe86ef931"
+    },
+    {
+      "path": "scripts/resolve-public-style-pack.mjs",
+      "sha256": "4658012029ffdb004cc689b947e9923e13e828d21fced40165fb0a538ab4ad63"
+    },
+    {
+      "path": "scripts/resolve-public-style-pack.test.mjs",
+      "sha256": "f2ff0f5c8513f0e62f59b9defb587d2236bb51c93dfccd90f7e3910c8ad57fb4"
+    },
+    {
+      "path": "scripts/run-brand-workflow.apply-host.test.mjs",
+      "sha256": "f976da3e7ede129e5de246862d539606818ffff52240469356f27b1434e4effa"
+    },
+    {
+      "path": "scripts/run-brand-workflow.mjs",
+      "sha256": "083c3c0496f5619651816db3f6918a38cf1a7f1ad2ba4c38b117971e97cf3e2b"
+    },
+    {
+      "path": "scripts/run-dembrandt-extractor.mjs",
+      "sha256": "3023353d0f0df67623842dd7bd1a8e0af2b09890cd3505c9eeb7a34cc7dd827a"
+    },
+    {
+      "path": "scripts/run-rendered-evidence-collector.mjs",
+      "sha256": "643cc83b1a5f944814fb100e4b348b870966d71dd85610fcbd2b363a1aeeb244"
+    },
+    {
+      "path": "scripts/run-tombstone.test.mjs",
+      "sha256": "4f7d85a96c59ff30256a0011c1eed6b913e56af8373c564659bd47768d6e3551"
+    },
+    {
+      "path": "scripts/score-neutral-actions.test.mjs",
+      "sha256": "2194630e131e3406a4e7717f6d7a4822e630d835ff3df7a7b8a30b793f33ad41"
+    },
+    {
+      "path": "scripts/serve-design-host-h5.mjs",
+      "sha256": "12a193b0f23761cc6d2381159bf99dcbd247deec6fc11d8b68633550ab92f8e5"
+    },
+    {
+      "path": "scripts/skill-usage-case-lib.mjs",
+      "sha256": "c74daaf8b07ea77fc9559b3f53f66e84f5498cf83836b1e30496fd3e21c21360"
+    },
+    {
+      "path": "scripts/skill-usage-reporting.fake-gh.mjs",
+      "sha256": "efbf8e196a7621555dd9d4c734ac0283ab2b5fb542defe4a5d050da604ab7c9e"
+    },
+    {
+      "path": "scripts/skill-usage-reporting.test.mjs",
+      "sha256": "f642035cafffb9428327728cf098edfa961f752cbdd37867dcdc6f88b9412e64"
+    },
+    {
+      "path": "scripts/submit-skill-usage-case.mjs",
+      "sha256": "6d15f962c59fb0531267c03a0b402994b3a5040bb391d445143bddca11443b6a"
+    },
+    {
+      "path": "scripts/sync-dangoui-token-source.mjs",
+      "sha256": "98904e84b5d2c0996d26a00cf26c9cadb8012166f9efeeb717a3b01ecb573d75"
+    },
+    {
+      "path": "scripts/test-brand-composition-generality.mjs",
+      "sha256": "72bb87cc0fab67245e998982e0e6fa63fe5aa817f8a5480981da349ed0c1070f"
+    },
+    {
+      "path": "scripts/validate-adoption-decision.mjs",
+      "sha256": "7889e8fc95e9b45cf7fa9a71eb83561f4d1dd199bfe6703115cddcbf06fb9cb6"
+    },
+    {
+      "path": "scripts/validate-brand-application-plan.mjs",
+      "sha256": "de40bba7db3965141fd832179e17a50525aff1ddb92d8570d26e1e961c55866b"
+    },
+    {
+      "path": "scripts/validate-brand-application-plan.test.mjs",
+      "sha256": "c591aacc1bf3ff25c53bdfd58b271c59d105454c7cf01873bbbd254a07fcc968"
+    },
+    {
+      "path": "scripts/validate-brand-distinctiveness.mjs",
+      "sha256": "c98d26f65881daf60d07992c4f31ce8d71acb2e389d91b293ee84a011c058477"
+    },
+    {
+      "path": "scripts/validate-brand-distinctiveness.test.mjs",
+      "sha256": "0a97b62b5f878a3fe8c884b2d947baa27cf4969c6ada881a7980e823bb7c9e91"
+    },
+    {
+      "path": "scripts/validate-brand-fidelity.mjs",
+      "sha256": "140dea7b49fbbfefd2647c8b3eebad57167b8c1f58f15a91b1438a8ac9f5ab0d"
+    },
+    {
+      "path": "scripts/validate-case-flywheel.mjs",
+      "sha256": "22912f423eebc7dd1114df1130dc30619e7ac071137e34017022f563a4ca7236"
+    },
+    {
+      "path": "scripts/validate-component-motion-handoff.mjs",
+      "sha256": "49670afefbf4d4a955861f4081cd4f2a599916a3a4edf15d22d2b4073917b764"
+    },
+    {
+      "path": "scripts/validate-component-motion-handoff.test.mjs",
+      "sha256": "185b64aef6abcc435972d193cdbe28fb9c19eef12c0d52b414f35308aeaa2afa"
+    },
+    {
+      "path": "scripts/validate-concept-asset-provenance.mjs",
+      "sha256": "9232a4536943ff67084b296384bcd4b4d68116779e98b91cc80157b22345b701"
+    },
+    {
+      "path": "scripts/validate-concept-asset-provenance.test.mjs",
+      "sha256": "074c0de7cf79075bbec0c8d87904cad4394014a6577d028328f6fa745604efef"
+    },
+    {
+      "path": "scripts/validate-dangoui-gaps.mjs",
+      "sha256": "124493d6cbf6599cb50cf639ab1621e3fe4510d756f07709dc9e5918a1005a41"
+    },
+    {
+      "path": "scripts/validate-dangoui-mapping.mjs",
+      "sha256": "d108c6aea7cac3420d124b8c1b076ff8f9f8b949efd1ce61eb22acedfdb58e80"
+    },
+    {
+      "path": "scripts/validate-design-direction.mjs",
+      "sha256": "04c8b930a5ab0c302878f75c7694408c6fb1f0527374fa816e291885e0bcb7fb"
+    },
+    {
+      "path": "scripts/validate-design-direction.test.mjs",
+      "sha256": "f5290cd0e9dd87f8ceb816490c7ed7238b17fce5b6a8959d87d43ab2353786d7"
+    },
+    {
+      "path": "scripts/validate-design-host-expressive-h5.mjs",
+      "sha256": "25fae52167dc99d1c3c378344e71e43a84710a5a322c9a47df5e4d84fd24e6c3"
+    },
+    {
+      "path": "scripts/validate-design-knowledge.mjs",
+      "sha256": "0f2b8e59c9f122418bb96ee774c50e342f1a6d3b72e13a9a21ec8fa3d8f20a03"
+    },
+    {
+      "path": "scripts/validate-host-apply-gate.mjs",
+      "sha256": "3bfe9ac742657f7d7633ef6dea976f7c1e8566e5e005984d9ed864fedc185ea7"
+    },
+    {
+      "path": "scripts/validate-host-apply-gate.test.mjs",
+      "sha256": "69485d3c8af3ab23ca7f25b116a8bde2b564e8b8ce7feaebe872acda53a38e2d"
+    },
+    {
+      "path": "scripts/validate-host-coverage-matrix.mjs",
+      "sha256": "df456791d380a93ebbf64089456757e77b886a3cbd4eb5a67a67a1be786cb711"
+    },
+    {
+      "path": "scripts/validate-host-coverage-matrix.test.mjs",
+      "sha256": "611ebc067aaf01adf73acca436cd890a98c2d56c6ce323ea998fae6a2a4832ec"
+    },
+    {
+      "path": "scripts/validate-host-expression.mjs",
+      "sha256": "72f850fdc339fb39567fbac19b694dbd8e7aadf57e7471bc9ac6b920164a0efc"
+    },
+    {
+      "path": "scripts/validate-host-expression.test.mjs",
+      "sha256": "084b69da0bdf3ae0b83c151eb7625c4f9cde7f54826709ff4ca276e6912d4eb9"
+    },
+    {
+      "path": "scripts/validate-host-preedit-baseline.test.mjs",
+      "sha256": "796c0e1f10567842d0ba7a27a5dac329d4bf565e24754359d808e79ba2e4602a"
+    },
+    {
+      "path": "scripts/validate-host-structural-diff.mjs",
+      "sha256": "7ed1c0f4a9ee546bb46d24b5ebda637a2f1588b08155f5a0246f3acaf3b3f797"
+    },
+    {
+      "path": "scripts/validate-host-structural-diff.test.mjs",
+      "sha256": "87b9b09ff403238e6a61b486013292065b3390af97ac578bc9d531fff1dd59cc"
+    },
+    {
+      "path": "scripts/validate-host-theme-order.mjs",
+      "sha256": "02996e7ed2a94b6fd391c9c622e7d0edb08556283e86e7e5a29188a838a1aa84"
+    },
+    {
+      "path": "scripts/validate-host-theme-order.test.mjs",
+      "sha256": "180496f50ff27ff8b0013a037b6c44ee130af7bb5a628728838ec7665ec2263c"
+    },
+    {
+      "path": "scripts/validate-host-token-closure.mjs",
+      "sha256": "489f1bd075a9f35cabb08c8390f02d81cdde4534fb01fce0c29c8b9899016a17"
+    },
+    {
+      "path": "scripts/validate-host-token-closure.test.mjs",
+      "sha256": "8f6f9733b8a48c3f0542286c9e3f9be9d8e55313b699e1933c61bddf5ebd53a2"
+    },
+    {
+      "path": "scripts/validate-knowledge-shape.mjs",
+      "sha256": "df0c33626c9b9a3c53522c1e933d7d97121dd25e77409ad18465f51f933e3dcf"
+    },
+    {
+      "path": "scripts/validate-learn-brand-handoff.mjs",
+      "sha256": "7cba316ecd6545028674ad8a2cd980a922258d236a8729d36f4c5986667684a3"
+    },
+    {
+      "path": "scripts/validate-learn-brand-handoff.test.mjs",
+      "sha256": "e32443fa2b81ee8d9fdb060c251187f4af1fbeed691fc5022725a05d6a45a6fa"
+    },
+    {
+      "path": "scripts/validate-live-dom-evidence.mjs",
+      "sha256": "5df63fac8622ecc3ee7addaecf200b8e07ccdbab8afc97d759d81058ab56e2b2"
+    },
+    {
+      "path": "scripts/validate-mobile-raster-resolution.mjs",
+      "sha256": "ef8c6484c92726fb7284fcfdbfe876b3eaf7163f278cdddd69afdf1e2f799383"
+    },
+    {
+      "path": "scripts/validate-mockup-matrix.mjs",
+      "sha256": "d1d7a77d31cf6ab767040bbaba5d84eb57f8438befb831b7d6f0387fc6cbd160"
+    },
+    {
+      "path": "scripts/validate-mockup-matrix.test.mjs",
+      "sha256": "d4956b243c34a673b9e72b120ceb1b7a12cb280a0127bb2114350639fac4f009"
+    },
+    {
+      "path": "scripts/validate-primary-role-frequency-review.mjs",
+      "sha256": "06fa6873bf8f865beb00c8b033dc58f338c2a2555b05134093bf4693e0df1244"
+    },
+    {
+      "path": "scripts/validate-primary-role-frequency-review.test.mjs",
+      "sha256": "badebe808d619cd9b9b833cc1f9f3c7b7de476ed15b2250620861e6945cf78a6"
+    },
+    {
+      "path": "scripts/validate-program-strategy.mjs",
+      "sha256": "93f740402620cb7a3189709f456dc3b4d5a2917c14abd875970f6fd7c6a83908"
+    },
+    {
+      "path": "scripts/validate-public-skill-release.mjs",
+      "sha256": "17f0538e08329f4b39c10f1141a24b1bb3342e4c8c4dea76aac60e5c9e40b327"
+    },
+    {
+      "path": "scripts/validate-section-fidelity.mjs",
+      "sha256": "9d1894435dbaaf0757c6926cb543fb97dceeffd267c4dfccce543e4b16d2a964"
+    },
+    {
+      "path": "scripts/validate-section-fidelity.test.mjs",
+      "sha256": "edacf4992247a85c228302ee5189c796d99b7a828c4fafdf0fb72850274ea838"
+    },
+    {
+      "path": "scripts/validate-skill-usage-case.mjs",
+      "sha256": "40640b36c50dbbc25b0add46d233504b862e0d405dc7cbc8952c055d2967f0a8"
+    },
+    {
+      "path": "scripts/validate-trial-channel.mjs",
+      "sha256": "f17621961d29c89786f57b981b3a5b399b25033f01b4748b710806951b47b871"
+    },
+    {
+      "path": "scripts/validate-trial-channel.test.mjs",
+      "sha256": "4b42acf377e950e20efc3bc47f586e839b0c4128078d4329590745f61c8be3f0"
+    },
+    {
+      "path": "scripts/validate-visual-acceptance.mjs",
+      "sha256": "a2c87c27ee181c8bf6128d450053d714b1624b3b79f3dc42112e8ab57faf9d4d"
+    },
+    {
+      "path": "scripts/validate-visual-acceptance.test.mjs",
+      "sha256": "6356c40df1cedfd337b0bc0dfe28bfaebc719582128f5a7bb8d045b35e684e11"
+    },
+    {
+      "path": "scripts/validate-visual-program.mjs",
+      "sha256": "aed069ceb3f94890dd1042ef732b5fef4936d7906dd2fb08606b85a4b1e7239c"
+    },
+    {
+      "path": "scripts/validate-visual-program.test.mjs",
+      "sha256": "6b1d7d925a0af99a9be34c8900f9c1a924391eb72dc1827ffa68e8b67806ae9c"
+    },
+    {
+      "path": "scripts/validate-visual-retention.mjs",
+      "sha256": "823e3994a7cdc0b7e5c50b2844d5a27f6d442ea86cd86e96f76a5d6bd43a8274"
+    },
+    {
+      "path": "scripts/validate-wild-design-decision.mjs",
+      "sha256": "83b3a670561c9ee60ca16bec010cf0a08120f8c9af9cd3818ac13a40d50a1734"
+    },
+    {
+      "path": "scripts/validate-wild-design-decision.test.mjs",
+      "sha256": "3f8ceebd7ab58341bd9c20691041480ab2b6ea9a84e8b480a678ca83b8422f35"
+    },
+    {
+      "path": "scripts/validator-cache.mjs",
+      "sha256": "2f3155ff87667801cfb37ca42f6aaf5d15dd3a3d177e40ed8f1e3c7556f7cc6b"
+    },
+    {
+      "path": "scripts/verify-brand-skill-integrity.mjs",
+      "sha256": "7d49e9fb5f6b2aeb00d1ae239a8358be1188f3f8557a360acba2a7a7f18e926c"
+    },
+    {
+      "path": "SKILL.md",
+      "sha256": "e73b7589781a494fd4528c7b2af06c6891a5e9b41499c042609695d8a859a212"
+    },
+    {
+      "path": "workflow-contract.json",
+      "sha256": "5f0bc764ce53806c01b0d127a90cf6876c91ea744d391bce61dcdba4ae662632"
+    },
+    {
+      "path": "workflows/learn-brand.md",
+      "sha256": "7fc239ac550d7e29260964f103673253c2f692332fcabff47e99f4aaaf2f484d"
+    }
+  ],
+  "treeSha256": "7471c2600a5b7fba3e2df4a4bcd493a3aa48a563c07cad56906356eb5d98e09c"
+}

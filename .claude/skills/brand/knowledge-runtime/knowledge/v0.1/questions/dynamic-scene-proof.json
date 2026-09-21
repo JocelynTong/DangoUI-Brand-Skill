@@ -1,0 +1,54 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "dynamic-scene-proof",
+  "title": "静态方案的成立条件如何在运行状态中保持？",
+  "status": "open-case-observed",
+  "scope": "跨品牌、跨宿主的视觉迁移与动态界面设计；具体证据仍受案例范围限制",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "opcg-a1-live-host-layering"
+  ],
+  "hypothesisRefs": [
+    "dynamic-scene-proof"
+  ],
+  "nextEvidenceNeeded": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "requiredContext": [
+    "不变量",
+    "数据变化",
+    "交互状态",
+    "平台差异"
+  ],
+  "pitfalls": [
+    "H5按钮聚焦曾使overflow:hidden舞台内部滚动，需检查卡片/遮罩/底图坐标；overflow:clip是该实现修复，不是通用平台兼容保证。"
+  ],
+  "stages": [
+    "apply-host",
+    "repair",
+    "acceptance"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "先列出必须保持的关系：卡位、遮挡、背景连续性和可操作区域，再决定哪些对象允许运动。",
+      "覆盖真实数据切换、数量变化、空态、滚动、聚焦与视口变化；共享内容可以不变，不能为演示伪造数据。",
+      "几何稳定后再加共同切换动效，检查固定层与减弱动态效果状态；不要用动画掩盖位置错误。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "dynamic-scene-proof"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "opcg-a1-live-host-layering",
+      "summary": "真实宿主在数据切换、滚动和聚焦时暴露静态预览未见的问题；修订后仍缺最后版本的完整真机验证。"
+    }
+  ]
+}

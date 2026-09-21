@@ -51,3 +51,7 @@ Implement the one explicitly selected visual direction in the real host runtime 
 ## Case evolution
 
 Add cases that change reusable runtime, framework, platform, cascade, asset-quality or business-preservation rules. Route aesthetic application failures back to Brand Application Designer instead of accumulating them as CSS implementation rules.
+
+## 宿主 expressive 决策记忆
+
+强决策发生时使用 SKILL.md 的阶段检索入口；判断依据维护在正式决策库，任务中记录采用或拒绝理由。

@@ -15,6 +15,7 @@
     "brand-mod": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/brand-mod.json",
     "brand-evidence": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/brand-evidence.json",
     "brand-intent": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/brand-intent.json",
+    "approved-visual-patterns": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/approved-visual-patterns.json",
     "style": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/style.json",
     "dangoui-adapter": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/dangoui-adapter.json",
     "component-mapping": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/component-mapping.json",
@@ -22,44 +23,74 @@
   },
   "evidenceAssets": [
     {
-      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/home/desktop/full-page.png",
-      "installPath": "captures/source/home/desktop/full-page.png",
-      "sha256": "7e53f44f91bf27072194853163d3bb579dbbc8e7ecfb39c0a7354fb8855d4c23"
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/advanced-default.png",
+      "installPath": "action-evidence/v2/advanced-default.png",
+      "sha256": "cdcb6fdcf76da9c3bad2e6c4edb7cd2345aa393bf58804da35a47df80445753e"
     },
     {
-      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/how-to-play/desktop/full-page.png",
-      "installPath": "captures/source/how-to-play/desktop/full-page.png",
-      "sha256": "f356f2e1a9c8a3c6845c020a5940fe4c8d9f3214d393c45376c13177c1a05521"
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/advanced-restored.png",
+      "installPath": "action-evidence/v2/advanced-restored.png",
+      "sha256": "560bbf0e32a8615ea085064aad230cbf5b63f888f1c7c60e2ab4158f00ba565a"
     },
     {
-      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/learn-accordion-triggered.png",
-      "installPath": "action-evidence/learn-accordion-triggered.png",
-      "sha256": "7721bc6517472fd77eeb4fdce4f2bbe3ea561b50b95e25e2a11b7d69bbc41825"
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/advanced-settled.png",
+      "installPath": "action-evidence/v2/advanced-settled.png",
+      "sha256": "271368564fcee0bdf79528f51015f6b3f925ee058c0f6deb123d5d5ca5811296"
     },
     {
       "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/advanced-triggered.png",
       "installPath": "action-evidence/v2/advanced-triggered.png",
-      "sha256": "6fb39f934b365cb8386a03e84ab7f7cc7a8422da93e55f133474a29da99224c1"
+      "sha256": "881b1a75d8c31737ab3725b5c900562c2f0f178c0a2e5dad20045957a7749db5"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/search-default.png",
+      "installPath": "action-evidence/v2/search-default.png",
+      "sha256": "48d6c304d34865dc22207336ee6db10f2e210a14840060188c66616e954117e7"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/search-restored.png",
+      "installPath": "action-evidence/v2/search-restored.png",
+      "sha256": "3f1a8ba4addaf9412d2a6c1da423823f15635e5903d5e8bef1a940d9bcff7d99"
     },
     {
       "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/search-settled.png",
       "installPath": "action-evidence/v2/search-settled.png",
-      "sha256": "a3dbbd8079d9c8a49e87f68cb698a4ac33a99a6d743ac62292eec7aa5d941061"
+      "sha256": "0c91242b7d44f8cf19860091c580ee4917e43657cbb9311e0438cb4a837b2107"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/v2/search-triggered.png",
+      "installPath": "action-evidence/v2/search-triggered.png",
+      "sha256": "359c85a15b909e798f1394ab9ddebfdbee036d1afa99f23115ccff50e80387e0"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/home/desktop/full-page.png",
+      "installPath": "captures/source/home/desktop/full-page.png",
+      "sha256": "66a446457df6de071de9b172b83c09a33f2921c85e5446620bf5b959264e1242"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/how-to-play/desktop/full-page.png",
+      "installPath": "captures/source/how-to-play/desktop/full-page.png",
+      "sha256": "8ac316b87f33e005faecf5bdec58aed38c1a37c3b003f996be0f92d6b834a2be"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/action-evidence/learn-accordion-triggered.png",
+      "installPath": "action-evidence/learn-accordion-triggered.png",
+      "sha256": "e7cd4800ce0757003a1a0fd02a38a16c31e77080a10dc39f8c97ccae36fa4214"
     },
     {
       "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/card-database/desktop/full-page.png",
       "installPath": "captures/source/card-database/desktop/full-page.png",
-      "sha256": "d921e7c7aaa66426e19184ae3506bde82eaef2655708749da09f3ca37258fa05"
+      "sha256": "59e0bf0e9dbae77c30a7c5e6b9e342bed76473184fb5c67eac356566bb3e1ad1"
     },
     {
       "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/card-database/mobile-390/full-page.png",
       "installPath": "captures/source/card-database/mobile-390/full-page.png",
-      "sha256": "0179db535f452247b346c8f3362fd89fd4cb932c05fa091315011b5e6ea612c0"
+      "sha256": "b588b3f9dcba58e751ef152da456fea6dca44c86480a686a91cb3759cb4894e9"
     },
     {
       "path": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.0/evidence/captures/source/home/mobile-390/full-page.png",
       "installPath": "captures/source/home/mobile-390/full-page.png",
-      "sha256": "f8fad0d0ddb6d13a1b43517f3cbc953e872959802618a3441a3fc06b7bf93c6f"
+      "sha256": "44b1ac0a3c653af1ba7d77e6dc37c1061534051c563030a05fd7a26f390da51e"
     }
   ],
   "platformSupport": {

@@ -1,0 +1,1724 @@
+{
+  "schema": "approved-visual-patterns/v1",
+  "brand": "onepiece-cardgame",
+  "patterns": [
+    {
+      "id": "home-hero-carousel-full-cycle",
+      "status": "approved",
+      "scope": "Home hero carousel; frozen source-fidelity active frame is ST-36",
+      "preserves": [
+        "hero-composition"
+      ],
+      "implementationPatternIds": [
+        "home-seven-variant-hero"
+      ],
+      "sourceAsset": {
+        "identity": "official-st36-home-campaign",
+        "variant": "st36-yellow-captain-kid",
+        "activeIdentity": "STARTER DECK -Yellow Eustass Captain Kid- [ST-36]",
+        "backgroundAsset": {
+          "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/ErcHcnq2S84pIhCz/st36_mv.webp",
+          "role": "campaign-artwork-media"
+        },
+        "titleAsset": {
+          "sourceUrl": "https://asia-en.onepiece-cardgame.com/onepiececg/bccard/asia-en/banner/2026/06/25/6t1eEHjI5TzLJ4uy/st36_logo_jp.webp",
+          "role": "campaign-title-copy",
+          "requiredIdentity": "st36",
+          "forbiddenIdentity": "st32"
+        },
+        "productAsset": {
+          "localPath": "/assets/brand-assets/onepiece-cardgame/source/product-st36.webp",
+          "role": "featured-product-media",
+          "requiredIdentity": "st36"
+        }
+      },
+      "requiredLayers": [
+        {
+          "id": "top-navigation",
+          "role": "transparent-overlay-navigation",
+          "sourceRegion": [
+            0.08,
+            0.01,
+            0.84,
+            0.07
+          ]
+        },
+        {
+          "id": "campaign-media",
+          "role": "campaign-artwork-and-featured-product-media",
+          "sourceRegion": [
+            0.23,
+            0.07,
+            0.75,
+            0.81
+          ]
+        },
+        {
+          "id": "campaign-copy",
+          "role": "st36-campaign-title-copy-and-date",
+          "sourceRegion": [
+            0.03,
+            0.25,
+            0.34,
+            0.58
+          ]
+        },
+        {
+          "id": "carousel-controls",
+          "role": "variant-navigation-and-playback-control",
+          "sourceRegion": [
+            0.02,
+            0.88,
+            0.96,
+            0.11
+          ]
+        }
+      ],
+      "allowedTransformations": [
+        "viewport-proportional scaling",
+        "bounded focal crop retaining ST-36 title, product and character focal points",
+        "desktop-to-mobile ST-36 sibling substitution only when explicitly identified"
+      ],
+      "forbiddenSubstitutions": [
+        "ST-32 title or product asset in the frozen ST-36 active frame",
+        "another carousel identity represented as ST-36",
+        "whole-page screenshot or whole-page region as layer evidence",
+        "campaign artwork colors promoted to global UI roles"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-hero-carousel-full-cycle",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.105
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "id": "product-first-catalog-density",
+      "status": "approved",
+      "scope": "Products catalog browsing",
+      "preserves": [
+        "product-density"
+      ],
+      "implementationPatternIds": [
+        "products-dense-catalog"
+      ],
+      "sourceAsset": {
+        "identity": "source-products-catalog-page",
+        "variant": "desktop-normal-view"
+      },
+      "requiredLayers": [
+        {
+          "id": "catalog-heading",
+          "role": "unboxed-page-heading",
+          "sourceRegion": [
+            0.04,
+            0.09,
+            0.23,
+            0.08
+          ]
+        },
+        {
+          "id": "category-filters",
+          "role": "compact-catalog-filter-navigation",
+          "sourceRegion": [
+            0.04,
+            0.18,
+            0.32,
+            0.05
+          ]
+        },
+        {
+          "id": "product-grid",
+          "role": "dense-product-first-catalog",
+          "sourceRegion": [
+            0.04,
+            0.3,
+            0.92,
+            0.65
+          ]
+        },
+        {
+          "id": "catalog-pagination",
+          "role": "catalog-page-navigation",
+          "sourceRegion": [
+            0.4,
+            0.265,
+            0.2,
+            0.035
+          ]
+        }
+      ],
+      "allowedTransformations": [
+        "four desktop columns may reflow to two phone columns",
+        "retain layer order and at least eight products",
+        "crop product media only within its own cell while preserving product identity and aspect intent"
+      ],
+      "forbiddenSubstitutions": [
+        "generic SaaS card wrappers",
+        "per-card CTA chrome",
+        "removing catalog browsing navigation",
+        "reducing below eight products"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "products-hard-black-heading-no-color-chrome",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.55
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-full.png"
+        }
+      ]
+    },
+    {
+      "id": "nautical-story-surface",
+      "status": "approved",
+      "scope": "Home Welcome only",
+      "allowedRoles": [
+        "onboarding-section-background",
+        "story-surface",
+        "subtle-nautical-texture"
+      ],
+      "forbiddenRoles": [
+        "global-border",
+        "generic-card-fill",
+        "active-state",
+        "button-fill",
+        "section-title-chrome"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "source-home-welcome-visible-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.07,
+            1,
+            0.31
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-welcome.png"
+        }
+      ]
+    },
+    {
+      "id": "home-welcome-cta-hover-motion",
+      "status": "approved",
+      "scope": "Home Welcome CTA hover only",
+      "allowedRoles": [
+        "welcome-hover-transform"
+      ],
+      "forbiddenRoles": [
+        "global-button-motion",
+        "active-motion",
+        "transaction-motion"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-welcome-cta-hover-motion",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.382,
+            0.6,
+            0.236,
+            0.1
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v5/home-selector-crops/motion-settled.png"
+        }
+      ]
+    },
+    {
+      "id": "home-news-paper-surface",
+      "status": "approved",
+      "scope": "Home News only",
+      "allowedRoles": [
+        "home-news-surface"
+      ],
+      "forbiddenRoles": [
+        "global-token",
+        "active",
+        "button"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-news-paper-surface",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.105,
+            1,
+            0.19
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "id": "home-new-arrival-navy",
+      "status": "approved",
+      "scope": "Home New Arrival only",
+      "allowedRoles": [
+        "new-arrival-band"
+      ],
+      "forbiddenRoles": [
+        "global-primary",
+        "CTA",
+        "active"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-new-arrival-navy",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.35,
+            1,
+            0.09
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "id": "home-products-cool-overlay",
+      "status": "approved",
+      "scope": "Home Products feature only",
+      "allowedRoles": [
+        "products-feature-overlay"
+      ],
+      "forbiddenRoles": [
+        "global-accent",
+        "CTA",
+        "selected"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-products-cool-overlay",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.43,
+            1,
+            0.14
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "id": "home-display-font-resource",
+      "status": "approved",
+      "scope": "Home short oversized English labels",
+      "requiredFamily": "Alfa Slab One",
+      "requiredWeight": 400,
+      "implementationRule": "A loaded font resource, document.fonts.check and visible glyph proof are required; family-name-only is insufficient.",
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-alfa-slab-one",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.03,
+            0.097,
+            0.594,
+            0.861
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png"
+        }
+      ]
+    },
+    {
+      "id": "hard-black-unboxed-heading",
+      "status": "approved",
+      "scope": "catalog page heading",
+      "allowedRoles": [
+        "primary-display-heading",
+        "hard-black-type"
+      ],
+      "forbiddenRoles": [
+        "background-fill",
+        "active-state",
+        "button-fill",
+        "decorative-border"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "products-hard-black-heading-no-color-chrome",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0.041,
+            0.096,
+            0.222,
+            0.065
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-top.png"
+        }
+      ]
+    },
+    {
+      "id": "black-white-taxonomy-control",
+      "status": "approved",
+      "scope": "compact catalog taxonomy current state",
+      "allowedRoles": [
+        "selected-catalog-filter-fill",
+        "selected-catalog-filter-text",
+        "compact-taxonomy-border"
+      ],
+      "forbiddenRoles": [
+        "global-active-color",
+        "section-title-chrome",
+        "campaign-cta",
+        "card-background"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "products-black-white-rectangular-filter",
+          "sourcePageId": "products",
+          "sourceRegion": [
+            0.114,
+            0.189,
+            0.05,
+            0.034
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-products-top.png"
+        }
+      ]
+    },
+    {
+      "id": "editorial-module-rhythm",
+      "status": "approved",
+      "scope": "Home editorial sections and source-independent editorial translations",
+      "allowedTransformations": [
+        "change content, ordering and module proportions",
+        "stack primary and supporting modules on narrow viewports",
+        "replace source content while retaining differentiated hierarchy"
+      ],
+      "sourceAsset": {
+        "identity": "official-home-editorial-system",
+        "variant": "desktop-full-page-capture"
+      },
+      "requiredLayers": [
+        {
+          "id": "display-heading",
+          "role": "section-identity",
+          "sourceRegion": [
+            0.02,
+            0.52,
+            0.28,
+            0.05
+          ]
+        },
+        {
+          "id": "primary-editorial-module",
+          "role": "dominant-content",
+          "sourceRegion": [
+            0.02,
+            0.56,
+            0.58,
+            0.13
+          ]
+        },
+        {
+          "id": "compact-supporting-module",
+          "role": "dense-secondary-information",
+          "sourceRegion": [
+            0.6,
+            0.56,
+            0.35,
+            0.1
+          ]
+        }
+      ],
+      "forbiddenSubstitutions": [
+        "campaign hero composition",
+        "one repeated generic card shell",
+        "official Events section copied one-for-one",
+        "source screenshot used as runtime asset"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "source-home-news-module-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.23,
+            1,
+            0.18
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"
+        },
+        {
+          "evidenceId": "source-home-products-module-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.4,
+            1,
+            0.17
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"
+        },
+        {
+          "evidenceId": "source-home-events-module-region",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.57,
+            1,
+            0.18
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v3/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "id": "home-footer-illustration-organism",
+      "status": "approved",
+      "scope": "Home page-closing illustration before structural footer",
+      "compositionContractRef": "#homeV5ClaimTranslations[claimId=home-footer-illustration-organism].compositionContract",
+      "evidenceRefs": [
+        {
+          "evidenceId": "footer-v10-settled",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png"
+        }
+      ]
+    }
+  ],
+  "homeV5ClaimTranslations": [
+    {
+      "claimId": "home-news-paper-surface",
+      "scope": "Home News section only",
+      "fact": "bounded light paper/map field",
+      "interpretation": "local editorial reading surface",
+      "recommendation": "keep section-bounded",
+      "suitableFor": [
+        "Home News"
+      ],
+      "notFor": [
+        "global surface",
+        "all cards"
+      ],
+      "allowedRoles": [
+        "home-news-surface"
+      ],
+      "forbiddenRoles": [
+        "global-token",
+        "active",
+        "button"
+      ],
+      "allowedTransformations": [
+        "bounded texture crop/repeat"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-news-paper-surface",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.105,
+            1,
+            0.19
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-new-arrival-navy",
+      "scope": "Home New Arrival strip only",
+      "fact": "bounded navy release strip",
+      "interpretation": "local fresh-release grouping",
+      "recommendation": "do not globalize navy",
+      "suitableFor": [
+        "New Arrival strip"
+      ],
+      "notFor": [
+        "global primary",
+        "all headings"
+      ],
+      "allowedRoles": [
+        "new-arrival-band"
+      ],
+      "forbiddenRoles": [
+        "global-primary",
+        "CTA",
+        "active"
+      ],
+      "allowedTransformations": [
+        "responsive strip reflow"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-new-arrival-navy",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.35,
+            1,
+            0.09
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-products-cool-overlay",
+      "scope": "Home Products feature only",
+      "fact": "cool overlay is bounded to product feature media",
+      "interpretation": "local product-feature separation",
+      "recommendation": "keep inside feature frame",
+      "suitableFor": [
+        "Home Products feature"
+      ],
+      "notFor": [
+        "global accent",
+        "taxonomy active"
+      ],
+      "allowedRoles": [
+        "products-feature-overlay"
+      ],
+      "forbiddenRoles": [
+        "global-accent",
+        "CTA",
+        "selected"
+      ],
+      "allowedTransformations": [
+        "opacity adjustment preserving merchandise"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-products-cool-overlay",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.43,
+            1,
+            0.14
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-events-black-title-bar",
+      "scope": "Home Events title rail only",
+      "fact": "EVENTS uses a bounded hard-black rail",
+      "interpretation": "section-specific graphic frame",
+      "recommendation": "do not box all headings",
+      "suitableFor": [
+        "Home Events title rail"
+      ],
+      "notFor": [
+        "Products heading",
+        "all headings"
+      ],
+      "allowedRoles": [
+        "events-title-rail"
+      ],
+      "forbiddenRoles": [
+        "global-heading-fill",
+        "button",
+        "active"
+      ],
+      "allowedTransformations": [
+        "responsive rail reflow"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-events-black-title-bar",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.56,
+            0.58,
+            0.18
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-events-red-asset",
+      "scope": "Home Events feature asset only",
+      "fact": "red is embedded in the captured event feature",
+      "interpretation": "asset-local color",
+      "recommendation": "never infer action semantics",
+      "suitableFor": [
+        "captured event asset"
+      ],
+      "notFor": [
+        "CTA",
+        "error",
+        "active"
+      ],
+      "allowedRoles": [
+        "event-asset-internal-red"
+      ],
+      "forbiddenRoles": [
+        "global-action",
+        "semantic-error",
+        "token-accent"
+      ],
+      "allowedTransformations": [
+        "proportional asset scaling"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-events-red-asset",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.56,
+            0.58,
+            0.18
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-videos-warm-overlay",
+      "scope": "Home Videos decoration only",
+      "fact": "warm map overlay sits behind video media",
+      "interpretation": "local nautical atmosphere",
+      "recommendation": "keep bounded behind thumbnails",
+      "suitableFor": [
+        "Home Videos"
+      ],
+      "notFor": [
+        "global overlay",
+        "hover feedback"
+      ],
+      "allowedRoles": [
+        "videos-section-overlay"
+      ],
+      "forbiddenRoles": [
+        "global-surface",
+        "interaction",
+        "card-fill"
+      ],
+      "allowedTransformations": [
+        "opacity adjustment"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-videos-warm-overlay",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.72,
+            1,
+            0.16
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-footer-navy",
+      "scope": "site footer only",
+      "fact": "footer is a bounded navy inverse surface",
+      "interpretation": "page-closing boundary role",
+      "recommendation": "reserve for footer",
+      "suitableFor": [
+        "footer"
+      ],
+      "notFor": [
+        "global page",
+        "CTA",
+        "selection"
+      ],
+      "allowedRoles": [
+        "footer-surface",
+        "footer-inverse-copy"
+      ],
+      "forbiddenRoles": [
+        "global-primary",
+        "active",
+        "button"
+      ],
+      "allowedTransformations": [
+        "responsive footer stacking"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-footer-navy",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.88,
+            1,
+            0.12
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-type-display-alfa-slab",
+      "scope": "Home short oversized display headings",
+      "fact": "Alfa Slab One supplies graphic section labels",
+      "interpretation": "display identity role",
+      "recommendation": "use only for short high-salience words",
+      "suitableFor": [
+        "PRODUCTS/EVENTS/VIDEOS-style labels"
+      ],
+      "notFor": [
+        "body",
+        "metadata",
+        "long title"
+      ],
+      "allowedRoles": [
+        "display-heading"
+      ],
+      "forbiddenRoles": [
+        "body",
+        "metadata",
+        "control-default"
+      ],
+      "allowedTransformations": [
+        "responsive display scaling"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-type-display-alfa-slab",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.35,
+            1,
+            0.53
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-type-editorial-noto-serif",
+      "scope": "Home narrative statements only",
+      "fact": "Noto Serif supplies prominent editorial statements",
+      "interpretation": "authored narrative role",
+      "recommendation": "do not replace display or metadata faces",
+      "suitableFor": [
+        "feature statement",
+        "narrative lead"
+      ],
+      "notFor": [
+        "display label",
+        "metadata",
+        "utility"
+      ],
+      "allowedRoles": [
+        "editorial-statement"
+      ],
+      "forbiddenRoles": [
+        "display",
+        "metadata",
+        "body-default"
+      ],
+      "allowedTransformations": [
+        "responsive wrapping"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-type-editorial-noto-serif",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.24,
+            1,
+            0.12
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-type-metadata-oswald",
+      "scope": "Home compact labels/metadata only",
+      "fact": "Oswald supplies condensed metadata",
+      "interpretation": "dense scanning role",
+      "recommendation": "keep short and subordinate",
+      "suitableFor": [
+        "date",
+        "category",
+        "compact label"
+      ],
+      "notFor": [
+        "paragraph",
+        "narrative lead",
+        "display default"
+      ],
+      "allowedRoles": [
+        "metadata",
+        "compact-label"
+      ],
+      "forbiddenRoles": [
+        "body",
+        "editorial",
+        "display-default"
+      ],
+      "allowedTransformations": [
+        "minor responsive sizing"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-type-metadata-oswald",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.29,
+            1,
+            0.59
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-welcome-cta-hover-motion",
+      "scope": "Home Welcome CTA hover only",
+      "fact": "transform moves from none through an intermediate matrix to scale 1.03 over 0.3s",
+      "interpretation": "single onboarding invitation feedback",
+      "recommendation": "do not spread to other buttons",
+      "suitableFor": [
+        "Begin Your Adventure hover"
+      ],
+      "notFor": [
+        "all buttons",
+        "filters",
+        "transactions",
+        "held-out CTA"
+      ],
+      "allowedRoles": [
+        "welcome-hover-transform"
+      ],
+      "forbiddenRoles": [
+        "global-button-motion",
+        "active-motion",
+        "transaction-motion"
+      ],
+      "allowedTransformations": [
+        "proportional CTA sizing while retaining 1.03/0.3s"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-welcome-cta-hover-motion",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.382,
+            0.6,
+            0.236,
+            0.1
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v5/home-selector-crops/motion-settled.png"
+        },
+        {
+          "evidenceId": "welcome-cta-hover-scale-shadow",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.382,
+            0.6,
+            0.236,
+            0.1
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/source-videos/home-welcome-hover/frame-011.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-type-body-poppins",
+      "scope": "Home body/utility copy only",
+      "fact": "Poppins supplies readable sans body and utility copy",
+      "interpretation": "neutral reading role separated from three expressive roles",
+      "recommendation": "do not collapse typography roles",
+      "suitableFor": [
+        "body",
+        "utility copy"
+      ],
+      "notFor": [
+        "display",
+        "editorial statement",
+        "condensed metadata"
+      ],
+      "allowedRoles": [
+        "body",
+        "utility"
+      ],
+      "forbiddenRoles": [
+        "display",
+        "editorial",
+        "metadata"
+      ],
+      "allowedTransformations": [
+        "responsive size/line-height"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-type-body-poppins",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.105,
+            1,
+            0.775
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-hero-carousel-full-cycle",
+      "scope": "Home desktop Hero carousel only",
+      "fact": "full cycle exposes seven fixed desktop variants one at a time",
+      "interpretation": "bounded multi-variant composition system",
+      "recommendation": "use home-seven-variant-hero-system contract",
+      "suitableFor": [
+        "Home Hero"
+      ],
+      "notFor": [
+        "generic carousel",
+        "recolorable template",
+        "global palette"
+      ],
+      "allowedRoles": [
+        "hero-variant-cycle"
+      ],
+      "forbiddenRoles": [
+        "global-carousel-default",
+        "global-color-system"
+      ],
+      "allowedTransformations": [
+        "timing adjustment only if seven identities and one-at-a-time dominance remain"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-hero-carousel-full-cycle",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            0.105
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v4/full-pages/source-home-full.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-font-asset-alfa-slab-one",
+      "scope": "Home short oversized English section labels matching the captured NEWS role",
+      "fact": "Visible NEWS glyphs render with loaded Alfa Slab One at weight 400; the official Google Fonts import is observed but the exact font-file URL is unavailable cross-origin.",
+      "interpretation": "resource-backed graphic display role",
+      "recommendation": "A CSS family name alone does not implement this role. Deliver and load the font resource, then verify document.fonts.check; only while the exact resource URL remains unavailable may an explicitly disclosed slab-display fallback be used, and it must not be reported as exact typography.",
+      "suitableFor": [
+        "short oversized Home English section labels"
+      ],
+      "notFor": [
+        "body copy",
+        "metadata",
+        "long titles",
+        "family-name-only implementation"
+      ],
+      "allowedRoles": [
+        "home-display-heading-resource"
+      ],
+      "forbiddenRoles": [
+        "body",
+        "metadata",
+        "global default",
+        "implemented-without-loaded-resource"
+      ],
+      "allowedTransformations": [
+        "responsive size and line-height while retaining short display use"
+      ],
+      "resourcePolicy": {
+        "requiredFamily": "Alfa Slab One",
+        "requiredWeight": 400,
+        "importUrl": "https://fonts.googleapis.com/css2?family=Alfa+Slab+One&display=swap",
+        "exactFontFileUrl": "unavailable-cross-origin",
+        "implementationProof": [
+          "delivered or network-loaded font resource",
+          "document.fonts.check=true",
+          "visible glyph render"
+        ],
+        "permittedFallback": "A metrically/visually similar slab-display fallback only while the exact resource URL remains unavailable; disclose substitution and do not claim exact fidelity."
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-alfa-slab-one",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.03,
+            0.097,
+            0.594,
+            0.861
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/alfa-slab-news.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-font-asset-noto-serif",
+      "scope": "Home Welcome narrative statement matching the captured title role",
+      "fact": "Visible Welcome glyphs render with loaded Noto Serif at weight 700; the official Google Fonts import is observed but the exact font-file URL is unavailable cross-origin.",
+      "interpretation": "resource-backed editorial narrative role",
+      "recommendation": "A CSS family name alone does not implement this role. Deliver and load the font resource, then verify document.fonts.check; only while the exact resource URL remains unavailable may an explicitly disclosed serif fallback be used, and it must not be reported as exact typography.",
+      "suitableFor": [
+        "Home Welcome narrative title",
+        "prominent Home narrative statement"
+      ],
+      "notFor": [
+        "display labels",
+        "metadata",
+        "utility copy",
+        "family-name-only implementation"
+      ],
+      "allowedRoles": [
+        "home-editorial-statement-resource"
+      ],
+      "forbiddenRoles": [
+        "display",
+        "metadata",
+        "body default",
+        "implemented-without-loaded-resource"
+      ],
+      "allowedTransformations": [
+        "responsive wrapping and size while preserving editorial prominence"
+      ],
+      "resourcePolicy": {
+        "requiredFamily": "Noto Serif",
+        "requiredWeight": 700,
+        "importUrl": "https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,100..900;1,100..900&display=swap",
+        "exactFontFileUrl": "unavailable-cross-origin",
+        "implementationProof": [
+          "delivered or network-loaded font resource",
+          "document.fonts.check=true",
+          "visible glyph render"
+        ],
+        "permittedFallback": "A legible editorial serif fallback only while the exact resource URL remains unavailable; disclose substitution and do not claim exact fidelity."
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-noto-serif",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0.083,
+            1,
+            0.917
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/noto-serif-welcome.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-font-asset-poppins",
+      "scope": "Home top-navigation and ordinary utility/body sans roles proven by the captured navigation",
+      "fact": "Visible top-navigation glyphs render with loaded Poppins at weight 500; the official Google Fonts import is observed but the exact font-file URL is unavailable cross-origin.",
+      "interpretation": "resource-backed neutral sans utility role",
+      "recommendation": "A CSS family name alone does not implement this role. Deliver and load the font resource, then verify document.fonts.check; only while the exact resource URL remains unavailable may an explicitly disclosed neutral-sans fallback be used, and it must not be reported as exact typography.",
+      "suitableFor": [
+        "Home top navigation",
+        "Home utility copy",
+        "ordinary Home body sans copy"
+      ],
+      "notFor": [
+        "slab display labels",
+        "editorial serif statements",
+        "condensed dates",
+        "family-name-only implementation"
+      ],
+      "allowedRoles": [
+        "home-utility-sans-resource"
+      ],
+      "forbiddenRoles": [
+        "display",
+        "editorial",
+        "condensed metadata",
+        "implemented-without-loaded-resource"
+      ],
+      "allowedTransformations": [
+        "responsive size and line-height within utility/body hierarchy"
+      ],
+      "resourcePolicy": {
+        "requiredFamily": "Poppins",
+        "requiredWeight": 500,
+        "importUrl": "https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap",
+        "exactFontFileUrl": "unavailable-cross-origin",
+        "implementationProof": [
+          "delivered or network-loaded font resource",
+          "document.fonts.check=true",
+          "visible glyph render"
+        ],
+        "permittedFallback": "A neutral sans fallback only while the exact resource URL remains unavailable; disclose substitution and do not claim exact fidelity."
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-poppins",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.108,
+            0.01,
+            0.64,
+            0.075
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-font-asset-oswald",
+      "scope": "Home hero availability-date metadata matching the captured active slide",
+      "fact": "Visible availability-date glyphs render with loaded Oswald at computed weight 800; the official Google Fonts import exposes weights through 700 and the exact font-file URL is unavailable cross-origin.",
+      "interpretation": "resource-backed condensed campaign metadata role; computed 800 may synthesize beyond the imported declared range and must not be generalized",
+      "recommendation": "A CSS family name alone does not implement this role. Deliver and load Oswald, verify document.fonts.check and preserve condensed date hierarchy; only while the exact resource URL remains unavailable may an explicitly disclosed condensed-sans fallback be used, and it must not be reported as exact typography.",
+      "suitableFor": [
+        "Home hero availability date",
+        "short campaign metadata matching the captured role"
+      ],
+      "notFor": [
+        "paragraphs",
+        "narrative statements",
+        "display default",
+        "family-name-only implementation"
+      ],
+      "allowedRoles": [
+        "home-hero-date-resource"
+      ],
+      "forbiddenRoles": [
+        "body",
+        "editorial",
+        "global display",
+        "implemented-without-loaded-resource"
+      ],
+      "allowedTransformations": [
+        "minor responsive size changes while remaining short and subordinate"
+      ],
+      "resourcePolicy": {
+        "requiredFamily": "Oswald",
+        "observedComputedWeight": 800,
+        "importedWeightRange": [
+          300,
+          400,
+          500,
+          600,
+          700
+        ],
+        "importUrl": "https://fonts.googleapis.com/css2?family=Oswald:wght@300;400;500;600;700&display=swap",
+        "exactFontFileUrl": "unavailable-cross-origin",
+        "implementationProof": [
+          "delivered or network-loaded font resource",
+          "document.fonts.check=true",
+          "visible glyph render"
+        ],
+        "permittedFallback": "A condensed sans fallback only while the exact resource URL remains unavailable; disclose substitution and do not claim exact fidelity."
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "home-font-asset-oswald",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0.025,
+            0.75,
+            0.313,
+            0.07
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v9/font-glyphs/poppins-oswald-hero.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-footer-illustration-organism",
+      "scope": "Home page-closing illustration immediately before the structural navy footer",
+      "fact": "At 1280×720 the footer organism is a 553.33px-high layered composition. A one-shot fadein→is-in reveal resolves into a persistent character/background/text hierarchy while a finite card composite yields to three independently looping cards.",
+      "interpretation": "This is a spatial-temporal narrative closure, not a poster surface and not a generic animated footer.",
+      "recommendation": "Reproduce the normalized layer placement, reveal/state-swap sequence, three exact loop periods and loop-only pause control as one indivisible contract.",
+      "suitableFor": [
+        "Home page-closing illustration before the structural footer"
+      ],
+      "notFor": [
+        "pale diagonal poster composition",
+        "static-only substitute",
+        "generic animation",
+        "plain navy footer substitute",
+        "global background",
+        "single-image approximation"
+      ],
+      "allowedRoles": [
+        "home-footer-illustration-organism"
+      ],
+      "forbiddenRoles": [
+        "footer-surface-only",
+        "global-wallpaper",
+        "generic-brand-decoration",
+        "generic-motion-recipe"
+      ],
+      "allowedTransformations": [
+        "uniform responsive scaling",
+        "bounded outer-edge crop after scaling",
+        "overlap-offset compression that retains left-character/right-cards/lower-right-type hierarchy",
+        "narrow-layout height expansion when required to keep every foreground layer legible"
+      ],
+      "evidenceRefs": [
+        {
+          "evidenceId": "footer-v10-transition-120ms",
+          "sourcePageId": "home",
+          "state": "transition-120ms",
+          "sourceRegion": [
+            0,
+            0.768,
+            1,
+            0.232
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-02-transition-120ms.png"
+        },
+        {
+          "evidenceId": "footer-v10-transition-500ms",
+          "sourcePageId": "home",
+          "state": "transition-500ms",
+          "sourceRegion": [
+            0,
+            0.768,
+            1,
+            0.232
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-03-transition-500ms.png"
+        },
+        {
+          "evidenceId": "footer-v10-settled",
+          "sourcePageId": "home",
+          "state": "settled-full",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-06-settled-full-organism.png"
+        },
+        {
+          "evidenceId": "footer-v10-late-loop",
+          "sourcePageId": "home",
+          "state": "late-loop",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-late-full-organism.png"
+        },
+        {
+          "evidenceId": "footer-v10-paused",
+          "sourcePageId": "home",
+          "state": "paused",
+          "sourceRegion": [
+            0,
+            0.159,
+            1,
+            0.769
+          ],
+          "capture": "output/visual-qa/onepiece-cardgame/evidence-v10/footer-organism/frame-07-paused.png"
+        }
+      ],
+      "compositionContract": {
+        "identity": "official-home-footer-illustration-organism",
+        "variant": "desktop-1280x720-footer-v10",
+        "coordinateSpace": "viewport-normalized at 1280×720; y values are pre-entry document/viewport observations and spatial relations, not fixed responsive CSS coordinates",
+        "position": "immediately before the structural navy footer",
+        "requiredLayers": [
+          {
+            "id": "background-wave",
+            "selector": ".footerIllustBg",
+            "normalized": {
+              "x": -0.003644,
+              "y": 1.116829,
+              "width": 1.125,
+              "height": 0.768511
+            },
+            "crop": "horizontal overscan may crop only the outer 0.0625 viewport per side; wave must remain edge-spanning",
+            "zRole": "backdrop"
+          },
+          {
+            "id": "character",
+            "selector": ".footerIllustChara",
+            "normalized": {
+              "x": -0.029685,
+              "y": 1.161737,
+              "width": 0.546875,
+              "height": 0.768511
+            },
+            "crop": "left/bottom bleed is intrinsic; face, torso and dominant red silhouette may not be cropped",
+            "zRole": "dominant left foreground"
+          },
+          {
+            "id": "card-composite",
+            "selector": ".footerIllustCard .inItem",
+            "normalized": {
+              "x": 0.424481,
+              "y": 1.238585,
+              "width": 0.559375,
+              "height": 0.5037
+            },
+            "crop": "no internal crop",
+            "zRole": "finite reveal bridge only"
+          },
+          {
+            "id": "show-card-03",
+            "selector": ".footerIllustCard .showItem .card03",
+            "normalized": {
+              "x": 0.448956,
+              "y": 1.514518,
+              "width": 0.084894,
+              "height": 0.1611
+            },
+            "crop": "none",
+            "zRole": "small lower-center-right floating card"
+          },
+          {
+            "id": "show-card-02",
+            "selector": ".footerIllustCard .showItem .card02",
+            "normalized": {
+              "x": 0.579169,
+              "y": 1.316363,
+              "width": 0.086975,
+              "height": 0.154622
+            },
+            "crop": "none",
+            "zRole": "small center-right floating card"
+          },
+          {
+            "id": "show-card-01",
+            "selector": ".footerIllustCard .showItem .card01",
+            "normalized": {
+              "x": 0.786981,
+              "y": 1.28303,
+              "width": 0.159375,
+              "height": 0.306478
+            },
+            "crop": "none",
+            "zRole": "largest far-right floating card"
+          },
+          {
+            "id": "catch-text",
+            "selector": ".footerIllustTxt .catch",
+            "normalized": {
+              "x": 0.773964,
+              "y": 1.578299,
+              "width": 0.161456,
+              "height": 0.045475
+            },
+            "crop": "none",
+            "zRole": "lower-right message above logo"
+          },
+          {
+            "id": "brand-logo",
+            "selector": ".footerIllustTxt .logo",
+            "normalized": {
+              "x": 0.527091,
+              "y": 1.638582,
+              "width": 0.429163,
+              "height": 0.197222
+            },
+            "crop": "none",
+            "zRole": "lower-right terminal brand anchor"
+          }
+        ],
+        "hierarchy": [
+          "background wave spans behind all foregrounds",
+          "Luffy is the dominant left mass",
+          "three cards overlap across center-right to far-right with card01 largest",
+          "catch sits above the large lower-right logo",
+          "structural navy footer follows below and is not part of the organism"
+        ],
+        "responsiveBoundary": {
+          "mayChange": [
+            "uniform overall scale",
+            "organism container height",
+            "outer background overscan crop",
+            "inter-layer gaps and overlap offsets proportionally",
+            "vertical staging to avoid illegible collisions"
+          ],
+          "mustPreserve": [
+            "all eight semantic layers",
+            "left-dominant character",
+            "edge-spanning wave",
+            "three-card size hierarchy and rightward field",
+            "catch-over-logo relationship",
+            "finite composite-to-looping-card state swap",
+            "placement before navy footer"
+          ],
+          "mustNot": [
+            "pale diagonal poster composition",
+            "flatten to a single raster/poster",
+            "static-only substitute",
+            "drop any card/text/logo layer",
+            "move character to a minor decorative corner",
+            "replace with generic animation"
+          ]
+        },
+        "motionSemantics": {
+          "reveal": {
+            "trigger": "one-shot class change .footerIllust.fadein → .footerIllust.fadein.is-in",
+            "persistence": "is-in remains through settled and late states",
+            "background": "inBg finite 2s; opacity 0→1",
+            "character": "opacity 0→1 and translate(-33.3333px,33.3333px)→0 over 0.8s with observed 0.2s delay",
+            "catch": "opacity 0→1 and translateX(-33.3333px)→0 over 0.5s with observed 1.5s delay",
+            "logo": "opacity 0→1 and translate(-6.66667px,-6.66667px)→0 over 0.3s with observed 1.8s delay"
+          },
+          "stateSwap": {
+            "incoming": ".inItem finite inCard 0.6s plus inItem 0.8s, one iteration",
+            "terminal": ".inItem opacity 0; .showItem cards remain visible",
+            "rule": "finite composite is a transition bridge and must not loop or remain as the terminal card state"
+          },
+          "loops": [
+            {
+              "layer": "card01",
+              "duration": "5s",
+              "iterationCount": "infinite"
+            },
+            {
+              "layer": "card02",
+              "duration": "8s",
+              "iterationCount": "infinite"
+            },
+            {
+              "layer": "card03",
+              "duration": "8s",
+              "iterationCount": "infinite"
+            }
+          ],
+          "control": {
+            "selector": "footer .js-bgAnimeBtn",
+            "runningClass": "autoBtn js-bgAnimeBtn",
+            "pausedClass": "autoBtn js-bgAnimeBtn is-pause",
+            "pausesOnly": [
+              "card01 loop",
+              "card02 loop",
+              "card03 loop"
+            ],
+            "mustNotPauseOrReplay": [
+              "fadein→is-in reveal",
+              "inBg reveal",
+              "character reveal",
+              "catch reveal",
+              "logo reveal",
+              "finite inItem state swap"
+            ]
+          },
+          "reducedMotion": "unresolved: v10 runtime could not expose reduced-motion preference; do not infer a replacement behavior",
+          "forbidden": [
+            "static-only rendering as normal behavior",
+            "one undifferentiated generic loop",
+            "uniform loop duration",
+            "pause control that rewinds/replays/freezes reveal layers",
+            "infinite inItem composite"
+          ]
+        }
+      }
+    },
+    {
+      "claimId": "home-390-responsive-reflow",
+      "scope": "Home at a true 390px-class browser viewport plus the Demo host required to inspect it",
+      "fact": "The official Home remains a 390px-wide vertically scrolling document and reflows section geometry; attempt 11 instead exposed a 10px preview and 0px Home canvas in the live Demo.",
+      "interpretation": "A usable full-width inspection canvas is a prerequisite infrastructure contract. Inside it, mobile identity comes from section-specific reflow, hierarchy and bounded crop—not from scaling a desktop page inside a device shell.",
+      "recommendation": "Use the two-layer executable contract in quality-attempts/11/interpreter-mobile-contract.json and require exact same-viewport recapture before QA pass.",
+      "suitableFor": [
+        "Home 390px-class responsive rendering",
+        "Demo mobile inspection mode"
+      ],
+      "notFor": [
+        "device shell as brand content",
+        "desktop phone mockup as same-viewport proof",
+        "other pages without captured mobile evidence"
+      ],
+      "allowedRoles": [
+        "demo-mobile-inspection-infrastructure",
+        "home-mobile-reflow"
+      ],
+      "forbiddenRoles": [
+        "brand-device-frame",
+        "global-scale-only-mobile",
+        "desktop-split-mobile"
+      ],
+      "allowedTransformations": [
+        "full-width mobile inspection mode",
+        "vertical stack/row reordering",
+        "bounded media crop",
+        "responsive typography within role hierarchy"
+      ],
+      "contractRef": "migrations/onepiece-cardgame/quality-attempts/11/interpreter-mobile-contract.json",
+      "evidenceRefs": [
+        {
+          "evidenceId": "attempt-11-mobile-responsive-checklist",
+          "sourcePageId": "home",
+          "sourceRegion": [
+            0,
+            0,
+            1,
+            1
+          ],
+          "capture": "migrations/onepiece-cardgame/quality-attempts/11/evidence-mobile/source-home-full-390x844.png"
+        }
+      ]
+    },
+    {
+      "claimId": "home-mobile-section-organisms-attempt12",
+      "scope": "Home Welcome, New Arrival, Events, Recommend, Videos and Footer nav/legal at the observed 390x844 viewport",
+      "fact": "Attempt 12 verifies the six sections' default structures and semantic actions. Attempt 13 supersedes its unresolved boundary for the scoped New Arrival next/previous state and Events/Recommend item identities; other unobserved pressed, modal and accordion-open states remain unresolved.",
+      "interpretation": "Section identity is carried by organism layers and media/action relationships, never by item count alone.",
+      "recommendation": "Consume the frozen attempt-12 section contract together with the narrower attempt-13 asset/interaction/route contract; attempt 13 governs overlapping fields.",
+      "suitableFor": [
+        "official Home mobile section reconstruction at 390px-class widths"
+      ],
+      "notFor": [
+        "generic card normalization",
+        "count-only structural acceptance",
+        "invented interaction parity"
+      ],
+      "allowedRoles": [
+        "home-mobile-section-organism"
+      ],
+      "forbiddenRoles": [
+        "item-count-fidelity-proxy",
+        "unverified-active-state"
+      ],
+      "allowedTransformations": [
+        "bounded responsive spacing adjustment that preserves every required layer and reading-order edge"
+      ],
+      "contractRef": "migrations/onepiece-cardgame/quality-attempts/12/interpreter/section-contract.json",
+      "criticalPatterns": {
+        "events": "bg_pikup-events red-frame organism, never generic white rows",
+        "recommend": "Swiper wanted-poster media rail with partial-next-card cue",
+        "videos": "Swiper multi-thumbnail media rail",
+        "newArrival": "attempt 13 proves one reversible button step: 1 / 10 at 0px → 2 / 10 at about -182px with Previous enabled, then Previous restores the initial disabled state",
+        "footer": "links are anchors and cookie/plus controls are buttons"
+      },
+      "machineAcceptance": "section-contract.json#globalAcceptance.itemCountCannotSubstituteForStructure",
+      "supersededFields": {
+        "by": "migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json",
+        "fields": [
+          "New Arrival next/previous active identity and reversible transform state",
+          "Events six positional asset identities",
+          "Recommend five positional media identities"
+        ]
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "attempt-12-section-checklist",
+          "sourcePageId": "home",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/section-checklist.json"
+        },
+        {
+          "evidenceId": "attempt-12-dom-computed-probes",
+          "sourcePageId": "home",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/12/evidence/dom-computed-probes.json"
+        }
+      ]
+    },
+    {
+      "claimId": "home-mobile-item-identity-and-reversible-rails-attempt13",
+      "scope": "Home Events, Recommend and New Arrival at 390px; held-out only as a separate Demo page",
+      "fact": "Six Events positions resolve to five official identities because only Jakarta and Manila share the same official thumbnail; Recommend resolves to five distinct 640x360 images; New Arrival Next migrates 1 / 10 at 0px to 2 / 10 at -181.998px and enables Previous.",
+      "interpretation": "Exact positional media identity, cover-cropped rail organization and reversible control state are indivisible fidelity requirements. Held-out generative proof has no source-page identity.",
+      "recommendation": "Use the frozen attempt-13 contract for positional hashes, sole sharing exception, rail geometry, bidirectional probe and route boundary.",
+      "suitableFor": [
+        "Home Events six-row organism",
+        "Home Recommend wanted-poster rail",
+        "Home New Arrival controls",
+        "independent held-out Demo page"
+      ],
+      "notFor": [
+        "generated or placeholder source-item art",
+        "repeated Recommend art",
+        "visual-only arrows",
+        "held-out section inside Home"
+      ],
+      "allowedRoles": [
+        "source-item-asset-identity",
+        "cover-cropped-media-rail",
+        "reversible-rail-control",
+        "generative-held-out-page-boundary"
+      ],
+      "forbiddenRoles": [
+        "generated-source-item-substitute",
+        "unapproved-shared-asset",
+        "fake-button",
+        "source-home-held-out-container"
+      ],
+      "allowedTransformations": [
+        "bounded rail spacing translation while preserving item order and crop",
+        "New Arrival transform tolerance of ±2px around -181.998px after one Next",
+        "responsive route shell that does not merge held-out into Home"
+      ],
+      "contractRef": "migrations/onepiece-cardgame/quality-attempts/13/interpreter/contract.json",
+      "assetIdentityAcceptance": {
+        "events": "six positional official identities; exactly five unique hashes; sole duplicate items [4,5]",
+        "recommend": "five positional, pairwise-distinct official 640x360 hashes; object-fit cover",
+        "generatedSourceItemAssets": 0
+      },
+      "interactionAcceptance": {
+        "sequence": [
+          "initial 1 / 10, x=0, Previous disabled",
+          "Next once → 2 / 10, x≈-181.998, Previous enabled",
+          "Previous once → complete initial restoration"
+        ],
+        "noOpOrVisualOnlyControls": "blocking"
+      },
+      "heldOutAcceptance": {
+        "demoPageId": "onepiece-cardgame-editorial-held-out",
+        "mapsToSourcePageId": null,
+        "mustBeSeparateRoute": true,
+        "mustNotAppearInSourceHome": true
+      },
+      "evidenceRefs": [
+        {
+          "evidenceId": "attempt13-events-assets",
+          "sourcePageId": "home",
+          "state": "events-six-items",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/events-390.png"
+        },
+        {
+          "evidenceId": "attempt13-recommend-assets",
+          "sourcePageId": "home",
+          "state": "recommend-five-items-across-rail",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/13/evidence/asset-manifest.json"
+        },
+        {
+          "evidenceId": "attempt13-new-arrival-before",
+          "sourcePageId": "home",
+          "state": "1 / 10",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/new-arrival-before.png"
+        },
+        {
+          "evidenceId": "attempt13-new-arrival-after-next",
+          "sourcePageId": "home",
+          "state": "2 / 10",
+          "capture": "migrations/onepiece-cardgame/quality-attempts/13/evidence/captures/new-arrival-after-next.png"
+        },
+        {
+          "evidenceId": "attempt13-held-out-goal-boundary",
+          "sourcePageId": null,
+          "state": "generative-held-out",
+          "capture": "migrations/onepiece-cardgame/goal-contract.json"
+        }
+      ]
+    }
+  ]
+}

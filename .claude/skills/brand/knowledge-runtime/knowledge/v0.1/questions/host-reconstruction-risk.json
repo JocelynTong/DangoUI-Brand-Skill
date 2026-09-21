@@ -1,0 +1,51 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-reconstruction-risk",
+  "title": "概念图的吸引力是否依赖难以还原的空间关系？",
+  "status": "open-single-case",
+  "scope": "host-generation；当前种子仅覆盖宝可梦动态牌组场景",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-generated-deck-scenes"
+  ],
+  "hypothesisRefs": [
+    "prefer-reconstructible-dynamic-scenes"
+  ],
+  "nextEvidenceNeeded": "在另一独立品牌/宿主验证，不沿用宝可梦卡位",
+  "requiredContext": [
+    "承托面",
+    "遮挡依赖",
+    "反射折射",
+    "可拆分性"
+  ],
+  "pitfalls": [
+    "复杂交叉遮挡默认降低优先级",
+    "不是禁用纸艺风格"
+  ],
+  "observationLevel": "case-observed",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "选图时检查卡位轮廓、四角、承托面和遮挡是否可识别；不清楚时先做局部试片。",
+      "若简单平面变换和独立遮罩能保留主要关系，可继续；若核心效果依赖复杂折射或交错遮挡，优先简化方向。",
+      "试片必须替换真实内容再判断。静态拼图相似，不代表动态卡位可用。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "prefer-reconstructible-dynamic-scenes"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-generated-deck-scenes",
+      "summary": "纸艺方案在修订前后景后仍未获得认可，用户要求减少此类复杂方向；复杂空间需在选图时试片。"
+    }
+  ]
+}

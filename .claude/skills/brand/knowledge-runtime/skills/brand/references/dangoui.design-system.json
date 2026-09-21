@@ -1,0 +1,4925 @@
+{
+  "source": {
+    "package": "dangoui",
+    "version": "3.6.16",
+    "generatedFrom": [
+      "dist/theme.css",
+      "src/**/*.vue",
+      "src/**/*.scss"
+    ]
+  },
+  "tokens": [
+    {
+      "name": "--du-color-main-rgb",
+      "value": "124, 102, 255",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-color-main",
+      "value": "rgb(var(--du-color-main-rgb))",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-color-main-opacity",
+      "value": "rgba(var(--du-color-main-rgb), 0.2)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-c-2",
+      "value": "#2B263B",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-c-secondary",
+      "value": "#2B263B",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-c-secondary-channel",
+      "value": "43,38,59",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-c-warning",
+      "value": "#fc7e22",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-c-success",
+      "value": "#52ba5c",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-c-error",
+      "value": "#d94a4e",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-c-text-primary",
+      "value": "#000",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-c-text-2",
+      "value": "rgba(0,0,0,0.64)",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-c-text-3",
+      "value": "rgba(0,0,0,0.4)",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-c-text-disable",
+      "value": "rgba(0,0,0,0.16)",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-c-b-primary",
+      "value": "rgba(0,0,0,0.3)",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-c-b-2",
+      "value": "rgba(0,0,0,0.1)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-c-b-3",
+      "value": "rgba(0,0,0,0.05)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-c-bg-primary",
+      "value": "#f2f0ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-2",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-2-channel",
+      "value": "247,247,249",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-3",
+      "value": "#fff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-4",
+      "value": "#ededf2",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-success",
+      "value": "#e2f7e3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-warning",
+      "value": "#fff0e6",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-bg-error",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-c-mask-primary",
+      "value": "rgba(0,0,0,0.88)",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-c-mask-2",
+      "value": "rgba(0,0,0,0.64)",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-c-mask-3",
+      "value": "rgba(0,0,0,0.24)",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-empty-padding",
+      "value": "calc(100vw * (120 / 375)) 0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-input-disabled-color",
+      "value": "rgba(32, 36, 38, 0.4)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-input-placeholder-color",
+      "value": "rgba(32, 36, 38, 0.4)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bg-1",
+      "value": "#ffffff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bg-2",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bg-3",
+      "value": "#ffffff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bg-4",
+      "value": "#ededf2",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-border-1",
+      "value": "#0000001f",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-border-2",
+      "value": "#00000014",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-border-3",
+      "value": "#0000000a",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-default-1",
+      "value": "#0000000a",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-2",
+      "value": "#00000014",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-3",
+      "value": "#0000001f",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-4",
+      "value": "#00000029",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-5",
+      "value": "#0000003d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-6",
+      "value": "#00000066",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-7",
+      "value": "#000000a3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-8",
+      "value": "#000000e0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-9",
+      "value": "#000000",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-border",
+      "value": "#00000029",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-default-color",
+      "value": "#000000a3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-disabledtemp-border",
+      "value": "#0000001f",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-default-disabledtemp-color",
+      "value": "#0000003d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-outline-color",
+      "value": "#000000a3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-outline-disabledtemp-color",
+      "value": "#0000003d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-soft-bg",
+      "value": "#0000000a",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-soft-disabledtemp-bg",
+      "value": "#0000000a",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-solid-bg",
+      "value": "#000000a3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-solid-bg-channel",
+      "value": "0,0,0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-solid-disabledtemp-bg",
+      "value": "#0000003d",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-text-color",
+      "value": "#00000066",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-default-text-disabledtemp-color",
+      "value": "#0000003d",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-default-tag-border",
+      "value": "#00000029",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-default-tag-color",
+      "value": "#000000a3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-tag-disabledtemp-border",
+      "value": "#0000001f",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-default-tag-outline-color",
+      "value": "#000000a3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-tag-outline-disabledtemp-color",
+      "value": "#0000003d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-tag-soft-bg",
+      "value": "#0000000a",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-tag-solid-bg",
+      "value": "#000000a3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-tag-solid-bg-channel",
+      "value": "0,0,0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-default-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-default-tag-text-color",
+      "value": "#00000066",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-default-tag-text-disabledtemp-color",
+      "value": "#0000003d",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-error-1",
+      "value": "#ffebe9",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-2",
+      "value": "#ffd1cf",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-3",
+      "value": "#ffabab",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-4",
+      "value": "#ff8380",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-5",
+      "value": "#f96464",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-6",
+      "value": "#d94a4e",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-7",
+      "value": "#b3343c",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-8",
+      "value": "#8c222c",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-9",
+      "value": "#661722",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-border",
+      "value": "#d94a4e",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-error-color",
+      "value": "#d94a4e",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-disabledtemp-border",
+      "value": "#ffabab",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-error-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-outline-color",
+      "value": "#d94a4e",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-outline-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-soft-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-soft-disabledtemp-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-solid-bg",
+      "value": "#d94a4e",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-solid-bg-channel",
+      "value": "217,74,78",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-solid-color",
+      "value": "#ffffff",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-solid-disabledtemp-bg",
+      "value": "#ffabab",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-text-color",
+      "value": "#d94a4e",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-error-text-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-error-tag-border",
+      "value": "#d94a4e",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-error-tag-color",
+      "value": "#d94a4e",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-tag-disabledtemp-border",
+      "value": "#ffabab",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-error-tag-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-tag-outline-color",
+      "value": "#d94a4e",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-tag-outline-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-tag-soft-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-tag-soft-disabledtemp-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-tag-solid-bg",
+      "value": "#d94a4e",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-tag-solid-bg-channel",
+      "value": "217,74,78",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-tag-solid-disabledtemp-bg",
+      "value": "#ffabab",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-error-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "错误状态"
+    },
+    {
+      "name": "--du-error-tag-text-color",
+      "value": "#d94a4e",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-error-tag-text-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-icon-1",
+      "value": "#2b263b",
+      "usage": "图标颜色"
+    },
+    {
+      "name": "--du-icon-2",
+      "value": "#625e76",
+      "usage": "图标颜色"
+    },
+    {
+      "name": "--du-icon-3",
+      "value": "#918b9f",
+      "usage": "图标颜色"
+    },
+    {
+      "name": "--du-icon-disabled",
+      "value": "#d4d0da",
+      "usage": "图标颜色"
+    },
+    {
+      "name": "--du-mask-1",
+      "value": "#000000e0",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-mask-2",
+      "value": "#000000a3",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-mask-3",
+      "value": "#00000066",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-mask-4",
+      "value": "#0000003d",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-mask-active",
+      "value": "#0000000a",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-mask-hover",
+      "value": "#00000014",
+      "usage": "遮罩/覆盖层"
+    },
+    {
+      "name": "--du-primary-1",
+      "value": "#f2f0ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-2",
+      "value": "#d9d2ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-3",
+      "value": "#c7b8ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-4",
+      "value": "#958dff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-5",
+      "value": "#7c66ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-6",
+      "value": "#5c4cd9",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-7",
+      "value": "#4036b3",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-8",
+      "value": "#28238c",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-9",
+      "value": "#1a1866",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-border",
+      "value": "#7c66ff",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-primary-color",
+      "value": "#7c66ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-disabled-bg",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-disabled-color",
+      "value": "#d4d0da",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-disabledtemp-border",
+      "value": "#c7b8ff",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-primary-disabledtemp-color",
+      "value": "#c7b8ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-outline-color",
+      "value": "#7c66ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-outline-disabledtemp-color",
+      "value": "#c7b8ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-soft-bg",
+      "value": "#f2f0ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-soft-disabledtemp-bg",
+      "value": "#f2f0ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-solid-bg",
+      "value": "#7C66FF",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-solid-bg-channel",
+      "value": "124,102,255",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-solid-color",
+      "value": "#ffffff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-solid-disabledtemp-bg",
+      "value": "#c7b8ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-text-color",
+      "value": "#7c66ff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-primary-text-disabledtemp-color",
+      "value": "#c7b8ff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-primary-tag-border",
+      "value": "#7c66ff",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-primary-tag-color",
+      "value": "#7c66ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-disabled-bg",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-tag-disabled-color",
+      "value": "#d4d0da",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-disabledtemp-border",
+      "value": "#c7b8ff",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-primary-tag-disabledtemp-color",
+      "value": "#c7b8ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-outline-color",
+      "value": "#7c66ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-outline-disabledtemp-color",
+      "value": "#c7b8ff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-soft-bg",
+      "value": "#f2f0ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-tag-soft-disabledtemp-bg",
+      "value": "#f2f0ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-tag-solid-bg",
+      "value": "#7c66ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-tag-solid-bg-channel",
+      "value": "124,102,255",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-solid-disabledtemp-bg",
+      "value": "#c7b8ff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-primary-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "主品牌色"
+    },
+    {
+      "name": "--du-primary-tag-text-color",
+      "value": "#7c66ff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-primary-tag-text-disabledtemp-color",
+      "value": "#c7b8ff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-secondary-1",
+      "value": "#f7f7f9",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-2",
+      "value": "#ededf2",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-3",
+      "value": "#e1e1e5",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-4",
+      "value": "#d4d0da",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-5",
+      "value": "#bab5c4",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-6",
+      "value": "#918b9f",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-7",
+      "value": "#625e76",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-8",
+      "value": "#383950",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-9",
+      "value": "#2b263b",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-border",
+      "value": "#2b263b",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-secondary-color",
+      "value": "#2b263b",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-disabledtemp-border",
+      "value": "#bab5c4",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-secondary-disabledtemp-color",
+      "value": "#bab5c4",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-outline-color",
+      "value": "#2b263b",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-outline-disabledtemp-color",
+      "value": "#bab5c4",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-soft-bg",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-soft-disabledtemp-bg",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-solid-bg",
+      "value": "#2b263b",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-solid-bg-channel",
+      "value": "43,38,59",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-solid-disabledtemp-bg",
+      "value": "#bab5c4",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-text-color",
+      "value": "#2b263b",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-secondary-text-disabledtemp-color",
+      "value": "#bab5c4",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-secondary-tag-border",
+      "value": "#2b263b",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-secondary-tag-color",
+      "value": "#2b263b",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-tag-disabledtemp-border",
+      "value": "#bab5c4",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-secondary-tag-disabledtemp-color",
+      "value": "#bab5c4",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-tag-outline-color",
+      "value": "#2b263b",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-tag-outline-disabledtemp-color",
+      "value": "#bab5c4",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-tag-soft-bg",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-tag-soft-disabledtemp-bg",
+      "value": "#f7f7f9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-tag-solid-bg",
+      "value": "#2b263b",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-tag-solid-bg-channel",
+      "value": "43,38,59",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-tag-solid-disabledtemp-bg",
+      "value": "#bab5c4",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-secondary-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-secondary-tag-text-color",
+      "value": "#2b263b",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-secondary-tag-text-disabledtemp-color",
+      "value": "#bab5c4",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-success-1",
+      "value": "#e2f7e3",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-2",
+      "value": "#c9f2ca",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-3",
+      "value": "#9de09d",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-4",
+      "value": "#7ad37f",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-5",
+      "value": "#52ba5c",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-6",
+      "value": "#379e45",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-7",
+      "value": "#247842",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-8",
+      "value": "#145221",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-9",
+      "value": "#0f3d19",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-border",
+      "value": "#379e45",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-success-color",
+      "value": "#379e45",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-disabledtemp-border",
+      "value": "#9de09d",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-success-disabledtemp-color",
+      "value": "#9de09d",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-outline-color",
+      "value": "#379e45",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-outline-disabledtemp-color",
+      "value": "#9de09d",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-soft-bg",
+      "value": "#e2f7e3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-soft-disabledtemp-bg",
+      "value": "#e2f7e3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-solid-bg",
+      "value": "#379e45",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-solid-bg-channel",
+      "value": "55,158,69",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-solid-color",
+      "value": "#ffffff",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-solid-disabledtemp-bg",
+      "value": "#9de09d",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-text-color",
+      "value": "#379e45",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-success-text-disabledtemp-color",
+      "value": "#9de09d",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-success-tag-border",
+      "value": "#379e45",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-success-tag-color",
+      "value": "#379e45",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-tag-disabledtemp-border",
+      "value": "#9de09d",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-success-tag-disabledtemp-color",
+      "value": "#9de09d",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-tag-outline-color",
+      "value": "#379e45",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-tag-outline-disabledtemp-color",
+      "value": "#9de09d",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-tag-soft-bg",
+      "value": "#e2f7e3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-tag-soft-disabledtemp-bg",
+      "value": "#e2f7e3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-tag-solid-bg",
+      "value": "#379e45",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-tag-solid-bg-channel",
+      "value": "55,158,69",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-tag-solid-disabledtemp-bg",
+      "value": "#9de09d",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-success-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "成功状态"
+    },
+    {
+      "name": "--du-success-tag-text-color",
+      "value": "#379e45",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-success-tag-text-disabledtemp-color",
+      "value": "#9de09d",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-text-1",
+      "value": "#000000",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-text-2",
+      "value": "#000000a3",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-text-3",
+      "value": "#00000066",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-text-disabled",
+      "value": "#00000029",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trade-1",
+      "value": "#ffebe9",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-2",
+      "value": "#ffd1cf",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-3",
+      "value": "#ffabab",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-4",
+      "value": "#ff8380",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-5",
+      "value": "#f96464",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-6",
+      "value": "#d94a4e",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-7",
+      "value": "#b3343c",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-8",
+      "value": "#8c222c",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-9",
+      "value": "#661722",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-border",
+      "value": "#f96464",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trade-color",
+      "value": "#f96464",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-disabledtemp-border",
+      "value": "#ffabab",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trade-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-outline-color",
+      "value": "#f96464",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-outline-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-soft-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-soft-disabledtemp-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-solid-bg",
+      "value": "#f96464",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-solid-bg-channel",
+      "value": "249,100,100",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-solid-disabledtemp-bg",
+      "value": "#ffabab",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-text-color",
+      "value": "#f96464",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trade-text-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trade-tag-border",
+      "value": "#f96464",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trade-tag-color",
+      "value": "#f96464",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-tag-disabledtemp-border",
+      "value": "#ffabab",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trade-tag-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-tag-outline-color",
+      "value": "#f96464",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-tag-outline-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-tag-soft-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-tag-soft-disabledtemp-bg",
+      "value": "#ffebe9",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-tag-solid-bg",
+      "value": "#f96464",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-tag-solid-bg-channel",
+      "value": "249,100,100",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-tag-solid-disabledtemp-bg",
+      "value": "#ffabab",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trade-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trade-tag-text-color",
+      "value": "#f96464",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trade-tag-text-disabledtemp-color",
+      "value": "#ffabab",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trans-black-1",
+      "value": "#0000000a",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-2",
+      "value": "#00000014",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-3",
+      "value": "#0000001f",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-4",
+      "value": "#00000029",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-5",
+      "value": "#0000003d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-6",
+      "value": "#00000066",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-7",
+      "value": "#000000a3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-8",
+      "value": "#000000e0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-9",
+      "value": "#000000",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-border",
+      "value": "#0000003d",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trans-black-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-disabledtemp-border",
+      "value": "#0000001f",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trans-black-disabledtemp-color",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-outline-color",
+      "value": "#000000e0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-outline-disabledtemp-color",
+      "value": "#0000001f",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-soft-bg",
+      "value": "#000000a3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-soft-disabledtemp-bg",
+      "value": "#00000029",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-solid-bg",
+      "value": "#000000e0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-solid-bg-channel",
+      "value": "0,0,0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-solid-disabledtemp-bg",
+      "value": "#0000001f",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-text-color",
+      "value": "#ffffff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trans-black-text-disabledtemp-color",
+      "value": "#00000014",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trans-black-tag-border",
+      "value": "#0000003d",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trans-black-tag-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-tag-disabledtemp-border",
+      "value": "#0000001f",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-trans-black-tag-disabledtemp-color",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-tag-outline-color",
+      "value": "#000000e0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-tag-outline-disabledtemp-color",
+      "value": "#0000001f",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-tag-soft-bg",
+      "value": "#000000a3",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-tag-soft-disabledtemp-bg",
+      "value": "#00000029",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-tag-solid-bg",
+      "value": "#000000e0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-tag-solid-bg-channel",
+      "value": "0,0,0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-tag-solid-disabledtemp-bg",
+      "value": "#0000001f",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-trans-black-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-trans-black-tag-text-color",
+      "value": "#ffffff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-trans-black-tag-text-disabledtemp-color",
+      "value": "#00000014",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-warning-1",
+      "value": "#fff0e6",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-2",
+      "value": "#ffdfca",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-3",
+      "value": "#ffc299",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-4",
+      "value": "#ffa15a",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-5",
+      "value": "#fc7e22",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-6",
+      "value": "#d65d11",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-7",
+      "value": "#b04105",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-8",
+      "value": "#8a2c00",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-9",
+      "value": "#631c00",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-border",
+      "value": "#fc7e22",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-warning-color",
+      "value": "#fc7e22",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-disabledtemp-border",
+      "value": "#ffc299",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-warning-disabledtemp-color",
+      "value": "#ffc299",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-outline-color",
+      "value": "#fc7e22",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-outline-disabledtemp-color",
+      "value": "#ffc299",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-soft-bg",
+      "value": "#fff0e6",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-soft-disabledtemp-bg",
+      "value": "#fff0e6",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-solid-bg",
+      "value": "#fc7e22",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-solid-bg-channel",
+      "value": "252,126,34",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-solid-color",
+      "value": "#ffffff",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-solid-disabledtemp-bg",
+      "value": "#ffc299",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-text-color",
+      "value": "#fc7e22",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-warning-text-disabledtemp-color",
+      "value": "#ffc299",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-warning-tag-border",
+      "value": "#fc7e22",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-warning-tag-color",
+      "value": "#fc7e22",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-tag-disabledtemp-border",
+      "value": "#ffc299",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-warning-tag-disabledtemp-color",
+      "value": "#ffc299",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-tag-outline-color",
+      "value": "#fc7e22",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-tag-outline-disabledtemp-color",
+      "value": "#ffc299",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-tag-soft-bg",
+      "value": "#fff0e6",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-tag-soft-disabledtemp-bg",
+      "value": "#fff0e6",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-tag-solid-bg",
+      "value": "#fc7e22",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-tag-solid-bg-channel",
+      "value": "252,126,34",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-tag-solid-color",
+      "value": "#ffffff",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-tag-solid-disabledtemp-bg",
+      "value": "#ffc299",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-warning-tag-solid-disabledtemp-color",
+      "value": "#ffffff",
+      "usage": "警告状态"
+    },
+    {
+      "name": "--du-warning-tag-text-color",
+      "value": "#fc7e22",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-warning-tag-text-disabledtemp-color",
+      "value": "#ffc299",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-white-1",
+      "value": "#ffffff0a",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-2",
+      "value": "#ffffff14",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-3",
+      "value": "#ffffff1f",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-4",
+      "value": "#ffffff29",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-5",
+      "value": "#ffffff3d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-6",
+      "value": "#ffffff66",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-7",
+      "value": "#ffffffa3",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-8",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-9",
+      "value": "#ffffff",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-border",
+      "value": "#ffffffe0",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-white-border-2",
+      "value": "#ffffffa3",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-white-border-3",
+      "value": "#ffffff3d",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-white-color",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-disabledtemp-border",
+      "value": "#ffffff66",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-white-disabledtemp-color",
+      "value": "#ffffff3d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-outline-color",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-outline-disabledtemp-color",
+      "value": "#ffffff3d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-soft-bg",
+      "value": "#ffffff14",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-soft-disabledtemp-bg",
+      "value": "#ffffff0a",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-solid-bg",
+      "value": "#ffffff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-solid-bg-channel",
+      "value": "255,255,255",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-solid-color",
+      "value": "#000000",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-solid-disabledtemp-bg",
+      "value": "#ffffff3d",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-solid-disabledtemp-color",
+      "value": "#000000",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-text-color",
+      "value": "#ffffff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-white-text-color-2",
+      "value": "#ffffffa3",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-white-text-color-3",
+      "value": "#ffffff66",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-white-text-disabledtemp-color",
+      "value": "#ffffff3d",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-white-tag-border",
+      "value": "#ffffffe0",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-white-tag-color",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-tag-disabledtemp-border",
+      "value": "#ffffff66",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-white-tag-disabledtemp-color",
+      "value": "#ffffff3d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-tag-outline-color",
+      "value": "#ffffffe0",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-tag-outline-disabledtemp-color",
+      "value": "#ffffff3d",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-tag-soft-bg",
+      "value": "#ffffff14",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-tag-soft-disabledtemp-bg",
+      "value": "#ffffff0a",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-tag-solid-bg",
+      "value": "#ffffff",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-tag-solid-bg-channel",
+      "value": "255,255,255",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-tag-solid-color",
+      "value": "#000000",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-tag-solid-disabledtemp-bg",
+      "value": "#ffffff3d",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-white-tag-solid-disabledtemp-color",
+      "value": "#000000",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-white-tag-text-color",
+      "value": "#ffffff",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-white-tag-text-disabledtemp-color",
+      "value": "#ffffff3d",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-vip-solid-bg",
+      "value": "#000",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-vip-solid-bg-channel",
+      "value": "0,0,0",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-vip-solid-disabledtemp-bg",
+      "value": "#0000001F",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-vip-solid-color",
+      "value": "#FFBF8F",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-solid-disabledtemp-color",
+      "value": "#FFFFFF",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-text-color",
+      "value": "#800C00",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-vip-text-disabledtemp-color",
+      "value": "#FBAFA6",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-vip-border",
+      "value": "#800C00",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-vip-disabledtemp-border",
+      "value": "#FFC299",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-vip-outline-color",
+      "value": "#800C00",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-outline-disabledtemp-color",
+      "value": "#FFC299",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-color",
+      "value": "#800C00",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-disabledtemp-color",
+      "value": "#FBAFA6",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-soft-bg",
+      "value": "#FFD7B8",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-vip-soft-disabledtemp-bg",
+      "value": "#FFEADB",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-vip-1",
+      "value": "#FFEBE9",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-2",
+      "value": "#FFD1CF",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-3",
+      "value": "#FFABAB",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-4",
+      "value": "#FF8380",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-5",
+      "value": "#F96464",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-6",
+      "value": "#D94A4E",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-7",
+      "value": "#B3343C",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-8",
+      "value": "#8C222C",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-vip-9",
+      "value": "#661722",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-solid-color",
+      "value": "var(--du-default-solid-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-solid-bg",
+      "value": "var(--du-default-solid-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bt-solid-disabledtemp-color",
+      "value": "var(--du-default-solid-disabledtemp-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-solid-disabledtemp-bg",
+      "value": "var(--du-default-solid-disabledtemp-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bt-color",
+      "value": "var(--du-default-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-soft-bg",
+      "value": "var(--du-default-soft-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bt-disabledtemp-color",
+      "value": "var(--du-default-disabledtemp-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-soft-disabledtemp-bg",
+      "value": "var(--du-default-soft-disabledtemp-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-bt-outline-color",
+      "value": "var(--du-default-outline-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-border",
+      "value": "var(--du-default-border)",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-bt-outline-disabledtemp-color",
+      "value": "var(--du-default-outline-disabledtemp-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-bt-disabledtemp-border",
+      "value": "var(--du-default-disabledtemp-border)",
+      "usage": "边框颜色"
+    },
+    {
+      "name": "--du-bt-text-color",
+      "value": "var(--du-default-text-color)",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-bt-text-disabledtemp-color",
+      "value": "var(--du-default-text-disabledtemp-color)",
+      "usage": "文本颜色"
+    },
+    {
+      "name": "--du-switch-bg",
+      "value": "var(--du-default-solid-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-switch-disabled-bg",
+      "value": "var(--du-default-solid-disabledtemp-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-radio-bg",
+      "value": "var(--du-default-solid-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-radio-disabled-bg",
+      "value": "var(--du-default-solid-disabledtemp-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-checkbox-bg",
+      "value": "var(--du-default-solid-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-checkbox-disabled-bg",
+      "value": "var(--du-default-solid-disabledtemp-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-checkbox-color",
+      "value": "var(--du-default-solid-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-in-solid-color",
+      "value": "var(--du-default-solid-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-in-solid-bg",
+      "value": "var(--du-default-solid-bg)",
+      "usage": "背景/容器表面"
+    },
+    {
+      "name": "--du-in-solid-disabledtemp-color",
+      "value": "var(--du-default-solid-disabledtemp-color)",
+      "usage": "dangoui token"
+    },
+    {
+      "name": "--du-in-solid-disabledtemp-bg",
+      "value": "var(--du-default-solid-disabledtemp-bg)",
+      "usage": "背景/容器表面"
+    }
+  ],
+  "components": [
+    {
+      "name": "ActionButton",
+      "package": "dangoui",
+      "className": "du-action-button",
+      "sourcePath": "src/navigation-bar/ActionButton.vue",
+      "stylePath": "src/navigation-bar/ActionButton.scss",
+      "description": "ActionButton component from dangoui.",
+      "props": {
+        "color": {
+          "required": true,
+          "type": "'black' | 'white'"
+        },
+        "name": {
+          "required": true,
+          "type": "string | { _: string }"
+        }
+      },
+      "tokens": {
+        "c-navigation-bar-border": "--du-c-navigation-bar-border",
+        "c-navigation-bar-text": "--du-c-navigation-bar-text"
+      }
+    },
+    {
+      "name": "ActionSheet",
+      "package": "dangoui",
+      "className": "du-action-sheet",
+      "sourcePath": "src/action-sheet/ActionSheet.vue",
+      "stylePath": "src/action-sheet/style.scss",
+      "description": "小程序按钮的 open-type，比如 share",
+      "props": {
+        "type": {
+          "required": true,
+          "type": "'list' | 'grid'",
+          "default": "'list'"
+        },
+        "open": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "items": {
+          "required": true,
+          "type": "ActionSheetItem[]"
+        }
+      },
+      "tokens": {
+        "bg-2": "--du-bg-2",
+        "text-1": "--du-text-1",
+        "text-2": "--du-text-2"
+      }
+    },
+    {
+      "name": "Avatar",
+      "package": "dangoui",
+      "className": "du-avatar",
+      "sourcePath": "src/avatar/Avatar.vue",
+      "stylePath": "src/avatar/Avatar.scss",
+      "description": "src",
+      "props": {
+        "src": {
+          "required": true,
+          "type": "string"
+        },
+        "type": {
+          "required": true,
+          "type": "'primary' | 'trade' | 'success' | 'error' | 'default' | 'white'",
+          "default": "'default'"
+        },
+        "size": {
+          "required": true,
+          "type": "'mini' | 'small' | 'normal' | 'medium' | 'large'",
+          "default": "'normal'"
+        },
+        "bordered": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "icon": {
+          "required": false,
+          "type": "string",
+          "default": "''"
+        },
+        "iconColor": {
+          "required": false,
+          "type": "string"
+        },
+        "extClass": {
+          "required": false,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "avatar-border-width": "--du-avatar-border-width",
+        "default-border": "--du-default-border",
+        "error-border": "--du-error-border",
+        "icon-disabled": "--du-icon-disabled",
+        "primary-border": "--du-primary-border",
+        "success-border": "--du-success-border",
+        "trade-border": "--du-trade-border",
+        "white-border": "--du-white-border"
+      }
+    },
+    {
+      "name": "AvatarGroup",
+      "package": "dangoui",
+      "className": "du-avatar-group",
+      "sourcePath": "src/avatar/AvatarGroup.vue",
+      "stylePath": "src/avatar/AvatarGroup.scss",
+      "description": "头像文件列表",
+      "props": {
+        "avatars": {
+          "required": true,
+          "type": "string[]"
+        },
+        "type": {
+          "required": true,
+          "type": "'primary' | 'trade' | 'success' | 'error' | 'default' | 'white'",
+          "default": "'default'"
+        },
+        "size": {
+          "required": true,
+          "type": "'mini' | 'small' | 'normal' | 'medium' | 'large'",
+          "default": "'normal'"
+        },
+        "bordered": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "gap": {
+          "required": false,
+          "type": "number"
+        },
+        "reverse": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "limit": {
+          "required": false,
+          "type": "number",
+          "default": "0"
+        },
+        "extClass": {
+          "required": false,
+          "type": "string | string[] | Record<string, boolean>"
+        }
+      },
+      "tokens": {
+        "secondary-7": "--du-secondary-7"
+      }
+    },
+    {
+      "name": "Badge",
+      "package": "dangoui",
+      "className": "du-badge",
+      "sourcePath": "src/badge/Badge.vue",
+      "stylePath": "src/badge/style.scss",
+      "description": "是否只显示小圆点",
+      "props": {
+        "dot": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "value": {
+          "required": true,
+          "type": "string | number",
+          "default": "''"
+        },
+        "max": {
+          "required": false,
+          "type": "number",
+          "default": "undefined"
+        },
+        "alwaysShow": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "c-badge-color": "--du-c-badge-color"
+      }
+    },
+    {
+      "name": "Button",
+      "package": "dangoui",
+      "className": "du-button-icon",
+      "sourcePath": "src/button/Button.vue",
+      "stylePath": "src/button/style.scss",
+      "description": "主题",
+      "props": {
+        "theme": {
+          "required": false,
+          "type": "string"
+        },
+        "buttonId": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "color": {
+          "required": true,
+          "type": "string"
+        },
+        "type": {
+          "required": true,
+          "type": "'primary' | 'secondary' | 'outline' | 'text'"
+        },
+        "size": {
+          "required": true,
+          "type": "'mini' | 'small' | 'normal' | 'medium' | 'large'"
+        },
+        "text": {
+          "required": true,
+          "type": "string"
+        },
+        "icon": {
+          "required": true,
+          "type": "string | { _: string }"
+        },
+        "iconSize": {
+          "required": true,
+          "type": "string"
+        },
+        "iconPosition": {
+          "required": true,
+          "type": "'left' | 'right'"
+        },
+        "arrowRight": {
+          "required": true,
+          "type": "boolean"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean"
+        },
+        "disabledType": {
+          "required": true,
+          "type": "'default' | 'temp'"
+        },
+        "full": {
+          "required": true,
+          "type": "boolean"
+        },
+        "loading": {
+          "required": true,
+          "type": "boolean"
+        },
+        "openType": {
+          "required": true,
+          "type": "string"
+        },
+        "press": {
+          "required": true,
+          "type": "boolean"
+        },
+        "pressBackground": {
+          "required": true,
+          "type": "string"
+        }
+      },
+      "tokens": {
+        "bt-border": "--du-bt-border",
+        "bt-color": "--du-bt-color",
+        "bt-disabledtemp-border": "--du-bt-disabledtemp-border",
+        "bt-disabledtemp-color": "--du-bt-disabledtemp-color",
+        "bt-outline-disabledtemp-color": "--du-bt-outline-disabledtemp-color",
+        "bt-soft-bg": "--du-bt-soft-bg",
+        "bt-soft-disabledtemp-bg": "--du-bt-soft-disabledtemp-bg",
+        "bt-solid-bg": "--du-bt-solid-bg",
+        "bt-solid-color": "--du-bt-solid-color",
+        "bt-solid-disabledtemp-bg": "--du-bt-solid-disabledtemp-bg",
+        "bt-solid-disabledtemp-color": "--du-bt-solid-disabledtemp-color",
+        "bt-text-color": "--du-bt-text-color",
+        "bt-text-disabledtemp-color": "--du-bt-text-disabledtemp-color"
+      }
+    },
+    {
+      "name": "Calendar",
+      "package": "dangoui",
+      "className": "du-calendar--button",
+      "sourcePath": "src/calendar/Calendar.vue",
+      "stylePath": "src/calendar/style.scss",
+      "description": "Calendar component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": false,
+          "type": "string | Array<string> | Record<string, string>",
+          "default": "''"
+        },
+        "visible": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "type": {
+          "required": false,
+          "type": "'single' | 'multiple' | 'range'",
+          "default": "'multiple'"
+        },
+        "title": {
+          "required": false,
+          "type": "string",
+          "default": "''"
+        },
+        "confirmText": {
+          "required": false,
+          "type": "string",
+          "default": "''"
+        },
+        "selectedDate": {
+          "required": false,
+          "type": "dayjs.Dayjs | dayjs.Dayjs[]",
+          "default": "() => []"
+        },
+        "min": {
+          "required": false,
+          "type": "dayjs.Dayjs | number",
+          "default": "() => dayjs().startOf('month')"
+        },
+        "max": {
+          "required": false,
+          "type": "dayjs.Dayjs | number",
+          "default": "() => dayjs().startOf('month').add(12, 'month').endOf('month')"
+        },
+        "selectableCount": {
+          "required": false,
+          "type": "number",
+          "default": "30"
+        },
+        "weekStart": {
+          "required": false,
+          "type": "number",
+          "default": "0"
+        },
+        "showTimePicker": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "timeStep": {
+          "required": true,
+          "type": "1 | 5 | 10",
+          "default": "5"
+        }
+      },
+      "tokens": {
+        "picker-view-height": "--du-picker-view-height",
+        "primary-color": "--du-primary-color",
+        "primary-soft-bg": "--du-primary-soft-bg",
+        "primary-solid-bg": "--du-primary-solid-bg",
+        "primary-solid-color": "--du-primary-solid-color"
+      }
+    },
+    {
+      "name": "Card",
+      "package": "dangoui",
+      "className": "du-card",
+      "sourcePath": "src/card/Card.vue",
+      "stylePath": "src/card/style.scss",
+      "description": "Card component from dangoui.",
+      "props": {
+        "title": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "subtitle": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "guideText": {
+          "required": true,
+          "type": "string",
+          "default": "'查看更多'"
+        },
+        "infoText": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "actionIcon": {
+          "required": true,
+          "type": "string | { _: string }",
+          "default": "''"
+        },
+        "mode": {
+          "required": true,
+          "type": "'normal' | 'collapse'",
+          "default": "'normal'"
+        },
+        "size": {
+          "required": true,
+          "type": "'normal' | 'large'",
+          "default": "'normal'"
+        },
+        "defaultOpen": {
+          "required": true,
+          "type": "boolean | null",
+          "default": "null"
+        },
+        "open": {
+          "required": true,
+          "type": "boolean | null",
+          "default": "null"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "showHeader": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Cascader",
+      "package": "dangoui",
+      "className": "du-cascader",
+      "sourcePath": "src/cascader/Cascader.vue",
+      "stylePath": "src/cascader/style.scss",
+      "description": "如果你需要获取选中数据的 label，可以使用这个事件",
+      "props": {
+        "title": {
+          "required": true,
+          "type": "string",
+          "default": "'请选择'"
+        },
+        "open": {
+          "required": false,
+          "type": "boolean",
+          "default": "undefined"
+        },
+        "options": {
+          "required": true,
+          "type": "CascaderOption[]"
+        },
+        "value": {
+          "required": true,
+          "type": "string[]",
+          "default": "() => []"
+        },
+        "showSearch": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "searchPlaceholder": {
+          "required": false,
+          "type": "string"
+        },
+        "popupStyle": {
+          "required": false,
+          "type": "string | Record<string, string>",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "primary-color": "--du-primary-color",
+        "text-3": "--du-text-3"
+      }
+    },
+    {
+      "name": "Checkbox",
+      "package": "dangoui",
+      "className": "du-checkbox--inline",
+      "sourcePath": "src/checkbox/Checkbox.vue",
+      "stylePath": "src/checkbox/Checkbox.scss",
+      "description": "形状 @default \"round\"",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "shape": {
+          "required": false,
+          "type": "'round' | 'square' | 'card'"
+        },
+        "inline": {
+          "required": false,
+          "type": "boolean"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "label": {
+          "required": false,
+          "type": "string"
+        },
+        "checked": {
+          "required": false,
+          "type": "boolean"
+        },
+        "value": {
+          "required": false,
+          "type": "string"
+        },
+        "custom": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "position": {
+          "required": false,
+          "type": "'left' | 'right'"
+        },
+        "size": {
+          "required": true,
+          "type": "string",
+          "default": "'20px'"
+        },
+        "border": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "undefined"
+        }
+      },
+      "tokens": {
+        "primary-4": "--du-primary-4"
+      }
+    },
+    {
+      "name": "CheckboxGroup",
+      "package": "dangoui",
+      "className": "du-checkbox-group",
+      "sourcePath": "src/checkbox/CheckboxGroup.vue",
+      "stylePath": "src/checkbox/CheckboxGroup.scss",
+      "description": "形状",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "shape": {
+          "required": false,
+          "type": "'round' | 'square' | 'card'"
+        },
+        "inline": {
+          "required": false,
+          "type": "boolean"
+        },
+        "position": {
+          "required": false,
+          "type": "'left' | 'right'"
+        },
+        "value": {
+          "required": true,
+          "type": "Array<string>",
+          "default": "() => []"
+        },
+        "custom": {
+          "required": false,
+          "type": "boolean"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "undefined"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "CheckboxIcon",
+      "package": "dangoui",
+      "className": "du-checkbox",
+      "sourcePath": "src/checkbox/CheckboxIcon.vue",
+      "stylePath": "src/checkbox/CheckboxIcon.scss",
+      "description": "色彩，可以使用色板中的颜色名",
+      "props": {
+        "selected": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "shape": {
+          "required": true,
+          "type": "string",
+          "default": "'round'"
+        },
+        "size": {
+          "required": true,
+          "type": "string | number",
+          "default": "20"
+        },
+        "border": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        }
+      },
+      "tokens": {
+        "checkbox-bg": "--du-checkbox-bg",
+        "checkbox-color": "--du-checkbox-color"
+      }
+    },
+    {
+      "name": "Dialog",
+      "package": "dangoui",
+      "className": "du-dialog",
+      "sourcePath": "src/dialog/Dialog.vue",
+      "stylePath": "src/dialog/Dialog.scss",
+      "description": "Dialog component from dangoui.",
+      "props": {},
+      "tokens": {}
+    },
+    {
+      "name": "Divider",
+      "package": "dangoui",
+      "className": "du-divider",
+      "sourcePath": "src/divider/Divider.vue",
+      "stylePath": "src/divider/style.scss",
+      "description": "色彩，可以使用合法的 CSS 颜色值或者色板中具体的颜色名（如 primary-solid-color）",
+      "props": {
+        "color": {
+          "required": false,
+          "type": "string"
+        },
+        "type": {
+          "required": false,
+          "type": "'horizontal' | 'vertical'",
+          "default": "undefined"
+        },
+        "length": {
+          "required": false,
+          "type": "number | string",
+          "default": "undefined"
+        }
+      },
+      "tokens": {
+        "c-text-3": "--du-c-text-3"
+      }
+    },
+    {
+      "name": "Dropdown",
+      "package": "dangoui",
+      "className": "du-dropdown",
+      "sourcePath": "src/dropdown/Dropdown.vue",
+      "stylePath": "src/dropdown/style.scss",
+      "description": "选项配置",
+      "props": {
+        "options": {
+          "required": true,
+          "type": "FilterField[]"
+        },
+        "value": {
+          "required": true,
+          "type": "SelectedValue",
+          "default": "() => ({"
+        },
+        "visible": {
+          "required": true,
+          "type": "boolean"
+        },
+        "cancelText": {
+          "required": false,
+          "type": "string"
+        },
+        "confirmText": {
+          "required": false,
+          "type": "string"
+        },
+        "showFooter": {
+          "required": false,
+          "type": "boolean"
+        },
+        "layout": {
+          "required": false,
+          "type": "'tag' | 'list'"
+        }
+      },
+      "tokens": {
+        "primary-color": "--du-primary-color"
+      }
+    },
+    {
+      "name": "Empty",
+      "package": "dangoui",
+      "className": "du-empty",
+      "sourcePath": "src/empty/Empty.vue",
+      "stylePath": "src/empty/style.scss",
+      "description": "Empty component from dangoui.",
+      "props": {
+        "image": {
+          "required": true,
+          "type": "string",
+          "default": "'empty'"
+        },
+        "text": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "buttonText": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "empty-padding": "--du-empty-padding"
+      }
+    },
+    {
+      "name": "Form",
+      "package": "dangoui",
+      "className": "du-form",
+      "sourcePath": "src/form/Form.vue",
+      "stylePath": "src/form/Form.scss",
+      "description": "Form component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "labelSize": {
+          "required": true,
+          "type": "string",
+          "default": "'60px'"
+        },
+        "labelAlign": {
+          "required": true,
+          "type": "'left' | 'right'",
+          "default": "'left'"
+        },
+        "layout": {
+          "required": true,
+          "type": "'horizontal' | 'vertical'",
+          "default": "'horizontal'"
+        },
+        "options": {
+          "required": true,
+          "type": "{",
+          "default": "undefined"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "FormField",
+      "package": "dangoui",
+      "className": "du-form-field",
+      "sourcePath": "src/form/FormField.vue",
+      "stylePath": "src/form/FormField.scss",
+      "description": "FormField component from dangoui.",
+      "props": {
+        "text": {
+          "required": true,
+          "type": "string"
+        },
+        "placeholder": {
+          "required": true,
+          "type": "string"
+        },
+        "arrowRight": {
+          "required": false,
+          "type": "string"
+        }
+      },
+      "tokens": {
+        "text-1": "--du-text-1",
+        "text-3": "--du-text-3"
+      }
+    },
+    {
+      "name": "FormItem",
+      "package": "dangoui",
+      "className": "du-form-item",
+      "sourcePath": "src/form/FormItem.vue",
+      "stylePath": "src/form/FormItem.scss",
+      "description": "内容区域水平位置的对齐方式",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "label": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "labelAlign": {
+          "required": true,
+          "type": "'left' | 'right'",
+          "default": "'left'"
+        },
+        "labelSize": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "layout": {
+          "required": false,
+          "type": "'vertical' | 'horizontal'"
+        },
+        "tips": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "required": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "info": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "isDirty": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "showBorder": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "justify": {
+          "required": false,
+          "type": "'start' | 'end'"
+        },
+        "items": {
+          "required": false,
+          "type": "'start' | 'center'"
+        },
+        "options": {
+          "required": true,
+          "type": "{",
+          "default": "undefined"
+        }
+      },
+      "tokens": {
+        "primary-color": "--du-primary-color"
+      }
+    },
+    {
+      "name": "Icon",
+      "package": "dangoui",
+      "className": "du-icon",
+      "sourcePath": "src/icon/Icon.vue",
+      "stylePath": "src/icon/style.scss",
+      "description": "内置图标，从 `dangoui-icon-config` 导入，与 name 互斥 在 web 侧必须用这个属性",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "icon": {
+          "required": false,
+          "type": "{ _: string }"
+        },
+        "name": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "size": {
+          "required": true,
+          "type": "string | number",
+          "default": "''"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "unsafeInternal": {
+          "required": true,
+          "type": "string | { _: string }",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "icon-size": "--du-icon-size"
+      }
+    },
+    {
+      "name": "IconButton",
+      "package": "dangoui",
+      "className": "du-icon-button-icon",
+      "sourcePath": "src/icon-button/IconButton.vue",
+      "stylePath": "src/icon-button/style.scss",
+      "description": "自定义 style",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "color": {
+          "required": true,
+          "type": "string"
+        },
+        "size": {
+          "required": true,
+          "type": "'mini' | 'small' | 'normal' | 'medium' | 'large'"
+        },
+        "icon": {
+          "required": false,
+          "type": "{ _: string }"
+        },
+        "name": {
+          "required": true,
+          "type": "string"
+        },
+        "iconSize": {
+          "required": true,
+          "type": "string"
+        },
+        "text": {
+          "required": true,
+          "type": "string"
+        },
+        "textColor": {
+          "required": true,
+          "type": "string"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Image",
+      "package": "dangoui",
+      "className": "du-image",
+      "sourcePath": "src/image/Image.vue",
+      "stylePath": "src/image/style.scss",
+      "description": "src",
+      "props": {
+        "src": {
+          "required": true,
+          "type": "string"
+        },
+        "mode": {
+          "required": true,
+          "type": "'aspectFit' | 'aspectFill' | 'widthFix'",
+          "default": "'aspectFill'"
+        },
+        "width": {
+          "required": true,
+          "type": "number | string",
+          "default": "'100%'"
+        },
+        "height": {
+          "required": true,
+          "type": "number | string",
+          "default": "'100%'"
+        },
+        "radius": {
+          "required": false,
+          "type": "number | string"
+        },
+        "showMenuByLongPress": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "extClass": {
+          "required": false,
+          "type": "string | string[] | Record<string, boolean>"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Input",
+      "package": "dangoui",
+      "className": "du-input",
+      "sourcePath": "src/input/Input.vue",
+      "stylePath": "src/input/style.scss",
+      "description": "禁用",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "placeholder": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "value": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "maxlength": {
+          "required": true,
+          "type": "number",
+          "default": "-1"
+        },
+        "inputAlign": {
+          "required": true,
+          "type": "string",
+          "default": "'left'"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "bordered": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "withoutBorder": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "prefix": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "trim": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "suffix": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "autofocus": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "password": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "cursorSpacing": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "confirmType": {
+          "required": true,
+          "type": "string",
+          "default": "'done'"
+        },
+        "alwaysEmbed": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "confirmHold": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "cursor": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "selectionStart": {
+          "required": true,
+          "type": "number",
+          "default": "-1"
+        },
+        "selectionEnd": {
+          "required": true,
+          "type": "number",
+          "default": "-1"
+        },
+        "adjustPosition": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "rightIcon": {
+          "required": false,
+          "type": "string"
+        },
+        "rightIconSize": {
+          "required": false,
+          "type": "string"
+        },
+        "allowClear": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "bg-2": "--du-bg-2",
+        "border-2": "--du-border-2",
+        "icon-disabled": "--du-icon-disabled",
+        "text-1": "--du-text-1",
+        "text-3": "--du-text-3"
+      }
+    },
+    {
+      "name": "InputNumber",
+      "package": "dangoui",
+      "className": "du-input-number",
+      "sourcePath": "src/input-number/InputNumber.vue",
+      "stylePath": "src/input-number/style.scss",
+      "description": "色板颜色",
+      "props": {
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        },
+        "value": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "min": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "max": {
+          "required": true,
+          "type": "number",
+          "default": "Infinity"
+        },
+        "input": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "step": {
+          "required": true,
+          "type": "number",
+          "default": "1"
+        },
+        "size": {
+          "required": true,
+          "type": "'mini' | 'small' | 'normal' | 'medium' | 'large'",
+          "default": "'mini'"
+        },
+        "highlightAdd": {
+          "required": true,
+          "type": "boolean"
+        },
+        "highlightMinus": {
+          "required": true,
+          "type": "boolean"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean"
+        },
+        "allowDecimal": {
+          "required": true,
+          "type": "boolean"
+        },
+        "compact": {
+          "required": true,
+          "type": "boolean"
+        }
+      },
+      "tokens": {
+        "bg-4": "--du-bg-4",
+        "icon-1": "--du-icon-1",
+        "icon-disabled": "--du-icon-disabled",
+        "in-solid-bg": "--du-in-solid-bg",
+        "in-solid-color": "--du-in-solid-color",
+        "in-solid-disabledtemp-bg": "--du-in-solid-disabledtemp-bg",
+        "in-solid-disabledtemp-color": "--du-in-solid-disabledtemp-color",
+        "text-1": "--du-text-1"
+      }
+    },
+    {
+      "name": "NavigationBar",
+      "package": "dangoui",
+      "className": "du-navigation-bar",
+      "sourcePath": "src/navigation-bar/NavigationBar.vue",
+      "stylePath": "src/navigation-bar/NavigationBar.scss",
+      "description": "颜色",
+      "props": {
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'default'"
+        },
+        "share": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "back": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "backIcon": {
+          "required": true,
+          "type": "string | { _: string }"
+        },
+        "fixed": {
+          "required": true,
+          "type": "boolean"
+        },
+        "placeholder": {
+          "required": true,
+          "type": "boolean"
+        },
+        "transparentFrontColor": {
+          "required": true,
+          "type": "'white' | 'black'"
+        },
+        "transparent": {
+          "required": true,
+          "type": "boolean"
+        },
+        "appearThreshold": {
+          "required": true,
+          "type": "number"
+        },
+        "alwaysShowContent": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "center": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "c-": "--du-c-",
+        "c-b-primary": "--du-c-b-primary",
+        "c-bg-2-channel": "--du-c-bg-2-channel",
+        "c-default-navigation-bar-bg": "--du-c-default-navigation-bar-bg",
+        "c-default-navigation-bar-border": "--du-c-default-navigation-bar-border",
+        "c-default-navigation-bar-text": "--du-c-default-navigation-bar-text",
+        "c-navigation-bar-bg": "--du-c-navigation-bar-bg",
+        "c-navigation-bar-border": "--du-c-navigation-bar-border",
+        "c-navigation-bar-text": "--du-c-navigation-bar-text",
+        "c-primary-navigation-bar-bg": "--du-c-primary-navigation-bar-bg",
+        "c-primary-navigation-bar-border": "--du-c-primary-navigation-bar-border",
+        "c-primary-navigation-bar-text": "--du-c-primary-navigation-bar-text",
+        "c-secondary-navigation-bar-bg": "--du-c-secondary-navigation-bar-bg",
+        "c-secondary-navigation-bar-border": "--du-c-secondary-navigation-bar-border",
+        "c-secondary-navigation-bar-text": "--du-c-secondary-navigation-bar-text",
+        "c-white-navigation-bar-bg": "--du-c-white-navigation-bar-bg",
+        "c-white-navigation-bar-border": "--du-c-white-navigation-bar-border",
+        "c-white-navigation-bar-text": "--du-c-white-navigation-bar-text",
+        "nav-bar-op": "--du-nav-bar-op",
+        "primary-solid-bg-channel": "--du-primary-solid-bg-channel",
+        "secondary-solid-bg-channel": "--du-secondary-solid-bg-channel",
+        "text-1": "--du-text-1"
+      }
+    },
+    {
+      "name": "NavigationBarRight",
+      "package": "dangoui",
+      "className": "du-navigation-bar-right",
+      "sourcePath": "src/navigation-bar/NavigationBarRight.vue",
+      "stylePath": "src/navigation-bar/NavigationBarRight.scss",
+      "description": "NavigationBarRight component from dangoui.",
+      "props": {},
+      "tokens": {}
+    },
+    {
+      "name": "NoticeBar",
+      "package": "dangoui",
+      "className": "du-notice-bar",
+      "sourcePath": "src/notice-bar/NoticeBar.vue",
+      "stylePath": "src/notice-bar/style.scss",
+      "description": "类型",
+      "props": {
+        "type": {
+          "required": true,
+          "type": "'primary' | 'secondary'",
+          "default": "'secondary'"
+        },
+        "icon": {
+          "required": false,
+          "type": "string"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        },
+        "text": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "linkText": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "linkIcon": {
+          "required": true,
+          "type": "string | { _: string }",
+          "default": "''"
+        },
+        "closeable": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "layout": {
+          "required": true,
+          "type": "'horizontal' | 'vertical'",
+          "default": "'horizontal'"
+        },
+        "ellipsis": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "c-notice-bar": "--du-c-notice-bar",
+        "c-notice-bar-bg": "--du-c-notice-bar-bg"
+      }
+    },
+    {
+      "name": "Picker",
+      "package": "dangoui",
+      "className": "du-picker",
+      "sourcePath": "src/picker/Picker.vue",
+      "stylePath": "src/picker/style.scss",
+      "description": "Picker component from dangoui.",
+      "props": {
+        "columns": {
+          "required": true,
+          "type": "{ label: string; value: string }[][]"
+        },
+        "value": {
+          "required": true,
+          "type": "string[]"
+        },
+        "title": {
+          "required": false,
+          "type": "string",
+          "default": "'请选择'"
+        },
+        "open": {
+          "required": false,
+          "type": "boolean",
+          "default": "undefined"
+        }
+      },
+      "tokens": {
+        "bg-2": "--du-bg-2"
+      }
+    },
+    {
+      "name": "PickerView",
+      "package": "dangoui",
+      "className": "du-picker-view",
+      "sourcePath": "src/picker-view/PickerView.vue",
+      "stylePath": "src/picker-view/style.scss",
+      "description": "PickerView component from dangoui.",
+      "props": {
+        "columns": {
+          "required": true,
+          "type": "{ label: string; value: string }[][]"
+        },
+        "value": {
+          "required": true,
+          "type": "string[]"
+        }
+      },
+      "tokens": {
+        "picker-view-height": "--du-picker-view-height",
+        "pikcer-view-height": "--du-pikcer-view-height",
+        "primary-soft-bg": "--du-primary-soft-bg"
+      }
+    },
+    {
+      "name": "Popup",
+      "package": "dangoui",
+      "className": "du-popup",
+      "sourcePath": "src/popup/Popup.vue",
+      "stylePath": "src/popup/style.scss",
+      "description": "标题",
+      "props": {
+        "title": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "titleAlign": {
+          "required": true,
+          "type": "'default' | 'center'",
+          "default": "'default'"
+        },
+        "headerVisible": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "type": {
+          "required": true,
+          "type": "'top' | 'bottom' | 'center'",
+          "default": "'center'"
+        },
+        "visible": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "maskClick": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "closable": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "maskClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "disablePortal": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "safeArea": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "root": {
+          "required": true,
+          "type": "'app' | 'page'",
+          "default": "'page'"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Radio",
+      "package": "dangoui",
+      "className": "du-radio",
+      "sourcePath": "src/radio/Radio.vue",
+      "stylePath": "src/radio/Radio.scss",
+      "description": "形状 @default \"normal\"",
+      "props": {
+        "extClass": {
+          "required": false,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "label": {
+          "required": false,
+          "type": "string"
+        },
+        "shape": {
+          "required": false,
+          "type": "string"
+        },
+        "custom": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "inline": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "disabled": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "disabledTip": {
+          "required": false,
+          "type": "string",
+          "default": "''"
+        },
+        "cell": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "value": {
+          "required": false,
+          "type": "any"
+        },
+        "valueKey": {
+          "required": false,
+          "type": "string"
+        },
+        "checked": {
+          "required": false,
+          "type": "boolean"
+        },
+        "color": {
+          "required": false,
+          "type": "string",
+          "default": "undefined"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "RadioGroup",
+      "package": "dangoui",
+      "className": "du-radio-group",
+      "sourcePath": "src/radio/RadioGroup.vue",
+      "stylePath": "src/radio/RadioGroup.scss",
+      "description": "是否为行内展示",
+      "props": {
+        "extClass": {
+          "required": false,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "inline": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "shape": {
+          "required": false,
+          "type": "'normal' | 'button'"
+        },
+        "cell": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "custom": {
+          "required": false,
+          "type": "boolean",
+          "default": "false"
+        },
+        "value": {
+          "required": false,
+          "type": "any"
+        },
+        "valueKey": {
+          "required": false,
+          "type": "string"
+        },
+        "color": {
+          "required": false,
+          "type": "string",
+          "default": "undefined"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "RadioIcon",
+      "package": "dangoui",
+      "className": "du-radio",
+      "sourcePath": "src/radio/RadioIcon.vue",
+      "stylePath": "src/radio/RadioIcon.scss",
+      "description": "色彩，可以使用色板中的颜色名",
+      "props": {
+        "checked": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "size": {
+          "required": true,
+          "type": "string | number",
+          "default": "''"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        }
+      },
+      "tokens": {
+        "radio-bg": "--du-radio-bg",
+        "radio-disabled-bg": "--du-radio-disabled-bg"
+      }
+    },
+    {
+      "name": "Rate",
+      "package": "dangoui",
+      "className": "du-rate",
+      "sourcePath": "src/rate/Rate.vue",
+      "stylePath": "src/rate/Rate.scss",
+      "description": "总数",
+      "props": {
+        "count": {
+          "required": true,
+          "type": "number",
+          "default": "5"
+        },
+        "defaultValue": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "value": {
+          "required": true,
+          "type": "number",
+          "default": "undefined"
+        },
+        "size": {
+          "required": true,
+          "type": "'large' | 'medium' | 'small' | 'mini' | 'normal'",
+          "default": "'medium'"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'#FC7E22'"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "clickable": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "icon": {
+          "required": true,
+          "type": "string | { _: string }",
+          "default": "() => iconRateFilled"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "animation": {
+          "required": true,
+          "type": "'bounce' | 'fade' | null | undefined",
+          "default": "null"
+        },
+        "half": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "withText": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "textList": {
+          "required": false,
+          "type": "string[]"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "RootPortal",
+      "package": "dangoui",
+      "className": "du-root-portal",
+      "sourcePath": "src/root-portal/RootPortal.vue",
+      "stylePath": null,
+      "description": "RootPortal component from dangoui.",
+      "props": {
+        "disabled": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "root": {
+          "required": true,
+          "type": "'app' | 'page'",
+          "default": "'page'"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Search",
+      "package": "dangoui",
+      "className": "du-search",
+      "sourcePath": "src/search/Search.vue",
+      "stylePath": "src/search/Search.scss",
+      "description": "占位文字，如果为长度大于 1 的数组，会每隔一段时间切换文字",
+      "props": {
+        "placeholder": {
+          "required": true,
+          "type": "string | string[]",
+          "default": "''"
+        },
+        "value": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "clearable": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "bg": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "readonly": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "autofocus": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "c-bg-2": "--du-c-bg-2",
+        "icon-size": "--du-icon-size"
+      }
+    },
+    {
+      "name": "SearchRight",
+      "package": "dangoui",
+      "className": "du-search-right",
+      "sourcePath": "src/search/SearchRight.vue",
+      "stylePath": "src/search/SearchRight.scss",
+      "description": "SearchRight component from dangoui.",
+      "props": {},
+      "tokens": {}
+    },
+    {
+      "name": "Select",
+      "package": "dangoui",
+      "className": "du-select",
+      "sourcePath": "src/select/Select.vue",
+      "stylePath": "src/select/style.scss",
+      "description": "placeholder（如果在 form item 中）和标题",
+      "props": {
+        "title": {
+          "required": true,
+          "type": "string",
+          "default": "'请选择'"
+        },
+        "open": {
+          "required": false,
+          "type": "boolean",
+          "default": "undefined"
+        },
+        "options": {
+          "required": true,
+          "type": "SelectOption[]"
+        },
+        "value": {
+          "required": true,
+          "type": "string | number | string[] | number[]",
+          "default": "() => []"
+        },
+        "mode": {
+          "required": false,
+          "type": "'multiple'"
+        },
+        "formItem": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "filterable": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "filterPlaceholder": {
+          "required": true,
+          "type": "string",
+          "default": "'输入关键词搜索...'"
+        },
+        "withConfirm": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "confirmText": {
+          "required": true,
+          "type": "string",
+          "default": "'确认'"
+        },
+        "popupStyle": {
+          "required": true,
+          "type": "string | Record<string, string>",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "text-disabled": "--du-text-disabled"
+      }
+    },
+    {
+      "name": "Skeleton",
+      "package": "dangoui",
+      "className": "du-skeleton",
+      "sourcePath": "src/skeleton/Skeleton.vue",
+      "stylePath": "src/skeleton/Skeleton.scss",
+      "description": "Skeleton component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "loading": {
+          "required": true,
+          "type": "boolean"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "SkeletonAvatar",
+      "package": "dangoui",
+      "className": "du-skeleton-avatar",
+      "sourcePath": "src/skeleton/SkeletonAvatar.vue",
+      "stylePath": "src/skeleton/SkeletonAvatar.scss",
+      "description": "SkeletonAvatar component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "extStyle": {
+          "required": true,
+          "type": "string | { [x: string]: string | number }",
+          "default": "() => ({"
+        },
+        "size": {
+          "required": true,
+          "type": "number | string"
+        }
+      },
+      "tokens": {
+        "default-1": "--du-default-1"
+      }
+    },
+    {
+      "name": "SkeletonParagraph",
+      "package": "dangoui",
+      "className": "du-skeleton-paragraph",
+      "sourcePath": "src/skeleton/SkeletonParagraph.vue",
+      "stylePath": "src/skeleton/SkeletonParagraph.scss",
+      "description": "SkeletonParagraph component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "extStyle": {
+          "required": true,
+          "type": "string | { [x: string]: string | number }",
+          "default": "() => ({"
+        },
+        "rowWidth": {
+          "required": true,
+          "type": "string"
+        },
+        "rowHeight": {
+          "required": true,
+          "type": "number | string"
+        },
+        "gap": {
+          "required": true,
+          "type": "number | string"
+        }
+      },
+      "tokens": {
+        "default-1": "--du-default-1",
+        "skeleton-paragraph-gap": "--du-skeleton-paragraph-gap",
+        "skeleton-paragraph-height": "--du-skeleton-paragraph-height"
+      }
+    },
+    {
+      "name": "SkeletonRectangle",
+      "package": "dangoui",
+      "className": "du-skeleton-rectangle",
+      "sourcePath": "src/skeleton/SkeletonRectangle.vue",
+      "stylePath": "src/skeleton/SkeletonRectangle.scss",
+      "description": "SkeletonRectangle component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "extStyle": {
+          "required": true,
+          "type": "string | { [x: string]: string | number }",
+          "default": "() => ({"
+        },
+        "aspectRatio": {
+          "required": true,
+          "type": "number"
+        },
+        "width": {
+          "required": true,
+          "type": "number | string"
+        }
+      },
+      "tokens": {
+        "default-1": "--du-default-1"
+      }
+    },
+    {
+      "name": "Snackbar",
+      "package": "dangoui",
+      "className": "du-snackbar",
+      "sourcePath": "src/snackbar/Snackbar.vue",
+      "stylePath": "src/snackbar/style.scss",
+      "description": "Snackbar component from dangoui.",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "offset": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "offsetPosition": {
+          "required": true,
+          "type": "'top' | 'bottom'",
+          "default": "'bottom'"
+        },
+        "duration": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "show": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "showClose": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "buttonProps": {
+          "required": false,
+          "type": "{",
+          "default": "undefined"
+        },
+        "text": {
+          "required": true,
+          "type": "string"
+        },
+        "color": {
+          "required": true,
+          "type": "string"
+        },
+        "type": {
+          "required": true,
+          "type": "'primary' | 'secondary' | 'outline' | 'text'"
+        },
+        "size": {
+          "required": true,
+          "type": "'normal' | 'mini' | 'small' | 'medium' | 'large'"
+        },
+        "arrowRight": {
+          "required": true,
+          "type": "boolean"
+        },
+        "showActionBtn": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        },
+        "leftIcon": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "leftImage": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "secondary-solid-bg": "--du-secondary-solid-bg",
+        "secondary-solid-color": "--du-secondary-solid-color"
+      }
+    },
+    {
+      "name": "StepCheck",
+      "package": "dangoui",
+      "className": "du-step-check",
+      "sourcePath": "src/steps/StepCheck.vue",
+      "stylePath": "src/steps/StepCheck.scss",
+      "description": "StepCheck component from dangoui.",
+      "props": {},
+      "tokens": {
+        "steps-circle-inner-color": "--du-steps-circle-inner-color"
+      }
+    },
+    {
+      "name": "Steps",
+      "package": "dangoui",
+      "className": "du-steps",
+      "sourcePath": "src/steps/Steps.vue",
+      "stylePath": "src/steps/Steps.scss",
+      "description": "当前进度的状态：进行中、已完成",
+      "props": {
+        "extClass": {
+          "required": true,
+          "type": "string | Array<string> | Record<string, boolean>",
+          "default": "''"
+        },
+        "activeIndex": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "status": {
+          "required": true,
+          "type": "'process' | 'success'",
+          "default": "'process'"
+        },
+        "steps": {
+          "required": true,
+          "type": "Array<{",
+          "default": "() => []"
+        },
+        "title": {
+          "required": true,
+          "type": "string"
+        },
+        "type": {
+          "required": true,
+          "type": "'default' | 'ghost'",
+          "default": "'default'"
+        },
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        }
+      },
+      "tokens": {
+        "bg-4": "--du-bg-4",
+        "primary-color": "--du-primary-color",
+        "primary-solid-bg": "--du-primary-solid-bg",
+        "steps-circle-inner-color": "--du-steps-circle-inner-color",
+        "steps-line-active-color": "--du-steps-line-active-color",
+        "steps-line-color": "--du-steps-line-color",
+        "steps-primary": "--du-steps-primary",
+        "steps-sub": "--du-steps-sub",
+        "steps-text-color": "--du-steps-text-color",
+        "steps-text-sub-color": "--du-steps-text-sub-color",
+        "text-3": "--du-text-3"
+      }
+    },
+    {
+      "name": "Sticky",
+      "package": "dangoui",
+      "className": "du-sticky",
+      "sourcePath": "src/sticky/Sticky.vue",
+      "stylePath": null,
+      "description": "距离上方多少距离开始吸顶",
+      "props": {
+        "top": {
+          "required": true,
+          "type": "number",
+          "default": "0"
+        },
+        "z": {
+          "required": true,
+          "type": "number",
+          "default": "99"
+        },
+        "relativeTo": {
+          "required": true,
+          "type": "'viewport'",
+          "default": "'viewport'"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Swiper",
+      "package": "dangoui",
+      "className": "du-swiper",
+      "sourcePath": "src/swiper/Swiper.vue",
+      "stylePath": "src/swiper/style.scss",
+      "description": "指示条类型",
+      "props": {
+        "indicatorType": {
+          "required": true,
+          "type": "'bar-full' | 'bar' | 'number'",
+          "default": "'bar'"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        },
+        "autoplay": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "swiper-offset": "--du-swiper-offset",
+        "white-text-color-3": "--du-white-text-color-3"
+      }
+    },
+    {
+      "name": "SwiperItem",
+      "package": "dangoui",
+      "className": "du-swiper",
+      "sourcePath": "src/swiper/SwiperItem.vue",
+      "stylePath": "src/swiper/style.scss",
+      "description": "SwiperItem component from dangoui.",
+      "props": {},
+      "tokens": {
+        "white-text-color-3": "--du-white-text-color-3"
+      }
+    },
+    {
+      "name": "Switch",
+      "package": "dangoui",
+      "className": "du-switch",
+      "sourcePath": "src/switch/Switch.vue",
+      "stylePath": "src/switch/style.scss",
+      "description": "色彩，可以使用色板中的颜色名",
+      "props": {
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        },
+        "on": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "disabled": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        }
+      },
+      "tokens": {
+        "border-2": "--du-border-2",
+        "c-bg-4": "--du-c-bg-4",
+        "switch-bg": "--du-switch-bg",
+        "switch-disabled-bg": "--du-switch-disabled-bg"
+      }
+    },
+    {
+      "name": "Tab",
+      "package": "dangoui",
+      "className": "du-tab-item",
+      "sourcePath": "src/tabs/Tab.vue",
+      "stylePath": "src/tabs/Tab.scss",
+      "description": "Tab component from dangoui.",
+      "props": {
+        "name": {
+          "required": true,
+          "type": "string"
+        }
+      },
+      "tokens": {
+        "tabs-active-color": "--du-tabs-active-color",
+        "tabs-indicator-url": "--du-tabs-indicator-url",
+        "text-1": "--du-text-1",
+        "text-2": "--du-text-2",
+        "text-3": "--du-text-3"
+      }
+    },
+    {
+      "name": "TabPane",
+      "package": "dangoui",
+      "className": "du-tab-pane",
+      "sourcePath": "src/tabs/TabPane.vue",
+      "stylePath": "src/tabs/TabPane.scss",
+      "description": "TabPane component from dangoui.",
+      "props": {},
+      "tokens": {}
+    },
+    {
+      "name": "Tabs",
+      "package": "dangoui",
+      "className": "du-tabs",
+      "sourcePath": "src/tabs/Tabs.vue",
+      "stylePath": "src/tabs/Tabs.scss",
+      "description": "色彩，可以使用色板中的颜色名",
+      "props": {
+        "color": {
+          "required": true,
+          "type": "string",
+          "default": "'primary'"
+        },
+        "type": {
+          "required": true,
+          "type": "'default' | 'tag' | 'text'",
+          "default": "'default'"
+        },
+        "value": {
+          "required": true,
+          "type": "string"
+        },
+        "size": {
+          "required": true,
+          "type": "'normal' | 'large'",
+          "default": "'normal'"
+        },
+        "indicator": {
+          "required": false,
+          "type": "string"
+        }
+      },
+      "tokens": {
+        "tabs-active-color": "--du-tabs-active-color"
+      }
+    },
+    {
+      "name": "TabsRight",
+      "package": "dangoui",
+      "className": "du-tabs-right",
+      "sourcePath": "src/tabs/TabsRight.vue",
+      "stylePath": "src/tabs/TabsRight.scss",
+      "description": "TabsRight component from dangoui.",
+      "props": {},
+      "tokens": {}
+    },
+    {
+      "name": "Tag",
+      "package": "dangoui",
+      "className": "du-tag",
+      "sourcePath": "src/tag/Tag.vue",
+      "stylePath": "src/tag/style.scss",
+      "description": "颜色，可以使用主题预置的颜色或者十六进制颜色表示，也可以使用对象更灵活地来自定义颜色 TODO: 抽象到公用类型中，并可以外部扩展，这样就能进行主题定制与扩展",
+      "props": {
+        "color": {
+          "required": true,
+          "type": "string | { border: string; text: string; background: string }",
+          "default": "'primary'"
+        },
+        "bg": {
+          "required": true,
+          "type": "'solid' | 'soft' | 'ghost'",
+          "default": "'soft'"
+        },
+        "size": {
+          "required": true,
+          "type": "'mini' | 'small' | 'normal' | 'medium' | 'large'",
+          "default": "'normal'"
+        },
+        "round": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "bordered": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "closeable": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "icon": {
+          "required": false,
+          "type": "string | { _: string }"
+        },
+        "weight": {
+          "required": false,
+          "type": "'light' | 'normal'",
+          "default": "'normal'"
+        },
+        "extClass": {
+          "required": false,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        }
+      },
+      "tokens": {
+        "c-": "--du-c-",
+        "c-default-tag": "--du-c-default-tag",
+        "c-default-tag-soft-bg": "--du-c-default-tag-soft-bg",
+        "c-default-tag-solid-text": "--du-c-default-tag-solid-text",
+        "c-error-tag": "--du-c-error-tag",
+        "c-error-tag-soft-bg": "--du-c-error-tag-soft-bg",
+        "c-error-tag-solid-text": "--du-c-error-tag-solid-text",
+        "c-primary-tag": "--du-c-primary-tag",
+        "c-primary-tag-soft-bg": "--du-c-primary-tag-soft-bg",
+        "c-primary-tag-solid-text": "--du-c-primary-tag-solid-text",
+        "c-secondary-tag": "--du-c-secondary-tag",
+        "c-secondary-tag-soft-bg": "--du-c-secondary-tag-soft-bg",
+        "c-success-tag": "--du-c-success-tag",
+        "c-success-tag-soft-bg": "--du-c-success-tag-soft-bg",
+        "c-success-tag-solid-text": "--du-c-success-tag-solid-text",
+        "c-tag": "--du-c-tag",
+        "c-tag-soft-bg": "--du-c-tag-soft-bg",
+        "c-tag-solid-text": "--du-c-tag-solid-text",
+        "c-warning-tag": "--du-c-warning-tag",
+        "c-warning-tag-soft-bg": "--du-c-warning-tag-soft-bg",
+        "c-warning-tag-solid-text": "--du-c-warning-tag-solid-text",
+        "default-color": "--du-default-color",
+        "default-soft-bg": "--du-default-soft-bg",
+        "error-color": "--du-error-color",
+        "error-soft-bg": "--du-error-soft-bg",
+        "primary-color": "--du-primary-color",
+        "primary-soft-bg": "--du-primary-soft-bg",
+        "secondary-color": "--du-secondary-color",
+        "secondary-soft-bg": "--du-secondary-soft-bg",
+        "success-color": "--du-success-color",
+        "success-soft-bg": "--du-success-soft-bg",
+        "warning-color": "--du-warning-color",
+        "warning-soft-bg": "--du-warning-soft-bg"
+      }
+    },
+    {
+      "name": "TagsPanel",
+      "package": "dangoui",
+      "className": "du-tags-panel",
+      "sourcePath": "src/tags-panel/TagsPanel.vue",
+      "stylePath": "src/tags-panel/style.scss",
+      "description": "添加按钮文案",
+      "props": {
+        "addText": {
+          "required": true,
+          "type": "string",
+          "default": "'添加'"
+        },
+        "tags": {
+          "required": true,
+          "type": "{ text: string; value: string | number; canRemove?: boolean }[]",
+          "default": "() => []"
+        },
+        "canToggle": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "collapseCount": {
+          "required": true,
+          "type": "number",
+          "default": "10"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Textarea",
+      "package": "dangoui",
+      "className": "du-textarea",
+      "sourcePath": "src/textarea/Textarea.vue",
+      "stylePath": "src/textarea/style.scss",
+      "description": "值",
+      "props": {
+        "value": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "placeholder": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "showCount": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "maxlength": {
+          "required": true,
+          "type": "number",
+          "default": "-1"
+        },
+        "bordered": {
+          "required": true,
+          "type": "boolean",
+          "default": "false"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>"
+        }
+      },
+      "tokens": {
+        "bg-2": "--du-bg-2",
+        "border-2": "--du-border-2",
+        "error-color": "--du-error-color"
+      }
+    },
+    {
+      "name": "Theme",
+      "package": "dangoui",
+      "className": "du-theme",
+      "sourcePath": "src/theme/Theme.vue",
+      "stylePath": null,
+      "description": "Theme component from dangoui.",
+      "props": {
+        "name": {
+          "required": true,
+          "type": "string"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "ToastProvider",
+      "package": "dangoui",
+      "className": "du-toast",
+      "sourcePath": "src/toast/ToastProvider.vue",
+      "stylePath": "src/toast/style.scss",
+      "description": "ToastProvider component from dangoui.",
+      "props": {},
+      "tokens": {}
+    },
+    {
+      "name": "Tooltip",
+      "package": "dangoui",
+      "className": "du-tooltip",
+      "sourcePath": "src/tooltip/Tooltip.vue",
+      "stylePath": "src/tooltip/style.scss",
+      "description": "Tooltip component from dangoui.",
+      "props": {
+        "title": {
+          "required": true,
+          "type": "string",
+          "default": "''"
+        },
+        "extClass": {
+          "required": true,
+          "type": "string | string[] | Record<string, boolean>",
+          "default": "''"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Transition",
+      "package": "dangoui",
+      "className": "du-transition",
+      "sourcePath": "src/transition/Transition.vue",
+      "stylePath": null,
+      "description": "Transition component from dangoui.",
+      "props": {
+        "name": {
+          "required": true,
+          "type": "'fadeInUp'",
+          "default": "'fadeInUp'"
+        },
+        "show": {
+          "required": true,
+          "type": "boolean",
+          "default": "true"
+        }
+      },
+      "tokens": {}
+    },
+    {
+      "name": "Upload",
+      "package": "dangoui",
+      "className": "du-upload",
+      "sourcePath": "src/upload/Upload.vue",
+      "stylePath": "src/upload/style.scss",
+      "description": "默认上传地址，在 `beforeUpload` 中可以进行改写",
+      "props": {
+        "action": {
+          "required": false,
+          "type": "string"
+        },
+        "size": {
+          "required": true,
+          "type": "'large' | 'normal'",
+          "default": "'normal'"
+        },
+        "value": {
+          "required": true,
+          "type": "UploadFile[]",
+          "default": "() => []"
+        },
+        "name": {
+          "required": true,
+          "type": "string",
+          "default": "'file'"
+        },
+        "headers": {
+          "required": true,
+          "type": "Record<string, string>",
+          "default": "() => ({"
+        },
+        "data": {
+          "required": true,
+          "type": "Record<string, string>"
+        },
+        "scene": {
+          "required": true,
+          "type": "string"
+        },
+        "badge": {
+          "required": true,
+          "type": "string"
+        },
+        "disabled": {
+          "required": false,
+          "type": "boolean"
+        },
+        "maxCount": {
+          "required": false,
+          "type": "number"
+        },
+        "beforeUpload": {
+          "required": false,
+          "type": "(f: UploadFile) => UploadFile | Promise<UploadFile>"
+        },
+        "beforeResponse": {
+          "required": true,
+          "type": "(f: UploadFile) => UploadFile | Promise<UploadFile>"
+        },
+        "mediaType": {
+          "required": true,
+          "type": "Array<'image' | 'video'>"
+        },
+        "sourceType": {
+          "required": false,
+          "type": "Array<'album' | 'camera'>"
+        },
+        "maxDuration": {
+          "required": false,
+          "type": "number"
+        },
+        "sizeType": {
+          "required": false,
+          "type": "Array<'original' | 'compressed'>"
+        },
+        "camera": {
+          "required": false,
+          "type": "'back' | 'front'"
+        },
+        "customAdd": {
+          "required": false,
+          "type": "(params: { scene: string; meta: any }) => Promise<UploadFile[]>"
+        },
+        "meta": {
+          "required": false,
+          "type": "any"
+        }
+      },
+      "tokens": {
+        "bg-2": "--du-bg-2",
+        "border-2": "--du-border-2",
+        "icon-3": "--du-icon-3",
+        "primary-solid-bg": "--du-primary-solid-bg",
+        "primary-solid-color": "--du-primary-solid-color",
+        "text-3": "--du-text-3"
+      }
+    }
+  ],
+  "missingComponents": [
+    {
+      "name": "TabBar",
+      "reason": "The current demo has a bottom navigation target, but dangoui@3.6.16 does not ship a TabBar component. It only ships Tabs/Tab for horizontal content switching.",
+      "status": "needs-user-supplied-schema"
+    }
+  ]
+}
