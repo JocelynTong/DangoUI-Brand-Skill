@@ -16,7 +16,7 @@
 
 现在欢迎用你自己的真实项目测试。重点是看第一版效果是否值得采用、落地是否保留原业务，以及还需要你纠正多少次。试用不等于视觉质量保证。
 
-1. 下载 [2026-09-21 试用包](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21.zip)，按下方说明安装。包内包含决策库依赖，不需要克隆整个仓库。
+1. 下载 [2026-09-21 试用包](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r2.zip)，按下方说明安装。包内包含决策库依赖，不需要克隆整个仓库。
 2. 在你有权修改的项目中开启独立分支，提供品牌参考和要改的页面。
 3. 先看方案并选择一个，再让它实施；最后在项目实际页面里检查效果和交互。
 4. 把体验反馈到 [试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)。不用先理解内部流程，也不用替它写一套设计方案。
@@ -160,7 +160,19 @@ Demo 深链：
 
 ## 只安装 Skill
 
-下载 [试用 ZIP](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21.zip)，解压后会得到 `brand/` 和 `manifest.json`。请复制整个 `brand/`，包括其中的 `knowledge-runtime/`，不要只复制 `SKILL.md` 或仓库维护源目录。
+下载 [试用 ZIP](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r2.zip)，解压后会得到 `brand/` 和 `manifest.json`。请复制整个 `brand/`，包括其中的 `knowledge-runtime/`，不要只复制 `SKILL.md` 或仓库维护源目录。
+
+### 给安装助手：完成安装后继续引导
+
+无论本次是首次安装、更新，还是发现已安装且版本一致，都不要只回复“安装成功，下一条输入 $brand”。验证完整安装包后，读取安装目录中的 `SKILL.md`，执行其中的只读初始化入口：
+
+```text
+node <实际安装目录>/scripts/run-brand-workflow.mjs init --host <用户的项目目录>
+```
+
+宿主目录未知时先询问；不要把 skill 仓库当作用户项目。用户已明确指定目录时可传 `--host-confirmed`。品牌参考与目标页面若已在当前对话提供，用 `--reference`、`--page` 传入，不要重复问。
+
+根据输出向用户确认项目、只问缺失的品牌参考和目标页面，并给一句自然语言示例。信息齐全也只进入方案流程，不自动选择品牌、启动项目或修改代码。若安装助手不能加载新 skill，仍应直接给出这段引导，说明需要新会话加载，而不是让用户猜下一步。用户明确只安装、不继续时尊重该要求。
 
 ### Codex
 
@@ -286,4 +298,4 @@ git lfs pull
 
 ## 最新试用包
 
-[2026-09-21 品牌 skill 试用包](https://jocelyntong.github.io/DangoUI-Brand-Skill/downloads/brand-skill-preview-2026-09-21.zip) · [变更与验证边界](RELEASE-NOTES.md)。这是试用版，不表示跨宿主视觉质量已获得保证。
+[2026-09-21 品牌 skill 试用包](https://jocelyntong.github.io/DangoUI-Brand-Skill/downloads/brand-skill-preview-2026-09-21-r2.zip) · [变更与验证边界](RELEASE-NOTES.md)。这是试用版，不表示跨宿主视觉质量已获得保证。

@@ -20,6 +20,11 @@ const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
 
+if (command === "init") {
+  const result = spawnSync(process.execPath, [skillScript("initialize-brand.mjs"), ...rawArgs.slice(1)], { stdio: "inherit" });
+  process.exit(result.status ?? 1);
+}
+
 if (command === "artifacts") {
   const result = spawnSync(process.execPath, [skillScript("brand-artifacts.mjs"), ...rawArgs.slice(1)], { stdio: "inherit" });
   process.exit(result.status ?? 1);
