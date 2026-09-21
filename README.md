@@ -8,27 +8,36 @@
 2. 哪些视觉规律可以迁移，哪些只适合原场景？
 3. 怎样证明结果真的学会了品牌，同时没有破坏原产品？
 
-> 当前阶段：公开 Web MVP / controlled alpha。Web 流程已经形成闭环，适合在测试项目或独立分支体验；微信开发者工具、移动端真机和更多真实业务仍在验证中。
+> 当前阶段：公开 Web MVP / controlled alpha。已有有限 Web 案例，适合在测试项目或独立分支体验；微信开发者工具、移动端真机和更多真实业务仍在验证中。
 
-[查看公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看标准双 Pipeline 流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/flow/index.html) · [查看互动复盘流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
+[查看公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看标准双 Pipeline 流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/flow/index.html)
 
-## 先用一句话理解
+## 第一次试用，从这里开始
 
-过去，做一次品牌化页面通常需要一个人同时研究官网、总结风格、设计页面、写代码和自查。上下文一长，很容易漏掉动效、资产用途、业务边界或真实页面验收。
+现在欢迎用你自己的真实项目测试。重点是看第一版效果是否值得采用、落地是否保留原业务，以及还需要你纠正多少次。试用不等于视觉质量保证。
 
-Brand Skill 把这件事改成一条有分工、有产物、有验收、有返工路线的流程：
+1. 下载 [2026-09-21 试用包](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21.zip)，按下方说明安装。包内包含决策库依赖，不需要克隆整个仓库。
+2. 在你有权修改的项目中开启独立分支，提供品牌参考和要改的页面。
+3. 先看方案并选择一个，再让它实施；最后在项目实际页面里检查效果和交互。
+4. 把体验反馈到 [试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)。不用先理解内部流程，也不用替它写一套设计方案。
+
+可直接复制：
 
 ```text
-品牌来源
-  → 找到真实视觉证据
-  → 解释品牌语言和适用场景
-  → 映射为可复用设计能力
-  → 生成不同结构的 Demo，或应用到现有项目
-  → 检查视觉、交互、业务和回退
-  → 通过后再交付；不通过就回到责任阶段修正
+请使用 brand skill，参考【品牌网址】为当前项目的【页面/任务】换肤。
+先理解品牌的颜色、字体、素材、构图和组件，再判断哪些表达适合这个任务。
+保留已有业务内容、角色素材、数据、权限、路由和核心交互。
+先给我 3 个有差异的完整页面方案；我选定后再实施，最后在真实项目里预览。
 ```
 
-互动流程图中的红框代表历史上真正卡住过的节点。点击红框，可以查看问题发生时间、解决时间、当时卡在哪里以及后来如何解决。
+### 测完告诉我们什么
+
+- **能不能用**：使用的工具、试用包版本、项目技术栈；安装或运行卡在哪一步。
+- **第一版怎么样**：是否愿意选择其中一个方案，哪里像品牌、哪里不对。
+- **纠正了多少次**：你补充了哪些要求，有没有重复指出同一个问题。
+- **落地差多少**：选定方案与实际页面在组件、布局、素材、动效或交互上的差异。
+
+公开反馈只附可公开的材料。私有项目可只描述问题及脱敏截图，不要上传源码、员工资料、凭证或内部日志。构建和脚本通过不代替你的视觉评价。
 
 ## 谁可以用
 
@@ -53,14 +62,14 @@ Brand Skill 把这件事改成一条有分工、有产物、有验收、有返�
 例如，只学习一个品牌：
 
 ```text
-/brand 学习 https://asia-en.onepiece-cardgame.com/ 的视觉语言，先给我 2–3 个方向。
+/brand 学习 https://asia-en.onepiece-cardgame.com/ 的视觉语言，先给我 3 个方向。
 ```
 
 把它应用到现有项目：
 
 ```text
 /brand 把 https://asia-en.onepiece-cardgame.com/ 的视觉语言应用到当前项目，
-保留原有内容、数据、路由和核心交互，先给我 2–3 个方向。
+保留原有内容、数据、路由和核心交互，先给我 3 个方向。
 ```
 
 Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要记内部模式名或提供配置文件路径。
@@ -81,7 +90,7 @@ Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要�
 
 ### 明确要改现有项目：应用品牌
 
-系统会先读取项目的业务内容、路由、结构和回退点，然后给出 2–3 个轻量方向。方向确认后才修改真实页面。
+系统会先读取项目的业务内容、路由、结构和回退点，然后给出至少 3 个完整页面方向。方向确认后才修改真实页面。
 
 应用过程遵守三条底线：
 
@@ -151,31 +160,19 @@ Demo 深链：
 
 ## 只安装 Skill
 
-如果不需要 Demo 和大型品牌素材，可以只下载 Skill：
-
-```bash
-GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse \
-  https://github.com/JocelynTong/DangoUI-Brand-Skill.git \
-  dangoui-brand-skill
-cd dangoui-brand-skill
-git sparse-checkout set skills/brand
-```
+下载 [试用 ZIP](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21.zip)，解压后会得到 `brand/` 和 `manifest.json`。请复制整个 `brand/`，包括其中的 `knowledge-runtime/`，不要只复制 `SKILL.md` 或仓库维护源目录。
 
 ### Codex
 
-```bash
-mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-rsync -a --delete skills/brand/ "${CODEX_HOME:-$HOME/.codex}/skills/brand/"
-```
+将 `brand/` 放到 `~/.codex/skills/brand/`；如果设置了自定义 `CODEX_HOME`，放到该目录下的 `skills/brand/`。
 
 ### Claude Code
 
-```bash
-mkdir -p .claude/skills
-rsync -a --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
-```
+将 `brand/` 放到目标项目的 `.claude/skills/brand/`。
 
-安装或更新后，重新打开任务或会话。
+已有旧版本时先备份旧目录，再替换整个目录，避免混用不同版本的脚本。安装后重新打开任务或会话，在你的项目中输入上面的试用提示词。工具还需要能访问品牌来源、读取项目文件并打开浏览器；涉及生图时需要可用的图片生成能力，安装此包不会自动开通这些能力。
+
+维护源码或运行 Demo 才需要克隆仓库；外部测试者不需要先执行本站构建命令。
 
 ## 给开发者：产物与边界
 
