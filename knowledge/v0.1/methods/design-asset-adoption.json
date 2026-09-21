@@ -12,12 +12,45 @@
     "Require named design approval and independent visual validation before reusable application; retain rejected or blocked decisions as negative cases."
   ],
   "subjectChecks": {
-    "token": ["semanticRole", "stateSet", "contrast", "targetTokenMapping"],
-    "asset": ["sourceAndRights", "subjectAndCrop", "sceneFit", "noFakeBusinessData"],
-    "component": ["behaviorAndStates", "dangouiCapability", "hostInteractionPreservation"],
-    "composition": ["contentHierarchy", "taskPath", "expressiveProductiveBoundary", "responsiveBehavior"]
+    "token": [
+      "semanticRole",
+      "stateSet",
+      "contrast",
+      "targetTokenMapping"
+    ],
+    "asset": [
+      "sourceAndRights",
+      "subjectAndCrop",
+      "sceneFit",
+      "noFakeBusinessData"
+    ],
+    "component": [
+      "behaviorAndStates",
+      "dangouiCapability",
+      "hostInteractionPreservation"
+    ],
+    "composition": [
+      "contentHierarchy",
+      "taskPath",
+      "expressiveProductiveBoundary",
+      "responsiveBehavior"
+    ]
   },
-  "scopeOrder": ["observation", "component", "scenario", "page", "global"],
-  "notFor": ["automatically approving a source color from its frequency or pixel value", "treating generated images or demo screenshots as source assets", "replacing independent visual QA with a complete JSON record"],
-  "caseRefs": ["pokemon-database-orange-not-global-cta"]
+  "scopeOrder": [
+    "observation",
+    "component",
+    "scenario",
+    "page",
+    "global"
+  ],
+  "notFor": [
+    "automatically approving a source color from its frequency or pixel value",
+    "treating generated images or demo screenshots as source assets",
+    "replacing independent visual QA with a complete JSON record"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "questionRef": "design-asset-adoption-question",
+  "readerPurpose": "执行判断的步骤与取舍"
 }

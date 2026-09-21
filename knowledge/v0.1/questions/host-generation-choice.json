@@ -20,5 +20,26 @@
     "生图是可选手段",
     "没有视觉缺口时不为用而用"
   ],
-  "observationLevel": "open-question-not-comparatively-validated"
+  "observationLevel": "open-question-not-comparatively-validated",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "已有素材能满足表达与动态替换时优先复用；几何和组件关系可直接描述时选择代码。",
+      "只有确有氛围或画面表达缺口时尝试生图，同时比较生成成本和还原成本。",
+      "需要替换的业务内容必须可分离；如果吸引力依赖不可拆解的复杂遮挡，先换构图或素材，不把静态图当成动态实现。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-generated-deck-scenes",
+      "summary": "生图带来了用户认可的表现力，但纸艺方案后续难以还原；选生成方式还要计入动态实现成本。"
+    }
+  ]
 }

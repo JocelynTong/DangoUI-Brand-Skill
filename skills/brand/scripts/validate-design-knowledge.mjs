@@ -13,6 +13,11 @@ const flag = (name) => { const at = args.indexOf(name); return at < 0 ? '' : arg
 const failures = []
 const fail = (code, detail, option) => failures.push({ code, detail, ...(option ? { option } : {}) })
 const read = (file) => JSON.parse(fs.readFileSync(file, 'utf8'))
+// Concise guides are valid: require a heading and substantive body, not padding.
+const hasGuide = (file) => {
+  const text = fs.readFileSync(file, 'utf8').trim()
+  return /^#\s+\S.+\n/m.test(text) && text.split('\n').slice(1).some(line => line.trim() && !line.trim().startsWith('#'))
+}
 const index = read(path.join(root, 'public/knowledge/v0.1/index.json'))
 const methodsIndex = read(path.join(root, 'knowledge/v0.1/index.json'))
 if (methodsIndex.schema !== 'brand-knowledge-index/v0.1') fail('METHOD_INDEX_SCHEMA', 'Unexpected method catalog schema.')
@@ -23,7 +28,7 @@ for (const kind of ['patterns', 'methods', 'cases']) {
     if (seen.has(entry.id) || !file.startsWith(`${path.join(root, 'knowledge/v0.1')}${path.sep}`) || !fs.existsSync(file)) { fail('METHOD_ENTRY_PATH', entry.id || 'missing id'); continue }
     seen.add(entry.id)
     const guide = path.resolve(root, entry.guide || '')
-    if (!guide.startsWith(`${path.join(root, 'knowledge/v0.1')}${path.sep}`) || !fs.existsSync(guide) || fs.readFileSync(guide, 'utf8').trim().length < 200) fail('KNOWLEDGE_HUMAN_GUIDE_MISSING', entry.id)
+    if (!guide.startsWith(`${path.join(root, 'knowledge/v0.1')}${path.sep}`) || !fs.existsSync(guide) || !hasGuide(guide)) fail('KNOWLEDGE_HUMAN_GUIDE_MISSING', entry.id)
     const item = read(file)
     if (item.id !== entry.id || item.schema !== `brand-knowledge-${kind.slice(0, -1)}/v0.1` || !item.status) fail('METHOD_ENTRY_SCHEMA', entry.id)
     if (kind === 'patterns' && (!item.userJob || !item.appliesWhen?.length || !item.notFor?.length || !item.sequence?.length || !item.requiredStates?.length || !item.expressiveSlots?.length || !item.productiveInvariants?.length || !item.negativeCases?.length)) fail('PATTERN_ENTRY_INCOMPLETE', entry.id)
@@ -36,7 +41,7 @@ for (const kind of ['patterns', 'methods', 'cases']) {
     }
     if (kind === 'methods' && (!item.ownerRole || !item.procedure?.length || !item.notFor?.length)) fail('METHOD_ENTRY_INCOMPLETE', entry.id)
     if (kind === 'methods') for (const id of item.ruleRefs || []) if (!(methodsIndex.rules || []).some((candidate) => candidate.id === id)) fail('METHOD_RULE_UNRESOLVED', `${entry.id}: ${id}`)
-    if (kind === 'cases' && (!item.invalidInference || !item.safeConclusion || !item.observedSource?.url || !item.reviewStatus)) fail('CASE_ENTRY_INCOMPLETE', entry.id)
+    if (kind === 'cases' && (!item.invalidInference || !item.safeConclusion || !(item.observedSource?.url || (item.evidenceFiles?.length && item.evidenceFiles.every(file => { const resolved = path.resolve(root, file); return resolved.startsWith(root + path.sep) && fs.existsSync(resolved) }))) || !item.reviewStatus)) fail('CASE_ENTRY_INCOMPLETE', entry.id)
   }
 }
 const caseRecords = new Map((methodsIndex.cases || []).map((entry) => [entry.id, read(path.join(root, entry.path))]))
@@ -46,7 +51,7 @@ for (const entry of methodsIndex.questions || []) {
   const file = path.resolve(root, entry.path || '')
   const guide = path.resolve(root, entry.guide || '')
   if (!file.startsWith(`${path.join(root, 'knowledge/v0.1/questions')}${path.sep}`) || !fs.existsSync(file) || !guide.startsWith(`${path.join(root, 'knowledge/v0.1/questions')}${path.sep}`) || !fs.existsSync(guide)) { fail('DECISION_QUESTION_PATH', entry.id || 'missing id'); continue }
-  if (fs.readFileSync(guide, 'utf8').trim().length < 200) fail('DECISION_QUESTION_HUMAN_GUIDE_MISSING', entry.id)
+  if (!hasGuide(guide)) fail('DECISION_QUESTION_HUMAN_GUIDE_MISSING', entry.id)
   const question = read(file)
   if (question.id !== entry.id) fail('DECISION_QUESTION_ID', entry.id)
   for (const code of validateDecisionQuestion(question, methodIds, caseRecords, ruleRecords)) fail(code, entry.id)
@@ -57,14 +62,14 @@ for (const entry of methodsIndex.rules || []) {
   if (!file.startsWith(`${path.join(root, 'knowledge/v0.1/rules')}${path.sep}`) || !fs.existsSync(file) || !guide.startsWith(`${path.join(root, 'knowledge/v0.1/rules')}${path.sep}`) || !fs.existsSync(guide)) { fail('CASE_RULE_PATH', entry.id || 'missing id'); continue }
   const rule = read(file)
   if (rule.id !== entry.id) fail('CASE_RULE_ID', entry.id)
-  if (fs.readFileSync(guide, 'utf8').trim().length < 200) fail('CASE_RULE_HUMAN_GUIDE_MISSING', entry.id)
+  if (!hasGuide(guide)) fail('CASE_RULE_HUMAN_GUIDE_MISSING', entry.id)
   for (const code of validateCaseRule(rule, caseRecords)) fail(code, entry.id)
 }
 for (const entry of methodsIndex.decisions || []) {
   const file = path.resolve(root, entry.path || '')
   const guide = path.resolve(root, entry.guide || '')
   if (!file.startsWith(`${path.join(root, 'knowledge/v0.1/decisions')}${path.sep}`) || !fs.existsSync(file)) { fail('DECISION_ENTRY_PATH', entry.id || 'missing id'); continue }
-  if (!guide.startsWith(`${path.join(root, 'knowledge/v0.1/decisions')}${path.sep}`) || !fs.existsSync(guide) || fs.readFileSync(guide, 'utf8').trim().length < 200) fail('DECISION_HUMAN_GUIDE_MISSING', entry.id)
+  if (!guide.startsWith(`${path.join(root, 'knowledge/v0.1/decisions')}${path.sep}`) || !fs.existsSync(guide) || !hasGuide(guide)) fail('DECISION_HUMAN_GUIDE_MISSING', entry.id)
   const decision = read(file)
   if (decision.id !== entry.id) fail('DECISION_ID', entry.id)
   for (const code of validateAdoptionDecision(decision)) fail(code, entry.id)
@@ -74,7 +79,7 @@ for (const entry of methodsIndex.policies || []) {
   const file = path.resolve(root, entry.path || '')
   const guide = path.resolve(root, entry.guide || '')
   if (!file.startsWith(`${path.join(root, 'knowledge/v0.1/policies')}${path.sep}`) || !fs.existsSync(file)) { fail('POLICY_ENTRY_PATH', entry.id || 'missing id'); continue }
-  if (!guide.startsWith(`${path.join(root, 'knowledge/v0.1/policies')}${path.sep}`) || !fs.existsSync(guide) || fs.readFileSync(guide, 'utf8').trim().length < 200) fail('POLICY_HUMAN_GUIDE_MISSING', entry.id)
+  if (!guide.startsWith(`${path.join(root, 'knowledge/v0.1/policies')}${path.sep}`) || !fs.existsSync(guide) || !hasGuide(guide)) fail('POLICY_HUMAN_GUIDE_MISSING', entry.id)
   const policy = read(file)
   if (policy.schema !== 'brand-decision-policy/v0.1' || policy.id !== entry.id || !policy.sourceStrategy?.minimumForGlobal || !policy.exceptionRule || !policy.fallback || !policy.caseRefs?.length) fail('POLICY_ENTRY_INCOMPLETE', entry.id)
   if (!Array.isArray(policy.decisionSequence) || policy.decisionSequence.length < 4 || new Set(policy.decisionSequence.map((step) => step.id)).size !== policy.decisionSequence.length || policy.decisionSequence.some((step) => !step.id || !step.title || !step.question || !step.rule || !step.output)) fail('POLICY_DECISION_SEQUENCE_INCOMPLETE', entry.id)

@@ -11,8 +11,29 @@
     "After rendered application and independent QA, promote the tested recipe or record a negative regression; user visual rejection overrides protocol PASS.",
     "When a source or judgment changes, version the record and revalidate only dependent consumers."
   ],
-  "states": ["candidate", "approved-scoped", "approved-global", "rejected", "retired"],
-  "outputFields": ["recordId", "decision", "approvedScope", "reviewer", "decisionRef", "sourceVersion", "dependentConsumers"],
-  "notFor": ["Silent approval from a validator PASS", "Treating a URL or color frequency as semantic proof"],
-  "caseRefs": ["pokemon-database-orange-not-global-cta"]
+  "states": [
+    "candidate",
+    "approved-scoped",
+    "approved-global",
+    "rejected",
+    "retired"
+  ],
+  "outputFields": [
+    "recordId",
+    "decision",
+    "approvedScope",
+    "reviewer",
+    "decisionRef",
+    "sourceVersion",
+    "dependentConsumers"
+  ],
+  "notFor": [
+    "Silent approval from a validator PASS",
+    "Treating a URL or color frequency as semantic proof"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "questionRef": "knowledge-promotion-question",
+  "readerPurpose": "执行判断的步骤与取舍"
 }

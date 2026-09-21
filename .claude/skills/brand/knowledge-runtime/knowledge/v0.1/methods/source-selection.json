@@ -10,7 +10,24 @@
     "Record page purpose, visible region, viewport, state and availability before extracting values.",
     "If a source is unavailable, preserve its intended role and record the replacement as a bounded source, not as equivalent brand authority."
   ],
-  "outputFields": ["goalRef", "visualRole", "pageId", "sourceUrl", "pagePurpose", "state", "availability", "replacementFor", "limitation"],
-  "notFor": ["Approving brand semantics", "Ranking colors by raw frequency", "Promoting a task button into a global CTA"],
-  "caseRefs": ["pokemon-database-orange-not-global-cta"]
+  "outputFields": [
+    "goalRef",
+    "visualRole",
+    "pageId",
+    "sourceUrl",
+    "pagePurpose",
+    "state",
+    "availability",
+    "replacementFor",
+    "limitation"
+  ],
+  "notFor": [
+    "Approving brand semantics",
+    "Ranking colors by raw frequency",
+    "Promoting a task button into a global CTA"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "readerPurpose": "执行判断的步骤与取舍"
 }

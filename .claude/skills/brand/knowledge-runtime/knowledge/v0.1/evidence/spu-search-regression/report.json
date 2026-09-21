@@ -1,0 +1,24 @@
+{
+  "host": "spu-common-plugin",
+  "runtime": "http://127.0.0.1:4192/roco-lib/#/pages/sprite-list/index",
+  "sourceUnchanged": true,
+  "mode": "existing-implementation-regression-not-fresh-pipeline",
+  "buildSeconds": 47.86,
+  "browserCssViewport": {
+    "width": 469,
+    "height": 1015
+  },
+  "observations": [
+    "397 existing records shown",
+    "Search 迪莫 returns 1",
+    "Unmatched query returns 0 and explicit empty state",
+    "Search and first result within viewport; no horizontal overflow",
+    "Compact header, no generated scene required for this existing design"
+  ],
+  "limitations": [
+    "No new design selection or end-to-end handoff",
+    "Not user aesthetic acceptance",
+    "Native and physical device not tested",
+    "5-minute first concept target not measured"
+  ]
+}

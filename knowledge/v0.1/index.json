@@ -40,6 +40,41 @@
       "id": "host-acceptance",
       "path": "knowledge/v0.1/questions/host-acceptance.json",
       "guide": "knowledge/v0.1/questions/host-acceptance.md"
+    },
+    {
+      "id": "visual-authority",
+      "path": "knowledge/v0.1/questions/visual-authority.json",
+      "guide": "knowledge/v0.1/questions/visual-authority.md"
+    },
+    {
+      "id": "scene-occlusion",
+      "path": "knowledge/v0.1/questions/scene-occlusion.json",
+      "guide": "knowledge/v0.1/questions/scene-occlusion.md"
+    },
+    {
+      "id": "scene-continuity",
+      "path": "knowledge/v0.1/questions/scene-continuity.json",
+      "guide": "knowledge/v0.1/questions/scene-continuity.md"
+    },
+    {
+      "id": "dynamic-scene-proof",
+      "path": "knowledge/v0.1/questions/dynamic-scene-proof.json",
+      "guide": "knowledge/v0.1/questions/dynamic-scene-proof.md"
+    },
+    {
+      "id": "knowledge-promotion-question",
+      "path": "knowledge/v0.1/questions/knowledge-promotion-question.json",
+      "guide": "knowledge/v0.1/questions/knowledge-promotion-question.md"
+    },
+    {
+      "id": "cross-page-token-promotion-question",
+      "path": "knowledge/v0.1/questions/cross-page-token-promotion-question.json",
+      "guide": "knowledge/v0.1/questions/cross-page-token-promotion-question.md"
+    },
+    {
+      "id": "design-asset-adoption-question",
+      "path": "knowledge/v0.1/questions/design-asset-adoption-question.json",
+      "guide": "knowledge/v0.1/questions/design-asset-adoption-question.md"
     }
   ],
   "methods": [
@@ -91,6 +126,26 @@
       "id": "prefer-reconstructible-dynamic-scenes",
       "path": "knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.json",
       "guide": "knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.md"
+    },
+    {
+      "id": "visual-authority",
+      "path": "knowledge/v0.1/rules/visual-authority.json",
+      "guide": "knowledge/v0.1/rules/visual-authority.md"
+    },
+    {
+      "id": "scene-occlusion",
+      "path": "knowledge/v0.1/rules/scene-occlusion.json",
+      "guide": "knowledge/v0.1/rules/scene-occlusion.md"
+    },
+    {
+      "id": "scene-continuity",
+      "path": "knowledge/v0.1/rules/scene-continuity.json",
+      "guide": "knowledge/v0.1/rules/scene-continuity.md"
+    },
+    {
+      "id": "dynamic-scene-proof",
+      "path": "knowledge/v0.1/rules/dynamic-scene-proof.json",
+      "guide": "knowledge/v0.1/rules/dynamic-scene-proof.md"
     }
   ],
   "decisions": [
@@ -109,44 +164,237 @@
   ],
   "decisionTopics": [
     {
-      "id": "expressive-productive",
-      "title": "方案取舍",
-      "description": "决定品牌表达该进入真实任务的哪里，而不是只留在首屏。",
+      "id": "brand-evidence-to-design",
+      "title": "设计依据",
+      "description": "确定参考来源、可复用范围与冲突时的设计依据。",
       "branches": [
-        { "label": "决策问题", "refs": [{ "kind": "question", "id": "expressive-productive-allocation-question" }] },
-        { "label": "判断方法", "refs": [{ "kind": "method", "id": "expressive-productive-allocation" }] },
-        { "label": "案例与反馈", "refs": [{ "kind": "case", "id": "pokemon-backup4-expressive-false-positive" }] },
-        { "label": "候选规则", "refs": [{ "kind": "rule", "id": "expressive-continuity-in-real-content" }] }
+        {
+          "label": "问题",
+          "refs": [
+            {
+              "kind": "question",
+              "id": "host-brand-scope"
+            },
+            {
+              "kind": "question",
+              "id": "visual-authority"
+            },
+            {
+              "kind": "question",
+              "id": "cross-page-token-promotion-question"
+            },
+            {
+              "kind": "question",
+              "id": "design-asset-adoption-question"
+            }
+          ]
+        },
+        {
+          "label": "判断依据",
+          "refs": [
+            {
+              "kind": "policy",
+              "id": "primary-color-and-cta"
+            },
+            {
+              "kind": "method",
+              "id": "source-selection"
+            },
+            {
+              "kind": "method",
+              "id": "cross-page-token-promotion"
+            },
+            {
+              "kind": "method",
+              "id": "design-asset-adoption"
+            },
+            {
+              "kind": "rule",
+              "id": "visual-authority"
+            }
+          ]
+        },
+        {
+          "label": "案例",
+          "refs": [
+            {
+              "kind": "case",
+              "id": "pokemon-database-orange-not-global-cta"
+            },
+            {
+              "kind": "decision",
+              "id": "pokemon-database-search-orange"
+            }
+          ]
+        }
       ]
     },
     {
-      "id": "brand-evidence-to-design",
-      "title": "品牌证据与映射",
-      "description": "决定官网事实能以什么语义、在多大范围进入 DangoUI。",
+      "id": "expressive-productive",
+      "title": "表达取舍",
+      "description": "决定表达的位置、强度和生成方式。",
       "branches": [
-        { "label": "通用决策", "refs": [{ "kind": "policy", "id": "primary-color-and-cta" }] },
-        { "label": "判断方法", "refs": [{ "kind": "method", "id": "source-selection" }, { "kind": "method", "id": "cross-page-token-promotion" }, { "kind": "method", "id": "design-asset-adoption" }] },
-        { "label": "案例与反馈", "refs": [{ "kind": "case", "id": "pokemon-database-orange-not-global-cta" }] },
-        { "label": "具体资产判定", "refs": [{ "kind": "decision", "id": "pokemon-database-search-orange" }] }
+        {
+          "label": "问题",
+          "refs": [
+            {
+              "kind": "question",
+              "id": "expressive-productive-allocation-question"
+            },
+            {
+              "kind": "question",
+              "id": "host-expressive-allocation"
+            },
+            {
+              "kind": "question",
+              "id": "host-generation-choice"
+            },
+            {
+              "kind": "question",
+              "id": "host-generation-brief"
+            }
+          ]
+        },
+        {
+          "label": "判断依据",
+          "refs": [
+            {
+              "kind": "method",
+              "id": "expressive-productive-allocation"
+            },
+            {
+              "kind": "rule",
+              "id": "expressive-continuity-in-real-content"
+            },
+            {
+              "kind": "pattern",
+              "id": "search-filter-results"
+            }
+          ]
+        },
+        {
+          "label": "案例",
+          "refs": [
+            {
+              "kind": "case",
+              "id": "pokemon-backup4-expressive-false-positive"
+            }
+          ]
+        }
       ]
     },
     {
       "id": "host-expressive-delivery",
-      "title": "宿主表达与还原",
-      "description": "决定该用什么生成、哪些结构必须可还原，以及失败后返工还是重选。",
+      "title": "落地还原",
+      "description": "判断空间、连续性与动态内容的实现，以及修复或重选。",
       "branches": [
-        { "label": "品牌边界与表达位置", "refs": [{ "kind": "question", "id": "host-brand-scope" }, { "kind": "question", "id": "host-expressive-allocation" }] },
-        { "label": "生成与还原风险", "refs": [{ "kind": "question", "id": "host-generation-choice" }, { "kind": "question", "id": "host-generation-brief" }, { "kind": "question", "id": "host-reconstruction-risk" }] },
-        { "label": "验收与返工", "refs": [{ "kind": "question", "id": "host-repair-or-reselect" }, { "kind": "question", "id": "host-acceptance" }] },
-        { "label": "判断方法", "refs": [{ "kind": "method", "id": "expressive-generation-and-reconstruction" }] },
-        { "label": "案例与反馈", "refs": [{ "kind": "case", "id": "pokemon-generated-deck-scenes" }] },
-        { "label": "候选规则", "refs": [{ "kind": "rule", "id": "prefer-reconstructible-dynamic-scenes" }] }
+        {
+          "label": "问题",
+          "refs": [
+            {
+              "kind": "question",
+              "id": "host-reconstruction-risk"
+            },
+            {
+              "kind": "question",
+              "id": "host-repair-or-reselect"
+            },
+            {
+              "kind": "question",
+              "id": "scene-occlusion"
+            },
+            {
+              "kind": "question",
+              "id": "scene-continuity"
+            },
+            {
+              "kind": "question",
+              "id": "dynamic-scene-proof"
+            }
+          ]
+        },
+        {
+          "label": "判断依据",
+          "refs": [
+            {
+              "kind": "method",
+              "id": "expressive-generation-and-reconstruction"
+            },
+            {
+              "kind": "rule",
+              "id": "prefer-reconstructible-dynamic-scenes"
+            },
+            {
+              "kind": "rule",
+              "id": "scene-occlusion"
+            },
+            {
+              "kind": "rule",
+              "id": "scene-continuity"
+            },
+            {
+              "kind": "rule",
+              "id": "dynamic-scene-proof"
+            }
+          ]
+        },
+        {
+          "label": "案例",
+          "refs": [
+            {
+              "kind": "case",
+              "id": "pokemon-generated-deck-scenes"
+            },
+            {
+              "kind": "case",
+              "id": "opcg-a1-live-host-layering"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "shared",
+      "title": "验证与沉淀",
+      "description": "确认产物是否达标，以及经验能否成为可复用依据。",
+      "branches": [
+        {
+          "label": "问题",
+          "refs": [
+            {
+              "kind": "question",
+              "id": "host-acceptance"
+            },
+            {
+              "kind": "question",
+              "id": "knowledge-promotion-question"
+            }
+          ]
+        },
+        {
+          "label": "判断依据",
+          "refs": [
+            {
+              "kind": "method",
+              "id": "knowledge-promotion"
+            }
+          ]
+        },
+        {
+          "label": "案例",
+          "refs": [
+            {
+              "kind": "case",
+              "id": "spu-search-compact-header-regression"
+            }
+          ]
+        }
       ]
     }
   ],
   "sharedKnowledge": {
-    "title": "跨议题支撑（不算新决策或新案例）",
-    "refs": [{ "kind": "method", "id": "knowledge-promotion" }, { "kind": "pattern", "id": "search-filter-results" }]
+    "title": "跨主题参考",
+    "refs": []
   },
   "cases": [
     {
@@ -163,6 +411,21 @@
       "id": "pokemon-generated-deck-scenes",
       "path": "knowledge/v0.1/cases/pokemon-generated-deck-scenes.json",
       "guide": "knowledge/v0.1/cases/pokemon-generated-deck-scenes.md"
+    },
+    {
+      "id": "opcg-a1-live-host-layering",
+      "path": "knowledge/v0.1/cases/opcg-a1-live-host-layering.json",
+      "guide": "knowledge/v0.1/cases/opcg-a1-live-host-layering.md"
+    },
+    {
+      "id": "spu-search-compact-header-regression",
+      "path": "knowledge/v0.1/cases/spu-search-compact-header-regression.json",
+      "guide": "knowledge/v0.1/cases/spu-search-compact-header-regression.md"
+    },
+    {
+      "id": "newhire-dango-welcome-expression",
+      "path": "knowledge/v0.1/cases/newhire-dango-welcome-expression.json",
+      "guide": "knowledge/v0.1/cases/newhire-dango-welcome-expression.md"
     }
   ],
   "existingCatalog": "public/knowledge/v0.1/index.json"

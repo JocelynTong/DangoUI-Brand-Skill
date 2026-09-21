@@ -23,7 +23,7 @@ In `design-host`, translate a frozen brand system into at least three host-groun
 - Frozen host screenshot/DOM/content baseline.
 - Approved assets, composition patterns and DangoUI mapping/capability boundaries.
 - Host Strategist's scenario-fit decision and the targeted records returned by `query-design-knowledge.mjs`; the catalog is a starting constraint, not visual approval.
-- Query `question expressive-productive-allocation-question`, then its method, relevant independent cases and hypotheses before choosing composition intensity. Record at least two candidate allocations' attention and task tradeoffs; test whether a source-backed non-image mechanism should continue into real content. A one-case hypothesis marked `candidate` is a question to test, not a required look or approved recipe; a quiet task area may win if evidence and user review support it. A task pattern may constrain behavior but must not choose the visual solution.
+- Follow the stage → question → basis entry in SKILL.md; for whole-page composition intensity, read the full relevant method and cases under `--context=whole-design`. Record at least two candidate allocations' attention and task tradeoffs; test whether a source-backed non-image mechanism should continue into real content. A one-case hypothesis marked `candidate` is a question to test, not a required look or approved recipe; a quiet task area may win if evidence and user review support it. A task pattern may constrain behavior but must not choose the visual solution.
 - Any prior direction for the same brand + host surface, with explicit status distinguishing reference, promising direction, selected direction and approved result.
 
 ## Prior-direction recovery
@@ -45,7 +45,7 @@ Before generating new candidates, search the host workspace, migration history a
 - In fast mode, derive the compact host brief inside this role from the frozen baseline, then produce and render three structurally distinct programs. All three must pass the competition gate; do not reduce the selectable set to two to meet the time budget. Standard/certification may explore 6–9 and render at least three. Treat rank order as render priority, never as aesthetic approval.
 - Static H5 directions must keep the primary search, filter and action controls fully inside normal-flow containers. Never bridge a primary control across an `overflow:hidden` boundary with negative positioning; that is a blocking structural defect, not a stylistic choice.
 - Three isolated, complete static H5 `host-grounded-preview` directions at the real target viewport. HTML/CSS is the medium for the five-minute selection gate.
-- Mark the actual entry/exploration and real-task containers with `data-brand-moment="expressive|productive"`, `data-host-job`, `data-brand-source`, and `data-brand-mechanisms` (`asset`, `typography`, `shape`, `material`, `spatial`, `motion`). The source must resolve to the frozen option. Carry a non-image mechanism into task content; run `scripts/validate-design-host-expressive-h5.mjs --plan <plan>` before delivery. These declarations are inspectable evidence, not aesthetic approval.
+- Mark the actual entry/exploration and real-task containers with `data-brand-moment="expressive|productive"`, `data-host-job`, `data-brand-source`, and `data-brand-mechanisms` (`asset`, `typography`, `shape`, `material`, `spatial`, `motion`). The source must resolve to the frozen option. Document whether a source-backed non-image mechanism continues into task content or intentionally recedes to protect the task; run `scripts/validate-design-host-expressive-h5.mjs --plan <plan>` before delivery. These declarations are inspectable evidence, not aesthetic approval.
 - Mark every major H5 region with `data-composition-role` matching the plan order. The business stream also declares `data-content-entry` and `data-result-container`; all three options must use distinct first scene roles, entry forms and result-container forms. Declare every CSS hex color used in `semanticColorApplications` with its proven source and bounded role; an asset's blue does not license blue page chrome or controls. Give navigation, controls and content containers a purposeful shape hierarchy from the brand evidence, rather than one radius repeated everywhere.
 - API-driven host content must use a hash-bound captured real state, or an explicit neutral placeholder state (`businessContentEvidence.mode="schema-placeholder"`, `data-host-data-mode="schema-placeholder"`, `data-dynamic-placeholder`). Never invent a deck/product title or engagement count to make the H5 look complete.
 - No proposal screenshots or image derivatives: deliver the H5 files directly with JSON evidence.
@@ -81,7 +81,7 @@ Every selected role must bind a real host job, evidence-backed brand mechanism, 
 
 ## Five-minute preview medium
 
-Direction selection is a visual decision, not an implementation demo. Default to one lightweight static H5 first viewport per option, produced from the frozen host content and target viewport. Do not call an image-generation model, start the host runtime or implement interactions merely to show a direction.
+Direction selection is a visual decision, not an implementation demo. Default to one lightweight static H5 first viewport per option, produced from the frozen host content and target viewport. Choose existing assets, code or image generation from the regional expression plan. Generated imagery may support an expressive direction when source constraints and reconstruction risk are explicit; validate replaceable content in an isolated H5 proof before freezing. Do not start or modify the host runtime before selection.
 
 Use an additional H5 state only when motion, expansion, scrolling or another state transition is decisive to the direction. Add interactive behavior only when the user explicitly requests interaction testing or when two directions cannot be distinguished truthfully with static states. Never render a proposal screenshot; show the H5 directly. Runtime implementation remains forbidden before selection.
 
@@ -132,4 +132,4 @@ Record recurring application failures as named patterns with: observed mismatch,
 
 ## 宿主 expressive 决策记忆
 
-在对应强决策时通过 `node skills/brand/scripts/query-design-knowledge.mjs question <id>` 查询：`host-generation-brief`、`host-reconstruction-risk`。按当前任务比较上下文，记录采纳、调整或不采纳的理由；候选经验不等于批准规则。生成图不作为官网证据，六个同场景方向不算独立案例。没有 expressive 需求时可保持功能性页面，不强行生图。此检索指引不授权实施阶段改变冻结方向，也不代表生成与动态试片 gate 已接入。
+强决策发生时使用 SKILL.md 的阶段检索入口；判断依据维护在正式决策库，任务中记录采用或拒绝理由。

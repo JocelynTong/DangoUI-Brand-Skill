@@ -5,7 +5,43 @@
   "status": "open-single-case",
   "scope": "比较同一类 expressive / productive 分配判断，不汇总配色或资产晋级决策。",
   "methodRef": "expressive-productive-allocation",
-  "caseRefs": ["pokemon-backup4-expressive-false-positive"],
-  "hypothesisRefs": ["expressive-continuity-in-real-content"],
-  "nextEvidenceNeeded": "至少一个不同品牌或宿主的独立案例，记录真实任务、备选取舍、人的视觉反馈；也主动寻找不需要任务区延续品牌机制的反例。"
+  "caseRefs": [
+    "pokemon-backup4-expressive-false-positive"
+  ],
+  "hypothesisRefs": [
+    "expressive-continuity-in-real-content"
+  ],
+  "nextEvidenceNeeded": "至少一个不同品牌或宿主的独立案例，记录真实任务、备选取舍、人的视觉反馈；也主动寻找不需要任务区延续品牌机制的反例。",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "先看任务：高频检索保护首个操作与首屏结果；探索或展示可给表达更多空间，不预设首页必须有大头图。",
+      "比较至少两个方向的识别收益与注意力成本，把表达落到具体区域，并明确高度、遮挡和内容密度边界。",
+      "如果品牌识别需要延续到任务区，可借字形、构图与内容节奏延续；若干扰操作则收敛，不强制处处装饰。",
+      "用真实内容和运行状态验收。入口漂亮、素材加载成功，都不能证明任务区表达成立。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-productive-allocation"
+      },
+      {
+        "kind": "rule",
+        "id": "expressive-continuity-in-real-content"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-backup4-expressive-false-positive",
+      "summary": "入口使用了品牌素材，但搜索与结果区域失去品牌表达，用户不满意；机器检查通过未发现这个缺口。"
+    }
+  ],
+  "stages": [
+    "design-host"
+  ],
+  "aliases": [
+    "host-expressive-allocation"
+  ]
 }

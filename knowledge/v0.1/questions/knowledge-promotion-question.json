@@ -1,0 +1,41 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "knowledge-promotion-question",
+  "title": "什么时候把一次观察变成可复用知识？",
+  "status": "open-unvalidated",
+  "scope": "判断一次观察能否被其他任务采用，需要哪些证据、可以采用到什么范围。",
+  "methodRef": "knowledge-promotion",
+  "caseRefs": [],
+  "relatedCaseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "补充针对本问题的独立案例与审阅；相关旧案例不自动视为本问题验证。",
+  "requiredContext": [
+    "申请复用的内容",
+    "来源证据",
+    "目标情境",
+    "申请范围"
+  ],
+  "stages": [
+    "learn-brand",
+    "design-host",
+    "acceptance"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "一次观察先记录任务条件、备选、选择理由与结果；事后复盘和当时依据要分开。",
+      "不同案例出现相同判断后，比较成立条件与反例，形成有边界的候选结论；同一案例多次改版不算多个独立证据。",
+      "复用前检查目标情境差异；跨情境证据、独立检查与用户反馈不足时，不把候选写成通用规范。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "knowledge-promotion"
+      }
+    ]
+  },
+  "caseNotes": []
+}

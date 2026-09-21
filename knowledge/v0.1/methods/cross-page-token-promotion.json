@@ -12,7 +12,20 @@
     "Choose the narrowest supported scope: global, scenario, component, state-only or unmapped.",
     "A global token with an unexplained conflict or an unreviewed core page must not be handed to Demo or host design."
   ],
-  "requiredReviewFields": ["pageIds", "observations", "conflictDisposition", "scope", "rationale"],
-  "notFor": ["Inferring semantics from pixel frequency", "Treating a single page as cross-page agreement"],
-  "caseRefs": ["pokemon-database-orange-not-global-cta"]
+  "requiredReviewFields": [
+    "pageIds",
+    "observations",
+    "conflictDisposition",
+    "scope",
+    "rationale"
+  ],
+  "notFor": [
+    "Inferring semantics from pixel frequency",
+    "Treating a single page as cross-page agreement"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "questionRef": "cross-page-token-promotion-question",
+  "readerPurpose": "执行判断的步骤与取舍"
 }

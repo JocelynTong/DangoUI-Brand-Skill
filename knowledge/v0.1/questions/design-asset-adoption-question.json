@@ -1,0 +1,41 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "design-asset-adoption-question",
+  "title": "一个官网元素怎样成为可复用设计资产？",
+  "status": "open-unvalidated",
+  "scope": "判断来源中的素材、组件或构图能否进入另一宿主，以及允许怎样使用。",
+  "methodRef": "design-asset-adoption",
+  "caseRefs": [],
+  "relatedCaseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "补充针对本问题的独立案例与审阅；相关旧案例不自动视为本问题验证。",
+  "requiredContext": [
+    "申请复用的内容",
+    "来源证据",
+    "目标情境",
+    "申请范围"
+  ],
+  "stages": [
+    "learn-brand",
+    "design-host",
+    "acceptance"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "说明来源元素的职责及目标宿主任务；只有作用匹配才讨论复用，外观相似不是充分条件。",
+      "按对象检查：素材看裁切与替换，组件看状态与行为，构图看真实内容和视口。不能用颜色检查代替全部资产检查。",
+      "申请范围不得超出证据范围；局部成立先局部使用，出现新宿主或新约束时重新验证。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "design-asset-adoption"
+      }
+    ]
+  },
+  "caseNotes": []
+}

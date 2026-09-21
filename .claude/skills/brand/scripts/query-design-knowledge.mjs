@@ -10,9 +10,11 @@ const root = fs.existsSync(path.join(bundledRoot,'knowledge/v0.1/index.json')) ?
 const indexPath = path.join(root, 'public/knowledge/v0.1/index.json')
 const index = JSON.parse(fs.readFileSync(indexPath, 'utf8'))
 const methodIndex = JSON.parse(fs.readFileSync(path.join(root, 'knowledge/v0.1/index.json'), 'utf8'))
-const [command, id] = process.argv.slice(2)
+const [command, id, ...options] = process.argv.slice(2)
+const readingPolicy = JSON.parse(fs.readFileSync(new URL('../references/decision-reading-policy.json',import.meta.url),'utf8'))
+const collectionName = kind => ({method:'methods',rule:'rules',policy:'policies',pattern:'patterns',case:'cases'})[kind] || kind
 const fail = (message) => { console.error(message); process.exit(2) }
-const readRecord = (kind, wanted) => {
+const readRecord = (kind, wanted, emit = true) => {
   const record = (methodIndex[kind] || []).find((item) => item.id === wanted)
   if (!record) fail(`Unknown ${kind.slice(0, -1)}: ${wanted}`)
   const file = path.resolve(root, record.path)
@@ -32,10 +34,30 @@ const readRecord = (kind, wanted) => {
     const failures = validateDecisionQuestion(data, methods, cases, rules)
     if (failures.length) fail(`Invalid decision question ${wanted}: ${failures.join(', ')}`)
   }
-  console.log(JSON.stringify({ ...data, humanGuide: fs.readFileSync(guide, 'utf8').trim() }, null, 2))
+  const result = { ...data, humanGuide: fs.readFileSync(guide, 'utf8').trim() }
+  if (emit) console.log(JSON.stringify(result, null, 2))
+  return result
 }
-if (command === 'list') {
+if (command === 'stage') {
+  if (!['learn-brand','design-host','apply-host','repair','acceptance'].includes(id)) fail('Unknown decision stage: '+id)
+  const legacy = {'host-brand-scope':['learn-brand','design-host'],'host-expressive-allocation':['design-host'],'host-generation-choice':['design-host'],'host-generation-brief':['design-host'],'host-reconstruction-risk':['design-host','apply-host'],'host-repair-or-reselect':['repair'],'host-acceptance':['acceptance']}
+  console.log(JSON.stringify((methodIndex.questions || []).map(entry => JSON.parse(fs.readFileSync(path.join(root,entry.path),'utf8'))).filter(q=>!q.mergedInto && (q.stages || legacy[q.id] || []).includes(id)).map(q=>({id:q.id,title:q.title,status:q.status,requiredContext:q.requiredContext,caseRefs:q.caseRefs,hypothesisRefs:q.hypothesisRefs})),null,2))
+} else if (command === 'list') {
   console.log(JSON.stringify({ questions: (methodIndex.questions || []).map(({ id }) => id), patterns: methodIndex.patterns.map(({ id }) => id), methods: methodIndex.methods.map(({ id }) => id), rules: (methodIndex.rules || []).map(({ id }) => id), policies: methodIndex.policies.map(({ id }) => id), decisions: methodIndex.decisions.map(({ id }) => id), cases: methodIndex.cases.map(({ id }) => id), components: index.components, scenarios: index.scenarios.map(({ id }) => id), brandRecipes: (index.brandRecipes || []).map(({ id }) => id) }, null, 2))
+} else if (command === 'basis') {
+  let question = readRecord('questions', id, false)
+  if (question.mergedInto) question = readRecord('questions', question.mergedInto, false)
+  if (question.focusedBasis) {
+    const reasons=options.filter(v=>v.startsWith('--context=')).flatMap(v=>v.slice(10).split(','))
+    if(options.some(v=>!v.startsWith('--context=')) || reasons.some(v=>!readingPolicy.triggers[v])) fail('Unknown reading context; use '+Object.keys(readingPolicy.triggers).join(', '))
+    const sourceRefs=question.focusedBasis.sourceRefs || []
+    const full=reasons.length>0
+    const entries=full ? sourceRefs.map(ref=>readRecord(collectionName(ref.kind),ref.id,false)) : []
+    const cases=full ? (question.caseRefs||[]).map(key=>readRecord('cases',key,false)) : []
+    console.log(JSON.stringify({question:question.id,label:'判断依据',...question.focusedBasis,caseNotes:question.caseNotes,reading:{level:full?'full':'focused',reasons,escalateWhen:readingPolicy.triggers,limitation:readingPolicy.note},fullSources:entries,fullCases:cases},null,2)); process.exit(0)
+  }
+  const references = [question.methodRef && ['methods',question.methodRef], ...(question.hypothesisRefs || []).map(rule=>['rules',rule])].filter(Boolean)
+  console.log(JSON.stringify({question:id,label:'判断依据',entries:references.map(([kind,key])=>readRecord(kind,key,false))},null,2))
 } else if (command === 'question') {
   readRecord('questions', id)
 } else if (command === 'rule') {
@@ -65,5 +87,5 @@ if (command === 'list') {
   if (!record) fail(`Unknown brand recipe: ${id}`)
   console.log(fs.readFileSync(path.join(root, record.path), 'utf8').trim())
 } else {
-  fail('Usage: query-design-knowledge.mjs list | question <id> | rule <id> | policy <id> | decision <id> | pattern <id> | method <id> | case <id> | component <name> | scenario <id> | recipe <id>')
+  fail('Usage: query-design-knowledge.mjs stage <learn-brand|design-host|apply-host|repair|acceptance> | basis <question-id> | list | question <id> | rule <id> | policy <id> | decision <id> | pattern <id> | method <id> | case <id> | component <name> | scenario <id> | recipe <id>')
 }

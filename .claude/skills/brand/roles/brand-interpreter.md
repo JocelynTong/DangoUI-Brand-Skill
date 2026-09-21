@@ -29,7 +29,7 @@
 
 ## 工作步骤
 
-涉及 token 晋级时，先查询 `node skills/brand/scripts/query-design-knowledge.mjs method cross-page-token-promotion`，并按需读取其 `caseRefs`。知识库提供比较方法和反例；最终语义仍必须由本轮 Evidence 支撑，不能把历史案例当作当前品牌事实。
+涉及 token 晋级时，先查询 `node skills/brand/scripts/query-design-knowledge.mjs basis cross-page-token-promotion-question`，并按需读取其 `caseRefs`。知识库提供比较方法和反例；最终语义仍必须由本轮 Evidence 支撑，不能把历史案例当作当前品牌事实。
 涉及品牌主色或主要行动 CTA 时，进一步查询 `policy primary-color-and-cta`，分别给出身份主色和主要行动语义的判断。官网首页优先提供身份线索，但活动区不能自动代表全站；CTA 的颜色是否与品牌主色同值，需要同职责跨页对照，不凭单页或按钮数量投票。
 必须先收 Evidence 的逐页可见控件统计，再写解释：按语义职责和背景环境分组，记录每页出现次数、来源优先级、视觉显著度、排除的轮播重复项/页脚工具控件，以及同一颜色是否跨页复现。频次用于排序候选，不替代品牌身份、行动语义、状态与对比度判断；不得因单页例外受阻就直接把 DangoUI 默认色当成品牌学习结果。用 `validate-primary-role-frequency-review.mjs` 校验本轮结构化复核，Design Director 对身份主色、主操作色及例外范围分别签字。
 

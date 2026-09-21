@@ -15,7 +15,7 @@ export function validateDecisionQuestion(question, methods, cases, rules) {
   if (question?.schema !== 'brand-decision-question/v0.1' || !question?.id || !question?.title || !question?.scope || !question?.nextEvidenceNeeded) failures.push('DECISION_QUESTION_SCHEMA')
   if (!methods.has(question?.methodRef)) failures.push('DECISION_QUESTION_METHOD_UNRESOLVED')
   const caseRefs = question?.caseRefs || []
-  if (!caseRefs.length || new Set(caseRefs).size !== caseRefs.length || caseRefs.some((id) => !cases.has(id) || cases.get(id)?.methodRef !== question.methodRef)) failures.push('DECISION_QUESTION_CASE_SCOPE_INVALID')
+  if ((!caseRefs.length && question.status !== 'open-unvalidated') || new Set(caseRefs).size !== caseRefs.length || caseRefs.some((id) => !cases.has(id) || cases.get(id)?.methodRef !== question.methodRef)) failures.push('DECISION_QUESTION_CASE_SCOPE_INVALID')
   const contexts = caseRefs.map((id) => cases.get(id)?.contextKey).filter(Boolean)
   if (contexts.length !== caseRefs.length || new Set(contexts).size !== contexts.length) failures.push('DECISION_QUESTION_CASE_INDEPENDENCE_INVALID')
   const hypothesisRefs = question?.hypothesisRefs || []

@@ -21,7 +21,12 @@
   "publicRegistryReuse": {
     "defaultRegistry": "https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/",
     "lookupKey": "normalized canonical source URL or /#/brand/{brand}/ demo deep link",
-    "order": ["host migrations", "local repository registry", "public registry", "new learn-brand extraction"],
+    "order": [
+      "host migrations",
+      "local repository registry",
+      "public registry",
+      "new learn-brand extraction"
+    ],
     "rules": [
       "Resolve the source before starting extraction or asking the user for internal file paths.",
       "A Registry hit reuses the reviewed version and must not repeat brand learning.",
@@ -47,14 +52,26 @@
     "gate": "node skills/brand/scripts/validate-trial-channel.mjs validate --record <trial-record.json>",
     "sharedCore": "Both channels consume the same Brand Skill, Brand MOD, DangoUI mapping and quality gates; internal dependencies and private evidence are never added to the public distribution.",
     "public": {
-      "platforms": ["web", "taro-h5"],
+      "platforms": [
+        "web",
+        "taro-h5"
+      ],
       "sourceVisibility": "public",
       "feedbackDestination": "github-issue",
       "purpose": "Verify self-service installation, public Registry reuse and Web-first application using information safe to publish."
     },
     "internal": {
-      "platforms": ["web", "taro-h5", "weapp-developer-tool", "weapp-android", "weapp-ios"],
-      "sourceVisibility": ["public", "private"],
+      "platforms": [
+        "web",
+        "taro-h5",
+        "weapp-developer-tool",
+        "weapp-android",
+        "weapp-ios"
+      ],
+      "sourceVisibility": [
+        "public",
+        "private"
+      ],
       "feedbackDestination": "internal-only",
       "purpose": "Verify Taro, developer-tool, device and business-safety behavior against real company hosts without moving private material into GitHub."
     },
@@ -67,8 +84,19 @@
     ]
   },
   "nodeQualityModel": {
-    "states": ["PASS", "REWORK", "NEEDS_EVIDENCE", "BLOCKED"],
-    "sequence": ["required-inputs", "role-work", "self-check", "deliverables", "consumer-gate"],
+    "states": [
+      "PASS",
+      "REWORK",
+      "NEEDS_EVIDENCE",
+      "BLOCKED"
+    ],
+    "sequence": [
+      "required-inputs",
+      "role-work",
+      "self-check",
+      "deliverables",
+      "consumer-gate"
+    ],
     "levels": {
       "L1": "Producer self-check before handoff.",
       "L2": "Consumer contract may reject incomplete or semantically unsafe inputs.",
@@ -80,8 +108,32 @@
   },
   "roleCapabilityModel": {
     "purpose": "Make every subagent independently dispatchable and reject role-shaped prose that cannot be verified at handoff.",
-    "requiredDimensions": ["goal", "owns", "inputs.required", "inputs.allowed", "inputs.forbidden", "tasks", "outputs", "requirements", "decisionRights", "mustNot", "passCriteria", "failCriteria", "handoff", "retry"],
-    "dispatchPacketRequired": ["frozenGoalHash", "role", "requiredInputs", "forbiddenInputs", "deliverables", "acceptanceCriteria", "failureRoute", "crossChecker"],
+    "requiredDimensions": [
+      "goal",
+      "owns",
+      "inputs.required",
+      "inputs.allowed",
+      "inputs.forbidden",
+      "tasks",
+      "outputs",
+      "requirements",
+      "decisionRights",
+      "mustNot",
+      "passCriteria",
+      "failCriteria",
+      "handoff",
+      "retry"
+    ],
+    "dispatchPacketRequired": [
+      "frozenGoalHash",
+      "role",
+      "requiredInputs",
+      "forbiddenInputs",
+      "deliverables",
+      "acceptanceCriteria",
+      "failureRoute",
+      "crossChecker"
+    ],
     "crossCheckRule": "Producer self-check is necessary but never sufficient. The named downstream consumer or fresh QA must reject incomplete coverage, semantic expansion, or unverifiable rendered claims.",
     "scopeRule": "A role reports completion only for its declared scope. A journey, page, component family, or state PASS must never be promoted to full-host PASS without a zero-gap host coverage matrix.",
     "minimumCompetencies": {
@@ -92,7 +144,16 @@
       "methodologyReasoning": "Convert repeated mechanisms into tested gates while keeping one-brand accidents as candidates."
     },
     "programObjective": "Prove a reusable three-pipeline system: learn-brand derives an evidence-backed generative brand model; design-host diagnoses the host and freezes a user-selected visual direction without mutating runtime source; apply-host mechanically implements that frozen direction while preserving business behavior. Certification is a later release gate. A branded screenshot or page-level CSS change is evidence for one slice, never the objective itself.",
-    "objectiveHierarchy": ["twoPipelineProgram", "pipeline", "phase", "journey", "page", "componentFamily", "state", "coverageCell"],
+    "objectiveHierarchy": [
+      "twoPipelineProgram",
+      "pipeline",
+      "phase",
+      "journey",
+      "page",
+      "componentFamily",
+      "state",
+      "coverageCell"
+    ],
     "progressRule": "Report progress at its native hierarchy level. Never convert host coverage-cell completion into learn-brand, design-host or overall program completion. The program passes only when learn-brand, design-host and apply-host independently pass their required gates and a second held-out brand/host transfer proves reuse.",
     "antiProxyRule": "Do not use changed CSS files, screenshot count, build success, route count, representative components, or host coverage percentages as a proxy for reusable pipeline completion."
   },
@@ -101,10 +162,36 @@
     "artifact": "migrations/{brand}/host-coverage-matrix.json",
     "gate": "node skills/brand/scripts/validate-host-coverage-matrix.mjs --matrix <host-coverage-matrix.json>",
     "requiredFor": "Every apply-host implementation and final sign-off.",
-    "cellKey": ["route", "branch", "state", "componentFamily", "viewport"],
-    "requiredCellFields": ["id", "route", "branch", "state", "componentFamily", "viewport", "decision", "selector", "visualEvidence", "verdict"],
-    "decisions": ["APPLY", "KEEP", "DEFER"],
-    "completionScopes": ["journey", "componentFamily", "page", "fullHost"],
+    "cellKey": [
+      "route",
+      "branch",
+      "state",
+      "componentFamily",
+      "viewport"
+    ],
+    "requiredCellFields": [
+      "id",
+      "route",
+      "branch",
+      "state",
+      "componentFamily",
+      "viewport",
+      "decision",
+      "selector",
+      "visualEvidence",
+      "verdict"
+    ],
+    "decisions": [
+      "APPLY",
+      "KEEP",
+      "DEFER"
+    ],
+    "completionScopes": [
+      "journey",
+      "componentFamily",
+      "page",
+      "fullHost"
+    ],
     "rules": [
       "Every discovered route, reachable branch, meaningful state, component-family variant and required viewport receives an explicit matrix cell.",
       "Every child route records parentRoute and launchedFrom; its parent/default entry also needs a covered navigation cell.",
@@ -116,7 +203,19 @@
       "fullHost PASS requires every in-scope cell PASS, default entry coverage, all parent launch paths covered, and no in-scope DEFER or missing family variant.",
       "Evidence promotion is transactional: a QA batch verdict does not update cells unless every promoted cell id has an explicit evidence reference and the stored coverageSummary exactly matches recomputed cell totals."
     ],
-    "blockerCodes": ["COVERAGE_CELL_MISSING", "DEFAULT_ENTRY_UNCOVERED", "PARENT_ROUTE_SKIPPED", "COMPONENT_FAMILY_VARIANT_MISSING", "INTERACTION_STATE_UNPROVEN", "TOUCH_TARGET_TOO_SMALL", "TYPOGRAPHY_SCRIPT_MISMATCH", "SEMANTIC_COLOR_ROLE_EXPANDED", "COVERAGE_SUMMARY_STALE", "EVIDENCE_PROMOTION_UNTRACEABLE", "FULL_HOST_SCOPE_INCOMPLETE"]
+    "blockerCodes": [
+      "COVERAGE_CELL_MISSING",
+      "DEFAULT_ENTRY_UNCOVERED",
+      "PARENT_ROUTE_SKIPPED",
+      "COMPONENT_FAMILY_VARIANT_MISSING",
+      "INTERACTION_STATE_UNPROVEN",
+      "TOUCH_TARGET_TOO_SMALL",
+      "TYPOGRAPHY_SCRIPT_MISMATCH",
+      "SEMANTIC_COLOR_ROLE_EXPANDED",
+      "COVERAGE_SUMMARY_STALE",
+      "EVIDENCE_PROMOTION_UNTRACEABLE",
+      "FULL_HOST_SCOPE_INCOMPLETE"
+    ]
   },
   "previewBlockerCodes": {
     "MOCKUP_SHELL_MISSING": "A standard-demo page does not visibly render the phone mockup shell; DOM classes alone are insufficient when computed frame border/radius or screenshots show the shell has been removed.",
@@ -133,16 +232,44 @@
     "prepareGate": "node skills/brand/scripts/validate-host-structural-diff.mjs prepare-bundle --targets <structural-targets.json> --out <preedit-baseline-bundle.json>",
     "dispatchGate": "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase dispatch",
     "receiptGate": "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt",
-    "allowed": ["semantic class/style hooks", "reviewed stylesheet imports", "explicitly manifested non-interactive decorative nodes"],
-    "blocked": ["business script AST changes", "route or API changes", "handler changes", "data/state changes", "component API/binding changes", "conditional rendering changes", "v-for source changes", "template removal", "unapproved primitive/component substitution"],
+    "allowed": [
+      "semantic class/style hooks",
+      "reviewed stylesheet imports",
+      "explicitly manifested non-interactive decorative nodes"
+    ],
+    "blocked": [
+      "business script AST changes",
+      "route or API changes",
+      "handler changes",
+      "data/state changes",
+      "component API/binding changes",
+      "conditional rendering changes",
+      "v-for source changes",
+      "template removal",
+      "unapproved primitive/component substitution"
+    ],
     "approvalRule": "Decorative additions need evidence; primitive/component substitutions need explicit product/design approval and may not be self-approved by Host Implementation.",
-    "blockerCodes": ["PREEDIT_BASELINE_TARGET_MISSING", "PREEDIT_BASELINE_METADATA_MISSING", "PREEDIT_BASELINE_OWNER_INVALID", "PREEDIT_BASELINE_ARTIFACT_MISSING", "PREEDIT_BASELINE_ARTIFACT_CHANGED", "PREEDIT_BASELINE_SOURCE_MISMATCH", "SOURCE_EDITED_BEFORE_DISPATCH"]
+    "blockerCodes": [
+      "PREEDIT_BASELINE_TARGET_MISSING",
+      "PREEDIT_BASELINE_METADATA_MISSING",
+      "PREEDIT_BASELINE_OWNER_INVALID",
+      "PREEDIT_BASELINE_ARTIFACT_MISSING",
+      "PREEDIT_BASELINE_ARTIFACT_CHANGED",
+      "PREEDIT_BASELINE_SOURCE_MISMATCH",
+      "SOURCE_EDITED_BEFORE_DISPATCH"
+    ]
   },
   "brandDistinctivenessGate": {
     "artifact": "migrations/{brand}/brand-distinctiveness-assessment.json",
     "gate": "node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>",
     "requiredFor": "Every apply-host visual QA; high-capacity pages use the strict material-signal rules.",
-    "dimensions": ["visualMass", "asset", "composition", "type", "motion"],
+    "dimensions": [
+      "visualMass",
+      "asset",
+      "composition",
+      "type",
+      "motion"
+    ],
     "evidenceRule": "Compare source and host screenshots captured at the same declared viewport. Masked review must score design-system structural recognition separately from explicit-IP recognition; a reviewer must never be asked to infer a specific IP solely from business data or hidden identity marks.",
     "highCapacityRule": "At least three visible evidence-backed signals, each occupying at least five percent of the viewport, spanning at least three dimensions. Typography, micro-icons, logos, brand names and other small signatures cannot satisfy this requirement.",
     "recognitionModel": {
@@ -150,12 +277,28 @@
       "explicitIpRecognition": "Diagnostic by default. It becomes a blocking gate only when the frozen goal explicitly requires IP identification and authorizes the necessary identity-bearing assets or copy.",
       "noSilentDowngrade": "Changing either recognition track from blocking to diagnostic, or changing a frozen threshold, requires a goal-contract revision and an explicit supersession record; QA and Implementation cannot do this after seeing a result."
     },
-    "statusModel": ["workflowCompletion", "businessSafety", "visualDistinctiveness", "designSystemStructuralRecognition", "explicitIpRecognition"],
+    "statusModel": [
+      "workflowCompletion",
+      "businessSafety",
+      "visualDistinctiveness",
+      "designSystemStructuralRecognition",
+      "explicitIpRecognition"
+    ],
     "nonCompensationRule": "Technical gates and business safety never compensate for visualDistinctiveness FAIL. Never publish a single overall completion percentage.",
-    "failureOwners": ["designDirectorOrchestrator", "designTranslator", "brandResearcher", "hostStrategist", "brandApplicationDesigner", "hostImplementationAgent"]
+    "failureOwners": [
+      "designDirectorOrchestrator",
+      "designTranslator",
+      "brandResearcher",
+      "hostStrategist",
+      "brandApplicationDesigner",
+      "hostImplementationAgent"
+    ]
   },
   "programStrategyGate": {
-    "artifacts": ["program-goal-tree.json", "host-opportunity-map.json"],
+    "artifacts": [
+      "program-goal-tree.json",
+      "host-opportunity-map.json"
+    ],
     "gate": "node skills/brand/scripts/validate-program-strategy.mjs --goal-tree <program-goal-tree.json> --host-map <host-opportunity-map.json>",
     "requiredBefore": "Host Implementation dispatch and every two-pipeline progress report.",
     "rules": [
@@ -165,12 +308,21 @@
       "Every page declares Hero eligibility with a business reason; eligible is not equivalent to required.",
       "Recognition policy names structural and explicit-IP tracks and preserves the frozen blocking/diagnostic policy."
     ],
-    "blockerCodes": ["PROGRAM_GOAL_BRANCH_MISSING", "PROGRAM_PROGRESS_PROXY", "HOST_PAGE_MAPPING_LAYER_MISSING", "HERO_ELIGIBILITY_UNJUSTIFIED", "RECOGNITION_TRACKS_CONFLATED", "QUALITY_GATE_SILENTLY_DOWNGRADED"]
+    "blockerCodes": [
+      "PROGRAM_GOAL_BRANCH_MISSING",
+      "PROGRAM_PROGRESS_PROXY",
+      "HOST_PAGE_MAPPING_LAYER_MISSING",
+      "HERO_ELIGIBILITY_UNJUSTIFIED",
+      "RECOGNITION_TRACKS_CONFLATED",
+      "QUALITY_GATE_SILENTLY_DOWNGRADED"
+    ]
   },
   "orchestration": {
     "model": "brand-native-required-with-optional-external-review",
     "internalRequired": true,
-    "externalOptional": ["gstack"],
+    "externalOptional": [
+      "gstack"
+    ],
     "fallback": "brand-native-workflow",
     "policy": [
       "Brand domain routing, DTCG mapping, DangoUI contract checks, host placement decisions, and final coverage wording stay inside Brand Skill.",
@@ -182,7 +334,12 @@
     "product": "workflow",
     "runtime": "orchestrator-spawns-independent-subagents",
     "topLevelAgent": "designDirectorOrchestrator",
-    "sequence": ["brandResearcher", "designTranslator", "demoImplementationAgent", "visualQA"],
+    "sequence": [
+      "brandResearcher",
+      "designTranslator",
+      "demoImplementationAgent",
+      "visualQA"
+    ],
     "goalContract": "migrations/{brand}/goal-contract.json",
     "executionManifest": "migrations/{brand}/execution-manifest.json",
     "rules": [
@@ -203,21 +360,56 @@
   "designDirectorOrchestrator": {
     "position": "top-level-accountable-agent",
     "roleFile": "roles/design-director.md",
-    "owns": ["goal freeze", "task decomposition", "design direction", "subagent dispatch", "consumer gates", "failure routing", "issue scope classification", "cross-brand regression matrix", "failed-learning asset retirement", "scope and budget", "final aesthetic sign-off"],
-    "outputs": ["goal-contract.json", "execution-manifest.json", "design-direction-options.json", "design-direction-decision.json", "design-direction.json", "dispatch packets", "phase decisions", "incident-retro.json when required"],
-    "mustNot": ["replace specialist subagents", "self-approve Blind QA", "invent source evidence", "lower frozen thresholds", "treat build success as visual success", "close a shared-platform incident with a single-brand pass", "leave rejected experiments in registry as future learning seeds"]
+    "owns": [
+      "goal freeze",
+      "task decomposition",
+      "design direction",
+      "subagent dispatch",
+      "consumer gates",
+      "failure routing",
+      "issue scope classification",
+      "cross-brand regression matrix",
+      "failed-learning asset retirement",
+      "scope and budget",
+      "final aesthetic sign-off"
+    ],
+    "outputs": [
+      "goal-contract.json",
+      "execution-manifest.json",
+      "design-direction-options.json",
+      "design-direction-decision.json",
+      "design-direction.json",
+      "dispatch packets",
+      "phase decisions",
+      "incident-retro.json when required"
+    ],
+    "mustNot": [
+      "replace specialist subagents",
+      "self-approve Blind QA",
+      "invent source evidence",
+      "lower frozen thresholds",
+      "treat build success as visual success",
+      "close a shared-platform incident with a single-brand pass",
+      "leave rejected experiments in registry as future learning seeds"
+    ]
   },
   "executionProfiles": {
     "default": "full",
     "fast": {
-      "targetMinutes": [15, 20],
+      "targetMinutes": [
+        15,
+        20
+      ],
       "purpose": "Direction validation for core visual language and two representative demo structures.",
       "evidenceScope": "One core viewport plus only goal-critical interactions and assets.",
       "qualityBoundary": "May report unresolved secondary states; may not claim complete-style-preview.",
       "stopRule": "At 25 minutes stop expanding scope, preserve unresolved evidence, and report the earliest blocker."
     },
     "full": {
-      "targetMinutes": [30, 45],
+      "targetMinutes": [
+        30,
+        45
+      ],
       "purpose": "Standard learn-brand with responsive evidence, critical motion/assets, generative proof, and Blind QA.",
       "evidenceScope": "Frozen reference pages, required viewports, high-salience sections, and goal-critical interactions.",
       "qualityBoundary": "All three proofs must pass before visual-quality-ready.",
@@ -251,7 +443,10 @@
   "applyHostExecutionProfiles": {
     "default": "fast",
     "fast": {
-      "targetMinutes": [0, 5],
+      "targetMinutes": [
+        0,
+        5
+      ],
       "purpose": "Show a first-viewport preview on the explicit target, or the host home route by default, using an already reviewed Registry bundle.",
       "registryPolicy": "A complete frozen bundle is trusted after hash/file preflight; Brand Researcher and Design Translator are not dispatched.",
       "coverageScope": "The first viewport of the explicit target; otherwise the first route declared by the host is the default home page.",
@@ -260,7 +455,10 @@
       "pauseRule": "A passing Smoke QA changes the workflow to awaiting-user. Only an explicit approve, revise or certify decision may continue it."
     },
     "standard": {
-      "targetMinutes": [15, 25],
+      "targetMinutes": [
+        15,
+        25
+      ],
       "purpose": "Deliver one or more declared host routes with affected-scope Visual QA and required DangoUI mapping evidence.",
       "registryPolicy": "Reuse frozen Evidence, Intent and Mapping unless their hashes or required references are invalid.",
       "coverageScope": "All changed routes, affected component states and required parent launch paths.",
@@ -268,7 +466,10 @@
       "stopRule": "At 25 minutes move non-blocking full-matrix checks to certification and report remaining scope."
     },
     "certification": {
-      "targetMinutes": [20, 30],
+      "targetMinutes": [
+        20,
+        30
+      ],
       "purpose": "Run release-level full-host, runtime, capability-gap and platform-specific certification.",
       "registryPolicy": "Reuse the frozen brand bundle; only invalid or changed source evidence returns to learning owners.",
       "coverageScope": "Complete declared host matrix and all release-blocking journeys/platform proofs.",
@@ -295,46 +496,135 @@
         "Each option image is the future host surface itself, not a proposal card: no stage headings, rationale panels, palettes, device galleries, design vocabulary or non-host chrome. Navigation, primary task, business switch and real business content must all remain visibly represented; option labels live outside the captured host surface.",
         "Every option binds the exact frozen brand-mod SHA-256 and carries brandSystemClosure proving source-brand token roles, frozen-package assets and an evidence-backed composition pattern coexist in the same rendered preview. Host business thumbnails remain content only and cannot satisfy source-brand identity/environment asset requirements.",
         "For a visual-capable page, every option contains a source-backed dominant brand visual whose area follows the hostFirstImpression and heroDecision for this host; host result thumbnails cannot satisfy this alone.",
-        "Every option visibly expresses at least three of asset, composition, material, typography, motion and color, and uses a distinct asset-led visual narrative."
-        ,"Design-system mapping preserves the selected option as the visual acceptance target. DangoUI supplies behavior, semantics and stable APIs; tokens and stock component appearance are reused only where they fit, while style-only recipes, assets, slots and composition remain required for unsupported expression. Silent fallback to stock DangoUI appearance is forbidden."
-        ,"Every option declares visual center, primary action placement, content entry and result presentation; every pair differs in at least three landmarks.",
-        "A strong direction declares at least three coherent atmosphere layers such as environment, lighting, depth, texture or motion."
-        ,"Host form factor is detected before option generation. Phone-first hosts forbid persistent desktop side rails, primary content below 72% viewport width, touch targets below 44px and unintended horizontal overflow."
-        ,"Every mobile option records hostFirstImpression from real host evidence: task priority, information density, content flow, return frequency, first-action urgency and existing media slots. Hero height and business-content entry are case decisions derived from that classification, not universal numeric thresholds; implementation must preserve the recorded content-flow model and selected heroDecision."
+        "Every option visibly expresses at least three of asset, composition, material, typography, motion and color, and uses a distinct asset-led visual narrative.",
+        "Design-system mapping preserves the selected option as the visual acceptance target. DangoUI supplies behavior, semantics and stable APIs; tokens and stock component appearance are reused only where they fit, while style-only recipes, assets, slots and composition remain required for unsupported expression. Silent fallback to stock DangoUI appearance is forbidden.",
+        "Every option declares visual center, primary action placement, content entry and result presentation; every pair differs in at least three landmarks.",
+        "A strong direction declares at least three coherent atmosphere layers such as environment, lighting, depth, texture or motion.",
+        "Host form factor is detected before option generation. Phone-first hosts forbid persistent desktop side rails, primary content below 72% viewport width, touch targets below 44px and unintended horizontal overflow.",
+        "Every mobile option records hostFirstImpression from real host evidence: task priority, information density, content flow, return frequency, first-action urgency and existing media slots. Hero height and business-content entry are case decisions derived from that classification, not universal numeric thresholds; implementation must preserve the recorded content-flow model and selected heroDecision."
       ]
     },
     "miniAppNavigationPolicy": {
       "requiredBeforeStyleChoice": true,
-      "modes": ["native-preserved", "custom-immersive", "custom-contained"],
+      "modes": [
+        "native-preserved",
+        "custom-immersive",
+        "custom-contained"
+      ],
       "rule": "Inspect the target page navigation configuration before rendering options. A selected immersive composition may change that page to custom navigation; preserve and avoid the platform status area and native capsule instead of treating NavigationBar as an immutable host shell.",
-      "smokeChecks": ["safe-area offset is correct", "native capsule is unobstructed", "title, account and brand switch remain reachable", "tabs do not overlap navigation actions", "complex-background text remains readable", "narrow viewport does not overlap"]
+      "smokeChecks": [
+        "safe-area offset is correct",
+        "native capsule is unobstructed",
+        "title, account and brand switch remain reachable",
+        "tabs do not overlap navigation actions",
+        "complex-background text remains readable",
+        "narrow viewport does not overlap"
+      ]
     },
     "heroSceneIntegrity": {
       "requiredForStrongVisualDirections": true,
       "rule": "Use one coherent evidence-backed scene whose subject, environment, perspective, lighting and motion direction agree. Independent photos, transparent characters, cards and glow effects may not be stacked as a sticker collage merely because each asset has brand evidence.",
-      "failWhen": ["multiple unrelated focal subjects compete", "lighting or perspective conflicts", "brand assets read as pasted stickers", "UI obscures the scene focal point"]
+      "failWhen": [
+        "multiple unrelated focal subjects compete",
+        "lighting or perspective conflicts",
+        "brand assets read as pasted stickers",
+        "UI obscures the scene focal point"
+      ]
     },
-    "stages": ["scope-and-style-choice", "first-viewport-implementation", "smoke-qa", "awaiting-user", "scoped-full-qa-or-release-certification"],
-    "smokeChecks": ["target page loads", "selected brand direction is visibly applied", "page width equals viewport and first-level blocks do not overflow"],
+    "stages": [
+      "scope-and-style-choice",
+      "first-viewport-implementation",
+      "smoke-qa",
+      "awaiting-user",
+      "scoped-full-qa-or-release-certification"
+    ],
+    "smokeChecks": [
+      "target page loads",
+      "selected brand direction is visibly applied",
+      "page width equals viewport and first-level blocks do not overflow"
+    ],
     "roles": {
-      "hostStrategist": {"budgetSeconds": 60, "output": "host scope, first impression and visual opportunity", "mustNot": ["scan the full host by default", "relearn the brand", "produce a full coverage matrix for fast preview"]},
-      "brandApplicationDesigner": {"budgetSeconds": 120, "output": "two or three host-grounded previews plus brand-application-plan.json", "mustNot": ["edit host source before selection", "treat minimum token or asset counts as quality", "produce same-skeleton layout variants", "invent unsupported brand language"]},
-      "hostImplementationAgent": {"budgetSeconds": 180, "output": "runnable first-viewport preview plus implementation receipt", "mustNot": ["edit routes, APIs, data or business copy", "modify out-of-scope pages", "start release certification"]},
-      "visualQA": {"budgetSeconds": 60, "output": "preview-smoke-report.json", "mustNot": ["edit production code", "rerun learn-brand proof", "perform full-host QA before user approval"]}
+      "hostStrategist": {
+        "budgetSeconds": 60,
+        "output": "host scope, first impression and visual opportunity",
+        "mustNot": [
+          "scan the full host by default",
+          "relearn the brand",
+          "produce a full coverage matrix for fast preview"
+        ]
+      },
+      "brandApplicationDesigner": {
+        "budgetSeconds": 120,
+        "output": "two or three host-grounded previews plus brand-application-plan.json",
+        "mustNot": [
+          "edit host source before selection",
+          "treat minimum token or asset counts as quality",
+          "produce same-skeleton layout variants",
+          "invent unsupported brand language"
+        ]
+      },
+      "hostImplementationAgent": {
+        "budgetSeconds": 180,
+        "output": "runnable first-viewport preview plus implementation receipt",
+        "mustNot": [
+          "edit routes, APIs, data or business copy",
+          "modify out-of-scope pages",
+          "start release certification"
+        ]
+      },
+      "visualQA": {
+        "budgetSeconds": 60,
+        "output": "preview-smoke-report.json",
+        "mustNot": [
+          "edit production code",
+          "rerun learn-brand proof",
+          "perform full-host QA before user approval"
+        ]
+      }
     }
   },
   "qdmpPreviewHandshake": {
     "prepareCommand": "node skills/brand/scripts/qdmp-preview-handshake.mjs --host <host-root> --write",
-    "requiredOrder": ["resolve frontend root", "resolve AppID without exposing appSecret", "write source and compiled project.config.json", "import compileRoot", "bind the resolved application", "restart the project session", "probe runtime app-config.json", "verify simulator AppID and default route"],
+    "requiredOrder": [
+      "resolve frontend root",
+      "resolve AppID without exposing appSecret",
+      "write source and compiled project.config.json",
+      "import compileRoot",
+      "bind the resolved application",
+      "restart the project session",
+      "probe runtime app-config.json",
+      "verify simulator AppID and default route"
+    ],
     "warning": "Hot reload does not refresh a Dimina project identity after AppID changes; a project-session restart is required.",
-    "passEvidence": ["bound application name", "buildFingerprint from current app.json, target WXML and target WXSS", "simulator URL contains expected appId", "runtime app-config.json returns valid JSON", "compiled status", "expected default route", "375px screenshot from the current session"],
+    "passEvidence": [
+      "bound application name",
+      "buildFingerprint from current app.json, target WXML and target WXSS",
+      "simulator URL contains expected appId",
+      "runtime app-config.json returns valid JSON",
+      "compiled status",
+      "expected default route",
+      "375px screenshot from the current session"
+    ],
     "blockingError": "QDMP_SIMULATOR_OUTPUT_UNMOUNTED means compilation succeeded but the developer-tool preview server did not mount the compiled output; fail fast and fix or restart the developer-tool session instead of repeating learn-brand or host implementation."
   },
   "sectionQualityModel": {
     "artifact": "migrations/{brand}/section-fidelity-manifest.json",
     "gate": "node skills/brand/scripts/validate-section-fidelity.mjs --brand <brand> --strict",
     "requiredFor": "Every high-salience or goal-critical section on a reference page.",
-    "requiredFields": ["id", "pageId", "status", "sourceCapture", "demoCapture", "sourceRegion", "demoRegion", "requiredLayers", "readingOrder", "responsiveBehavior", "assetRefs", "interactionChecks"],
+    "requiredFields": [
+      "id",
+      "pageId",
+      "status",
+      "sourceCapture",
+      "demoCapture",
+      "sourceRegion",
+      "demoRegion",
+      "requiredLayers",
+      "readingOrder",
+      "responsiveBehavior",
+      "assetRefs",
+      "interactionChecks"
+    ],
     "rules": [
       "Item count and DOM node count are observations, never substitutes for section structure.",
       "Each required layer has a visible source selector/state and a visible demo selector/state.",
@@ -345,7 +635,15 @@
       "For source-calibration, proof viewport width excludes phone chassis and inspector/showcase gutters; full-bleed surfaces must touch viewport edges while content-safe insets are checked separately.",
       "A standard user-facing Demo route still visibly preserves its phone mockup. No-shell 390px/1440px calibration surfaces are separate and opt-in through an explicit proof mode; proofRole metadata alone must never remove the presentation shell."
     ],
-    "blockerCodes": ["SECTION_CAPTURE_MISSING", "SECTION_VIEWPORT_MISMATCH", "SECTION_STRUCTURE_NOT_COUNT_PROXY", "SECTION_LAYER_MISSING", "SECTION_ASSET_PROVENANCE_MISSING", "SECTION_INTERACTION_NO_STATE_CHANGE", "SECTION_HORIZONTAL_OVERFLOW"]
+    "blockerCodes": [
+      "SECTION_CAPTURE_MISSING",
+      "SECTION_VIEWPORT_MISMATCH",
+      "SECTION_STRUCTURE_NOT_COUNT_PROXY",
+      "SECTION_LAYER_MISSING",
+      "SECTION_ASSET_PROVENANCE_MISSING",
+      "SECTION_INTERACTION_NO_STATE_CHANGE",
+      "SECTION_HORIZONTAL_OVERFLOW"
+    ]
   },
   "externalGoodcaseAdoption": {
     "retain": "Keep the existing Brand capability when it already enforces a domain-specific hard gate, such as TPP, computed-first evidence, DTCG validation, selector-map, coverage-gate, asset-usage-gate, p0-acceptance, or record-run.",
@@ -356,189 +654,1100 @@
   "roles": {
     "router": {
       "goal": "Decide learn-brand, apply-host, retro, or maintain before any scattered action.",
-      "owns": ["workflow selection", "input boundary check", "blocking gate order"],
-      "outputs": ["workflow-mode", "resolved-inputs", "workflow-plan"]
+      "owns": [
+        "workflow selection",
+        "input boundary check",
+        "blocking gate order"
+      ],
+      "outputs": [
+        "workflow-mode",
+        "resolved-inputs",
+        "workflow-plan"
+      ]
     },
     "brandResearcher": {
       "goal": "Prove or leave explicitly unresolved every evidence requirement in the frozen goal using reproducible rendered facts; use Dembrandt only to discover and prioritize candidates.",
-      "owns": ["goal evidence questions", "raw DOM/computed evidence", "third-party seed disposition", "asset inventory", "action evidence", "source navigation", "goal coverage verdict"],
-      "outputs": ["brand-evidence.json", "source-observation-manifest.json", "rendered-asset-inventory.json", "action-evidence.json", "third-party-evidence.dembrandt.json"],
+      "owns": [
+        "goal evidence questions",
+        "raw DOM/computed evidence",
+        "third-party seed disposition",
+        "asset inventory",
+        "action evidence",
+        "source navigation",
+        "goal coverage verdict"
+      ],
+      "outputs": [
+        "brand-evidence.json",
+        "source-observation-manifest.json",
+        "rendered-asset-inventory.json",
+        "action-evidence.json",
+        "third-party-evidence.dembrandt.json"
+      ],
       "inputs": {
-        "required": ["goal-contract.json", "brand source"],
-        "allowed": ["source DOM", "computed styles", "loaded assets", "source screenshots", "source interaction states", "third-party extraction seeds"],
-        "forbidden": ["demo implementation", "demo screenshots", "implementation rationale", "previous QA verdict"]
+        "required": [
+          "goal-contract.json",
+          "brand source"
+        ],
+        "allowed": [
+          "source DOM",
+          "computed styles",
+          "loaded assets",
+          "source screenshots",
+          "source interaction states",
+          "third-party extraction seeds"
+        ],
+        "forbidden": [
+          "demo implementation",
+          "demo screenshots",
+          "implementation rationale",
+          "previous QA verdict"
+        ]
       },
-      "tasks": ["turn each mustPreserve, reference page and required state into a falsifiable evidence question before extraction", "run Dembrandt or another approved extractor as an internal candidate-discovery todo", "before browsing the full page set, persist one real viewport screenshot in the run workspace, decode it, verify non-zero dimensions and recompute its SHA-256", "cover every reference page", "capture full-page and key-region screenshots before interpreting source code", "create a section-fidelity manifest for every high-salience or goal-critical section", "for long, multi-module, carousel, video, sticky or motion-bearing pages capture continuous playback plus lossless frames and a machine-readable timeline", "identify visible patterns and visual weight from captures", "locate the corresponding visible DOM and real interaction state", "record computed property names and values", "trace source rules only after the rendered fact is established", "inventory loaded assets and their use", "cache source URL, viewport, capture hash, asset hash and interaction traces", "disposition goal-relevant and high-salience third-party seeds as validated, rejected, unresolved or out-of-scope", "separate observed, inferred, not-observed and unavailable evidence", "report goal coverage"],
-      "requirements": ["a capture persistence probe passes before full-site evidence collection begins", "every observed high-salience claim has a screenshot path and normalized sourceRegion", "every page required by goal evidencePolicy has fullPageCapture, continuousCapture and timeline or an explicit unavailableReason", "continuous capture covers stable initial state through reachable page end and can be traced back to lossless frames with time and scroll/state labels", "motion and interaction evidence contains default, transition and settled states", "every interaction claim has before/after state captures and a reproducible trigger", "every computed claim records the exact property name and value", "state semantics preserve the observed state name: is-open cannot be rewritten as active/current", "every mustPreserve item has a traceable evidence reference or an unresolved/unavailable verdict", "every core page has a source screenshot", "CSS-only and third-party output remain candidate or seed evidence", "when third-party seed evidence exists brand-evidence.json contains non-empty thirdPartySeedDispositions", "validated seed dispositions reference observed claims", "unresolved seed dispositions block any dependent mustPreserve item"],
-      "decisionRights": ["mark evidence complete", "prioritize extractor candidates against the frozen goal", "reject extractor candidates using reproducible rendered evidence", "return needs-evidence when the source cannot prove a required claim"],
-      "mustNot": ["treat Dembrandt as a separate role or handoff authority", "design the demo", "invent unsupported brand rules", "treat filenames or brand reputation as rendered facts", "treat code existence as user-visible evidence", "promote third-party seeds directly to observed claims", "rename CSS properties or interaction states into stronger semantics"],
-      "passCriteria": ["all required reference pages are covered or explicitly unavailable", "source observation page and interaction coverage meet the frozen goal", "all required evidence paths and hashes exist", "evidence-visibility-gate passes before Interpreter dispatch"],
-      "failCriteria": ["EVIDENCE_CAPTURE_NOT_PERSISTABLE: the browser can render or return screenshot bytes but no supported path can persist and re-read the image from the run workspace", "required page lacks full-page or continuous evidence", "continuous capture cannot be traced to frames/timeline", "long-page capture does not reach the page end", "motion capture lacks transition state", "critical claim lacks an evidence id", "observed claim lacks visible capture/region/DOM state", "interaction claim lacks before/after capture", "computed property differs from the source rule", "is-open is relabeled active/current", "an inference is labeled observed", "third-party seed exists without disposition", "validated seed lacks an observed claim reference", "a mustPreserve item depends on an unresolved seed"],
-      "handoff": {"to": "designTranslator", "include": ["goal-contract.json", "evidence outputs"], "exclude": ["demo advice"]},
-      "retry": {"maxAttempts": 2, "triggers": ["missing-page", "missing-state", "untraceable-claim"]}
+      "tasks": [
+        "turn each mustPreserve, reference page and required state into a falsifiable evidence question before extraction",
+        "run Dembrandt or another approved extractor as an internal candidate-discovery todo",
+        "before browsing the full page set, persist one real viewport screenshot in the run workspace, decode it, verify non-zero dimensions and recompute its SHA-256",
+        "cover every reference page",
+        "capture full-page and key-region screenshots before interpreting source code",
+        "create a section-fidelity manifest for every high-salience or goal-critical section",
+        "for long, multi-module, carousel, video, sticky or motion-bearing pages capture continuous playback plus lossless frames and a machine-readable timeline",
+        "identify visible patterns and visual weight from captures",
+        "locate the corresponding visible DOM and real interaction state",
+        "record computed property names and values",
+        "trace source rules only after the rendered fact is established",
+        "inventory loaded assets and their use",
+        "cache source URL, viewport, capture hash, asset hash and interaction traces",
+        "disposition goal-relevant and high-salience third-party seeds as validated, rejected, unresolved or out-of-scope",
+        "separate observed, inferred, not-observed and unavailable evidence",
+        "report goal coverage"
+      ],
+      "requirements": [
+        "a capture persistence probe passes before full-site evidence collection begins",
+        "every observed high-salience claim has a screenshot path and normalized sourceRegion",
+        "every page required by goal evidencePolicy has fullPageCapture, continuousCapture and timeline or an explicit unavailableReason",
+        "continuous capture covers stable initial state through reachable page end and can be traced back to lossless frames with time and scroll/state labels",
+        "motion and interaction evidence contains default, transition and settled states",
+        "every interaction claim has before/after state captures and a reproducible trigger",
+        "every computed claim records the exact property name and value",
+        "state semantics preserve the observed state name: is-open cannot be rewritten as active/current",
+        "every mustPreserve item has a traceable evidence reference or an unresolved/unavailable verdict",
+        "every core page has a source screenshot",
+        "CSS-only and third-party output remain candidate or seed evidence",
+        "when third-party seed evidence exists brand-evidence.json contains non-empty thirdPartySeedDispositions",
+        "validated seed dispositions reference observed claims",
+        "unresolved seed dispositions block any dependent mustPreserve item"
+      ],
+      "decisionRights": [
+        "mark evidence complete",
+        "prioritize extractor candidates against the frozen goal",
+        "reject extractor candidates using reproducible rendered evidence",
+        "return needs-evidence when the source cannot prove a required claim"
+      ],
+      "mustNot": [
+        "treat Dembrandt as a separate role or handoff authority",
+        "design the demo",
+        "invent unsupported brand rules",
+        "treat filenames or brand reputation as rendered facts",
+        "treat code existence as user-visible evidence",
+        "promote third-party seeds directly to observed claims",
+        "rename CSS properties or interaction states into stronger semantics"
+      ],
+      "passCriteria": [
+        "all required reference pages are covered or explicitly unavailable",
+        "source observation page and interaction coverage meet the frozen goal",
+        "all required evidence paths and hashes exist",
+        "evidence-visibility-gate passes before Interpreter dispatch"
+      ],
+      "failCriteria": [
+        "EVIDENCE_CAPTURE_NOT_PERSISTABLE: the browser can render or return screenshot bytes but no supported path can persist and re-read the image from the run workspace",
+        "required page lacks full-page or continuous evidence",
+        "continuous capture cannot be traced to frames/timeline",
+        "long-page capture does not reach the page end",
+        "motion capture lacks transition state",
+        "critical claim lacks an evidence id",
+        "observed claim lacks visible capture/region/DOM state",
+        "interaction claim lacks before/after capture",
+        "computed property differs from the source rule",
+        "is-open is relabeled active/current",
+        "an inference is labeled observed",
+        "third-party seed exists without disposition",
+        "validated seed lacks an observed claim reference",
+        "a mustPreserve item depends on an unresolved seed"
+      ],
+      "handoff": {
+        "to": "designTranslator",
+        "include": [
+          "goal-contract.json",
+          "evidence outputs"
+        ],
+        "exclude": [
+          "demo advice"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "missing-page",
+          "missing-state",
+          "untraceable-claim"
+        ]
+      }
     },
     "designTranslator": {
       "goal": "Turn raw evidence into reusable visual intent: what each color, asset, motion, frame, or layout pattern means and where it should or should not be used.",
-      "owns": ["brand intent", "visual pattern descriptions", "motion purpose", "anti-patterns"],
-      "outputs": ["brand-intent.json", "styleRecipeDetails", "interactionRecipes", "approved-visual-patterns"],
+      "owns": [
+        "brand intent",
+        "visual pattern descriptions",
+        "motion purpose",
+        "anti-patterns"
+      ],
+      "outputs": [
+        "brand-intent.json",
+        "styleRecipeDetails",
+        "interactionRecipes",
+        "approved-visual-patterns"
+      ],
       "inputs": {
-        "required": ["goal-contract.json", "brand-evidence.json", "rendered-asset-inventory.json"],
-        "allowed": ["action-evidence.json", "source screenshots"],
-        "forbidden": ["demo implementation", "demo screenshots", "implementation rationale", "previous QA verdict"]
+        "required": [
+          "goal-contract.json",
+          "brand-evidence.json",
+          "rendered-asset-inventory.json"
+        ],
+        "allowed": [
+          "action-evidence.json",
+          "source screenshots"
+        ],
+        "forbidden": [
+          "demo implementation",
+          "demo screenshots",
+          "implementation rationale",
+          "previous QA verdict"
+        ]
       },
-      "tasks": ["translate evidence into composition, color-role, type, boundary, asset, density and motion patterns", "attach evidence ids", "declare suitableFor, notFor and allowed transformations", "leave unsupported claims unresolved"],
-      "requirements": ["every pattern has evidenceRefs and normalized sourceRegion", "every composition pattern freezes a compositionContract containing source asset identity/variant and required structural layers before implementation", "every color role declares allowedRoles and forbiddenRoles", "every promoted color, font, shadow or motion semantic is recorded in semanticClaims with validated disposition and evidenceRefs resolving to an observed Claim with visible screenshot/sourceRegion, DOM selector, computed property/value, page and state", "aggregate palettes, CSS variable names and Dembrandt seeds remain candidates and cannot independently establish a semantic role", "facts, interpretations and recommendations use separate fields", "composition and information density are explicit"],
-      "decisionRights": ["define evidence-backed patterns", "request more Evidence", "leave a capability unresolved"],
-      "mustNot": ["modify the goal contract", "implement pages", "lower learn-brand fidelity for host convenience", "promote a third-party summary directly to a rule"],
-      "passCriteria": ["every mustPreserve item maps to a pattern", "composition mustPreserve mappings freeze source asset identity/variant and at least two independently observable required layers", "every core pattern has evidence, usage and notFor"],
-      "failCriteria": ["pattern without evidence", "promoted semantic role lacks a complete validated rendered-evidence chain", "candidate-only aggregate palette, CSS variable or extractor seed is used as semantic proof", "missing composition or density interpretation", "goal changed"],
-      "handoff": {"to": "designDirectorOrchestrator", "purpose": "top-level direction decision before Demo dispatch", "include": ["goal-contract.json", "brand-intent.json", "approved assets", "source screenshots"], "exclude": ["demo implementation", "desired QA outcome", "host project"]},
-      "retry": {"maxAttempts": 2, "triggers": ["unsupported-pattern", "ambiguous-rule"], "mayReturnTo": "brandResearcher"}
+      "tasks": [
+        "translate evidence into composition, color-role, type, boundary, asset, density and motion patterns",
+        "attach evidence ids",
+        "declare suitableFor, notFor and allowed transformations",
+        "leave unsupported claims unresolved"
+      ],
+      "requirements": [
+        "every pattern has evidenceRefs and normalized sourceRegion",
+        "every composition pattern freezes a compositionContract containing source asset identity/variant and required structural layers before implementation",
+        "every color role declares allowedRoles and forbiddenRoles",
+        "every promoted color, font, shadow or motion semantic is recorded in semanticClaims with validated disposition and evidenceRefs resolving to an observed Claim with visible screenshot/sourceRegion, DOM selector, computed property/value, page and state",
+        "aggregate palettes, CSS variable names and Dembrandt seeds remain candidates and cannot independently establish a semantic role",
+        "facts, interpretations and recommendations use separate fields",
+        "composition and information density are explicit"
+      ],
+      "decisionRights": [
+        "define evidence-backed patterns",
+        "request more Evidence",
+        "leave a capability unresolved"
+      ],
+      "mustNot": [
+        "modify the goal contract",
+        "implement pages",
+        "lower learn-brand fidelity for host convenience",
+        "promote a third-party summary directly to a rule"
+      ],
+      "passCriteria": [
+        "every mustPreserve item maps to a pattern",
+        "composition mustPreserve mappings freeze source asset identity/variant and at least two independently observable required layers",
+        "every core pattern has evidence, usage and notFor"
+      ],
+      "failCriteria": [
+        "pattern without evidence",
+        "promoted semantic role lacks a complete validated rendered-evidence chain",
+        "candidate-only aggregate palette, CSS variable or extractor seed is used as semantic proof",
+        "missing composition or density interpretation",
+        "goal changed"
+      ],
+      "handoff": {
+        "to": "designDirectorOrchestrator",
+        "purpose": "top-level direction decision before Demo dispatch",
+        "include": [
+          "goal-contract.json",
+          "brand-intent.json",
+          "approved assets",
+          "source screenshots"
+        ],
+        "exclude": [
+          "demo implementation",
+          "desired QA outcome",
+          "host project"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "unsupported-pattern",
+          "ambiguous-rule"
+        ],
+        "mayReturnTo": "brandResearcher"
+      }
     },
     "dangouiMapper": {
       "goal": "Map brand intent to DangoUI-compatible tokens, components, props, slots, and style-only recipes without inventing unsupported DangoUI APIs.",
-      "owns": ["DTCG layer", "DangoUI adapter", "component mapping", "style-only boundaries"],
-      "outputs": ["brand-mod.json", "dangoui-adapter.json", "component-mapping.json", "runtime-coverage receipt", "dangoui-capability-gaps.json", "unmapped-capabilities"],
+      "owns": [
+        "DTCG layer",
+        "DangoUI adapter",
+        "component mapping",
+        "style-only boundaries"
+      ],
+      "outputs": [
+        "brand-mod.json",
+        "dangoui-adapter.json",
+        "component-mapping.json",
+        "runtime-coverage receipt",
+        "dangoui-capability-gaps.json",
+        "unmapped-capabilities"
+      ],
       "inputs": {
-        "required": ["validated brand-intent.json", "real DangoUI schema or explicit runtime-unavailable result", "component family inventory"],
-        "allowed": ["DTCG schema", "DangoUI source/runtime inventory", "rendered consumer probes"],
-        "forbidden": ["API guesses based on names", "host CSS appearance as proof of DangoUI runtime mapping", "unsupported token invention"]
+        "required": [
+          "validated brand-intent.json",
+          "real DangoUI schema or explicit runtime-unavailable result",
+          "component family inventory"
+        ],
+        "allowed": [
+          "DTCG schema",
+          "DangoUI source/runtime inventory",
+          "rendered consumer probes"
+        ],
+        "forbidden": [
+          "API guesses based on names",
+          "host CSS appearance as proof of DangoUI runtime mapping",
+          "unsupported token invention"
+        ]
       },
-      "tasks": ["map each approved brand role through primitive, semantic and component alias layers", "map component families including variants and states", "record the actual consumer and computed probe", "separate runtime-verified, token-verified, style-only and unmapped capabilities"],
-      "requirements": ["every mapping has sourceRole, evidenceRefs, status and consumer or explicit missing reason", "component mappings name DangoUI component, props, slots, variants, states and coverage", "runtime coverage is measured from verified consumers rather than adapter file presence", "runtime unavailable forces PARTIAL_STYLE_ONLY and conservative-application", "public host runtime adoption runs dangoui-runtime-gate.mjs prepare and verify against the host package manager, lockfile, exact declared and installed versions, installed exports, real consumer source, global styles, rendered bundle evidence and business parity", "public host runtime verification requires a strict token closure contract whose source inventory, semantic mapping, runtime consumption, rendered states, and business/visual QA tracks are independently owned and all PASS", "every apply-host classifies discovered DangoUI non-coverage and workarounds as capability-gap or correct-boundary in a validated local report with zero unclassified items and no implicit telemetry", "machine-local file/link dependencies are forbidden for public consumers", "an H5 runtime PASS is reported as PASS_REAL_COMPONENT_CONSUMER_H5_ONLY and never generalized to mini-program or another platform"],
-      "decisionRights": ["choose an existing DangoUI mapping target", "classify a capability style-only or unmapped", "request a real DangoUI schema"],
-      "mustNot": ["invent --du tokens, components, props or slots", "treat matching colors as component mapping", "claim complete mapping without runtime consumers"],
-      "passCriteria": ["every approved pattern is mapped or explicitly unresolved", "token chain and component state coverage are traceable", "mapping status matches runtime proof"],
-      "failCriteria": ["DANGO_RUNTIME_UNVERIFIED", "TOKEN_CHAIN_BROKEN", "COMPONENT_STATE_UNMAPPED", "UNSUPPORTED_DANGO_API", "STYLE_ONLY_CLAIMED_AS_RUNTIME", "LOCAL_PATH_DEPENDENCY_FORBIDDEN", "DANGOUI_EXACT_VERSION_REQUIRED", "DANGOUI_LOCK_VERSION_MISMATCH", "DANGOUI_INSTALLED_VERSION_MISMATCH", "DANGOUI_PLATFORM_UNVERIFIED", "DANGOUI_RUNTIME_EVIDENCE_FAILED", "DANGOUI_TOKEN_CLOSURE_REQUIRED", "DANGOUI_TOKEN_CLOSURE_FAILED", "DANGOUI_CAPABILITY_GAPS_REQUIRED", "DANGOUI_CAPABILITY_GAPS_FAILED", "DANGOUI_GAP_UNCLASSIFIED", "DANGOUI_GAP_SENSITIVE_REFERENCE"],
-      "handoff": {"to": ["hostStrategist", "demoImplementationAgent"], "include": ["mapping ids", "status", "antiScopes", "unmapped capabilities"], "exclude": ["unsupported API assumptions"]},
-      "retry": {"maxAttempts": 2, "triggers": ["schema mismatch", "consumer probe missing"], "mayReturnTo": "designTranslator"}
+      "tasks": [
+        "map each approved brand role through primitive, semantic and component alias layers",
+        "map component families including variants and states",
+        "record the actual consumer and computed probe",
+        "separate runtime-verified, token-verified, style-only and unmapped capabilities"
+      ],
+      "requirements": [
+        "every mapping has sourceRole, evidenceRefs, status and consumer or explicit missing reason",
+        "component mappings name DangoUI component, props, slots, variants, states and coverage",
+        "runtime coverage is measured from verified consumers rather than adapter file presence",
+        "runtime unavailable forces PARTIAL_STYLE_ONLY and conservative-application",
+        "public host runtime adoption runs dangoui-runtime-gate.mjs prepare and verify against the host package manager, lockfile, exact declared and installed versions, installed exports, real consumer source, global styles, rendered bundle evidence and business parity",
+        "public host runtime verification requires a strict token closure contract whose source inventory, semantic mapping, runtime consumption, rendered states, and business/visual QA tracks are independently owned and all PASS",
+        "every apply-host classifies discovered DangoUI non-coverage and workarounds as capability-gap or correct-boundary in a validated local report with zero unclassified items and no implicit telemetry",
+        "machine-local file/link dependencies are forbidden for public consumers",
+        "an H5 runtime PASS is reported as PASS_REAL_COMPONENT_CONSUMER_H5_ONLY and never generalized to mini-program or another platform"
+      ],
+      "decisionRights": [
+        "choose an existing DangoUI mapping target",
+        "classify a capability style-only or unmapped",
+        "request a real DangoUI schema"
+      ],
+      "mustNot": [
+        "invent --du tokens, components, props or slots",
+        "treat matching colors as component mapping",
+        "claim complete mapping without runtime consumers"
+      ],
+      "passCriteria": [
+        "every approved pattern is mapped or explicitly unresolved",
+        "token chain and component state coverage are traceable",
+        "mapping status matches runtime proof"
+      ],
+      "failCriteria": [
+        "DANGO_RUNTIME_UNVERIFIED",
+        "TOKEN_CHAIN_BROKEN",
+        "COMPONENT_STATE_UNMAPPED",
+        "UNSUPPORTED_DANGO_API",
+        "STYLE_ONLY_CLAIMED_AS_RUNTIME",
+        "LOCAL_PATH_DEPENDENCY_FORBIDDEN",
+        "DANGOUI_EXACT_VERSION_REQUIRED",
+        "DANGOUI_LOCK_VERSION_MISMATCH",
+        "DANGOUI_INSTALLED_VERSION_MISMATCH",
+        "DANGOUI_PLATFORM_UNVERIFIED",
+        "DANGOUI_RUNTIME_EVIDENCE_FAILED",
+        "DANGOUI_TOKEN_CLOSURE_REQUIRED",
+        "DANGOUI_TOKEN_CLOSURE_FAILED",
+        "DANGOUI_CAPABILITY_GAPS_REQUIRED",
+        "DANGOUI_CAPABILITY_GAPS_FAILED",
+        "DANGOUI_GAP_UNCLASSIFIED",
+        "DANGOUI_GAP_SENSITIVE_REFERENCE"
+      ],
+      "handoff": {
+        "to": [
+          "hostStrategist",
+          "demoImplementationAgent"
+        ],
+        "include": [
+          "mapping ids",
+          "status",
+          "antiScopes",
+          "unmapped capabilities"
+        ],
+        "exclude": [
+          "unsupported API assumptions"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "schema mismatch",
+          "consumer probe missing"
+        ],
+        "mayReturnTo": "designTranslator"
+      }
     },
     "hostStrategist": {
       "roleFile": "roles/host-strategist.md",
       "goal": "Decide where the learned visual language can safely land in a host product based on business job, page type, visual capacity, Atomic Design layer, asset slot, motion slot, and over-application risk.",
-      "owns": ["host route and journey inventory", "host visual opportunity", "route-branch-state-family coverage", "showcase placement", "business purpose", "not-for boundaries"],
-      "outputs": ["host-opportunity-map.json", "intent-plan.json", "visualPlacementPolicy", "host-coverage-matrix.json", "journey inventory", "deferred debt"],
+      "owns": [
+        "host route and journey inventory",
+        "host visual opportunity",
+        "route-branch-state-family coverage",
+        "showcase placement",
+        "business purpose",
+        "not-for boundaries"
+      ],
+      "outputs": [
+        "host-opportunity-map.json",
+        "intent-plan.json",
+        "visualPlacementPolicy",
+        "host-coverage-matrix.json",
+        "journey inventory",
+        "deferred debt"
+      ],
       "inputs": {
-        "required": ["validated brand MOD and mapping", "host route inventory", "default entry", "host screenshots and business constraints"],
-        "allowed": ["host navigation graph", "component census", "analytics or product priorities"],
-        "forbidden": ["source website composition as a host page specification", "a shortlist containing only visually attractive detail pages"]
+        "required": [
+          "validated brand MOD and mapping",
+          "host route inventory",
+          "default entry",
+          "host screenshots and business constraints"
+        ],
+        "allowed": [
+          "host navigation graph",
+          "component census",
+          "analytics or product priorities"
+        ],
+        "forbidden": [
+          "source website composition as a host page specification",
+          "a shortlist containing only visually attractive detail pages"
+        ]
       },
-      "tasks": ["inventory default entry, parent-child navigation and critical journeys", "enumerate route by branch by state by component-family coverage cells", "assign APPLY, KEEP or DEFER with rationale and acceptance", "define page change budget and protected business semantics", "select visual capacity and allowed Atomic layers", "for every page decide token, component, composition and asset mappings", "declare Hero eligibility and its business reason", "declare structural and explicit-IP recognition tracks from the frozen goal"],
-      "requirements": ["every in-scope child route has parentRoute and launchedFrom", "every family includes sibling variants and meaningful states", "KEEP has visual acceptance and never means skip", "DEFER has owner, reason and scope impact", "the matrix reaches 100 percent disposition before Host Implementation dispatch", "validate-program-strategy.mjs passes before Host Implementation dispatch"],
-      "decisionRights": ["recommend APPLY, KEEP or DEFER", "set page visual capacity", "reject unsafe showcase placement"],
-      "mustNot": ["skip a parent entry while approving a child page", "equate KEEP with no design work", "use logo or palette alone as a high-capacity signal", "declare full-host completion", "invent a Hero or card treatment without a page-level business rationale", "use host coverage as two-pipeline progress"],
-      "passCriteria": ["route and journey inventory is complete for frozen scope", "all matrix cells are dispositioned", "default entry and parent launch paths are covered"],
-      "failCriteria": ["ROUTE_INVENTORY_INCOMPLETE", "DEFAULT_ENTRY_UNCOVERED", "PARENT_ROUTE_SKIPPED", "COMPONENT_FAMILY_VARIANT_MISSING", "KEEP_WITHOUT_ACCEPTANCE", "DEFER_WITHOUT_SCOPE_IMPACT"],
-      "handoff": {"to": "brandApplicationDesigner", "include": ["host first impression", "frozen business scope", "visual capacity", "change budgets", "protected semantics"], "exclude": ["source page as implementation spec"]},
-      "retry": {"maxAttempts": 2, "triggers": ["coverage gap", "business scope conflict"], "mayReturnTo": ["designDirectorOrchestrator", "designTranslator"]}
+      "tasks": [
+        "inventory default entry, parent-child navigation and critical journeys",
+        "enumerate route by branch by state by component-family coverage cells",
+        "assign APPLY, KEEP or DEFER with rationale and acceptance",
+        "define page change budget and protected business semantics",
+        "select visual capacity and allowed Atomic layers",
+        "for every page decide token, component, composition and asset mappings",
+        "declare Hero eligibility and its business reason",
+        "declare structural and explicit-IP recognition tracks from the frozen goal"
+      ],
+      "requirements": [
+        "every in-scope child route has parentRoute and launchedFrom",
+        "every family includes sibling variants and meaningful states",
+        "KEEP has visual acceptance and never means skip",
+        "DEFER has owner, reason and scope impact",
+        "the matrix reaches 100 percent disposition before Host Implementation dispatch",
+        "validate-program-strategy.mjs passes before Host Implementation dispatch"
+      ],
+      "decisionRights": [
+        "recommend APPLY, KEEP or DEFER",
+        "set page visual capacity",
+        "reject unsafe showcase placement"
+      ],
+      "mustNot": [
+        "skip a parent entry while approving a child page",
+        "equate KEEP with no design work",
+        "use logo or palette alone as a high-capacity signal",
+        "declare full-host completion",
+        "invent a Hero or card treatment without a page-level business rationale",
+        "use host coverage as two-pipeline progress"
+      ],
+      "passCriteria": [
+        "route and journey inventory is complete for frozen scope",
+        "all matrix cells are dispositioned",
+        "default entry and parent launch paths are covered"
+      ],
+      "failCriteria": [
+        "ROUTE_INVENTORY_INCOMPLETE",
+        "DEFAULT_ENTRY_UNCOVERED",
+        "PARENT_ROUTE_SKIPPED",
+        "COMPONENT_FAMILY_VARIANT_MISSING",
+        "KEEP_WITHOUT_ACCEPTANCE",
+        "DEFER_WITHOUT_SCOPE_IMPACT"
+      ],
+      "handoff": {
+        "to": "brandApplicationDesigner",
+        "include": [
+          "host first impression",
+          "frozen business scope",
+          "visual capacity",
+          "change budgets",
+          "protected semantics"
+        ],
+        "exclude": [
+          "source page as implementation spec"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "coverage gap",
+          "business scope conflict"
+        ],
+        "mayReturnTo": [
+          "designDirectorOrchestrator",
+          "designTranslator"
+        ]
+      }
     },
     "brandApplicationDesigner": {
       "roleFile": "roles/brand-application-designer.md",
       "goal": "Translate the frozen brand system into at least three visibly distinct, host-grounded application strategies that preserve real business content and prove correct use rather than mere presence of tokens and assets.",
-      "owns": ["brand application narrative", "asset role and crop", "token semantic placement", "composition mechanism", "host-content integration", "motion character", "preselection visual self-review"],
-      "outputs": ["brand-application-plan.json", "design-direction-options.json", "at least three host-grounded static H5 first-viewport directions", "optional H5 state only when interaction is direction-defining", "brandSystemClosure"],
-      "inputs": {"required": ["validated brand-mod.json", "brand-evidence.json", "brand-intent.json", "hostFirstImpression", "business-scope.json", "frozen host baseline"], "allowed": ["approved source assets", "DangoUI mapping and capability gaps", "host screenshots, DOM and real content"], "forbidden": ["host source mutation before selection", "unapproved brand assets", "invented business content", "DangoUI default appearance as the visual target"]},
-      "tasks": ["derive a host-specific brand narrative", "assign every high-salience asset and token a source-backed semantic role", "compose subject, environment, typography, controls and business content as one scene", "create structurally distinct options without changing business capabilities", "measure crop and first-viewport visual mass", "perform masked recognition and host-task self-review before presenting options"],
-      "requirements": ["source correctness, semantic correctness, composition correctness and rendered effectiveness are independent", "minimum token, asset and pattern counts only qualify an option for review and never establish quality", "host business thumbnails remain content rather than brand identity", "each option visibly integrates brand atmosphere and real host task instead of stacking a brand poster above a generic page", "the five-minute selection gate uses lightweight static H5 only, with no proposal image generation or screenshot capture", "machine expressive audit means eligible for human review, not approved aesthetic quality", "claims not visible in static evidence are marked not-evaluated or receive an additional H5 state", "every option binds the exact brand mod and passes options-only Wild Design validation"],
-      "decisionRights": ["choose approved asset variants and crops", "choose host-appropriate visual narrative and composition", "reject a brand mechanism that conflicts with the host primary task", "request missing brand evidence"],
-      "mustNot": ["relearn the brand", "modify host production source", "reduce the work to palette substitution", "make three options share one composition skeleton", "use isolated stickers as a coherent scene", "claim quality from count thresholds"],
-      "passCriteria": ["validate-brand-application-plan.mjs passes", "options remain recognizable after names and logos are masked", "source semantics and composition relationships are traceable", "real host task and content enter the brand scene naturally", "options differ materially in narrative and composition", "brandSystemClosure and visual self-review pass"],
-      "failCriteria": ["TOKEN_ONLY_PREVIEW", "ASSET_DECORATION_ONLY", "HOST_ASSET_AS_BRAND_IDENTITY", "BRAND_POSTER_GENERIC_BODY_SPLIT", "SAME_SKELETON_VARIANTS", "MASKED_RECOGNITION_WEAK", "HOST_TASK_OBSCURED"],
-      "handoff": {"to": "designDirectorOrchestrator", "include": ["rendered options", "brand application plan", "closure evidence", "self-review"], "exclude": ["permission to implement before explicit user selection"]},
-      "retry": {"maxAttempts": 2, "triggers": ["options gate failure", "user rejects all options", "visual QA routes an application-quality failure"], "mayReturnTo": ["hostStrategist", "designTranslator", "brandResearcher"]}
+      "owns": [
+        "brand application narrative",
+        "asset role and crop",
+        "token semantic placement",
+        "composition mechanism",
+        "host-content integration",
+        "motion character",
+        "preselection visual self-review"
+      ],
+      "outputs": [
+        "brand-application-plan.json",
+        "design-direction-options.json",
+        "at least three host-grounded static H5 first-viewport directions",
+        "optional H5 state only when interaction is direction-defining",
+        "brandSystemClosure"
+      ],
+      "inputs": {
+        "required": [
+          "validated brand-mod.json",
+          "brand-evidence.json",
+          "brand-intent.json",
+          "hostFirstImpression",
+          "business-scope.json",
+          "frozen host baseline"
+        ],
+        "allowed": [
+          "approved source assets",
+          "DangoUI mapping and capability gaps",
+          "host screenshots, DOM and real content"
+        ],
+        "forbidden": [
+          "host source mutation before selection",
+          "unapproved brand assets",
+          "invented business content",
+          "DangoUI default appearance as the visual target"
+        ]
+      },
+      "tasks": [
+        "derive a host-specific brand narrative",
+        "assign every high-salience asset and token a source-backed semantic role",
+        "compose subject, environment, typography, controls and business content as one scene",
+        "create structurally distinct options without changing business capabilities",
+        "measure crop and first-viewport visual mass",
+        "perform masked recognition and host-task self-review before presenting options"
+      ],
+      "requirements": [
+        "source correctness, semantic correctness, composition correctness and rendered effectiveness are independent",
+        "minimum token, asset and pattern counts only qualify an option for review and never establish quality",
+        "host business thumbnails remain content rather than brand identity",
+        "each option visibly integrates brand atmosphere and real host task instead of stacking a brand poster above a generic page",
+        "the five-minute selection gate uses lightweight static H5 only, with no proposal image generation or screenshot capture",
+        "machine expressive audit means eligible for human review, not approved aesthetic quality",
+        "claims not visible in static evidence are marked not-evaluated or receive an additional H5 state",
+        "every option binds the exact brand mod and passes options-only Wild Design validation"
+      ],
+      "decisionRights": [
+        "choose approved asset variants and crops",
+        "choose host-appropriate visual narrative and composition",
+        "reject a brand mechanism that conflicts with the host primary task",
+        "request missing brand evidence"
+      ],
+      "mustNot": [
+        "relearn the brand",
+        "modify host production source",
+        "reduce the work to palette substitution",
+        "make three options share one composition skeleton",
+        "use isolated stickers as a coherent scene",
+        "claim quality from count thresholds"
+      ],
+      "passCriteria": [
+        "validate-brand-application-plan.mjs passes",
+        "options remain recognizable after names and logos are masked",
+        "source semantics and composition relationships are traceable",
+        "real host task and content enter the brand scene naturally",
+        "options differ materially in narrative and composition",
+        "brandSystemClosure and visual self-review pass"
+      ],
+      "failCriteria": [
+        "TOKEN_ONLY_PREVIEW",
+        "ASSET_DECORATION_ONLY",
+        "HOST_ASSET_AS_BRAND_IDENTITY",
+        "BRAND_POSTER_GENERIC_BODY_SPLIT",
+        "SAME_SKELETON_VARIANTS",
+        "MASKED_RECOGNITION_WEAK",
+        "HOST_TASK_OBSCURED"
+      ],
+      "handoff": {
+        "to": "designDirectorOrchestrator",
+        "include": [
+          "rendered options",
+          "brand application plan",
+          "closure evidence",
+          "self-review"
+        ],
+        "exclude": [
+          "permission to implement before explicit user selection"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "options gate failure",
+          "user rejects all options",
+          "visual QA routes an application-quality failure"
+        ],
+        "mayReturnTo": [
+          "hostStrategist",
+          "designTranslator",
+          "brandResearcher"
+        ]
+      }
     },
     "demoImplementationAgent": {
       "goal": "Build a brand-learning-capability-test that proves evidence-backed visual rules can generate distinct demo structures without mirroring a website, applying to a host, or disguising a branded asset template as learning.",
-      "owns": ["demo schema", "learning-test page composition", "asset wiring", "demo build/dev preview"],
-      "outputs": ["demo screenshot manifest", "visual-pattern-inventory.json", "generative-proof.json", "implementation receipt"],
+      "owns": [
+        "demo schema",
+        "learning-test page composition",
+        "asset wiring",
+        "demo build/dev preview"
+      ],
+      "outputs": [
+        "demo screenshot manifest",
+        "visual-pattern-inventory.json",
+        "generative-proof.json",
+        "implementation receipt"
+      ],
       "inputs": {
-        "required": ["goal-contract.json", "brand-intent.json", "approved asset inventory", "design-direction.json"],
-        "allowed": ["source screenshots as read-only composition evidence", "DangoUI schema", "existing demo runtime", "blocking findings on retry"],
-        "forbidden": ["authority to modify goal contract", "previous QA verdict before initial implementation"]
+        "required": [
+          "goal-contract.json",
+          "brand-intent.json",
+          "approved asset inventory",
+          "design-direction.json"
+        ],
+        "allowed": [
+          "source screenshots as read-only composition evidence",
+          "DangoUI schema",
+          "existing demo runtime",
+          "blocking findings on retry"
+        ],
+        "forbidden": [
+          "authority to modify goal contract",
+          "previous QA verdict before initial implementation"
+        ]
       },
-      "tasks": ["map each reference page to a distinct demo page", "implement mustPreserve before optional details", "rebuild composition with source DOM/CSS and independently inventoried original site assets", "bind approved source assets", "complete each section micro-gate before full-page QA", "prove every actionable control changes and can restore observable state", "inventory every high-salience visual pattern and runtime asset provenance before QA", "run an evidence-support self-check", "create a generative variation that reuses learned invariants with different content or structure", "capture reproducible demo screenshots", "record implemented, missing and pre-authorized transformations"],
-      "requirements": ["brand color, official asset status and logo do not substitute for composition", "source screenshots and crops are QA evidence only and never Demo runtime assets unless the sealed goal explicitly has goalType screenshot-recreation and implementationPolicy.allowSourceScreenshotAsRuntimeAsset true", "every high-salience runtime asset records provenance sourceUrl, sourceSha256, role and sourceKind", "allowed sourceKind values are original-site-asset, dom-css-reconstruction and generated-independent-asset", "every high-salience visual pattern has an approved pattern id plus evidenceRefs and sourceRegion", "every pattern claiming a composition mustPreserve id declares preserves and compositionSupport with source/demo asset identity plus variant, at least two bounded structural layers, and any aspect/crop translation", "a color role may only be used in its declared allowedRoles", "all transformations exist in goal-contract.mayTranslate before implementation", "generative-proof.json identifies invariant learned rules, the deliberately varied input or structure, and why the result remains in-system without copying a full source composition", "viewport and state are recorded", "fresh independent Visual QA being pending is the expected next stage, not a Demo failure or needs-evidence verdict, when all implementation-owned gates pass"],
-      "decisionRights": ["choose code within the approved design direction", "transform only within mayTranslate and the responsive strategy matrix", "report an unsupported DangoUI capability"],
-      "mustNot": ["change fidelity thresholds", "invent a translation justification after implementation", "self-approve visual fidelity", "use an unproven placeholder as official", "copy a source screenshot, screenshot crop, or reference-derived full-frame raster into the Demo runtime", "claim screenshot-derived pixels as DOM/CSS reconstruction or original source assets"],
-      "passCriteria": ["protocol/build gates pass", "all target pages render", "mustPreserve items have implementation locations", "implementation-side evidence, structure and generative artifacts are complete enough to dispatch fresh Visual QA; only Visual QA/finalize may mark the three proofs passed"],
-      "failCriteria": ["SCREENSHOT_AS_IMPLEMENTATION", "EVIDENCE_LEAKAGE", "ASSET_PROVENANCE_MISSING", "unsupported high-salience visual pattern", "color role expanded into an unapproved component role", "mustNotReplace violated", "core asset authenticity unknown", "target page cannot render", "goal rewritten", "generative proof is missing, circular, or only demonstrates a website mirror or asset swap"],
-      "handoff": {"to": "visualQA", "include": ["goal-contract.json", "source and demo screenshots", "interaction captures", "asset provenance"], "exclude": ["implementation rationale", "translation justification", "desired verdict"]},
-      "retry": {"maxAttempts": 2, "triggers": ["qa-blocking-finding"], "inputsOnRetry": ["goal-contract.json", "blocking findings", "evidence refs"]}
+      "tasks": [
+        "map each reference page to a distinct demo page",
+        "implement mustPreserve before optional details",
+        "rebuild composition with source DOM/CSS and independently inventoried original site assets",
+        "bind approved source assets",
+        "complete each section micro-gate before full-page QA",
+        "prove every actionable control changes and can restore observable state",
+        "inventory every high-salience visual pattern and runtime asset provenance before QA",
+        "run an evidence-support self-check",
+        "create a generative variation that reuses learned invariants with different content or structure",
+        "capture reproducible demo screenshots",
+        "record implemented, missing and pre-authorized transformations"
+      ],
+      "requirements": [
+        "brand color, official asset status and logo do not substitute for composition",
+        "source screenshots and crops are QA evidence only and never Demo runtime assets unless the sealed goal explicitly has goalType screenshot-recreation and implementationPolicy.allowSourceScreenshotAsRuntimeAsset true",
+        "every high-salience runtime asset records provenance sourceUrl, sourceSha256, role and sourceKind",
+        "allowed sourceKind values are original-site-asset, dom-css-reconstruction and generated-independent-asset",
+        "every high-salience visual pattern has an approved pattern id plus evidenceRefs and sourceRegion",
+        "every pattern claiming a composition mustPreserve id declares preserves and compositionSupport with source/demo asset identity plus variant, at least two bounded structural layers, and any aspect/crop translation",
+        "a color role may only be used in its declared allowedRoles",
+        "all transformations exist in goal-contract.mayTranslate before implementation",
+        "generative-proof.json identifies invariant learned rules, the deliberately varied input or structure, and why the result remains in-system without copying a full source composition",
+        "viewport and state are recorded",
+        "fresh independent Visual QA being pending is the expected next stage, not a Demo failure or needs-evidence verdict, when all implementation-owned gates pass"
+      ],
+      "decisionRights": [
+        "choose code within the approved design direction",
+        "transform only within mayTranslate and the responsive strategy matrix",
+        "report an unsupported DangoUI capability"
+      ],
+      "mustNot": [
+        "change fidelity thresholds",
+        "invent a translation justification after implementation",
+        "self-approve visual fidelity",
+        "use an unproven placeholder as official",
+        "copy a source screenshot, screenshot crop, or reference-derived full-frame raster into the Demo runtime",
+        "claim screenshot-derived pixels as DOM/CSS reconstruction or original source assets"
+      ],
+      "passCriteria": [
+        "protocol/build gates pass",
+        "all target pages render",
+        "mustPreserve items have implementation locations",
+        "implementation-side evidence, structure and generative artifacts are complete enough to dispatch fresh Visual QA; only Visual QA/finalize may mark the three proofs passed"
+      ],
+      "failCriteria": [
+        "SCREENSHOT_AS_IMPLEMENTATION",
+        "EVIDENCE_LEAKAGE",
+        "ASSET_PROVENANCE_MISSING",
+        "unsupported high-salience visual pattern",
+        "color role expanded into an unapproved component role",
+        "mustNotReplace violated",
+        "core asset authenticity unknown",
+        "target page cannot render",
+        "goal rewritten",
+        "generative proof is missing, circular, or only demonstrates a website mirror or asset swap"
+      ],
+      "handoff": {
+        "to": "visualQA",
+        "include": [
+          "goal-contract.json",
+          "source and demo screenshots",
+          "interaction captures",
+          "asset provenance"
+        ],
+        "exclude": [
+          "implementation rationale",
+          "translation justification",
+          "desired verdict"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "qa-blocking-finding"
+        ],
+        "inputsOnRetry": [
+          "goal-contract.json",
+          "blocking findings",
+          "evidence refs"
+        ]
+      }
     },
     "hostImplementationAgent": {
       "roleFile": "roles/host-implementation-agent.md",
       "goal": "Apply an already learned and independently validated brand language to a real host while preserving host routes, business content, data, component APIs, and core interactions.",
-      "owns": ["selector-map", "host theme CSS", "host asset wiring", "host build and computed verification"],
-      "outputs": ["selector-map.json", "host project preview URL", "computed verification result", "host implementation receipt"],
+      "owns": [
+        "selector-map",
+        "host theme CSS",
+        "host asset wiring",
+        "host build and computed verification"
+      ],
+      "outputs": [
+        "selector-map.json",
+        "host project preview URL",
+        "computed verification result",
+        "host implementation receipt"
+      ],
       "inputs": {
-        "required": ["validated brand-mod.json", "brand-evidence.json", "brand-intent.json", "host-opportunity-map.json or intent-plan.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json", "host target"],
-        "allowed": ["DangoUI schema", "host source and rendered DOM", "host business constraints", "host QA blocking findings"],
-        "forbidden": ["source website composition as a host page specification", "permission to replace host business content", "learn-brand Demo as the host target"]
+        "required": [
+          "validated brand-mod.json",
+          "brand-evidence.json",
+          "brand-intent.json",
+          "host-opportunity-map.json or intent-plan.json",
+          "design-direction-options.json",
+          "design-direction-decision.json",
+          "business-scope.json",
+          "design-direction.json",
+          "host target"
+        ],
+        "allowed": [
+          "DangoUI schema",
+          "host source and rendered DOM",
+          "host business constraints",
+          "host QA blocking findings"
+        ],
+        "forbidden": [
+          "source website composition as a host page specification",
+          "permission to replace host business content",
+          "learn-brand Demo as the host target"
+        ]
       },
-      "tasks": ["diagnose the host before editing", "implement every frozen host coverage cell", "map validated intent into approved host layers", "preserve business efficiency and component contracts", "verify matched rendered selectors and final computed cascade winners on the real host at desktop and mobile", "validate every high-salience mobile raster with validate-mobile-raster-resolution.mjs before device preview", "record CJK typography, real touch-target and semantic-color probes", "exercise declared journeys including Taro back-navigation and scroll restoration", "publish a fixed-port strict preview receipt"],
-      "requirements": ["consume the learned MOD and host strategy instead of relearning the website", "use the host project's own preview URL", "do not force showcase composition into low-capacity utility pages", "mobile Hero and other full-width high-salience raster assets have a native source width of at least 1440 pixels; upscaling a smaller source does not pass, and simulator appearance cannot substitute for this asset gate", "every coverage cell has implemented, kept or deferred receipt matching the frozen decision", "dispatch includes an orchestrator-authored preedit baseline bundle covering every route target; producer must block if it is missing and may not create or refresh it", "receipt revalidates baseline artifact hashes and every edited source runs structural diff against its own frozen baseline", "before receipt define host-theme-order/v1 and pass validate-host-theme-order.mjs: one shared theme entry imported once by a declared global application entry, never by lazy pages/routes/components", "theme loading cannot depend on unknown runtime style injection, !important, IDs, or selector weight above the contract ceiling; layered strategy is allowed only with one complete global layer-order declaration", "before receipt run validate-host-apply-gate.mjs with real rendered probes for root surface, primary control, representative card and active state", "each cascade probe records winning selector, source stylesheet, specificity, declaration source order, expected value and computed value", "CJK text uses a CJK-capable computed family and records weight, size, line-height and letter-spacing", "interactive controls measure the actual hit-test owner at no less than 44 by 44 CSS pixels unless approved", "when DangoUI runtime is unavailable mappingStatus is PARTIAL_STYLE_ONLY, runtime coverage is zero and coverage wording is conservative-application", "high-capacity placement freezes at least three material evidence-backed signals spanning three distinctiveness dimensions; small signatures, logos, names and micro-icons do not count"],
-      "decisionRights": ["choose implementation code within the frozen matrix", "add semantic styling hooks that pass structural diff", "report framework risk or unsupported capability"],
-      "mustNot": ["modify learn-brand evidence or fidelity artifacts", "treat host adaptation as proof that the brand was learned", "replace host routes, data, content, or APIs without explicit authorization", "use a global CSS fallback to hide uncovered DOM variants", "treat selector match as visible completion", "claim full-host completion from a journey or family slice", "use source classes or stylesheet presence as a substitute for rendered cascade proof", "claim complete DangoUI mapping without a verified runtime consumer", "pass high capacity using only generic black, white, warm neutral, hard border or archive mood", "create, refresh or self-attest a structural baseline after receiving dispatch or editing a target file"],
-      "passCriteria": ["host coverage matrix validator passes for the declared scope", "default entry and parent launch paths are reachable", "all required journeys and interactions pass with restoration", "build and fixed preview health pass", "fresh Visual QA accepts the rendered result"],
-      "failCriteria": ["COVERAGE_CELL_MISSING", "DEFAULT_ENTRY_UNCOVERED", "PARENT_ROUTE_SKIPPED", "INTERACTION_STATE_UNPROVEN", "TOUCH_TARGET_TOO_SMALL", "TYPOGRAPHY_SCRIPT_MISMATCH", "PREVIEW_UNSTABLE", "SCROLL_RESTORE_FAILED", "DANGO_RUNTIME_UNVERIFIED"],
-      "handoff": {"to": "visualQA", "include": ["frozen coverage matrix", "coverage receipt", "journey receipt", "typography and touch probes", "preview receipt", "fresh screenshots"], "exclude": ["implementation rationale", "previous QA verdict"]},
-      "retry": {"maxAttempts": 2, "triggers": ["qa blocking finding"], "inputsOnRetry": ["frozen matrix", "blocking findings", "evidence refs"], "requiresFreshQa": true}
+      "tasks": [
+        "diagnose the host before editing",
+        "implement every frozen host coverage cell",
+        "map validated intent into approved host layers",
+        "preserve business efficiency and component contracts",
+        "verify matched rendered selectors and final computed cascade winners on the real host at desktop and mobile",
+        "validate every high-salience mobile raster with validate-mobile-raster-resolution.mjs before device preview",
+        "record CJK typography, real touch-target and semantic-color probes",
+        "exercise declared journeys including Taro back-navigation and scroll restoration",
+        "publish a fixed-port strict preview receipt"
+      ],
+      "requirements": [
+        "consume the learned MOD and host strategy instead of relearning the website",
+        "use the host project's own preview URL",
+        "do not force showcase composition into low-capacity utility pages",
+        "mobile Hero and other full-width high-salience raster assets have a native source width of at least 1440 pixels; upscaling a smaller source does not pass, and simulator appearance cannot substitute for this asset gate",
+        "every coverage cell has implemented, kept or deferred receipt matching the frozen decision",
+        "dispatch includes an orchestrator-authored preedit baseline bundle covering every route target; producer must block if it is missing and may not create or refresh it",
+        "receipt revalidates baseline artifact hashes and every edited source runs structural diff against its own frozen baseline",
+        "before receipt define host-theme-order/v1 and pass validate-host-theme-order.mjs: one shared theme entry imported once by a declared global application entry, never by lazy pages/routes/components",
+        "theme loading cannot depend on unknown runtime style injection, !important, IDs, or selector weight above the contract ceiling; layered strategy is allowed only with one complete global layer-order declaration",
+        "before receipt run validate-host-apply-gate.mjs with real rendered probes for root surface, primary control, representative card and active state",
+        "each cascade probe records winning selector, source stylesheet, specificity, declaration source order, expected value and computed value",
+        "CJK text uses a CJK-capable computed family and records weight, size, line-height and letter-spacing",
+        "interactive controls measure the actual hit-test owner at no less than 44 by 44 CSS pixels unless approved",
+        "when DangoUI runtime is unavailable mappingStatus is PARTIAL_STYLE_ONLY, runtime coverage is zero and coverage wording is conservative-application",
+        "high-capacity placement freezes at least three material evidence-backed signals spanning three distinctiveness dimensions; small signatures, logos, names and micro-icons do not count"
+      ],
+      "decisionRights": [
+        "choose implementation code within the frozen matrix",
+        "add semantic styling hooks that pass structural diff",
+        "report framework risk or unsupported capability"
+      ],
+      "mustNot": [
+        "modify learn-brand evidence or fidelity artifacts",
+        "treat host adaptation as proof that the brand was learned",
+        "replace host routes, data, content, or APIs without explicit authorization",
+        "use a global CSS fallback to hide uncovered DOM variants",
+        "treat selector match as visible completion",
+        "claim full-host completion from a journey or family slice",
+        "use source classes or stylesheet presence as a substitute for rendered cascade proof",
+        "claim complete DangoUI mapping without a verified runtime consumer",
+        "pass high capacity using only generic black, white, warm neutral, hard border or archive mood",
+        "create, refresh or self-attest a structural baseline after receiving dispatch or editing a target file"
+      ],
+      "passCriteria": [
+        "host coverage matrix validator passes for the declared scope",
+        "default entry and parent launch paths are reachable",
+        "all required journeys and interactions pass with restoration",
+        "build and fixed preview health pass",
+        "fresh Visual QA accepts the rendered result"
+      ],
+      "failCriteria": [
+        "COVERAGE_CELL_MISSING",
+        "DEFAULT_ENTRY_UNCOVERED",
+        "PARENT_ROUTE_SKIPPED",
+        "INTERACTION_STATE_UNPROVEN",
+        "TOUCH_TARGET_TOO_SMALL",
+        "TYPOGRAPHY_SCRIPT_MISMATCH",
+        "PREVIEW_UNSTABLE",
+        "SCROLL_RESTORE_FAILED",
+        "DANGO_RUNTIME_UNVERIFIED"
+      ],
+      "handoff": {
+        "to": "visualQA",
+        "include": [
+          "frozen coverage matrix",
+          "coverage receipt",
+          "journey receipt",
+          "typography and touch probes",
+          "preview receipt",
+          "fresh screenshots"
+        ],
+        "exclude": [
+          "implementation rationale",
+          "previous QA verdict"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "qa blocking finding"
+        ],
+        "inputsOnRetry": [
+          "frozen matrix",
+          "blocking findings",
+          "evidence refs"
+        ],
+        "requiresFreshQa": true
+      }
     },
     "visualQA": {
-      "roleFiles": {"learn-brand": "roles/blind-qa-tpp.md", "apply-host": "roles/host-visual-qa.md"},
-      "goal": "Review the rendered result as a user-facing product, not just a passing build.",
-      "owns": ["visual fidelity", "over-application", "readability", "scrolling", "interaction contract", "asset loading"],
-      "outputs": ["visual-qa-assessment.json", "visual-comparison-report.json", "brand-distinctiveness-assessment.json", "fidelity-report.json", "mockup-state-matrix.json", "three-proof verdict"],
-      "inputs": {
-        "required": ["goal-contract.json", "brand-evidence.json", "source screenshot manifest", "demo screenshot manifest", "visual-pattern-inventory.json", "generative-proof.json", "qa-input-manifest.json", "design-direction-options.json", "design-direction-decision.json", "business-scope.json", "design-direction.json", "host implementation receipt with Wild Design SHA-256 bindings"],
-        "allowed": ["source interaction captures", "demo interaction captures", "asset provenance manifest"],
-        "forbidden": ["implementation rationale", "implementation narrative", "desired verdict", "previous QA verdict", "build pass as fidelity evidence", "translation claims absent from goal contract"]
+      "roleFiles": {
+        "learn-brand": "roles/blind-qa-tpp.md",
+        "apply-host": "roles/host-visual-qa.md"
       },
-      "tasks": ["compare every source/demo pair", "audit every high-salience section before accepting a full-page verdict", "reject item count or DOM count as a proxy for section structure", "audit every high-salience demo pattern against its evidence refs and source region", "for composition claims verify hero asset identity and variant, then independently match every structural layer such as navigation, campaign copy, controls and cards", "reject whole-page or broad-region evidence as a substitute for layer coverage", "verify source/demo aspect and crop translations against goal-contract.mayTranslate", "operate each declared control and require observable state change plus restoration", "reject token-role expansion such as active color becoming section chrome", "verify the generative variation is produced by learned invariants rather than mirroring, full-frame copying, or asset substitution", "inspect every phone page inside the preserved mockup shell", "for long-page or multi-module target/source evidence require at least two schema sections and probe the phone-screen scrollHeight, clientHeight and reversible scrollTop", "score the fixed fidelity rubric", "verify mustPreserve and mustNotReplace", "attach visual evidence to every score and blocking finding", "recommend pass, fail or insufficient-evidence"],
-      "requirements": ["fresh independent agent execution id", "Visual QA never edits production code; FAIL returns blockingFindings to the earliest real Evidence, Interpreter, Design Director or Implementation owner and the repaired implementation receives a fresh QA execution", "apply-host compares source and host screenshots at the same viewport and reports masked design-system structural recognition separately from explicit-IP recognition", "recognition track mode and threshold come from the frozen goal; any later change requires a supersession record", "apply-host scores visualMass, asset, composition, type and motion independently", "workflowCompletion, businessSafety and visualDistinctiveness are separate statuses and never one overall percentage", "every implementation pattern is independently classified supported or unsupported", "unsupported high-salience patterns are blocking and cannot be averaged away", "Evidence Fidelity, Structural Fidelity, and Generative Proof each receive an explicit pass/fail status", "failure of any proof blocks the result and cannot be averaged away", "fixed rubric computes the verdict", "every core page is scored", "missing visual evidence cannot pass", "every standard-demo phone page retains a phone + phone-screen mockup shell", "when target/source evidence is long or multi-module, every page declares at least two sections and the browser gate proves phone-screen scrollHeight > clientHeight, scrollTop changes, and scrollTop is restored", "shared mockup changes produce the complete brand/style/component by tabbar/no-tabbar by normal/proof matrix and pass validate-mockup-matrix.mjs --strict"],
-      "decisionRights": ["fail the result", "request evidence", "return blocking findings"],
-      "mustNot": ["modify code", "modify goal or thresholds", "accept post-hoc implementation explanations", "equate schema/browser/build pass with fidelity", "write visual-quality-ready"],
-      "passCriteria": ["Evidence Fidelity passes", "Structural Fidelity passes", "Generative Proof passes", "computed overall and page thresholds pass", "composition and authentic asset minima pass", "every composition mustPreserve has matching asset identity/variant, structural layer coverage and authorized crop translation", "all mustPreserve pass", "no mustNotReplace violation"],
-      "failCriteria": ["SCREENSHOT_AS_IMPLEMENTATION", "EVIDENCE_LEAKAGE", "ASSET_PROVENANCE_MISSING", "UNSUPPORTED_VISUAL_PATTERN", "MOCKUP_SHELL_MISSING", "MULTI_MODULE_PAGE_SECTIONS_MISSING", "PAGE_NOT_SCROLLABLE", "PAGE_SCROLL_NOT_RESTORED", "a token or color role is expanded beyond its evidence-backed use", "a mustPreserve item fails", "a forbidden replacement occurs", "a core page or dimension is below threshold", "review is not independent"],
-      "handoff": {"onPass": "orchestrator:fidelity-pass", "onFail": "orchestrator:blocking-findings-only", "onNeedsEvidence": "brandResearcher"},
-      "retry": {"maxAttempts": 2, "reusePreviousQaContext": false, "requiresNewAgentExecutionId": true}
+      "goal": "Review the rendered result as a user-facing product, not just a passing build.",
+      "owns": [
+        "visual fidelity",
+        "over-application",
+        "readability",
+        "scrolling",
+        "interaction contract",
+        "asset loading"
+      ],
+      "outputs": [
+        "visual-qa-assessment.json",
+        "visual-comparison-report.json",
+        "brand-distinctiveness-assessment.json",
+        "fidelity-report.json",
+        "mockup-state-matrix.json",
+        "three-proof verdict"
+      ],
+      "inputs": {
+        "required": [
+          "goal-contract.json",
+          "brand-evidence.json",
+          "source screenshot manifest",
+          "demo screenshot manifest",
+          "visual-pattern-inventory.json",
+          "generative-proof.json",
+          "qa-input-manifest.json",
+          "design-direction-options.json",
+          "design-direction-decision.json",
+          "business-scope.json",
+          "design-direction.json",
+          "host implementation receipt with Wild Design SHA-256 bindings"
+        ],
+        "allowed": [
+          "source interaction captures",
+          "demo interaction captures",
+          "asset provenance manifest"
+        ],
+        "forbidden": [
+          "implementation rationale",
+          "implementation narrative",
+          "desired verdict",
+          "previous QA verdict",
+          "build pass as fidelity evidence",
+          "translation claims absent from goal contract"
+        ]
+      },
+      "tasks": [
+        "compare every source/demo pair",
+        "audit every high-salience section before accepting a full-page verdict",
+        "reject item count or DOM count as a proxy for section structure",
+        "audit every high-salience demo pattern against its evidence refs and source region",
+        "for composition claims verify hero asset identity and variant, then independently match every structural layer such as navigation, campaign copy, controls and cards",
+        "reject whole-page or broad-region evidence as a substitute for layer coverage",
+        "verify source/demo aspect and crop translations against goal-contract.mayTranslate",
+        "operate each declared control and require observable state change plus restoration",
+        "reject token-role expansion such as active color becoming section chrome",
+        "verify the generative variation is produced by learned invariants rather than mirroring, full-frame copying, or asset substitution",
+        "inspect every phone page inside the preserved mockup shell",
+        "for long-page or multi-module target/source evidence require at least two schema sections and probe the phone-screen scrollHeight, clientHeight and reversible scrollTop",
+        "score the fixed fidelity rubric",
+        "verify mustPreserve and mustNotReplace",
+        "attach visual evidence to every score and blocking finding",
+        "recommend pass, fail or insufficient-evidence"
+      ],
+      "requirements": [
+        "fresh independent agent execution id",
+        "Visual QA never edits production code; FAIL returns blockingFindings to the earliest real Evidence, Interpreter, Design Director or Implementation owner and the repaired implementation receives a fresh QA execution",
+        "apply-host compares source and host screenshots at the same viewport and reports masked design-system structural recognition separately from explicit-IP recognition",
+        "recognition track mode and threshold come from the frozen goal; any later change requires a supersession record",
+        "apply-host scores visualMass, asset, composition, type and motion independently",
+        "workflowCompletion, businessSafety and visualDistinctiveness are separate statuses and never one overall percentage",
+        "every implementation pattern is independently classified supported or unsupported",
+        "unsupported high-salience patterns are blocking and cannot be averaged away",
+        "Evidence Fidelity, Structural Fidelity, and Generative Proof each receive an explicit pass/fail status",
+        "failure of any proof blocks the result and cannot be averaged away",
+        "fixed rubric computes the verdict",
+        "every core page is scored",
+        "missing visual evidence cannot pass",
+        "every standard-demo phone page retains a phone + phone-screen mockup shell",
+        "when target/source evidence is long or multi-module, every page declares at least two sections and the browser gate proves phone-screen scrollHeight > clientHeight, scrollTop changes, and scrollTop is restored",
+        "shared mockup changes produce the complete brand/style/component by tabbar/no-tabbar by normal/proof matrix and pass validate-mockup-matrix.mjs --strict"
+      ],
+      "decisionRights": [
+        "fail the result",
+        "request evidence",
+        "return blocking findings"
+      ],
+      "mustNot": [
+        "modify code",
+        "modify goal or thresholds",
+        "accept post-hoc implementation explanations",
+        "equate schema/browser/build pass with fidelity",
+        "write visual-quality-ready"
+      ],
+      "passCriteria": [
+        "Evidence Fidelity passes",
+        "Structural Fidelity passes",
+        "Generative Proof passes",
+        "computed overall and page thresholds pass",
+        "composition and authentic asset minima pass",
+        "every composition mustPreserve has matching asset identity/variant, structural layer coverage and authorized crop translation",
+        "all mustPreserve pass",
+        "no mustNotReplace violation"
+      ],
+      "failCriteria": [
+        "SCREENSHOT_AS_IMPLEMENTATION",
+        "EVIDENCE_LEAKAGE",
+        "ASSET_PROVENANCE_MISSING",
+        "UNSUPPORTED_VISUAL_PATTERN",
+        "MOCKUP_SHELL_MISSING",
+        "MULTI_MODULE_PAGE_SECTIONS_MISSING",
+        "PAGE_NOT_SCROLLABLE",
+        "PAGE_SCROLL_NOT_RESTORED",
+        "a token or color role is expanded beyond its evidence-backed use",
+        "a mustPreserve item fails",
+        "a forbidden replacement occurs",
+        "a core page or dimension is below threshold",
+        "review is not independent"
+      ],
+      "handoff": {
+        "onPass": "orchestrator:fidelity-pass",
+        "onFail": "orchestrator:blocking-findings-only",
+        "onNeedsEvidence": "brandResearcher"
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "reusePreviousQaContext": false,
+        "requiresNewAgentExecutionId": true
+      }
     },
     "methodologyKeeper": {
       "goal": "Convert repeated failures into script gates, contract fields, or reference guidance without promoting one-brand accidents into global rules.",
-      "owns": ["issue retro", "rule candidates", "promotion policy", "validator regression", "run logs", "run tombstones", "external goodcase adoption decisions"],
-      "outputs": ["retro-learnings.json", "run log", "run tombstone", "ruleCandidates", "promotion decision", "coverage-gap trend"],
+      "owns": [
+        "issue retro",
+        "rule candidates",
+        "promotion policy",
+        "validator regression",
+        "run logs",
+        "run tombstones",
+        "external goodcase adoption decisions"
+      ],
+      "outputs": [
+        "retro-learnings.json",
+        "run log",
+        "run tombstone",
+        "ruleCandidates",
+        "promotion decision",
+        "coverage-gap trend"
+      ],
       "inputs": {
-        "required": ["incident retros", "fresh QA findings", "validator results"],
-        "allowed": ["run logs", "tombstones", "cross-brand regression results"],
-        "forbidden": ["deleting failed history", "changing a case implementation instead of its owner", "single-brand opinion as a global blocking rule"]
+        "required": [
+          "incident retros",
+          "fresh QA findings",
+          "validator results"
+        ],
+        "allowed": [
+          "run logs",
+          "tombstones",
+          "cross-brand regression results"
+        ],
+        "forbidden": [
+          "deleting failed history",
+          "changing a case implementation instead of its owner",
+          "single-brand opinion as a global blocking rule"
+        ]
       },
-      "tasks": ["abstract the mechanism from the symptom", "choose script, contract, reference, migration or host landing", "assign owner and regression matrix", "track brandsSeen, casesSeen and expiry", "promote, retain, reject or expire candidates with evidence"],
-      "requirements": ["never delete audit history to hide a failed run", "mark deleted or rejected learning projects retired, invalidated, or superseded", "exclude tombstoned runs from active success summaries and issue retro", "one-brand incidents remain candidate warnings unless the mechanism is a deterministic shared-platform defect", "blocking promotion requires two independent brands or a deterministic platform mechanism plus tests and rollback"],
-      "decisionRights": ["propose a candidate warning", "reject or expire an unsupported candidate", "recommend blocking promotion to the Design Director"],
-      "mustNot": ["self-promote a one-brand visual preference to blocking", "edit production case output to make a methodology report pass", "replace a machine-checkable gate with prose"],
-      "passCriteria": ["every learning has scope, owner, landing, regression and promotion status", "blocking rules have executable tests", "run summaries exclude tombstoned results without deleting history"],
-      "failCriteria": ["RULE_SCOPE_UNPROVEN", "SINGLE_BRAND_RULE_PROMOTED", "VALIDATOR_WITHOUT_REGRESSION", "AUDIT_HISTORY_DELETED", "LANDING_OWNER_MISSING"],
-      "handoff": {"to": "designDirectorOrchestrator", "include": ["promotion evidence", "regression result", "rollback"], "exclude": ["unsupported global claims"]},
-      "retry": {"maxAttempts": 2, "triggers": ["scope insufficient", "validator false positive"], "mayReturnTo": ["brandResearcher", "visualQA"]}
+      "tasks": [
+        "abstract the mechanism from the symptom",
+        "choose script, contract, reference, migration or host landing",
+        "assign owner and regression matrix",
+        "track brandsSeen, casesSeen and expiry",
+        "promote, retain, reject or expire candidates with evidence"
+      ],
+      "requirements": [
+        "never delete audit history to hide a failed run",
+        "mark deleted or rejected learning projects retired, invalidated, or superseded",
+        "exclude tombstoned runs from active success summaries and issue retro",
+        "one-brand incidents remain candidate warnings unless the mechanism is a deterministic shared-platform defect",
+        "blocking promotion requires two independent brands or a deterministic platform mechanism plus tests and rollback"
+      ],
+      "decisionRights": [
+        "propose a candidate warning",
+        "reject or expire an unsupported candidate",
+        "recommend blocking promotion to the Design Director"
+      ],
+      "mustNot": [
+        "self-promote a one-brand visual preference to blocking",
+        "edit production case output to make a methodology report pass",
+        "replace a machine-checkable gate with prose"
+      ],
+      "passCriteria": [
+        "every learning has scope, owner, landing, regression and promotion status",
+        "blocking rules have executable tests",
+        "run summaries exclude tombstoned results without deleting history"
+      ],
+      "failCriteria": [
+        "RULE_SCOPE_UNPROVEN",
+        "SINGLE_BRAND_RULE_PROMOTED",
+        "VALIDATOR_WITHOUT_REGRESSION",
+        "AUDIT_HISTORY_DELETED",
+        "LANDING_OWNER_MISSING"
+      ],
+      "handoff": {
+        "to": "designDirectorOrchestrator",
+        "include": [
+          "promotion evidence",
+          "regression result",
+          "rollback"
+        ],
+        "exclude": [
+          "unsupported global claims"
+        ]
+      },
+      "retry": {
+        "maxAttempts": 2,
+        "triggers": [
+          "scope insufficient",
+          "validator false positive"
+        ],
+        "mayReturnTo": [
+          "brandResearcher",
+          "visualQA"
+        ]
+      }
     }
   },
   "mockupStateMatrix": {
     "artifact": "migrations/{brand}/mockup-state-matrix.json",
     "validator": "node skills/brand/scripts/validate-mockup-matrix.mjs --brand <brand> --strict",
     "dimensions": {
-      "pageType": ["brand", "style", "component"],
-      "bottomChrome": ["tabbar", "no-tabbar"],
-      "mode": ["normal", "proof=1", "proof=desktop", "proof=mobile"]
+      "pageType": [
+        "brand",
+        "style",
+        "component"
+      ],
+      "bottomChrome": [
+        "tabbar",
+        "no-tabbar"
+      ],
+      "mode": [
+        "normal",
+        "proof=1",
+        "proof=desktop",
+        "proof=mobile"
+      ]
     },
-    "normalModeChecks": ["indicator parentRole is phone", "indicator is outside content flow", "tabbar surface continues into indicator", "no-tabbar indicator surface is transparent", "screen width and radius align with phone", "bottom chrome corners align with screen clipping", "scroll changes and restores scrollTop", "indicator rect remains stable while scrolling"],
-    "proofModeChecks": ["indicator is hidden"],
+    "normalModeChecks": [
+      "indicator parentRole is phone",
+      "indicator is outside content flow",
+      "tabbar surface continues into indicator",
+      "no-tabbar indicator surface is transparent",
+      "screen width and radius align with phone",
+      "bottom chrome corners align with screen clipping",
+      "scroll changes and restores scrollTop",
+      "indicator rect remains stable while scrolling"
+    ],
+    "proofModeChecks": [
+      "indicator is hidden"
+    ],
     "brandAgnostic": true
   },
   "incidentClosureProtocol": {
     "trigger": "Any user-reported visual mismatch or any subagent UNSUPPORTED_VISUAL_PATTERN finding.",
-    "mandatorySequence": ["root-cause", "rule-location", "owner-routing", "redo", "fresh-visual-qa", "machine-gate"],
-    "rootCauseFields": ["observedMismatch", "missedByRole", "whyExistingGatePassed", "evidenceRefs"],
-    "ruleLocationValues": ["evidence", "brand-intent", "implementation-self-check", "visual-qa", "validator"],
+    "mandatorySequence": [
+      "root-cause",
+      "rule-location",
+      "owner-routing",
+      "redo",
+      "fresh-visual-qa",
+      "machine-gate"
+    ],
+    "rootCauseFields": [
+      "observedMismatch",
+      "missedByRole",
+      "whyExistingGatePassed",
+      "evidenceRefs"
+    ],
+    "ruleLocationValues": [
+      "evidence",
+      "brand-intent",
+      "implementation-self-check",
+      "visual-qa",
+      "validator"
+    ],
     "ownerRouting": {
       "missing-or-invalid-source-evidence": "brandResearcher",
       "unsupported-or-overgeneralized-brand-rule": "designTranslator",
@@ -559,115 +1768,361 @@
     "visual-qa-report.json": "Rendered design review: what looks right, what looks wrong, and what must be downgraded.",
     "visual-comparison-report.json": "Source screenshot to demo screenshot comparison. This prevents browser/schema gates from being mistaken for visual learning quality.",
     "generative-proof.json": "Proof that evidence-backed invariants can generate a valid variation without mirroring the source composition or relying on an asset swap.",
-    "retro-learnings.json": "Reusable lessons and their target: script, contract, reference, migration, or host project."
-    ,
+    "retro-learnings.json": "Reusable lessons and their target: script, contract, reference, migration, or host project.",
     "external-goodcase-adoption.json": "Decisions for external projects such as gstack: what to retain, iterate, deprecate, or keep as optional hook."
   },
   "artifactContracts": {
     "brand-intent.json": {
       "owner": "designTranslator",
-      "requiredAny": ["patterns", "visualPatterns", "styleRecipeDetails", "interactionRecipes"],
-      "itemRequiredAny": ["meaning", "usage", "suitableFor", "purpose"],
-      "itemRecommended": ["notFor", "evidence", "hostTranslationHint"]
+      "requiredAny": [
+        "patterns",
+        "visualPatterns",
+        "styleRecipeDetails",
+        "interactionRecipes"
+      ],
+      "itemRequiredAny": [
+        "meaning",
+        "usage",
+        "suitableFor",
+        "purpose"
+      ],
+      "itemRecommended": [
+        "notFor",
+        "evidence",
+        "hostTranslationHint"
+      ]
     },
     "brand-evidence.json": {
       "owner": "brandResearcher",
-      "requiredAny": ["claims", "observations"],
-      "itemRequiredAny": ["claim", "description", "observedFact"],
-      "itemRecommended": ["status", "capture", "sourceRegion", "visibleDom", "computed"]
+      "requiredAny": [
+        "claims",
+        "observations"
+      ],
+      "itemRequiredAny": [
+        "claim",
+        "description",
+        "observedFact"
+      ],
+      "itemRecommended": [
+        "status",
+        "capture",
+        "sourceRegion",
+        "visibleDom",
+        "computed"
+      ]
     },
     "source-observation-manifest.json": {
       "owner": "brandResearcher",
-      "requiredAny": ["pages"],
-      "itemRequiredAny": ["id", "url", "status"],
-      "itemRecommended": ["fullPageCapture", "continuousCapture", "timeline", "unavailableReason"]
+      "requiredAny": [
+        "pages"
+      ],
+      "itemRequiredAny": [
+        "id",
+        "url",
+        "status"
+      ],
+      "itemRecommended": [
+        "fullPageCapture",
+        "continuousCapture",
+        "timeline",
+        "unavailableReason"
+      ]
     },
     "action-evidence-v02.json": {
       "owner": "brandResearcher",
-      "requiredAny": ["entries"],
-      "itemRequiredAny": ["selector", "observedState", "trigger"],
-      "itemRecommended": ["beforeCapture", "afterCapture", "computedProperty", "computedValue", "sourceRule"]
+      "requiredAny": [
+        "entries"
+      ],
+      "itemRequiredAny": [
+        "selector",
+        "observedState",
+        "trigger"
+      ],
+      "itemRecommended": [
+        "beforeCapture",
+        "afterCapture",
+        "computedProperty",
+        "computedValue",
+        "sourceRule"
+      ]
     },
     "host-opportunity-map.json": {
       "owner": "hostStrategist",
-      "requiredAny": ["visualPlacementPolicy", "pagePlacements", "opportunities"],
-      "itemRequiredAny": ["route", "pageType", "mode", "businessPurpose", "allowedLayers", "mapping", "heroEligibility"],
-      "itemRecommended": ["assetSlots", "motionSlots", "showcaseFit", "riskIfOverApplied", "recommendation", "acceptance"]
+      "requiredAny": [
+        "visualPlacementPolicy",
+        "pagePlacements",
+        "opportunities"
+      ],
+      "itemRequiredAny": [
+        "route",
+        "pageType",
+        "mode",
+        "businessPurpose",
+        "allowedLayers",
+        "mapping",
+        "heroEligibility"
+      ],
+      "itemRecommended": [
+        "assetSlots",
+        "motionSlots",
+        "showcaseFit",
+        "riskIfOverApplied",
+        "recommendation",
+        "acceptance"
+      ]
     },
     "intent-plan.json": {
       "owner": "hostStrategist",
-      "requiredAny": ["visualPlacementPolicy", "pagePlacements", "opportunities"],
-      "itemRequiredAny": ["route", "pageType", "mode", "businessPurpose", "allowedLayers", "mapping", "heroEligibility"],
-      "itemRecommended": ["assetSlots", "motionSlots", "showcaseFit", "riskIfOverApplied", "recommendation", "acceptance"]
+      "requiredAny": [
+        "visualPlacementPolicy",
+        "pagePlacements",
+        "opportunities"
+      ],
+      "itemRequiredAny": [
+        "route",
+        "pageType",
+        "mode",
+        "businessPurpose",
+        "allowedLayers",
+        "mapping",
+        "heroEligibility"
+      ],
+      "itemRecommended": [
+        "assetSlots",
+        "motionSlots",
+        "showcaseFit",
+        "riskIfOverApplied",
+        "recommendation",
+        "acceptance"
+      ]
     },
     "visual-qa-report.json": {
       "owner": "visualQA",
-      "requiredAny": ["verdict", "findings", "checkedPages", "checks"],
-      "itemRequiredAny": ["page", "status", "finding", "fix", "evidence"],
-      "itemRecommended": ["screenshot", "computedStyle", "interactionState"]
+      "requiredAny": [
+        "verdict",
+        "findings",
+        "checkedPages",
+        "checks"
+      ],
+      "itemRequiredAny": [
+        "page",
+        "status",
+        "finding",
+        "fix",
+        "evidence"
+      ],
+      "itemRecommended": [
+        "screenshot",
+        "computedStyle",
+        "interactionState"
+      ]
     },
     "visual-comparison-report.json": {
       "owner": "visualQA",
-      "requiredAny": ["sourceScreenshots", "comparisons", "verdict"],
-      "itemRequiredAny": ["sourcePage", "demoPage", "matchedPatterns", "gaps"],
-      "itemRecommended": ["sourceScreenshot", "demoScreenshot", "assetAuthenticity", "motionMatch", "nextFix"]
+      "requiredAny": [
+        "sourceScreenshots",
+        "comparisons",
+        "verdict"
+      ],
+      "itemRequiredAny": [
+        "sourcePage",
+        "demoPage",
+        "matchedPatterns",
+        "gaps"
+      ],
+      "itemRecommended": [
+        "sourceScreenshot",
+        "demoScreenshot",
+        "assetAuthenticity",
+        "motionMatch",
+        "nextFix"
+      ]
     },
     "visual-qa-assessment.json": {
       "owner": "visualQA",
-      "requiredAny": ["pages"],
-      "itemRequiredAny": ["sourcePageId", "dimensions"],
-      "itemRecommended": ["blockingFindings", "mustPreserveChecks", "mustNotReplaceChecks", "mockupShellChecks", "scrollChecks"]
+      "requiredAny": [
+        "pages"
+      ],
+      "itemRequiredAny": [
+        "sourcePageId",
+        "dimensions"
+      ],
+      "itemRecommended": [
+        "blockingFindings",
+        "mustPreserveChecks",
+        "mustNotReplaceChecks",
+        "mockupShellChecks",
+        "scrollChecks"
+      ]
     },
     "visual-pattern-inventory.json": {
       "owner": "demoImplementationAgent",
-      "requiredAny": ["pages"],
-      "itemRequiredAny": ["demoPageId", "patterns"],
-      "patternRequired": ["id", "salience", "description", "demoRegion", "approvedPatternId", "evidenceRefs", "selfCheck"],
-      "runtimeAssetProvenanceRequired": ["sourceUrl", "sourceSha256", "role", "sourceKind"],
-      "runtimeAssetAllowedSourceKinds": ["original-site-asset", "dom-css-reconstruction", "generated-independent-asset"],
-      "runtimeAssetForbiddenSourceKinds": ["source-screenshot", "reference-screenshot", "reference-derived-raster", "full-frame-raster"],
-      "compositionClaimRequired": ["preserves", "compositionSupport.sourceAsset.identity", "compositionSupport.sourceAsset.variant", "compositionSupport.demoAsset.identity", "compositionSupport.demoAsset.variant", "compositionSupport.layers", "compositionSupport.translation"]
+      "requiredAny": [
+        "pages"
+      ],
+      "itemRequiredAny": [
+        "demoPageId",
+        "patterns"
+      ],
+      "patternRequired": [
+        "id",
+        "salience",
+        "description",
+        "demoRegion",
+        "approvedPatternId",
+        "evidenceRefs",
+        "selfCheck"
+      ],
+      "runtimeAssetProvenanceRequired": [
+        "sourceUrl",
+        "sourceSha256",
+        "role",
+        "sourceKind"
+      ],
+      "runtimeAssetAllowedSourceKinds": [
+        "original-site-asset",
+        "dom-css-reconstruction",
+        "generated-independent-asset"
+      ],
+      "runtimeAssetForbiddenSourceKinds": [
+        "source-screenshot",
+        "reference-screenshot",
+        "reference-derived-raster",
+        "full-frame-raster"
+      ],
+      "compositionClaimRequired": [
+        "preserves",
+        "compositionSupport.sourceAsset.identity",
+        "compositionSupport.sourceAsset.variant",
+        "compositionSupport.demoAsset.identity",
+        "compositionSupport.demoAsset.variant",
+        "compositionSupport.layers",
+        "compositionSupport.translation"
+      ]
     },
     "generative-proof.json": {
       "owner": "demoImplementationAgent",
-      "required": ["goalId", "invariantRules", "variation", "proofCaptures", "selfCheck"],
-      "invariantRuleRequired": ["patternId", "evidenceRefs", "preservedSemantics"],
-      "variationRequired": ["changedInputOrStructure", "whyAllowed", "notSourceMirror"],
-      "proofCaptureRequired": ["pageId", "screenshot", "viewport", "state"],
-      "forbidden": ["source screenshot as runtime", "full source composition reuse", "logo/color/asset swap as sole proof"]
+      "required": [
+        "goalId",
+        "invariantRules",
+        "variation",
+        "proofCaptures",
+        "selfCheck"
+      ],
+      "invariantRuleRequired": [
+        "patternId",
+        "evidenceRefs",
+        "preservedSemantics"
+      ],
+      "variationRequired": [
+        "changedInputOrStructure",
+        "whyAllowed",
+        "notSourceMirror"
+      ],
+      "proofCaptureRequired": [
+        "pageId",
+        "screenshot",
+        "viewport",
+        "state"
+      ],
+      "forbidden": [
+        "source screenshot as runtime",
+        "full source composition reuse",
+        "logo/color/asset swap as sole proof"
+      ]
     },
     "incident-retro.json": {
       "owner": "methodologyKeeper",
-      "requiredAny": ["observedMismatch", "rootCause", "ruleLanding", "redo"],
-      "itemRequiredAny": ["missedByRole", "whyExistingGatePassed", "evidenceRefs", "ownerRole", "freshQaExecutionId"]
+      "requiredAny": [
+        "observedMismatch",
+        "rootCause",
+        "ruleLanding",
+        "redo"
+      ],
+      "itemRequiredAny": [
+        "missedByRole",
+        "whyExistingGatePassed",
+        "evidenceRefs",
+        "ownerRole",
+        "freshQaExecutionId"
+      ]
     },
     "fidelity-report.json": {
       "owner": "orchestrator",
-      "requiredAny": ["pageResults", "proofs"],
-      "itemRequiredAny": ["sourcePageId", "score", "status"],
-      "itemRecommended": ["ratings", "failures"],
-      "proofsRequired": ["evidenceFidelity", "structuralFidelity", "generativeProof"],
+      "requiredAny": [
+        "pageResults",
+        "proofs"
+      ],
+      "itemRequiredAny": [
+        "sourcePageId",
+        "score",
+        "status"
+      ],
+      "itemRecommended": [
+        "ratings",
+        "failures"
+      ],
+      "proofsRequired": [
+        "evidenceFidelity",
+        "structuralFidelity",
+        "generativeProof"
+      ],
       "proofPolicy": "all-pass-no-compensation"
     },
     "retro-learnings.json": {
       "owner": "methodologyKeeper",
-      "requiredAny": ["learnings", "decisions", "ruleCandidates"],
-      "itemRequiredAny": ["problem", "resolution", "landing", "target"],
-      "itemRecommended": ["source", "repeatability", "gateCandidate"]
+      "requiredAny": [
+        "learnings",
+        "decisions",
+        "ruleCandidates"
+      ],
+      "itemRequiredAny": [
+        "problem",
+        "resolution",
+        "landing",
+        "target"
+      ],
+      "itemRecommended": [
+        "source",
+        "repeatability",
+        "gateCandidate"
+      ]
     },
     "external-goodcase-adoption.json": {
       "owner": "methodologyKeeper",
-      "requiredAny": ["adoptions", "decisions", "externalGoodcaseAdoption"],
-      "itemRequiredAny": ["source", "capability", "decision", "brandCapability"],
-      "itemRecommended": ["reason", "action", "risk"]
+      "requiredAny": [
+        "adoptions",
+        "decisions",
+        "externalGoodcaseAdoption"
+      ],
+      "itemRequiredAny": [
+        "source",
+        "capability",
+        "decision",
+        "brandCapability"
+      ],
+      "itemRecommended": [
+        "reason",
+        "action",
+        "risk"
+      ]
     }
   },
   "workflows": {
     "learn-brand": {
       "goal": "Learn a brand visual language and materialize reusable MOD/style-pack/demo assets without touching a host project by default.",
       "inputs": {
-        "requiredOneOf": ["sourceUrl", "screenshot", "designDoc", "figma", "dtcg", "demoUrl"],
-        "forbidden": ["hostTarget"]
+        "requiredOneOf": [
+          "sourceUrl",
+          "screenshot",
+          "designDoc",
+          "figma",
+          "dtcg",
+          "demoUrl"
+        ],
+        "forbidden": [
+          "hostTarget"
+        ]
       },
       "steps": [
         {
@@ -675,15 +2130,24 @@
           "role": "router",
           "label": "Resolve learn-brand intake and boundaries",
           "required": true,
-          "outputs": ["workflow-mode", "resolved-inputs", "registry-resolution"]
+          "outputs": [
+            "workflow-mode",
+            "resolved-inputs",
+            "registry-resolution"
+          ]
         },
         {
           "id": "extract-third-party",
           "role": "brandResearcher",
           "label": "Evidence Agent runs upstream candidate extraction as an internal todo",
-          "acceptedTools": ["dembrandt", "extract-design-system"],
+          "acceptedTools": [
+            "dembrandt",
+            "extract-design-system"
+          ],
           "required": true,
-          "outputs": ["third-party-evidence.dembrandt.json"],
+          "outputs": [
+            "third-party-evidence.dembrandt.json"
+          ],
           "adoptionPolicy": "Dembrandt is a seed-only tool owned by brandResearcher; it is not a role, handoff authority, or evidence verdict"
         },
         {
@@ -691,14 +2155,22 @@
           "role": "brandResearcher",
           "label": "Collect our own computed, asset, action, navigation, and motion evidence",
           "required": true,
-          "outputs": ["brand-evidence.json", "rendered-asset-inventory.json", "action-evidence.json"]
+          "outputs": [
+            "brand-evidence.json",
+            "rendered-asset-inventory.json",
+            "action-evidence.json"
+          ]
         },
         {
           "id": "translate-brand-intent",
           "role": "designTranslator",
           "label": "Describe visual intent, suitable placements, unsuitable placements, and interaction purposes",
           "required": true,
-          "outputs": ["brand-intent.json", "styleRecipeDetails", "interactionRecipes"],
+          "outputs": [
+            "brand-intent.json",
+            "styleRecipeDetails",
+            "interactionRecipes"
+          ],
           "blocking": true
         },
         {
@@ -719,29 +2191,48 @@
           "role": "dangouiMapper",
           "label": "Map brand intent and evidence to dangoui-compatible tokens, component roles, and style-only recipes",
           "required": true,
-          "outputs": ["brand-mod.json", "dangoui-adapter.json", "component-mapping.json"]
+          "outputs": [
+            "brand-mod.json",
+            "dangoui-adapter.json",
+            "component-mapping.json"
+          ]
         },
         {
           "id": "emit-demo-preview",
           "role": "demoImplementationAgent",
           "label": "Build the brand-learning-capability-test and its evidence-backed generative variation",
           "required": true,
-          "outputs": ["public/brand-previews/{brand}.json", "demo preview", "generative-proof.json"]
+          "outputs": [
+            "public/brand-previews/{brand}.json",
+            "demo preview",
+            "generative-proof.json"
+          ]
         },
         {
           "id": "visual-qa",
           "role": "visualQA",
           "label": "Review rendered demo quality and downgrade wording when visual fidelity is weak",
           "required": true,
-          "outputs": ["visual-qa-report.json", "visual-comparison-report.json", "visual-quality-report.json", "three-proof verdict"],
-          "externalOptional": ["gstack-style design review"]
+          "outputs": [
+            "visual-qa-report.json",
+            "visual-comparison-report.json",
+            "visual-quality-report.json",
+            "three-proof verdict"
+          ],
+          "externalOptional": [
+            "gstack-style design review"
+          ]
         },
         {
           "id": "record-retro",
           "role": "methodologyKeeper",
           "label": "Record run log, rule candidates, and external-goodcase adoption decisions",
           "required": true,
-          "outputs": ["run log", "ruleCandidates", "retro-learnings.json"]
+          "outputs": [
+            "run log",
+            "ruleCandidates",
+            "retro-learnings.json"
+          ]
         }
       ],
       "outputs": [
@@ -766,24 +2257,156 @@
     "design-host": {
       "goal": "Decide how an existing learned visual language should serve a real host, produce static host-grounded directions, and freeze one approved visual target without modifying host source.",
       "inputs": {
-        "requiredOneOf": ["brandKey", "sourceUrl", "stylePack"],
-        "required": ["hostTargetOrPlan"]
+        "requiredOneOf": [
+          "brandKey",
+          "sourceUrl",
+          "stylePack"
+        ],
+        "required": [
+          "hostTargetOrPlan"
+        ]
       },
       "steps": [
-        {"id": "route-intake", "role": "router", "label": "Resolve brand package, host target and read-only design scope", "required": true, "outputs": ["workflow-mode", "resolved-inputs", "registry-resolution"]},
-        {"id": "load-existing-mod", "role": "router", "label": "Load the frozen Brand MOD, evidence, intent and approved patterns without relearning", "required": true, "outputs": ["brand-mod.json", "brand-evidence.json", "brand-intent.json"]},
-        {"id": "diagnose-host", "role": "hostStrategist", "label": "Freeze host entry, viewport, real content baseline, primary task and protected behavior", "required": true, "outputs": ["business-scope.json", "host baseline", "host-opportunity-map.json"]},
-        {"id": "assess-host-visual-capacity", "role": "hostStrategist", "label": "Classify host capacity, Atomic layers, asset/material/motion slots and over-application risk", "required": true, "blocking": true, "outputs": ["intent-plan.json", "visualPlacementPolicy"]},
-        {"id": "freeze-concept-assets", "role": "brandApplicationDesigner", "label": "Classify concept inputs as evidence-source, derived-approved, generated-proposal or host-business and block provenance leakage before preview rendering", "required": true, "blocking": true, "outputs": ["concept-asset-manifest.json"]},
-        {"id": "compose-directions", "role": "brandApplicationDesigner", "label": "Compose at least three static host-grounded H5 directions only from provenance-approved tokens, assets and patterns", "required": true, "blocking": true, "outputs": ["brand-application-plan.json", "design-direction-options.json", "static H5 direction previews"]},
-        {"id": "map-implementability", "role": "brandApplicationDesigner", "label": "Map each concept feature to tokens, official assets, DangoUI capability, CSS/motion or an explicit downgrade", "required": true, "blocking": true, "outputs": ["implementability-map.json"]},
-        {"id": "validate-static-h5", "role": "brandApplicationDesigner", "label": "Validate the isolated static H5 directions and expressive continuity without modifying or starting the host runtime", "required": true, "blocking": true, "outputs": ["static H5 direction previews", "expressive H5 audit JSON"]},
-        {"id": "validate-visual-retention", "role": "designDirectorOrchestrator", "label": "Require at least five of seven retained dimensions including composition, core assets and brand material", "required": true, "blocking": true, "outputs": ["visual-retention-report.json"]},
-        {"id": "designVisualQA", "role": "visualQA", "label": "Independently open each static H5 through an isolated localhost static-file server at the target viewport without saving screenshots; reject generic, same-asset or weakly differentiated directions", "required": true, "blocking": true, "outputs": ["design-host-visual-qa.json", "expressive H5 audit JSON"]},
-        {"id": "await-direction-decision", "role": "designDirectorOrchestrator", "label": "Pause for explicit selection and freeze the single implementation target", "required": true, "blocking": true, "outputs": ["design-direction-decision.json", "design-direction.json"]},
-        {"id": "freeze-host-structural-baselines", "role": "designDirectorOrchestrator", "label": "Freeze pre-edit structural targets and baseline bundle after direction approval", "required": true, "blocking": true, "outputs": ["structural-targets.json", "preedit-baseline-bundle.json"]}
+        {
+          "id": "route-intake",
+          "role": "router",
+          "label": "Resolve brand package, host target and read-only design scope",
+          "required": true,
+          "outputs": [
+            "workflow-mode",
+            "resolved-inputs",
+            "registry-resolution"
+          ]
+        },
+        {
+          "id": "load-existing-mod",
+          "role": "router",
+          "label": "Load the frozen Brand MOD, evidence, intent and approved patterns without relearning",
+          "required": true,
+          "outputs": [
+            "brand-mod.json",
+            "brand-evidence.json",
+            "brand-intent.json"
+          ]
+        },
+        {
+          "id": "diagnose-host",
+          "role": "hostStrategist",
+          "label": "Freeze host entry, viewport, real content baseline, primary task and protected behavior",
+          "required": true,
+          "outputs": [
+            "business-scope.json",
+            "host baseline",
+            "host-opportunity-map.json"
+          ]
+        },
+        {
+          "id": "assess-host-visual-capacity",
+          "role": "hostStrategist",
+          "label": "Classify host capacity, Atomic layers, asset/material/motion slots and over-application risk",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "intent-plan.json",
+            "visualPlacementPolicy"
+          ]
+        },
+        {
+          "id": "freeze-concept-assets",
+          "role": "brandApplicationDesigner",
+          "label": "Classify concept inputs as evidence-source, derived-approved, generated-proposal or host-business and block provenance leakage before preview rendering",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "concept-asset-manifest.json"
+          ]
+        },
+        {
+          "id": "compose-directions",
+          "role": "brandApplicationDesigner",
+          "label": "Compose at least three static host-grounded H5 directions only from provenance-approved tokens, assets and patterns",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "brand-application-plan.json",
+            "design-direction-options.json",
+            "static H5 direction previews"
+          ]
+        },
+        {
+          "id": "map-implementability",
+          "role": "brandApplicationDesigner",
+          "label": "Map each concept feature to tokens, official assets, DangoUI capability, CSS/motion or an explicit downgrade",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "implementability-map.json"
+          ]
+        },
+        {
+          "id": "validate-static-h5",
+          "role": "brandApplicationDesigner",
+          "label": "Validate the isolated static H5 directions and expressive continuity without modifying or starting the host runtime",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "static H5 direction previews",
+            "expressive H5 audit JSON"
+          ]
+        },
+        {
+          "id": "validate-visual-retention",
+          "role": "designDirectorOrchestrator",
+          "label": "Require at least five of seven retained dimensions including composition, core assets and brand material",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "visual-retention-report.json"
+          ]
+        },
+        {
+          "id": "designVisualQA",
+          "role": "visualQA",
+          "label": "Independently open each static H5 through an isolated localhost static-file server at the target viewport without saving screenshots; reject generic, same-asset or weakly differentiated directions",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "design-host-visual-qa.json",
+            "expressive H5 audit JSON"
+          ]
+        },
+        {
+          "id": "await-direction-decision",
+          "role": "designDirectorOrchestrator",
+          "label": "Pause for explicit selection and freeze the single implementation target",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "design-direction-decision.json",
+            "design-direction.json"
+          ]
+        },
+        {
+          "id": "freeze-host-structural-baselines",
+          "role": "designDirectorOrchestrator",
+          "label": "Freeze pre-edit structural targets and baseline bundle after direction approval",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "structural-targets.json",
+            "preedit-baseline-bundle.json"
+          ]
+        }
       ],
-      "outputs": ["host-opportunity-map.json", "business-scope.json", "brand-application-plan.json", "design-direction-options.json", "design-direction-decision.json", "design-direction.json", "preedit-baseline-bundle.json"],
+      "outputs": [
+        "host-opportunity-map.json",
+        "business-scope.json",
+        "brand-application-plan.json",
+        "design-direction-options.json",
+        "design-direction-decision.json",
+        "design-direction.json",
+        "preedit-baseline-bundle.json"
+      ],
       "boundaries": [
         "Do not modify, compile or inject host source.",
         "Do not relearn the brand or invent missing assets.",
@@ -798,8 +2421,14 @@
     "apply-host": {
       "goal": "Mechanically implement one frozen design-host direction in the real host runtime while preserving host business logic and content.",
       "inputs": {
-        "requiredOneOf": ["brandKey", "sourceUrl", "stylePack"],
-        "required": ["hostTargetOrPlan"]
+        "requiredOneOf": [
+          "brandKey",
+          "sourceUrl",
+          "stylePack"
+        ],
+        "required": [
+          "hostTargetOrPlan"
+        ]
       },
       "steps": [
         {
@@ -807,14 +2436,22 @@
           "role": "router",
           "label": "Resolve apply-host intake, source style, and host boundaries",
           "required": true,
-          "outputs": ["workflow-mode", "resolved-inputs", "registry-resolution"]
+          "outputs": [
+            "workflow-mode",
+            "resolved-inputs",
+            "registry-resolution"
+          ]
         },
         {
           "id": "load-existing-mod",
           "role": "router",
           "label": "Load existing MOD/style-pack/evidence/intent instead of relearning the demo URL",
           "required": true,
-          "outputs": ["brand-mod.json", "brand-evidence.json", "brand-intent.json"]
+          "outputs": [
+            "brand-mod.json",
+            "brand-evidence.json",
+            "brand-intent.json"
+          ]
         },
         {
           "id": "verify-frozen-design",
@@ -822,22 +2459,36 @@
           "label": "Validate the approved design-host plan, decision, direction hashes and pre-edit baseline; return invalid design artifacts to design-host",
           "required": true,
           "blocking": true,
-          "outputs": ["frozen design intake receipt"]
+          "outputs": [
+            "frozen design intake receipt"
+          ]
         },
         {
           "id": "map-to-dangoui",
           "role": "dangouiMapper",
           "label": "Map learned intent to host DangoUI/runtime components, preserving host APIs",
           "required": true,
-          "outputs": ["theme token mapping", "style-only recipe mapping"]
+          "outputs": [
+            "theme token mapping",
+            "style-only recipe mapping"
+          ]
         },
         {
           "id": "apply-preview",
           "role": "hostImplementationAgent",
           "label": "Apply and verify preview in host project",
           "required": true,
-          "outputs": ["host project preview URL", "rendered cascade proof", "host structural manifest/result", "host implementation receipt"],
-          "producerGates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt", "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"]
+          "outputs": [
+            "host project preview URL",
+            "rendered cascade proof",
+            "host structural manifest/result",
+            "host implementation receipt"
+          ],
+          "producerGates": [
+            "node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>",
+            "node skills/brand/scripts/validate-host-structural-diff.mjs verify-preedit --bundle <preedit-baseline-bundle.json> --targets <structural-targets.json> --phase receipt",
+            "node skills/brand/scripts/validate-host-structural-diff.mjs validate --baseline <baseline.json> --current <page.vue> --manifest <manifest.json>"
+          ]
         },
         {
           "id": "preview-smoke-qa",
@@ -845,7 +2496,10 @@
           "label": "Verify the selected direction is visible, the target loads, and first-viewport geometry remains intact",
           "required": true,
           "readOnly": true,
-          "outputs": ["preview-smoke-report.json", "timeToFirstPreviewMs"]
+          "outputs": [
+            "preview-smoke-report.json",
+            "timeToFirstPreviewMs"
+          ]
         },
         {
           "id": "await-user-preview-decision",
@@ -853,25 +2507,47 @@
           "label": "Pause after the first preview and wait for explicit approve, revise or certify",
           "required": true,
           "blocking": true,
-          "outputs": ["previewDecision"]
+          "outputs": [
+            "previewDecision"
+          ]
         },
         {
           "id": "scoped-visual-qa",
           "role": "visualQA",
           "label": "After approval, review the affected route for business fit, complete-page geometry and interaction quality",
           "required": true,
-          "outputs": ["visual-qa-report.json", "brand-distinctiveness-assessment.json", "p0-acceptance report"],
+          "outputs": [
+            "visual-qa-report.json",
+            "brand-distinctiveness-assessment.json",
+            "p0-acceptance report"
+          ],
           "readOnly": true,
-          "gates": ["node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>", "node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>", "node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>", "node skills/brand/scripts/validate-host-apply-gate.mjs --receipt <receipt> --capability-audit <audit> --plan <intent-plan> --qa <visual-qa-report.json> --distinctiveness <brand-distinctiveness-result.json> --capability-gaps <dangoui-capability-gaps.json> --wild-options <design-direction-options.json> --wild-decision <design-direction-decision.json> --wild-business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>"],
-          "onFail": {"required": ["blockingFindings", "failureOwnerRole=<earliest-real-owner>"], "next": "return to Evidence, Interpreter/Design Director, or Host Implementation according to cause; then fresh Visual QA"},
-          "externalOptional": ["gstack-style design review"]
+          "gates": [
+            "node skills/brand/scripts/validate-wild-design-decision.mjs --options <design-direction-options.json> --decision <design-direction-decision.json> --business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>",
+            "node skills/brand/scripts/validate-brand-distinctiveness.mjs --assessment <brand-distinctiveness-assessment.json> --write <brand-distinctiveness-result.json>",
+            "node skills/brand/scripts/validate-dangoui-gaps.mjs --report <dangoui-capability-gaps.json>",
+            "node skills/brand/scripts/validate-host-apply-gate.mjs --receipt <receipt> --capability-audit <audit> --plan <intent-plan> --qa <visual-qa-report.json> --distinctiveness <brand-distinctiveness-result.json> --capability-gaps <dangoui-capability-gaps.json> --wild-options <design-direction-options.json> --wild-decision <design-direction-decision.json> --wild-business-scope <business-scope.json> --brand-evidence <brand-evidence.json> --brand-mod <brand-mod.json> --design-direction <design-direction.json>"
+          ],
+          "onFail": {
+            "required": [
+              "blockingFindings",
+              "failureOwnerRole=<earliest-real-owner>"
+            ],
+            "next": "return to Evidence, Interpreter/Design Director, or Host Implementation according to cause; then fresh Visual QA"
+          },
+          "externalOptional": [
+            "gstack-style design review"
+          ]
         },
         {
           "id": "record-retro",
           "role": "methodologyKeeper",
           "label": "Record coverage level, unresolved gaps, and reusable learnings",
           "required": true,
-          "outputs": ["run log", "retro-learnings.json"]
+          "outputs": [
+            "run log",
+            "retro-learnings.json"
+          ]
         }
       ],
       "outputs": [
@@ -899,6 +2575,84 @@
         "High-capacity placement requires at least three material signals across at least three of visual mass, asset, composition, type and motion; generic palette, archive mood, typography, logos and small icons alone cannot pass.",
         "Report workflowCompletion, businessSafety and visualDistinctiveness separately; never publish a single overall completion percentage."
       ]
+    }
+  },
+  "hostCollaboration": {
+    "schema": "host-collaboration/v1",
+    "topology": "flat-peers",
+    "roles": [
+      {
+        "id": "hostStrategist",
+        "name": "宿主分析",
+        "input": "真实任务、路由、数据状态、品牌输入",
+        "output": "任务与保护边界、表达机会、空间预算",
+        "decision": "哪里值得表达、哪里必须高效",
+        "stage": "design-host"
+      },
+      {
+        "id": "brandApplicationDesigner",
+        "name": "视觉设计",
+        "input": "宿主分析结论、来源依据、相关决策",
+        "output": "候选方向、动态可行性试片、选定视觉契约",
+        "decision": "采用哪种视觉机制及其取舍",
+        "stage": "design-host"
+      },
+      {
+        "id": "hostImplementationAgent",
+        "name": "宿主实现",
+        "input": "已选择方向、不可变基线、实际数据与平台约束",
+        "output": "真实宿主实现、运行证据、已知差异",
+        "decision": "在冻结目标内选择实现方法",
+        "stage": "apply-host"
+      },
+      {
+        "id": "visualQA",
+        "name": "独立验收",
+        "input": "选定目标、运行产物、保护边界",
+        "output": "通过或定位到责任节点的缺陷",
+        "decision": "证据是否支持视觉与业务结论",
+        "stage": "acceptance"
+      }
+    ],
+    "coordination": {
+      "roleIds": [
+        "router",
+        "designDirectorOrchestrator"
+      ],
+      "kind": "coordination-not-management-layer",
+      "owns": [
+        "路由",
+        "派发",
+        "冻结已确认输入",
+        "记录状态",
+        "按失败类型回退"
+      ],
+      "doesNotOwn": [
+        "代替用户选案",
+        "代替专业角色作设计判断",
+        "替代独立验收"
+      ]
+    },
+    "handoff": "角色之间按产物依赖交接，依赖不代表上下级；不再给分析、拆图、生图、脚本各加负责人。",
+    "tools": [
+      "生图引擎",
+      "渲染器",
+      "查询脚本",
+      "验证器"
+    ],
+    "knowledgeLoop": [
+      "按阶段检索问题",
+      "对照上下文与反例",
+      "记录采用/调整/拒绝及理由",
+      "执行并观察",
+      "回写案例与修订候选",
+      "跨情境评审后形成有边界的共识"
+    ],
+    "failureRouting": {
+      "任务理解错误": "hostStrategist",
+      "视觉依据或方向不自洽": "brandApplicationDesigner",
+      "还原或交互错误": "hostImplementationAgent",
+      "证据不充分": "visualQA"
     }
   }
 }

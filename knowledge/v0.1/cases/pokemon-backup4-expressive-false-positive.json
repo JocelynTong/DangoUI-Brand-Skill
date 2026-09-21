@@ -47,8 +47,18 @@
     "selectionAtTime": "旧预选器推荐 Field Search；记录不足以说明当时设计师的完整理由，也不代表用户批准。",
     "expertDecisionAfterFeedback": "两案都不批准为可复用配方；保留任务骨架，退回 design-host 构图，并比较一种能把有来源的非图片机制延续到真实结果的新方向。",
     "why": "机器看到了品牌画面占比和方案结构差异，却没有衡量用户否定的入口到任务区的视觉交接。",
-    "feedback": { "source": "用户视觉验收", "summary": "虽然协议 PASS，expressive 的实际效果仍不满意。", "status": "rejected-aesthetic-outcome" },
-    "ruleChange": { "from": "入口有官方素材、品牌画面占比够，就算 expressive 成立。", "to": "有来源的品牌机制应延续到真实任务内容，且不能遮住首个动作。", "status": "candidate", "ruleId": "expressive-continuity-in-real-content" },
+    "feedback": {
+      "source": "用户视觉验收",
+      "summary": "虽然协议 PASS，expressive 的实际效果仍不满意。",
+      "status": "rejected-aesthetic-outcome"
+    },
+    "ruleChange": {
+      "from": "入口有官方素材、品牌画面占比够，就算 expressive 成立。",
+      "to": "有来源的品牌机制应延续到真实任务内容，且不能遮住首个动作。",
+      "status": "candidate",
+      "ruleId": "expressive-continuity-in-real-content"
+    },
     "nextCaseQuestion": "换一个品牌或宿主后，能否在保留首个动作和结果扫读效率的同时，让入口表达延续到真实结果？"
-  }
+  },
+  "readerPurpose": "已发生的事实、反馈与验证边界"
 }

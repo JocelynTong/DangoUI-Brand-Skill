@@ -22,5 +22,30 @@
     "环境变了不能只调卡位",
     "不以反复补CSS替代上游返工"
   ],
-  "observationLevel": "case-observed"
+  "observationLevel": "case-observed",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "素材和空间关系没变，只是坐标、透视或层级偏差时，修实现并与参考对照。",
+      "底图几何已变化或前景无法分离时，回到素材处理；不要继续沿用旧卡位补 CSS。",
+      "方向本身妨碍任务或依赖不可还原效果时，重选方案；在修复前写清失败原因与下一次验证点。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "prefer-reconstructible-dynamic-scenes"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-generated-deck-scenes",
+      "summary": "B、C 方案校正透视后得到改善反馈，纸艺方案修订后仍被否定；两者分别说明实现修正与方向重选的不同边界。"
+    }
+  ]
 }

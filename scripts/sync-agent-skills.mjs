@@ -36,6 +36,14 @@ for (const entry of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
 
 function writeIntegrity(target, skillName) {
   if (skillName !== "brand") return;
+  // Installed skills must carry their knowledge dependency closure, just like the public zip.
+  const runtime = path.join(target, "knowledge-runtime");
+  const catalog = JSON.parse(fs.readFileSync(path.join(root, "public/knowledge/v0.1/index.json"), "utf8"));
+  for (const rel of ["knowledge/v0.1", "public/knowledge/v0.1", catalog.componentSource, ...(catalog.brandRecipes || []).map(item => item.path)]) {
+    const destination = path.join(runtime, rel);
+    fs.mkdirSync(path.dirname(destination), {recursive:true});
+    fs.cpSync(path.join(root, rel), destination, {recursive:true});
+  }
   const manifest = buildSkillIntegrity(target);
   fs.writeFileSync(path.join(target, ".brand-skill-integrity.json"), `${JSON.stringify(manifest, null, 2)}\n`);
 }

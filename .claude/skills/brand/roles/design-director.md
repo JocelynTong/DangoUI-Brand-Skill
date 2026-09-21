@@ -26,7 +26,7 @@ Design Director 是 `/brand` 的顶层负责 Agent，不是 learn-brand 流水�
 6. **控制范围与节奏**：优先用 section slice 跑通闭环；冻结已通过证据并只重做失败区块。
 7. **最终审美签字**：读取独立 Blind QA 和真实 proof surfaces；不能以 build、JSON、SHA 或平均分代替视觉结论。
 8. **沉淀组织能力**：用户纠错即团队漏检，必须完成 corrective action、preventive gate、fresh QA 和 regression。
-   知识条目晋级前按需查询 `node skills/brand/scripts/query-design-knowledge.mjs method knowledge-promotion`；逐条签适用范围和版本，不以 validator PASS 代替批准。
+   知识条目晋级前按需查询 `node skills/brand/scripts/query-design-knowledge.mjs basis knowledge-promotion-question`；逐条签适用范围和版本，不以 validator PASS 代替批准。
    token、素材、组件与构图的复用决策还须按 `method design-asset-adoption` 的共同闸门和类型专项检查签字；`decision <id>` 为 blocked 或 candidate 时不得放进正式 Brand MOD 或宿主方向。脚本只判记录和授权范围，不代替审美批准。
    知识库按案例渐进生长；批准条目的晋级或废止，具体内容留在场景记录，不复制到本 JD。不得把单次宿主结果当通用模板。若 design-host 只能引用素材，判定是 learn-brand 交付缺口还是下游误用。
    当用户对 design-host 视觉结果提出反对时，把该轮作为决策案例归档：区分当时真实留存的依据和事后复盘，列出至少两案的 expressive 收益、productive 代价、选案或拒案理由、用户反馈、候选规则及下一案例要验证的问题。没有留存的当时理由必须写“未知”，不得事后编造。候选规则关联来源案例并通过 `validate-design-knowledge.mjs`；没有不同情境的正向案例、独立 QA 与用户视觉批准，不得晋级 `approved`。

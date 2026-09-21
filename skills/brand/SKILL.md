@@ -27,7 +27,7 @@ node skills/brand/scripts/brand-subagent-workflow.mjs next --brand <brand>
 
 固定职责链：`Evidence → Interpreter → Demo → fresh Visual QA`。Dembrandt 是 Evidence 的候选发现工具，不是独立角色或事实来源。完整执行规则读 [learn-brand workflow](workflows/learn-brand.md)；当前角色再读取 dispatch 指定的岗位契约。
 
-通用取证、设计资产晋级、跨页面 token 判定和知识晋级方法在仓库 `knowledge/v0.1/`，按当前任务查询 `node skills/brand/scripts/query-design-knowledge.mjs list` 后只读所需的 `method <id>` / `decision <id>` / `case <id>`。token、asset、component、composition 共用“职责→证据→范围→批准”的晋级闸门，但各有专项检查；方法条目不是当前品牌的 Evidence，未批准决策不能作为下游食材。
+通用取证、设计资产晋级和知识沉淀判断维护在正式 `knowledge/v0.1/`；统一按下文“阶段 → 问题 → 判断依据”检索。历史知识不替代本轮 Evidence，候选结论不等于已批准资产。
 判定品牌主色或 CTA 与 primary action 的关系时，另查 `policy primary-color-and-cta`：首页/官方身份入口优先作为品牌身份来源，再与独立核心页面对照；CTA 只比同职责行动。单页色值不能晋级全局，CTA 与品牌主色是否同值必须分别举证。
 
 Demo 是 brand-learning-capability-test，必须分别通过 Evidence Fidelity、Structural Fidelity、Generative Proof；三证不可互相补偿。高显著度区块必须通过 `validate-section-fidelity.mjs --strict`。QA 失败只返工 `affectedSections` 并做小范围 regression，不得默认全站重采。
@@ -43,11 +43,11 @@ Demo 是 brand-learning-capability-test，必须分别通过 Evidence Fidelity�
 - 分配视觉强度、场景层级和动效意图时读取 [Visual Program](references/visual-program.md)；fast 至少渲染 3 个场景图、内容入口与结果容器均有实质差异的候选。
 - 对 expressive/productive 的取舍与可执行门槛，读取 [Expressive moments playbook](references/expressive-moments-playbook.md)；机器通过仅表示可交用户审美复核。
 
-知识按需查询，不把组件定义和场景规则复制进角色 JD：`node skills/brand/scripts/query-design-knowledge.mjs list`。先查 `question expressive-productive-allocation-question`，确认本次是否属于这类决策问题及其独立案例数；再查 `method expressive-productive-allocation`，比较真实宿主任务、品牌机制、备选取舍和交接。案例里的多个备选只算一个案例；其他议题（如 primary 色）不能充当本议题的验证。遇到类似误判再查相关 `caseRefs` 与 `hypothesisRefs`；候选规则只能提出待检验问题，不能当成已批准配方。每个新案例记录已知证据、至少两种方案与代价、设计判断、人的反馈、规则修订及下一案例验证问题；没有当时的选案理由就明确标“事后复盘”，不可编造。只有目标任务匹配时才查 `pattern <id>`，需要机器绑定时再查 `scenario <id>` 或 `component <name>`。组件以 DangoUI 现有设计系统为准；[设计判断知识库](../../public/knowledge/guide.html) 的核心是案例驱动的判断修正，任务 Pattern 只是上下文，不是已批准的宝可梦视觉模板。若目标使用场景试点，在冻结 goal 中填写 `knowledgeScenarioId: "search-filter-results"`；流水线会要求每个方向绑定场景并校验 H5 区域与 DangoUI token 映射。未声明试点的其他宿主不受该场景约束。
+知识按需查询，不把判断正文复制进角色 JD，也不固定先查表达取舍。需要任务上下文时查 `pattern <id>`，需要机器绑定时查 `scenario <id>` 或 `component <name>`。组件以 DangoUI 现有设计系统为准；若目标明确使用场景试点，在冻结 goal 中填写 `knowledgeScenarioId: "search-filter-results"` 并验证真实区域与 token 映射，其他宿主不强制套用该场景。
 
 引用来源品牌的 token、素材、组件或构图前，查询 `method design-asset-adoption` 和相关 `decision <id>`；只消费范围匹配的已批准记录。[设计资产决策库](../../public/knowledge/decisions.html) 与任务 Pattern 库分开，候选或 blocked 记录不得冒充已批准食材。
 
-design-host 至少生成 3 个隔离的完整静态 H5 方向和结构化 JSON；不生成方向 PNG/JPG、截图副产物或联系表。H5 使用真实宿主内容、路由、视口和冻结品牌包，但不启动或修改宿主 runtime；在对话中直接展示 H5 文件链接。动态 API 内容没有冻结真实记录时只能显示明确的 schema/加载占位，不能编造商品、卡组名称或数据。品牌素材可以嵌入 H5，不能把整页方向改为图片。
+design-host 至少生成 3 个隔离的完整静态 H5 方向和结构化 JSON；需要生图的 expressive 分支可生成方向参考图和实现素材，并交动态 H5 试片验证；图片不能替代完整 H5 方向。H5 使用真实宿主内容、路由、视口和冻结品牌包，但不启动或修改宿主 runtime；在对话中直接展示 H5 文件链接。动态 API 内容没有冻结真实记录时只能显示明确的 schema/加载占位，不能编造商品、卡组名称或数据。品牌素材可以嵌入 H5，不能把整页方向改为图片。
 
 每个方向必须绑定真实宿主 baseline、Brand MOD hash、来源 token、asset 与 composition；保留 navigation、primary task、business switch 和 business content；与其他方向在视觉中心、行动位置、内容进入方式和结果容器中至少三项不同；通过来源、语义颜色、移动端视口、品牌系统闭环和 visual-retention Gate。
 
@@ -92,7 +92,15 @@ fast 档只实施首屏并做 Smoke QA。用户 `approve` 且冻结输入、实�
 
 ## 完成与同步
 
+试跑构建与预览使用独立产物目录，按 [产物生命周期](references/artifact-lifecycle.md) 初始化、保护证据、结束及隔离；不往宿主持续堆积中间构建。
+
 运行与改动范围相称的 validator/test。维护源目录是 `skills/brand/`；修改后运行 `npm run sync:skills` 同步 `.claude/skills/brand/`。最终对业务用户优先报告真实宿主预览地址、所选方向、默认入口验证和业务是否保留；内部 token 表与审计文件只在追问或阻塞时展开。
 
 ## 宿主 expressive 交接门
 宿主分析完成后按 [host-expression handoff](references/host-expression-handoff.md) 生成区域表达计划。design-host 提交候选和 apply-host 实施前，入口强制验证计划、正式知识引用和文件 hash；generated 分支必须先交动态 H5 试片与运行/视觉证据。none/existing 不强制生图。此门只证明交接一致性，不自动作审美判断。
+
+## 强决策检索入口
+在来源取证、视觉依据选择、方向冻结、拆层实施、视觉修复和最终验收时，执行 `node skills/brand/scripts/query-design-knowledge.mjs stage <learn-brand|design-host|apply-host|repair|acceptance>` 浏览匹配阶段的问题；根据任务选择 `question <id>` 明确边界，再用 `basis <question-id>` 读取针对性依据和案例摘要。专项问题可先读摘要；整页方案、跨问题依赖、依据冲突、摘要不足、新宿主或新交互条件出现时，必须回读完整方法与相关案例。用 `basis <question-id> --context=<whole-design|cross-question|conflict|insufficient|novel-context>` 直接取得完整来源，可用逗号组合；这不等于禁止直接查询 `method` / `rule` / `case`。记录回读触发条件、已读来源和影响判断的前提/例外；脚本返回原文不等于 agent 已理解。旧问题 ID 的 basis 查询会转到合并后的问题。未匹配时记录空缺，不硬套。记录 questionId、adopt/adapt/reject、情境差异、理由和证据；新纠正回写案例，不把多版或多个方案计作独立案例，不编造当时理由，候选不自动晋级。
+
+## 宿主协作架构
+宿主分析、视觉设计、宿主实现、独立验收为四个平级专业角色。design-host / apply-host 是阶段，不是管理层；router / designDirectorOrchestrator 仅承担路由、派发、冻结和回退，不增加一层专业审批。生图、拆层和脚本属于方法/工具，不创建下级角色。交接和失败归属见 `references/host-collaboration.json`，dispatch 携带同一契约。

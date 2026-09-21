@@ -1,0 +1,43 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "dynamic-scene-proof",
+  "version": 2,
+  "status": "candidate",
+  "statement": "从设计目标提取不变量和允许变化的部分，按真实数据与交互状态验证；分别记录几何、功能和视觉结论。",
+  "appliesWhen": [
+    "不变量",
+    "数据变化",
+    "交互状态",
+    "平台差异"
+  ],
+  "notFor": [
+    "真实卡组允许共享卡、少量卡；不可要求所有卡位都变化或为了填满而造数据。"
+  ],
+  "falsificationQuestion": "是否存在遵循本判断仍破坏选图或任务的情境？",
+  "nextTest": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "originCaseIds": [
+    "opcg-a1-live-host-layering"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "status": "candidate",
+      "date": "2026-09-21",
+      "reason": "用户纠正后的限定案例复盘，未获通用批准"
+    },
+    {
+      "version": 2,
+      "status": "candidate",
+      "date": "2026-09-21",
+      "reason": "从局部补丁上提为通用决策原则，保留案例证据限制，不晋级为共识"
+    }
+  ],
+  "solutionFamilies": [
+    "确定性约束由脚本验证",
+    "空间与材质由真实渲染检查",
+    "审美与任务适合度由独立评审及用户反馈确认"
+  ],
+  "readerPurpose": "待验证的条件化结论与例外"
+}

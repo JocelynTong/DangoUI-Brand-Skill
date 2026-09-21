@@ -19,5 +19,26 @@
     "同色不等于同语义",
     "黑底和卡套不能因首页出现就全局化"
   ],
-  "observationLevel": "case-observed"
+  "observationLevel": "case-observed",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "比较同职责页面和状态：反复成立的特征才作为品牌不变量候选；只在活动或某一区域出现的，限定在该场景。",
+      "先区分身份、界面与业务内容。标志颜色不能直接决定按钮颜色，展架材质也不能直接变成整页背景。",
+      "遇到冲突先缩小复用范围；缺少跨页证据时保留局部用法，不补成全局规则。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-generated-deck-scenes",
+      "summary": "宝可梦试做中，卡套曾扩散到不需要卡套的方案；这提示展架或卡套属于场景选择，不能直接视为全局品牌特征。"
+    }
+  ]
 }

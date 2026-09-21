@@ -8,17 +8,57 @@
     "Freeze the actual host job, first action, interaction frequency, viewport, real content and protected states.",
     "Identify source-backed brand mechanisms by role and scope; do not infer a global style from one page or asset.",
     "Compare at least two viable expressive/productive allocations against attention, first-action distance, visible real results and task-state clarity.",
-    "Specify the handoff and a non-image brand mechanism continuing into real task content; reject a decorative entry over a generic business stream.",
+    "Specify where brand expression continues or intentionally recedes, with source scope and task-cost rationale. High-frequency task areas may stay quiet; do not mandate a non-image motif in every result.",
     "Use rendered independent QA and user visual feedback to identify the earliest faulty inference, then version the decision rule and regression case."
   ],
   "decisionSteps": [
-    { "id": "context", "title": "先认任务", "question": "用户先做什么、多久重复？", "output": "首动作、频率、真实内容与视口" },
-    { "id": "options", "title": "再比取舍", "question": "哪一刻值得表达，会让操作付出什么？", "output": "至少两种布局强度及收益／代价" },
-    { "id": "handoff", "title": "检查交接", "question": "品牌机制有没有进入控件和真实结果？", "output": "来源、适用范围、任务区的延续机制" },
-    { "id": "feedback", "title": "失败修正规则", "question": "用户不认可时，哪一项判断错了？", "output": "候选规则、反例、再验证条件" }
+    {
+      "id": "context",
+      "title": "先认任务",
+      "question": "用户先做什么、多久重复？",
+      "output": "首动作、频率、真实内容与视口"
+    },
+    {
+      "id": "options",
+      "title": "再比取舍",
+      "question": "哪一刻值得表达，会让操作付出什么？",
+      "output": "至少两种布局强度及收益／代价"
+    },
+    {
+      "id": "handoff",
+      "title": "检查交接",
+      "question": "品牌表达应延续到哪里、在哪里收敛，任务收益与代价是什么？",
+      "output": "来源、适用范围、延续或收敛的理由与任务保护边界"
+    },
+    {
+      "id": "feedback",
+      "title": "失败修正规则",
+      "question": "用户不认可时，哪一项判断错了？",
+      "output": "候选规则、反例、再验证条件"
+    }
   ],
-  "requiredReviewFields": ["hostJob", "firstAction", "interactionFrequency", "viewport", "sourceMechanisms", "alternativesAndTradeoffs", "handoffIntoRealContent", "independentQA", "userFeedback", "decisionStatus"],
-  "notFor": ["A fixed hero-to-list layout", "Treating brand image area or machine PASS as expressive quality", "Inventing host business data to complete a preview"],
-  "caseRefs": ["pokemon-backup4-expressive-false-positive"],
-  "ruleRefs": ["expressive-continuity-in-real-content"]
+  "requiredReviewFields": [
+    "hostJob",
+    "firstAction",
+    "interactionFrequency",
+    "viewport",
+    "sourceMechanisms",
+    "alternativesAndTradeoffs",
+    "handoffIntoRealContent",
+    "independentQA",
+    "userFeedback",
+    "decisionStatus"
+  ],
+  "notFor": [
+    "A fixed hero-to-list layout",
+    "Treating brand image area or machine PASS as expressive quality",
+    "Inventing host business data to complete a preview"
+  ],
+  "caseRefs": [
+    "pokemon-backup4-expressive-false-positive"
+  ],
+  "ruleRefs": [
+    "expressive-continuity-in-real-content"
+  ],
+  "readerPurpose": "执行判断的步骤与取舍"
 }

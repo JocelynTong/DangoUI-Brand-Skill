@@ -38,7 +38,7 @@ Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角�
 
 严格执行以下证据顺序：
 
-在冻结 Goal 后，按需查询 `node skills/brand/scripts/query-design-knowledge.mjs method source-selection`；若相关负面案例存在，再查对应 `case <id>`。知识条目指导选页与记录缺口，不代替当前官网的 rendered Evidence，也不授权本角色批准 token。
+在冻结 Goal 后，按需查询 `node skills/brand/scripts/query-design-knowledge.mjs basis host-brand-scope`；若相关负面案例存在，再查对应 `case <id>`。知识条目指导选页与记录缺口，不代替当前官网的 rendered Evidence，也不授权本角色批准 token。
 
 1. `Goal questions`：把每个 `mustPreserve`、reference page 和 required state 改写成可证伪的问题，并定义需要的截图、状态与停止条件。
 2. `Candidate extraction`：运行 Dembrandt 等抽取器，导入 `third-party-evidence.*.json`；仅用于生成候选清单和取证优先级。

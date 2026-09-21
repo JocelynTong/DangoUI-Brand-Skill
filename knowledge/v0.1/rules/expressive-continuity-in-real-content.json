@@ -1,13 +1,22 @@
 {
   "schema": "brand-decision-rule/v0.1",
   "id": "expressive-continuity-in-real-content",
-  "version": 1,
+  "version": 2,
   "status": "candidate",
   "question": "Does source-backed brand expression survive from entry into real task content without hiding the first action?",
-  "statement": "一个 expressive 入口若要考虑获批，至少一种有来源的非图片品牌机制应延续到真实任务内容，同时首个动作和结果扫读仍清楚。",
-  "appliesWhen": ["A brand-led entry hands off to repeated search, filtering, browsing or another frequent task"],
-  "notFor": ["Forcing a Hero or minimum image area", "Requiring the same motif in every component", "Treating a machine marker as aesthetic approval"],
-  "originCaseIds": ["pokemon-backup4-expressive-false-positive"],
+  "statement": "当任务目标需要持续品牌识别时，可让有来源的界面语言延续到真实内容；若高频操作更适合安静区域，则允许表达在入口收敛，依据任务与用户反馈判断。",
+  "appliesWhen": [
+    "The task calls for continued brand recognition and the chosen mechanism preserves task efficiency"
+  ],
+  "notFor": [
+    "Forcing a Hero or minimum image area",
+    "Requiring the same motif in every component",
+    "Treating a machine marker as aesthetic approval",
+    "Forcing visual continuity into intentionally quiet high-frequency task areas"
+  ],
+  "originCaseIds": [
+    "pokemon-backup4-expressive-false-positive"
+  ],
   "independentPositiveCaseIds": [],
   "minimumIndependentPositiveCases": 2,
   "falsificationQuestion": "Can a user-approved direction intentionally end the entry expression and still remain source-recognizable and task-efficient without the proposed continuity mechanism?",
@@ -15,6 +24,18 @@
   "reviewer": null,
   "reviewedAt": null,
   "revisionHistory": [
-    { "version": 1, "sourceCaseId": "pokemon-backup4-expressive-false-positive", "change": "Replaced entry-image-mass inference with a task-content continuity hypothesis.", "status": "candidate" }
-  ]
+    {
+      "version": 1,
+      "sourceCaseId": "pokemon-backup4-expressive-false-positive",
+      "change": "Replaced entry-image-mass inference with a task-content continuity hypothesis.",
+      "status": "candidate"
+    },
+    {
+      "version": 2,
+      "sourceCaseId": "pokemon-backup4-expressive-false-positive",
+      "change": "Align structured rule with existing human-guide boundary: continuation is conditional, not a universal approval requirement. No new positive evidence.",
+      "status": "candidate"
+    }
+  ],
+  "readerPurpose": "待验证的条件化结论与例外"
 }

@@ -86,6 +86,7 @@ function next() {
     stageId: current.id,
     stage: current.stage,
     role: current.role,
+    collaboration: ["design-host", "apply-host"].includes(manifest.mode) ? contract.hostCollaboration : null,
     attempt: current.attempt,
     goalId: manifest.goalId,
     goalSha256: manifest.goalSha256,

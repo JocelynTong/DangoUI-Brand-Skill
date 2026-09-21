@@ -286,3 +286,7 @@ git lfs pull
 ## 许可证与素材权利
 
 项目许可证见 [package.json](package.json)。品牌来源内容、字体、图片、视频和其他素材仍受各自权利方条款约束；技术上可提取或展示，不代表可以自由分发或商用。
+
+## 最新试用包
+
+[2026-09-21 品牌 skill 试用包](https://jocelyntong.github.io/DangoUI-Brand-Skill/downloads/brand-skill-preview-2026-09-21.zip) · [变更与验证边界](RELEASE-NOTES.md)。这是试用版，不表示跨宿主视觉质量已获得保证。
