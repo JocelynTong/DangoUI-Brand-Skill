@@ -17,3 +17,14 @@ test('complete inputs route to planning, not implementation',()=>assert.equal(in
 test('unconfirmed directory is asked about',()=>assert.equal(initializeBrand({host:root}).missing[0].field,'host'));
 test('missing directory is handled without creating it',()=>{const target=path.join(root,'absent');assert.equal(initializeBrand({host:target,hostConfirmed:true}).missing[0].field,'host');assert.equal(fs.existsSync(target),false)});
 test('workflow init uses executable entry',()=>{const r=spawnSync(process.execPath,['skills/brand/scripts/run-brand-workflow.mjs','init','--host',root,'--host-confirmed'],{encoding:'utf8'});assert.equal(r.status,0,r.stderr);assert.equal(JSON.parse(r.stdout).status,'needs-input')});
+for(const installStatus of ['installed','updated','already-current','unknown']) test(`${installStatus} user reply exposes library and supported syntax`,()=>{
+ const r=initializeBrand({host:root,hostConfirmed:true,installStatus});
+ assert.match(r.welcome,/https:\/\/jocelyntong.github.io\/DangoUI-Brand-Skill\/#\/variants/);
+ assert.match(r.welcome,/先选品牌，再切换场景/);assert.match(r.welcome,/复制使用描述/);
+ assert.match(r.welcome,/\$brand/);assert.match(r.welcome,/\/brand/);assert.match(r.welcome,/自带官网/);
+ assert.doesNotMatch(r.welcome,/要使用的项目目录/);
+});
+test('complete inputs retain discovery without asking again',()=>{
+ const r=initializeBrand({host:root,hostConfirmed:true,reference:'https://example.com',page:'home'});
+ assert.equal(r.missing.length,0);assert.match(r.welcome,/#\/variants/);
+});

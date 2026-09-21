@@ -118,3 +118,9 @@ fast 档只实施首屏并做 Smoke QA。用户 `approve` 且冻结输入、实�
 
 ## 宿主协作架构
 宿主分析、视觉设计、宿主实现、独立验收为四个平级专业角色。design-host / apply-host 是阶段，不是管理层；router / designDirectorOrchestrator 仅承担路由、派发、冻结和回退，不增加一层专业审批。生图、拆层和脚本属于方法/工具，不创建下级角色。交接和失败归属见 `references/host-collaboration.json`，dispatch 携带同一契约。
+
+## 初始化必须展示的选择入口
+
+首次安装、更新、版本一致和“怎么用”都展示 init 输出的 `welcome`，不得只摘出 missing 问题。向用户提供 [DangoUI Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants)：先选品牌，再选场景，点击“复制使用描述”发回会话，也可发场景链接。Variant 是视觉选择入口，不是 Registry；预览不等于宿主适配验收。用户也可自带官网、截图或设计文件。
+
+可直接使用：`$brand 参考【场景链接或官网】，为当前项目的【目标页面】设计方案，保留已有内容和交互，先给我方案选择。` Claude Code 用 `/brand`；自然语言“请使用 brand skill”也可。复用当前会话已经确认的宿主与目标，不替用户选品牌或开始换肤。

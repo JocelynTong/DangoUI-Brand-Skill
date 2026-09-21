@@ -16,7 +16,7 @@
 
 现在欢迎用你自己的真实项目测试。重点是看第一版效果是否值得采用、落地是否保留原业务，以及还需要你纠正多少次。试用不等于视觉质量保证。
 
-1. 下载 [2026-09-21 试用包](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r2.zip)，按下方说明安装。包内包含决策库依赖，不需要克隆整个仓库。
+1. 下载 [2026-09-21 试用包](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r3.zip)，按下方说明安装。包内包含决策库依赖，不需要克隆整个仓库。
 2. 在你有权修改的项目中开启独立分支，提供品牌参考和要改的页面。
 3. 先看方案并选择一个，再让它实施；最后在项目实际页面里检查效果和交互。
 4. 把体验反馈到 [试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)。不用先理解内部流程，也不用替它写一套设计方案。
@@ -160,7 +160,7 @@ Demo 深链：
 
 ## 只安装 Skill
 
-下载 [试用 ZIP](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r2.zip)，解压后会得到 `brand/` 和 `manifest.json`。请复制整个 `brand/`，包括其中的 `knowledge-runtime/`，不要只复制 `SKILL.md` 或仓库维护源目录。
+下载 [试用 ZIP](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r3.zip)，解压后会得到 `brand/` 和 `manifest.json`。请复制整个 `brand/`，包括其中的 `knowledge-runtime/`，不要只复制 `SKILL.md` 或仓库维护源目录。
 
 ### 给安装助手：完成安装后继续引导
 
@@ -298,4 +298,10 @@ git lfs pull
 
 ## 最新试用包
 
-[2026-09-21 品牌 skill 试用包](https://jocelyntong.github.io/DangoUI-Brand-Skill/downloads/brand-skill-preview-2026-09-21-r2.zip) · [变更与验证边界](RELEASE-NOTES.md)。这是试用版，不表示跨宿主视觉质量已获得保证。
+[2026-09-21 品牌 skill 试用包](https://jocelyntong.github.io/DangoUI-Brand-Skill/downloads/brand-skill-preview-2026-09-21-r3.zip) · [变更与验证边界](RELEASE-NOTES.md)。这是试用版，不表示跨宿主视觉质量已获得保证。
+
+## 初始化必须展示的选择入口
+
+首次安装、更新、版本一致和“怎么用”都展示 init 输出的 `welcome`，不得只摘出 missing 问题。向用户提供 [DangoUI Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants)：先选品牌，再选场景，点击“复制使用描述”发回会话，也可发场景链接。Variant 是视觉选择入口，不是 Registry；预览不等于宿主适配验收。用户也可自带官网、截图或设计文件。
+
+可直接使用：`$brand 参考【场景链接或官网】，为当前项目的【目标页面】设计方案，保留已有内容和交互，先给我方案选择。` Claude Code 用 `/brand`；自然语言“请使用 brand skill”也可。复用当前会话已经确认的宿主与目标，不替用户选品牌或开始换肤。
