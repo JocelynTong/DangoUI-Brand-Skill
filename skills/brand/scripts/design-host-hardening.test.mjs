@@ -52,5 +52,26 @@ assert.notEqual(timedOut.status, 0);
 assert.match(timedOut.stderr, /DESIGN_HOST_FAST_BUDGET_EXCEEDED/);
 assert.equal(JSON.parse(fs.readFileSync(manifestFile, "utf8")).status, "timed-out");
 
+const blockerFile = path.join(migration, "concept-generation-blocker.json");
+fs.writeFileSync(blockerFile, JSON.stringify({ code: "IMAGE_GENERATION_CAPABILITY_REQUIRED" }));
+const blockerReceipt = { dispatchId: dispatch.dispatchId, stageId: dispatch.stageId, role: dispatch.role, agentExecutionId: "/root/brand-application-designer", goalSha256: manifest.goalSha256, verdict: "needs-evidence", inputs: dispatch.requiredInputs, outputs: [{ path: `migrations/${brand}/concept-generation-blocker.json`, sha256: sha(blockerFile) }], blockingFindings: [{ code: "IMAGE_GENERATION_CAPABILITY_REQUIRED" }] };
+const blockerReceiptFile = path.join(migration, "concept-generation-receipt.json");
+fs.writeFileSync(blockerReceiptFile, JSON.stringify(blockerReceipt));
+const recordedBlocker = run("record", "--receipt", `migrations/${brand}/concept-generation-receipt.json`);
+assert.equal(recordedBlocker.status, 0, recordedBlocker.stderr);
+const blockedManifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+assert.equal(blockedManifest.status, "blocked");
+assert.equal(blockedManifest.currentStageId, null);
+assert.equal(blockedManifest.stages[0].status, "failed");
+assert.equal(blockedManifest.stages[0].verdict, "needs-evidence");
+assert.equal(blockedManifest.timeout.resolution, "blocking-receipt-recorded");
+assert.ok(blockedManifest.telemetry.outputFiles > 0);
+const resumed = run("resume-concepts");
+assert.equal(resumed.status, 0, resumed.stderr);
+const resumedManifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+assert.equal(resumedManifest.status, "running");
+assert.equal(resumedManifest.currentStageId, "conceptGeneration-2");
+assert.equal(JSON.parse(fs.readFileSync(path.join(migration, "design-host-route.json"), "utf8")).imageCapability.status, "required");
+
 assert.ok(sha(manifestFile));
 console.log("design-host hardening tests passed");

@@ -10,7 +10,7 @@ const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
 const skillRoot = path.resolve(process.env.BRAND_SKILL_ROOT || path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const brand = opt("--brand", "");
-if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-concepts|approve-preview|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
+if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-concepts|approve-preview|status|resume-concepts|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
@@ -24,6 +24,7 @@ else if (command === "record") record();
 else if (command === "approve-concepts") approveConcepts();
 else if (command === "approve-preview") approvePreview();
 else if (command === "status") status();
+else if (command === "resume-concepts") resumeConcepts();
 else if (command === "resume-evidence") resumeEvidence();
 else if (command === "resume-qa") resumeQa();
 else if (command === "resume-demo") resumeDemo();
@@ -193,8 +194,11 @@ function record() {
   const receiptFile = path.resolve(root, receiptArg);
   const receipt = readJsonRequired(receiptFile);
   const manifest = validateManifest();
-  enforceDesignHostDeadline(manifest);
-  const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
+  if (!["pass", "fail", "needs-evidence"].includes(receipt.verdict)) fail("Receipt verdict must be pass, fail or needs-evidence.");
+  const lateBlockingReceipt = manifest.status === "timed-out" && ["fail", "needs-evidence"].includes(receipt.verdict);
+  if (!lateBlockingReceipt) enforceDesignHostDeadline(manifest);
+  const currentStageId = manifest.currentStageId || (lateBlockingReceipt ? receipt.stageId : null);
+  const current = manifest.stages.find((item) => item.id === currentStageId);
   if (!current || current.status !== "dispatched") fail("No dispatched current stage is waiting for a receipt.");
   if (current.role === "hostImplementationAgent") verifyHostPreeditGate("receipt");
   const dispatch = readJsonRequired(path.join(root, current.dispatchPath));
@@ -202,7 +206,6 @@ function record() {
   if (receipt.stageId !== current.id || receipt.role !== current.role) fail("Receipt is out of order or belongs to another role.");
   if (!receipt.agentExecutionId || !String(receipt.agentExecutionId).startsWith("/root/") || receipt.agentExecutionId === "/root") fail("Receipt must identify a real spawned subagent execution.");
   if (receipt.goalSha256 !== manifest.goalSha256) fail("Receipt goal hash does not match the frozen goal.");
-  if (!['pass', 'fail', 'needs-evidence'].includes(receipt.verdict)) fail("Receipt verdict must be pass, fail or needs-evidence.");
   if (containsRoleTimeoutClaim(receipt)) fail("ROLE_TIMEOUT_CLAIM_FORBIDDEN: only the workflow clock may emit DESIGN_HOST_FAST_BUDGET_EXCEEDED; discard this receipt and keep the stage pending.");
   const receiptInputs = array(receipt.inputs);
   for (const required of array(dispatch.requiredInputs)) {
@@ -274,6 +277,11 @@ function record() {
   current.additionalReads = array(receipt.additionalReads);
   current.endedAt = new Date().toISOString();
   current.durationMs = Math.max(0, Date.parse(current.endedAt) - Date.parse(current.startedAt));
+  if (lateBlockingReceipt && manifest.timeout) {
+    manifest.timeout.resolution = "blocking-receipt-recorded";
+    manifest.timeout.receiptAcceptedAt = current.endedAt;
+    manifest.timeout.receiptPath = relative(receiptFile);
+  }
   advance(manifest, current);
   manifest.updatedAt = current.endedAt;
   manifest.elapsedMs = manifest.stages.reduce((sum, item) => sum + Number(item.durationMs || 0), 0);
@@ -392,6 +400,30 @@ function resumeQa() {
   manifest.status = "running";
   writeJson(manifestFile, manifest);
   output({ ok: true, status: manifest.status, resumedFrom: latestQa.id, nextStageId: retry.id, blockingFindings: retry.retryInput.blockingFindings });
+}
+
+function resumeConcepts() {
+  const manifest = validateManifest();
+  const latest = [...manifest.stages].reverse().find((item) => item.stage === "conceptGeneration");
+  if (manifest.mode !== "design-host" || manifest.status !== "blocked" || latest?.verdict !== "needs-evidence") {
+    fail("resume-concepts requires a blocked design-host whose latest conceptGeneration verdict is needs-evidence.");
+  }
+  const attempts = manifest.stages.filter((item) => item.stage === "conceptGeneration" && ["complete", "failed"].includes(item.status)).length;
+  const maxAttempts = Number(readJsonRequired(goalFile)?.thresholds?.maxAttempts || 2);
+  if (attempts >= maxAttempts) fail("Concept generation retry budget is exhausted.");
+  const route = readJsonRequired(designHostRouteFile);
+  route.imageCapability = { status: "required" };
+  route.demoImages = { status: "pending" };
+  route.demoVisualReview = { status: "pending" };
+  route.userDirectionReview = { status: "pending" };
+  writeJson(designHostRouteFile, route);
+  const retry = uniqueStage(manifest, "conceptGeneration", "brandApplicationDesigner", attempts + 1);
+  retry.retryInput = { priorStageId: latest.id, blockingFindings: array(latest.blockingFindings), requirement: "Resume only in an execution environment exposing the required image-generation tool." };
+  manifest.stages.push(retry);
+  manifest.currentStageId = retry.id;
+  manifest.status = "running";
+  writeJson(manifestFile, manifest);
+  output({ ok: true, status: "running", resumedFrom: latest.id, nextStageId: retry.id });
 }
 
 function resumeDemo() {
@@ -719,7 +751,7 @@ function nextAction(manifest, proofs) {
   if (manifest.status === "complete") return "Brand learning capability test is complete; the learned MOD may now enter apply-host as a separate workflow.";
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
-function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
+function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "conceptGeneration", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
 function initialStageForMode(mode, executionProfile = "full") {
   if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
   if (mode === "design-host") return executionProfile === "fast" ? stage("conceptGeneration", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
