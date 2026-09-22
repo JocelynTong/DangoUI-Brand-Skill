@@ -26,7 +26,7 @@ fs.writeFileSync(path.join(root, "skills", "brand", "workflow-contract.json"), J
 fs.copyFileSync(path.resolve("skills/brand/scripts/validate-design-host-route.mjs"), path.join(root, "skills", "brand", "scripts", "validate-design-host-route.mjs"));
 fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "timeout", thresholds: { maxAttempts: 2 } }));
 const workflow = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs");
-const run = (...args) => spawnSync(process.execPath, [workflow, ...args, "--brand", brand, "--root", root], { encoding: "utf8" });
+const run = (...args) => spawnSync(process.execPath, [workflow, ...args, "--brand", brand, "--root", root], { encoding: "utf8", env: { ...process.env, BRAND_SKILL_ROOT: path.join(root, "skills", "brand") } });
 assert.equal(run("prepare").status, 0);
 const manifestFile = path.join(migration, "execution-manifest.json");
 let manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));

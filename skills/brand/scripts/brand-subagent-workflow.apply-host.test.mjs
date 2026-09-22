@@ -35,7 +35,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
 
   const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
   const run = (...command) => {
-    const result = spawnSync(process.execPath, [script, ...command, "--brand", brand, "--root", root], { encoding: "utf8" });
+    const result = spawnSync(process.execPath, [script, ...command, "--brand", brand, "--root", root], { encoding: "utf8", env: { ...process.env, BRAND_SKILL_ROOT: skillDir } });
     assert.equal(result.status, 0, result.stderr || result.stdout);
     return JSON.parse(result.stdout);
   };

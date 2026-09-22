@@ -3,17 +3,19 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { execFileSync } from "node:child_process";
+import { fileURLToPath } from "node:url";
 
 const args = process.argv.slice(2);
 const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
+const skillRoot = path.resolve(process.env.BRAND_SKILL_ROOT || path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const brand = opt("--brand", "");
 if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-concepts|approve-preview|status|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
 const manifestFile = path.join(migrationDir, "execution-manifest.json");
-const contractFile = path.join(root, "skills", "brand", "workflow-contract.json");
+const contractFile = path.join(skillRoot, "workflow-contract.json");
 const designHostRouteFile = path.join(migrationDir, "design-host-route.json");
 
 if (command === "prepare") prepare();
@@ -123,7 +125,7 @@ function next() {
         "skills/brand/references/dangoui.design-system.json",
       ],
       exception: "Read a targeted reference or query a specific JSON key only when the dispatch packet cannot answer a required decision; record that extra read in the receipt.",
-      queryCommand: "node skills/brand/scripts/query-brand-context.mjs <get|search> --source <contract|tokens|runtime|workflow> ...",
+      queryCommand: `node ${path.join(skillRoot, "scripts", "query-brand-context.mjs")} <get|search> --source <contract|tokens|runtime|workflow> ...`,
     },
     receiptRequirements: ["agentExecutionId from a real spawned subagent", "goalSha256 unchanged", "input and output file sha256 values", "pass/fail/needs-evidence verdict", "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"],
     fastDesignHints: fastOverride?.hints || null,
@@ -234,7 +236,7 @@ function record() {
     verifyDesignHostRoute("before-h5-qa");
     const plan = path.join(migrationDir, "brand-application-plan.json");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === plan) || !fs.existsSync(plan)) fail("DESIGN_HOST_PLAN_REQUIRED: designer receipt must hash the frozen H5 plan.");
-    try { execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", plan, ...(manifest.knowledgeScenarioId ? ["--require-scenario", manifest.knowledgeScenarioId] : [])], { cwd: root, stdio: "pipe" }); }
+    try { execFileSync(process.execPath, [path.join(skillRoot, "scripts", "validate-brand-application-plan.mjs"), "--plan", plan, ...(manifest.knowledgeScenarioId ? ["--require-scenario", manifest.knowledgeScenarioId] : [])], { cwd: root, stdio: "pipe" }); }
     catch (error) { fail(`DESIGN_HOST_H5_GATE_FAILED: ${error.stdout?.toString() || error.message}`); }
   }
   if (manifest.mode === "design-host" && current.stage === "conceptGeneration" && receipt.verdict === "pass") verifyDesignHostRoute("after-concept-generation");
@@ -604,7 +606,7 @@ function writeTelemetry(manifest) {
 
 function verifyHostPreeditGate(phase) {
   verifyFrozenDesignGate();
-  const validator = path.join(root, "skills", "brand", "scripts", "validate-host-structural-diff.mjs");
+  const validator = path.join(skillRoot, "scripts", "validate-host-structural-diff.mjs");
   const bundle = path.join(migrationDir, "preedit-baseline-bundle.json");
   const targets = path.join(migrationDir, "structural-targets.json");
   if (!fs.existsSync(bundle)) fail(`Host Implementation ${phase} is blocked: missing orchestrator-authored ${relative(bundle)}.`);
@@ -625,8 +627,8 @@ function verifyFrozenDesignGate() {
     if (!fs.existsSync(file)) fail(`FROZEN_DESIGN_REQUIRED: missing ${relative(file)}; return to design-host instead of designing inside apply-host.`);
   }
   try {
-    execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-brand-application-plan.mjs"), "--plan", path.join(migrationDir, "brand-application-plan.json")], { cwd: root, stdio: "pipe" });
-    execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-wild-design-decision.mjs"), "--options", path.join(migrationDir, "design-direction-options.json"), "--decision", path.join(migrationDir, "design-direction-decision.json"), "--business-scope", path.join(migrationDir, "business-scope.json"), "--brand-evidence", path.join(migrationDir, "brand-evidence.json"), "--brand-mod", path.join(migrationDir, "brand-mod.json"), "--design-direction", path.join(migrationDir, "design-direction.json")], { cwd: root, stdio: "pipe" });
+    execFileSync(process.execPath, [path.join(skillRoot, "scripts", "validate-brand-application-plan.mjs"), "--plan", path.join(migrationDir, "brand-application-plan.json")], { cwd: root, stdio: "pipe" });
+    execFileSync(process.execPath, [path.join(skillRoot, "scripts", "validate-wild-design-decision.mjs"), "--options", path.join(migrationDir, "design-direction-options.json"), "--decision", path.join(migrationDir, "design-direction-decision.json"), "--business-scope", path.join(migrationDir, "business-scope.json"), "--brand-evidence", path.join(migrationDir, "brand-evidence.json"), "--brand-mod", path.join(migrationDir, "brand-mod.json"), "--design-direction", path.join(migrationDir, "design-direction.json")], { cwd: root, stdio: "pipe" });
   } catch (error) {
     const details = String(error.stdout || error.stderr || error.message || "").trim();
     fail(`FROZEN_DESIGN_INVALID: apply-host cannot redesign or repair direction artifacts.${details ? `\n${details}` : ""}`);
@@ -652,7 +654,7 @@ function initializeDesignHostRoute() {
 function verifyDesignHostRoute(stageName) {
   if (!fs.existsSync(designHostRouteFile)) fail("DESIGN_HOST_ROUTE_REQUIRED");
   try {
-    execFileSync(process.execPath, [path.join(root, "skills", "brand", "scripts", "validate-design-host-route.mjs"), "--file", designHostRouteFile, "--stage", stageName], { cwd: root, stdio: "pipe" });
+    execFileSync(process.execPath, [path.join(skillRoot, "scripts", "validate-design-host-route.mjs"), "--file", designHostRouteFile, "--stage", stageName], { cwd: root, stdio: "pipe" });
   } catch (error) {
     fail(`DESIGN_HOST_ROUTE_ORDER_FAILED: ${String(error.stdout || "").trim()} ${String(error.stderr || "").trim()} ${error.message}`.trim());
   }
@@ -817,7 +819,7 @@ function uniqueStage(manifest, name, role, attempt) {
 function hashedPath(relativePath) { const file = path.resolve(root, relativePath); if (!fs.existsSync(file)) fail(`Required input missing: ${relativePath}`); return { path: relativePath, sha256: sha256File(file) }; }
 function verifyHashedPath(item) { if (!item?.path || !item?.sha256) fail("Receipt input/output must contain path and sha256."); const current = hashedPath(item.path); if (current.sha256 !== item.sha256) fail(`Receipt hash mismatch: ${item.path}`); }
 function verifyEvidenceVisibilityGate() {
-  const guard = path.join(root, "skills", "brand", "scripts", "brand-guard.mjs");
+  const guard = path.join(skillRoot, "scripts", "brand-guard.mjs");
   try {
     execFileSync(process.execPath, [guard, "evidence-visibility-gate", "--root", root, "--brand", brand, "--strict"], { cwd: root, stdio: "pipe" });
   } catch (error) {
@@ -826,7 +828,7 @@ function verifyEvidenceVisibilityGate() {
   }
 }
 function verifyLearnBrandHandoff(stage) {
-  const validator = path.join(root, "skills", "brand", "scripts", "validate-learn-brand-handoff.mjs");
+  const validator = path.join(skillRoot, "scripts", "validate-learn-brand-handoff.mjs");
   try {
     execFileSync(process.execPath, [validator, "--root", root, "--brand", brand, "--goal-file", goalFile, "--stage", stage], { cwd: root, stdio: "pipe" });
   } catch (error) {
@@ -835,7 +837,7 @@ function verifyLearnBrandHandoff(stage) {
   }
 }
 function verifyDesignDirectionGate() {
-  const validator = path.join(root, "skills", "brand", "scripts", "validate-design-direction.mjs");
+  const validator = path.join(skillRoot, "scripts", "validate-design-direction.mjs");
   try {
     execFileSync(process.execPath, [validator, "--brand", brand], { cwd: root, stdio: "pipe" });
   } catch (error) {

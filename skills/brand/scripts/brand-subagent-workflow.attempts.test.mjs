@@ -47,7 +47,7 @@ fs.writeFileSync(receiptFile, JSON.stringify(receipt));
 const script = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs");
 fs.writeFileSync(path.join(migration, "execution-manifest.json"), JSON.stringify(manifest));
 fs.writeFileSync(receiptFile, JSON.stringify(receipt));
-const run = spawnSync(process.execPath, [script, "record", "--brand", brand, "--root", root, "--receipt", `migrations/${brand}/receipts/evidence-2.json`], { encoding: "utf8" });
+const run = spawnSync(process.execPath, [script, "record", "--brand", brand, "--root", root, "--receipt", `migrations/${brand}/receipts/evidence-2.json`], { encoding: "utf8", env: { ...process.env, BRAND_SKILL_ROOT: skillDir } });
 assert.equal(run.status, 0, run.stderr);
 const updated = JSON.parse(fs.readFileSync(path.join(migration, "execution-manifest.json"), "utf8"));
 const next = updated.stages.at(-1);
