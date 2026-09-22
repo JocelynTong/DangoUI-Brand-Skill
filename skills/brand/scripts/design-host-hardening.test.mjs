@@ -24,7 +24,7 @@ fs.mkdirSync(path.join(root, "skills", "brand", "scripts"), { recursive: true })
 fs.mkdirSync(migration, { recursive: true });
 fs.writeFileSync(path.join(root, "skills", "brand", "workflow-contract.json"), JSON.stringify({ roleContractVersion: "test", roles: { hostStrategist: { goal: "test" }, brandApplicationDesigner: { goal: "test" } } }));
 fs.copyFileSync(path.resolve("skills/brand/scripts/validate-design-host-route.mjs"), path.join(root, "skills", "brand", "scripts", "validate-design-host-route.mjs"));
-fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "timeout", thresholds: { maxAttempts: 2 }, designHostRoute: { intent: "h5-only", technique: "existing", imageCapability: { status: "not-required" } } }));
+fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "timeout", thresholds: { maxAttempts: 2 } }));
 const workflow = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs");
 const run = (...args) => spawnSync(process.execPath, [workflow, ...args, "--brand", brand, "--root", root], { encoding: "utf8" });
 assert.equal(run("prepare").status, 0);

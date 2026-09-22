@@ -140,17 +140,13 @@ if (!intake.ok) {
 if (command === "run" && mode === "design-host") {
   const routeFile = path.join(root, "migrations", brand, "design-host-route.json");
   if (mode === "design-host" && !fs.existsSync(routeFile)) {
-    const intent = opt(rawArgs, "--design-medium", "auto");
-    const technique = intent === "h5-only" ? "existing" : opt(rawArgs, "--expression-technique", intent === "image-then-h5" ? "generated" : "existing");
     fs.mkdirSync(path.dirname(routeFile), { recursive: true });
     fs.writeFileSync(routeFile, `${JSON.stringify({
-      schema: "design-host-route/v1", intent,
-      decisionOwner: intent === "auto" ? "brandApplicationDesigner" : "user",
-      technique,
-      imageCapability: { status: technique === "generated" ? opt(rawArgs, "--image-capability", "unavailable") : "not-required" },
-      demoImages: { status: technique === "generated" ? "pending" : "not-required" },
-      demoVisualReview: { status: technique === "generated" ? "pending" : "not-required" },
-      userDirectionReview: { status: technique === "generated" ? "pending" : "not-required" },
+      schema: "design-host-route/v2", sequence: "image-demo-first",
+      imageCapability: { status: "required" },
+      demoImages: { status: "pending" },
+      demoVisualReview: { status: "pending" },
+      userDirectionReview: { status: "pending" },
       h5Reconstruction: { status: "pending" }, h5QA: { status: "pending" }, finalSelection: { status: "pending" },
     }, null, 2)}\n`);
   }

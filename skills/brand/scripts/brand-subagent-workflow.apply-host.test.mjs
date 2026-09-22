@@ -17,8 +17,8 @@ function createFixture(mode, brand, executionProfile = undefined) {
   const scriptsDir = path.join(skillDir, "scripts");
   fs.mkdirSync(path.join(migration, "receipts"), { recursive: true });
   fs.mkdirSync(scriptsDir, { recursive: true });
-  fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode, executionProfile, goalId: `${brand}-${mode}-goal`, thresholds: { maxAttempts: 2 }, ...(mode === "design-host" ? { designHostRoute: { intent: "h5-only", technique: "existing", imageCapability: { status: "not-required" } } } : {}) }));
-  if (mode === "apply-host") fs.writeFileSync(path.join(migration, "design-host-route.json"), JSON.stringify({ schema: "design-host-route/v1", intent: "h5-only", decisionOwner: "user", technique: "existing", imageCapability: { status: "not-required" }, demoImages: { status: "not-required" }, demoVisualReview: { status: "not-required" }, userDirectionReview: { status: "not-required" }, h5Reconstruction: { status: "ready", producerExecutionId: "/root/h5", artifacts: [{ path: "direction.html" }] }, h5QA: { status: "pass", reviewerExecutionId: "/root/h5-qa" }, finalSelection: { status: "selected", selectionSource: "explicit-user", selectedOptionId: "a" } }));
+  fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode, executionProfile, goalId: `${brand}-${mode}-goal`, thresholds: { maxAttempts: 2 } }));
+  if (mode === "apply-host") fs.writeFileSync(path.join(migration, "design-host-route.json"), JSON.stringify({ schema: "design-host-route/v2", sequence: "image-demo-first", imageCapability: { status: "available" }, demoImages: { status: "ready", producer: { executionId: "/root/astra", model: "gpt-6-astra", forkTurns: "none", imageToolCalls: ["imagegen-1"] }, artifacts: [{ path: "a.png" }, { path: "b.png" }, { path: "c.png" }] }, demoVisualReview: { status: "pass", reviewerExecutionId: "/root/image-qa" }, userDirectionReview: { status: "approved", selectionSource: "explicit-user", selectedOptionIds: ["a"] }, h5Reconstruction: { status: "ready", producerExecutionId: "/root/h5", artifacts: [{ path: "direction.html" }] }, h5QA: { status: "pass", reviewerExecutionId: "/root/h5-qa" }, finalSelection: { status: "selected", selectionSource: "explicit-user", selectedOptionId: "a" } }));
   fs.writeFileSync(path.join(skillDir, "workflow-contract.json"), JSON.stringify({
     roleContractVersion: "test",
     roles: {
@@ -56,6 +56,8 @@ function createFixture(mode, brand, executionProfile = undefined) {
       agentExecutionId,
       goalSha256: manifest.goalSha256,
       verdict: "pass",
+      execution: current.stage === "conceptGeneration" ? { model: "gpt-6-astra", forkTurns: "none" } : undefined,
+      toolCalls: current.stage === "conceptGeneration" ? [{ id: "imagegen-1", tool: "imagegen" }] : [],
       inputs: dispatch.requiredInputs,
       outputs: Array.isArray(output) ? output : [output],
       blockingFindings: [],
@@ -74,51 +76,10 @@ function createFixture(mode, brand, executionProfile = undefined) {
   fixture.mutateOutput("goal-contract.json", JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "invalid-two", thresholds: { minimumSelectableDirections: 2, maximumSelectableDirections: 2 } }));
   assert.throws(() => fixture.run("prepare"), /DESIGN_HOST_THREE_DIRECTIONS_REQUIRED/);
 }
-{
-  const fixture = createFixture("design-host", "design-fixture");
-  const prepared = fixture.run("prepare");
-  assert.match(prepared.next, /h5Reconstruction/);
-  let manifest = fixture.readManifest();
-  assert.equal(manifest.currentStageId, "h5Reconstruction-1");
-  const designerDispatch = fixture.run("next");
-  assert.equal(designerDispatch.dispatchRequest.fastDesignHints.medium, undefined);
-  assert.ok(designerDispatch.dispatchRequest.expectedOutputs.includes("approved-direction H5 reconstruction"));
-  const route = JSON.parse(fs.readFileSync(path.join(fixture.migration, "design-host-route.json"), "utf8"));
-  route.h5Reconstruction = { status: "ready", producerExecutionId: "/root/brand-application-designer", artifacts: [{ path: "direction.html" }] };
-  fs.writeFileSync(path.join(fixture.migration, "design-host-route.json"), JSON.stringify(route));
-  const h5Plan = fixture.writeOutput("brand-application-plan.json");
-  fixture.recordCurrent("/root/brand-application-designer", [fixture.writeOutput("design-direction-options.json"), h5Plan]);
-  manifest = fixture.readManifest();
-  assert.equal(manifest.currentStageId, "designVisualQA-1");
-  const visualQaDispatch = fixture.run("next");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.targetSeconds, 60);
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.candidateCount, 3);
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.medium, "h5-reconstruction");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.validator, "scripts/validate-design-host-expressive-h5.mjs");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.staticServer.scriptRelativeToSkillRoot, "scripts/serve-design-host-h5.mjs");
-  assert.equal(visualQaDispatch.dispatchRequest.fastDesignHints.deterministicRenderer, undefined);
-  assert.throws(() => fixture.recordCurrent("/root/design-visual-qa", fixture.writeOutput("direction.png", "image")), /DEMO_IMAGE_OUTPUT_OUT_OF_STAGE/);
-  route.h5QA = { status: "pass", reviewerExecutionId: "/root/design-visual-qa" };
-  fs.writeFileSync(path.join(fixture.migration, "design-host-route.json"), JSON.stringify(route));
-  const h5Audit = fixture.writeOutput("design-host-h5-audit.json", JSON.stringify({ status: "eligible-for-human-review" }));
-  fixture.recordCurrent("/root/design-visual-qa", [fixture.writeOutput("design-host-visual-qa.json"), h5Audit]);
-  manifest = fixture.readManifest();
-  assert.equal(manifest.status, "awaiting-user-direction");
-  assert.equal(manifest.directionDecision.humanExpressiveApproval, "pending");
-  assert.equal(manifest.currentStageId, null);
-  assert.equal(manifest.stages.some((item) => item.stage === "hostImplementation"), false);
-  assert.match(fixture.run("status").nextAction, /explicit user selection/);
-}
-
-// Generated route is image-first and cannot dispatch H5 before independent
+// Design-host is image-first and cannot dispatch H5 before independent
 // visual review plus an explicit user concept selection.
 {
-  const blocked = createFixture("design-host", "generated-no-capability");
-  blocked.mutateOutput("goal-contract.json", JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "generated-blocked", designHostRoute: { intent: "image-then-h5", technique: "generated", imageCapability: { status: "unavailable" } } }));
-  assert.throws(() => blocked.run("prepare"), /IMAGE_GENERATION_CAPABILITY_REQUIRED/);
-
   const fixture = createFixture("design-host", "generated-route");
-  fixture.mutateOutput("goal-contract.json", JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "generated-route", designHostRoute: { intent: "image-then-h5", technique: "generated", imageCapability: { status: "available" } } }));
   fixture.run("prepare");
   assert.equal(fixture.readManifest().currentStageId, "conceptGeneration-1");
   const conceptDispatch = fixture.run("next");
@@ -126,7 +87,8 @@ function createFixture(mode, brand, executionProfile = undefined) {
   assert.equal(conceptDispatch.dispatchRequest.fastDesignHints.requiredModel, "gpt-6-astra");
   const conceptRoute = JSON.parse(fs.readFileSync(path.join(fixture.migration, "design-host-route.json"), "utf8"));
   const images = ["a.png", "b.png", "c.png"].map((name) => fixture.writeOutput(name, name));
-  conceptRoute.demoImages = { status: "ready", producerExecutionId: "/root/concept-producer", artifacts: images };
+  conceptRoute.imageCapability = { status: "available" };
+  conceptRoute.demoImages = { status: "ready", producer: { executionId: "/root/concept-producer", model: "gpt-6-astra", forkTurns: "none", imageToolCalls: ["imagegen-1"] }, artifacts: images };
   fs.writeFileSync(path.join(fixture.migration, "design-host-route.json"), JSON.stringify(conceptRoute));
   fixture.recordCurrent("/root/concept-producer", [...images, fixture.writeOutput("design-host-route.json", JSON.stringify(conceptRoute))]);
   assert.equal(fixture.readManifest().currentStageId, "conceptVisualQA-1");

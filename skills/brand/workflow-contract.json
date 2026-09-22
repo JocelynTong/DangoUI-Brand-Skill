@@ -1114,7 +1114,7 @@
       "outputs": [
         "brand-application-plan.json",
         "design-direction-options.json",
-        "at least three generated Demo images before H5 when technique is generated",
+        "at least three image Demo directions before every H5 reconstruction",
         "an H5 reconstruction only after independent Demo review and explicit user confirmation",
         "brandSystemClosure"
       ],
@@ -1152,7 +1152,8 @@
         "minimum token, asset and pattern counts only qualify an option for review and never establish quality",
         "host business thumbnails remain content rather than brand identity",
         "each option visibly integrates brand atmosphere and real host task instead of stacking a brand poster above a generic page",
-        "generated uses Demo images first; explicit h5-only and existing/none may enter H5 directly",
+        "image Demo review and explicit user confirmation always precede H5 reconstruction",
+        "the visual Demo producer runs as gpt-6-astra with fork_turns=none and records real image-generation tool-call evidence; browser screenshots of hand-authored H5 do not qualify",
         "machine expressive audit means eligible for human review, not approved aesthetic quality",
         "claims not visible in static evidence are marked not-evaluated or receive an additional H5 state",
         "every option binds the exact brand mod and passes options-only Wild Design validation"
@@ -2324,7 +2325,7 @@
         {
           "id": "compose-directions",
           "role": "brandApplicationDesigner",
-          "label": "Generate at least three host-grounded Demo images from provenance-approved inputs when the sealed route technique is generated",
+          "label": "Generate at least three host-grounded image Demos from provenance-approved inputs before any H5",
           "required": true,
           "blocking": true,
           "outputs": [
@@ -2415,7 +2416,7 @@
         "generated-proposal assets never define brand identity, enter Brand MOD or participate in formal visual-retention scoring; only evidence-source and explicitly approved derived assets may do so.",
         "Assets rejected by the provenance gate remain internal JSON audit records only; user-facing images, contact sheets, H5 previews and reports must not load, thumbnail or transform them.",
         "Do not implement before an explicit user direction decision.",
-        "Generated routes use image Demos before H5; explicit h5-only and existing/none routes may bypass image stages.",
+        "Every design-host run uses image Demos before H5; rendering technique creates no bypass.",
         "H5 reconstruction is forbidden until independent Demo review and explicit user direction confirmation are frozen.",
         "Every selectable result must remain reachable in the delivered H5 selection surface; horizontal overflow or off-canvas placement is a delivery failure."
       ]

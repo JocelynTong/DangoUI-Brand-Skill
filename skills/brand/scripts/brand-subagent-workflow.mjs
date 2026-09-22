@@ -44,9 +44,9 @@ function prepare() {
     if (mode !== "design-host" || !array(index.scenarios).some((item) => item.id === knowledgeScenarioId)) fail(`KNOWLEDGE_SCENARIO_UNKNOWN: ${knowledgeScenarioId}`);
   }
   if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must freeze three selectable H5 directions before the clock starts.");
-  if (mode === "design-host") initializeDesignHostRoute(goal);
+  if (mode === "design-host") initializeDesignHostRoute();
   if (mode === "apply-host") verifyDesignHostRoute("before-apply-host");
-  const initialStage = initialStageForMode(mode, executionProfile, mode === "design-host" ? readJsonRequired(designHostRouteFile).technique : null);
+  const initialStage = initialStageForMode(mode, executionProfile);
   const manifest = {
     schema: "brand-subagent-execution/v1",
     runId: crypto.randomUUID(),
@@ -144,8 +144,8 @@ function fastDesignHostOverride(manifest, current) {
   if (current.stage === "conceptGeneration") return {
     mission: "Produce at least three distinct generated Demo images from the frozen host, brand evidence and expression plan; do not create H5.",
     tasks: ["verify declared image capability", "produce three Demo image options", "record producer identity, provenance and hashes in design-host-route.json"],
-    requirements: ["no H5 output", "preserve host business structure", "use model=gpt-6-astra with fork_turns=none for the actual visual Demo subtask"],
-    expectedOutputs: ["at least three PNG/JPG/WebP Demo images", "design-host-route.json"],
+    requirements: ["no H5 output", "preserve host business structure", "use model=gpt-6-astra with fork_turns=none for the actual visual Demo subtask", "call the available image-generation tool and record its tool-call ids; HTML screenshots do not qualify"],
+    expectedOutputs: ["at least three PNG/JPG/WebP Demo images", "design-host-route.json with producer model, forkTurns and imageToolCalls evidence"],
     hints: { medium: "demo-images", requiredModel: "gpt-6-astra", forkTurns: "none" },
   };
   if (current.stage === "conceptVisualQA") return {
@@ -209,12 +209,11 @@ function record() {
   }
   const receiptOutputs = array(receipt.outputs);
   if (manifest.mode === "design-host") {
-    const route = readJsonRequired(designHostRouteFile);
     const hasImage = receiptOutputs.some((item) => /\.(?:png|jpe?g|webp|avif)$/i.test(item.path || ""));
     const hasH5 = receiptOutputs.some((item) => /\.(?:html?|css|jsx?|tsx?|vue)$/i.test(item.path || ""));
-    if (route.technique === "generated" && current.stage === "conceptGeneration" && hasH5) fail("H5_BEFORE_DEMO_REVIEW_FORBIDDEN");
+    if (current.stage === "conceptGeneration" && hasH5) fail("H5_BEFORE_DEMO_REVIEW_FORBIDDEN");
     if (current.stage !== "conceptGeneration" && hasImage) fail("DEMO_IMAGE_OUTPUT_OUT_OF_STAGE");
-    if (route.technique === "generated" && ["hostStrategy", "conceptVisualQA"].includes(current.stage) && hasH5) fail("H5_BEFORE_DEMO_USER_CONFIRMATION_FORBIDDEN");
+    if (["hostStrategy", "conceptVisualQA"].includes(current.stage) && hasH5) fail("H5_BEFORE_DEMO_USER_CONFIRMATION_FORBIDDEN");
   }
   const overwrittenOutputPaths = new Set(receiptOutputs.map((item) => item.path));
   for (const item of receiptInputs) {
@@ -239,9 +238,16 @@ function record() {
     catch (error) { fail(`DESIGN_HOST_H5_GATE_FAILED: ${error.stdout?.toString() || error.message}`); }
   }
   if (manifest.mode === "design-host" && current.stage === "conceptGeneration" && receipt.verdict === "pass") verifyDesignHostRoute("after-concept-generation");
+  if (manifest.mode === "design-host" && current.stage === "conceptGeneration" && receipt.verdict === "pass") {
+    const route = readJsonRequired(designHostRouteFile);
+    const producer = route.demoImages?.producer || {};
+    const toolCalls = array(receipt.toolCalls);
+    if (receipt.execution?.model !== "gpt-6-astra" || receipt.execution?.forkTurns !== "none") fail("DEMO_IMAGE_EXECUTION_CONTRACT_REQUIRED");
+    if (!producer.imageToolCalls.every((id) => toolCalls.some((call) => call.id === id && /imagegen|image-generation/i.test(call.tool || call.name || "")))) fail("DEMO_IMAGE_TOOL_RECEIPT_REQUIRED");
+  }
   if (manifest.mode === "design-host" && current.stage === "conceptVisualQA" && receipt.verdict === "pass") {
     const route = readJsonRequired(designHostRouteFile);
-    if (route.demoVisualReview?.reviewerExecutionId === route.demoImages?.producerExecutionId) fail("DEMO_VISUAL_REVIEW_NOT_INDEPENDENT");
+    if (route.demoVisualReview?.reviewerExecutionId === route.demoImages?.producer?.executionId) fail("DEMO_VISUAL_REVIEW_NOT_INDEPENDENT");
     if (route.demoVisualReview?.status !== "pass") fail("DEMO_VISUAL_REVIEW_REQUIRED");
   }
   if (manifest.mode === "design-host" && current.stage === "designVisualQA" && receipt.verdict === "pass") {
@@ -627,22 +633,14 @@ function verifyFrozenDesignGate() {
   }
 }
 
-function initializeDesignHostRoute(goal) {
-  const requested = goal.designHostRoute || {};
-  const intent = requested.intent || "auto";
-  const technique = requested.technique || (intent === "image-then-h5" ? "generated" : "existing");
-  if (technique === "generated" && requested.imageCapability?.status !== "available") {
-    fail("IMAGE_GENERATION_CAPABILITY_REQUIRED: generated design-host must stop before creating H5 when image capability is unavailable.");
-  }
+function initializeDesignHostRoute() {
   const route = {
-    schema: "design-host-route/v1",
-    intent,
-    decisionOwner: intent === "auto" ? "brandApplicationDesigner" : "user",
-    technique,
-    imageCapability: requested.imageCapability || { status: technique === "generated" ? "unavailable" : "not-required" },
-    demoImages: { status: technique === "generated" ? "pending" : "not-required" },
-    demoVisualReview: { status: technique === "generated" ? "pending" : "not-required" },
-    userDirectionReview: { status: technique === "generated" ? "pending" : "not-required" },
+    schema: "design-host-route/v2",
+    sequence: "image-demo-first",
+    imageCapability: { status: "required" },
+    demoImages: { status: "pending" },
+    demoVisualReview: { status: "pending" },
+    userDirectionReview: { status: "pending" },
     h5Reconstruction: { status: "pending" },
     h5QA: { status: "pending" },
     finalSelection: { status: "pending" },
@@ -720,16 +718,15 @@ function nextAction(manifest, proofs) {
   return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}; three-proof status remains independently visible.` : "Inspect the blocked stage and preserve the frozen learning goal.";
 }
 function stage(name, role, attempt) { return { id: `${name}-${attempt}`, stage: name, role, attempt, maxAttempts: ["evidence", "demo", "visualQA"].includes(name) ? 2 : 1, status: "pending" }; }
-function initialStageForMode(mode, executionProfile = "full", technique = null) {
+function initialStageForMode(mode, executionProfile = "full") {
   if (mode === "learn-brand") return stage("evidence", "brandResearcher", 1);
-  if (mode === "design-host") return executionProfile === "fast" ? stage(technique === "generated" ? "conceptGeneration" : "h5Reconstruction", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
+  if (mode === "design-host") return executionProfile === "fast" ? stage("conceptGeneration", "brandApplicationDesigner", 1) : stage("hostStrategy", "hostStrategist", 1);
   if (mode === "apply-host") return stage("hostImplementation", "hostImplementationAgent", 1);
   fail(`Unsupported goal mode: ${mode}`);
 }
 function stageOrderForMode(mode, executionProfile = "full") {
   if (mode === "design-host") {
-    const route = readJsonRequired(designHostRouteFile);
-    const body = route.technique === "generated" ? ["conceptGeneration", "conceptVisualQA", "h5Reconstruction", "designVisualQA"] : ["h5Reconstruction", "designVisualQA"];
+    const body = ["conceptGeneration", "conceptVisualQA", "h5Reconstruction", "designVisualQA"];
     return executionProfile === "fast" ? body : ["hostStrategy", ...body];
   }
   if (mode === "apply-host") return ["hostImplementation", "previewQA", "visualQA"];

@@ -28,4 +28,4 @@ Correction: fast design-host delivers three complete H5 options, never two. Pres
 
 ## Medium boundary
 
-Design-host follows the sealed route in `design-host-route.json`. A `generated` route creates at least three Demo images, sends them to an independent visual reviewer, and waits for explicit user direction confirmation before H5 reconstruction. Explicit `h5-only` and `existing/none` routes skip image generation and enter isolated H5 directly. H5 QA cannot override a failed or incomplete route-order gate.
+Design-host has one sealed sequence in `design-host-route.json`: create at least three image Demos, send them to an independent visual reviewer, wait for explicit user direction confirmation, then reconstruct the approved direction in H5. Rendering technique never creates a bypass. H5 QA cannot override a failed or incomplete route-order gate.
