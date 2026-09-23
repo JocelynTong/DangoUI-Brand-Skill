@@ -1,9 +1,10 @@
 <template>
-  <a href="/knowledge/guide.html" class="knowledge-link">设计决策库</a>
   <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango', 'theme-pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' }]" :style="themeVars">
     <aside class="panel" aria-label="Visual inspector">
       <div class="style-rail">
-        <p class="section-heading"><strong>参考站</strong></p>
+        <a href="#/variants" style="display:block;padding:8px 0;font-size:11px;color:inherit">← Variant 库</a>
+        <a href="/knowledge/guide.html" class="knowledge-link">设计决策库</a>
+        <p class="section-heading"><strong>品牌</strong></p>
         <div class="style-switcher compact" aria-label="brand style presets">
           <button
             v-for="preset in stylePresets"
@@ -33,7 +34,7 @@
           aria-label="brand learning proof status"
           style="margin: 10px 8px; padding: 10px; border: 1px solid rgba(127,127,127,.28); border-radius: 10px; background: rgba(127,127,127,.06); font-size: 11px; line-height: 1.45;"
         >
-          <summary style="cursor: pointer; font-weight: 700;">Demo 学习证明 · {{ selectedLearningProof.overall }}</summary>
+          <summary style="cursor: pointer; font-weight: 700;">Variant 学习记录 · {{ selectedLearningProof.overall }}</summary>
           <p style="margin: 7px 0; opacity: .76;">不是官网镜像、宿主成果或品牌素材模板。</p>
           <div style="display: flex; flex-wrap: wrap; gap: 5px;">
             <span
@@ -83,7 +84,7 @@
         </template>
 
         <template v-else-if="selectedInspectorTab === 'pages'">
-          <div class="page-list rail-list" aria-label="demo pages">
+          <div class="page-list rail-list" aria-label="variant scenes">
             <div
               v-for="template in currentPageTabs"
               :key="template.id"

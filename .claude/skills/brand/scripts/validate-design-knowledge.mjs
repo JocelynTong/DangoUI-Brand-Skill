@@ -41,7 +41,11 @@ for (const kind of ['patterns', 'methods', 'cases']) {
     }
     if (kind === 'methods' && (!item.ownerRole || !item.procedure?.length || !item.notFor?.length)) fail('METHOD_ENTRY_INCOMPLETE', entry.id)
     if (kind === 'methods') for (const id of item.ruleRefs || []) if (!(methodsIndex.rules || []).some((candidate) => candidate.id === id)) fail('METHOD_RULE_UNRESOLVED', `${entry.id}: ${id}`)
-    if (kind === 'cases' && (!item.invalidInference || !item.safeConclusion || !(item.observedSource?.url || (item.evidenceFiles?.length && item.evidenceFiles.every(file => { const resolved = path.resolve(root, file); return resolved.startsWith(root + path.sep) && fs.existsSync(resolved) }))) || !item.reviewStatus)) fail('CASE_ENTRY_INCOMPLETE', entry.id)
+    if (kind === 'cases') {
+      const persistedEvidence = item.observedSource?.url || (item.evidenceFiles?.length && item.evidenceFiles.every(file => { const resolved = path.resolve(root, file); return resolved.startsWith(root + path.sep) && fs.existsSync(resolved) }))
+      const explicitlyUnpersisted = item.evidenceAvailability === 'not-persisted' && item.evidenceBoundary && /not-approved|awaiting|pending/.test(`${item.status || ''} ${item.reviewStatus || ''}`)
+      if (!item.invalidInference || !item.safeConclusion || !(persistedEvidence || explicitlyUnpersisted) || !item.reviewStatus) fail('CASE_ENTRY_INCOMPLETE', entry.id)
+    }
   }
 }
 const caseRecords = new Map((methodsIndex.cases || []).map((entry) => [entry.id, read(path.join(root, entry.path))]))

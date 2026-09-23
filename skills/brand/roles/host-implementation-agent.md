@@ -52,6 +52,6 @@ Implement the one explicitly selected visual direction in the real host runtime 
 
 Add cases that change reusable runtime, framework, platform, cascade, asset-quality or business-preservation rules. Route aesthetic application failures back to Brand Application Designer instead of accumulating them as CSS implementation rules.
 
-## 宿主 expressive 决策记忆
+## apply-host expressive execution
 
-强决策发生时使用 SKILL.md 的阶段检索入口；判断依据维护在正式决策库，任务中记录采用或拒绝理由。
+When the selected direction needs generated scenery or image-to-runtime reconstruction, read [expressive judgment and reconstruction](../references/expressive-reconstruction.md) before generating assets, not only after visual failure. Own the feasibility judgment, generation constraints, camera/coordinate consistency, dynamic-slot binding, occlusion and contact-light implementation. Default to fewer complex foreground/background dependencies per this project's user preference. Generate supporting plates within the approved direction; do not silently redesign a frozen composition. If decomposition changes its structure or fidelity remains unacceptable, report the gap and route a direction revision rather than stacking patches. Functional tests do not close a visual failure.

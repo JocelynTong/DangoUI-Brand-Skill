@@ -7,7 +7,7 @@
     },
     {
       "path": "knowledge-runtime/knowledge/v0.1/cases/newhire-dango-welcome-expression.json",
-      "sha256": "df931b2d3604e28e20b3803f580d35ccc5cfa555f5b26dcd15ff2b45050481c0"
+      "sha256": "9f26c85617115fe4e4cca158459eca6f52e31d6f51368f1d9240ceb89c5daf9f"
     },
     {
       "path": "knowledge-runtime/knowledge/v0.1/cases/newhire-dango-welcome-expression.md",
@@ -367,7 +367,7 @@
     },
     {
       "path": "references/expressive-moments-playbook.md",
-      "sha256": "af13c104cd1b093301d23e27d19aabd6db1aeefdb195004e52a8360ca936fac0"
+      "sha256": "1602bf699bd31519e54666775d7e1e05cad07ae773b9cf52c41f8a181a5b3fbc"
     },
     {
       "path": "references/expressive-reconstruction.md",
@@ -431,7 +431,7 @@
     },
     {
       "path": "roles/brand-application-designer.md",
-      "sha256": "8855465fe0b2a3e4bafbcf9adfc208dabf135f2222a4a3a234ce90f7fb282a15"
+      "sha256": "e2129f9c8efd7f50fc79ddf1be2610da4fd110abba36d5732c0d71f0ff114338"
     },
     {
       "path": "roles/brand-interpreter.md",
@@ -451,7 +451,7 @@
     },
     {
       "path": "roles/host-implementation-agent.md",
-      "sha256": "219b947febe4cf4ade2876aa2d2711a6e088305a5c13859ab9f535af16ac8ebc"
+      "sha256": "a80c3c0f13c6183ac05345661d2010ccc7a09de45e385f4658cc39cd24489324"
     },
     {
       "path": "roles/host-strategist.md",
@@ -483,7 +483,7 @@
     },
     {
       "path": "scripts/audit-brand-chain.test.mjs",
-      "sha256": "7a62dcf7eae494e59d684832f6b3a4a43994d3d5ef418fd706d5189887acd4a0"
+      "sha256": "07fe5a301cfae75de54b808e74199ebcc5f4c201a8d1a85f71043f56179e417b"
     },
     {
       "path": "scripts/brand-artifacts.mjs",
@@ -519,19 +519,19 @@
     },
     {
       "path": "scripts/brand-subagent-workflow.apply-host.test.mjs",
-      "sha256": "59d477cda0a1571abd3f4d1723b140c86d8739f11d0e5a46773306b1a3eacfb1"
+      "sha256": "ac61e63298058ac557c29cf2b6892f5703af96fba38c0b34852c179e08e30036"
     },
     {
       "path": "scripts/brand-subagent-workflow.attempts.test.mjs",
-      "sha256": "9992562a5f3993574444ba8f6226a9f9350f1eee60ee998693b7eb35ce32e2f2"
+      "sha256": "82bcf7336c21e85dd0b0ad276a1a52c6c70385a7498d9972b41317c7e56f952f"
     },
     {
       "path": "scripts/brand-subagent-workflow.mjs",
-      "sha256": "dcb67d9958456a3c11d035d47e978f8ec71cab0b30627e092c551c45e3fe7115"
+      "sha256": "bf34956b7ed8640faff2bb85e16e9a23b45bc3d9c51d110579704698b59e72c2"
     },
     {
       "path": "scripts/brand-subagent-workflow.prepare.test.mjs",
-      "sha256": "75036aca8fb2ecbe6055b806f5ef34e5fd039014639b954b769a1606f17e57c6"
+      "sha256": "be3b219c6d6f437fe2603fb2462cea18cc33ef3c275ac01297374207b68c2c78"
     },
     {
       "path": "scripts/check-expressive-runtime.mjs",
@@ -563,7 +563,7 @@
     },
     {
       "path": "scripts/design-host-hardening.test.mjs",
-      "sha256": "c81681d158904d3b23b314d2a378e8c99e2e45266a466b89d5f1046d07597c3b"
+      "sha256": "388dd06f422413b4b7f3a79b0b96f6a1c1d1f7b3ba612487ee34fbab80bc94f8"
     },
     {
       "path": "scripts/design-knowledge.test.mjs",
@@ -715,7 +715,7 @@
     },
     {
       "path": "scripts/run-brand-workflow.mjs",
-      "sha256": "083c3c0496f5619651816db3f6918a38cf1a7f1ad2ba4c38b117971e97cf3e2b"
+      "sha256": "80d2433b7f218ea0f5c47b5f66ea554e3d7d5e7fc9a96ead6f3c8f3e4896942f"
     },
     {
       "path": "scripts/run-dembrandt-extractor.mjs",
@@ -826,8 +826,16 @@
       "sha256": "25fae52167dc99d1c3c378344e71e43a84710a5a322c9a47df5e4d84fd24e6c3"
     },
     {
+      "path": "scripts/validate-design-host-route.mjs",
+      "sha256": "8301095729dd2e69c407f8d3e52a8463927d32c6a66f47987953396e67f5318e"
+    },
+    {
+      "path": "scripts/validate-design-host-route.test.mjs",
+      "sha256": "50681e708b4ab58994f6f922655825942edc8715aa55fd0eefa38c909634bbe1"
+    },
+    {
       "path": "scripts/validate-design-knowledge.mjs",
-      "sha256": "0f2b8e59c9f122418bb96ee774c50e342f1a6d3b72e13a9a21ec8fa3d8f20a03"
+      "sha256": "97a312cefb62bc4644c30ebe1e89d1d1a79456a242115885170f0b54fafbca5f"
     },
     {
       "path": "scripts/validate-host-apply-gate.mjs",
@@ -915,7 +923,7 @@
     },
     {
       "path": "scripts/validate-primary-role-frequency-review.test.mjs",
-      "sha256": "badebe808d619cd9b9b833cc1f9f3c7b7de476ed15b2250620861e6945cf78a6"
+      "sha256": "3efc52d6ffc8673aff2a01a1576dfe01b4103c9c1b48fc3e6e1606e0678371f1"
     },
     {
       "path": "scripts/validate-program-strategy.mjs",
@@ -983,16 +991,16 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "e73b7589781a494fd4528c7b2af06c6891a5e9b41499c042609695d8a859a212"
+      "sha256": "c44baa0aceb3ad59ef084d840c877587012817c7a3ad2680b738b0b2eb620570"
     },
     {
       "path": "workflow-contract.json",
-      "sha256": "5f0bc764ce53806c01b0d127a90cf6876c91ea744d391bce61dcdba4ae662632"
+      "sha256": "69a84bec77953872b569001360cb42102934370ee4a5fd870820998b6bdb1641"
     },
     {
       "path": "workflows/learn-brand.md",
       "sha256": "7fc239ac550d7e29260964f103673253c2f692332fcabff47e99f4aaaf2f484d"
     }
   ],
-  "treeSha256": "7471c2600a5b7fba3e2df4a4bcd493a3aa48a563c07cad56906356eb5d98e09c"
+  "treeSha256": "ac8bee8c78b8bb29182b47d5f74ffb9373a8f20e11e303e135ac56707918cfdf"
 }

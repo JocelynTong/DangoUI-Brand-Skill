@@ -30,6 +30,11 @@ const run = (...args) => spawnSync(process.execPath, [workflow, ...args, "--bran
 assert.equal(run("prepare").status, 0);
 const manifestFile = path.join(migration, "execution-manifest.json");
 let manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
+const undeclared = run("next");
+assert.notEqual(undeclared.status, 0);
+assert.match(undeclared.stderr, /IMAGE_GENERATION_CAPABILITY_UNDECLARED/);
+assert.equal(JSON.parse(fs.readFileSync(manifestFile, "utf8")).status, "running");
+assert.equal(run("declare-capability", "--image-generation", "available").status, 0);
 assert.equal(run("next").status, 0);
 manifest = JSON.parse(fs.readFileSync(manifestFile, "utf8"));
 const dispatch = JSON.parse(fs.readFileSync(path.join(root, manifest.stages[0].dispatchPath), "utf8"));

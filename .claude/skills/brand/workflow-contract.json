@@ -1114,8 +1114,8 @@
       "outputs": [
         "brand-application-plan.json",
         "design-direction-options.json",
-        "at least three host-grounded static H5 first-viewport directions",
-        "optional H5 state only when interaction is direction-defining",
+        "at least three image Demo directions before every H5 reconstruction",
+        "an H5 reconstruction only after independent Demo review and explicit user confirmation",
         "brandSystemClosure"
       ],
       "inputs": {
@@ -1152,7 +1152,8 @@
         "minimum token, asset and pattern counts only qualify an option for review and never establish quality",
         "host business thumbnails remain content rather than brand identity",
         "each option visibly integrates brand atmosphere and real host task instead of stacking a brand poster above a generic page",
-        "the five-minute selection gate uses lightweight static H5 only, with no proposal image generation or screenshot capture",
+        "image Demo review and explicit user confirmation always precede H5 reconstruction",
+        "the visual Demo producer runs as gpt-6-astra with fork_turns=none and records real image-generation tool-call evidence; browser screenshots of hand-authored H5 do not qualify",
         "machine expressive audit means eligible for human review, not approved aesthetic quality",
         "claims not visible in static evidence are marked not-evaluated or receive an additional H5 state",
         "every option binds the exact brand mod and passes options-only Wild Design validation"
@@ -2324,13 +2325,12 @@
         {
           "id": "compose-directions",
           "role": "brandApplicationDesigner",
-          "label": "Compose at least three static host-grounded H5 directions only from provenance-approved tokens, assets and patterns",
+          "label": "Generate at least three host-grounded image Demos from provenance-approved inputs before any H5",
           "required": true,
           "blocking": true,
           "outputs": [
-            "brand-application-plan.json",
-            "design-direction-options.json",
-            "static H5 direction previews"
+            "design-host-route.json",
+            "Demo image directions"
           ]
         },
         {
@@ -2344,24 +2344,27 @@
           ]
         },
         {
-          "id": "validate-static-h5",
-          "role": "brandApplicationDesigner",
-          "label": "Validate the isolated static H5 directions and expressive continuity without modifying or starting the host runtime",
+          "id": "conceptVisualQA",
+          "role": "visualQA",
+          "label": "Independently review generated Demo images and stop for explicit user direction confirmation before H5",
           "required": true,
           "blocking": true,
           "outputs": [
-            "static H5 direction previews",
-            "expressive H5 audit JSON"
+            "design-host-concept-qa.json",
+            "design-host-route.json"
           ]
         },
         {
-          "id": "validate-visual-retention",
-          "role": "designDirectorOrchestrator",
-          "label": "Require at least five of seven retained dimensions including composition, core assets and brand material",
+          "id": "h5Reconstruction",
+          "role": "brandApplicationDesigner",
+          "label": "Reconstruct only the explicitly approved Demo direction as isolated H5",
           "required": true,
           "blocking": true,
           "outputs": [
-            "visual-retention-report.json"
+            "brand-application-plan.json",
+            "design-direction-options.json",
+            "H5 reconstruction",
+            "design-host-route.json"
           ]
         },
         {
@@ -2413,8 +2416,8 @@
         "generated-proposal assets never define brand identity, enter Brand MOD or participate in formal visual-retention scoring; only evidence-source and explicitly approved derived assets may do so.",
         "Assets rejected by the provenance gate remain internal JSON audit records only; user-facing images, contact sheets, H5 previews and reports must not load, thumbnail or transform them.",
         "Do not implement before an explicit user direction decision.",
-        "Static H5 directions use the real host task, content, route and viewport but remain isolated artifacts and never start the host runtime.",
-        "User-facing selection uses the static H5 surface directly; design-host creates no proposal screenshots, image derivatives or generated direction images.",
+        "Every design-host run uses image Demos before H5; rendering technique creates no bypass.",
+        "H5 reconstruction is forbidden until independent Demo review and explicit user direction confirmation are frozen.",
         "Every selectable result must remain reachable in the delivered H5 selection surface; horizontal overflow or off-canvas placement is a delivery failure."
       ]
     },

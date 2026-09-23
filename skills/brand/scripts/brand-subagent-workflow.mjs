@@ -10,15 +10,17 @@ const command = args[0];
 const root = path.resolve(opt("--root", process.cwd()));
 const skillRoot = path.resolve(process.env.BRAND_SKILL_ROOT || path.dirname(path.dirname(fileURLToPath(import.meta.url))));
 const brand = opt("--brand", "");
-if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|next|record|approve-concepts|approve-preview|status|resume-concepts|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
+if (!command || !brand) fail("Usage: brand-subagent-workflow.mjs <prepare|declare-capability|next|record|approve-concepts|approve-preview|status|resume-concepts|resume-evidence|resume-qa|resume-demo|finalize> --brand <brand>");
 
 const migrationDir = path.join(root, "migrations", brand);
 const goalFile = path.join(migrationDir, "goal-contract.json");
 const manifestFile = path.join(migrationDir, "execution-manifest.json");
 const contractFile = path.join(skillRoot, "workflow-contract.json");
 const designHostRouteFile = path.join(migrationDir, "design-host-route.json");
+const executionCapabilitiesFile = path.join(migrationDir, "execution-capabilities.json");
 
 if (command === "prepare") prepare();
+else if (command === "declare-capability") declareCapability();
 else if (command === "next") next();
 else if (command === "record") record();
 else if (command === "approve-concepts") approveConcepts();
@@ -46,7 +48,7 @@ function prepare() {
     const index = readJsonRequired(path.join(root, "public", "knowledge", "v0.1", "index.json"));
     if (mode !== "design-host" || !array(index.scenarios).some((item) => item.id === knowledgeScenarioId)) fail(`KNOWLEDGE_SCENARIO_UNKNOWN: ${knowledgeScenarioId}`);
   }
-  if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must freeze three selectable H5 directions before the clock starts.");
+  if (mode === "design-host" && executionProfile === "fast" && [goal.thresholds?.minimumSelectableDirections, goal.thresholds?.maximumSelectableDirections].some((count) => count != null && Number(count) !== 3)) fail("DESIGN_HOST_THREE_DIRECTIONS_REQUIRED: fast design-host must produce three selectable image directions before H5 reconstruction.");
   if (mode === "design-host") initializeDesignHostRoute();
   if (mode === "apply-host") verifyDesignHostRoute("before-apply-host");
   const initialStage = initialStageForMode(mode, executionProfile);
@@ -70,7 +72,10 @@ function prepare() {
     telemetry: { dispatchCount: 0, inputFiles: 0, inputBytes: 0, outputFiles: 0, outputBytes: 0, additionalReadBytes: 0 },
   };
   writeJson(manifestFile, manifest);
-  output({ ok: true, manifest: relative(manifestFile), runId: manifest.runId, next: `Run next to obtain the ${initialStage.stage} dispatch request.` });
+  const nextInstruction = mode === "design-host" && initialStage.stage === "conceptGeneration"
+    ? "Inspect the current task tools, run declare-capability --image-generation <available|unavailable>, then run next."
+    : `Run next to obtain the ${initialStage.stage} dispatch request.`;
+  output({ ok: true, manifest: relative(manifestFile), runId: manifest.runId, next: nextInstruction });
 }
 
 function next() {
@@ -79,6 +84,7 @@ function next() {
   if (manifest.status !== "running") return output({ ok: false, status: manifest.status, message: "Workflow is not dispatchable." }, 2);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
   if (!current || current.status !== "pending") fail("Current stage is not pending; record its receipt or inspect status.");
+  if (manifest.mode === "design-host" && current.stage === "conceptGeneration") verifyConceptCapability(manifest, current);
   if (manifest.mode === "design-host" && current.stage === "conceptGeneration") verifyDesignHostRoute("before-concept-dispatch");
   if (manifest.mode === "design-host" && current.stage === "h5Reconstruction") verifyDesignHostRoute("before-h5-dispatch");
   if (current.stage === "demo") verifyDesignDirectionGate();
@@ -140,6 +146,28 @@ function next() {
   addTelemetry(manifest, "dispatch", inputs);
   writeJson(manifestFile, manifest);
   output({ ok: true, dispatchRequest: request, dispatchFile: relative(dispatchFile), instruction: "The outer Orchestrator must now spawn a real subagent with exactly this packet." });
+}
+
+function declareCapability() {
+  const imageGeneration = opt("--image-generation", "");
+  if (!["available", "unavailable"].includes(imageGeneration)) fail("declare-capability requires --image-generation <available|unavailable>.");
+  fs.mkdirSync(migrationDir, { recursive: true });
+  const capability = {
+    schema: "brand-execution-capabilities/v1",
+    imageGeneration: imageGeneration === "available"
+      ? { status: "available", tool: "image_gen", mode: "built-in" }
+      : { status: "unavailable", requiredTool: "image_gen" },
+    declaredAt: new Date().toISOString(),
+  };
+  writeJson(executionCapabilitiesFile, capability);
+  if (fs.existsSync(designHostRouteFile)) {
+    const route = readJsonRequired(designHostRouteFile);
+    route.imageCapability = imageGeneration === "available"
+      ? { status: "available", tool: "image_gen", mode: "built-in", capabilitySha256: sha256File(executionCapabilitiesFile) }
+      : { status: "unavailable", requiredTool: "image_gen", fallbackRequiresExplicitUserApproval: true };
+    writeJson(designHostRouteFile, route);
+  }
+  output({ ok: true, capability: relative(executionCapabilitiesFile), imageGeneration });
 }
 
 function fastDesignHostOverride(manifest, current) {
@@ -690,6 +718,32 @@ function verifyDesignHostRoute(stageName) {
   } catch (error) {
     fail(`DESIGN_HOST_ROUTE_ORDER_FAILED: ${String(error.stdout || "").trim()} ${String(error.stderr || "").trim()} ${error.message}`.trim());
   }
+}
+
+function verifyConceptCapability(manifest, current) {
+  if (!fs.existsSync(executionCapabilitiesFile)) {
+    fail("IMAGE_GENERATION_CAPABILITY_UNDECLARED: inspect the current task tools, then run declare-capability --image-generation available when built-in image_gen is exposed, otherwise declare unavailable. The workflow remains retryable.");
+  }
+  const capability = readJsonRequired(executionCapabilitiesFile);
+  const image = capability?.imageGeneration || {};
+  if (capability?.schema === "brand-execution-capabilities/v1" && image.status === "available" && image.tool === "image_gen" && image.mode === "built-in") {
+    const route = readJsonRequired(designHostRouteFile);
+    route.imageCapability = { status: "available", tool: "image_gen", mode: "built-in", capabilitySha256: sha256File(executionCapabilitiesFile) };
+    writeJson(designHostRouteFile, route);
+    return;
+  }
+  const route = readJsonRequired(designHostRouteFile);
+  route.imageCapability = { status: "unavailable", requiredTool: "image_gen", fallbackRequiresExplicitUserApproval: true };
+  writeJson(designHostRouteFile, route);
+  current.status = "failed";
+  current.verdict = "needs-evidence";
+  current.blockingFindings = [{ code: "IMAGE_GENERATION_CAPABILITY_REQUIRED", message: "The current task does not expose built-in image_gen; concept generation was not dispatched." }];
+  current.endedAt = new Date().toISOString();
+  manifest.status = "blocked";
+  manifest.currentStageId = null;
+  manifest.capabilityPreflight = { status: "blocked", checkedAt: current.endedAt, file: fs.existsSync(executionCapabilitiesFile) ? relative(executionCapabilitiesFile) : null };
+  writeJson(manifestFile, manifest);
+  fail("IMAGE_GENERATION_CAPABILITY_REQUIRED: built-in image_gen is not available; concept agent was not dispatched and CLI/API fallback requires explicit user approval.");
 }
 
 function approveConcepts() {

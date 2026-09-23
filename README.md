@@ -8,36 +8,27 @@
 2. 哪些视觉规律可以迁移，哪些只适合原场景？
 3. 怎样证明结果真的学会了品牌，同时没有破坏原产品？
 
-> 当前阶段：公开 Web MVP / controlled alpha。已有有限 Web 案例，适合在测试项目或独立分支体验；微信开发者工具、移动端真机和更多真实业务仍在验证中。
+> 当前阶段：公开 Web MVP / controlled alpha。Web 流程已经形成闭环，适合在测试项目或独立分支体验；微信开发者工具、移动端真机和更多真实业务仍在验证中。
 
-[查看公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看标准双 Pipeline 流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/flow/index.html)
+[查看公共 Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看互动复盘流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
 
-## 第一次试用，从这里开始
+## 先用一句话理解
 
-现在欢迎用你自己的真实项目测试。重点是看第一版效果是否值得采用、落地是否保留原业务，以及还需要你纠正多少次。试用不等于视觉质量保证。
+过去，做一次品牌化页面通常需要一个人同时研究官网、总结风格、设计页面、写代码和自查。上下文一长，很容易漏掉动效、资产用途、业务边界或真实页面验收。
 
-1. 下载 [2026-09-21 试用包](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r3.zip)，按下方说明安装。包内包含决策库依赖，不需要克隆整个仓库。
-2. 在你有权修改的项目中开启独立分支，提供品牌参考和要改的页面。
-3. 先看方案并选择一个，再让它实施；最后在项目实际页面里检查效果和交互。
-4. 把体验反馈到 [试用反馈](https://github.com/JocelynTong/DangoUI-Brand-Skill/issues/new?template=mvp-trial.yml)。不用先理解内部流程，也不用替它写一套设计方案。
-
-可直接复制：
+Brand Skill 把这件事改成一条有分工、有产物、有验收、有返工路线的流程：
 
 ```text
-请使用 brand skill，参考【品牌网址】为当前项目的【页面/任务】换肤。
-先理解品牌的颜色、字体、素材、构图和组件，再判断哪些表达适合这个任务。
-保留已有业务内容、角色素材、数据、权限、路由和核心交互。
-先给我 3 个有差异的完整页面方案；我选定后再实施，最后在真实项目里预览。
+品牌来源
+  → 找到真实视觉证据
+  → 解释品牌语言和适用场景
+  → 映射为可复用设计能力
+  → 生成不同结构的 Demo，或应用到现有项目
+  → 检查视觉、交互、业务和回退
+  → 通过后再交付；不通过就回到责任阶段修正
 ```
 
-### 测完告诉我们什么
-
-- **能不能用**：使用的工具、试用包版本、项目技术栈；安装或运行卡在哪一步。
-- **第一版怎么样**：是否愿意选择其中一个方案，哪里像品牌、哪里不对。
-- **纠正了多少次**：你补充了哪些要求，有没有重复指出同一个问题。
-- **落地差多少**：选定方案与实际页面在组件、布局、素材、动效或交互上的差异。
-
-公开反馈只附可公开的材料。私有项目可只描述问题及脱敏截图，不要上传源码、员工资料、凭证或内部日志。构建和脚本通过不代替你的视觉评价。
+互动流程图中的红框代表历史上真正卡住过的节点。点击红框，可以查看问题发生时间、解决时间、当时卡在哪里以及后来如何解决。
 
 ## 谁可以用
 
@@ -51,7 +42,7 @@
 
 ## 一分钟开始
 
-只想看效果，直接打开[公共 Demo](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。
+只想看效果，直接打开[公共 Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/)。
 
 已经安装 Skill 时，直接说一句：
 
@@ -62,14 +53,14 @@
 例如，只学习一个品牌：
 
 ```text
-/brand 学习 https://asia-en.onepiece-cardgame.com/ 的视觉语言，先给我 3 个方向。
+/brand 学习 https://asia-en.onepiece-cardgame.com/ 的视觉语言，先给我 2–3 个方向。
 ```
 
 把它应用到现有项目：
 
 ```text
 /brand 把 https://asia-en.onepiece-cardgame.com/ 的视觉语言应用到当前项目，
-保留原有内容、数据、路由和核心交互，先给我 3 个方向。
+保留原有内容、数据、路由和核心交互，先给我 2–3 个方向。
 ```
 
 Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要记内部模式名或提供配置文件路径。
@@ -90,7 +81,7 @@ Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要�
 
 ### 明确要改现有项目：应用品牌
 
-系统会先读取项目的业务内容、路由、结构和回退点，然后给出至少 3 个完整页面方向。方向确认后才修改真实页面。
+系统会先读取项目的业务内容、路由、结构和回退点，然后给出 2–3 个轻量方向。方向确认后才修改真实页面。
 
 应用过程遵守三条底线：
 
@@ -160,31 +151,31 @@ Demo 深链：
 
 ## 只安装 Skill
 
-下载 [试用 ZIP](https://github.com/JocelynTong/DangoUI-Brand-Skill/raw/refs/heads/main/public/downloads/brand-skill-preview-2026-09-21-r3.zip)，解压后会得到 `brand/` 和 `manifest.json`。请复制整个 `brand/`，包括其中的 `knowledge-runtime/`，不要只复制 `SKILL.md` 或仓库维护源目录。
+如果不需要 Demo 和大型品牌素材，可以只下载 Skill：
 
-### 给安装助手：完成安装后继续引导
-
-无论本次是首次安装、更新，还是发现已安装且版本一致，都不要只回复“安装成功，下一条输入 $brand”。验证完整安装包后，读取安装目录中的 `SKILL.md`，执行其中的只读初始化入口：
-
-```text
-node <实际安装目录>/scripts/run-brand-workflow.mjs init --host <用户的项目目录>
+```bash
+GIT_LFS_SKIP_SMUDGE=1 git clone --depth 1 --filter=blob:none --sparse \
+  https://github.com/JocelynTong/DangoUI-Brand-Skill.git \
+  dangoui-brand-skill
+cd dangoui-brand-skill
+git sparse-checkout set skills/brand
 ```
-
-宿主目录未知时先询问；不要把 skill 仓库当作用户项目。用户已明确指定目录时可传 `--host-confirmed`。品牌参考与目标页面若已在当前对话提供，用 `--reference`、`--page` 传入，不要重复问。
-
-根据输出向用户确认项目、只问缺失的品牌参考和目标页面，并给一句自然语言示例。信息齐全也只进入方案流程，不自动选择品牌、启动项目或修改代码。若安装助手不能加载新 skill，仍应直接给出这段引导，说明需要新会话加载，而不是让用户猜下一步。用户明确只安装、不继续时尊重该要求。
 
 ### Codex
 
-将 `brand/` 放到 `~/.codex/skills/brand/`；如果设置了自定义 `CODEX_HOME`，放到该目录下的 `skills/brand/`。
+```bash
+mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
+rsync -a --delete skills/brand/ "${CODEX_HOME:-$HOME/.codex}/skills/brand/"
+```
 
 ### Claude Code
 
-将 `brand/` 放到目标项目的 `.claude/skills/brand/`。
+```bash
+mkdir -p .claude/skills
+rsync -a --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
+```
 
-已有旧版本时先备份旧目录，再替换整个目录，避免混用不同版本的脚本。安装后重新打开任务或会话，在你的项目中输入上面的试用提示词。工具还需要能访问品牌来源、读取项目文件并打开浏览器；涉及生图时需要可用的图片生成能力，安装此包不会自动开通这些能力。
-
-维护源码或运行 Demo 才需要克隆仓库；外部测试者不需要先执行本站构建命令。
+安装或更新后，重新打开任务或会话。
 
 ## 给开发者：产物与边界
 
@@ -244,7 +235,7 @@ migrations/             品牌 MOD、证据和验证记录
 public/brand-previews/  Demo 运行时品牌数据
 public/brand-registry/  公共品牌库生成产物
 schemas/                Brand MOD 与 Registry 协议
-src/                    Vue Demo 站
+src/                    Vue Variant 库
 scripts/                构建、同步和质量检查
 ```
 
@@ -295,13 +286,3 @@ git lfs pull
 ## 许可证与素材权利
 
 项目许可证见 [package.json](package.json)。品牌来源内容、字体、图片、视频和其他素材仍受各自权利方条款约束；技术上可提取或展示，不代表可以自由分发或商用。
-
-## 最新试用包
-
-[2026-09-21 品牌 skill 试用包](https://jocelyntong.github.io/DangoUI-Brand-Skill/downloads/brand-skill-preview-2026-09-21-r3.zip) · [变更与验证边界](RELEASE-NOTES.md)。这是试用版，不表示跨宿主视觉质量已获得保证。
-
-## 初始化必须展示的选择入口
-
-首次安装、更新、版本一致和“怎么用”都展示 init 输出的 `welcome`，不得只摘出 missing 问题。向用户提供 [DangoUI Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants)：先选品牌，再选场景，点击“复制使用描述”发回会话，也可发场景链接。Variant 是视觉选择入口，不是 Registry；预览不等于宿主适配验收。用户也可自带官网、截图或设计文件。
-
-可直接使用：`$brand 参考【场景链接或官网】，为当前项目的【目标页面】设计方案，保留已有内容和交互，先给我方案选择。` Claude Code 用 `/brand`；自然语言“请使用 brand skill”也可。复用当前会话已经确认的宿主与目标，不替用户选品牌或开始换肤。

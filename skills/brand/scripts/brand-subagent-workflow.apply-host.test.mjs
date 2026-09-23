@@ -32,6 +32,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
   fs.writeFileSync(path.join(scriptsDir, "validate-wild-design-decision.mjs"), "process.exit(0);\n");
   fs.writeFileSync(path.join(scriptsDir, "validate-host-structural-diff.mjs"), "process.exit(0);\n");
   fs.copyFileSync(routeValidator, path.join(scriptsDir, "validate-design-host-route.mjs"));
+  if (mode === "design-host") fs.writeFileSync(path.join(migration, "execution-capabilities.json"), JSON.stringify({ schema: "brand-execution-capabilities/v1", imageGeneration: { status: "available", tool: "image_gen", mode: "built-in" } }));
 
   const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
   const run = (...command) => {

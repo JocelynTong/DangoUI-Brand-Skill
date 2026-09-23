@@ -3,6 +3,7 @@ import "./dangoui-theme.local.css";
 import "dangoui/style.css";
 import "./styles.css";
 import App from "./VariantLibrary.vue";
+if (new URLSearchParams(location.search).get("variantEmbed") === "1") document.body.classList.add("variant-embed");
 
 const app = createApp(App);
 
