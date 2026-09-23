@@ -5,8 +5,8 @@ import { validateDesignHostRoute as validate } from "./validate-design-host-rout
 const artifact = (path) => ({ path, sha256: "a".repeat(64) });
 const complete = () => ({
   schema: "design-host-route/v2", sequence: "image-demo-first",
-  imageCapability: { status: "available", engineModel: "gpt-image-2.5-sunburst", quality: "xhigh", provider: "openai-responses-api", selectorEvidence: "request-schema" },
-  demoImages: { status: "ready", producer: { executionId: "/root/astra", model: "gpt-6-astra", forkTurns: "none", imageEngine: { model: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request", provider: "openai-responses-api", selectorEvidence: "request-schema" }, imageToolCalls: ["imagegen-1"] }, artifacts: [artifact("a.png"), artifact("b.png"), artifact("c.png")] },
+  imageCapability: { status: "available", tool: "image_gen", mode: "built-in-default" },
+  demoImages: { status: "ready", producer: { executionId: "/root/image-producer", imageToolCalls: ["imagegen-1"] }, artifacts: [artifact("a.png"), artifact("b.png"), artifact("c.png")] },
   demoVisualReview: { status: "pass", qualityVerdict: "pass", criteria: { composition: "pass", brandFidelity: "pass", visualFinish: "pass", hostTaskClarity: "pass" }, reviewerExecutionId: "/root/image-qa" },
   userDirectionReview: { status: "approved", selectionSource: "explicit-user", selectedOptionIds: ["a"] },
   h5Reconstruction: { status: "ready", producerExecutionId: "/root/h5", artifacts: [artifact("a.html")] },
@@ -19,20 +19,6 @@ assert.ok(validate(complete(), "unknown-stage").errors.includes("DESIGN_HOST_ROU
 assert.ok(validate({ ...complete(), imageCapability: { status: "unavailable" } }, "before-concept-dispatch").errors.includes("IMAGE_GENERATION_CAPABILITY_REQUIRED"));
 const noTool = complete(); noTool.demoImages.producer.imageToolCalls = [];
 assert.ok(validate(noTool, "after-concept-generation").errors.includes("DEMO_IMAGE_TOOL_EVIDENCE_REQUIRED"));
-const wrongModel = complete(); wrongModel.demoImages.producer.model = "gpt-5.6-sol";
-assert.ok(validate(wrongModel, "after-concept-generation").errors.includes("DEMO_IMAGE_PRODUCER_MODEL_REQUIRED"));
-const lowImageModel = complete(); lowImageModel.demoImages.producer.imageEngine.model = "gpt-image-2.5-flare";
-assert.ok(validate(lowImageModel, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_MODEL_REQUIRED"));
-const lowQuality = complete(); lowQuality.demoImages.producer.imageEngine.quality = "medium";
-assert.ok(validate(lowQuality, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_QUALITY_REQUIRED"));
-const hiddenModel = complete(); hiddenModel.demoImages.producer.imageEngine.modelSource = "hidden";
-assert.ok(validate(hiddenModel, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_EVIDENCE_REQUIRED"));
-const noProvider = complete(); noProvider.demoImages.producer.imageEngine.provider = null;
-assert.ok(validate(noProvider, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_PROVIDER_REQUIRED"));
-const noSelectorEvidence = complete(); noSelectorEvidence.demoImages.producer.imageEngine.selectorEvidence = "none";
-assert.ok(validate(noSelectorEvidence, "after-concept-generation").errors.includes("DEMO_IMAGE_SELECTOR_EVIDENCE_REQUIRED"));
-const capabilityMismatch = complete(); capabilityMismatch.imageCapability.quality = "max";
-assert.ok(validate(capabilityMismatch, "after-concept-generation").errors.includes("DEMO_IMAGE_CAPABILITY_MISMATCH"));
 const weakReview = complete(); weakReview.demoVisualReview.qualityVerdict = "fail";
 assert.ok(validate(weakReview, "before-h5-dispatch").errors.includes("DEMO_VISUAL_QUALITY_REQUIRED"));
 const weakFinish = complete(); weakFinish.demoVisualReview.criteria.visualFinish = "fail";

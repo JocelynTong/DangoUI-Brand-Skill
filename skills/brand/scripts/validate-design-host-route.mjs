@@ -4,10 +4,6 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const orderedStages = ["before-concept-dispatch", "after-concept-generation", "before-h5-dispatch", "before-h5-qa", "before-final-selection", "before-apply-host"];
-const approvedImageModel = /^gpt-image-2\.5-sunburst(?:-\d{4}-\d{2}-\d{2})?$/;
-const approvedImageQualities = new Set(["xhigh", "max"]);
-const approvedImageProviders = new Set(["openai-responses-api", "openai-images-api", "managed-runtime"]);
-const approvedSelectorEvidence = new Set(["request-schema", "provider-attestation"]);
 
 export function validateDesignHostRoute(route, stage = "before-concept-dispatch") {
   const errors = [];
@@ -16,8 +12,7 @@ export function validateDesignHostRoute(route, stage = "before-concept-dispatch"
   if (!orderedStages.includes(stage)) fail("DESIGN_HOST_ROUTE_STAGE_INVALID");
   if (route?.schema !== "design-host-route/v2") fail("DESIGN_HOST_ROUTE_SCHEMA_INVALID");
   if (route?.sequence !== "image-demo-first") fail("DESIGN_HOST_SEQUENCE_INVALID");
-  const imageCapability = route?.imageCapability || {};
-  const capability = imageCapability.status;
+  const capability = route?.imageCapability?.status;
   if (!["required", "available", "unavailable"].includes(capability)) fail("IMAGE_CAPABILITY_STATE_INVALID");
   if (capability === "unavailable") fail("IMAGE_GENERATION_CAPABILITY_REQUIRED");
   const images = route?.demoImages || {};
@@ -31,15 +26,7 @@ export function validateDesignHostRoute(route, stage = "before-concept-dispatch"
     if (capability !== "available") fail("IMAGE_GENERATION_CAPABILITY_NOT_PROVEN");
     if (images.status !== "ready" || !Array.isArray(images.artifacts) || images.artifacts.length < 3) fail("DEMO_IMAGES_REQUIRED");
     if (!producer.executionId) fail("DEMO_IMAGE_PRODUCER_REQUIRED");
-    if (producer.model !== "gpt-6-astra") fail("DEMO_IMAGE_PRODUCER_MODEL_REQUIRED");
-    if (producer.forkTurns !== "none") fail("DEMO_IMAGE_MINIMAL_CONTEXT_REQUIRED");
     if (!Array.isArray(producer.imageToolCalls) || !producer.imageToolCalls.length) fail("DEMO_IMAGE_TOOL_EVIDENCE_REQUIRED");
-    if (!approvedImageModel.test(producer.imageEngine?.model || "")) fail("DEMO_IMAGE_ENGINE_MODEL_REQUIRED");
-    if (!approvedImageQualities.has(producer.imageEngine?.quality)) fail("DEMO_IMAGE_ENGINE_QUALITY_REQUIRED");
-    if (producer.imageEngine?.modelSource !== "explicit-request") fail("DEMO_IMAGE_ENGINE_EVIDENCE_REQUIRED");
-    if (!approvedImageProviders.has(producer.imageEngine?.provider)) fail("DEMO_IMAGE_ENGINE_PROVIDER_REQUIRED");
-    if (!approvedSelectorEvidence.has(producer.imageEngine?.selectorEvidence)) fail("DEMO_IMAGE_SELECTOR_EVIDENCE_REQUIRED");
-    if (["model", "quality", "provider", "selectorEvidence"].some((field) => producer.imageEngine?.[field] !== ({ model: imageCapability.engineModel, quality: imageCapability.quality, provider: imageCapability.provider, selectorEvidence: imageCapability.selectorEvidence })[field])) fail("DEMO_IMAGE_CAPABILITY_MISMATCH");
   }
   if (at("before-h5-dispatch")) {
     if (imageReview.status !== "pass" || !imageReview.reviewerExecutionId) fail("DEMO_VISUAL_REVIEW_REQUIRED");
