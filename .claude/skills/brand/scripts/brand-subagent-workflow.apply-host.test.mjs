@@ -18,7 +18,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
   fs.mkdirSync(path.join(migration, "receipts"), { recursive: true });
   fs.mkdirSync(scriptsDir, { recursive: true });
   fs.writeFileSync(path.join(migration, "goal-contract.json"), JSON.stringify({ sealed: true, mode, executionProfile, goalId: `${brand}-${mode}-goal`, thresholds: { maxAttempts: 2 } }));
-  if (mode === "apply-host") fs.writeFileSync(path.join(migration, "design-host-route.json"), JSON.stringify({ schema: "design-host-route/v2", sequence: "image-demo-first", imageCapability: { status: "available" }, demoImages: { status: "ready", producer: { executionId: "/root/astra", model: "gpt-6-astra", forkTurns: "none", imageEngine: { model: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request" }, imageToolCalls: ["imagegen-1"] }, artifacts: [{ path: "a.png" }, { path: "b.png" }, { path: "c.png" }] }, demoVisualReview: { status: "pass", qualityVerdict: "pass", criteria: { composition: "pass", brandFidelity: "pass", visualFinish: "pass", hostTaskClarity: "pass" }, reviewerExecutionId: "/root/image-qa" }, userDirectionReview: { status: "approved", selectionSource: "explicit-user", selectedOptionIds: ["a"] }, h5Reconstruction: { status: "ready", producerExecutionId: "/root/h5", artifacts: [{ path: "direction.html" }] }, h5QA: { status: "pass", reviewerExecutionId: "/root/h5-qa" }, finalSelection: { status: "selected", selectionSource: "explicit-user", selectedOptionId: "a" } }));
+  if (mode === "apply-host") fs.writeFileSync(path.join(migration, "design-host-route.json"), JSON.stringify({ schema: "design-host-route/v2", sequence: "image-demo-first", imageCapability: { status: "available", engineModel: "gpt-image-2.5-sunburst", quality: "xhigh", provider: "openai-responses-api", selectorEvidence: "request-schema" }, demoImages: { status: "ready", producer: { executionId: "/root/astra", model: "gpt-6-astra", forkTurns: "none", imageEngine: { model: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request", provider: "openai-responses-api", selectorEvidence: "request-schema" }, imageToolCalls: ["imagegen-1"] }, artifacts: [{ path: "a.png" }, { path: "b.png" }, { path: "c.png" }] }, demoVisualReview: { status: "pass", qualityVerdict: "pass", criteria: { composition: "pass", brandFidelity: "pass", visualFinish: "pass", hostTaskClarity: "pass" }, reviewerExecutionId: "/root/image-qa" }, userDirectionReview: { status: "approved", selectionSource: "explicit-user", selectedOptionIds: ["a"] }, h5Reconstruction: { status: "ready", producerExecutionId: "/root/h5", artifacts: [{ path: "direction.html" }] }, h5QA: { status: "pass", reviewerExecutionId: "/root/h5-qa" }, finalSelection: { status: "selected", selectionSource: "explicit-user", selectedOptionId: "a" } }));
   fs.writeFileSync(path.join(skillDir, "workflow-contract.json"), JSON.stringify({
     roleContractVersion: "test",
     roles: {
@@ -32,7 +32,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
   fs.writeFileSync(path.join(scriptsDir, "validate-wild-design-decision.mjs"), "process.exit(0);\n");
   fs.writeFileSync(path.join(scriptsDir, "validate-host-structural-diff.mjs"), "process.exit(0);\n");
   fs.copyFileSync(routeValidator, path.join(scriptsDir, "validate-design-host-route.mjs"));
-  if (mode === "design-host") fs.writeFileSync(path.join(migration, "execution-capabilities.json"), JSON.stringify({ schema: "brand-execution-capabilities/v2", imageGeneration: { status: "available", tool: "model-selectable-image-generation", mode: "explicit-model", engineModel: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request", formalCandidateEligible: true } }));
+  if (mode === "design-host") fs.writeFileSync(path.join(migration, "execution-capabilities.json"), JSON.stringify({ schema: "brand-execution-capabilities/v3", imageGeneration: { status: "available", tool: "model-selectable-image-generation", mode: "explicit-model", engineModel: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request", provider: "openai-responses-api", selectorEvidence: "request-schema", formalCandidateEligible: true } }));
 
   const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
   const run = (...command) => {
@@ -58,7 +58,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
       goalSha256: manifest.goalSha256,
       verdict: "pass",
       execution: current.stage === "conceptGeneration" ? { model: "gpt-6-astra", forkTurns: "none" } : undefined,
-      toolCalls: current.stage === "conceptGeneration" ? [{ id: "imagegen-1", tool: "image-generation", request: { model: "gpt-image-2.5-sunburst", quality: "xhigh" } }] : [],
+      toolCalls: current.stage === "conceptGeneration" ? [{ id: "imagegen-1", tool: "image-generation", provider: "openai-responses-api", request: { model: "gpt-image-2.5-sunburst", quality: "xhigh" } }] : [],
       inputs: dispatch.requiredInputs,
       outputs: Array.isArray(output) ? output : [output],
       blockingFindings: [],
@@ -91,7 +91,7 @@ function createFixture(mode, brand, executionProfile = undefined) {
   const conceptRoute = JSON.parse(fs.readFileSync(path.join(fixture.migration, "design-host-route.json"), "utf8"));
   const images = ["a.png", "b.png", "c.png"].map((name) => fixture.writeOutput(name, name));
   conceptRoute.imageCapability = { status: "available" };
-  conceptRoute.demoImages = { status: "ready", producer: { executionId: "/root/concept-producer", model: "gpt-6-astra", forkTurns: "none", imageEngine: { model: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request" }, imageToolCalls: ["imagegen-1"] }, artifacts: images };
+  conceptRoute.demoImages = { status: "ready", producer: { executionId: "/root/concept-producer", model: "gpt-6-astra", forkTurns: "none", imageEngine: { model: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request", provider: "openai-responses-api", selectorEvidence: "request-schema" }, imageToolCalls: ["imagegen-1"] }, artifacts: images };
   fs.writeFileSync(path.join(fixture.migration, "design-host-route.json"), JSON.stringify(conceptRoute));
   fixture.recordCurrent("/root/concept-producer", [...images, fixture.writeOutput("design-host-route.json", JSON.stringify(conceptRoute))]);
   assert.equal(fixture.readManifest().currentStageId, "conceptVisualQA-1");
