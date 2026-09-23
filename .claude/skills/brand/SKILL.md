@@ -55,14 +55,15 @@ Demo 是品牌学习能力测试，Evidence Fidelity、Structural Fidelity、Gen
 
 ### 图片能力声明
 
-`prepare` 后、第一次 `next` 前，检查当前任务实际暴露的工具，不得靠环境变量或猜测判断。
+`prepare` 后、第一次 `next` 前，检查工具是否允许显式指定图片引擎与质量档位，不得靠环境变量或猜测。
 
-- 有内建 `image_gen`：运行 `brand-subagent-workflow.mjs declare-capability --image-generation available ...`。
-- 没有内建 `image_gen`：运行同命令并传 `unavailable`。外部 CLI/API 不是自动替代品；只有用户明确批准后才能另行使用。
+- 只有能明确请求 `gpt-image-2.5-sunburst` 且质量为 `xhigh` 或 `max` 的路径，才可运行 `declare-capability --image-generation available --image-mode explicit-model --image-engine-model gpt-image-2.5-sunburst --image-quality xhigh ...` 并进入正式候选生成。
+- 内建 `image_gen` 若不暴露模型或质量选择器，声明为 `--image-mode built-in-hidden`；它只能用于草稿，不能进入正式候选或自称达标。
+- 没有合格路径时传 `unavailable`。外部 CLI/API 不是自动替代品；只有用户明确批准并具备所需凭据后才能另行使用，且不得静默降级到更低模型或 `auto` 质量。
 
-未声明时 `next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED`，但工作流保持可重试；明确不可用才以 `IMAGE_GENERATION_CAPABILITY_REQUIRED` 阻断。不要手写 `execution-capabilities.json`。
+未声明时 `next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED`，但工作流保持可重试；模型不可验证或质量不足时以 `FORMAL_IMAGE_MODEL_CAPABILITY_REQUIRED` 阻断。不要手写 `execution-capabilities.json`。
 
-图片阶段必须由最小上下文的独立视觉任务产生至少 3 个明显不同的完整方向，记录真实 image tool call、producer 与文件 hash。图片 QA 必须由不同执行者逐张打开检查。用户明确选择图片方向前，不得生成 H5、修改宿主或自行代选。
+`gpt-6-astra` 是负责构图判断、提示词与候选取舍的视觉 producer，不是图片引擎。图片阶段必须由最小上下文的独立视觉任务产生至少 3 个明显不同的完整方向，并逐次记录显式图片模型/质量请求、真实 image tool call、producer 与文件 hash；路由记录必须和工具调用 receipt 交叉一致。图片 QA 必须由不同执行者逐张打开，对构图、品牌忠实度、视觉完成度与宿主主任务清晰度全部给出 `qualityVerdict=pass`。用户明确选择图片方向前，不得生成 H5、修改宿主或自行代选。
 
 用户选择后只重建获选方向的隔离 H5。H5 使用真实宿主内容、视口与冻结品牌包，但不启动或修改宿主 runtime；动态数据没有冻结真实记录时使用明确的 schema/加载占位，不能编造业务数据。图片不能替代 H5 验收。
 

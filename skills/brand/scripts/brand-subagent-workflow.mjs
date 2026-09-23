@@ -151,20 +151,36 @@ function next() {
 function declareCapability() {
   const imageGeneration = opt("--image-generation", "");
   if (!["available", "unavailable"].includes(imageGeneration)) fail("declare-capability requires --image-generation <available|unavailable>.");
+  const imageMode = opt("--image-mode", "built-in-hidden");
+  const imageEngineModel = opt("--image-engine-model", "");
+  const imageQuality = opt("--image-quality", "");
+  if (imageGeneration === "available" && !["built-in-hidden", "explicit-model"].includes(imageMode)) fail("declare-capability requires --image-mode <built-in-hidden|explicit-model>.");
+  if (imageMode === "built-in-hidden" && (imageEngineModel || imageQuality)) fail("BUILT_IN_IMAGE_MODEL_CLAIM_FORBIDDEN: do not claim an engine model or quality when the tool does not expose selectors.");
+  if (imageGeneration === "available" && imageMode === "explicit-model" && !/^gpt-image-2\.5-sunburst(?:-\d{4}-\d{2}-\d{2})?$/.test(imageEngineModel)) fail("FORMAL_IMAGE_MODEL_REQUIRED: explicit-model capability must use gpt-image-2.5-sunburst or its dated snapshot.");
+  if (imageGeneration === "available" && imageMode === "explicit-model" && !["xhigh", "max"].includes(imageQuality)) fail("FORMAL_IMAGE_QUALITY_REQUIRED: explicit-model capability must request xhigh or max quality.");
+  const formalCandidateEligible = imageGeneration === "available" && imageMode === "explicit-model";
   fs.mkdirSync(migrationDir, { recursive: true });
   const capability = {
-    schema: "brand-execution-capabilities/v1",
+    schema: "brand-execution-capabilities/v2",
     imageGeneration: imageGeneration === "available"
-      ? { status: "available", tool: "image_gen", mode: "built-in" }
-      : { status: "unavailable", requiredTool: "image_gen" },
+      ? {
+          status: "available",
+          tool: imageMode === "built-in-hidden" ? "image_gen" : "model-selectable-image-generation",
+          mode: imageMode,
+          engineModel: imageEngineModel || null,
+          quality: imageQuality || null,
+          modelSource: imageMode === "explicit-model" ? "explicit-request" : "hidden",
+          formalCandidateEligible,
+        }
+      : { status: "unavailable", requiredCapability: "model-selectable-image-generation", formalCandidateEligible: false },
     declaredAt: new Date().toISOString(),
   };
   writeJson(executionCapabilitiesFile, capability);
   if (fs.existsSync(designHostRouteFile)) {
     const route = readJsonRequired(designHostRouteFile);
     route.imageCapability = imageGeneration === "available"
-      ? { status: "available", tool: "image_gen", mode: "built-in", capabilitySha256: sha256File(executionCapabilitiesFile) }
-      : { status: "unavailable", requiredTool: "image_gen", fallbackRequiresExplicitUserApproval: true };
+      ? { ...capability.imageGeneration, capabilitySha256: sha256File(executionCapabilitiesFile) }
+      : { status: "unavailable", requiredCapability: "model-selectable-image-generation", fallbackRequiresExplicitUserApproval: true };
     writeJson(designHostRouteFile, route);
   }
   output({ ok: true, capability: relative(executionCapabilitiesFile), imageGeneration });
@@ -175,14 +191,14 @@ function fastDesignHostOverride(manifest, current) {
   if (current.stage === "conceptGeneration") return {
     mission: "Produce at least three distinct generated Demo images from the frozen host, brand evidence and expression plan; do not create H5.",
     tasks: ["verify declared image capability", "produce three Demo image options", "record producer identity, provenance and hashes in design-host-route.json"],
-    requirements: ["no H5 output", "preserve host business structure", "use model=gpt-6-astra with fork_turns=none for the actual visual Demo subtask", "call the available image-generation tool and record its tool-call ids; HTML screenshots do not qualify"],
-    expectedOutputs: ["at least three PNG/JPG/WebP Demo images", "design-host-route.json with producer model, forkTurns and imageToolCalls evidence"],
-    hints: { medium: "demo-images", requiredModel: "gpt-6-astra", forkTurns: "none" },
+    requirements: ["no H5 output", "preserve host business structure", "use model=gpt-6-astra with fork_turns=none for the actual visual Demo subtask", "request gpt-image-2.5-sunburst at xhigh or max quality for every formal candidate", "record the explicit image model and quality request for each image tool call; model-hidden output is draft-only and HTML screenshots do not qualify"],
+    expectedOutputs: ["at least three PNG/JPG/WebP Demo images", "design-host-route.json with producer model, forkTurns, imageEngine and imageToolCalls evidence"],
+    hints: { medium: "demo-images", requiredModel: "gpt-6-astra", forkTurns: "none", requiredImageEngineModel: "gpt-image-2.5-sunburst", allowedImageQualities: ["xhigh", "max"] },
   };
   if (current.stage === "conceptVisualQA") return {
     mission: "Independently inspect all generated Demo images before any H5 reconstruction.",
     tasks: ["open every Demo image", "check provenance, host-task fidelity, composition difference and legibility", "record the independent review in design-host-route.json"],
-    requirements: ["do not create or edit H5", "reviewer execution must differ from producer", "a pass pauses for explicit user direction confirmation"],
+    requirements: ["do not create or edit H5", "reviewer execution must differ from producer", "record qualityVerdict=pass only when composition, brand fidelity, visual finish and host-task clarity all pass", "a pass pauses for explicit user direction confirmation"],
     expectedOutputs: ["design-host-concept-qa.json", "design-host-route.json"],
     hints: { medium: "demo-images", candidateCount: 3 },
   };
@@ -277,6 +293,7 @@ function record() {
     const toolCalls = array(receipt.toolCalls);
     if (receipt.execution?.model !== "gpt-6-astra" || receipt.execution?.forkTurns !== "none") fail("DEMO_IMAGE_EXECUTION_CONTRACT_REQUIRED");
     if (!producer.imageToolCalls.every((id) => toolCalls.some((call) => call.id === id && /imagegen|image-generation/i.test(call.tool || call.name || "")))) fail("DEMO_IMAGE_TOOL_RECEIPT_REQUIRED");
+    if (!producer.imageToolCalls.every((id) => toolCalls.some((call) => call.id === id && call.request?.model === producer.imageEngine?.model && call.request?.quality === producer.imageEngine?.quality))) fail("DEMO_IMAGE_ENGINE_REQUEST_RECEIPT_REQUIRED");
   }
   if (manifest.mode === "design-host" && current.stage === "conceptVisualQA" && receipt.verdict === "pass") {
     const route = readJsonRequired(designHostRouteFile);
@@ -722,28 +739,28 @@ function verifyDesignHostRoute(stageName) {
 
 function verifyConceptCapability(manifest, current) {
   if (!fs.existsSync(executionCapabilitiesFile)) {
-    fail("IMAGE_GENERATION_CAPABILITY_UNDECLARED: inspect the current task tools, then run declare-capability --image-generation available when built-in image_gen is exposed, otherwise declare unavailable. The workflow remains retryable.");
+    fail("IMAGE_GENERATION_CAPABILITY_UNDECLARED: inspect the current task tools, then declare whether a model-selectable image path is available. The workflow remains retryable.");
   }
   const capability = readJsonRequired(executionCapabilitiesFile);
   const image = capability?.imageGeneration || {};
-  if (capability?.schema === "brand-execution-capabilities/v1" && image.status === "available" && image.tool === "image_gen" && image.mode === "built-in") {
+  if (capability?.schema === "brand-execution-capabilities/v2" && image.status === "available" && image.mode === "explicit-model" && image.formalCandidateEligible === true && /^gpt-image-2\.5-sunburst(?:-\d{4}-\d{2}-\d{2})?$/.test(image.engineModel || "") && ["xhigh", "max"].includes(image.quality)) {
     const route = readJsonRequired(designHostRouteFile);
-    route.imageCapability = { status: "available", tool: "image_gen", mode: "built-in", capabilitySha256: sha256File(executionCapabilitiesFile) };
+    route.imageCapability = { ...image, capabilitySha256: sha256File(executionCapabilitiesFile) };
     writeJson(designHostRouteFile, route);
     return;
   }
   const route = readJsonRequired(designHostRouteFile);
-  route.imageCapability = { status: "unavailable", requiredTool: "image_gen", fallbackRequiresExplicitUserApproval: true };
+  route.imageCapability = { status: "unavailable", requiredCapability: "gpt-image-2.5-sunburst at xhigh or max with explicit request evidence", fallbackRequiresExplicitUserApproval: true };
   writeJson(designHostRouteFile, route);
   current.status = "failed";
   current.verdict = "needs-evidence";
-  current.blockingFindings = [{ code: "IMAGE_GENERATION_CAPABILITY_REQUIRED", message: "The current task does not expose built-in image_gen; concept generation was not dispatched." }];
+  current.blockingFindings = [{ code: "FORMAL_IMAGE_MODEL_CAPABILITY_REQUIRED", message: "The current task cannot explicitly request gpt-image-2.5-sunburst at xhigh or max quality; formal concept generation was not dispatched." }];
   current.endedAt = new Date().toISOString();
   manifest.status = "blocked";
   manifest.currentStageId = null;
   manifest.capabilityPreflight = { status: "blocked", checkedAt: current.endedAt, file: fs.existsSync(executionCapabilitiesFile) ? relative(executionCapabilitiesFile) : null };
   writeJson(manifestFile, manifest);
-  fail("IMAGE_GENERATION_CAPABILITY_REQUIRED: built-in image_gen is not available; concept agent was not dispatched and CLI/API fallback requires explicit user approval.");
+  fail("FORMAL_IMAGE_MODEL_CAPABILITY_REQUIRED: a model-hidden image tool is draft-only; concept generation requires gpt-image-2.5-sunburst at xhigh or max with explicit request evidence.");
 }
 
 function approveConcepts() {

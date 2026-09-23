@@ -6,8 +6,8 @@ const artifact = (path) => ({ path, sha256: "a".repeat(64) });
 const complete = () => ({
   schema: "design-host-route/v2", sequence: "image-demo-first",
   imageCapability: { status: "available" },
-  demoImages: { status: "ready", producer: { executionId: "/root/astra", model: "gpt-6-astra", forkTurns: "none", imageToolCalls: ["imagegen-1"] }, artifacts: [artifact("a.png"), artifact("b.png"), artifact("c.png")] },
-  demoVisualReview: { status: "pass", reviewerExecutionId: "/root/image-qa" },
+  demoImages: { status: "ready", producer: { executionId: "/root/astra", model: "gpt-6-astra", forkTurns: "none", imageEngine: { model: "gpt-image-2.5-sunburst", quality: "xhigh", modelSource: "explicit-request" }, imageToolCalls: ["imagegen-1"] }, artifacts: [artifact("a.png"), artifact("b.png"), artifact("c.png")] },
+  demoVisualReview: { status: "pass", qualityVerdict: "pass", criteria: { composition: "pass", brandFidelity: "pass", visualFinish: "pass", hostTaskClarity: "pass" }, reviewerExecutionId: "/root/image-qa" },
   userDirectionReview: { status: "approved", selectionSource: "explicit-user", selectedOptionIds: ["a"] },
   h5Reconstruction: { status: "ready", producerExecutionId: "/root/h5", artifacts: [artifact("a.html")] },
   h5QA: { status: "pass", reviewerExecutionId: "/root/h5-qa" },
@@ -21,6 +21,16 @@ const noTool = complete(); noTool.demoImages.producer.imageToolCalls = [];
 assert.ok(validate(noTool, "after-concept-generation").errors.includes("DEMO_IMAGE_TOOL_EVIDENCE_REQUIRED"));
 const wrongModel = complete(); wrongModel.demoImages.producer.model = "gpt-5.6-sol";
 assert.ok(validate(wrongModel, "after-concept-generation").errors.includes("DEMO_IMAGE_PRODUCER_MODEL_REQUIRED"));
+const lowImageModel = complete(); lowImageModel.demoImages.producer.imageEngine.model = "gpt-image-2.5-flare";
+assert.ok(validate(lowImageModel, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_MODEL_REQUIRED"));
+const lowQuality = complete(); lowQuality.demoImages.producer.imageEngine.quality = "medium";
+assert.ok(validate(lowQuality, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_QUALITY_REQUIRED"));
+const hiddenModel = complete(); hiddenModel.demoImages.producer.imageEngine.modelSource = "hidden";
+assert.ok(validate(hiddenModel, "after-concept-generation").errors.includes("DEMO_IMAGE_ENGINE_EVIDENCE_REQUIRED"));
+const weakReview = complete(); weakReview.demoVisualReview.qualityVerdict = "fail";
+assert.ok(validate(weakReview, "before-h5-dispatch").errors.includes("DEMO_VISUAL_QUALITY_REQUIRED"));
+const weakFinish = complete(); weakFinish.demoVisualReview.criteria.visualFinish = "fail";
+assert.ok(validate(weakFinish, "before-h5-dispatch").errors.includes("DEMO_VISUAL_QUALITY_CRITERIA_REQUIRED"));
 const noReview = complete(); noReview.demoVisualReview = { status: "pending" }; noReview.userDirectionReview = { status: "pending" };
 assert.ok(validate(noReview, "before-h5-dispatch").errors.includes("DEMO_USER_DIRECTION_CONFIRMATION_REQUIRED"));
 assert.equal(validate(complete(), "before-apply-host").ok, true);
