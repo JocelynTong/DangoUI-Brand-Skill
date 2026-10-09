@@ -21,9 +21,13 @@
 
 - `required`：Goal Contract、approved `brand-intent.json`、批准资产清单、通过 Design Direction Gate 的 `design-direction.json`。
 - `allowed`：官网截图只作为只读构图证据、Demo Runtime、DangoUI schema。
-- `forbidden`：修改 Goal、把官网截图当 runtime asset、旧 QA verdict。
+- `forbidden`：修改 Goal、把官网截图当 runtime asset；首次实现不接收旧 QA verdict。修复仅接收 Director 路由的局部 blocking findings 与 hash-bound 范围，不能按期望评分制作。
 
 ## 必须产出
+
+学习 Demo 开工前定点读取 [输出模板](../references/output-template.md) 的「学习 Demo 的接力格式」。规则冻结与新 challenge 的真实先后关系由 Director 输入提供；缺失时先拒收，不用布尔字段补造历史。直接按紧凑输出契约生产，不读取 validator/test 源码反推格式。
+
+高显著度构图层缺少上游实际来源定位时，退回 Interpreter/Evidence；不得借用区块标题 Region 填插画或行动层，或把明确缺少必需层证据的产物记为 PASS。实现自测不能补足来源事实。
 
 - 可运行 Demo
 - `visual-pattern-inventory.json`
@@ -58,7 +62,7 @@
 
 ## 下游接收条件
 
-Blind QA 只接收可操作 Demo、原始 source captures、Pattern Inventory、Generative Proof 和状态清单；不接收实现辩护或期望 verdict。
+独立 QA 接收可操作 Demo、原始 source captures、Pattern Inventory、Generative Proof 和状态清单；不接收实现辩护或期望 verdict。局部修复交接写明当前 hash、修复范围、相邻影响及关键交互回归；Director 按 QA review mode 决定原独立 QA 回归或 fresh 盲审，制作方不自行指定通过结论。
 
 ## 失败与返工
 

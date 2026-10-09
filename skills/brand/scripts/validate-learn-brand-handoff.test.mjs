@@ -28,6 +28,64 @@ test('complete evidence and interpreter handoffs can pass', () => {
   assert.equal(item.run('interpreter').exit, 0)
 })
 
+test('required observed component family passes only with traced Interpreter mapping', () => {
+  const item = fixture()
+  item.save('goal-contract.json', { sealed: true, mode: 'learn-brand', evidencePolicy: { requiredVisualDimensions: dimensions, requiredComponentFamilies: ['text-input'] } })
+  const componentClaim = { id: 'claim-text-input', status: 'observed', kind: 'component-pattern' }
+  item.save('brand-evidence.json', { claims: [...item.claims, componentClaim], dimensionCoverage: item.dimensionCoverage, componentCoverage: { 'text-input': { status: 'observed', claimIds: [componentClaim.id], sourceCount: 1 } } })
+  item.save('brand-intent.json', { mappingCoverage: item.mappingCoverage, componentMappingCoverage: { 'text-input': { status: 'mapped', evidenceRefs: [componentClaim.id], targetComponent: 'Input.search' } } })
+  assert.equal(item.run('evidence').exit, 0)
+  assert.equal(item.run('interpreter').exit, 0)
+})
+
+test('required component family cannot remain unresolved', () => {
+  const item = fixture()
+  item.save('goal-contract.json', { sealed: true, mode: 'learn-brand', evidencePolicy: { requiredVisualDimensions: dimensions, requiredComponentFamilies: ['content-card'] } })
+  item.save('brand-evidence.json', { claims: item.claims, dimensionCoverage: item.dimensionCoverage, componentCoverage: { 'content-card': { status: 'unresolved', claimIds: [], sourceCount: 0 } } })
+  const report = item.run('evidence').report
+  assert.ok(report.findings.some((entry) => entry.code === 'REQUIRED_COMPONENT_UNRESOLVED'))
+})
+
+test('observed component family cannot disappear before Interpreter mapping', () => {
+  const item = fixture()
+  const componentClaim = { id: 'claim-content-card', status: 'observed', kind: 'component-pattern' }
+  item.save('brand-evidence.json', { claims: [...item.claims, componentClaim], dimensionCoverage: item.dimensionCoverage, componentCoverage: { 'content-card': { status: 'observed', claimIds: [componentClaim.id], sourceCount: 1 } } })
+  item.save('brand-intent.json', { mappingCoverage: item.mappingCoverage })
+  const report = item.run('interpreter').report
+  assert.ok(report.findings.some((entry) => entry.code === 'COMPONENT_MAPPING_DISPOSITION_MISSING'))
+})
+
+test('optional unresolved component family may remain host-preserved with a reason', () => {
+  const item = fixture()
+  item.save('brand-evidence.json', { claims: item.claims, dimensionCoverage: item.dimensionCoverage, componentCoverage: { tabs: { status: 'unresolved', claimIds: [], sourceCount: 0 } } })
+  item.save('brand-intent.json', { mappingCoverage: item.mappingCoverage, componentMappingCoverage: { tabs: { status: 'unmapped', evidenceRefs: [], fallback: 'preserve-host-semantic-neutral-visual', reason: 'No same-role evidence; preserve host tab semantics with neutral visuals.' } } })
+  assert.equal(item.run('evidence').exit, 0)
+  assert.equal(item.run('interpreter').exit, 0)
+})
+
+test('unmapped component cannot silently keep the previous theme skin', () => {
+  const item = fixture()
+  item.save('brand-evidence.json', { claims: item.claims, dimensionCoverage: item.dimensionCoverage, componentCoverage: { chips: { status: 'unresolved', claimIds: [], sourceCount: 0 } } })
+  item.save('brand-intent.json', { mappingCoverage: item.mappingCoverage, componentMappingCoverage: { chips: { status: 'unmapped', evidenceRefs: [], reason: 'No same-role evidence.' } } })
+  let report = item.run('interpreter').report
+  assert.ok(report.findings.some((entry) => entry.code === 'COMPONENT_FALLBACK_MISSING'))
+  item.save('brand-intent.json', { mappingCoverage: item.mappingCoverage, componentMappingCoverage: { chips: { status: 'unmapped', evidenceRefs: [], fallback: 'preserve-host-existing-visual', reason: 'Keep it.' } } })
+  report = item.run('interpreter').report
+  assert.ok(report.findings.some((entry) => entry.code === 'HOST_SKIN_RETENTION_UNJUSTIFIED'))
+})
+
+test('style from another component family cannot fill missing same-role evidence', () => {
+  const item = fixture()
+  const loginAction = { id: 'claim-login-primary', status: 'observed', kind: 'component-pattern', semanticRole: 'primary-action' }
+  item.save('brand-evidence.json', { claims: [...item.claims, loginAction], dimensionCoverage: item.dimensionCoverage, componentCoverage: { chips: { status: 'unresolved', claimIds: [], sourceCount: 0 }, 'primary-action': { status: 'observed', claimIds: [loginAction.id], sourceCount: 1 } } })
+  item.save('brand-intent.json', { mappingCoverage: item.mappingCoverage, componentMappingCoverage: {
+    chips: { status: 'style-only', evidenceRefs: [loginAction.id], styleRecipe: 'Reuse login blue for selected chips.' },
+    'primary-action': { status: 'mapped', evidenceRefs: [loginAction.id], targetComponent: 'Button.primary' }
+  } })
+  const report = item.run('interpreter').report
+  assert.ok(report.findings.some((entry) => entry.code === 'COMPONENT_MAPPING_EVIDENCE_INVALID' && entry.dimension === 'component:chips'))
+})
+
 test('a newer Evidence or Intent cannot inherit an older frozen goal', () => {
   const item = fixture()
   item.save('goal-contract.json', { goalId: 'frozen-v1', brand: 'fixture', sealed: true, mode: 'learn-brand', evidencePolicy: { requiredVisualDimensions: dimensions } })
@@ -35,6 +93,16 @@ test('a newer Evidence or Intent cannot inherit an older frozen goal', () => {
   item.save('brand-intent.json', { goalId: 'intent-v2', brand: 'fixture', mappingCoverage: item.mappingCoverage })
   assert.ok(item.run('evidence').report.findings.some((entry) => entry.code === 'GOAL_VERSION_MISMATCH'))
   assert.equal(item.run('interpreter').report.findings.filter((entry) => entry.code === 'GOAL_VERSION_MISMATCH').length, 2)
+})
+
+test('multiple goal files resolve to the goalId carried by current evidence', () => {
+  const item = fixture()
+  item.save('goal-contract.json', { goalId: 'frozen-v1', brand: 'fixture', sealed: true, mode: 'learn-brand', evidencePolicy: { requiredVisualDimensions: dimensions } })
+  item.save('goal-contract-v2.json', { goalId: 'evidence-v2', brand: 'fixture', sealed: true, mode: 'learn-brand', evidencePolicy: { requiredVisualDimensions: dimensions } })
+  item.save('brand-evidence.json', { goalId: 'evidence-v2', brand: 'fixture', claims: item.claims, dimensionCoverage: item.dimensionCoverage })
+  const result = item.run('evidence')
+  assert.equal(result.exit, 0)
+  assert.equal(result.report.findings.some((entry) => entry.code === 'GOAL_VERSION_MISMATCH'), false)
 })
 
 test('scoped visible proof cannot pass on an aggregate count alone', () => {

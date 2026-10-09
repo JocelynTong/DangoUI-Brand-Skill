@@ -1,0 +1,98 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import crypto from 'node:crypto';
+import { validateHostPreviewSmoke } from './host-preview-smoke.mjs';
+import { evaluateHostDelivery } from './parent-delivery-gate.mjs';
+
+// Synthetic contract fixtures only: these do not prove a real runtime passed.
+const root = fs.mkdtempSync(path.join(os.tmpdir(), 'preview-smoke-contract-'));
+const host = fs.mkdtempSync(path.join(os.tmpdir(), 'preview-smoke-host-'));
+const sha = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+const save = (base, name, value) => {
+  const file = path.join(base, name); fs.mkdirSync(path.dirname(file), { recursive: true });
+  fs.writeFileSync(file, typeof value === 'string' ? value : JSON.stringify(value));
+  return { path: name, sha256: sha(file) };
+};
+const prefix = 'migrations/duolingo/';
+const goal = save(root, prefix + 'goal-contract.json', { sealed: true, mode: 'apply-host', requestKind: 'host-implementation', hostTarget: host });
+const input = save(root, prefix + 'input.json', { syntheticFixture: true });
+const proof = save(root, prefix + 'implementation.json', { syntheticFixture: true });
+const source = save(host, 'src/index.scss', '.synthetic{}');
+const producer = { id: 'hostImplementation-1', stage: 'hostImplementation', role: 'hostImplementationAgent', status: 'complete', verdict: 'pass', dispatchId: 'impl', agentExecutionId: '/root/producer', outputHashes: [proof] };
+const manifest = { mode: 'apply-host', status: 'awaiting-user', goalPath: goal.path, goalSha256: goal.sha256, stages: [producer] };
+const bindReceipt = (stage, outputs) => {
+  const receipt = { stageId: stage.id, role: stage.role, verdict: 'pass', dispatchId: stage.dispatchId, agentExecutionId: stage.agentExecutionId, goalSha256: goal.sha256, inputs: [input], outputs };
+  const ref = save(root, prefix + stage.id + '.receipt.json', receipt);
+  Object.assign(stage, { receiptPath: ref.path, receiptSha256: ref.sha256 }); return receipt;
+};
+bindReceipt(producer, [proof]);
+const observations = [{ id: 'synthetic-observation', runtime: 'native', target: 'synthetic-test-only', method: 'fixture-not-runtime-proof', observed: 'synthetic' }];
+const report = { schema: 'host-preview-smoke/v1', acceptanceScope: 'implementation-preview-only', reviewerExecutionId: '/root/qa', goalSha256: goal.sha256, verdict: 'pass', wholeHostCertified: false, sourceLearningCertified: false, userApproval: 'pending', limitations: ['synthetic test only'], observations, implementationBindings: [proof], evidenceRefs: [input], runtimeBindings: [source], checks: ['runtime-load', 'selected-direction', 'business-preservation', 'state-restoration'].map(id => ({ id, status: 'pass', observationIds: ['synthetic-observation'] })), blockingFindings: [] };
+const reportPath = prefix + 'preview-smoke-report.json';
+const reportRef = save(root, reportPath, report);
+const qa = { id: 'previewQA-1', stage: 'previewQA', role: 'visualQA', status: 'complete', verdict: 'pass', dispatchId: 'qa', agentExecutionId: '/root/qa', outputHashes: [reportRef] };
+manifest.stages.push(qa);
+let receipt = bindReceipt(qa, [reportRef]);
+const validate = () => validateHostPreviewSmoke({ root, brand: 'duolingo', receipt, manifest });
+assert.equal(validate().verdict, 'pass');
+const reject = (mutate, pattern) => {
+  const changed = structuredClone(report); mutate(changed); save(root, reportPath, changed);
+  assert.throws(validate, pattern); save(root, reportPath, report);
+};
+reject(r => { r.wholeHostCertified = true; }, /CERTIFICATION_CLAIM_FORBIDDEN/);
+reject(r => { r.reviewerExecutionId = '/root/producer'; }, /REVIEW_BINDING_INVALID/);
+reject(r => { r.runtimeBindings = []; }, /LIVE_BINDINGS_REQUIRED/);
+reject(r => { r.checks[0].observationIds = ['absent']; }, /CHECK_REQUIRED/);
+reject(r => { r.implementationBindings = []; }, /IMPLEMENTATION_BINDING_REQUIRED/);
+reject(r => { r.blockingFindings = ['known defect']; }, /BLOCKING_FINDINGS_PRESENT/);
+save(host, source.path, 'changed'); assert.throws(validate, /RUNTIME_DRIFT/); save(host, source.path, '.synthetic{}');
+fs.symlinkSync(path.join(root, input.path), path.join(host, 'escaped.json'));
+reject(r => { r.runtimeBindings = [{ path: 'escaped.json', sha256: input.sha256 }]; }, /RUNTIME_DRIFT/);
+producer.agentExecutionId = receipt.agentExecutionId; assert.throws(validate, /NOT_INDEPENDENT/); producer.agentExecutionId = '/root/producer';
+save(root, prefix + 'execution-manifest.json', manifest);
+let delivery = evaluateHostDelivery({ root, brand: 'duolingo' });
+assert.equal(delivery.status, 'ready-for-user-review', JSON.stringify(delivery));
+assert.equal(delivery.userGoalCompleted, false);
+assert.equal(delivery.fullWorkflowPass, false);
+assert.equal(delivery.sourceLearningCertified, false);
+assert.equal(delivery.userApprovalRequired, true);
+Object.assign(manifest, {status:'passed',deliveryLevel:'fast-preview-approved',previewDecision:{status:'approve',source:'explicit-user'},qaReuse:{sourceStageId:qa.id}});
+save(root, prefix + 'execution-manifest.json', manifest);
+delivery=evaluateHostDelivery({root,brand:'duolingo'});
+assert.equal(delivery.status,'preview-approved');
+assert.equal(delivery.userApprovalRequired,false);
+assert.equal(delivery.scopedPreviewAccepted,true);
+assert.equal(delivery.fullWorkflowPass,false);
+save(host, source.path, 'changed');
+assert.equal(evaluateHostDelivery({ root, brand: 'duolingo' }).status, 'blocked');
+
+// A blocked attempt terminates with bound reasons, not a success or automatic retry.
+Object.assign(producer, { status: 'failed', verdict: 'needs-evidence' });
+const failure = { ...bindReceipt(producer, [proof]), verdict: 'needs-evidence',
+  failureOwnerRole: 'hostImplementationAgent', blockingFindings: [{ code: 'SYNTHETIC_GAP', message: 'Test fixture only' }] };
+producer.receiptSha256 = save(root, producer.receiptPath, failure).sha256;
+manifest.status = 'blocked'; manifest.stages = [producer];
+save(root, prefix + 'execution-manifest.json', manifest);
+const before = fs.readFileSync(path.join(root, prefix + 'execution-manifest.json'), 'utf8');
+delivery = evaluateHostDelivery({ root, brand: 'duolingo' });
+assert.equal(delivery.status, 'blocked');
+assert.equal(delivery.attemptStopped, true);
+assert.equal(delivery.automaticRetryAllowed, false);
+assert.equal(delivery.nextAction, 'report-blocker-and-stop');
+assert.equal(delivery.failureReceiptBound, true);
+assert.equal(delivery.failureOwnerRole, 'hostImplementationAgent');
+assert.deepEqual(delivery.blockingFindings, failure.blockingFindings);
+assert.equal(delivery.userGoalCompleted, false);
+assert.equal(delivery.fullWorkflowPass, false);
+assert.equal(fs.readFileSync(path.join(root, prefix + 'execution-manifest.json'), 'utf8'), before);
+save(root, producer.receiptPath, { ...failure, blockingFindings: ['tampered'] });
+delivery = evaluateHostDelivery({ root, brand: 'duolingo' });
+assert.equal(delivery.failureReceiptBound, false);
+assert.deepEqual(delivery.blockingFindings, []);
+assert.equal(delivery.status, 'blocked');
+producer.receiptSha256 = save(root, producer.receiptPath, { ...failure, goalSha256: 'wrong-goal' }).sha256;
+save(root, prefix + 'execution-manifest.json', manifest);
+assert.equal(evaluateHostDelivery({ root, brand: 'duolingo' }).failureReceiptBound, false);
+console.log('preview smoke negative contracts and scoped public delivery tests passed');

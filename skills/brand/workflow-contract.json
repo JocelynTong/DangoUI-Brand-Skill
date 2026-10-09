@@ -1,9 +1,23 @@
 {
-  "version": "0.28",
+  "version": "0.29",
   "roleContractVersion": "4.3",
   "command": "/brand",
   "owner": "brand",
   "description": "Machine-readable workflow contract for brand learning and host apply. The contract keeps Brand native, borrows external orchestration ideas when useful, and prevents Markdown-only rules from becoming fake gates.",
+  "requestIntent": {
+    "requiredForRun": true,
+    "kinds": {
+      "brand-learning": "learn-brand",
+      "host-concepts": "design-host",
+      "host-implementation": "apply-host"
+    },
+    "rules": [
+      "Resolve request kind only from the current conversation turn and explicitly supplied current-turn references.",
+      "Reject request-kind and mode mismatches before Registry access, artifact creation or workflow dispatch.",
+      "Missing brand reference blocks host-concepts with one focused question; it never selects a historical, sample or repository-discovered brand.",
+      "Host-concepts uses an isolated artifact run outside the host repository and never falls through to learn-brand."
+    ]
+  },
   "dangouiTokenSource": {
     "canonical": "skills/brand/references/dangoui.tokens.dtcg.json",
     "manifest": "skills/brand/references/dangoui-token-source.manifest.json",
@@ -32,7 +46,7 @@
       "A Registry hit reuses the reviewed version and must not repeat brand learning.",
       "A maintainer revalidating a learned brand keeps the existing brand id and stores isolated run history under migrations/<brand>/revisions/<run-id>/; revalidation must not create another Registry project unless the user explicitly requests a parallel brand version.",
       "Apply-host may install public JSON rules automatically, but runtime assets remain governed by manifest reusePolicy.",
-      "A Registry miss falls through to learn-brand; a public network failure is reported and never treated as proof that no pack exists."
+      "A Registry miss may proceed to learn-brand only when request-kind is explicitly brand-learning. During host-concepts it blocks for an explicit brand reference or approved pack and never changes workflow mode; a public network failure is reported and never treated as proof that no pack exists."
     ]
   },
   "existingDemoUpdates": {
@@ -104,7 +118,45 @@
       "L4": "Blind QA independently reviews source and rendered output without implementation rationale."
     },
     "failureRule": "Route every failure to the earliest node where the claim first became incorrect; fixing only the final symptom does not close the incident.",
-    "closureRule": "Close only after corrective action, preventive gate, recapture, fresh Blind QA, and regression pass."
+    "closureRule": "Close only after corrective action, preventive gate, actual new capture/interaction evidence, independent review under qaReviewProtocol, and required regression pass; never inherit an old PASS."
+  },
+  "qaReviewProtocol": {
+    "implementedScope": "learn-brand prepare/next/record only",
+    "inputSchema": "brand-qa-review-input/v2",
+    "prepareHelper": "scripts/prepare-qa-review.mjs",
+    "replacePreparedRule": "--replace-prepared may mechanically replace only an undispatched prepared input, preserving the old input; dispatched or recorded inputs/receipts are immutable.",
+    "otherStageBoundary": "design-host/apply-host retain their existing independent review entry points until explicitly integrated; do not invoke the learn-brand helper or claim same-QA regression support there.",
+    "reviewModes": ["initial-blind", "fresh-blind", "regression-review"],
+    "requiredFields": ["reviewMode", "reviewId", "qaExecutionId"],
+    "initial-blind": {
+      "context": "Fresh independent reviewer who did not produce the result.",
+      "forbidden": ["implementation rationale", "previous QA verdict", "desired verdict"]
+    },
+    "fresh-blind": {
+      "requiredWhen": ["material Goal change", "material direction or approved-rule change", "QA participated in production", "QA visibly missed a required check"],
+      "context": "Fresh independent context; Director routes prior failures as bounded verification questions, without old verdict or producer rationale.",
+      "forbidden": ["implementation rationale", "previous QA verdict", "desired verdict"]
+    },
+    "regression-review": {
+      "preferredReviewer": "The suitable original independent QA; retain its qaExecutionId and create a new reviewId.",
+      "requiredFields": ["priorReviewReceipt", "frozenInputs", "currentDemoOutputs", "affected", "regressionScope", "captureEvidence"],
+      "operationEvidence": "Use the current assessment structure for actual new operations and restoration; prior failures resolve through priorReviewReceipt, not invented literal fields.",
+      "priorReviewReceipt": {"requiredFields": ["path", "sha256"]},
+      "scope": "Repair scope, affected adjacent regions, and previously passing critical interactions; preserve shared-platform and cross-brand requirements.",
+      "boundary": "Independent regression, not a new blind review. Prior hash-bound failures may guide retesting; old PASS never becomes the current verdict."
+    },
+    "invariants": [
+      "Producer and QA remain different independent identities; QA never edits production.",
+      "Every review records current hash-bound inputs/outputs and actual new screenshots and operations with restoration.",
+      "Preserve prior receipts, frozen Goal, scope, rubric, thresholds and three independent proofs.",
+      "Local repairs use compact delta packets and unchanged hashed evidence; do not automatically reread or recapture whole pages. Expand only for new affected scope."
+    ],
+    "capacityPolicy": [
+      "Prefer suitable original QA for regression and reuse completed ordinary specialists when appropriate.",
+      "Close agents only through an actually exposed close interface; interrupt neither releases capacity nor clears context.",
+      "If required fresh QA lacks capacity, save a compact hash-bound handoff and one actual capacity error, then wait for recovery; no repeated spawn, producer self-review, threshold reduction, or professional forms delegated to the user.",
+      "Resume the existing workflow; ordinary recovery does not create a new user chat."
+    ]
   },
   "roleCapabilityModel": {
     "purpose": "Make every subagent independently dispatchable and reject role-shaped prose that cannot be verified at handoff.",
@@ -134,7 +186,7 @@
       "failureRoute",
       "crossChecker"
     ],
-    "crossCheckRule": "Producer self-check is necessary but never sufficient. The named downstream consumer or fresh QA must reject incomplete coverage, semantic expansion, or unverifiable rendered claims.",
+    "crossCheckRule": "Producer self-check is necessary but never sufficient. The named downstream consumer or independent QA under qaReviewProtocol must reject incomplete coverage, semantic expansion, or unverifiable rendered claims.",
     "scopeRule": "A role reports completion only for its declared scope. A journey, page, component family, or state PASS must never be promoted to full-host PASS without a zero-gap host coverage matrix.",
     "minimumCompetencies": {
       "evidenceReasoning": "Distinguish observed rendered facts, code-discovered candidates, inference, unresolved evidence, and unavailable evidence.",
@@ -349,9 +401,9 @@
       "Each subagent stage receives only the allowed inputs declared by its role contract.",
       "After Interpreter passes, the top-level agent must create and validate design-direction.json before Demo can be dispatched.",
       "The Demo and Visual QA stages must use different agent execution ids.",
-      "Visual QA must run in a fresh context and must not receive implementation rationale, prior verdicts, or desired wording.",
+      "Initial Visual QA uses initial-blind in a fresh independent context; repairs follow qaReviewProtocol. Producer rationale and desired wording remain forbidden in every mode.",
       "A QA failure returns only the frozen goal and blocking findings to Demo; it never changes the goal or thresholds.",
-      "Demo may retry twice. Every retry requires a new demo screenshot hash and a new Visual QA execution id.",
+      "Demo may retry twice. Every retry requires actual new capture/interaction evidence and a new reviewId; suitable original independent QA may retain qaExecutionId in regression-review, while fresh-blind requires a fresh context.",
       "Scripts validate dispatch receipts and gates; scripts do not pretend to spawn Codex subagents themselves.",
       "Learn-brand Demo is a brand-learning-capability-test, not a website mirror, host apply, or branded asset template.",
       "Evidence Fidelity, Structural Fidelity, and Generative Proof are independent required gates; strength in one cannot compensate for failure in another."
@@ -440,18 +492,40 @@
       "A QA failure recaptures only affected sections plus required regressions, not the entire source by default."
     ]
   },
+  "designHostExecutionProfiles": {
+    "default": "fast",
+    "fast": {
+      "targetMinutes": [3, 5],
+      "purpose": "Give a new user three interactive startup-page H5 directions quickly enough to judge the attainable brand transformation before any full-project work or optional ImageGen enhancement.",
+      "coverageScope": "The resolved startup page only; freeze its primary task, action, readable fields and source hash.",
+      "workflow": "startup-page strategy, one uninterrupted three-H5 producer turn, one compact independent H5 review with expressive-gap decision, optional one-shot local ImageGen enhancement, then explicit user direction review.",
+      "qualityBoundary": "The H5 directions prove real-data structure, brand design-system use and interaction; optional generated local assets prove only their declared expressive gap and never full-host certification.",
+      "stopRule": "At five minutes report the slow node and available artifacts; at twenty minutes stop safely without modifying host source or starting unbounded retries."
+    },
+    "standard": {
+      "targetMinutes": [15, 25],
+      "purpose": "Formalize a selected visual direction as isolated H5 with complete design-system, identity and expert-decision evidence.",
+      "coverageScope": "The selected startup-page direction and its declared interaction states.",
+      "qualityBoundary": "Requires independent H5 QA and explicit user approval before apply-host.",
+      "stopRule": "Preserve the last reviewable artifact and report the blocking gate."
+    },
+    "certification": {
+      "targetMinutes": [20, 30],
+      "purpose": "Deep review of the selected design-host direction; it does not implement the real host.",
+      "coverageScope": "Declared H5 viewports, states, asset integrity and design-system closure.",
+      "qualityBoundary": "Certification cannot replace the later apply-host runtime proof.",
+      "stopRule": "Failures remain explicit blockers and never trigger silent implementation."
+    }
+  },
   "applyHostExecutionProfiles": {
     "default": "fast",
     "fast": {
-      "targetMinutes": [
-        0,
-        5
-      ],
-      "purpose": "Show a first-viewport preview on the explicit target, or the host home route by default, using an already reviewed Registry bundle.",
+      "targetMinutes": [5, 20],
+      "purpose": "After the startup-page H5 is approved, scan the full host and apply that frozen direction to every APPLY page without reopening visual exploration.",
       "registryPolicy": "A complete frozen bundle is trusted after hash/file preflight; Brand Researcher and Design Translator are not dispatched.",
-      "coverageScope": "The first viewport of the explicit target; otherwise the first route declared by the host is the default home page.",
-      "qualityBoundary": "Smoke QA proves load, visible brand application and intact geometry only; it may not claim scoped delivery, full-host, DangoUI runtime or platform certification.",
-      "stopRule": "At 5 minutes stop, report the slow node and preserve the latest runnable preview; do not continue into full QA or certification before user review.",
+      "coverageScope": "Every discovered page receives APPLY, KEEP or DEFER; implementation covers all APPLY pages while preserving KEEP and reporting DEFER.",
+      "qualityBoundary": "Smoke QA proves representative load, visible brand application and intact geometry; full-host PASS still requires certification evidence.",
+      "stopRule": "At a safe checkpoint report blocked pages and preserve the latest runnable host; do not silently reduce the approved full-project scope to one viewport.",
       "pauseRule": "A passing Smoke QA changes the workflow to awaiting-user. Only an explicit approve, revise or certify decision may continue it."
     },
     "standard": {
@@ -725,7 +799,8 @@
         "a capture persistence probe passes before full-site evidence collection begins",
         "every observed high-salience claim has a screenshot path and normalized sourceRegion",
         "every page required by goal evidencePolicy has fullPageCapture, continuousCapture and timeline or an explicit unavailableReason",
-        "continuous capture covers stable initial state through reachable page end and can be traced back to lossless frames with time and scroll/state labels",
+        "continuous capture covers stable initial state through reachable page end and can be traced back to locally decodable lossless frame bytes with time and scroll/state labels",
+        "every covered page proves content completeness with fonts ready, lazy content settled, zero unexplained blank frames, expected sections matched by verified sections, and visible DOM-backed text samples tied to frame indexes",
         "motion and interaction evidence contains default, transition and settled states",
         "every interaction claim has before/after state captures and a reproducible trigger",
         "every computed claim records the exact property name and value",
@@ -763,6 +838,8 @@
         "required page lacks full-page or continuous evidence",
         "continuous capture cannot be traced to frames/timeline",
         "long-page capture does not reach the page end",
+        "a full-page or timeline frame is a Git LFS pointer, placeholder, missing blob or undecodable raster",
+        "document height is covered but visible sections or text completeness are not proved",
         "motion capture lacks transition state",
         "critical claim lacks an evidence id",
         "observed claim lacks visible capture/region/DOM state",
@@ -803,6 +880,7 @@
       ],
       "outputs": [
         "brand-intent.json",
+        "brand-mod.json",
         "styleRecipeDetails",
         "interactionRecipes",
         "approved-visual-patterns"
@@ -831,6 +909,8 @@
         "leave unsupported claims unresolved"
       ],
       "requirements": [
+        "For learn-brand, Interpreter materializes and validates brand-mod.json from approved intent before Demo dispatch. It preserves every source-only/style-only semantic boundary; missing mapped-global permissions cannot be repaired by inventing mapped tokens.",
+        "An honest all-style-only trial may use manifest.scope.kind=source-scoped-style-trial, completeBrandCertification=false, globalTokenPromotion=false, nonempty sourcePageIds/for/notFor. This mode requires tokens.mapped={}, every DTCG token channel=styleOnly, target --style-*, echo.brand.evidenceRefs, echo.brand.scope containing nonempty local scope without global/sitewide/entire/all-pages, echo.brand.allowedRoles as a nonempty local-role array, and echo.brand.recipeId exactly matching an approved componentVariants[].id. All global semanticRoles remain status=rejected with unresolvedEvidenceRole, target=null, value=null, evidenceRefs and reason. H5 semanticColorApplications must repeat the exact allowed semanticRole, recipeId, same token evidenceRefs and a uniquely resolvable local #id selector; html/body/:root/full-page use is forbidden. Other MOD asset/variant/slot checks remain mandatory; this package does not authorize global token promotion or full certification.",
         "every pattern has evidenceRefs and normalized sourceRegion",
         "every composition pattern freezes a compositionContract containing source asset identity/variant and required structural layers before implementation",
         "every color role declares allowedRoles and forbiddenRoles",
@@ -1006,9 +1086,12 @@
         "not-for boundaries"
       ],
       "outputs": [
-        "host-opportunity-map.json",
-        "intent-plan.json",
-        "visualPlacementPolicy",
+        "host-startup-baseline.json",
+      "host-productive-baseline.json",
+      "host-opportunity-map.json",
+      "intent-plan.json",
+      "structural-targets.json",
+      "visualPlacementPolicy",
         "host-coverage-matrix.json",
         "journey inventory",
         "deferred debt"
@@ -1031,6 +1114,8 @@
         ]
       },
       "tasks": [
+        "during design-host inspect only the workflow-resolved startup page and derive host-startup-baseline.json so the user can validate the style quickly",
+        "after H5 approval, during apply-host consume host-page-inventory.json and derive host-productive-baseline.json from every page rather than asking the user for a Productive brief",
         "inventory default entry, parent-child navigation and critical journeys",
         "enumerate route by branch by state by component-family coverage cells",
         "assign APPLY, KEEP or DEFER with rationale and acceptance",
@@ -1041,6 +1126,8 @@
         "declare structural and explicit-IP recognition tracks from the frozen goal"
       ],
       "requirements": [
+        "the startup-page style trial happens before the full-project scan and binds the exact host-startup-page hash",
+        "host-productive-baseline.json binds the exact host-page-inventory SHA-256 and contains exactly one judgment for every discovered page",
         "every in-scope child route has parentRoute and launchedFrom",
         "every family includes sibling variants and meaningful states",
         "KEEP has visual acceptance and never means skip",
@@ -1101,7 +1188,7 @@
     },
     "brandApplicationDesigner": {
       "roleFile": "roles/brand-application-designer.md",
-      "goal": "Translate the frozen brand system into at least three visibly distinct, host-grounded application strategies that preserve real business content and prove correct use rather than mere presence of tokens and assets.",
+      "goal": "Translate the frozen brand system into exactly three visibly distinct, host-grounded interactive H5 directions using real business content first, then generate and integrate local expressive assets only for independently verified gaps.",
       "owns": [
         "brand application narrative",
         "asset role and crop",
@@ -1114,8 +1201,9 @@
       "outputs": [
         "brand-application-plan.json",
         "design-direction-options.json",
-        "at least three image Demo directions before every H5 reconstruction",
-        "an H5 reconstruction only after independent Demo review and explicit user confirmation",
+        "exactly three interactive isolated H5 directions before any ImageGen call",
+        "a structured expressive-gap decision from independent H5 review",
+        "local ImageGen assets only for verified gaps, with zero automatic retries",
         "brandSystemClosure"
       ],
       "inputs": {
@@ -1140,20 +1228,28 @@
         ]
       },
       "tasks": [
+        "consume the orchestrator-frozen design-knowledge-bundle and cite only hash-verified refs",
+        "close every initial H5 direction with frozen brand-design-system productive UI and explicit expert decision knowledge before deciding whether ImageGen is needed",
+        "bind raw brand evidence, intent and MOD as direct concept-generation inputs instead of relying only on a compressed summary",
         "derive a host-specific brand narrative",
         "assign every high-salience asset and token a source-backed semantic role",
-        "compose subject, environment, typography, controls and business content as one scene",
+        "compose typography, controls, interaction and real business content as one coherent H5",
         "create structurally distinct options without changing business capabilities",
         "measure crop and first-viewport visual mass",
         "perform masked recognition and host-task self-review before presenting options"
       ],
       "requirements": [
+        "concept dispatch is blocked until the automatic design-host knowledge query is frozen against the host startup baseline",
+        "every direction records a productionFormula with expressive, productive, expertDecision and identityPolicy bindings",
+        "generated proposals may create environments and effects but never redraw or approximate source-specific characters, mascots, logos or identity subjects",
         "source correctness, semantic correctness, composition correctness and rendered effectiveness are independent",
         "minimum token, asset and pattern counts only qualify an option for review and never establish quality",
         "host business thumbnails remain content rather than brand identity",
         "each option visibly integrates brand atmosphere and real host task instead of stacking a brand poster above a generic page",
-        "image Demo review and explicit user confirmation always precede H5 reconstruction",
-        "the visual Demo producer uses the current task default model and calls built-in image_gen for every formal image candidate, recording real tool-call evidence without claiming or requiring a hidden engine model; browser screenshots of hand-authored H5 do not qualify",
+        "independent H5 review must locate a specific region, business purpose, target size and expected improvement before ImageGen is permitted",
+        "when a verified gap exists, the local-asset producer uses the current task default model and calls built-in image_gen once per declared gap in the first round, recording real tool-call evidence without claiming or requiring a hidden engine model",
+        "ImageGen never generates host copy, data, controls, navigation or a replacement full-page composition",
+        "when no verified gap exists, image generation remains deferred and the H5 proceeds directly to human review",
         "machine expressive audit means eligible for human review, not approved aesthetic quality",
         "claims not visible in static evidence are marked not-evaluated or receive an additional H5 state",
         "every option binds the exact brand mod and passes options-only Wild Design validation"
@@ -1170,6 +1266,8 @@
         "reduce the work to palette substitution",
         "make three options share one composition skeleton",
         "use isolated stickers as a coherent scene",
+        "call ImageGen before the independent H5 gap decision",
+        "automatically retry a rejected or failed first-round ImageGen request",
         "claim quality from count thresholds"
       ],
       "passCriteria": [
@@ -1271,7 +1369,7 @@
         "all transformations exist in goal-contract.mayTranslate before implementation",
         "generative-proof.json identifies invariant learned rules, the deliberately varied input or structure, and why the result remains in-system without copying a full source composition",
         "viewport and state are recorded",
-        "fresh independent Visual QA being pending is the expected next stage, not a Demo failure or needs-evidence verdict, when all implementation-owned gates pass"
+        "independent Visual QA under qaReviewProtocol being pending is the expected next stage, not a Demo failure or needs-evidence verdict, when all implementation-owned gates pass"
       ],
       "decisionRights": [
         "choose code within the approved design direction",
@@ -1290,7 +1388,7 @@
         "protocol/build gates pass",
         "all target pages render",
         "mustPreserve items have implementation locations",
-        "implementation-side evidence, structure and generative artifacts are complete enough to dispatch fresh Visual QA; only Visual QA/finalize may mark the three proofs passed"
+        "implementation-side evidence, structure and generative artifacts are complete enough to dispatch independent Visual QA under qaReviewProtocol; only Visual QA/finalize may mark the three proofs passed"
       ],
       "failCriteria": [
         "SCREENSHOT_AS_IMPLEMENTATION",
@@ -1419,7 +1517,7 @@
         "default entry and parent launch paths are reachable",
         "all required journeys and interactions pass with restoration",
         "build and fixed preview health pass",
-        "fresh Visual QA accepts the rendered result"
+        "independent Visual QA under qaReviewProtocol accepts the current hash-bound rendered result"
       ],
       "failCriteria": [
         "COVERAGE_CELL_MISSING",
@@ -1457,7 +1555,8 @@
           "blocking findings",
           "evidence refs"
         ],
-        "requiresFreshQa": true
+        "requiresFreshQa": true,
+        "futureReviewProtocol": "qaReviewProtocol; current engineering integration is learn-brand only"
       }
     },
     "visualQA": {
@@ -1506,7 +1605,7 @@
           "implementation rationale",
           "implementation narrative",
           "desired verdict",
-          "previous QA verdict",
+          "previous QA verdict in initial-blind or fresh-blind; regression-review allows only hash-bound prior failures, never inherited PASS",
           "build pass as fidelity evidence",
           "translation claims absent from goal contract"
         ]
@@ -1530,8 +1629,8 @@
         "recommend pass, fail or insufficient-evidence"
       ],
       "requirements": [
-        "fresh independent agent execution id",
-        "Visual QA never edits production code; FAIL returns blockingFindings to the earliest real Evidence, Interpreter, Design Director or Implementation owner and the repaired implementation receives a fresh QA execution",
+        "learn-brand records reviewMode, unique reviewId and independent qaExecutionId under qaReviewProtocol; regression-review retains the original QA identity and binds priorReviewReceipt path/sha256; design-host/apply-host retain existing stage review entry points until integrated",
+        "Visual QA never edits production code; FAIL routes to the earliest real owner, then new current-evidence review under qaReviewProtocol without rewriting prior receipts or inheriting old PASS",
         "apply-host compares source and host screenshots at the same viewport and reports masked design-system structural recognition separately from explicit-IP recognition",
         "recognition track mode and threshold come from the frozen goal; any later change requires a supersession record",
         "apply-host scores visualMass, asset, composition, type and motion independently",
@@ -1591,8 +1690,11 @@
       },
       "retry": {
         "maxAttempts": 2,
-        "reusePreviousQaContext": false,
-        "requiresNewAgentExecutionId": true
+        "implementedMode": "learn-brand; other stages retain existing independent review entry points",
+        "reviewProtocol": "qaReviewProtocol",
+        "reusePreviousQaContextFor": ["regression-review"],
+        "requiresNewReviewId": true,
+        "requiresNewAgentExecutionIdFor": ["initial-blind", "fresh-blind"]
       }
     },
     "methodologyKeeper": {
@@ -1617,7 +1719,7 @@
       "inputs": {
         "required": [
           "incident retros",
-          "fresh QA findings",
+          "current hash-bound independent QA findings",
           "validator results"
         ],
         "allowed": [
@@ -1733,7 +1835,7 @@
       "rule-location",
       "owner-routing",
       "redo",
-      "fresh-visual-qa",
+      "independent-visual-review-under-qaReviewProtocol",
       "machine-gate"
     ],
     "rootCauseFields": [
@@ -1755,7 +1857,7 @@
       "implementation-diverged-from-approved-pattern": "demoImplementationAgent",
       "qa-missed-supportedness-check": "visualQA"
     },
-    "completionRule": "Explanation alone never closes an incident. The affected output must be redone, screenshots recaptured, a fresh Visual QA subagent used, and machine gates passed before reporting done.",
+    "completionRule": "Explanation alone never closes an incident. Redo the affected output, obtain actual new capture/interaction evidence, complete independent review under qaReviewProtocol and required regression/machine gates. QA omission or contamination and material Goal/direction/rule changes require fresh-blind.",
     "requiredArtifact": "migrations/{brand}/quality-attempts/{attempt}/incident-retro.json"
   },
   "handoffArtifacts": {
@@ -2045,7 +2147,9 @@
         "whyExistingGatePassed",
         "evidenceRefs",
         "ownerRole",
-        "freshQaExecutionId"
+        "qaExecutionId",
+        "reviewId",
+        "reviewMode"
       ]
     },
     "fidelity-report.json": {
@@ -2169,6 +2273,7 @@
           "required": true,
           "outputs": [
             "brand-intent.json",
+            "brand-mod.json",
             "styleRecipeDetails",
             "interactionRecipes"
           ],
@@ -2190,10 +2295,9 @@
         {
           "id": "map-to-dangoui",
           "role": "dangouiMapper",
-          "label": "Map brand intent and evidence to dangoui-compatible tokens, component roles, and style-only recipes",
+          "label": "Consume the validated Interpreter MOD and map its approved scoped rules to DangoUI adapters without redefining its semantics",
           "required": true,
           "outputs": [
-            "brand-mod.json",
             "dangoui-adapter.json",
             "component-mapping.json"
           ]
@@ -2293,9 +2397,11 @@
         {
           "id": "diagnose-host",
           "role": "hostStrategist",
-          "label": "Freeze host entry, viewport, real content baseline, primary task and protected behavior",
+          "label": "Resolve and inspect only the actual startup page for the rapid style trial; defer full-project inventory until the H5 direction is approved",
           "required": true,
           "outputs": [
+            "host-startup-page.json",
+            "host-startup-baseline.json",
             "business-scope.json",
             "host baseline",
             "host-opportunity-map.json"
@@ -2313,69 +2419,54 @@
           ]
         },
         {
-          "id": "freeze-concept-assets",
+          "id": "compose-h5-directions",
           "role": "brandApplicationDesigner",
-          "label": "Classify concept inputs as evidence-source, derived-approved, generated-proposal or host-business and block provenance leakage before preview rendering",
+          "label": "Generate exactly three structurally distinct interactive isolated H5 directions from real host data, the frozen brand design system and hash-bound design knowledge before any ImageGen call",
           "required": true,
           "blocking": true,
           "outputs": [
-            "concept-asset-manifest.json"
-          ]
-        },
-        {
-          "id": "compose-directions",
-          "role": "brandApplicationDesigner",
-          "label": "Generate at least three host-grounded image Demos from provenance-approved inputs before any H5",
-          "required": true,
-          "blocking": true,
-          "outputs": [
-            "design-host-route.json",
-            "Demo image directions"
-          ]
-        },
-        {
-          "id": "map-implementability",
-          "role": "brandApplicationDesigner",
-          "label": "Map each concept feature to tokens, official assets, DangoUI capability, CSS/motion or an explicit downgrade",
-          "required": true,
-          "blocking": true,
-          "outputs": [
-            "implementability-map.json"
-          ]
-        },
-        {
-          "id": "conceptVisualQA",
-          "role": "visualQA",
-          "label": "Independently review generated Demo images and stop for explicit user direction confirmation before H5",
-          "required": true,
-          "blocking": true,
-          "outputs": [
-            "design-host-concept-qa.json",
-            "design-host-route.json"
-          ]
-        },
-        {
-          "id": "h5Reconstruction",
-          "role": "brandApplicationDesigner",
-          "label": "Reconstruct only the explicitly approved Demo direction as isolated H5",
-          "required": true,
-          "blocking": true,
-          "outputs": [
+            "design-knowledge-bundle.json",
+            "brand-render-kit.json",
             "brand-application-plan.json",
             "design-direction-options.json",
-            "H5 reconstruction",
+            "Three interactive isolated H5 directions",
             "design-host-route.json"
           ]
         },
         {
           "id": "designVisualQA",
           "role": "visualQA",
-          "label": "Independently open each static H5 through an isolated localhost static-file server at the target viewport without saving screenshots; reject generic, same-asset or weakly differentiated directions",
+          "label": "Independently open all three H5 directions, verify real data, interaction, design-system fidelity and structural difference, and declare whether each has a specific expressive asset gap",
           "required": true,
           "blocking": true,
           "outputs": [
             "design-host-visual-qa.json",
-            "expressive H5 audit JSON"
+            "design-host-h5-audit.json",
+            "design-host-expressive-gap.json",
+            "design-host-route.json"
+          ]
+        },
+        {
+          "id": "generate-local-expressive-assets",
+          "role": "brandApplicationDesigner",
+          "label": "Only when independent H5 QA recorded a complete local gap contract, generate one local asset per gap in a concurrent first round and deterministically backfill it without changing host data or interaction",
+          "required": "conditional: expressiveGapDecision.status=required",
+          "blocking": true,
+          "outputs": [
+            "hash-bound local expressive assets",
+            "updated isolated H5 directions",
+            "design-host-route.json"
+          ]
+        },
+        {
+          "id": "expressiveIntegrationQA",
+          "role": "visualQA",
+          "label": "Independently verify each generated local asset closes only its declared gap, remains visually integrated, preserves real data and introduces no layout or interaction regression",
+          "required": "conditional: expressiveGapDecision.status=required",
+          "blocking": true,
+          "outputs": [
+            "design-host-expressive-integration-qa.json",
+            "design-host-route.json"
           ]
         },
         {
@@ -2416,8 +2507,11 @@
         "generated-proposal assets never define brand identity, enter Brand MOD or participate in formal visual-retention scoring; only evidence-source and explicitly approved derived assets may do so.",
         "Assets rejected by the provenance gate remain internal JSON audit records only; user-facing images, contact sheets, H5 previews and reports must not load, thumbnail or transform them.",
         "Do not implement before an explicit user direction decision.",
-        "Every design-host run uses image Demos before H5; rendering technique creates no bypass.",
-        "H5 reconstruction is forbidden until independent Demo review and explicit user direction confirmation are frozen.",
+        "Every design-host run produces exactly three interactive isolated H5 directions before any ImageGen call; rendering technique and execution profile create no alternate sequence.",
+        "Each initial direction must prove frozen brand-design-system productive UI, expert decision knowledge, real host data binding and working interaction independently. ImageGen is conditional evidence for a declared local expressive gap, never a prerequisite for brand recognition.",
+        "AI-generated lookalikes of source-specific characters, mascots, logos or identity subjects are blocking; official identity assets remain unmodified or the subject is omitted.",
+        "ImageGen is forbidden until independent H5 QA freezes the exact direction, region, business purpose, target size, current shortfall, expected improvement and no-image fallback. First-round automatic retry count is zero.",
+        "Generated assets cannot contain host copy, host data, controls or navigation; these remain live H5 layers.",
         "Every selectable result must remain reachable in the delivered H5 selection surface; horizontal overflow or off-canvas placement is a delivery failure."
       ]
     },
@@ -2464,6 +2558,18 @@
           "blocking": true,
           "outputs": [
             "frozen design intake receipt"
+          ]
+        },
+        {
+          "id": "scan-host-project",
+          "role": "hostStrategist",
+          "label": "After H5 approval, inventory every route and page, derive the full Productive baseline, and freeze APPLY, KEEP or DEFER coverage before runtime edits",
+          "required": true,
+          "blocking": true,
+          "outputs": [
+            "host-page-inventory.json",
+            "host-productive-baseline.json",
+            "host-coverage-matrix.json"
           ]
         },
         {
@@ -2536,7 +2642,7 @@
               "blockingFindings",
               "failureOwnerRole=<earliest-real-owner>"
             ],
-            "next": "return to Evidence, Interpreter/Design Director, or Host Implementation according to cause; then fresh Visual QA"
+            "next": "return to earliest real Evidence, Interpreter/Design Director or Implementation owner; then independent review under qaReviewProtocol"
           },
           "externalOptional": [
             "gstack-style design review"

@@ -1,0 +1,42 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "visual-authority",
+  "version": 2,
+  "status": "candidate",
+  "statement": "先确定各来源的职责、作用范围和冲突优先级，再建立从选定依据到页面各区域的映射；偏离必须有显式理由与确认。",
+  "appliesWhen": [
+    "来源是否权威",
+    "适用范围",
+    "冲突点",
+    "已确认目标"
+  ],
+  "notFor": [
+    "已有严格品牌规范时，不得用生成图反向改写官方证据。"
+  ],
+  "falsificationQuestion": "是否存在遵循本判断仍破坏选图或任务的情境？",
+  "nextTest": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "originCaseIds": [
+    "opcg-a1-live-host-layering"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "status": "candidate",
+      "date": "2026-09-21",
+      "reason": "用户纠正后的限定案例复盘，未获通用批准"
+    },
+    {
+      "version": 2,
+      "status": "candidate",
+      "date": "2026-09-21",
+      "reason": "从局部补丁上提为通用决策原则，保留案例证据限制，不晋级为共识"
+    }
+  ],
+  "solutionFamilies": [
+    "固定来源约束，生成只探索许可范围",
+    "选定新方向后提取其内部系统并标明为派生系统"
+  ],
+  "readerPurpose": "待验证的条件化结论与例外"
+}

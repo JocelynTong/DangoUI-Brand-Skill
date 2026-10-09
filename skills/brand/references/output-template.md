@@ -59,6 +59,18 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 
 同一个页面不能同时充当 calibration 和 held-out。直接复制 source screenshot、裁切官网长图或仅更换官方壁纸，均不能计入 Generative Proof。
 
+### 学习 Demo 的接力格式
+
+生成者直接使用以下紧凑契约，不读取 validator/test 源码反推格式。Region 为实际截图归一化 `[x,y,width,height]`，hash 来自实际文件，不预填 PASS。
+
+- `visual-pattern-inventory.json`：`schema: brand-visual-pattern-inventory/v1`、冻结 `goalSha256`、`pages[]`；每页含 `demoPageId` 与 `patterns[]`。
+- 每个高显著度 Pattern：`id/approvedPatternId/salience: high`、`evidenceRefs[]`（`evidenceId/sourcePageId/sourceRegion`）、`demoRegion`、字符串 `selfCheck`（自检完整通过为 `pass`；否则 `fail` 或 `unresolved`，细节另放 `selfCheckDetails`，不把对象塞入该字段）。使用资产时记录 `assets[]` 的 `path/identity/provenance`；provenance 必须有 `sourceUrl/sourceSha256/role/sourceKind`，sourceKind 取 `original-site-asset | dom-css-reconstruction | generated-independent-asset`，不能只有清单而无运行时用途。
+- 构图 Pattern 再含 `preserves[]` 对应 Goal requirement id 与 `compositionSupport`：`sourceAsset/demoAsset` 的 `identity/variant`、`layers[]` 的 `id/role/sourceRegion/demoRegion`。各层必须与已批准规则中的 requiredLayers 一致，不能用整页 Region 充当全部层。
+- `generative-proof.json`：`schema: brand-generative-proof/v1`、`goalSha256`、`challenge`（`id/heldOut: true/sourceContentIndependent: true/contentChange`，不映射来源页）、`frozenRules[]`（`recipeId/frozenBeforeChallenge`）、`output`（`demoPageId/screenshot: {path,sha256}`）及 `checks`（`brandCueSubstitution: false/structureRulesApplied[]`）。至少复用两条有依据的规则。
+- 必须另保存实际规则冻结文件与之后选定 challenge 的时间/hash 绑定；`frozenBeforeChallenge: true` 不能代替先后发生的证据。旧页面未具备此前提时，应先冻结规则、再做新的 held-out 试验，不补造历史顺序。
+- 独立 QA 自己填写每个高显著度 Pattern、构图层和 frozen recipe 的复核结论；生成者不能替 QA 签字。
+- QA 的 `mustNotReplace[]` 每项明确填写布尔 `violated`；`status: pass` 不代替 `violated: false`。正式 receipt 记录后不再覆盖其绑定产物，记账错误用独立 erratum 说明，不把真实 FAIL 改成 PASS。
+
 必须避免的 preview 记录：
 
 - 只列 `components` 数组但没有真实渲染分支或页面路由。
@@ -84,6 +96,23 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 - token 使用 `$type`、`$value`、`$description`、`$extensions`。
 - component 不是 DTCG token，只能作为 group metadata 摘要或引用 `component-mapping.json`。
 - fallback、style-only、missing、ask-user 写入 `$extensions.com.echo.brandMigration`。
+
+### `primary-role-frequency-review.json`
+
+新案例使用 `schema: brand-primary-role-frequency-review/v2`；v1 仅兼容历史案例，不复制其品牌特定字段。
+
+- 顶层：`brand`、`producer`、`status: candidate-not-approved | approved`、`policyRef: primary-color-and-cta`、`methodRef: cross-page-token-promotion`。
+- `sources[]`：唯一 `pageId/url`、`sourcePriority`、`evidenceRef`；引用一律为 `{path, sha256}`。
+- 每页 `census`：`observedControls`、`countedControls`、`aggregateOnlyControls`，以及嵌套的 `census.exclusions[] / census.unknowns[]`；各项为 `{role, count, reason}`，无记录时保留空数组。观察总数 = 已计数 + 排除 + 未确认；未逐项举证数量 = 已计数 − 独立控件记录数。
+- 每页 `styles[]` 按 `{role, treatment, background, foreground, count}` 分组，不限定颜色或源码选择器。逐控件证据嵌套在各分组的 `styles[].observations[]`，不放在 page 顶层；每项保留 `id/selector/paintSelector/textSelector/region/state/evidenceRef`。`region` 为像素 `{x,y,width,height}`，统计代表控件的 `state` 为 `default`。v2 使用 `sources[]`，无需另建 `pages[]` 或 `pageCount`。
+- `frequencyTotals`：上述三计数加 `excludedControls/unknownControls`，以及按同一分组键累加的 `byRoleAndTreatment[]`。次数只描述采样，不产生批准。
+- `sampling`：`unit/paintLayerMethod/scope`；`identityObservation.role` 分清身份与行动池。
+- `interpreterDecision`：`brandIdentityDecision/primaryActionDecision/interfacePaletteDecision`、`exceptions[]`、`mappingCandidates[]`、`approvalBoundary`。映射候选为 `{role,targetToken,scope,rationale}`，没有依据时为空；边界包含 `currentScope/notApproved[]/missingInThisCase[]`。
+- `unresolved[]` 保留未解决问题。单页局部候选合法，但必须声明未批准范围和缺口，不填造独立页面或状态。
+
+`approved` 专指全局 token 晋级，另需 `promotions[]`：每项保存分组键、`scope: global`、`targetToken/rationale/sourceUrls`、`conflictDisposition: no-unresolved-conflict`、空 `unresolved[]`。同职责至少两独立 URL，并覆盖已统计的全部同职责页面。`stateEvidence[]` 每页提供 default/hover/focus 的 `url/observationId/selector/state/role/treatment/background/foreground/region/evidenceRef/contrastPassed`；真实状态可以变色。`visualQA` 保存 `approved/reviewer/evidenceRef`，审阅人不同于 producer。局部构图或组件的批准另记其专项范围，不能冒充全局 token 晋级。
+
+运行 `validate-primary-role-frequency-review.mjs <file>` 校验结构；hash 格式通过不代替来源文件复读和独立视觉检查。
 
 ### `echo-mapping.json`
 

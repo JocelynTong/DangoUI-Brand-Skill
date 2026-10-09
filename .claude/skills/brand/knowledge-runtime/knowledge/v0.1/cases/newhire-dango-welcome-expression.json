@@ -54,13 +54,13 @@
   "componentCorrection": {
     "feedback": "用户指出栏目切换未用对组件",
     "cause": "普通按钮继承圆角焦点框，选中态用黑色内阴影冒充Tabs",
-    "source": "https://dumpling.echo.tech/bar/tabs",
+    "source": "[non-public reference omitted]",
     "repair": "React LearningTabs adapter, short primary indicator, pointer/keyboard focus split, original selectTab callback retained",
     "tests": "332 passed",
     "boundary": "React adaptation, not native Vue DuTabs"
   },
   "componentAudit": {
-    "source": "https://dumpling.echo.tech/data/steps",
+    "source": "[non-public reference omitted]",
     "repairs": [
       "只读进度使用 Steps，区分完成、当前和未开始",
       "资料保持原生 details 展开，统一分隔线与展开图标",
@@ -99,5 +99,9 @@
       "same-host only",
       "visual approval pending"
     ]
+  },
+  "publicExport": {
+    "nonPublicReferencesOmitted": 2,
+    "evidenceAccess": "Some original references are withheld; this copy does not provide independent evidence access."
   }
 }

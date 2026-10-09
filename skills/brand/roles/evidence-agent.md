@@ -6,6 +6,8 @@
 
 Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角色内部调用的候选发现工具，不是独立角色、下游交付者或事实裁判。
 
+资产盘点覆盖所有被真实页面使用的官方身份主体，不以首页首屏或当前 Demo 是否消费为边界。对角色、吉祥物、Logo、产品 cutout 和组合主视觉记录原始尺寸、alpha/背景形态、页面语境、允许裁切与可安全放大范围；这些字段随 hash 进入下游。发现透明身份资产时不得因尺寸小或当前 Demo 未使用而从候选 Brand MOD 中静默遗漏。
+
 ## 成功目标
 
 - 每个高显著度 Claim 都从截图中的可见区域开始。
@@ -27,6 +29,7 @@ Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角�
 - 建立资产清单、页面状态矩阵和证据 Claim。
 - 为每个高显著度区块建立 section manifest：同视口截图、Region、结构层、阅读顺序、响应式、资产身份和交互状态。
 - 缓存 URL、viewport、capture SHA、asset SHA 与交互 trace；返修时只重抓受影响区块和必要回归。
+- 在首次成功的原生浏览器观察中归档实际响应的视觉素材本体；每个本地文件绑定 URL、MIME、字节数与 SHA-256。URL-only 清单只能标为 candidate，不得作为可交付的身份素材，也不得把补截图或下载文件转嫁给用户。
 
 ## 输入要求
 
@@ -35,6 +38,8 @@ Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角�
 - `forbidden`：Demo 实现、实现理由、旧 QA 结论、期望品牌总结。
 
 ## 工作步骤
+
+若新 Goal 冻结了 `evidencePolicy.interactionEvidence`，交互取证按其中 `required` 的 proof 区分：`states` 用真实操作及同页按序 default/triggered/settled/restored 帧，不要求连续交互录像；`motion` 仍需录像。仅缺未纳入范围的动效时标 unresolved/out-of-scope，不扩大为整段学习失败；但不得漏掉 Goal 的 mustPreserve 或将静态帧解释为动效。motion Claim 用 interactionId 绑定已验证录像交互。未声明该字段的旧 Goal 继续原要求；本规则不降低页面覆盖、原始素材与独立 QA 要求。
 
 严格执行以下证据顺序：
 
@@ -45,6 +50,9 @@ Evidence Agent 是证据结果的唯一 owner。Dembrandt 等抽取器是本角�
 3. `Capture persistence probe`：正式浏览前先抓一张最小真实视口截图并写入本轮工作区，立即复读文件、验证图片可解码、尺寸非零并记录 SHA-256。只有浏览器会返回图片字节、但没有受支持的工作区写入通道时，必须立即返回 `NEEDS_EVIDENCE / EVIDENCE_CAPTURE_NOT_PERSISTABLE`；不得先花时间浏览全部页面，也不得把内存截图、聊天内图片或临时 UI 状态伪装成持久证据。
 4. `Screenshot`：探针通过后，不依赖候选结论，先确认真实可见模式和视觉权重。
 5. `Continuous capture`：从稳定初始态开始，连续记录完整滚动、轮播/视频和关键交互；每帧关联时间、scrollTop 与状态标签。
+   长页必须逐视口触发懒加载并等待字体、图片和进入动画稳定；`scrollHeight` 到达页尾只证明几何覆盖，不证明内容完整。每页记录 expected/verified sections、意外空白帧数量，以及绑定帧序号、真实文字、可见 DOM selector 和非零 bounding box 的文字样本。
+   采集前必须记录 `captureEnvironment`：原始 `documentLang`、HTML 是否含浏览器自动翻译标记、滚动输入类型，以及页面存在 viewport/scroll 动画时控制器是否已经初始化。带自动翻译、语言不符、控制器未初始化的帧不得作为来源证据；依赖滚动触发的页面必须用真实 wheel/touch/keyboard 输入逐屏触发，不能用 `window.scrollTo` 直接跳位置。
+   各品牌只在 `brand-source-capture-plan/v1` 中声明页面、来源语言和 expected sections；统一运行 `finalize-source-observation.mjs --config <capture-plan.json>` 生成 observation manifest。禁止复制 finalizer 再写品牌专属判断分支。
 6. `Visible DOM`：定位截图/时间轴区域对应的实际节点。
 7. `Computed style`：读取该节点当前状态最终生效值。
 8. `Interaction state`：真实触发 hover、focus、open、active、scroll，并同时保留 default、transition、settled 状态。
@@ -66,10 +74,13 @@ CSS 扫描、变量名、类名、文件名和第三方报告只能产生 `candi
 - source screenshot manifest 与 Region 坐标
 - `source-observation-manifest.json`，逐页记录 URL、viewport、全页截图、连续播放文件、逐帧目录、时间轴、页面覆盖率和交互覆盖率
 - `rendered-asset-inventory.json`
+- `browser-assets.json` 与其引用的本地视觉响应文件；若页面确有图片/媒体请求但归档为零，必须解释不可归档原因并返回 `NEEDS_EVIDENCE`
 - interaction state matrix
 - action evidence，其中每项包含 `beforeCapture`、`afterCapture`、真实 class/state、computed property 和 source rule
 
 ## 节点自检
+
+交接字段使用当前 gate 的紧凑格式：`sourceRegion: [x,y,width,height]`、`visibleDom: {selector,visible:true,boundingBox:{x,y,width,height}}`、`computed:{property,value}`；坐标来自实际截图/DOM，不凭格式需要补造。validated seed 用 `evidenceRefs` 引用实际 Claim ID。动作产物遵循 dispatch 的 `action-evidence.json` 路径，每项使用真实 `observedState`、`trigger`、`computedProperty` 和 `computedValue`，不要另造历史文件名来补工具差异。
 
 - 正式采集前，截图持久化探针是否已在工作区生成可解码、非零尺寸且 SHA-256 可复算的图片？
 - 每个 `observed` Claim 是否存在可读取截图和归一化 Region？
@@ -79,6 +90,8 @@ CSS 扫描、变量名、类名、文件名和第三方报告只能产生 `candi
 - 状态名是否来自实际触发行为？`is-open` 不能改写成 `active/current`。
 - 默认状态和交互状态是否分别捕获？
 - 长页是否从 `scrollTop=0` 覆盖到可达页尾？连续播放能否反查到具体原始帧和时间轴？
+- 每个逐屏帧是否为本地可解码图片本体而非 Git LFS 指针/占位文本？字体和懒加载是否稳定？expected sections 是否全部被 verified sections 覆盖？是否存在无法解释的空白帧？文字样本能否回指具体帧与可见 DOM？
+- 来源是否保持原始语言、没有 `translated-ltr/rtl` 等自动翻译污染？存在 `.vp-slide` 等入场动画时，控制器是否初始化，并由真实滚动输入触发过可见态？
 - 自动轮播、背景视频、sticky、hover/focus/open 等可见变化是否至少包含 `default / transition / settled`，而不是只有两张静态结果图？
 - Goal 中每个 source reference page 是否都在 observation manifest 中标记 `covered` 或有明确 `unavailableReason`？
 - 是否把第三方/静态扫描结果标成了 seed-only？
@@ -105,6 +118,8 @@ CSS 扫描、变量名、类名、文件名和第三方报告只能产生 `candi
 Interpreter 只接收同时具有 `capture + region + visible DOM/state + computed property` 的 observed Claim，以及由这些 Claim 支撑的 Goal coverage。只有 CSS、selector 或 Dembrandt seed 的 Claim 必须退回。
 
 对于要求逐页视觉对照的 Goal，Interpreter 还必须拒收缺少 `fullPageCapture + continuousCapture + timeline` 的页面。连续播放文件本身不是 Claim；它必须能回指逐帧截图和时间轴，Claim 再绑定其中的截图/region/state。
+
+若新 Goal 明确 `evidencePolicy.visualAuthority: "viewport-sequence/v1"`，全页图仅为概览；不得用其拼接失真否决完整的真实视口记录，也不得用其补齐漏屏或支持 Claim。记录概览限制，核对逐屏无漏段、文字与资产稳定可见、录屏与实际操作一致。Claim 的 `sourcePageId`、截图路径和 SHA 必须对应同页时间轴帧；独立交互声明 `sourcePageId`、连续记录及时间轴，其中四个按序独立帧的 `state` 分别为 `default/triggered/settled/restored`，未知时间保持未知。旧 Goal 不适用此变更。哈希和尺寸检查只防明显错绑，不替代看图、解码和交互复核。
 
 ## 失败与返工
 

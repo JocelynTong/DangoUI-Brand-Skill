@@ -1,0 +1,110 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "duolingo-event-decoration-occlusion",
+  "status": "negative-regression",
+  "brand": "duolingo-official",
+  "contextKey": "duolingo-official|card-plugin2.0|events-empty-decoration",
+  "decisionTrace": {
+    "recordType": "retrospective-analysis-not-original-designer-rationale",
+    "decisionQuestion": "装饰背景如何在tab切换和空状态中不遮挡业务内容？",
+    "knownInputs": [
+      "用户赛事截图低对比和白卡断层",
+      "装饰渐变与业务内容共用页面",
+      "此前未检查赛事分支"
+    ],
+    "alternatives": [
+      {
+        "id": "remove-all-expression",
+        "documentedObservation": "可移除装饰避免遮挡，但本次没有采用或验证。",
+        "expressiveBenefit": "实现简单",
+        "productiveCostOrGap": "丢失已确认方向",
+        "retrospectiveDisposition": "不采用"
+      },
+      {
+        "id": "separate-content-decoration",
+        "documentedObservation": "具名内容层置于装饰上方，独立空态表面与居中尺寸。",
+        "expressiveBenefit": "保留头部",
+        "productiveCostOrGap": "仍需原生分支验证",
+        "retrospectiveDisposition": "本案采用"
+      }
+    ],
+    "selectionAtTime": "只修样式，不重开视觉方向。",
+    "expertDecisionAfterFeedback": "按受影响tab状态补查并显式标注未测项。",
+    "why": "装饰服务业务，不得让空态不可读；默认态检查不能覆盖其他分支。",
+    "feedback": {
+      "source": "用户赛事截图及要求沉淀",
+      "summary": "用户指出赛事显示不对；修复后未收到明确视觉批准。",
+      "status": "not-explicitly-approved"
+    },
+    "ruleChange": {
+      "from": "只查默认列表",
+      "to": "按受影响分支验证装饰和业务层关系",
+      "status": "candidate",
+      "ruleId": "dynamic-scene-proof"
+    },
+    "nextCaseQuestion": "另一个宿主中能否不依赖本案z-index和尺寸解决相同机制？"
+  },
+  "finding": "原生宿主切换赛事后，场景渐变盖住空状态文字与白色容器；此前代表性列表检查漏掉了这一分支。",
+  "observedSource": {
+    "url": "[non-public reference omitted]",
+    "evidenceStatus": "user-native-screenshot-and-independent-repair-screenshot-review"
+  },
+  "invalidInference": "卡组列表和静态首屏通过，就说明同页其他 tab 与业务状态也通过；声明较高 z-index 就足以证明层级正确。",
+  "safeConclusion": "装饰与业务层分离，检查实际祖先层级和原生渲染；依据受影响分支选择状态验证，不把默认列表结论外推到空态。",
+  "reviewStatus": "local-repair-verified-not-general-certified",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "evidenceVisuals": [
+    {
+      "path": "/knowledge/evidence/duolingo-event-decoration/states-upper.png",
+      "label": "补充隔离测试：加载与空态，非原生认证"
+    },
+    {
+      "path": "/knowledge/evidence/duolingo-event-decoration/states-lower.png",
+      "label": "补充隔离测试：失败与测试记录，非线上数据"
+    },
+    {
+      "path": "/knowledge/evidence/duolingo-event-decoration/before.png",
+      "label": "失败：空态文字被渐变冲淡"
+    },
+    {
+      "path": "/knowledge/evidence/duolingo-event-decoration/after.png",
+      "label": "修复：白色空态表面连续，文字可读"
+    },
+    {
+      "path": "/knowledge/evidence/duolingo-event-decoration/return-plaza.png",
+      "label": "回归：切回卡组列表"
+    }
+  ],
+  "repair": "具名内容层明确定位于装饰层上方；空状态使用不透明表面、border-box 与居中布局。此处144设计单位只属本案，不作为通用尺寸。",
+  "verified": [
+    "iPhone X模拟器赛事空态",
+    "返回真实卡组列表",
+    "构建和源码保留检查",
+    "独立截图检查"
+  ],
+  "supplementalRegression": {
+    "scope": "隔离H5及源码提取逻辑测试，不替代原生",
+    "report": "public/knowledge/evidence/duolingo-event-decoration/state-report.json",
+    "script": "public/knowledge/evidence/duolingo-event-decoration/state-regression.cjs",
+    "observed": [
+      "加载、空、失败、有数据四分支",
+      "加载中重复请求保护",
+      "加载完成缓存保护",
+      "失败后再次加载恢复成功"
+    ],
+    "boundary": "测试赛事不是业务数据；未证明原生加载/失败/有数据、真实导航、API成功和跨宿主泛化。"
+  },
+  "notVerified": [
+    "赛事有数据",
+    "加载中",
+    "请求失败及重试",
+    "物理设备",
+    "另一品牌宿主"
+  ],
+  "nextTest": "另一宿主有装饰背景时，复测不同高度的内容、空态和弹层；失败时修订方法，而非固定堆高z-index。",
+  "readerPurpose": "装饰层遮挡业务状态及QA漏测分支的失败案例",
+  "publicExport": {
+    "nonPublicReferencesOmitted": 1,
+    "evidenceAccess": "Some original references are withheld; this copy does not provide independent evidence access."
+  }
+}

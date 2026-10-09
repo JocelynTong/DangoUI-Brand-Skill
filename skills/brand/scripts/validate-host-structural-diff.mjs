@@ -58,7 +58,35 @@ if(has("verify-preedit")){
 }
 if(has("snapshot")){const file=val("--file"),out=val("--out");if(!file||!out)die("USAGE","snapshot requires --file and --out");fs.writeFileSync(path.resolve(out),JSON.stringify(snapshot(file),null,2)+"\n");console.log(JSON.stringify({ok:true,gate:"host-structural-diff/v1",snapshot:path.resolve(out)},null,2));process.exit(0)}
 const baselinePath=val("--baseline"),currentFile=val("--current"),manifestPath=val("--manifest");if(!baselinePath||!currentFile||!manifestPath)die("USAGE","validate requires --baseline, --current and --manifest");
-const before=readJson(baselinePath),after=snapshot(currentFile),manifest=readJson(manifestPath),failures=[];const fail=(code,message,context={})=>failures.push({code,message,...context});
+// Inline per-source manifests keep every permission inside the receipt's hashed file.
+// Legacy v1 remains valid; a set never falls back to another source or global grants.
+function selectManifest(input, sourceFile, baseline) {
+ if(input?.schema!=="brand-host-structural-manifest-set/v1")return input;
+ const files=input.files;
+ if(!Array.isArray(files)||!files.length)die("MANIFEST_SOURCE_ENTRIES_MISSING","Manifest set requires a non-empty files array.");
+ if(Object.keys(input).some(key=>!["schema","files"].includes(key)))die("MANIFEST_SET_FIELD_INVALID","Manifest sets allow only schema and files; permissions belong to the exact source entry.");
+ const bySource=new Map();
+ for(const [index,entry] of files.entries()) {
+  const source=entry?.sourceFile;
+  if(typeof source!=="string"||!path.isAbsolute(source)||path.resolve(source)!==source)die("MANIFEST_SOURCE_PATH_INVALID","sourceFile must be an absolute normalized path.",{index});
+  if(bySource.has(source))die("MANIFEST_SOURCE_DUPLICATED","Each sourceFile must occur exactly once.",{sourceFile:source});
+  if(Object.keys(entry).some(key=>!["sourceFile","manifest"].includes(key))||entry.manifest?.schema!=="brand-host-structural-manifest/v1")die("MANIFEST_SOURCE_ENTRY_INVALID","Each source entry must contain sourceFile and one inline v1 manifest.",{sourceFile:source});
+  bySource.set(source,entry.manifest);
+ }
+ const bundlePath=val("--bundle");
+ if(bundlePath) {
+  const bundle=readJson(bundlePath);
+  if(bundle.schema!=="brand-host-preedit-baseline-bundle/v1"||!Array.isArray(bundle.entries)||!bundle.entries.length)die("MANIFEST_SOURCE_BUNDLE_INVALID","Manifest scope requires the frozen pre-edit bundle.");
+  const expected=new Set(bundle.entries.map(entry=>entry.sourceFile));
+  for(const source of expected)if(!bySource.has(source))die("MANIFEST_SOURCE_MISSING","Frozen source has no manifest; explicit empty v1 manifests are required for unchanged files.",{sourceFile:source});
+  for(const source of bySource.keys())if(!expected.has(source))die("MANIFEST_SOURCE_UNAPPROVED","Manifest source is outside the frozen bundle.",{sourceFile:source});
+ }
+ const current=path.resolve(sourceFile);
+ if(baseline.file!==current)die("MANIFEST_BASELINE_SOURCE_MISMATCH","Scoped manifest requires the frozen baseline to identify the exact current source.",{baselineSource:baseline.file,current});
+ if(!bySource.has(current))die("MANIFEST_SOURCE_MISSING","Current source has no exact manifest entry.",{sourceFile:current});
+ return bySource.get(current);
+}
+const before=readJson(baselinePath),after=snapshot(currentFile),manifest=selectManifest(readJson(manifestPath),currentFile,before),failures=[];const fail=(code,message,context={})=>failures.push({code,message,...context});
 if(manifest.schema!=="brand-host-structural-manifest/v1")fail("MANIFEST_SCHEMA_INVALID","Manifest schema must be brand-host-structural-manifest/v1.");
 if(before.script?.semanticSha256!==after.script.semanticSha256)fail("BUSINESS_SCRIPT_CHANGED","Non-style script AST changed; routes, APIs, handlers, data/state and component APIs are outside apply-host style-only scope.");
 const allowedImports=new Set(manifest.allowedStyleImports||[]);for(const x of after.script.styleImports.filter(x=>!before.script.styleImports.includes(x)))if(!allowedImports.has(x))fail("STYLE_IMPORT_NOT_APPROVED",`Style import ${x} is not approved.`,{import:x});

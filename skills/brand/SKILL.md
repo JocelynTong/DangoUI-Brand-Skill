@@ -5,43 +5,64 @@ description: 从品牌官网、活动页、DESIGN.md、截图、Figma 或 DTCG �
 
 # Brand
 
-把来源品牌转换成可追溯、可复用、可落地的 DangoUI 视觉资产。先选模式，再只读取当前节点需要的契约；不要全文读取 `workflow-contract.json`、大型 DangoUI JSON 或历史完整说明。
+把来源品牌转换成可追溯、可复用的 DangoUI 视觉资产。只按当前轮明确输入选模式；历史会话、旧产物和仓库品牌目录都不是本轮意图。只读当前节点需要的契约；不要全文读取大型 JSON 或历史说明。
+
+## 用户结果与内部组织
+
+在真实宿主会话中，用户只给品牌网址时，默认目标是 `host-concepts`：先看可交互宿主换肤 Demo，认可后才修改宿主。没有宿主上下文且明确学习品牌时才独立交付 learn-brand。学习成果、映射审计和 QA 页面是内部产物，不得顶替宿主预览。
+
+Design Director / Orchestrator 保留父目标与成本边界，专业角色按紧凑输入生产，另一个执行者做独立 QA；可机械验证的事实不增加专业角色，独立工作可并行，有依赖的角色不能提前猜测上游。用户不负责填写专业契约、识别最早责任节点或决定是否调用 ImageGen。
+
+总 Agent 默认兼任技术负责人：每次实现先检查现有资产能否直接复用；新增依赖、自研通用工具、组件基础设施或工作流前，读取 [技术负责人职责](roles/design-director.md#技术负责人职责)，比较复用、薄适配与自研的总成本。已有有效选型直接沿用，仅在需求或兼容性变化时重评；不为普通改动增加调研、角色、报告或门禁。
+
+用户界面默认展示一个有独立 QA 依据的推荐宿主 Demo，备选按需展示；内部三方向不是强迫用户逐案评审。推荐不等于用户认可，也不授权宿主修改。已有准确 Approved Master 就继续该版本，不能借修流程重开 ABC。
+
+受控种子试用沿用现有模式，不另建工作流或降低历史 Goal。开工前确认一个核心任务、隔离副本、可执行回退点及维护者支持；试用范围优先已验证模块。任务成功、可参与试用、生产认证分别报告。非关键精修可列待办；业务破坏、核心任务不可用、数据/授权风险和无法安全回退仍阻断。未知原因不能称宿主既有问题，冻结要求不能事后静默降级。失败时用现有 delivery/status 给出具体卡点、责任方和恢复条件，保留产物后结束本次尝试；不自动反复重抓来源、重跑整套或要求用户不断回复“继续”。仅在新证据或明确纠正动作已具备且授权范围内续跑失败阶段。
+
+三个层次不可互相补偿：角色组织保证接力；独立 QA 保证业务、数据、渲染与交付目标正确；Expressive 在品牌设计系统 Productive 与真实任务约束下提高表现力。按需查询知识库 `user-goal-role-qa-expression-question`，其候选状态不能冒充跨品牌验证。
 
 ## 安装后与首次使用初始化
 
-首次安装、更新完成、检测到已安装且版本一致，以及用户问“接下来怎么用”时，都进入同一初始化入口。若当前会话已经明确提供宿主、品牌参考与目标页面，复用这些信息，不重复问；不得沿用其他会话的方向。
-
-先定位本 skill 安装目录，用其绝对路径执行：
+首次安装、更新或用户问“怎么用”时，复用本会话信息并执行：
 
 ```bash
 node <skill目录>/scripts/run-brand-workflow.mjs init --host <宿主目录>
 ```
 
-这一步只读检查宿主并返回缺失信息，不安装依赖、不联网、不启动预览、不改宿主。`--host-confirmed` 仅在用户已明确指定目录时传入；`--reference`、`--page` 仅传当前会话用户已提供的值。不要将 skill 安装目录当作宿主，也不要扫描个人目录猜测。
-
-面向用户：简短确认安装结果和识别的宿主，只询问缺失的最少必要信息，并展示 init 返回的 `welcome` 与自然语言示例。信息齐全后进入方案流程，仍须用户选定方向才实施。用户明确只安装时，说明下一步后停止。
+该命令只读检查宿主并返回缺失信息；不联网、不启动、不修改宿主。仅传当前会话明确输入，简短展示 `welcome`，只问最少缺口。
 
 ## 选择模式
 
 - `learn-brand`：学习品牌并产出 Evidence、Intent、Brand MOD、DangoUI mapping 与品牌学习 Demo；默认不改宿主。
-- `design-host`：读取已学习品牌和真实宿主，先生成图片方向供用户选择，再重建所选方向的隔离 H5；不得修改宿主源码。
-- `apply-host`：只实施 design-host 已冻结的唯一方向，保护业务内容、数据、路由、交互和组件 API；设计输入无效时退回 design-host，品牌证据缺失时退回 learn-brand。
+- `design-host`：读取已学习品牌和真实宿主，先用真实数据、品牌设计系统与设计知识生成 3 组可交互隔离 H5；独立 QA 再判断每组是否存在明确的 Expressive 局部缺口。只有存在已定位缺口时才调用 ImageGen 生成该局部资产并回填；不得修改宿主源码。
+- `apply-host`：实施 design-host 已冻结的唯一方向，或用户明确认可的单模块组件；保护业务内容、数据、路由、交互和组件 API。单模块采用下述限域交接；整页设计输入无效时退回 design-host，品牌证据缺失时退回 learn-brand。
 
-统一入口：
+用户明确要求从已有资产检验一个尚未批准的模块时，优先使用 [限域组件任务](references/approved-component-handoff.md#普通输入自动准备) 的 `--module-task`：只给现有品牌包、宿主、任务与目标路径，入口列出原包候选，由执行 Agent 选择后自动准备隔离副本与交接输入，普通用户不填写 manifest 或 recipe ID。已有准确 manifest 才用 `--component-task`。先选材、判断兼容性，再在独立宿主副本中试装；不要求预制目标平台组件，不转为整页三方案。试装授权不是设计批准，原宿主只读，独立运行 QA 后再交用户判断。
+
+运行前读取 [request intake](workflows/request-intake.md)，只按当前轮用户意图冻结 `request-kind`。首屏三方案固定走 `host-concepts → design-host`；缺品牌参考就问，不猜历史品牌，也不降级到 `learn-brand`。三方案必须走同一条 H5-first 路由，不能另建 image-first 或 profile 专用支路。原始 `run` 必须显式传 `--request-kind`，入口会在联网和写文件前拒绝错路由。
+
+唯一对外入口是 `run-brand-workflow.mjs`；`brand-subagent-workflow.mjs` 仅推进内部状态机，其他脚本不得拼成替代路线：
 
 ```bash
-node <skill目录>/scripts/run-brand-workflow.mjs run --mode <learn-brand|design-host|apply-host> ...
-node <skill目录>/scripts/brand-subagent-workflow.mjs prepare --brand <brand> --root <宿主目录>
-node <skill目录>/scripts/brand-subagent-workflow.mjs next --brand <brand> --root <宿主目录>
+node <skill目录>/scripts/run-brand-workflow.mjs run --request-kind <brand-learning|host-concepts|host-implementation> --mode <learn-brand|design-host|apply-host> ...
+node <skill目录>/scripts/brand-subagent-workflow.mjs <prepare|next> --brand <brand> --root <隔离运行目录>
 ```
 
-`workflow-contract.json` 由脚本消费。角色只使用 `next` 生成的 dispatch packet、其中列出的 hashed inputs，以及当前岗位 reference。禁止为了了解全貌而读取整份 contract、所有角色文档或大型 DangoUI 数据文件。
+角色只使用 `next` 的 dispatch packet、hashed inputs 和当前岗位 reference；不得通读 contract、所有角色文档或大型 DangoUI 数据。
 
 ## learn-brand
 
-职责链：`Evidence → Interpreter → Demo → fresh Visual QA`。Dembrandt 是 Evidence 的候选发现工具，不是独立角色或事实来源。完整规则读 [learn-brand workflow](workflows/learn-brand.md)，当前角色再读取 dispatch 指定的岗位契约。
+职责链：`Evidence → Interpreter → Demo → independent Visual QA`。首次使用 fresh `initial-blind`；局部修复优先由原独立 QA 做 `regression-review`，实质改向、QA 参与制作或明显漏检才要求 `fresh-blind`。具体身份、证据与范围契约见 [QA review modes](roles/blind-qa-tpp.md#复核模式)。Dembrandt 是 Evidence 的候选发现工具，不是独立角色或事实来源。完整规则读 [learn-brand workflow](workflows/learn-brand.md)，当前角色再读取 dispatch 指定的岗位契约。
+
+review-mode 的 prepare/next/record 工程接入目前仅限 learn-brand，入口与最小命令见 [learn-brand QA 准备](workflows/learn-brand.md#qa-复核包准备)。design-host/apply-host 仍用各阶段现有独立 review 入口；通用复核政策不代表这些阶段已接入原 QA 复验，禁止用 learn-brand helper 强行调用。
+
+来源 URL 的 HTTP/HTML/CSS 抽取只用于候选发现，不能独立成为视觉 Evidence。唯一总入口必须自动执行浏览器原生观察，不要求用户额外传 `--force-browser`。对带非循环开场媒体、图片主导或固定视口 Swiper/Fullpage 的官网，分别保存 opening peak 与 settled page frames，按控制器 active 状态而不是 `scrollHeight` 判断覆盖；开场未结束、控制器未触发或正式内容未出现时返回 `NEEDS_EVIDENCE`，不得交给 Interpreter。
+
+Evidence 还必须盘点页面实际渲染的官方身份素材，不能只收首页 Hero、Logo 和卡牌而漏掉其他区块的透明角色、产品 cutout 或组合资产。为每项记录原始尺寸、透明通道、适用场景和可安全展示的最大尺寸；Brand MOD 必须保留设计阶段可能需要的合格身份资产，不能因 Demo 当时未使用而静默丢弃。
 
 正式知识维护在 `knowledge/v0.1/`。先用 `query-design-knowledge.mjs stage learn-brand` 找问题，再定点查询 `question`、`basis`、`policy`、`method`、`decision` 或 `case`。历史知识不替代本轮证据，候选结论不等于已批准资产。
+
+设计经验只有在结构化记录、原始证据、`public/knowledge/guide.html` 和角色查询入口同时更新后才算落库。修改 `knowledge/v0.1/` 后必须运行 `npm run publish:knowledge`；只写 JSON/Markdown、只通过 validator 或只同步 Skill 都不能报告“已落库”。需要用户验收时交付生成后的 H5，不以源文件代替产品界面。
 
 Demo 是品牌学习能力测试，Evidence Fidelity、Structural Fidelity、Generative Proof 必须分别通过；三者不可互相补偿。高显著度区块运行 `validate-section-fidelity.mjs --strict`。QA 失败只返工 `affectedSections` 并做小范围回归。
 
@@ -49,58 +70,93 @@ Demo 是品牌学习能力测试，Evidence Fidelity、Structural Fidelity、Gen
 
 ## design-host
 
-职责链：`Host Strategist → Demo image producer → independent image QA → explicit user selection → H5 reconstruction → independent H5 QA → final selection`。
+用户在宿主中只给品牌官网即可开始。无本轮有效品牌包时，公共入口返回 `prerequisite-dispatch-ready`；按 [request intake](workflows/request-intake.md) 自动完成同一流程的学习前置阶段，再恢复原宿主预览目标。不得向用户索要 MOD 文件、把接力当成功，或丢弃独立学习 QA。
+
+前置阶段通过公共入口 `continue --artifact-root <父隔离目录>` 推进已有 dispatch；只有完整学习门禁通过才物化子隔离工作区并自动恢复原宿主参数。展示前运行 `delivery --artifact-root <宿主隔离目录> --brand <brand>`，其 `userGoalCompleted` 必须为 true；否则继续内部流程或如实报告阻断。正式推荐来自 hash-bound 独立 QA 报告，不能由主任务默认挑第一个方向。新宿主子目录路径以 continue 回执为准，不能继续读取父学习目录充当预览。
+
+唯一职责链：`宿主启动首屏诊断 → 同一设计师回合生成三组可交互隔离 H5 → independent H5 QA + Expressive 缺口判断 → 仅对明确缺口并发生一次局部 ImageGen → 确定性回填 → independent integration QA → explicit user selection`。第一次试风格必须快：只读宿主真实启动页，让用户先看到“能换到什么程度”；此时不得以全项目扫描拖延首轮预览。`design-host/fast` 的首屏诊断由 prepare 阶段的确定性源码提取器完成并立即校验，不为可机械推导的事实启动 Host Strategist；只有 standard/certification 或 H5 批准后的全项目判断才派发该角色。三组 H5 在调用 ImageGen 前就必须使用真实宿主结构、真实冻结记录或明确 schema/loading 状态，并明显应用品牌设计系统与知识库决策。`fast`、`standard`、`certification` 不得创建另一条 image-first 路由。
+
+试验产物隔离、5 分钟首次可判断 H5 目标、20 分钟安全上限、60 秒状态检查和首次预览前只做一次紧凑 QA 的执行细则见 [request intake](workflows/request-intake.md)。5 分钟未命中只报告慢节点与现有可打开产物，不得因此省略视觉设计、独立 QA 或当前档位要求的专业判断；入口拒绝把试验产物写进宿主，安全上限到期才停止。首轮局部 ImageGen 每个缺口最多一次调用，失败即报告或回退无图 H5，不自动改词或重试。
+
+fast run 同时治理文本上下文：运行时能返回真实 token 时，40k–60k 为软目标、80k 为硬停止线；拿不到真实 token 时必须明确写 `unavailable`，只用 unique input bytes、duplicate input bytes、additional read bytes 做诊断代理，禁止把字节估算冒充真实 token。每个 dispatch 只携带本岗位紧凑包；重复输入占比超过 20% 先去重再进入昂贵工具。时间或 token 预算只能裁掉可选探索和重复读取，不能裁掉真实宿主事实、品牌依据、独立 QA 或真实数据约束。
+
+用户只提供宿主与品牌参考。preflight 自动解析启动首屏；fast prepare 用 `derive-host-startup-baseline.mjs` 从该页源码推导 Productive floor、业务字段、扫描顺序与 Hero eligibility，standard/certification 再由 Host Strategist 补充专业判断。不要求用户提供，也不扫描无关页面。启动页缺失、hash 不符或 baseline 校验失败时禁止进入视觉生成。
+
+fast 确定性诊断或 Host Strategist 必须从启动页源码与可用渲染证据自动冻结 `hostContentContract`：真实业务对象、字段、来源定位、原始尺寸、当前显示尺寸、最低可读尺寸和可用于场景的状态；同时冻结 `resultHierarchyContract`。只有源码、真实数据或交互状态明确证明精选、排行、推荐、选中等不同角色时，重复结果才允许差异化；没有证据时默认 `peer`，Productive 与 Expressive 都不得为了视觉焦点创造一大两小或隐含推荐。设计师只能引用冻结事实，不能自报或猜测；没有合格对象时自动采用 Productive UI，不向用户索要对象清单、尺寸、结果层级或融合方案。
+
+`readiness=ready` 的宿主对象必须绑定启动页源码 hash 和 `host-startup-measurements/v1` 渲染测量回执；无法取得 intrinsic/current size 或回执 hash 时只能写 `unresolved`。确定性诊断或 Host Strategist 完成后都运行 `validate-host-startup-baseline.mjs --file <baseline> --startup-page <startup-page> --root <隔离运行目录>`。concept brief 还必须逐方向声明对 `informationDistributionContract` 的保持关系；validator 会计算计划尺寸比例并拒绝宿主禁用的产品隐喻，不能靠 `preserveAspectRatio: true` 或设计师自述通过。
+
+品牌官网命中 Registry 只表示发现了一个可复用候选，不能静默代替本轮品牌学习。使用者必须明确选择重新学习/更新，或用 `--reuse-style-pack` 接受该已审核包；直接提供本地 `--style-pack` / `--mod-file` 也视为明确选择。复用包安装到隔离工作区时必须带齐 Brand MOD 所声明的 hash-bound runtime assets；任一被本轮 H5 或局部 ImageGen 引用的 `localPath` 悬空或 hash 不符时阻断。没有合格官方身份素材不阻断设计系统 H5，但禁止 ImageGen 伪造身份主体，并在缺口判断中记录只能使用中性局部资产或无图回退。
+
+生图前同时校验身份素材的合成适配性：透明/遮罩能力、原始像素尺寸、计划展示尺寸、预期透视与光照是否能在不改绘身份主体的前提下完成。素材只能靠明显贴片、相框或过度放大才能进入原创环境时，返回 `BRAND_IDENTITY_ASSET_INADEQUATE` 并说明缺少的资产规格；不得先生成通用背景再用 CSS 阴影掩盖割裂。
 
 开始前按需读取 [Host Strategist](roles/host-strategist.md)、[Brand Application Designer](roles/brand-application-designer.md)、[Host Brand Composition Grammar](references/host-brand-composition-grammar.md)、[Visual Program](references/visual-program.md) 与 [Expressive moments playbook](references/expressive-moments-playbook.md)。
 
 ### 图片能力声明
 
-`prepare` 后、第一次 `next` 前，检查当前任务是否暴露内建 `image_gen`，不得靠环境变量或猜测。
+每次实际生图均按 Designer 岗位的「实际生成输入记录」保存原始工具参数及素材用途；读过品牌文件不等于生成器收到这些内容。用户明确要求单独测试 Hero 等局部时，按指定范围做隔离诊断，不能把局部试验标成完整 design-host 通过，也不能默默丢弃当前已确认的品牌输入。
+
+只有独立 H5 QA 确认存在明确 Expressive 局部缺口后，才检查当前任务是否暴露内建 `image_gen`，不得靠环境变量或猜测。没有缺口时不得为“也许有用”而声明或调用图片能力。
 
 - 有内建 `image_gen` 时运行 `declare-capability --image-generation available`；默认内建模型可直接生成正式图片候选，不要求或猜测其底层模型名。
 - 没有时传 `unavailable`。外部 CLI/API 不是自动替代品，只有用户明确批准后才能另行使用。
 
-未声明时 `next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED` 并保持可重试；明确不可用才以 `IMAGE_GENERATION_CAPABILITY_REQUIRED` 阻断。不要手写 capability JSON。
+进入局部资产阶段但未声明时，`next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED` 并保持可重试；明确不可用时保留已经通过 QA 的无图 H5，并把缺口标成未增强，不得编造图片产物。不要手写 capability JSON。
 
-图片阶段使用当前任务默认模型，由独立视觉任务产生至少 3 个明显不同的完整方向，记录真实 image tool call、producer 与文件 hash。图片 QA 必须由不同执行者逐张打开，对构图、品牌忠实度、视觉完成度与宿主主任务清晰度全部给出 `qualityVerdict=pass`。用户明确选择图片方向前，不得生成 H5、修改宿主或自行代选。
+通用换肤公式仍是 `ImageGen Expressive + 品牌设计系统 Productive + 设计专家决策知识`，但三者不是每次同时启动：Productive 与专家决策先直接生成 H5；ImageGen 只补充 QA 已定位、已有容器和业务目的的局部 Expressive 资产。生图前自动查询并冻结 `design-knowledge-bundle.json`；引用、hash 或宿主理由不匹配即阻断。每个缺口必须先记录所属方向、H5 区域、业务目的、目标尺寸、现有不足、预期提升、无图回退、唯一可变资产 selector 和固定容器 selector；回答不完整不能调用 ImageGen。调用前冻结 DOM 顺序、非资产结构、真实数据绑定、结果层级、字体度量与容器矩形；回填后运行 `validate-expressive-geometry-lock.mjs`，除声明的资产像素层外任一变化都阻断并回退无图 H5。生成器不得发明宿主文案、数据、控件、角色、Logo 或身份主体，也不得重新设计整页；所有业务文字和交互继续由 H5 承担。独立缺口可以并发，但首轮每个缺口只调用一次，自动重试次数必须为 0。局部资产回填后必须保留真实数据绑定、可读性、正常流布局与可替换资产层，并由不同执行者做 integration QA。
 
-用户选择后只重建获选方向的隔离 H5。H5 使用真实宿主内容、视口与冻结品牌包，但不启动或修改宿主 runtime；动态数据没有冻结真实记录时使用明确的 schema/加载占位，不能编造业务数据。图片不能替代 H5 验收。
+三组 H5 从一开始就使用真实宿主内容、视口与冻结品牌包，但不启动或修改宿主 runtime；动态数据没有冻结真实记录时使用明确的 schema/加载状态，不能编造业务数据。ImageGen 资产只是 H5 中可替换的局部视觉层，不能替代 H5、文字、真实对象或交互验收；若回填需要透视对象、遮挡或环境光，读取 [expressive reconstruction](references/expressive-reconstruction.md) 并只对该局部建立可检查的几何、前景、接触阴影与环境光关系。
 
-每个阶段按 `design-host-route.json` 顺序门禁。图片、H5、QA 或用户选择缺一项都不能跳到下一阶段。机器通过只表示可以进入人工审美复核。用户最终确认前停止；不得实施或构建宿主。
+启动页诊断还必须自动冻结 `navigationShellContract`。每组 H5 都要逐项呈现真实宿主的品牌切换、主 Tab、账户入口等必需 shell 项，并在 H5 内决定其 `native-preserved | custom-contained | custom-immersive` 处理及场景连续性。缺任一项、未声明连续/明确分区，或需要 apply-host 临场新增全宽遮罩、渐变带、模糊层才能容纳导航时，不得进入用户选择或 Approved Master；应只返工 navigation shell，不重做已经通过的列表和数据区域。
+
+生产者提交前必须逐案在冻结视口渲染，并分别遮住品牌名与 Logo 检查首屏：每一案都要由贯穿构图与真实任务区的来源机制建立品牌辨识度；只有一个小角色、角标或贴片的通用白色工具页直接判为整案失败，不能留给 ImageGen 或独立 QA 补救。生产者与独立 QA 统一通过 Skill 静态服务的 viewport harness，在同源 iframe 内按精确 `390×844 CSS px` 检查；外层浏览器尺寸、缩放和 DPR/物理像素等价不能替代 CSS 视口。多模块宿主页还必须在该 iframe 文档中证明 `scrollHeight > clientHeight`、滚动位置确实变化并能恢复，禁止为塞进一屏而缩放或裁掉真实列表。渲染使用当前环境已有的浏览器自动化能力，不在阶段末尾探测 Chromium、Playwright、Puppeteer 等未声明本地运行时。独立 QA 直接使用内置浏览器，不尝试带请求头策略的外部浏览器；时间预算必须覆盖本地服务启动、三案交互、几何测量与 receipt 记录，dispatch 必须直接给出完整记录命令，不能让角色临场反查 CLI。
+
+来源素材的用途必须机械绑定：真实 DOM 的 `assetRef`、`assetPlacement` 与 `assetSalience` marker 是渲染事实，metadata 应带同值；metadata 漏值但 DOM 只有一个无歧义组合时由 Finalizer 确定性补全，不要求角色重复手抄。Finalizer 对照 Brand MOD 的 `role` 与 `targetScope`；只有身份、Hero 或环境类素材能成为 primary / identity-hero，说明图、研究图、组件示意和反馈动效只能留在其支持性范围。DOM 缺失、多个 marker 冲突或用途不匹配时在独立 QA 前阻断。
+
+机制引用优先使用冻结设计系统的完整 id；角色省略命名空间但存在唯一后缀匹配时，Finalizer 可规范为完整 id（如 `expressiveBudget` → `layoutRules.expressiveBudget`）。出现多个候选或完全不存在时仍按未知引用阻断，不能借规范化发明设计系统能力。
+
+design-host 的三份 H5 固定写入隔离运行目录的 `migrations/<brand>/h5-directions/`，契约写入 `migrations/<brand>/`，receipt 写入其 `receipts/`；`public/`、宿主源码和任意自选输出目录都不是生产路径。调度包必须直接给出这些位置，不能让角色临场决定。
+
+每个阶段按 `design-host-route.json` 顺序门禁。首次没有已批准方向时生成三组 H5；一旦用户在后续迭代中明确认可某个准确 H5，该文件必须立即通过 `promote-approved-h5-master.mjs` 升级为唯一 `approved-master.json`，不得只把经验写入知识库、仍把文件留作普通 trial。已有 Approved Master 时不得重新开启无关 ABC；后续候选必须声明父 Master hash，只有明确告知会替换现有 Master并取得用户批准后才能升级。三组 H5、独立 H5 QA、缺口决策、必要时的局部资产回填与独立 integration QA、用户选择缺一项都不能跳到下一阶段。机器通过只表示可以进入人工审美复核，且必须指出至少一条它愿意推荐给人的方向；这仍不等于用户喜欢。用户认为全部不合格时运行 `reject-concepts --reason <原因>`，保存失败样本并终止，不自动返工。用户确认 H5 前不得全项目扫描或实施宿主。
 
 ## apply-host
 
-职责链：`Host Implementation → Smoke QA → awaiting-user`。当前岗位按需读取 [Host Implementation](roles/host-implementation-agent.md)、[Host Visual QA](roles/host-visual-qa.md)、[theme load order](references/host-theme-load-order.md) 与 [Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)。
+用户已认可准确组件、仅要求实施一个模块时，使用本入口的 [已认可单模块交接](references/approved-component-handoff.md)：`run --request-kind host-implementation --mode apply-host --component-handoff <manifest>`。编排者根据真实批准准备输入，交付准确实现与使用约束；先判断运行平台，Web 组件不能因同为 Vue 就直接用于 Taro。此范围不重做整页方案，也不改变整页/来源学习的批准状态；实施者仅接线，独立运行检查后才能报告该模块完成。以下整页职责链适用于未采用此明确单模块范围的任务。
 
-实施前验证最终方向、pre-edit baseline、`design-host-route.json` 和主题加载顺序。实施后用 structural diff、真实渲染、computed style 与业务行为证明没有破坏宿主。缺少真实 runtime 证据时最高只能报告 `PARTIAL_STYLE_ONLY` / `conservative-application`。
+职责链：`宿主全页面扫描 → Host Strategist 逐页判断 → Host Implementation → Smoke QA → awaiting-user`。只有用户确认隔离 H5 后才进入本阶段；此时自动扫描全部路由和页面、形成完整 Productive baseline，再按冻结方向换肤。当前岗位按需读取 [Host Implementation](roles/host-implementation-agent.md)、[Host Visual QA](roles/host-visual-qa.md)、[theme load order](references/host-theme-load-order.md) 与 [Runtime Gate](references/mapping-rules.md#公开宿主的-dangoui-runtime-gate)。
 
-fast 档只实施首屏并做 Smoke QA。用户 `approve` 且冻结输入、实现输出和 Smoke QA 输出 hash 均未变化时可复用结果；`revise` 重新实施，`standard` 或 `certify` 运行 affected-scope / release-level 独立 Visual QA。
+实施前验证最终方向、pre-edit baseline、`design-host-route.json` 和主题加载顺序。存在 `approved-master.json` 时它是唯一实现权威：apply-host 必须读取其中准确 H5 与 QA hash，不得回退到更早的 ABC、聊天摘要或旧 `selectedOptionId`；`design-direction.json.previewArtifact` 与 Master hash 不一致时直接阻断。实施后用 structural diff、真实渲染、computed style 与业务行为证明没有破坏宿主。缺少真实 runtime 证据时最高只能报告 `PARTIAL_STYLE_ONLY` / `conservative-application`。
+
+apply-host 不拥有导航视觉补设计权。Approved Master 必须包含 hash 绑定的 `navigationShellContract`、真实 shell 项和连续性处理；缺失时返回 design-host，禁止为保留真实导航而自行增加未获批的全宽表面。
+
+fast 档也先全扫并实施所有 APPLY 页，再做代表性 Smoke QA；它不等于全宿主认证。用户 `approve` 且 hash 未变化时可复用结果；`revise` 重新实施，`standard` 或 `certify` 追加更深 QA。
+
+`previewQA` 必须使用阶段专属的 `host-preview-smoke/v1` 契约，检查冻结实施范围、真实运行、已选方向保持和代表性返回路径；不继承完整认证的三证明、全页数值评分或重新品牌学习要求。限制须明确报告，关键证据缺失和已知范围内回归仍阻断。预览通过只到 `awaiting-user`，不能自动算用户批准或完整认证。修正已失败的预览契约时通过有界公共续跑保留旧记录、冻结输入和实施成果，再派发新的独立 QA，不重开 ABC、不重捕原始基线。
 
 ## 共同硬边界
 
 - 来源截图只能用于 Evidence/QA，不能复制进 runtime 冒充实现资产。
 - `generated-proposal` 不能定义品牌身份；只有 `evidence-source` 和明确批准的 `derived-approved` 可进入正式方向。
 - 品牌素材像素颜色不能自动提升为按钮、状态、文本或导航语义色。
-- Producer 自检不能替代独立 QA；实现者不能担任自己的 fresh QA。
-- 用户指出视觉不符时，定位最早责任节点并只重做受影响范围；没有新证据或 fresh QA 不得关闭问题。
+- Producer 自检不能替代独立 QA；实现者不能担任自己的 QA，包括局部回归复验。
+- 用户指出视觉不符时，定位最早责任节点并只重做受影响范围；关闭问题必须有实际新截图/操作证据与按 review mode 完成的独立复核，不沿用旧 PASS。
 - 宿主源码修改前后必须有不可变 baseline 和结构差异验证；未批准的业务逻辑、路由、API、状态、事件与组件 API 改动一律阻断。
 - 对外视觉验收必须给可直接打开的前后对比 H5，标明相同任务、视口、内容、唯一实质改动、来源和批准边界；用 `validate-visual-acceptance.mjs` 校验。
 
 ## 按需资料
+
+显式本地 `--mod-file` 可携带可选 `componentKits`：每项声明 `id`、`entry`、`stylesheet`、`files[{path,sha256}]`，并说明框架依赖、用法和适用范围。文件路径相对品牌包所在项目根目录；现有入口在隔离安装时校验并复制声明文件，不执行代码、不覆盖不同内容。组件必须包含所需相对导入与素材，缺件或 hash 不符先修包；组件更新时同步清单。此能力当前只接通本地文件交付，不代表 Registry 分发、角色自动选用、品牌认证或宿主实施已通过；既有来源证据门禁保持不变。
 
 - Token、组件、资产与 style-only 映射：[mapping rules](references/mapping-rules.md)
 - DTCG 结构：[migration asset standard](references/brand-dtcg-migration-asset-standard.md)
 - 输出字段：[output template](references/output-template.md)
 - 原子验收：[atomic acceptance rubric](references/atomic-acceptance-rubric.md)
 - 产物隔离与清理：[artifact lifecycle](references/artifact-lifecycle.md)
-- 历史完整说明：[legacy full guidance](references/legacy-full-guidance.md)，仅在维护审计或定位旧规则来源时读取。
 
 大型 JSON 由 validator 或查询脚本读取。只有 dispatch 无法回答当前决策时，才用 `query-brand-context.mjs get/search` 定点读取对应 key。
 
+快速 `design-host` 的预算用于阻止无效工作，不用于降低正确性：入口直接生成并校验 baseline/brief，不编译或启动宿主；没有可信渲染回执时把不可测对象标为 `unresolved`，继续使用真实宿主 schema/loading state。H5 生产者直接使用 dispatch 给出的完成输入，不读取 validator/test 源码反推格式。阶段目标是效率预警，正确完整的结果轻微超时仍可通过并记录 `SOFT_TARGET_MISS`；只有达到 hard limit 才以 `STAGE_HARD_LIMIT_EXCEEDED` 阻断。时间压力只能削减可选润色，不能削减真实宿主数据、三方向、品牌设计系统绑定、知识库理由或独立 QA。未通过 QA 的局部文件不得交给用户验收。
+
 ## 完成与同步
 
-运行与改动范围相称的 validator/test。维护源是 `skills/brand/`；修改后执行 `npm run sync:skills -- --repo-only` 同步 `.claude/skills/brand/`。需要更新本机 Codex 安装副本时才运行不带 `--repo-only` 的同步命令。
-
-最终优先报告真实宿主预览地址、所选方向、默认入口验证和业务是否保留；内部 token 表与审计文件只在追问或阻塞时展开。
-
-首次安装、更新、版本一致和“怎么用”都展示 init 的 `welcome`，并提供 [DangoUI Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants)。Variant 是视觉选择入口，不是 Registry；预览不等于宿主适配验收。
+运行相称的 validator/test。维护源是 `skills/brand/`；改后执行 `npm run sync:skills -- --repo-only`，需更新本机副本时才运行完整同步。最终优先报告预览地址、方向、入口验证与业务保留状态；内部审计仅在追问或阻塞时展开。初始化时提供 [DangoUI Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants)；Variant 预览不是宿主验收。

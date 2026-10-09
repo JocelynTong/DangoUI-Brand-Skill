@@ -2,6 +2,7 @@ import { buildSkillIntegrity } from './verify-brand-skill-integrity.mjs'
 import { createHash } from 'node:crypto'
 import { cp, mkdir, readFile, readdir, rm, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { exportPublicKnowledge } from './public-knowledge-export.mjs'
 
 const root = process.cwd()
 const source = path.join(root, 'skills', 'brand')
@@ -40,6 +41,15 @@ async function files(dir) {
   return result
 }
 
+const publicExport = []
+for (const file of await files(knowledgeRoot)) {
+  const extension = path.extname(file)
+  if (!['.json', '.md'].includes(extension)) continue
+  const exported = exportPublicKnowledge(await readFile(file, 'utf8'), extension)
+  if (!exported.omittedReferences) continue
+  await writeFile(file, exported.text)
+  publicExport.push({ path: path.relative(releaseRoot, file), omittedReferences: exported.omittedReferences })
+}
 await writeFile(path.join(target,'.brand-skill-integrity.json'),JSON.stringify(buildSkillIntegrity(target),null,2)+'\n')
 const manifest = []
 for (const file of (await files(target)).sort()) {
@@ -50,5 +60,5 @@ for (const file of (await files(target)).sort()) {
     sha256: createHash('sha256').update(data).digest('hex'),
   })
 }
-await writeFile(path.join(releaseRoot, 'manifest.json'), `${JSON.stringify({ schemaVersion: 1, files: manifest }, null, 2)}\n`)
+await writeFile(path.join(releaseRoot, 'manifest.json'), `${JSON.stringify({ schemaVersion: 1, files: manifest, publicExport }, null, 2)}\n`)
 console.log(`PACKAGED ${manifest.length} files -> ${releaseRoot}`)

@@ -1,0 +1,47 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "component-role-style-promotion-question",
+  "title": "一个组件的样式何时可以迁移到另一个组件？",
+  "status": "open-single-case",
+  "scope": "判断来源组件的颜色、形状、边线、阴影或动效能否承担目标组件的语义和状态。",
+  "methodRef": "component-role-style-promotion",
+  "caseRefs": [
+    "duolingo-cross-component-blue-semantic-leak"
+  ],
+  "hypothesisRefs": [
+    "component-style-requires-role-evidence"
+  ],
+  "nextEvidenceNeeded": "在不同品牌的按钮、Tab、Chip 与导航之间复测同角色证据和中性回退，确认不会阻断合法映射。",
+  "requiredContext": [
+    "来源组件职责",
+    "来源状态与证据",
+    "目标组件职责",
+    "跨角色批准依据",
+    "失败回退"
+  ],
+  "stages": [
+    "learn-brand",
+    "design-host",
+    "apply-host",
+    "acceptance"
+  ],
+  "readerPurpose": "判断组件样式的语义迁移边界",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "分别记录来源组件与目标组件的家庭、职责和状态，不能只比较颜色或是否可点击。",
+      "跨组件晋级需要同角色证据或明确批准策略；品牌频率与视觉相似不能补齐语义。",
+      "缺少证据时目标组件保持未映射并声明回退；默认保语义、用中性视觉。"
+    ],
+    "sourceRefs": [
+      {"kind": "method", "id": "component-role-style-promotion"},
+      {"kind": "rule", "id": "component-style-requires-role-evidence"}
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "duolingo-cross-component-blue-semantic-leak",
+      "summary": "官网登录主行动蓝色被误套到筛选 Chip；同为交互控件不等于同职责，最终改为中性未映射回退。"
+    }
+  ]
+}

@@ -2,6 +2,8 @@
 
 Learn-brand 是品牌学习能力的 self-testing pipeline，不是网站镜像项目。它模仿专业研发团队的 shift-left、自测、Presubmit、独立 Review 和回归闭环。
 
+安装后的入口自动复用现有 Skill runtime；缺少 Dembrandt / Playwright 模块时，使用随 Skill 发布的 `runtime/package-lock.json` 在本轮隔离产物的 `output/.brand-runtime/<lock hash>/` 初始化精确依赖。初始化禁用 npm 安装脚本、可选 AI runtime 和浏览器下载，不修改宿主、已安装 Skill 或其完整性清单；Evidence collector 复用同一运行目录。首次初始化需要访问锁文件中的 npm registry，失败返回 `EXTRACTOR_RUNTIME_BOOTSTRAP_FAILED` 并保留错误详情，可由相同公共入口续跑。模块可加载仅证明工具可运行，真实浏览器观察与学习门禁仍须单独通过。
+
 ## 节点顺序
 
 顶层 `Design Director / Orchestrator` 组织：
@@ -28,7 +30,7 @@ Design Director 不占用一个串行 subagent 节点；它贯穿全程，并在
 1. **L1 节点自检**：Producer 在交付前检查自己的产物。
 2. **L2 Consumer Contract**：下游拥有拒收不完整输入的权利。
 3. **L3 Pipeline Integration**：追踪 `Screenshot → Claim → Pattern → Demo selector/state` 是否失真。
-4. **L4 Blind QA**：独立上下文从真实页面验收三证，不接收实现理由。
+4. **L4 Independent QA**：首次 fresh 盲审从真实页面验收三证，不接收实现理由或旧 verdict；后续按 [复核模式](../roles/blind-qa-tpp.md#复核模式) 做独立回归或 fresh 盲审。
 
 ## Shift-left 原则
 
@@ -56,6 +58,8 @@ Design Director 不占用一个串行 subagent 节点；它贯穿全程，并在
 node skills/brand/scripts/validate-design-direction.mjs --brand <brand>
 ```
 
+正式学习 Demo 派发还会加 `--require-learning-proof`：`design-direction.json.generativePlan` 必须有 `status: approved`、具名 `reviewer`、最窄 `scope`、`variationKind: structure`、`variedStructure`、`proofArtifactPlan`、`invariantPatternIds`，以及逐项引用当前获批 Pattern 的 `allowedTransformationRefs: [{ patternId, transformation }]`。变化引用必须属于这些 Pattern 的 `allowedTransformations`；有计划不等于生成效果通过，仍由 fresh QA 验证。只有来源校准、组件状态检查或文案/资产替换时在 Director 层停止正式派发，允许交付明确标注的局部诊断，但不消耗正式 Demo 重试来重复发现已知缺口。不得为过门禁而临场扩大 Pattern 的用途。
+
 视觉决策顺序固定为：内容可见/可读 → 背景与高显著度资产 → 核心构图 → 交互语义 → 响应式几何 → 协议完整性。浅底浅字、背景缺失或主要内容不可见是即时 blocker，不能被 build、SHA 或 JSON 完整性抵消。
 
 每个高显著度元素选择一种明确策略：`uniform-scale`、`art-directed-crop`、`responsive-reflow`、`independent-scale`、`structural-substitution`、`motion-degradation`。同一 section 可以组合多种策略；当“PC 等比缩小”和“手机艺术指导式重构”等选择会显著改变用户看到的结果时，必须在实现前核对，不能事后通过 CSS 猜测。
@@ -75,14 +79,66 @@ Dembrandt 不是第五个 learn-brand 角色，也不单独向 Interpreter 交�
 - 页面证据与 seed 冲突时以可复现的渲染证据为准。
 - Interpreter 正式提升颜色、字体、阴影、动效等语义时写入 `brand-intent.json.semanticClaims`；每项必须是 `validated`，并回指同时具有可见截图 Region、DOM selector、computed property/value、page 和 state 的 observed Claim。全站色频、聚合 palette、CSS 变量名和 Dembrandt semantic/accent seed 都只能产生 candidate，不能独立放行。
 
+### 浏览器原生来源观察
+
+新原生输入可在 `visualAuthority: "viewport-sequence/v1"` 下附带 `interactionEvidence: {schema:"interaction-evidence/v1", scopeReason:"本次任务需要什么", required:[{id:"准确交互ID", proof:"states", reason:"需验证切换与恢复"}]}`。编排者在首次冻结 Goal 前填写，入口同步生成 `requiredInteractionIds`；不得修改旧 sealed Goal 或用此字段解除旧 FAIL。
+
+`states` 只证明真实操作后的状态，要求同页 hash-bound 时间轴中按序 `default/triggered/settled/restored` 原始图片；不强制交互录像，也不证明时长、缓动或过渡轨迹。`motion` 仍要求连续录像和上述状态帧。纯静态任务可声明 `required:[]` 并解释范围，但不能删除仍在 `mustPreserve` 中的交互要求。范围由编排者从任务判定、Evidence 与独立 QA 核对，不要求用户填表；不能因为采集失败才把 motion 改为 states。
+
+未纳入本次必需能力的交互保留 unresolved/out-of-scope，不宣称 covered，不因此要求整站补录。实际要迁移的能力缺证据则退回 learn-brand 的对应局部；design-host 不自行发明品牌规则。页面连续覆盖、视觉维度、学习三证与独立 QA 保持原要求。motion Claim 必须用 `interactionId` 绑定通过录像验证的交互，语义提升也必须引用这类 Claim；状态证据不能晋级动效规则。此改动仅是证据粒度分离，不是完整 capability pack 或跨宿主兼容认证。
+
+这类新 Goal 的局部绘制属性补采保存在同页 `supplementalTimelines:[{path,sha256}]`，不混入原始连续扫页。补充文件使用 `source-local-observation/v1`，含同页 `sourcePageId/url`、实际 `meta.viewport` 和 `frames[{capture,observation}]`；两项均绑定原件 SHA，observation 为浏览器原始测量 JSON，含准确 `url/viewport/capturedAt`。它只补同页静态 Claim，不替代完整覆盖或动效证明。伪元素本体与绘制边界、浏览器缩放和采集时点分别记录，不能伪造尺寸或把 CSS 声明当 computed 值。
+
+新运行可在原生输入包明确声明 `visualAuthority: "viewport-sequence/v1"`，并提供 `viewport-screenshot`；入口将第一张真实视口图作为来源参考，在新 Goal 冻结 `fullPageRole: "overview-only"`。此模式下，全页图仍留档用于导航概览，但不能支撑颜色、字体、几何或状态 Claim；逐屏原件、连续录屏及真实交互记录共同作为事实来源。普通长页必须无间隔漏屏，控制器页必须覆盖声明的全部状态；Claim 必须绑定同页时间轴内的哈希截图。全页拼图的 sticky/字体拼接失真须标注，但不单独否决已经完整的真实视口证据；真实帧内容缺失仍阻断。只有新 Goal 可选择此职责分工，旧 sealed Goal、FAIL 和收据不改写。
+
+宿主学习前置可由编排者用 `continue --artifact-root <原build> --browser-capture <原生采集包JSON>` 提交当前环境浏览器的原始记录，无需另启 CLI 浏览器。包为 `brand-native-source-input/v1`，含准确 `brand/sourceUrl/collector/capturedAt`、`status: raw-unreviewed`、明确 `limitations` 及相对包目录的 `files[{path,sha256,role}]`；至少有真实 `full-page-screenshot` 和 `browser-observation`。入口校验并隔离冻结全部文件，把它们作为 hashed inputs 交给原 Evidence 角色；不伪造 Dembrandt 结果，不写 Evidence PASS，不变更 Goal、后续门禁或宿主。仅接受尚未冻结 Goal 的同一前置运行；缺录屏、状态、字体等仍由 Evidence 如实拒收。此参数由编排者准备，不要求用户填写。
+
+- `source-url` 进入 learn-brand 后由唯一总入口自动强制浏览器原生观察；HTTP/HTML/CSS 只保留为 seed，不需要用户知道 `--force-browser`。
+- 普通长页按原生滚轮、稳定视口帧和页面末端验收；固定视口 Swiper/Fullpage 按大尺寸 controller 的 active state 变化验收，不能因 `scrollHeight === viewportHeight` 判定完成。
+- 来源已观察到非绑定 Cookie 提示且遮挡内容时，现有采集器可传 `--cookie-reject-selector <准确拒绝按钮selector>`；只点击可见且文案明确为拒绝的按钮，保存前后 PNG 与 `consentAction`。不隐藏 DOM、不写 consent cookie，不匹配或不消失就失败；默认不执行该动作。
+- 可见的非循环 autoplay 媒体视为 opening peak：先单独存档，再等待其结束和正式内容稳定后开始 settled 证据帧。等待预算耗尽时记录 `OPENING_MEDIA_NOT_SETTLED` 并返回 `NEEDS_EVIDENCE`。
+- 图片主导页面以可见图片、视频、Canvas、SVG、背景图与 DOM 文本共同判定是否为空白；不能只用文本数量，也不能用整个文档中尚未进入视口的懒加载图片阻断当前帧。
+- 原生观察必须同时产出 hash-bound opening frame、settled frames、continuous WebM、full-page raster、timeline 与 controller state。后续角色只消费通过 Evidence Gate 的统一 Manifest，不区分采集执行器。
+- 第一次原生观察成功时，采集器必须同步归档本次页面实际加载的有界图片/媒体响应本体，并记录来源 URL、MIME、字节数、SHA-256 与本地路径；只有 URL、没有可复读本体的 network 清单不算完整素材证据。后续角色优先消费这份 hash-bound 本地归档，避免源站随后因防爬、鉴权、下线或链接过期而要求用户人工补图。
+- 实际可见的 inline SVG 同步保存完整 DOM 原件、引用依赖与 selector/区块/视口帧绑定；computed 样式观察副本与原件分开，不将某个动画时刻冒充完整 Lottie 动画。重复 selector 只保存首观察帧，超限或依赖不完整须明确记录；向量 viewBox 不是像素展示上限，透明性与身份用途仍需角色核验。修复时可按冻结 raw capture 的视口和原生滚动位置补采到新目录，不重抓已充分的整页证据。Evidence 重试先归档旧输出及 receipt/dispatch，再追加新阶段，不能用覆盖旧文件抹掉失败历史。
+
 ## Corrective / Preventive Closure
+
+已记录的局部 QA PASS 若被最终消费者拒收，不能手改旧 verdict 来解锁返工。用户已授权继续同一案例时，通过公共 `resume-learning-closure --artifact-root <原build> --brand <brand> --continue-existing --reason <准确原因>` 进行一次有界恢复；可先 `--dry-run`。入口只读重算实际拒收，归档原输出及收据，再派发缺件所属角色。Interpreter 缺 MOD 时先补解释交接，随后重新完成 Demo 与独立 QA；旧记录、Goal 和阈值保持原样。
+
+自动重试预算用尽后停止；只有用户明确要求继续同一 case，编排者才可调用 `resume-evidence --continue-existing` 授权一次新 Evidence dispatch。续跑保存原 Goal hash、失败记录和额外一次授权，不修改质量阈值，也不自动续批后续重试。时间轴仅使用真实采样时间；旧帧无时间戳时标 unavailable，不能用固定间隔伪造录屏定位。
+
+Interpreter 若以 `needs-evidence` 拒收并明确将失败归属 `brandResearcher`，同一命令可退回 Evidence；原 Evidence PASS 保留不改，续跑包携带当前消费者的阻断项与局部范围，不沿用旧失败。设计审批或解释问题不能借此触发重采。
+
+Director 在 Demo 尚未派发时发现已记录的 Interpreter PASS 漏项，可用 `resume-interpreter --rejection <hash-bound 拒收记录>` 做一次有界 consumer repair。拒收绑定当前 Goal、Interpreter receipt 与全部真实输入输出，明确解释层缺口和局部回归；原 PASS/receipt 保留，追加 supersession 接力记录。不能以此更改 Goal、反复返工或绕过已经开始的下游；已通过的 Evidence 不重采。
+
+独立 QA 已失败并使 learn-brand BLOCKED，且当前失败明确属于 `designTranslator` / Interpreter 时，可用 `resume-interpreter` 回到解释层；预算用尽时必须有用户继续同一 case 的明确授权并加 `--continue-existing`。只接受最新真实 QA receipt、原 Goal 与当前冻结输入的 hash 绑定，同一 QA receipt 最多开启一次修复。保留原收据和已通过 Evidence；实现责任 findings 留作 deferred，不进入 Interpreter packet。解释层只读取冻结来源事实与当前局部 corrective questions，不接收旧 QA verdict、QA 报告或实现理由；这些观察仍待来源核实，冲突不能当成指定样式结论。修复后重走 Demo 与独立复核；解释修复实质改变 approved rules 时必须 `fresh-blind`，只补契约定位且规则未变时可由原独立 QA `regression-review`，不能改阈值或补造 PASS。
+
+Demo 或 Visual QA 的当前 `needs-evidence` 中也可明确指出 Researcher 所属缺口。混合责任拒收只将具名 Evidence findings 交给 Researcher，其余设计问题保留为 `deferredBlockingFindings`；不能以一个字体缺口授权重抓整个设计。续跑仍遵守同一预算与显式继续授权。
+
+通用采集器保存原生 PNG 帧，以及同一页面会话的 `control-state-evidence.json`。默认只对至多三个首屏控件做被动 hover/focus 采样，不点击、提交或导航；这不是完整交互认证。角色核验真实 pseudo-state、截图、computed 值、动画是否仍运行后再判断覆盖，不能把定时样本名当作已证明的 transition/settled。素材 `specs` 与逐帧 `visiblePlacements` 是尺寸、透明性和可见位置事实；未知保持 unknown，文件名与规格不授权身份用途。补采放进新的有界目录，保留旧收据与原件，不把 JPEG 转 PNG 冒充新的无损来源。
 
 用户或 QA 发现问题后必须同时完成：
 
 - `Corrective Action`：修复当前 Case。
 - `Preventive Action`：将同类错误加入节点自检、Consumer Gate 或机器 Validator。
 
-没有新截图、全新 Blind QA 和回归 Gate，不得关闭问题。
+没有实际新截图/操作、当前 hash-bound 独立 review 和必要回归 Gate，不得关闭问题。局部修复优先由原独立 QA 做 `regression-review`；方向、Goal、approved rules 实质改变，QA 参与制作或明显漏检才进入 `fresh-blind`。每次 reviewId 独立，原收据保留，旧 PASS 不继承；三证、阈值、scope 和共享平台回归不因模式或预算变化而降低。
+
+### 容量与性能边界
+
+优先复用适合的原独立 QA 做局部复验，以及已完成的普通专业角色；独立性与必要上下文隔离优先于角色复用。只有环境提供真实 close 接口时才释放 agent；interrupt 只是中断，不能清空上下文或释放容量。必要 fresh QA 无可用容量时保存紧凑、hash-bound 交接，记录一次实际容量错误并等待能力恢复；不反复尝试 spawn、不降级为制作方自审，也不要求用户填写专业契约。正常 workflow 恢复继续原任务，不创建用户新 chat。预算裁减重复读取与可选探索，保留实际渲染、操作、受影响相邻区和已过关键交互回归。
+
+### QA 复核包准备
+
+当前工程接入仅为 learn-brand 的 prepare/next/record。`prepare-qa-review.mjs` 生成 `schema: brand-qa-review-input/v2` 的实际冻结包；它记录 `reviewMode/reviewId/qaExecutionId`，回归绑定使用 `priorReviewReceipt`、`frozenInputs`、`currentDemoOutputs`、`affected`、`regressionScope`。前次 failure 从绑定收据读取；本次新截图写入 assessment 的 `captureEvidence`，实际操作证据仍使用现有 assessment 结构，不能把未输出的附加字段当成硬门禁。
+
+```bash
+node skills/brand/scripts/prepare-qa-review.mjs --brand <brand> --root <run-root> --review-mode initial-blind --qa-execution-id <fresh-agent-id>
+node skills/brand/scripts/prepare-qa-review.mjs --brand <brand> --root <run-root> --review-mode regression-review --qa-execution-id <original-qa-id> --prior-receipt <receipt-path> --affected <section-a,section-b> --regression-scope <nearby-section,critical-interaction>
+```
+
+需要 fresh 复核时使用 `--review-mode fresh-blind` 和实际 fresh agent id。仅在尚未 dispatch 时可加 `--replace-prepared` 机械更换待验包，并保留旧 input；已 dispatch/record 的包与收据不可覆盖。准备成功后才运行现有 `next`、`record`；已采用 v2 的 run 缺当前复核包时 `next` 返回 `QA_REVIEW_PREPARATION_REQUIRED`，不能退回旧盲审。若误生成的包尚未送出/执行，Director 可用 `revoke-undelivered-qa-dispatch.mjs --root <run-root> --brand <brand> --attestation <path> --attestation-sha256 <sha>` 显式撤销；声明必须绑定具名责任人、当前 stage/dispatch/hash 和 delivered/executed=false，原包保全。已送出、已执行或已有收据绝不适用。design-host/apply-host 尚未接入此 helper，仍使用原阶段独立 review 入口；不得把 learn-brand 复验能力冒充这些阶段已支持的行为。
 
 ### 问题作用域门
 

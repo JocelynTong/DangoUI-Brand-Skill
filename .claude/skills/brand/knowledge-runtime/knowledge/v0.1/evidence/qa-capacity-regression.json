@@ -1,0 +1,27 @@
+{
+  "schema": "brand-knowledge-evidence/v0.1",
+  "source": "Current authorized Duolingo workflow and observed collaboration tool responses",
+  "runtimeObservations": [
+    {"event": "Fresh QA spawn after local repair", "result": "agent thread limit reached", "boundary": "Observed tool error; exact limit and release semantics unavailable."},
+    {"event": "Original independent QA followup", "result": "Confirmed it can continue as explicitly labelled regression-review", "qaExecutionId": "/root/duolingo_demo2_independent_review"}
+  ],
+  "engineeringVerification": {
+    "stage": "case-regression-recorded",
+    "testFile": "skills/brand/scripts/qa-review-contract.test.mjs",
+    "scope": "Agent/review identity separation, prior record preservation, input hashes, no producer self-review, new capture requirements and capacity handoff",
+    "relatedTests": {"passed":56,"failed":0,"focusedQaTests":34},
+    "protocolCasePassed": true,
+    "visualCasePassed": false
+  },
+  "caseResult": "protocol-verified; formal-QA3-needs-evidence; header-finding-rejected-by-director-counter-review",
+  "directorCounterReview": {"reviewer":"/root","method":"Direct view_image of the two hash-bound current QA3 screenshots","observed":"Both 2214 and 6903 settled PNGs show a visible green duolingo logo and GET STARTED button in the top 70px","disposition":"Reject unsupported blank-header finding; preserve original receipt and require independent result verification; not a new PASS","evidenceRefs":[{"path":"migrations/duolingo/qa-reviews/8fbec52a-fbd2-4976-a5c0-8f613d4ecf56/captures/source-header-settled-2214.png","sha256":"f81bb761970368e72c46286a1d4756205caff8b2c9972eabe091c795cfb82961"},{"path":"migrations/duolingo/qa-reviews/8fbec52a-fbd2-4976-a5c0-8f613d4ecf56/captures/source-header-settled-6903.png","sha256":"76c67bdfcdc3c4f77c050d3d2cf208b52ad6ca67f04d674ca38a447d6f9fc764"}]},
+  "reviews": [
+    {"stageId":"visualQA-2","reviewMode":"regression-review","reviewId":"e162bb3c-57d9-489b-8742-490cf6094f63","qaExecutionId":"/root/duolingo_demo2_independent_review","receiptPath":"migrations/duolingo/receipts/visualQA-2.json","receiptSha256":"4fa43b3eb1adba0cd03e88a5a95676281660785ef4905a887aafc6791bfec7c7","verdict":"fail","durationMs":244802,"newCaptureCount":29,"finding":"SECONDARY_HOVER_ROLE_MISMATCH"},
+    {"stageId":"visualQA-3","reviewMode":"regression-review","reviewId":"8fbec52a-fbd2-4976-a5c0-8f613d4ecf56","qaExecutionId":"/root/duolingo_demo2_independent_review","receiptPath":"migrations/duolingo/receipts/visualQA-3.json","receiptSha256":"0e10dd08357a1bcd077cb2b89fb639efb821ff7c65332eba80c891758750abee","verdict":"needs-evidence","durationMs":206894,"newCaptureCount":30,"resolved":"SECONDARY_HOVER_ROLE_MISMATCH","finding":"CURRENT_HEADER_RASTER_OWNER_CONTRADICTION"}
+  ],
+  "cost": {"freshQaSpawnsDuringTheseReviews":0,"originalIndependentQaReused":true,"actualTokenUsage":"unavailable","note":"Recorded durations cover these review stages, not total workflow wall time; no fabricated token savings."},
+  "orchestrationCorrection": {"fact":"Root called next after failed prepare, generating an undelivered fresh packet. A named, hash-bound revocation preserved the original bytes before recovery.","prevention":"In a run already using v2 review, next refuses dispatch without current prepared review; sequential v2 prior bindings are tested."},
+  "resultH5": "/workflow-review/qa-regression/index.html",
+  "qaCorrection": {"path":"migrations/duolingo/qa3-interpretation-correction.json","sha256":"d13e09e9987df3628b9f074bfa936c252fab8f67edb65ec5a0efc313c33032f0","findingWithdrawn":true,"supportedCause":"QA visual interpretation error; not a demonstrated Demo/Chromium defect","newPassIssued":false,"historicalReceiptUnchanged":true},
+  "qualificationBoundary": "Single learning case; does not establish host preview completion, aesthetic approval or cross-brand reliability."
+}

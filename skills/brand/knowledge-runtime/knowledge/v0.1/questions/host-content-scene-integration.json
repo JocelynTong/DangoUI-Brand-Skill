@@ -1,0 +1,58 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-content-scene-integration",
+  "title": "真实宿主内容是否在生图前获得了可验证的场景角色？",
+  "status": "open-single-case",
+  "stages": [
+    "design-host",
+    "apply-host"
+  ],
+  "scope": "host-generation 与 reconstruction；当前仅有多邻国风格牌组广场的负例",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-duolingo-host-slot-integration-failure"
+  ],
+  "hypothesisRefs": [
+    "host-content-integration-before-scene-generation"
+  ],
+  "nextEvidenceNeeded": "在独立品牌和宿主中比较角色先行与空槽先行两种路线的可读性、拼贴感和返工次数",
+  "requiredContext": [
+    "真实宿主字段或资产",
+    "原始尺寸和比例",
+    "目标显示尺寸",
+    "业务角色与承托关系",
+    "失败回退"
+  ],
+  "pitfalls": [
+    "把生成空槽当作已完成真实内容融合",
+    "用阴影和圆角掩盖比例、尺寸或语义问题",
+    "为了证明用了宿主内容而把不可读小图塞进 expressive"
+  ],
+  "observationLevel": "case-observed",
+  "readerPurpose": "在生图前判断真实业务内容是否适合进入场景，以及如何进入",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "Host Strategist 从宿主源码和渲染状态自动提取真实对象、字段、业务角色、原始尺寸、当前尺寸和最低可读尺寸；不要求用户提供。",
+      "设计方向只能引用冻结的 candidate id，再声明目标尺寸、fit 和承托方式；自报或猜测宿主事实必须阻断。",
+      "记录容器存在的业务或物理理由；空槽、相框和白板本身不能证明融合。",
+      "目标尺寸试片出现双层边框、比例失配、不可读或无承托关系时，退回方向设计或 Productive UI。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "host-content-integration-before-scene-generation"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-duolingo-host-slot-integration-failure",
+      "summary": "多邻国画风接近后，真实卡牌仍因空槽先行而出现双层边框、无意义容器和不可读尺寸，用户否定。"
+    }
+  ]
+}

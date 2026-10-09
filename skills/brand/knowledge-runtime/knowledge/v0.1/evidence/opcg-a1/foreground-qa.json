@@ -1,0 +1,40 @@
+{
+  "scope": "foreground sandwich correction",
+  "layers": [
+    "scene background",
+    "live clipped cards",
+    "traced wood and plaque foreground",
+    "caption and controls"
+  ],
+  "contourMethod": "manual source-image contour annotation; standard rounded rectangle card silhouette, not automatic segmentation",
+  "h5": {
+    "width": 375,
+    "cardCounts": [
+      2,
+      3,
+      1
+    ],
+    "switching": "passed",
+    "alignment": "passed after overflow:clip prevented focus-induced stage scrolling"
+  },
+  "native": {
+    "width": 430,
+    "cardCounts": [
+      2,
+      3,
+      1
+    ],
+    "occlusion": "independent QA passed",
+    "arrowsAndSwipe": "passed",
+    "limitation": "final overflow:clip delta rebuilt; native not rechecked after this delta; native375 and physical device not tested this round"
+  },
+  "builds": {
+    "native": "passed",
+    "h5": "passed"
+  },
+  "userVisualAcceptance": "pending",
+  "hashes": {
+    "OpcgShowcase.vue": "5106ee12c188143a2f5986d5fb6887ab1ad18437e354b2aad1aec3aedfc7c9f3",
+    "opcg-a1.scss": "683c8d8b6f4243a52ea40474507dfd12f079a22510aa49aaced527495b0be17f"
+  }
+}

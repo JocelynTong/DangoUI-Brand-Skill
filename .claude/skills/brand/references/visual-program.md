@@ -15,6 +15,8 @@ These are decision lenses, not imported component rules. DangoUI remains the beh
 
 Each candidate owns one compact `visualProgram` with:
 
+- `productionFormula`: separate `expressive`, `productive`, and `expertDecision` bindings. Expressive names the ImageGen call and generated-proposal scope; productive binds Brand MOD/Intent plus host baseline hashes; expertDecision records the question, knowledge references, rejected allocation and host-specific rationale.
+- `identityPolicy`: generated environments are allowed, while source-specific characters, mascots, logos and identity subjects require unmodified evidence-source assets and may never be approximated by ImageGen.
 - `hostClassification`: `efficiency-first`, `balanced` or `immersion-first`.
 - `experienceZones`: productive, expressive or blended regions, each with a host job, viewport budget, interaction frequency and evidence-backed brand mechanisms.
 - `focalHierarchy`: one primary visual center, secondary information and primary action.
@@ -33,6 +35,7 @@ Each candidate owns one compact `visualProgram` with:
 5. “More atmosphere” is not a sufficient motion purpose.
 6. All three alternatives differ in first scene role, content-entry form and result-container form; a repeated hero → search → list skeleton fails even if labels, colors, assets or role prose change.
 7. Keep this artifact compact: reference source ids and hashes instead of copying Brand MOD, evidence or host DOM.
+8. Neither expressive spectacle, design-system fidelity nor expert rationale can compensate for another missing leg of the production formula.
 
 ## Internal candidate competition
 

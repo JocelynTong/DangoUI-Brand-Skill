@@ -1,0 +1,57 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "opcg-a1-live-host-layering",
+  "status": "observed-repair-awaiting-visual-approval",
+  "contextKey": "onepiece-cardgame|card-plugin2.0|deck-plaza",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "reviewStatus": "not-approved",
+  "independentCaseNote": "另一品牌，但与宝可梦共享宿主和业务；不能计作独立宿主泛化成功。",
+  "decisionTrace": {
+    "recordType": "retrospective-analysis-not-original-designer-rationale",
+    "decisionQuestion": "真实宿主里如何保持选定方案的视觉依据及动态场景空间关系？",
+    "knownInputs": [
+      "OPCG A1、真实牌组2/3/1张",
+      "用户指出背景截断及缺少三明治遮挡",
+      "本轮修复后的明确用户视觉批准尚未记录"
+    ],
+    "alternatives": [
+      {
+        "id": "flat",
+        "documentedObservation": "用户指出卡牌前后景不好",
+        "expressiveBenefit": "直接叠卡实现成本低",
+        "productiveCostOrGap": "缺少接触面遮挡，浮贴感",
+        "retrospectiveDisposition": "修正"
+      },
+      {
+        "id": "layered",
+        "documentedObservation": "H5检查2/3/1张及切换，native430独立检查；最后overflow变更后native未复查",
+        "expressiveBenefit": "木沿牌匾遮住卡底",
+        "productiveCostOrGap": "需要人工轮廓和坐标检查",
+        "retrospectiveDisposition": "保留候选，等待用户视觉批准"
+      }
+    ],
+    "selectionAtTime": "用户要求识别卡牌轮廓和三明治层级；实现按轮廓拆前景。",
+    "expertDecisionAfterFeedback": "先识别交叠关系，再选择遮罩，不用装饰阴影替代空间关系。",
+    "why": "固定环境与动态业务对象需共享坐标并正确遮挡。",
+    "feedback": {
+      "source": "本任务用户对话及实验记录",
+      "summary": "用户指出缺陷后要求沉淀；不将继续工作视为视觉批准。",
+      "status": "not-explicitly-approved"
+    },
+    "ruleChange": {
+      "from": "扁平叠加后补装饰",
+      "to": "按轮廓与承托面建立遮挡并逐组验证",
+      "status": "candidate",
+      "ruleId": "scene-occlusion"
+    },
+    "nextCaseQuestion": "不同宿主和不同构图，是否能减少用户纠正且保持选图效果？"
+  },
+  "evidenceFiles": [
+    "knowledge/v0.1/evidence/opcg-a1/foreground-contour.json",
+    "knowledge/v0.1/evidence/opcg-a1/foreground-qa.json",
+    "knowledge/v0.1/evidence/opcg-a1/continuity-incident.json"
+  ],
+  "readerPurpose": "已发生的事实、反馈与验证边界",
+  "invalidInference": "首屏运行通过或另一个品牌的同宿主案例，不足以证明长内容连续性、遮挡正确或跨宿主泛化。",
+  "safeConclusion": "在已覆盖的 OPCG 2/3/1 张卡和视口中，轮廓前景改善遮挡；保留人工验收、长内容与跨宿主验证边界。"
+}

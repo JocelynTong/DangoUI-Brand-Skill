@@ -2,6 +2,7 @@ import assert from "node:assert/strict";
 import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
+import crypto from "node:crypto";
 import { normalizeSourceUrl, resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
 
 assert.equal(normalizeSourceUrl("https://TCG.POKEMON.com/en-us/?x=1#cards"), "https://tcg.pokemon.com/en-us");
@@ -16,11 +17,21 @@ fs.writeFileSync(path.join(artifactRoot, "brand-mod.json"), JSON.stringify({ sch
 fs.writeFileSync(path.join(artifactRoot, "approved-visual-patterns.json"), JSON.stringify({ schema: "approved-visual-patterns/v2", patterns: [{ id: "scene" }] }));
 fs.mkdirSync(path.join(artifactRoot, "evidence", "captures", "source", "home"), { recursive: true });
 fs.writeFileSync(path.join(artifactRoot, "evidence", "captures", "source", "home", "full-page.png"), Buffer.from("png-evidence"));
+const runtimeBytes = Buffer.from("official-identity-asset");
+const runtimeSha256 = crypto.createHash("sha256").update(runtimeBytes).digest("hex");
+fs.mkdirSync(path.join(fixtureRoot, "public", "assets", "brand-assets", "demo"), { recursive: true });
+fs.writeFileSync(path.join(fixtureRoot, "public", "assets", "brand-assets", "demo", "identity.png"), runtimeBytes);
 fs.writeFileSync(path.join(artifactRoot, "manifest.json"), JSON.stringify({
   artifacts: { "brand-mod": "/brand-registry/v0.1/brands/demo/1.0.0/brand-mod.json", "approved-visual-patterns": "/brand-registry/v0.1/brands/demo/1.0.0/approved-visual-patterns.json" },
   evidenceAssets: [{
     path: "/brand-registry/v0.1/brands/demo/1.0.0/evidence/captures/source/home/full-page.png",
     installPath: "captures/source/home/full-page.png",
+  }],
+  runtimeAssets: [{
+    id: "identity",
+    path: "/assets/brand-assets/demo/identity.png",
+    installPath: "public/assets/brand-assets/demo/identity.png",
+    sha256: runtimeSha256,
   }],
 }));
 
@@ -33,6 +44,8 @@ assert.equal(JSON.parse(fs.readFileSync(path.join(fixtureRoot, "migrations/demo/
 assert.ok(result.installedFiles.includes("migrations/demo/approved-visual-patterns.json"));
 assert.equal(fs.readFileSync(path.join(fixtureRoot, "migrations/demo/captures/source/home/full-page.png"), "utf8"), "png-evidence");
 assert.ok(result.installedFiles.includes("migrations/demo/captures/source/home/full-page.png"));
+assert.deepEqual(fs.readFileSync(path.join(fixtureRoot, "public/assets/brand-assets/demo/identity.png")), runtimeBytes);
+assert.ok(result.installedFiles.includes("public/assets/brand-assets/demo/identity.png"));
 
 const deepLink = await resolvePublicStylePack({ sourceUrl: "https://demo.example/#/brand/demo/pages/home", root: fixtureRoot });
 assert.equal(deepLink.matched, true);

@@ -5,6 +5,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import crypto from "node:crypto";
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), "brand-prepare-test-"));
 const brand = "fixture";
@@ -30,9 +31,14 @@ const externalRoot = fs.mkdtempSync(path.join(os.tmpdir(), "brand-installed-entr
 const externalMigration = path.join(externalRoot, "migrations", "installed-fixture");
 fs.mkdirSync(externalMigration, { recursive: true });
 fs.writeFileSync(path.join(externalMigration, "goal-contract.json"), JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: "installed-goal" }));
+const startupSource = '<template><view><input placeholder="搜索商品"/><button>搜索</button><view>结果加载中</view></view></template>';
+fs.writeFileSync(path.join(externalRoot, 'startup.vue'), startupSource);
+fs.writeFileSync(path.join(externalMigration, 'host-startup-page.json'), JSON.stringify({ schema: 'host-startup-page/v1', scope: 'startup-page-only', hostRoot: externalRoot, sourceFile: 'startup.vue', sourceSha256: crypto.createHash('sha256').update(startupSource).digest('hex'), route: 'pages/home/index' }));
 const installedStyle = spawnSync(process.execPath, [script, "prepare", "--brand", "installed-fixture", "--root", externalRoot], { encoding: "utf8" });
 assert.equal(installedStyle.status, 0, installedStyle.stderr);
-assert.equal(JSON.parse(fs.readFileSync(path.join(externalMigration, "design-host-route.json"), "utf8")).sequence, "image-demo-first");
+const h5FirstRoute = JSON.parse(fs.readFileSync(path.join(externalMigration, "design-host-route.json"), "utf8"));
+assert.equal(h5FirstRoute.sequence, "h5-design-system-first");
+assert.equal(h5FirstRoute.imageCapability.status, "deferred-until-verified-gap");
 assert.equal(fs.existsSync(path.join(externalRoot, "skills", "brand", "workflow-contract.json")), false, "external hosts must not need a copied or symlinked skill tree");
 
 process.stdout.write("brand subagent prepare overwrite regression passed\n");

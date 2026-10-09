@@ -1,6 +1,9 @@
 # apply-host：expressive 判断、生成与动态还原
 
-适用：apply-host 阶段需要判断 expressive 表达的可实现性、生成配套场景素材，并落地为可替换业务内容的动态 H5。已冻结方向内的素材生成不等于重新选方向；若需改变冻结构图，应显式退回方向修订。不是任意品牌自动设计承诺，也不将生成图晋级为官网品牌证据。
+适用：design-host 的获选方向重建，以及 apply-host 阶段的 expressive 实施。已冻结方向内的素材生成不等于重新选方向；若需改变冻结构图，应显式退回方向修订。不是任意品牌自动设计承诺，也不将生成图晋级为官网品牌证据。
+
+## 唯一重建路径
+获选概念图是视觉目标，不是一次性情绪板。依次保存完整概念与实际 ImageGen 输入、生成/提取同镜头空场景、重新标记可替换对象四角与承托关系、绑定真实宿主对象、恢复前景遮挡/接触阴影/环境光，最后才连接 Productive UI。输出 `scene-reconstruction.json`，运行 `node skills/brand/scripts/validate-scene-reconstruction.mjs --file <manifest> --root <隔离运行目录>`。失败不得进入 H5 QA；不要另建 background-only 或 CSS-arrangement 分支。
 
 ## 开始前冻结
 - 保存参考图、目标视口、来源/生成属性与文件 hash。
@@ -17,6 +20,8 @@
 
 ## 可执行辅助
 `node skills/brand/scripts/render-layered-scene.mjs manifest.json output.html`
+
+正式获选方向使用 `node skills/brand/scripts/render-scene-reconstruction.mjs scene-reconstruction.json output.html`。它消费已经通过校验的重建清单，统一生成四角投影、多组对象切换、注册前景孔洞、接触阴影和环境光层；品牌或业务变化只能替换 manifest 数据，不得复制页面后手改成另一套隐含流程。旧 `render-layered-scene.mjs` 仅保留历史回放兼容。
 
 清单包含 canvas [w,h]、background、slots [{id,quad:[[x,y]×4],z}]、groups [{id,cards:[URL]}]。每组卡面数须与槽位相同。输入明确遮挡边界；渲染器默认以空场景重新覆盖动态孔洞之外的区域。反光及复杂前景需另定义，不能从四角自动推断。
 
@@ -44,10 +49,10 @@
 - 参考图与场景资产在同一坐标系裁切。避让导航应调整整体画面或 UI，不能只缩小动态对象，破坏它与环境的尺度联系。
 - 单独记录功能验证和人的视觉验收。纸艺前景补丁通过换卡测试，但用户仍判断“不太行”；保留此失败，不把它作为成功模板。
 
-案例复盘见项目 `experiments/brand-constrained/retrospective.md`。这些约束待下一独立品牌/宿主检验；同品牌六个方向不算六个独立案例。
+相关案例可用已安装 Skill 的 `scripts/query-design-knowledge.mjs case pokemon-generated-deck-scenes` 查询。这些约束待下一独立品牌/宿主检验；同品牌六个方向不算六个独立案例。
 
 ## 已有运行检查与接入边界
-`check-expressive-runtime.mjs` 导出浏览器 DOM 测量与硬性断言，阈值来自宿主约定；调用者必须在失败时停止。当前实验 `experiments/brand-constrained/verify.cjs` 已消费，正式 apply-host 入口尚未接入。它不判断透视与阴影质量，也不能验证自报的品牌来源。`check-expressive-runtime.test.mjs` 验证错误拒绝；实验 `fault-runtime.cjs` 验证真实 DOM 故障被捕获。
+`check-expressive-runtime.mjs` 导出浏览器 DOM 测量与硬性断言，阈值来自宿主约定；调用者必须在失败时停止。正式 apply-host 入口尚未接入，不能将辅助工具存在称为自动验收已完成。它不判断透视与阴影质量，也不能验证自报的品牌来源。使用方不依赖仓库实验脚本。
 
-## 决策记忆（当前仓库种子）
-遇到 expressive 区域分配、生成简报、拆图风险或返工取舍时，可运行 `node experiments/decision-memory/query.mjs list`，再用 `question <id>` 按问题读相关案例，明确采用或不采用的上下文理由。此路径为仓库实验依赖，不属于已安装 skill 的自包含资产；正式发布前须合入 canonical 决策库。不要因一条候选经验被检索到就当作通用规则。
+## 按需决策查询
+遇到 expressive 区域分配、生成简报、拆图风险或返工取舍时，运行 `node <skill目录>/scripts/query-design-knowledge.mjs stage apply-host`，再用同一脚本的 `question <id>` 或 `basis <id>` 定点查询。发布包携带 knowledge-runtime，不需要实验目录。明确采用或不采用的上下文理由；候选经验不是通用批准规则。

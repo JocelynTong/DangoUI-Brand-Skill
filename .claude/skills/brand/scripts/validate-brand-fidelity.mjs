@@ -2,6 +2,8 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
+import { validateQaReview } from "./qa-review-contract.mjs";
+import { buildLearningQaOutputContract, validateLearningQaAssessment } from "./learn-brand-qa-output-contract.mjs";
 
 const args = process.argv.slice(2);
 if (args.includes("--self-test-normalization")) runNormalizationSelfTest();
@@ -15,12 +17,17 @@ const requestedGoalFile = readArg("--goal-file");
 const goalFile = requestedGoalFile
   ? path.resolve(root, requestedGoalFile)
   : resolveCanonicalGoalFile(migrationDir);
-const inputManifestFile = path.join(migrationDir, "qa-input-manifest.json");
-const assessmentFile = path.join(migrationDir, "visual-qa-assessment.json");
-const patternInventoryFile = path.join(migrationDir, "visual-pattern-inventory.json");
+const inputManifestFile = resolveInput("--qa-input-file", "qa-input-manifest.json");
+const assessmentFile = resolveInput("--assessment-file", "visual-qa-assessment.json");
+const patternInventoryFile = resolveInput("--inventory-file", "visual-pattern-inventory.json");
 const brandIntentFile = path.join(migrationDir, "brand-intent.json");
 const approvedPatternsFile = path.join(migrationDir, "approved-visual-patterns.json");
-const generativeProofFile = path.join(migrationDir, "generative-proof.json");
+const generativeProofFile = resolveInput("--generative-proof-file", "generative-proof.json");
+const supplemental = ["--qa-input-file", "--assessment-file", "--inventory-file", "--generative-proof-file"].some(flag => readArg(flag));
+const outputFile = readArg("--output-file") ? path.resolve(root, readArg("--output-file")) : null;
+if (outputFile && (!insideRun(outputFile) || isReservedOutput(outputFile))) failUsage("--output-file must be a versioned report inside the run, outside canonical reports and receipts.");
+if (write && outputFile && fs.existsSync(outputFile)) failUsage("--output-file already exists; receipt-bound and versioned reports must remain immutable.");
+if (write && supplemental && (!outputFile || fs.existsSync(outputFile))) failUsage("Versioned supplemental validation requires a new --output-file; existing receipt-bound reports must remain immutable.");
 const goal = readJson(goalFile);
 const inputManifest = readJson(inputManifestFile);
 const assessment = readJson(assessmentFile);
@@ -34,7 +41,10 @@ const blockingFindings = [];
 
 check(["brand-goal/v1", "brand-goal/v2"].includes(goal?.schema), "GOAL_NOT_SEALED", "The canonical goal contract must use a supported brand-goal schema and exist.");
 check(goal?.sealed === true, "GOAL_NOT_SEALED", "The canonical goal contract must be sealed before QA dispatch.");
-check(inputManifest?.schema === "brand-blind-qa-input/v1", "BLIND_INPUT_VIOLATION", "qa-input-manifest.json is missing or invalid.");
+check(["brand-blind-qa-input/v1", "brand-qa-review-input/v2"].includes(inputManifest?.schema), "BLIND_INPUT_VIOLATION", "qa-input-manifest.json is missing or invalid.");
+try { validateQaReview(root, inputManifest, assessment); } catch(error) { check(false, "QA_REVIEW_CONTRACT_VIOLATION", error.message); }
+try { validateLearningQaAssessment(assessment, buildLearningQaOutputContract(goal, patternInventory)); }
+catch (error) { protocol(error.code || "LEARNING_QA_OUTPUT_INCOMPLETE", "assessment", error.message); }
 check(assessment?.schema === "brand-visual-qa-assessment/v2", "DIMENSION_UNSCORED", "visual-qa-assessment.json must use v2.");
 check(patternInventory?.schema === "brand-visual-pattern-inventory/v1", "VISUAL_PATTERN_INVENTORY_MISSING", "visual-pattern-inventory.json is required and must use brand-visual-pattern-inventory/v1.");
 
@@ -49,15 +59,18 @@ check(assessment?.qaExecutionId === inputManifest?.qaExecutionId, "NON_INDEPENDE
 
 const forbiddenAbsence = inputManifest?.forbiddenInputsAbsent || {};
 for (const key of ["implementationRationale", "priorVerdict", "buildPassAsVisualEvidence", "mainConversation"]) {
+  if (key === "priorVerdict" && inputManifest?.reviewMode === "regression-review") continue;
   check(forbiddenAbsence[key] === true, "BLIND_INPUT_VIOLATION", `Blind QA must explicitly exclude ${key}.`);
 }
 for (const input of array(inputManifest?.allowedInputs)) {
   const label = `${input?.kind || ""} ${input?.path || ""}`;
-  check(!/rationale|prior[-_ ]?verdict|visual-quality-report|implementation-handoff|conversation/i.test(label), "BLIND_INPUT_VIOLATION", `Forbidden QA input: ${label}`);
+  const forbiddenLabel = inputManifest?.reviewMode === "regression-review" ? /rationale|visual-quality-report|implementation-handoff|conversation/i : /rationale|prior[-_ ]?verdict|visual-quality-report|implementation-handoff|conversation/i;
+  check(!forbiddenLabel.test(label), "BLIND_INPUT_VIOLATION", `Forbidden QA input: ${label}`);
   if (input?.path) verifyPathHash(input.path, input.sha256, "SCREENSHOT_HASH_MISMATCH");
 }
 const inventoryInput = array(inputManifest?.allowedInputs).find((input) => input?.kind === "visual-pattern-inventory" || input?.path === relativeToRoot(patternInventoryFile));
 check(Boolean(inventoryInput), "BLIND_INPUT_VIOLATION", "Blind QA input must include the hashed visual-pattern-inventory.json.");
+check(inventoryInput?.path === relativeToRoot(patternInventoryFile) && inventoryInput?.sha256 === (fs.existsSync(patternInventoryFile) ? sha256File(patternInventoryFile) : null), "PATTERN_INPUT_BINDING_MISMATCH", "QA must consume the exact inventory version selected for fidelity validation.");
 
 const weights = {
   composition: 25,
@@ -90,7 +103,7 @@ const requiresLearningProof = goal?.goalType === "brand-learning-capability-test
 for (const sourcePage of corePages) {
   const page = assessmentPages.find((item) => item?.sourcePageId === sourcePage.id);
   if (!page) {
-    hard("CORE_PAGE_UNMAPPED", sourcePage.id, "Core source page has no QA assessment.");
+    protocol("CORE_PAGE_UNMAPPED", sourcePage.id, "Core source page has no QA assessment; visual quality is unassessed.");
     continue;
   }
   verifyScreenshot(page.sourceScreenshot, "source", sourcePage.id);
@@ -152,39 +165,45 @@ for (const sourcePage of corePages) {
     ratings[dimension] = rating;
     pageScore += weight * rating / 4;
   }
-  if ((ratings.composition ?? -1) < thresholds.composition) hard("CORE_COMPOSITION_BELOW_MIN", sourcePage.id, "Composition is below the frozen minimum.");
-  if ((ratings.assetAuthenticity ?? -1) < thresholds.assetAuthenticity) hard("CORE_ASSET_BELOW_MIN", sourcePage.id, "Asset authenticity is below the frozen minimum.");
-  if (pageScore < thresholds.corePage) hard("CORE_PAGE_BELOW_THRESHOLD", sourcePage.id, `Core page score ${round(pageScore)} is below ${thresholds.corePage}.`);
+  const scored = Object.keys(ratings).length === Object.keys(weights).length;
+  if (ratings.composition !== undefined && ratings.composition < thresholds.composition) hard("CORE_COMPOSITION_BELOW_MIN", sourcePage.id, "Composition is below the frozen minimum.");
+  if (ratings.assetAuthenticity !== undefined && ratings.assetAuthenticity < thresholds.assetAuthenticity) hard("CORE_ASSET_BELOW_MIN", sourcePage.id, "Asset authenticity is below the frozen minimum.");
+  if (scored && pageScore < thresholds.corePage) hard("CORE_PAGE_BELOW_THRESHOLD", sourcePage.id, `Core page score ${round(pageScore)} is below ${thresholds.corePage}.`);
   for (const finding of array(page?.blockingFindings)) {
     blockingFindings.push(typeof finding === "string"
       ? { page: sourcePage.id, finding }
       : { page: sourcePage.id, ...finding });
     hard(finding?.code || "QA_BLOCKING_FINDING", sourcePage.id, finding?.finding || "QA reported a blocking finding.");
   }
-  pageResults.push({ sourcePageId: sourcePage.id, demoPageId: page.demoPageId || "", score: round(pageScore), ratings });
+  pageResults.push({ sourcePageId: sourcePage.id, demoPageId: page.demoPageId || "", score: scored ? round(pageScore) : null, ratings });
 }
 
 const mustPreserveAssessments = assessmentPages.flatMap((page) => array(page?.mustPreserve));
 for (const requirement of array(goal?.mustPreserve)) {
   const matches = mustPreserveAssessments.filter((item) => item?.id === requirement.id);
-  if (!matches.length || matches.some((item) => item?.status !== "pass")) hard("MUST_PRESERVE_FAILED", requirement.id, requirement.description || "A mustPreserve requirement failed.");
+  if (!matches.length) protocol("MUST_PRESERVE_UNASSESSED", requirement.id, "A frozen mustPreserve requirement was not assessed.");
+  else if (matches.some((item) => item?.status !== "pass")) hard("MUST_PRESERVE_FAILED", requirement.id, requirement.description || "A mustPreserve requirement failed.");
 }
 const mustNotAssessments = assessmentPages.flatMap((page) => array(page?.mustNotReplace));
 for (const boundary of array(goal?.mustNotReplace)) {
   const matches = mustNotAssessments.filter((item) => item?.id === boundary.id);
-  if (!matches.length || matches.some((item) => item?.violated !== false)) hard("MUST_NOT_REPLACE_VIOLATED", boundary.id, boundary.description || "A forbidden replacement was violated or not assessed.");
+  if (!matches.length) protocol("MUST_NOT_REPLACE_UNASSESSED", boundary.id, "A frozen mustNotReplace boundary was not assessed.");
+  else if (matches.some((item) => item?.violated !== false)) hard("MUST_NOT_REPLACE_VIOLATED", boundary.id, boundary.description || "A forbidden replacement was violated.");
 }
 
-const overallScore = pageResults.length ? round(pageResults.reduce((sum, item) => sum + item.score, 0) / pageResults.length) : 0;
-if (overallScore < thresholds.overall) hard("OVERALL_BELOW_THRESHOLD", "overall", `Overall score ${overallScore} is below ${thresholds.overall}.`);
+const scoresComplete = corePages.length > 0 && pageResults.length === corePages.length && pageResults.every(item => item.score !== null);
+const overallScore = scoresComplete ? round(pageResults.reduce((sum, item) => sum + item.score, 0) / pageResults.length) : null;
+if (overallScore !== null && overallScore < thresholds.overall) hard("OVERALL_BELOW_THRESHOLD", "overall", `Overall score ${overallScore} is below ${thresholds.overall}.`);
 if (assessment?.reviewerRecommendation !== "pass") hard("REVIEWER_REJECTED", "overall", `Reviewer recommendation is ${assessment?.reviewerRecommendation || "missing"}.`);
 if ("level" in (assessment || {}) || "visual-quality-ready" in (assessment || {})) protocol("QA_SELF_APPROVAL_FIELD", "assessment", "QA assessment may not self-write a ready level.");
 
 if (requiresLearningProof) validateLearningProofContract();
 
-const status = protocolFailures.length ? "protocol-blocked" : hardFailures.length ? "fidelity-fail" : "fidelity-pass";
 const attempt = Number(assessment?.attempt || inputManifest?.attempt || 1);
 check(Number(patternInventory?.attempt) === attempt, "PATTERN_ATTEMPT_MISMATCH", "Visual pattern inventory attempt must match the QA attempt.");
+check(Number(inputManifest?.attempt || 1) === attempt, "QA_ATTEMPT_MISMATCH", "QA manifest attempt must match the assessment attempt.");
+check(corePages.length > 0, "CORE_PAGE_UNMAPPED", "Frozen goal must identify at least one core reference page.");
+const status = protocolFailures.length ? "protocol-blocked" : hardFailures.length ? "fidelity-fail" : "fidelity-pass";
 const result = {
   schema: "brand-visual-quality-result/v2",
   brand,
@@ -194,6 +213,7 @@ const result = {
   attempt,
   status,
   overallScore,
+  scoreStatus: scoresComplete ? "scored" : "incomplete-evidence",
   thresholds,
   pageResults,
   protocolFailures,
@@ -207,11 +227,13 @@ const result = {
     visualPatternInventory: fs.existsSync(patternInventoryFile) ? sha256File(patternInventoryFile) : null,
     generativeProof: fs.existsSync(generativeProofFile) ? sha256File(generativeProofFile) : null,
   },
+  inputPaths: { goal: relativeToRoot(goalFile), qaInputManifest: relativeToRoot(inputManifestFile), assessment: relativeToRoot(assessmentFile), visualPatternInventory: relativeToRoot(patternInventoryFile), generativeProof: relativeToRoot(generativeProofFile) },
   generatedBy: { tool: "validate-brand-fidelity.mjs", version: "1.3" },
   generatedAt: new Date().toISOString(),
 };
 
-if (write) {
+if (write && outputFile) writeJson(outputFile, result);
+if (write && !outputFile) {
   writeJson(path.join(migrationDir, "fidelity-report.json"), result);
   const attemptDir = path.join(migrationDir, "quality-attempts", String(attempt));
   writeJson(path.join(attemptDir, "fidelity-report.json"), result);
@@ -260,6 +282,7 @@ function validateLearningProofContract() {
     hard("GENERATIVE_PROOF_MISSING", "generative", "generative-proof.json must use brand-generative-proof/v1.");
     return;
   }
+  check(proofInput?.path === relativeToRoot(generativeProofFile) && proofInput?.sha256 === sha256File(generativeProofFile), "GENERATIVE_PROOF_INPUT_BINDING_MISMATCH", "QA must consume the exact generative proof version selected for validation.");
   if (generativeProof?.goalSha256 !== goalSha256) hard("GOAL_HASH_MISMATCH", "generative", "Generative proof is not bound to the frozen goal.");
   if (proofInput?.path) verifyPathHash(proofInput.path, proofInput.sha256, "GENERATIVE_PROOF_HASH_MISMATCH");
 
@@ -287,9 +310,12 @@ function validateLearningProofContract() {
     hard("BRAND_CUE_SUBSTITUTION", output.demoPageId || "generative", "Logo, brand colors or official wallpaper cannot substitute for applying reusable structural rules.");
   }
   const review = assessment?.generativeProofReview;
-  if (review?.status !== "pass") hard("GENERATIVE_PROOF_NOT_APPROVED", challenge.id || "generative", "Blind QA must independently approve the held-out generative proof.");
+  if (!review) protocol("GENERATIVE_PROOF_UNASSESSED", challenge.id || "generative", "Blind QA has not assessed the held-out generative proof.");
+  else if (review.status !== "pass") hard("GENERATIVE_PROOF_NOT_APPROVED", challenge.id || "generative", "Blind QA must independently approve the held-out generative proof.");
   const ruleChecks = array(review?.ruleChecks);
-  if (ruleChecks.length < frozenRules.length || ruleChecks.some((item) => item?.status !== "reused" || !item?.finding)) {
+  const reviewedRecipes = new Set(ruleChecks.map(item => item?.recipeId || item?.id));
+  if (ruleChecks.length < frozenRules.length || ruleChecks.some((item) => !item?.finding) || frozenRules.some(item => !reviewedRecipes.has(item.recipeId))) protocol("GENERATIVE_RULE_REVIEW_INCOMPLETE", challenge.id || "generative", "Every frozen recipe requires an independent visual finding keyed by recipeId.");
+  if (ruleChecks.some((item) => item?.status !== "reused")) {
     hard("GENERATIVE_RULE_REUSE_UNPROVEN", challenge.id || "generative", "Blind QA must review every frozen recipe and confirm rule reuse with visual findings.");
   }
 }
@@ -321,6 +347,26 @@ function buildLearningProofSummary() {
 }
 
 function readArg(name) { const index = args.indexOf(name); return index >= 0 ? args[index + 1] : ""; }
+function resolveInput(flag, name) {
+  const file = readArg(flag) ? path.resolve(root, readArg(flag)) : path.join(migrationDir, name);
+  if (readArg(flag) && !insideRun(file)) failUsage(`${flag} must select an input inside the run.`);
+  return file;
+}
+function insideRun(file) {
+  const lexical = path.relative(root, file);
+  if (lexical === ".." || lexical.startsWith(`..${path.sep}`) || path.isAbsolute(lexical)) return false;
+  let ancestor = file;
+  while (!fs.existsSync(ancestor)) { const parent = path.dirname(ancestor); if (parent === ancestor) return false; ancestor = parent; }
+  const physical = path.relative(fs.realpathSync(root), fs.realpathSync(ancestor));
+  return physical !== ".." && !physical.startsWith(`..${path.sep}`) && !path.isAbsolute(physical);
+}
+function isReservedOutput(file) {
+  let ancestor = file;
+  while (!fs.existsSync(ancestor)) ancestor = path.dirname(ancestor);
+  const resolved = path.resolve(fs.realpathSync(ancestor), path.relative(ancestor, file));
+  const physicalRelative = path.relative(fs.realpathSync(root), resolved).split(path.sep).join("/");
+  return physicalRelative === `migrations/${brand}/fidelity-report.json` || /(?:^|\/)receipts(?:\/|$)/.test(physicalRelative);
+}
 function resolveCanonicalGoalFile(migrationDir) {
   const intent = readJson(path.join(migrationDir, "brand-intent.json"));
   const expectedGoalId = intent?.goalId;
@@ -443,11 +489,11 @@ function validateCompositionSupport(pattern, page, requirement, sourcePage) {
   }
   const sourceAsset = support?.sourceAsset;
   const demoAsset = support?.demoAsset;
-  if (!sourceAsset?.identity || !sourceAsset?.variant || !demoAsset?.identity || !demoAsset?.variant) {
+  if (!hasAssetBinding(sourceAsset) || !hasAssetBinding(demoAsset)) {
     hard("HERO_ASSET_IDENTITY_UNVERIFIED", pattern.id, "Composition-bearing hero patterns must identify both source and demo asset identity and variant.");
-  } else if (sourceAsset.identity !== demoAsset.identity || sourceAsset.variant !== demoAsset.variant) {
+  } else if (!sameContractValue(sourceAsset.identity, demoAsset.identity) || !sameContractValue(sourceAsset.variant, demoAsset.variant)) {
     const allowedTranslation = array(goal?.mayTranslate).some((item) => item?.id === support?.translation?.allowedBy && item?.allowsAssetVariantReplacement === true);
-    if (!allowedTranslation) hard("HERO_ASSET_VARIANT_MISMATCH", pattern.id, `Source hero ${sourceAsset.identity}/${sourceAsset.variant} was replaced by ${demoAsset.identity}/${demoAsset.variant}.`);
+    if (!allowedTranslation) hard("HERO_ASSET_VARIANT_MISMATCH", pattern.id, `Source and Demo asset identity/variant bindings differ for ${pattern.id}.`);
   }
 
   const layers = array(support?.layers);
@@ -459,10 +505,10 @@ function validateCompositionSupport(pattern, page, requirement, sourcePage) {
       hard("COMPOSITION_UNAPPROVED_LAYER", `${pattern.id}:${layer?.id || "missing"}`, "Implementation declared a structural layer that is not frozen by the Interpreter-approved pattern.");
     }
   }
-  if (approval?.sourceAsset?.identity && sourceAsset?.identity && approval.sourceAsset.identity !== sourceAsset.identity) {
+  if (approval?.sourceAsset?.identity && sourceAsset?.identity && !sameContractValue(approval.sourceAsset.identity, sourceAsset.identity)) {
     hard("COMPOSITION_SOURCE_IDENTITY_DRIFT", pattern.id, "Implementation inventory source identity differs from the Interpreter-approved source asset.");
   }
-  if (approval?.sourceAsset?.variant && sourceAsset?.variant && approval.sourceAsset.variant !== sourceAsset.variant) {
+  if (approval?.sourceAsset?.variant && sourceAsset?.variant && !sameContractValue(approval.sourceAsset.variant, sourceAsset.variant)) {
     hard("COMPOSITION_SOURCE_VARIANT_DRIFT", pattern.id, "Implementation inventory source variant differs from the Interpreter-approved source variant.");
   }
   const qaPattern = array(page?.visualPatterns).find((item) => item?.id === pattern?.id);
@@ -499,6 +545,36 @@ function validateCompositionSupport(pattern, page, requirement, sourcePage) {
       if (!validTranslation) hard("COMPOSITION_CROP_TRANSLATION_UNVERIFIED", pattern.id, `Source/demo composition aspect differs by ${round(ratioDelta)}x without an authorized crop translation and retained focal points.`);
     }
   }
+}
+
+function hasAssetBinding(asset) {
+  if (!asset || !presentContractValue(asset.identity) || !presentContractValue(asset.variant)) return false;
+  if (!Array.isArray(asset.identity) && !Array.isArray(asset.variant)) return true;
+  if (!Array.isArray(asset.identity) || !Array.isArray(asset.variant) || asset.identity.length === 0 || asset.identity.length !== asset.variant.length) return false;
+  const identities = asset.identity;
+  return asset.variant.every((entry, index) => {
+    if (!entry || typeof entry !== "object" || Array.isArray(entry)) return false;
+    if (entry.id !== identities[index] || !presentContractValue(entry.variant)) return false;
+    if (entry.path && !/^[a-f0-9]{64}$/i.test(entry.sha256 || "")) return false;
+    return true;
+  });
+}
+
+function presentContractValue(value) {
+  return Array.isArray(value) ? value.length > 0 : typeof value === "string" ? value.length > 0 : value != null;
+}
+
+function sameContractValue(left, right) {
+  if (Object.is(left, right)) return true;
+  if (Array.isArray(left) || Array.isArray(right)) {
+    return Array.isArray(left) && Array.isArray(right) && left.length === right.length
+      && left.every((item, index) => sameContractValue(item, right[index]));
+  }
+  if (!left || !right || typeof left !== "object" || typeof right !== "object") return false;
+  const leftKeys = Object.keys(left).sort();
+  const rightKeys = Object.keys(right).sort();
+  return leftKeys.length === rightKeys.length
+    && leftKeys.every((key, index) => key === rightKeys[index] && sameContractValue(left[key], right[key]));
 }
 
 function normalizeCompositionApproval(value, support) {

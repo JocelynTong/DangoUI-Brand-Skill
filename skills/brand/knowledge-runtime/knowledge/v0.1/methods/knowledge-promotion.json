@@ -1,0 +1,39 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "knowledge-promotion",
+  "status": "pilot-candidate",
+  "ownerRole": "Design Director",
+  "question": "When can a local observation or case become reusable knowledge consumed by another task?",
+  "procedure": [
+    "Keep observed facts, inferred meaning and proposed application in separate fields and statuses.",
+    "Review the source-page roles, cross-page conflicts, suitableFor, notFor and the proposed DangoUI consumer.",
+    "Approve only the narrowest evidenced scope, with reviewer, decision reference and source version; otherwise retain candidate or reject it.",
+    "After rendered application and independent QA, promote the tested recipe or record a negative regression; user visual rejection overrides protocol PASS.",
+    "When a source or judgment changes, version the record and revalidate only dependent consumers."
+  ],
+  "states": [
+    "candidate",
+    "approved-scoped",
+    "approved-global",
+    "rejected",
+    "retired"
+  ],
+  "outputFields": [
+    "recordId",
+    "decision",
+    "approvedScope",
+    "reviewer",
+    "decisionRef",
+    "sourceVersion",
+    "dependentConsumers"
+  ],
+  "notFor": [
+    "Silent approval from a validator PASS",
+    "Treating a URL or color frequency as semantic proof"
+  ],
+  "caseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "questionRef": "knowledge-promotion-question",
+  "readerPurpose": "执行判断的步骤与取舍"
+}

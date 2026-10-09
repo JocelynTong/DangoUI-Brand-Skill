@@ -2,6 +2,7 @@
 
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 
 const args = process.argv.slice(2);
 const value = (flag) => {
@@ -17,6 +18,7 @@ if (!input) {
 
 const file = path.resolve(input);
 const failures = [];
+const boundInputs = {};
 const fail = (code, message, context = {}) => failures.push({ code, message, ...context });
 let direction;
 try {
@@ -30,7 +32,49 @@ if (!direction.designObjective?.trim()) fail("DESIGN_OBJECTIVE_MISSING", "design
 if (direction.decisionStatus !== "approved") fail("DESIGN_DIRECTION_NOT_APPROVED", "decisionStatus must be approved before implementation.");
 const bindings = direction.inputBindings || {};
 for (const key of ["goal", "evidence", "intent", "patterns"]) {
-  if (!bindings[key]?.path || !/^[a-f0-9]{64}$/i.test(bindings[key]?.sha256 || "")) fail("DESIGN_INPUT_BINDING_MISSING", `inputBindings.${key} requires path and SHA-256.`, { input: key });
+  const binding = bindings[key];
+  if (!binding?.path || !/^[a-f0-9]{64}$/i.test(binding?.sha256 || "")) {
+    fail("DESIGN_INPUT_BINDING_MISSING", `inputBindings.${key} requires path and SHA-256.`, { input: key });
+    continue;
+  }
+  const candidates = [path.resolve(binding.path), path.resolve(path.dirname(file), binding.path)];
+  const bindingFile = candidates.find((candidate) => fs.existsSync(candidate));
+  if (!bindingFile) {
+    fail("DESIGN_INPUT_FILE_MISSING", `inputBindings.${key}.path does not exist.`, { input: key, path: binding.path });
+    continue;
+  }
+  const actualSha256 = crypto.createHash("sha256").update(fs.readFileSync(bindingFile)).digest("hex");
+  if (actualSha256 !== binding.sha256.toLowerCase()) {
+    fail("DESIGN_INPUT_HASH_MISMATCH", `inputBindings.${key} is stale; the bound SHA-256 does not match the current file.`, {
+      input: key,
+      path: binding.path,
+      expectedSha256: binding.sha256,
+      actualSha256
+    });
+  } else {
+    try { boundInputs[key] = JSON.parse(fs.readFileSync(bindingFile, "utf8")); } catch { /* Non-learning legacy inputs remain supported. */ }
+  }
+}
+// A local source calibration may be useful, but is not permission to spend a
+// formal learning implementation on a known-unavailable generative proof.
+if (args.includes("--require-learning-proof")) {
+  const plan = direction.generativePlan;
+  const patterns = Array.isArray(boundInputs.patterns?.patterns) ? boundInputs.patterns.patterns : [];
+  const byId = new Map(patterns.map((pattern) => [pattern.id, pattern]));
+  if (!plan || plan.status !== "approved" || !plan.reviewer || !plan.scope ||
+      plan.variationKind !== "structure" || !String(plan.variedStructure || "").trim() ||
+      !String(plan.proofArtifactPlan || "").trim()) {
+    fail("LEARNING_GENERATIVE_SCOPE_UNRESOLVED", "Formal learning Demo requires a Director-approved structure variation plan, not only source calibration or state inspection.");
+  }
+  const ids = Array.isArray(plan?.invariantPatternIds) ? plan.invariantPatternIds : [];
+  if (!ids.length || ids.some((id) => !byId.has(id) || byId.get(id).status !== "approved")) {
+    fail("LEARNING_INVARIANT_PATTERN_UNPROVEN", "Generative invariants must reference current hash-bound approved Pattern IDs.");
+  }
+  const transforms = Array.isArray(plan?.allowedTransformationRefs) ? plan.allowedTransformationRefs : [];
+  if (!transforms.length || transforms.some((item) => !ids.includes(item.patternId) ||
+      !byId.get(item.patternId)?.allowedTransformations?.includes(item.transformation))) {
+    fail("LEARNING_TRANSFORMATION_UNAPPROVED", "Planned variations must reference transformations actually allowed by the bound Patterns; do not invent permission in the direction document.");
+  }
 }
 const priorities = direction.visualPriorityOrder;
 if (!Array.isArray(priorities) || priorities.length < 4) fail("VISUAL_PRIORITY_ORDER_MISSING", "Declare at least four ordered visual priorities.");

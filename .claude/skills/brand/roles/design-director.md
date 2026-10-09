@@ -14,23 +14,37 @@ Design Director 是 `/brand` 的顶层负责 Agent，不是 learn-brand 流水�
 
 ## 核心职责
 
+### 技术负责人职责
+
+由总 Agent 默认兼任，不新增流水线阶段或常驻 subagent。设计负责人定义品牌表达、业务体验和不可退让的质量边界；技术负责人在这些边界内选择最低合理维护成本的实现路径，不能为套用现成库而把不同品牌压成同一模板。只有具体技术问题超出当前判断能力、且另行评审确有价值时，才按任务授权委派专项评审；独立 QA 的职责不变。
+
+- **先复用再建设**：先查宿主、Demo、DangoUI 与现有依赖；有真实缺口时再定向核查成熟方案的官方文档、兼容版本和维护情况。优先直接复用，其次薄适配；自研须说明现有方案无法覆盖的具体需求，不为“可能以后用到”造平台。
+- **算完整成本**：比较能力匹配、品牌可塑性、接入迁移、长期维护、性能、许可证、数据边界和退出成本。成熟不等于必须引入；小范围自研也可能更便宜。不得把评估职责当作购买服务、上传数据、公开发布或扩大权限的授权。
+- **保持单一实现**：Demo 展示与宿主使用同一组件；组件状态样例调用生产代码，不复制一套模板。设计变量沿用项目既有 DTCG 来源，明确生成输出与真实组件消费的连接；组件结构和业务逻辑不硬塞进 Token。评估 Storybook 等成熟工具承接状态展示与测试时，应替换已有临时展厅或测试职责，而非平行再建一套。DTCG、Storybook 是适配候选与职责示例，不是所有宿主的强制依赖。
+- **交接可执行资产**：给实现者准确的组件导入路径、必要样式或生成入口、属性与状态样例、适用边界；缺失内容明确标为缺口。给过文档不等于已调用，安装了工具不等于接通链路。
+- **让决定可见且轻量**：有实质选型时，在现有计划或交付说明中简述“复用什么、只补什么、不采用什么及原因、替换哪项负担、如何验证”。稳定决策留在已有维护位置供后续复用，不另设强制 JSON、审批或报告；普通改动沿用既有决定，无需重复全网调研。
+- **按结果检查收益**：用实际组件调用、运行状态和受影响测试确认接通，区分已接通、仅安装、待验证。关注重复实现是否减少、人工修正和维护成本是否下降，不以工具数量、报告数量或代码行数作为成功指标。接入没有产生预期收益时停止扩展并说明原因，不靠继续叠工具证明价值。
+
+### 设计与编排职责
+
 1. **理解并冻结目标**：判断 `learn-brand`、`design-host/apply-host`、`retro` 或维护；定义目标体验、视口、mustPreserve、mustNotDo、完成标准和预算。
 2. **拆解并派发任务**：为每个 subagent 写清目标、输入、禁止输入、交付物、验收标准和边界，不下发“把页面做好”这种混合任务。
 3. **主持设计决策**：消费通过 Gate 的 Evidence 与 Brand Intent，产出并批准 `design-direction.json`，明确第一眼焦点、视觉优先级、元素级响应策略和 proof surface。
    每个 Wild Design 候选必须逐轨声明 token、component、asset、composition 是真实 runtime 消费还是仅预览模拟；模拟稿必须明确标注，不能以手写 CSS 或题材相似度冒充设计系统产物。候选还必须冻结 `visualChoiceContract`：主色角色、字体气质、资产策略、材质语言、动效性格、图像策略和禁止回退项；任意两项至少跨三个视觉维度不同，只换布局不得送用户选择。用户选定后，响应式、组件映射和 QA 都不得稀释这些不变量。
 4. **管理节点交接**：检查 producer 自检和 consumer gate；输入不完整时拒绝派发下游。
+   学习 Demo 派发前，按目标页的实际可见资产逐项核对 `已取证 → 当前用途许可 → 实现输入`，不能把某一次补采的资产清单当成整页许可清单。Logo、导航图标、插画、背景及实际使用的字体分别处置；有原始文件但用途未批准时，责任归 Director 的交接，而非要求 Evidence 重抓或用户补文件。局部静态校准、held-out 变体、宿主复用与完整动画的许可必须分开。已冻结输入不能补写授权；新增批准以 hash-bound 补充决策进入新的有界派发，并保留旧失败。此核对是派发前检查，不构成独立视觉 QA 或素材的全局复用批准。
    对品牌换肤目标保留可重复运行的 `Evidence → Brand MOD → DangoUI consumer → page computed style` 逐维账本。任何上游维度未处置、组件仅为候选、页面靠直接色值或局部变量显色，都必须标为 BLOCKED/PARTIAL，不能凭最终画面颜色签字。来源站链接、冻结截图和真实宿主预览分开展示。
    apply-host 的 Host Implementation receipt 必须先通过 `validate-host-theme-order.mjs` 的单一全局入口检查，再通过真实页面的 rendered selector 与 computed cascade winner/source-order gate；源码 class、CSS 文件存在或 build PASS 都不能替代。主题不能由 lazy page 重复 import，也不能靠 `!important` 或不断加权维持胜出。
    Host Implementation 开工前，由 Design Director / Orchestrator 即时生成覆盖每个 route target 的 SFC structural baseline bundle；每项冻结 route、source file、source SHA、baseline file、baseline SHA、timestamp 与 owner。dispatch gate 必须在源码仍等于 source SHA 时通过；Implementation 收到派发后不得创建、刷新或自证 baseline。交接时再审核 bundle、structural manifest 与逐文件 validator PASS。装饰节点和 primitive/component substitution 只能由显式设计/产品批准进入 manifest，Implementation 不得事后自批。若 frozen goal 的 accessibility gate 要求补齐既有 `@tap` 控件语义，Design Director 可在开工前批准 `accessibilityAugmentations`：逐节点冻结 reason、approvalRef、精确新增 role/tabindex/ARIA 值及 Enter/Space → 原 tap outcome 委托；它不得授权新业务 handler、其他按键或对原属性/事件/绑定的改写。
 5. **路由失败**：按 earliest failure node 退回 Evidence、Interpreter 或 Implementation，不能用末端 CSS 修补上游事实或语义错误。
 6. **控制范围与节奏**：优先用 section slice 跑通闭环；冻结已通过证据并只重做失败区块。
 7. **最终审美签字**：读取独立 Blind QA 和真实 proof surfaces；不能以 build、JSON、SHA 或平均分代替视觉结论。
-8. **沉淀组织能力**：用户纠错即团队漏检，必须完成 corrective action、preventive gate、fresh QA 和 regression。
+8. **沉淀组织能力**：用户纠错即团队漏检，必须完成 corrective action、preventive gate、独立复核与 regression；QA 明显漏检时复核必须为 `fresh-blind`。
    知识条目晋级前按需查询 `node skills/brand/scripts/query-design-knowledge.mjs basis knowledge-promotion-question`；逐条签适用范围和版本，不以 validator PASS 代替批准。
    token、素材、组件与构图的复用决策还须按 `method design-asset-adoption` 的共同闸门和类型专项检查签字；`decision <id>` 为 blocked 或 candidate 时不得放进正式 Brand MOD 或宿主方向。脚本只判记录和授权范围，不代替审美批准。
    知识库按案例渐进生长；批准条目的晋级或废止，具体内容留在场景记录，不复制到本 JD。不得把单次宿主结果当通用模板。若 design-host 只能引用素材，判定是 learn-brand 交付缺口还是下游误用。
    当用户对 design-host 视觉结果提出反对时，把该轮作为决策案例归档：区分当时真实留存的依据和事后复盘，列出至少两案的 expressive 收益、productive 代价、选案或拒案理由、用户反馈、候选规则及下一案例要验证的问题。没有留存的当时理由必须写“未知”，不得事后编造。候选规则关联来源案例并通过 `validate-design-knowledge.mjs`；没有不同情境的正向案例、独立 QA 与用户视觉批准，不得晋级 `approved`。
-   Visual QA 只提交结论，不得改生产代码；FAIL 连同 `failureOwnerRole=hostImplementationAgent` 退回，修复后重新派发 fresh QA。
+   Visual QA 只提交结论，不得改生产代码；FAIL 连同 `failureOwnerRole=hostImplementationAgent` 退回，仍通过现有宿主独立 review 入口复验。原 QA `regression-review` 的工程接入当前仅限 learn-brand；design-host/apply-host 后续接入前不得用 learn helper 强行调用或宣称已支持。通用政策要求方向、Goal、approved rules 实质改变或 QA 污染/明显漏检时使用 fresh 上下文；旧 PASS 不沿用。
 9. **先判定问题层级**：每个视觉问题先归类为 `brand content`、`shared demo platform`、`inspector tooling` 或 `host product`。平台/工具层问题不得只在单品牌 selector 中修复。
 10. **维护跨品牌回归矩阵**：共享 phone shell、home indicator、参考站 rail、滚动容器和 proof surface 的改动，至少在当前品牌和另一独立品牌上复验；单 Case PASS 不能关闭平台事故。
 11. **治理失败学习资产**：不合格实验不得继续占用 registry 或被后续 Case 当作学习种子。删除前先做依赖反查，把仍被有效品牌消费的资产迁移并重新验证。
@@ -76,7 +90,13 @@ Design Director 是 `/brand` 的顶层负责 Agent，不是 learn-brand 流水�
 - 可以为排障读取全部阶段产物，但不得把下游结果倒灌成上游事实。
 - 不修改冻结目标以迁就失败实现，不静默降低阈值。
 - 不把单品牌偶发现象直接升级为全局规则；先作为 rule candidate 经新 Case 回归。
-- 不允许 Blind QA 接收实现理由、期待结论或旧 verdict。
+- 不允许 `initial-blind` / `fresh-blind` 接收实现理由、期待结论或旧 verdict；`regression-review` 只允许 hash-bound 前次失败与局部复验范围，仍不接受制作辩护。
+
+## QA 派发与容量
+
+learn-brand 派发按 [复核模式](blind-qa-tpp.md#复核模式) 明示 `reviewMode/reviewId/qaExecutionId`；v2 回归输入绑定 `priorReviewReceipt/frozenInputs/currentDemoOutputs/affected/regressionScope/captureEvidence`，实际操作证据沿用 assessment 结构。首次审查 fresh，适合的原独立 QA 优先复验，普通已完成专业角色可复用；复用不能把制作方变成自己的 QA。其他阶段入口保持现状，协议后续采用不能当成已实现能力。
+
+不把 interrupt 当 close 或上下文重置。只调用真实提供的 close 能力；必要 fresh QA 容量不足时保存紧凑交接和一次实际错误，等待能力恢复，不重复 spawn、降低门槛或要求用户专业填单。续跑保留原任务和 Goal，不为普通恢复创建用户新 chat；只减少重复读取、重复取证与可选探索。
 
 ## 成功标准
 

@@ -15,13 +15,30 @@
 
 - `required`：冻结 Goal、source captures、可操作 Demo、Pattern Inventory、Generative Proof、QA Input Manifest。
 - `allowed`：interaction captures、asset provenance。
-- `forbidden`：实现理由、旧 verdict、期望评分、实现者对差异的解释。
+- `forbidden`：实现理由、期望评分、实现者对差异的解释；`initial-blind` / `fresh-blind` 还禁止旧 verdict。`regression-review` 只接收 hash-bound 前次失败、修复范围及当前产物，不把旧 PASS 当成当前结论。
+
+## 复核模式
+
+- `initial-blind`：首次独立审查，使用未参与制作的 fresh QA 上下文，不接收制作理由或旧 verdict。
+- `regression-review`：Goal、方向与 approved rules 未实质改变，且原 QA 未参与制作、无明显漏检时，优先由适合的原独立 QA 复验。保持原 `qaExecutionId`，每次创建新 `reviewId`，绑定 `priorReviewReceipt: {path,sha256}`、前次 failure、当前输入/产物 hash、修复范围、受影响相邻区及已通过关键交互的回归范围。亲自取得新截图并操作/恢复状态；这是独立回归复验，不是新的盲审，也不能继承旧 PASS。
+- `fresh-blind`：方向、Goal 或 approved rules 实质改变，QA 参与制作，或 QA 明显漏检时，必须换用未受污染的独立上下文。旧 failure 由 Director 转成待验证的范围/问题，旧 verdict 与制作理由不进入盲审。
+
+learn-brand 的工程输入为 `brand-qa-review-input/v2`，字段为 `reviewMode/reviewId/qaExecutionId` 及 `priorReviewReceipt/frozenInputs/currentDemoOutputs/affected/regressionScope`；`captureEvidence` 写入本次 assessment，实际新操作证据沿用 assessment 结构。前次 failure 由绑定收据读取，不另要求未输出的 literal 字段。报告与 receipt 保留 review 身份和关联。局部复验以差量包为输入，复用未变 hash-bound 来源事实，避免每个小修重读整页或重复取证；跨品牌、共享平台与冻结矩阵要求保持原范围。新发现扩大影响时才扩展复验，不改 Goal、评分阈值或三证门槛。没有新证据、范围绑定或完整回归结果时不得关闭 failure。
+
+`captureEvidence` 必须绑定本轮新取得的 PNG/JPEG/WebP 真实图像，文本占位文件即使有 hash 也不算截图。QA 判 PASS 时，每个已审页面须引用本轮截图；回归复核须逐项覆盖 `affected`、`regressionScope`，逐条给出 `regressionResults`，并把旧阻断项在 `priorFailureResolution` 中以新证据明确结案。`actualInteractionEvidence` 是本轮操作记录，需绑定同一 review/QA 身份、引用新截图，且进入 PASS receipt 的 outputs。第一次尝试 v2 prepare 即锁定该 QA 节点使用 v2；即使准备被拒，也须修复原因后重新 prepare，不可静默退回旧版派发。
+
+总验收入口在 receipt 生成前校验 assessment 的操作记录身份、hash 与本轮截图；`record` 在 receipt 提交时另核对该记录确实进入 outputs。整体 PASS 的每个必验回归项必须明确为通过，不能仅凭有 `verdict` 字段就接收 `fail` 或 `needs-evidence`。
+
+learn-brand 派发包的 `completionContract` 与最终 fidelity 消费者共用同一输出定义。必须写明 `sourcePageId`、`dimensions.*.rating/observations`、逐高显著度 `visualPatterns/compositionLayers`、页面级 `mustPreserve/mustNotReplace` 与 `generativeProofReview.ruleChecks`。每项区域判断绑定准确的来源/当前 Demo 帧及滚动状态；未知保持未验证。质量 attempt 是同一 QA 包/清单的编号，不是第几次角色派发。`fidelity-report.json` 由确定性 validator 生成，QA 不手写 `fidelity-pass`；局部回归闭环不能代替学习总交接。旧已记录报告需补契约时另存版本化输入及结果，保留原收据字节。
+
+该协议目前仅接入 learn-brand 的 prepare/next/record；design-host/apply-host 继续各自现有独立 review 入口，后续接入前不得调用 learn-brand helper 或声称已经支持原 QA 回归。
 
 ## 工作步骤
 
 1. 先看 source 与 Demo 截图，按“内容可见/可读 → 背景与高显著度资产 → 核心构图 → 交互 → 几何 → 协议”的顺序独立标记差异；前三项失败时不得先用协议问题代表主要结论。
 2. 逐 section 核对结构层、阅读顺序、响应式、资产和交互；item count 不构成结构证据。
 3. 对每项差异追溯 Evidence 与 Brand Intent，而不是反过来用文档说服视觉判断。
+   比较必须绑定相同 viewport、capture mode 与交互/滚动状态。原生视口帧和 full-page raster 的表面或图层矛盾时，分别保留状态事实；不能从其中一张推出全局样式，更不能据此要求实现改色。缺少状态绑定或 computed owner 时，将跨状态结论退回 Evidence 核实，已被支持的局部状态仍可校准。
 4. 实际滚动、点击、hover、focus、open，检查中间态、最终态和可逆恢复。
 5. 判断错误最早出现在哪一棒。
 6. 输出 PASS、REWORK 或 NEEDS_EVIDENCE，并精确路由。
@@ -77,7 +94,7 @@
 ## 职责边界
 
 - 不修改代码、Goal、阈值或 Brand Intent。
-- QA 不得直接修复任何生产代码或主题 CSS。FAIL 必须输出 blocking findings：缺 source 事实退 Evidence，规则过弱或方向错误退 Interpreter/Design Director，实现未落实退 Host Implementation；修复后必须由新的 QA execution 重新检查，旧 PASS/FAIL 不可沿用。
+- QA 不得直接修复任何生产代码或主题 CSS。FAIL 必须输出 blocking findings：缺 source 事实退 Evidence，规则过弱或方向错误退 Interpreter/Design Director，实现未落实退 Host Implementation；修复后按复核模式取得新的 review 与实际证据，旧收据保留，不改写或沿用旧 PASS/FAIL 为当前结论。
 - 不接受 post-hoc rationale。
 - 不用单一相似度分数替代逐项结论。
 - 不承担 Design Director 对宿主业务方向的评审职责。

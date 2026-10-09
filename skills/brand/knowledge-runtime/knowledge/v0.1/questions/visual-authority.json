@@ -1,0 +1,53 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "visual-authority",
+  "title": "多种参考同时存在时，如何确定一致的设计依据？",
+  "status": "open-case-observed",
+  "scope": "跨品牌、跨宿主的视觉迁移与动态界面设计；具体证据仍受案例范围限制",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "opcg-a1-live-host-layering"
+  ],
+  "hypothesisRefs": [
+    "visual-authority"
+  ],
+  "nextEvidenceNeeded": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "requiredContext": [
+    "来源是否权威",
+    "适用范围",
+    "冲突点",
+    "已确认目标"
+  ],
+  "pitfalls": [
+    "官网学习色彩更稳定目前是用户在有限案例中的观察，不是普遍优越性结论。"
+  ],
+  "stages": [
+    "learn-brand",
+    "design-host"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "用户要求迁移官网品牌时，由官网学习产物约束界面语义与可复用范围，生图在这些边界内探索；生成结果偏离时先修方案。",
+      "用户选择自由生成方案作为目标时，从选定方案提取页面系统，连同列表、搜索与明暗关系一起还原；不得把派生系统称为官网结论。",
+      "两条路线都要逐区域确定依据。只有宿主功能、安全区或可访问性要求迫使调整时才设例外，并记录原因。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "visual-authority"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "opcg-a1-live-host-layering",
+      "summary": "OPCG 试做中用户认为官网学习的色彩更稳定，但这仍是有限案例观察；不能据此断言官网路线在所有任务中都更好。"
+    }
+  ]
+}

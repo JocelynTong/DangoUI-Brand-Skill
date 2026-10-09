@@ -4,6 +4,8 @@ import path from "node:path";
 import crypto from "node:crypto";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
+import { validatePrimaryRoleFrequencyReview } from "./validate-primary-role-frequency-review.mjs";
+import { validInteractionEvidencePolicy, interactionProof, hasOrderedInteractionStates } from './interaction-evidence-policy.mjs';
 
 const installedSkillRoot = path.dirname(path.dirname(fileURLToPath(import.meta.url)));
 const workflowContractFile = (root) => {
@@ -1009,6 +1011,40 @@ function evidenceVisibilityGate() {
     const file = path.isAbsolute(raw) ? raw : path.resolve(root, raw);
     return fs.existsSync(file) && crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex") === value.sha256;
   };
+  const rasterMetadata = (value) => {
+    const raw = capturePath(value);
+    if (!raw) return null;
+    const file = path.isAbsolute(raw) ? raw : path.resolve(root, raw);
+    if (!fs.existsSync(file)) return null;
+    const buffer = fs.readFileSync(file);
+    const prefix = buffer.subarray(0, 160).toString("utf8");
+    if (prefix.startsWith("version https://git-lfs.github.com/spec/v1")) return { format: "git-lfs-pointer", width: 0, height: 0 };
+    if (buffer.length >= 24 && buffer.subarray(0, 8).equals(Buffer.from([137, 80, 78, 71, 13, 10, 26, 10]))) {
+      return { format: "png", width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
+    }
+    if (buffer.length >= 10 && (buffer.subarray(0, 6).toString("ascii") === "GIF87a" || buffer.subarray(0, 6).toString("ascii") === "GIF89a")) {
+      return { format: "gif", width: buffer.readUInt16LE(6), height: buffer.readUInt16LE(8) };
+    }
+    if (buffer.length >= 4 && buffer[0] === 0xff && buffer[1] === 0xd8) {
+      let offset = 2;
+      while (offset + 8 < buffer.length) {
+        if (buffer[offset] !== 0xff) { offset += 1; continue; }
+        const marker = buffer[offset + 1];
+        if ([0xd8, 0xd9].includes(marker)) { offset += 2; continue; }
+        const size = buffer.readUInt16BE(offset + 2);
+        if (size < 2 || offset + size + 2 > buffer.length) break;
+        if ([0xc0, 0xc1, 0xc2, 0xc3, 0xc5, 0xc6, 0xc7, 0xc9, 0xca, 0xcb, 0xcd, 0xce, 0xcf].includes(marker)) {
+          return { format: "jpeg", width: buffer.readUInt16BE(offset + 7), height: buffer.readUInt16BE(offset + 5) };
+        }
+        offset += size + 2;
+      }
+    }
+    return null;
+  };
+  const readableRaster = (value) => {
+    const meta = rasterMetadata(value);
+    return Boolean(meta && meta.width > 0 && meta.height > 0);
+  };
   const regionValid = (region) => Array.isArray(region)
     && region.length === 4
     && region.every((value) => Number.isFinite(Number(value)))
@@ -1023,6 +1059,16 @@ function evidenceVisibilityGate() {
 
   const evidencePolicy = goal?.evidencePolicy || {};
   const continuousRequired = evidencePolicy.continuousCaptureRequired === true;
+  const viewportAuthority = evidencePolicy.visualAuthority === 'viewport-sequence/v1';
+  const authoritativeFrames = new Map();
+  const motionInteractions = new Map();
+  const indexFrames = (pageId, frames) => {
+    const bindings = authoritativeFrames.get(pageId) || new Set();
+    for (const frame of frames) {
+      if (existingCapture(frame?.capture) && captureHashMatches(frame.capture) && readableRaster(frame.capture)) bindings.add(path.resolve(root, capturePath(frame.capture)));
+    }
+    authoritativeFrames.set(pageId, bindings);
+  };
   if (continuousRequired || observation) {
     add("source-observation-manifest", observation ? "pass" : "fail", "Continuous source evidence requires source-observation-manifest.json.", "Record each required page with full-page capture, continuous playback, lossless-frame timeline and coverage status.");
   }
@@ -1044,29 +1090,170 @@ function evidenceVisibilityGate() {
       for (const [kind, value] of [["full-page", page.fullPageCapture], ["continuous", page.continuousCapture], ["timeline", page.timeline]]) {
         add(`observation-${kind}-${pageId}`, existingCapture(value) && captureHashMatches(value) ? "pass" : "fail", `${pageId} ${kind} evidence must exist and match its frozen sha256.`, "Recapture the page and refresh the observation manifest hash.");
       }
+      const fullPageMeta = rasterMetadata(page.fullPageCapture);
+      add(
+        `observation-full-page-raster-${pageId}`,
+        readableRaster(page.fullPageCapture) ? "pass" : "fail",
+        `${pageId} full-page evidence must be a locally readable raster, not a Git LFS pointer, placeholder or text file.`,
+        "Fetch or recapture the real image bytes and verify that the file decodes with non-zero dimensions.",
+        { raster: fullPageMeta },
+      );
       const timelinePath = capturePath(page.timeline);
       const timeline = timelinePath ? readJsonLoose(path.isAbsolute(timelinePath) ? timelinePath : path.resolve(root, timelinePath)) : null;
       const frames = toArray(timeline?.frames);
+      if (viewportAuthority && captureHashMatches(page.timeline)) indexFrames(pageId, frames);
+      // Local corrections remain separate from the original continuous sweep.
+      // They authorize only same-page frames, never page coverage or motion.
+      for (const [index, ref] of toArray(page.supplementalTimelines).entries()) {
+        const supplement = captureHashMatches(ref) ? readJsonLoose(path.resolve(root, capturePath(ref))) : null;
+        const extraFrames = toArray(supplement?.frames);
+        const sourceUrl = toArray(goal.referencePages).find(item => item.id === pageId)?.url || goal.sourceUrl;
+        const width = Number(supplement?.meta?.viewport?.width);
+        const height = Number(supplement?.meta?.viewport?.height);
+        const valid = viewportAuthority && validInteractionEvidencePolicy(evidencePolicy.interactionEvidence)
+          && supplement?.schema === 'source-local-observation/v1' && supplement.sourcePageId === pageId
+          && Boolean(sourceUrl) && supplement.url === sourceUrl && width > 0 && height > 0 && extraFrames.length > 0
+          && extraFrames.every(frame => {
+            const raster = rasterMetadata(frame.capture);
+            const measured = captureHashMatches(frame.observation) ? readJsonLoose(path.resolve(root, capturePath(frame.observation))) : null;
+            return captureHashMatches(frame.capture) && raster && raster.width >= width && raster.height >= height
+              && Math.abs(raster.width / width - raster.height / height) < 0.01
+              && measured?.url === sourceUrl && Number(measured?.viewport?.width) === width && Number(measured?.viewport?.height) === height
+              && Number.isFinite(Date.parse(measured?.capturedAt));
+          });
+        add(`observation-supplement-${pageId}-${index}`, valid ? 'pass' : 'fail', 'Local observation must bind same-page raw measurements, real viewport and hashed frames.', 'Do not merge a later local observation into the original continuous sweep or use it as motion proof.');
+        if (valid) indexFrames(pageId, extraFrames);
+      }
       const first = frames[0];
       const last = frames[frames.length - 1];
       const viewportHeight = Number(timeline?.meta?.viewport?.height || observation?.viewport?.height || 0);
       const scrollHeight = Number(last?.scrollHeight || timeline?.meta?.scrollHeight || page.timeline?.scrollHeight || 0);
       const reachesEnd = Number(first?.scrollTop) === 0 && Number(last?.scrollTop) >= Math.max(0, scrollHeight - viewportHeight - 8);
-      add(`observation-scroll-coverage-${pageId}`, frames.length >= 3 && reachesEnd ? "pass" : "fail", `${pageId} timeline must begin at scrollTop 0 and reach the page end.`, "Record stable initial frames, continuous scroll steps and settled end frames.", { frameCount: frames.length, firstScrollTop: first?.scrollTop, lastScrollTop: last?.scrollTop, scrollHeight, viewportHeight });
+      const requiredFrameCount = scrollHeight <= viewportHeight ? 1 : scrollHeight <= viewportHeight * 2 ? 2 : 3;
+      const uniqueScrollPositions = new Set(frames.map((frame) => Number(frame?.scrollTop))).size;
+      const viewportControlled = timeline?.meta?.navigationMode === "viewport-controller";
+      const uniqueControllerStates = new Set(frames.map((frame) => JSON.stringify(frame?.controllerState || []))).size;
+      const viewportPageCount = Number(timeline?.meta?.viewportPageCount || 0);
+      const requiredControllerStates = Math.max(1, Math.min(viewportPageCount || 3, 3));
+      const scrollCoveragePassed = viewportControlled
+        ? frames.length >= requiredControllerStates && uniqueControllerStates >= requiredControllerStates
+        : frames.length >= requiredFrameCount && uniqueScrollPositions >= requiredFrameCount && reachesEnd;
+      if (viewportAuthority) {
+        // Three distant snapshots are not full-page coverage. Use actual viewport
+        // intervals, in recorded order, without inventing intermediate frames.
+        const positions = frames.map(frame => Number(frame?.scrollTop));
+        const completeSequence = viewportControlled
+          ? viewportPageCount > 0 && uniqueControllerStates >= viewportPageCount
+          : viewportHeight > 0 && scrollHeight > 0 && reachesEnd
+            && positions.every((top, index) => Number.isFinite(top) && top >= 0 && (index === 0 || (top >= positions[index - 1] && top - positions[index - 1] <= viewportHeight)));
+        add(`observation-viewport-authority-${pageId}`, completeSequence && frames.length > 0 ? 'pass' : 'fail', `${pageId} visual authority requires a gap-free viewport sequence or every declared controller state.`, 'Reuse actual frames covering missing intervals; an overview cannot fill missing visual evidence.');
+        const width = Number(timeline?.meta?.viewport?.width || observation?.viewport?.width || 0);
+        const dimensionMatches = frames.every(frame => {
+          const raster = rasterMetadata(frame.capture);
+          return raster && width > 0 && viewportHeight > 0 && raster.width >= width && raster.height >= viewportHeight && Math.abs(raster.width / width - raster.height / viewportHeight) < 0.01;
+        });
+        const frameHashes = frames.map(frame => frame?.capture?.sha256);
+        const visualStates = viewportControlled ? frames.map(frame => JSON.stringify(frame?.controllerState || [])) : positions;
+        const duplicatedPosition = frames.some((frame, index) => frameHashes.slice(0, index).some((hash, prior) => hash === frameHashes[index] && visualStates[prior] !== visualStates[index]));
+        add(`observation-viewport-rasters-${pageId}`, dimensionMatches && !duplicatedPosition ? 'pass' : 'fail', `${pageId} frames must match viewport proportions and may not reuse identical pixels at different document positions.`, 'Use original viewport rasters and actual viewport dimensions, not renamed overview captures.');
+      }
+      add(`observation-scroll-coverage-${pageId}`, scrollCoveragePassed ? "pass" : "fail", `${pageId} timeline must cover document scroll positions or distinct full-screen controller states.`, "Record stable initial frames, distinct native wheel/PageDown states and a settled end frame.", { frameCount: frames.length, requiredFrameCount, uniqueScrollPositions, firstScrollTop: first?.scrollTop, lastScrollTop: last?.scrollTop, scrollHeight, viewportHeight, viewportControlled, viewportPageCount, requiredControllerStates, uniqueControllerStates });
+      const frameCaptures = frames.map((frame) => frame?.capture).filter(Boolean);
+      const invalidFrames = frames
+        .map((frame, index) => ({ index, capture: frame?.capture }))
+        .filter(({ capture }) => !capture || !existingCapture(capture) || !captureHashMatches(capture) || !readableRaster(capture))
+        .map(({ index }) => index);
+      add(
+        `observation-lossless-frames-${pageId}`,
+        frameCaptures.length === frames.length && invalidFrames.length === 0 ? "pass" : "fail",
+        `${pageId} timeline must resolve every step to a readable, hash-matched raster frame.`,
+        "Persist the actual viewport frames, reference each from timeline.frames[].capture and reject placeholders or missing Git LFS objects.",
+        { frameCount: frames.length, referencedFrameCount: frameCaptures.length, invalidFrames },
+      );
+      const content = page.contentVerification || {};
+      const expectedSections = toArray(content.expectedSections);
+      const verifiedSections = new Set(toArray(content.verifiedSections));
+      const missingSections = expectedSections.filter((section) => !verifiedSections.has(section));
+      const textSamples = toArray(content.textSamples);
+      const validTextSamples = textSamples.filter((sample) => hasMeaningfulValue(sample?.text)
+        && hasMeaningfulValue(sample?.selector)
+        && sample?.visible === true
+        && Number(sample?.boundingBox?.width) > 0
+        && Number(sample?.boundingBox?.height) > 0
+        && Number.isInteger(Number(sample?.frameIndex))
+        && Number(sample.frameIndex) >= 0
+        && Number(sample.frameIndex) < frames.length);
+      const textNotApplicable = content.textNotApplicable === true && hasMeaningfulValue(content.textNotApplicableReason);
+      const captureEnvironment = content.captureEnvironment || null;
+      const environmentFailureCodes = captureEnvironment ? [
+        captureEnvironment.autoTranslated === true ? "SOURCE_AUTO_TRANSLATED" : null,
+        captureEnvironment.viewportControllerRequired === true && captureEnvironment.viewportControllerInitialized !== true ? "VIEWPORT_CONTROLLER_NOT_INITIALIZED" : null,
+        captureEnvironment.viewportControllerRequired === true && captureEnvironment.scrollInput !== "native-wheel" ? "VIEWPORT_TRIGGER_INPUT_NOT_NATIVE" : null,
+        content.lifecycle?.settleTimedOut === true ? "OPENING_MEDIA_NOT_SETTLED" : null,
+      ].filter(Boolean) : [];
+      const contentComplete = content.status === "passed"
+        && content.fontsReady === true
+        && content.lazyContentSettled === true
+        && Number(content.unexpectedBlankFrames) === 0
+        && expectedSections.length > 0
+        && missingSections.length === 0
+        && environmentFailureCodes.length === 0
+        && (validTextSamples.length > 0 || textNotApplicable);
+      add(
+        `observation-content-completeness-${pageId}`,
+        contentComplete ? "pass" : "fail",
+        `${pageId} must prove that viewport content—not only document height—was fully rendered before evidence handoff.`,
+        "After a viewport-by-viewport settle sweep, record fontsReady, lazyContentSettled, zero unexpected blank frames, expected/verified sections and visible DOM-backed text samples tied to frame indexes.",
+        { verificationStatus: content.status || "missing", fontsReady: content.fontsReady === true, lazyContentSettled: content.lazyContentSettled === true, unexpectedBlankFrames: content.unexpectedBlankFrames, expectedSectionCount: expectedSections.length, missingSections, textSampleCount: textSamples.length, validTextSampleCount: validTextSamples.length, captureEnvironment, environmentFailureCodes },
+      );
     });
     add("observation-consumer-ready", observation?.coverage?.readyForInterpreter === true ? "pass" : "fail", "Evidence must explicitly mark the observation set ready only after page claims and consumer audit are complete.", "Keep readyForInterpreter=false while any required page still lacks extracted claims or a consumer rejection remains.");
     const observedInteractions = toArray(observation.interactions);
+    const interactionPolicy = evidencePolicy.interactionEvidence;
+    if (interactionPolicy !== undefined) add('observation-interaction-policy', viewportAuthority && validInteractionEvidencePolicy(interactionPolicy)
+      && JSON.stringify(evidencePolicy.requiredInteractionIds) === JSON.stringify(interactionPolicy?.required?.map(item => item.id)) ? 'pass' : 'fail',
+    'Interaction requirements must be explicitly frozen in a new viewport Goal.', 'Do not change a sealed Goal or infer coverage from missing requirements.');
+    if (viewportAuthority) {
+      for (const interaction of observedInteractions) {
+        if (interaction.status !== 'covered' || !captureHashMatches(interaction.timeline)) continue;
+        const timeline = readJsonLoose(path.resolve(root, capturePath(interaction.timeline)));
+        const frames = toArray(timeline?.frames);
+        const states = frames.map(frame => String(frame?.state || frame?.label || ''));
+        let previousStateIndex = -1;
+        const orderedStates = ['default', 'triggered', 'settled', 'restored'].every(state => {
+          const index = states.findIndex((value, i) => i > previousStateIndex && value === state);
+          if (index < 0) return false;
+          previousStateIndex = index;
+          return true;
+        });
+        const needsRecording = !interactionPolicy || interactionProof(interactionPolicy, interaction.id) === 'motion';
+        const valid = (!needsRecording || captureHashMatches(interaction.continuousCapture))
+          && observedPages.some(page => page.id === interaction.sourcePageId)
+          && orderedStates
+          && frames.every(frame => captureHashMatches(frame.capture) && readableRaster(frame.capture));
+        add(`observation-interaction-authority-${interaction.id}`, valid ? 'pass' : 'fail', 'Interaction authority requires page binding and ordered real state frames; motion also requires recording.', 'Keep unobserved or incomplete interactions unresolved; state-only proof cannot support motion claims.');
+        if (valid) indexFrames(interaction.sourcePageId, frames);
+        if (valid && needsRecording) motionInteractions.set(interaction.id, interaction.sourcePageId);
+      }
+    }
     toArray(evidencePolicy.requiredInteractionIds).forEach((interactionId) => {
       const interaction = observedInteractions.find((item) => item?.id === interactionId && item?.status === "covered");
       add(`observation-interaction-${interactionId}`, interaction ? "pass" : "fail", `${interactionId} needs continuous interaction evidence.`, "Record default, transition and settled states with a timeline.");
       if (!interaction) return;
+      if (interactionPolicy && interactionProof(interactionPolicy, interactionId) === 'states') {
+        const timeline = captureHashMatches(interaction.timeline) ? readJsonLoose(path.resolve(root, capturePath(interaction.timeline))) : null;
+        const valid = observedPages.some(page => page.id === interaction.sourcePageId) && hasOrderedInteractionStates(timeline)
+          && toArray(timeline?.frames).every(frame => captureHashMatches(frame.capture) && readableRaster(frame.capture));
+        add(`observation-interaction-states-${interactionId}`, valid ? 'pass' : 'fail', `${interactionId} requires hash-bound ordered state frames, not motion proof.`, 'Supply default, triggered, settled and restored observations from the same source page.');
+        return;
+      }
       add(`observation-interaction-media-${interactionId}`, existingCapture(interaction.continuousCapture) && captureHashMatches(interaction.continuousCapture) && existingCapture(interaction.timeline) && captureHashMatches(interaction.timeline) ? "pass" : "fail", `${interactionId} media and timeline must exist and match frozen hashes.`, "Recapture the interaction and refresh both hashes.");
       const timelinePath = capturePath(interaction.timeline);
       const timeline = timelinePath ? readJsonLoose(path.isAbsolute(timelinePath) ? timelinePath : path.resolve(root, timelinePath)) : null;
       const labels = toArray(timeline?.frames).map((frame) => String(frame?.label || ""));
       const hasDefault = labels.some((label) => /default|initial/.test(label));
       const hasTransition = labels.some((label) => /transition|open/.test(label));
-      add(`observation-interaction-states-${interactionId}`, hasDefault && hasTransition ? "pass" : "fail", `${interactionId} timeline must expose default and transition/open frames.`, "Do not replace continuous motion evidence with only an after screenshot.");
+      add(`observation-interaction-states-${interactionId}`, (interactionPolicy ? hasOrderedInteractionStates(timeline) : hasDefault && hasTransition) ? "pass" : "fail", `${interactionId} timeline must expose the frozen state sequence.`, "Do not replace continuous motion evidence with only an after screenshot.");
     });
   }
 
@@ -1096,14 +1283,23 @@ function evidenceVisibilityGate() {
     const observed = (claim.status || claim.evidenceStatus || "observed") === "observed";
     const highSalience = claim.salience === "high" || claim.highSalience === true || claim.required === true;
     if (!observed || (!strict && !highSalience)) return;
+    if (evidencePolicy.interactionEvidence && (/motion|animation|transition/i.test(String(claim.kind || claim.type || '')) || /animation|transition/i.test(String(claim.computed?.property || '')))) {
+      add(`claim-motion-authority-${id}`, motionInteractions.has(claim.interactionId) && motionInteractions.get(claim.interactionId) === claim.sourcePageId ? 'pass' : 'fail', 'State frames cannot prove timing, easing or motion.', 'Bind a validated motion interaction via interactionId or leave the motion claim unresolved.');
+    }
     const capture = claim.capture || claim.screenshot;
     const region = claim.sourceRegion || claim.region || capture?.region;
+    if (viewportAuthority) {
+      const resolvedCapture = capturePath(capture) ? path.resolve(root, capturePath(capture)) : null;
+      const overview = toArray(observation?.pages).some(page => capturePath(page.fullPageCapture) && path.resolve(root, capturePath(page.fullPageCapture)) === resolvedCapture);
+      const supported = !overview && authoritativeFrames.get(claim.sourcePageId)?.has(resolvedCapture) && captureHashMatches(capture);
+      add(`claim-viewport-authority-${id}`, supported ? 'pass' : 'fail', `${id} must bind a hash-matched viewport or recorded interaction frame on the same source page; full-page captures are overview-only.`, 'Reference the original timeline frame with sourcePageId and sha256, not the overview image.');
+    }
     add(`claim-capture-${id}`, existingCapture(capture) ? "pass" : "fail", `${id} must begin with a readable rendered screenshot.`, "Capture the real rendered page before reading CSS or naming a brand rule.");
     add(`claim-region-${id}`, regionValid(region) ? "pass" : "fail", `${id} must point to a screenshot region with positive width and height.`, "Record the exact visible region that supports the claim.");
     add(`claim-visible-dom-${id}`, visibleDomValid(claim.visibleDom) ? "pass" : "fail", `${id} must map to a visible DOM node/state with a non-zero box.`, "Locate the element from the screenshot; hidden or zero-size nodes cannot prove a visible pattern.");
     const needsComputed = !["asset", "composition", "content-density"].includes(claim.kind || claim.type);
     const computed = claim.computed || {};
-    if (needsComputed) add(`claim-computed-${id}`, Boolean(computed.property && hasMeaningfulValue(computed.value)) ? "pass" : "fail", `${id} must record the exact computed property and value.`, "Store property and value separately; never turn color into backgroundColor or infer semantics from a variable name.");
+    if (needsComputed) add(`claim-computed-${id}`, hasComputedValue(computed.property, computed.value) ? "pass" : "fail", `${id} must record the exact computed property and value.`, "Store property and value separately; never turn color into backgroundColor or infer semantics from a variable name.");
   });
 
   // brand-intent/vNext may declare explicit semanticClaims. These are the only
@@ -1140,6 +1336,10 @@ function evidenceVisibilityGate() {
     const disposition = semantic.disposition || semantic.evidenceDisposition || binding.disposition || "";
     const refs = toArray(semantic.evidenceRefs || binding.evidenceRefs || binding.evidenceRef);
     const resolved = refs.map((ref) => observedClaimsById.get(typeof ref === "string" ? ref : ref?.evidenceId)).filter(Boolean);
+    if (evidencePolicy.interactionEvidence && /^motion$/i.test(kind)) {
+      const supportsMotion = resolved.some(claim => motionInteractions.has(claim.interactionId) && motionInteractions.get(claim.interactionId) === claim.sourcePageId);
+      add(`semantic-motion-authority-${id}`, supportsMotion ? 'pass' : 'fail', 'Promoted motion must reference a validated recorded interaction.', 'State-only or direct static evidence cannot become a reusable motion rule.');
+    }
     const renderedClaim = resolved.find((claim) => {
       const capture = claim.capture || claim.screenshot;
       const region = claim.sourceRegion || claim.region || capture?.region;
@@ -1147,7 +1347,7 @@ function evidenceVisibilityGate() {
       return existingCapture(capture)
         && regionValid(region)
         && visibleDomValid(claim.visibleDom)
-        && Boolean(computed.property && hasMeaningfulValue(computed.value))
+        && hasComputedValue(computed.property, computed.value)
         && hasMeaningfulValue(claim.sourcePageId || claim.page)
         && hasMeaningfulValue(claim.state || claim.observedState);
     });
@@ -1158,7 +1358,7 @@ function evidenceVisibilityGate() {
     const hasDirectRenderedChain = existingCapture(directCapture)
       && regionValid(directRegion)
       && visibleDomValid(directDom)
-      && Boolean((directComputed.property || binding.computedProperty) && hasMeaningfulValue(directComputed.value ?? binding.computedValue))
+      && hasComputedValue(directComputed.property || binding.computedProperty, directComputed.value ?? binding.computedValue)
       && hasMeaningfulValue(binding.sourcePageId || binding.page)
       && hasMeaningfulValue(binding.state || binding.observedState);
     const origin = semantic.origin || semantic.source || binding.origin || binding.sourceType || "";
@@ -1177,7 +1377,7 @@ function evidenceVisibilityGate() {
     const after = entry.afterCapture || entry.captures?.after;
     add(`action-state-${index + 1}`, Boolean(entry.observedState && entry.trigger) ? "pass" : "fail", `${id} must preserve the actual observed state and reproducible trigger.`, "Record values such as is-open/open-menu; do not rewrite them as active/current.");
     add(`action-captures-${index + 1}`, existingCapture(before) && existingCapture(after) ? "pass" : "fail", `${id} needs readable before and after captures.`, "Trigger the interaction in the browser and capture both states.");
-    add(`action-property-${index + 1}`, Boolean(entry.computedProperty && hasMeaningfulValue(entry.computedValue)) ? "pass" : "fail", `${id} needs the exact changed computed property and value.`, "Record color as color, background-color as backgroundColor, and retain the source rule.");
+    add(`action-property-${index + 1}`, hasComputedValue(entry.computedProperty, entry.computedValue) ? "pass" : "fail", `${id} needs the exact changed computed property and value.`, "Record color as color, background-color as backgroundColor, and retain the source rule.");
     const selectorHasOpen = /is-open|\[aria-expanded=["']?true/i.test(entry.selector || "");
     const claimedActive = /\bactive\b|\bcurrent\b/i.test(`${entry.observedState || ""} ${entry.text || ""} ${entry.className || ""}`);
     if (selectorHasOpen && claimedActive && !/open/i.test(entry.observedState || "")) {
@@ -1563,6 +1763,13 @@ function normalizeExternalGoodcaseItems(report) {
     if (value && typeof value === "object") return Object.values(value).filter((item) => item && typeof item === "object");
   }
   return [];
+}
+
+function hasComputedValue(property, value) {
+  if (!property) return false;
+  // CSS absence is a measured value, unlike a missing research answer.
+  const noneProperties = ['boxShadow', 'box-shadow', 'textShadow', 'text-shadow', 'transform', 'filter', 'backgroundImage', 'background-image', 'animationName', 'animation-name', 'transitionProperty', 'transition-property', 'display', 'borderStyle', 'border-style'];
+  return hasMeaningfulValue(value) || (value === 'none' && noneProperties.includes(property));
 }
 
 function hasMeaningfulValue(value) {
@@ -2086,6 +2293,31 @@ function readJsonLoose(file) {
   }
 }
 
+function structuredActionEvidenceFrom(evidence) {
+  const coverage = evidence?.dimensionCoverage?.["action-color"];
+  if (coverage?.status !== "observed" || !Array.isArray(coverage.claimIds) || !coverage.claimIds.length) return null;
+  const observed = new Map((evidence?.claims || []).filter((claim) => claim?.id && claim.status === "observed").map((claim) => [claim.id, claim]));
+  const claims = coverage.claimIds.map((id) => observed.get(id));
+  const complete = claims.every((claim) => {
+    const proof = claim?.sourceProof;
+    return claim?.kind === "action-color"
+      && Boolean(claim.semanticRole)
+      && Boolean(claim.capture?.path || claim.capture)
+      && /color/i.test(String(claim.computed?.property || ""))
+      && Boolean(claim.computed?.value)
+      && Boolean(proof?.selector)
+      && Array.isArray(proof?.visibleRect)
+      && proof.visibleRect.length === 4
+      && proof.visibleRect[2] > 0
+      && proof.visibleRect[3] > 0
+      && Boolean(proof?.paintedBackground)
+      && Boolean(proof?.paintedForeground)
+      && Boolean(proof?.state);
+  });
+  if (!complete || coverage.sourceCount !== claims.length) return null;
+  return { schema: "brand-action-evidence/structured-v1", source: "brand-evidence.json", claims };
+}
+
 function tppTest() {
   const root = opt("--root", process.cwd());
   const workflow = resolveTppWorkflow();
@@ -2113,7 +2345,9 @@ function tppTest() {
   const evidence = readJsonLoose(evidenceFile);
   const mod = readJsonLoose(modFile);
   const adapter = readJsonLoose(adapterFile);
-  const actionScore = actionFile ? readJsonLoose(actionFile) : null;
+  const legacyActionScore = actionFile ? readJsonLoose(actionFile) : null;
+  const structuredActionEvidence = structuredActionEvidenceFrom(evidence);
+  const actionScore = legacyActionScore || structuredActionEvidence;
   const dembrandt = readJsonLoose(dembrandtFile);
   const workflowContract = getWorkflowContract(root, mode);
   const entryGate = {
@@ -2401,7 +2635,11 @@ function tppTest() {
       evidence: fs.existsSync(evidenceFile) ? path.relative(root, evidenceFile) : null,
       mod: fs.existsSync(modFile) ? path.relative(root, modFile) : null,
       dangouiAdapter: fs.existsSync(adapterFile) ? path.relative(root, adapterFile) : null,
-      actionEvidence: actionFile ? path.relative(root, actionFile) : null,
+      actionEvidence: actionFile
+        ? path.relative(root, actionFile)
+        : structuredActionEvidence
+          ? path.relative(root, evidenceFile)
+          : null,
       dembrandt: fs.existsSync(dembrandtFile) ? path.relative(root, dembrandtFile) : null,
       demoPreview: fs.existsSync(previewFile) ? path.relative(root, previewFile) : null,
       previewRegistry: fs.existsSync(previewRegistryFile) ? path.relative(root, previewRegistryFile) : null,
@@ -2671,7 +2909,7 @@ function buildTppAcceptanceChecklist({
         required: true,
         status: actionScore ? (hasBlocking("primary-not-backed-by-action-evidence") ? "missing" : "complete") : "missing",
         why: "不能靠肉眼或全站频次直接决定 CTA / active 主色。",
-        evidence: actionScore ? "action-evidence-score.skills.json" : null,
+        evidence: actionScore?.source === "brand-evidence.json" ? "brand-evidence.json#dimensionCoverage/action-color" : actionScore ? "action-evidence-score.skills.json" : null,
         fix: firstFix("action-evidence-required")
           || firstFix("primary-not-backed-by-action-evidence")
           || firstFix("operator-primary-without-hard-proof"),
@@ -4184,6 +4422,7 @@ function collectRenderedAssets() {
   const cssFiles = splitList(opt("--css-files", ""));
   const computedFiles = splitList(opt("--computed-file", ""));
   const networkFiles = splitList(opt("--network-file", ""));
+  const mergeExisting = args.includes("--merge-existing");
   const documents = [];
   const warnings = [];
 
@@ -4221,18 +4460,28 @@ function collectRenderedAssets() {
     else if (doc.type === "network-file") assets.push(...collectNetworkRenderedAssets(doc, sourceUrl));
   }
 
-  const deduped = dedupeRenderedAssets(assets);
+  const existing = mergeExisting && fs.existsSync(outPath) ? readJsonLoose(outPath) : null;
+  const deduped = dedupeRenderedAssets([
+    ...toArray(existing?.assets),
+    ...assets,
+  ]);
   const roleCoverage = summarizeRenderedAssetRoles(deduped);
   const sectionBackgroundChain = summarizeSectionBackgroundChain(deduped);
   const data = {
     schema: "brand-rendered-asset-inventory/v1",
     brand,
     sourceUrl,
+    sourceUrls: [...new Set([
+      ...toArray(existing?.sourceUrls),
+      existing?.sourceUrl,
+      sourceUrl,
+    ].filter(Boolean))],
     createdAt: new Date().toISOString(),
     collection: {
-      documents: documents.map((doc) => ({ type: doc.type, url: doc.url, bytes: Buffer.byteLength(doc.text || "", "utf8") })),
-      warningCount: warnings.length,
-      warnings,
+      documents: [...toArray(existing?.collection?.documents), ...documents.map((doc) => ({ type: doc.type, url: doc.url, bytes: Buffer.byteLength(doc.text || "", "utf8") }))],
+      warningCount: toArray(existing?.collection?.warnings).length + warnings.length,
+      warnings: [...toArray(existing?.collection?.warnings), ...warnings],
+      mergeExisting,
     },
     assets: deduped,
     roleCoverage,
@@ -4520,8 +4769,25 @@ function scoreActionEvidence() {
   if (!file) fail("--file is required");
   const full = path.resolve(root, file);
   const parsed = readJsonLoose(full);
-  const frequencyReview = parsed?.schema === "brand-primary-role-frequency-review/v1";
-  const entries = frequencyReview
+  const genericFrequencyReview = parsed?.schema === "brand-primary-role-frequency-review/v2";
+  const frequencyReview = genericFrequencyReview || parsed?.schema === "brand-primary-role-frequency-review/v1";
+  if (genericFrequencyReview) {
+    const findings = validatePrimaryRoleFrequencyReview(parsed);
+    if (findings.length) fail(`Invalid role frequency review: ${findings.join(", ")}`);
+  }
+  const entries = genericFrequencyReview
+    ? parsed.sources.flatMap((page) => page.styles.map((style) => ({
+      role: "cta", sourceRole: style.role, sourceTreatment: style.treatment,
+      sourceScope: parsed.sampling.scope,
+      text: style.role,
+      selector: style.observations[0]?.paintSelector || "",
+      sourcePageId: page.pageId, sourceUrl: page.url,
+      observations: style.observations,
+      aggregateOnlyControls: style.count - style.observations.length,
+      actionScore: style.count,
+      styles: { backgroundColor: style.background, color: style.foreground },
+    })))
+    : frequencyReview
     ? (parsed.sources || []).flatMap((page) => (page.styles || []).map((style) => ({
       role: "cta",
       text: style.role,
@@ -4581,8 +4847,9 @@ function scoreActionEvidence() {
     brand,
     source: file,
     createdAt: new Date().toISOString(),
-    evidenceScope: frequencyReview ? "sampled-content-actions-only" : "individual-action-samples",
-    promotionStatus: frequencyReview ? parsed.status : "unreviewed",
+    evidenceScope: genericFrequencyReview ? "role-scoped-counted-controls" : frequencyReview ? "sampled-content-actions-only" : "individual-action-samples",
+    promotionStatus: genericFrequencyReview ? "not-approved-by-scoring" : frequencyReview ? parsed.status : "unreviewed",
+    ...(genericFrequencyReview ? { sourceReviewStatus: parsed.status, sourceSamplingScope: parsed.sampling.scope } : {}),
     candidates: Object.fromEntries(Object.entries(buckets).map(([key, values]) => [key, rankActionColors(values)])),
     gate: {
       ok: Boolean(rankActionColors(buckets.primaryActionFill)[0] || rankActionColors(buckets.activeStateFill)[0] || rankActionColors(buckets.neutralActionSurface)[0]),
@@ -4623,9 +4890,14 @@ function addActionColor(bucket, entry, value, field, score, options = {}) {
       score: score * (options.multiplier || 1),
       field,
       value,
-      selector: entry.selector || "",
+      selector: entry.sourceRole && field === "color" ? entry.observations?.[0]?.textSelector || "" : entry.selector || "",
       text: entry.text || "",
       role: entry.role || "",
+      ...(entry.sourceRole ? {
+        sourceRole: entry.sourceRole, sourceTreatment: entry.sourceTreatment, sourceScope: entry.sourceScope,
+        sourcePageId: entry.sourcePageId, sourceUrl: entry.sourceUrl,
+        observations: entry.observations, aggregateOnlyControls: entry.aggregateOnlyControls,
+      } : {}),
     });
   }
 }
@@ -4639,7 +4911,9 @@ function isNeutralActionColor(hex, family) {
 function rankActionColors(items) {
   const grouped = new Map();
   for (const item of items) {
-    const current = grouped.get(item.hex) || { hex: item.hex, family: item.family, score: 0, count: 0, examples: [] };
+    const groupKey = item.sourceRole ? JSON.stringify([item.hex, item.sourceRole, item.sourceTreatment, item.sourceScope]) : item.hex;
+    const current = grouped.get(groupKey) || { hex: item.hex, family: item.family, score: 0, count: 0, examples: [],
+      ...(item.sourceRole ? { sourceRole: item.sourceRole, sourceTreatment: item.sourceTreatment, sourceScope: item.sourceScope } : {}) };
     current.score += item.score;
     current.count += 1;
     if (current.examples.length < 4) {
@@ -4650,9 +4924,14 @@ function rankActionColors(items) {
         value: item.value,
         role: item.role,
         score: round(item.score),
+        ...(item.sourceRole ? {
+          sourceRole: item.sourceRole, sourceTreatment: item.sourceTreatment, sourceScope: item.sourceScope,
+          sourcePageId: item.sourcePageId, sourceUrl: item.sourceUrl,
+          observations: item.observations, aggregateOnlyControls: item.aggregateOnlyControls,
+        } : {}),
       });
     }
-    grouped.set(item.hex, current);
+    grouped.set(groupKey, current);
   }
   return [...grouped.values()]
     .sort((a, b) => b.score - a.score)

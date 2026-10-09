@@ -1,0 +1,15 @@
+{
+  "schema": "brand-incident-retro/v1",
+  "scope": "workflow orchestration",
+  "goalSha256": "51815cdab30bf33453b8e11b3f4c6598a5a9e186a64775591829be8c7204292f",
+  "source": "receipts/visualQA-1.json",
+  "originalRecord": "brand-workflow-artifacts/runs/20685fb7-73b4-4eba-91dc-3a1678b1c803/build/migrations/duolingo/demo-2-incident-retro.json",
+  "observedOutcome": "Independent private desktop visual slice passed observation; formal acceptance remains blocked by incomplete frozen Goal. These are separate conclusions.",
+  "earliestFailureNode": "initial source-learning Goal factory",
+  "codeOwner": "skills/brand/scripts/run-brand-workflow.mjs dispatchSourceLearning",
+  "rootCause": "The automatic child learning goal was sealed with URL/mode/scope only, without page declarations or an explicit acceptance rubric. validate-brand-fidelity iterates referencePages; an empty collection yields overallScore0. No amount of extra screenshot capture can repair the frozen acceptance contract.",
+  "preventiveImplementationStatusAtObservation": "pending; not claimed landed",
+  "hostFilesModified": false,
+  "fullWorkflowPass": false,
+  "boundary": "Persisted excerpt of the original incident, not a new QA receipt or a claim of end-to-end success."
+}

@@ -1,0 +1,54 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "scene-occlusion",
+  "title": "动态内容如何与承载环境保持空间一致性？",
+  "status": "open-case-observed",
+  "scope": "跨品牌、跨宿主的视觉迁移与动态界面设计；具体证据仍受案例范围限制",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "opcg-a1-live-host-layering"
+  ],
+  "hypothesisRefs": [
+    "scene-occlusion"
+  ],
+  "nextEvidenceNeeded": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "requiredContext": [
+    "对象轮廓",
+    "空间关系",
+    "可变与固定部分",
+    "可用素材及平台能力"
+  ],
+  "pitfalls": [
+    "本次人工标注木沿/牌匾，标准圆角裁切卡牌；不证明自动分割能力，也不能复用这套坐标到别的构图。"
+  ],
+  "stages": [
+    "design-host",
+    "apply-host",
+    "repair"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "在同一坐标系确定对象四角、尺寸、承托面与前后关系，先对齐透视，再处理光影。",
+      "用背景、动态对象、前景遮罩分别表达遮挡；遮罩沿实际轮廓处理，不能以矩形覆盖代替。",
+      "换一组真实内容检查边缘、接触点和遮挡。底图改变后重新校准，不能只替换图片地址。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "scene-occlusion"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "opcg-a1-live-host-layering",
+      "summary": "OPCG 卡牌边缘与承托结构割裂，用户要求识别轮廓并建立前后景三明治；本轮采用人工轮廓分层，不是自动分割能力验证。"
+    }
+  ]
+}

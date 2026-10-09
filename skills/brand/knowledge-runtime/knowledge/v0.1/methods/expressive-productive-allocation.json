@@ -1,0 +1,77 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "expressive-productive-allocation",
+  "status": "pilot-candidate",
+  "ownerRole": "Host Strategist / Brand Application Designer / Design Director",
+  "question": "At which host moments should brand expression intensify, where must task efficiency dominate, and how does one hand off to the other?",
+  "procedure": [
+    "Freeze the actual host job, first action, interaction frequency, viewport, real content and protected states.",
+    "Identify source-backed brand mechanisms by role and scope; do not infer a global style from one page or asset.",
+    "Compare at least two viable expressive/productive allocations against attention, first-action distance, visible real results and task-state clarity.",
+    "Before drawing, declare the intended communication in three independent dimensions: hierarchy (what receives attention and what remains informative), utility (what the main function and obvious action are), and style (which source-backed emotional or brand attributes should be perceived).",
+    "Evaluate in two gates. First require no regression in task completion, learned interaction patterns, readable information and accessibility. Only then compare first-impression uplift in hierarchy, utility and source-backed style attributes.",
+    "Split verification by evidence type. A deterministic same-viewport render must prove overflow, scrolling, image loading, repeated-result geometry and basic interactions while freezing first-viewport captures from that exact render. Independent visual QA reads those hash-bound captures only for hierarchy, utility and style; it must not repeat mechanical browser work or substitute a different render.",
+    "Treat multiple directions as competing hypotheses, not decorative variants. Each direction must name a distinct mechanism thesis while preserving the same host task and information-distribution model.",
+    "Specify where brand expression continues or intentionally recedes, with source scope and task-cost rationale. High-frequency task areas may stay quiet; do not mandate a non-image motif in every result.",
+    "Before changing the relative size or emphasis of repeated business objects, derive their relationship from host evidence. Without explicit featured, ranked, recommended or selected evidence, keep them peer and let the surrounding composition carry expressive hierarchy.",
+    "Use rendered independent QA and user visual feedback to identify the earliest faulty inference, then version the decision rule and regression case."
+  ],
+  "decisionSteps": [
+    {
+      "id": "context",
+      "title": "先认任务",
+      "question": "用户先做什么、多久重复？",
+      "output": "首动作、频率、真实内容与视口"
+    },
+    {
+      "id": "options",
+      "title": "再比取舍",
+      "question": "哪一刻值得表达，会让操作付出什么？",
+      "output": "至少两种布局强度及收益／代价"
+    },
+    {
+      "id": "handoff",
+      "title": "检查交接",
+      "question": "品牌表达应延续到哪里、在哪里收敛，任务收益与代价是什么？",
+      "output": "来源、适用范围、延续或收敛的理由与任务保护边界"
+    },
+    {
+      "id": "feedback",
+      "title": "失败修正规则",
+      "question": "用户不认可时，哪一项判断错了？",
+      "output": "候选规则、反例、再验证条件"
+    }
+  ],
+  "requiredReviewFields": [
+    "hostJob",
+    "firstAction",
+    "interactionFrequency",
+    "viewport",
+    "sourceMechanisms",
+    "alternativesAndTradeoffs",
+    "handoffIntoRealContent",
+    "independentQA",
+    "userFeedback",
+    "decisionStatus"
+    ,"communicationIntent"
+    ,"productSafetyNoRegression"
+    ,"firstImpressionComparison"
+    ,"directionHypotheses"
+    ,"sameRenderMechanicalProof"
+    ,"hashBoundFirstViewportCaptures"
+  ],
+  "notFor": [
+    "A fixed hero-to-list layout",
+    "Treating brand image area or machine PASS as expressive quality",
+    "Inventing host business data to complete a preview"
+  ],
+  "caseRefs": [
+    "pokemon-backup4-expressive-false-positive",
+    "duolingo-peer-results-hierarchy-correction"
+  ],
+  "ruleRefs": [
+    "expressive-continuity-in-real-content",
+    "result-emphasis-requires-host-evidence"
+  ],
+  "readerPurpose": "执行判断的步骤与取舍"
+}

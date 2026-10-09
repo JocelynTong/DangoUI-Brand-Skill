@@ -1,0 +1,45 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-generation-brief",
+  "title": "哪些给生图自由，哪些必须锁定？",
+  "status": "open-single-case",
+  "scope": "host-generation；当前种子仅覆盖宝可梦动态牌组场景",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-generated-deck-scenes"
+  ],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "在另一独立品牌/宿主验证，不沿用宝可梦卡位",
+  "requiredContext": [
+    "品牌证据",
+    "宿主需求",
+    "动态槽位",
+    "表达意图"
+  ],
+  "pitfalls": [
+    "分开写品牌不变量与场景自由度",
+    "不能让生图代替业务优先级判断"
+  ],
+  "observationLevel": "case-observed",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "先写明视觉依据和必须保留的品牌关系；自由生成路线则明确它是待选方案，不伪装成官网学习结果。",
+      "锁定业务内容位置、动态替换范围、安全区与首屏预算；让构图、光影和材质在这些边界内变化。",
+      "把透视、承托与遮挡的还原需求写入约束。复杂前景不是默认加分项，应先验证能否拆分。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-generated-deck-scenes",
+      "summary": "同轮方案曾同时偏暗、同时带卡套，用户要求差异化；生成约束要分开品牌依据与可探索的场景元素。"
+    }
+  ]
+}

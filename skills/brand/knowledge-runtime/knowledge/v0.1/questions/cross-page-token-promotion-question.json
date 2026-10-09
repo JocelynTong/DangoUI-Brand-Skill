@@ -1,0 +1,46 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "cross-page-token-promotion-question",
+  "title": "一个颜色何时才有资格成为 token？",
+  "status": "open-unvalidated",
+  "scope": "判断一个局部颜色是否能承担当下申请的组件、场景或全局语义。",
+  "methodRef": "cross-page-token-promotion",
+  "caseRefs": [],
+  "relatedCaseRefs": [
+    "pokemon-database-orange-not-global-cta"
+  ],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "补充针对本问题的独立案例与审阅；相关旧案例不自动视为本问题验证。",
+  "requiredContext": [
+    "申请复用的内容",
+    "来源证据",
+    "目标情境",
+    "申请范围"
+  ],
+  "stages": [
+    "learn-brand",
+    "design-host",
+    "acceptance"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "先确定颜色承担什么职责，再比较同职责的跨页、交互状态；像素相同和出现频繁都不足以证明语义相同。",
+      "有一致证据时提出相应范围的 token；存在冲突时保留组件或场景级候选，不直接晋级全局。",
+      "映射后检查对比度、状态与真实页面。试装成功只证明代码生效，不能替代视觉与语义验收。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "cross-page-token-promotion"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-database-orange-not-global-cta",
+      "summary": "数据库的局部 Search 橘色被尝试推成全局 CTA，但同职责跨页证据不足，晋级被阻断；按钮出现过不等于它拥有全局语义。"
+    }
+  ]
+}

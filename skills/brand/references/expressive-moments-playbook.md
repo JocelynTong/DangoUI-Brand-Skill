@@ -28,4 +28,4 @@ Correction: fast design-host delivers three complete H5 options, never two. Pres
 
 ## Medium boundary
 
-Design-host has one sealed sequence in `design-host-route.json`: create at least three image Demos, send them to an independent visual reviewer, wait for explicit user direction confirmation, then reconstruct the approved direction in H5. Rendering technique never creates a bypass. H5 QA cannot override a failed or incomplete route-order gate.
+Design-host has one sealed H5-first sequence in `design-host-route.json`: create three interactive H5 directions using the frozen brand design system and real host inputs, then obtain independent H5 QA and a localized Expressive gap decision. Only an explicit gap permits one local ImageGen call, deterministic integration and independent integration QA; then await explicit user direction selection. A user-authorized `macro-host-journey` continuation changes only the prerequisite's reviewed trial scope, never this sequence or full source-learning certification.

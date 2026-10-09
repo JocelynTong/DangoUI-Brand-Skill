@@ -1,0 +1,20 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "user-goal-role-qa-expression-question",
+  "title": "怎样让角色、QA 和表现力自己运转，不让用户陪跑？",
+  "status": "open-single-case",
+  "scope": "宿主预览请求中的内部学习接力、角色交付和用户验收边界。",
+  "methodRef": "user-goal-role-qa-expression",
+  "caseRefs": ["duolingo-learning-detour-in-host-preview"],
+  "caseNotes": [{"caseId":"duolingo-learning-detour-in-host-preview","summary":"同一次 Duolingo 测试继续验证了 QA 容量和连续复验：56 项相关测试通过，原独立 QA 完成两轮新截图/操作，按钮状态问题已修复。最新 QA3 的空白导航判断与自己截图矛盾，被 Director 拒收并保留纠错；不能据此改页面，也不能改写成 PASS。接力已验证，不等于宿主全流程通过；不重复计作独立品牌案例。"}],
+  "hypothesisRefs": [],
+  "nextEvidenceNeeded": "以一句品牌网址分别测试新品牌学习和已验证品牌复用，自动回到真实宿主 H5；再用不同宿主验证交付边界与独立 QA。",
+  "requiredContext": ["原始用户目标", "真实宿主", "品牌学习状态", "角色输出与独立 QA", "最终可交互 H5"],
+  "stages": ["learn-brand", "design-host", "apply-host", "acceptance", "repair"],
+  "focusedBasis": {
+    "status": "candidate",
+    "items": ["内部学习不能覆盖宿主预览目标。", "内部专业判断由角色与独立 QA 承担，用户只验效果和是否应用。", "品牌系统保证可用，Expressive 提升表现力，两者都受真实业务约束。", "首次由独立 QA 盲审；局部修复由合适的原 QA 复验，每次重新截图、操作和记录。复验不能称为新的盲审，也不能沿用旧 PASS。", "方向或批准规则实质改变、QA 参与制作或明显漏检，才换全新 QA。代理身份和本次验收记录分别管理。", "容量不足时保存真实错误与接力材料；原 QA 能复验就直接接续，不让用户反复说继续。当前机器接入和案例验证范围为 learn-brand，其他阶段仍需逐步验证。"],
+    "sourceRefs": [{"kind": "method", "id": "user-goal-role-qa-expression"}]
+  },
+  "readerPurpose": "检查当前流程是否仍服务用户最终目标，而非只完成某个内部节点"
+}

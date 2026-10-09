@@ -1,0 +1,54 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "scene-continuity",
+  "title": "有限视觉素材如何适配变化的内容与容器？",
+  "status": "open-case-observed",
+  "scope": "跨品牌、跨宿主的视觉迁移与动态界面设计；具体证据仍受案例范围限制",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "opcg-a1-live-host-layering"
+  ],
+  "hypothesisRefs": [
+    "scene-continuity"
+  ],
+  "nextEvidenceNeeded": "另一宿主独立复测并记录人工纠正及用户视觉反馈",
+  "requiredContext": [
+    "连续性意图",
+    "内容长度范围",
+    "视口变化",
+    "素材语义边界"
+  ],
+  "pitfalls": [
+    "纸面淡出仅是本案例实现选择，不是所有背景都应渐变。"
+  ],
+  "stages": [
+    "apply-host",
+    "repair",
+    "acceptance"
+  ],
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "先区分应该连续的环境与有意分区的页面；不是所有边界都需要做渐变。",
+      "可重复纹理采用平铺；不可重复场景根据构图延展、受控裁切或自然底色衔接，避免素材高度耗尽后突然截断。",
+      "用长列表、短内容和不同视口检查接缝；首屏截图看不出长页断点。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "scene-continuity"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "opcg-a1-live-host-layering",
+      "summary": "OPCG 长列表滚动到素材末端时，地图背景突然变成纯色；首屏通过没有覆盖长内容的背景边界。"
+    }
+  ]
+}

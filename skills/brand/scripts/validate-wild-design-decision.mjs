@@ -2,10 +2,24 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
+import { validateLocalSelectedMaster } from './selected-h5-handoff.mjs'
+import { selectedPosteditContext, selectedPosteditCliOptions } from './selected-h5-postedit-context.mjs'
 
 const args = process.argv.slice(2)
 const value = (flag) => { const i = args.indexOf(flag); return i >= 0 ? args[i + 1] : '' }
 const optionsOnly = args.includes('--options-only')
+if (value('--options')) {
+  const file = path.resolve(value('--options'));
+  const selected = JSON.parse(fs.readFileSync(file, 'utf8'));
+  if (selected.schema === 'selected-h5-local-options/v1') {
+    const master = selected.selectedMaster;
+    const brand = master?.path?.match(/^migrations\/([\w-]+)\/approved-master\.json$/)?.[1];
+    const root = path.resolve(path.dirname(file), '../..');
+    let result; try { result=brand ? validateLocalSelectedMaster(root, brand,selectedPosteditContext(root,brand,selectedPosteditCliOptions(args))) : { ok: false, errors: ['SELECTED_H5_OPTIONS_BINDING_INVALID'] }; } catch(error) { result={ok:false,errors:[error.message]}; }
+    if (!master?.path || !fs.existsSync(path.join(root, master.path)) || createHash('sha256').update(fs.readFileSync(path.join(root, master.path))).digest('hex') !== master.sha256) result.ok = false;
+    console.log(JSON.stringify(result, null, 2)); process.exit(result.ok ? 0 : 1);
+  }
+}
 if (!value('--options') || (!optionsOnly && !value('--decision'))) {
   console.error('Usage: validate-wild-design-decision.mjs --options <options.json> [--options-only | --decision <decision.json>] --business-scope <scope.json> --brand-evidence <evidence.json> [--brand-mod <brand-mod.json>] [--design-direction <direction.json>] [--history <history.json>]')
   process.exit(2)
@@ -251,9 +265,14 @@ for (let i = 0; i < items.length; i += 1) {
     if (differing.length < 3) fail('WILD_DESIGN_VISUAL_OPTIONS_NOT_DISTINCT', 'Every pair of options must visibly differ in at least three visual dimensions; layout-only choices are invalid.', { options: [items[i].id, items[j].id], differingDimensions: differing })
   }
 }
-if (recommendations !== 1) fail('WILD_DESIGN_RECOMMENDATION_INVALID', 'Exactly one option must be recommended.')
+const deterministicH5Finalizer = options?.generatedBy === 'finalize-h5-direction-stage.mjs'
+if (deterministicH5Finalizer) {
+  if (recommendations !== 0 || options?.recommendation?.status !== 'pending-independent-h5-qa') fail('WILD_DESIGN_PRE_QA_RECOMMENDATION_INVALID', 'Deterministically finalized H5 directions must defer recommendation to independent H5 QA.')
+} else if (recommendations !== 1) fail('WILD_DESIGN_RECOMMENDATION_INVALID', 'Exactly one option must be recommended.')
 if (new Set(items.map((x) => x.sameBusinessScopeHash)).size > 1) fail('WILD_DESIGN_SCOPE_MISMATCH', 'All options must use the same business scope.')
-if (!businessScopeFile) fail('WILD_DESIGN_BUSINESS_SCOPE_REQUIRED', '--business-scope is required.')
+if (deterministicH5Finalizer) {
+  if (items.some((item) => item.sameBusinessScopeHash !== item.realDataBinding?.baselineSha256 || item.realDataBinding?.inventedDataForbidden !== true)) fail('WILD_DESIGN_BASELINE_SCOPE_BINDING_MISMATCH', 'Finalized H5 options must bind their shared scope to the frozen host baseline and forbid invented data.')
+} else if (!businessScopeFile) fail('WILD_DESIGN_BUSINESS_SCOPE_REQUIRED', '--business-scope is required.')
 else if (!fs.existsSync(businessScopeFile) || items.some((item) => item.sameBusinessScopeHash !== sha(businessScopeFile))) fail('WILD_DESIGN_BUSINESS_SCOPE_BINDING_MISMATCH', 'Every option must bind the exact business scope SHA-256.')
 if (optionsOnly) {
   console.log(JSON.stringify({ ok: !failures.length, phase: 'options-only', optionCount: items.length, failures }, null, 2))

@@ -1,5 +1,6 @@
 import { readFile, readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
+import { nonPublicReferences } from './public-knowledge-export.mjs'
 
 const releaseRoot = path.join(process.cwd(), 'output', 'brand-skill-release')
 const skillRoot = path.join(releaseRoot, 'brand')
@@ -29,6 +30,12 @@ const unsafe = [
 for (const file of await files(skillRoot)) {
   if (/\.(png|jpe?g|gif|webp|ico)$/i.test(file)) continue
   const text = await readFile(file, 'utf8')
+  // Executable docs may teach localhost preview commands; knowledge records
+  // must not distribute a private run address as accessible evidence.
+  if (path.relative(skillRoot, file).startsWith(`knowledge-runtime${path.sep}`)
+    && ['.json', '.md'].includes(path.extname(file)) && nonPublicReferences(text, path.extname(file)).length) {
+    errors.push(`non-public-knowledge-reference:${path.relative(releaseRoot, file)}`)
+  }
   for (const rule of unsafe) {
     if (rule.name === 'local-file-dependency' && file.endsWith('.md')) continue
     if (rule.re.test(text)) errors.push(`${rule.name}:${path.relative(releaseRoot, file)}`)

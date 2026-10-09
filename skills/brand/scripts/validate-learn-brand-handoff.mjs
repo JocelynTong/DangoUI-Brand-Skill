@@ -13,10 +13,18 @@ if (!brand || !['evidence', 'interpreter'].includes(stage)) {
 }
 const migration = path.join(root, 'migrations', brand)
 const read = (file) => { try { return JSON.parse(fs.readFileSync(file, 'utf8')) } catch { return null } }
-const goal = read(path.resolve(root, arg('--goal-file', path.join(migration, 'goal-contract.json'))))
 const evidence = read(path.resolve(root, arg('--evidence-file', path.join(migration, 'brand-evidence.json'))))
+const explicitGoalFile = arg('--goal-file', '')
+const goalCandidates = explicitGoalFile
+  ? [path.resolve(root, explicitGoalFile)]
+  : fs.readdirSync(migration)
+    .filter((name) => /^goal-contract(?:-[^.]+)?\.json$/.test(name))
+    .map((name) => path.join(migration, name))
+const matchingGoalFile = goalCandidates.find((file) => read(file)?.goalId === evidence?.goalId)
+const goal = read(matchingGoalFile || path.join(migration, 'goal-contract.json'))
 const intent = stage === 'interpreter' ? read(path.resolve(root, arg('--intent-file', path.join(migration, 'brand-intent.json')))) : null
 const dimensions = goal?.evidencePolicy?.requiredVisualDimensions || ['color', 'typography', 'radius', 'spacing', 'shadow', 'action-color']
+const requiredComponentFamilies = goal?.evidencePolicy?.requiredComponentFamilies || []
 const findings = []
 const add = (code, dimension, detail) => findings.push({ code, dimension, detail })
 if (!goal) add('GOAL_MISSING', null, 'Frozen goal contract is unreadable.')
@@ -26,6 +34,7 @@ if (goal?.goalId && evidence?.goalId && goal.goalId !== evidence.goalId) add('GO
 if (stage === 'interpreter' && goal?.goalId && intent?.goalId && goal.goalId !== intent.goalId) add('GOAL_VERSION_MISMATCH', null, `Interpreter ${intent.goalId} does not match frozen goal ${goal.goalId}.`)
 if (goal?.brand && goal.brand !== brand || evidence?.brand && evidence.brand !== brand || intent?.brand && intent.brand !== brand) add('BRAND_MISMATCH', null, 'Goal, Evidence and Interpreter must describe the selected brand.')
 if (!Array.isArray(dimensions) || dimensions.length === 0 || new Set(dimensions).size !== dimensions.length) add('DIMENSIONS_INVALID', null, 'Required visual dimensions must be a nonempty, unique array.')
+if (!Array.isArray(requiredComponentFamilies) || new Set(requiredComponentFamilies).size !== requiredComponentFamilies.length) add('COMPONENT_FAMILIES_INVALID', null, 'Required component families must be a unique array when declared.')
 const claims = new Map((evidence?.claims || []).filter((item) => item?.id && item.status === 'observed').map((item) => [item.id, item]))
 const corePages = (goal?.referencePages || []).filter((item) => item.core !== false).map((item) => item.id)
 const coverage = []
@@ -98,7 +107,42 @@ for (const dimension of Array.isArray(dimensions) ? dimensions : []) {
   }
   if (['unmapped', 'rejected'].includes(decision.status)) add('REQUIRED_DIMENSION_NOT_CARRIED', dimension, 'A required observed dimension may not be reported as completed without a target; return for a scoped decision or explicitly exclude it in the frozen goal.')
 }
+const declaredComponentFamilies = Object.keys(evidence?.componentCoverage || {})
+const componentFamilies = [...new Set([...requiredComponentFamilies, ...declaredComponentFamilies])]
+const componentCoverage = []
+for (const family of componentFamilies) {
+  const required = requiredComponentFamilies.includes(family)
+  const source = evidence?.componentCoverage?.[family]
+  const ids = source?.claimIds || []
+  const validIds = Array.isArray(ids) ? ids.filter((id) => claims.has(id)) : []
+  const label = `component:${family}`
+  if (!source || !['observed', 'unresolved', 'not-observed', 'unavailable', 'out-of-scope'].includes(source.status)) add('COMPONENT_DISPOSITION_MISSING', label, 'Evidence must record a supported status for this component family.')
+  else if (required && source.status !== 'observed' && source.status !== 'out-of-scope') add('REQUIRED_COMPONENT_UNRESOLVED', label, `Evidence status is ${source.status}; a required component family cannot pass.`)
+  else if (source.status === 'out-of-scope' && !source.reason) add('COMPONENT_OUT_OF_SCOPE_REASON_MISSING', label, 'An out-of-scope component family needs a reason.')
+  if (source?.status === 'observed' && (!Array.isArray(ids) || !ids.length || validIds.length !== ids.length)) add('COMPONENT_CLAIMS_INVALID', label, 'All claimIds must resolve to observed claims; at least one is required.')
+  if (source?.status === 'observed' && (!Number.isInteger(source.sourceCount) || source.sourceCount !== ids.length)) add('COMPONENT_SOURCE_COUNT_MISMATCH', label, 'sourceCount must equal the number of referenced observed component claims.')
+  if (source?.status === 'observed' && goal?.evidencePolicy?.requireVisibleElementProof === true) {
+    for (const id of validIds) {
+      const claim = claims.get(id)
+      const proof = claim?.sourceProof
+      if (!claim?.sourceUrl || !claim?.sourcePageId || !proof?.selector || !Array.isArray(proof?.visibleRect) || proof.visibleRect.length !== 4 || proof.visibleRect[2] <= 0 || proof.visibleRect[3] <= 0 || !proof.paintedBackground || !proof.paintedForeground || !proof.state) {
+        add('COMPONENT_VISIBLE_PROOF_MISSING', label, `${id} needs a source URL, page, DOM selector, nonempty visible rect, painted colors and observed state.`)
+      }
+    }
+  }
+  componentCoverage.push({ family, required, status: source?.status || 'missing', sourceCount: validIds.length })
+  if (stage !== 'interpreter') continue
+  const decision = intent?.componentMappingCoverage?.[family]
+  if (!decision || !['mapped', 'style-only', 'unmapped', 'rejected'].includes(decision.status)) { add('COMPONENT_MAPPING_DISPOSITION_MISSING', label, 'Interpreter must classify every declared component family.'); continue }
+  if (!Array.isArray(decision.evidenceRefs) || decision.evidenceRefs.some((id) => !validIds.includes(id))) add('COMPONENT_MAPPING_EVIDENCE_INVALID', label, 'Map only observed claims declared for this component family.')
+  if (source?.status === 'observed' && (!decision.evidenceRefs.length || decision.evidenceRefs.length !== validIds.length)) add('COMPONENT_MAPPING_EVIDENCE_INCOMPLETE', label, 'Observed component claims must all be carried into the Interpreter decision.')
+  if (['mapped', 'style-only'].includes(decision.status) && !(decision.targetComponent || decision.styleRecipe)) add('COMPONENT_MAPPING_TARGET_MISSING', label, 'Mapped/style-only component families require a target component or scoped recipe.')
+  if (['unmapped', 'rejected'].includes(decision.status) && !decision.reason) add('COMPONENT_MAPPING_REASON_MISSING', label, 'Unmapped/rejected component families need a host-safe reason.')
+  if (['unmapped', 'rejected'].includes(decision.status) && !['preserve-host-semantic-neutral-visual', 'preserve-host-existing-visual', 'omit'].includes(decision.fallback)) add('COMPONENT_FALLBACK_MISSING', label, 'Unmapped/rejected component families must declare a neutral, existing-visual or omit fallback.')
+  if (decision.fallback === 'preserve-host-existing-visual' && !decision.businessSemanticReason) add('HOST_SKIN_RETENTION_UNJUSTIFIED', label, 'Keeping the previous host appearance requires a business-semantic reason; structure preservation alone is insufficient.')
+  if (required && ['unmapped', 'rejected'].includes(decision.status)) add('REQUIRED_COMPONENT_NOT_CARRIED', label, 'A required observed component family must be mapped or style-only.')
+}
 coverage.sort((a, b) => b.goalRefs.length - a.goalRefs.length || b.highSalienceCount - a.highSalienceCount || b.sourceCount - a.sourceCount || a.dimension.localeCompare(b.dimension))
-const report = { schema: 'learn-brand-handoff-gate/v1', brand, stage, status: findings.length ? 'BLOCKED' : 'PASS', requiredDimensions: dimensions, priorityReviewOrder: coverage, findings }
+const report = { schema: 'learn-brand-handoff-gate/v1', brand, stage, status: findings.length ? 'BLOCKED' : 'PASS', requiredDimensions: dimensions, requiredComponentFamilies, priorityReviewOrder: coverage, componentCoverage, findings }
 process.stdout.write(`${JSON.stringify(report, null, 2)}\n`)
 if (findings.length) process.exitCode = 1

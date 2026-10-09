@@ -42,9 +42,16 @@
 5. 只有多个可见实例或明确设计系统关系支持时，才允许提升为全局 Pattern。
 6. 对不确定结论请求 Evidence 补采，不自行推断。
 
+高显著度素材必须先查看归档文件的实际渲染，并与来源区块的可见主体、状态及叠层关系核对；文件名、清单序位、viewBox 或附近文字不证明素材身份。完整场景含多个资产时逐层绑定，不能把一层外围图当成完整主体。身份核对失败只补该资产，不重采已通过页面。
+
+六维映射通过不等于结构学习通过。先列 Goal 涉及的高显著度区块，并分别记录结构解释、资产身份与允许变换；来源已出现的响应式重排或只换文案不能充当 source-independent Generative Proof。候选结构迁移交给 Director 有界审批，不由 Demo 设计师临场补出。
+
+构图 requiredLayers 的来源范围必须逐层冻结：每层绑定实际 capture/hash、viewport/state、sourceRegion 及对应 DOM/资产定位。区块标题的 Region 不能同时证明插画、行动组和页脚列。来源缺少某层定位时明确 unresolved；下游不能复用标题坐标补齐，也不能将此构图当作输入完整的 PASS。
+
 ## 必须产出
 
 - `brand-intent.json`
+- `brand-mod.json`：由本角色交付与已批准解释相符的下游设计输入，不能留到最终接力才发现缺件。仅有局部 style-only 证据时使用 `source-scoped-style-trial` 范围，保留空 `tokens.mapped` 和全部未获批全局 semanticRoles 的明确拒绝记录。每个局部 DTCG 值绑定来源、局部 scope、allowedRoles 和真实 componentVariants recipeId；不得为满足文件完整性补造全局 token。文件校验通过仍须独立学习 QA，不等于完整品牌认证。
 - approved visual patterns
 - color/asset/motion role boundaries
 - `semanticClaims`：所有被正式提升的颜色、字体、阴影、动效等语义，必须记录 `kind`、`status`、`evidenceDisposition: "validated"` 和 `evidenceRefs`；引用的 observed Claim 必须含截图/Region、可见 DOM、computed property/value、page、state。
@@ -62,6 +69,7 @@
 - Pattern 名称是否描述视觉作用，而不是复述 class/变量名？
 - 是否明确最窄 scope 与禁止 scope？
 - 是否能从记录中分辨“官网实例”“可迁移机制”和“已验证的跨场景配方”？是否把仅出现一次的页面样式误升为通用模式？
+- Goal 要求 held-out 结构证明时，是否交代有来源依据的受控结构候选、可变槽位、不变量与确切允许变换，供 Director 审批？只允许换文字/复刻来源的交接不足以派发该 Demo。证据能支持候选但漏写时修解释；证据不能支持时明确阻断，不能为了推进扩大身份素材或全局 token 的资格。
 - 是否出现 token role expansion？
 - 单个 `is-open` 状态是否被错误解释为 active/current/global？
 - 建议是否被误写成 observed fact？

@@ -192,6 +192,8 @@ Color 输出至少拆成两组：
 
 资产证据必须从浏览器最终渲染链路开始抓，不能只扫本地目录、文件名或截图印象。无现成 style pack 的官网 URL 必须生成 `rendered-asset-inventory.json`，再决定 demo 页面和 style pack 怎么承接。
 
+第一次浏览器采集成功时必须把实际加载的有界图片/媒体响应同步归档为 `browser-assets.json` 和本地文件，并绑定来源 URL、MIME、字节数与 SHA-256。`network.json` 只有 URL 时只是发现线索，不是可复用素材；不得等到下游 ImageGen 或 apply-host 阶段再重新访问源站，更不得要求用户补下载。
+
 脚本入口：
 
 ```bash

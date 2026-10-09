@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { createHash } from 'node:crypto'
 import { spawnSync } from 'node:child_process'
+import { validateFinalizedH5Plan } from './finalize-h5-direction-stage.mjs'
 
 const args = process.argv.slice(2)
 const value = (flag) => { const index = args.indexOf(flag); return index >= 0 ? args[index + 1] : '' }
@@ -19,6 +20,12 @@ let plan
 try { plan = JSON.parse(fs.readFileSync(planFile, 'utf8')) } catch (error) {
   console.log(JSON.stringify({ ok: false, failures: [{ code: 'BRAND_APPLICATION_PLAN_UNREADABLE', message: error.message }] }, null, 2))
   process.exit(1)
+}
+
+if (plan?.generatedBy === 'finalize-h5-direction-stage.mjs') {
+  const result = validateFinalizedH5Plan(plan, planFile)
+  console.log(JSON.stringify({ ...result, expressiveStatus: result.ok ? 'eligible-for-independent-h5-qa' : 'blocked' }, null, 2))
+  process.exit(result.ok ? 0 : 1)
 }
 
 let brandMod = null

@@ -6,9 +6,23 @@ import os from "node:os";
 import path from "node:path";
 
 const entry = path.resolve("skills/brand/scripts/run-brand-workflow.mjs");
+const missingRequestKind = spawnSync(process.execPath, [entry, "run", "--mode", "learn-brand", "--brand", "wrong", "--source-url", "https://example.com/wrong"], { encoding: "utf8" });
+assert.notEqual(missingRequestKind.status, 0);
+assert.equal(JSON.parse(missingRequestKind.stdout).blockingCode, "REQUEST_KIND_REQUIRED");
+
+const mismatchedRequestKind = spawnSync(process.execPath, [entry, "run", "--request-kind", "host-concepts", "--mode", "learn-brand", "--brand", "wrong", "--source-url", "https://example.com/wrong"], { encoding: "utf8" });
+assert.notEqual(mismatchedRequestKind.status, 0);
+assert.equal(JSON.parse(mismatchedRequestKind.stdout).blockingCode, "REQUEST_INTENT_MODE_MISMATCH");
+
+const missingArtifactRoot = spawnSync(process.execPath, [entry, "run", "--request-kind", "host-concepts", "--mode", "design-host", "--brand", "wrong", "--host-target", "/tmp/host", "--mod-file", path.resolve("package.json")], { encoding: "utf8" });
+assert.notEqual(missingArtifactRoot.status, 0);
+assert.equal(JSON.parse(missingArtifactRoot.stdout).blockingCode, "ARTIFACT_ROOT_REQUIRED");
+
 const result = spawnSync(process.execPath, [
   entry,
   "run",
+  "--request-kind",
+  "host-implementation",
   "--mode",
   "apply-host",
   "--brand",
@@ -35,13 +49,15 @@ console.log("run-brand-workflow apply-host preflight-order test passed");
 
 const fixtureRoot = fs.mkdtempSync(path.join(os.tmpdir(), "brand-apply-host-routing-"));
 try {
+  const artifactRoot = path.join(fixtureRoot, "build");
   const skillTarget = path.resolve("skills/brand");
-  fs.mkdirSync(path.join(fixtureRoot, "skills"), { recursive: true });
-  fs.symlinkSync(skillTarget, path.join(fixtureRoot, "skills/brand"), "dir");
+  fs.mkdirSync(path.join(artifactRoot, "skills"), { recursive: true });
+  fs.symlinkSync(skillTarget, path.join(artifactRoot, "skills/brand"), "dir");
 
   const brand = "fresh-host-fixture";
-  const migration = path.join(fixtureRoot, "migrations", brand);
+  const migration = path.join(artifactRoot, "migrations", brand);
   const host = path.join(fixtureRoot, "host");
+  writeJson(path.join(fixtureRoot, "run.json"), { schema: "brand-artifact-run/v1", id: "fixture", host, status: "active" });
   fs.mkdirSync(migration, { recursive: true });
   fs.mkdirSync(path.join(host, "src", "pages", "home"), { recursive: true });
   writeJson(path.join(migration, "brand-mod.json"), { schema: "fixture/v1", tokens: ["token:surface", "token:action", "token:text"], assets: ["asset:a", "asset:b", "asset:c"], layoutRules: ["pattern:a", "pattern:b", "pattern:c"] });
@@ -51,18 +67,181 @@ try {
   fs.writeFileSync(path.join(host, "src", "app.config.ts"), "export default { pages: ['pages/home/index'] };\n");
   fs.writeFileSync(path.join(host, "src", "pages", "home", "index.vue"), "<template><view>untouched</view></template>\n");
 
+  const missingBrand = runFixture([
+    "run", "--request-kind", "host-concepts", "--artifact-root", artifactRoot, "--mode", "design-host", "--profile", "fast",
+    "--host-target", host,
+  ]);
+  assert.notEqual(missingBrand.status, 0);
+  const missingBrandPayload = JSON.parse(missingBrand.stdout);
+  assert.equal(missingBrandPayload.blockingCode, "BRAND_REFERENCE_REQUIRED");
+  assert.match(missingBrandPayload.intake.question, /品牌官网|style pack/);
+
   const beforePreparing = treeHash(host);
+  for (const profile of ["fast", "standard", "certification"]) {
+    const profileRoot = path.join(fixtureRoot, profile, "build");
+    fs.mkdirSync(profileRoot, { recursive: true });
+    writeJson(path.join(fixtureRoot, profile, "run.json"), { schema: "brand-artifact-run/v1", id: profile, host, status: "active" });
+    const sourceOnly = runFixture([
+      "run", "--request-kind", "host-concepts", "--artifact-root", profileRoot,
+      "--profile", profile, "--brand", brand, "--host-target", host,
+      "--source-url", "https://www.duolingo.com/",
+    ]);
+    assert.equal(sourceOnly.status, 0, sourceOnly.stderr);
+    const dispatch = JSON.parse(sourceOnly.stdout);
+    assert.equal(dispatch.status, "prerequisite-dispatch-ready");
+    assert.equal(dispatch.requestKind, "host-concepts");
+    assert.equal(dispatch.fullWorkflowPass, false);
+    assert.equal(dispatch.userGoalCompleted, false);
+    assert.ok(dispatch.continueCommand.includes("continue"));
+    assert.equal(dispatch.hostMutationAllowed, false);
+    assert.equal(dispatch.resume.hostTarget, host);
+    assert.equal(dispatch.resume.profile, profile);
+    assert.equal(dispatch.learning.args[dispatch.learning.args.indexOf("--profile") + 1], profile === "fast" ? "fast" : "full");
+    assert.ok(dispatch.learning.args.includes("--source-prerequisite"));
+    assert.equal(JSON.parse(fs.readFileSync(dispatch.handoffFile)).status, "learning-required");
+    assert.equal(treeHash(host), beforePreparing);
+  }
+  const invalidSource = runFixture([
+    "run", "--request-kind", "host-concepts", "--artifact-root", artifactRoot,
+    "--brand", brand, "--host-target", host, "--source-url", "file:///tmp/brand",
+  ]);
+  assert.notEqual(invalidSource.status, 0);
+  assert.equal(JSON.parse(invalidSource.stdout).blockingCode, "BRAND_SOURCE_URL_INVALID");
   const preparing = runFixture([
-    "run", "--root", fixtureRoot, "--mode", "design-host", "--profile", "fast",
+    "run", "--request-kind", "host-concepts", "--artifact-root", artifactRoot, "--mode", "design-host", "--profile", "fast",
     "--brand", brand, "--host-target", host, "--mod-file", path.join(migration, "brand-mod.json"),
   ]);
   assert.equal(preparing.status, 0, preparing.stderr);
   const preparingPayload = JSON.parse(preparing.stdout);
-  assert.equal(preparingPayload.status, "preparing-style-options");
-  assert.equal(preparingPayload.pauseReason, "style-options-required");
+  assert.equal(preparingPayload.status, "dispatch-ready");
+  assert.equal(preparingPayload.step, "h5-direction-generation");
+  assert.equal(preparingPayload.dispatchRequest.stage, "h5DirectionGeneration");
+  assert.ok(preparingPayload.manifest.endsWith("execution-manifest.json"));
   assert.equal(preparingPayload.learnBrandDispatched, false);
   assert.equal(preparingPayload.hostFilesModified, false);
   assert.equal(treeHash(host), beforePreparing);
+
+  // Status and plan must follow the active specialist run, including pending
+  // implementation and failed bindings, without rewriting any frozen artifacts.
+  const manifestFile = path.join(migration, "execution-manifest.json");
+  const originalManifest = fs.readFileSync(manifestFile);
+  const modFile = path.join(migration, "brand-mod.json");
+  const originalMod = fs.readFileSync(modFile);
+  writeJson(modFile, { ...JSON.parse(originalMod), tokens: { dtcg: {} } });
+  writeJson(path.join(migration, "action-evidence-score.skills.json"), { candidates: {} });
+  const implementationGoal = path.join(migration, "implementation-status-goal.json");
+  const masterFile = path.join(migration, "implementation-status-master.json");
+  writeJson(masterFile, { frozen: true });
+  writeJson(implementationGoal, {
+    mode: "apply-host", requestKind: "host-implementation", sealed: true,
+    brand, hostTarget: host,
+    approvedMaster: { path: path.relative(artifactRoot, masterFile), sha256: fileHash(masterFile) },
+  });
+  const implementationManifest = {
+    brand,
+    mode: "apply-host", status: "running", currentStageId: "hostImplementation-1",
+    goalPath: path.relative(artifactRoot, implementationGoal), goalSha256: fileHash(implementationGoal),
+    stages: [{ id: "hostImplementation-1", stage: "hostImplementation", status: "running" }],
+  };
+  const auditExisting = (mode, expectedStatus, expectedAction, expectedError) => {
+    const frozenBefore = treeHash(migration);
+    for (const command of ["status", "plan"]) {
+      const audit = runFixture([command, "--mode", mode, "--artifact-root", artifactRoot,
+        "--brand", brand, "--host-target", host, "--mod-file", path.join(migration, "brand-mod.json")]);
+      assert.equal(audit.status, 0, audit.stderr || audit.stdout);
+      const report = JSON.parse(audit.stdout);
+      assert.equal(report.userDelivery.status, expectedStatus);
+      if (expectedAction) assert.equal(report.nextAction, expectedAction);
+      if (expectedError) assert.ok(report.userDelivery.errors.includes(expectedError));
+      assert.equal(report.userDelivery.userGoalCompleted, false);
+      if (command === "status") {
+        assert.equal(report.completed, false);
+        assert.equal(report.userGoalCompleted, false);
+      }
+      assert.equal(report.completedStages.length, 0);
+      assert.equal(report.progress.completedStepCount, 0);
+      assert.ok(report.missingOutputs.length > 0);
+      assert.ok(!report.missingOutputs.includes("wild-design-selection"));
+      assert.ok(!Object.hasOwn(report.stepStatus, "wild-design-selection"));
+      assert.equal(report.outputStatus[0].status, expectedStatus);
+      assert.equal(treeHash(migration), frozenBefore);
+      assert.equal(treeHash(host), beforePreparing);
+    }
+  };
+  writeJson(manifestFile, implementationManifest);
+  auditExisting("apply-host", "pending", "continue-implementation-preview-qa");
+  // A query addresses this frozen run without choosing or consuming a pack.
+  const queryArgs = ["--mode", "apply-host", "--request-kind", "host-implementation",
+    "--artifact-root", artifactRoot, "--brand", brand, "--host-target", host];
+  const frozenQueryBefore = treeHash(migration);
+  for (const command of ["status", "plan"]) {
+    const query = runFixture([command, ...queryArgs]);
+    assert.equal(query.status, 0, query.stdout || query.stderr);
+    const report = JSON.parse(query.stdout);
+    assert.equal(report.userDelivery.status, "pending");
+    assert.equal(report.nextAction, "continue-implementation-preview-qa");
+    assert.equal(report.intake.signals.modFile, false);
+    assert.equal(report.intake.signals.stylePack, false);
+    assert.equal(report.intake.frozenRun.goalSha256, implementationManifest.goalSha256);
+    assert.equal(treeHash(migration), frozenQueryBefore);
+    assert.equal(treeHash(host), beforePreparing);
+    const wrongHost = [...queryArgs];
+    wrongHost[wrongHost.indexOf("--host-target") + 1] = path.join(fixtureRoot, "other-host");
+    const mismatch = runFixture([command, ...wrongHost]);
+    assert.equal(JSON.parse(mismatch.stdout).blockingCode, "FROZEN_RUN_QUERY_MISMATCH");
+    const wrongMode = [...queryArgs];
+    wrongMode[wrongMode.indexOf("--mode") + 1] = "design-host";
+    wrongMode[wrongMode.indexOf("--request-kind") + 1] = "host-concepts";
+    assert.equal(JSON.parse(runFixture([command, ...wrongMode]).stdout).blockingCode, "FROZEN_RUN_QUERY_MISMATCH");
+    const explicit = JSON.parse(runFixture([command, ...queryArgs, "--mod-file", modFile]).stdout);
+    assert.equal(explicit.intake.signals.modFile, true);
+    assert.equal(explicit.intake.frozenRun, undefined);
+  }
+  for (const command of ["run", "detect"]) {
+    const query = runFixture([command, ...queryArgs]);
+    assert.equal(JSON.parse(query.stdout).blockingCode, "APPLY_HOST_INPUT_REQUIRED");
+  }
+  fs.appendFileSync(implementationGoal, "\n");
+  for (const command of ["status", "plan"]) {
+    assert.equal(JSON.parse(runFixture([command, ...queryArgs]).stdout).blockingCode, "FROZEN_RUN_QUERY_MISMATCH");
+  }
+  fs.writeFileSync(implementationGoal, fs.readFileSync(implementationGoal, "utf8").slice(0, -1));
+  auditExisting("design-host", "blocked", null, "HOST_WORKFLOW_MODE_MISMATCH");
+  // A completed QA label and files alone cannot become a passing delivery.
+  writeJson(manifestFile, { ...implementationManifest, stages: [...implementationManifest.stages,
+    { id: "previewQA-1", stage: "previewQA", status: "complete", verdict: "pass" }] });
+  auditExisting("apply-host", "blocked", null, "PASSING_STAGE_RECEIPT_REQUIRED");
+  writeJson(manifestFile, { ...implementationManifest, status: "blocked" });
+  auditExisting("apply-host", "blocked", "report-blocker-and-stop", "HOST_IMPLEMENTATION_PREVIEW_BLOCKED");
+  writeJson(manifestFile, implementationManifest);
+  writeJson(masterFile, { frozen: "changed" });
+  auditExisting("apply-host", "blocked", null, "HOST_IMPLEMENTATION_MASTER_CHANGED");
+  writeJson(implementationGoal, { mode: "apply-host", sealed: false });
+  auditExisting("apply-host", "blocked", null, "HOST_IMPLEMENTATION_GOAL_INVALID");
+  fs.writeFileSync(manifestFile, originalManifest);
+  auditExisting("design-host", "pending", "continue-host-preview");
+  for (const command of ["status", "plan"]) {
+    const frozenBefore = treeHash(migration);
+    const query = runFixture([command, "--mode", "design-host", "--request-kind", "host-concepts",
+      "--artifact-root", artifactRoot, "--brand", brand, "--host-target", host]);
+    assert.equal(query.status, 0, query.stdout || query.stderr);
+    assert.equal(JSON.parse(query.stdout).userDelivery.status, "pending");
+    assert.equal(JSON.parse(query.stdout).intake.frozenRun.mode, "design-host");
+    assert.equal(treeHash(migration), frozenBefore);
+  }
+  auditExisting("apply-host", "blocked", null, "HOST_WORKFLOW_MODE_MISMATCH");
+  fs.unlinkSync(manifestFile);
+  for (const command of ["status", "plan"]) {
+    const noManifest = runFixture([command, ...queryArgs]);
+    assert.equal(JSON.parse(noManifest.stdout).blockingCode, "APPLY_HOST_INPUT_REQUIRED");
+    const legacy = runFixture([command, "--mode", "apply-host", "--artifact-root", artifactRoot,
+      "--brand", brand, "--host-target", host, "--mod-file", modFile]);
+    assert.equal(legacy.status, 0, legacy.stderr);
+    assert.ok(JSON.parse(legacy.stdout).missingOutputs.includes("wild-design-selection"));
+  }
+  fs.writeFileSync(manifestFile, originalManifest);
+  fs.writeFileSync(modFile, originalMod);
+  console.log("run-brand-workflow modern status/plan delivery and legacy fallback tests passed");
 
   const options = path.join(migration, "design-direction-options.json");
   const scope = path.join(migration, "business-scope.json");
@@ -95,7 +274,7 @@ try {
   writeJson(options, { schema: "wild-design-options/v2", workflow: "design-host", sourceBrand: brand, frozenBrandEvidenceSha256: evidenceHash, frozenBrandModSha256: fileHash(path.join(migration, "brand-mod.json")), sharedLayoutContract: ["home"], options: [visualOption("a", true, previewA), visualOption("b", false, previewB), visualOption("c", false, previewC)] });
   const beforeChoice = treeHash(host);
   const awaitingChoice = runFixture([
-    "run", "--root", fixtureRoot, "--mode", "design-host", "--profile", "fast",
+    "run", "--request-kind", "host-concepts", "--artifact-root", artifactRoot, "--mode", "design-host", "--profile", "fast",
     "--brand", brand, "--host-target", host, "--mod-file", path.join(migration, "brand-mod.json"),
     "--wild-design-options", options, "--wild-design-business-scope", scope,
   ]);

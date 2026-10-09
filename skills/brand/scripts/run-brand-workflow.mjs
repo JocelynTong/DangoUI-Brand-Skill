@@ -2,11 +2,23 @@
 import { validateHostExpression } from './validate-host-expression.mjs';
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
+import crypto from "node:crypto";
+import { installComponentKits } from './install-component-kit.mjs';
+import { componentHandoff } from './component-handoff.mjs';
+import { componentTask } from './component-task.mjs';
+import { prepareModuleTask } from './prepare-module-task.mjs';
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
 import { runCachedValidator } from "./validator-cache.mjs";
+import { buildRenderedCollectorArgs } from "./source-capture-policy.mjs";
 import { verifySkillIntegrity } from "./verify-brand-skill-integrity.mjs";
+import { createSourceLearningGoal, validateSourceLearningGoal } from "./source-learning-goal.mjs";
+import { evaluateSourceContinuation, evaluatePreviewContinuation, materializeHostContinuation, evaluateHostDelivery, evaluateLearningDispatch } from "./parent-delivery-gate.mjs";
+import { recoverReference } from "./recover-reference.mjs";
+import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-handoff.mjs";
+import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
+import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
 verifySkillIntegrity(path.dirname(skillScriptsDir), { allowMissing: true });
@@ -20,6 +32,69 @@ const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
 
+if (rawArgs.includes('--module-task')) {
+  if (command !== 'run' || opt(rawArgs, '--request-kind', '') !== 'host-concepts' || opt(rawArgs, '--mode', '') !== 'design-host') block('MODULE_PREP_ROUTE_INVALID', 'Use host-concepts design-host run.');
+  const allowed = new Set(['--module-task', '--module-id', '--module-target', '--brand-root', '--mod-file', '--host-target', '--artifact-root', '--trial-authorization', '--recipes', '--build-target', '--request-kind', '--mode']);
+  if (rawArgs.slice(1).some(arg => arg.startsWith('--') && !allowed.has(arg))) block('MODULE_PREP_MIXED_SCOPE', 'Module trial cannot mix whole-page or approved component inputs.');
+  try {
+    const result = prepareModuleTask({ task: opt(rawArgs, '--module-task', ''), moduleId: opt(rawArgs, '--module-id', ''), target: opt(rawArgs, '--module-target', ''), brandRoot: opt(rawArgs, '--brand-root', ''), modFile: opt(rawArgs, '--mod-file', ''), hostRoot: opt(rawArgs, '--host-target', ''), artifactRoot: opt(rawArgs, '--artifact-root', ''), authorization: opt(rawArgs, '--trial-authorization', ''), recipes: opt(rawArgs, '--recipes', ''), buildTarget: opt(rawArgs, '--build-target', 'weapp') });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`); process.exit(0);
+  } catch (error) { block('MODULE_PREP_BLOCKED', error.message); }
+}
+
+if (rawArgs.includes('--component-task')) {
+  if (command !== 'run' || opt(rawArgs, '--request-kind', '') !== 'host-concepts' || opt(rawArgs, '--mode', '') !== 'design-host') block('MODULE_TASK_ROUTE_INVALID', 'Use explicit host-concepts design-host run for isolated module selection/adaptation.');
+  const allowed = new Set(['--component-task', '--request-kind', '--mode']);
+  if (rawArgs.slice(1).some(arg => arg.startsWith('--') && !allowed.has(arg))) block('MODULE_TASK_MIXED_SCOPE', 'Candidate trials cannot be combined with approved handoff or whole-page workflow arguments.');
+  try {
+    process.stdout.write(`${JSON.stringify(componentTask({ manifestPath: opt(rawArgs, '--component-task', '') }), null, 2)}\n`);
+    process.exit(0);
+  } catch (error) { block('MODULE_TASK_BLOCKED', error.message); }
+}
+
+if (rawArgs.includes('--component-handoff')) {
+  const isRun = command === 'run' && opt(rawArgs, '--request-kind', '') === 'host-implementation' && opt(rawArgs, '--mode', '') === 'apply-host';
+  if (!isRun && command !== 'status') block('MODULE_HANDOFF_ROUTE_INVALID', 'Use explicit apply-host host-implementation run or status.');
+  const allowed = new Set(['--component-handoff', '--request-kind', '--mode', '--dry-run']);
+  if (rawArgs.slice(1).some(arg => arg.startsWith('--') && !allowed.has(arg))) block('MODULE_HANDOFF_MIXED_SCOPE', 'Module handoff cannot be combined with whole-page workflow arguments.');
+  try {
+    const result = componentHandoff({ manifestPath: opt(rawArgs, '--component-handoff', ''), command, dryRun: rawArgs.includes('--dry-run') });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    process.exit(result.ok ? 0 : 1);
+  } catch (error) { block('MODULE_HANDOFF_BLOCKED', error.message); }
+}
+
+if (["resume-evidence", "resume-interpreter"].includes(command)) {
+  const repairRoot = opt(rawArgs, "--artifact-root", "");
+  const repairBrand = resolveBrand(rawArgs.slice(1));
+  if (!repairRoot || !path.isAbsolute(repairRoot) || !repairBrand) block("LEARNING_REPAIR_ROOT_REQUIRED", "Use the existing absolute learning artifact root and brand.");
+  // These internal operations mutate the ledger and have no dry-run mode.
+  if (rawArgs.includes("--dry-run")) block("LEARNING_REPAIR_DRY_RUN_UNSUPPORTED", "This repair command has no dry-run mode; no changes were made.");
+  const rejection = opt(rawArgs, "--rejection", "");
+  if (command === "resume-evidence" && rejection) block("LEARNING_REPAIR_REJECTION_SCOPE_INVALID", "Evidence repair consumes its recorded consumer rejection, not an Interpreter rejection file.");
+  const result = spawnSync(process.execPath, [skillScript("brand-subagent-workflow.mjs"), command, "--root", repairRoot, "--brand", repairBrand,
+    ...(rawArgs.includes("--continue-existing") ? ["--continue-existing"] : []),
+    ...(rejection ? ["--rejection", rejection] : []),
+  ], { stdio: "inherit" });
+  process.exit(result.status ?? 1);
+}
+
+if (command === "resume-learning-closure") {
+  const closureRoot=opt(rawArgs,"--artifact-root",""),closureBrand=resolveBrand(rawArgs.slice(1));
+  if (!closureRoot || !path.isAbsolute(closureRoot) || !closureBrand) block("LEARNING_CLOSURE_ISOLATED_ROOT_REQUIRED","Use the existing absolute learning artifact root and brand.");
+  const result=spawnSync(process.execPath,[skillScript("brand-subagent-workflow.mjs"),command,"--root",closureRoot,"--brand",closureBrand,...(rawArgs.includes("--continue-existing")?["--continue-existing"]:[]),...(rawArgs.includes("--dry-run")?["--dry-run"]:[]),"--reason",opt(rawArgs,"--reason","")],{stdio:"inherit"});
+  process.exit(result.status??1);
+}
+
+if (command === "resume-demo") {
+  const demoRoot = opt(rawArgs, "--artifact-root", "");
+  const demoBrand = resolveBrand(rawArgs.slice(1));
+  if (!demoRoot || !path.isAbsolute(demoRoot) || !demoBrand) block("DEMO_RESUME_ISOLATED_ROOT_REQUIRED", "Use the existing absolute learning artifact root and brand.");
+  if (!rawArgs.includes("--continue-existing")) block("DEMO_RESUME_CONTINUATION_AUTHORIZATION_REQUIRED", "An explicit user instruction to continue the same learning case is required.");
+  const result = spawnSync(process.execPath, [skillScript("brand-subagent-workflow.mjs"), "resume-demo", "--root", demoRoot, "--brand", demoBrand, "--continue-existing"], { stdio: "inherit" });
+  process.exit(result.status ?? 1);
+}
+
 if (command === "init") {
   const result = spawnSync(process.execPath, [skillScript("initialize-brand.mjs"), ...rawArgs.slice(1)], { stdio: "inherit" });
   process.exit(result.status ?? 1);
@@ -28,6 +103,100 @@ if (command === "init") {
 if (command === "artifacts") {
   const result = spawnSync(process.execPath, [skillScript("brand-artifacts.mjs"), ...rawArgs.slice(1)], { stdio: "inherit" });
   process.exit(result.status ?? 1);
+}
+
+if (command === "freeze-selected-h5") {
+  if (rawArgs.some(arg => ["--publish", "--deploy", "--public", "--public-distribution"].includes(arg))) block("SELECTED_H5_LOCAL_SCOPE_ONLY", "Selected H5 approval authorizes local host implementation only.");
+  const handoffRoot = opt(rawArgs, "--artifact-root", "");
+  const handoffBrand = resolveBrand(rawArgs.slice(1));
+  const goal = readJsonIfExists(path.join(handoffRoot, "migrations", handoffBrand, "goal-contract.json"));
+  const hostTarget = opt(rawArgs, "--host-target", "");
+  validateArtifactIsolation({ command: "run", requestKind: "host-concepts", root: handoffRoot, artifactRoot: handoffRoot, args: ["--host-target", hostTarget] });
+  if (path.resolve(goal?.hostTarget || "") !== path.resolve(hostTarget)) block("SELECTED_H5_HOST_MISMATCH", "Use the original host bound to this selected H5.");
+  try {
+    const binding = (flag) => ({ path: opt(rawArgs, flag, ""), sha256: opt(rawArgs, `${flag}-sha256`, "") });
+    const result = freezeSelectedH5({ root: handoffRoot, brand: handoffBrand, artifact: binding("--artifact"), approval: binding("--approval"), qa: binding("--qa"), hostTarget });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`); process.exit(0);
+  } catch (error) { fail(error.message); }
+}
+
+if (command === "recover-reference") {
+  const recoveryRoot = opt(rawArgs, "--artifact-root", "");
+  const recoveryBrand = resolveBrand(rawArgs.slice(1));
+  const recoveryGoal = readJsonIfExists(path.join(recoveryRoot, "migrations", recoveryBrand, "goal-contract.json"));
+  validateArtifactIsolation({ command: "run", requestKind: "host-concepts", root: recoveryRoot, artifactRoot: recoveryRoot, args: ["--host-target", recoveryGoal?.hostTarget || ""] });
+  try {
+    const result = recoverReference({ root: recoveryRoot, brand: recoveryBrand, sourceRoot: opt(rawArgs, "--source-root", ""), sourceMaster: opt(rawArgs, "--source-master", ""), sourceMasterSha256: opt(rawArgs, "--source-master-sha256", ""), reason: opt(rawArgs, "--reason", ""), confirmed: rawArgs.includes("--confirm-reference-only") });
+    process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
+    process.exit(0);
+  } catch (error) { fail(error.message); }
+}
+
+if (["retry-h5", "retry-host-strategy","retry-host-implementation", "retry-host-preview-qa"].includes(command)) {
+  const retryRoot = opt(rawArgs, "--artifact-root", "");
+  if (!retryRoot || !path.isAbsolute(retryRoot)) block("H5_RETRY_ISOLATED_ROOT_REQUIRED", "Retry requires the existing absolute isolated artifact root.");
+  const retryBrand = resolveBrand(rawArgs.slice(1));
+  const retryGoal = readJsonIfExists(path.join(retryRoot, "migrations", retryBrand, "goal-contract.json"));
+  validateArtifactIsolation({ command: "run", requestKind: "host-concepts", root: retryRoot, artifactRoot: retryRoot, args: ["--host-target", retryGoal?.hostTarget || ""] });
+  const transferFlags = ["--transfer-review", "--transfer-review-sha256"].flatMap((flag) => opt(rawArgs, flag, "") ? [flag, opt(rawArgs, flag, "")] : []);
+  if (command !== "retry-h5" && (retryGoal?.mode !== "apply-host" || transferFlags.length)) block("APPLY_HOST_RETRY_SCOPE_INVALID", "Retry only the blocked apply-host owner; additive brand rules are not accepted.");
+  const reasonFlags = command !== "retry-h5" && opt(rawArgs,"--reason","") ? ["--reason",opt(rawArgs,"--reason","")] : [];
+  const result = spawnSync(process.execPath, [skillScript("brand-subagent-workflow.mjs"), command, "--root", retryRoot, "--brand", retryBrand, ...(rawArgs.includes("--continue-existing") ? ["--continue-existing"] : []), ...transferFlags, ...reasonFlags], { stdio: "inherit" });
+  process.exit(result.status ?? 1);
+}
+
+// Keep specialist execution in the existing state machine, with one public
+// continuation point that cannot mistake child learning for user delivery.
+if (["continue", "delivery"].includes(command)) {
+  const continuationRoot = path.resolve(opt(rawArgs, "--artifact-root", "") || opt(rawArgs, "--root", process.cwd()));
+  const handoff = readJsonIfExists(path.join(continuationRoot, "source-prerequisite.json"));
+  if (command === "delivery") {
+    const delivery = handoff
+      ? evaluateSourceContinuation({ root: continuationRoot })
+      : evaluateHostDelivery({ root: continuationRoot, brand: resolveBrand(rawArgs.slice(1)) });
+    process.stdout.write(`${JSON.stringify(delivery, null, 2)}\n`);
+    process.exit(delivery.status === "blocked" ? 1 : 0);
+  }
+  const nativeInput = opt(rawArgs, '--browser-capture', '');
+  if (nativeInput) {
+    if (handoff?.schema !== 'brand-source-prerequisite/v1' || handoff.parentRequestKind !== 'host-concepts' || handoff.artifactRoot !== continuationRoot) block('SOURCE_PREREQUISITE_INVALID', 'Browser input requires the original isolated host-concepts handoff.');
+    validateArtifactIsolation({ command: 'run', requestKind: 'host-concepts', root: continuationRoot, artifactRoot: continuationRoot, args: ['--host-target', handoff.hostTarget] });
+    if (fs.existsSync(path.join(continuationRoot, 'migrations', handoff.brand, 'goal-contract.json'))) block('NATIVE_SOURCE_GOAL_ALREADY_FROZEN', 'Do not replace source inputs after learning has started.');
+    try { installNativeSourceInput({ file: path.resolve(nativeInput), root: continuationRoot, brand: handoff.brand, sourceUrl: handoff.sourceUrl }); }
+    catch (error) { block('NATIVE_SOURCE_IMPORT_FAILED', error.message); }
+  }
+  if (handoff && !fs.existsSync(path.join(continuationRoot, 'migrations', handoff.brand, 'execution-manifest.json'))) {
+    let native;
+    try { native = readNativeSourceInput({ root: continuationRoot, brand: handoff.brand, sourceUrl: handoff.sourceUrl }); }
+    catch (error) { block('NATIVE_SOURCE_IMPORT_FAILED', error.message); }
+    if (native) dispatchSourceLearning({ root: continuationRoot, brand: handoff.brand, sourceUrl: handoff.sourceUrl, executed: [{ step: 'import-native-browser-input', status: 'raw-unreviewed', limitations: native.limitations }], sourceScreenshot: native.sourceScreenshot, visualAuthority: native.visualAuthority, interactionEvidence: native.interactionEvidence, learningProfile: handoff.requestedProfile === 'fast' ? 'fast' : 'full' });
+  }
+  const continuationOptions = { root: continuationRoot, continuationScope: opt(rawArgs, '--continuation-scope', null), previewReadinessSha256: opt(rawArgs, '--preview-readiness-sha256', null) };
+  if (continuationOptions.previewReadinessSha256 && !continuationOptions.continuationScope) block('PREVIEW_SCOPE_REQUIRED', 'A preview readiness receipt requires an explicit continuation scope.');
+  const evaluated = continuationOptions.continuationScope ? evaluatePreviewContinuation(continuationOptions) : evaluateSourceContinuation(continuationOptions);
+  if (evaluated.status === "blocked") {
+    process.stdout.write(`${JSON.stringify(evaluated, null, 2)}\n`);
+    process.exit(1);
+  }
+  if (evaluated.status === "pending") {
+    const learningManifest = path.join(continuationRoot, "migrations", handoff.brand, "execution-manifest.json");
+    const next = fs.existsSync(learningManifest)
+      ? spawnSync(process.execPath, [skillScript("brand-subagent-workflow.mjs"), "next", "--brand", handoff.brand, "--root", continuationRoot], { cwd: continuationRoot, encoding: "utf8" })
+      : spawnSync(process.execPath, [fileURLToPath(import.meta.url), "run", "--request-kind", "brand-learning", "--mode", "learn-brand", "--profile", handoff.requestedProfile === "fast" ? "fast" : "full", "--brand", handoff.brand, "--source-url", handoff.sourceUrl, "--root", continuationRoot, "--source-prerequisite"], { cwd: continuationRoot, encoding: "utf8" });
+    const outcome = evaluateLearningDispatch(evaluated, { exitCode: next.status, dispatch: safeParseJson(next.stdout), stderr: next.stderr || "" });
+    process.stdout.write(`${JSON.stringify(outcome, null, 2)}\n`);
+    process.exit(outcome.status === "blocked" ? 1 : 0);
+  }
+  validateArtifactIsolation({ command: "run", requestKind: "host-concepts", root: continuationRoot, artifactRoot: continuationRoot, args: handoff.parentArgs?.slice(1) || ["--host-target", handoff.hostTarget] });
+  const installed = materializeHostContinuation(continuationOptions);
+  if (installed.status !== "resume-ready") {
+    process.stdout.write(`${JSON.stringify(installed, null, 2)}\n`);
+    process.exit(1);
+  }
+  const resumed = spawnSync(process.execPath, [fileURLToPath(import.meta.url), ...installed.resume.args], { cwd: installed.resume.artifactRoot, encoding: "utf8" });
+  const publicInstalled = installed.previewReadiness ? { ...installed, requiredRuntimeAssets: { count: installed.requiredRuntimeAssets.length, boundBy: installed.previewReadiness }, partialBrandValidation: { scope: installed.partialBrandValidation.scope, allowedUse: installed.partialBrandValidation.allowedUse, unresolvedExclusions: installed.partialBrandValidation.unresolvedExclusions, reviewerExecutionId: installed.partialBrandValidation.reviewerExecutionId } } : installed;
+  process.stdout.write(`${JSON.stringify({ ...publicInstalled, status: resumed.status === 0 ? "host-resumed" : "blocked", ok: resumed.status === 0, dispatch: safeParseJson(resumed.stdout), stderr: resumed.stderr || "", fullWorkflowPass: false, userGoalCompleted: false, nextAction: "Continue the host specialist workflow in resume.artifactRoot. Show only a real-host H5 that passes the public delivery gate; source learning is not user completion." }, null, 2)}\n`);
+  process.exit(resumed.status || 0);
 }
 
 if (!command || ["-h", "--help", "help"].includes(command)) {
@@ -39,11 +208,17 @@ if (!["run", "plan", "status", "tpp", "detect"].includes(command)) {
   fail(`Unknown command: ${command}`);
 }
 
-const mode = resolveWorkflowMode(rawArgs.slice(1));
+const requestKind = resolveRequestKind(rawArgs.slice(1));
+if (command === "run" && !requestKind) {
+  block("REQUEST_KIND_REQUIRED", "A real run must declare the current-turn outcome with --request-kind brand-learning|host-concepts|host-implementation. Do not infer it from history or available files.");
+}
+const mode = resolveWorkflowMode(rawArgs.slice(1), requestKind);
+validateRequestKindMode(requestKind, mode);
 const profile = opt(rawArgs, "--profile", ["design-host", "apply-host"].includes(mode) ? "fast" : "full");
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
 const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
+const reuseStylePack = rawArgs.includes("--reuse-style-pack");
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");
 }
@@ -53,11 +228,37 @@ if (mode === "learn-brand" && !["fast", "full"].includes(profile)) {
 if (["design-host", "apply-host"].includes(mode) && !["fast", "standard", "certification"].includes(profile)) {
   fail(`Unknown ${mode} profile: ${profile}. Use fast, standard or certification.`);
 }
-const root = opt(rawArgs, "--root", process.cwd());
+const artifactRoot = opt(rawArgs, "--artifact-root", "");
+const root = path.resolve(artifactRoot || opt(rawArgs, "--root", process.cwd()));
+const artifactIsolation = validateArtifactIsolation({ command, requestKind, root, artifactRoot, args: rawArgs.slice(1) });
 let brand = resolveBrand(rawArgs.slice(1));
 let registryResolution = null;
 const requestedSourceUrl = opt(rawArgs, "--source-url", "");
 const needsReusablePack = requestedSourceUrl && !opt(rawArgs, "--style-pack", "") && !opt(rawArgs, "--mod-file", "");
+
+// A URL is a complete user reference, not a missing internal package.
+// Keep host-concepts as the parent intent; hand the existing learning pipeline
+// a prerequisite, then resume only after its evidence/package QA gates.
+if (command === "run" && mode === "design-host" && needsReusablePack && !reuseStylePack) {
+  const hostTarget = opt(rawArgs, "--host-target", "") || opt(rawArgs, "--host-target-or-plan", "");
+  let source;
+  try { source = new URL(requestedSourceUrl); } catch { block("BRAND_SOURCE_URL_INVALID", "Provide a valid brand reference URL."); }
+  if (!["https:", "http:"].includes(source.protocol)) block("BRAND_SOURCE_URL_INVALID", "Brand references must use HTTP(S).");
+  const learningArgs = ["run", "--request-kind", "brand-learning", "--mode", "learn-brand", "--profile", profile === "fast" ? "fast" : "full", "--brand", brand, "--source-url", requestedSourceUrl, "--root", root, "--source-prerequisite"];
+  const handoff = {
+    schema: "brand-source-prerequisite/v1", status: "learning-required", parentRequestKind: requestKind,
+    sourceUrl: requestedSourceUrl, brand, hostTarget, artifactRoot: root, parentArgs: [...rawArgs],
+    requestedProfile: profile, hostMutationAllowed: false, fullWorkflowPass: false,
+    learning: { entry: skillScript("run-brand-workflow.mjs"), args: learningArgs },
+    resume: { requestKind, mode, profile, hostTarget, artifactRoot: root, requires: ["learn-brand evidence and independent QA", "validated Brand MOD and hash-bound runtime assets"], modFile: null },
+  };
+  const handoffFile = path.join(root, "source-prerequisite.json");
+  const existingHandoff = readJsonIfExists(handoffFile);
+  if (existingHandoff && (existingHandoff.sourceUrl !== requestedSourceUrl || existingHandoff.hostTarget !== hostTarget || existingHandoff.brand !== brand || (existingHandoff.parentArgs && JSON.stringify(existingHandoff.parentArgs) !== JSON.stringify(rawArgs)))) block("SOURCE_PREREQUISITE_CONFLICT", "The original host request is immutable; continue its handoff or start a separate isolated run.");
+  if (!existingHandoff) fs.writeFileSync(handoffFile, `${JSON.stringify(handoff, null, 2)}\n`, { flag: "wx" });
+  process.stdout.write(`${JSON.stringify({ ...(existingHandoff || handoff), ok: true, command, workflow: mode, requestKind, status: "prerequisite-dispatch-ready", step: "brand-source-learning", handoffFile, userGoalCompleted: false, continueCommand: [fileURLToPath(import.meta.url), "continue", "--artifact-root", root], nextAction: "Orchestrator uses the public continue command without asking the user for a package. It drives the learning dispatch, validates independent QA and resumes preserved host-concepts; this handoff is not learning or H5 success." }, null, 2)}\n`);
+  process.exit(0);
+}
 
 if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
   try {
@@ -65,7 +266,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       sourceUrl: requestedSourceUrl,
       root,
       registryBase: opt(rawArgs, "--registry-base", undefined),
-      install: ["design-host", "apply-host"].includes(mode) && command === "run",
+      install: ["design-host", "apply-host"].includes(mode) && command === "run" && reuseStylePack,
     });
   } catch (error) {
     registryResolution = { matched: false, reason: "registry-unavailable", error: error.message };
@@ -91,7 +292,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       fail(`EXISTING_BRAND_ID_REQUIRED: ${registryResolution.brand} already owns this source. Revalidate it as an internal revision; creating ${brand} requires explicit --allow-new-brand-id authorization.`);
     }
     if (!forceRelearn) brand = registryResolution.brand;
-    if (mode === "learn-brand" && command === "run" && !forceRelearn && !updateExisting) {
+    if (mode === "learn-brand" && command === "run" && !forceRelearn && !updateExisting && !rawArgs.includes("--source-prerequisite")) {
       process.stdout.write(`${JSON.stringify({
         ok: true,
         command,
@@ -106,6 +307,22 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       process.exit(0);
     }
 
+    if (["design-host", "apply-host"].includes(mode) && !reuseStylePack) {
+      process.stdout.write(`${JSON.stringify({
+        ok: false,
+        command,
+        workflow: mode,
+        requestKind,
+        brand: registryResolution.brand,
+        root,
+        registryResolution: { ...registryResolution, installedFiles: [] },
+        blockingCode: "STYLE_PACK_REUSE_APPROVAL_REQUIRED",
+        nextAction: "Either run brand-learning for the supplied source, provide an explicit local --style-pack/--mod-file, or explicitly authorize the reviewed Registry pack with --reuse-style-pack.",
+        message: "A Registry match is only a discovery result. It cannot silently replace current brand learning or become the visual input for host concepts.",
+      }, null, 2)}\n`);
+      process.exit(1);
+    }
+
     if (["design-host", "apply-host"].includes(mode)) {
       rawArgs = withoutOption(rawArgs, "--source-url");
       rawArgs = withoutOption(rawArgs, "--registry-base");
@@ -116,18 +333,22 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
 }
 
 const passthroughArgs = rawArgs.slice(1);
+const frozenRun = resolveReadOnlyFrozenRun({ command, root, brand, mode, requestKind, args: passthroughArgs });
 const intake = resolveWorkflowIntake({
   mode,
   brand,
   root,
   args: passthroughArgs,
+  frozenRun,
 });
 
 if (!intake.ok) {
   process.stdout.write(`${JSON.stringify({
     ok: false,
+    blockingCode: intake.blockingCode || "WORKFLOW_INTAKE_BLOCKED",
     command,
     workflow: mode,
+    requestKind,
     profile,
     brand,
     root,
@@ -137,21 +358,30 @@ if (!intake.ok) {
   process.exit(1);
 }
 
+if (command === "run" && ["design-host", "apply-host"].includes(mode)) {
+  installExplicitLocalStylePack({ root, brand, modFile: opt(rawArgs, "--mod-file", "") });
+}
+
 if (command === "run" && mode === "design-host") {
   const routeFile = path.join(root, "migrations", brand, "design-host-route.json");
   if (mode === "design-host" && !fs.existsSync(routeFile)) {
     fs.mkdirSync(path.dirname(routeFile), { recursive: true });
     fs.writeFileSync(routeFile, `${JSON.stringify({
-      schema: "design-host-route/v2", sequence: "image-demo-first",
-      imageCapability: { status: "required" },
-      demoImages: { status: "pending" },
-      demoVisualReview: { status: "pending" },
+      schema: "design-host-route/v3", sequence: "h5-design-system-first",
+      imageCapability: { status: "deferred-until-verified-gap" },
+      brandIdentityAssets: { status: "optional-pending", assets: [] },
+      knowledgeDecision: { status: "pending" },
+      h5Directions: { status: "pending", directions: [] },
+      h5QA: { status: "pending" },
+      expressiveGapDecision: { status: "pending", gaps: [] },
+      localizedExpressiveAssets: { status: "not-assessed", automaticRetryCount: 0, assets: [] },
+      expressiveIntegrationQA: { status: "not-assessed" },
       userDirectionReview: { status: "pending" },
-      h5Reconstruction: { status: "pending" }, h5QA: { status: "pending" }, finalSelection: { status: "pending" },
+      finalSelection: { status: "pending" },
     }, null, 2)}\n`);
   }
-  const routeStage = "before-concept-dispatch";
-  const routeGate = spawnSync(process.execPath, [skillScript("validate-design-host-route.mjs"), "--file", routeFile, "--stage", routeStage], { cwd: root, encoding: "utf8" });
+  const routeStage = "initialization";
+  const routeGate = spawnSync(process.execPath, [skillScript("validate-design-host-route.mjs"), ...designHostRouteValidationArgs(root, brand, routeStage)], { cwd: root, encoding: "utf8" });
   if (routeGate.status !== 0) {
     process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "design-host-route", blockingCode: "DESIGN_HOST_ROUTE_ORDER_FAILED", routeGate: safeParseJson(routeGate.stdout), message: "The requested medium sequence is not executable; no H5 or host edit was started." }, null, 2)}\n`);
     process.exit(routeGate.status || 1);
@@ -192,6 +422,7 @@ if (command === "detect") {
     ok: true,
     command,
     workflow: mode,
+    requestKind,
     profile,
     brand,
     root,
@@ -216,6 +447,7 @@ if (command === "plan") {
     ok: true,
     command,
     workflow: mode,
+    requestKind,
     profile,
     brand,
     root,
@@ -233,6 +465,7 @@ if (command === "plan") {
     outputStatus: outputAudit.outputStatus,
     completedStages: outputAudit.completedStages,
     missingOutputs: outputAudit.missingOutputs,
+    userDelivery: outputAudit.userDelivery || null,
     nextAction: outputAudit.nextAction,
     previewArtifacts: outputAudit.previewArtifacts,
     howToTest: buildHowToTest({ root, mode, brand }),
@@ -262,8 +495,9 @@ if (command === "run") {
     if (preflight.status !== 0) {
       process.stdout.write(`${JSON.stringify({
         ok: false,
-        workflow: mode,
-        profile,
+    workflow: mode,
+    requestKind,
+    profile,
         brand,
         step: `${mode}-preflight`,
         blockingCode: `${mode.toUpperCase().replaceAll('-', '_')}_PREFLIGHT_BLOCKED`,
@@ -381,13 +615,15 @@ if (command === "tpp") {
 
 const outputAudit = auditWorkflowOutputs({ root, mode, brand, args: passthroughArgs });
 const learnBrandHandoff = mode === "learn-brand" ? inspectLearnBrandHandoff({ root, brand }) : null;
-const completed = outputAudit.missingOutputs.length === 0 && (!learnBrandHandoff || learnBrandHandoff.status === "PASS");
+const userDelivery = outputAudit.userDelivery || (["design-host", "apply-host"].includes(mode) ? evaluateHostDelivery({ root, brand }) : null);
+const completed = outputAudit.missingOutputs.length === 0 && (!learnBrandHandoff || learnBrandHandoff.status === "PASS") && (!userDelivery || userDelivery.userGoalCompleted === true);
 const progress = buildProgressSummary({ mode, outputAudit, executed });
 
 process.stdout.write(`${JSON.stringify({
   ok: completed,
   command,
   workflow: mode,
+  requestKind,
   profile,
   brand,
   root,
@@ -396,6 +632,8 @@ process.stdout.write(`${JSON.stringify({
   intake,
   executed,
   completed,
+  userDelivery,
+  userGoalCompleted: mode === "learn-brand" && fs.existsSync(path.join(root, "source-prerequisite.json")) ? false : completed,
   learnBrandHandoff,
   progress,
   stepStatus: outputAudit.stepStatus,
@@ -629,7 +867,7 @@ function runNodeCheck({ root, script, label, enabled, scriptArgs = [], executed 
 }
 
 function runSilentNodeCheck({ root, script, scriptArgs = [] }) {
-  const scriptFile = path.join(root, script);
+  const scriptFile = path.resolve(root, resolveSkillScript(script));
   if (!fs.existsSync(scriptFile)) {
     return {
       status: "missing",
@@ -639,9 +877,11 @@ function runSilentNodeCheck({ root, script, scriptArgs = [] }) {
     };
   }
 
-  const result = scriptArgs.includes("--write")
-    ? spawnSync("node", [script, ...scriptArgs], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] })
-    : runCachedValidator({ root, script, args: scriptArgs });
+  const optionsIndex = scriptArgs.indexOf("--options");
+  const liveSelectedMaster = optionsIndex >= 0 && readJsonIfExists(path.resolve(root, scriptArgs[optionsIndex + 1]))?.schema === "selected-h5-local-options/v1";
+  const result = scriptArgs.includes("--write") || liveSelectedMaster
+    ? spawnSync("node", [scriptFile, ...scriptArgs], { cwd: root, encoding: "utf8", stdio: ["ignore", "pipe", "pipe"] })
+    : runCachedValidator({ root, script: scriptFile, args: scriptArgs });
   return {
     status: (result.status ?? result.exitCode) === 0 ? "passed" : "failed",
     command: `node ${script}${formatExtraArgs(scriptArgs)}`,
@@ -679,9 +919,16 @@ function extractVisualQualityLevel(result, brand) {
 
 function executeWorkflow({ root, mode, profile, brand, args, executed }) {
   if(mode === 'apply-host' || (mode === 'design-host' && opt(args, '--application-plan', ''))) {
-    const expressionFile=path.resolve(root,opt(args,'--expression-plan',path.join('migrations',brand,'host-expression-plan.json')));
-    const gate=validateHostExpression(root,expressionFile);
-    if(!gate.ok){process.stdout.write(JSON.stringify({ok:false,step:'host-expression',...gate,nextAction:'Complete region decisions; generated regions require concept + dynamic H5 + bound runtime and visual review evidence.'},null,2)+'\n');process.exit(1);}
+    const explicitExpressionPlan = opt(args, '--expression-plan', '');
+    const expressionFile = path.resolve(root, explicitExpressionPlan || path.join('migrations',brand,'host-expression-plan.json'));
+    // H5-first apply-host begins with Host Strategy. Older image-first runs may
+    // carry a host-expression-plan, but it is not a prerequisite for scanning
+    // the host or producing the strategy artifacts. Validate it when supplied
+    // or present; do not turn a legacy optional artifact into a circular gate.
+    if (explicitExpressionPlan || fs.existsSync(expressionFile)) {
+      const gate=validateHostExpression(root,expressionFile);
+      if(!gate.ok){process.stdout.write(JSON.stringify({ok:false,step:'host-expression',...gate,nextAction:'Complete region decisions; generated regions require concept + dynamic H5 + bound runtime and visual review evidence.'},null,2)+'\n');process.exit(1);}
+    }
   }
 
   if (mode === "learn-brand") {
@@ -700,7 +947,7 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
       process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "design-host-route", blockingCode: "DESIGN_HOST_ROUTE_REQUIRED", message: "Apply-host stopped before editing because the frozen route-order artifact is missing." }, null, 2)}\n`);
       process.exit(1);
     }
-    const routeGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-design-host-route.mjs", label: "design-host-route", enabled: true, scriptArgs: ["--file", routeFile, "--stage", "before-apply-host"], executed });
+    const routeGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-design-host-route.mjs", label: "design-host-route", enabled: true, scriptArgs: designHostRouteValidationArgs(root, brand, "before-apply-host"), executed });
     if (routeGate.status !== "passed") {
       process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "design-host-route", blockingCode: "DESIGN_HOST_ROUTE_ORDER_FAILED", routeGate, message: "Apply-host stopped before editing because the frozen design sequence is incomplete." }, null, 2)}\n`);
       process.exit(1);
@@ -712,7 +959,7 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
       process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "verify-frozen-design", blockingCode: "FROZEN_DESIGN_REQUIRED", missingArtifacts: missing, learnBrandDispatched: false, nextAction: "Return to design-host, complete direction selection and freeze all design artifacts before implementation.", message: "Apply-host stopped before editing because its approved design input is incomplete." }, null, 2)}\n`);
       process.exit(1);
     }
-    const planGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-brand-application-plan.mjs", label: "brand-application-plan", enabled: true, scriptArgs: ["--plan", required.plan], executed });
+    const planGate = runNodeCheck({ root, script: "skills/brand/scripts/apply-host-preflight.mjs", label: "approved-host-master", enabled: true, scriptArgs: ["--frozen-master-only", "--root", root, "--brand", brand, "--host-target", opt(args, "--host-target", ".")], executed });
     const directionGate = runNodeCheck({ root, script: "skills/brand/scripts/validate-wild-design-decision.mjs", label: "frozen-design-direction", enabled: true, scriptArgs: wild.args, executed });
     if (planGate.status !== "passed" || directionGate.status !== "passed") {
       process.stdout.write(`${JSON.stringify({ ok: false, workflow: mode, step: "verify-frozen-design", blockingCode: "FROZEN_DESIGN_INVALID", planGate, directionGate, nextAction: "Repair and reapprove the direction in design-host; apply-host may not redesign it." }, null, 2)}\n`);
@@ -770,24 +1017,12 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
     process.exit(0);
   }
 
-  // A fresh fast preview must never inherit an old host's choice merely because
-  // a similarly named artifact exists somewhere under the brand migration.
-  // The current run has to bind its own rendered option set explicitly.
+  // A fresh fast preview starts the real specialist state machine. It must not
+  // stop at a legacy "prepare options elsewhere" status that forces the outer
+  // agent to invent and manually stitch a second workflow.
   const explicitOptions = opt(args, "--wild-design-options", "");
   if (profile === "fast" && !explicitOptions) {
-    process.stdout.write(`${JSON.stringify({
-      ok: true,
-      workflow: mode,
-      profile,
-      status: "preparing-style-options",
-      step: "wild-design-selection",
-      pauseReason: "style-options-required",
-      learnBrandDispatched: false,
-      hostFilesModified: false,
-      nextAction: "Generate two or three rendered first-viewport options for this host, then rerun with --wild-design-options. Do not reuse another host run's decision.",
-      message: "Apply preview is correctly routed and stopped before host edits while this run's style options are prepared.",
-    }, null, 2)}\n`);
-    process.exit(0);
+    bootstrapDesignHostProbe({ root, brand, profile, args });
   }
 
   const wild = resolveWildDesignSet({ root, brand, args });
@@ -905,6 +1140,75 @@ function executeWorkflow({ root, mode, profile, brand, args, executed }) {
   }
 }
 
+function bootstrapDesignHostProbe({ root, brand, profile, args }) {
+  const migration = path.join(root, "migrations", brand);
+  const goalFile = path.join(migration, "goal-contract.json");
+  const manifestFile = path.join(migration, "execution-manifest.json");
+  if (fs.existsSync(manifestFile)) {
+    const manifest = readJsonIfExists(manifestFile);
+    const delivery = evaluateHostDelivery({ root, brand });
+    process.stdout.write(`${JSON.stringify({
+      ok: true,
+      workflow: "design-host",
+      profile,
+      status: manifest?.status || "unknown",
+      step: "visual-probe-workflow",
+      runId: manifest?.runId || null,
+      currentStageId: manifest?.currentStageId || null,
+      manifest: path.relative(root, manifestFile),
+      userDelivery: delivery,
+      userGoalCompleted: delivery.userGoalCompleted === true,
+      hostFilesModified: false,
+      nextAction: manifest?.currentStageId ? `Continue the existing specialist workflow at ${manifest.currentStageId}; do not create another run.` : "Inspect the existing visual-probe decision or blocker.",
+      message: "The isolated visual-probe workflow already exists; the public entry will not overwrite its history.",
+    }, null, 2)}\n`);
+    process.exit(0);
+  }
+  fs.mkdirSync(migration, { recursive: true });
+  fs.writeFileSync(goalFile, `${JSON.stringify({
+      schema: "brand-goal/v2",
+      goalId: `design-host-probe-${brand}-${Date.now()}`,
+      brand,
+      mode: "design-host",
+      executionProfile: profile,
+      requestKind: "host-concepts",
+      hostTarget: opt(args, "--host-target", ""),
+      sealed: true,
+      thresholds: { minimumSelectableDirections: 3, maximumSelectableDirections: 3, maxAttempts: 1 },
+      scope: { startupPageOnly: true, hostSourceReadOnly: true, h5BeforeUserSelection: true, fullProjectScanBeforeH5Approval: false },
+    }, null, 2)}\n`);
+  const workflowScript = skillScript("brand-subagent-workflow.mjs");
+  const prepare = spawnSync(process.execPath, [workflowScript, "prepare", "--brand", brand, "--root", root], { cwd: root, encoding: "utf8" });
+  if (prepare.status !== 0) {
+    process.stdout.write(`${JSON.stringify({ ok: false, workflow: "design-host", step: "visual-probe-prepare", blockingCode: "VISUAL_PROBE_PREPARE_FAILED", stderr: prepare.stderr, result: safeParseJson(prepare.stdout) }, null, 2)}\n`);
+    process.exit(prepare.status || 1);
+  }
+  const firstDispatch = spawnSync(process.execPath, [workflowScript, "next", "--brand", brand, "--root", root], { cwd: root, encoding: "utf8" });
+  if (firstDispatch.status !== 0) {
+    process.stdout.write(`${JSON.stringify({ ok: false, workflow: "design-host", step: "visual-probe-first-dispatch", blockingCode: "VISUAL_PROBE_FIRST_DISPATCH_FAILED", stderr: firstDispatch.stderr, result: safeParseJson(firstDispatch.stdout) }, null, 2)}\n`);
+    process.exit(firstDispatch.status || 1);
+  }
+  const prepared = safeParseJson(prepare.stdout);
+  const dispatched = safeParseJson(firstDispatch.stdout);
+  process.stdout.write(`${JSON.stringify({
+    ok: true,
+    workflow: "design-host",
+    profile,
+    status: "dispatch-ready",
+    step: "h5-direction-generation",
+    runId: prepared?.runId || null,
+    manifest: prepared?.manifest || path.relative(root, manifestFile),
+    dispatchFile: dispatched?.dispatchFile || null,
+    dispatchRequest: dispatched?.dispatchRequest || null,
+    learnBrandDispatched: false,
+    userGoalCompleted: false,
+    hostFilesModified: false,
+    nextAction: "Spawn the Brand Application Designer with exactly this dispatch packet. Startup-page facts, baseline and brief were derived deterministically during prepare; do not dispatch a separate Host Strategist or create a parallel workflow.",
+    message: "The public entry derived the startup-page contract deterministically and produced the three-H5 designer dispatch.",
+  }, null, 2)}\n`);
+  process.exit(0);
+}
+
 function runLearnBrand({ root, brand, args, executed }) {
   if (!brand) {
     fail("learn-brand requires --brand or a parsable --source-url.");
@@ -915,7 +1219,7 @@ function runLearnBrand({ root, brand, args, executed }) {
 
   if (!dembrandtInput && sourceUrl) {
     const extractorResult = spawnSync("node", [
-      "skills/brand/scripts/run-dembrandt-extractor.mjs",
+      skillScript("run-dembrandt-extractor.mjs"),
       "--root",
       root,
       "--brand",
@@ -1011,34 +1315,50 @@ function runLearnBrand({ root, brand, args, executed }) {
   });
 
   if (sourceUrl) {
-    runOrThrow({
-      root,
-      commandArgs: ["collect-site-evidence", "--brand", brand, "--source-url", sourceUrl],
-      executed,
-      step: "collect-site-evidence",
-      failureMessage: "Collecting site evidence failed.",
-    });
+    const currentObservation = validatedBrowserObservation(root, brand, sourceUrl);
+    if (currentObservation) {
+      executed.push({
+        step: "reuse-validated-browser-observation",
+        command: null,
+        exitCode: 0,
+        evidence: {
+          manifest: path.relative(root, currentObservation.manifestFile),
+          brandEvidence: path.relative(root, currentObservation.evidenceFile),
+          pageCount: currentObservation.pageCount,
+        },
+        reason: "A current browser-native observation already passed source completeness and Evidence handoff; lower-priority HTTP collection must not overwrite it.",
+      });
+    } else {
+      runOrThrow({
+        root,
+        commandArgs: ["collect-site-evidence", "--brand", brand, "--source-url", sourceUrl],
+        executed,
+        step: "collect-site-evidence",
+        failureMessage: "Collecting site evidence failed.",
+      });
 
-    const renderedEvidence = collectRenderedEvidence({ root, brand, sourceUrl, args, executed });
-    runOrThrow({
-      root,
-      commandArgs: [
-        "collect-rendered-assets",
-        "--brand",
-        brand,
-        "--source-url",
-        sourceUrl,
-        "--html-file",
-        renderedEvidence.htmlFile,
-        "--css-files",
-        renderedEvidence.cssFiles.join(","),
-        "--network-file",
-        renderedEvidence.networkFile,
-      ],
-      executed,
-      step: "collect-rendered-assets",
-      failureMessage: "Collecting rendered assets failed.",
-    });
+      const renderedEvidence = collectRenderedEvidence({ root, brand, sourceUrl, args, executed });
+      runOrThrow({
+        root,
+        commandArgs: [
+          "collect-rendered-assets",
+          "--brand",
+          brand,
+          "--source-url",
+          sourceUrl,
+          "--html-file",
+          renderedEvidence.htmlFile,
+          "--css-files",
+          renderedEvidence.cssFiles.join(","),
+          "--network-file",
+          renderedEvidence.networkFile,
+          ...(args.includes("--update-existing") ? ["--merge-existing"] : []),
+        ],
+        executed,
+        step: "collect-rendered-assets",
+        failureMessage: "Collecting rendered assets failed.",
+      });
+    }
 
     // Evidence collection must not make an unfinished brand visible in the
     // public preview registry. Demo registration belongs after Evidence,
@@ -1067,19 +1387,71 @@ function runLearnBrand({ root, brand, args, executed }) {
       failureMessage: "Learn-brand should not carry host-apply intent data in this run.",
     });
   }
+  if (args.includes("--source-prerequisite")) dispatchSourceLearning({ root, brand, sourceUrl, executed });
+}
+
+function dispatchSourceLearning({ root, brand, sourceUrl, executed, sourceScreenshot = null, visualAuthority, interactionEvidence, learningProfile = profile }) {
+  const handoffFile = path.join(root, "source-prerequisite.json");
+  const handoff = readJsonIfExists(handoffFile);
+  if (handoff?.schema !== "brand-source-prerequisite/v1" || handoff.parentRequestKind !== "host-concepts" || handoff.artifactRoot !== root || handoff.sourceUrl !== sourceUrl) {
+    block("SOURCE_PREREQUISITE_INVALID", "Source learning must retain its isolated parent host-concepts handoff.");
+  }
+  const migration = path.join(root, "migrations", brand);
+  const goalFile = path.join(migration, "goal-contract.json");
+  const manifestFile = path.join(migration, "execution-manifest.json");
+  fs.mkdirSync(migration, { recursive: true });
+  if (!fs.existsSync(goalFile)) {
+    const capture = readJsonIfExists(path.join(root, "output", "extractor-benchmark", brand, "rendered", "manifest.json"));
+    if (!sourceScreenshot && (capture?.sourceUrl !== sourceUrl || !capture?.browserProof?.fullPagePath)) block("SOURCE_LEARNING_CAPTURE_MISSING", "A frozen learning goal requires this run's native rendered source screenshot.");
+    let goal;
+    try {
+      goal = createSourceLearningGoal({ root, brand, sourceUrl, profile: learningProfile, handoffFile, visualAuthority, interactionEvidence, sourceScreenshot: sourceScreenshot || capture.browserProof.fullPagePath });
+    } catch (error) {
+      block("SOURCE_LEARNING_GOAL_INCOMPLETE", error.message);
+    }
+    fs.writeFileSync(goalFile, `${JSON.stringify(goal, null, 2)}\n`);
+  }
+  const goal = readJsonIfExists(goalFile);
+  if (goal?.mode !== "learn-brand" || goal.sourceUrl !== sourceUrl || goal.sealed !== true) block("SOURCE_LEARNING_GOAL_MISMATCH", "Do not overwrite an unrelated goal; inspect or create a new isolated run.");
+  const goalIssues = validateSourceLearningGoal(goal, { root, brand, sourceUrl, handoffFile });
+  if (goalIssues.length) block("SOURCE_LEARNING_GOAL_INCOMPLETE", "The existing sealed learning goal lacks required QA targets or boundaries. Preserve its history and create a new isolated run; do not patch sealed bytes.", { goalFile, missingOrInvalid: goalIssues });
+  const script = skillScript("brand-subagent-workflow.mjs");
+  const commands = fs.existsSync(manifestFile) ? ["next"] : ["prepare", "next"];
+  let dispatch = null;
+  for (const action of commands) {
+    const result = spawnSync(process.execPath, [script, action, "--brand", brand, "--root", root], { cwd: root, encoding: "utf8" });
+    dispatch = safeParseJson(result.stdout);
+    executed.push({ step: `source-learning-${action}`, exitCode: result.status, stdout: result.stdout, stderr: result.stderr });
+    if (result.status !== 0) {
+      process.stdout.write(`${JSON.stringify({ ok: false, workflow: "learn-brand", step: `source-learning-${action}`, blockingCode: "SOURCE_LEARNING_DISPATCH_FAILED", result: dispatch, stderr: result.stderr, executed }, null, 2)}\n`);
+      process.exit(result.status || 1);
+    }
+  }
+  process.stdout.write(`${JSON.stringify({ ok: true, workflow: "learn-brand", parentRequestKind: "host-concepts", status: "dispatch-ready", step: "brand-evidence-role", manifest: manifestFile, handoffFile, dispatch, fullWorkflowPass: false, hostFilesModified: false, executed, nextAction: "Execute the existing specialist dispatch with a real subagent; record its receipt and continue independent QA. Final TPP and host resume remain required; raw collection alone is not learning success." }, null, 2)}\n`);
+  process.exit(0);
 }
 
 function collectRenderedEvidence({ root, brand, sourceUrl, args, executed }) {
-  const manifestPath = path.join(root, "output", "extractor-benchmark", brand, "rendered", "manifest.json");
+  const updateRun = args.includes("--update-existing");
+  const sourceKey = sourceCaptureKey(sourceUrl);
+  const relativeOutDir = updateRun
+    ? path.join("output", "extractor-benchmark", brand, "rendered-sources", sourceKey)
+    : path.join("output", "extractor-benchmark", brand, "rendered");
+  const manifestPath = path.join(root, relativeOutDir, "manifest.json");
+  const collectorArgs = [
+    ...collectRenderedCollectorArgs(args),
+    "--out-dir",
+    relativeOutDir,
+  ];
   const result = spawnSync("node", [
-    "skills/brand/scripts/run-rendered-evidence-collector.mjs",
+    skillScript("run-rendered-evidence-collector.mjs"),
     "--root",
     root,
     "--brand",
     brand,
     "--source-url",
     sourceUrl,
-    ...collectRenderedCollectorArgs(args),
+    ...collectorArgs,
   ], {
     cwd: root,
     encoding: "utf8",
@@ -1088,14 +1460,14 @@ function collectRenderedEvidence({ root, brand, sourceUrl, args, executed }) {
 
   executed.push({
     step: "collect-rendered-evidence",
-    command: `node skills/brand/scripts/run-rendered-evidence-collector.mjs --root ${root} --brand ${brand} --source-url ${sourceUrl}${formatExtraArgs(collectRenderedCollectorArgs(args))}`,
+    command: `node skills/brand/scripts/run-rendered-evidence-collector.mjs --root ${root} --brand ${brand} --source-url ${sourceUrl}${formatExtraArgs(collectorArgs)}`,
     exitCode: result.status,
     stdout: result.stdout,
     stderr: result.stderr,
   });
 
   if (result.status !== 0) {
-    const payload = safeParseJson(result.stdout);
+    const payload = safeParseJson(result.stdout) || safeParseJson(result.stderr);
     process.stdout.write(`${JSON.stringify({
       ok: false,
       workflow: "learn-brand",
@@ -1104,6 +1476,7 @@ function collectRenderedEvidence({ root, brand, sourceUrl, args, executed }) {
       step: "collect-rendered-evidence",
       failedCommand: executed[executed.length - 1].command,
       blockingResult: payload || null,
+      blockingCode: payload?.blockingCode || "BROWSER_RENDERED_EVIDENCE_FAILED",
       stderr: result.stderr || "",
       executed,
       message: "Collecting rendered evidence files failed before collect-rendered-assets could run.",
@@ -1132,6 +1505,17 @@ function collectRenderedEvidence({ root, brand, sourceUrl, args, executed }) {
   }
 
   return manifest;
+}
+
+function sourceCaptureKey(sourceUrl) {
+  try {
+    const url = new URL(sourceUrl);
+    const host = url.hostname.replace(/^www\./, "");
+    const pathKey = url.pathname.split("/").filter(Boolean).join("-") || "home";
+    return sanitizeBrandKey(`${host}-${pathKey}`).slice(0, 96) || "source";
+  } catch {
+    return sanitizeBrandKey(sourceUrl).slice(0, 96) || "source";
+  }
 }
 
 function runOrThrow({ root, commandArgs, executed, step, failureMessage }) {
@@ -1200,10 +1584,7 @@ function collectExtractorArgs(args) {
 }
 
 function collectRenderedCollectorArgs(args) {
-  const passthrough = [];
-  if (args.includes("--slow")) passthrough.push("--slow");
-  if (args.includes("--dark-mode")) passthrough.push("--dark-mode");
-  return passthrough;
+  return buildRenderedCollectorArgs(args);
 }
 
 function formatExtraArgs(args) {
@@ -1212,7 +1593,7 @@ function formatExtraArgs(args) {
 }
 
 function stripCommandOnlyArgs(args) {
-  const names = new Set(["--root", "--mode", "--profile", "--base-url", "--page", "--registry-base"]);
+  const names = new Set(["--root", "--artifact-root", "--request-kind", "--mode", "--profile", "--base-url", "--page", "--registry-base"]);
   const flags = new Set(["--require-browser", "--force-relearn", "--update-existing", "--allow-new-brand-id"]);
   const output = [];
   for (let index = 0; index < args.length; index += 1) {
@@ -1245,26 +1626,34 @@ function normalizeEntryCommand(args) {
   const [command, ...rest] = args;
   if (command === "learn") {
     return {
-      args: ["run", "--mode", "learn-brand", ...rest],
+      args: ["run", "--request-kind", "brand-learning", "--mode", "learn-brand", ...rest],
     };
   }
   if (command === "apply") {
     return {
-      args: ["run", "--mode", "apply-host", ...rest],
+      args: ["run", "--request-kind", "host-implementation", "--mode", "apply-host", ...rest],
     };
   }
   if (command === "design") {
-    return { args: ["run", "--mode", "design-host", ...rest] };
+    return { args: ["run", "--request-kind", "host-concepts", "--mode", "design-host", ...rest] };
   }
   if (command === "update") {
     return {
-      args: ["run", "--mode", "learn-brand", "--update-existing", ...rest],
+      args: ["run", "--request-kind", "brand-learning", "--mode", "learn-brand", "--update-existing", ...rest],
     };
   }
   return { args };
 }
 
-function resolveWorkflowMode(args) {
+function resolveRequestKind(args) {
+  const value = opt(args, "--request-kind", "");
+  if (value && !["brand-learning", "host-concepts", "host-implementation"].includes(value)) {
+    fail(`Unsupported request kind: ${value}`);
+  }
+  return value;
+}
+
+function resolveWorkflowMode(args, requestKind = "") {
   const explicit = opt(args, "--mode", "");
   if (explicit) {
     if (!["learn-brand", "design-host", "apply-host"].includes(explicit)) {
@@ -1273,17 +1662,149 @@ function resolveWorkflowMode(args) {
     return explicit;
   }
 
+  if (requestKind === "brand-learning") return "learn-brand";
+  if (requestKind === "host-concepts") return "design-host";
+  if (requestKind === "host-implementation") return "apply-host";
+
   const hostTarget = opt(args, "--host-target", "") || opt(args, "--host-target-or-plan", "");
   const planFile = opt(args, "--plan-file", "");
   if (hostTarget || planFile) return opt(args, "--design-direction", "") || opt(args, "--application-plan", "") ? "apply-host" : "design-host";
   return "learn-brand";
 }
 
+function validateRequestKindMode(requestKind, mode) {
+  if (!requestKind) return;
+  const expected = {
+    "brand-learning": "learn-brand",
+    "host-concepts": "design-host",
+    "host-implementation": "apply-host",
+  }[requestKind];
+  if (mode !== expected) {
+    block("REQUEST_INTENT_MODE_MISMATCH", `Current-turn request kind ${requestKind} requires ${expected}; refusing ${mode}. A host concept request must never fall through to brand learning.`);
+  }
+}
+
+function validateArtifactIsolation({ command, requestKind, root, artifactRoot, args }) {
+  if (command !== "run" || requestKind !== "host-concepts") return { required: false, status: "not-applicable" };
+  if (!artifactRoot) {
+    block("ARTIFACT_ROOT_REQUIRED", "Host concept trials must use --artifact-root from brand-artifacts.mjs init; do not write migrations, output, temp registry files or skill links into the host repository.");
+  }
+  if (!fs.existsSync(root) || !fs.statSync(root).isDirectory()) {
+    block("ARTIFACT_ROOT_INVALID", `Artifact root does not exist or is not a directory: ${root}`);
+  }
+  const runFile = path.join(path.dirname(root), "run.json");
+  const run = readJsonIfExists(runFile);
+  if (!run || run.schema !== "brand-artifact-run/v1" || run.status !== "active") {
+    block("ARTIFACT_RUN_NOT_ACTIVE", `Artifact root must be the active buildDirectory returned by brand-artifacts.mjs init; missing active manifest at ${runFile}.`);
+  }
+  const hostTarget = opt(args, "--host-target", "") || opt(args, "--host-target-or-plan", "");
+  if (!hostTarget || !path.isAbsolute(hostTarget)) {
+    block("ABSOLUTE_HOST_TARGET_REQUIRED", "Host concept trials require an absolute --host-target so the isolated artifact root cannot be mistaken for the host.");
+  }
+  const hostPath = path.resolve(hostTarget);
+  const declaredHost = path.resolve(run.host || "");
+  if (!isSameOrInside(declaredHost, hostPath)) {
+    block("ARTIFACT_HOST_MISMATCH", `Artifact run belongs to ${declaredHost}, not ${hostPath}.`);
+  }
+  if (isSameOrInside(declaredHost, root)) {
+    block("HOST_ARTIFACT_ISOLATION_FAILED", "Artifact root is inside the host repository; create a new brand-artifacts run in the system temporary directory.");
+  }
+  return { required: true, status: "pass", artifactRoot: root, runId: run.id, host: declaredHost };
+}
+
+function installExplicitLocalStylePack({ root, brand, modFile }) {
+  if (!modFile) return;
+  const sourceMod = path.resolve(modFile);
+  if (!fs.existsSync(sourceMod) || !fs.statSync(sourceMod).isFile()) {
+    block("LOCAL_STYLE_PACK_MOD_MISSING", `The explicit Brand MOD does not exist: ${sourceMod}`);
+  }
+  const sourceMigration = path.dirname(sourceMod);
+  const sourceRoot = path.resolve(sourceMigration, "..", "..");
+  const destinationMigration = path.join(root, "migrations", brand);
+  fs.mkdirSync(destinationMigration, { recursive: true });
+  try {
+    installComponentKits({ sourceRoot, destinationRoot: root, kits: readJsonIfExists(sourceMod)?.componentKits || [] });
+  } catch (error) {
+    block('LOCAL_COMPONENT_KIT_INVALID', error.message);
+  }
+  const packNames = [
+    "brand-mod.json",
+    "brand-evidence.json",
+    "brand-intent.json",
+    "approved-visual-patterns.json",
+    "component-mapping.json",
+    "dangoui-adapter.json",
+  ];
+  const copiedJson = [];
+  for (const name of packNames) {
+    const source = name === "brand-mod.json" ? sourceMod : path.join(sourceMigration, name);
+    if (!fs.existsSync(source) || !fs.statSync(source).isFile()) continue;
+    const destination = path.join(destinationMigration, name);
+    if (path.resolve(source) !== path.resolve(destination)) fs.copyFileSync(source, destination);
+    copiedJson.push(destination);
+  }
+  const references = new Set();
+  for (const file of copiedJson) collectLocalPackReferences(readJsonIfExists(file), references);
+  for (const reference of references) {
+    if (path.isAbsolute(reference)) continue;
+    const normalized = reference.replaceAll("\\", "/").replace(/^\.\//, "");
+    const candidates = [
+      { source: path.resolve(sourceRoot, normalized), destination: path.resolve(root, normalized), boundary: sourceRoot },
+      { source: path.resolve(sourceMigration, normalized), destination: path.resolve(destinationMigration, normalized), boundary: sourceMigration },
+    ];
+    const match = candidates.find((item) => isSameOrInside(item.boundary, item.source) && fs.existsSync(item.source) && fs.statSync(item.source).isFile());
+    if (!match || path.resolve(match.source) === path.resolve(match.destination)) continue;
+    fs.mkdirSync(path.dirname(match.destination), { recursive: true });
+    fs.copyFileSync(match.source, match.destination);
+  }
+}
+
+function collectLocalPackReferences(value, found) {
+  if (typeof value === "string") {
+    const clean = value.split("#")[0];
+    if (/\.(?:png|jpe?g|webp|avif|gif|svg)$/i.test(clean)) found.add(clean);
+    return;
+  }
+  if (Array.isArray(value)) return value.forEach((item) => collectLocalPackReferences(item, found));
+  if (value && typeof value === "object") Object.values(value).forEach((item) => collectLocalPackReferences(item, found));
+}
+
+function isSameOrInside(parent, candidate) {
+  const relative = path.relative(path.resolve(parent), path.resolve(candidate));
+  return relative === "" || (!relative.startsWith("..") && !path.isAbsolute(relative));
+}
+
 function resolveBrand(args) {
   return opt(args, "--brand", "") || inferBrandFromSource(opt(args, "--source-url", ""));
 }
 
-function resolveWorkflowIntake({ mode, brand, root, args }) {
+function resolveReadOnlyFrozenRun({ command, root, brand, mode, requestKind, args }) {
+  // Inspect only the explicitly addressed run. This is an identity check for a
+  // read-only query, not selection or installation of an existing brand pack.
+  if (!["status", "plan"].includes(command) || !["design-host", "apply-host"].includes(mode)
+      || !brand || opt(args, "--mod-file", "") || opt(args, "--style-pack", "")) return null;
+  const migration = path.join(root, "migrations", brand);
+  const manifest = readJsonIfExists(path.join(migration, "execution-manifest.json"));
+  if (!manifest) return null;
+  const invalid = (detail) => block("FROZEN_RUN_QUERY_MISMATCH", `Cannot inspect the requested frozen run: ${detail}. No brand pack was selected.`);
+  if (manifest.mode !== mode) invalid("workflow mode differs");
+  const goalFile = path.resolve(root, manifest.goalPath || "");
+  let goal;
+  try {
+    if (!isSameOrInside(fs.realpathSync(root), fs.realpathSync(goalFile))) invalid("goal is outside this artifact root");
+    const bytes = fs.readFileSync(goalFile);
+    if (crypto.createHash("sha256").update(bytes).digest("hex") !== manifest.goalSha256) invalid("goal hash differs");
+    goal = JSON.parse(bytes);
+  } catch { invalid("frozen goal is missing or invalid"); }
+  const expectedRequest = mode === "apply-host" ? "host-implementation" : "host-concepts";
+  const hostTarget = opt(args, "--host-target", "") || opt(args, "--host-target-or-plan", "");
+  if (manifest.brand !== brand || goal?.brand !== brand || goal?.mode !== mode || goal?.sealed !== true
+      || goal?.requestKind !== expectedRequest || (requestKind && requestKind !== goal.requestKind)
+      || !hostTarget || !goal.hostTarget || path.resolve(hostTarget) !== path.resolve(goal.hostTarget)) invalid("brand, intent or host differs");
+  return { goalPath: manifest.goalPath, goalSha256: manifest.goalSha256, brand, mode, hostTarget: goal.hostTarget };
+}
+
+function resolveWorkflowIntake({ mode, brand, root, args, frozenRun = null }) {
   const sourceUrl = opt(args, "--source-url", "");
   const hostTarget = opt(args, "--host-target", "") || opt(args, "--host-target-or-plan", "");
   const planFile = opt(args, "--plan-file", "");
@@ -1334,7 +1855,7 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
     if (!signals.hostTarget && !signals.planFile) {
       missing.push("--host-target or --plan-file");
     }
-    if (!signals.stylePack && !signals.modFile) {
+    if (!signals.stylePack && !signals.modFile && !frozenRun) {
       missing.push("--style-pack or --mod-file");
     }
     if (signals.dembrandtInput) {
@@ -1347,12 +1868,17 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
       };
     }
     if (missing.length) {
+      const brandReferenceMissing = mode === "design-host" && !brand && !signals.sourceUrl && !signals.stylePack && !signals.modFile;
       return {
         ok: false,
         mode,
         signals,
+        blockingCode: brandReferenceMissing ? "BRAND_REFERENCE_REQUIRED" : `${mode.toUpperCase().replaceAll("-", "_")}_INPUT_REQUIRED`,
         reasons: [`missing ${mode} inputs: ${missing.join(", ")}`],
-        message: `This input set does not match ${mode}. Host design or implementation needs both a host target and an existing learned style pack or MOD.`,
+        question: brandReferenceMissing ? "请提供本轮要参考的品牌官网、截图、设计文件，或明确指定一个已学习的 style pack。" : null,
+        message: brandReferenceMissing
+          ? "Brand reference is missing for this host concept trial. Stop and ask the one focused question; do not select a historical or sample brand and do not start learn-brand."
+          : `This input set does not match ${mode}. Host design or implementation needs both a host target and an existing learned style pack or MOD.`,
       };
     }
   }
@@ -1362,6 +1888,7 @@ function resolveWorkflowIntake({ mode, brand, root, args }) {
     mode,
     signals,
     reasons: [],
+    ...(frozenRun ? { frozenRun } : {}),
     message: "Workflow intake passed. Inputs match the selected /brand path.",
   };
 }
@@ -1394,6 +1921,64 @@ function safeParseJson(text) {
 function readJsonIfExists(file) {
   if (!file || !fs.existsSync(file)) return null;
   return safeParseJson(fs.readFileSync(file, "utf8"));
+}
+
+function hasStructuredActionEvidence(evidence) {
+  const coverage = evidence?.dimensionCoverage?.["action-color"];
+  if (coverage?.status !== "observed" || !Array.isArray(coverage.claimIds) || !coverage.claimIds.length) return false;
+  const observed = new Map((evidence?.claims || []).filter((claim) => claim?.id && claim.status === "observed").map((claim) => [claim.id, claim]));
+  const claims = coverage.claimIds.map((id) => observed.get(id));
+  return coverage.sourceCount === claims.length && claims.every((claim) => {
+    const proof = claim?.sourceProof;
+    return claim?.kind === "action-color"
+      && Boolean(claim.semanticRole)
+      && Boolean(claim.capture?.path || claim.capture)
+      && /color/i.test(String(claim.computed?.property || ""))
+      && Boolean(claim.computed?.value)
+      && Boolean(proof?.selector)
+      && Array.isArray(proof?.visibleRect)
+      && proof.visibleRect.length === 4
+      && proof.visibleRect[2] > 0
+      && proof.visibleRect[3] > 0
+      && Boolean(proof?.paintedBackground)
+      && Boolean(proof?.paintedForeground)
+      && Boolean(proof?.state);
+  });
+}
+
+function validatedBrowserObservation(root, brand, requestedSourceUrl = "") {
+  const migration = path.join(root, "migrations", brand);
+  const manifestFile = path.join(migration, "source-observation-manifest.json");
+  const evidenceFile = path.join(migration, "brand-evidence.json");
+  const manifest = readJsonIfExists(manifestFile);
+  const evidence = readJsonIfExists(evidenceFile);
+  const pages = Array.isArray(manifest?.pages) ? manifest.pages : [];
+  const requestedUrl = normalizeSourceUrl(requestedSourceUrl);
+  const requestedPage = requestedUrl
+    ? pages.find((page) => normalizeSourceUrl(page?.url) === requestedUrl)
+    : null;
+  const pagesReady = pages.length > 0 && pages.every((page) => ["pass", "covered"].includes(page?.status) || page?.readyForInterpreter === true);
+  const requestedPageReady = !requestedUrl || Boolean(
+    requestedPage
+      && (["pass", "covered"].includes(requestedPage?.status) || requestedPage?.readyForInterpreter === true)
+  );
+  const observationReady = (manifest?.readyForInterpreter === true || manifest?.coverage?.readyForInterpreter === true) && pagesReady;
+  const evidenceReady = evidence?.consumerDecision?.readyForInterpreter === true && evidence?.consumerDecision?.status === "PASS";
+  return observationReady && evidenceReady && requestedPageReady
+    ? { manifestFile, evidenceFile, pageCount: pages.length }
+    : null;
+}
+
+function normalizeSourceUrl(value) {
+  try {
+    const url = new URL(value);
+    url.hash = "";
+    url.hostname = url.hostname.toLowerCase();
+    if (url.pathname !== "/") url.pathname = url.pathname.replace(/\/$/, "");
+    return url.toString();
+  } catch {
+    return "";
+  }
 }
 
 function summarizeBlockingResult(payload) {
@@ -1531,7 +2116,9 @@ function resolveWildDesignSet({ root, brand, args = [] }) {
   const scope = opt(args, "--wild-design-business-scope", nearby("business-scope.json"));
   const directionCandidate = opt(args, "--design-direction", nearby("design-direction.json"));
   const directionPayload = directionCandidate ? readJsonIfExists(path.resolve(root, directionCandidate)) : null;
-  const direction = directionPayload?.wildDesignDecision ? directionCandidate : "";
+  const localSelected = directionCandidate && path.resolve(root, directionCandidate) === path.join(migrationDir, "design-direction.json") ? validateLocalSelectedMaster(root, brand) : { ok: false };
+  const boundLocalDirection = localSelected.ok && directionPayload?.implementationAuthority === "approved-master-artifact" && directionPayload.previewArtifact?.path === localSelected.master.artifact.path && directionPayload.previewArtifact?.sha256 === localSelected.master.artifact.sha256 && directionPayload.approvedMaster?.qaSha256 === localSelected.master.qa.sha256;
+  const direction = directionPayload?.wildDesignDecision || boundLocalDirection ? directionCandidate : "";
   const brandEvidence = opt(args, "--brand-evidence", path.join(migrationDir, "brand-evidence.json"));
   const brandMod = opt(args, "--brand-mod", path.join(migrationDir, "brand-mod.json"));
   const history = opt(args, "--wild-design-history", path.join(migrationDir, "style-option-history.json"));
@@ -1548,6 +2135,31 @@ function resolveWildDesignSet({ root, brand, args = [] }) {
 
 function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
   const migrationDir = brand ? path.join(root, "migrations", brand) : "";
+  const manifestFile = migrationDir ? path.join(migrationDir, "execution-manifest.json") : "";
+  const manifest = manifestFile ? readJsonIfExists(manifestFile) : null;
+  if (["design-host", "apply-host"].includes(mode) && ["design-host", "apply-host"].includes(manifest?.mode)) {
+    // An existing specialist run uses the same validated delivery gate as the
+    // public delivery command. Legacy option files cannot restart its selection.
+    const userDelivery = manifest.mode === mode ? evaluateHostDelivery({ root, brand }) : {
+      schema: "brand-parent-delivery/v1", ok: false, status: "blocked",
+      userGoalCompleted: false, hostMutationAllowed: false,
+      errors: ["HOST_WORKFLOW_MODE_MISMATCH"],
+      nextAction: `Inspect the existing ${manifest.mode} run with its matching mode before requesting ${mode}.`,
+    };
+    const key = manifest.mode === "apply-host" ? "host-implementation-preview" : "host-concepts-preview";
+    const status = userDelivery.status === "blocked" ? "blocked"
+      : userDelivery.userGoalCompleted === true || userDelivery.previewReady === true ? "complete" : "pending";
+    const outputStatus = [{ key, status, file: rel(root, manifestFile), currentStageId: manifest.currentStageId || null, gate: userDelivery }];
+    return {
+      userDelivery,
+      stepStatus: { [key]: status },
+      outputStatus,
+      completedStages: status === "complete" ? [key] : [],
+      missingOutputs: status === "complete" ? [] : [key],
+      nextAction: userDelivery.nextAction || "Resolve the current host delivery gate errors in the existing specialist run.",
+      previewArtifacts: userDelivery.previewArtifacts || (userDelivery.previewReport ? { previewReport: userDelivery.previewReport } : {}),
+    };
+  }
   const wild = ["design-host", "apply-host"].includes(mode) ? resolveWildDesignSet({ root, brand, args }) : null;
   const previewFile = brand ? path.join(root, "public", "brand-previews", `${brand}.json`) : "";
   const previewRegistry = path.join(root, "public", "brand-previews", "registry.json");
@@ -1580,6 +2192,10 @@ function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
   const exists = Object.fromEntries(
     Object.entries(files).map(([key, value]) => [key, Boolean(value) && fs.existsSync(value)]),
   );
+  if (!exists.actionEvidence && exists.brandEvidence && hasStructuredActionEvidence(readJsonIfExists(files.brandEvidence))) {
+    files.actionEvidence = files.brandEvidence;
+    exists.actionEvidence = true;
+  }
   const wildDesignGate = ["design-host", "apply-host"].includes(mode) && exists.wildOptions && exists.wildDecision && exists.wildScope && exists.designDirection
     ? runSilentNodeCheck({
       root,
@@ -1609,25 +2225,12 @@ function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
   const fidelityReport = exists.fidelity ? readJsonIfExists(files.fidelity) : null;
   const fidelityPassed = fidelityReport?.status === "fidelity-pass";
   const fidelityFailed = Boolean(fidelityReport) && !fidelityPassed;
-  const proofValue = (key) => {
-    const value = fidelityReport?.proofs?.[key] ?? fidelityReport?.proofStatus?.[key];
-    return typeof value === "string" ? value : value?.status || "pending";
-  };
-  const proofStatus = {
-    evidenceFidelity: proofValue("evidenceFidelity"),
-    structuralFidelity: proofValue("structuralFidelity"),
-    generativeProof: proofValue("generativeProof"),
-  };
-  const threeProofsPassed = Object.values(proofStatus).every((value) => value === "pass");
+  const { proofStatus, threeProofsPassed, status: learningProofStatus } = readCanonicalLearningProof(fidelityReport);
+  const proofBlocked = ["protocol-blocked", "learning-proof-fail"].includes(learningProofStatus);
   const failedProofs = Object.entries(proofStatus).filter(([, value]) => value === "fail").map(([key]) => key);
 
   if (mode === "learn-brand") {
     const outputStatus = [
-      {
-        key: "brand-mod.json",
-        status: exists.brandMod ? "complete" : "missing",
-        file: rel(root, files.brandMod),
-      },
       {
         key: "brand-evidence.json",
         status: exists.brandEvidence ? "complete" : "missing",
@@ -1637,6 +2240,11 @@ function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
         key: "brand-intent.json",
         status: exists.brandIntent ? "complete" : "missing",
         file: rel(root, files.brandIntent),
+      },
+      {
+        key: "brand-mod.json",
+        status: exists.brandMod ? "complete" : "missing",
+        file: rel(root, files.brandMod),
       },
       {
         key: "dangoui-adapter.json",
@@ -1679,12 +2287,12 @@ function auditWorkflowOutputs({ root, mode, brand, args = [] }) {
         "normalize-dtcg": exists.brandMod ? "complete" : "pending",
         "collect-brand-evidence": exists.brandEvidence && (exists.actionEvidence || exists.renderedAssets) ? "complete" : "pending",
         "translate-brand-intent": exists.brandIntent ? "complete" : "pending",
-        "tpp-test": fidelityPassed && threeProofsPassed ? "complete" : fidelityFailed || failedProofs.length ? "blocked" : "pending",
+        "tpp-test": fidelityPassed && threeProofsPassed ? "complete" : fidelityFailed || proofBlocked || failedProofs.length ? "blocked" : "pending",
         "map-to-dangoui": exists.dangouiAdapter ? "complete" : "pending",
         "emit-demo-preview": exists.previewFile && registryHasBrand && staticPreviewPassed ? "complete" : "pending",
         "visual-qa": (exists.visualQa || exists.visualQuality) && visualQualityReady && fidelityPassed && threeProofsPassed
           ? "complete"
-          : fidelityFailed || failedProofs.length
+          : fidelityFailed || proofBlocked || failedProofs.length
             ? "blocked"
             : "pending",
         "record-retro": exists.retroLearnings ? "complete" : "pending",
@@ -1810,6 +2418,19 @@ function sanitizeBrandKey(value) {
     .replace(/^-+|-+$/g, "");
 }
 
+function designHostRouteValidationArgs(root, brand, stage) {
+  const routeFile = path.join(root, "migrations", brand, "design-host-route.json");
+  const bundleFile = path.join(root, "migrations", brand, "design-knowledge-bundle.json");
+  const skillRoot = path.dirname(skillScriptsDir);
+  const bundledKnowledge = path.join(skillRoot, "knowledge-runtime");
+  const knowledgeRoot = fs.existsSync(path.join(bundledKnowledge, "knowledge", "v0.1", "index.json"))
+    ? bundledKnowledge
+    : path.resolve(skillRoot, "../..");
+  const result = ["--file", routeFile, "--stage", stage, "--workspace-root", root];
+  if (fs.existsSync(bundleFile)) result.push("--knowledge-bundle", bundleFile, "--knowledge-root", knowledgeRoot);
+  return result;
+}
+
 function rel(root, file) {
   return file ? path.relative(root, file) : "";
 }
@@ -1825,6 +2446,11 @@ function fail(message) {
   process.exit(1);
 }
 
+function block(blockingCode, message, extra = {}) {
+  process.stdout.write(`${JSON.stringify({ ok: false, blockingCode, message, ...extra }, null, 2)}\n`);
+  process.exit(1);
+}
+
 function printHelp() {
   const cwd = process.cwd();
   const script = path.relative(cwd, new URL(import.meta.url).pathname);
@@ -1834,21 +2460,33 @@ function printHelp() {
   console.log(`run-brand-workflow
 
 Usage:
+  run --request-kind host-concepts --mode design-host --brand-root <package-directory> --host-target <host-directory> --module-task <single-module-task> --module-id <id> --module-target <relative.vue>
+    Lists existing source recipes for the executing agent. Repeat with --recipes <ids> --trial-authorization <actual-user-scope> --artifact-root <new-isolated-directory> to prepare inputs and dispatch; no user-written manifest required.
   node ${script} learn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --profile fast --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} learn --force-relearn --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} update --brand pokemon30 --source-url "https://pokemon30th.com/learn/"
-  node ${script} design --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
+  node ${script} artifacts init --host /absolute/path/to/host
+  node ${script} continue --artifact-root /absolute/path/to/isolated/build
+  node ${script} delivery --artifact-root /absolute/path/to/isolated/build --brand pokemon30
+  node ${script} resume-demo --artifact-root /absolute/path/to/isolated/build --brand pokemon30 --continue-existing
+  node ${script} retry-h5 --artifact-root /absolute/path/to/isolated/build --brand pokemon30 --continue-existing
+  node ${script} recover-reference --artifact-root /absolute/path/to/isolated/build --brand pokemon30 --source-root /absolute/path/to/history --source-master migrations/pokemon30/approved-master.json --source-master-sha256 <SHA256> --reason "User confirmed historical visual reference" --confirm-reference-only
+  node ${script} design --artifact-root /tmp/brand-workflow-artifacts/runs/<id>/build --brand pokemon30 --host-target /absolute/path/to/host/src/pages/home/index.vue --style-pack /absolute/path/to/style-pack.json
   node ${script} apply --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
-  node ${script} run --brand pokemon30 --source-url "https://pokemon30th.com/"
-  node ${script} run --mode design-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
-  node ${script} run --mode apply-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
+  node ${script} run --request-kind brand-learning --mode learn-brand --brand pokemon30 --source-url "https://pokemon30th.com/"
+  node ${script} run --request-kind host-concepts --mode design-host --artifact-root /tmp/brand-workflow-artifacts/runs/<id>/build --brand pokemon30 --host-target /absolute/path/to/host/src/pages/home/index.vue --style-pack /absolute/path/to/style-pack.json
+  node ${script} run --request-kind host-implementation --mode apply-host --brand pokemon30 --host-target src/pages/home/index.vue --style-pack migrations/pokemon30/style-pack.json
   node ${script} status --mode learn-brand --brand pokemon30
   node ${script} detect --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} tpp --mode learn-brand --brand pokemon30 --source-url "https://pokemon30th.com/"
   node ${script} plan --mode learn-brand --brand pokemon30 --source-url "https://pokemon30th.com/"
 
 Behavior:
+  - every raw \`run\` declares the current-turn outcome with \`--request-kind\`; a mismatch with \`--mode\` is rejected before Registry lookup or file writes
+  - \`continue\` keeps the parent host-concepts target, validates learning and resumes in an isolated child build; it never delivers the learning page as the host result
+  - \`delivery\` checks exact H5 and independent QA hashes plus a review-backed recommendation; dispatch, learning completion and recommendation are not host-edit permission
+  - host-concepts requires an active isolated build directory returned by \`artifacts init\` and an absolute host target; trial outputs never enter the host repository
   - explicit aliases: \`learn\` => new learn-brand, \`update\` => existing learn-brand with inherited source history, \`design\` => design-host, \`apply\` => apply-host
   - \`update\` validates migrations/<brand>/source-manifest.json before extraction and only appends sources; a missing historical source blocks with LEARNED_SOURCE_DROPPED
   - learn-brand defaults to \`--profile full\`; use \`--profile fast\` for a bounded direction-validation run

@@ -1,0 +1,34 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "host-product-model-does-not-preserve-skin",
+  "version": 1,
+  "status": "candidate",
+  "question": "Does preserving the host product model justify retaining its previous visual theme?",
+  "statement": "保护宿主产品模型只保护任务、数据、信息结构、交互和业务语义；旧主题颜色、字体、圆角、阴影与选中态必须单独分类，无业务语义理由时应替换为有证据的品牌样式或中性回退。",
+  "appliesWhen": [
+    "A brand is applied to an existing host UI while its product model must remain unchanged"
+  ],
+  "notFor": [
+    "Removing business-semantic status colors without review",
+    "Changing host information architecture",
+    "Treating all neutral baseline styles as old-theme residue"
+  ],
+  "originCaseIds": [
+    "duolingo-host-skin-preservation-false-positive"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "falsificationQuestion": "Can an independently approved rebrand intentionally retain high-salience old-theme visuals without a business-semantic reason and still avoid mixed visual authorship?",
+  "nextTest": "Apply the classification to a different host and brand, then compare business parity and masked first-viewport recognition.",
+  "reviewer": null,
+  "reviewedAt": null,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "sourceCaseId": "duolingo-host-skin-preservation-false-positive",
+      "change": "Separated protected host product invariants from replaceable previous-theme appearance after a structurally correct H5 still read as DangoUI.",
+      "status": "candidate"
+    }
+  ],
+  "readerPurpose": "待跨案例验证的宿主保护边界"
+}

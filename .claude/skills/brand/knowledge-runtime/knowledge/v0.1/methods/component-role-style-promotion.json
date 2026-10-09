@@ -1,0 +1,37 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "component-role-style-promotion",
+  "status": "pilot-candidate",
+  "ownerRole": "Brand Interpreter / Brand Application Designer",
+  "question": "When may a style observed on one source component be applied to a different target component family or state?",
+  "procedure": [
+    "Record the source component family, semantic role, state and computed visual evidence.",
+    "Record the target host component family, semantic role and state independently.",
+    "Require same-role evidence or an explicit approved policy before promoting color, edge, shadow, radius or motion across component families.",
+    "When same-role evidence is absent, mark the target family unmapped and choose a declared fallback: neutral visual, justified existing visual or omission.",
+    "Do not use brand frequency, visual similarity or a generic label such as primary as a substitute for role evidence.",
+    "Verify the rendered target state and reject semantic leakage even when the result looks brand-colored."
+  ],
+  "requiredReviewFields": [
+    "sourceFamily",
+    "sourceSemanticRole",
+    "sourceState",
+    "targetFamily",
+    "targetSemanticRole",
+    "promotionEvidenceOrPolicy",
+    "fallback"
+  ],
+  "notFor": [
+    "Copying login-action color into tabs or filters without same-role proof",
+    "Treating repeated color as universal interaction semantics",
+    "Using aesthetic preference to override business status color"
+  ],
+  "caseRefs": [
+    "duolingo-cross-component-blue-semantic-leak"
+  ],
+  "ruleRefs": [
+    "component-style-requires-role-evidence"
+  ],
+  "questionRef": "component-role-style-promotion-question",
+  "readerPurpose": "阻止颜色和状态样式在不同组件职责间无证据串用"
+}

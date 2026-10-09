@@ -2,6 +2,8 @@
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import path from "node:path";
+import { createRequire } from "node:module";
+import { ensureExtractorRuntime } from "./ensure-extractor-runtime.mjs";
 
 const rawArgs = process.argv.slice(2);
 
@@ -35,8 +37,30 @@ const dembrandtArgs = [
   ...collectOption(rawArgs, "--browser"),
 ];
 
-const binary = path.join(root, "node_modules", ".bin", "dembrandt");
-const result = spawnSync(binary, dembrandtArgs, {
+// Reuse an existing runtime; standalone installs initialize a locked runtime
+// under isolated artifacts, never the host or the immutable skill directory.
+let binary = path.join(root, "node_modules", ".bin", "dembrandt");
+let extractorRuntime;
+if (!fs.existsSync(binary)) {
+  try {
+    const require = createRequire(import.meta.url);
+    const packageFile = path.resolve(path.dirname(require.resolve("dembrandt")), "..", "package.json");
+    const packageInfo = JSON.parse(fs.readFileSync(packageFile, "utf8"));
+    if (packageInfo.name !== "dembrandt") throw new Error("Unexpected extractor package layout");
+    const cli = typeof packageInfo.bin === "string" ? packageInfo.bin : packageInfo.bin?.dembrandt;
+    if (!cli) throw new Error("dembrandt package has no CLI entry");
+    binary = path.resolve(path.dirname(packageFile), cli);
+  } catch {
+    try {
+      extractorRuntime = ensureExtractorRuntime({ artifactRoot: root });
+      binary = extractorRuntime.binary;
+    } catch (error) {
+      process.stdout.write(`${JSON.stringify({ ok: false, blockingCode: error.code || "EXTRACTOR_RUNTIME_UNAVAILABLE", brand, sourceUrl, outputFile, runtimeRoot: error.runtimeRoot, message: error.message, error: error.details || error.message }, null, 2)}\n`);
+      process.exit(1);
+    }
+  }
+}
+const result = spawnSync(process.execPath, [binary, ...dembrandtArgs], {
   cwd: root,
   encoding: "utf8",
   stdio: ["ignore", "pipe", "pipe"],
@@ -49,6 +73,7 @@ if (result.status !== 0) {
     sourceUrl,
     outputFile,
     command: `${binary} ${dembrandtArgs.join(" ")}`,
+    extractorRuntime,
     exitCode: result.status,
     stderr: result.stderr || "",
     stdout: result.stdout || "",
@@ -65,6 +90,7 @@ if (!parsed) {
     sourceUrl,
     outputFile,
     command: `${binary} ${dembrandtArgs.join(" ")}`,
+    extractorRuntime,
     exitCode: 1,
     stdout: result.stdout || "",
     stderr: result.stderr || "",
@@ -81,6 +107,7 @@ process.stdout.write(`${JSON.stringify({
   sourceUrl,
   outputFile,
   command: `${binary} ${dembrandtArgs.join(" ")}`,
+  extractorRuntime,
   message: "Dembrandt seed extraction completed.",
 }, null, 2)}\n`);
 

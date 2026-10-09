@@ -1,0 +1,84 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "pokemon-duolingo-host-slot-integration-failure",
+  "status": "negative-regression",
+  "contextKey": "duolingo-official|qiandao-deck-search|generated-slot-composite",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "reviewStatus": "not-approved",
+  "observedSource": {
+    "url": "[non-public reference omitted]",
+    "label": "本地实验页；用户截图和反馈记录在同名人读案例中",
+    "record": "knowledge/v0.1/cases/pokemon-duolingo-host-slot-integration-failure.md",
+    "evidenceStatus": "retrospective-user-feedback"
+  },
+  "evidenceFiles": [
+    "public/knowledge/evidence/pokemon-duolingo-host-slot-integration-failure/01-double-frame.png",
+    "public/knowledge/evidence/pokemon-duolingo-host-slot-integration-failure/02-device-slot.png",
+    "public/knowledge/evidence/pokemon-duolingo-host-slot-integration-failure/03-unreadable-grid.png"
+  ],
+  "evidenceVisuals": [
+    {
+      "path": "/knowledge/evidence/pokemon-duolingo-host-slot-integration-failure/01-double-frame.png",
+      "label": "双层展示框",
+      "finding": "真实卡牌外又包了一层白色 CSS 框，生成场景的绿色框与业务对象没有共同结构。"
+    },
+    {
+      "path": "/knowledge/evidence/pokemon-duolingo-host-slot-integration-failure/02-device-slot.png",
+      "label": "设备槽硬塞",
+      "finding": "设备窗口先于业务对象存在，卡牌只能悬在槽口前，缺少可信的接触、尺度和任务语义。"
+    },
+    {
+      "path": "/knowledge/evidence/pokemon-duolingo-host-slot-integration-failure/03-unreadable-grid.png",
+      "label": "不可读的小卡证据",
+      "finding": "为了证明使用了宿主内容，把竖卡缩进方形白槽；卡牌不可读，槽位也不服务牌组发现任务。"
+    }
+  ],
+  "invalidInference": "先让 ImageGen 生成白色卡槽、相框或设备窗口，再把真实宿主卡图按比例塞进去，就等于完成品牌场景与宿主内容融合。",
+  "safeConclusion": "真实宿主内容必须在生图前获得明确的业务角色、可读尺寸、比例、承托与失败回退；生成空槽不能作为融合证明。若真实内容只能靠双层边框、无意义容器或不可读缩放进入场景，应退回方向设计或保留在 Productive UI。",
+  "decisionTrace": {
+    "recordType": "retrospective-analysis-not-original-designer-rationale",
+    "decisionQuestion": "品牌画风已经接近时，真实宿主卡牌应如何进入 expressive 场景而不变成贴图？",
+    "knownInputs": [
+      "宿主任务是发现、搜索和继续编辑真实牌组，卡牌封面是业务对象而不是装饰素材。",
+      "三版方案分别使用白色展示框、设备窗口和三格卡槽承载真实卡牌。",
+      "用户认为卡牌嵌入奇怪，并针对三处截图追问‘这都是啥呀’。"
+    ],
+    "alternatives": [
+      {
+        "id": "generated-placeholder-then-overlay",
+        "documentedObservation": "卡图被放进生成的白色槽位，出现双层边框、槽位比例不匹配和缺少物理接触的问题。",
+        "expressiveBenefit": "可以快速复用一张完整生成背景并后贴真实内容。",
+        "productiveCostOrGap": "真实卡牌变成说明性贴图；在目标尺寸不可读，且不能解释槽位为何属于牌组发现任务。",
+        "retrospectiveDisposition": "用户明确否定，不继续靠 CSS 缩放和阴影修补。"
+      },
+      {
+        "id": "role-first-host-content-integration",
+        "documentedObservation": "本轮没有在生图前冻结卡牌的业务角色、尺寸、承托和回退，因此尚无获批结果。",
+        "expressiveBenefit": "场景可以围绕真实业务对象生成，或明确决定不把该对象放进 expressive。",
+        "productiveCostOrGap": "需要在概念简报阶段记录真实素材尺寸并做一次目标尺寸试片。",
+        "retrospectiveDisposition": "作为下一轮候选方法，不能冒充已经验证的正例。"
+      }
+    ],
+    "selectionAtTime": "先生成带槽位的完整场景，再由 CSS 覆盖真实卡图；未记录真实内容接入计划。",
+    "expertDecisionAfterFeedback": "把宿主内容接入计划提前到概念阶段；空槽不算证明，失败时退回方向或 Productive UI。",
+    "why": "错误不是卡图尺寸的单点问题，而是生成场景之前没有定义真实卡牌为何存在、如何被承托以及多大才可读。",
+    "feedback": {
+      "source": "本轮用户对三张卡牌嵌入截图的直接反馈",
+      "summary": "画风接近后，用户仍认为卡牌嵌入奇怪，并质疑白色框、设备槽和三格小卡的意义。",
+      "status": "rejected-aesthetic-and-semantic-outcome"
+    },
+    "ruleChange": {
+      "from": "生成完整品牌场景后寻找空位覆盖真实宿主图",
+      "to": "先冻结真实宿主内容的业务角色、比例、可读尺寸、承托关系和回退，再决定是否生成围绕它的场景",
+      "status": "candidate",
+      "ruleId": "host-content-integration-before-scene-generation"
+    },
+    "nextCaseQuestion": "在另一品牌和宿主中，生成前内容接入计划能否减少嵌套边框、无意义槽位和返工？"
+  },
+  "independentCaseNote": "仍是牌组搜索宿主中的单次负例，不能证明跨品牌通用，只能形成候选门禁。",
+  "readerPurpose": "记录真实宿主内容被后贴进生成槽位的失败事实与下一轮可证伪规则",
+  "publicExport": {
+    "nonPublicReferencesOmitted": 1,
+    "evidenceAccess": "Some original references are withheld; this copy does not provide independent evidence access."
+  }
+}

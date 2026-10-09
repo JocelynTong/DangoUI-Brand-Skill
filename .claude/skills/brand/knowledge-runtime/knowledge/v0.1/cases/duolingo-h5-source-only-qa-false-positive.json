@@ -1,0 +1,63 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "duolingo-h5-source-only-qa-false-positive",
+  "status": "negative-regression",
+  "brand": "duolingo-official",
+  "contextKey": "duolingo-official|deck-search-h5-first",
+  "finding": "The H5 preserved the host search-filter-list model and counted several Duolingo mechanisms, but the rendered first viewport remained a generic white utility page with a small evidence-image patch.",
+  "observedSource": {
+    "url": "https://blog.duolingo.com/building-character/",
+    "label": "Duolingo character-design source used by the frozen Brand MOD",
+    "record": "isolated design-host fast run fcb5e949-e539-41d8-a572-4d3b697c27a0",
+    "evidenceStatus": "rendered-h5-direct-inspection"
+  },
+  "invalidInference": "Three named non-color mechanisms in HTML/CSS plus an official evidence asset prove a source-recognizable branded composition.",
+  "safeConclusion": "QA must inspect the actual rendered first viewport, mask explicit identity text, and verify each asset performs its declared role. Countable mechanisms and alt text cannot rescue a generic composition.",
+  "consequence": "A read-only QA initially recommended the direction from source inspection; design-director rendered inspection immediately rejected it and withheld it from user acceptance.",
+  "reviewStatus": "not-approved",
+  "methodRef": "expressive-productive-allocation",
+  "proposedRuleStatus": "pilot-candidate",
+  "decisionTrace": {
+    "recordType": "contemporaneous-record",
+    "decisionQuestion": "保留搜索、筛选、列表后，最终首屏是否仍能让用户第一眼认出来源品牌，而不是只在代码里数到品牌机制？",
+    "knownInputs": [
+      "宿主信息分发模型必须保持 search-filter-list。",
+      "没有冻结真实业务记录时允许诚实的 schema/loading state。",
+      "Brand MOD 中的学习示意图、角色动图和封面图各有声明用途，不能互相冒充。"
+    ],
+    "alternatives": [
+      {
+        "id": "source-count-pass",
+        "label": "按源码机制计数通过",
+        "documentedObservation": "QA 从角色、气泡、厚底按钮、圆角和反馈动效中数出多个机制并推荐继续。",
+        "expressiveBenefit": "检查快，能确认结构和交互机制存在。",
+        "productiveCostOrGap": "没有证明这些机制在最终视口形成品牌视觉主体。",
+        "retrospectiveDisposition": "拒绝作为视觉通过依据。"
+      },
+      {
+        "id": "rendered-first-viewport",
+        "label": "实际渲染首屏验收",
+        "documentedObservation": "页面主体仍是通用白色表单和列表；小图无法承担品牌识别，且素材角色使用不匹配。",
+        "expressiveBenefit": "直接对应用户第一眼看到的结果。",
+        "productiveCostOrGap": "需要真实打开页面，但无需增加品牌学习或 ImageGen 调用。",
+        "retrospectiveDisposition": "采用为后续 H5 QA 的必检步骤。"
+      }
+    ],
+    "selectionAtTime": "设计负责人采用实际渲染首屏判断，否决源码计数 PASS。",
+    "expertDecisionAfterFeedback": "生产者必须让品牌机制实际塑造首屏并延续到至少一个真实任务区域；QA 必须记录渲染观察和素材角色，不能只审代码。",
+    "why": "用户验收的是页面，不是 CSS 声明；素材真实性、语义角色和最终构图是彼此独立的门禁。",
+    "feedback": {
+      "source": "设计负责人实际渲染复核",
+      "summary": "结构正确，但视觉仍泛化，QA 出现假通过。",
+      "status": "rejected-before-user-review"
+    },
+    "ruleChange": {
+      "from": "源码中能数到三个品牌机制即可进入人工验收。",
+      "to": "必须打开最终渲染首屏，遮住显式品牌名后仍能识别来源语言，并核对素材是否承担声明角色。",
+      "status": "candidate",
+      "ruleId": "expressive-continuity-in-real-content"
+    },
+    "nextCaseQuestion": "换一个品牌和宿主后，渲染首屏门禁能否在不增加 ImageGen 调用的情况下阻止通用页面假通过？"
+  },
+  "readerPurpose": "已发生的视觉假通过、最早责任节点与可机器化预防条件"
+}

@@ -1,0 +1,32 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "host-content-integration-before-scene-generation",
+  "version": 1,
+  "status": "candidate",
+  "statement": "在生成 expressive 场景前，由宿主诊断自动提取并冻结真实内容的业务角色、比例、可读尺寸与来源；设计方向只能引用这些事实并补充承托关系和失败回退，不能向用户索要或自行猜测。生成空槽不能作为内容融合证明。",
+  "appliesWhen": [
+    "expressive 场景需要容纳可替换的真实宿主图片、封面、卡片或其他业务对象",
+    "计划先生成完整环境，再由 HTML/CSS 回填真实内容"
+  ],
+  "notFor": [
+    "固定整幅插画且内部内容无需替换",
+    "真实对象只存在于独立 Productive 列表且不进入 expressive 场景",
+    "已有经过目标尺寸验证的官方分层模板和明确承托结构"
+  ],
+  "falsificationQuestion": "在不提前定义真实内容角色、尺寸和承托的情况下，生成空槽后回填是否仍能在多个独立宿主中稳定获得无拼贴感、可读且获批的结果？",
+  "nextTest": "在另一品牌和宿主记录内容接入计划、目标尺寸试片与返工次数，并与先生成空槽的路线比较。",
+  "originCaseIds": [
+    "pokemon-duolingo-host-slot-integration-failure"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "status": "candidate",
+      "date": "2026-09-29",
+      "reason": "由用户否定生成槽位后硬塞真实牌组卡图的结果而形成；尚未跨品牌验证。"
+    }
+  ],
+  "readerPurpose": "阻止空槽先行与真实业务内容后贴造成的拼贴、不可读和语义脱节"
+}

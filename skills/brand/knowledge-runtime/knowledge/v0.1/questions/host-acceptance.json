@@ -1,0 +1,55 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-acceptance",
+  "title": "功能通过之后，视觉是否真的成立？",
+  "status": "open-single-case",
+  "scope": "host-validation；当前种子仅覆盖宝可梦动态牌组场景",
+  "methodRef": "expressive-generation-and-reconstruction",
+  "caseRefs": [
+    "pokemon-generated-deck-scenes",
+    "spu-search-compact-header-regression"
+  ],
+  "hypothesisRefs": [
+    "prefer-reconstructible-dynamic-scenes"
+  ],
+  "nextEvidenceNeeded": "在另一独立品牌/宿主验证，不沿用宝可梦卡位",
+  "requiredContext": [
+    "动态替换结果",
+    "同视口对照",
+    "人的反馈"
+  ],
+  "pitfalls": [
+    "技术与审美分开",
+    "用户否决不能被测试通过覆盖"
+  ],
+  "observationLevel": "case-observed",
+  "readerPurpose": "要判断的矛盾与结论范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "分别检查功能、几何、视觉与用户反馈；构建或脚本通过不能代替后面三项。",
+      "使用真实数据和宿主约束对照选定目标，检查首屏任务入口、胶囊安全区、动态替换与长页。",
+      "只报告实际覆盖的设备和状态；未测真机、未获用户确认都保留为缺口，不扩大通过范围。"
+    ],
+    "sourceRefs": [
+      {
+        "kind": "method",
+        "id": "expressive-generation-and-reconstruction"
+      },
+      {
+        "kind": "rule",
+        "id": "prefer-reconstructible-dynamic-scenes"
+      }
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "pokemon-generated-deck-scenes",
+      "summary": "宝可梦试做曾通过机器检查，但用户仍指出透视、遮挡和表达问题；功能通过不能等同视觉验收。"
+    },
+    {
+      "caseId": "spu-search-compact-header-regression",
+      "summary": "另一宿主的紧凑搜索页运行通过，不能据此宣称新流程已选案成功或完成视觉验收。"
+    }
+  ]
+}

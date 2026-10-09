@@ -1,9 +1,12 @@
 #!/usr/bin/env node
 import fs from "node:fs";
 import path from "node:path";
+import crypto from "node:crypto";
 import { pathToFileURL } from "node:url";
 
 export const DEFAULT_REGISTRY_BASE = "https://jocelyntong.github.io/DangoUI-Brand-Skill/";
+export const DEFAULT_REGISTRY_REQUEST_TIMEOUT_MS = 8_000;
+export const DEFAULT_REGISTRY_NETWORK_TIMEOUT_MS = 15_000;
 
 export function normalizeSourceUrl(value) {
   const url = new URL(value);
@@ -27,18 +30,36 @@ function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
 }
 
-async function fetchJson(url) {
-  const response = await fetch(url, { headers: { accept: "application/json" } });
-  if (!response.ok) throw new Error(`Registry request failed (${response.status}): ${url}`);
-  const contentType = response.headers.get("content-type") || "";
-  if (!contentType.includes("json")) throw new Error(`Registry returned non-JSON content: ${url}`);
-  return response.json();
-}
-
-async function fetchBytes(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Registry evidence request failed (${response.status}): ${url}`);
-  return Buffer.from(await response.arrayBuffer());
+function registryNetwork({ requestTimeoutMs, networkTimeoutMs }) {
+  for (const [name, value] of Object.entries({ requestTimeoutMs, networkTimeoutMs })) {
+    if (!Number.isSafeInteger(value) || value <= 0) throw new Error(`${name} must be a positive integer.`);
+  }
+  // One shared deadline bounds the whole remote resolution, including bodies
+  // and sequential asset downloads, rather than allowing N full timeouts.
+  const deadline = performance.now() + networkTimeoutMs;
+  return async function request(url, json = false) {
+    const remaining = Math.ceil(deadline - performance.now());
+    if (remaining <= 0) throw Object.assign(new Error(`Registry network deadline exceeded: ${url}`), { code: "REGISTRY_NETWORK_TIMEOUT" });
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), Math.min(requestTimeoutMs, remaining));
+    try {
+      const response = await fetch(url, { signal: controller.signal, ...(json ? { headers: { accept: "application/json" } } : {}) });
+      if (!response.ok) {
+        void response.body?.cancel().catch(() => {});
+        throw new Error(`Registry request failed (${response.status}): ${url}`);
+      }
+      if (json && !(response.headers.get("content-type") || "").includes("json")) {
+        void response.body?.cancel().catch(() => {});
+        throw new Error(`Registry returned non-JSON content: ${url}`);
+      }
+      return json ? await response.json() : Buffer.from(await response.arrayBuffer());
+    } catch (error) {
+      if (controller.signal.aborted) throw Object.assign(new Error(`Registry network timeout: ${url}`), { code: "REGISTRY_NETWORK_TIMEOUT", cause: error });
+      throw error;
+    } finally {
+      clearTimeout(timer);
+    }
+  };
 }
 
 function remoteUrl(base, publicPath) {
@@ -55,8 +76,13 @@ export async function resolvePublicStylePack({
   root = process.cwd(),
   registryBase = DEFAULT_REGISTRY_BASE,
   install = false,
+  requestTimeoutMs = DEFAULT_REGISTRY_REQUEST_TIMEOUT_MS,
+  networkTimeoutMs = DEFAULT_REGISTRY_NETWORK_TIMEOUT_MS,
 } = {}) {
   if (!sourceUrl) return { matched: false, reason: "source-url-required" };
+  const request = registryNetwork({ requestTimeoutMs, networkTimeoutMs });
+  const fetchJson = (url) => request(url, true);
+  const fetchBytes = (url) => request(url);
 
   const demoBrand = brandFromDemoUrl(sourceUrl);
   const normalizedSource = normalizeSourceUrl(sourceUrl);
@@ -151,6 +177,22 @@ export async function resolvePublicStylePack({
       fs.writeFileSync(target, value);
       installedFiles.push(path.relative(root, target));
     }
+    for (const runtimeAsset of manifest.runtimeAssets || []) {
+      if (!runtimeAsset?.path || !runtimeAsset?.installPath || !runtimeAsset?.sha256) {
+        throw new Error("Registry runtime assets require path, installPath and sha256.");
+      }
+      const target = path.resolve(root, runtimeAsset.installPath);
+      if (!target.startsWith(`${path.resolve(root)}${path.sep}`)) {
+        throw new Error(`Registry runtime asset install path escapes artifact root: ${runtimeAsset.installPath}`);
+      }
+      const value = source === "local"
+        ? fs.readFileSync(path.join(root, "public", runtimeAsset.path.replace(/^\//, "")))
+        : await fetchBytes(remoteUrl(registryBase, runtimeAsset.path));
+      verifyDeclaredHash(value, runtimeAsset.sha256, `Registry runtime asset hash mismatch: ${runtimeAsset.path}`);
+      fs.mkdirSync(path.dirname(target), { recursive: true });
+      fs.writeFileSync(target, value);
+      installedFiles.push(path.relative(root, target));
+    }
   }
 
   return {
@@ -169,6 +211,12 @@ export async function resolvePublicStylePack({
   };
 }
 
+function verifyDeclaredHash(value, expected, message) {
+  if (!expected) return;
+  const actual = crypto.createHash("sha256").update(value).digest("hex");
+  if (actual !== expected) throw new Error(`${message}; expected ${expected}, got ${actual}`);
+}
+
 function opt(args, name, fallback = "") {
   const index = args.indexOf(name);
   return index >= 0 ? args[index + 1] : fallback;
@@ -182,11 +230,13 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
       root: opt(args, "--root", process.cwd()),
       registryBase: opt(args, "--registry-base", DEFAULT_REGISTRY_BASE),
       install: args.includes("--install"),
+      requestTimeoutMs: Number(opt(args, "--request-timeout-ms", DEFAULT_REGISTRY_REQUEST_TIMEOUT_MS)),
+      networkTimeoutMs: Number(opt(args, "--network-timeout-ms", DEFAULT_REGISTRY_NETWORK_TIMEOUT_MS)),
     });
     process.stdout.write(`${JSON.stringify({ ok: true, ...result }, null, 2)}\n`);
     process.exit(result.matched ? 0 : 2);
   } catch (error) {
-    process.stdout.write(`${JSON.stringify({ ok: false, error: error.message }, null, 2)}\n`);
+    process.stdout.write(`${JSON.stringify({ ok: false, error: error.message, ...(error.code ? { code: error.code } : {}) }, null, 2)}\n`);
     process.exit(1);
   }
 }

@@ -1,0 +1,35 @@
+{
+  "schema": "brand-knowledge-method/v0.1",
+  "id": "host-product-model-skin-separation",
+  "status": "pilot-candidate",
+  "ownerRole": "Host Strategist / Brand Application Designer / Host Visual QA",
+  "question": "Which host properties are protected product invariants, and which are replaceable remnants of the previous visual theme?",
+  "procedure": [
+    "Freeze the host job, data fields, information-distribution model, interaction, route and business-semantic colors as protected product facts.",
+    "Inventory every visible first-viewport color, type treatment, radius, border, shadow, selected state and asset treatment from the host baseline.",
+    "Classify each visual producer as business-semantic, structural-neutral or replaceable-theme residue.",
+    "Preserve business semantics and product structure; replace theme residue with evidence-bound brand tokens or scoped recipes.",
+    "If an old visual is retained, record the business-semantic reason and verify it in the rendered first viewport.",
+    "Reject when unexplained old-theme signals remain dominant or occupy high-salience selected states."
+  ],
+  "requiredReviewFields": [
+    "protectedProductFacts",
+    "hostVisualInventory",
+    "classification",
+    "replacementOrRetentionReason",
+    "renderedFirstViewportReview"
+  ],
+  "notFor": [
+    "Changing host data, routes, interaction or information architecture",
+    "Removing colors that encode business status without semantic review",
+    "Treating all host visuals as disposable"
+  ],
+  "caseRefs": [
+    "duolingo-host-skin-preservation-false-positive"
+  ],
+  "ruleRefs": [
+    "host-product-model-does-not-preserve-skin"
+  ],
+  "questionRef": "host-product-model-skin-question",
+  "readerPurpose": "区分必须保护的宿主产品事实与必须替换的旧主题皮肤"
+}
