@@ -14,21 +14,27 @@ const PRIMARY_ASSET_ROLES = new Set(["brand-identity", "hero-background", "ident
 const sha256 = (value) => crypto.createHash("sha256").update(value).digest("hex");
 const fileSha256 = (file) => sha256(fs.readFileSync(file));
 const array = (value) => Array.isArray(value) ? value : [];
+const SHELL_MARKERS = { region: "data-composition-role", item: "data-host-shell-item", treatment: "data-navigation-shell-treatment", continuity: "data-scene-continuity" };
+const SHELL_CONTINUITY = ["continuous", "explicit-boundary"];
+
+export function navigationShellCompletionContract(contract) {
+  return { mode: contract?.mode || "not-required", attributes: { ...SHELL_MARKERS }, regionValue: "navigation-shell", regionCount: 1, items: array(contract?.items).map(({ id, label, role, requiredInDesignPreview }) => ({ id, ...(label ? { label } : {}), ...(role ? { role } : {}), requiredInDesignPreview: requiredInDesignPreview === true })), allowedTreatments: array(contract?.allowedTreatments), allowedContinuity: [...SHELL_CONTINUITY] };
+}
 
 export function validateNavigationShellPreview(source, contract) {
   const errors = [];
   if (!contract || contract.mode !== "required") return errors;
-  const markers = new Set([...String(source || "").matchAll(/data-host-shell-item=["']([^"']+)["']/gi)].map((match) => match[1]));
+  const markers = new Set([...String(source || "").matchAll(new RegExp(`${SHELL_MARKERS.item}=["']([^"']+)["']`, "gi"))].map((match) => match[1]));
   for (const item of array(contract.items).filter((entry) => entry?.requiredInDesignPreview === true)) {
     if (!markers.has(item.id)) errors.push(`HOST_NAVIGATION_SHELL_ITEM_MISSING:${item.id}`);
   }
-  const shellTags = [...String(source || "").matchAll(/<[^>]+data-composition-role=["']navigation-shell["'][^>]*>/gi)].map((match) => match[0]);
+  const shellTags = [...String(source || "").matchAll(new RegExp(`<[^>]+${SHELL_MARKERS.region}=["']navigation-shell["'][^>]*>`, "gi"))].map((match) => match[0]);
   if (shellTags.length !== 1) errors.push("HOST_NAVIGATION_SHELL_REGION_REQUIRED");
   else {
-    const treatment = attribute(shellTags[0], "data-navigation-shell-treatment");
-    const continuity = attribute(shellTags[0], "data-scene-continuity");
+    const treatment = attribute(shellTags[0], SHELL_MARKERS.treatment);
+    const continuity = attribute(shellTags[0], SHELL_MARKERS.continuity);
     if (!array(contract.allowedTreatments).includes(treatment)) errors.push("HOST_NAVIGATION_SHELL_TREATMENT_REQUIRED");
-    if (!["continuous", "explicit-boundary"].includes(continuity)) errors.push("HOST_NAVIGATION_SCENE_CONTINUITY_REQUIRED");
+    if (!SHELL_CONTINUITY.includes(continuity)) errors.push("HOST_NAVIGATION_SCENE_CONTINUITY_REQUIRED");
   }
   return errors;
 }
@@ -61,6 +67,9 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   const evidence = readJson(evidenceInput.file, "BRAND_EVIDENCE_INVALID");
   const intent = readJson(intentInput.file, "BRAND_INTENT_INVALID");
   const brandMod = readJson(modInput.file, "BRAND_MOD_INVALID");
+  const patternFile = brandMod.verification?.patterns;
+  const patternInput = typeof patternFile === "string" ? [...inputs.values()].find((entry) => path.resolve(entry.file) === path.resolve(path.dirname(modInput.file), patternFile)) : null;
+  const approvedPatterns = patternInput ? readJson(patternInput.file, "APPROVED_PATTERNS_INVALID") : null;
   const startup = readJson(startupInput.file, "HOST_STARTUP_PAGE_INVALID");
   const baseline = readJson(baselineInput.file, "HOST_STARTUP_BASELINE_INVALID");
   const knowledge = readJson(knowledgeInput.file, "DESIGN_KNOWLEDGE_BUNDLE_INVALID");
@@ -84,9 +93,14 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   const knowledgeRefs = new Set(array(knowledge.entries).map((item) => item?.ref).filter(Boolean));
   const assets = reusableIdentityAssets(brandMod, { workspaceRoot: workspace, brand }).filter((item) => item?.id);
   const assetIds = new Set(assets.map((item) => item.id));
-  const directions = html.map((item) => ({ ...item, metadata: readDirectionMetadata(item.source, item.path) }))
-    .map((item) => validateDirection(item, { evidenceClaims, systemRefs, knowledgeRefs, assetIds, assets, baseline }));
-  for (const direction of directions) adaptDeclaredDirectionContract(direction, { evidenceClaims, brandMod, hostSource: fs.readFileSync(hostSource.file, "utf8"), supportedIds: dispatch.partialBrandValidation?.partialBrandValidation?.allowedUse?.supportedIds || null, hashes: { brandModSha256: modInput.sha256, brandIntentSha256: intentInput.sha256, hostBaselineSha256: baselineInput.sha256, knowledgeBundleSha256: knowledgeInput.sha256 } });
+  const parsedDirections = html.map((item) => ({ ...item, metadata: readDirectionMetadata(item.source, item.path) }));
+  const preflightErrors = parsedDirections.flatMap((item) => [
+    ...array(item.metadata?.brandMechanisms).filter((mechanism) => !systemRefs.has(normalizeSystemRef(mechanism?.systemRef, systemRefs))).map((mechanism) => `BRAND_MECHANISM_SYSTEM_UNKNOWN:${item.metadata?.id}:${mechanism?.id}:${mechanism?.systemRef}`),
+    ...validateNavigationShellPreview(item.source, baseline.navigationShellContract).map((code) => `${code}:${item.metadata?.id}`),
+  ]);
+  if (preflightErrors.length) throw Object.assign(new Error(preflightErrors.join("\n")), { errors: preflightErrors });
+  const directions = parsedDirections.map((item) => validateDirection(item, { evidenceClaims, systemRefs, knowledgeRefs, assetIds, assets, baseline }));
+  for (const direction of directions) adaptDeclaredDirectionContract(direction, { evidenceClaims, brandMod, approvedPatterns, patternInput, hostSource: fs.readFileSync(hostSource.file, "utf8"), supportedIds: dispatch.partialBrandValidation?.partialBrandValidation?.allowedUse?.supportedIds || null, hashes: { brandModSha256: modInput.sha256, brandIntentSha256: intentInput.sha256, hostBaselineSha256: baselineInput.sha256, knowledgeBundleSha256: knowledgeInput.sha256 } });
   if (dispatch.sourceTransfer) {
     const binding = dispatch.sourceTransfer.review;
     if (!array(dispatch.requiredInputs).some((item) => item.path === binding.path && item.sha256 === binding.sha256)) throw new Error("TRANSFER_REVIEW_DISPATCH_BINDING_REQUIRED");
@@ -153,7 +167,8 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   // Hash only after every contract artifact has reached its final bytes.
   const outputs = [...directions.map((item) => ({ path: item.path, sha256: fileSha256(item.file) })), kitFile, planFile, optionsFile, routeFile]
     .map((item) => typeof item === "string" ? ({ path: relative(workspace, item), sha256: fileSha256(item) }) : item);
-  const receiptPath = insideOutput(migration, receiptFile ? resolveFrom(workspace, receiptFile) : path.join(migration, "receipts", `${dispatch.stageId}.producer.json`), "RECEIPT_OUTSIDE_ARTIFACT_MIGRATION");
+  const declaredReceipt = receiptFile || dispatch.receiptContract?.path;
+  const receiptPath = insideOutput(migration, declaredReceipt ? resolveFrom(workspace, declaredReceipt) : path.join(migration, "receipts", `${dispatch.stageId}.producer.json`), "RECEIPT_OUTSIDE_ARTIFACT_MIGRATION");
   const receipt = {
     schema: "brand-subagent-receipt/v1",
     dispatchId: dispatch.dispatchId,
@@ -170,11 +185,20 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   };
   if (fileSha256(hostSource.file) !== hostSource.sha256) throw new Error("HOST_SOURCE_CHANGED_DURING_FINALIZATION");
   writeJson(receiptPath, receipt);
+  const suppliedRecordCommand = dispatch.receiptContract?.recordCommand;
+  const recordCommandArgs = Array.isArray(suppliedRecordCommand) && suppliedRecordCommand.includes("--receipt")
+    ? [...suppliedRecordCommand]
+    : [process.execPath, fileURLToPath(new URL("./brand-subagent-workflow.mjs", import.meta.url)), "record", "--brand", brand, "--root", workspace, "--receipt", relative(workspace, receiptPath)];
+  recordCommandArgs[recordCommandArgs.indexOf("--receipt") + 1] = relative(workspace, receiptPath);
   return {
     ok: true,
+    status: "compiled-not-recorded",
+    stageCompleted: false,
+    instruction: "Compilation validates structure, not rendered quality or interactions. The producer must finish its required self-review; after any H5 edit rerun this finalizer, then execute recordCommandArgs. Report the record result before ending. The orchestrator must not interrupt a working producer or submit its receipt merely because this file exists.",
     receipt: relative(workspace, receiptPath),
     outputs,
-    recordCommand: `node skills/brand/scripts/brand-subagent-workflow.mjs record --brand ${shellWord(brand)} --root ${shellWord(workspace)} --receipt ${shellWord(relative(workspace, receiptPath))}`,
+    recordCommandArgs,
+    recordCommand: recordCommandArgs.map(shellWord).join(" "),
   };
 }
 
@@ -308,15 +332,38 @@ export function normalizeSystemRef(value, systemRefs) {
   return suffixMatches.length === 1 ? suffixMatches[0] : raw;
 }
 
-export function adaptDeclaredDirectionContract(item, { evidenceClaims, brandMod, hostSource = "", supportedIds = null, hashes = {} }) {
+export function bindProductionPattern(binding, { brandMod, approvedPatterns, patternInput, supportedIds = null }) {
+  const fail = (reason) => { throw new Error(`H5_PRODUCTION_PATTERN_UNBOUND:${binding.patternId}:${reason}`); };
+  if (!binding.patternId) fail("patternId-required");
+  let bound = brandMod;
+  for (const key of String(binding.systemRef || "").split(".")) bound = bound?.[key];
+  if (binding.systemRef && bound?.id === binding.patternId && !bound.approvedPatternId) {
+    if (bound.status === "rejected" || bound.status === "candidate" || (supportedIds && !supportedIds.includes(binding.systemRef))) fail("system-ref-not-approved");
+    delete binding.patternSource;
+    delete binding.sourceConstraints;
+    return binding;
+  }
+  if (!patternInput?.sha256 || !approvedPatterns || !["APPROVED", "APPROVED_WITH_UNRESOLVED"].includes(approvedPatterns.status)) fail("frozen-approved-catalog-required");
+  const matches = array(approvedPatterns.patterns).filter((entry) => entry.id === binding.patternId);
+  if (matches.length !== 1) fail("pattern-id-missing-or-ambiguous");
+  const pattern = matches[0];
+  if (pattern.status && !["approved", "APPROVED", "composed"].includes(pattern.status)) fail("pattern-not-approved");
+  if (binding.systemRef && (bound?.approvedPatternId !== binding.patternId || ["rejected", "candidate"].includes(bound?.status))) fail("system-ref-conflicts-with-pattern");
+  const catalogRef = `approvedPatterns.patterns.${approvedPatterns.patterns.indexOf(pattern)}`;
+  if (supportedIds && !supportedIds.includes(binding.systemRef) && !supportedIds.includes(catalogRef)) fail("outside-supported-scope");
+  binding.patternSource = { path: patternInput.path, sha256: patternInput.sha256, ref: catalogRef };
+  binding.sourceConstraints = structuredClone(pattern);
+  return binding;
+}
+
+export function adaptDeclaredDirectionContract(item, { evidenceClaims, brandMod, approvedPatterns = null, patternInput = null, hostSource = "", supportedIds = null, hashes = {} }) {
   const metadata = item.metadata;
   for (const formula of [metadata.productionFormula, metadata.visualProgram?.productionFormula].filter(Boolean)) {
     for (const key of ["brandModSha256", "brandIntentSha256", "hostBaselineSha256"]) if (formula.productive?.[key] && formula.productive[key] !== hashes[key]) throw new Error(`H5_PRODUCTION_FORMULA_HASH_UNBOUND:${metadata.id}:${key}`);
     if (formula.expertDecision?.knowledgeBundleSha256 && formula.expertDecision.knowledgeBundleSha256 !== hashes.knowledgeBundleSha256) throw new Error(`H5_PRODUCTION_FORMULA_HASH_UNBOUND:${metadata.id}:knowledgeBundleSha256`);
     for (const binding of array(formula.productive?.patternBindings)) {
-      let bound = brandMod;
-      for (const key of String(binding.systemRef || "").split(".")) bound = bound?.[key];
-      if (!bound?.id || bound.id !== binding.patternId || bound.status === "rejected" || (supportedIds && !supportedIds.includes(binding.systemRef))) throw new Error(`H5_PRODUCTION_PATTERN_UNBOUND:${metadata.id}:${binding.patternId}`);
+      try { bindProductionPattern(binding, { brandMod, approvedPatterns, patternInput, supportedIds }); }
+      catch (error) { throw new Error(`H5_DIRECTION:${metadata.id}:${error.message}`); }
     }
   }
   const tags = [...item.source.matchAll(/<[^>]+>/g)].map((match) => ({ tag: match[0], index: match.index }));
@@ -540,18 +587,36 @@ function verifyFrozenHostSource(workspace, startup) {
 }
 
 export function collectSystemRefs(intent, mod) {
-  const refs = new Set();
-  for (const item of [...array(intent.patterns), ...array(intent.semanticClaims), ...array(mod.componentVariants), ...array(mod.slots)]) if (item?.id) refs.add(item.id);
-  for (const item of array(mod.componentVariants)) if (item?.approvedPatternId) refs.add(item.approvedPatternId);
-  for (const [index, item] of array(mod.componentVariants).entries()) if (item?.id && item.status !== "rejected") refs.add(`componentVariants.${index}`);
-  for (const [index, item] of array(mod.assets).entries()) if (item?.id && item.status !== "rejected") refs.add(`assets.${index}`);
-  for (const key of Object.keys(mod.semanticRoles || {})) refs.add(key);
+  return new Set(collectSystemReferenceCatalog(intent, mod).flatMap((entry) => entry.refs));
+}
+
+// Exact accepted references, not an approval catalog. Keep selection semantics from
+// the frozen object alongside aliases without copying large source objects.
+export function collectSystemReferenceCatalog(intent, mod) {
+  const entries = [];
+  const add = (source, refs, value) => {
+    if (!refs.length) return;
+    const semantics = value && typeof value === "object" ? Object.fromEntries(["id", "approvedPatternId", "status", "name", "title", "role", "targetScope", "description", "purpose", "rule"].filter((key) => typeof value[key] === "string").map((key) => [key, value[key].slice(0, 180)])) : { value: String(value).slice(0, 180) };
+    entries.push({ source, refs: [...new Set(refs)], ...semantics });
+  };
+  for (const group of ["patterns", "semanticClaims", "styleRecipeDetails"]) for (const [index, item] of array(intent[group]).entries()) if (item?.id) {
+    add(`intent.${group}.${index}`, [item.id], item);
+    if (group === "styleRecipeDetails") Object.assign(entries.at(-1), Object.fromEntries(["scope", "statesApproved", "statesBlocked", "evidenceRefs", "sourceMeasurements"].filter(key => item[key] !== undefined).map(key => [key, item[key]])));
+  }
+  for (const group of ["componentVariants", "slots", "assets"]) for (const [index, item] of array(mod[group]).entries()) {
+    const refs = [];
+    if (group !== "assets" && item?.id) refs.push(item.id);
+    if (group === "componentVariants" && item?.approvedPatternId) refs.push(item.approvedPatternId);
+    if (group !== "slots" && item?.id && item.status !== "rejected") refs.push(`${group}.${index}`);
+    add(`mod.${group}.${index}`, refs, item);
+  }
+  for (const [key, value] of Object.entries(mod.semanticRoles || {})) add(`mod.semanticRoles.${key}`, [key], value);
   for (const [channel, values] of Object.entries(mod.tokens || {})) if (["mapped", "styleOnly"].includes(channel) && values && typeof values === "object") for (const key of Object.keys(values)) {
     const normalized = key.replace(/^--/, "");
-    for (const ref of [key, normalized, `${channel}.${normalized}`, `tokens.${channel}.${normalized}`]) refs.add(ref);
+    add(`mod.tokens.${channel}.${key}`, [key, normalized, `${channel}.${normalized}`, `tokens.${channel}.${normalized}`], values[key]);
   }
-  for (const key of Object.keys(mod.layoutRules || {})) refs.add(`layoutRules.${key}`);
-  return refs;
+  for (const [key, value] of Object.entries(mod.layoutRules || {})) add(`mod.layoutRules.${key}`, [`layoutRules.${key}`], value);
+  return entries;
 }
 
 function mechanismsOf(metadata, type) {
@@ -578,7 +643,7 @@ if (isCli) {
     const result = finalizeH5DirectionStage({ root: value("--root", process.cwd()), brand: value("--brand"), dispatchFile: value("--dispatch"), htmlFiles: values("--html"), producerExecutionId: value("--producer-execution-id"), receiptFile: value("--receipt") });
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
   } catch (error) {
-    process.stdout.write(`${JSON.stringify({ ok: false, error: error.message }, null, 2)}\n`);
+    process.stdout.write(`${JSON.stringify({ ok: false, error: error.message, ...(error.errors ? { errors: error.errors } : {}) }, null, 2)}\n`);
     process.exitCode = 1;
   }
 }

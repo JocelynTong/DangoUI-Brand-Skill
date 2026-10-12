@@ -2,14 +2,21 @@ import fs from "node:fs";
 import path from "node:path";
 
 // Shared by the frozen-handoff closure check and apply-host preflight.
-export function collectPngReferences(value, found) {
+export function collectPngReferences(value, found, semanticIdentity = false) {
+  return collectImageReferences(value, found, semanticIdentity, /\.png$/i);
+}
+
+export function collectImageReferences(value, found, semanticIdentity = false, extension = /\.(?:png|jpe?g)$/i) {
   if (typeof value === "string") {
+    // Composition identity is a semantic label, including lists of labels;
+    // file-bearing children such as identity.path still use normal checking.
+    if (semanticIdentity) return;
     const clean = value.split("#")[0];
-    if (/\.png$/i.test(clean)) found.add(clean);
+    if (extension.test(clean)) found.add(clean);
     return;
   }
-  if (Array.isArray(value)) return value.forEach(item => collectPngReferences(item, found));
-  if (value && typeof value === "object") Object.values(value).forEach(item => collectPngReferences(item, found));
+  if (Array.isArray(value)) return value.forEach(item => collectImageReferences(item, found, semanticIdentity, extension));
+  if (value && typeof value === "object") Object.entries(value).forEach(([key, item]) => collectImageReferences(item, found, key === "identity", extension));
 }
 
 export function resolveEvidenceReference(root, migrationRoot, reference) {

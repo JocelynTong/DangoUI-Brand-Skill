@@ -69,3 +69,17 @@ test("healthy remote Registry still resolves a real manifest", async (t) => {
   assert.equal(result.source, "public");
   assert.equal(result.brand, "demo");
 });
+
+test('selected published package is not shadowed by same-named local trial', async t => {
+  let requests=0;
+  const options=await fixture(t,(req,res)=>{
+    requests++;res.writeHead(200,{'content-type':'application/json'});
+    res.end(JSON.stringify(req.url.endsWith('index.json')?{brands:[{id:'demo',version:'published',manifest:'/manifest.json'}]}:{artifacts:{},runtimeAssets:[]}));
+  });
+  const migration=path.join(options.root,'migrations/demo');fs.mkdirSync(migration,{recursive:true});
+  const old=JSON.stringify({manifest:{brand:'demo',version:'unapproved-local'}});
+  fs.writeFileSync(path.join(migration,'brand-mod.json'),old);
+  const result=await resolvePublicStylePack({...options,sourceUrl:`${options.registryBase}#/brand/demo/pages/home`});
+  assert.equal(result.source,'public');assert.equal(result.version,'published');assert.equal(requests,2);
+  assert.equal(fs.readFileSync(path.join(migration,'brand-mod.json'),'utf8'),old);
+});

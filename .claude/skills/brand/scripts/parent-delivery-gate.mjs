@@ -22,6 +22,49 @@ function bound(root, ref) {
 const result = (status, errors = [], extra = {}) => ({ schema: 'brand-parent-delivery/v1', ok: status !== 'blocked', status, userGoalCompleted: false, hostMutationAllowed: false, errors: [...new Set(errors)], ...extra });
 const latest = (manifest, name) => [...(manifest?.stages || [])].reverse().find((stage) => stage.stage === name);
 
+// Direct host runs have no source-learning handoff. Resolve only their existing
+// ledger; this gate never prepares a new workflow or retries a failed stage.
+export function evaluateHostContinuation({ root, brand } = {}) {
+  root = path.resolve(root || process.cwd());
+  if (!brand) {
+    let candidates = [];
+    try { candidates = fs.readdirSync(path.join(root, 'migrations')).filter(name => fs.existsSync(path.join(root, 'migrations', name, 'execution-manifest.json'))); } catch {}
+    if (candidates.length !== 1) return result('blocked', [candidates.length ? 'HOST_CONTINUATION_BRAND_AMBIGUOUS' : 'HOST_CONTINUATION_MANIFEST_REQUIRED']);
+    [brand] = candidates;
+  }
+  if (!/^[a-zA-Z0-9_-]+$/.test(brand)) return result('blocked', ['HOST_CONTINUATION_BRAND_INVALID']);
+  const migration = path.join(root, 'migrations', brand);
+  const manifestFile = path.join(migration, 'execution-manifest.json');
+  const manifest = read(manifestFile);
+  if (!manifest || !bound(root, { path: manifestFile, sha256: hash(manifestFile) }) || manifest.brand !== brand || !['design-host', 'apply-host'].includes(manifest.mode) || !Array.isArray(manifest.stages)) return result('blocked', ['HOST_CONTINUATION_MANIFEST_INVALID']);
+  const goalRef = { path: manifest.goalPath, sha256: manifest.goalSha256 };
+  const goal = bound(root, goalRef) ? read(path.resolve(root, goalRef.path)) : null;
+  const requestKind = manifest.mode === 'design-host' ? 'host-concepts' : 'host-implementation';
+  if (!goal || path.resolve(root, goalRef.path) !== path.join(migration, 'goal-contract.json') || goal.sealed !== true || goal.brand !== brand || goal.mode !== manifest.mode || goal.requestKind !== requestKind || !path.isAbsolute(goal.hostTarget || '')) return result('blocked', ['HOST_CONTINUATION_GOAL_INVALID']);
+  const context = { brand, mode: manifest.mode, hostTarget: goal.hostTarget, currentStageId: manifest.currentStageId, fullWorkflowPass: false };
+  const delivery = evaluateHostDelivery({ root, brand });
+  if (delivery.status !== 'pending') {
+    const failed = [...manifest.stages].reverse().find(stage => stage.status === 'failed');
+    return { ...context, ...delivery, ...(delivery.status === 'blocked' ? { blockingStage: delivery.blockingStage || failed?.id || manifest.currentStageId || null, blockingFindings: delivery.blockingFindings || failed?.blockingFindings || [], automaticRetryAllowed: false } : {}) };
+  }
+  const stage = manifest.stages.find(item => item.id === manifest.currentStageId);
+  if (manifest.status !== 'running' || !stage || !['pending', 'dispatched'].includes(stage.status)) return result('blocked', ['HOST_CONTINUATION_STAGE_NOT_DISPATCHABLE'], { ...context, blockingStage: stage?.id || null });
+  if (stage.status === 'pending') return { ...delivery, ...context, nextAction: 'continue-host-stage' };
+  if (manifest.mode === 'design-host' && manifest.executionProfile === 'fast' && manifest.deadlineAt && Date.now() > Date.parse(manifest.deadlineAt)) return result('blocked', ['DESIGN_HOST_FAST_SAFETY_LIMIT_EXCEEDED'], { ...context, blockingStage: stage.id, automaticRetryAllowed: false });
+  const dispatchRef = { path: stage.dispatchPath, sha256: stage.dispatchSha256 };
+  const packet = bound(root, dispatchRef) ? read(path.resolve(root, dispatchRef.path)) : null;
+  if (!packet || packet.schema !== 'brand-subagent-dispatch/v1' || packet.dispatchId !== stage.dispatchId || packet.stageId !== stage.id || packet.stage !== stage.stage || packet.role !== stage.role || packet.runId !== manifest.runId || packet.goalSha256 !== manifest.goalSha256 || !Array.isArray(packet.requiredInputs) || !packet.requiredInputs.some(input => input.path === goalRef.path && input.sha256 === goalRef.sha256) || packet.requiredInputs.some(input => !bound(root, input))) return result('blocked', ['HOST_DISPATCH_BINDING_INVALID'], { ...context, blockingStage: stage.id });
+  return result('pending', [], { ...context, dispatchRequest: packet, dispatchFile: stage.dispatchPath, reusedDispatch: true, orchestratorAction: 'execute-or-wait-existing-specialist', nextAction: 'Use the existing dispatchId only if execution has not started; otherwise wait for its agent and record the receipt. Do not redispatch or recollect source.' });
+}
+
+export function evaluateHostDispatch(evaluated, { exitCode, dispatch, stderr = '' }) {
+  if (exitCode !== 0 || !dispatch || dispatch.ok === false) {
+    const code = dispatch?.blockingCode || dispatch?.blockingResult?.blockingCode || stderr.match(/\b[A-Z][A-Z0-9_]{5,}\b/)?.[0] || 'HOST_STAGE_DISPATCH_FAILED';
+    return result('blocked', [code], { ...evaluated, ok: false, status: 'blocked', errors: [code], blockingCode: code, blockingStage: evaluated.currentStageId, dispatch, stderr, nextAction: 'Resolve the reported blocker in this existing host stage; no automatic retry or source collection is authorized.' });
+  }
+  return { ...evaluated, dispatch, dispatchRequest: dispatch.dispatchRequest, dispatchFile: dispatch.dispatchFile, orchestratorAction: 'execute-specialist', nextAction: 'Execute this specialist dispatch once, record its receipt, then continue the existing host workflow.' };
+}
+
 export function evaluateLearningDispatch(evaluated, { exitCode, dispatch, stderr = '' }) {
   const failed = exitCode !== 0 || !dispatch || dispatch.ok === false;
   if (failed) {
@@ -33,7 +76,8 @@ export function evaluateLearningDispatch(evaluated, { exitCode, dispatch, stderr
       nextAction: 'Resolve the reported prerequisite failure in the existing isolated run; no executable specialist dispatch or host Demo is ready.',
     });
   }
-  return { ...evaluated, dispatch, stderr, fullWorkflowPass: false, nextAction: 'Execute the current specialist dispatch, record its receipt, then use this same public continue command. Do not deliver a learning page as the host preview.' };
+  const packet = dispatch.dispatchRequest || dispatch.dispatch?.dispatchRequest;
+  return { ...evaluated, dispatch, ...(packet ? { dispatchRequest: packet, orchestratorAction: 'execute-specialist' } : {}), stderr, fullWorkflowPass: false, nextAction: 'Execute the specialist dispatch with a real subagent (or wait for its existing execution), record its receipt, then continue. Calling continue alone does not execute the role. Do not ask the user to drive this internal handoff.' };
 }
 
 // Recheck the recorded receipt and all frozen inputs/outputs. A manifest label alone
@@ -80,7 +124,16 @@ export function evaluateSourceContinuation({ root, handoffFile = 'source-prerequ
     });
     return result('blocked', ['SOURCE_LEARNING_BLOCKED'], { blockingStageId: terminalFailure?.id || null, blockingFindings: terminalFailure?.blockingFindings || [] });
   }
-  if (!['passed', 'complete'].includes(manifest.status)) return result('pending', [], { nextAction: 'continue-learning', currentStageId: manifest.currentStageId });
+  if (!['passed', 'complete'].includes(manifest.status)) {
+    const stage = manifest.stages?.find(item => item.id === manifest.currentStageId);
+    if (stage?.status === 'dispatched') {
+      const ref = { path: stage.dispatchPath, sha256: stage.dispatchSha256 };
+      const packet = bound(root, ref) ? read(path.resolve(root, ref.path)) : null;
+      if (!packet || packet.dispatchId !== stage.dispatchId || packet.stageId !== stage.id || packet.role !== stage.role || packet.runId !== manifest.runId || packet.goalSha256 !== manifest.goalSha256 || !bound(root, { path: manifest.goalPath, sha256: manifest.goalSha256 }) || !Array.isArray(packet.requiredInputs) || packet.requiredInputs.some(input => !bound(root, input))) return result('blocked', ['SOURCE_DISPATCH_BINDING_INVALID']);
+      return result('pending', [], { currentStageId: stage.id, dispatchRequest: packet, dispatchFile: stage.dispatchPath, reusedDispatch: true, orchestratorAction: 'execute-or-wait-existing-specialist', fullWorkflowPass: false, nextAction: 'Use this existing dispatchId: execute it only if not already started; otherwise wait for that agent and record its receipt. Do not recollect source, create another dispatch, or ask the user to reply continue.' });
+    }
+    return result('pending', [], { nextAction: 'continue-learning', currentStageId: manifest.currentStageId });
+  }
   const errors = [];
   const goalFile = path.join(migration, 'goal-contract.json');
   const goal = read(goalFile);
@@ -105,8 +158,20 @@ export function evaluateSourceContinuation({ root, handoffFile = 'source-prerequ
   const qaInputPath = fidelity?.inputPaths?.qaInputManifest || `migrations/${handoff.brand}/qa-input-manifest.json`;
   const assessment = read(path.resolve(root,assessmentPath));
   const qaInput = read(path.resolve(root,qaInputPath));
+  const qaInputHash = freshFidelity.report?.inputHashes?.qaInputManifest;
+  const directQaInput = qaReceipt?.inputs?.some(ref=>ref.path===qaInputPath && ref.sha256===qaInputHash);
+  // v2 dispatch consumes the immutable review copy; fidelity may consume its
+  // canonical same-byte projection. Accept only this stage-bound alias.
+  const reviewAlias = qa?.qaReview;
+  const boundReviewAlias = qaInput?.schema==='brand-qa-review-input/v2'
+    && qaInput.goalSha256===manifest.goalSha256 && qaInput.stageId===qa?.id
+    && qaInput.reviewId===qa?.reviewId && assessment?.reviewId===qaInput.reviewId
+    && qaInput.qaExecutionId===qa?.agentExecutionId
+    && reviewAlias?.sha256===qaInputHash && bound(root,reviewAlias)
+    && bound(root,{path:qaInputPath,sha256:qaInputHash})
+    && qaReceipt?.inputs?.some(ref=>ref.path===reviewAlias.path && ref.sha256===reviewAlias.sha256);
   if (!qaReceipt?.outputs?.some(ref=>ref.path===assessmentPath && ref.sha256===freshFidelity.report?.inputHashes?.assessment)
-      || !qaReceipt?.inputs?.some(ref=>ref.path===qaInputPath && ref.sha256===freshFidelity.report?.inputHashes?.qaInputManifest)
+      || !(directQaInput || boundReviewAlias)
       || assessment?.qaExecutionId!==qa?.agentExecutionId || qaInput?.qaExecutionId!==qa?.agentExecutionId
       || qaInput?.implementationExecutionId!==producer?.agentExecutionId) errors.push('SOURCE_LEARNING_QA_CONSUMER_BINDING_INVALID');
   if (!qaReceipt?.outputs?.some((ref) => path.resolve(root, ref.path) === fidelityFile)) errors.push('SOURCE_LEARNING_FIDELITY_RECEIPT_REQUIRED');
@@ -249,6 +314,7 @@ export function validatePreviewGrant(root, binding = null) {
 
 export function evaluateHostDelivery({ root, brand } = {}) {
   root = path.resolve(root || process.cwd());
+  if (brand && !/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(brand)) return result('blocked', ['HOST_BRAND_INVALID']);
   const migration = path.join(root, 'migrations', brand || '');
   const manifest = read(path.join(migration, 'execution-manifest.json'));
   if (!manifest) return result('pending', [], { nextAction: 'continue-host-preview' });
@@ -258,6 +324,14 @@ export function evaluateHostDelivery({ root, brand } = {}) {
   if (manifest.mode !== 'design-host') return result('blocked', ['HOST_PREVIEW_MODE_REQUIRED']);
   const hostGoal = read(path.join(migration, 'goal-contract.json'));
   if (hostGoal?.mode !== 'design-host' || hostGoal?.requestKind !== 'host-concepts' || hostGoal?.sealed !== true) return result('blocked', ['HOST_PREVIEW_GOAL_INVALID']);
+  const pendingQa = (manifest.stages || []).at(-1);
+  const mechanical = read(path.join(migration, 'design-host-h5-mechanical-qa.json'));
+  if (pendingQa?.stage === 'designVisualQA' && pendingQa.status === 'pending' && manifest.currentStageId === pendingQa.id && mechanical?.verdict === 'fail') {
+    const routeFile = path.join(migration, 'design-host-route.json');
+    const directions = read(routeFile)?.h5Directions?.directions || [];
+    if (mechanical.schema !== 'design-host-h5-mechanical-qa/v1' || mechanical.brand !== brand || mechanical.route?.path !== path.relative(root, routeFile) || !bound(root, mechanical.route) || mechanical.directions?.length !== 3 || new Set(mechanical.directions.map(item => item.directionId)).size !== 3 || directions.length !== 3 || mechanical.directions.some(item => !bound(root, item.artifact) || !directions.some(direction => direction.id === item.directionId && direction.artifact?.path === item.artifact?.path && direction.artifact?.sha256 === item.artifact?.sha256))) return result('blocked', ['H5_MECHANICAL_QA_BINDING_INVALID'], { nextAction: 'inspect-mechanical-report-bindings' });
+    return result('blocked', ['H5_MECHANICAL_QA_FAILED'], { currentStageId: manifest.currentStageId, blockingFindings: mechanical.blockingFindings || [], nextAction: 'repair-mechanical-audit-or-retry-h5', mechanicalReport: { path: path.relative(root, path.join(migration, 'design-host-h5-mechanical-qa.json')), sha256: hash(path.join(migration, 'design-host-h5-mechanical-qa.json')) } });
+  }
   if (['blocked', 'timed-out', 'failed'].includes(manifest.status)) return result('blocked', ['HOST_PREVIEW_BLOCKED']);
   const master = read(path.join(migration, 'approved-master.json'));
   // A valid explicit Master remains the authority; this gate never creates ABC.
@@ -299,8 +373,9 @@ export function evaluateHostDelivery({ root, brand } = {}) {
   const reportFile = path.join(migration, 'design-host-visual-qa.json');
   const report = read(reportFile);
   const reportBound = qaReceipt?.outputs?.some((ref) => path.resolve(root, ref.path) === reportFile && bound(root, ref));
-  if (!reportBound || !String(report?.recommendationReason || '').trim()) errors.push('HOST_RECOMMENDATION_REPORT_REQUIRED');
-  const recommended = reportBound ? report?.recommendedDirectionIds || [] : [];
+  const recommendation = reportBound ? normalizeHostRecommendation(report) : null;
+  if (!recommendation) errors.push('HOST_RECOMMENDATION_REPORT_REQUIRED');
+  const recommended = recommendation?.ids || [];
   const directions = route?.h5Directions?.directions || [];
   if (!recommended.length || recommended.some((id) => !directions.some((d) => d.id === id))) errors.push('HOST_RECOMMENDATION_REQUIRED');
   if (directions.some((d) => !/\.html?$/i.test(d.artifact?.path || '') || !bound(root, d.artifact))) errors.push('HOST_OPENABLE_H5_REQUIRED');
@@ -308,7 +383,25 @@ export function evaluateHostDelivery({ root, brand } = {}) {
   const previews = directions.map((d) => ({ id: d.id, ...(integrationRequired ? d.integratedArtifact || d.artifact : d.artifact) }));
   if (previews.some((ref) => !bound(root, ref) || !/\.html?$/i.test(ref.path || '') || !(integrationReceipt || qaReceipt)?.inputs?.some((input) => path.resolve(root, input.path) === path.resolve(root, ref.path) && input.sha256 === ref.sha256))) errors.push('HOST_FINAL_QA_H5_INPUT_UNBOUND');
   if (errors.length) return result('blocked', errors);
-  return result('delivered', [], { ...partial, userGoalCompleted: true, previewArtifacts: previews, recommendedArtifacts: previews.filter((d) => recommended.includes(d.id)), nextAction: 'show-recommended-h5-and-await-user-selection' });
+  return result('delivered', [], { ...partial, userGoalCompleted: true, previewArtifacts: previews, recommendedArtifacts: previews.filter((d) => recommended.includes(d.id)), recommendationReason: recommendation.reason, comparisonPreview: { path: `/__brand_comparison__?brand=${encodeURIComponent(brand)}`, viewport: { width: 390, height: 844 }, directionIds: previews.map(d => d.id), selection: 'explicit-user-in-conversation', defaultSelection: null }, nextAction: 'show-comparison-h5-and-await-user-selection' });
+}
+
+// Read-only compatibility at the consumer boundary. Never infer a recommendation
+// from route metadata or chat, and never choose between conflicting QA fields.
+export function normalizeHostRecommendation(report) {
+  if (!report || typeof report !== 'object') return null;
+  const hasFlat = Object.hasOwn(report, 'recommendedDirectionIds') || Object.hasOwn(report, 'recommendationReason');
+  const hasNested = Object.hasOwn(report, 'recommendation');
+  const valid = value => Array.isArray(value.ids) && value.ids.length > 0
+    && value.ids.every(id => typeof id === 'string' && id.trim() === id && id.length > 0)
+    && new Set(value.ids).size === value.ids.length
+    && typeof value.reason === 'string' && value.reason.trim().length > 0;
+  const flat = { ids: report.recommendedDirectionIds, reason: report.recommendationReason };
+  const nested = { ids: [report.recommendation?.directionId], reason: report.recommendation?.reason };
+  if ((!hasFlat && !hasNested) || (hasFlat && !valid(flat)) || (hasNested && !valid(nested))) return null;
+  if (hasFlat && hasNested && (JSON.stringify([...flat.ids].sort()) !== JSON.stringify([...nested.ids].sort()) || flat.reason.trim() !== nested.reason.trim())) return null;
+  const selected = hasFlat ? flat : nested;
+  return { ids: [...selected.ids], reason: selected.reason.trim() };
 }
 
 // Implementation preview is a review handoff, not source-learning or release

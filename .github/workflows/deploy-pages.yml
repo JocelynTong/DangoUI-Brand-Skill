@@ -22,6 +22,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           lfs: true
+          fetch-depth: 2
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
@@ -34,7 +35,12 @@ jobs:
       - name: Verify trial channel boundaries
         run: npm run test:brand-trial
       - name: Build for GitHub Pages
-        run: npm run build:github-pages
+        env:
+          REGISTRY_BASE_COMMIT: ${{ github.event.before || 'HEAD^' }}
+        run: |
+          node scripts/build-changed-brand-registry.mjs
+          npx vite build
+          node scripts/rewrite-github-pages-base.mjs
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
         with:

@@ -5,11 +5,27 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
-import { finalizeH5DirectionStage, normalizeSystemRef, collectSystemRefs, adaptDeclaredDirectionContract, validateAssetUsageMarker, validateDirectionInputPath } from "./finalize-h5-direction-stage.mjs";
+import { finalizeH5DirectionStage, normalizeSystemRef, collectSystemRefs, collectSystemReferenceCatalog, navigationShellCompletionContract, validateNavigationShellPreview, adaptDeclaredDirectionContract, bindProductionPattern, validateAssetUsageMarker, validateDirectionInputPath } from "./finalize-h5-direction-stage.mjs";
 import { validateBrandRenderKit } from "./validate-brand-render-kit.mjs";
 import { validateDesignHostRoute } from "./validate-design-host-route.mjs";
 
 const sha = (file) => crypto.createHash("sha256").update(fs.readFileSync(file)).digest("hex");
+{
+  const context = { brandMod: { componentVariants: [{id:"variant",approvedPatternId:"search",status:"composed"}] }, approvedPatterns: {status:"APPROVED_WITH_UNRESOLVED",patterns:[{id:"search",requiredLayers:["reset"],forbiddenTransforms:["omit reset"]}]}, patternInput:{path:"approved-visual-patterns.json",sha256:"a".repeat(64)} };
+  const binding = bindProductionPattern({patternId:"search"},context);
+  assert.equal(binding.patternSource.ref,"approvedPatterns.patterns.0");
+  assert.deepEqual(binding.sourceConstraints.requiredLayers,["reset"]);
+  assert.equal(bindProductionPattern({patternId:"search",systemRef:"componentVariants.0"},context).patternSource.sha256,"a".repeat(64));
+  assert.throws(()=>bindProductionPattern({patternId:"search",systemRef:"componentVariants.9"},context),/conflicts/);
+  assert.throws(()=>bindProductionPattern({patternId:"search"},{...context,patternInput:null}),/frozen-approved-catalog/);
+  assert.throws(()=>bindProductionPattern({patternId:"search"},{...context,approvedPatterns:{status:"APPROVED",patterns:[{id:"search"},{id:"search"}]}}),/ambiguous/);
+  assert.throws(()=>bindProductionPattern({patternId:"search"},{...context,approvedPatterns:{status:"APPROVED",patterns:[{id:"search",status:"rejected"}]}}),/not-approved/);
+  assert.throws(()=>bindProductionPattern({patternId:"search"},{...context,supportedIds:["componentVariants.0"]}),/outside-supported/);
+  assert.doesNotThrow(()=>bindProductionPattern({patternId:"search",systemRef:"componentVariants.0"},{...context,supportedIds:["componentVariants.0"]}));
+  const legacy = bindProductionPattern({patternId:"legacy",systemRef:"componentVariants.0",patternSource:{path:"forged.json",sha256:"f".repeat(64)},sourceConstraints:{forbiddenTransforms:[]}},{brandMod:{componentVariants:[{id:"legacy",status:"approved"}]}});
+  assert.equal(legacy.patternSource,undefined);
+  assert.equal(legacy.sourceConstraints,undefined);
+}
 assert.equal(normalizeSystemRef("expressiveBudget", new Set(["layoutRules.expressiveBudget"])), "layoutRules.expressiveBudget");
 assert.equal(normalizeSystemRef("expressiveBudget", new Set(["layoutRules.expressiveBudget", "tokens.expressiveBudget"])), "expressiveBudget");
 const pointerRefs = collectSystemRefs({}, { componentVariants: [{ id: "source-readable-rounded-type", status: "approved" }, { id: "excluded", status: "rejected" }], assets: [{ id: "source-hero-ensemble", status: "approved" }] });
@@ -18,6 +34,20 @@ assert.equal(pointerRefs.has("componentVariants.0"), true);
 assert.equal(pointerRefs.has("componentVariants.1"), false);
 assert.equal(pointerRefs.has("componentVariants.99"), false);
 assert.equal(pointerRefs.has("assets.0"), true);
+{
+  const mod = { componentVariants: [{ id: "rounded", status: "candidate", title: "Rounded type" }, { id: "rejected", status: "rejected" }], semanticRoles: { "text.primary": { role: "text" } }, tokens: { mapped: { "--font-body": "sans-serif" }, styleOnly: { border: "2px" } }, layoutRules: { expressiveBudget: "bounded" } };
+  const catalog = collectSystemReferenceCatalog({ patterns: [{ id: "intent-pattern" }] }, mod);
+  assert.deepEqual(new Set(catalog.flatMap((entry) => entry.refs)), collectSystemRefs({ patterns: [{ id: "intent-pattern" }] }, mod));
+  assert.deepEqual(catalog.find((entry) => entry.source === "mod.tokens.mapped.--font-body").refs, ["--font-body", "font-body", "mapped.font-body", "tokens.mapped.font-body"]);
+  assert.equal(catalog.find((entry) => entry.refs.includes("componentVariants.0")).status, "candidate");
+  assert.ok(!catalog.some((entry) => entry.refs.includes("componentVariants.1")));
+  const contract = { mode: "required", allowedTreatments: ["custom-contained"], items: [{ id: "primary-tab:real", requiredInDesignPreview: true }] };
+  const hints = navigationShellCompletionContract(contract);
+  assert.deepEqual(hints.allowedContinuity, ["continuous", "explicit-boundary"]);
+  const html = `<nav ${hints.attributes.region}="${hints.regionValue}" ${hints.attributes.treatment}="${hints.allowedTreatments[0]}" ${hints.attributes.continuity}="${hints.allowedContinuity[0]}"><button ${hints.attributes.item}="${hints.items[0].id}"></button></nav>`;
+  assert.deepEqual(validateNavigationShellPreview(html, contract), []);
+  assert.ok(validateNavigationShellPreview(html.replace("data-host-shell-item", "data-navigation-shell-item"), contract).some((code) => code.includes("ITEM_MISSING")));
+}
 const editorialAsset = { id: "shape-language", role: "section-background", targetScope: "editorial learning explanation" };
 assert.equal(validateAssetUsageMarker('<img data-brand-asset-ref="shape-language" data-brand-asset-placement="editorial-support" data-brand-asset-salience="supporting">', "editorial", { id: "shape", assetRef: "shape-language", assetPlacement: "editorial-support", assetSalience: "supporting" }, editorialAsset).ok, true);
 const inferredMechanism = { id: "shape-inferred", assetRef: "shape-language" };
@@ -74,6 +104,7 @@ try {
     hostStartupPageSha256: startupSha,
     primaryTask: "search and compare items",
     primaryAction: "search",
+    navigationShellContract: { mode: "required", allowedTreatments: ["native-preserved"], items: [{ id: "account", requiredInDesignPreview: true }] },
     resultContentContract: { mode: "host-schema", fields: ["title", "preview", "metadata"], readableRowsRequired: true, anonymousSkeletonsForbidden: true },
     informationDistributionContract: { model: "search-filter-list", previewUnit: { requiredDecisionFields: ["title"] }, scanOrder: ["search", "results"], comparisonBehavior: "compare visible result fields before opening details" },
     resultHierarchyContract: { derivationSource: "startup-page-source-analysis", defaultRelationship: "peer", differentiationAllowed: false, evidence: [], forbiddenWithoutEvidence: ["featured-result", "ranking", "recommendation", "selected-result", "unequal-preview-scale"] },
@@ -131,14 +162,45 @@ try {
     metadata.productionFormula = { productive: { brandModSha256: sha(modFile), patternBindings: [{ patternId: "system:1", systemRef: "componentVariants.0" }] } };
     const roles = structuralSignature.compositionRoles.map((role) => `<section data-composition-role="${role}" data-brand-moment="${role === "business-stream" ? "productive" : "expressive"}" data-host-job="search" data-brand-source="evidence:1" data-brand-mechanisms="typography"${role === "business-stream" ? ` data-content-entry="${structuralSignature.contentEntry}" data-result-container="${structuralSignature.resultContainer}" data-result-hierarchy="peer"` : ""}></section>`).join("");
     metadata.transferRuleApplications = [{ ruleId: "transfer.type", ruleScope: "supporting task heading", region: "task heading", selector: `#transfer-${id}`, sourceReviewSha256: sourceTransfer.review.sha256, evidenceRefs: ["observed-type"], hostReason: "Retain readable host task heading above real peer results" }];
-    return write(`h5-directions/direction-${id}.html`, `<!doctype html><html><body><main id="transfer-${id}" data-result-hierarchy="peer">${roles}</main><script type="application/json" data-brand-direction>${JSON.stringify(metadata)}</script></body></html>\n`);
+    const shellRoles = roles.replace('data-composition-role="navigation-shell"', 'data-composition-role="navigation-shell" data-navigation-shell-treatment="native-preserved" data-scene-continuity="continuous" data-host-shell-item="account"');
+    return write(`h5-directions/direction-${id}.html`, `<!doctype html><html><body><main id="transfer-${id}" data-result-hierarchy="peer">${shellRoles}</main><script type="application/json" data-brand-direction>${JSON.stringify(metadata)}</script></body></html>\n`);
   });
   const requiredInputs = [goalFile, evidenceFile, intentFile, modFile, startupFile, baselineFile, knowledgeFile, transferFile, packetFile, captureFile].map((file) => ({ path: path.relative(root, file), sha256: sha(file) }));
   const dispatchFile = write("dispatch/h5DirectionGeneration-1.json", { schema: "brand-subagent-dispatch/v1", dispatchId: "dispatch-1", goalSha256: sha(goalFile), stageId: "h5DirectionGeneration-1", stage: "h5DirectionGeneration", role: "brandApplicationDesigner", requiredInputs, sourceTransfer });
 
+  // Independent contract failures are reported together before any output writes.
+  const originalHtml = htmlFiles.map((file) => fs.readFileSync(file, "utf8"));
+  const originalDispatch = fs.readFileSync(dispatchFile, "utf8");
+  for (const [index, file] of htmlFiles.entries()) fs.writeFileSync(file, originalHtml[index].replace('"systemRef":"componentVariants.0"', '"systemRef":"guessed.alias"').replace('"systemRef":"componentVariants.1"', '"systemRef":"tokens.wrong.path"').replace("data-host-shell-item", "data-navigation-shell-item").replace('data-scene-continuity="continuous"', 'data-scene-continuity="guessed"'));
+  const failedHtmlHashes = htmlFiles.map(sha);
+  const routeBefore = sha(path.join(migration, "design-host-route.json"));
+  assert.throws(() => finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer" }), (error) => error.errors?.length === 12 && error.errors.some((code) => code.endsWith(":guessed.alias")) && error.errors.some((code) => code.endsWith(":tokens.wrong.path")) && error.errors.some((code) => code.includes("ITEM_MISSING")) && error.errors.some((code) => code.includes("CONTINUITY_REQUIRED")));
+  assert.deepEqual(htmlFiles.map(sha), failedHtmlHashes);
+  assert.equal(sha(path.join(migration, "design-host-route.json")), routeBefore);
+  for (const name of ["brand-render-kit.json", "brand-application-plan.json", "design-direction-options.json"]) assert.equal(fs.existsSync(path.join(migration, name)), false);
+  assert.equal(fs.existsSync(path.join(migration, "receipts")), false);
+  for (const [index, file] of htmlFiles.entries()) fs.writeFileSync(file, originalHtml[index]);
+  assert.equal(fs.readFileSync(dispatchFile, "utf8"), originalDispatch);
   const result = finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer" });
   assert.equal(result.ok, true);
-  assert.match(result.recordCommand, /brand-subagent-workflow\.mjs record/);
+  assert.equal(result.status, "compiled-not-recorded");
+  assert.equal(result.stageCompleted, false);
+  assert.equal(result.receipt, `migrations/${brand}/receipts/h5DirectionGeneration-1.producer.json`, "old dispatch keeps its legacy receipt path");
+  assert.equal(path.isAbsolute(result.recordCommandArgs[1]), true);
+  assert.equal(result.recordCommandArgs[2], "record");
+  assert.deepEqual(result.recordCommandArgs.slice(-2), ["--receipt", result.receipt]);
+  const declaredReceipt = `migrations/${brand}/receipts/h5DirectionGeneration-1.json`;
+  const dispatchWithReceipt = JSON.parse(originalDispatch);
+  dispatchWithReceipt.receiptContract = { path: declaredReceipt, recordCommand: [...result.recordCommandArgs.slice(0, -1), declaredReceipt] };
+  fs.writeFileSync(dispatchFile, JSON.stringify(dispatchWithReceipt));
+  const canonicalResult = finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer" });
+  assert.equal(canonicalResult.receipt, declaredReceipt);
+  assert.deepEqual(canonicalResult.recordCommandArgs, dispatchWithReceipt.receiptContract.recordCommand);
+  const explicitReceipt = `migrations/${brand}/receipts/explicit.json`;
+  const explicitResult = finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer", receiptFile: explicitReceipt });
+  assert.equal(explicitResult.receipt, explicitReceipt);
+  assert.deepEqual(explicitResult.recordCommandArgs.slice(-2), ["--receipt", explicitReceipt]);
+  fs.writeFileSync(dispatchFile, originalDispatch);
   assert.equal(sha(hostFile), hostBefore, "the host source must remain byte-identical");
   const receipt = JSON.parse(fs.readFileSync(path.join(root, result.receipt), "utf8"));
   assert.deepEqual(receipt.inputs, requiredInputs);

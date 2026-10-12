@@ -6,7 +6,7 @@ import { execFileSync, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { freezeDesignKnowledge } from "./freeze-design-knowledge.mjs";
 import { deriveHostStartupBaseline } from "./derive-host-startup-baseline.mjs";
-import { validatePreviewGrant } from "./parent-delivery-gate.mjs";
+import { validatePreviewGrant, normalizeHostRecommendation } from "./parent-delivery-gate.mjs";
 import { validateTransferReview, installTransferReview } from "./source-transfer-input.mjs";
 import { validateLocalSelectedMaster, captureSelectedH5OriginalSnapshot } from "./selected-h5-handoff.mjs";
 import { selectedPosteditContext } from "./selected-h5-postedit-context.mjs";
@@ -17,6 +17,9 @@ import { validateQaDispatchRevocations } from "./revoke-undelivered-qa-dispatch.
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { revalidateLearningFidelity } from "./revalidate-learning-fidelity.mjs";
 import { readNativeSourceInput } from './native-source-input.mjs';
+import { collectSystemReferenceCatalog, navigationShellCompletionContract } from "./finalize-h5-direction-stage.mjs";
+import { resolveEvidenceReference } from "./evidence-file-references.mjs";
+import { componentKitHandoff } from "./install-component-kit.mjs";
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -155,6 +158,7 @@ function prepare() {
 
 function next() {
   const manifest = validateManifest();
+  const resumedMechanical = args.includes("--resume-mechanical") ? resumePendingMechanicalQa(manifest) : false;
   enforceDesignHostDeadline(manifest);
   if (manifest.status !== "running") return output({ ok: false, status: manifest.status, message: "Workflow is not dispatchable." }, 2);
   const current = manifest.stages.find((item) => item.id === manifest.currentStageId);
@@ -172,7 +176,7 @@ function next() {
     freezeDesignHostKnowledge();
     verifyDesignHostRoute("before-h5-direction-dispatch");
   }
-  if (manifest.mode === "design-host" && current.stage === "designVisualQA") ensureDesignHostH5MechanicalQa();
+  if (manifest.mode === "design-host" && current.stage === "designVisualQA" && !resumedMechanical) ensureDesignHostH5MechanicalQa(manifest);
   if (manifest.mode === "design-host" && current.stage === "expressiveAssetGeneration") {
     verifyConceptCapability(manifest, current);
     verifyDesignHostRoute("before-expressive-dispatch");
@@ -199,11 +203,47 @@ function next() {
   const partialGrant = validatePreviewGrant(root, manifest.previewContinuation);
   if (partialGrant?.error) fail(partialGrant.error);
   const sourceTransfer = current.retryInput?.sourceTransfer || (current.stage !== "h5DirectionGeneration" ? [...manifest.stages].reverse().find((item) => item.stage === "h5DirectionGeneration" && item.status === "complete")?.retryInput?.sourceTransfer : null);
-  const inputs = latestInputsByPath([...dispatchInputs(manifest, current), ...(manifest.previewContinuation ? [manifest.previewContinuation.continuation, manifest.previewContinuation.readiness] : []), ...array(sourceTransfer?.inputs)]);
+  const componentKits = ["h5DirectionGeneration", "designVisualQA"].includes(current.stage)
+    ? componentKitHandoff({root, kits: readJsonRequired(path.join(migrationDir, "brand-mod.json")).componentKits || []}) : [];
+  const sourceVisualEvidence = current.stage === "h5DirectionGeneration" ? h5ProducerSourceCaptures() : null;
+  const inputs = latestInputsByPath([...dispatchInputs(manifest, current), ...componentKits.flatMap(kit => kit.files), ...(manifest.previewContinuation ? [manifest.previewContinuation.continuation, manifest.previewContinuation.readiness] : []), ...array(sourceTransfer?.inputs)]);
   const qaReview = manifest.mode === "learn-brand" && current.role === "visualQA" && current.qaReview ? readJsonRequired(path.resolve(root, current.qaReview.path)) : null;
   if (qaReview) { verifyHashedPath(current.qaReview); try { validateQaReview(root, qaReview); } catch (error) { fail(error.message); } }
   const reviewMode = manifest.mode === "learn-brand" && current.role === "visualQA" ? qaReview?.reviewMode || (manifest.stages.some(item => item.role === "visualQA" && item.receiptPath) ? "fresh-blind" : "initial-blind") : null;
   const fastOverride = fastDesignHostOverride(manifest, current);
+  if (current.stage === "designVisualQA" && fastOverride) {
+    fastOverride.tasks.unshift("Compare each claimed mechanism with the supplied frozen brand scope and selected source captures; inspect source images as well as generated captures. Producer hypotheses are claims to test, not evidence of fidelity.");
+    fastOverride.hints.sourceComparison = {
+      brandInputs: inputs.filter(item => /\/(brand-evidence|brand-intent|brand-mod|approved-visual-patterns)\.json$/.test(item.path)),
+      sourceCaptures: inputs.filter(item => /\.(png|jpe?g|webp)$/i.test(item.path) && !array(readJsonRequired(h5MechanicalQaFile).directions).some(direction => direction.capture?.path === item.path)),
+      rule: "Use only the frozen source scope, not producer assertions. Structure-only permission does not authorize typography, framing or identity. If the selected sources cannot establish a claimed visible mechanism, report that gap; do not infer approval from valid IDs or direction diversity. Do not recapture the website.",
+    };
+  }
+  if (fastOverride?.hints?.completionContract && current.stage === "h5DirectionGeneration") {
+    const frozen = (name) => {
+      const input = inputs.find((entry) => path.basename(entry.path) === name);
+      if (!input) fail(`REQUIRED_INPUT_MISSING:${name}`);
+      verifyHashedPath(input);
+      return readJsonRequired(path.resolve(root, input.path));
+    };
+    const completion = fastOverride.hints.completionContract;
+    completion.systemReferences = {
+      rule: "refs are literal accepted brandMechanisms.systemRef values; source locates the frozen object, not an additional accepted ref. Existence is not approval or host-use authorization. Respect status, evidence, supported scope and pattern-binding gates. Choose by source meaning; never substitute a different semantic to pass validation. Unique suffix normalization remains available; ambiguous or unknown references fail.",
+      entries: collectSystemReferenceCatalog(frozen("brand-intent.json"), frozen("brand-mod.json")),
+    };
+    completion.navigationShell = navigationShellCompletionContract(frozen("host-startup-baseline.json").navigationShellContract);
+    completion.selectionControls = {
+      implementation: "Use native select/checkbox/radio or real toggle buttons with aria-pressed synchronized with visual selection and reset. aria-selected belongs to an appropriate selection widget, not arbitrary buttons. Navigation tabs and opening a drawer do not prove filtering.",
+      disclosure: "Collapsed filters use a button with synchronized aria-expanded and aria-controls pointing to the real panel, or native details/summary. Keep controls reachable and test opening then changing a selection before submission.",
+      unavailableData: "Use only frozen real options or explicitly authorized labeled fixtures. Missing data must remain explicit loading/empty UI with unavailable controls disabled; never fabricate options or claim selection passed. A single-option select is not a verified filter. Report the limitation to the orchestrator rather than return a false complete result.",
+      selfCheck: "Before finalizer, exercise search and a real selection in each direction, including disclosure and reset where present. Class-only changes, drawer visibility and loading messages cannot replace selection-state proof. The mechanical gate reports unavailable separately but does not approve it as working filtering.",
+    };
+  }
+  if (fastOverride?.hints?.completionContract?.embeddedMetadata) fastOverride.hints.completionContract.embeddedMetadata.patternBindings = {
+    location: "productionFormula.productive.patternBindings (and visualProgram.productionFormula when present)",
+    fields: ["patternId: exact unique ID in the MOD-linked frozen approved-visual-patterns.json", "systemRef: optional exact MOD dotted path; if supplied its id or approvedPatternId must match", "regionSelector: actual HTML region", "consumedRequiredLayers", "omittedLayers: explicit reasons", "adaptation: actual host adaptation within source boundaries"],
+    rule: "Do not guess aliases or copy source product fields into the host. Finalizer binds the dispatch-hashed catalog and preserves its constraints for independent QA; binding success does not approve visual fidelity or prohibited adaptations. A missing catalog or conflicting explicit reference is an error."
+  };
   const request = {
     schema: "brand-subagent-dispatch/v1",
     dispatchId: crypto.randomUUID(),
@@ -242,9 +282,11 @@ function next() {
         ? contract.designHostExecutionProfiles?.[manifest.executionProfile] || null
         : contract.executionProfiles?.[manifest.executionProfile] || null,
     requiredInputs: inputs,
-    allowedInputs: [...(roleContract.inputs?.allowed || []), ...(reviewMode === "regression-review" ? ["hash-bound prior QA failure and affected/regressionScope only; not fresh blind review"] : []), ...(current.retryInput?.qaRepair ? ["current scoped corrective observations (source facts only; no QA verdict or implementation rationale)"] : [])],
-    forbiddenInputs: reviewMode === "regression-review" ? (roleContract.inputs?.forbidden || []).filter(item => !/prior.*verdict|previous.*verdict/i.test(item)) : roleContract.inputs?.forbidden || [],
-    tasks: fastOverride?.tasks || roleContract.tasks || [],
+    ...(sourceVisualEvidence ? { sourceVisualEvidence } : {}),
+    ...(componentKits.length ? { componentKits, componentKitUsage: "These are available implementations, not new brand approval. Read the designGuide when present, then inspect entry/styles and usage/scope. Reuse compatible code; explicitly adapt incompatible runtimes. Trial/unspecified status remains unchanged. Guides explain existing evidence and cannot expand source permissions. Do not install dependencies or execute package code merely to inspect it." } : {}),
+    allowedInputs: [...(roleContract.inputs?.allowed || []), ...(current.stage === "designVisualQA" ? ["listed frozen brand scope and selected source captures; producer hypotheses only as claims to verify, never desired verdicts"] : []), ...(reviewMode === "regression-review" ? ["hash-bound prior QA failure and affected/regressionScope only; not fresh blind review"] : []), ...(current.retryInput?.qaRepair ? ["current scoped corrective observations (source facts only; no QA verdict or implementation rationale)"] : [])],
+    forbiddenInputs: (roleContract.inputs?.forbidden || []).filter(item => !(reviewMode === "regression-review" && /prior.*verdict|previous.*verdict/i.test(item)) && !(current.stage === "designVisualQA" && item === "translation claims absent from goal contract")).concat(current.stage === "designVisualQA" ? ["unbound translation claims or producer assertions treated as approved source facts"] : []),
+    tasks: [...(sourceVisualEvidence ? ["Open the hash-bound sourceVisualEvidence captures relevant to the host task before composing directions; use claimIds to locate their evidence scope. Report missing relevant visual evidence instead of guessing paths or source facts. Screenshots are observation evidence only, never runtime assets or additional approval."] : []), ...(fastOverride?.tasks || roleContract.tasks || [])],
     requirements: [...(roleContract.requirements || []), ...(fastOverride?.requirements || []), ...(sourceTransfer ? ["The explicit additive sourceTransfer input permits only its independently reviewed candidate rules for this isolated attempt. Keep their candidate statuses and every exclusion; never promote them to reusable Patterns, global tokens, source-learning certification or apply-host permission. Use host/system fonts only. Each H5 metadata must declare transferRuleApplications with the supplied template; preserve mandatory original MOD mechanisms separately. Reference-only rules require usage=reference-only; conditional illustration requires a separately hash-verified runtime asset already allowed by the original grant. Independent H5 QA must check these applications against their declared scopes and exclusions."] : [])],
     scopeRules: [...dispatchScopeRules(manifest), ...(partialGrant ? ['This is a macro-host-journey trial with learningComplete:false; retain source-learning failure and every unresolved exclusion. Use only allowedUse.supportedIds and assets from the hash-bound preview-readiness grant; reject any mechanism outside that grant. Never modify host source or claim full source-learning certification.'] : [])],
     ...(partialGrant ? { partialBrandValidation: partialGrant } : {}),
@@ -265,10 +307,12 @@ function next() {
       queryCommand: `node ${path.join(skillRoot, "scripts", "query-brand-context.mjs")} <get|search> --source <contract|tokens|runtime|workflow> ...`,
     },
     efficiencyBudget: designHostEfficiencyBudget(current),
-    receiptRequirements: ["agentExecutionId from a real spawned subagent", "goalSha256 unchanged", "input and output file sha256 values", "pass/fail/needs-evidence verdict", "record immediately after the required outputs are complete; do not continue analysis or wait for orchestration commentary", "stageTargetSeconds is a soft target: a complete correct stage may pass after it and must record SOFT_TARGET_MISS; only stageHardLimitSeconds requires an immediate fail or needs-evidence receipt with code STAGE_HARD_LIMIT_EXCEEDED, actual additionalReads/usage and every completed diagnostic output", "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"],
+    receiptRequirements: ["agentExecutionId from a real spawned subagent", "goalSha256 unchanged", "input and output file sha256 values", "pass/fail/needs-evidence verdict", "record immediately after the required outputs are complete; do not continue analysis or wait for orchestration commentary", "stageTargetSeconds is diagnostic, not a quality verdict; record evaluates elapsed time automatically. The frozen run deadline stops further work; never skip required checks to meet a target. Previously dispatched finite stageHardLimitSeconds remain binding.", "on fail, failureOwnerRole identifies brandResearcher, designTranslator, designDirectorOrchestrator, or demoImplementationAgent"],
     receiptContract: {
       path: `migrations/${brand}/receipts/${current.id}.json`,
       recordCommand: [process.execPath, path.join(skillRoot, "scripts", "brand-subagent-workflow.mjs"), "record", "--brand", brand, "--root", root, "--receipt", `migrations/${brand}/receipts/${current.id}.json`],
+      completion: "The producing/reviewing role finishes all required checks, executes recordCommand, and returns its actual result before ending. A receipt file or finalizer success alone is not stage completion. The orchestrator waits for that result; it does not interrupt a still-working role or record an unconfirmed receipt on its behalf.",
+      orchestratorContinueCommand: [process.execPath, path.join(skillRoot, "scripts", "run-brand-workflow.mjs"), "continue", "--artifact-root", root, "--brand", brand],
       requiredFields: ["dispatchId", "stageId", "role", "agentExecutionId", "goalSha256", "verdict", "inputs", "outputs"],
       inputs: "Copy requiredInputs unchanged; outputs are actual path/sha256 pairs.",
       failureFields: ["blockingFindings", "failureOwnerRole", "deltaScope"],
@@ -278,6 +322,7 @@ function next() {
     assetUsageContract: fastOverride?.assetUsageContract || null,
     viewportContract: fastOverride?.viewportContract || null,
     outputLocationContract: fastOverride?.outputLocationContract || null,
+    ...(fastOverride?.userDelivery ? { userDelivery: fastOverride.userDelivery } : {}),
   };
   if (qaReview?.completionContract) {
     request.completionContract = qaReview.completionContract;
@@ -291,6 +336,19 @@ function next() {
     request.receiptContract.requiredFields.push("reviewMode", "reviewId", "qaExecutionId");
   }
   const dispatchFile = path.join(migrationDir, "dispatch", `${current.id}.json`);
+  if (current.stage === "h5DirectionGeneration" && request.fastDesignHints?.completionContract) {
+    request.fastDesignHints.completionContract.finalizerCommand = [process.execPath, path.join(skillRoot, "scripts", "finalize-h5-direction-stage.mjs"), "--root", root, "--brand", brand, "--dispatch", relative(dispatchFile), "--producer-execution-id", "<actual-agent-execution-id>", "--receipt", request.receiptContract.path, ...["a", "b", "c"].flatMap(id => ["--html", `migrations/${brand}/h5-directions/direction-${id}.html`])];
+    request.fastDesignHints.completionContract.embeddedMetadata.finalizer = "Use completionContract.finalizerCommand; replace only the actual agent execution id. Its compiled-not-recorded output is not completion. Finish rendered self-review, rerun after edits, then execute its recordCommandArgs and return the record result.";
+  }
+  if (current.stage === "designVisualQA" && request.fastDesignHints) {
+    request.fastDesignHints.receipt.recordCommand = request.receiptContract.recordCommand;
+    request.fastDesignHints.outputContract = {
+      rule: "These are field names and passing values, not a prefilled verdict. Fill observations from the frozen captures; when checks fail submit fail/needs-evidence, never copy passing values to hide missing evidence. Hash every output before recording.",
+      h5Audit: { file: "design-host-h5-audit.json", statusWhenPassed: "eligible-for-human-review" },
+      visualQa: { file: "design-host-visual-qa.json", recommendedDirectionIds: "nonempty array of actual passing direction ids", recommendationReason: "nonempty evidence-backed string; not rationale" },
+      routePatch: { file: "design-host-route.json", h5QA: { statusWhenPassed: "pass", reviewerExecutionId: "actual independent reviewer id", resultHierarchyGeometry: "copy frozen mechanical receipt resultHierarchyGeometry unchanged" }, expressiveGapDecision: "same object as design-host-expressive-gap.json; status required or not-required, with explicit gaps array" },
+    };
+  }
   if (current.stage === "hostImplementation" && manifest.selectedH5PosteditBinding) request.ownedNextRequirement={owner:"hostImplementationAgent",status:"originals-captured-runtime-proof-pending",code:"SELECTED_H5_POSTEDIT_ORIGINAL_BINDING_REQUIRED",binding:manifest.selectedH5PosteditBinding,instruction:"Original source/style snapshots are immutable and pinned by this dispatch. Receipt-only validation must preserve app config and pass fresh structural AST comparison; native/cascade/runtime QA remains required and is not supplied by these original-input snapshots."};
   writeJson(dispatchFile, request);
   current.dispatchId = request.dispatchId;
@@ -349,7 +407,7 @@ function fastDesignHostOverride(manifest, current) {
   if (current.stage === "conceptGeneration") return {
     mission: "In one uninterrupted visual-probe turn, define three source-evidenced art worlds and immediately render them by combining ImageGen expressive authorship, the learned brand design system for productive UI, and explicit expert decision knowledge; do not create H5.",
     tasks: ["verify declared image capability and frozen official identity assets", "build concept-direction-briefs.json and brand-render-kit.json from the frozen evidence, host baseline and knowledge bundle before any ImageGen call", "mechanically validate both compact planning artifacts", "launch all three expressive scene-plate ImageGen calls concurrently", "render each productive state from the frozen host schema and brand design system, then deterministically compose it with the scene plate and unchanged official identity assets", "record scene-plate, productive-renderer and final-board provenance and hashes in design-host-route.json"],
-    requirements: ["no H5 output", "preserve host business structure", "ImageGen owns the expressive scene plate; the deterministic host renderer owns search, filters, result fields, navigation, text and interaction geometry", "never ask ImageGen to invent or rasterize host business data", "every direction has a paired-state final board that visibly contains both peakFrame and settledFrame for the same composition", "peakFrame and settledFrame may reference the same final board artifact only when each records a distinct visible region", "the three-part productionFormula is mandatory and non-substitutable: ImageGen expressive authorship, frozen brand-design-system productive UI, and expert decision knowledge must all be present", "brand-render-kit expressive mechanisms must name their sourcePageRef; when evidence spans multiple source page-purpose systems, the three directions must draw from at least two of them", "directions must differ in contentEntry and resultPresentation geometry, not merely swap backgrounds", "when multiple official identity assets are available, use at least two different assets across the three directions", "generated scene plates cannot invent or approximate source-specific characters, logos or identity subjects", "compose hash-bound official identity assets unchanged; record asset ids, hashes, geometry, occlusion, contact shadow and environmental-light treatment", "each final direction must visibly use at least one supplied officialIdentityAsset unchanged; if no safe asset fits, return NEEDS_EVIDENCE", "productive UI must visibly apply the learned design system; citations and pattern ids alone do not count", "expert knowledge must cite only refs in the frozen design-knowledge-bundle, bind its sha256, and explain the host primary task, productive constraint and expressive constraint", "settledFrame keeps the primary action immediately usable, makes productive content dominant, exposes the core search/tool entry high in the viewport and shows readable result rows using resultContentContract; anonymous grey bars are forbidden", "peak expression must stay within the Host Strategist's declared viewport budget and never push the core entry below the fold", "warm return enters settledFrame", "call the built-in image-generation tool once for every scene plate and record its real tool-call id; HTML-only expressive scenes do not qualify", "start all three independent scene-plate calls concurrently in one orchestration batch; do not serialize them", "record productive renderer receipt and final-board hash separately from the ImageGen plate hash", "if concept dispatch begins with less than 180 seconds remaining, stop immediately and return a non-timeout capacity blocker instead of starting partial generation"],
+    requirements: ["no H5 output", "preserve host business structure", "ImageGen owns the expressive scene plate; the deterministic host renderer owns search, filters, result fields, navigation, text and interaction geometry", "never ask ImageGen to invent or rasterize host business data", "every direction has a paired-state final board that visibly contains both peakFrame and settledFrame for the same composition", "peakFrame and settledFrame may reference the same final board artifact only when each records a distinct visible region", "the three-part productionFormula is mandatory and non-substitutable: ImageGen expressive authorship, frozen brand-design-system productive UI, and expert decision knowledge must all be present", "brand-render-kit expressive mechanisms must name their applicable sourcePageRef; one applicable source page is valid. Multiple source pages do not authorize mixing incompatible source systems or adding metadata-only mechanisms to satisfy a count", "directions must differ in contentEntry and resultPresentation geometry, not merely swap backgrounds", "when multiple official identity assets are available, use at least two different assets across the three directions", "generated scene plates cannot invent or approximate source-specific characters, logos or identity subjects", "compose hash-bound official identity assets unchanged; record asset ids, hashes, geometry, occlusion, contact shadow and environmental-light treatment", "each final direction must visibly use at least one supplied officialIdentityAsset unchanged; if no safe asset fits, return NEEDS_EVIDENCE", "productive UI must visibly apply the learned design system; citations and pattern ids alone do not count", "expert knowledge must cite only refs in the frozen design-knowledge-bundle, bind its sha256, and explain the host primary task, productive constraint and expressive constraint", "settledFrame keeps the primary action immediately usable, makes productive content dominant, exposes the core search/tool entry high in the viewport and shows readable result rows using resultContentContract; anonymous grey bars are forbidden", "peak expression must stay within the Host Strategist's declared viewport budget and never push the core entry below the fold", "warm return enters settledFrame", "call the built-in image-generation tool once for every scene plate and record its real tool-call id; HTML-only expressive scenes do not qualify", "start all three independent scene-plate calls concurrently in one orchestration batch; do not serialize them", "record productive renderer receipt and final-board hash separately from the ImageGen plate hash", "if concept dispatch begins with less than 180 seconds remaining, stop immediately and return a non-timeout capacity blocker instead of starting partial generation"],
     expectedOutputs: ["concept-direction-briefs.json passing validate-concept-direction-briefs.mjs", "brand-render-kit.json passing validate-brand-render-kit.mjs", "exactly three Demo direction groups, each with one pairedStateBoard plus visibly distinct peakFrame and settledFrame regions", "design-host-route.json with producer and imageToolCalls evidence"],
     passCriteria: ["all three directions are visually attributable to the learned brand before reading labels", "the three art worlds differ in scene graph, visual center, content entry and result presentation", "each paired board shows a strong cold-start peak and a materially calmer productive settled state", "official identity is naturally integrated rather than pasted on top", "the host's primary task and readable result content remain immediately understandable", "concept-direction-briefs.json and brand-render-kit.json both pass their deterministic validators"],
     failCriteria: ["generic utility UI with brand color accents", "directions differ mainly by list/grid layout, glow color or effect name", "peak and settled are nearly identical", "identity appears as an unintegrated white rectangle, sticker or floating card", "productive controls or readable results are starved by the expressive scene", "any H5 or host-source modification"],
@@ -376,9 +434,9 @@ function fastDesignHostOverride(manifest, current) {
     tasks: ["read the frozen deterministic mechanical QA receipt instead of repeating geometry, image, scroll or interaction probes", "inspect its three hash-bound first-viewport captures for first impression", "judge Hierarchy, Utility and Style separately, then compare declared hypotheses with what is actually visible", "for each direction either record no expressive asset gap or specify the exact region and purpose of one", "write compact QA, H5 audit, expressive-gap JSON and route evidence"],
     requirements: ["record immediately after the required rendered checks", "do not edit H5 or call image_gen", "reviewer execution must differ from the H5 producer", "accept viewport, overflow, scrolling, visible-image loading, peer geometry and basic interaction proof only from the frozen design-host-h5-mechanical-qa.json; fail if that receipt is missing or not pass, and do not spend browser time repeating it", "inspect the actual hash-bound first-viewport capture for every H5 using the image-viewing capability; source code, alt text, CSS declarations and mechanism counts cannot substitute for rendered evidence", "do not start or attach a browser during this QA stage; interactive behavior is already frozen by the mechanical receipt and local-browser policy must not block first-impression review", "evaluate in order: first product-safety no-regression, then first-impression uplift; a style win cannot compensate for hierarchy or utility regression", "for every direction separately report hierarchy evidence (attention reaches the intended useful target and the screen remains informative), utility evidence (main function is obvious and the primary action works), and style evidence (source-backed target attributes are visibly communicated)", "compare the three declared mechanismThesis values against the renders; reject them as same-skeleton directions when the visible hierarchy, utility or style mechanism does not materially differ", "for every direction record the inspected capture path, viewport, observed first-glance brand subject, observed productive-task continuity, the largest generic region and the largest retained old-theme region; a pass without these observations is forbidden", "copy resultHierarchyGeometry from the frozen mechanical receipt into the H5 audit; do not remeasure it", "reject a direction when replaceable old-theme appearance still dominates or remains in high-salience selected states without a business-semantic retention reason; host structure preservation never authorizes host-skin preservation", "mask brand name/logo mentally and reject a direction whose first viewport becomes a generic white utility page with a small image patch, even when three source-backed mechanisms can be counted", "verify that every visible evidence asset performs its Brand MOD declared role; reject an editorial diagram or study image presented as an identity hero", "reject any direction that changes the frozen list/grid/feed/search comparison model merely to create visual difference", "reject any featured, ranked, recommended, selected or unequal-size repeated result when resultHierarchyContract does not contain matching host evidence", "reject green accents, rounded cards or generic geometric blobs as insufficient brand-system application unless at least three non-color source-backed mechanisms materially affect the rendered composition", "a gap is valid only with directionId, regionId, businessPurpose, targetSize, currentShortfall, expectedImprovement, noImageFallback, mutableAssetSelector and fixedContainerSelector", "generic desire for more impact is not a gap", "a whole-direction art-direction failure is not a local ImageGen gap and must return to Brand Application Designer", "any invented business record, broken primary interaction, missing H5 or same-skeleton directions is blocking", "when no complete gap exists set expressiveGapDecision.status=not-required", "when at least one complete local gap exists set status=required and keep the asset count minimal"],
     expectedOutputs: ["design-host-visual-qa.json", "design-host-h5-audit.json", "design-host-expressive-gap.json", "design-host-route.json"],
-    userDelivery: { report: "design-host-visual-qa.json", requiredFields: ["recommendedDirectionIds", "recommendationReason"], rule: "Recommend at least one passing direction from rendered evidence and host-specific reasons; never select the first id by default. Recommendations belong in this independently hashed QA output, not a producer assertion. The orchestrator shows one recommended interactive host preview by default; alternatives are optional. A recommendation is not user approval and cannot freeze a Master or authorize host edits." },
+    userDelivery: { report: "design-host-visual-qa.json", requiredFields: ["recommendedDirectionIds", "recommendationReason"], rule: "Recommend at least one passing direction from rendered evidence and host-specific reasons; never select the first id by default. Recommendations belong in this independently hashed QA output, not a producer assertion. Show all three interactive directions equally in the unified comparison; recommendation is explanatory only, never hidden alternatives, reordering or default selection. A recommendation is not user approval and cannot freeze a Master or authorize host edits." },
     viewportContract: { coordinateSystem: "CSS pixels", width: 390, height: 844, harness: "/__brand_viewport__?path=<root-relative-html>&width=390&height=844", invariant: "inspect and measure the same-origin iframe document at exactly 390x844 CSS pixels; ignore outer browser viewport and DPR when deciding layout or scroll" },
-    hints: { targetSeconds: 90, hardLimitSeconds: 180, candidateCount: 3, medium: "interactive-isolated-h5-with-frozen-render-captures", imageGenerationForbidden: true, gapDecision: ["required", "not-required"], visualEvidence: { source: "design-host-h5-mechanical-qa.json directions[].capture", invariant: "capture hash, viewport measurement and interaction proof come from one deterministic headless render; visual QA reads them but cannot replace them" }, receipt: { requiredBeforeVerdict: true, recordCommand: "node skills/brand/scripts/brand-subagent-workflow.mjs record --brand <brand> --root <isolated-run-root> --receipt <root-relative-receipt-path>", instruction: "write and hash all QA outputs, write the receipt, then run recordCommand immediately before any final commentary" } },
+    hints: { candidateCount: 3, medium: "interactive-isolated-h5-with-frozen-render-captures", imageGenerationForbidden: true, gapDecision: ["required", "not-required"], visualEvidence: { source: "design-host-h5-mechanical-qa.json directions[].capture", invariant: "capture hash, viewport measurement and interaction proof come from one deterministic headless render; visual QA reads them but cannot replace them" }, receipt: { requiredBeforeVerdict: true, recordCommand: "node skills/brand/scripts/brand-subagent-workflow.mjs record --brand <brand> --root <isolated-run-root> --receipt <root-relative-receipt-path>", instruction: "write and hash all QA outputs, write the receipt, then run recordCommand immediately before any final commentary" } },
   };
   if (current.stage === "expressiveAssetGeneration") return {
     mission: "Generate only the local expressive assets required by the frozen H5 gap contracts, once per gap, then backfill them as replaceable layers without changing host data, copy, controls or interaction.",
@@ -498,6 +556,11 @@ function record() {
     ensureSelectedOriginalBinding(manifest);
   }
   if (manifest.mode === "design-host" && current.stage === "designVisualQA" && receipt.verdict === "pass") {
+    const qaReportFile = path.join(migrationDir, "design-host-visual-qa.json");
+    if (!receiptOutputs.some(item => path.resolve(root, item.path) === qaReportFile) || !fs.existsSync(qaReportFile)) fail("HOST_RECOMMENDATION_REPORT_REQUIRED");
+    const recommendation = normalizeHostRecommendation(readJsonRequired(qaReportFile));
+    const directionIds = new Set(array(readJsonRequired(designHostRouteFile).h5Directions?.directions).map(item => item.id));
+    if (!recommendation || recommendation.ids.some(id => !directionIds.has(id))) fail("HOST_RECOMMENDATION_REQUIRED");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === h5AuditFile) || !fs.existsSync(h5AuditFile) || readJsonRequired(h5AuditFile).status !== "eligible-for-human-review") fail("DESIGN_HOST_H5_AUDIT_REQUIRED: QA receipt must hash a passing H5 audit.");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === expressiveGapFile) || !fs.existsSync(expressiveGapFile)) fail("EXPRESSIVE_GAP_DECISION_REQUIRED");
     verifyDesignHostRoute("after-h5-qa");
@@ -554,7 +617,7 @@ function record() {
   current.additionalReads = array(receipt.additionalReads).length ? array(receipt.additionalReads) : array(receipt.extraReads);
   current.endedAt = new Date().toISOString();
   current.durationMs = Math.max(0, Date.parse(current.endedAt) - Date.parse(current.startedAt));
-  const efficiency = designHostEfficiencyBudget(current);
+  const efficiency = dispatch.efficiencyBudget;
   current.budgetResult = efficiency ? {
     targetMs: efficiency.stageTargetSeconds * 1000,
     actualMs: current.durationMs,
@@ -953,8 +1016,13 @@ function retryHostPreviewQaStage() {
 function retryH5() {
   if (!args.includes("--continue-existing")) fail("H5_RETRY_EXPLICIT_CONTINUATION_REQUIRED: use --continue-existing only after an explicit user request to continue this failed preview.");
   const manifest = validateManifest();
-  const latest = manifest.stages.at(-1);
-  if (manifest.mode !== "design-host" || !["blocked", "timed-out"].includes(manifest.status) || manifest.currentStageId || latest?.stage !== "h5DirectionGeneration" || latest.status !== "failed" || !["fail", "needs-evidence"].includes(latest.verdict)) fail("H5_RETRY_FAILED_STAGE_REQUIRED: retry only the latest receipt-backed failed H5 generation stage of a blocked or timed-out design-host run.");
+  const pendingQa = manifest.stages.at(-1);
+  const mechanical = manifest.mode === "design-host" && ["running", "blocked", "timed-out"].includes(manifest.status) && pendingQa?.stage === "designVisualQA" && pendingQa.status === "pending" && !pendingQa.dispatchPath && manifest.currentStageId === pendingQa.id ? validateMechanicalFailure(manifest) : null;
+  const latest = mechanical ? manifest.stages.at(-2) : manifest.stages.at(-1);
+  if (!mechanical && (manifest.mode !== "design-host" || !["blocked", "timed-out"].includes(manifest.status) || manifest.currentStageId || latest?.stage !== "h5DirectionGeneration" || latest.status !== "failed" || !["fail", "needs-evidence"].includes(latest.verdict))) fail("H5_RETRY_FAILED_STAGE_REQUIRED: retry only a receipt-backed failed H5 producer or its bound pre-QA mechanical failure.");
+  // Explicit continuation grants one bounded repair beyond the frozen automatic
+  // attempt budget (fast goals commonly allow only the original attempt).
+  if (mechanical && array(manifest.h5Retries).some(item => item.kind === "pre-qa-mechanical-repair")) fail("H5_MECHANICAL_RETRY_BUDGET_EXHAUSTED");
   const grant = validatePreviewGrant(root, manifest.previewContinuation);
   if (grant?.error) fail(grant.error);
   if (fs.existsSync(path.join(migrationDir, "approved-master.json"))) fail("H5_RETRY_APPROVED_MASTER_FORBIDDEN");
@@ -969,13 +1037,21 @@ function retryH5() {
     if (!manifest.previewContinuation || !grant) fail("TRANSFER_MACRO_PREVIEW_GRANT_REQUIRED");
     try { validateTransferReview({ file: transferFile, sha256: transferSha, brand, producers }); } catch (error) { fail(error.message); }
   }
-  const archiveFile = archiveFailedStage(latest);
+  const archiveFile = archiveFailedStage(latest, mechanical ? [hashedPath(relative(h5MechanicalQaFile))] : []);
   const now = Date.now();
   const retry = uniqueStage(manifest, "h5DirectionGeneration", "brandApplicationDesigner", Number(latest.attempt || 1) + 1);
   retry.retryInput = { priorStageId: latest.id, failedAttemptArchive: hashedPath(relative(archiveFile)), blockingFindings: array(latest.blockingFindings), continuationAuthorization: "explicit-user-request-to-continue-existing-preview", requirement: "Repair the failed H5 generation within the unchanged frozen host, brand and preview grant. Preserve archived outputs; complete producer rendering and independent H5 QA before delivery. No host edits or ImageGen before a reviewed gap." };
+  if (mechanical) {
+    retry.retryInput.blockingFindings = mechanical.blockingFindings;
+    retry.retryInput.requirement = "Repair only the bound mechanical findings in existing H5 directions; preserve design, frozen host and brand inputs. The prior producer PASS remains historical, not a visual QA approval. Re-run mechanical and independent visual QA.";
+    pendingQa.status = "cancelled";
+    pendingQa.cancelledReason = "pre-QA mechanical rejection; no reviewer was dispatched";
+    pendingQa.replacementProducerStageId = retry.id;
+    manifest.mechanicalFailure = null;
+  }
   if (transferFile) retry.retryInput.sourceTransfer = installTransferReview({ file: transferFile, sha256: transferSha, root, brand, stageId: retry.id, producers });
   manifest.h5Retries ||= [];
-  manifest.h5Retries.push({ priorStageId: latest.id, replacementStageId: retry.id, archive: retry.retryInput.failedAttemptArchive, authorizedAt: new Date(now).toISOString(), authorization: retry.retryInput.continuationAuthorization, additionalAttempts: 1, priorStatus: manifest.status, priorTimeout: manifest.timeout ? structuredClone(manifest.timeout) : null, priorDeadlineAt: manifest.deadlineAt });
+  manifest.h5Retries.push({ ...(mechanical ? { kind: "pre-qa-mechanical-repair" } : {}), priorStageId: latest.id, replacementStageId: retry.id, archive: retry.retryInput.failedAttemptArchive, authorizedAt: new Date(now).toISOString(), authorization: retry.retryInput.continuationAuthorization, additionalAttempts: 1, priorStatus: manifest.status, priorTimeout: manifest.timeout ? structuredClone(manifest.timeout) : null, priorDeadlineAt: manifest.deadlineAt });
   manifest.stages.push(retry);
   manifest.status = "running";
   manifest.currentStageId = retry.id;
@@ -986,10 +1062,10 @@ function retryH5() {
   output({ ok: true, status: "running", resumedFrom: latest.id, nextStageId: retry.id, archive: retry.retryInput.failedAttemptArchive, deadlineAt: manifest.deadlineAt, nextAction: "Run next and execute the new H5 producer dispatch; independent QA and the original preview grant remain required." });
 }
 
-function archiveFailedStage(latest) {
+function archiveFailedStage(latest, extraBindings = [], consumerRejection = null) {
   const receiptBinding = { path: latest.receiptPath, sha256: latest.receiptSha256 };
   const dispatchBinding = hashedPath(latest.dispatchPath);
-  const bindings = latestInputsByPath([...array(latest.outputHashes), receiptBinding, dispatchBinding]);
+  const bindings = latestInputsByPath([...array(latest.outputHashes), receiptBinding, dispatchBinding, ...extraBindings]);
   if (fs.lstatSync(root).isSymbolicLink()) fail("H5_RETRY_OUTPUT_SYMLINK_FORBIDDEN");
   for (const binding of bindings) {
     const source = path.resolve(root, binding.path);
@@ -1011,7 +1087,7 @@ function archiveFailedStage(latest) {
     return { originalPath: binding.path, path: relative(target), sha256: binding.sha256 };
   });
   const archiveFile = path.join(archiveDir, "archive.json");
-  fs.writeFileSync(archiveFile, `${JSON.stringify({ schema: latest.stage === "h5DirectionGeneration" ? "brand-h5-attempt-archive/v1" : "brand-failed-stage-archive/v1", stage: latest, archivedOutputs }, null, 2)}\n`, { flag: "wx" });
+  fs.writeFileSync(archiveFile, `${JSON.stringify({ schema: latest.stage === "h5DirectionGeneration" ? "brand-h5-attempt-archive/v1" : "brand-failed-stage-archive/v1", stage: latest, archivedOutputs, ...(consumerRejection ? {consumerRejection} : {}) }, null, 2)}\n`, { flag: "wx" });
   return archiveFile;
 }
 
@@ -1107,6 +1183,19 @@ function resumeDemo() {
   const latestQa = [...manifest.stages].reverse().find((item) => item.role === "visualQA");
   const latestDemo = [...manifest.stages].reverse().find((item) => item.role === "demoImplementationAgent");
   const latestCompleted = [...manifest.stages].reverse().find((item) => ["complete", "failed"].includes(item.status));
+  if (manifest.mode === "learn-brand" && manifest.status === "running" && manifest.currentStageId === latestQa?.id && latestQa?.status === "pending" && latestCompleted?.id === latestDemo?.id && latestDemo?.status === "complete" && latestDemo.verdict === "pass") {
+    if (latestQa.dispatchPath || latestQa.receiptPath || latestQa.qaReview || opt("--repair-input", "")) fail("DEMO_CONSUMER_REPAIR_QA_ALREADY_PREPARED");
+    if (array(manifest.demoProducerRetries).some(item => item.consumerRejection)) fail("DEMO_CONSUMER_REPAIR_BUDGET_EXHAUSTED");
+    if (readJsonRequired(goalFile).goalType !== "brand-learning-capability-test") fail("DEMO_CONSUMER_REPAIR_LEARNING_GOAL_REQUIRED");
+    const ref = array(latestDemo.outputHashes).find(item => /visual-pattern-inventory\.json$/.test(item.path));
+    if (!ref) fail("DEMO_CONSUMER_REPAIR_INVENTORY_REQUIRED");
+    verifyHashedPath(ref);
+    const inventory = readJsonRequired(path.resolve(root, ref.path));
+    const explicit = Object.hasOwn(inventory, "attempt");
+    const firstProducer = manifest.stages.filter(item => item.stage === "demo").length === 1 && latestDemo.attempt === 1;
+    if (inventory.schema !== "brand-visual-pattern-inventory/v1" || (explicit ? Number.isInteger(inventory.attempt) && inventory.attempt > 0 : firstProducer)) fail("DEMO_CONSUMER_REPAIR_NO_REJECTION");
+    return resumeFailedDemo(manifest, latestDemo, {code:"QA_REVIEW_PATTERN_ATTEMPT_REQUIRED", inventory:ref, pendingQa:structuredClone(latestQa)});
+  }
   if (manifest.mode === "learn-brand" && manifest.status === "blocked" && manifest.stages.at(-1)?.id === latestDemo?.id && latestCompleted?.id === latestDemo?.id && latestDemo?.status === "failed" && ["fail", "needs-evidence"].includes(latestDemo.verdict)) return resumeFailedDemo(manifest, latestDemo);
   if (opt("--repair-input", "")) fail("DEMO_REPAIR_REQUIRES_CURRENT_PRODUCER_FAILURE");
   if (manifest.status !== "blocked" || !["fail", "needs-evidence"].includes(latestQa?.verdict)) {
@@ -1173,7 +1262,7 @@ function preserveQaTriggeredDemo(manifest, qa, demo) {
   return hashedPath(relative(archiveFile));
 }
 
-function resumeFailedDemo(manifest, latest) {
+function resumeFailedDemo(manifest, latest, consumerRejection = null) {
   if (!args.includes("--continue-existing")) fail("DEMO_PRODUCER_CONTINUATION_REQUIRES_EXPLICIT_AUTHORIZATION");
   if (array(manifest.demoProducerRetries).some(item => item.priorStageId === latest.id)) fail("DEMO_PRODUCER_FAILURE_ALREADY_CONSUMED");
   if (!latest.receiptPath || !latest.receiptSha256 || !latest.dispatchPath || !array(latest.outputHashes).length) fail("DEMO_PRODUCER_RECORDED_FAILURE_REQUIRED");
@@ -1186,7 +1275,19 @@ function resumeFailedDemo(manifest, latest) {
   for (const input of array(dispatch.requiredInputs)) {
     if (!array(receipt.inputs).some(item => item.path === input.path && item.sha256 === input.sha256)) fail("DEMO_PRODUCER_DISPATCH_INPUT_BINDING_INVALID");
   }
-  const frozenInputs = latestInputsByPath([...array(dispatch.requiredInputs), ...array(receipt.inputs)]);
+  const frozenInputs = latestInputsByPath([...array(dispatch.requiredInputs), ...array(receipt.inputs)]).map(input => {
+    // An in-place producer may have consumed the preceding output at the same
+    // path. Recover those exact historical bytes, never rebind them to new bytes.
+    const superseded = consumerRejection && array(latest.outputHashes).some(output => output.path === input.path && output.sha256 !== input.sha256);
+    if (!superseded || /goal-contract|brand-intent|brand-mod|approved|design-direction|frozen.*rule|learning-trial/i.test(input.path)) return input;
+    const preservation = latest.retryInput?.priorQaPreservation || latest.retryInput?.failedAttemptArchive;
+    if (!preservation) return input;
+    verifyHashedPath(preservation);
+    const copy = array(readJsonRequired(path.resolve(root, preservation.path)).archivedOutputs).find(item => item.originalPath === input.path && item.sha256 === input.sha256);
+    if (!copy) return input;
+    verifyHashedPath(copy);
+    return {path:copy.path,sha256:copy.sha256};
+  });
   for (const input of frozenInputs) verifyHashedPath(input);
   let repairInput = null;
   const repairPath = opt("--repair-input", "");
@@ -1199,12 +1300,17 @@ function resumeFailedDemo(manifest, latest) {
     for (const input of array(repair.inputs)) { verifyHashedPath(input); frozenInputs.push(input); }
     repairInput = hashedPath(relative(repairFile));
   }
-  const archive = hashedPath(relative(archiveFailedStage(latest)));
+  const archive = hashedPath(relative(archiveFailedStage(latest, [], consumerRejection)));
   const attempt = manifest.stages.filter(item => item.role === latest.role && ["complete", "failed"].includes(item.status)).length + 1;
   const retry = uniqueStage(manifest, "demo", latest.role, attempt);
   retry.retryInput = { goalSha256: manifest.goalSha256, priorStageId: latest.id, failedAttemptArchive: archive, producerRepair: true, frozenInputs, repairInput, blockingFindings: array(latest.blockingFindings), deltaScope: latest.deltaScope || null, continuationAuthorization: "explicit-user-request-to-continue-existing-version" };
+  if (consumerRejection) {
+    retry.retryInput.blockingFindings = [{code:consumerRejection.code,ownerRole:latest.role,finding:"Declare the accurate quality attempt in the pattern inventory; workflow retry count is not the quality counter. Preserve runtime bytes and all frozen rules."}];
+    const pending = manifest.stages.find(item => item.id === consumerRejection.pendingQa.id);
+    pending.status = "cancelled";pending.cancelledReason = "producer output rejected before QA preparation";pending.replacementProducerStageId = retry.id;
+  }
   manifest.demoProducerRetries ||= [];
-  manifest.demoProducerRetries.push({ priorStageId: latest.id, replacementStageId: retry.id, archive, repairInput, authorization: retry.retryInput.continuationAuthorization, additionalAttempts: 1 });
+  manifest.demoProducerRetries.push({ priorStageId: latest.id, replacementStageId: retry.id, archive, repairInput, ...(consumerRejection ? {consumerRejection} : {}), authorization: retry.retryInput.continuationAuthorization, additionalAttempts: 1 });
   manifest.stages.push(retry); manifest.currentStageId = retry.id; manifest.status = "running";
   writeJson(manifestFile, manifest);
   output({ ok: true, status: "running", resumedFrom: latest.id, nextStageId: retry.id, archive, repairInput });
@@ -1453,7 +1559,7 @@ function dispatchInputs(manifest, current) {
       .map((name) => `migrations/${brand}/${name}`)
       .filter((item) => fs.existsSync(path.resolve(root, item)))
       .map(hashedPath);
-    return latestInputsByPath([goalInput, ...required, ...designSystem, ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []), ...array(current.retryInput?.sourceTransfer?.inputs)]);
+    return latestInputsByPath([goalInput, ...required, ...designSystem, ...h5ProducerSourceCaptures().captures.map(({path, sha256}) => ({path, sha256})), ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []), ...array(current.retryInput?.sourceTransfer?.inputs)]);
   }
   if (current.stage === "designVisualQA") {
     const required = [relative(designHostRouteFile), relative(h5MechanicalQaFile), `migrations/${brand}/brand-application-plan.json`, `migrations/${brand}/design-direction-options.json`]
@@ -1462,7 +1568,7 @@ function dispatchInputs(manifest, current) {
       ? array(readJsonRequired(h5MechanicalQaFile).directions).map((item) => item?.capture?.path).filter(Boolean).map(hashedPath)
       : [];
     const h5 = array(readJsonRequired(designHostRouteFile).h5Directions?.directions).map((item) => item?.artifact?.path).filter(Boolean).map(hashedPath);
-    return latestInputsByPath([goalInput, ...required, ...mechanicalCaptures, ...h5]);
+    return latestInputsByPath([goalInput, ...required, ...mechanicalCaptures, ...h5, ...frozenH5QaSourceInputs(manifest)]);
   }
   if (current.stage === "expressiveAssetGeneration") {
     const route = readJsonRequired(designHostRouteFile);
@@ -1960,6 +2066,12 @@ function validateManifest() {
         || JSON.stringify(replacement?.retryInput?.failedAttemptArchive) !== JSON.stringify(retry.archive)) fail("EVIDENCE_RETRY_ARCHIVE_BINDING_CHANGED");
     }
     const archive = readJsonRequired(path.resolve(root, retry.archive.path));
+    if (retry.consumerRejection) {
+      if (JSON.stringify(archive.consumerRejection) !== JSON.stringify(retry.consumerRejection)) fail("DEMO_CONSUMER_REJECTION_BINDING_CHANGED");
+      const pending = manifest.stages.find(item => item.id === retry.consumerRejection.pendingQa.id);
+      const expected = {...retry.consumerRejection.pendingQa,status:"cancelled",cancelledReason:"producer output rejected before QA preparation",replacementProducerStageId:retry.replacementStageId};
+      if (JSON.stringify(pending) !== JSON.stringify(expected)) fail("DEMO_CONSUMER_REJECTION_QA_CHANGED");
+    }
     const prior = manifest.stages.find((item) => item.id === retry.priorStageId);
     if (JSON.stringify(archive.stage) !== JSON.stringify(prior)) fail("H5_RETRY_FAILED_HISTORY_CHANGED");
     for (const binding of array(archive.archivedOutputs)) verifyHashedPath(binding);
@@ -1967,6 +2079,15 @@ function validateManifest() {
       if (!archive.archivedOutputs.some((item) => item.originalPath === binding.path && item.sha256 === binding.sha256)) fail("H5_RETRY_ARCHIVE_BINDING_MISSING");
       if (path.resolve(root, binding.path).startsWith(`${path.join(root, "host-input")}${path.sep}`)) verifyHashedPath(binding);
     }
+  }
+  for (const recovery of array(manifest.mechanicalQaRecoveries)) {
+    verifyHashedPath(recovery.archive);verifyHashedPath(recovery.currentReport);
+    const archive=readJsonRequired(path.resolve(root,recovery.archive.path));
+    const producer=manifest.stages.find(stage=>stage.id===recovery.producerStageId);
+    if (JSON.stringify(archive.stage)!==JSON.stringify(producer)
+        || JSON.stringify(archive.consumerRejection?.priorFailure)!==JSON.stringify(recovery.priorFailure)
+        || archive.consumerRejection?.priorReportBytesUnavailable!==recovery.priorReportBytesUnavailable) fail("H5_MECHANICAL_RECOVERY_BINDING_CHANGED");
+    for (const ref of array(archive.archivedOutputs)) verifyHashedPath(ref);
   }
   for (const item of manifest.stages) for (const binding of array(item.retryInput?.sourceTransfer?.inputs)) verifyHashedPath(binding);
   return manifest;
@@ -1992,7 +2113,7 @@ function verifyLearningFidelityResult(receiptOutputs) {
 function allProofsPass(proofs) { return Object.values(proofs).every((value) => value === "pass"); }
 function nextAction(manifest, proofs) {
   if (manifest.mode === "design-host") {
-    if (manifest.status === "awaiting-concept-direction") return "Check the public delivery gate, show one independently recommended interactive host H5 with alternatives available on request, and wait for explicit user approval or feedback; do not scan or modify the host.";
+    if (manifest.status === "awaiting-concept-direction") return "Check the public delivery gate, open its comparisonPreview path on the static H5 server to show all three interactive host H5 directions equally, and wait for explicit user selection or feedback in conversation; the QA recommendation does not select or reorder directions. Do not scan or modify the host.";
     if (manifest.status === "awaiting-user-direction") return "Freeze design-direction-decision.json and design-direction.json from the explicitly selected H5, then finalize design-host.";
     if (manifest.status === "complete") return "Design-host is complete; start a separate apply-host run using the frozen direction artifacts.";
     return manifest.currentStageId ? `Dispatch or complete ${manifest.currentStageId}.` : "Inspect the blocked design-host stage.";
@@ -2156,7 +2277,7 @@ function containsRoleTimeoutClaim(receipt) {
 }
 function dispatchScopeRules(manifest) {
   if (manifest.mode === "design-host" && manifest.currentStageId?.startsWith("designVisualQA-")) return [
-    "Treat design-host-h5-mechanical-qa.json as the frozen proof for viewport, overflow, scrolling, image loading, peer geometry and basic interactions; do not repeat those checks with browser automation.",
+    "Treat design-host-h5-mechanical-qa.json as the frozen proof for viewport, overflow, scrolling, image loading, peer geometry and basic interactions; do not repeat those checks with browser automation. Preserve its limitations: an overall pass does not verify a check marked pass:false/blocking:false; host-schema unavailable filtering remains unverified and must be reported as such.",
     "Use the hash-bound first-viewport captures named by design-host-h5-mechanical-qa.json for independent first-impression judgment; they come from the exact same headless render as the measurements and must not be replaced by another browser render.",
     "Judge Hierarchy and Utility as product-safety gates first, then judge Style uplift; report all three separately and never let Style compensate for a Hierarchy or Utility regression.",
     "Reject generic enterprise styling, repeated lead assets, weak brand visual mass, and candidates that differ only by list/grid arrangement.",
@@ -2183,13 +2304,89 @@ function dispatchScopeRules(manifest) {
   ];
 }
 
-function ensureDesignHostH5MechanicalQa() {
+function validateMechanicalFailure(manifest, expectedVerdict = "fail") {
+  if (!["pass","fail"].includes(expectedVerdict)) fail("H5_MECHANICAL_RETRY_REPORT_INVALID");
+  const qa = manifest.stages.at(-1), producer = manifest.stages.at(-2);
+  if (manifest.mode !== "design-host" || qa?.stage !== "designVisualQA" || qa.status !== "pending" || qa.dispatchPath || qa.agentExecutionId || manifest.currentStageId !== qa.id || producer?.stage !== "h5DirectionGeneration" || producer.status !== "complete" || producer.verdict !== "pass") fail("H5_MECHANICAL_RETRY_STATE_INVALID");
+  const report = readJsonRequired(h5MechanicalQaFile);
+  if (report.schema !== "design-host-h5-mechanical-qa/v1" || report.brand !== brand || report.verdict !== expectedVerdict || array(report.directions).length !== 3 || (expectedVerdict === "fail" ? !array(report.blockingFindings).length : array(report.blockingFindings).length > 0) || report.route?.path !== relative(designHostRouteFile)) fail("H5_MECHANICAL_RETRY_REPORT_INVALID");
+  verifyHashedPath(report.route);
+  const route = readJsonRequired(designHostRouteFile);
+  const directions = array(route.h5Directions?.directions);
+  if (directions.length !== 3 || new Set(report.directions.map(item => item.directionId)).size !== 3) fail("H5_MECHANICAL_RETRY_ARTIFACT_BINDING_INVALID");
+  for (const item of report.directions) {
+    const expected = directions.find(direction => direction.id === item.directionId)?.artifact;
+    if (!expected || item.artifact?.path !== expected.path || item.artifact?.sha256 !== expected.sha256 || !array(producer.outputHashes).some(ref => ref.path === expected.path && ref.sha256 === expected.sha256)) fail("H5_MECHANICAL_RETRY_ARTIFACT_BINDING_INVALID");
+    verifyHashedPath(item.artifact);
+  }
+  verifyHashedPath({path: producer.receiptPath, sha256: producer.receiptSha256});
+  const receipt = readJsonRequired(path.resolve(root, producer.receiptPath));
+  const dispatch = readJsonRequired(path.resolve(root, producer.dispatchPath));
+  if (receipt.stageId !== producer.id || receipt.verdict !== "pass" || receipt.goalSha256 !== manifest.goalSha256 || receipt.dispatchId !== dispatch.dispatchId || dispatch.stageId !== producer.id || dispatch.goalSha256 !== manifest.goalSha256 || JSON.stringify(receipt.outputs) !== JSON.stringify(producer.outputHashes)) fail("H5_MECHANICAL_RETRY_RECEIPT_BINDING_INVALID");
+  for (const input of array(dispatch.requiredInputs)) {
+    if (!array(receipt.inputs).some(ref => ref.path === input.path && ref.sha256 === input.sha256)) fail("H5_MECHANICAL_RETRY_INPUT_BINDING_INVALID");
+    verifyHashedPath(input);
+  }
+  return report;
+}
+
+function resumePendingMechanicalQa(manifest) {
+  const qa=manifest.stages.at(-1),producer=manifest.stages.at(-2),failure=manifest.mechanicalFailure;
+  if (!args.includes("--continue-existing") || manifest.status!=="blocked" || failure?.code!=="H5_MECHANICAL_QA_FAILED"
+      || failure.qaStageId!==qa?.id || failure.producerStageId!==producer?.id || array(manifest.mechanicalQaRecoveries).length) fail("H5_MECHANICAL_RESUME_NOT_ALLOWED");
+  if (qa.dispatchPath || qa.receiptPath || qa.agentExecutionId) fail("H5_MECHANICAL_RESUME_ALREADY_DISPATCHED");
+  const priorReport=readJsonRequired(h5MechanicalQaFile);
+  validateMechanicalFailure(manifest,priorReport.verdict);
+  if (producer.dispatchSha256) verifyHashedPath({path:producer.dispatchPath,sha256:producer.dispatchSha256});
+  const priorReportBytesUnavailable=hashedPath(relative(h5MechanicalQaFile)).sha256!==failure.report?.sha256;
+  const archive=hashedPath(relative(archiveFailedStage(producer,[hashedPath(relative(h5MechanicalQaFile))],{kind:"pending-mechanical-qa-recovery",priorFailure:structuredClone(failure),priorReportBytesUnavailable})));
+  const startedAt=new Date().toISOString(),priorDeadlineAt=manifest.deadlineAt;
+  ensureDesignHostH5MechanicalQa(manifest);
+  validateMechanicalFailure(manifest,"pass");
+  const now=Date.now();
+  manifest.mechanicalQaRecoveries=[{stageId:qa.id,producerStageId:producer.id,archive,priorFailure:structuredClone(failure),priorReportBytesUnavailable,
+    currentReport:hashedPath(relative(h5MechanicalQaFile)),priorDeadlineAt,engineeringWaitStartedAt:failure.recordedAt||null,revalidationStartedAt:startedAt,recoveredAt:new Date(now).toISOString(),authorization:"explicit-continue-existing",scope:"current-pending-qa-only-no-new-production"}];
+  manifest.status="running";
+  if (manifest.deadlineAt && now>Date.parse(manifest.deadlineAt)) manifest.deadlineAt=new Date(now+1200000).toISOString();
+  writeJson(manifestFile,manifest);
+  return true;
+}
+
+function ensureDesignHostH5MechanicalQa(manifest) {
+  // A resumed visual review consumes the same frozen mechanical proof. It must
+  // not rerun the browser and overwrite the evidence from the abandoned review.
+  const continuation = array(manifest.continuations).findLast(item =>
+    item.kind === "explicit-user-request-to-continue-existing-visual-qa-stage"
+    && item.stageId === manifest.currentStageId);
+  if (continuation) {
+    const prior = manifest.stages.find(item => item.id === continuation.abandonedStageId);
+    if (!prior?.dispatchPath || !prior.dispatchSha256) fail("QA_RESUME_FROZEN_DISPATCH_MISSING");
+    verifyHashedPath({path: prior.dispatchPath, sha256: prior.dispatchSha256});
+    const dispatch = readJsonRequired(path.resolve(root, prior.dispatchPath));
+    if (dispatch.stageId !== prior.id || dispatch.goalSha256 !== manifest.goalSha256) fail("QA_RESUME_FROZEN_DISPATCH_INVALID");
+    for (const input of array(dispatch.requiredInputs)) verifyHashedPath(input);
+    if (!array(dispatch.requiredInputs).some(input => input.path === relative(h5MechanicalQaFile))) fail("QA_RESUME_MECHANICAL_PROOF_MISSING");
+    const report = readJsonRequired(h5MechanicalQaFile);
+    if (report.schema !== "design-host-h5-mechanical-qa/v1" || report.brand !== brand || report.verdict !== "pass" || array(report.directions).length !== 3 || array(report.blockingFindings).length) fail("QA_RESUME_MECHANICAL_PROOF_INVALID");
+    verifyHashedPath(report.route);
+    for (const direction of report.directions) {
+      verifyHashedPath(direction.artifact);
+      verifyHashedPath(direction.capture);
+    }
+    return;
+  }
   const script = path.join(skillRoot, "scripts", "audit-design-host-h5-mechanics.mjs");
   try {
     execFileSync(process.execPath, [script, "--root", root, "--brand", brand, "--width", "390", "--height", "844"], { stdio: "pipe", timeout: 90_000 });
   } catch (error) {
     const stdout = String(error?.stdout || "").trim();
     const stderr = String(error?.stderr || "").trim();
+    if (fs.existsSync(h5MechanicalQaFile)) {
+      validateMechanicalFailure(manifest);
+      manifest.status = "blocked";
+      manifest.mechanicalFailure = { code: "H5_MECHANICAL_QA_FAILED", report: hashedPath(relative(h5MechanicalQaFile)), producerStageId: manifest.stages.at(-2).id, qaStageId: manifest.currentStageId, nextAction: "repair-mechanical-audit-or-retry-h5", recordedAt: new Date().toISOString() };
+      writeJson(manifestFile, manifest);
+    }
     fail(`H5_MECHANICAL_QA_FAILED: producer rework is required before independent visual QA.${stdout ? `\n${stdout}` : ""}${stderr ? `\n${stderr}` : ""}`);
   }
   const report = readJsonRequired(h5MechanicalQaFile);
@@ -2201,7 +2398,7 @@ function designHostEfficiencyBudget(current) {
   if (!(current.stage in targets)) return null;
   return {
     stageTargetSeconds: targets[current.stage],
-    stageHardLimitSeconds: current.stage === "h5DirectionGeneration" ? 600 : current.stage === "designVisualQA" ? 180 : Math.ceil(targets[current.stage] * 4 / 3),
+    stageHardLimitSeconds: null,
     fastRunTextTokenSoftRange: [40000, 60000],
     fastRunTextTokenHardLimit: 80000,
     tokenLimitPolicy: "enforce only when the model runtime reports actual input/output tokens; otherwise report unavailable and use uniqueInputBytes as a diagnostic proxy, never as a fake token count",
@@ -2211,7 +2408,7 @@ function designHostEfficiencyBudget(current) {
     additionalReadPolicy: "query only the exact missing key or knowledge record and report its bytes in the receipt",
     firstReviewableTargetMs: 300000,
     safetyLimitMs: 1200000,
-    qualityRule: "the target is a soft efficiency signal and the hard limit stops runaway work; neither may permit invented data, skipped independent QA or host-source mutation",
+    qualityRule: "stage targets are diagnostic; the frozen run deadline stops runaway work. Quality and elapsed time are recorded separately; neither permits invented data, skipped independent QA or host-source mutation",
   };
 }
 function failureRouteForMode(mode, failureOwnerRole) {
@@ -2237,6 +2434,69 @@ function uniqueStage(manifest, name, role, attempt) {
   item.id = `${item.id}-retry-${suffix}`;
   return item;
 }
+function h5ProducerSourceCaptures() {
+  const evidence = readJsonRequired(path.join(migrationDir, "brand-evidence.json"));
+  const captures = new Map();
+  const missing = [];
+  for (const claim of array(evidence.claims)) {
+    const references = Array.isArray(claim.capture?.frames) && claim.capture.frames.length
+      ? claim.capture.frames : [typeof claim.capture === "string" ? { path: claim.capture } : claim.capture];
+    for (const capture of references) {
+    const reference = capture?.path;
+    if (!reference) { missing.push({claimId: claim.id, reason: "capture-not-declared"}); continue; }
+    if (typeof reference !== "string") fail(`H5_SOURCE_CAPTURE_INVALID:${claim.id}`);
+    const file = resolveEvidenceReference(root, migrationDir, reference);
+    if (!file || !file.startsWith(`${path.resolve(root)}${path.sep}`)) fail(`H5_SOURCE_CAPTURE_INVALID:${claim.id}`);
+    // Check the nearest existing ancestor too: a missing child of an escaping
+    // symlink is not a harmless missing reference.
+    let ancestor = file;
+    while (!fs.existsSync(ancestor) && ancestor !== path.dirname(ancestor)) ancestor = path.dirname(ancestor);
+    const realRoot = fs.realpathSync(root);
+    const realAncestor = fs.realpathSync(ancestor);
+    if (realAncestor !== realRoot && !realAncestor.startsWith(`${realRoot}${path.sep}`)) fail(`H5_SOURCE_CAPTURE_INVALID:${claim.id}`);
+    if (!fs.existsSync(file)) { missing.push({claimId: claim.id, reference, reason: "capture-file-missing"}); continue; }
+    if (!fs.statSync(file).isFile() || !/\.(png|jpe?g|webp|gif|avif)$/i.test(file)) fail(`H5_SOURCE_CAPTURE_INVALID:${claim.id}`);
+    const bound = hashedPath(relative(file));
+    if (capture.sha256 !== undefined && capture.sha256 !== bound.sha256) fail(`H5_SOURCE_CAPTURE_HASH_MISMATCH:${claim.id}`);
+    const existing = captures.get(bound.path);
+    if (existing) existing.claimIds.push(claim.id);
+    else captures.set(bound.path, {...bound, claimIds: [claim.id]});
+    }
+  }
+  return { captures: [...captures.values()], missing, usage: "Evidence-only. Inspect task-relevant captures within each claim's existing scope; missing references do not establish visual facts. Never embed source screenshots in runtime or infer additional approval." };
+}
+
+function frozenH5QaSourceInputs(manifest) {
+  const producer = [...manifest.stages].reverse().find(item => item.stage === "h5DirectionGeneration" && item.status === "complete");
+  if (!producer?.receiptPath) fail("H5_QA_SOURCE_PRODUCER_REQUIRED");
+  verifyHashedPath({ path: producer.receiptPath, sha256: producer.receiptSha256 });
+  const receipt = readJsonRequired(path.resolve(root, producer.receiptPath));
+  const names = new Set(["brand-evidence.json", "brand-intent.json", "brand-mod.json", "approved-visual-patterns.json"]);
+  const sources = array(receipt.inputs).filter(item => names.has(path.basename(item.path)));
+  for (const source of sources) verifyHashedPath(source);
+  const evidenceInput = sources.find(item => path.basename(item.path) === "brand-evidence.json");
+  if (!evidenceInput || !sources.some(item => path.basename(item.path) === "brand-mod.json") || !sources.some(item => path.basename(item.path) === "brand-intent.json")) fail("H5_QA_FROZEN_BRAND_INPUTS_REQUIRED");
+  const kitInput = array(receipt.outputs).find(item => path.resolve(root, item.path) === brandRenderKitFile);
+  if (!kitInput) fail("H5_QA_RENDER_KIT_REQUIRED");
+  verifyHashedPath(kitInput);
+  const evidence = readJsonRequired(path.resolve(root, evidenceInput.path));
+  const refs = new Set(array(readJsonRequired(brandRenderKitFile).expressive?.mechanisms).map(item => item.evidenceRef));
+  const captures = [];
+  for (const claim of array(evidence.claims).filter(item => refs.has(item.id))) {
+    const capture = claim.capture;
+    const reference = typeof capture === "string" ? capture : capture?.path;
+    if (!reference) continue; // Missing visual evidence remains a QA finding, not fabricated input.
+    const file = resolveEvidenceReference(root, migrationDir, reference);
+    if (!file || !fs.existsSync(file) || !fs.realpathSync(file).startsWith(`${fs.realpathSync(root)}${path.sep}`)) fail(`H5_QA_SOURCE_CAPTURE_INVALID:${claim.id}`);
+    const bound = hashedPath(relative(file));
+    if (capture?.sha256 && capture.sha256 !== bound.sha256) fail(`H5_QA_SOURCE_CAPTURE_HASH_MISMATCH:${claim.id}`);
+    const producerBound = array(receipt.inputs).find(item => item.path === bound.path);
+    if (producerBound) verifyHashedPath(producerBound);
+    captures.push(producerBound || bound); // Legacy receipts retain their existing source-binding rule.
+  }
+  return latestInputsByPath([...sources, kitInput, ...captures]);
+}
+
 function hashedPath(relativePath) { const file = path.resolve(root, relativePath); if (!fs.existsSync(file)) fail(`Required input missing: ${relativePath}`); return { path: relativePath, sha256: sha256File(file) }; }
 function verifyHashedPath(item) { if (!item?.path || !item?.sha256) fail("Receipt input/output must contain path and sha256."); const current = hashedPath(item.path); if (current.sha256 !== item.sha256) fail(`Receipt hash mismatch: ${item.path}`); }
 function verifyEvidenceVisibilityGate() {
