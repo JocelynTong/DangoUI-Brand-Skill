@@ -181,6 +181,24 @@ try {
   assert.equal(fs.existsSync(path.join(migration, "receipts")), false);
   for (const [index, file] of htmlFiles.entries()) fs.writeFileSync(file, originalHtml[index]);
   assert.equal(fs.readFileSync(dispatchFile, "utf8"), originalDispatch);
+  // A scoped repair consumes old H5 as context and legitimately replaces it.
+  const repairDispatch = JSON.parse(originalDispatch);
+  const oldH5 = { path: path.relative(root, htmlFiles[1]), sha256: sha(htmlFiles[1]) };
+  repairDispatch.requiredInputs.push(oldH5);
+  fs.writeFileSync(dispatchFile, JSON.stringify(repairDispatch));
+  fs.writeFileSync(htmlFiles[1], `${originalHtml[1]}\n<!-- scoped repair -->`);
+  assert.notEqual(sha(htmlFiles[1]), oldH5.sha256);
+  const repaired = finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer" });
+  assert.equal(repaired.ok, true);
+  const repairReceipt = JSON.parse(fs.readFileSync(path.join(root, repaired.receipt), "utf8"));
+  assert.ok(repairReceipt.inputs.some(input => input.path === oldH5.path && input.sha256 === oldH5.sha256));
+  assert.ok(repairReceipt.outputs.some(output => output.path === oldH5.path && output.sha256 === sha(htmlFiles[1]) && output.sha256 !== oldH5.sha256));
+  const frozenMod = fs.readFileSync(modFile, "utf8");
+  fs.writeFileSync(modFile, `${frozenMod}\n`);
+  assert.throws(() => finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer" }), /FROZEN_INPUT_HASH_MISMATCH:.*brand-mod\.json/);
+  fs.writeFileSync(modFile, frozenMod);
+  fs.writeFileSync(dispatchFile, originalDispatch);
+  for (const [index, file] of htmlFiles.entries()) fs.writeFileSync(file, originalHtml[index]);
   const result = finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: "/root/h5-producer" });
   assert.equal(result.ok, true);
   assert.equal(result.status, "compiled-not-recorded");

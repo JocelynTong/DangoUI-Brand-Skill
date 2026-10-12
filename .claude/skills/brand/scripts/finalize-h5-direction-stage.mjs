@@ -50,7 +50,12 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   const inputs = new Map();
   for (const input of array(dispatch.requiredInputs)) {
     const file = validateDirectionInputPath({ workspace, migration, dispatch, dispatchPath, input });
-    if (!/^[a-f0-9]{64}$/i.test(input?.sha256 || "") || fileSha256(file) !== input.sha256) throw new Error(`FROZEN_INPUT_HASH_MISMATCH:${input?.path || "missing"}`);
+    // A repair's old H5 input is intentionally replaced by this stage's output,
+    // just as record() permits. Brand, host and evidence inputs stay immutable.
+    const replacedH5 = path.dirname(file) === path.join(migration, "h5-directions")
+      && path.extname(file).toLowerCase() === ".html"
+      && array(htmlFiles).some(item => resolveFrom(workspace, item) === file);
+    if (!/^[a-f0-9]{64}$/i.test(input?.sha256 || "") || (!replacedH5 && fileSha256(file) !== input.sha256)) throw new Error(`FROZEN_INPUT_HASH_MISMATCH:${input?.path || "missing"}`);
     inputs.set(path.basename(file), { ...input, file });
   }
   const requiredInput = (name) => {
