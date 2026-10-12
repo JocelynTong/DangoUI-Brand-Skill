@@ -13,6 +13,7 @@ body:has(.variant-library){height:auto;min-height:100vh;overflow:visible}
 #app:has(>.variant-library){height:auto;min-height:100vh;overflow:visible}
 
 .vl-preview-column,.vl-notes{min-width:0}
+.vl-preview-column>.vl-small{font-size:12px;line-height:1.7;color:var(--site-muted);margin:0 0 16px}
 .vl-header{flex-wrap:wrap;gap:12px 24px}
 .vl-wordmark{min-height:44px;display:inline-flex;align-items:center}
 .vl-preview-toolbar{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:24px 0 14px}

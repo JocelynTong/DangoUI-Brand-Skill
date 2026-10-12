@@ -66,10 +66,12 @@
       <div v-else class="vl-detail-grid">
         <section class="vl-preview-column" aria-label="场景预览">
           <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
+          <p v-if="isCatalogScene" class="vl-small" role="note">静态目录示例 · 可滚动浏览，分类、页码与卡片不执行业务操作。</p>
           <div class="vl-preview-stage"><iframe :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`"></iframe></div>
         </section>
         <aside class="vl-notes">
-          <section><h3>场景说明</h3><p>{{ activeScene.note }}</p></section>
+          <CatalogUsageGuide v-if="isCatalogScene" />
+          <section v-else><h3>场景说明</h3><p>{{ activeScene.note }}</p></section>
           <section><h3>用于我的项目</h3><button class="vl-copy" @click="copyPrompt">{{ copied ? '已复制使用描述' : '复制使用描述' }}</button><textarea v-if="copyFallback" readonly aria-label="使用描述" :value="prompt"></textarea><p class="vl-small" role="status">{{ copyError }}</p></section>
           <details class="vl-evidence"><summary>来源与验证范围</summary><p>{{ selected.publicationStatus === 'draft' ? '此品牌原始资料仍为草稿，视觉验证待完成。' : '沿用原库已记录的学习状态；本次不重新宣称品牌验证通过。' }}</p><p>当前是 Web 品牌库预览，未证明 Taro、真机或任意宿主自动适配。品牌素材的可用范围按原资产声明处理。</p><a :href="selected.path">查看原始品牌记录 ↗</a></details>
         </aside>
@@ -87,11 +89,12 @@ import TypographyDocument from './documents/TypographyDocument.vue';
 import NavigationDocument from './documents/NavigationDocument.vue';
 import SwitchDocument from './documents/SwitchDocument.vue';
 import ReleaseChecklist from './documents/ReleaseChecklist.vue';
+import CatalogUsageGuide from './documents/CatalogUsageGuide.vue';
 import { canonicalDocumentHash } from './documents/routes.mjs';
 const App = defineAsyncComponent(() => import('./App.vue'));
 import SiteThemeControl from './SiteThemeControl.vue';
 import './variant-library.css';
-const isDevelopment = import.meta.env.DEV;
+const isCatalogScene = computed(() => selected.value?.id === 'onepiece-cardgame' && activeScene.value?.id === 'onepiece-cardgame-products');
 const menuOpen = ref(false);
 function closeMenu(event) { if (event.target.closest('a')) menuOpen.value = false; }
 const hash=ref(location.hash),brands=ref([]),loading=ref(true),error=ref(''),copied=ref(false),copyFallback=ref(false),copyError=ref(''),failedCovers=ref({});
@@ -123,7 +126,7 @@ const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移�
 const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${({ button: '按钮', 'navigation-bar': '导航栏', switch: '开关' }[inlineDocument.value] || '检查器')}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : inlineDocument.value === 'typography' ? '字体' : inlineDocument.value === 'color' ? '颜色' : '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
-const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}`);
+const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}` + (isCatalogScene.value ? "\n组件复用范围：优先复用 src/uikit/CatalogProductGrid.mjs、catalog.css 及其 catalog-tokens.css 依赖。保留宿主搜索、筛选、分页、请求与详情路由；将结果数组传入网格。CatalogSection 的分类仅为静态展示。当前仅 Vue Web，不代表 Taro 或完整暗色适配。" : ""));
 function changed() {
   const previousPath = routePath.value;
   const canonical = canonicalDocumentHash(location.hash, location.search);
