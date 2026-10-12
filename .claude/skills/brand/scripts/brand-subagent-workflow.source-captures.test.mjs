@@ -53,6 +53,20 @@ test('producer dispatch receives deduplicated declared images, claim mapping and
   assert.deepEqual(JSON.parse(JSON.stringify(inputs.filter(item => item.path.endsWith('.png')))), [image]);
 });
 
+test('scoped H5 repair keeps full brand and host inputs plus scoped files and source captures', t => {
+  const f = fixture(t), image = f.save('evidence/frame.png', 'image');
+  f.save('brand-evidence.json', {claims:[{id:'source', capture:image}]});
+  const scoped = f.save('h5-directions/b.html', '<main>repair B only</main>');
+  const archive = f.save('attempts/qa/archive.json', {verdict:'fail'});
+  const original = f.dispatchInputs({mode:'design-host'}, {stage:'h5DirectionGeneration'});
+  const repaired = f.dispatchInputs({mode:'design-host'}, {stage:'h5DirectionGeneration', retryInput:{deltaScope:{inputPaths:[scoped.path]}, failedAttemptArchive:archive}});
+  const received = new Map(repaired.map(item => [item.path, item.sha256]));
+  for (const input of [...original, scoped, archive]) assert.equal(received.get(input.path), input.sha256, input.path);
+  assert.ok(received.has('migrations/fixture/brand-mod.json'));
+  assert.ok(received.has('migrations/fixture/host-startup-baseline.json'));
+  assert.ok(received.has(image.path));
+});
+
 test('producer rejects explicit hash mismatch and escaping paths or symlinks', t => {
   const f = fixture(t), image = f.save('frame.png', 'image');
   for (const capture of [{...image, sha256:'wrong'}, '../'.repeat(8) + 'escape.png', '/tmp/escape.png']) {

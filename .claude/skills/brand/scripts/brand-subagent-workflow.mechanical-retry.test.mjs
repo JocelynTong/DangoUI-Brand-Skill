@@ -65,6 +65,37 @@ test('H5 continuation rejects changed frozen input',t=>{
   assert.match(f.call('resume-concepts','--continue-existing').stderr,/hash mismatch/);
 });
 
+test('explicit visual QA rejection returns scoped work to producer and keeps failed history',t=>{
+  const f=fixture(t), findings=[{directionId:'b',code:'UNSUPPORTED_VISUAL_PATTERN'}];
+  const dispatch=f.save('qa-dispatch.json',{stageId:f.qa.id,goalSha256:f.manifest.goalSha256});
+  const report=f.save('qa-report.json',{verdict:'fail'});
+  const receipt=f.save('qa-receipt.json',{stageId:f.qa.id,verdict:'fail',outputs:[report]});
+  Object.assign(f.qa,{status:'failed',verdict:'fail',failureOwnerRole:'designTranslator',dispatchPath:dispatch.path,dispatchSha256:dispatch.sha256,receiptPath:receipt.path,receiptSha256:receipt.sha256,outputHashes:[report],blockingFindings:findings,deltaScope:{inputPaths:['b.html']}});
+  Object.assign(f.manifest,{status:'blocked',currentStageId:null});f.flush();
+  const prior=structuredClone(f.qa);
+  assert.notEqual(f.call('retry-h5').status,0);
+  const r=f.call('retry-h5','--continue-existing');assert.equal(r.status,0,r.stderr);
+  const m=JSON.parse(fs.readFileSync(path.join(f.root,'migrations/fixture/execution-manifest.json')));
+  assert.deepEqual(m.stages[1],prior);
+  assert.equal(m.h5Retries[0].kind,'visual-qa-repair');
+  assert.deepEqual(m.stages.at(-1).retryInput.blockingFindings,findings);
+  assert.deepEqual(m.stages.at(-1).retryInput.deltaScope,prior.deltaScope);
+});
+
+for (const changed of ['dispatch', 'input']) test(`visual QA repair rejects changed frozen ${changed} without altering history`, t => {
+  const f = fixture(t), input = f.save('brand-intent.json', {frozen:true});
+  const dispatch = f.save('qa-dispatch.json', {stageId:f.qa.id, requiredInputs:[input]});
+  const report = f.save('qa-report.json', {verdict:'fail'});
+  const receipt = f.save('qa-receipt.json', {stageId:f.qa.id, verdict:'fail', inputs:[input], outputs:[report]});
+  Object.assign(f.qa, {status:'failed', verdict:'fail', failureOwnerRole:'brandApplicationDesigner', dispatchPath:dispatch.path, dispatchSha256:dispatch.sha256, receiptPath:receipt.path, receiptSha256:receipt.sha256, outputHashes:[report]});
+  Object.assign(f.manifest, {status:'blocked', currentStageId:null}); f.flush();
+  const before = fs.readFileSync(path.join(f.root, 'migrations/fixture/execution-manifest.json'), 'utf8');
+  f.save(changed === 'dispatch' ? 'qa-dispatch.json' : 'brand-intent.json', {changed:true});
+  assert.match(f.call('retry-h5', '--continue-existing').stderr, /hash mismatch/);
+  assert.equal(fs.readFileSync(path.join(f.root, 'migrations/fixture/execution-manifest.json'), 'utf8'), before);
+  assert.equal(fs.existsSync(path.join(f.root, 'migrations/fixture/attempts')), false);
+});
+
 test('completed mechanical repair schedules fresh checks instead of rejecting the archived report',t=>{
   const f=fixture(t);assert.equal(f.call('retry-h5','--continue-existing').status,0);
   const m=JSON.parse(fs.readFileSync(path.join(f.root,'migrations/fixture/execution-manifest.json')));

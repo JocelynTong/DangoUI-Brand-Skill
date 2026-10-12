@@ -1017,9 +1017,11 @@ function retryH5() {
   if (!args.includes("--continue-existing")) fail("H5_RETRY_EXPLICIT_CONTINUATION_REQUIRED: use --continue-existing only after an explicit user request to continue this failed preview.");
   const manifest = validateManifest();
   const pendingQa = manifest.stages.at(-1);
+  const visualRepair = manifest.mode === "design-host" && manifest.status === "blocked" && !manifest.currentStageId && pendingQa?.stage === "designVisualQA" && pendingQa.status === "failed" && pendingQa.verdict === "fail" && ["brandApplicationDesigner", "designTranslator"].includes(pendingQa.failureOwnerRole);
   const mechanical = manifest.mode === "design-host" && ["running", "blocked", "timed-out"].includes(manifest.status) && pendingQa?.stage === "designVisualQA" && pendingQa.status === "pending" && !pendingQa.dispatchPath && manifest.currentStageId === pendingQa.id ? validateMechanicalFailure(manifest) : null;
   const latest = mechanical ? manifest.stages.at(-2) : manifest.stages.at(-1);
-  if (!mechanical && (manifest.mode !== "design-host" || !["blocked", "timed-out"].includes(manifest.status) || manifest.currentStageId || latest?.stage !== "h5DirectionGeneration" || latest.status !== "failed" || !["fail", "needs-evidence"].includes(latest.verdict))) fail("H5_RETRY_FAILED_STAGE_REQUIRED: retry only a receipt-backed failed H5 producer or its bound pre-QA mechanical failure.");
+  if (!mechanical && !visualRepair && (manifest.mode !== "design-host" || !["blocked", "timed-out"].includes(manifest.status) || manifest.currentStageId || latest?.stage !== "h5DirectionGeneration" || latest.status !== "failed" || !["fail", "needs-evidence"].includes(latest.verdict))) fail("H5_RETRY_FAILED_STAGE_REQUIRED: retry only a receipt-backed failed H5 producer or its bound QA rejection.");
+  if (visualRepair && array(manifest.h5Retries).some(item => item.kind === "visual-qa-repair")) fail("H5_VISUAL_RETRY_BUDGET_EXHAUSTED");
   // Explicit continuation grants one bounded repair beyond the frozen automatic
   // attempt budget (fast goals commonly allow only the original attempt).
   if (mechanical && array(manifest.h5Retries).some(item => item.kind === "pre-qa-mechanical-repair")) fail("H5_MECHANICAL_RETRY_BUDGET_EXHAUSTED");
@@ -1030,6 +1032,12 @@ function retryH5() {
   verifyHashedPath(receiptBinding);
   const receipt = readJsonRequired(path.resolve(root, receiptBinding.path));
   if (receipt.stageId !== latest.id || receipt.verdict !== latest.verdict || JSON.stringify(array(receipt.outputs)) !== JSON.stringify(array(latest.outputHashes))) fail("H5_RETRY_FAILED_RECEIPT_MISMATCH");
+  if (visualRepair) {
+    verifyHashedPath({path: latest.dispatchPath, sha256: latest.dispatchSha256});
+    const dispatch = readJsonRequired(path.resolve(root, latest.dispatchPath));
+    // QA may legitimately update the route; its receipt output supersedes that input.
+    for (const binding of latestInputsByPath([...array(dispatch.requiredInputs), ...array(receipt.inputs), ...array(receipt.outputs)])) verifyHashedPath(binding);
+  }
   const transferFile = opt("--transfer-review", "");
   const transferSha = opt("--transfer-review-sha256", "");
   const producers = manifest.stages.map((item) => item.agentExecutionId).filter(Boolean);
@@ -1041,6 +1049,10 @@ function retryH5() {
   const now = Date.now();
   const retry = uniqueStage(manifest, "h5DirectionGeneration", "brandApplicationDesigner", Number(latest.attempt || 1) + 1);
   retry.retryInput = { priorStageId: latest.id, failedAttemptArchive: hashedPath(relative(archiveFile)), blockingFindings: array(latest.blockingFindings), continuationAuthorization: "explicit-user-request-to-continue-existing-preview", requirement: "Repair the failed H5 generation within the unchanged frozen host, brand and preview grant. Preserve archived outputs; complete producer rendering and independent H5 QA before delivery. No host edits or ImageGen before a reviewed gap." };
+  if (visualRepair) {
+    retry.retryInput.deltaScope = latest.deltaScope;
+    retry.retryInput.requirement = "Repair only the failed directions and scoped findings from the archived independent QA. Preserve passing directions, host content and interactions. Re-run mechanical and fresh independent visual QA; do not change source permissions or approve new brand semantics.";
+  }
   if (mechanical) {
     retry.retryInput.blockingFindings = mechanical.blockingFindings;
     retry.retryInput.requirement = "Repair only the bound mechanical findings in existing H5 directions; preserve design, frozen host and brand inputs. The prior producer PASS remains historical, not a visual QA approval. Re-run mechanical and independent visual QA.";
@@ -1051,7 +1063,7 @@ function retryH5() {
   }
   if (transferFile) retry.retryInput.sourceTransfer = installTransferReview({ file: transferFile, sha256: transferSha, root, brand, stageId: retry.id, producers });
   manifest.h5Retries ||= [];
-  manifest.h5Retries.push({ ...(mechanical ? { kind: "pre-qa-mechanical-repair" } : {}), priorStageId: latest.id, replacementStageId: retry.id, archive: retry.retryInput.failedAttemptArchive, authorizedAt: new Date(now).toISOString(), authorization: retry.retryInput.continuationAuthorization, additionalAttempts: 1, priorStatus: manifest.status, priorTimeout: manifest.timeout ? structuredClone(manifest.timeout) : null, priorDeadlineAt: manifest.deadlineAt });
+  manifest.h5Retries.push({ ...(mechanical ? { kind: "pre-qa-mechanical-repair" } : visualRepair ? {kind:"visual-qa-repair"} : {}), priorStageId: latest.id, replacementStageId: retry.id, archive: retry.retryInput.failedAttemptArchive, authorizedAt: new Date(now).toISOString(), authorization: retry.retryInput.continuationAuthorization, additionalAttempts: 1, priorStatus: manifest.status, priorTimeout: manifest.timeout ? structuredClone(manifest.timeout) : null, priorDeadlineAt: manifest.deadlineAt });
   manifest.stages.push(retry);
   manifest.status = "running";
   manifest.currentStageId = retry.id;
@@ -1498,7 +1510,7 @@ function dispatchInputs(manifest, current) {
     ...(readNativeSourceInput({ root, brand, sourceUrl: readJsonRequired(goalFile).sourceUrl })?.bindings || []),
     ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []),
   ]);
-  if (scopedPaths.length && current.stage !== "designVisualQA") return latestInputsByPath([goalInput, ...scopedPaths.map(hashedPath)]);
+  if (scopedPaths.length && !["designVisualQA", "h5DirectionGeneration"].includes(current.stage)) return latestInputsByPath([goalInput, ...scopedPaths.map(hashedPath)]);
   if (current.role === "hostImplementationAgent") {
     return latestInputsByPath([
       goalInput,
@@ -1577,7 +1589,7 @@ function dispatchInputs(manifest, current) {
       .map((name) => `migrations/${brand}/${name}`)
       .filter((item) => fs.existsSync(path.resolve(root, item)))
       .map(hashedPath);
-    return latestInputsByPath([goalInput, ...required, ...designSystem, ...h5ProducerSourceCaptures().captures.map(({path, sha256}) => ({path, sha256})), ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []), ...array(current.retryInput?.sourceTransfer?.inputs)]);
+    return latestInputsByPath([goalInput, ...required, ...designSystem, ...h5ProducerSourceCaptures().captures.map(({path, sha256}) => ({path, sha256})), ...scopedPaths.map(hashedPath), ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []), ...array(current.retryInput?.sourceTransfer?.inputs)]);
   }
   if (current.stage === "designVisualQA") {
     const required = [relative(designHostRouteFile), relative(h5MechanicalQaFile), `migrations/${brand}/brand-application-plan.json`, `migrations/${brand}/design-direction-options.json`]
