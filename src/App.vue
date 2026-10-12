@@ -2590,6 +2590,7 @@
 import './styles.css';
 import catalogUrl from '../data/dangoui.design-system.json?url';
 import './brands/pokemon-tcg-official-current.css';
+import './preview-phone.css';
 import SiteThemeControl from './SiteThemeControl.vue';
 import ColorInventory from './documents/ColorInventory.vue';
 import ButtonExamples from './documents/ButtonExamples.vue';

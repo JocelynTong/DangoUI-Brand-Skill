@@ -34,6 +34,26 @@ assert.equal(declarations('.vl-navigation').position, 'sticky');
 assert.equal(declarations('.vl-navigation')['overflow-y'], 'auto');
 assert.equal(declarations('.vl-navigation')['overscroll-behavior'], 'contain');
 const libraryCss = read('../src/variant-library.css');
+assert.match(source, /:src="framedPreviewUrl"/);
+assert.match(source, /:href="previewUrl" target="_blank"/);
+assert.match(source, /variantEmbed=1&previewFrame=phone/);
+assert.match(read('../src/main.js'), /get\("previewFrame"\) === "phone"/);
+const phoneCss = postcss.parse(read('../src/preview-phone.css'));
+phoneCss.walkRules(rule => assert.ok(rule.selectors.every(selector => selector.startsWith('body.site-preview-phone')), 'Phone frame overrides must not affect standalone pages'));
+const phoneFrame = {};
+phoneCss.walkRules('body.site-preview-phone .shell .phone.template-phone', rule => rule.walkDecls(d => { phoneFrame[d.prop] = d.value; }));
+assert.equal(phoneFrame['aspect-ratio'], '395 / 832');
+assert.equal(phoneFrame.border, 'var(--mockup-frame-border-scaled) solid var(--site-border)');
+// The embedded phone owns its frame; the host must not add nested shells.
+postcss.parse(libraryCss).walkRules(rule => {
+  if (!['.vl-preview-stage', '.vl-preview-stage iframe'].includes(rule.selector)) return;
+  rule.walkDecls(decl => {
+    if (['border', 'border-radius', 'box-shadow', 'padding'].includes(decl.prop)) {
+      assert.ok(['0', 'none'].includes(decl.value), `Redundant preview frame: ${decl.prop}`);
+    }
+    if (decl.prop === 'background') assert.equal(decl.value, 'transparent');
+  });
+});
 assert.match(libraryCss, /body:has\(\.variant-library\)[^{]*\{[^}]*overflow:visible/);
 assert.doesNotMatch(libraryCss, /\.vl-(view-tabs|scenes|scene-group|preview-caption)(?![\w-])/);
 console.log('Navigation template, hierarchy, scroll reset and sticky CSS contracts passed.');

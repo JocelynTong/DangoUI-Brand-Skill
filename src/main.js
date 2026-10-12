@@ -7,6 +7,7 @@ import "./site-theme.css";
 import "./design-document.css";
 import App from "./VariantLibrary.vue";
 if (new URLSearchParams(location.search).get("variantEmbed") === "1") document.body.classList.add("variant-embed");
+if (new URLSearchParams(location.search).get("variantEmbed") === "1" && new URLSearchParams(location.search).get("previewFrame") === "phone") document.body.classList.add("site-preview-phone");
 if (new URLSearchParams(location.search).get("inspectorEmbed") === "1") document.body.classList.add("inspector-embed");
 
 const app = createApp(App);

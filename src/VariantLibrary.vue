@@ -66,7 +66,7 @@
       <div v-else class="vl-detail-grid">
         <section class="vl-preview-column" aria-label="场景预览">
           <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
-          <div class="vl-preview-stage"><iframe :key="previewUrl" :src="previewUrl" :title="`${selected.displayName} · ${activeScene.label}`"></iframe></div>
+          <div class="vl-preview-stage"><iframe :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`"></iframe></div>
         </section>
         <aside class="vl-notes">
           <section><h3>场景说明</h3><p>{{ activeScene.note }}</p></section>
@@ -122,6 +122,7 @@ const activeScene=computed(()=>selected.value?.scenes.find(s=>s.id===routePath.v
 const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移练习 · 示例内容' : '来源参考');
 const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${({ button: '按钮', 'navigation-bar': '导航栏', switch: '开关' }[inlineDocument.value] || '检查器')}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : inlineDocument.value === 'typography' ? '字体' : inlineDocument.value === 'color' ? '颜色' : '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
+const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}`);
 function changed() {
   const previousPath = routePath.value;
