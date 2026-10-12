@@ -31,3 +31,38 @@ test('Interpreter route still rejects a failure owned by Evidence',t=>{
 test('repair requires absolute root and brand before dispatch',()=>{
   for(const command of ['resume-evidence','resume-interpreter']){const r=spawnSync(process.execPath,[entry,command,'--artifact-root','relative','--brand','example'],{encoding:'utf8'});assert.equal(r.status,1);assert.equal(JSON.parse(r.stdout).blockingCode,'LEARNING_REPAIR_ROOT_REQUIRED');}
 });
+
+function qaFixture(t, mode = 'design-host') {
+  const base = fs.mkdtempSync(path.join(os.tmpdir(), 'public-qa-resume-'));
+  t.after(() => fs.rmSync(base, {recursive:true, force:true}));
+  const root = path.join(base, 'build'), host = path.join(base, 'host');
+  const dir = path.join(root, 'migrations/example'); fs.mkdirSync(dir, {recursive:true}); fs.mkdirSync(host);
+  fs.writeFileSync(path.join(base, 'run.json'), JSON.stringify({schema:'brand-artifact-run/v1', status:'active', host}));
+  const goal = JSON.stringify({sealed:true, mode, hostTarget:host, thresholds:{maxAttempts:1}});
+  fs.writeFileSync(path.join(dir, 'goal-contract.json'), goal);
+  const input = path.join(dir, 'brand-mod.json'); fs.writeFileSync(input, '{"frozen":true}');
+  const manifest = {mode, goalSha256:crypto.createHash('sha256').update(goal).digest('hex'), status:'timed-out', currentStageId:null, stages:[{id:'designVisualQA-1', stage:'designVisualQA', role:'visualQA', status:'dispatched', attempt:1}]};
+  const file = path.join(dir, 'execution-manifest.json'); fs.writeFileSync(file, JSON.stringify(manifest));
+  return {file, input, goal, dir, manifest, call:(...args) => spawnSync(process.execPath, [entry, 'resume-qa', '--artifact-root', root, '--brand', 'example', ...args], {encoding:'utf8'})};
+}
+test('public resume-qa forwards explicit continuation without changing frozen inputs', t => {
+  const f = qaFixture(t);
+  const result = f.call('--continue-existing'); assert.equal(result.status, 0, result.stderr || result.stdout);
+  const after = JSON.parse(fs.readFileSync(f.file));
+  assert.equal(after.currentStageId, 'designVisualQA-2');
+  assert.equal(after.stages[0].blockingFindings[0].code, 'STALE_QA_DISPATCH_REPLACED');
+  assert.equal(after.continuations[0].abandonedStageId, 'designVisualQA-1');
+  assert.equal(fs.readFileSync(path.join(f.dir, 'goal-contract.json'), 'utf8'), f.goal);
+  assert.equal(fs.readFileSync(f.input, 'utf8'), '{"frozen":true}');
+});
+for (const kind of ['no-authority', 'apply-host', 'dry-run', 'transfer']) test(`public resume-qa rejects ${kind} without mutation`, t => {
+  const f = qaFixture(t, kind === 'apply-host' ? 'apply-host' : 'design-host');
+  const before = fs.readFileSync(f.file, 'utf8');
+  const args = kind === 'no-authority' ? [] : ['--continue-existing', ...(kind === 'dry-run' ? ['--dry-run'] : kind === 'transfer' ? ['--transfer-review', 'other.json'] : [])];
+  const result = f.call(...args); assert.notEqual(result.status, 0);
+  if (kind === 'no-authority') assert.match(result.stderr, /resume-qa requires a blocked workflow/);
+  if (kind === 'dry-run') assert.equal(JSON.parse(result.stdout).blockingCode, 'H5_CONTINUATION_DRY_RUN_UNSUPPORTED');
+  if (['apply-host', 'transfer'].includes(kind)) assert.equal(JSON.parse(result.stdout).blockingCode, 'H5_CONTINUATION_SCOPE_INVALID');
+  assert.equal(fs.readFileSync(f.file, 'utf8'), before);
+  assert.equal(fs.readFileSync(f.input, 'utf8'), '{"frozen":true}');
+});
