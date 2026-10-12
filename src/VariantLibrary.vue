@@ -182,7 +182,7 @@ watch(()=>[routePath.value,selected.value?.displayName,activeScene.value?.label,
   document.title=`${title} · DangoUI 品牌库`;
 },{immediate:true});
 function hideBroken(e,id){e.target.style.display='none';failedCovers.value[id]=true;}
-async function copyPrompt(){try{await navigator.clipboard.writeText(prompt.value);copied.value=true;}catch{copyFallback.value=true;copyError.value='剪贴板不可用，可从下方选中复制。';}}
+async function copyPrompt(){try{await navigator.clipboard.writeText(prompt.value);copied.value=true;}catch{copyFallback.value=true;copyError.value='请在文本框中选中复制';}}
 async function load(){loading.value=true;error.value='';try{const r=await fetch('/brand-previews/registry.json');if(!r.ok)throw Error();const d=await r.json();brands.value=['pokemon-tcg-official','onepiece-cardgame','czn','dango'].map(id=>{const b=d.brands.find(b=>b.id===id),m=meta[id];return b?{...b,...m,scenes:m.scenes.filter(scene=>scene[0]!=='dango-button' && ['source','transfer'].includes(scene[2])).map(([id,label,kind,note,pattern])=>({id,label,kind,note,pattern}))}:null}).filter(Boolean);}catch{error.value='品牌列表读取失败。';}finally{loading.value=false;}}
 onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();});onBeforeUnmount(()=>{window.removeEventListener('hashchange',changed);stopRestoring();});
 </script>
