@@ -3,7 +3,7 @@ import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { validateBrandRenderKit, reusableIdentityAssets } from "./validate-brand-render-kit.mjs";
+import { validateBrandRenderKit, reusableIdentityAssets, frozenRuntimeAssetInputs } from "./validate-brand-render-kit.mjs";
 import { validatePreviewGrant } from "./parent-delivery-gate.mjs";
 import { validateTransferReview, validateTransferApplications } from "./source-transfer-input.mjs";
 
@@ -16,6 +16,37 @@ const fileSha256 = (file) => sha256(fs.readFileSync(file));
 const array = (value) => Array.isArray(value) ? value : [];
 const SHELL_MARKERS = { region: "data-composition-role", item: "data-host-shell-item", treatment: "data-navigation-shell-treatment", continuity: "data-scene-continuity" };
 const SHELL_CONTINUITY = ["continuous", "explicit-boundary"];
+
+export function validateExpressiveGeneration(directions, dispatch, workspace, migration) {
+  const required = dispatch.fastDesignHints?.expressiveProduction?.required === true;
+  const frozenInputs = [...array(dispatch.requiredInputs)];
+  // A previously dispatched packet may bind the MOD but omit its runtime closure.
+  // Verify that immutable MOD and its declared hashes rather than mutating dispatch.
+  const modInput = frozenInputs.find(input => path.basename(input.path || "") === "brand-mod.json");
+  if (modInput) {
+    const file = insideExistingFile(migration, resolveFrom(workspace, modInput.path), "BRAND_MOD_OUTSIDE_MIGRATION");
+    if (fileSha256(file) !== modInput.sha256) throw new Error("FROZEN_BRAND_MOD_HASH_MISMATCH");
+    frozenInputs.push(...frozenRuntimeAssetInputs(readJson(file, "BRAND_MOD_INVALID"), { workspaceRoot: workspace, brand: path.basename(migration) }));
+  }
+  const records = [];
+  for (const direction of directions) {
+    const item = direction.metadata.expressiveGeneration;
+    if (!item) { if (required) throw new Error(`IMAGEGEN_EXPRESSIVE_REQUIRED:${direction.metadata.id}`); continue; }
+    if (!item.toolCallId || !item.prompt || !item.visualDirection || !array(item.inputImages).length) throw new Error("IMAGEGEN_INPUT_RECORD_INCOMPLETE");
+    for (const input of item.inputImages) {
+      const frozen = frozenInputs.find(ref => ref.path === input.path && ref.sha256 === input.sha256);
+      if (!frozen || fileSha256(resolveFrom(workspace, input.path)) !== input.sha256) throw new Error("IMAGEGEN_REFERENCE_NOT_FROZEN");
+    }
+    const asset = item.asset;
+    const file = insideExistingFile(migration, resolveFrom(workspace, asset?.path || ""), "EXPRESSIVE_ASSET_OUTSIDE_MIGRATION");
+    if (!/\.(png|jpe?g|webp|avif)$/i.test(file) || fileSha256(file) !== asset.sha256) throw new Error("EXPRESSIVE_ASSET_HASH_MISMATCH");
+    const references = [...direction.source.matchAll(/(?:src\s*=\s*["']([^"']+)["']|url\(\s*["']?([^\s)"']+))/gi)].map(match => match[1] || match[2]);
+    if (!references.some(ref => path.resolve(path.dirname(direction.file), ref.split(/[?#]/)[0]) === file)) throw new Error("EXPRESSIVE_ASSET_NOT_USED_IN_H5");
+    records.push({ directionId: direction.metadata.id, ...item });
+  }
+  if (required && (new Set(records.map(item => item.asset.sha256)).size !== directions.length || new Set(records.map(item => item.visualDirection)).size !== directions.length)) throw new Error("EXPRESSIVE_DIRECTIONS_MUST_DIFFER");
+  return records;
+}
 
 export function navigationShellCompletionContract(contract) {
   return { mode: contract?.mode || "not-required", attributes: { ...SHELL_MARKERS }, regionValue: "navigation-shell", regionCount: 1, items: array(contract?.items).map(({ id, label, role, requiredInDesignPreview }) => ({ id, ...(label ? { label } : {}), ...(role ? { role } : {}), requiredInDesignPreview: requiredInDesignPreview === true })), allowedTreatments: array(contract?.allowedTreatments), allowedContinuity: [...SHELL_CONTINUITY] };
@@ -105,6 +136,7 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   ]);
   if (preflightErrors.length) throw Object.assign(new Error(preflightErrors.join("\n")), { errors: preflightErrors });
   const directions = parsedDirections.map((item) => validateDirection(item, { evidenceClaims, systemRefs, knowledgeRefs, assetIds, assets, baseline }));
+  const expressiveRecords = validateExpressiveGeneration(directions, dispatch, workspace, migration);
   for (const direction of directions) adaptDeclaredDirectionContract(direction, { evidenceClaims, brandMod, approvedPatterns, patternInput, hostSource: fs.readFileSync(hostSource.file, "utf8"), supportedIds: dispatch.partialBrandValidation?.partialBrandValidation?.allowedUse?.supportedIds || null, hashes: { brandModSha256: modInput.sha256, brandIntentSha256: intentInput.sha256, hostBaselineSha256: baselineInput.sha256, knowledgeBundleSha256: knowledgeInput.sha256 } });
   if (dispatch.sourceTransfer) {
     const binding = dispatch.sourceTransfer.review;
@@ -159,6 +191,7 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
       structuralSignature: item.metadata.structuralSignature,
       interactionRhythm: item.metadata.interactionRhythm,
       communicationHypothesis: item.metadata.communicationHypothesis,
+      ...(item.metadata.expressiveGeneration ? { expressiveGeneration: item.metadata.expressiveGeneration } : {}),
       ...(dispatch.sourceTransfer ? { transferRuleApplications: item.metadata.transferRuleApplications, sourceTransferReview: dispatch.sourceTransfer.review } : {}),
       realDataBinding: realDataBinding(baseline, baselineInput),
       resultHierarchyFit: item.metadata.resultHierarchyFit,
@@ -170,7 +203,7 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
   if (route.h5Directions.directions.some((item) => item.knowledgeBundleSha256 !== route.knowledgeDecision.sha256 || item.realDataBinding.inventedDataForbidden !== true)) throw new Error("COMPILED_ROUTE_INVALID");
 
   // Hash only after every contract artifact has reached its final bytes.
-  const outputs = [...directions.map((item) => ({ path: item.path, sha256: fileSha256(item.file) })), kitFile, planFile, optionsFile, routeFile]
+  const outputs = [...directions.map((item) => ({ path: item.path, sha256: fileSha256(item.file) })), ...expressiveRecords.map(item => item.asset), kitFile, planFile, optionsFile, routeFile]
     .map((item) => typeof item === "string" ? ({ path: relative(workspace, item), sha256: fileSha256(item) }) : item);
   const declaredReceipt = receiptFile || dispatch.receiptContract?.path;
   const receiptPath = insideOutput(migration, declaredReceipt ? resolveFrom(workspace, declaredReceipt) : path.join(migration, "receipts", `${dispatch.stageId}.producer.json`), "RECEIPT_OUTSIDE_ARTIFACT_MIGRATION");
@@ -186,7 +219,8 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
     outputs,
     additionalReads: [],
     blockingFindings: [],
-    producerPolicy: { imageGenerationCalls: 0, hostFilesModified: false, hostSourceSha256: hostSource.sha256, compiler: "finalize-h5-direction-stage.mjs" },
+    toolCalls: expressiveRecords.map(item => ({ id: item.toolCallId, tool: "image_gen", prompt: item.prompt, inputImages: item.inputImages, output: item.asset })),
+    producerPolicy: { imageGenerationCalls: expressiveRecords.length, hostFilesModified: false, hostSourceSha256: hostSource.sha256, compiler: "finalize-h5-direction-stage.mjs" },
   };
   if (fileSha256(hostSource.file) !== hostSource.sha256) throw new Error("HOST_SOURCE_CHANGED_DURING_FINALIZATION");
   writeJson(receiptPath, receipt);

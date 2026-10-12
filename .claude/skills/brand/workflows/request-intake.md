@@ -8,6 +8,8 @@
 - 只有用户明确要求建立、更新或重新认证可复用品牌包，才把独立交付目标设为 `brand-learning → learn-brand`；宿主预览内部需要品牌学习时，按下面的接力保留 `host-concepts` 父目标。
 - 只有用户已确认 H5 并要求修改真实宿主，才使用 `host-implementation → apply-host`。
 
+用户明确要求 ImageGen 做 Expressive、官网系统做 Productive 时，原 `run` 加 `--require-imagegen-expressive`，冻结 `goal.expressiveProduction.required=true`。设计 dispatch 使用 `hints.expressiveProduction`：三个方向分别实际生成表达资产，再与代码实现的品牌 Productive UI 组合成三份 H5；不能等 QA 才决定要不要生图。未明确要求不自动扩大为所有任务必生图。业务对象、字段与行为保留，页面布局和组件组织可重构；旧页面没有表达区不是禁止新表达区的依据。
+
 用户已认可准确组件且只要求实施该模块时，同属 `host-implementation → apply-host`，使用 [限域组件交接](../references/approved-component-handoff.md)；不把模块批准提升为整页批准，不要求重做三方向。平台不兼容时明确需要适配，不能用 Vue 框架相同推断运行环境相同。
 
 尚未认可准确组件、但已明确授权沿用现有品牌与宿主开展单模块隔离选材/适配试验时，使用 `host-concepts → design-host --module-task <任务>`，输入品牌包根、宿主与准确模块路径，执行 Agent 从返回索引选 recipe，入口自动准备隔离副本和 hash-bound 交接（详见同一参考的“普通输入自动准备”）。不让普通用户填写内部 manifest；已有准确 manifest 可兼容 `--component-task`。品牌候选不得伪装成 approved kit；不扩建 Demo、不重跑无关整页方案，也不重判来源学习认证。
@@ -71,14 +73,14 @@ node <skill目录>/scripts/run-brand-workflow.mjs artifacts init --host <绝对�
 - 每个 dispatch 携带 `previewTargetAt`、绝对安全 `deadlineAt`、剩余毫秒和停止动作。
 - 外层编排最多每 60 秒检查一次状态；超过 5 分钟时报告最慢节点和已有产物，但继续等待当前必需角色。
 - `design-host/fast` 的启动页事实由 prepare 阶段确定性提取并校验，不为源码中可机械推导的事实启动 Host Strategist；standard/certification 与批准后的全项目扫描仍由真实 Host Strategist subagent 完成。Brand Application Designer 与独立 Visual QA 必须由不同真实 subagent 完成；主任务只负责路由、冻结输入、状态记录和汇总。
-- fast prepare 后只派发一次 H5 Direction Producer：同一个设计师回合写 `brand-render-kit.json` 并生成三组真正不同但保持宿主信息分发模型的可交互隔离 H5，不再为 brief 单独启动和回收一次 subagent。H5 必须先使用真实宿主数据、品牌设计系统与知识库决策；ImageGen 此时保持未调用。
+- fast prepare 后由同一个设计师回合完成三方向表达探索与 H5，不为 brief 单独派发角色。明确要求时实际调用 ImageGen，三案分别记录 `metadata.expressiveGeneration` 的 `toolCallId`、完整 `prompt`、`inputImages[{path,sha256}]`、`asset{path,sha256}` 与 `visualDirection`，Finalizer 绑定 route/receipt。实际调用、图片与页面可见应用须一致，不以占位字段或相同图片换色满足三个方向。
 - 到 20 分钟安全上限才立即中断当前角色并报告已有产物与缺口；不启动无界自动返工。
 - fast run 的真实文本 token 软目标为 40k–60k，硬上限为 80k；仅在运行时返回真实 token usage 时执行该上限。无法取得时记录 `unavailable`，以 unique/duplicate/additional-read bytes 诊断，不能换算后冒充真实 token。
 - 重复输入字节占比超过 20% 时，下一次昂贵工具调用前必须先收窄 dispatch；不得通过删除宿主事实、品牌证据或独立 QA 来达成预算。
 - 安全上限后只有用户明确要求继续时，才可为仍处于 dispatched 的同一阶段开启新的有界窗口；它保留 dispatch、输入 hash 和既有产物，不得借此改写 verdict 或跳过 receipt/QA。
 - 已记录 FAIL 的 H5 生产阶段只有在用户明确要求继续该预览后，才通过公共入口 `retry-h5 --artifact-root <当前宿主buildDirectory> --brand <brand> --continue-existing` 开启一次新尝试与新的 20 分钟窗口。入口先验证隔离目录与原范围授权，再将旧 stage、receipt、dispatch 和所有已提交 output 的字节保存到 hash-bound `attempts/<旧stageId>/`；旧 verdict 和 outputHashes 不改写，后续命令逐项验证归档。新 dispatch 仍绑定原 Goal 与 preview-readiness，不扩大品牌语义用途，也不跳过生产者渲染或独立 H5 QA。
 - 用户明确要求在原 macro 试验中接入新增独立来源审核时，retry 可额外传 `--transfer-review <绝对审核JSON> --transfer-review-sha256 <SHA256>`。审核须为 `source-system-transfer/v1`，候选规则与排除项、来源 packet/观察/截图 hash、独立审核者均有效；入口复制到当前 attempt 的一次写入目录，不修改原 MOD、Goal、readiness 或失败记录。只允许当前隔离试验采用明确 permitted 的候选规则，不能提升为 reusable Pattern、全局 token、学习认证或宿主实施许可。每案 H5 metadata 的 `transferRuleApplications` 必须绑定准确 ruleId、ruleScope、region、存在的 selector、review hash、evidenceRefs 和 hostReason；仅参考规则声明 `usage:reference-only`，条件素材规则还须使用原 grant 允许的独立 hash 资产。Finalizer 校验并写入每案输出；独立 H5 QA 继续按真实渲染核对范围、实际应用和全部排除项。
-- 用户第一次看到 H5 前只允许一次紧凑独立 H5 QA。QA 同时给出 Expressive 缺口决策：没有具体缺口就直接交付；有缺口时必须冻结方向、区域、业务目的、目标尺寸、现有不足、预期提升和无图回退，才允许局部 ImageGen。
-- 局部资产按缺口并发，首轮每个缺口最多一次调用、自动重试为 0；失败保留已通过的无图 H5，不改词绕过或无限返工。回填后由不同执行者做一次 integration QA。
+- 首次交付前做紧凑独立 H5 QA，同时核对业务、Productive 来源应用和 Expressive 实际输入/产物及三案视觉差异。用户要求 ImageGen 而未调用、未返回资产或未实际使用时不得通过。没有该要求时才可直接交付合格无图 H5；局部增强仍先定位范围并冻结已有 H5 几何。
+- ImageGen 按方向或明确局部缺口有界调用，不自动重试，不换词规避安全拒绝。失败保留已有文件并标明未满足项；不得把无图回退称为已完成用户要求。
 - 用户认为三案都不值得继续时，用 `reject-concepts --reason <原因>` 记录为有效的 `rejected-all` 结果并终止，不自动返工。
 - 三组 H5 交付后停止等待。用户确认 H5 前不做全项目扫描或宿主实施。

@@ -17,9 +17,10 @@ import { validateQaDispatchRevocations } from "./revoke-undelivered-qa-dispatch.
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { revalidateLearningFidelity } from "./revalidate-learning-fidelity.mjs";
 import { readNativeSourceInput } from './native-source-input.mjs';
-import { collectSystemReferenceCatalog, navigationShellCompletionContract } from "./finalize-h5-direction-stage.mjs";
+import { collectSystemReferenceCatalog, navigationShellCompletionContract, validateExpressiveGeneration } from "./finalize-h5-direction-stage.mjs";
 import { resolveEvidenceReference } from "./evidence-file-references.mjs";
 import { componentKitHandoff } from "./install-component-kit.mjs";
+import { frozenRuntimeAssetInputs } from "./validate-brand-render-kit.mjs";
 
 const args = process.argv.slice(2);
 const command = args[0];
@@ -211,6 +212,19 @@ function next() {
   if (qaReview) { verifyHashedPath(current.qaReview); try { validateQaReview(root, qaReview); } catch (error) { fail(error.message); } }
   const reviewMode = manifest.mode === "learn-brand" && current.role === "visualQA" ? qaReview?.reviewMode || (manifest.stages.some(item => item.role === "visualQA" && item.receiptPath) ? "fresh-blind" : "initial-blind") : null;
   const fastOverride = fastDesignHostOverride(manifest, current);
+  if (current.stage === "h5DirectionGeneration" && fastOverride) {
+    fastOverride.mission = "Generate three genuinely different interactive H5 directions: ImageGen authors expressive imagery during design exploration; the frozen website design system supplies productive controls, typography and components. Preserve host business, not its old layout.";
+    fastOverride.requirements = fastOverride.requirements.filter(item => item !== "do not call image_gen");
+    fastOverride.failCriteria = fastOverride.failCriteria.filter(item => item !== "ImageGen or host-source mutation");
+    const expressiveRequired = readJsonRequired(goalFile).expressiveProduction?.required === true;
+    fastOverride.failCriteria.push("host-source mutation");
+    if (expressiveRequired) fastOverride.failCriteria.push("missing generated expressive asset in any direction", "the same generated image reused as three directions");
+    fastOverride.requirements.push(`${expressiveRequired ? "ImageGen expressive is required in every direction by the frozen user goal." : "The designer may use ImageGen expressive during initial design when appropriate; it is not restricted to post-QA repair."} Supply frozen source screenshots and assets as image inputs; keep business text and controls in HTML. Record exact prompt, reference hashes, tool call id and output hash per generated direction. No old-layout Hero veto. Do not infer global CTA semantics from a matching database module.`);
+    fastOverride.hints.imageGenerationForbidden = false;
+    fastOverride.hints.expressiveProduction = { required: expressiveRequired, metadataField: "expressiveGeneration", fields: ["toolCallId", "prompt", "inputImages:[{path,sha256}]", "asset:{path,sha256}", "visualDirection"], scope: "replaceable expressive raster layer; never productive text, controls or invented business records" };
+    fastOverride.hints.universalSkinFormula.expressive = "ImageGen during initial art-direction exploration";
+  }
+  if (current.stage === "designVisualQA" && fastOverride) fastOverride.requirements.push("Check each direction's generated expressive asset and productive system together. not-required means no ADDITIONAL local asset repair, never permission to omit the initial ImageGen expressive requirement. Reject repeated imagery, same composition, or database-only generic utility variants.");
   if (current.stage === "designVisualQA" && fastOverride) {
     fastOverride.tasks.unshift("Compare each claimed mechanism with the supplied frozen brand scope and selected source captures; inspect source images as well as generated captures. Producer hypotheses are claims to test, not evidence of fidelity.");
     fastOverride.hints.sourceComparison = {
@@ -504,8 +518,7 @@ function record() {
   if (manifest.mode === "design-host") {
     const hasImage = receiptOutputs.some((item) => /\.(?:png|jpe?g|webp|avif)$/i.test(item.path || ""));
     const hasH5 = receiptOutputs.some((item) => /\.(?:html?|css|jsx?|tsx?|vue)$/i.test(item.path || ""));
-    if (current.stage !== "expressiveAssetGeneration" && hasImage) fail("IMAGE_OUTPUT_OUTSIDE_VERIFIED_EXPRESSIVE_GAP_STAGE");
-    if (current.stage === "h5DirectionGeneration" && hasImage) fail("IMAGEGEN_BEFORE_H5_GAP_DECISION_FORBIDDEN");
+    if (!["expressiveAssetGeneration", "h5DirectionGeneration"].includes(current.stage) && hasImage) fail("IMAGE_OUTPUT_OUTSIDE_DESIGN_STAGE");
     if (["startupPageStrategy", "hostStrategy", "designVisualQA", "expressiveVisualQA"].includes(current.stage) && hasH5) fail("QA_OR_STRATEGY_MUST_NOT_EDIT_H5");
   }
   const overwrittenOutputPaths = new Set(receiptOutputs.map((item) => item.path));
@@ -528,6 +541,12 @@ function record() {
   if (array(receipt.outputs).length === 0) fail("Receipt must include at least one hashed output.");
   if (manifest.mode === "design-host" && current.stage === "h5DirectionGeneration" && receipt.verdict === "pass") {
     verifyDesignHostRoute("before-h5-qa");
+    if (readJsonRequired(goalFile).expressiveProduction?.required === true) {
+      const route = readJsonRequired(designHostRouteFile);
+      const directions = array(route.h5Directions?.directions).map(item => ({ metadata: { id: item.id, expressiveGeneration: item.expressiveGeneration }, file: path.resolve(root, item.artifact.path), source: fs.readFileSync(path.resolve(root, item.artifact.path), "utf8") }));
+      const records = validateExpressiveGeneration(directions, { ...dispatch, fastDesignHints: { ...dispatch.fastDesignHints, expressiveProduction: { required: true } } }, root, migrationDir);
+      for (const item of records) if (!array(receipt.toolCalls).some(call => call.id === item.toolCallId && /imagegen|image_gen|image-generation/i.test(call.tool || "")) || !receiptOutputs.some(ref => ref.path === item.asset.path && ref.sha256 === item.asset.sha256)) fail("EXPRESSIVE_PRODUCER_RECEIPT_REQUIRED");
+    }
     const plan = path.join(migrationDir, "brand-application-plan.json");
     const options = path.join(migrationDir, "design-direction-options.json");
     if (!receiptOutputs.some((item) => path.resolve(root, item.path) === plan) || !fs.existsSync(plan)) fail("DESIGN_HOST_PLAN_REQUIRED: H5-first designer receipt must hash the frozen plan.");
@@ -1048,7 +1067,7 @@ function retryH5() {
   const archiveFile = archiveFailedStage(latest, mechanical ? [hashedPath(relative(h5MechanicalQaFile))] : []);
   const now = Date.now();
   const retry = uniqueStage(manifest, "h5DirectionGeneration", "brandApplicationDesigner", Number(latest.attempt || 1) + 1);
-  retry.retryInput = { priorStageId: latest.id, failedAttemptArchive: hashedPath(relative(archiveFile)), blockingFindings: array(latest.blockingFindings), continuationAuthorization: "explicit-user-request-to-continue-existing-preview", requirement: "Repair the failed H5 generation within the unchanged frozen host, brand and preview grant. Preserve archived outputs; complete producer rendering and independent H5 QA before delivery. No host edits or ImageGen before a reviewed gap." };
+  retry.retryInput = { priorStageId: latest.id, failedAttemptArchive: hashedPath(relative(archiveFile)), blockingFindings: array(latest.blockingFindings), continuationAuthorization: "explicit-user-request-to-continue-existing-preview", requirement: "Repair the failed H5 generation within the unchanged frozen host, brand and preview grant. Preserve archived outputs and the frozen expressive production requirement; complete producer rendering and independent H5 QA before delivery. No host edits." };
   if (visualRepair) {
     retry.retryInput.deltaScope = latest.deltaScope;
     retry.retryInput.requirement = "Repair only the failed directions and scoped findings from the archived independent QA. Preserve passing directions, host content and interactions. Re-run mechanical and fresh independent visual QA; do not change source permissions or approve new brand semantics.";
@@ -1589,7 +1608,8 @@ function dispatchInputs(manifest, current) {
       .map((name) => `migrations/${brand}/${name}`)
       .filter((item) => fs.existsSync(path.resolve(root, item)))
       .map(hashedPath);
-    return latestInputsByPath([goalInput, ...required, ...designSystem, ...h5ProducerSourceCaptures().captures.map(({path, sha256}) => ({path, sha256})), ...scopedPaths.map(hashedPath), ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []), ...array(current.retryInput?.sourceTransfer?.inputs)]);
+    const runtimeAssets = frozenRuntimeAssetInputs(readJsonRequired(path.join(migrationDir, "brand-mod.json")), { workspaceRoot: root, brand });
+    return latestInputsByPath([goalInput, ...required, ...designSystem, ...runtimeAssets, ...h5ProducerSourceCaptures().captures.map(({path, sha256}) => ({path, sha256})), ...scopedPaths.map(hashedPath), ...(current.retryInput?.failedAttemptArchive ? [current.retryInput.failedAttemptArchive] : []), ...array(current.retryInput?.sourceTransfer?.inputs)]);
   }
   if (current.stage === "designVisualQA") {
     const required = [relative(designHostRouteFile), relative(h5MechanicalQaFile), `migrations/${brand}/brand-application-plan.json`, `migrations/${brand}/design-direction-options.json`]

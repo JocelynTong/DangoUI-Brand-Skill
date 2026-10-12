@@ -16,6 +16,17 @@ export function reusableIdentityAssets(brandMod, { workspaceRoot = '', brand = '
   return assets.filter((item, index) => item?.status !== 'rejected' && (ids.includes('assets') || ids.includes(`assets.${index}`)));
 }
 
+export function frozenRuntimeAssetInputs(brandMod, { workspaceRoot, brand }) {
+  const root = fs.realpathSync(workspaceRoot);
+  return reusableIdentityAssets(brandMod, { workspaceRoot, brand }).filter(asset => asset?.localPath && asset?.sourceSha256).map(asset => {
+    const file = path.resolve(root, asset.localPath);
+    if (!file.startsWith(`${root}${path.sep}`) || !fs.existsSync(file) || !fs.realpathSync(file).startsWith(`${root}${path.sep}`) || !fs.statSync(file).isFile()) throw new Error(`RUNTIME_ASSET_PATH_INVALID:${asset.id}`);
+    const hash = crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
+    if (hash !== asset.sourceSha256) throw new Error(`RUNTIME_ASSET_HASH_MISMATCH:${asset.id}`);
+    return { path: path.relative(root, file).split(path.sep).join('/'), sha256: hash };
+  });
+}
+
 export function validateBrandRenderKit(kit, { evidence = null, brandIntent = null, brandMod = null, brandModSha256 = "", workspaceRoot = '', brand = '' } = {}) {
   const errors = [];
   const fail = (code) => errors.push(code);

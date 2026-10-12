@@ -1203,6 +1203,7 @@ function bootstrapDesignHostProbe({ root, brand, profile, args }) {
       mode: "design-host",
       executionProfile: profile,
       requestKind: "host-concepts",
+      expressiveProduction: { required: args.includes("--require-imagegen-expressive"), medium: "imagegen-with-coded-productive" },
       hostTarget: opt(args, "--host-target", ""),
       sealed: true,
       thresholds: { minimumSelectableDirections: 3, maximumSelectableDirections: 3, maxAttempts: 1 },

@@ -6,6 +6,7 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import vm from 'node:vm';
 import { resolveEvidenceReference } from './evidence-file-references.mjs';
+import { frozenRuntimeAssetInputs } from './validate-brand-render-kit.mjs';
 
 const source = fs.readFileSync(new URL('./brand-subagent-workflow.mjs', import.meta.url), 'utf8');
 const functions = ['h5ProducerSourceCaptures', 'frozenH5QaSourceInputs', 'hashedPath', 'verifyHashedPath', 'sha256File', 'readJsonRequired', 'relative', 'array', 'dispatchInputs'].map(name => {
@@ -25,7 +26,7 @@ function fixture(t) {
     fs.writeFileSync(file, typeof value === 'string' ? value : JSON.stringify(value));
     return {path: path.relative(root, file), sha256: crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')};
   };
-  const ctx = {fs, path, crypto, root, brand, migrationDir, resolveEvidenceReference,
+  const ctx = {fs, path, crypto, root, brand, migrationDir, resolveEvidenceReference, frozenRuntimeAssetInputs,
     fail(message) { throw new Error(message); },
     latestInputsByPath(items) { return [...new Map(items.map(item => [item.path, item])).values()]; },
   };
@@ -51,6 +52,10 @@ test('producer dispatch receives deduplicated declared images, claim mapping and
   assert.deepEqual(handoff.missing.map(item => item.reason).join(','), 'capture-file-missing,capture-not-declared');
   const inputs = f.dispatchInputs({mode:'design-host'}, {stage:'h5DirectionGeneration'});
   assert.deepEqual(JSON.parse(JSON.stringify(inputs.filter(item => item.path.endsWith('.png')))), [image]);
+  const runtime = f.save('assets/official-environment.png', 'runtime environment');
+  f.save('brand-mod.json', {assets:[{id:'environment',role:'environment',localPath:runtime.path,sourceSha256:runtime.sha256}]});
+  const withRuntime = f.dispatchInputs({mode:'design-host'}, {stage:'h5DirectionGeneration'});
+  assert.deepEqual(new Set(withRuntime.filter(item=>item.path.endsWith('.png')).map(item=>item.path)),new Set([image.path,runtime.path]));
 });
 
 test('scoped H5 repair keeps full brand and host inputs plus scoped files and source captures', t => {

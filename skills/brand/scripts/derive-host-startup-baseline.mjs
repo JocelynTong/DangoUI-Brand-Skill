@@ -76,9 +76,10 @@ export function deriveHostStartupBaseline({ root, brand }) {
     },
     navigationShellContract,
     expressiveOpportunity: {
-      heroEligible: heroSignal,
-      reason: heroSignal ? "startup source already exposes a bounded featured/showcase region before repeated results" : "startup source exposes no proven dedicated expressive region; keep expression inside productive UI",
-      maxFirstViewportRatio: heroSignal ? 0.36 : 0.2,
+      heroEligible: true,
+      existingHeroObserved: heroSignal,
+      reason: "Source analysis records existing structure, not a design veto: a bounded expressive composition may reorganize the page while preserving task access, real fields and peer result hierarchy.",
+      maxFirstViewportRatio: 0.36,
     },
     communicationIntent: {
       framework: "hierarchy-utility-style/v1",

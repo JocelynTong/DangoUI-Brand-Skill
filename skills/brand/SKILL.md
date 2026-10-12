@@ -36,12 +36,12 @@ node <skill目录>/scripts/run-brand-workflow.mjs init --host <宿主目录>
 ## 选择模式
 
 - `learn-brand`：学习品牌并产出 Evidence、Intent、Brand MOD、DangoUI mapping 与品牌学习 Demo；默认不改宿主。
-- `design-host`：读取已学习品牌和真实宿主，先用真实数据、品牌设计系统与设计知识生成 3 组可交互隔离 H5；独立 QA 再判断每组是否存在明确的 Expressive 局部缺口。只有存在已定位缺口时才调用 ImageGen 生成该局部资产并回填；不得修改宿主源码。
+- `design-host`：读取已学习品牌和真实宿主，按当前明确设计需求生成 3 组可交互隔离 H5。用户要求 ImageGen 做 Expressive 时，在设计阶段生成差异化表达，再与官网设计系统实现的 Productive UI 组合，独立 QA 检查完整结果；不得修改宿主源码。
 - `apply-host`：实施 design-host 已冻结的唯一方向，或用户明确认可的单模块组件；保护业务内容、数据、路由、交互和组件 API。单模块采用下述限域交接；整页设计输入无效时退回 design-host，品牌证据缺失时退回 learn-brand。
 
 用户明确要求从已有资产检验一个尚未批准的模块时，优先使用 [限域组件任务](references/approved-component-handoff.md#普通输入自动准备) 的 `--module-task`：只给现有品牌包、宿主、任务与目标路径，入口列出原包候选，由执行 Agent 选择后自动准备隔离副本与交接输入，普通用户不填写 manifest 或 recipe ID。已有准确 manifest 才用 `--component-task`。先选材、判断兼容性，再在独立宿主副本中试装；不要求预制目标平台组件，不转为整页三方案。试装授权不是设计批准，原宿主只读，独立运行 QA 后再交用户判断。
 
-运行前读取 [request intake](workflows/request-intake.md)，只按当前轮用户意图冻结 `request-kind`。首屏三方案固定走 `host-concepts → design-host`；缺品牌参考就问，不猜历史品牌，也不降级到 `learn-brand`。三方案必须走同一条 H5-first 路由，不能另建 image-first 或 profile 专用支路。原始 `run` 必须显式传 `--request-kind`，入口会在联网和写文件前拒绝错路由。
+运行前读取 [request intake](workflows/request-intake.md)，只按当前轮用户意图冻结 `request-kind`。首屏三方案固定走 `host-concepts → design-host`；缺品牌参考就问，不猜历史品牌，也不降级到 `learn-brand`。同一入口承载 Expressive 探索和 Productive 实现，不另建绕过交付检查的试验路线。原始 `run` 必须显式传 `--request-kind`，入口会在联网和写文件前拒绝错路由。
 
 唯一对外入口是 `run-brand-workflow.mjs`；`brand-subagent-workflow.mjs` 仅推进内部状态机，其他脚本不得拼成替代路线：
 
@@ -76,13 +76,13 @@ Demo 是品牌学习能力测试，Evidence Fidelity、Structural Fidelity、Gen
 
 前置阶段通过公共入口 `continue --artifact-root <父隔离目录>` 推进已有 dispatch；只有完整学习门禁通过才物化子隔离工作区并自动恢复原宿主参数。展示前运行 `delivery --artifact-root <宿主隔离目录> --brand <brand>`，其 `userGoalCompleted` 必须为 true；否则继续内部流程或如实报告阻断。正式推荐来自 hash-bound 独立 QA 报告，不能由主任务默认挑第一个方向。新宿主子目录路径以 continue 回执为准，不能继续读取父学习目录充当预览。
 
-唯一职责链：`宿主启动首屏诊断 → 同一设计师回合生成三组可交互隔离 H5 → independent H5 QA + Expressive 缺口判断 → 仅对明确缺口并发生一次局部 ImageGen → 确定性回填 → independent integration QA → explicit user selection`。第一次试风格必须快：只读宿主真实启动页，让用户先看到“能换到什么程度”；此时不得以全项目扫描拖延首轮预览。`design-host/fast` 的首屏诊断由 prepare 阶段的确定性源码提取器完成并立即校验，不为可机械推导的事实启动 Host Strategist；只有 standard/certification 或 H5 批准后的全项目判断才派发该角色。三组 H5 在调用 ImageGen 前就必须使用真实宿主结构、真实冻结记录或明确 schema/loading 状态，并明显应用品牌设计系统与知识库决策。`fast`、`standard`、`certification` 不得创建另一条 image-first 路由。
+职责链：`宿主启动首屏诊断 → 同一设计师完成 Expressive 探索与 Productive 实现 → 三组可交互隔离 H5 → independent visual/interaction QA → explicit user selection`。明确要求 ImageGen 时，生成发生在设计阶段，不等待 QA 批准缺口；未要求时由任务需要决定是否生图。已有 H5 的局部增强仍使用缺口、几何冻结和 integration QA。第一次试风格只读真实启动页，不以全项目扫描拖延；`design-host/fast` 由 prepare 确定性提取首屏事实，standard/certification 或 H5 批准后的全项目判断才派发 Host Strategist。三案使用真实冻结记录或明确 schema/loading 状态；允许业务不变地重组页面和组件，旧页面没有 Hero 不代表新设计不能有表达区。
 
-试验产物隔离、5 分钟首次可判断 H5 目标、20 分钟安全上限、60 秒状态检查和首次预览前只做一次紧凑 QA 的执行细则见 [request intake](workflows/request-intake.md)。5 分钟未命中只报告慢节点与现有可打开产物，不得因此省略视觉设计、独立 QA 或当前档位要求的专业判断；入口拒绝把试验产物写进宿主，安全上限到期才停止。首轮局部 ImageGen 每个缺口最多一次调用，失败即报告或回退无图 H5，不自动改词或重试。
+试验隔离、时效与有界调用见 [request intake](workflows/request-intake.md)。预算不能省略明确要求的 ImageGen、三方向或独立 QA；生成失败如实报告，不能把无图回退标为已满足 Expressive 要求。
 
 fast run 同时治理文本上下文：运行时能返回真实 token 时，40k–60k 为软目标、80k 为硬停止线；拿不到真实 token 时必须明确写 `unavailable`，只用 unique input bytes、duplicate input bytes、additional read bytes 做诊断代理，禁止把字节估算冒充真实 token。每个 dispatch 只携带本岗位紧凑包；重复输入占比超过 20% 先去重再进入昂贵工具。时间或 token 预算只能裁掉可选探索和重复读取，不能裁掉真实宿主事实、品牌依据、独立 QA 或真实数据约束。
 
-用户只提供宿主与品牌参考。preflight 自动解析启动首屏；fast prepare 用 `derive-host-startup-baseline.mjs` 从该页源码推导 Productive floor、业务字段、扫描顺序与 Hero eligibility，standard/certification 再由 Host Strategist 补充专业判断。不要求用户提供，也不扫描无关页面。启动页缺失、hash 不符或 baseline 校验失败时禁止进入视觉生成。
+用户只提供宿主与品牌参考。preflight 自动解析启动首屏；fast prepare 用 `derive-host-startup-baseline.mjs` 提取 Productive floor、业务字段、扫描行为和现有展示事实，standard/certification 再由 Host Strategist 补充判断。现有布局是观察，不是新布局禁令；缺少真实对象只限制对象展示，不禁止基于品牌来源的 Expressive 探索。启动页缺失、hash 不符或 baseline 校验失败时禁止进入视觉生成。
 
 fast 确定性诊断或 Host Strategist 必须从启动页源码与可用渲染证据自动冻结 `hostContentContract`：真实业务对象、字段、来源定位、原始尺寸、当前显示尺寸、最低可读尺寸和可用于场景的状态；同时冻结 `resultHierarchyContract`。只有源码、真实数据或交互状态明确证明精选、排行、推荐、选中等不同角色时，重复结果才允许差异化；没有证据时默认 `peer`，Productive 与 Expressive 都不得为了视觉焦点创造一大两小或隐含推荐。设计师只能引用冻结事实，不能自报或猜测；没有合格对象时自动采用 Productive UI，不向用户索要对象清单、尺寸、结果层级或融合方案。
 
@@ -98,14 +98,14 @@ fast 确定性诊断或 Host Strategist 必须从启动页源码与可用渲染�
 
 每次实际生图均按 Designer 岗位的「实际生成输入记录」保存原始工具参数及素材用途；读过品牌文件不等于生成器收到这些内容。用户明确要求单独测试 Hero 等局部时，按指定范围做隔离诊断，不能把局部试验标成完整 design-host 通过，也不能默默丢弃当前已确认的品牌输入。
 
-只有独立 H5 QA 确认存在明确 Expressive 局部缺口后，才检查当前任务是否暴露内建 `image_gen`，不得靠环境变量或猜测。没有缺口时不得为“也许有用”而声明或调用图片能力。
+用户明确要求 ImageGen 探索时，在设计阶段检查当前任务是否暴露内建 `image_gen`；未要求的局部增强可在 QA 定位缺口后检查。不得靠环境变量或猜测。
 
 - 有内建 `image_gen` 时运行 `declare-capability --image-generation available`；默认内建模型可直接生成正式图片候选，不要求或猜测其底层模型名。
 - 没有时传 `unavailable`。外部 CLI/API 不是自动替代品，只有用户明确批准后才能另行使用。
 
 进入局部资产阶段但未声明时，`next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED` 并保持可重试；明确不可用时保留已经通过 QA 的无图 H5，并把缺口标成未增强，不得编造图片产物。不要手写 capability JSON。
 
-通用换肤公式仍是 `ImageGen Expressive + 品牌设计系统 Productive + 设计专家决策知识`，但三者不是每次同时启动：Productive 与专家决策先直接生成 H5；ImageGen 只补充 QA 已定位、已有容器和业务目的的局部 Expressive 资产。生图前自动查询并冻结 `design-knowledge-bundle.json`；引用、hash 或宿主理由不匹配即阻断。每个缺口必须先记录所属方向、H5 区域、业务目的、目标尺寸、现有不足、预期提升、无图回退、唯一可变资产 selector 和固定容器 selector；回答不完整不能调用 ImageGen。调用前冻结 DOM 顺序、非资产结构、真实数据绑定、结果层级、字体度量与容器矩形；回填后运行 `validate-expressive-geometry-lock.mjs`，除声明的资产像素层外任一变化都阻断并回退无图 H5。生成器不得发明宿主文案、数据、控件、角色、Logo 或身份主体，也不得重新设计整页；所有业务文字和交互继续由 H5 承担。独立缺口可以并发，但首轮每个缺口只调用一次，自动重试次数必须为 0。局部资产回填后必须保留真实数据绑定、可读性、正常流布局与可替换资产层，并由不同执行者做 integration QA。
+通用公式为 `ImageGen Expressive + 品牌设计系统 Productive + 设计专家决策知识`。明确要求的 Expressive 探索须绑定官网参考、素材和三个不同的构图意图，生成后再组合 H5，不冻结未获批准的旧布局。Productive 的文字、业务数据、表单、搜索和交互由代码承载；数据库等局部模块的风格不能因功能匹配而升级为整站设计语言。生图前冻结适用知识输入，保存实际 prompt、实际参考图和生成结果，具体见 Designer 岗位。只有已批准 H5 的局部增强才冻结 selector、DOM、字体度量和容器几何，并运行 `validate-expressive-geometry-lock.mjs`。两种情形均保留来源身份边界、真实数据、可读性及独立审核；图片不能冒充可交互页面。
 
 三组 H5 从一开始就使用真实宿主内容、视口与冻结品牌包，但不启动或修改宿主 runtime；动态数据没有冻结真实记录时使用明确的 schema/加载状态，不能编造业务数据。ImageGen 资产只是 H5 中可替换的局部视觉层，不能替代 H5、文字、真实对象或交互验收；若回填需要透视对象、遮挡或环境光，读取 [expressive reconstruction](references/expressive-reconstruction.md) 并只对该局部建立可检查的几何、前景、接触阴影与环境光关系。
 
