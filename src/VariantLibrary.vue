@@ -71,6 +71,7 @@
         </section>
         <aside class="vl-notes">
           <CatalogUsageGuide v-if="isCatalogScene" />
+          <SceneUsageGuide v-else-if="hasSceneUsageGuide" :key="activeScene.id" :scene="activeScene.id" />
           <section v-else><h3>场景说明</h3><p>{{ activeScene.note }}</p></section>
           <section><h3>用于我的项目</h3><button class="vl-copy" @click="copyPrompt">{{ copied ? '已复制使用描述' : '复制使用描述' }}</button><textarea v-if="copyFallback" readonly aria-label="使用描述" :value="prompt"></textarea><p class="vl-small" role="status">{{ copyError }}</p></section>
           <details class="vl-evidence"><summary>来源与验证范围</summary><p>{{ selected.publicationStatus === 'draft' ? '此品牌原始资料仍为草稿，视觉验证待完成。' : '沿用原库已记录的学习状态；本次不重新宣称品牌验证通过。' }}</p><p>当前是 Web 品牌库预览，未证明 Taro、真机或任意宿主自动适配。品牌素材的可用范围按原资产声明处理。</p><a :href="selected.path">查看原始品牌记录 ↗</a></details>
@@ -90,11 +91,13 @@ import NavigationDocument from './documents/NavigationDocument.vue';
 import SwitchDocument from './documents/SwitchDocument.vue';
 import ReleaseChecklist from './documents/ReleaseChecklist.vue';
 import CatalogUsageGuide from './documents/CatalogUsageGuide.vue';
+import SceneUsageGuide from './documents/SceneUsageGuide.vue';
 import { canonicalDocumentHash } from './documents/routes.mjs';
 const App = defineAsyncComponent(() => import('./App.vue'));
 import SiteThemeControl from './SiteThemeControl.vue';
 import './variant-library.css';
 const isCatalogScene = computed(() => selected.value?.id === 'onepiece-cardgame' && activeScene.value?.id === 'onepiece-cardgame-products');
+const hasSceneUsageGuide = computed(() => ['pokemon-tcg-official-card-database', 'czn-character', 'czn-held-out'].includes(activeScene.value?.id));
 const menuOpen = ref(false);
 function closeMenu(event) { if (event.target.closest('a')) menuOpen.value = false; }
 const hash=ref(location.hash),brands=ref([]),loading=ref(true),error=ref(''),copied=ref(false),copyFallback=ref(false),copyError=ref(''),failedCovers=ref({});
