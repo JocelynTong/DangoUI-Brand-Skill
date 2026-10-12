@@ -83,3 +83,27 @@ test('selected published package is not shadowed by same-named local trial', asy
   assert.equal(result.source,'public');assert.equal(result.version,'published');assert.equal(requests,2);
   assert.equal(fs.readFileSync(path.join(migration,'brand-mod.json'),'utf8'),old);
 });
+
+test('package files download with bounded concurrency under the same deadline', async t => {
+  let active = 0, peak = 0;
+  const artifacts = Object.fromEntries(Array.from({length:16},(_,i)=>[`file${i}`,`/file${i}.json`]));
+  const options = await fixture(t,(req,res)=>{
+    res.setHeader('content-type','application/json');
+    if (/\/file\d+\.json$/.test(req.url)) {
+      active++; peak=Math.max(peak,active);
+      setTimeout(()=>{active--;res.end('{}');},60);
+    } else res.end(JSON.stringify(req.url.endsWith('index.json') ? {brands:[{id:'demo',manifest:'/manifest.json'}]} : req.url.endsWith('by-source.json') ? {sources:{'https://example.com/':'demo'}} : {artifacts}));
+  });
+  const result = await resolvePublicStylePack({...options,install:true,networkTimeoutMs:650});
+  assert.equal(result.installedFiles.length,16);
+  assert.ok(peak>1 && peak<=8);
+});
+
+test('downloaded evidence with a wrong hash is rejected before writing it', async t => {
+  const options = await fixture(t,(req,res)=>{
+    res.setHeader('content-type','application/json');
+    res.end(JSON.stringify(req.url.endsWith('index.json') ? {brands:[{id:'demo',manifest:'/manifest.json'}]} : req.url.endsWith('by-source.json') ? {sources:{'https://example.com/':'demo'}} : req.url.endsWith('manifest.json') ? {evidenceAssets:[{path:'/frame.png',installPath:'frame.png',sha256:'wrong'}]} : {}));
+  });
+  await assert.rejects(resolvePublicStylePack({...options,install:true}),/Registry evidence hash mismatch/);
+  assert.equal(fs.existsSync(path.join(options.root,'migrations/demo/frame.png')),false);
+});

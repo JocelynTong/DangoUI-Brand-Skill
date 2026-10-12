@@ -158,7 +158,9 @@ export async function resolvePublicStylePack({
 
   if (install) {
     fs.mkdirSync(targetRoot, { recursive: true });
+    const downloads = [];
     for (const [artifactName, artifactPath] of Object.entries(manifest.artifacts || {})) {
+      downloads.push(async () => {
       const fileName = artifactPath.split("/").pop();
       const value = source === "local"
         ? readJson(path.join(root, "public", artifactPath.replace(/^\//, "")))
@@ -166,9 +168,11 @@ export async function resolvePublicStylePack({
       const target = path.join(targetRoot, fileName);
       fs.writeFileSync(target, `${JSON.stringify(value, null, 2)}\n`);
       installedFiles.push(path.relative(root, target));
+      });
     }
     for (const evidenceAsset of manifest.evidenceAssets || []) {
       if (!evidenceAsset?.path || !evidenceAsset?.installPath) continue;
+      downloads.push(async () => {
       const target = path.resolve(targetRoot, evidenceAsset.installPath);
       if (!target.startsWith(`${path.resolve(targetRoot)}${path.sep}`)) {
         throw new Error(`Registry evidence install path escapes brand root: ${evidenceAsset.installPath}`);
@@ -176,11 +180,14 @@ export async function resolvePublicStylePack({
       const value = source === "local"
         ? fs.readFileSync(path.join(root, "public", evidenceAsset.path.replace(/^\//, "")))
         : await fetchBytes(remoteUrl(registryBase, evidenceAsset.path));
+      verifyDeclaredHash(value, evidenceAsset.sha256, `Registry evidence hash mismatch: ${evidenceAsset.path}`);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.writeFileSync(target, value);
       installedFiles.push(path.relative(root, target));
+      });
     }
     for (const runtimeAsset of manifest.runtimeAssets || []) {
+      downloads.push(async () => {
       if (!runtimeAsset?.path || !runtimeAsset?.installPath || !runtimeAsset?.sha256) {
         throw new Error("Registry runtime assets require path, installPath and sha256.");
       }
@@ -195,7 +202,18 @@ export async function resolvePublicStylePack({
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.writeFileSync(target, value);
       installedFiles.push(path.relative(root, target));
+      });
     }
+    // Share the existing deadline, but do not pay an RTT for every file serially.
+    let next = 0, failure;
+    await Promise.all(Array.from({ length: Math.min(8, downloads.length) }, async () => {
+      while (!failure && next < downloads.length) {
+        const job = downloads[next++];
+        try { await job(); } catch (error) { failure ||= error; }
+      }
+    }));
+    if (failure) throw failure;
+    installedFiles.sort();
   }
 
   return {

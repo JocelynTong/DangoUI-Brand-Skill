@@ -58,7 +58,9 @@ function rewritePublishedMigrationReferences(value, brand) {
 }
 
 function sha256(file) {
-  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
+  const bytes = fs.readFileSync(file)
+  if (bytes.subarray(0,42).toString().startsWith('version https://git-lfs.github.com/spec/v1')) throw new Error(`Git LFS object not materialized: ${file}`)
+  return crypto.createHash('sha256').update(bytes).digest('hex')
 }
 
 // A scoped rebuild preserves every other installed registry entry and package.
