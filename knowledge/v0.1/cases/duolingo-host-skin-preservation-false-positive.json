@@ -1,0 +1,61 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "duolingo-host-skin-preservation-false-positive",
+  "status": "negative-regression",
+  "brand": "duolingo-official",
+  "contextKey": "duolingo-official|deck-search-productive-host-skin",
+  "finding": "The Productive H5 preserved the host search-filter-list product model, but high-salience purple selected states and DangoUI component appearance still dominated the first impression.",
+  "observedSource": {
+    "url": "http://127.0.0.1:57985/index.html?checkpoint=productive-components-v2",
+    "label": "Productive component mapping checkpoint before host-skin separation",
+    "record": "output/host-mirror-checkpoint/index.html and user visual feedback",
+    "evidenceStatus": "rendered-h5-direct-inspection"
+  },
+  "invalidInference": "Preserving the host product structure also justifies retaining its previous visual theme when brand evidence does not cover every component.",
+  "safeConclusion": "Protect product facts and business semantics, but classify previous-theme visuals separately; unexplained old-theme residue must be replaced or neutralized.",
+  "consequence": "A structurally correct mapping still read as DangoUI instead of the target brand.",
+  "reviewStatus": "not-approved",
+  "methodRef": "host-product-model-skin-separation",
+  "proposedRuleStatus": "pilot-candidate",
+  "decisionTrace": {
+    "recordType": "contemporaneous-record",
+    "decisionQuestion": "保留宿主搜索、筛选和列表时，是否也应该保留宿主原来的紫色选中态与组件皮肤？",
+    "knownInputs": [
+      "宿主产品模型、真实数据和交互必须保留。",
+      "Button、Input 和 Card 已有多邻国同角色证据。",
+      "Tabs、Chips 和 Navigation 暂无多邻国同角色证据。"
+    ],
+    "alternatives": [
+      {
+        "id": "preserve-host-appearance",
+        "documentedObservation": "未映射组件继续使用宿主紫色选中态与原组件视觉。",
+        "expressiveBenefit": "实现保守且不改变控件状态。",
+        "productiveCostOrGap": "旧主题占据高显著度区域，页面第一眼仍像 DangoUI。",
+        "retrospectiveDisposition": "拒绝。"
+      },
+      {
+        "id": "separate-model-and-skin",
+        "documentedObservation": "保留组件语义与交互，把无业务含义的旧主题视觉替换为品牌证据或中性回退。",
+        "expressiveBenefit": "减少混合视觉作者，目标品牌系统能覆盖首屏。",
+        "productiveCostOrGap": "必须先分类业务语义色，不能机械清空全部宿主视觉。",
+        "retrospectiveDisposition": "采用为修复与门禁方向。"
+      }
+    ],
+    "selectionAtTime": "采用产品模型与视觉皮肤分离，移除无依据的紫色旧主题残留。",
+    "expertDecisionAfterFeedback": "Host 诊断必须输出受保护产品事实与可替换视觉生产者两张清单；QA 必须检查最大的旧主题残留区域。",
+    "why": "换肤保护的是产品功能，不是上一套设计系统的视觉所有权。",
+    "feedback": {
+      "source": "CEO rendered checkpoint review",
+      "summary": "这样太像 DangoUI 了。",
+      "status": "rejected-before-expressive"
+    },
+    "ruleChange": {
+      "from": "未映射组件保留宿主原视觉即可。",
+      "to": "未映射组件保留语义与交互，但默认使用中性视觉；保留旧主题需要业务语义理由。",
+      "status": "candidate",
+      "ruleId": "host-product-model-does-not-preserve-skin"
+    },
+    "nextCaseQuestion": "换一个品牌与宿主后，旧主题残留分类能否避免混合视觉，同时不误删业务状态色？"
+  },
+  "readerPurpose": "宿主产品保护与旧皮肤残留的失败案例"
+}

@@ -6,10 +6,13 @@
   "scope": "比较同一类 expressive / productive 分配判断，不汇总配色或资产晋级决策。",
   "methodRef": "expressive-productive-allocation",
   "caseRefs": [
-    "pokemon-backup4-expressive-false-positive"
+    "pokemon-backup4-expressive-false-positive",
+    "duolingo-h5-source-only-qa-false-positive",
+    "duolingo-peer-results-hierarchy-correction"
   ],
   "hypothesisRefs": [
-    "expressive-continuity-in-real-content"
+    "expressive-continuity-in-real-content",
+    "result-emphasis-requires-host-evidence"
   ],
   "nextEvidenceNeeded": "至少一个不同品牌或宿主的独立案例，记录真实任务、备选取舍、人的视觉反馈；也主动寻找不需要任务区延续品牌机制的反例。",
   "readerPurpose": "要判断的矛盾与结论范围",
@@ -19,7 +22,10 @@
       "先看任务：高频检索保护首个操作与首屏结果；探索或展示可给表达更多空间，不预设首页必须有大头图。",
       "比较至少两个方向的识别收益与注意力成本，把表达落到具体区域，并明确高度、遮挡和内容密度边界。",
       "如果品牌识别需要延续到任务区，可借字形、构图与内容节奏延续；若干扰操作则收敛，不强制处处装饰。",
-      "用真实内容和运行状态验收。入口漂亮、素材加载成功，都不能证明任务区表达成立。"
+      "用真实内容和运行状态验收。入口漂亮、素材加载成功，都不能证明任务区表达成立。",
+      "重复结果的业务权重由宿主证据决定；没有精选、排行、推荐或选中证据时保持同级，视觉焦点不能替代业务关系。"
+      ,"生成前先声明层级、用途、风格三项意图；先验收任务和交互没有退步，再比较第一印象是否更清楚、更直观、更符合来源品牌。"
+      ,"多个 Demo 必须是不同的机制假设，而不是同一骨架换色、换装饰或换效果名。"
     ],
     "sourceRefs": [
       {
@@ -29,6 +35,10 @@
       {
         "kind": "rule",
         "id": "expressive-continuity-in-real-content"
+      },
+      {
+        "kind": "rule",
+        "id": "result-emphasis-requires-host-evidence"
       }
     ]
   },
@@ -36,6 +46,14 @@
     {
       "caseId": "pokemon-backup4-expressive-false-positive",
       "summary": "入口使用了品牌素材，但搜索与结果区域失去品牌表达，用户不满意；机器检查通过未发现这个缺口。"
+    },
+    {
+      "caseId": "duolingo-h5-source-only-qa-false-positive",
+      "summary": "QA 只从源码数出角色、气泡、圆角和反馈机制就判通过；实际渲染仍是通用白色工具页，且把学习示意图当成品牌主体。"
+    },
+    {
+      "caseId": "duolingo-peer-results-hierarchy-correction",
+      "summary": "无宿主证据时把第一条普通结果放大，错误创造了精选含义；改成同级结果后获得用户确认。"
     }
   ],
   "stages": [

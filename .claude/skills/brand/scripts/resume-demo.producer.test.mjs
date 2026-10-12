@@ -32,6 +32,40 @@ for(const [name,mutate]of[
  ['receipt tamper',f=>f.write('receipts/demo-1.json',{changed:true})],['output tamper',f=>f.write('demo.html','changed')],['goal tamper',f=>f.write('goal-contract.json',{changed:true})],['stale repair',f=>{f.repair.rejectedStageId='old';f.write('repair.json',f.repair)}],['pass stage',f=>{f.manifest.stages[0].verdict='pass';f.write('execution-manifest.json',f.manifest)}],['nonlatest stage',f=>{f.manifest.stages.push({id:'interpreter-2',role:'designTranslator',status:'failed',verdict:'needs-evidence'});f.write('execution-manifest.json',f.manifest)}],['consumed failure',f=>{f.manifest.demoProducerRetries=[{priorStageId:'demo-1'}];f.write('execution-manifest.json',f.manifest)}]
 ])test('reject '+name,t=>{const f=fixture(t);mutate(f);const before=fs.readFileSync(path.join(f.dir,'execution-manifest.json'));assert.notEqual(f.run(['--continue-existing','--repair-input','migrations/fixture/repair.json']).status,0);assert.deepEqual(fs.readFileSync(path.join(f.dir,'execution-manifest.json')),before)});
 test('repair supplement tampering blocks later dispatch',t=>{const f=fixture(t);assert.equal(f.run(['--continue-existing','--repair-input','migrations/fixture/repair.json']).status,0);f.write('repair.json',{changed:true});assert.notEqual(f.run([],'next').status,0)});
+function consumerFixture(t) {
+ const f=fixture(t),goal=f.read('goal-contract.json');goal.goalType='brand-learning-capability-test';f.write('goal-contract.json',goal);f.manifest.goalSha256=f.bound('goal-contract.json').sha256;
+ f.write('visual-pattern-inventory.json',{schema:'brand-visual-pattern-inventory/v1',pages:[]});
+ const dispatch=f.read('dispatch.json');dispatch.goalSha256=f.manifest.goalSha256;dispatch.requiredInputs=[f.bound('goal-contract.json'),f.bound('direction.json')];f.write('dispatch.json',dispatch);
+ const receipt=f.read('receipts/demo-1.json');Object.assign(receipt,{goalSha256:f.manifest.goalSha256,verdict:'pass',inputs:dispatch.requiredInputs,outputs:[f.bound('demo.html'),f.bound('visual-pattern-inventory.json')]});f.write('receipts/demo-1.json',receipt);
+ Object.assign(f.manifest.stages[0],{attempt:2,status:'complete',verdict:'pass',receiptSha256:f.bound('receipts/demo-1.json').sha256,outputHashes:receipt.outputs});
+ f.manifest.stages.push({id:'visualQA-2',stage:'visualQA',role:'visualQA',status:'pending'});Object.assign(f.manifest,{status:'running',currentStageId:'visualQA-2'});f.write('execution-manifest.json',f.manifest);return f;
+}
+test('accepted producer can repair a real pre-QA contract rejection without inventing a QA failure',t=>{
+ const f=consumerFixture(t),original=structuredClone(f.manifest.stages[0]),receipt=fs.readFileSync(path.join(f.dir,'receipts/demo-1.json'));
+ assert.notEqual(f.run().status,0);assert(!fs.existsSync(path.join(f.dir,'attempts')));
+ const result=f.run(['--continue-existing']);assert.equal(result.status,0,result.stderr);
+ const state=f.read('execution-manifest.json');assert.deepEqual(state.stages[0],original);assert.equal(state.stages[1].status,'cancelled');assert.equal(state.stages[1].verdict,undefined);assert.equal(state.stages.at(-1).retryInput.blockingFindings[0].code,'QA_REVIEW_PATTERN_ATTEMPT_REQUIRED');assert.deepEqual(fs.readFileSync(path.join(f.dir,'receipts/demo-1.json')),receipt);
+ assert(state.stages.at(-1).retryInput.frozenInputs.some(ref=>ref.path.endsWith('/direction.json')));f.write('demo.html','repaired');const status=f.run([],'status');assert.equal(status.status,0,status.stderr);
+ const archive=JSON.parse(fs.readFileSync(path.join(f.root,state.demoProducerRetries[0].archive.path)));assert.equal(archive.consumerRejection.pendingQa.status,'pending');
+ state.stages[1].verdict='fail';f.write('execution-manifest.json',state);assert.notEqual(f.run([],'status').status,0);
+});
+for(const [name,mutate]of[
+ ['prepared QA',f=>{f.manifest.stages[1].dispatchPath='dispatch/qa.json';}],
+ ['first producer default',f=>{f.manifest.stages[0].attempt=1;}],
+ ['valid inventory',f=>{f.write('visual-pattern-inventory.json',{schema:'brand-visual-pattern-inventory/v1',attempt:1});f.manifest.stages[0].outputHashes[1]=f.bound('visual-pattern-inventory.json');}],
+ ['inventory tamper',f=>{f.write('visual-pattern-inventory.json',{tampered:true});}]
+])test('consumer repair rejects '+name,t=>{const f=consumerFixture(t);mutate(f);f.write('execution-manifest.json',f.manifest);const before=fs.readFileSync(path.join(f.dir,'execution-manifest.json'));assert.notEqual(f.run(['--continue-existing']).status,0);assert.deepEqual(fs.readFileSync(path.join(f.dir,'execution-manifest.json')),before);assert(!fs.existsSync(path.join(f.dir,'attempts')))});
+for(const tamper of [false,true])test(`consumer repair resolves only authentic archived same-path producer input (tamper=${tamper})`,t=>{
+ const f=consumerFixture(t);f.write('old-inventory.json',{schema:'brand-visual-pattern-inventory/v1',old:true});
+ const originalPath='migrations/fixture/visual-pattern-inventory.json',copy={...f.bound('old-inventory.json'),originalPath},oldInput={path:originalPath,sha256:copy.sha256};
+ f.write('preservation.json',{archivedOutputs:[copy]});f.manifest.stages[0].retryInput={priorQaPreservation:f.bound('preservation.json')};
+ const dispatch=f.read('dispatch.json');dispatch.requiredInputs.push(oldInput);f.write('dispatch.json',dispatch);
+ const receipt=f.read('receipts/demo-1.json');receipt.inputs.push(oldInput);f.write('receipts/demo-1.json',receipt);f.manifest.stages[0].receiptSha256=f.bound('receipts/demo-1.json').sha256;f.write('execution-manifest.json',f.manifest);
+ if(tamper)f.write('old-inventory.json',{tampered:true});
+ const result=f.run(['--continue-existing']);
+ if(tamper){assert.notEqual(result.status,0);assert(!fs.existsSync(path.join(f.dir,'attempts')));}
+ else {assert.equal(result.status,0,result.stderr);const inputs=f.read('execution-manifest.json').stages.at(-1).retryInput.frozenInputs;assert(inputs.some(ref=>ref.path===copy.path&&ref.sha256===copy.sha256));assert(!inputs.some(ref=>ref.path===oldInput.path));}
+});
 test('QA-triggered retry preserves bound Demo and QA-consumed bytes before the next producer can overwrite them',t=>{
  const f=fixture(t),demoReceipt=f.read('receipts/demo-1.json');f.write('design-direction.json',{approved:true});demoReceipt.verdict='pass';f.write('receipts/demo-1.json',demoReceipt);Object.assign(f.manifest.stages[0],{status:'complete',verdict:'pass',receiptSha256:f.bound('receipts/demo-1.json').sha256});
  f.write('qa-assessment.json',{reviewerRecommendation:'fail'});f.write('qa-dispatch.json',{dispatchId:'qa-dispatch',stageId:'qa-1',goalSha256:f.manifest.goalSha256,requiredInputs:[f.bound('goal-contract.json'),f.bound('direction.json'),f.bound('demo.html')]});

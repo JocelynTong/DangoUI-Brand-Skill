@@ -5,6 +5,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { spawnSync } from "node:child_process";
+import { collectSystemReferenceCatalog, navigationShellCompletionContract } from "./finalize-h5-direction-stage.mjs";
 
 const workflow = path.resolve("skills/brand/scripts/brand-subagent-workflow.mjs");
 const skillRoot = path.resolve("skills/brand");
@@ -20,6 +21,16 @@ function runCase(gapRequired) {
   const write = (name, body = "{}") => { const file = path.join(migration, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, body); return { path: `migrations/${brand}/${name}`, sha256: sha(file) }; };
   write("goal-contract.json", JSON.stringify({ sealed: true, mode: "design-host", executionProfile: "fast", goalId: `h5-first-${gapRequired}` }));
   for (const name of ["brand-evidence.json", "brand-intent.json", "brand-mod.json"]) write(name);
+  const sourceCapture = write("captures/source/database.png", "source capture fixture");
+  write("brand-evidence.json", JSON.stringify({ claims: [
+    { id: "database-shell", sourcePageId: "database", capture: sourceCapture },
+    { id: "unrelated-campaign", sourcePageId: "home", capture: { path: "unused-missing-capture.png" } },
+  ] }));
+  const sourcePatterns = write("approved-visual-patterns.json", JSON.stringify({ patterns: [{ id: "database-only", notFor: ["campaign"] }] }));
+  const frozenMod = { componentVariants: [{ id: "rounded-type", title: "Source rounded typography", status: "candidate" }], tokens: { mapped: { "--font-body": "sans-serif" } }, layoutRules: { expressiveBudget: "bounded task accent" } };
+  const kitFiles = [write('kit/search.mjs', 'export const search = 1;'), write('kit/search.css', '.search { color: black; }'), write('kit/DESIGN.md', '# Source search\nReference implementation only.')];
+  frozenMod.componentKits = [{id:'search',status:'local-component-trial',framework:'vue3',entry:kitFiles[0].path,stylesheet:kitFiles[1].path,designGuide:kitFiles[2].path,files:kitFiles,scope:'Search only'}];
+  write("brand-mod.json", JSON.stringify(frozenMod));
   write("design-host-preflight.json", JSON.stringify({ schema: "brand-design-host-preflight/v1", verdict: "pass" }));
   const startup = write("host-startup-page.json", JSON.stringify({ schema: "host-startup-page/v1", scope: "startup-page-only", route: "/", sourceFile: "src/App.vue", sourceSha256: sha(path.join(root, "src", "App.vue")) }));
   const cli = (...args) => {
@@ -49,10 +60,23 @@ function runCase(gapRequired) {
   assert.ok(manifest().deterministicStartupDiagnosis.durationMs >= 0);
   cli("next");
   const h5Dispatch = JSON.parse(fs.readFileSync(path.join(root, manifest().stages.find((item) => item.id === manifest().currentStageId).dispatchPath), "utf8"));
+  assert.deepEqual(h5Dispatch.componentKits[0].files,kitFiles);
+  assert.equal(h5Dispatch.componentKits[0].status,'local-component-trial');
+  for(const file of kitFiles) assert.deepEqual(h5Dispatch.requiredInputs.find(input=>input.path===file.path),file);
   assert.deepEqual(h5Dispatch.fastDesignHints.completionContract.artifactOrder, ["three complete H5 files", "brand-render-kit.json", "brand-application-plan.json", "design-direction-options.json", "design-host-route.json"]);
   assert.equal(h5Dispatch.fastDesignHints.completionContract.embeddedMetadata.selector, 'script[type="application/json"][data-brand-direction]');
   assert.deepEqual(h5Dispatch.fastDesignHints.completionContract.embeddedMetadata.requiredFields, ["id", "title", "brandMechanisms", "structuralSignature", "interactionRhythm", "communicationHypothesis", "knowledgeRefs", "resultHierarchyFit"]);
-  assert.match(h5Dispatch.fastDesignHints.completionContract.embeddedMetadata.finalizer, /finalize-h5-direction-stage\.mjs/);
+  const finalizerCommand = h5Dispatch.fastDesignHints.completionContract.finalizerCommand;
+  assert.equal(finalizerCommand[1], path.join(skillRoot, "scripts/finalize-h5-direction-stage.mjs"));
+  assert.equal(finalizerCommand[finalizerCommand.indexOf("--receipt") + 1], h5Dispatch.receiptContract.path);
+  assert.equal(finalizerCommand[finalizerCommand.indexOf("--root") + 1], root);
+  assert.equal(h5Dispatch.receiptContract.orchestratorContinueCommand[3], "--artifact-root");
+  assert.deepEqual(h5Dispatch.fastDesignHints.completionContract.systemReferences.entries, collectSystemReferenceCatalog({}, frozenMod));
+  assert.match(h5Dispatch.fastDesignHints.completionContract.systemReferences.rule, /Existence is not approval/);
+  assert.deepEqual(h5Dispatch.fastDesignHints.completionContract.navigationShell, navigationShellCompletionContract(derivedBaseline.navigationShellContract));
+  assert.match(h5Dispatch.fastDesignHints.completionContract.selectionControls.implementation, /aria-pressed/);
+  assert.match(h5Dispatch.fastDesignHints.completionContract.selectionControls.disclosure, /aria-controls/);
+  assert.match(h5Dispatch.fastDesignHints.completionContract.selectionControls.unavailableData, /never fabricate/);
   assert.equal(h5Dispatch.fastDesignHints.completionContract.routePatch.h5Directions.directions[0].realDataBinding.inventedDataForbidden, true);
   assert.equal(h5Dispatch.fastDesignHints.completionContract.routePatch.h5Directions.directions[0].resultHierarchyFit.unsupportedDifferentiationForbidden, true);
   assert.match(h5Dispatch.requirements.join("\n"), /do not read validator or test source/);
@@ -74,23 +98,49 @@ function runCase(gapRequired) {
   const h5 = ["a", "b", "c"].map((id) => write(`output/${id}.html`, validMechanicalH5(id)));
   route.h5Directions = { status: "ready", producerExecutionId: "/root/h5", directions: h5.map((artifact, index) => ({ id: ["a", "b", "c"][index], artifact, realDataBinding: { inventedDataForbidden: true }, resultHierarchyFit: { relationship: "peer", preservesHostHierarchy: true, unsupportedDifferentiationForbidden: true, resultSpecificEmphasis: "none", evidenceRefs: [] }, brandDesignSystemSha256: "b".repeat(64), knowledgeBundleSha256: route.knowledgeDecision.sha256 })) };
   fs.writeFileSync(routeFile, JSON.stringify(route));
-  receipt("/root/h5", [...h5, write("brand-render-kit.json"), write("brand-application-plan.json"), write("design-direction-options.json"), { path: `migrations/${brand}/design-host-route.json`, sha256: sha(routeFile) }]);
+  receipt("/root/h5", [...h5, write("brand-render-kit.json", JSON.stringify({ expressive: { mechanisms: [{ evidenceRef: "database-shell" }, { evidenceRef: "database-shell" }] } })), write("brand-application-plan.json"), write("design-direction-options.json"), { path: `migrations/${brand}/design-host-route.json`, sha256: sha(routeFile) }]);
   assert.equal(manifest().currentStageId, "designVisualQA-1");
   cli("next");
   const qaDispatch = JSON.parse(fs.readFileSync(path.join(root, manifest().stages.find((item) => item.id === manifest().currentStageId).dispatchPath), "utf8"));
+  for(const file of kitFiles) assert.deepEqual(qaDispatch.requiredInputs.find(input=>input.path===file.path),file);
   assert.equal(qaDispatch.efficiencyBudget.stageTargetSeconds, 90);
-  assert.equal(qaDispatch.efficiencyBudget.stageHardLimitSeconds, 180);
-  assert.equal(qaDispatch.fastDesignHints.hardLimitSeconds, 180);
+  assert.equal(qaDispatch.efficiencyBudget.stageHardLimitSeconds, null);
+  assert.equal(qaDispatch.fastDesignHints.hardLimitSeconds, undefined);
   assert.match(qaDispatch.fastDesignHints.visualEvidence.source, /directions\[\]\.capture/);
   assert.match(qaDispatch.scopeRules.join("\n"), /must not be replaced by another browser render/);
   assert.match(qaDispatch.viewportContract.invariant, /exactly 390x844 CSS pixels/);
-  assert.match(qaDispatch.fastDesignHints.receipt.recordCommand, /brand-subagent-workflow\.mjs record/);
+  assert.deepEqual(qaDispatch.fastDesignHints.receipt.recordCommand, qaDispatch.receiptContract.recordCommand);
+  assert.deepEqual(qaDispatch.userDelivery.requiredFields, ["recommendedDirectionIds", "recommendationReason"]);
+  assert.equal(qaDispatch.fastDesignHints.outputContract.h5Audit.statusWhenPassed, "eligible-for-human-review");
+  assert.equal(qaDispatch.fastDesignHints.outputContract.routePatch.h5QA.statusWhenPassed, "pass");
   assert.ok(qaDispatch.requiredInputs.some((item) => item.path.endsWith("design-host-h5-mechanical-qa.json")));
+  assert.deepEqual(qaDispatch.fastDesignHints.sourceComparison.sourceCaptures, [sourceCapture]);
+  assert.ok(qaDispatch.requiredInputs.some(item => item.path === sourcePatterns.path && item.sha256 === sourcePatterns.sha256));
+  for (const name of ["brand-evidence.json", "brand-intent.json", "brand-mod.json"]) {
+    assert.deepEqual(qaDispatch.requiredInputs.find(item => item.path.endsWith(`/${name}`)), h5Dispatch.requiredInputs.find(item => item.path.endsWith(`/${name}`)), "QA must receive the same frozen source bytes, not fresh or producer-rewritten claims");
+  }
   const reviewed = JSON.parse(fs.readFileSync(routeFile, "utf8"));
   reviewed.h5QA = { status: "pass", reviewerExecutionId: "/root/h5-qa", resultHierarchyGeometry: { status: "pass", directions: ["a", "b", "c"].map((id) => ({ id, relationship: "peer", measuredItemCount: 3, maxWidthRatio: 1, maxHeightRatio: 1, computedProminenceEqual: true })) } };
   reviewed.expressiveGapDecision = gapRequired ? { status: "required", gaps: [{ id: "gap-a", directionId: "a", regionId: "hero", businessPurpose: "explain deck discovery", targetSize: "390x180", currentShortfall: "flat hierarchy", expectedImprovement: "stronger entry", noImageFallback: "keep passing H5", mutableAssetSelector: "#hero-art", fixedContainerSelector: "#hero" }] } : { status: "not-required", gaps: [] };
   fs.writeFileSync(routeFile, JSON.stringify(reviewed));
-  receipt("/root/h5-qa", [write("design-host-h5-audit.json", JSON.stringify({ status: "eligible-for-human-review" })), write("design-host-expressive-gap.json", JSON.stringify(reviewed.expressiveGapDecision)), { path: `migrations/${brand}/design-host-route.json`, sha256: sha(routeFile) }]);
+  // A complete QA result after the former 180-second cap is still judged on quality.
+  const slowQaManifest = manifest();
+  slowQaManifest.stages.find((item) => item.id === slowQaManifest.currentStageId).startedAt = new Date(Date.now() - 215000).toISOString();
+  fs.writeFileSync(path.join(migration, "execution-manifest.json"), JSON.stringify(slowQaManifest));
+  const qaOutputs = [write("design-host-h5-audit.json", JSON.stringify({ status: "eligible-for-human-review" })), write("design-host-expressive-gap.json", JSON.stringify(reviewed.expressiveGapDecision)), { path: `migrations/${brand}/design-host-route.json`, sha256: sha(routeFile) }];
+  const unchangedManifest = fs.readFileSync(path.join(migration, "execution-manifest.json"), "utf8");
+  for (const badReport of [null, { recommendation: { directionId: "b", rationale: "wrong field" } }, { recommendedDirectionIds: ["unknown"], recommendationReason: "not a real direction" }]) {
+    const outputs = [...qaOutputs, ...(badReport ? [write("design-host-visual-qa.json", JSON.stringify(badReport))] : [])];
+    const candidate = write("receipts/invalid-qa.json", JSON.stringify({ dispatchId: qaDispatch.dispatchId, stageId: qaDispatch.stageId, role: qaDispatch.role, agentExecutionId: "/root/h5-qa", goalSha256: manifest().goalSha256, verdict: "pass", inputs: qaDispatch.requiredInputs, outputs, blockingFindings: [] }));
+    const rejected = spawnSync(process.execPath, [workflow, "record", "--brand", brand, "--root", root, "--receipt", candidate.path], { encoding: "utf8", env: { ...process.env, BRAND_SKILL_ROOT: skillRoot } });
+    assert.notEqual(rejected.status, 0);
+    assert.match(rejected.stderr + rejected.stdout, /HOST_RECOMMENDATION/);
+    assert.equal(fs.readFileSync(path.join(migration, "execution-manifest.json"), "utf8"), unchangedManifest, "a rejected QA handoff must not consume the stage or modify deadline");
+  }
+  receipt("/root/h5-qa", [write("design-host-visual-qa.json", JSON.stringify({ recommendedDirectionIds: ["b"], recommendationReason: "Visible task continuity and hierarchy are strongest in B." })), write("design-host-h5-audit.json", JSON.stringify({ status: "eligible-for-human-review" })), write("design-host-expressive-gap.json", JSON.stringify(reviewed.expressiveGapDecision)), { path: `migrations/${brand}/design-host-route.json`, sha256: sha(routeFile) }]);
+  const qaResult = manifest().stages.find((item) => item.id === "designVisualQA-1");
+  assert.equal(qaResult.verdict, "pass");
+  assert.equal(qaResult.budgetResult.status, "target-exceeded");
   if (gapRequired) assert.equal(manifest().currentStageId, "expressiveAssetGeneration-1");
   else assert.equal(manifest().status, "awaiting-concept-direction");
   fs.rmSync(root, { recursive: true, force: true });

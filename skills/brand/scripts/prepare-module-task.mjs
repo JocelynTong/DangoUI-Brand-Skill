@@ -43,10 +43,15 @@ export function prepareModuleTask(options) {
   const modDir = path.dirname(modPath);
   const evidencePath = path.join(modDir, 'brand-evidence.json');
   const evidenceBytes = read(brandRoot, evidencePath), evidence = JSON.parse(evidenceBytes);
-  const brandId = mod.manifest?.id;
+  // Published MODs use `brand`; local recipe packages may use `id`.
+  // Accept the identity alias, never normalize recipe approval or evidence.
+  const identities = [mod.manifest?.id, mod.manifest?.brand].filter(value => value !== undefined);
+  if (identities.some(value => typeof value !== 'string' || !/^[a-z0-9][a-z0-9-]*$/.test(value)) || new Set(identities).size > 1) fail('MODULE_PREP_BRAND_ID_INVALID');
+  const brandId = identities[0];
   if (!brandId || evidence.brand !== brandId || !Array.isArray(mod.componentVariants) || !Array.isArray(evidence.claims)) fail('MODULE_PREP_PACKAGE_UNSUPPORTED');
   const variants = mod.componentVariants.filter(x => x.component === 'local-style-recipe');
-  if (!variants.length || new Set(variants.map(x => x.id)).size !== variants.length) fail('MODULE_PREP_RECIPES_INVALID');
+  if (!variants.length) fail('MODULE_PREP_RECIPES_REQUIRED:Package has no local-style-recipe. Return to scoped brand learning; composed patterns are not approved module recipes.');
+  if (new Set(variants.map(x => x.id)).size !== variants.length) fail('MODULE_PREP_RECIPES_INVALID');
   if (!options.task?.trim() || !safe(options.target) || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(options.moduleId || '')) fail('MODULE_PREP_TASK_REQUIRED');
   const hostRoot = root(options.hostRoot);
   read(hostRoot, options.target);
@@ -121,6 +126,15 @@ export function prepareModuleTask(options) {
   walk(sourceRoot); walk('config');
   for (const name of ['package.json', 'package-lock.json', 'pnpm-lock.yaml', 'yarn.lock', 'tsconfig.json', 'babel.config.js', 'project.config.json', 'README.md', 'DESIGN.md', 'AGENTS.md']) {
     if (fs.existsSync(path.join(hostRoot, name))) hostFiles.set(name, read(hostRoot, name));
+  }
+  // The orchestrator may name existing build/test support files discovered in
+  // the host guide or configuration. Freeze them like other protected inputs;
+  // never copy the entire repository or execute configuration to discover them.
+  const supportFiles = options.supportFiles ? options.supportFiles.split(',') : [];
+  if (new Set(supportFiles).size !== supportFiles.length) fail('MODULE_PREP_SUPPORT_FILES_DUPLICATE');
+  for (const name of supportFiles) {
+    if (name === options.target) fail('MODULE_PREP_SUPPORT_TARGET_FORBIDDEN');
+    hostFiles.set(name, read(hostRoot, name));
   }
   if (!hostFiles.has('package.json')) fail('MODULE_PREP_PACKAGE_JSON_REQUIRED');
   const output = emptyOutput(options.artifactRoot, [brandRoot, hostRoot]);

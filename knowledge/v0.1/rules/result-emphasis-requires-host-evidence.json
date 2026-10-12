@@ -1,0 +1,35 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "result-emphasis-requires-host-evidence",
+  "version": 1,
+  "status": "candidate",
+  "question": "When may repeated host results receive different visual weight?",
+  "statement": "重复业务结果只有在宿主源码、真实数据或明确交互状态证明其为精选、排行、推荐、选中或其他不同角色时，才能获得不同尺寸与权重；没有证据时默认同级。Productive 决定差异是否存在，Expressive 只能表现它，不能发明它。",
+  "appliesWhen": [
+    "A host surface renders repeated search results, list items, cards, feed entries or comparable business objects",
+    "A design direction proposes unequal size, featured treatment, ranking, recommendation or selected emphasis"
+  ],
+  "notFor": [
+    "Different object types whose roles are already explicit in the host",
+    "A real selected, pinned, sponsored, recommended or ranked state with bound evidence",
+    "Purely decorative background hierarchy that does not change business-object meaning"
+  ],
+  "originCaseIds": [
+    "duolingo-peer-results-hierarchy-correction"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "falsificationQuestion": "Can a repeated result safely receive unequal visual weight with no host role evidence while users still interpret all results as equal and retain the same comparison behavior?",
+  "nextTest": "在另一个搜索、列表或信息流宿主中自动推导 resultHierarchyContract，验证无证据时的 peer 默认值不会削弱品牌表达，同时能阻断伪精选和不等尺寸。",
+  "reviewer": null,
+  "reviewedAt": null,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "sourceCaseId": "duolingo-peer-results-hierarchy-correction",
+      "change": "Added an evidence gate for featured, ranked, recommended, selected and unequal-size repeated results after the approved peer correction.",
+      "status": "candidate"
+    }
+  ],
+  "readerPurpose": "约束 Productive 与 Expressive 对重复业务对象相对权重的决策边界"
+}

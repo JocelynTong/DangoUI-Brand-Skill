@@ -6,6 +6,7 @@
   "scope": "跨品牌、跨宿主的视觉迁移与动态界面设计；具体证据仍受案例范围限制",
   "methodRef": "expressive-generation-and-reconstruction",
   "caseRefs": [
+    "duolingo-event-decoration-occlusion",
     "opcg-a1-live-host-layering"
   ],
   "hypothesisRefs": [
@@ -30,6 +31,8 @@
   "focusedBasis": {
     "status": "candidate",
     "items": [
+      "装饰层不得盖住文字、空态与错误提示；检查具名业务层的祖先层级与裁切，不能只看声明的z-index。",
+      "从真实宿主自动盘点受影响tab和已有状态；有数据、空态、加载及错误分支分别记录覆盖，未测明确标注，切回原分支做小范围回归。",
       "先列出必须保持的关系：卡位、遮挡、背景连续性和可操作区域，再决定哪些对象允许运动。",
       "覆盖真实数据切换、数量变化、空态、滚动、聚焦与视口变化；共享内容可以不变，不能为演示伪造数据。",
       "几何稳定后再加共同切换动效，检查固定层与减弱动态效果状态；不要用动画掩盖位置错误。"
@@ -46,6 +49,10 @@
     ]
   },
   "caseNotes": [
+    {
+      "caseId": "duolingo-event-decoration-occlusion",
+      "summary": "赛事空态被渐变盖住；修复后空态及切回列表通过独立截图检查，加载、失败、有赛事数据和跨宿主仍未验证。"
+    },
     {
       "caseId": "opcg-a1-live-host-layering",
       "summary": "真实宿主在数据切换、滚动和聚焦时暴露静态预览未见的问题；修订后仍缺最后版本的完整真机验证。"

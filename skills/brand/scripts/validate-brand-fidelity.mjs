@@ -200,7 +200,8 @@ if ("level" in (assessment || {}) || "visual-quality-ready" in (assessment || {}
 if (requiresLearningProof) validateLearningProofContract();
 
 const attempt = Number(assessment?.attempt || inputManifest?.attempt || 1);
-check(Number(patternInventory?.attempt) === attempt, "PATTERN_ATTEMPT_MISMATCH", "Visual pattern inventory attempt must match the QA attempt.");
+// Match the declared first-quality default without treating explicit invalid values as omitted.
+check(Number(patternInventory?.attempt === undefined ? 1 : patternInventory.attempt) === attempt, "PATTERN_ATTEMPT_MISMATCH", "Visual pattern inventory attempt must match the QA attempt.");
 check(Number(inputManifest?.attempt || 1) === attempt, "QA_ATTEMPT_MISMATCH", "QA manifest attempt must match the assessment attempt.");
 check(corePages.length > 0, "CORE_PAGE_UNMAPPED", "Frozen goal must identify at least one core reference page.");
 const status = protocolFailures.length ? "protocol-blocked" : hardFailures.length ? "fidelity-fail" : "fidelity-pass";

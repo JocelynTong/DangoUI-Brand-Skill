@@ -45,8 +45,14 @@ assert.ok(validateBrandRenderKit(wrongHash, inputs).errors.includes("BRAND_RENDE
 const unknownAsset = valid(); unknownAsset.directions[0].identityAssetIds = ["missing-asset"];
 assert.ok(validateBrandRenderKit(unknownAsset, inputs).errors.includes("BRAND_RENDER_KIT_DIRECTION_IDENTITY_ASSETS_INVALID"));
 assert.ok(validateBrandRenderKit(valid()).errors.includes("BRAND_RENDER_KIT_EVIDENCE_INPUT_REQUIRED"));
-const sameSource = valid(); sameSource.directions.forEach((item) => { item.expressiveSourcePageRefs = ["home"]; });
-assert.ok(validateBrandRenderKit(sameSource, inputs).errors.includes("BRAND_RENDER_KIT_SOURCE_WORLD_DIVERSITY_REQUIRED"));
+const sameSource = valid();
+sameSource.expressive.mechanisms.forEach((item) => { item.evidenceRef = "evidence:2"; item.sourcePageRef = "database"; });
+sameSource.directions.forEach((item) => { item.expressiveSourcePageRefs = ["database"]; });
+assert.equal(validateBrandRenderKit(sameSource, inputs).ok, true, "unrelated captured pages must not force a host to mix source purposes");
+const unknownSource = structuredClone(sameSource); unknownSource.directions[0].expressiveSourcePageRefs = ["invented-page"];
+assert.ok(validateBrandRenderKit(unknownSource, inputs).errors.includes("BRAND_RENDER_KIT_DIRECTION_SOURCE_PAGE_REFS_INVALID"));
+const sameSourceSameWorld = structuredClone(sameSource); sameSourceSameWorld.directions[2].visualWorld = sameSourceSameWorld.directions[0].visualWorld;
+assert.ok(validateBrandRenderKit(sameSourceSameWorld, inputs).errors.includes("BRAND_RENDER_KIT_ART_WORLD_DISTANCE_REQUIRED"));
 const sameAsset = valid(); sameAsset.directions.forEach((item) => { item.identityAssetIds = ["asset-a"]; });
 assert.equal(validateBrandRenderKit(sameAsset, inputs).ok, true, "available assets need not be consumed merely to meet a diversity count");
 const noIdentityNeeded = valid(); noIdentityNeeded.directions.forEach((item) => { item.identityAssetIds = []; });

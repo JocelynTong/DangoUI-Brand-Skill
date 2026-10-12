@@ -77,6 +77,34 @@ try {
   assert.match(missingBrandPayload.intake.question, /品牌官网|style pack/);
 
   const beforePreparing = treeHash(host);
+  // The seed user's exact library URL selects a package, never its catalog UI.
+  const libraryRoot = path.join(fixtureRoot, 'library', 'build');
+  const registryRoot = path.join(libraryRoot, 'public/brand-registry/v0.1');
+  const selectedBrand = 'pokemon-tcg-official';
+  const packRelative = `/brand-registry/v0.1/brands/${selectedBrand}/1.0.0`;
+  writeJson(path.join(fixtureRoot,'library/run.json'), {schema:'brand-artifact-run/v1',id:'library',host,status:'active'});
+  writeJson(path.join(registryRoot,'index.json'), {brands:[{id:selectedBrand,version:'1.0.0',manifest:`${packRelative}/manifest.json`}]});
+  writeJson(path.join(registryRoot,'by-source.json'), {sources:{}});
+  const artifacts={};
+  for(const name of ['brand-mod','brand-evidence','brand-intent']) {
+    artifacts[name]=`${packRelative}/${name}.json`;
+    writeJson(path.join(libraryRoot,'public',artifacts[name]),JSON.parse(fs.readFileSync(path.join(migration,`${name}.json`))));
+  }
+  writeJson(path.join(libraryRoot,'public',packRelative,'manifest.json'), {artifacts});
+  const libraryArgs=['run','--request-kind','host-concepts','--mode','design-host','--profile','fast','--artifact-root',libraryRoot,'--host-target',host,'--source-url','https://jocelyntong.github.io/DangoUI-Brand-Skill/#/brand/pokemon-tcg-official/pages/pokemon-tcg-official-home'];
+  const selected=runFixture(libraryArgs);
+  assert.equal(selected.status,0,selected.stdout+selected.stderr);
+  const selectedOutput=JSON.parse(selected.stdout);
+  assert.equal(selectedOutput.step,'h5-direction-generation');
+  assert.equal(selectedOutput.dispatchRequest.stage,'h5DirectionGeneration');
+  assert.equal(selectedOutput.learnBrandDispatched,false);
+  assert.equal(fs.existsSync(path.join(libraryRoot,'source-prerequisite.json')),false);
+  assert.equal(fs.existsSync(path.join(libraryRoot,'output/extractor-benchmark')),false);
+  assert.equal(treeHash(host),beforePreparing);
+  const conflict=runFixture([...libraryArgs,'--brand','another-brand']);
+  assert.equal(JSON.parse(conflict.stdout).blockingCode,'STYLE_PACK_SELECTION_CONFLICT');
+  const absent=runFixture(libraryArgs.map(value=>value.includes('#/brand/pokemon-')?value.replaceAll('pokemon-tcg-official','absent-brand'):value));
+  assert.equal(JSON.parse(absent.stdout).blockingCode,'SELECTED_STYLE_PACK_NOT_FOUND');
   for (const profile of ["fast", "standard", "certification"]) {
     const profileRoot = path.join(fixtureRoot, profile, "build");
     fs.mkdirSync(profileRoot, { recursive: true });

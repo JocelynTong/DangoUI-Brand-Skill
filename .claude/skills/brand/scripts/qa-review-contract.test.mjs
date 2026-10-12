@@ -232,6 +232,20 @@ test('producer self-review, non-original reviewer, prior pass and stale receipt 
   assert.throws(()=>prepareQaReview({...f.options,priorReceipt:'stale.json'}),/LATEST_PRIOR/);
   f.stages[1].verdict='pass';f.stages[1].status='complete';f.save();assert.throws(()=>prepareQaReview(f.options),/PRIOR_FAILURE/);
 });
+for (const scenario of ['failure','protocol-failure','missing','pass','wrong-goal','wrong-assessment','empty-failures','tampered']) test(`visual recommendation PASS requires bound deterministic failure for regression: ${scenario}`,t=>{
+  const f=fixture(t),assessment=f.put('visual-qa-assessment.json',{schema:'brand-visual-qa-assessment/v2',reviewerRecommendation:'pass'});
+  const report={schema:'brand-visual-quality-result/v2',status:scenario==='protocol-failure'?'protocol-blocked':'fidelity-fail',goalSha256:f.goal.sha256,inputHashes:{assessment:assessment.sha256},hardFailures:scenario==='protocol-failure'?[]:[{code:'HERO_ASSET_VARIANT_MISMATCH'}],protocolFailures:scenario==='protocol-failure'?[{code:'PATTERN_ATTEMPT_MISMATCH'}]:[]};
+  if(scenario==='pass')report.status='fidelity-pass';
+  if(scenario==='wrong-goal')report.goalSha256='0'.repeat(64);
+  if(scenario==='wrong-assessment')report.inputHashes.assessment='0'.repeat(64);
+  if(scenario==='empty-failures')report.hardFailures=[];
+  const fidelity=f.put('fidelity-report.json',report),outputs=[assessment,f.qaShot,...(scenario==='missing'?[]:[fidelity])];
+  const receipt=JSON.parse(fs.readFileSync(path.join(f.root,f.oldReceipt.path)));receipt.outputs=outputs;
+  f.stages[1].receiptSha256=f.put('receipts/visualQA-1.json',receipt).sha256;f.stages[1].outputHashes=outputs;f.save();
+  if(scenario==='tampered')fs.appendFileSync(path.join(f.root,fidelity.path),' ');
+  if(['failure','protocol-failure'].includes(scenario)) {const {review}=prepareQaReview(f.options);assert.equal(review.reviewMode,'regression-review');assert.equal(review.priorReviewReceipt.path,f.oldReceipt.path);}
+  else assert.throws(()=>prepareQaReview(f.options),scenario==='tampered'?/HASH_MISMATCH|PRIOR_BYTES_UNAVAILABLE/:/OLD_PASS_FORBIDDEN/);
+});
 test('fresh cannot reuse exposed reviewer and initial cannot pretend no prior review',t=>{
   const f=fixture(t);assert.throws(()=>prepareQaReview({...f.options,reviewMode:'fresh-blind'}),/ALREADY_EXPOSED/);assert.throws(()=>prepareQaReview({...f.options,reviewMode:'initial-blind'}),/HAS_PRIOR/);
 });
@@ -373,7 +387,34 @@ test('transitively consumed producer rule is compared with the prior approved ru
  const producerReceipt=f.put('receipts/interpreter-1.json',{stageId:'interpreter-1',role:'designTranslator',verdict:'pass',inputs:[f.goal,other],outputs:[handoff]});
  f.stages.splice(2,0,{id:'interpreter-1',stage:'interpreter',role:'designTranslator',status:'complete',receiptPath:producerReceipt.path,receiptSha256:producerReceipt.sha256,outputHashes:[handoff]});
  const demo=f.stages.find(stage=>stage.id==='demo-2'),receipt=JSON.parse(fs.readFileSync(path.join(f.root,demo.receiptPath)));receipt.inputs=[f.goal,handoff];demo.receiptSha256=f.put('receipts/demo-2.json',receipt).sha256;f.save();
+  assert.throws(()=>prepareQaReview(f.options),/CURRENT_PRODUCER_RULES_CHANGED_REQUIRES_FRESH/);
+});
+function archivedProducerRuleFixture(t) {
+ const f=fixture(t),producer=f.stages[0],current=f.stages[2],original=producer.outputHashes[0];
+ const copy=f.put('attempts/demo-1/workspace/old-demo.html',fs.readFileSync(path.join(f.root,original.path)));
+ const archive=f.put('attempts/demo-1/producer-preservation-archive.json',{schema:'brand-qa-triggered-demo-preservation/v1',stage:structuredClone(producer),archivedOutputs:[{...copy,originalPath:original.path}]});
+ const receipt=JSON.parse(fs.readFileSync(path.join(f.root,current.receiptPath)));receipt.inputs=[f.goal,copy];
+ current.receiptSha256=f.put('receipts/demo-2.json',receipt).sha256;current.retryInput={priorQaPreservation:archive};f.save();
+ return {...f,copy,archive,current,receipt};
+}
+test('same-byte archived producer input retains its original frozen rule chain',t=>{
+ const f=archivedProducerRuleFixture(t),{review}=prepareQaReview(f.options);
+ assert.deepEqual(review.frozenInputs,[f.rule]);validateQaReview(f.root,review);
+});
+test('archived producer alias does not hide a genuinely changed current rule',t=>{
+ const f=archivedProducerRuleFixture(t),changed=f.put('different-approved-rules.json',{rules:['new decision']});
+ f.receipt.inputs.push(changed);f.current.receiptSha256=f.put('receipts/demo-2.json',f.receipt).sha256;f.save();
  assert.throws(()=>prepareQaReview(f.options),/CURRENT_PRODUCER_RULES_CHANGED_REQUIRES_FRESH/);
+});
+for(const target of ['archive','copy'])test('producer rule alias rejects tampered '+target,t=>{
+ const f=archivedProducerRuleFixture(t);fs.appendFileSync(path.join(f.root,f[target].path),' ');
+ assert.throws(()=>prepareQaReview(f.options),/QA_REVIEW_HASH_MISMATCH/);
+});
+test('unbound originalPath cannot invent a producer-rule alias',t=>{
+ const f=archivedProducerRuleFixture(t),unknown=f.put('attempts/unknown/workspace/old-demo.html',fs.readFileSync(path.join(f.root,f.copy.path)));
+ f.receipt.inputs=[f.goal,{...unknown,originalPath:f.stages[0].outputHashes[0].path}];
+ f.current.receiptSha256=f.put('receipts/demo-2.json',f.receipt).sha256;f.save();
+ assert.throws(()=>prepareQaReview(f.options),/QA_REVIEW_PRODUCER_ARCHIVE_ALIAS_UNKNOWN/);
 });
 test('fresh review binds the consumed interpreter rule, not the superseded input used to author it',t=>{
  const f=fixture(t),oldRule={...f.rule,sha256:crypto.createHash('sha256').update('previous rules').digest('hex')};

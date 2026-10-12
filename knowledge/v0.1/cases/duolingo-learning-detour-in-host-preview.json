@@ -1,0 +1,24 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "duolingo-learning-detour-in-host-preview",
+  "status": "negative-regression",
+  "brand": "duolingo",
+  "contextKey": "duolingo|host-preview-source-learning-detour",
+  "finding": "A host preview request entered internal source learning, whose sealed Goal omitted reference/demo page declarations; the learning demonstration was shown while host preview and host application remained unfinished.",
+  "evidenceFiles": ["knowledge/v0.1/evidence/host-preview-learning-detour.json", "knowledge/v0.1/evidence/qa-capacity-regression.json"],
+  "invalidInference": "Completing or displaying an internal learning Demo means the host skinning request has reached its user deliverable.",
+  "safeConclusion": "Keep the parent outcome and its independent delivery gate; prepare a gradeable child Goal and resume the host pipeline without asking the user for internal contracts.",
+  "reviewStatus": "not-approved",
+  "methodRef": "user-goal-role-qa-expression",
+  "readerPurpose": "内部学习吞掉宿主交付目标的负例，不能据此宣称全流程已通过",
+  "qaCapacityRegression": {
+    "finding": "局部修复一律重建 QA 代理曾触发 agent thread limit reached；原独立 QA 能接续，但旧协议没有具名复验方式。",
+    "safeConclusion": "首次独立盲审；局部返工由合适的原 QA 复验，每次新 reviewId、当前 hash 和新截图/操作。实质改向、规则变化、制作污染或漏检要求 fresh-blind。容量不足保存接力，不降质量标准。",
+    "protocolCaseStatus": "continuous-regression-recording-verified",
+    "visualCaseStatus": "formal-needs-evidence; director-rejected-unsupported-header-finding",
+    "directorCounterReview": "Director 直接查看 QA3 自己绑定的 2214/6903 settled PNG，顶部 Logo 和 GET STARTED 均可见。原空白导航 finding 与截图矛盾，不作为 CSS 返工依据；保留原 QA3 收据，待独立核验。",
+    "stageScope": "learn-brand only; design-host/apply-host not yet integrated with this review helper",
+    "qualification": "同一 Duolingo run 的后续观察，不是新的独立品牌验证。",
+    "reviewH5": "/workflow-review/qa-regression/index.html"
+  }
+}

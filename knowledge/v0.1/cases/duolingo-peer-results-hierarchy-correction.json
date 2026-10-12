@@ -1,0 +1,63 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "duolingo-peer-results-hierarchy-correction",
+  "status": "approved-correction",
+  "contextKey": "duolingo-official|qiandao-deck-search|peer-result-hierarchy",
+  "methodRef": "expressive-productive-allocation",
+  "reviewStatus": "approved",
+  "observedSource": {
+    "url": "http://127.0.0.1:57994/migrations/duolingo-official/expressive-structure-trials/selected-master-equal-results-v2/index.html",
+    "label": "用户验收的同级结果 H5",
+    "record": "knowledge/v0.1/cases/duolingo-peer-results-hierarchy-correction.md",
+    "evidenceStatus": "rendered-user-approved-h5"
+  },
+  "invalidInference": "为了让首屏更有视觉焦点，可以在没有宿主业务证据时把第一条普通结果放大成精选卡；Productive 阶段也可以用业务优先级名义创造这种差异。",
+  "safeConclusion": "结果角色必须先由宿主源码、真实数据或交互状态证明。Productive 决定是否存在精选、排行、推荐或选中关系；Expressive 只能表现已证明的关系，不能发明关系。没有证据时，重复结果默认同级、同权重和可比较。",
+  "decisionTrace": {
+    "recordType": "contemporaneous-record",
+    "decisionQuestion": "多邻国品牌表达进入牌组结果区时，普通结果是否应为了视觉焦点而出现一大两小？",
+    "knownInputs": [
+      "宿主启动页是搜索、筛选和浏览真实牌组的工具型页面。",
+      "被冻结的三条记录都来自同一结果集合，没有精选、排行、推荐或当前选中字段。",
+      "前一版把第一条结果放大，用户追问这种差异化何时发生，并指出 Productive 不应大改 Expressive 已确认领域。"
+    ],
+    "alternatives": [
+      {
+        "id": "visual-first-featured-result",
+        "documentedObservation": "第一条牌组被放大并获得独立构图，其余两条缩小，视觉上暗示了精选或更高优先级。",
+        "expressiveBenefit": "快速产生明确焦点，并给插画背景留出更强的构图锚点。",
+        "productiveCostOrGap": "宿主没有对应业务角色；用户会误读为推荐、排行或选中，横向比较也被破坏。",
+        "retrospectiveDisposition": "撤销无证据差异化，不把视觉焦点等同于业务优先级。"
+      },
+      {
+        "id": "host-evidenced-peer-results",
+        "documentedObservation": "修正版保留同一品牌场景、检索入口与真实数据，但三条结果使用同级尺寸、结构和信息权重。",
+        "expressiveBenefit": "品牌环境仍包裹真实任务；视觉焦点由背景、入口和整体节奏承担，不靠伪造一条精选结果。",
+        "productiveCostOrGap": "需要用更严谨的整体构图创造层次，不能用放大第一条作为廉价捷径。",
+        "retrospectiveDisposition": "用户确认合理且整体效果不错，作为本宿主获批修正。"
+      }
+    ],
+    "selectionAtTime": "先尝试一条放大的主结果，后根据宿主证据与用户反馈改为三条同级结果。",
+    "expertDecisionAfterFeedback": "冻结 resultHierarchyContract；没有宿主证据时所有重复结果为 peer，Productive 和 Expressive 均不得创造隐含业务排序。",
+    "why": "视觉层次可以由空间、背景、动线和入口完成，但业务对象的相对权重会改变用户理解，必须由宿主事实而不是审美偏好决定。",
+    "feedback": {
+      "source": "用户对 selected-master-equal-results-v2 的直接验收",
+      "summary": "用户确认同级结果处理合理、目前整体效果不错，并同意继续后续流程。",
+      "status": "approved-aesthetic-outcome"
+    },
+    "ruleChange": {
+      "from": "视觉设计可为了焦点把普通第一条结果放大",
+      "to": "只有宿主证据允许时才能差异化重复结果；否则保持同级",
+      "status": "candidate",
+      "ruleId": "result-emphasis-requires-host-evidence"
+    },
+    "nextCaseQuestion": "在另一个搜索、列表或信息流宿主中，自动推导同级关系能否阻止无依据的精选、排行和不等尺寸，同时保留足够表达力？"
+  },
+  "reviewEvidence": {
+    "independentQA": true,
+    "userVisualApproval": true,
+    "approvedArtifact": "selected-master-equal-results-v2/index.html"
+  },
+  "independentCaseNote": "这是一个用户批准的单宿主修正，尚不足以把规则提升为跨项目 approved。",
+  "readerPurpose": "证明视觉焦点不能替代宿主对结果角色的事实定义"
+}

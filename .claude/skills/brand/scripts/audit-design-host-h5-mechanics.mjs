@@ -3,7 +3,7 @@
 import crypto from "node:crypto";
 import fs from "node:fs";
 import path from "node:path";
-import { chromium } from "playwright-core";
+import { resolveBrowserRuntime } from "./resolve-browser-runtime.mjs";
 
 const args = process.argv.slice(2);
 const opt = (name, fallback = "") => {
@@ -25,6 +25,8 @@ const captureDir = path.join(migrationDir, "mechanical-qa");
 const route = readJson(routeFile);
 const directions = Array.isArray(route?.h5Directions?.directions) ? route.h5Directions.directions : [];
 if (directions.length !== 3) throw new Error("H5_MECHANICAL_QA_REQUIRES_THREE_DIRECTIONS");
+const schemaPreviewPolicy = frozenSchemaPreviewPolicy();
+const { chromium } = await resolveBrowserRuntime({ artifactRoot: root });
 fs.mkdirSync(captureDir, { recursive: true });
 
 const executablePath = [
@@ -49,7 +51,7 @@ try {
   await browser.close();
 }
 
-const blockingFindings = reports.flatMap((report) => report.checks.filter((check) => !check.pass).map((check) => ({
+const blockingFindings = reports.flatMap((report) => report.checks.filter((check) => !check.pass && check.blocking !== false).map((check) => ({
   directionId: report.directionId,
   code: check.code,
   message: check.message,
@@ -64,6 +66,7 @@ const output = {
   verdict: blockingFindings.length ? "fail" : "pass",
   route: { path: relative(routeFile), sha256: sha256File(routeFile) },
   directions: reports,
+  limitations: reports.flatMap(report => report.checks.filter(check => !check.pass && check.blocking === false).map(check => ({directionId:report.directionId,code:check.code,message:check.message,evidence:check.evidence}))),
   blockingFindings,
 };
 writeJson(outputFile, output);
@@ -93,9 +96,11 @@ async function auditDirection(direction) {
       const restored = document.scrollingElement?.scrollTop || 0;
       return { start, target, changed, restored };
     });
-    const interactionProbe = await probeInteractions(page);
     const captureFile = path.join(captureDir, `${safeName(direction.id || "direction")}-first-viewport.png`);
+    // First-impression review must see the initial page, not the probe's query
+    // text or a tab/filter state left behind by interaction checks.
     await page.screenshot({ path: captureFile, fullPage: false });
+    const interactionProbe = await probeInteractions(page);
     const checks = buildChecks(before, scrollProbe, interactionProbe, consoleErrors, pageErrors);
     return {
       directionId: direction.id,
@@ -105,7 +110,7 @@ async function auditDirection(direction) {
       interactionProbe,
       scrollProbe,
       checks,
-      verdict: checks.every((check) => check.pass) ? "pass" : "fail",
+      verdict: checks.every((check) => check.pass || check.blocking === false) ? "pass" : "fail",
     };
   } finally {
     await context.close();
@@ -163,47 +168,123 @@ function measurePage() {
 async function probeInteractions(page) {
   const input = page.locator('input:not([type]),input[type="text"],input[type="search"],textarea').filter({ visible: true }).first();
   const action = page.locator('button,input[type="submit"],[role="button"]').filter({ visible: true });
-  const filters = page.locator('[aria-pressed],[aria-selected],select,input[type="checkbox"],input[type="radio"]').filter({ visible: true });
-  const beforeSignature = await page.locator("body").evaluate((body) => `${body.innerText}|${body.className}|${body.getAttribute("data-state") || ""}`);
   let primary = { attempted: false, pass: false, reason: "no visible text input and action pair" };
   if (await input.count() && await action.count()) {
-    const candidateButtons = page.locator('button,input[type="submit"],[role="button"]').filter({ visible: true });
-    let button = candidateButtons.first();
-    const inputBox = await input.boundingBox();
-    if (inputBox) {
-      const candidates = [];
-      for (let index = 0; index < await candidateButtons.count(); index += 1) {
-        const box = await candidateButtons.nth(index).boundingBox();
-        if (box) candidates.push({ index, distance: Math.abs(box.y - inputBox.y) + Math.max(0, box.x - inputBox.x) * 0.05 });
-      }
+    const index = await action.evaluateAll((buttons, field) => {
+      const owner = field.form;
+      // Native form ownership also covers controls associated via form="id".
+      // A real submitter wins over closer reset/auxiliary controls; do not try
+      // another button merely because the submitter fails to change state.
+      const submit = buttons.findIndex(button => owner && button.form === owner && button.type === "submit");
+      if (submit >= 0) return submit;
+      const inputBox = field.getBoundingClientRect();
+      const candidates = buttons.map((button, index) => ({ button, index })).filter(({ button }) =>
+        ("form" in button ? button.form : button.closest("form")) === owner && button.type !== "reset" &&
+        !button.matches('[aria-pressed],[aria-expanded],[aria-selected],[role="tab"],[data-composition-role="navigation-shell"] *')
+      ).map(({ button, index }) => {
+        const box = button.getBoundingClientRect();
+        return { index, distance: Math.abs(box.y - inputBox.y) + Math.max(0, box.x - inputBox.x) * 0.05 };
+      });
       candidates.sort((a, b) => a.distance - b.distance);
-      if (candidates[0]) button = candidateButtons.nth(candidates[0].index);
-    }
-    await input.fill("mechanical-qa");
-    await button.click();
-    await page.waitForTimeout(120);
-    const afterSignature = await page.locator("body").evaluate((body) => `${body.innerText}|${body.className}|${body.getAttribute("data-state") || ""}`);
-    primary = { attempted: true, pass: afterSignature !== beforeSignature, reason: afterSignature !== beforeSignature ? "visible DOM state changed" : "action produced no observable DOM state change" };
-  }
-  let filterResult = { attempted: false, pass: false, reason: "no visible filter control" };
-  if (await filters.count()) {
-    for (let index = 0; index < await filters.count(); index += 1) {
-      const filter = filters.nth(index);
-      const before = await filter.evaluate((node) => `${node.getAttribute("aria-pressed")}|${node.getAttribute("aria-selected")}|${node.value}|${node.checked}|${node.className}`);
-      if (await filter.evaluate((node) => node.tagName === "SELECT")) {
-        const values = await filter.locator("option").evaluateAll((nodes) => nodes.map((node) => node.value));
-        if (values.length > 1) await filter.selectOption(values.find((value) => String(value) !== String(before).split("|")[2]) || values[1]);
-      } else await filter.click();
-      await page.waitForTimeout(80);
-      const after = await filter.evaluate((node) => `${node.getAttribute("aria-pressed")}|${node.getAttribute("aria-selected")}|${node.value}|${node.checked}|${node.className}`);
-      if (before !== after) {
-        filterResult = { attempted: true, pass: true, reason: "control state changed", testedIndex: index };
-        break;
-      }
-      filterResult = { attempted: true, pass: false, reason: "no inspected filter control changed state" };
+      return candidates[0]?.index ?? -1;
+    }, await input.elementHandle());
+    if (index >= 0) {
+      const button = action.nth(index);
+      await input.fill("mechanical-qa");
+      const beforeSignature = await page.locator("body").evaluate((body) => `${body.innerText}|${body.className}|${body.getAttribute("data-state") || ""}`);
+      await button.click();
+      await page.waitForTimeout(120);
+      const afterSignature = await page.locator("body").evaluate((body) => `${body.innerText}|${body.className}|${body.getAttribute("data-state") || ""}`);
+      primary = { attempted: true, pass: afterSignature !== beforeSignature, reason: afterSignature !== beforeSignature ? "visible DOM state changed" : "action produced no observable DOM state change" };
     }
   }
+  // Search can change the current route/results. Exercise filters from their
+  // initial state, not whatever the preceding probe happened to leave behind.
+  await page.reload({ waitUntil: "domcontentloaded", timeout: 20_000 });
+  const filterResult = await probeFilters(page);
   return { primary, filter: filterResult };
+}
+
+async function probeFilters(page) {
+  const selector = ':is(select,button[aria-pressed],[role="button"][aria-pressed],[role="option"][aria-selected],[role="treeitem"][aria-selected],[role="row"][aria-selected],[role="gridcell"][aria-selected],input[type="checkbox"],input[type="radio"]):not([data-composition-role="navigation-shell"] *)';
+  const filters = page.locator(selector);
+  const disclosures = [];
+  // ARIA disclosure and native details, not arbitrary buttons or label guesses.
+  // Legacy disclosure buttons without aria-controls remain discoverable by the
+  // actual newly visible selection controls; opening alone never passes.
+  const disclosureSelector = 'button[aria-expanded="false"],[role="button"][aria-expanded="false"],details:not([open]) > summary';
+  const triggers = await page.locator(disclosureSelector).elementHandles();
+  for (const trigger of triggers.slice(0, 4)) {
+    if (!await trigger.isVisible() || !await trigger.isEnabled()) continue;
+    try {
+      const before = (await reachableFilterControls(filters)).length;
+      const nestedBefore = await page.locator(disclosureSelector).filter({ visible: true }).count();
+      await trigger.click({ timeout: 1500 });
+      await page.waitForTimeout(80);
+      const after = (await reachableFilterControls(filters)).length;
+      const nestedAfter = await page.locator(disclosureSelector).filter({ visible: true }).count();
+      disclosures.push({ revealedControls: Math.max(0, after - before) });
+      // The opened trigger leaves the collapsed selector. A replacement visible
+      // trigger can therefore represent a newly reachable nested disclosure.
+      if (after <= before && nestedAfter < nestedBefore) await trigger.click({ timeout: 1500 });
+    } catch (error) {
+      disclosures.push({ error: error.message.split("\n")[0] });
+    }
+  }
+  const reachable = await reachableFilterControls(filters);
+  // Probe unchecked siblings first so an initially checked radio can actually
+  // change state when its turn arrives. Clicking a checked radio is a no-op.
+  reachable.sort((a, b) => Number(a.checkedRadio) - Number(b.checkedRadio));
+  const presentCount = reachable.length;
+  const result = { attempted: false, pass: false, presentCount, totalCount: await filters.count(), disclosures, controls: [] };
+  for (const { control, target } of reachable.slice(0, 16)) {
+    const state = () => control.evaluate(node => JSON.stringify(node.tagName === "SELECT" ? { values: [...node.selectedOptions].map(option => option.value) } : node.tagName === "INPUT" ? { checked: node.checked } : node.hasAttribute("aria-pressed") ? { pressed: node.getAttribute("aria-pressed") } : { selected: node.getAttribute("aria-selected") }));
+    const unavailable = !await control.isEnabled();
+    const options = await control.evaluate(node => node.tagName === "SELECT" ? [...node.options].filter(option => !option.disabled && !option.closest('optgroup[disabled]')).map(option => option.value) : null);
+    const current = await control.evaluate(node => node.value);
+    const alternate = options?.find(value => value !== current);
+    if (unavailable || (options && alternate === undefined)) {
+      result.controls.push({ status: "unavailable", nativeDisabled: await control.evaluate(node => node.matches(':disabled')), reason: unavailable ? "disabled control" : "no alternative enabled option; data readiness is not established" });
+      continue;
+    }
+    try {
+      const before = await state();
+      result.attempted = true;
+      if (options) await control.selectOption(alternate, { timeout: 1500 });
+      else await target.click({ timeout: 1500 });
+      await page.waitForTimeout(80);
+      const after = await state();
+      const changed = before !== after;
+      result.controls.push({ status: changed ? "verified" : "unchanged", before: JSON.parse(before), after: JSON.parse(after) });
+    } catch (error) {
+      result.controls.push({ status: "action-failed", reason: error.message.split("\n")[0] });
+    }
+  }
+  result.pass = result.controls.some(control => control.status === "verified")
+    && !result.controls.some(control => ["action-failed", "unchanged"].includes(control.status))
+    && !disclosures.some(disclosure => disclosure.error)
+    && result.controls.length === presentCount;
+  result.status = result.pass ? "verified" : !presentCount ? (result.totalCount ? "unreachable" : "missing-semantics") : !result.attempted ? "unavailable" : "failed";
+  result.reason = result.pass ? "selection state changed; disclosure alone is not selection proof" : result.status === "unavailable" ? "selection unverified: controls are disabled or have no alternative option; do not invent data to pass" : result.status === "unreachable" ? "selection controls exist but disclosure did not make them reachable" : result.status === "missing-semantics" ? "no semantic selection control found; class-only custom controls cannot be verified" : "selection action failed or semantic state did not change";
+  return result;
+}
+
+async function reachableFilterControls(filters) {
+  const reachable = [];
+  for (const control of await filters.elementHandles()) {
+    // Native inputs may intentionally be transparent/hidden behind their label.
+    // Exercise the associated visible label, never force-click or mutate state.
+    const labels = await control.evaluateHandle(node => [...(node.labels || [])]);
+    let target;
+    for (const property of (await labels.getProperties()).values()) {
+      const label = property.asElement();
+      if (label && await label.isVisible()) { target = label; break; }
+    }
+    await labels.dispose();
+    if (!target && await control.isVisible()) target = control;
+    if (target) reachable.push({ control, target, checkedRadio: await control.evaluate(node => node.matches('input[type="radio"]') && node.checked) });
+  }
+  return reachable;
 }
 
 function buildChecks(measurements, scrollProbe, interactions, consoleErrors, pageErrors) {
@@ -216,13 +297,52 @@ function buildChecks(measurements, scrollProbe, interactions, consoleErrors, pag
   add("SCROLL_CHANGES_AND_RESTORES", !needsScroll || (scrollProbe.changed > scrollProbe.start && scrollProbe.restored === scrollProbe.start), "Scrolling must change and restore document scrollTop.", scrollProbe);
   add("IMAGE_LOADS", measurements.images.every((image) => image.complete && image.naturalWidth > 0 && image.naturalHeight > 0), "Every visible image must load with intrinsic dimensions.", measurements.images);
   add("HOST_TASK_CONTROLS_PRESENT", measurements.semanticControls.textInputs >= 1 && measurements.semanticControls.primaryActions >= 1, "The startup task needs a visible input and action.", measurements.semanticControls);
-  add("FILTER_CONTROLS_PRESENT", measurements.semanticControls.filters >= 1, "The productive state needs at least one inspectable filter/selection control.", measurements.semanticControls);
+  add("FILTER_CONTROLS_PRESENT", interactions.filter.presentCount >= 1, "Selection controls must be reachable directly or after disclosure.", interactions.filter);
   add("PEER_RESULTS_PRESENT", measurements.resultHierarchy.peerCount >= 2, "At least two ordinary peer results are required for scan/comparison QA.", measurements.resultHierarchy);
   add("PEER_GEOMETRY_STABLE", measurements.resultHierarchy.peerHeightRatio <= 1.5 && measurements.resultHierarchy.peerWidthRatio <= 1.08, "Ordinary peer results must keep comparable geometry.", measurements.resultHierarchy);
   add("PRIMARY_INTERACTION_WORKS", interactions.primary.pass, "The primary action must produce an observable DOM state change.", interactions.primary);
-  add("FILTER_INTERACTION_WORKS", interactions.filter.pass, "A filter or selection control must change state.", interactions.filter);
+  add("FILTER_INTERACTION_WORKS", interactions.filter.pass, interactions.filter.reason, interactions.filter);
+  const filter = interactions.filter;
+  if (schemaPreviewPolicy && filter.status === "unavailable" && !filter.attempted && filter.presentCount > 0
+      && filter.presentCount === filter.totalCount && filter.controls.length === filter.presentCount
+      && filter.controls.every(control => control.status === "unavailable" && control.nativeDisabled === true)
+      && filter.disclosures.every(disclosure => !disclosure.error)) {
+    Object.assign(checks.at(-1), {blocking:false,message:"Frozen host-schema preview: all filters are natively disabled; real business filtering remains unverified.",scopeBinding:schemaPreviewPolicy});
+  }
   add("NO_RUNTIME_ERRORS", !consoleErrors.length && !pageErrors.length, "The isolated H5 must not emit runtime errors during the mechanical probe.", { consoleErrors, pageErrors });
   return checks;
+}
+
+function frozenSchemaPreviewPolicy() {
+  // No inferred schema exception: require this producer's exact frozen input,
+  // receipt/dispatch and unchanged H5 output bindings. Missing facts stay strict.
+  const manifestFile = path.join(migrationDir, "execution-manifest.json");
+  if (!fs.existsSync(manifestFile)) return null;
+  const bound = ref => {
+    const target = path.resolve(root, ref?.path || "");
+    if (!ref?.sha256 || !target.startsWith(`${root}${path.sep}`) || !fs.existsSync(target)
+        || !fs.realpathSync(target).startsWith(`${fs.realpathSync(root)}${path.sep}`) || sha256File(target) !== ref.sha256) throw new Error("SCHEMA_POLICY_BINDING_INVALID");
+    return readJson(target);
+  };
+  try {
+    const manifest = readJson(manifestFile);
+    const producer = [...(manifest.stages || [])].reverse().find(stage => stage.stage === "h5DirectionGeneration");
+    if (manifest.mode !== "design-host" || producer?.status !== "complete" || producer.verdict !== "pass") return null;
+    const receipt = bound({path:producer.receiptPath,sha256:producer.receiptSha256});
+    const dispatch = bound({path:producer.dispatchPath,sha256:producer.dispatchSha256});
+    if (receipt.stageId !== producer.id || receipt.dispatchId !== dispatch.dispatchId || dispatch.stageId !== producer.id
+        || receipt.goalSha256 !== manifest.goalSha256 || dispatch.goalSha256 !== manifest.goalSha256
+        || JSON.stringify(receipt.outputs) !== JSON.stringify(producer.outputHashes)) return null;
+    const baseline = dispatch.requiredInputs?.find(ref => ref.path === `migrations/${brand}/host-startup-baseline.json`);
+    if (!baseline || !receipt.inputs?.some(ref => ref.path === baseline.path && ref.sha256 === baseline.sha256)) return null;
+    for (const direction of directions) {
+      if (!receipt.outputs.some(ref => ref.path === direction.artifact.path && ref.sha256 === direction.artifact.sha256)) return null;
+      const target = path.resolve(root,direction.artifact.path);
+      if (sha256File(target) !== direction.artifact.sha256) return null;
+    }
+    if (bound(baseline).resultContentContract?.mode !== "host-schema") return null;
+    return {mode:"host-schema",baseline,producerReceipt:{path:producer.receiptPath,sha256:producer.receiptSha256}};
+  } catch { return null; }
 }
 
 function readJson(file) {

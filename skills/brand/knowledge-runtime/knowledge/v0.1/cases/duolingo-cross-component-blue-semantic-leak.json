@@ -6,7 +6,7 @@
   "contextKey": "duolingo-official|deck-search-filter-blue-leak",
   "finding": "Blue observed on Duolingo's login primary action was reused as the selected color for host filter chips even though no same-role Tab or Chip evidence existed.",
   "observedSource": {
-    "url": "[non-public reference omitted]",
+    "url": "http://127.0.0.1:57985/index.html?checkpoint=productive-components-v2",
     "label": "Productive checkpoint with blue filter selection",
     "record": "login-primary-action-component plus output/host-mirror-checkpoint/index.html",
     "evidenceStatus": "rendered-h5-direct-inspection-and-trace"
@@ -57,9 +57,5 @@
     },
     "nextCaseQuestion": "在另一个品牌中，门禁能否同时阻断错误借色并允许有明确策略的合法跨组件映射？"
   },
-  "readerPurpose": "跨组件颜色语义泄漏的失败案例",
-  "publicExport": {
-    "nonPublicReferencesOmitted": 1,
-    "evidenceAccess": "Some original references are withheld; this copy does not provide independent evidence access."
-  }
+  "readerPurpose": "跨组件颜色语义泄漏的失败案例"
 }

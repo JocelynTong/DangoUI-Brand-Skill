@@ -739,6 +739,8 @@ async function main() {
     } finally { await browser.close(); }
     return;
   }
+  // Never modify a previous capture before discovering a late wx collision.
+  if (fs.existsSync(outDir) && fs.readdirSync(outDir).length) fail('Capture output already contains evidence. Resume the existing dispatch; an explicitly required recapture must use a new isolated --out-dir.', { blockingCode: 'CAPTURE_OUTPUT_EXISTS', outDir });
   const cssDir = path.join(outDir, "css");
   ensureDir(cssDir);
 

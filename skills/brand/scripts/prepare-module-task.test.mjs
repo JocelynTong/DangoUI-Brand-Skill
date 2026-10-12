@@ -28,6 +28,62 @@ test('metadata discovery needs no recipe knowledge or writes', t => {
   const r = f.run(); assert.equal(r.status, 'awaiting-recipe-selection'); assert.equal(r.candidates.length, 2); assert.equal(fs.existsSync(f.opts.artifactRoot), false);
   assert.ok(r.candidates.every(x => x.dependencyStatus === 'not-checked-until-selected'));
 });
+test('explicit existing build support is copied unchanged and hash protected', t => {
+  const f = fixture(t);
+  f.write(f.hostRoot, 'build-policy.cjs', 'module.exports = { enabled: false }');
+  f.opts.supportFiles = 'build-policy.cjs';
+  f.run();
+  const task = JSON.parse(fs.readFileSync(path.join(f.opts.artifactRoot, 'task.json')));
+  assert.ok(task.host.protectedFiles.some(x => x.path === 'build-policy.cjs' && x.sha256 === hash('module.exports = { enabled: false }')));
+  assert.equal(fs.readFileSync(path.join(f.opts.artifactRoot, 'host/build-policy.cjs'), 'utf8'), 'module.exports = { enabled: false }');
+});
+test('explicit support cannot copy secrets, traversal, directories, target or symlinks', t => {
+  const f = fixture(t);
+  fs.symlinkSync(path.join(f.hostRoot, 'package.json'), path.join(f.hostRoot, 'alias.cjs'));
+  for (const name of ['.env', 'qdmp.json', '../brand/brand-mod.json', 'config', f.opts.target, 'alias.cjs', 'package.json,package.json']) {
+    f.opts.supportFiles = name;
+    assert.throws(f.run);
+    assert.equal(fs.existsSync(f.opts.artifactRoot), false);
+  }
+});
+test('published brand identity is accepted without mutating source or its scope', t => {
+  const f = fixture(t);
+  f.mod.manifest.brand = f.mod.manifest.id; delete f.mod.manifest.id;
+  f.write(f.brandRoot, 'brand-mod.json', f.mod);
+  const original = fs.readFileSync(path.join(f.brandRoot, 'brand-mod.json'));
+  const result = f.run();
+  assert.equal(result.status, 'awaiting-adaptation');
+  assert.equal(result.userGoalCompleted, false);
+  assert.deepEqual(fs.readFileSync(path.join(f.brandRoot, 'brand-mod.json')), original);
+  const selected = JSON.parse(fs.readFileSync(path.join(f.opts.artifactRoot, 'brand/selected-recipes.json')));
+  assert.deepEqual(selected.manifest, f.mod.manifest);
+});
+test('conflicting or malformed brand identities fail before writes', t => {
+  const f = fixture(t);
+  for (const identity of ['other', '', '../example', null, 42]) {
+    f.mod.manifest.brand = identity; f.write(f.brandRoot, 'brand-mod.json', f.mod);
+    assert.throws(f.run, /BRAND_ID_INVALID/);
+    assert.equal(fs.existsSync(f.opts.artifactRoot), false);
+  }
+});
+test('composition-only published packages are not silently promoted to recipes', t => {
+  const f = fixture(t);
+  f.mod.manifest.brand = f.mod.manifest.id; delete f.mod.manifest.id;
+  f.mod.componentVariants = [{ id: 'card', component: 'Card + Image', status: 'composed', evidenceRefs: ['state'] }];
+  f.write(f.brandRoot, 'brand-mod.json', f.mod);
+  assert.throws(f.run, /MODULE_PREP_RECIPES_REQUIRED/);
+  assert.equal(fs.existsSync(f.opts.artifactRoot), false);
+});
+test('brand identity alias does not relax recipe approval or capture requirements', t => {
+  const f = fixture(t);
+  f.mod.manifest.brand = f.mod.manifest.id; delete f.mod.manifest.id;
+  f.mod.componentVariants[0].status = 'candidate'; f.write(f.brandRoot, 'brand-mod.json', f.mod);
+  assert.throws(f.run, /RECIPE_NOT_SUPPORTED/);
+  f.mod.componentVariants[0].status = 'approved'; f.write(f.brandRoot, 'brand-mod.json', f.mod);
+  delete f.evidence.claims[0].capture.sha256; f.write(f.brandRoot, 'brand-evidence.json', f.evidence);
+  assert.throws(f.run, /CAPTURE_BINDING_REQUIRED/);
+  assert.equal(fs.existsSync(f.opts.artifactRoot), false);
+});
 test('dispatch carries protected host guides and declared build context without executing it', t => {
   const f = fixture(t);
   f.write(f.hostRoot, 'README.md', 'Existing host build guide');
@@ -80,10 +136,13 @@ test('symlink source/host and dangling output never bypass checks', t => {
 });
 test('public entry prepares ordinary inputs without manual manifest and rejects route mixing', t => {
   const f = fixture(t);
+  f.write(f.hostRoot, 'build-policy.cjs', 'module.exports = { enabled: false }');
   const args = ['skills/brand/scripts/run-brand-workflow.mjs', 'run', '--request-kind', 'host-concepts', '--mode', 'design-host', '--brand-root', f.brandRoot, '--host-target', f.hostRoot, '--module-task', f.opts.task, '--module-id', f.opts.moduleId, '--module-target', f.opts.target];
   const discover = spawnSync(process.execPath, args, { encoding: 'utf8' }); assert.equal(discover.status, 0, discover.stdout); assert.equal(JSON.parse(discover.stdout).status, 'awaiting-recipe-selection');
   const mixed = spawnSync(process.execPath, [...args, '--component-task', '/not-used'], { encoding: 'utf8' }); assert.notEqual(mixed.status, 0); assert.equal(fs.existsSync(f.opts.artifactRoot), false);
-  const prepared = spawnSync(process.execPath, [...args, '--recipes', 'toggle', '--trial-authorization', f.opts.authorization, '--artifact-root', f.opts.artifactRoot], { encoding: 'utf8' }); assert.equal(prepared.status, 0, prepared.stdout); assert.equal(JSON.parse(prepared.stdout).status, 'awaiting-adaptation');
+  const prepared = spawnSync(process.execPath, [...args, '--recipes', 'toggle', '--trial-authorization', f.opts.authorization, '--artifact-root', f.opts.artifactRoot, '--host-support-files', 'build-policy.cjs'], { encoding: 'utf8' }); assert.equal(prepared.status, 0, prepared.stdout); assert.equal(JSON.parse(prepared.stdout).status, 'awaiting-adaptation');
+  const task = JSON.parse(fs.readFileSync(path.join(f.opts.artifactRoot, 'task.json')));
+  assert.ok(task.host.protectedFiles.some(x => x.path === 'build-policy.cjs'));
 });
 test('unsupported runtime/config/build target fails without leaving output', t => {
   const f = fixture(t); f.opts.buildTarget = 'unknown'; assert.throws(f.run, /BUILD_TARGET/); assert.equal(fs.existsSync(f.opts.artifactRoot), false);

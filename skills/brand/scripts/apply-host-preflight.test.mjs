@@ -4,6 +4,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import { runApplyHostPreflight } from "./apply-host-preflight.mjs";
+import { collectPngReferences } from "./evidence-file-references.mjs";
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), "brand-apply-preflight-"));
 const brand = "fixture";
@@ -77,6 +78,22 @@ fs.writeFileSync(path.join(migration, "brand-evidence.json"), JSON.stringify({ c
 result = runApplyHostPreflight({ root, brand, hostTarget: "host", profile: "fast", phase: "design", write: false });
 assert.equal(result.frozenPack.reuseDecision, "reuse-without-relearning");
 assert.equal(result.frozenPack.referencedEvidenceCount, 1);
+
+const identityIntent = { compositionContract: { sourceAsset: { identity: "laptop-2x.png + pikachu-2x.png + phone-2x.png" } }, nested: [{ identity: ["semantic-a.png", "semantic-b.png"] }] };
+fs.writeFileSync(path.join(migration, "brand-intent.json"), JSON.stringify(identityIntent));
+result = runApplyHostPreflight({ root, brand, hostTarget: "host", phase: "design", write: false });
+assert.equal(result.verdict, "pass");
+assert.equal(result.frozenPack.referencedEvidenceCount, 1);
+const mixedRefs = new Set();
+collectPngReferences({ identity: ["label.png", { localPath: "actual.png" }], rows: [{ identity: "description.png", screenshot: "screen.png#viewport" }], legacy: ["legacy.png"], path: "path.png" }, mixedRefs);
+assert.deepEqual([...mixedRefs].sort(), ["actual.png", "legacy.png", "path.png", "screen.png"]);
+for (const key of ["path", "localPath", "screenshot", "legacy"]) {
+  fs.writeFileSync(path.join(migration, "brand-intent.json"), JSON.stringify({ ...identityIntent, nested: [{ identity: ["semantic.png", { [key]: "missing-real.png" }] }] }));
+  const missing = runApplyHostPreflight({ root, brand, hostTarget: "host", phase: "design", write: false });
+  assert.equal(missing.verdict, "blocked");
+  assert(missing.blocking.includes("FROZEN_EVIDENCE_MISSING:missing-real.png"));
+}
+fs.writeFileSync(path.join(migration, "brand-intent.json"), JSON.stringify(identityIntent));
 
 const implementationWithoutDesign = runApplyHostPreflight({ root, brand, hostTarget: "host", profile: "fast", phase: "implementation", write: false });
 assert.equal(implementationWithoutDesign.verdict, "blocked");

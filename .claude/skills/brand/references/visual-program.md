@@ -16,6 +16,7 @@ These are decision lenses, not imported component rules. DangoUI remains the beh
 Each candidate owns one compact `visualProgram` with:
 
 - `productionFormula`: separate `expressive`, `productive`, and `expertDecision` bindings. Expressive names the ImageGen call and generated-proposal scope; productive binds Brand MOD/Intent plus host baseline hashes; expertDecision records the question, knowledge references, rejected allocation and host-specific rationale.
+- Productive `patternBindings` use the exact `patternId` from the MOD-linked, dispatch-hashed approved pattern catalog. A component's `id` and its `approvedPatternId` are different identities: optional `systemRef` must resolve to the matching MOD component, not a guessed alias. Record the actual region, consumed/omitted layers and adaptation; the compiler preserves catalog scope and forbidden transforms for independent review. Successful reference binding is not proof of visual fidelity.
 - `identityPolicy`: generated environments are allowed, while source-specific characters, mascots, logos and identity subjects require unmodified evidence-source assets and may never be approximated by ImageGen.
 - `hostClassification`: `efficiency-first`, `balanced` or `immersion-first`.
 - `experienceZones`: productive, expressive or blended regions, each with a host job, viewport budget, interaction frequency and evidence-backed brand mechanisms.

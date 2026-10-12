@@ -47,6 +47,8 @@ status 只检查已冻结输入、安装文件、受保护文件和真实相对�
 
 已有学习包的单模块任务优先走此入口，不写内部 manifest，不依赖旧聊天或实验目录。当前支持包中 `componentVariants[].component=local-style-recipe`，其 `evidenceRefs` 关联同目录 `brand-evidence.json.claims`，以及 `tokens.styleOnly[].recipeId`。不声称任意品牌格式、组件库或整页自动选型已经支持。
 
+品牌身份兼容 `manifest.id` 与已发布 MOD 的 `manifest.brand`；同时存在时必须一致，并匹配 evidence.brand。该兼容不转换设计内容：只有组合描述而没有 local-style-recipe 时返回 `MODULE_PREP_RECIPES_REQUIRED`，由学习侧补齐有依据的局部配方，不能重标旧状态或让实施者临场猜样式。
+
 ```sh
 node <skill>/scripts/run-brand-workflow.mjs run --request-kind host-concepts --mode design-host \
   --brand-root <原品牌包绝对目录> --host-target <原宿主绝对目录> \
@@ -67,6 +69,8 @@ node <skill>/scripts/run-brand-workflow.mjs run --request-kind host-concepts --m
 自动生成 `task.json`、`dispatch.json`、`brand/selected-recipes.json` 与 `host/` 副本，继续调用原 `component-task` 校验。切片保留真实来源 manifest/scope/limitations、所选 recipes 与关联 styleOnly token、claims 与其中全部 path+hash 依赖（包括 before/after capture）；每个 claim 必须有合法 capture 或 sourceCapture，出现的 capture 字段不能为空或缺 path/hash，before/after 必须成对。任一选中证据缺失/漂移即在写入前阻断，不以“局部任务”跳过。其它 recipes 不被判为可用。截图只能审核，不能进入运行组件；未包含的 demo/字体/图片/布局契约不是可自由引用资产。现阶段是来源 recipe 薄适配，不是自动转译已有 Vue 库或自动执行设计。
 
 目标仅限 Taro Vue3 `.vue`、唯一字面量 sourceRoot/framework，默认 weapp，可显式 `--build-target h5`。新副本不含 node_modules/凭据，真实运行检查仍须在已有合法环境完成。根目录存在的 README、DESIGN、AGENTS 随副本保留并受 hash 保护；不要求项目预先拥有这些文件。原宿主全部复制源码（除目标）自动 hash 保护，`.brand-components` 同时作为已接受组件保护；目标文件内仅任务范围可改，语义保护仍需独立 diff/运行 QA。输出为 pending 试装 dispatch，不能报告整页旧路径已修复、整个 Skill 已通过或用户已批准。
+
+若已读的宿主构建配置或脚本依赖固定清单外的现有文件，执行 Agent 可用 `--host-support-files <逗号分隔的宿主相对文件路径>` 明确补入；这些文件同样只读复制并进入 protectedFiles，不扩大可编辑范围。不接受目录、符号链接、目标源码、越界或上述敏感路径；不会执行文件或自动安装依赖。文件名排除仍不等于内容保密审查，执行者须确认所选文件确为必要构建/测试输入，不让用户填写清单。
 
 ### 准备后继续交付
 

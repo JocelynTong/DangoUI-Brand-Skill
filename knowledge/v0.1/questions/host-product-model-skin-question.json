@@ -1,0 +1,46 @@
+{
+  "schema": "brand-decision-question/v0.1",
+  "id": "host-product-model-skin-question",
+  "title": "保留宿主时，哪些该保留，哪些必须换掉？",
+  "status": "open-single-case",
+  "scope": "区分宿主产品不变量、业务语义与可替换旧主题皮肤，避免把保结构误做成保旧视觉。",
+  "methodRef": "host-product-model-skin-separation",
+  "caseRefs": [
+    "duolingo-host-skin-preservation-false-positive"
+  ],
+  "hypothesisRefs": [
+    "host-product-model-does-not-preserve-skin"
+  ],
+  "nextEvidenceNeeded": "换一个品牌与宿主，验证首屏旧皮肤分类能否在不破坏业务语义的前提下自动清除高显著度残留。",
+  "requiredContext": [
+    "宿主首屏产品任务",
+    "受保护数据与交互",
+    "硬编码视觉清单",
+    "业务语义色",
+    "最终首屏"
+  ],
+  "stages": [
+    "design-host",
+    "apply-host",
+    "acceptance"
+  ],
+  "readerPurpose": "判断宿主保护边界与旧主题清理范围",
+  "focusedBasis": {
+    "status": "candidate",
+    "items": [
+      "先冻结产品任务、数据、信息结构、交互与业务语义，再盘点颜色、字体、圆角、阴影和选中态等视觉生产者。",
+      "视觉生产者分为业务语义、结构中性与旧主题残留；前两类保护或审慎处理，旧主题残留默认替换。",
+      "保留旧视觉必须有业务语义理由；QA 在最终首屏检查最大的旧主题残留区域。"
+    ],
+    "sourceRefs": [
+      {"kind": "method", "id": "host-product-model-skin-separation"},
+      {"kind": "rule", "id": "host-product-model-does-not-preserve-skin"}
+    ]
+  },
+  "caseNotes": [
+    {
+      "caseId": "duolingo-host-skin-preservation-false-positive",
+      "summary": "搜索、筛选和列表结构正确，但紫色选中态与 DangoUI 组件气质继续占据首屏，证明保结构不能等于保旧皮肤。"
+    }
+  ]
+}

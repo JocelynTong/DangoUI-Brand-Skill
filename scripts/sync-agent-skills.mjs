@@ -23,6 +23,9 @@ for (const entry of fs.readdirSync(skillsRoot, { withFileTypes: true })) {
 
   if (!fs.existsSync(path.join(source, "SKILL.md"))) continue;
 
+  // Source, repository copy and installed copy must share a fresh integrity
+  // manifest; otherwise a GitHub checkout rejects its own updated scripts.
+  writeIntegrity(source, entry.name);
   syncDirectory(source, claudeTarget);
   writeIntegrity(claudeTarget, entry.name);
   console.log(`Synced ${path.relative(root, source)} -> ${path.relative(root, claudeTarget)}`);

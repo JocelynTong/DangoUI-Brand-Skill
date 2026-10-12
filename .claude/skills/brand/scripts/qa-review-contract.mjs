@@ -9,6 +9,27 @@ const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
 const assert = (condition, code) => { if (!condition) throw new Error(code); };
 const arr = value => Array.isArray(value) ? value : [];
 const isFrozenRule=ref=>/approved|brand-intent|design-direction|frozen.*rule|learning-trial/i.test(ref.path);
+function archivedProducerInput(root, manifest, stage, ref) {
+  const ancestors=manifest.stages.slice(0,manifest.stages.indexOf(stage)+1);
+  const archiveRefs=[...new Map(ancestors.flatMap(item=>[item.retryInput?.priorQaPreservation,item.retryInput?.failedAttemptArchive].filter(Boolean)).map(item=>[item.path+'@'+item.sha256,item])).values()];
+  let original=null;
+  for (const archiveRef of archiveRefs) {
+    const archive=read(verifyReviewBinding(root,archiveRef));
+    const copy=arr(archive.archivedOutputs).find(item=>item.path===ref.path&&item.sha256===ref.sha256);
+    if (!copy) continue;
+    const owner=ancestors.find(item=>item.id===archive.stage?.id);
+    assert(['brand-failed-stage-archive/v1','brand-qa-triggered-demo-preservation/v1'].includes(archive.schema)
+      && owner && JSON.stringify(owner)===JSON.stringify(archive.stage),'QA_REVIEW_PRODUCER_ARCHIVE_STAGE_BINDING');
+    const receipt=read(verifyReviewBinding(root,{path:owner.receiptPath,sha256:owner.receiptSha256}));
+    assert(receipt.goalSha256===manifest.goalSha256 && receipt.stageId===owner.id
+      && [...arr(receipt.inputs),...arr(receipt.outputs)].some(item=>item.path===copy.originalPath&&item.sha256===copy.sha256),'QA_REVIEW_PRODUCER_ARCHIVE_ALIAS_BINDING');
+    verifyReviewBinding(root,copy);
+    assert(!original || original.path===copy.originalPath,'QA_REVIEW_PRODUCER_ARCHIVE_ALIAS_AMBIGUOUS');
+    original={path:copy.originalPath,sha256:copy.sha256};
+  }
+  assert(original || (!ref.originalPath && !/\/attempts\/.*\/(?:workspace|producer-preservation-workspace)\//.test(ref.path)),'QA_REVIEW_PRODUCER_ARCHIVE_ALIAS_UNKNOWN');
+  return original || ref;
+}
 function effectiveProducerRules(root,manifest,stage,seen=new Set()) {
   assert(!seen.has(stage.id),'QA_REVIEW_PRODUCER_INPUT_CYCLE');seen.add(stage.id);
   const receipt=read(verifyReviewBinding(root,{path:stage.receiptPath,sha256:stage.receiptSha256})),direct=arr(receipt.inputs).filter(isFrozenRule);
@@ -17,7 +38,8 @@ function effectiveProducerRules(root,manifest,stage,seen=new Set()) {
     // The consumed rule version is a leaf of the current design contract.
     // Its interpreter may have consumed an older version to produce this one.
     if (isFrozenRule(ref)) return [];
-    const producer=[...previous].reverse().find(item=>arr(item.outputHashes).some(output=>output.path===ref.path&&output.sha256===ref.sha256));
+    const consumed=archivedProducerInput(root,manifest,stage,ref);
+    const producer=[...previous].reverse().find(item=>arr(item.outputHashes).some(output=>output.path===consumed.path&&output.sha256===consumed.sha256));
     return producer?effectiveProducerRules(root,manifest,producer,new Set(seen)):[];
   });
   const directPaths = new Set(direct.map(ref=>ref.path));
@@ -255,7 +277,16 @@ export function prepareQaReview({ root, brand, reviewMode, qaExecutionId, priorR
     const assessmentRef = priorOutputs.find(ref => /visual-qa-assessment\.json$/.test(ref.path));
     assert(assessmentRef, 'QA_REVIEW_PRIOR_ASSESSMENT_REQUIRED');
     priorAssessment = read(verifyReviewBinding(root, assessmentRef));
-    assert(priorAssessment.reviewerRecommendation !== 'pass', 'QA_REVIEW_OLD_PASS_FORBIDDEN');
+    if (priorAssessment.reviewerRecommendation === 'pass') {
+      // A visual recommendation does not override a hash-bound mechanical failure.
+      const fidelityRef = priorOutputs.find(ref => /fidelity-report\.json$/.test(ref.path));
+      const fidelity = fidelityRef ? read(verifyReviewBinding(root, fidelityRef)) : null;
+      assert(fidelity?.schema === 'brand-visual-quality-result/v2'
+        && fidelity.goalSha256 === goal.sha256
+        && fidelity.inputHashes?.assessment === assessmentRef.sha256
+        && ((fidelity.status === 'fidelity-fail' && arr(fidelity.hardFailures).length > 0)
+          || (fidelity.status === 'protocol-blocked' && arr(fidelity.protocolFailures).length > 0)), 'QA_REVIEW_OLD_PASS_FORBIDDEN');
+    }
   }
   const reviewId = crypto.randomUUID(), archiveDir = path.join(migration, 'qa-reviews', reviewId);
   const copies = [];

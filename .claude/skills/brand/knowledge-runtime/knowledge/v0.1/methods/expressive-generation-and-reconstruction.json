@@ -6,7 +6,7 @@
   "procedure": [
     "按决策问题检索案例，比较当前上下文与适用边界",
     "形成区域表达计划，再选择现有素材、代码或生图",
-    "生成前分离品牌证据、场景自由度、业务约束与动态还原风险",
+    "生成前分离品牌证据、场景自由度、业务约束与动态还原风险，并冻结真实宿主内容的角色、尺寸、比例、承托和回退",
     "候选图先做动态H5试片，再冻结方向供宿主实施",
     "分别记录机器运行检查、人的视觉反馈与规则修订"
   ],
@@ -17,6 +17,7 @@
   ],
   "ruleRefs": [
     "prefer-reconstructible-dynamic-scenes",
+    "host-content-integration-before-scene-generation",
     "visual-authority",
     "scene-occlusion",
     "scene-continuity",
@@ -41,6 +42,18 @@
       ],
       "failureSignals": [
         "相互冲突的依据被无说明地混用，或只迁移主色而改变选定明暗、结构、材质。"
+      ]
+    },
+    {
+      "questionId": "host-content-scene-integration",
+      "principle": "真实宿主内容先有业务角色和可验证的视觉承载，再生成围绕它的场景；空槽、相框或白板本身不能证明融合。",
+      "options": [
+        "将真实对象作为场景主体：生成前冻结比例、可读尺寸、接触、遮挡和容器理由",
+        "将真实对象保留在 Productive UI，expressive 只负责品牌环境和任务引导",
+        "证据、像素或几何不足时返回方向设计，不生成占位槽"
+      ],
+      "failureSignals": [
+        "生成后才寻找空位塞入真实图；出现双层边框、方槽塞竖图、不可读缩放，或只有统一阴影而无业务和承托关系。"
       ]
     },
     {

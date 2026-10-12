@@ -2,6 +2,11 @@
   "schema": "brand-knowledge-index/v0.1",
   "questions": [
     {
+      "id": "user-goal-role-qa-expression-question",
+      "path": "knowledge/v0.1/questions/user-goal-role-qa-expression-question.json",
+      "guide": "knowledge/v0.1/questions/user-goal-role-qa-expression-question.md"
+    },
+    {
       "id": "expressive-productive-allocation-question",
       "path": "knowledge/v0.1/questions/expressive-productive-allocation.json",
       "guide": "knowledge/v0.1/questions/expressive-productive-allocation.md"
@@ -30,6 +35,11 @@
       "id": "host-reconstruction-risk",
       "path": "knowledge/v0.1/questions/host-reconstruction-risk.json",
       "guide": "knowledge/v0.1/questions/host-reconstruction-risk.md"
+    },
+    {
+      "id": "host-content-scene-integration",
+      "path": "knowledge/v0.1/questions/host-content-scene-integration.json",
+      "guide": "knowledge/v0.1/questions/host-content-scene-integration.md"
     },
     {
       "id": "host-repair-or-reselect",
@@ -72,12 +82,27 @@
       "guide": "knowledge/v0.1/questions/cross-page-token-promotion-question.md"
     },
     {
+      "id": "host-product-model-skin-question",
+      "path": "knowledge/v0.1/questions/host-product-model-skin-question.json",
+      "guide": "knowledge/v0.1/questions/host-product-model-skin-question.md"
+    },
+    {
+      "id": "component-role-style-promotion-question",
+      "path": "knowledge/v0.1/questions/component-role-style-promotion-question.json",
+      "guide": "knowledge/v0.1/questions/component-role-style-promotion-question.md"
+    },
+    {
       "id": "design-asset-adoption-question",
       "path": "knowledge/v0.1/questions/design-asset-adoption-question.json",
       "guide": "knowledge/v0.1/questions/design-asset-adoption-question.md"
     }
   ],
   "methods": [
+    {
+      "id": "user-goal-role-qa-expression",
+      "path": "knowledge/v0.1/methods/user-goal-role-qa-expression.json",
+      "guide": "knowledge/v0.1/methods/user-goal-role-qa-expression.md"
+    },
     {
       "id": "expressive-productive-allocation",
       "path": "knowledge/v0.1/methods/expressive-productive-allocation.json",
@@ -97,6 +122,16 @@
       "id": "cross-page-token-promotion",
       "path": "knowledge/v0.1/methods/cross-page-token-promotion.json",
       "guide": "knowledge/v0.1/methods/cross-page-token-promotion.md"
+    },
+    {
+      "id": "host-product-model-skin-separation",
+      "path": "knowledge/v0.1/methods/host-product-model-skin-separation.json",
+      "guide": "knowledge/v0.1/methods/host-product-model-skin-separation.md"
+    },
+    {
+      "id": "component-role-style-promotion",
+      "path": "knowledge/v0.1/methods/component-role-style-promotion.json",
+      "guide": "knowledge/v0.1/methods/component-role-style-promotion.md"
     },
     {
       "id": "knowledge-promotion",
@@ -128,6 +163,11 @@
       "guide": "knowledge/v0.1/rules/prefer-reconstructible-dynamic-scenes.md"
     },
     {
+      "id": "host-content-integration-before-scene-generation",
+      "path": "knowledge/v0.1/rules/host-content-integration-before-scene-generation.json",
+      "guide": "knowledge/v0.1/rules/host-content-integration-before-scene-generation.md"
+    },
+    {
       "id": "visual-authority",
       "path": "knowledge/v0.1/rules/visual-authority.json",
       "guide": "knowledge/v0.1/rules/visual-authority.md"
@@ -146,6 +186,21 @@
       "id": "dynamic-scene-proof",
       "path": "knowledge/v0.1/rules/dynamic-scene-proof.json",
       "guide": "knowledge/v0.1/rules/dynamic-scene-proof.md"
+    },
+    {
+      "id": "host-product-model-does-not-preserve-skin",
+      "path": "knowledge/v0.1/rules/host-product-model-does-not-preserve-skin.json",
+      "guide": "knowledge/v0.1/rules/host-product-model-does-not-preserve-skin.md"
+    },
+    {
+      "id": "component-style-requires-role-evidence",
+      "path": "knowledge/v0.1/rules/component-style-requires-role-evidence.json",
+      "guide": "knowledge/v0.1/rules/component-style-requires-role-evidence.md"
+    },
+    {
+      "id": "result-emphasis-requires-host-evidence",
+      "path": "knowledge/v0.1/rules/result-emphasis-requires-host-evidence.json",
+      "guide": "knowledge/v0.1/rules/result-emphasis-requires-host-evidence.md"
     }
   ],
   "decisions": [
@@ -186,6 +241,14 @@
             {
               "kind": "question",
               "id": "design-asset-adoption-question"
+            },
+            {
+              "kind": "question",
+              "id": "host-product-model-skin-question"
+            },
+            {
+              "kind": "question",
+              "id": "component-role-style-promotion-question"
             }
           ]
         },
@@ -211,6 +274,22 @@
             {
               "kind": "rule",
               "id": "visual-authority"
+            },
+            {
+              "kind": "method",
+              "id": "host-product-model-skin-separation"
+            },
+            {
+              "kind": "method",
+              "id": "component-role-style-promotion"
+            },
+            {
+              "kind": "rule",
+              "id": "host-product-model-does-not-preserve-skin"
+            },
+            {
+              "kind": "rule",
+              "id": "component-style-requires-role-evidence"
             }
           ]
         },
@@ -224,6 +303,14 @@
             {
               "kind": "decision",
               "id": "pokemon-database-search-orange"
+            },
+            {
+              "kind": "case",
+              "id": "duolingo-host-skin-preservation-false-positive"
+            },
+            {
+              "kind": "case",
+              "id": "duolingo-cross-component-blue-semantic-leak"
             }
           ]
         }
@@ -267,6 +354,10 @@
               "id": "expressive-continuity-in-real-content"
             },
             {
+              "kind": "rule",
+              "id": "result-emphasis-requires-host-evidence"
+            },
+            {
               "kind": "pattern",
               "id": "search-filter-results"
             }
@@ -277,7 +368,19 @@
           "refs": [
             {
               "kind": "case",
+              "id": "duolingo-h5-source-only-qa-false-positive"
+            },
+            {
+              "kind": "case",
               "id": "pokemon-backup4-expressive-false-positive"
+            },
+            {
+              "kind": "case",
+              "id": "newhire-dango-welcome-expression"
+            },
+            {
+              "kind": "case",
+              "id": "duolingo-peer-results-hierarchy-correction"
             }
           ]
         }
@@ -294,6 +397,10 @@
             {
               "kind": "question",
               "id": "host-reconstruction-risk"
+            },
+            {
+              "kind": "question",
+              "id": "host-content-scene-integration"
             },
             {
               "kind": "question",
@@ -326,6 +433,10 @@
             },
             {
               "kind": "rule",
+              "id": "host-content-integration-before-scene-generation"
+            },
+            {
+              "kind": "rule",
               "id": "scene-occlusion"
             },
             {
@@ -347,7 +458,15 @@
             },
             {
               "kind": "case",
+              "id": "pokemon-duolingo-host-slot-integration-failure"
+            },
+            {
+              "kind": "case",
               "id": "opcg-a1-live-host-layering"
+            },
+            {
+              "kind": "case",
+              "id": "duolingo-event-decoration-occlusion"
             }
           ]
         }
@@ -361,6 +480,7 @@
         {
           "label": "问题",
           "refs": [
+            { "kind": "question", "id": "user-goal-role-qa-expression-question" },
             {
               "kind": "question",
               "id": "host-acceptance"
@@ -374,6 +494,7 @@
         {
           "label": "判断依据",
           "refs": [
+            { "kind": "method", "id": "user-goal-role-qa-expression" },
             {
               "kind": "method",
               "id": "knowledge-promotion"
@@ -383,6 +504,7 @@
         {
           "label": "案例",
           "refs": [
+            { "kind": "case", "id": "duolingo-learning-detour-in-host-preview" },
             {
               "kind": "case",
               "id": "spu-search-compact-header-regression"
@@ -397,6 +519,21 @@
     "refs": []
   },
   "cases": [
+    {
+      "id": "duolingo-learning-detour-in-host-preview",
+      "path": "knowledge/v0.1/cases/duolingo-learning-detour-in-host-preview.json",
+      "guide": "knowledge/v0.1/cases/duolingo-learning-detour-in-host-preview.md"
+    },
+    {
+      "id": "duolingo-event-decoration-occlusion",
+      "path": "knowledge/v0.1/cases/duolingo-event-decoration-occlusion.json",
+      "guide": "knowledge/v0.1/cases/duolingo-event-decoration-occlusion.md"
+    },
+    {
+      "id": "duolingo-h5-source-only-qa-false-positive",
+      "path": "knowledge/v0.1/cases/duolingo-h5-source-only-qa-false-positive.json",
+      "guide": "knowledge/v0.1/cases/duolingo-h5-source-only-qa-false-positive.md"
+    },
     {
       "id": "pokemon-backup4-expressive-false-positive",
       "path": "knowledge/v0.1/cases/pokemon-backup4-expressive-false-positive.json",
@@ -413,6 +550,11 @@
       "guide": "knowledge/v0.1/cases/pokemon-generated-deck-scenes.md"
     },
     {
+      "id": "pokemon-duolingo-host-slot-integration-failure",
+      "path": "knowledge/v0.1/cases/pokemon-duolingo-host-slot-integration-failure.json",
+      "guide": "knowledge/v0.1/cases/pokemon-duolingo-host-slot-integration-failure.md"
+    },
+    {
       "id": "opcg-a1-live-host-layering",
       "path": "knowledge/v0.1/cases/opcg-a1-live-host-layering.json",
       "guide": "knowledge/v0.1/cases/opcg-a1-live-host-layering.md"
@@ -426,6 +568,21 @@
       "id": "newhire-dango-welcome-expression",
       "path": "knowledge/v0.1/cases/newhire-dango-welcome-expression.json",
       "guide": "knowledge/v0.1/cases/newhire-dango-welcome-expression.md"
+    },
+    {
+      "id": "duolingo-host-skin-preservation-false-positive",
+      "path": "knowledge/v0.1/cases/duolingo-host-skin-preservation-false-positive.json",
+      "guide": "knowledge/v0.1/cases/duolingo-host-skin-preservation-false-positive.md"
+    },
+    {
+      "id": "duolingo-cross-component-blue-semantic-leak",
+      "path": "knowledge/v0.1/cases/duolingo-cross-component-blue-semantic-leak.json",
+      "guide": "knowledge/v0.1/cases/duolingo-cross-component-blue-semantic-leak.md"
+    },
+    {
+      "id": "duolingo-peer-results-hierarchy-correction",
+      "path": "knowledge/v0.1/cases/duolingo-peer-results-hierarchy-correction.json",
+      "guide": "knowledge/v0.1/cases/duolingo-peer-results-hierarchy-correction.md"
     }
   ],
   "existingCatalog": "public/knowledge/v0.1/index.json"

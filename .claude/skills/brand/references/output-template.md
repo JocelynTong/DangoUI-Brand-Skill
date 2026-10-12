@@ -63,9 +63,9 @@ preview demo 的临时 class、裸 CSS value 和页面变量只能作为探索�
 
 生成者直接使用以下紧凑契约，不读取 validator/test 源码反推格式。Region 为实际截图归一化 `[x,y,width,height]`，hash 来自实际文件，不预填 PASS。
 
-- `visual-pattern-inventory.json`：`schema: brand-visual-pattern-inventory/v1`、冻结 `goalSha256`、`pages[]`；每页含 `demoPageId` 与 `patterns[]`。
+- `visual-pattern-inventory.json`：`schema: brand-visual-pattern-inventory/v1`、冻结 `goalSha256`、正整数 `attempt`、`pages[]`；每页含 `demoPageId` 与 `patterns[]`。`attempt` 是质量审查轮次：首次为 1，已有 QA 失败后返工进入下一轮；QA 开始前的机械补字段不另增质量轮次。它不是 workflow stage/receipt 的重试编号，后续 QA manifest 与 assessment 使用同一质量轮次；新产物显式填写，不依赖首次兼容默认值。
 - 每个高显著度 Pattern：`id/approvedPatternId/salience: high`、`evidenceRefs[]`（`evidenceId/sourcePageId/sourceRegion`）、`demoRegion`、字符串 `selfCheck`（自检完整通过为 `pass`；否则 `fail` 或 `unresolved`，细节另放 `selfCheckDetails`，不把对象塞入该字段）。使用资产时记录 `assets[]` 的 `path/identity/provenance`；provenance 必须有 `sourceUrl/sourceSha256/role/sourceKind`，sourceKind 取 `original-site-asset | dom-css-reconstruction | generated-independent-asset`，不能只有清单而无运行时用途。
-- 构图 Pattern 再含 `preserves[]` 对应 Goal requirement id 与 `compositionSupport`：`sourceAsset/demoAsset` 的 `identity/variant`、`layers[]` 的 `id/role/sourceRegion/demoRegion`。各层必须与已批准规则中的 requiredLayers 一致，不能用整页 Region 充当全部层。
+- 构图 Pattern 再含 `preserves[]` 对应 Goal requirement id 与 `compositionSupport`：`sourceAsset/demoAsset` 的 `identity/variant`、`layers[]` 的 `id/role/sourceRegion/demoRegion`。同一原图与变体沿用已批准的准确 identity/variant 值，不分别改写成两段自然语言；适配说明另记。各层必须与已批准规则中的 requiredLayers 一致，不能用整页 Region 充当全部层。
 - `generative-proof.json`：`schema: brand-generative-proof/v1`、`goalSha256`、`challenge`（`id/heldOut: true/sourceContentIndependent: true/contentChange`，不映射来源页）、`frozenRules[]`（`recipeId/frozenBeforeChallenge`）、`output`（`demoPageId/screenshot: {path,sha256}`）及 `checks`（`brandCueSubstitution: false/structureRulesApplied[]`）。至少复用两条有依据的规则。
 - 必须另保存实际规则冻结文件与之后选定 challenge 的时间/hash 绑定；`frozenBeforeChallenge: true` 不能代替先后发生的证据。旧页面未具备此前提时，应先冻结规则、再做新的 held-out 试验，不补造历史顺序。
 - 独立 QA 自己填写每个高显著度 Pattern、构图层和 frozen recipe 的复核结论；生成者不能替 QA 签字。

@@ -50,7 +50,6 @@ export function validateBrandRenderKit(kit, { evidence = null, brandIntent = nul
   if (evidencePageIds.size > 1 && expressive.some((item) => !evidencePageIds.has(item?.sourcePageRef))) fail("BRAND_RENDER_KIT_EXPRESSIVE_SOURCE_PAGE_REQUIRED");
   if (directions.length !== 3 || new Set(directions.map((item) => item?.id)).size !== 3) fail("BRAND_RENDER_KIT_THREE_DIRECTIONS_REQUIRED");
   const worlds = new Set();
-  const directionSourcePages = new Set();
   for (const direction of directions) {
     const world = String(direction?.visualWorld || "").trim();
     if (world.length < 16) fail("BRAND_RENDER_KIT_VISUAL_WORLD_REQUIRED");
@@ -63,11 +62,12 @@ export function validateBrandRenderKit(kit, { evidence = null, brandIntent = nul
     if (transitionRefs.length < 1 || transitionRefs.some((id) => !transitionIds.has(id))) fail("BRAND_RENDER_KIT_DIRECTION_TRANSITION_REFS_INVALID");
     const sourcePages = Array.isArray(direction?.expressiveSourcePageRefs) ? direction.expressiveSourcePageRefs : [];
     if (evidencePageIds.size > 1 && (!sourcePages.length || sourcePages.some((id) => !evidencePageIds.has(id)))) fail("BRAND_RENDER_KIT_DIRECTION_SOURCE_PAGE_REFS_INVALID");
-    sourcePages.forEach((id) => directionSourcePages.add(id));
     if (!Array.isArray(direction?.identityAssetIds) || direction.identityAssetIds.some((id) => !declaredAssetIds.has(id))) fail("BRAND_RENDER_KIT_DIRECTION_IDENTITY_ASSETS_INVALID");
   }
   if (worlds.size !== 3) fail("BRAND_RENDER_KIT_ART_WORLD_DISTANCE_REQUIRED");
-  if (evidencePageIds.size > 1 && directionSourcePages.size < 2) fail("BRAND_RENDER_KIT_SOURCE_WORLD_DIVERSITY_REQUIRED");
+  // More captured pages do not authorize mixing their visual systems. A host may
+  // legitimately fit only one source purpose; actual direction diversity and
+  // transfer scope still require independent visual review, not a page count.
   // Asset availability is not a requirement to use more assets. Source-backed
   // composition diversity is reviewed separately; asset IDs remain scope-checked above.
   return { ok: errors.length === 0, errors };

@@ -7,6 +7,13 @@ import crypto from 'node:crypto';
 import { spawnSync } from 'node:child_process';
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
 const sha = b => crypto.createHash('sha256').update(b).digest('hex');
+test('collector refuses existing evidence before network or file mutation',t=>{
+  const f=fixture(t),outDir=path.join(f.root,'capture');fs.mkdirSync(outDir);
+  const old=path.join(outDir,'inline-svg-evidence.json');fs.writeFileSync(old,'original evidence');
+  const r=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-rendered-evidence-collector.mjs'),'--root',f.root,'--source-url','https://unreachable.invalid','--out-dir',outDir,'--force-browser'],{encoding:'utf8'});
+  assert.equal(r.status,1);assert.equal(JSON.parse(r.stderr).blockingCode,'CAPTURE_OUTPUT_EXISTS');
+  assert.equal(fs.readFileSync(old,'utf8'),'original evidence');assert.deepEqual(fs.readdirSync(outDir),['inline-svg-evidence.json']);
+});
 function fixture(t) {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'native-source-test-'));
   t.after(() => fs.rmSync(root,{recursive:true,force:true}));
@@ -61,7 +68,7 @@ for (const viewportPolicy of [false, true]) test(`public continue dispatches Evi
     f.input.files.push({ ...f.input.files[0], path: 'viewport.jpg', role: 'viewport-screenshot' }); f.save();
   }
   fs.writeFileSync(path.join(f.root,'run.json'),JSON.stringify({schema:'brand-artifact-run/v1',id:'native-input-test',host,status:'active'}));
-  fs.writeFileSync(path.join(f.options.root,'source-prerequisite.json'),JSON.stringify({schema:'brand-source-prerequisite/v1',parentRequestKind:'host-concepts',artifactRoot:f.options.root,hostTarget:host,brand:f.input.brand,sourceUrl:f.input.sourceUrl,requestedProfile:'fast'}));
+  fs.writeFileSync(path.join(f.options.root,'source-prerequisite.json'),JSON.stringify({schema:'brand-source-prerequisite/v1',parentRequestKind:'host-concepts',artifactRoot:f.options.root,hostTarget:host,brand:f.input.brand,sourceUrl:f.input.sourceUrl,requestedProfile:'fast',hostMutationAllowed:false,resume:{requestKind:'host-concepts',mode:'design-host'}}));
   const entry=path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
   const r=spawnSync(process.execPath,[entry,'continue','--artifact-root',f.options.root,'--browser-capture',f.file],{encoding:'utf8'});
   assert.equal(r.status,0,r.stdout+r.stderr);const out=JSON.parse(r.stdout);
@@ -80,4 +87,18 @@ for (const viewportPolicy of [false, true]) test(`public continue dispatches Evi
   const repeat=spawnSync(process.execPath,[entry,'continue','--artifact-root',f.options.root,'--browser-capture',f.file],{encoding:'utf8'});
   assert.equal(repeat.status,1);assert.equal(JSON.parse(repeat.stdout).blockingCode,'NATIVE_SOURCE_GOAL_ALREADY_FROZEN');
   assert.deepEqual(fs.readFileSync(path.join(f.options.root,'migrations/example/goal-contract.json')),goal);
+  const manifestFile=path.join(f.options.root,'migrations/example/execution-manifest.json');
+  const before=fs.readFileSync(manifestFile);
+  for(let attempt=0;attempt<2;attempt++) {
+    const continued=spawnSync(process.execPath,[entry,'continue','--artifact-root',f.options.root],{encoding:'utf8'});
+    assert.equal(continued.status,0,continued.stdout+continued.stderr);
+    const pending=JSON.parse(continued.stdout);
+    assert.equal(pending.status,'pending');assert.equal(pending.reusedDispatch,true);
+    assert.equal(pending.dispatchRequest.dispatchId,dispatch.dispatchId);
+    assert.equal(pending.userGoalCompleted,false);assert.equal(pending.hostMutationAllowed,false);
+    assert.deepEqual(fs.readFileSync(manifestFile),before);
+  }
+  fs.appendFileSync(path.join(f.options.root,dispatch.requiredInputs[0].path),'tampered');
+  const stale=spawnSync(process.execPath,[entry,'continue','--artifact-root',f.options.root],{encoding:'utf8'});
+  assert.equal(stale.status,1);assert.ok(JSON.parse(stale.stdout).errors.includes('SOURCE_DISPATCH_BINDING_INVALID'));
 });

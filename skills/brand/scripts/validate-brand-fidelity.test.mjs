@@ -80,6 +80,17 @@ test('fidelity CLI checks attempt mismatch before status and exit',t=>{
   f.inventory.attempt=2;const ref=f.put('visual-pattern-inventory.json',f.inventory);f.manifest.allowedInputs=[{...ref,kind:'visual-pattern-inventory'}];f.put('qa-input-manifest.json',f.manifest);
   const result=f.run();assert.equal(result.status,3);assert.equal(result.report.status,'protocol-blocked');assert(result.report.protocolFailures.some(x=>x.code==='PATTERN_ATTEMPT_MISMATCH'));
 });
+test('omitted inventory attempt keeps the first-quality default without rewriting frozen inputs',t=>{
+  const f=fixture(t);
+  const save=()=>{const ref=f.put('visual-pattern-inventory.json',f.inventory);f.manifest.allowedInputs=[{...ref,kind:'visual-pattern-inventory'}];f.put('qa-input-manifest.json',f.manifest);f.put('visual-qa-assessment.json',f.assessment);};
+  delete f.inventory.attempt;save();
+  const file=path.join(f.dir,'visual-pattern-inventory.json'),before=fs.readFileSync(file);
+  const first=f.run();assert.equal(first.status,0,JSON.stringify(first.report));assert.equal(first.report.attempt,1);assert.deepEqual(fs.readFileSync(file),before);
+  f.assessment.attempt=2;f.manifest.attempt=2;save();
+  const retry=f.run();assert.equal(retry.status,3);assert(retry.report.protocolFailures.some(x=>x.code==='PATTERN_ATTEMPT_MISMATCH'));
+  f.assessment.attempt=1;f.manifest.attempt=1;
+  for(const invalid of [null,0,'']) {f.inventory.attempt=invalid;save();const result=f.run();assert.equal(result.status,3);assert(result.report.protocolFailures.some(x=>x.code==='PATTERN_ATTEMPT_MISMATCH'));}
+});
 test('missing mapping or dimensions means incomplete evidence, not a visual zero',t=>{
   const f=fixture(t);delete f.assessment.pages[0].sourcePageId;f.put('visual-qa-assessment.json',f.assessment);
   let result=f.run();assert.equal(result.status,3);assert.equal(result.report.overallScore,null);assert.equal(result.report.scoreStatus,'incomplete-evidence');assert(!result.report.hardFailures.some(x=>x.code==='OVERALL_BELOW_THRESHOLD'));

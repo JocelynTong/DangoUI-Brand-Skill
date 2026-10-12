@@ -16,7 +16,7 @@
 
 官网已提供但尚无品牌包，不属于缺用户输入。`design-host run` 返回 `prerequisite-dispatch-ready` 与 `source-prerequisite.json`；编排者自动执行其中同一公共入口的 learning.args，完成现有学习角色与独立 QA 后，用其有效 MOD 恢复原 host-concepts。父目标、宿主、隔离目录不变；这不是改成只交品牌 Demo，也不能把 dispatch 当学习成功。`--source-prerequisite` 仅让该学习阶段继续独立学习当前来源，不静默采用 Registry 候选。失败保留接力记录与具体缺口，不要求用户找内部文件，不自动无限重试。缺口涉及真实用户选择时才询问。
 
-官网命中 Registry 时默认只返回候选，不安装也不进入生图。只有用户明确同意复用并传 `--reuse-style-pack`，或者当前轮直接提供本地 `--style-pack` / `--mod-file`，才消费已有包；否则先独立执行 `brand-learning → learn-brand`。Registry 包中的学习证据留在隔离工作区，只有 Brand MOD 声明且 hash 完整的 runtime assets 能作为设计输入，不能整包写入宿主。
+先区分链接类型：用户在宿主任务中直接给出本项目品牌库的 `#/brand/<id>/...` 页面，视为选择该已发布包，公共入口自动解析复用；不能把品牌库外壳当官网重新学习。包缺失、网络不可达或 hash 不符时报告准确故障，不回退抓取品牌库 UI。普通官网命中 Registry 仍只是候选，只有明确同意复用并传 `--reuse-style-pack`，或提供本地 `--style-pack` / `--mod-file` 才消费。Registry 学习证据留在隔离工作区，只有 MOD 声明且 hash 完整的 runtime assets 可进入宿主。
 
 ## 隔离首轮试验
 
@@ -38,15 +38,21 @@
 
 apply-host 的 `previewQA` 只使用 `host-preview-smoke/v1` 检查准确实施、实际运行、受保护业务、受影响导航/素材/状态及明确限制；不继承后续完整认证或来源学习的验收清单。预览 `needs-evidence` 后，明确继续同一任务时才执行公共 `retry-host-preview-qa --artifact-root <当前隔离build> --brand <brand> --continue-existing --reason <准确纠正原因>`。最多两次且不超过原 Goal maxAttempts；归档旧失败字节、保持同一 Master/Goal/实施输出，使用准确已完成实施阶段的只读 post-edit 上下文，不重捕 baseline 或假造 currentStage。新审核者与实施者及旧审核者不同，报告用版本化路径，必须绑定当前活源/构建 hash 和新实际观察；未观察行为写限制，不能由编排者补造 PASS。
 
-普通用户不操作角色状态机、QA 条件或生图门禁。外层编排必须将内部学习接力推进回原 `host-concepts`，学习页面只能作为调试证据，不能作为用户交付。默认展示独立 QA 推荐的一个宿主 H5，并提供可选备选；不要求用户先回答专业评审问卷。用户说不满意时将日常语言反馈定位到责任节点；未通过内部 QA 的页面不得交给用户找错。
+普通用户不操作角色状态机、QA 条件或生图门禁。外层编排必须将内部学习接力推进回原 `host-concepts`，学习页面只能作为调试证据，不能作为用户交付。首次三案通过交付检查后，打开公共入口返回的统一比较页：A/B/C 按稳定顺序等权展示，使用同一宿主任务、内容来源和冻结视口；每案可操作，窄屏仍在同一页面中比较，不缩小内部视口冒充响应式。单案打开仅是辅助，不把推荐与其他方案分开交付。推荐及理由可作文字参考，不默认选中或触发批准；用户在对话中明确选择准确方向后才冻结 Master。无需重写三案或建立额外选案服务。用户说不满意时将日常语言反馈定位到责任节点；未通过内部 QA 的页面不得冒充可验收方案。
 
 角色分工并非每个检查都新增 subagent：事实提取与 hash/结构检查交给脚本，设计交给生产角色，视觉与业务验收交给另一个执行者。独立任务按需并行，上下游依据未通过时不提前执行下游。任何内部节点 PASS 都不等于最终目标完成。
+
+三案交付使用 `delivery.comparisonPreview.path`，拼接当前 `serve-design-host-h5.mjs --root <当前宿主buildDirectory>` 服务的 baseUrl 后打开；比较路由复验同一交付门禁并直接嵌入原三案，不复制改稿。已有 Approved Master、单模块或实施验收沿用各自入口，不强制生成三案。用户选择继续通过现有对话与批准流程处理，比较页不承担写入批准或实施的职责。
 
 学习前置、宿主预览和真实宿主实施分别保留不可变 Goal/receipt。续接宿主使用子隔离目录，不能覆盖学习 manifest，也不能丢失父宿主路径、品牌来源、profile 和原始参数。只有完整学习 QA 与有效 MOD/资产后才能续接；用户认可准确 H5 后才进入 apply-host。
 
 用户明确要求先测试大步骤、稍后处理来源几何细节时，可申请 `macro-host-journey` 隔离预览范围。它必须由不同于所有生产者的执行者先独立审核来源品牌、MOD、tokens、runtime assets、宿主迁移与范围排除，保存一次写入的 `migrations/<brand>/preview-readiness.json`（`brand-preview-readiness/v1`）。回执绑定父 handoff、学习 manifest、全部品牌输入与声明素材 hash，并逐项声明可用 MOD id、未解决缺口和禁止用途。公共入口仅以 `continue --artifact-root <父buildDirectory> --continuation-scope macro-host-journey --preview-readiness-sha256 <回执SHA256>` 续接到独立 `host-preview-macro/build`；无显式范围与有效独立回执仍执行完整学习门禁。此范围的 `learningComplete:false`、原来源 FAIL、Goal、manifest 与 QA 都保持原样，不能称学习认证通过，也不授权修改宿主。三组真实宿主 H5、独立宿主 QA、Expressive 缺口判断和用户选择仍按原流程执行。
 
 ### 隔离目录初始化
+
+`continue` 返回 `dispatchRequest` 后，编排者必须实际派发对应 subagent；已启动则等待该执行者并记录 receipt，再继续。`continue` 是取任务/推进状态，不会代替角色执行。重复调用会返回同一份经校验的已派发任务，不得重复启动角色或重采来源。内部文件冲突由维护者处理，不能用“请回复继续”当恢复方案。
+
+交接以角色完成必需自检并返回实际 `record` 结果为准，不以 receipt 文件出现或 Finalizer 编译通过为准。角色直接执行 dispatch / Finalizer 提供的绝对命令数组，编排者核对记录后使用 `receiptContract.orchestratorContinueCommand` 推进；不要临场猜测内部 `--root` 与公共入口 `--artifact-root`。仍在自检的角色不能因产物已落盘就被中断或由父任务代记 PASS。总安全 deadline 和真实故障仍按原停止规则处理，不能为等交接重置窗口。
 
 URL 前置返回后，由编排者执行 `run-brand-workflow.mjs continue --artifact-root <父buildDirectory>` 并按返回的真实 dispatch 派发角色。学习完成后同一命令验证三证、角色独立性、MOD 和素材 hash，保留父记录，在 `host-preview/build` 创建子运行并恢复原请求。每次准备向用户展示时执行 `run-brand-workflow.mjs delivery --artifact-root <当前宿主buildDirectory> --brand <brand>`。design-host 只有 `userGoalCompleted:true` 可报告概念预览交付；apply-host 的 `ready-for-user-review` / `previewReady:true` 仅表示准确真实宿主可提交用户验收，必须保留 `userGoalCompleted:false`、`fullWorkflowPass:false`、来源学习/全宿主未认证和行为限制，不宣称整个 skill 完成。`pending` / `blocked` / `resume-ready` / `host-resumed` 都不是用户结果完成。
 

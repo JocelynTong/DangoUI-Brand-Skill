@@ -1,0 +1,34 @@
+{
+  "schema": "brand-decision-rule/v0.1",
+  "id": "component-style-requires-role-evidence",
+  "version": 1,
+  "status": "candidate",
+  "question": "May an observed component style be promoted to a different component family or semantic state without same-role evidence?",
+  "statement": "品牌样式从一个组件迁移到另一个组件时，必须有同职责、同状态证据或明确批准策略；缺少时目标组件标记为未映射并采用中性回退，不得用颜色频率或品牌印象补齐语义。",
+  "appliesWhen": [
+    "A source component style is proposed for a different target component family or interaction state"
+  ],
+  "notFor": [
+    "Exact same-role component mapping with traceable state evidence",
+    "Business-semantic colors governed by a separate approved policy",
+    "Purely decorative assets with no control semantics"
+  ],
+  "originCaseIds": [
+    "duolingo-cross-component-blue-semantic-leak"
+  ],
+  "independentPositiveCaseIds": [],
+  "minimumIndependentPositiveCases": 2,
+  "falsificationQuestion": "Can independent visual and semantic QA approve a cross-family style promotion without same-role evidence or an explicit policy?",
+  "nextTest": "Run the gate on another brand with Button, Tab, Chip and Navigation evidence, including one legitimate cross-family policy exception.",
+  "reviewer": null,
+  "reviewedAt": null,
+  "revisionHistory": [
+    {
+      "version": 1,
+      "sourceCaseId": "duolingo-cross-component-blue-semantic-leak",
+      "change": "Blocked login-primary blue from being reused as filter selection blue and required explicit unmapped fallbacks.",
+      "status": "candidate"
+    }
+  ],
+  "readerPurpose": "待跨案例验证的组件语义映射边界"
+}

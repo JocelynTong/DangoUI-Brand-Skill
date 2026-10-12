@@ -1,0 +1,61 @@
+{
+  "schema": "brand-knowledge-case/v0.1",
+  "id": "duolingo-cross-component-blue-semantic-leak",
+  "status": "negative-regression",
+  "brand": "duolingo-official",
+  "contextKey": "duolingo-official|deck-search-filter-blue-leak",
+  "finding": "Blue observed on Duolingo's login primary action was reused as the selected color for host filter chips even though no same-role Tab or Chip evidence existed.",
+  "observedSource": {
+    "url": "http://127.0.0.1:57985/index.html?checkpoint=productive-components-v2",
+    "label": "Productive checkpoint with blue filter selection",
+    "record": "login-primary-action-component plus output/host-mirror-checkpoint/index.html",
+    "evidenceStatus": "rendered-h5-direct-inspection-and-trace"
+  },
+  "invalidInference": "A brand color observed on a primary action may be reused for any interactive selected state when the target component lacks direct evidence.",
+  "safeConclusion": "Cross-component style promotion requires same-role evidence or an explicit approved policy; otherwise the target family remains unmapped and uses a declared fallback.",
+  "consequence": "The H5 displayed an invented blue selection semantic that was neither source-backed nor host-semantic.",
+  "reviewStatus": "not-approved",
+  "methodRef": "component-role-style-promotion",
+  "proposedRuleStatus": "pilot-candidate",
+  "decisionTrace": {
+    "recordType": "contemporaneous-record",
+    "decisionQuestion": "官网登录主按钮的蓝色，能否用于宿主筛选 Chip 的选中态？",
+    "knownInputs": [
+      "蓝色证据来自登录主行动。",
+      "目标控件是筛选 Chip 的选中态。",
+      "当前没有同角色 Tab 或 Chip 官方证据。"
+    ],
+    "alternatives": [
+      {
+        "id": "reuse-brand-blue",
+        "documentedObservation": "把登录主按钮蓝色用作筛选 Chip 的边线和文字。",
+        "expressiveBenefit": "能快速去掉宿主紫色并增加品牌色。",
+        "productiveCostOrGap": "跨组件职责制造了不存在的选择语义。",
+        "retrospectiveDisposition": "拒绝。"
+      },
+      {
+        "id": "neutral-unmapped-fallback",
+        "documentedObservation": "保留筛选逻辑与选中可见性，使用中性边线、文字和底色。",
+        "expressiveBenefit": "不伪造品牌组件语义，等待同角色证据。",
+        "productiveCostOrGap": "该控件暂时不贡献强品牌识别。",
+        "retrospectiveDisposition": "采用。"
+      }
+    ],
+    "selectionAtTime": "采用中性未映射回退，并移除筛选 Chip 的蓝色。",
+    "expertDecisionAfterFeedback": "Interpreter 必须按组件家庭、职责和状态核对证据；未映射组件必须声明 fallback，保留旧视觉还要给业务理由。",
+    "why": "品牌颜色不是脱离组件职责的通用颜料；语义映射错误会让客观设计系统审计失真。",
+    "feedback": {
+      "source": "CEO rendered checkpoint review",
+      "summary": "Tab 为什么是蓝色？",
+      "status": "semantic-mapping-rejected"
+    },
+    "ruleChange": {
+      "from": "目标组件缺证据时可以借用已观察的品牌交互色。",
+      "to": "跨组件借用必须有同角色证据或批准策略；否则使用显式中性回退。",
+      "status": "candidate",
+      "ruleId": "component-style-requires-role-evidence"
+    },
+    "nextCaseQuestion": "在另一个品牌中，门禁能否同时阻断错误借色并允许有明确策略的合法跨组件映射？"
+  },
+  "readerPurpose": "跨组件颜色语义泄漏的失败案例"
+}
