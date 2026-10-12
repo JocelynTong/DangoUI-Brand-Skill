@@ -64,6 +64,19 @@ test('H5 continuation rejects changed frozen input',t=>{
   f.save('brand-mod.json',{changed:true});
   assert.match(f.call('resume-concepts','--continue-existing').stderr,/hash mismatch/);
 });
+
+test('completed mechanical repair schedules fresh checks instead of rejecting the archived report',t=>{
+  const f=fixture(t);assert.equal(f.call('retry-h5','--continue-existing').status,0);
+  const m=JSON.parse(fs.readFileSync(path.join(f.root,'migrations/fixture/execution-manifest.json')));
+  const producer=m.stages.at(-1), output=f.save('h5-directions/a.html','repaired');
+  const receipt=f.save('receipts/repair.json',{stageId:producer.id,verdict:'pass',outputs:[output]});
+  Object.assign(producer,{status:'complete',verdict:'pass',receiptPath:receipt.path,receiptSha256:receipt.sha256,outputHashes:[output]});
+  const qa={id:'qa-repair',stage:'designVisualQA',status:'pending'};
+  m.stages.push(qa);m.currentStageId=qa.id;f.save('execution-manifest.json',m);
+  assert.equal(evaluateHostDelivery(f).status,'pending');
+  f.save('h5-directions/a.html','tampered');
+  assert.deepEqual(evaluateHostDelivery(f).errors,['H5_MECHANICAL_QA_BINDING_INVALID']);
+});
 test('bound mechanical failure permits one local producer retry, preserving PASS and report',t=>{
   const f=fixture(t), prior=structuredClone(f.producer);
   assert.match(f.call('retry-h5').stderr,/EXPLICIT_CONTINUATION_REQUIRED/);

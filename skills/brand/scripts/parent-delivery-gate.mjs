@@ -326,6 +326,15 @@ export function evaluateHostDelivery({ root, brand } = {}) {
   if (hostGoal?.mode !== 'design-host' || hostGoal?.requestKind !== 'host-concepts' || hostGoal?.sealed !== true) return result('blocked', ['HOST_PREVIEW_GOAL_INVALID']);
   const pendingQa = (manifest.stages || []).at(-1);
   const mechanical = read(path.join(migration, 'design-host-h5-mechanical-qa.json'));
+  // A receipt-backed repair supersedes its archived failed mechanical report.
+  // Let next regenerate the report before QA; this is pending, never a PASS.
+  const producer = (manifest.stages || []).at(-2);
+  const repair = (manifest.h5Retries || []).find(item => item.kind === 'pre-qa-mechanical-repair' && item.replacementStageId === producer?.id);
+  const archive = repair && bound(root, repair.archive) ? read(path.resolve(root, repair.archive.path)) : null;
+  const mechanicalPath = path.relative(root, path.join(migration, 'design-host-h5-mechanical-qa.json'));
+  if (manifest.status === 'running' && !manifest.mechanicalFailure && pendingQa?.stage === 'designVisualQA' && pendingQa.status === 'pending' && !pendingQa.dispatchPath && manifest.currentStageId === pendingQa.id && producer?.status === 'complete' && producer.verdict === 'pass' && producer.retryInput?.priorStageId === repair?.priorStageId && bound(root, {path:producer.receiptPath,sha256:producer.receiptSha256}) && (producer.outputHashes || []).length > 0 && producer.outputHashes.every(ref => bound(root,ref)) && archive?.archivedOutputs?.some(ref => ref.originalPath === mechanicalPath && mechanical && ref.sha256 === hash(path.join(root,mechanicalPath)) && bound(root,ref))) {
+    return result('pending', [], {currentStageId:manifest.currentStageId,nextAction:'continue-host-preview'});
+  }
   if (pendingQa?.stage === 'designVisualQA' && pendingQa.status === 'pending' && manifest.currentStageId === pendingQa.id && mechanical?.verdict === 'fail') {
     const routeFile = path.join(migration, 'design-host-route.json');
     const directions = read(routeFile)?.h5Directions?.directions || [];
