@@ -107,3 +107,43 @@ test('downloaded evidence with a wrong hash is rejected before writing it', asyn
   await assert.rejects(resolvePublicStylePack({...options,install:true}),/Registry evidence hash mismatch/);
   assert.equal(fs.existsSync(path.join(options.root,'migrations/demo/frame.png')),false);
 });
+
+test('complete package transfer is not cut off by metadata lookup budget', async t => {
+  const options = await fixture(t, (req, res) => {
+    res.setHeader('content-type', 'application/json');
+    if (req.url === '/file.json') return setTimeout(() => res.end('{}'), 220);
+    res.end(JSON.stringify(req.url.endsWith('index.json') ? {brands:[{id:'demo',manifest:'/manifest.json'}]} : req.url.endsWith('by-source.json') ? {sources:{'https://example.com/':'demo'}} : {artifacts:{file:'/file.json'}}));
+  });
+  const result = await resolvePublicStylePack({...options,install:true,networkTimeoutMs:150,downloadTimeoutMs:600,requestTimeoutMs:400});
+  assert.equal(result.installedFiles.length,1);
+});
+
+test('a transient failed file is retried once, not the whole package', async t => {
+  const counts = {};
+  const options = await fixture(t, (req, res) => {
+    counts[req.url] = (counts[req.url] || 0) + 1;
+    if (req.url === '/file.json' && counts[req.url] === 1) { res.writeHead(503); res.end(); return; }
+    res.setHeader('content-type','application/json');
+    res.end(JSON.stringify(req.url.endsWith('index.json') ? {brands:[{id:'demo',manifest:'/manifest.json'}]} : req.url.endsWith('by-source.json') ? {sources:{'https://example.com/':'demo'}} : req.url.endsWith('manifest.json') ? {artifacts:{file:'/file.json'}} : {}));
+  });
+  const result = await resolvePublicStylePack({...options,install:true,downloadTimeoutMs:1000});
+  assert.equal(result.installedFiles.length,1);
+  assert.equal(counts['/file.json'],2);
+  assert.equal(counts['/manifest.json'],1);
+});
+
+test('missing files are not retried and stalled transfers still have a hard deadline', async t => {
+  for (const status of [404, 0]) {
+    let calls = 0;
+    const options = await fixture(t, (req,res) => {
+      if (req.url === '/file.json') { calls++; if(status) { res.writeHead(status);res.end(); } return; }
+      res.setHeader('content-type','application/json');
+      res.end(JSON.stringify(req.url.endsWith('index.json') ? {brands:[{id:'demo',manifest:'/manifest.json'}]} : req.url.endsWith('by-source.json') ? {sources:{'https://example.com/':'demo'}} : {artifacts:{file:'/file.json'}}));
+    });
+    const started=performance.now();
+    await assert.rejects(resolvePublicStylePack({...options,install:true,downloadTimeoutMs:250,requestTimeoutMs:1000}), status ? /failed \(404\)/ : {code:'REGISTRY_NETWORK_TIMEOUT'});
+    assert.equal(calls,1);
+    assert.ok(performance.now()-started < 800);
+    assert.equal(fs.existsSync(path.join(options.root,'migrations/demo/file.json')),false);
+  }
+});
