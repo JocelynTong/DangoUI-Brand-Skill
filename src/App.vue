@@ -8140,9 +8140,12 @@ function handleMockupWheel(event) {
   if (!isSourceSchemaTemplate.value) return;
   const screen = phoneRef.value?.querySelector?.(".phone-screen");
   if (!screen || screen.scrollHeight <= screen.clientHeight) return;
+  const maxScroll = screen.scrollHeight - screen.clientHeight;
+  if (!event.deltaY || (event.deltaY < 0 && screen.scrollTop <= 1) || (event.deltaY > 0 && screen.scrollTop >= maxScroll - 1)) return;
   event.preventDefault();
   event.stopPropagation();
-  screen.scrollTop += event.deltaY;
+  const delta = event.deltaMode === 1 ? event.deltaY * 16 : event.deltaMode === 2 ? event.deltaY * screen.clientHeight : event.deltaY;
+  screen.scrollTop += delta;
 }
 
 function restorePhoneScreenScroll() {

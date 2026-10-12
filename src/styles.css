@@ -17619,15 +17619,22 @@ body:has(.theme-dango .template-phone--source-desktop) { overflow: auto; }
   line-height: 1.15;
 }
 
-.theme-onepiece-cardgame .schema-recipe--catalog-pagination.source-schema-demo__tabs {
+.theme-onepiece-cardgame [data-schema-section-id="product-pagination"].source-schema-demo__tabs {
+  display: flex;
+  flex-wrap: wrap;
   justify-content: center;
+  align-items: center;
+  padding: 16px;
   gap: 5px;
   border-top: 1px solid #d8c49a;
   border-bottom: 0;
   background: #f7f1df;
 }
 
-.theme-onepiece-cardgame .schema-recipe--catalog-pagination.source-schema-demo__tabs button {
+.theme-onepiece-cardgame [data-schema-section-id="product-pagination"].source-schema-demo__tabs button {
+  flex: 0 0 36px;
+  min-height: 36px;
+  font: 14px/1 Arial, sans-serif;
   min-width: 28px;
   padding: 6px;
   border-color: #111;
@@ -17635,7 +17642,7 @@ body:has(.theme-dango .template-phone--source-desktop) { overflow: auto; }
   color: #111;
 }
 
-.theme-onepiece-cardgame .schema-recipe--catalog-pagination.source-schema-demo__tabs button.active {
+.theme-onepiece-cardgame [data-schema-section-id="product-pagination"].source-schema-demo__tabs button.active {
   border-color: #153b78;
   background: #153b78;
   color: #fff;
