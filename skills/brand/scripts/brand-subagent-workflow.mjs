@@ -1136,6 +1136,24 @@ function retryHostImplementation() {
 
 function resumeConcepts() {
   const manifest = validateManifest();
+  const current = manifest.stages.at(-1);
+  if (args.includes("--continue-existing") && manifest.mode === "design-host" && manifest.executionProfile === "fast" && ["running", "timed-out"].includes(manifest.status) && current?.stage === "h5DirectionGeneration" && current.status === "dispatched") {
+    if (array(manifest.continuations).some(item => item.stageId === current.id)) fail("H5_CONTINUATION_ALREADY_GRANTED");
+    if (manifest.status === "running" && manifest.currentStageId !== current.id) fail("H5_CONTINUATION_NOT_CURRENT");
+    verifyHashedPath({path:current.dispatchPath,sha256:current.dispatchSha256});
+    const dispatch = readJsonRequired(path.resolve(root,current.dispatchPath));
+    for (const input of array(dispatch.requiredInputs)) verifyHashedPath(input);
+    const now = Date.now();
+    manifest.continuations ||= [];
+    manifest.continuations.push({kind:"explicit-user-request-to-continue-existing-h5-stage",stageId:current.id,continuedAt:new Date(now).toISOString(),priorDeadlineAt:manifest.deadlineAt,priorTimeout:manifest.timeout || null});
+    manifest.status = "running";
+    manifest.currentStageId = current.id;
+    manifest.previewTargetAt = new Date(now + 300000).toISOString();
+    manifest.deadlineAt = new Date(now + 1200000).toISOString();
+    manifest.timeout = null;
+    writeJson(manifestFile,manifest);
+    return output({ok:true,status:"running",resumedFrom:current.id,nextStageId:current.id,continuation:"existing-dispatch",deadlineAt:manifest.deadlineAt});
+  }
   const latest = [...manifest.stages].reverse().find((item) => item.stage === "conceptGeneration");
   const continueExisting = args.includes("--continue-existing");
   if (continueExisting && manifest.mode === "design-host" && manifest.status === "timed-out" && latest?.status === "dispatched") {

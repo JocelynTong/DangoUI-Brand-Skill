@@ -132,14 +132,16 @@ if (command === "recover-reference") {
   } catch (error) { fail(error.message); }
 }
 
-if (["retry-h5", "retry-host-strategy","retry-host-implementation", "retry-host-preview-qa"].includes(command)) {
+if (["resume-concepts", "retry-h5", "retry-host-strategy","retry-host-implementation", "retry-host-preview-qa"].includes(command)) {
+  if (command === "resume-concepts" && rawArgs.includes("--dry-run")) block("H5_CONTINUATION_DRY_RUN_UNSUPPORTED", "Use status for a read-only check; continuation requires an explicit write.");
   const retryRoot = opt(rawArgs, "--artifact-root", "");
   if (!retryRoot || !path.isAbsolute(retryRoot)) block("H5_RETRY_ISOLATED_ROOT_REQUIRED", "Retry requires the existing absolute isolated artifact root.");
   const retryBrand = resolveBrand(rawArgs.slice(1));
   const retryGoal = readJsonIfExists(path.join(retryRoot, "migrations", retryBrand, "goal-contract.json"));
   validateArtifactIsolation({ command: "run", requestKind: "host-concepts", root: retryRoot, artifactRoot: retryRoot, args: ["--host-target", retryGoal?.hostTarget || ""] });
   const transferFlags = ["--transfer-review", "--transfer-review-sha256"].flatMap((flag) => opt(rawArgs, flag, "") ? [flag, opt(rawArgs, flag, "")] : []);
-  if (command !== "retry-h5" && (retryGoal?.mode !== "apply-host" || transferFlags.length)) block("APPLY_HOST_RETRY_SCOPE_INVALID", "Retry only the blocked apply-host owner; additive brand rules are not accepted.");
+  if (command === "resume-concepts" && (retryGoal?.mode !== "design-host" || transferFlags.length)) block("H5_CONTINUATION_SCOPE_INVALID", "Continue only the frozen design-host stage without extra inputs.");
+  if (!["retry-h5", "resume-concepts"].includes(command) && (retryGoal?.mode !== "apply-host" || transferFlags.length)) block("APPLY_HOST_RETRY_SCOPE_INVALID", "Retry only the blocked apply-host owner; additive brand rules are not accepted.");
   const reasonFlags = command !== "retry-h5" && opt(rawArgs,"--reason","") ? ["--reason",opt(rawArgs,"--reason","")] : [];
   const result = spawnSync(process.execPath, [skillScript("brand-subagent-workflow.mjs"), command, "--root", retryRoot, "--brand", retryBrand, ...(rawArgs.includes("--continue-existing") ? ["--continue-existing"] : []), ...transferFlags, ...reasonFlags], { stdio: "inherit" });
   process.exit(result.status ?? 1);

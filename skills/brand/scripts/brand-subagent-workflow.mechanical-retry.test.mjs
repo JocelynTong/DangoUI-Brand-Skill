@@ -43,6 +43,27 @@ test('post-producer mechanical FAIL is blocked, not pending/continue',t=>{
   f.save('h5-directions/a.html','changed after audit');
   assert.deepEqual(evaluateHostDelivery(f).errors,['H5_MECHANICAL_QA_BINDING_INVALID']);
 });
+
+test('explicit continuation resumes the same H5 dispatch once without changing inputs',t=>{
+  const f=fixture(t);
+  f.producer.status='dispatched';delete f.producer.verdict;delete f.producer.receiptPath;delete f.producer.receiptSha256;delete f.producer.outputHashes;
+  f.producer.dispatchSha256=crypto.createHash('sha256').update(fs.readFileSync(path.join(f.root,f.producer.dispatchPath))).digest('hex');
+  Object.assign(f.manifest,{executionProfile:'fast',stages:[f.producer],currentStageId:f.producer.id,deadlineAt:new Date(Date.now()-1000).toISOString()});f.flush();
+  const prior=structuredClone(f.producer);
+  assert.notEqual(f.call('resume-concepts').status,0);
+  const r=f.call('resume-concepts','--continue-existing');assert.equal(r.status,0,r.stderr);
+  const m=JSON.parse(fs.readFileSync(path.join(f.root,'migrations/fixture/execution-manifest.json')));
+  assert.deepEqual(m.stages,[prior]);assert.equal(m.continuations.length,1);
+  assert.match(f.call('resume-concepts','--continue-existing').stderr,/ALREADY_GRANTED/);
+});
+
+test('H5 continuation rejects changed frozen input',t=>{
+  const f=fixture(t);f.producer.status='dispatched';
+  f.producer.dispatchSha256=crypto.createHash('sha256').update(fs.readFileSync(path.join(f.root,f.producer.dispatchPath))).digest('hex');
+  Object.assign(f.manifest,{executionProfile:'fast',stages:[f.producer],currentStageId:f.producer.id});f.flush();
+  f.save('brand-mod.json',{changed:true});
+  assert.match(f.call('resume-concepts','--continue-existing').stderr,/hash mismatch/);
+});
 test('bound mechanical failure permits one local producer retry, preserving PASS and report',t=>{
   const f=fixture(t), prior=structuredClone(f.producer);
   assert.match(f.call('retry-h5').stderr,/EXPLICIT_CONTINUATION_REQUIRED/);
