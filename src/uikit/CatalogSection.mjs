@@ -20,8 +20,9 @@ export default defineComponent({
       h('span', { class: 'tag' }, props.label),
       h('strong', props.title),
       h('p', props.description),
+      props.filters.length ? h('small', { class: 'catalog-static-note' }, '静态目录 · 分类与页码仅展示') : null,
       props.filters.length ? h('div', { class: 'source-schema-demo__catalog-filters' }, props.filters.map((item, index) =>
-        h('button', { type: 'button', class: index === 0 || item?.active ? 'active' : '' }, item?.label || String(item)),
+        h('button', { type: 'button', disabled: true, title: '分类仅展示，不执行筛选', class: index === 0 || item?.active ? 'active' : '' }, item?.label || String(item)),
       )) : null,
       h(CatalogProductGrid, { items: props.items, appearance: props.appearance, sectionType: props.sectionType, assetKind: props.assetKind, emptyText: props.emptyText }),
     ]);

@@ -1,4 +1,6 @@
 @import './catalog.css';
+.catalog-section .catalog-static-note { font:12px/1.5 Arial,sans-serif; color:#555; }
+.catalog-section .source-schema-demo__catalog-filters button:disabled { cursor:default; opacity:.65; }
 /* The legacy Poppins asset is absent in this checkout. Preserve its fallback
    stack without introducing another broken font request. Host may supply it. */
 /* Local recipe matches the existing Demo; surrounding page layout stays with the host. */

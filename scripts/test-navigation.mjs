@@ -27,7 +27,7 @@ assert.deepEqual(parsedSceneGuide.errors, []);
 assert.deepEqual(compileTemplate({ source: parsedSceneGuide.descriptor.template.content, filename: 'SceneUsageGuide.vue', id: 'scene-guide-test' }).errors, []);
 assert.match(source, /<SceneUsageGuide v-else-if="hasSceneUsageGuide" :key="activeScene.id"/);
 assert.doesNotMatch(sceneGuide, /<details\s+open|<pre|<button|<iframe/);
-for (const term of ['pokemon-tcg-official-card-database', 'czn-character', 'czn-held-out', '5 个头像入口', '两个状态', '3 条示例档案', '未连接官方卡牌数据库', '尚未抽成', 'Taro']) assert.ok(sceneGuide.includes(term));
+for (const term of ['pokemon-tcg-official-card-database', 'czn-character', 'czn-held-out', '两个头像入口', '一一对应', '3 条示例档案', '未连接官方卡牌数据库', '尚未抽成', 'Taro']) assert.ok(sceneGuide.includes(term));
 const parsedGuide = parse(guide);
 assert.deepEqual(parsedGuide.errors, []);
 assert.deepEqual(compileTemplate({ source: parsedGuide.descriptor.template.content, filename: 'CatalogUsageGuide.vue', id: 'catalog-guide-test' }).errors, []);

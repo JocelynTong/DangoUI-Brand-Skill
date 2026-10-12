@@ -73,6 +73,11 @@
 .vl-editorial .style-typography-group > div { display:grid; grid-template-columns:1fr; grid-auto-rows:48px; }
 .vl-editorial .style-typography-note { grid-column:1/-1; border-top:1px solid var(--site-border); padding-top:16px; }
 @media(max-width:760px) {
+  .vl-editorial .vl-header { padding-block:8px; }
+  .vl-editorial .vl-back { margin-top:12px; margin-bottom:8px; }
+  .vl-editorial .vl-brand-heading { margin-bottom:4px; padding-bottom:0; }
+  .vl-editorial .vl-brand-heading p { font-size:13px; line-height:1.5; }
+  .vl-editorial .vl-preview-toolbar { margin-top:0; margin-bottom:10px; }
   .vl-workspace { grid-template-columns:minmax(0,1fr); gap:20px; padding-top:16px; }
   .vl-primary-nav { gap:28px; }
   .vl-workspace-content { grid-column:1; }

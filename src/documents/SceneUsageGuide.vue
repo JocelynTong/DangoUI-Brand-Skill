@@ -38,10 +38,10 @@ const guides = {
   'czn-character': {
     name: '角色档案',
     usage: '观察角色媒体、身份介绍与技能展示如何分层排列，以及切换时资料如何同步。适合用作角色或人物详情的展示参考。',
-    boundaries: ['可以：用上一项／下一项箭头或头像入口切换演示状态，或打开独立预览。', '示例范围：实际只有“阿拉贝拉”和“阿拉贝拉 · 战斗姿态”两个状态，使用相同角色媒体；5 个头像入口循环映射到这两个状态，不代表 5 份角色档案。', '仅展示：手机屏幕内的顶部导航、CV 文字和技能图标不提供跳转、语音播放或技能详情。'],
+    boundaries: ['可以：用上一项／下一项箭头或头像入口切换演示状态，或打开独立预览。', '示例范围：两个头像入口分别对应“阿拉贝拉”和“阿拉贝拉 · 战斗姿态”，使用相同角色媒体；这是同一角色的两个演示状态，不代表两个不同角色。', '仅展示：手机屏幕内的顶部导航、CV 文字和技能图标不提供跳转、语音播放或技能详情。'],
     reuse: '可参考媒体舞台、角色资料和技能列表的分层方式，以及本地状态切换逻辑。它不是独立的角色资料组件，也不是完整角色库。',
-    implementation: '实现位于 src/App.vue 的 SchemaCznCurrentSection（czn-current-character 分支）；配置位于 public/brand-previews/czn.json 的 czn-character。items 提供 name、voice、video、poster、description、skills；rail 提供头像入口。',
-    integration: '真实接入需让头像与角色 ID 一一对应，替换当前按索引循环映射的演示逻辑；业务负责角色数据、选中状态、媒体加载失败处理，以及需要的详情路由、语音和技能操作。当前没有数据请求、空列表或请求失败的完整处理。',
+    implementation: '实现位于 src/App.vue 的 SchemaCznCurrentSection（czn-current-character 分支）；配置位于 public/brand-previews/czn.json 的 czn-character。items 提供 name、voice、video、poster、description、skills，同时决定入口数量；两个状态共用 rail 的首张角色头像，以文字标签区分。',
+    integration: '头像入口由 items 生成，与演示状态一一对应；业务仍需提供稳定的角色 ID、角色数据、选中状态、媒体加载失败处理，以及需要的详情路由、语音和技能操作。当前没有数据请求、空列表或请求失败的完整处理。',
     styles: '样式主要位于 src/styles.css 的 czn-current-character 等规则，依赖 CZN 主题容器及图片、视频资源；外链媒体加载受网络与浏览器播放策略影响。',
   },
   'czn-held-out': {

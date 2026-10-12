@@ -133,7 +133,7 @@ const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
   'pokemon-tcg-official-card-database': '静态查询示意：输入、搜索、筛选和重置不可操作，未连接官方数据库。仅参考字段分组与布局；SchemaPokemonDatabaseSection 位于 src/App.vue，尚非独立组件。保留宿主真实查询，接口、加载、空结果、错误与分页由业务实现。',
-  'czn-character': '角色页只有两个演示状态，5 个头像循环映射到这两个状态；顶部导航、CV 与技能仅展示。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件。真实接入需提供角色 ID 与头像一一对应的数据，以及媒体失败、详情和语音处理。',
+  'czn-character': '角色页只有两个演示状态，两个头像入口与状态一一对应，使用同一角色媒体；顶部导航、CV 与技能仅展示。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件。真实接入需提供稳定角色 ID，以及媒体失败、详情和语音处理。',
   'czn-held-out': '3 条 VOID ECHO 虚构档案支持本地前后循环切换；序号和顶部导航不可点击，信号图形不是实时数据。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件；数据获取、空状态、错误、详情路由及实时信号需业务实现，不是服务端分页。',
   'onepiece-cardgame-events': '活动页仅作静态编排参考；TRY PLAYING 等行动文案不可操作，不提供报名、活动详情或实时赛事服务。',
 };
