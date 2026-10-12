@@ -1,9 +1,17 @@
 <template>
-  <App v-if="isInspector" />
+  <template v-if="isInspector">
+    <header v-if="isStandalonePreview && !loading" class="vl-standalone-header">
+      <strong>{{ selected?.displayName || '品牌预览' }} · {{ previewScene?.label || '场景不存在' }}</strong>
+      <a :href="previewReturnUrl">← 返回说明页</a>
+    </header>
+    <section v-if="invalidPreview" class="variant-library vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请返回品牌库选择页面。</p><a :href="previewReturnUrl">返回品牌库</a></section>
+    <App v-else />
+  </template>
   <main v-else class="variant-library" :class="{ 'vl-editorial': !!selected }">
     <header class="vl-header"><a href="#/variants" class="vl-wordmark">DangoUI <span>品牌库</span></a><SiteThemeControl /></header>
     <div v-if="loading" class="vl-message" role="status">正在载入品牌…</div>
     <div v-else-if="error" class="vl-message" role="alert">{{ error }} <button @click="load">重试</button></div>
+    <section v-else-if="invalidScene" class="vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请重新选择页面。</p><a :href="selected ? `#/variants/${selected.id}/${selected.scenes[0].id}` : '#/variants'">{{ selected ? '返回品牌页面' : '返回品牌库' }}</a></section>
     <template v-else-if="!selected">
       <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
       <section class="vl-grid" aria-label="品牌 Variant 列表">
@@ -125,6 +133,11 @@ const meta={
  'dango':{hook:'让结构清晰可读',description:'克制的文档层级、组件表达与清晰的行动反馈。',expression:'文档层级与组件状态如何在新任务里延续。',scenes:[['dango-introduction','设计语言','source','既有设计系统介绍页。','信息层级与说明。'],['dango-button','组件交互','source','直接操作已有按钮与状态示例。','基础交互与反馈。'],['dango-release-checklist','发布清单','transfer','既有新内容练习，观察规则的复用。','清单式任务表达。']]}
 };
 const selected=computed(()=>brands.value.find(b=>b.id===routePath.value.split('/')[2]));
+const isStandalonePreview = computed(() => isInspector.value && routePath.value.split('/')[3] === 'pages' && new URLSearchParams(location.search).get('variantEmbed') === '1' && window.self === window.top);
+const previewScene = computed(() => selected.value?.scenes.find(scene => scene.id === routePath.value.split('/')[4]));
+const invalidPreview = computed(() => isStandalonePreview.value && !loading.value && !error.value && !previewScene.value);
+const invalidScene = computed(() => !isInspector.value && routePath.value.startsWith('/variants/') && (!selected.value || (section.value === 'pages' && !selected.value.scenes.some(scene => scene.id === routePath.value.split('/')[3]))));
+const previewReturnUrl = computed(() => `${location.pathname}#/variants${selected.value ? `/${selected.value.id}${previewScene.value ? `/${previewScene.value.id}` : ''}` : ''}`);
 const section=computed(()=>{
   const part=routePath.value.split('/')[3];
   return part==='components' ? 'components' : !part || ['foundations','design-system'].includes(part) ? 'foundations' : 'pages';
@@ -164,8 +177,8 @@ function changed() {
   if (previousPath === routePath.value) return;
   nextTick(() => window.scrollTo(0, 0));
 }
-watch(()=>[routePath.value,selected.value?.displayName,activeScene.value?.label],()=>{
-  const title=isInspector.value ? '检查器' : selected.value ? `${selected.value.displayName} · ${section.value === 'foundations' ? '设计规范' : section.value === 'components' ? '组件' : activeScene.value.label}` : '品牌场景';
+watch(()=>[routePath.value,selected.value?.displayName,activeScene.value?.label,loading.value],()=>{
+  const title=invalidPreview.value || (!loading.value && invalidScene.value) ? '场景不存在' : isStandalonePreview.value ? `${selected.value?.displayName || '品牌预览'} · ${previewScene.value?.label || '载入中'} · 独立预览` : isInspector.value ? '检查器' : selected.value ? `${selected.value.displayName} · ${section.value === 'foundations' ? '设计规范' : section.value === 'components' ? '组件' : activeScene.value.label}` : '品牌场景';
   document.title=`${title} · DangoUI 品牌库`;
 },{immediate:true});
 function hideBroken(e,id){e.target.style.display='none';failedCovers.value[id]=true;}

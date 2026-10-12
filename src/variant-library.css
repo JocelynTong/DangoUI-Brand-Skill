@@ -37,6 +37,7 @@ body:has(.variant-library){height:auto;min-height:100vh;overflow:visible}
 .vl-system-toolbar{display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:13px;color:var(--site-muted);margin-bottom:16px}
 .variant-library .vl-system-toolbar a{white-space:nowrap;color:var(--site-accent)}
 .vl-system{min-width:0}.vl-system iframe{display:block;width:100%;height:78vh;min-height:600px;border:1px solid var(--site-border);background:var(--site-surface);border-radius:6px}
+.vl-standalone-header{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:16px 24px;background:var(--site-bg);color:var(--site-text);border-bottom:1px solid var(--site-border);font:14px/1.5 system-ui}.vl-standalone-header a{color:var(--site-text);text-underline-offset:4px}.vl-standalone-header a:focus-visible{outline:3px solid var(--site-focus);outline-offset:4px}
 /* Keep category navigation, but let the parent own brand and section navigation. */
 body.inspector-embed .style-rail,body.inspector-embed .inspector-tabs,body.inspector-embed [aria-label="demo inspector switcher"]{display:none}
 body.inspector-embed .shell{min-width:0;width:100%;grid-template-columns:200px minmax(0,1fr)}
