@@ -1,0 +1,33 @@
+@import './catalog.css';
+/* The legacy Poppins asset is absent in this checkout. Preserve its fallback
+   stack without introducing another broken font request. Host may supply it. */
+/* Local recipe matches the existing Demo; surrounding page layout stays with the host. */
+.catalog-section.catalog-section[data-appearance="onepiece"] {
+  display: grid; box-sizing: border-box; min-width: 0; gap: 12px;
+  padding: 24px 16px 30px; background: transparent; color: #111;
+  border: 0; border-radius: 0; box-shadow: none;
+  font: 12px 'OPCG Poppins', Poppins, Arial, sans-serif;
+}
+.catalog-section.catalog-section[data-appearance="onepiece"] > .tag,
+.catalog-section.catalog-section[data-appearance="onepiece"] > p { display: none; }
+.catalog-section.catalog-section[data-appearance="onepiece"] > strong {
+  margin: 0; padding: 0; color: #111;
+  font: 700 38px/.9 'OPCG Poppins', Poppins, Arial, sans-serif;
+  letter-spacing: -.055em; text-transform: uppercase;
+}
+.catalog-section.catalog-section[data-appearance="onepiece"] > .source-schema-demo__catalog-filters {
+  display: flex; flex-wrap: wrap; gap: 5px;
+}
+.catalog-section.catalog-section[data-appearance="onepiece"] > .source-schema-demo__catalog-filters > button {
+  box-sizing: border-box; min-height: 22px; margin: 0; padding: 3px 9px;
+  border: 0; border-radius: 0; background: #fff; color: #111;
+  font: 800 12px Arial, sans-serif; text-transform: uppercase;
+}
+.catalog-section.catalog-section[data-appearance="onepiece"] > .source-schema-demo__catalog-filters > button.active {
+  background: #111; color: #fff;
+}
+@media (max-width: 480px) {
+  .catalog-section.catalog-section[data-appearance="onepiece"] > .source-schema-demo__catalog-filters > button {
+    min-height: 44px;
+  }
+}

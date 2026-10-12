@@ -2,7 +2,9 @@
   <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango', 'theme-pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' }]" :style="themeVars">
     <aside class="panel" aria-label="Visual inspector">
       <div class="style-rail">
-        <a href="#/variants" style="display:block;padding:8px 0;font-size:11px;color:inherit">← Variant 库</a>
+        <SiteThemeControl />
+        <a :href="`#/variants/${selectedStyleId}`" style="display:block;padding:8px 0;font-size:11px;color:inherit">← 返回品牌展示</a>
+        <p class="section-heading"><strong>Token 与组件检查</strong></p>
         <a href="/knowledge/guide.html" class="knowledge-link">设计决策库</a>
         <p class="section-heading"><strong>品牌</strong></p>
         <div class="style-switcher compact" aria-label="brand style presets">
@@ -30,7 +32,6 @@
 
         <details
           v-if="selectedInspectorTab === 'pages'"
-          open
           aria-label="brand learning proof status"
           style="margin: 10px 8px; padding: 10px; border: 1px solid rgba(127,127,127,.28); border-radius: 10px; background: rgba(127,127,127,.06); font-size: 11px; line-height: 1.45;"
         >
@@ -68,7 +69,7 @@
         <template v-if="selectedInspectorTab === 'style'">
           <div class="token-category-list rail-list" aria-label="token categories">
             <div
-              v-for="category in styleCategories"
+              v-for="category in styleCategories.filter(category => selectedStyleId !== 'dango' || category.id !== 'button')"
               :key="category.id"
               class="token-category"
               :class="[
@@ -285,146 +286,7 @@
                       <div v-if="selectedStyleCategoryId === 'color'" class="palette-stack">
                         <section class="palette-list" aria-label="project color inventory and mapping">
                           <p v-if="selectedStyle.id !== 'dango'" class="style-evidence-note">保持 DangoUI 一级/二级/三级色彩结构，高频品牌色只覆盖最相似的 token，并用「覆盖」标记显示原值到新值的变化。「推测」一整块色阶剩余的颜色，完全和 DangoUI 相同就用「命中」。</p>
-                          <div class="color-hierarchy-panel" aria-label="DangoUI color token hierarchy">
-                            <div class="color-hierarchy-grid">
-                              <div
-                                v-for="group in dangoColorStructureRows"
-                                :key="group.title"
-                                class="color-hierarchy-group"
-                              >
-                                <span>{{ group.title }}</span>
-                                <p>{{ group.description }}</p>
-                                <div
-                                  v-if="group.variant === 'paletteRows'"
-                                  class="palette-scale-list"
-                                  :class="{ 'has-overrides': group.hasOverrides }"
-                                >
-                                  <div v-for="row in group.items" :key="row.family" class="palette-scale-row" :class="`palette-scale-row--${row.family}`">
-                                    <strong>{{ row.family }}</strong>
-                                    <div class="palette-scale-swatches">
-                                      <button
-                                        v-for="step in row.steps"
-                                        :key="`${row.family}-swatch-${step.name}`"
-                                        type="button"
-                                        :class="{ copied: copiedColorValue === step.value, overridden: step.isOverridden, inferred: step.isInferred }"
-                                        :aria-label="`复制 ${step.name} ${step.value}`"
-                                        :style="{ background: step.swatch, color: step.textColor }"
-                                        @click.stop="copyPaletteColor(step.value)"
-                                      >
-                                        {{ step.label }}
-                                      </button>
-                                    </div>
-                                    <div class="palette-scale-labels">
-                                      <span v-for="step in row.steps" :key="`${row.family}-label-${step.name}`">
-                                        <em>{{ step.isOverridden ? step.baseDisplayValue : step.displayValue }}</em>
-                                        <strong v-if="step.isOverridden">{{ step.displayValue }}</strong>
-                                        <b v-if="step.isOverridden">{{ step.overrideKind }}</b>
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-                                <div v-else-if="group.variant === 'semanticTextRows'" class="semantic-palette-list">
-                                  <details
-                                    v-for="row in group.items"
-                                    :key="row.family"
-                                    class="semantic-palette-row"
-                                    :open="row.family === 'primary'"
-                                  >
-                                    <summary class="semantic-palette-heading">
-                                      <strong>{{ row.family }}</strong>
-                                      <small>{{ row.category }}</small>
-                                    </summary>
-                                    <p>{{ row.scaleText }}</p>
-                                    <div class="semantic-mapping-list">
-                                      <button
-                                        v-for="mapping in row.mappings"
-                                        :key="`${row.family}-mapping-${mapping.name}`"
-                                        type="button"
-                                        :class="{ copied: copiedColorValue === mapping.value, overridden: mapping.isOverridden }"
-                                        :data-hover-label="`${mapping.name} ${mapping.expression}`"
-                                        :style="{ '--alias-swatch': mapping.swatch, '--alias-text': readableTextColor(mapping.swatch, 0.58) }"
-                                        @click.stop="copyPaletteColor(mapping.value)"
-                                      >
-                                        <i></i>
-                                        <span>{{ mapping.name }}</span>
-                                        <em>{{ mapping.expression }}</em>
-                                        <small v-if="mapping.isOverridden">{{ mapping.overrideKind }}</small>
-                                      </button>
-                                    </div>
-                                  </details>
-                                </div>
-                                <div v-else-if="group.variant === 'componentAliasRows'" class="component-alias-list">
-                                  <details
-                                    v-for="row in group.items"
-                                    :key="row.component"
-                                    class="component-alias-row"
-                                    :open="row.expanded"
-                                  >
-                                    <summary class="component-alias-heading">
-                                      <span>{{ row.component }}</span>
-                                      <small>{{ row.summary }}</small>
-                                    </summary>
-                                    <div v-if="row.variantGroups" class="component-variant-list">
-                                      <details
-                                        v-for="variant in row.variantGroups"
-                                        :key="`${row.component}-${variant.name}`"
-                                        class="component-variant-row"
-                                        :open="variant.name === 'primary'"
-                                      >
-                                        <summary class="component-variant-heading">
-                                          <strong>{{ variant.name }}</strong>
-                                          <small>{{ variant.summary }}</small>
-                                        </summary>
-                                        <div class="semantic-mapping-list">
-                                          <button
-                                            v-for="mapping in variant.mappings"
-                                            :key="`${row.component}-${variant.name}-mapping-${mapping.name}-${mapping.expression}`"
-                                            type="button"
-                                            :class="{ copied: copiedColorValue === mapping.value, overridden: mapping.isOverridden }"
-                                            :data-hover-label="mapping.expression"
-                                            :style="{ '--alias-swatch': mapping.swatch }"
-                                            @click.stop="copyPaletteColor(mapping.hexValue)"
-                                          >
-                                            <i></i>
-                                            <span>{{ mapping.name }}</span>
-                                            <em>{{ mapping.expression }}</em>
-                                            <small v-if="mapping.isOverridden">{{ mapping.overrideKind }}</small>
-                                          </button>
-                                        </div>
-                                      </details>
-                                    </div>
-                                    <div v-else class="semantic-mapping-list">
-                                      <button
-                                        v-for="mapping in row.mappings"
-                                        :key="`${row.component}-mapping-${mapping.name}`"
-                                        type="button"
-                                        :class="{ copied: copiedColorValue === mapping.value, overridden: mapping.isOverridden }"
-                                        :data-hover-label="mapping.expression"
-                                        :style="{ '--alias-swatch': mapping.swatch }"
-                                        @click.stop="copyPaletteColor(mapping.hexValue)"
-                                      >
-                                        <i></i>
-                                        <span>{{ mapping.name }}</span>
-                                        <em>{{ mapping.expression }}</em>
-                                        <small v-if="mapping.isOverridden">{{ mapping.overrideKind }}</small>
-                                      </button>
-                                    </div>
-                                    <p v-if="!row.variantGroups && !row.mappings.length" class="component-alias-empty">该组件在当前快照中只有尺寸、资源、文案或旧层变量等非色彩 token，不进入色彩链路表。</p>
-                                  </details>
-                                </div>
-                                <div v-else class="color-chain-list">
-                                  <b v-for="(item, itemIndex) in group.items" :key="`${group.title}-${item.name || itemIndex}`">
-                                    <i :style="{ background: item.swatch }"></i>
-                                    <span>
-                                      <strong>{{ item.name }}</strong>
-                                      <em>{{ item.value }}</em>
-                                      <small v-if="item.chain">{{ item.chain }}</small>
-                                    </span>
-                                  </b>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
+                          <ColorInventory :rows="dangoColorStructureRows" :copied-color-value="copiedColorValue" @copy="copyPaletteColor" />
                         </section>
                       </div>
                       <div v-else-if="selectedStyleCategoryId === 'layout' && selectedStyleRecipeRows.length" class="style-layout-list">
@@ -568,32 +430,7 @@
                           </div>
                         </details>
                       </div>
-                      <div v-else-if="selectedStyleCategoryId === 'typography'" class="style-typography-matrix">
-                        <section
-                          v-for="group in typographyMatrixGroups"
-                          :key="`type-matrix-${group.id}`"
-                          class="style-typography-group"
-                        >
-                          <header>
-                            <strong>{{ group.id }}</strong>
-                            <span>{{ group.label }}</span>
-                          </header>
-                          <div>
-                            <b
-                              v-for="item in group.items"
-                              :key="`type-matrix-${item.title}`"
-                              :style="{ fontSize: `${item.size}px`, lineHeight: `${item.lineHeight}px`, fontWeight: item.weight }"
-                            >
-                              <span>{{ item.title }}</span>
-                              <em>{{ item.size }}/{{ item.lineHeight }}</em>
-                            </b>
-                          </div>
-                        </section>
-                        <p class="style-typography-note">
-                          <strong>说明</strong>
-                          <em>H/B/N 是 baseline 字号结构：H 用于标题和强强调，B 用于正文强调和组件标题，N 用于正文、说明和辅助文本。品牌字体包只在有明确证据时进入页面样式，不直接替代 DangoUI 结构。</em>
-                        </p>
-                      </div>
+<TypographyMatrix v-else-if="selectedStyleCategoryId === 'typography'" />
                       <div v-else-if="selectedStyleCategoryId === 'icon'" class="style-icon-library">
                         <section v-if="selectedStyle.id !== 'dango' && selectedStyleRecipeRows.length" class="style-brand-atom-list">
                           <details
@@ -691,64 +528,7 @@
                             </div>
                           </details>
                         </section>
-                        <section class="style-button-usage">
-                          <header>
-                            <strong>Button 怎么用</strong>
-                            <span>只展示 DangoUI 已有按钮组件和真实 props；FAB 当前仍是待新增能力，不混进 DuButton API。</span>
-                          </header>
-                          <code>import { DuButton, DuIconButton, DuActionButton } from "dangoui"</code>
-                          <code>&lt;DuButton text="提交" type="primary" size="normal" /&gt;</code>
-                          <code>&lt;DuButton text="柔和" type="secondary" /&gt; &lt;!-- soft 视觉态 --&gt;</code>
-                          <code>&lt;DuButton text="查看更多" type="outline" :icon="iconPlusHeavy" icon-size="16px" icon-position="left" /&gt;</code>
-                          <code>&lt;DuIconButton :icon="iconCamera" size="normal" /&gt;</code>
-                          <code>&lt;DuActionButton :name="iconRefresh" /&gt;</code>
-                        </section>
-                        <section class="style-button-showcase">
-                          <header>
-                            <strong>Button 形态</strong>
-                            <span>真实组件预览：type、size、icon、arrowRight、disabled、loading、full。</span>
-                          </header>
-                          <div class="style-button-demo-group">
-                            <strong>type</strong>
-                            <div class="style-button-demo-row">
-                              <DuButton text="主要按钮" type="primary" />
-                              <DuButton text="柔和按钮" type="secondary" />
-                              <DuButton text="描边按钮" type="outline" />
-                              <DuButton text="文字按钮" type="text" />
-                            </div>
-                          </div>
-                          <div class="style-button-demo-group">
-                            <strong>size</strong>
-                            <div class="style-button-demo-row">
-                              <DuButton text="mini" size="mini" />
-                              <DuButton text="small" size="small" />
-                              <DuButton text="normal" size="normal" />
-                              <DuButton text="medium" size="medium" />
-                              <DuButton text="large" size="large" />
-                            </div>
-                          </div>
-                          <div class="style-button-demo-group">
-                            <strong>icon / arrow</strong>
-                            <div class="style-button-demo-row">
-                              <DuButton text="发布" type="primary" :icon="iconPlusHeavy" icon-size="16px" icon-position="left" />
-                              <DuButton text="继续" type="outline" arrow-right />
-                              <DuIconButton :icon="iconCamera" size="large" />
-                              <DuActionButton :name="iconRefresh" />
-                            </div>
-                          </div>
-                          <div class="style-button-demo-group">
-                            <strong>state</strong>
-                            <div class="style-button-demo-row">
-                              <DuButton text="禁用" type="primary" disabled />
-                              <DuButton text="临时禁用" type="outline" disabled disabled-type="temp" />
-                              <DuButton text="加载中" type="primary" loading />
-                            </div>
-                          </div>
-                          <div class="style-button-demo-group">
-                            <strong>full</strong>
-                            <DuButton text="通栏主按钮" type="primary" full />
-                          </div>
-                        </section>
+                        <ButtonExamples />
                       </div>
                       <div v-else-if="selectedStyleRecipeRows.length" class="style-inventory-list">
                         <details
@@ -2807,8 +2587,20 @@
 </template>
 
 <script setup>
+import './styles.css';
+import catalogUrl from '../data/dangoui.design-system.json?url';
+import './brands/pokemon-tcg-official-current.css';
+import SiteThemeControl from './SiteThemeControl.vue';
+import ColorInventory from './documents/ColorInventory.vue';
+import ButtonExamples from './documents/ButtonExamples.vue';
+import TypographyMatrix from './documents/TypographyMatrix.vue';
+import { typographyRecipes } from './documents/typography-model.mjs';
+import { buildColorStructure, parseHexColor, formatHexColor, readableTextColor, extractColorValues } from './documents/color-model.mjs';
 import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
 import dayjs from "dayjs";
+import CatalogSection from "./uikit/CatalogSection.mjs";
+import "./uikit/catalog-section.css";
+import "./uikit/catalog.css";
 import {
   DuActionButton,
   DuAvatar,
@@ -4409,30 +4201,7 @@ const styleRecipeDetails = {
 };
 
 const fallbackStyleRecipeDetails = {
-  typography: [
-    ...[
-      ["H", 700, "标题/强强调"],
-      ["B", 500, "正文强调/组件标题"],
-      ["N", 400, "正文/说明/辅助"],
-    ].flatMap(([prefix, weight, usage]) =>
-      [
-        [1, 32, 40],
-        [2, 28, 36],
-        [3, 24, 32],
-        [4, 20, 28],
-        [5, 18, 26],
-        [6, 16, 24],
-        [7, 14, 22],
-        [8, 12, 18],
-      ].map(([level, size, lineHeight]) => ({
-        title: `${prefix}${level}`,
-        value: `${size}px / ${weight} / ${lineHeight}px`,
-        note: `${usage}，按 H/B/N typography scale 表达；落到 DangoUI 时由组件源码或页面 CSS 承接。`,
-      })),
-    ),
-    { title: "Font family", value: "system-ui / brand font asset", note: "字体族单独记录；DangoUI 当前快照没有全局 font-family token，品牌字体包进入 demoOnlyVisualControls。" },
-    { title: "Letter spacing", value: "0 by default", note: "普通 UI 文本不加负字距；品牌标题若有字距证据单独记录。" },
-  ],
+  typography: typographyRecipes,
   icon: [
     { title: "System icon", value: "stroke / 20px", note: "优先使用 dangoui Icon 已有 name、size 和 color，不从品牌图里新造 icon name。" },
     { title: "Brand symbol", value: "asset / logo", note: "品牌符号、logo、游戏装饰图标属于资产层；只记录来源和使用范围。" },
@@ -5617,45 +5386,14 @@ const SchemaContentCardsSection = defineComponent({
         `source-schema-demo__content-cards--${sectionType}`,
         `source-schema-demo__content-cards--${assetKind}`,
       ].join(" ");
-      const gridClass = [
-        "source-schema-demo__product-grid",
-        `source-schema-demo__product-grid--${sectionType}`,
-        `source-schema-demo__product-grid--${assetKind}`,
-      ].join(" ");
-      const cardClass = [
-        "source-schema-demo__product-card",
-        `source-schema-demo__product-card--${sectionType}`,
-        `source-schema-demo__product-card--${assetKind}`,
-      ].join(" ");
-      const imageClass = [
-        "source-schema-demo__product-art",
-        `source-schema-demo__product-art--${sectionType}`,
-        `source-schema-demo__product-art--${assetKind}`,
-      ].join(" ");
-      return renderSchemaSection(section, sectionClass, [
-        h("span", { class: "tag" }, `${section.component || "Card"} · schema`),
-        h("strong", schemaText(content.title, section.type)),
-        h("p", schemaText(content.description, content.body)),
-        filters.length
-          ? h("div", { class: "source-schema-demo__catalog-filters" }, filters.map((item, index) =>
-              h("button", { type: "button", class: index === 0 || item?.active ? "active" : "" }, item?.label || String(item)),
-            ))
-          : null,
-        h("div", { class: gridClass }, assets.length ? assets.map((asset) =>
-          h("article", { class: cardClass }, [
-            renderImage(asset, imageClass),
-            asset.category || asset.code
-              ? h("div", { class: "source-schema-demo__product-meta" }, [
-                  asset.category ? h("span", asset.category) : null,
-                  asset.code ? h("small", asset.code) : null,
-                ])
-              : null,
-            h("strong", asset.title || asset.alt || "Asset"),
-            asset.release ? h("small", { class: "source-schema-demo__product-release" }, asset.release) : null,
-            asset.cta ? h("span", asset.cta) : null,
-          ]),
-        ) : renderMissing("assets")),
-      ]);
+      return h(CatalogSection, {
+        ...renderSchemaSection(section, sectionClass, []).props,
+        label: `${section.component || "Card"} · schema`,
+        title: schemaText(content.title, section.type),
+        description: schemaText(content.description, content.body),
+        filters, items: assets, sectionType, assetKind,
+        appearance: selectedStyle.value.id === 'onepiece-cardgame' && sectionType === 'product-gallery' ? 'onepiece' : 'legacy',
+      });
     };
   },
 });
@@ -6885,30 +6623,6 @@ function decorateStyleRecipeItem(item, category, brandLabel) {
     anti: item.anti || antiByCategory[category] || "不要把无证据的视觉习惯伪装成品牌规则。",
   };
 }
-const typographyMatrixGroups = computed(() => {
-  const labels = {
-    H: "标题 / 强强调",
-    B: "正文强调 / 组件标题",
-    N: "正文 / 说明 / 辅助",
-  };
-  const rows = (fallbackStyleRecipeDetails.typography || [])
-    .filter((item) => /^[HBN][1-8]$/.test(item.title))
-    .map((item) => {
-      const parts = String(item.value).split("/").map((part) => firstNumber(part, 0));
-      return {
-        ...item,
-        family: item.title[0],
-        size: parts[0] || 12,
-        weight: parts[1] || 400,
-        lineHeight: parts[2] || parts[0] || 18,
-      };
-    });
-  return ["H", "B", "N"].map((id) => ({
-    id,
-    label: labels[id],
-    items: rows.filter((item) => item.family === id),
-  }));
-});
 function iconExportToName(exportName) {
   return String(exportName)
     .replace(/^icon/, "")
@@ -6998,637 +6712,7 @@ const selectedStyleTokenMap = computed(() => {
     "--du-primary-solid-bg": semanticActiveFill || tokenMap["--du-primary-solid-bg"] || tokenMap["--du-primary-color"],
   };
 });
-const dangoColorStructureRows = computed(() => {
-  const baseTokenMap = Object.fromEntries(catalog.value.tokens.map((token) => [token.name, token.value]));
-  const overrideTokenMap = selectedStyle.value.id === "dango" ? {} : selectedStyleTokenMap.value;
-  const tokenMap = {
-    ...baseTokenMap,
-    ...overrideTokenMap,
-  };
-  const overriddenTokenNames = new Set(Object.keys(overrideTokenMap));
-  const firstColor = (value) => extractColorValues(value)[0] || "transparent";
-  const dangoPrimitivePalettes = {
-    neutral: ["#0000000a", "#00000014", "#0000001f", "#00000029", "#0000003d", "#00000066", "#000000a3", "#000000e0", "#000000"],
-    white: ["#ffffff0a", "#ffffff14", "#ffffff1f", "#ffffff29", "#ffffff3d", "#ffffff66", "#ffffffa3", "#ffffffe0", "#ffffff"],
-    purple: ["#f2f0ff", "#d9d2ff", "#c7b8ff", "#958dff", "#7c66ff", "#5c4cd9", "#4036b3", "#28238c", "#1a1866"],
-    purplegray: ["#f7f7f9", "#ededf2", "#e1e1e5", "#d4d0da", "#bab5c4", "#918b9f", "#625e76", "#383950", "#2b263b"],
-    red: ["#ffebe9", "#ffd1cf", "#ffabab", "#ff8380", "#f96464", "#d94a4e", "#b3343c", "#8c222c", "#661722"],
-    orange: ["#fff0e6", "#ffdfca", "#ffc299", "#ffa15a", "#fc7e22", "#d65d11", "#b04105", "#8a2c00", "#631c00"],
-    yellow: ["#fffde6", "#fff9ca", "#ffe885", "#fad728", "#edbf00", "#c79800", "#a17600", "#7a5600", "#543800"],
-    tendershoots: ["#fbffe5", "#f4fec3", "#e4f689", "#cdee2b", "#b2d600", "#99b800", "#7f9900", "#667a00", "#4c5c00"],
-    green: ["#e2f7e3", "#c9f2ca", "#9de09d", "#7ad37f", "#52ba5c", "#379e45", "#247842", "#145221", "#0f3d19"],
-    turquoise: ["#e2f7f3", "#cdf9eb", "#9dedd9", "#77e5d2", "#36ccb6", "#17ad9b", "#14877e", "#076059", "#053b3a"],
-    zimablue: ["#dff7f7", "#cbf7f7", "#9df2f4", "#62deef", "#28bee0", "#009bbf", "#087599", "#005273", "#00344d"],
-    blue: ["#e4ebf9", "#cce0ff", "#a6caff", "#8fb7ff", "#6c9aff", "#5077d9", "#3957b3", "#263c8c", "#1b2866"],
-    grape: ["#f1e6ff", "#ebd4ff", "#d6b3ff", "#b688ff", "#ad69f7", "#8a4fd1", "#6838ab", "#4a2585", "#32195e"],
-  };
-  const primitiveColorRefs = Object.entries(dangoPrimitivePalettes).flatMap(([family, values]) =>
-    values.map((value, index) => ({
-      ref: `${family}-${index + 1}`,
-      family,
-      step: index + 1,
-      value: formatHexColor(value).toLowerCase(),
-    })),
-  );
-  const primitiveRefForValue = (value) =>
-    primitiveColorRefs.find((item) => item.value === formatHexColor(value).toLowerCase())?.ref || "";
-  const rgbDistance = (a, b) => {
-    const colorA = parseHexColor(a);
-    const colorB = parseHexColor(b);
-    if (!colorA || !colorB) return Number.MAX_SAFE_INTEGER;
-    return Math.hypot(colorA.r - colorB.r, colorA.g - colorB.g, colorA.b - colorB.b, (colorA.a - colorB.a) * 255);
-  };
-  const colorStats = (value) => {
-    const color = parseHexColor(value);
-    if (!color) return null;
-    const r = color.r / 255;
-    const g = color.g / 255;
-    const b = color.b / 255;
-    const max = Math.max(r, g, b);
-    const min = Math.min(r, g, b);
-    const delta = max - min;
-    const lightness = (max + min) / 2;
-    const saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * lightness - 1));
-    let hue = 0;
-    if (delta) {
-      if (max === r) hue = ((g - b) / delta) % 6;
-      else if (max === g) hue = (b - r) / delta + 2;
-      else hue = (r - g) / delta + 4;
-      hue *= 60;
-      if (hue < 0) hue += 360;
-    }
-    const luminance = 0.2126 * r + 0.7152 * g + 0.0722 * b;
-    return { hue, saturation, lightness, luminance, alpha: color.a };
-  };
-  const closestStepInFamily = (family, activeColor) => {
-    const values = dangoPrimitivePalettes[family] || [];
-    const stats = colorStats(activeColor);
-    if (family === "neutral" && stats?.alpha > 0.95) {
-      return Math.min(9, Math.max(1, Math.round((1 - stats.luminance) * 7) + 2));
-    }
-    if (family === "white" && stats?.alpha > 0.95) {
-      return Math.min(9, Math.max(1, Math.round(stats.luminance * 7) + 2));
-    }
-    return values.reduce((best, value, index) => {
-      const distance = rgbDistance(activeColor, value);
-      if (!best || distance < best.distance) return { step: index + 1, distance };
-      return best;
-    }, null)?.step || 1;
-  };
-  const chromaticFamilyForHue = (hue) => {
-    if (hue < 12 || hue >= 345) return "red";
-    if (hue < 45) return "orange";
-    if (hue < 72) return "yellow";
-    if (hue < 95) return "tendershoots";
-    if (hue < 155) return "green";
-    if (hue < 185) return "turquoise";
-    if (hue < 205) return "zimablue";
-    if (hue < 255) return "blue";
-    if (hue < 292) return "grape";
-    return "purple";
-  };
-  const semanticFamilyHint = (tokenName, stats) => {
-    if (stats?.luminance >= 0.92 && stats?.saturation <= 0.12) return "white";
-    if (stats?.luminance <= 0.12 && stats?.saturation <= 0.45) return "neutral";
-    if (stats?.saturation <= 0.08) {
-      return stats.luminance > 0.72 ? "white" : "neutral";
-    }
-    return "";
-  };
-  const primitiveRefForBrandColor = (tokenName, activeColor) => {
-    const stats = colorStats(activeColor);
-    if (!stats) return "";
-    const family = semanticFamilyHint(tokenName, stats) || chromaticFamilyForHue(stats.hue);
-    const step = closestStepInFamily(family, activeColor);
-    return `${family}-${step}`;
-  };
-  const primitiveOverridePriority = (name) => {
-    if (name.endsWith("-color") || name.endsWith("-solid-bg")) return 0;
-    if (name.endsWith("-border")) return 1;
-    if (name.endsWith("-outline-color")) return 2;
-    if (name.endsWith("-soft-bg")) return 3;
-    return 4;
-  };
-  const primitiveOverrideMap = Object.entries(overrideTokenMap).reduce((map, [tokenName, activeValue]) => {
-    const baseColor = firstColor(baseTokenMap[tokenName]);
-    const activeColor = firstColor(activeValue);
-    const primitiveRef = primitiveRefForBrandColor(tokenName, activeColor);
-    if (!primitiveRef || !activeColor || formatHexColor(baseColor) === formatHexColor(activeColor)) return map;
-    const current = map.get(primitiveRef);
-    const item = {
-      tokenName,
-      baseColor,
-      activeColor,
-    };
-    if (!current) {
-      map.set(primitiveRef, {
-        ...item,
-        sourceTokens: [tokenName],
-      });
-      return map;
-    }
-    if (formatHexColor(current.activeColor) === formatHexColor(activeColor)) {
-      if (!current.sourceTokens.includes(tokenName)) current.sourceTokens.push(tokenName);
-      return map;
-    }
-    if (primitiveOverridePriority(tokenName) < primitiveOverridePriority(current.tokenName)) {
-      map.set(primitiveRef, {
-        ...item,
-        sourceTokens: [tokenName],
-      });
-    }
-    return map;
-  }, new Map());
-  const primitiveAnchorsByFamily = Array.from(primitiveOverrideMap.entries()).reduce((map, [primitiveRef, item]) => {
-    const match = primitiveRef.match(/^(.+)-(\d)$/);
-    if (!match) return map;
-    const family = match[1];
-    const anchors = map.get(family) || [];
-    anchors.push({
-      step: Number(match[2]),
-      activeColor: item.activeColor,
-    });
-    map.set(family, anchors.sort((a, b) => a.step - b.step));
-    return map;
-  }, new Map());
-  const mixColor = (fromValue, toValue, progress) => {
-    const from = parseHexColor(fromValue);
-    const to = parseHexColor(toValue);
-    if (!from || !to) return "";
-    const channel = (start, end) => Math.min(255, Math.max(0, Math.round(start + (end - start) * progress)));
-    return `#${[channel(from.r, to.r), channel(from.g, to.g), channel(from.b, to.b)]
-      .map((value) => value.toString(16).padStart(2, "0"))
-      .join("")
-      .toUpperCase()}`;
-  };
-  const inferredPrimitiveColor = (family, step) => {
-    const inferableFamilies = new Set(["neutral", "white", "red", "orange", "yellow", "tendershoots", "green", "turquoise", "zimablue", "blue", "grape", "purple"]);
-    if (!inferableFamilies.has(family)) return "";
-    const anchors = primitiveAnchorsByFamily.get(family) || [];
-    if (!anchors.length || anchors.some((anchor) => anchor.step === step)) return "";
-    if (anchors.length === 1) {
-      const anchor = anchors[0];
-      if (step < anchor.step) {
-        const progress = step / anchor.step;
-        return mixColor("#FFFFFF", anchor.activeColor, progress);
-      }
-      const progress = (step - anchor.step) / (10 - anchor.step);
-      return mixColor(anchor.activeColor, "#000000", progress);
-    }
-    const lower = [...anchors].reverse().find((anchor) => anchor.step < step);
-    const upper = anchors.find((anchor) => anchor.step > step);
-    if (lower && upper) {
-      const progress = (step - lower.step) / (upper.step - lower.step);
-      return mixColor(lower.activeColor, upper.activeColor, progress);
-    }
-    if (!lower && upper) {
-      const progress = step / upper.step;
-      return mixColor("#FFFFFF", upper.activeColor, progress);
-    }
-    const progress = (step - lower.step) / (10 - lower.step);
-    return mixColor(lower.activeColor, "#000000", progress);
-  };
-  const paletteRows = Object.entries(dangoPrimitivePalettes).map(([family, values]) => {
-    const steps = values.map((value, index) => {
-      const step = index + 1;
-      const tokenName = `--du-${family}-${step}`;
-      const primitiveRef = `${family}-${step}`;
-      const inferredOverride = primitiveOverrideMap.get(primitiveRef);
-      const inferredColor = inferredPrimitiveColor(family, step);
-      const activeValue = tokenMap[tokenName] || inferredOverride?.activeColor || inferredColor || value;
-      const activeColor = firstColor(activeValue) || firstColor(value);
-      const hasPrimitiveSignal = Boolean(inferredOverride);
-      const isExactMatch = formatHexColor(activeColor) === formatHexColor(value);
-      const isInferred = Boolean(inferredColor) && !hasPrimitiveSignal && !overriddenTokenNames.has(tokenName);
-      const isOverridden = isInferred || ((overriddenTokenNames.has(tokenName) || hasPrimitiveSignal) && (hasPrimitiveSignal || !isExactMatch));
-      return {
-        name: `${family}-${step}`,
-        label: String(step),
-        value: activeColor,
-        baseValue: value,
-        displayValue: formatHexColor(activeColor),
-        baseDisplayValue: formatHexColor(value),
-        swatch: firstColor(activeColor),
-        textColor: readableTextColor(activeColor, 0.42),
-        isOverridden,
-        isInferred,
-        overrideKind: isInferred ? "推测" : isExactMatch ? "命中" : "覆盖",
-        overrideSource: inferredOverride?.sourceTokens.join(" / ") || tokenName,
-      };
-    });
-    return {
-      family,
-      steps,
-      hasOverrides: steps.some((step) => step.isOverridden),
-    };
-  });
-  const brandPrimitiveValueMap = paletteRows.reduce((map, row) => {
-    row.steps.forEach((step) => {
-      map.set(`${row.family}-${step.label}`, {
-        value: step.value,
-        swatch: step.swatch,
-        displayValue: step.displayValue,
-        baseDisplayValue: step.baseDisplayValue,
-        isOverridden: step.isOverridden,
-        isInferred: step.isInferred,
-        overrideKind: step.overrideKind,
-      });
-    });
-    return map;
-  }, new Map());
-  const primitiveForBaseToken = (name) => {
-    const baseColor = firstColor(baseTokenMap[name]);
-    const primitiveRef = baseColor ? primitiveRefForValue(baseColor) : "";
-    return brandPrimitiveValueMap.get(primitiveRef)
-      ? { ref: primitiveRef, ...brandPrimitiveValueMap.get(primitiveRef) }
-      : null;
-  };
-  const semanticBrandFamilyMap = (() => {
-    const directRefs = Array.from(primitiveOverrideMap.entries()).map(([ref, item]) => ({
-      ref,
-      family: ref.replace(/-\d$/, ""),
-      tokenName: item.tokenName,
-    }));
-    const familyForPrefix = (prefix) => {
-      const matches = directRefs.filter((item) => item.tokenName.startsWith(`--du-${prefix}-`));
-      if (!matches.length) return "";
-      const counts = matches.reduce((map, item) => {
-        map.set(item.family, (map.get(item.family) || 0) + 1);
-        return map;
-      }, new Map());
-      return [...counts.entries()].sort((a, b) => b[1] - a[1])[0]?.[0] || "";
-    };
-    return {
-      primary: familyForPrefix("primary"),
-      secondary: familyForPrefix("secondary"),
-      trade: familyForPrefix("trade"),
-      success: familyForPrefix("success"),
-      warning: familyForPrefix("warning"),
-      error: familyForPrefix("error"),
-    };
-  })();
-  const semanticPrefixFromName = (name) =>
-    ["primary", "secondary", "trade", "success", "warning", "error"].find((prefix) => name.startsWith(`--du-${prefix}-`)) || "";
-  const semanticResolvedColor = (name, activeValue = tokenMap[name]) => {
-    const directOverride = tokenOverrideInfo(name, activeValue);
-    if (directOverride.isOverridden) {
-      const primitiveRef = primitiveRefForBrandColor(name, directOverride.overrideDisplayValue) || "unknown";
-      return {
-        value: directOverride.overrideDisplayValue,
-        swatch: directOverride.overrideDisplayValue,
-        baseDisplayValue: directOverride.baseDisplayValue,
-        expression: `${primitiveRef} · ${directOverride.overrideDisplayValue}`,
-        isOverridden: true,
-        overrideKind: "覆盖",
-      };
-    }
-    const semanticPrefix = semanticPrefixFromName(name);
-    const semanticBrandFamily = semanticBrandFamilyMap[semanticPrefix];
-    const basePrimitiveRef = primitiveForBaseToken(name)?.ref || "";
-    const basePrimitiveFamily = basePrimitiveRef.replace(/-\d$/, "");
-    const baseStep = basePrimitiveRef.match(/-(\d)$/)?.[1] || "";
-    const canAdoptSemanticFamily = semanticBrandFamily && baseStep && !["neutral", "white", "purplegray"].includes(basePrimitiveFamily);
-    const semanticFamilyValue = canAdoptSemanticFamily ? brandPrimitiveValueMap.get(`${semanticBrandFamily}-${baseStep}`) : null;
-    if (semanticFamilyValue?.isOverridden) {
-      return {
-        value: semanticFamilyValue.displayValue,
-        swatch: semanticFamilyValue.displayValue,
-        baseDisplayValue: semanticFamilyValue.baseDisplayValue,
-        expression: `${semanticBrandFamily}-${baseStep} · ${semanticFamilyValue.displayValue}`,
-        isOverridden: true,
-        isInferred: semanticFamilyValue.isInferred,
-        overrideKind: semanticFamilyValue.overrideKind,
-      };
-    }
-    const primitive = primitiveForBaseToken(name);
-    if (primitive?.isOverridden) {
-      return {
-        value: primitive.displayValue,
-        swatch: primitive.displayValue,
-        baseDisplayValue: primitive.baseDisplayValue,
-        expression: `${primitive.ref} · ${primitive.displayValue}`,
-        isOverridden: true,
-        isInferred: primitive.isInferred,
-        overrideKind: primitive.overrideKind,
-      };
-    }
-    const color = firstColor(activeValue);
-    const primitiveRef = primitiveRefForValue(color) || "unknown";
-    const hexValue = formatHexColor(color);
-    return {
-      value: hexValue,
-      swatch: firstColor(hexValue),
-      baseDisplayValue: hexValue,
-      expression: `${primitiveRef} -> ${hexValue}`,
-      isOverridden: false,
-      overrideKind: "",
-    };
-  };
-  const tokenRefFromValue = (value) => String(value).match(/var\((--[^)]+)\)/)?.[1] || "";
-  const resolveTokenValue = (value, seen = []) => {
-    const ref = tokenRefFromValue(value);
-    if (!ref || seen.includes(ref) || !tokenMap[ref]) return { value, refs: [] };
-    const resolved = resolveTokenValue(tokenMap[ref], [...seen, ref]);
-    return { value: resolved.value, refs: [ref, ...resolved.refs] };
-  };
-  const tokenOverrideInfo = (name, activeValue = tokenMap[name]) => {
-    const activeColor = firstColor(activeValue);
-    const baseColor = firstColor(baseTokenMap[name]);
-    const isOverridden = selectedStyle.value.id !== "dango" && overriddenTokenNames.has(name) && activeColor && baseColor && formatHexColor(activeColor) !== formatHexColor(baseColor);
-    return {
-      isOverridden,
-      baseColor,
-      baseDisplayValue: baseColor ? formatHexColor(baseColor) : "",
-      overrideDisplayValue: activeColor ? formatHexColor(activeColor) : "",
-    };
-  };
-  const mappingExpression = (name, primitiveRef, hexValue, prefixParts = []) => {
-    const overrideInfo = tokenOverrideInfo(name, tokenMap[name]);
-    if (overrideInfo.isOverridden) {
-      return [...prefixParts, `DangoUI ${overrideInfo.baseDisplayValue} -> ${selectedStyle.value.label} ${overrideInfo.overrideDisplayValue}`].filter(Boolean).join(" -> ");
-    }
-    return [...prefixParts, primitiveRef || "unknown", hexValue].filter(Boolean).join(" -> ");
-  };
-  const componentAlias = (name, displayName = name.replace("--du-", ""), rawOverride = null, context = "", optionalRef = "") => {
-    const rawValue = rawOverride ?? tokenMap[name] ?? "";
-    const resolved = resolveTokenValue(rawValue);
-    const colorValue = firstColor(resolved.value) || firstColor(rawValue);
-    if (!colorValue) return null;
-    const overrideInfo = tokenOverrideInfo(name, rawValue);
-    const refResolvedInfo = resolved.refs.map((ref) => ({ ref, resolved: semanticResolvedColor(ref, tokenMap[ref]) })).find((item) => item.resolved.isOverridden);
-    const directResolvedInfo = semanticResolvedColor(name, rawValue);
-    const finalResolved = overrideInfo.isOverridden ? directResolvedInfo : refResolvedInfo?.resolved || null;
-    const hexValue = finalResolved?.value || formatHexColor(colorValue);
-    const primitiveRef = finalResolved?.expression?.split(" · ")[0] || primitiveRefForValue(hexValue) || "unknown";
-    const slotLabel = optionalRef?.split(" -> ")[0] || displayName.replace(/^--du-/, "");
-    const expression = `${slotLabel} · ${primitiveRef} · ${hexValue}`;
-    return {
-      name,
-      label: displayName,
-      value: rawValue,
-      hexValue,
-      swatch: firstColor(hexValue),
-      expression,
-      isOverridden: Boolean(finalResolved?.isOverridden),
-      isInferred: Boolean(finalResolved?.isInferred),
-      overrideKind: finalResolved?.overrideKind || "",
-    };
-  };
-  const sortByOrder = (items, order) => {
-    const orderMap = new Map(order.map(([suffix], index) => [suffix, index]));
-    return [...items].sort((a, b) => {
-      const aIndex = orderMap.has(a.suffix) ? orderMap.get(a.suffix) : Number.MAX_SAFE_INTEGER;
-      const bIndex = orderMap.has(b.suffix) ? orderMap.get(b.suffix) : Number.MAX_SAFE_INTEGER;
-      return aIndex - bIndex || a.suffix.localeCompare(b.suffix);
-    });
-  };
-  const componentAliasOrder = [
-    ["solid-color", "solidColor"],
-    ["solid-bg", "solidBg"],
-    ["color", "color"],
-    ["soft-bg", "softBg"],
-    ["outline-color", "outlineColor"],
-    ["border", "border"],
-    ["text-color", "textColor"],
-    ["solid-disabledtemp-color", "solidDisabledtempColor"],
-    ["solid-disabledtemp-bg", "solidDisabledtempBg"],
-    ["disabledtemp-color", "disabledtempColor"],
-    ["soft-disabledtemp-bg", "softDisabledtempBg"],
-    ["outline-disabledtemp-color", "outlineDisabledtempColor"],
-    ["disabledtemp-border", "disabledtempBorder"],
-    ["text-disabledtemp-color", "textDisabledtempColor"],
-  ];
-  const componentAliasOrderIndex = (item) => {
-    const haystack = `${item.displayName || ""} ${item.tokenName || ""} ${item.suffix || ""}`;
-    const index = componentAliasOrder.findIndex(([suffix]) => haystack.endsWith(suffix) || haystack.includes(`-${suffix}`));
-    return index === -1 ? Number.MAX_SAFE_INTEGER : index;
-  };
-  const buttonVariantNames = ["primary", "secondary", "trade", "success", "warning", "error", "default", "white", "trans-black", "vip"];
-  const buttonVariantTokens = buttonVariantNames.flatMap((variant) =>
-    sortByOrder(
-      componentAliasOrder
-        .map(([suffix, displayName]) => ({
-          variant,
-          suffix,
-          displayName,
-          tokenName: `--du-bt-${suffix}`,
-          semanticName: `--du-${variant}-${suffix}`,
-        }))
-        .filter((item) => tokenMap[item.semanticName]),
-      componentAliasOrder,
-    ),
-  );
-  const buttonVariantGroups = buttonVariantNames
-    .map((variant) => {
-      const mappings = sortByOrder(
-        buttonVariantTokens.filter((item) => item.variant === variant),
-        componentAliasOrder,
-      )
-        .map((item) => componentAlias(
-          item.tokenName,
-          item.tokenName,
-          `var(${item.semanticName})`,
-          "",
-          `${item.suffix} -> ${item.variant}-${item.suffix}`,
-        ))
-        .filter(Boolean);
-      return {
-        name: variant,
-        summary: `du-c-${variant}-bt：bt-* 槽位赋值到 ${variant}-*`,
-        mappings,
-      };
-    })
-    .filter((group) => group.mappings.length);
-  const componentTokenGroups = [
-    {
-      component: "Button",
-      source: "源码逻辑：每个 du-c-{color}-bt 分别把 bt-* 槽位赋值到 {color}-*",
-      variantGroups: buttonVariantGroups,
-      tokens: [],
-    },
-    ...catalog.value.components
-      .filter((componentItem) => componentItem.name !== "Button" && componentItem.tokens)
-      .map((componentItem) => ({
-        component: componentItem.name,
-        source: "catalog component.tokens 全量",
-        tokens: Object.entries(componentItem.tokens)
-          .map(([displayName, tokenName]) => ({
-            tokenName,
-            displayName,
-          }))
-          .sort((a, b) => componentAliasOrderIndex(a) - componentAliasOrderIndex(b) || a.displayName.localeCompare(b.displayName)),
-      })),
-  ];
-  const componentAliasGroups = componentTokenGroups
-    .map((spec) => {
-      const seen = new Set();
-      const mappings = spec.tokens
-        .filter(({ tokenName, rawOverride }) => {
-          const key = `${tokenName}:${rawOverride || ""}`;
-          if (seen.has(key)) return false;
-          seen.add(key);
-          return Boolean(tokenMap[tokenName]);
-        })
-        .map(({ tokenName, displayName, rawOverride, context, optionalRef }) => componentAlias(tokenName, displayName, rawOverride, context, optionalRef))
-        .filter(Boolean);
-      return {
-        component: spec.component,
-        expanded: spec.component === "Button",
-        variantGroups: spec.variantGroups,
-        summary: spec.variantGroups
-          ? `${spec.variantGroups.length} 个颜色变体 · ${spec.source}`
-          : mappings.length
-          ? `${mappings.length} 个颜色别名 · ${spec.source}`
-          : `无颜色别名 · ${spec.source}`,
-        mappings,
-      };
-    })
-    .filter((group) => group.component === "Button" || group.summary);
-  const neutralSemanticDescription = "占整个 app 用色的 60%，文字、图标、边框、分割线、阴影的常用色";
-  const semanticFamilies = [
-    { family: "text", prefix: "text", category: "中性语义色", source: neutralSemanticDescription, order: ["1", "2", "3", "disabled"] },
-    { family: "icon", prefix: "icon", category: "中性语义色", source: neutralSemanticDescription, order: ["1", "2", "3", "disabled"] },
-    { family: "border", prefix: "border", category: "中性语义色", source: neutralSemanticDescription, order: ["1", "2", "3"] },
-    { family: "bg", prefix: "bg", category: "中性语义色", source: neutralSemanticDescription, order: ["1", "2", "3", "4"] },
-    { family: "mask", prefix: "mask", category: "中性语义色", source: neutralSemanticDescription, order: ["1", "2", "3", "4", "hover", "active"] },
-    { family: "primary", prefix: "primary", category: "品牌语义色", source: "品牌主色，用于主按钮、主行动入口和关键高亮。" },
-    { family: "secondary", prefix: "secondary", category: "品牌语义色", source: "品牌辅助色，用于次级行动、辅助强调和品牌延展。" },
-    { family: "trade", prefix: "trade", category: "品牌语义色", source: "交易/业务强调色，用于价格、交易动作和强业务状态。" },
-    { family: "success", prefix: "success", category: "通用语义色", source: "成功状态色，用于完成、通过、正向反馈。" },
-    { family: "warning", prefix: "warning", category: "通用语义色", source: "警告状态色，用于提醒、风险提示和待处理状态。" },
-    { family: "error", prefix: "error", category: "通用语义色", source: "错误状态色，用于失败、危险、破坏性提示。" },
-    { family: "default", prefix: "default", category: "通用语义色", source: "默认操作色，用于未指定品牌或状态语义的组件默认态。" },
-    { family: "white", prefix: "white", category: "通用语义色", source: "反相语义色，用于深色底上的文字、图标和组件状态。" },
-    { family: "transblack", prefix: "trans-black", category: "通用语义色", source: "透明黑语义色，用于遮罩、浮层、压暗和叠加状态。" },
-  ];
-  const semanticRows = semanticFamilies.map(({ family, prefix, category, source, order }) => {
-    const tokenPrefix = `--du-${prefix}-`;
-    const familyTokens = Object.entries(tokenMap)
-      .filter(([name]) => name.startsWith(tokenPrefix))
-      .filter(([name]) => !name.includes("-bt-") && !name.includes("-tag-") && !name.endsWith("-channel"));
-    const directToken = (suffix) => {
-      const name = `${tokenPrefix}${suffix}`;
-      const resolved = semanticResolvedColor(name, tokenMap[name]);
-      return {
-        name,
-        label: suffix,
-        value: resolved.value,
-        displayValue: resolved.value,
-        baseDisplayValue: resolved.baseDisplayValue,
-        swatch: resolved.swatch,
-        textColor: readableTextColor(resolved.swatch, 0.42),
-        isOverridden: resolved.isOverridden,
-        isInferred: resolved.isInferred,
-        overrideKind: resolved.overrideKind,
-        expression: resolved.expression,
-      };
-    };
-    const steps = Array.from({ length: 9 }, (_, index) => directToken(String(index + 1))).filter((item) => item.value);
-    const aliases = familyTokens
-      .filter(([name]) => order || !/^--du-[a-z-]+-\d$/.test(name))
-      .map(([name, value]) => {
-        const resolved = semanticResolvedColor(name, value);
-        const label = name.replace(tokenPrefix, "");
-        return {
-          name,
-          label,
-          value: resolved.value,
-          displayValue: resolved.value,
-          baseDisplayValue: resolved.baseDisplayValue,
-          swatch: resolved.swatch,
-          expression: resolved.expression,
-          isOverridden: resolved.isOverridden,
-          isInferred: resolved.isInferred,
-          overrideKind: resolved.overrideKind,
-        };
-      });
-    const mappedAliasNames = order
-      ? order.map((label) => [label, label])
-      : [
-      ["solid-color", "solidColor"],
-      ["solid-bg", "solidBg"],
-      ["color", "color"],
-      ["soft-bg", "softBg"],
-      ["outline-color", "outlineColor"],
-      ["border", "border"],
-      ["text-color", "textColor"],
-      ["solid-disabledtemp-color", "solidDisabledtempColor"],
-      ["solid-disabledtemp-bg", "solidDisabledtempBg"],
-      ["disabledtemp-color", "disabledtempColor"],
-      ["soft-disabledtemp-bg", "softDisabledtempBg"],
-      ["outline-disabledtemp-color", "outlineDisabledtempColor"],
-      ["disabledtemp-border", "disabledtempBorder"],
-      ["text-disabledtemp-color", "textDisabledtempColor"],
-    ];
-    const mappings = mappedAliasNames
-      .map(([label, displayName]) => {
-        const item = aliases.find((aliasItem) => aliasItem.label === label);
-        return item ? { ...item, displayName } : null;
-      })
-      .filter(Boolean)
-      .map((item) => ({
-        name: item.name,
-        label: item.displayName,
-        value: item.value,
-        swatch: item.swatch,
-        primitiveRef: primitiveRefForValue(item.value) || "unknown",
-        hexValue: formatHexColor(item.value),
-        expression: item.expression,
-        isOverridden: item.isOverridden,
-        isInferred: item.isInferred,
-        overrideKind: item.overrideKind,
-      }));
-    return {
-      family,
-      category,
-      scaleText: source,
-      mappings,
-    };
-  });
-  const alias = (name, value, swatchSource = value) => ({
-    name,
-    value,
-    swatch: firstColor(swatchSource),
-    chain: "",
-  });
-  const semantic = (name, ref, swatchSource = tokenMap[name]) => ({
-    name,
-    value: `var(${ref})`,
-    swatch: firstColor(swatchSource),
-    chain: "",
-  });
-  const component = (name) => {
-    const value = tokenMap[name] || "";
-    const ref = String(value).match(/var\((--[^)]+)\)/)?.[1] || "";
-    return {
-      name,
-      value: ref ? `var(${ref})` : value,
-      swatch: firstColor(tokenMap[ref] || value),
-      chain: "",
-    };
-  };
-  return [
-    {
-      title: "一级：基础色板",
-      description: "只表达颜色家族和色阶，不带业务语义。",
-      variant: "paletteRows",
-      items: paletteRows,
-      hasOverrides: paletteRows.some((row) => row.hasOverrides),
-    },
-    {
-      title: "二级：语义色板",
-      description: "引用一级基础色板，中性色:品牌语义色:通用语义色=6:3:1，中性色包括 White/Transblack/Default，品牌语义色包括 Primary/Secondary/Trade，通用语义色包括 Success/Warning/Error。",
-      variant: "semanticTextRows",
-      items: semanticRows,
-    },
-    {
-      title: "三级：组件别名",
-      description: "组件别名层引用二级语义色板；当前快照 61 个组件，其中 39 个有 token map，32 个能解析到颜色链路。",
-      variant: "componentAliasRows",
-      items: componentAliasGroups,
-    },
-  ];
-});
+const dangoColorStructureRows = computed(() => buildColorStructure(catalog.value, selectedStyle.value, selectedStyleTokenMap.value));
 const catalogColorInventoryRows = computed(() => {
   const rows = new Map();
   catalog.value.tokens.forEach((token) => {
@@ -8376,20 +7460,6 @@ function signalSwatch(signal) {
   return "linear-gradient(135deg, #f6f5f4, #e6e6e6)";
 }
 
-function parseHexColor(value) {
-  const hex = String(value).trim().replace("#", "");
-  if (!/^[0-9a-f]{3,8}$/i.test(hex)) return null;
-  const normalized = hex.length === 3 || hex.length === 4
-    ? hex.split("").map((char) => char + char).join("")
-    : hex;
-  const hasAlpha = normalized.length === 8;
-  return {
-    r: parseInt(normalized.slice(0, 2), 16),
-    g: parseInt(normalized.slice(2, 4), 16),
-    b: parseInt(normalized.slice(4, 6), 16),
-    a: hasAlpha ? parseInt(normalized.slice(6, 8), 16) / 255 : 1,
-  };
-}
 
 function rgbChannel(value) {
   const color = parseHexColor(value);
@@ -8397,26 +7467,7 @@ function rgbChannel(value) {
   return `${color.r}, ${color.g}, ${color.b}`;
 }
 
-function formatHexColor(value) {
-  const raw = String(value).trim();
-  const match = raw.match(/^#([0-9a-f]{3,8})$/i);
-  if (!match) return raw;
-  const hex = match[1];
-  const normalized = hex.length === 3 || hex.length === 4
-    ? hex.split("").map((char) => char + char).join("")
-    : hex;
-  return `#${normalized.toUpperCase()}`;
-}
 
-function readableTextColor(value, opacity = 0.8) {
-  const color = parseHexColor(value);
-  if (!color) return "var(--style-text)";
-  const r = color.r * color.a + 255 * (1 - color.a);
-  const g = color.g * color.a + 255 * (1 - color.a);
-  const b = color.b * color.a + 255 * (1 - color.a);
-  const luminance = (0.2126 * r + 0.7152 * g + 0.0722 * b) / 255;
-  return luminance < 0.48 ? `rgba(255, 255, 255, ${opacity})` : `rgba(0, 0, 0, ${opacity})`;
-}
 
 function readableSolidTextColor(value) {
   const color = parseHexColor(value);
@@ -8477,9 +7528,6 @@ function showCopySnackbar(value) {
   }, 2000);
 }
 
-function extractColorValues(value) {
-  return Array.from(String(value).matchAll(/#[0-9a-f]{3,8}|rgba?\([^)]*\)/gi), (match) => match[0]);
-}
 
 function firstNumber(value, fallback) {
   const match = String(value).match(/\d+/);
@@ -9681,7 +8729,7 @@ function normalizeRuntimePages(styleId, pages = []) {
 onMounted(async () => {
   await loadRuntimeBrandPreviews();
   applyRouteFromLocation();
-  const response = await fetch("/data/dangoui.design-system.json");
+  const response = await fetch(catalogUrl);
   catalog.value = await response.json();
   await nextTick();
   updateMockupScale();

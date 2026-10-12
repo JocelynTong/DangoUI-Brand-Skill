@@ -4,6 +4,8 @@
   "description": "Learn reusable brand systems and apply them safely through DangoUI.",
   "main": "src/main.js",
   "scripts": {
+    "test:brand-assets": "node scripts/test-brand-assets.mjs",
+    "test:demo": "node scripts/test-navigation.mjs && node scripts/test-document-model.mjs && node scripts/test-site-theme.mjs && node --test scripts/test-demo-catalog.mjs",
     "dev": "vite --host 127.0.0.1",
     "dev:dangoui-local": "DANGOUI_LOCAL=1 vite --host 127.0.0.1",
     "build": "vite build",

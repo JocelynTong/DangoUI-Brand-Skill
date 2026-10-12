@@ -1,46 +1,99 @@
 <template>
   <App v-if="isInspector" />
-  <main v-else class="variant-library">
-    <header class="vl-header"><a href="#/variants" class="vl-wordmark">DangoUI <span>Variant 库</span></a><span class="vl-header-note">品牌视觉 × 场景表达</span><a href="#/brand/dango/style/color" class="vl-inspector">风格与组件 ↗</a></header>
+  <main v-else class="variant-library" :class="{ 'vl-editorial': !!selected }">
+    <header class="vl-header"><a href="#/variants" class="vl-wordmark">DangoUI <span>品牌库</span></a><SiteThemeControl /></header>
     <div v-if="loading" class="vl-message" role="status">正在载入品牌…</div>
     <div v-else-if="error" class="vl-message" role="alert">{{ error }} <button @click="load">重试</button></div>
     <template v-else-if="!selected">
-      <section class="vl-intro"><p class="vl-eyebrow">FIND YOUR EXPRESSION</p><h1>先被一种风格打动。<br><span>再看看，它能做什么。</span></h1><p>从品牌出发，探索视觉场景、交互与可迁移的设计语言。</p></section>
+      <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
       <section class="vl-grid" aria-label="品牌 Variant 列表">
         <a v-for="brand in brands" :key="brand.id" :href="`#/variants/${brand.id}`" class="vl-card" :class="`vl-card--${brand.id}`">
           <div class="vl-cover"><img v-if="brand.cover" :src="brand.cover" :alt="`${brand.displayName} 品牌素材`" @error="hideBroken($event, brand.id)"/><div v-else class="vl-typographic">Dango<span>Design → Build</span></div><span v-if="failedCovers[brand.id]" class="vl-media-fallback">{{ brand.displayName }}<small>远程封面暂未载入</small></span><div class="vl-cover-shade"></div><span class="vl-cover-label">{{ brand.hook }}</span></div>
           <div class="vl-card-body"><div class="vl-card-heading"><h2>{{ brand.displayName }}</h2><span>↗</span></div><p>{{ brand.description }}</p><div class="vl-card-meta"><span>{{ brand.scenes.length }} 个演示场景</span><span>{{ brand.publicationStatus === 'draft' ? '学习中' : '预览' }}</span></div></div>
         </a>
-      </section><p class="vl-footnote">品牌入口使用现有素材与运行时。场景记录保留来源与验证边界；预览不等于真实宿主已适配。</p>
+      </section><p class="vl-footnote">Web 预览 · 适配与验证范围见各品牌说明。</p>
     </template>
     <template v-else>
       <a class="vl-back" href="#/variants">← 全部品牌</a>
-      <section class="vl-brand-heading"><div><p class="vl-eyebrow">{{ selected.sourceHost }}</p><h1>{{ selected.displayName }}</h1><p>{{ selected.description }}</p></div><a :href="selected.sourceUrl" target="_blank" rel="noopener noreferrer">品牌来源 ↗</a></section>
-      <div class="vl-detail-grid">
+      <section class="vl-brand-heading"><div><h1>{{ selected.displayName }}</h1><p>{{ selected.description }}</p></div><div class="vl-brand-tools"><a :href="selected.sourceUrl">品牌来源 ↗</a></div></section>
+      <nav class="vl-primary-nav" aria-label="内容分类" @click="closeMenu">
+        <a :href="`#/variants/${selected.id}/${selected.scenes[0].id}`" :aria-current="section === 'pages' ? 'page' : undefined">页面示例</a>
+        <a :href="`#/variants/${selected.id}/foundations`" :aria-current="section === 'foundations' ? 'page' : undefined">设计规范</a>
+        <a :href="`#/variants/${selected.id}/components`" :aria-current="section === 'components' ? 'page' : undefined">组件</a>
+      </nav>
+      <div class="vl-workspace">
+      <aside class="vl-navigation">
+        <button class="vl-menu-toggle" :aria-expanded="menuOpen" aria-controls="brand-directory" @click="menuOpen = !menuOpen">目录 · {{ directoryLabel }} <span>{{ menuOpen ? '−' : '+' }}</span></button>
+        <nav id="brand-directory" class="vl-document-nav" :class="{ 'is-open': menuOpen }" aria-label="品牌目录" @click="closeMenu">
+          <template v-if="section === 'pages'">
+          <a v-for="scene in selected.scenes" :key="scene.id" :href="`#/variants/${selected.id}/${scene.id}`" :aria-current="section === 'pages' && activeScene.id === scene.id ? 'page' : undefined">{{ scene.label }}</a>
+          </template>
+          <template v-else-if="section === 'foundations'">
+          <template v-if="selected.id === 'dango'">
+            <a href="#/variants/dango/foundations/color" :aria-current="inlineDocument === 'color' ? 'page' : undefined">颜色</a>
+            <a href="#/variants/dango/foundations/typography" :aria-current="inlineDocument === 'typography' ? 'page' : undefined">字体</a>
+          </template>
+          <a v-else :href="`#/variants/${selected.id}/foundations`" :aria-current="section === 'foundations' && !isDesignSystem ? 'page' : undefined">基础规范</a>
+          <a v-if="selected.id === 'onepiece-cardgame'" :href="`#/variants/${selected.id}/design-system`" :aria-current="isDesignSystem ? 'page' : undefined">视觉总览</a>
+          </template>
+          <template v-else>
+          <a v-if="selected.id === 'dango'" href="#/variants/dango/components/button" :aria-current="inlineDocument === 'button' ? 'page' : undefined">按钮</a>
+          <template v-if="selected.id === 'dango'">
+            <a href="#/variants/dango/components/navigation-bar" :aria-current="inlineDocument === 'navigation-bar' ? 'page' : undefined">导航栏</a>
+            <a href="#/variants/dango/components/switch" :aria-current="inlineDocument === 'switch' ? 'page' : undefined">开关</a>
+          </template>
+          <a :href="`#/variants/${selected.id}/components/inspector`" :aria-current="section === 'components' && !inlineDocument ? 'page' : undefined">组件检查器</a>
+          </template>
+        </nav>
+      </aside>
+      <div class="vl-workspace-content">
+      <section v-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
+        <div v-if="!inlineDocument" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
+        <div v-if="inlineDocument" class="vl-document">
+          <ColorDocument v-if="inlineDocument === 'color'" />
+          <TypographyDocument v-else-if="inlineDocument === 'typography'" />
+          <NavigationDocument v-else-if="inlineDocument === 'navigation-bar'" />
+          <SwitchDocument v-else-if="inlineDocument === 'switch'" />
+          <ButtonDocument v-else />
+        </div>
+        <iframe v-else :key="inspectorContentUrl" :src="inspectorContentUrl" :title="`${selected.displayName} · ${section === 'components' ? '组件' : '设计规范'}`"></iframe>
+      </section>
+      <section v-else-if="isDesignSystem" class="vl-system" aria-label="航海王设计系统">
+        <div class="vl-system-toolbar"><a :href="`#/variants/${selected.id}/foundations`">← 规范明细</a><span>视觉总览试点 · 非完整组件文档</span><a :href="designSystemUrl" target="_blank" rel="noopener">独立窗口 ↗</a></div>
+        <iframe :src="designSystemUrl" title="航海王设计系统 · 可交互展示"></iframe>
+      </section>
+      <ReleaseChecklist v-else-if="selected.id === 'dango' && activeScene.id === 'dango-release-checklist'" />
+      <div v-else class="vl-detail-grid">
         <section class="vl-preview-column" aria-label="场景预览">
-          <div v-for="group in sceneGroups" :key="group.label" class="vl-scene-group">
-            <h2>{{ group.label }}</h2>
-            <div class="vl-scenes" :aria-label="group.label"><button v-for="scene in group.scenes" :key="scene.id" :aria-pressed="activeScene.id === scene.id" @click="chooseScene(scene.id)">{{ scene.label }}</button></div>
-          </div>
-          <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="inspectorUrl" target="_blank" rel="noopener">完整检查器 ↗</a></div>
+          <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
           <div class="vl-preview-stage"><iframe :key="previewUrl" :src="previewUrl" :title="`${selected.displayName} · ${activeScene.label}`"></iframe></div>
-          <p class="vl-preview-caption">参考 Demo · 可在预览内操作和滚动；不代表真实宿主已适配或通过视觉验收。</p>
         </section>
         <aside class="vl-notes">
-          <section><p class="vl-eyebrow">IN THIS SCENE</p><h2>{{ activeScene.label }}</h2><p>{{ activeScene.note }}</p></section>
-          <section><h3>这次看什么</h3><p>{{ selected.expression }}</p></section>
-          <section><h3>场景与任务的关系</h3><p>{{ activeScene.pattern }}</p><p class="vl-small">{{ sceneBoundary }}</p></section>
-          <section><h3>带着你的想法使用</h3><p>告诉 skill 你想做什么，让它参考这个品牌，判断哪些表达适合你的任务。</p><button class="vl-copy" @click="copyPrompt">{{ copied ? '已复制使用描述' : '复制使用描述' }}</button><textarea v-if="copyFallback" readonly aria-label="使用描述" :value="prompt"></textarea><p class="vl-small" role="status">{{ copyError }}</p></section>
-          <details class="vl-evidence"><summary>来源与验证范围</summary><p>{{ selected.publicationStatus === 'draft' ? '此品牌原始资料仍为草稿，视觉验证待完成。' : '沿用原库已记录的学习状态；本次不重新宣称品牌验证通过。' }}</p><p>当前是 Web 品牌库预览，未证明 Taro、真机或任意宿主自动适配。品牌素材的可用范围按原资产声明处理。</p><a :href="selected.path" target="_blank" rel="noopener">查看原始品牌记录 ↗</a></details>
+          <section><h3>场景说明</h3><p>{{ activeScene.note }}</p></section>
+          <section><h3>用于我的项目</h3><button class="vl-copy" @click="copyPrompt">{{ copied ? '已复制使用描述' : '复制使用描述' }}</button><textarea v-if="copyFallback" readonly aria-label="使用描述" :value="prompt"></textarea><p class="vl-small" role="status">{{ copyError }}</p></section>
+          <details class="vl-evidence"><summary>来源与验证范围</summary><p>{{ selected.publicationStatus === 'draft' ? '此品牌原始资料仍为草稿，视觉验证待完成。' : '沿用原库已记录的学习状态；本次不重新宣称品牌验证通过。' }}</p><p>当前是 Web 品牌库预览，未证明 Taro、真机或任意宿主自动适配。品牌素材的可用范围按原资产声明处理。</p><a :href="selected.path">查看原始品牌记录 ↗</a></details>
         </aside>
+      </div>
+      </div>
       </div>
     </template>
   </main>
 </template>
 <script setup>
-import {computed,nextTick,onMounted,onBeforeUnmount,ref,watch} from 'vue';
-import App from './App.vue';
+import {computed,defineAsyncComponent,nextTick,onMounted,onBeforeUnmount,ref,watch} from 'vue';
+import ColorDocument from './documents/ColorDocument.vue';
+import ButtonDocument from './documents/ButtonDocument.vue';
+import TypographyDocument from './documents/TypographyDocument.vue';
+import NavigationDocument from './documents/NavigationDocument.vue';
+import SwitchDocument from './documents/SwitchDocument.vue';
+import ReleaseChecklist from './documents/ReleaseChecklist.vue';
+import { canonicalDocumentHash } from './documents/routes.mjs';
+const App = defineAsyncComponent(() => import('./App.vue'));
+import SiteThemeControl from './SiteThemeControl.vue';
 import './variant-library.css';
+const isDevelopment = import.meta.env.DEV;
+const menuOpen = ref(false);
+function closeMenu(event) { if (event.target.closest('a')) menuOpen.value = false; }
 const hash=ref(location.hash),brands=ref([]),loading=ref(true),error=ref(''),copied=ref(false),copyFallback=ref(false),copyError=ref(''),failedCovers=ref({});
 const routePath=computed(()=>hash.value.slice(1).split('?')[0]);
 const isInspector=computed(()=>routePath.value.startsWith('/brand/'));
@@ -51,23 +104,40 @@ const meta={
  'dango':{hook:'让结构清晰可读',description:'克制的文档层级、组件表达与清晰的行动反馈。',expression:'文档层级与组件状态如何在新任务里延续。',scenes:[['dango-introduction','设计语言','source','既有设计系统介绍页。','信息层级与说明。'],['dango-button','组件交互','source','直接操作已有按钮与状态示例。','基础交互与反馈。'],['dango-release-checklist','发布清单','transfer','既有新内容练习，观察规则的复用。','清单式任务表达。']]}
 };
 const selected=computed(()=>brands.value.find(b=>b.id===routePath.value.split('/')[2]));
+const section=computed(()=>{
+  const part=routePath.value.split('/')[3];
+  return part==='components' ? 'components' : !part || ['foundations','design-system'].includes(part) ? 'foundations' : 'pages';
+});
+const isDesignSystem=computed(()=>selected.value?.id==='onepiece-cardgame' && routePath.value.split('/')[3]==='design-system');
+const inlineDocument=computed(()=>{
+  if(selected.value?.id !== 'dango') return '';
+  const target=routePath.value.split('/')[4];
+  if(section.value==='foundations' && target==='typography') return 'typography';
+  if(section.value==='foundations' && !isDesignSystem.value && (!target || target==='color')) return 'color';
+  return section.value==='components' && ['button', 'navigation-bar', 'switch'].includes(target) ? target : '';
+});
+const inspectorContentUrl=computed(()=>selected.value?`${location.pathname}?inspectorEmbed=1#/brand/${selected.value.id}/${section.value === 'components' ? 'components/navigation-bar' : `style/${routePath.value.split('/')[4] || 'color'}`}`:'');
+const designSystemUrl=new URL('design-system.html',location.href.split('#')[0]).href;
 const activeScene=computed(()=>selected.value?.scenes.find(s=>s.id===routePath.value.split('/')[3])||selected.value?.scenes[0]);
-const sceneGroups=computed(()=>[
-  {label:'来源参考与迁移练习',scenes:selected.value?.scenes || []},
-].filter(group=>group.scenes.length));
-const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '既有迁移练习 · 示例内容' : '既有来源演示 · 沿用原验证范围');
-const sceneBoundary=computed(()=>activeScene.value?.kind === 'transfer' ? '既有迁移练习含示例内容，不能作为真实业务数据或宿主适配结论。' : '来源演示保留作次级参考，不代表新场景适配。');
-const inspectorUrl=computed(()=>selected.value?`${location.pathname}#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
+const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移练习 · 示例内容' : '来源参考');
+const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${({ button: '按钮', 'navigation-bar': '导航栏', switch: '开关' }[inlineDocument.value] || '检查器')}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : inlineDocument.value === 'typography' ? '字体' : inlineDocument.value === 'color' ? '颜色' : '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}`);
-function chooseScene(id){location.hash=`/variants/${selected.value.id}/${id}`;}
-function changed(){const previousPath=routePath.value;hash.value=location.hash;copied.value=false;copyFallback.value=false;copyError.value='';if(previousPath!==routePath.value && !(previousPath.startsWith('/variants/') && previousPath.split('/')[2]===routePath.value.split('/')[2]))nextTick(()=>window.scrollTo(0,0));}
+function changed() {
+  const previousPath = routePath.value;
+  const canonical = canonicalDocumentHash(location.hash, location.search);
+  if (canonical !== location.hash) history.replaceState(null, '', `${location.pathname}${location.search}${canonical}`);
+  hash.value = canonical;
+  copied.value = false; copyFallback.value = false; copyError.value = ''; menuOpen.value = false;
+  if (previousPath === routePath.value) return;
+  nextTick(() => window.scrollTo(0, 0));
+}
 watch(()=>[routePath.value,selected.value?.displayName,activeScene.value?.label],()=>{
-  const title=isInspector.value ? '检查器' : selected.value ? `${selected.value.displayName} · ${activeScene.value.label}` : '品牌场景';
-  document.title=`${title} · DangoUI Variant 库`;
+  const title=isInspector.value ? '检查器' : selected.value ? `${selected.value.displayName} · ${section.value === 'foundations' ? '设计规范' : section.value === 'components' ? '组件' : activeScene.value.label}` : '品牌场景';
+  document.title=`${title} · DangoUI 品牌库`;
 },{immediate:true});
 function hideBroken(e,id){e.target.style.display='none';failedCovers.value[id]=true;}
 async function copyPrompt(){try{await navigator.clipboard.writeText(prompt.value);copied.value=true;}catch{copyFallback.value=true;copyError.value='剪贴板不可用，可从下方选中复制。';}}
-async function load(){loading.value=true;error.value='';try{const r=await fetch('/brand-previews/registry.json');if(!r.ok)throw Error();const d=await r.json();brands.value=['pokemon-tcg-official','onepiece-cardgame','czn','dango'].map(id=>{const b=d.brands.find(b=>b.id===id),m=meta[id];return b?{...b,...m,scenes:m.scenes.filter(scene=>['source','transfer'].includes(scene[2])).map(([id,label,kind,note,pattern])=>({id,label,kind,note,pattern}))}:null}).filter(Boolean);}catch{error.value='品牌列表读取失败。';}finally{loading.value=false;}}
+async function load(){loading.value=true;error.value='';try{const r=await fetch('/brand-previews/registry.json');if(!r.ok)throw Error();const d=await r.json();brands.value=['pokemon-tcg-official','onepiece-cardgame','czn','dango'].map(id=>{const b=d.brands.find(b=>b.id===id),m=meta[id];return b?{...b,...m,scenes:m.scenes.filter(scene=>scene[0]!=='dango-button' && ['source','transfer'].includes(scene[2])).map(([id,label,kind,note,pattern])=>({id,label,kind,note,pattern}))}:null}).filter(Boolean);}catch{error.value='品牌列表读取失败。';}finally{loading.value=false;}}
 onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();});onBeforeUnmount(()=>window.removeEventListener('hashchange',changed));
 </script>
