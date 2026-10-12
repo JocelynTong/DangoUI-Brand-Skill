@@ -154,6 +154,7 @@ for (const brand of published) {
 for (const brand of published) {
   const brandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
   const artifacts = {}
+  const artifactHashes = {}
   const artifactValues = []
   const delivery = deliveries.get(brand.id)
   const artifactFiles = Object.keys(delivery)
@@ -174,6 +175,7 @@ for (const brand of published) {
     const target = path.join(brandRoot, name)
     writeJson(target, publishedValue)
     artifacts[name.replace(/\.json$/, '')] = `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${name}`
+    artifactHashes[name.replace(/\.json$/, '')] = sha256(target)
   }
   const evidenceAssets = []
   const publishedEvidencePaths = new Set()
@@ -225,6 +227,7 @@ for (const brand of published) {
     sourceHost: brand.sourceHost,
     preview: brand.path,
     artifacts,
+    artifactHashes,
     evidenceAssets,
     runtimeAssets,
     platformSupport: brand.platformSupport,

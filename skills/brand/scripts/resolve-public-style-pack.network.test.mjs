@@ -3,6 +3,7 @@ import fs from "node:fs";
 import os from "node:os";
 import path from "node:path";
 import http from "node:http";
+import crypto from "node:crypto";
 import { once } from "node:events";
 import { test } from "node:test";
 import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
@@ -16,6 +17,35 @@ async function fixture(t, handler) {
   // Deliberately leave only this tiny test fixture; no recursive cleanup.
   return { root, registryBase: `http://127.0.0.1:${server.address().port}/`, sourceUrl: "https://example.com/" };
 }
+
+test('resume fetches only missing or corrupt files using the current manifest hashes', async t => {
+  const bytes = Buffer.from('{}\n');
+  const hash = crypto.createHash('sha256').update(bytes).digest('hex');
+  const hits = [];
+  const manifest = {artifacts:{data:'/data.json'},artifactHashes:{data:hash},evidenceAssets:[{path:'/frame.png',installPath:'frame.png',sha256:hash}],runtimeAssets:[{path:'/asset.png',installPath:'public/asset.png',sha256:hash}]};
+  const options = await fixture(t,(req,res)=>{
+    hits.push(req.url);
+    res.setHeader('content-type','application/json');
+    res.end(req.url.endsWith('index.json') ? JSON.stringify({brands:[{id:'demo',manifest:'/manifest.json'}]}) : req.url.endsWith('by-source.json') ? JSON.stringify({sources:{'https://example.com/':'demo'}}) : req.url.endsWith('manifest.json') ? JSON.stringify(manifest) : bytes);
+  });
+  const dir=path.join(options.root,'migrations/demo');fs.mkdirSync(dir,{recursive:true});
+  fs.writeFileSync(path.join(dir,'data.json'),bytes);
+  fs.writeFileSync(path.join(dir,'frame.png'),'corrupt');
+  const first=await resolvePublicStylePack({...options,install:true});
+  assert.deepEqual(first.reusedFiles,['migrations/demo/data.json']);
+  assert.equal(first.downloadedFiles.length,2);
+  assert.equal(hits.includes('/data.json'),false);
+  hits.length=0;
+  const second=await resolvePublicStylePack({...options,install:true});
+  assert.equal(second.reusedFiles.length,3);
+  assert.equal(second.downloadedFiles.length,0);
+  assert.deepEqual(hits.sort(),['/brand-registry/v0.1/by-source.json','/brand-registry/v0.1/index.json','/manifest.json']);
+  // Changed publication at the same URL must invalidate the old local bytes.
+  manifest.artifactHashes.data='0'.repeat(64);
+  await assert.rejects(resolvePublicStylePack({...options,install:true}),/Registry artifact hash mismatch/);
+  assert.ok(hits.includes('/data.json'));
+  assert.equal(fs.readFileSync(path.join(dir,'data.json'),'utf8'),bytes.toString());
+});
 
 test("remote Registry that never sends headers fails with bounded timeout", async (t) => {
   const options = await fixture(t, () => {});
