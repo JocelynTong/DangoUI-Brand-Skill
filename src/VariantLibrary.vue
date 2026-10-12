@@ -23,7 +23,7 @@
       </nav>
       <div class="vl-workspace">
       <aside class="vl-navigation">
-        <button class="vl-menu-toggle" :aria-expanded="menuOpen" aria-controls="brand-directory" @click="menuOpen = !menuOpen">目录 · {{ directoryLabel }} <span>{{ menuOpen ? '−' : '+' }}</span></button>
+        <button ref="menuToggle" class="vl-menu-toggle" :aria-expanded="menuOpen" aria-controls="brand-directory" @click="menuOpen = !menuOpen">目录 · {{ directoryLabel }} <span>{{ menuOpen ? '−' : '+' }}</span></button>
         <nav id="brand-directory" class="vl-document-nav" :class="{ 'is-open': menuOpen }" aria-label="品牌目录" @click="closeMenu">
           <template v-if="section === 'pages'">
           <a v-for="scene in selected.scenes" :key="scene.id" :href="`#/variants/${selected.id}/${scene.id}`" :aria-current="section === 'pages' && activeScene.id === scene.id ? 'page' : undefined">{{ scene.label }}</a>
@@ -69,7 +69,7 @@
           <p v-if="isCatalogScene" class="vl-small" role="note">静态目录示例 · 可滚动浏览，分类、页码与卡片不执行业务操作。</p>
           <p v-if="activeScene.id === 'onepiece-cardgame-home'" class="vl-small" role="note">商品与活动入口打开本站示例，不进入具体商品或活动详情；无对应页面的内容仅展示。外部资源链接将离开本站。</p>
           <p v-if="activeScene.id === 'onepiece-cardgame-events'" class="vl-small" role="note">静态活动示例 · 可滚动浏览；TRY PLAYING 等行动文字仅展示，不提供报名、详情或活动查询。</p>
-          <div class="vl-preview-stage"><iframe :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`"></iframe></div>
+          <div class="vl-preview-stage"><iframe ref="previewFrame" :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`" @load="restoreFramePosition"></iframe></div>
         </section>
         <aside class="vl-notes">
           <CatalogUsageGuide v-if="isCatalogScene" />
@@ -95,13 +95,26 @@ import ReleaseChecklist from './documents/ReleaseChecklist.vue';
 import CatalogUsageGuide from './documents/CatalogUsageGuide.vue';
 import SceneUsageGuide from './documents/SceneUsageGuide.vue';
 import { canonicalDocumentHash } from './documents/routes.mjs';
+import { createPreviewPositions, restorePreviewPosition } from './demo-preview-position.mjs';
 const App = defineAsyncComponent(() => import('./App.vue'));
 import SiteThemeControl from './SiteThemeControl.vue';
 import './variant-library.css';
 const isCatalogScene = computed(() => selected.value?.id === 'onepiece-cardgame' && activeScene.value?.id === 'onepiece-cardgame-products');
 const hasSceneUsageGuide = computed(() => ['pokemon-tcg-official-card-database', 'czn-character', 'czn-held-out'].includes(activeScene.value?.id));
 const menuOpen = ref(false);
-function closeMenu(event) { if (event.target.closest('a')) menuOpen.value = false; }
+const menuToggle = ref(null), previewFrame = ref(null);
+const previewPositions = createPreviewPositions(history);
+let restoreTop = previewPositions.enter(), stopRestoring = () => {};
+function restoreFramePosition(event) {
+  stopRestoring();
+  stopRestoring = restorePreviewPosition(event.target, restoreTop);
+}
+function closeMenu(event) {
+  if (!event.target.closest('a')) return;
+  const restoreFocus = menuOpen.value && event.detail === 0 && event.currentTarget.id === 'brand-directory';
+  menuOpen.value = false;
+  if (restoreFocus) nextTick(() => menuToggle.value?.focus({ preventScroll: true }));
+}
 const hash=ref(location.hash),brands=ref([]),loading=ref(true),error=ref(''),copied=ref(false),copyFallback=ref(false),copyError=ref(''),failedCovers=ref({});
 const routePath=computed(()=>hash.value.slice(1).split('?')[0]);
 const isInspector=computed(()=>routePath.value.startsWith('/brand/'));
@@ -140,8 +153,12 @@ const sceneCopyBoundaries = {
 const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}` + (isCatalogScene.value ? "\n组件复用范围：优先复用 src/uikit/CatalogProductGrid.mjs、catalog.css 及其 catalog-tokens.css 依赖。保留宿主搜索、筛选、分页、请求与详情路由；将结果数组传入网格。CatalogSection 的分类仅为静态展示。当前仅 Vue Web，不代表 Taro 或完整暗色适配。" : "") + (sceneCopyBoundaries[activeScene.value?.id] ? "\n使用边界：" + sceneCopyBoundaries[activeScene.value.id] + " 当前仅 Vue Web，未验证 Taro、完整暗色及任意宿主适配；素材使用权需另行确认。" : ""));
 function changed() {
   const previousPath = routePath.value;
+  const screen = previewFrame.value?.contentDocument?.querySelector('.phone-screen');
+  if (screen) previewPositions.save(screen.scrollTop);
+  stopRestoring();
+  restoreTop = previewPositions.enter();
   const canonical = canonicalDocumentHash(location.hash, location.search);
-  if (canonical !== location.hash) history.replaceState(null, '', `${location.pathname}${location.search}${canonical}`);
+  if (canonical !== location.hash) history.replaceState(history.state, '', `${location.pathname}${location.search}${canonical}`);
   hash.value = canonical;
   copied.value = false; copyFallback.value = false; copyError.value = ''; menuOpen.value = false;
   if (previousPath === routePath.value) return;
@@ -154,5 +171,5 @@ watch(()=>[routePath.value,selected.value?.displayName,activeScene.value?.label]
 function hideBroken(e,id){e.target.style.display='none';failedCovers.value[id]=true;}
 async function copyPrompt(){try{await navigator.clipboard.writeText(prompt.value);copied.value=true;}catch{copyFallback.value=true;copyError.value='剪贴板不可用，可从下方选中复制。';}}
 async function load(){loading.value=true;error.value='';try{const r=await fetch('/brand-previews/registry.json');if(!r.ok)throw Error();const d=await r.json();brands.value=['pokemon-tcg-official','onepiece-cardgame','czn','dango'].map(id=>{const b=d.brands.find(b=>b.id===id),m=meta[id];return b?{...b,...m,scenes:m.scenes.filter(scene=>scene[0]!=='dango-button' && ['source','transfer'].includes(scene[2])).map(([id,label,kind,note,pattern])=>({id,label,kind,note,pattern}))}:null}).filter(Boolean);}catch{error.value='品牌列表读取失败。';}finally{loading.value=false;}}
-onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();});onBeforeUnmount(()=>window.removeEventListener('hashchange',changed));
+onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();});onBeforeUnmount(()=>{window.removeEventListener('hashchange',changed);stopRestoring();});
 </script>
