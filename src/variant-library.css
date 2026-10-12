@@ -13,6 +13,9 @@ body:has(.variant-library){height:auto;min-height:100vh;overflow:visible}
 #app:has(>.variant-library){height:auto;min-height:100vh;overflow:visible}
 
 .vl-preview-column,.vl-notes{min-width:0}
+.vl-catalog-scene .vl-preview-toolbar{margin-top:0}
+.vl-catalog-scene .vl-preview-stage{padding:8px 0 0}
+@media(min-width:1101px){.vl-catalog-scene{grid-template-columns:minmax(420px,1.5fr) minmax(260px,1fr);gap:32px}}
 .vl-preview-column>.vl-small{font-size:12px;line-height:1.7;color:var(--site-muted);margin:0 0 16px}
 .vl-header{flex-wrap:wrap;gap:12px 24px}
 .vl-wordmark{min-height:44px;display:inline-flex;align-items:center}

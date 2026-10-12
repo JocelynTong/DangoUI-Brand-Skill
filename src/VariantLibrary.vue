@@ -63,7 +63,7 @@
         <iframe :src="designSystemUrl" title="航海王设计系统 · 可交互展示"></iframe>
       </section>
       <ReleaseChecklist v-else-if="selected.id === 'dango' && activeScene.id === 'dango-release-checklist'" />
-      <div v-else class="vl-detail-grid">
+      <div v-else class="vl-detail-grid" :class="{ 'vl-catalog-scene': isCatalogScene }">
         <section class="vl-preview-column" aria-label="场景预览">
           <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
           <p v-if="isCatalogScene" class="vl-small" role="note">静态目录示例 · 可滚动浏览，分类、页码与卡片不执行业务操作。</p>

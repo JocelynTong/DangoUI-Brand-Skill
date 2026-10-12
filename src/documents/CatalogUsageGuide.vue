@@ -3,6 +3,11 @@
     <section>
       <h3>这页怎么用</h3>
       <p>观察商品图片、分类、编号和名称的排列方式，适合用作双列商品目录的展示参考。</p>
+      <dl class="catalog-reading">
+        <div><dt>图片</dt><dd>先看包装与配色，快速辨认商品。</dd></div>
+        <div><dt>标题</dt><dd>名称与补充说明分层，便于连续浏览。</dd></div>
+        <div><dt>编号</dt><dd>与分类并排，方便区分同系列商品。</dd></div>
+      </dl>
       <p><a href="#/variants/onepiece-cardgame/design-system">查看品牌颜色与排版 →</a></p>
     </section>
     <section>
@@ -16,9 +21,9 @@
     <section>
       <h3>用于真实项目</h3>
       <p>优先复用<strong>商品网格</strong>，保留你项目已有的搜索、分类与分页。业务先得到结果列表，再交给网格展示，不需要重写卡片布局。</p>
-      <p class="vl-small">标题与静态分类外壳属于 CatalogSection；商品网格是 CatalogProductGrid。不要用静态分类外壳替换已有的可用筛选器。</p>
       <details>
         <summary>开发接入：文件、数据与状态</summary>
+        <p class="vl-small">标题与静态分类外壳属于 CatalogSection；商品网格是 CatalogProductGrid。不要用静态分类外壳替换已有的可用筛选器。</p>
         <p>当前是仓库内的 Vue 3 Web 实现，并非已发布的通用组件包。复用以下模块与同目录样式依赖：</p>
         <pre><code>{{ example }}</code></pre>
         <p>复制文件时，一并带上 catalog.css 引用的 catalog-tokens.css。items 接收 src、alt、title、category、code、release、cta 字段；图片地址由项目提供。</p>
@@ -49,6 +54,10 @@ import './src/uikit/catalog.css';
 />`;
 </script>
 <style scoped>
+.catalog-reading { margin:20px 0; }
+.catalog-reading div { display:grid; grid-template-columns:36px minmax(0,1fr); gap:12px; padding:10px 0; border-top:1px solid var(--site-border); font-size:13px; line-height:1.7; }
+.catalog-reading dt { color:var(--site-text); font-weight:600; }
+.catalog-reading dd { margin:0; color:var(--site-muted); }
 .catalog-usage ul { padding-left:18px; margin:12px 0; font-size:14px; line-height:1.85; color:var(--site-muted); }
 .catalog-usage li + li { margin-top:8px; }
 .catalog-usage strong { color:var(--site-text); }
