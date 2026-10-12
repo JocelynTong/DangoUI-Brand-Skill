@@ -5409,7 +5409,7 @@ const SchemaHomeWelcomeSection = defineComponent({
       const section = props.section;
       const content = schemaContent(section);
       const background = schemaAsset(section, "background", "backgroundImage");
-      const actions = schemaActions(section).map((action) => renderActionButton(action)).filter(Boolean);
+      const actions = schemaActions(section).map((action) => renderActionButton({ ...action, href: undefined, url: undefined, disabled: true, label: `${schemaActionLabel(action)} · 静态示意` })).filter(Boolean);
       return renderSchemaSection(section, "click-target source-schema-demo__home-welcome", [
         h("div", { class: "opcg-welcome__cards", "aria-hidden": "true" }, Array.from({ length: 11 }, (_, index) => h("span", { class: `opcg-welcome__card opcg-welcome__card--${index + 1}` }, [
           h("img", { src: "/assets/brand-assets/onepiece-cardgame/source/welcome-card01.webp", alt: "" }),
@@ -5425,6 +5425,10 @@ const SchemaHomeWelcomeSection = defineComponent({
   },
 });
 
+const homePreviewLink = (path) => {
+  const scene = path?.startsWith("/products/") ? "onepiece-cardgame-products" : path?.startsWith("/events/") ? "onepiece-cardgame-events" : path === "/" ? "onepiece-cardgame-home" : null;
+  return scene ? { href: `${location.pathname}#/variants/onepiece-cardgame/${scene}`, target: "_top" } : /^https:\/\//.test(path || "") ? { href: path, target: "_blank", rel: "noreferrer" } : {};
+};
 const SchemaHomeEditorialListSection = defineComponent({
   name: "SchemaHomeEditorialListSection",
   props: {
@@ -5448,9 +5452,8 @@ const SchemaHomeEditorialListSection = defineComponent({
       const sectionHrefs = hrefSets[section.id] || [];
       const linkedCard = (asset, index, className = "source-schema-demo__home-editorial-item") => h("a", {
         class: className,
-        href: sectionHrefs[index] || asset.href || "/",
-        target: /^https:\/\//.test(sectionHrefs[index] || "") ? "_blank" : undefined,
-        rel: /^https:\/\//.test(sectionHrefs[index] || "") ? "noreferrer" : undefined,
+        ...homePreviewLink(sectionHrefs[index] || asset.href || (section.id === "home-products" ? "/products/" : undefined)),
+        title: homePreviewLink(sectionHrefs[index] || asset.href || (section.id === "home-products" ? "/products/" : undefined)).href ? "打开对应页面" : "静态展示，不提供详情",
       }, [
         renderImage(asset, "source-schema-demo__home-editorial-image"),
         h("div", [
@@ -5470,13 +5473,13 @@ const SchemaHomeEditorialListSection = defineComponent({
           return renderSchemaSection(section, "click-target source-schema-demo__home-editorial opcg-footer", [
             h("div", { class: "opcg-footer__banners" }, [h("strong", "OFFICIAL ONE PIECE CARD GAME"), h("span", "Set sail with your crew")]),
             h("nav", { class: "opcg-footer__nav", "aria-label": "Footer navigation" }, nav.map((label, index) => h("div", { class: "opcg-footer__nav-row" }, [
-              h("a", { href: index === 0 ? "/beginners/" : `/${label.toLowerCase()}/` }, label),
-              h("button", { type: "button", "aria-label": `Show ${label} links` }, "+"),
+              h("a", { ...homePreviewLink(index === 0 ? "/beginners/" : `/${label.toLowerCase()}/`) }, ["Events", "Products"].includes(label) ? label : `${label} · 静态展示`),
+              h("button", { type: "button", disabled: true, "aria-label": `${label} links · 静态展示` }, "+"),
             ]))),
             h("div", { class: "opcg-footer__actions" }, [
               h("a", { href: "https://sec.carddass.com/en/contact/" }, "CONTACT"),
               h("button", { id: "ot-sdk-btn", type: "button" }, "COOKIE SETTINGS"),
-              h("a", { href: "/", class: "opcg-footer__home" }, [h("img", { src: "/assets/brand-assets/onepiece-cardgame/source/logo-op.png", alt: "ONE PIECE CARD GAME home" })]),
+              h("a", { ...homePreviewLink("/"), class: "opcg-footer__home" }, [h("img", { src: "/assets/brand-assets/onepiece-cardgame/source/logo-op.png", alt: "ONE PIECE CARD GAME home" })]),
               h("a", { href: "https://www.bandai.co.jp/en/site/privacy/" }, "PRIVACY POLICY"),
               h("a", { href: "https://www.onepiece-cardgame.com/global/" }, "GLOBAL ENTRANCE"),
             ]),
@@ -5508,7 +5511,7 @@ const SchemaHomeEditorialListSection = defineComponent({
               onClick: () => { if (arrivalIndex.value < cardsForContract.length - 1) arrivalIndex.value += 1; },
             }, "→"),
           ]) : null,
-          section.id === "home-events" ? h("a", { class: "source-schema-demo__cta opcg-events__all", href: "/events/" }, "VIEW ALL EVENTS") : null,
+          section.id === "home-events" ? h("a", { class: "source-schema-demo__cta opcg-events__all", ...homePreviewLink("/events/") }, "查看活动示例") : null,
           section.id === "home-videos" ? h("a", { class: "source-schema-demo__cta opcg-videos__channel", href: "https://www.youtube.com/channel/UCMhxrrst-3oDFY2oWJGd29Q", target: "_blank", rel: "noreferrer" }, "OFFICIAL YouTube CHANNEL") : null,
         ]);
       }

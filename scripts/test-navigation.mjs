@@ -5,6 +5,18 @@ import postcss from 'postcss';
 
 const read = path => readFileSync(new URL(path, import.meta.url), 'utf8');
 const source = read('../src/VariantLibrary.vue');
+const appSource = read('../src/App.vue');
+const homeLinkBody = appSource.match(/const homePreviewLink = \(path\) => \{[\s\S]*?\n\};/)[0];
+const homeLink = new Function('location', homeLinkBody + '; return homePreviewLink;')({ pathname: '/demo/' });
+assert.deepEqual(homeLink('/beginners/'), {});
+assert.deepEqual(homeLink(undefined), {});
+for (const [path, scene] of [['/products/decks/', 'products'], ['/events/championship-26-27.html', 'events'], ['/', 'home']]) {
+  assert.deepEqual(homeLink(path), { href: '/demo/#/variants/onepiece-cardgame/onepiece-cardgame-' + scene, target: '_top' });
+}
+const copyBoundaries = new Function(source.match(/const sceneCopyBoundaries = \{[\s\S]*?\n\};/)[0] + '; return sceneCopyBoundaries;')();
+for (const scene of ['pokemon-tcg-official-card-database', 'czn-character', 'czn-held-out']) assert.ok(copyBoundaries[scene].includes('尚非独立组件'));
+assert.ok(copyBoundaries['onepiece-cardgame-events'].includes('不提供报名'));
+assert.match(source, /使用边界：.*sceneCopyBoundaries\[activeScene.value.id\]/);
 const { descriptor, errors } = parse(source);
 assert.deepEqual(errors, []);
 assert.deepEqual(compileTemplate({ source: descriptor.template.content, filename: 'VariantLibrary.vue', id: 'navigation-test' }).errors, []);

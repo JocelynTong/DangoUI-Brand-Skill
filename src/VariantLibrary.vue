@@ -67,12 +67,14 @@
         <section class="vl-preview-column" aria-label="场景预览">
           <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
           <p v-if="isCatalogScene" class="vl-small" role="note">静态目录示例 · 可滚动浏览，分类、页码与卡片不执行业务操作。</p>
+          <p v-if="activeScene.id === 'onepiece-cardgame-home'" class="vl-small" role="note">商品与活动入口打开本站示例，不进入具体商品或活动详情；无对应页面的内容仅展示。外部资源链接将离开本站。</p>
+          <p v-if="activeScene.id === 'onepiece-cardgame-events'" class="vl-small" role="note">静态活动示例 · 可滚动浏览；TRY PLAYING 等行动文字仅展示，不提供报名、详情或活动查询。</p>
           <div class="vl-preview-stage"><iframe :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`"></iframe></div>
         </section>
         <aside class="vl-notes">
           <CatalogUsageGuide v-if="isCatalogScene" />
           <SceneUsageGuide v-else-if="hasSceneUsageGuide" :key="activeScene.id" :scene="activeScene.id" />
-          <section v-else><h3>场景说明</h3><p>{{ activeScene.note }}</p></section>
+          <section v-else><h3>场景说明</h3><p>{{ activeScene.id === 'onepiece-cardgame-events' ? '参考活动分类、图片与介绍的编排。卡片和行动文案均为静态展示，不连接报名、活动详情或实时赛事服务。' : activeScene.note }}</p></section>
           <section><h3>用于我的项目</h3><button class="vl-copy" @click="copyPrompt">{{ copied ? '已复制使用描述' : '复制使用描述' }}</button><textarea v-if="copyFallback" readonly aria-label="使用描述" :value="prompt"></textarea><p class="vl-small" role="status">{{ copyError }}</p></section>
           <details class="vl-evidence"><summary>来源与验证范围</summary><p>{{ selected.publicationStatus === 'draft' ? '此品牌原始资料仍为草稿，视觉验证待完成。' : '沿用原库已记录的学习状态；本次不重新宣称品牌验证通过。' }}</p><p>当前是 Web 品牌库预览，未证明 Taro、真机或任意宿主自动适配。品牌素材的可用范围按原资产声明处理。</p><a :href="selected.path">查看原始品牌记录 ↗</a></details>
         </aside>
@@ -129,7 +131,13 @@ const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移�
 const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${({ button: '按钮', 'navigation-bar': '导航栏', switch: '开关' }[inlineDocument.value] || '检查器')}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : inlineDocument.value === 'typography' ? '字体' : inlineDocument.value === 'color' ? '颜色' : '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
-const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}` + (isCatalogScene.value ? "\n组件复用范围：优先复用 src/uikit/CatalogProductGrid.mjs、catalog.css 及其 catalog-tokens.css 依赖。保留宿主搜索、筛选、分页、请求与详情路由；将结果数组传入网格。CatalogSection 的分类仅为静态展示。当前仅 Vue Web，不代表 Taro 或完整暗色适配。" : ""));
+const sceneCopyBoundaries = {
+  'pokemon-tcg-official-card-database': '静态查询示意：输入、搜索、筛选和重置不可操作，未连接官方数据库。仅参考字段分组与布局；SchemaPokemonDatabaseSection 位于 src/App.vue，尚非独立组件。保留宿主真实查询，接口、加载、空结果、错误与分页由业务实现。',
+  'czn-character': '角色页只有两个演示状态，5 个头像循环映射到这两个状态；顶部导航、CV 与技能仅展示。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件。真实接入需提供角色 ID 与头像一一对应的数据，以及媒体失败、详情和语音处理。',
+  'czn-held-out': '3 条 VOID ECHO 虚构档案支持本地前后循环切换；序号和顶部导航不可点击，信号图形不是实时数据。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件；数据获取、空状态、错误、详情路由及实时信号需业务实现，不是服务端分页。',
+  'onepiece-cardgame-events': '活动页仅作静态编排参考；TRY PLAYING 等行动文案不可操作，不提供报名、活动详情或实时赛事服务。',
+};
+const prompt=computed(()=>`请使用 brand skill，为我的项目参考「${selected.value?.displayName}」的视觉语言。我的需求是：[填写你想做的工具与核心操作]。当前参考场景：${activeScene.value?.label}。场景链接：${location.origin}${location.pathname}#/variants/${selected.value?.id}/${activeScene.value?.id}。这是参考 Demo，预览不等于宿主适配或视觉验收通过。请先判断哪些视觉表达适合我的任务，保留真实数据与交互，先给我方案选择。品牌来源：${selected.value?.sourceUrl}` + (isCatalogScene.value ? "\n组件复用范围：优先复用 src/uikit/CatalogProductGrid.mjs、catalog.css 及其 catalog-tokens.css 依赖。保留宿主搜索、筛选、分页、请求与详情路由；将结果数组传入网格。CatalogSection 的分类仅为静态展示。当前仅 Vue Web，不代表 Taro 或完整暗色适配。" : "") + (sceneCopyBoundaries[activeScene.value?.id] ? "\n使用边界：" + sceneCopyBoundaries[activeScene.value.id] + " 当前仅 Vue Web，未验证 Taro、完整暗色及任意宿主适配；素材使用权需另行确认。" : ""));
 function changed() {
   const previousPath = routePath.value;
   const canonical = canonicalDocumentHash(location.hash, location.search);
