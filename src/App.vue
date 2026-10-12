@@ -5603,14 +5603,15 @@ const SchemaChecklistSection = defineComponent({
     return () => {
       const section = props.section;
       const content = schemaContent(section);
+      const staticOnly = content.interactionMode === "static-evidence-only";
       const items = Array.isArray(content.items) ? content.items : [];
-      const actions = schemaActions(section);
+      const actions = staticOnly ? [] : schemaActions(section);
       const actionButtons = actions.map((action) => renderActionButton(action)).filter(Boolean);
       return renderSchemaSection(section, "click-target source-schema-demo__checklist", [
         h("span", { class: "tag" }, `${section.component || "Card"} · schema`),
         h("strong", schemaText(content.title, "Checklist")),
         h("p", schemaText(content.description, content.body, content.summary)),
-        items.length ? h("ul", items.map((item) => h("li", item?.label || item?.text || item?.title || String(item)))) : null,
+        items.length ? h("ul", { class: staticOnly ? "source-schema-demo__static-cues" : undefined }, items.map((item) => h("li", item?.label || item?.text || item?.title || String(item)))) : null,
         actionButtons.length ? h("div", { class: "source-schema-demo__actions source-schema-demo__actions--checklist-download" }, actionButtons) : null,
       ]);
     };
@@ -5782,6 +5783,7 @@ const SchemaPokemonDatabaseSection = defineComponent({
     return () => {
       const section = props.section;
       const content = schemaContent(section);
+      const staticOnly = content.interactionMode === "static-evidence-only";
       const cards = schemaAssetList(section, "cards");
       const energy = Array.isArray(content.energyTypes) ? content.energyTypes : [];
       return renderSchemaSection(section, "pokemon-db", [
@@ -5789,23 +5791,26 @@ const SchemaPokemonDatabaseSection = defineComponent({
           h("img", { src: "/assets/brand-assets/pokemon-tcg-official/tcg-logo.png", alt: "Pokémon Trading Card Game" }),
           h("h1", schemaText(content.title, "Pokémon TCG Card Database")),
         ]),
-        h("form", { class: "pokemon-db__search", onSubmit: (event) => { event.preventDefault(); submit(); } }, [
+        h("form", { class: "pokemon-db__search", onSubmit: (event) => { event.preventDefault(); if (!staticOnly) submit(); } }, [
           h("div", { class: "pokemon-db__field-grid" }, [
-            h("label", [h("span", "Card Name"), h("input", { id: "pokemon-card-name", value: query.value, placeholder: "Enter a card name", onInput: (event) => { query.value = event.target.value; searched.value = false; } })]),
-            h("label", [h("span", "Card Text"), h("input", { placeholder: "Search card text" })]),
-            h("label", [h("span", "Evolves From"), h("input", { placeholder: "Enter a Pokémon name" })]),
+            h("label", [h("span", "Card Name"), h("input", { id: "pokemon-card-name", disabled: staticOnly, value: query.value, placeholder: staticOnly ? "卡牌名称（静态示意）" : "Enter a card name", onInput: staticOnly ? undefined : (event) => { query.value = event.target.value; searched.value = false; } })]),
+            h("label", [h("span", "Card Text"), h("input", { disabled: staticOnly, placeholder: staticOnly ? "卡牌文本（静态示意）" : "Search card text" })]),
+            h("label", [h("span", "Evolves From"), h("input", { disabled: staticOnly, placeholder: staticOnly ? "进化来源（静态示意）" : "Enter a Pokémon name" })]),
           ]),
           h("fieldset", { class: "pokemon-db__energy" }, [h("legend", "Energy Type"), ...energy.map((item) => h("button", {
             type: "button",
+            disabled: staticOnly,
             class: selectedEnergy.value === item ? "is-selected" : "",
             "aria-pressed": selectedEnergy.value === item ? "true" : "false",
-            onClick: () => { selectedEnergy.value = selectedEnergy.value === item ? "" : item; },
+            onClick: staticOnly ? undefined : () => { selectedEnergy.value = selectedEnergy.value === item ? "" : item; },
           }, item))]),
           h("div", { class: "pokemon-db__actions" }, [
-            h("button", { type: "button", class: "pokemon-db__reset", onClick: reset }, "Reset"),
-            h(DuButton, { type: "primary", size: "normal", text: "Search", class: "pokemon-db__submit", onClick: submit }),
+            h("button", { type: "button", disabled: staticOnly, class: "pokemon-db__reset", onClick: staticOnly ? undefined : reset }, "Reset"),
+            staticOnly
+              ? h("button", { type: "button", disabled: true, class: "pokemon-db__submit" }, "Search")
+              : h(DuButton, { type: "primary", size: "normal", text: "Search", class: "pokemon-db__submit", onClick: submit }),
           ]),
-          h("button", { type: "button", class: "pokemon-db__advanced-toggle", "aria-expanded": advanced.value ? "true" : "false", onClick: toggleAdvanced }, advanced.value ? "Hide Advanced Search" : "Show Advanced Search"),
+          h("button", { type: "button", disabled: staticOnly, class: "pokemon-db__advanced-toggle", "aria-expanded": advanced.value ? "true" : "false", onClick: staticOnly ? undefined : toggleAdvanced }, advanced.value ? "Hide Advanced Search" : "Show Advanced Search"),
           h("div", { class: ["pokemon-db__advanced", advanced.value ? "is-open" : ""], "data-height-state": advancedPhase.value === "triggered" ? "triggered-724px" : advancedPhase.value === "settled" ? "settled-1206.73px" : "0px" }, advanced.value ? [
             h("section", [h("h2", "Card Type"), h("div", ["Pokémon", "Trainer", "Energy"].map((item) => h("label", [h("input", { type: "checkbox" }), item])))]),
             h("section", [h("h2", "Rarity"), h("div", ["Common", "Uncommon", "Rare", "Double Rare"].map((item) => h("label", [h("input", { type: "checkbox" }), item])))]),
@@ -5818,7 +5823,7 @@ const SchemaPokemonDatabaseSection = defineComponent({
           h("p", { class: "pokemon-db__page-count" }, "1/12"),
           h("div", { class: "pokemon-db__card-grid" }, cards.map((asset) => renderImage(asset, "pokemon-db__card"))),
           h("nav", { class: "pokemon-db__pagination", "aria-label": "Results pages" }, [h("button", { type: "button" }, "Previous"), h("strong", "1"), h("button", { type: "button" }, "Next")]),
-        ]) : h("p", { class: "pokemon-db__empty" }, "Enter a card name to search the official card database."),
+        ]) : h("p", { class: "pokemon-db__empty" }, staticOnly ? "静态查询示意：仅展示字段与筛选布局，不支持输入、搜索或重置，未连接官方卡牌数据库。" : "Enter a card name to search the official card database."),
       ], { "data-search-state": searched.value ? "results" : query.value ? "pikachu-entered" : "empty" });
     };
   },
@@ -6253,9 +6258,9 @@ const SchemaCznCurrentSection = defineComponent({
     const controls = (assets) => h("div", { class: "czn-current-controls" }, [-1, 1].map((delta) => h("button", { type: "button", "aria-label": delta < 0 ? "Previous" : "Next", onClick: () => advance(delta) }, h("img", { src: assets.arrow, alt: "", class: delta > 0 ? "is-next" : "" }))));
     return () => {
       const content = props.section.content; const assets = props.section.assets; const item = content.items[active.value];
-      if (props.section.type === "czn-current-home") return renderSchemaSection(props.section, "czn-current czn-current-home", [h("video", { class: "czn-current-home__media", src: assets.video, poster: assets.poster, autoplay: true, muted: true, loop: true, playsinline: true }), h("div", { class: "czn-current-home__shade" }), nav(content, assets), h("img", { class: "czn-current-home__slogan", src: assets.slogan, alt: "CZN campaign slogan" }), h("section", { class: "czn-current-download" }, [h("img", { class: "czn-current-download__frame", src: assets.downloadFrame, alt: "" }), h("img", { class: "czn-current-download__qr", src: assets.qr, alt: "Download QR" }), h("div", [h("strong", "立即下载"), h("small", "DOWNLOAD NOW"), h("button", { type: "button", onClick: () => advance(1) }, active.value ? "恢复下载面板" : "展开平台列表")])])]);
+      if (props.section.type === "czn-current-home") return renderSchemaSection(props.section, "czn-current czn-current-home", [h("video", { class: "czn-current-home__media", src: assets.video, poster: assets.poster, autoplay: true, muted: true, loop: true, playsinline: true }), h("div", { class: "czn-current-home__shade" }), nav(content, assets), h("img", { class: "czn-current-home__slogan", src: assets.slogan, alt: "CZN campaign slogan" }), h("section", { class: "czn-current-download" }, [h("img", { class: "czn-current-download__frame", src: assets.downloadFrame, alt: "" }), h("img", { class: "czn-current-download__qr", src: assets.qr, alt: "下载区域二维码视觉示意" }), h("div", [h("strong", "下载区域示意"), h("small", "STATIC PREVIEW"), h("button", { type: "button", disabled: true }, "仅展示 · 不提供下载")])])]);
       if (props.section.type === "czn-current-gameplay") return renderSchemaSection(props.section, "czn-current czn-current-gameplay", [h("img", { class: "czn-current-gameplay__bg", src: assets.background, alt: "" }), nav(content, assets), h("header", [h("small", "玩法介绍 / GAMEPLAY"), h("h2", item.title)]), h("figure", { class: "czn-current-gameplay__media" }, [h("img", { src: item.src, alt: item.title }), h("figcaption", item.description)]), controls(assets), h("ol", { class: "czn-current-timeline" }, content.items.map((_, i) => h("li", { class: i === active.value ? "is-current" : "" }, `${String(i + 1).padStart(2, "0")}/05`)))]);
-      if (props.section.type === "czn-current-heldout") return renderSchemaSection(props.section, "czn-current czn-current-heldout", [nav(content, assets), h("strong", { class: "czn-current-heldout__disclosure" }, "FICTIONAL HELD-OUT / 非官方页面"), h("header", { class: "czn-current-heldout__heading" }, [h("small", "ABYSSAL SIGNAL ARCHIVE"), h("h2", item.title)]), h("figure", { class: "czn-current-heldout__media" }, [h("div", { class: "czn-current-heldout__signal" }, [h("i"), h("i"), h("i")]), h("figcaption", item.description)]), controls(assets), h("ol", { class: "czn-current-timeline" }, Array.from({ length: 5 }, (_, i) => h("li", { class: i === active.value ? "is-current" : "" }, `${String(i + 1).padStart(2, "0")}/05`)))]);
+      if (props.section.type === "czn-current-heldout") return renderSchemaSection(props.section, "czn-current czn-current-heldout", [nav(content, assets), h("strong", { class: "czn-current-heldout__disclosure" }, "FICTIONAL HELD-OUT / 非官方页面"), h("header", { class: "czn-current-heldout__heading" }, [h("small", "ABYSSAL SIGNAL ARCHIVE"), h("h2", item.title)]), h("figure", { class: "czn-current-heldout__media" }, [h("div", { class: "czn-current-heldout__signal" }, [h("i"), h("i"), h("i")]), h("figcaption", item.description)]), controls(assets), h("ol", { class: "czn-current-timeline" }, content.items.map((_, i) => h("li", { class: i === active.value ? "is-current" : "" }, `${String(i + 1).padStart(2, "0")}/${String(content.items.length).padStart(2, "0")}`)))]);
       return renderSchemaSection(props.section, "czn-current czn-current-character", [nav(content, assets), h("div", { class: "czn-current-portraits" }, content.rail.map((portrait, i) => h("button", { type: "button", class: i % content.items.length === active.value ? "is-current" : "", onClick: () => active.value = i % content.items.length }, h("img", { src: portrait.src, alt: portrait.name })))), h("img", { key: `${item.poster}-fallback`, class: "czn-current-character__subject czn-current-character__subject--fallback", src: item.poster, alt: item.name }), h("video", { key: item.video, class: "czn-current-character__subject czn-current-character__subject--motion", src: item.video, poster: item.poster, autoplay: true, muted: true, loop: true, playsinline: true, preload: "auto" }), h("section", { class: "czn-current-character__identity" }, [h("small", "角色档案 / CHARACTER"), h("h2", item.name), h("b", `CV / ${item.voice}`), h("p", item.description)]), h("div", { class: "czn-current-skills" }, item.skills.map((skill) => h("article", [h("img", { src: skill.src, alt: "" }), h("strong", skill.name)]))), controls(assets)]);
     };
   },
