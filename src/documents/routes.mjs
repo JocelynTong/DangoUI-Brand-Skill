@@ -3,6 +3,8 @@ export function canonicalDocumentHash(hash, search = '') {
   const params = new URLSearchParams(search);
   if (params.has('variantEmbed') || params.has('inspectorEmbed')) return hash;
   const aliases = {
+    '#/variants/czn/foundations': '#/variants/czn/foundations/overview',
+    '#/variants/czn/components': '#/variants/czn/components/inspector',
     '#/variants/pokemon-tcg-official/foundations': '#/variants/pokemon-tcg-official/foundations/overview',
     '#/variants/pokemon-tcg-official/components': '#/variants/pokemon-tcg-official/components/inspector',
     '#/variants/onepiece-cardgame/design-system': '#/variants/onepiece-cardgame/foundations/overview',
@@ -20,6 +22,9 @@ export function canonicalDocumentHash(hash, search = '') {
     '#/variants/dango/components': '#/variants/dango/components/inspector',
   };
   for (const name of componentNames) aliases[`#/brand/dango/components/${componentSlug(name)}`] = `#/variants/dango/components/${componentSlug(name)}`;
+  for (const name of componentNames) aliases[`#/brand/czn/components/${componentSlug(name)}`] = `#/variants/czn/components/${componentSlug(name)}`;
+  for (const item of foundationNames) aliases[`#/brand/czn/style/${item.id}`] = `#/variants/czn/foundations/${item.id}`;
+  aliases['#/brand/czn/style/button'] = '#/variants/czn/components/button';
   for (const name of componentNames) aliases[`#/brand/pokemon-tcg-official/components/${componentSlug(name)}`] = `#/variants/pokemon-tcg-official/components/${componentSlug(name)}`;
   for (const item of foundationNames) aliases[`#/brand/pokemon-tcg-official/style/${item.id}`] = `#/variants/pokemon-tcg-official/foundations/${item.id}`;
   aliases['#/brand/pokemon-tcg-official/style/button'] = '#/variants/pokemon-tcg-official/components/button';

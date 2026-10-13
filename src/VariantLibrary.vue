@@ -37,7 +37,8 @@
           <a v-for="scene in selected.scenes" :key="scene.id" :href="`#/variants/${selected.id}/${scene.id}`" :aria-current="section === 'pages' && activeScene.id === scene.id ? 'page' : undefined">{{ scene.label }}</a>
           </template>
           <template v-else-if="section === 'foundations'">
-          <template v-if="['dango', 'onepiece-cardgame', 'pokemon-tcg-official'].includes(selected.id)">
+            <a v-if="selected.id === 'czn'" href="#/variants/czn/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
+          <template v-if="['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)">
             <a v-if="selected.id === 'pokemon-tcg-official'" href="#/variants/pokemon-tcg-official/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
             <a v-if="selected.id === 'onepiece-cardgame'" href="#/variants/onepiece-cardgame/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
             <a v-for="item in foundationNames" :key="item.id" :href="`#/variants/${selected.id}/foundations/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.zh }}</a>
@@ -46,9 +47,10 @@
 
           </template>
           <template v-else>
-          <template v-if="['dango', 'onepiece-cardgame', 'pokemon-tcg-official'].includes(selected.id)">
+          <template v-if="['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)">
             <template v-if="selected.id === 'pokemon-tcg-official'"><p class="vl-directory-group">品牌组合</p><a v-for="item in pokemonCompositions" :key="item.id" :href="`#/variants/pokemon-tcg-official/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
             <a :href="`#/variants/${selected.id}/components/inspector`" :aria-current="routePath.endsWith('/inspector') ? 'page' : undefined">全部组件</a>
+            <template v-if="selected.id === 'czn'"><p class="vl-directory-group">品牌组合</p><a v-for="item in cznCompositions" :key="item.id" :href="`#/variants/czn/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
             <template v-if="selected.id === 'onepiece-cardgame'"><p class="vl-directory-group">品牌组合</p><a v-for="item in onepieceCompositions" :key="item.id" :href="`#/variants/onepiece-cardgame/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
             <a :href="`#/variants/${selected.id}/components/button`" :aria-current="routePath.endsWith('/button') ? 'page' : undefined">按钮</a>
             <template v-for="group in componentCategorySpecs" :key="group.id">
@@ -62,8 +64,11 @@
       </aside>
       <div class="vl-workspace-content">
       <section v-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
-        <div v-if="!inlineDocument && !['dango', 'onepiece-cardgame', 'pokemon-tcg-official'].includes(selected.id)" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
-        <PokemonDocument v-if="isPokemonDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
+        <div v-if="!inlineDocument && !['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
+        <CznDocument v-if="isCznDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
+        <template v-else-if="isCznCatalog"><CznDocument section="components" target="inspector" /><DangoCatalog brand="czn" title="基础组件示例" /></template>
+        <div v-else-if="cznBaseRoute"><p class="vl-small">基础组件示例 · 非 CZN 专属，不代表完整品牌适配。</p><App :document-route="cznBaseRoute" /></div>
+        <PokemonDocument v-else-if="isPokemonDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
         <template v-else-if="isPokemonCatalog"><PokemonDocument section="components" target="inspector" /><DangoCatalog brand="pokemon-tcg-official" title="基础组件示例" /></template>
         <div v-else-if="pokemonBaseRoute"><p class="vl-small">基础组件示例 · 非 Pokémon 专属，不代表完整品牌适配。</p><App :document-route="pokemonBaseRoute" /></div>
         <OnepieceDocument v-else-if="isOnepieceDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
@@ -95,7 +100,8 @@
           <div class="vl-preview-stage"><iframe ref="previewFrame" :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`" @load="restoreFramePosition"></iframe></div>
         </section>
         <aside class="vl-notes">
-          <PokemonSceneGuide v-if="selected.id === 'pokemon-tcg-official' && activeScene.id !== 'pokemon-tcg-official-card-database'" :scene="activeScene.id" />
+          <CznSceneGuide v-if="['czn-home','czn-gameplay'].includes(activeScene.id)" :scene="activeScene.id" />
+          <PokemonSceneGuide v-else-if="selected.id === 'pokemon-tcg-official' && activeScene.id !== 'pokemon-tcg-official-card-database'" :scene="activeScene.id" />
           <OnepieceNewsGuide v-else-if="activeScene.id === 'onepiece-cardgame-news'" />
           <CatalogUsageGuide v-else-if="isCatalogScene" />
           <SceneUsageGuide v-else-if="hasSceneUsageGuide" :key="activeScene.id" :scene="activeScene.id" />
@@ -113,6 +119,9 @@
 import {computed,defineAsyncComponent,nextTick,onMounted,onBeforeUnmount,ref,watch} from 'vue';
 import OnepieceDocument from './documents/OnepieceDocument.vue';
 import PokemonDocument from './documents/PokemonDocument.vue';
+import CznDocument from './documents/CznDocument.vue';
+import CznSceneGuide from './documents/CznSceneGuide.vue';
+import { cznCompositions } from './documents/czn-document-model.mjs';
 import PokemonSceneGuide from './documents/PokemonSceneGuide.vue';
 import { pokemonCompositions } from './documents/pokemon-document-model.mjs';
 import OnepieceNewsGuide from './documents/OnepieceNewsGuide.vue';
@@ -156,7 +165,7 @@ const isInspector=computed(()=>routePath.value.startsWith('/brand/'));
 const meta={
  'pokemon-tcg-official':{cover:'/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg',hook:'卡牌、舞台与探索',description:'从品牌舞台进入卡牌世界，再把视觉收进检索与内容层级。',expression:'舞台式主视觉与卡面层次，切换到查询时如何保持清晰的信息入口。',scenes:[['pokemon-tcg-official-home','品牌舞台','source','现有品牌主视觉演示。先感受素材、层次与场景氛围。','品牌表达入口；不是小程序初始化页面。'],['pokemon-tcg-official-card-database','卡牌查询','source','搜索与分类如何进入同一品牌的资料查询页面。','静态查询布局；不连接真实搜索。'],['pokemon-tcg-official-held-out','策略实验室','transfer','既有虚构 Deck Lab，将查询与策略说明组织到新内容中。','查询 + 说明的迁移练习，不是真实卡组数据。'],['pokemon-tcg-official-learn','内容讲解','source','用分段说明与卡牌标注解释玩法。','静态分段阅读与卡面说明。']]},
  'onepiece-cardgame':{cover:'/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp',hook:'强对比，出航的节奏',description:'鲜明的图文对比、卡牌视觉与编辑式内容编排。',expression:'品牌图像与黑白控制的对比，如何切换到产品、活动与编辑内容。',scenes:[['onepiece-cardgame-home','品牌舞台','source','已有品牌主页表达，观察图像与内容节奏。','品牌入口演示。'],['onepiece-cardgame-news','资讯动态','transfer','重点资讯、通知和归档列表的编排；代表性内容，非实时新闻。','资讯层级与静态分类。'],['onepiece-cardgame-products','卡组浏览','source','分类浏览与产品信息层级。','分类 + 内容卡片。'],['onepiece-cardgame-events','活动发现','source','活动视觉与参与入口的组织。','活动列表与行动入口。'],['onepiece-cardgame-editorial-held-out','航海手记','transfer','既有原创虚构内容练习，展示编辑语言的迁移。','分类 + 编辑式内容编排。']]},
- 'czn':{cover:'https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.jpg',hook:'暗色场景，角色登场',description:'以大幅媒体、角色层次与空间感承载沉浸表达。',expression:'角色与背景的分层、媒体舞台与时间线。原库 QA 尚待完成。',scenes:[['czn-home','品牌舞台','source','原库媒体首页，先观察视觉表现。','品牌舞台，待完成验证。'],['czn-character','角色档案','source','角色切换与身份信息的关系。','对象切换 + 资料展示。'],['czn-held-out','信号档案','transfer','原库虚构档案迁移练习。','档案切换，待完成验证。']]},
+ 'czn':{cover:'https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.jpg',hook:'暗色场景，角色登场',description:'以大幅媒体、角色层次与空间感承载沉浸表达。',expression:'角色与背景的分层、媒体舞台与时间线。原库 QA 尚待完成。',scenes:[['czn-home','品牌舞台','source','原库媒体首页，先观察视觉表现。','品牌舞台，待完成验证。'],['czn-gameplay','玩法介绍','source','五项玩法媒体与标题、序号同步切换。','媒体浏览；不提供玩法详情。'],['czn-character','角色档案','source','角色切换与身份信息的关系。','对象切换 + 资料展示。'],['czn-held-out','信号档案','transfer','原库虚构档案迁移练习。','档案切换，待完成验证。']]},
  'dango':{hook:'让结构清晰可读',description:'克制的文档层级、组件表达与清晰的行动反馈。',expression:'文档层级与组件状态如何在新任务里延续。',scenes:[['dango-introduction','设计语言','source','既有设计系统介绍页。','信息层级与说明。'],['dango-button','组件交互','source','直接操作已有按钮与状态示例。','基础交互与反馈。'],['dango-release-checklist','发布清单','transfer','既有新内容练习，观察规则的复用。','清单式任务表达。']]}
 };
 const selected=computed(()=>brands.value.find(b=>b.id===routePath.value.split('/')[2]));
@@ -178,6 +187,12 @@ const inlineDocument=computed(()=>{
   return section.value==='components' && ['button', 'navigation-bar', 'switch'].includes(target) ? target : '';
 });
 const isOnepieceCatalog = computed(() => selected.value?.id === 'onepiece-cardgame' && section.value === 'components' && (!routePath.value.split('/')[4] || routePath.value.endsWith('/inspector')));
+const isCznCatalog = computed(() => selected.value?.id === 'czn' && section.value === 'components' && (!routePath.value.split('/')[4] || routePath.value.endsWith('/inspector')));
+const isCznDocument = computed(() => selected.value?.id === 'czn' && (section.value === 'foundations' || (section.value === 'components' && cznCompositions.some(item => item.id === routePath.value.split('/')[4]))));
+const cznBaseRoute = computed(() => {
+  const target = routePath.value.split('/')[4];
+  return selected.value?.id === 'czn' && section.value === 'components' && componentNames.some(name => componentSlug(name) === target) ? `#/brand/czn/${target === 'button' ? 'style/button' : 'components/' + target}` : '';
+});
 const isPokemonCatalog = computed(() => selected.value?.id === 'pokemon-tcg-official' && section.value === 'components' && (!routePath.value.split('/')[4] || routePath.value.endsWith('/inspector')));
 const isPokemonDocument = computed(() => selected.value?.id === 'pokemon-tcg-official' && (section.value === 'foundations' || (section.value === 'components' && pokemonCompositions.some(item => item.id === routePath.value.split('/')[4]))));
 const pokemonBaseRoute = computed(() => {
@@ -201,10 +216,12 @@ const inspectorContentUrl=computed(()=>selected.value?`${location.pathname}?insp
 const designSystemUrl=new URL('design-system.html',location.href.split('#')[0]).href;
 const activeScene=computed(()=>selected.value?.scenes.find(s=>s.id===routePath.value.split('/')[3])||selected.value?.scenes[0]);
 const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移练习 · 示例内容' : '来源参考');
-const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${[...onepieceCompositions, ...pokemonCompositions].find(item => item.id === routePath.value.split('/')[4])?.label || componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value || routePath.value.endsWith('/overview') ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
+const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${[...onepieceCompositions, ...pokemonCompositions, ...cznCompositions].find(item => item.id === routePath.value.split('/')[4])?.label || componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value || routePath.value.endsWith('/overview') ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
+  'czn-home': '媒体首页示例，视频播放受网络与浏览器策略影响。导航、二维码和下载区域仅展示，不提供下载或业务跳转。真实媒体授权、加载失败处理与业务入口需另行接入。',
+  'czn-gameplay': '五项玩法媒体支持上一项／下一项循环切换，标题、图片和当前序号同步变化。顶部导航与序号只展示，不提供玩法详情；外链素材可用性受网络影响。',
   'pokemon-tcg-official-home': '品牌舞台与资讯编排为静态示例。导航、轮播指示和行动文字不执行跳转；不是实时资讯。可滚动或打开独立预览，真实路由与内容由项目提供。',
   'pokemon-tcg-official-learn': '卡面与场地说明为静态阅读示例，不提供视频播放、规则查询或可展开标注。素材与说明分开组织，真实教学和媒体由项目提供。',
   'pokemon-tcg-official-held-out': '虚构 Deck Lab 迁移练习，并非官方内容或真实组卡工具。查询与行动控件仅展示，不计算策略、不保存卡组。',
