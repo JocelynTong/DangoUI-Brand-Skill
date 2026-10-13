@@ -84,7 +84,10 @@
     "validate:brand": "npm run validate:brand-mod && npm run validate:brand-preview",
     "sync:skills": "node scripts/sync-agent-skills.mjs",
     "sync:dangoui-tokens": "node skills/brand/scripts/sync-dangoui-token-source.mjs",
-    "validate:dangoui-token-source": "node skills/brand/scripts/sync-dangoui-token-source.mjs --check"
+    "validate:dangoui-token-source": "node skills/brand/scripts/sync-dangoui-token-source.mjs --check",
+    "build:catalog-tokens": "node scripts/build-catalog-tokens.mjs",
+    "check:catalog-tokens": "node scripts/build-catalog-tokens.mjs --check",
+    "test:catalog-tokens": "node --test scripts/catalog-tokens.test.mjs"
   },
   "keywords": [],
   "author": "",
@@ -98,6 +101,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.7",
-    "dembrandt": "^0.28.0"
+    "dembrandt": "^0.28.0",
+    "style-dictionary": "5.6.0"
   }
 }
