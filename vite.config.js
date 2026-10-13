@@ -8,6 +8,8 @@ const localDangouiRoot = fileURLToPath(
 );
 
 export default defineConfig({
+  // Keep lazy JS/CSS imports relative when hosted under a GitHub Pages subpath.
+  base: './',
   build: { rollupOptions: { input: {
     main: fileURLToPath(new URL('./index.html', import.meta.url)),
     designSystem: fileURLToPath(new URL('./design-system.html', import.meta.url)),
