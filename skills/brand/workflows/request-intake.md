@@ -8,7 +8,9 @@
 - 只有用户明确要求建立、更新或重新认证可复用品牌包，才把独立交付目标设为 `brand-learning → learn-brand`；宿主预览内部需要品牌学习时，按下面的接力保留 `host-concepts` 父目标。
 - 只有用户已确认 H5 并要求修改真实宿主，才使用 `host-implementation → apply-host`。
 
-用户明确要求 ImageGen 做 Expressive、官网系统做 Productive 时，原 `run` 加 `--require-imagegen-expressive`，冻结 `goal.expressiveProduction.required=true`。设计 dispatch 使用 `hints.expressiveProduction`：三个方向分别实际生成表达资产，再与代码实现的品牌 Productive UI 组合成三份 H5；不能等 QA 才决定要不要生图。未明确要求不自动扩大为所有任务必生图。业务对象、字段与行为保留，页面布局和组件组织可重构；旧页面没有表达区不是禁止新表达区的依据。
+新的 `host-concepts → design-host` 默认 `--concept-medium full-image`：先由 ImageGen 生成三张完整界面效果图，不是三张背景再拼代码面板。实际图片输入包含互补官网截图和官方素材；设计师同时读取品牌规则、组件说明及宿主业务摘要。保持同一业务任务，允许重组页面与组件；测试数据仅在用户允许时使用并标注。记录实际 prompt、附件及三个生成结果，按 dispatch 的 `record-image-concepts` 命令提交，再由 `delivery` 返回可展示结果。三图齐全并完成独立视觉检查后停止等待用户选方向；图片不代表 runtime、DTCG 或组件已执行。
+
+只有用户明确要求交互 H5 时传 `--concept-medium interactive-h5`。该阶段要求 ImageGen 做 Expressive 时再加 `--require-imagegen-expressive`，冻结 `goal.expressiveProduction.required=true`，设计阶段生成表达资产并与品牌 Productive 代码组合。不能把完整效果图目标自动升级为 H5，也不能以旧的 H5-only 要求拦截完整效果图交付。
 
 用户已认可准确组件且只要求实施该模块时，同属 `host-implementation → apply-host`，使用 [限域组件交接](../references/approved-component-handoff.md)；不把模块批准提升为整页批准，不要求重做三方向。平台不兼容时明确需要适配，不能用 Vue 框架相同推断运行环境相同。
 
@@ -22,7 +24,11 @@
 
 ## 隔离首轮试验
 
-## 内部判断与用户验收分离
+完整效果图使用入口返回的隔离输出和命令；A/B/C 同场景、同尺寸、等权展示，推荐不能遮蔽其他方案。官网图片以真实附件传入而非只写路径到 prompt。三案独立构图，不用换色或裁切冒充三次探索。用户选择图片只确认视觉方向，不是 Approved H5 Master 或宿主实施授权。
+
+## 交互 H5 与宿主实施的内部判断、用户验收
+
+以下 H5 恢复、Master、交互 QA、DOM 与实施协议只适用于 `interactive-h5` 或 `apply-host`，完整效果图不执行这些后续环节。
 
 用户明确指出历史准确版本作为视觉对照时，先用公共 `recover-reference --artifact-root <当前隔离目录> --brand <当前brand> --source-root <历史目录> --source-master <原master相对路径> --source-master-sha256 <原SHA256> --reason <当前确认依据> --confirm-reference-only` 恢复。它保存原 H5、运行资产及原批准范围，在 `prior-direction-index.json.recoveredReferences` 追加 hash-bound 输入，不修改旧 FAIL、Goal 或源码。下一次设计前必须核对这些输入，不能只检查当前 run 的失败 ABC。
 
@@ -66,7 +72,7 @@ node <skill目录>/scripts/run-brand-workflow.mjs artifacts init --host <绝对�
 
 把返回的 `buildDirectory` 作为 `--artifact-root`，并传绝对 `--host-target`。概念图、migration、临时 Registry、skill link 与预览都写入隔离目录；宿主在用户批准 H5 前保持只读。
 
-## 首轮时效协议
+## 交互 H5 首轮时效协议
 
 从 workflow `prepare` 到三组可交互隔离 H5 通过一次紧凑独立 QA，以 5 分钟为首次可判断结果目标和进度检查点，不再把它作为砍掉专业角色的硬截止。fast 流程保留 20 分钟安全上限，防止工具或角色无限挂起。
 

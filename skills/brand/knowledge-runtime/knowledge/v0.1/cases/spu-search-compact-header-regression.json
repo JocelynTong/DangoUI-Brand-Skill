@@ -6,7 +6,7 @@
   "contextKey": "onepiece-cardgame|spu-common-plugin|sprite-search",
   "methodRef": "expressive-generation-and-reconstruction",
   "observedSource": {
-    "url": "http://127.0.0.1:4192/roco-lib/#/pages/sprite-list/index",
+    "url": "[non-public reference omitted]",
     "evidenceStatus": "existing-host-runtime-regression"
   },
   "evidenceFiles": [
@@ -24,5 +24,9 @@
       "迁移时核对旧transform、定位上下文和层级，不只覆盖top/left。"
     ],
     "generalization": "同一案例修订，不增加独立案例数，不代表跨宿主泛化通过。"
+  },
+  "publicExport": {
+    "nonPublicReferencesOmitted": 1,
+    "evidenceAccess": "Some original references are withheld; this copy does not provide independent evidence access."
   }
 }

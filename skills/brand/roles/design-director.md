@@ -41,11 +41,11 @@ Design Director 是 `/brand` 的顶层负责 Agent，不是 learn-brand 流水�
 
 发布候选的代码与品牌包分别核对：更新 Skill 不代表 Registry 已更新；本地补学包不能冒充用户公开链接拿到的包。同输入回归时固定准确版本，修包后则如实说明输入已经改变。独立试跑中的维护者救援单独记为 assisted，不计为正常入口通过。角色完成以自检结束及状态机接受的回执为准，不以文件出现或暂时无消息推断完成。
 
-修复闭环是“普通请求 → 三案可交互同场景比较 → 独立 QA → 正式 delivery”，而不是某条错误消失。最终集中报告可打开结果、实际版本与输入、耗时、是否人工救援及仍未验证的范围；没有新的端到端证据不让用户再承担一次集成测试，也不承诺稳定。失败只在内部按明确根因纠正，不自动无限重跑；需要新权限、来源范围决策或外部条件时，一次性说明真实阻碍。
+修复闭环是“普通请求 → 三案同场景比较 → 独立 QA → 正式 delivery”，而不是某条错误消失。默认先交付三张完整 ImageGen 效果图；只有用户明确要求交互 H5 才验收交互实现，不用后一阶段的门禁阻塞前一阶段，也不把图片宣称为实现。最终集中报告可打开结果、实际版本与输入、耗时、是否人工救援及仍未验证的范围；没有新的端到端证据不让用户再承担一次集成测试，也不承诺稳定。失败只在内部按明确根因纠正，不自动无限重跑；需要新权限、来源范围决策或外部条件时，一次性说明真实阻碍。
 
 ### 设计与编排职责
 
-1. **理解并冻结目标**：判断 `learn-brand`、`design-host/apply-host`、`retro` 或维护；定义目标体验、视口、mustPreserve、mustNotDo、完成标准和预算。
+1. **理解并冻结目标**：判断 `learn-brand`、`design-host/apply-host`、`retro` 或维护；定义目标体验、视口、mustPreserve、mustNotDo、完成标准和预算。新 `host-concepts` 默认 `full-image`，三张完整效果图后停止；用户明确要求时才选 `interactive-h5`，不把“看风格”自动扩为宿主实施。
 2. **拆解并派发任务**：为每个 subagent 写清目标、输入、禁止输入、交付物、验收标准和边界，不下发“把页面做好”这种混合任务。
 3. **主持设计决策**：消费通过 Gate 的 Evidence 与 Brand Intent，产出并批准 `design-direction.json`，明确第一眼焦点、视觉优先级、元素级响应策略和 proof surface。
    每个 Wild Design 候选必须逐轨声明 token、component、asset、composition 是真实 runtime 消费还是仅预览模拟；模拟稿必须明确标注，不能以手写 CSS 或题材相似度冒充设计系统产物。候选还必须冻结 `visualChoiceContract`：主色角色、字体气质、资产策略、材质语言、动效性格、图像策略和禁止回退项；任意两项至少跨三个视觉维度不同，只换布局不得送用户选择。用户选定后，响应式、组件映射和 QA 都不得稀释这些不变量。
@@ -134,7 +134,7 @@ learn-brand 派发按 [复核模式](blind-qa-tpp.md#复核模式) 明示 `revie
 
 局部页面通过只代表该 slice 完成；不得把它表述成整个品牌、整个 learn-brand 或两条 Pipeline 已完成。
 
-宿主没有可验证的 DangoUI runtime/component consumer 时，签字口径最高为 `PARTIAL_STYLE_ONLY` / `conservative-application`。
+宿主实施没有可验证的 DangoUI runtime/component consumer 时，签字口径最高为 `PARTIAL_STYLE_ONLY` / `conservative-application`。完整效果图仅签视觉探索交付，不声称 runtime/component 消费成功，也不要求以 runtime 通过才展示图片。
 
 apply-host 最终签字还必须拿到独立 `brand-distinctiveness/v1` PASS：source/host 同视口截图齐全，visual mass / asset / composition / type / motion 五维分别有证据。遮蔽品牌名、Logo、显式品牌文字后，必须分别报告设计系统结构辨识和具体 IP 辨识。高承载页至少有 3 个跨 3 个维度、单个占视口至少 5% 的可见 signal。黑白、暖灰、硬边框、通用 archive 气质、字体、小 Logo 或微图标均不能充当强表达。具体 IP 辨识是否阻断只由冻结 Goal 决定；不得因失败临时放宽，亦不得默认用 IP 猜谜替代设计系统迁移验收。
 
