@@ -9,7 +9,7 @@ import { componentTask } from './component-task.mjs';
 import { prepareModuleTask } from './prepare-module-task.mjs';
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
+import { resolvePublicStylePack, brandFromDemoUrl } from "./resolve-public-style-pack.mjs";
 import { runCachedValidator } from "./validator-cache.mjs";
 import { buildRenderedCollectorArgs } from "./source-capture-policy.mjs";
 import { verifySkillIntegrity } from "./verify-brand-skill-integrity.mjs";
@@ -218,7 +218,10 @@ const profile = opt(rawArgs, "--profile", ["design-host", "apply-host"].includes
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
 const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
-const reuseStylePack = rawArgs.includes("--reuse-style-pack");
+// A trusted library link selects a package, never the showcase as a source website.
+const selectedLibraryBrand = brandFromDemoUrl(opt(rawArgs, "--source-url", ""), opt(rawArgs, "--registry-base", undefined));
+if (selectedLibraryBrand && (forceRelearn || updateExisting || rawArgs.includes('--source-prerequisite'))) block('LIBRARY_LINK_NOT_LEARNING_SOURCE', 'Use the original brand website for learning or maintenance, not a brand library page.');
+const reuseStylePack = rawArgs.includes("--reuse-style-pack") || Boolean(selectedLibraryBrand && ["design-host", "apply-host"].includes(mode));
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");
 }
@@ -232,6 +235,7 @@ const artifactRoot = opt(rawArgs, "--artifact-root", "");
 const root = path.resolve(artifactRoot || opt(rawArgs, "--root", process.cwd()));
 const artifactIsolation = validateArtifactIsolation({ command, requestKind, root, artifactRoot, args: rawArgs.slice(1) });
 let brand = resolveBrand(rawArgs.slice(1));
+if (selectedLibraryBrand && reuseStylePack && opt(rawArgs, '--brand', '') && brand !== selectedLibraryBrand) block('STYLE_PACK_SELECTION_CONFLICT', 'The selected library page and --brand name different packages.');
 let registryResolution = null;
 const requestedSourceUrl = opt(rawArgs, "--source-url", "");
 const needsReusablePack = requestedSourceUrl && !opt(rawArgs, "--style-pack", "") && !opt(rawArgs, "--mod-file", "");
@@ -287,6 +291,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
     process.exit(1);
   }
 
+  if (selectedLibraryBrand && !registryResolution.matched) block('SELECTED_STYLE_PACK_NOT_FOUND', 'The selected library package is unavailable; do not learn the library UI as a brand website.');
   if (registryResolution.matched) {
     if (forceRelearn && brand !== registryResolution.brand && !allowNewBrandId) {
       fail(`EXISTING_BRAND_ID_REQUIRED: ${registryResolution.brand} already owns this source. Revalidate it as an internal revision; creating ${brand} requires explicit --allow-new-brand-id authorization.`);
@@ -327,7 +332,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       rawArgs = withoutOption(rawArgs, "--source-url");
       rawArgs = withoutOption(rawArgs, "--registry-base");
       if (!opt(rawArgs, "--brand", "")) rawArgs.push("--brand", brand);
-      rawArgs.push("--mod-file", registryResolution.modFile);
+      rawArgs.push("--mod-file", path.resolve(root, registryResolution.modFile));
     }
   }
 }
