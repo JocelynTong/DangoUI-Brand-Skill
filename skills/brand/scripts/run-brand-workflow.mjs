@@ -19,7 +19,7 @@ import { recoverReference } from "./recover-reference.mjs";
 import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-handoff.mjs";
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
-import { prepareImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile } from './full-image-concepts.mjs';
+import { prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile } from './full-image-concepts.mjs';
 import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview } from './selected-image-code.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +33,16 @@ const originalArgs = process.argv.slice(2);
 const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
+
+if(command==='regenerate-image-concepts') {
+  try {
+    const allowed=new Set(['--artifact-root','--brand','--feedback','--confirm-new-batch']);
+    if(rawArgs.slice(1).some(x=>x.startsWith('--')&&!allowed.has(x))) throw Error('New image batch cannot mix implementation or other workflow flags.');
+    if(!path.isAbsolute(opt(rawArgs,'--artifact-root',''))) throw Error('Absolute parent artifact root required.');
+    const result=regenerateImageConcepts({root:opt(rawArgs,'--artifact-root',''),brand:opt(rawArgs,'--brand',''),feedback:opt(rawArgs,'--feedback',''),confirmed:rawArgs.includes('--confirm-new-batch')});
+    process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+  } catch(error) { block('IMAGE_REGENERATION_BLOCKED',error.message); }
+}
 
 // A selected image becomes an isolated real-host preview, never an implicit
 // approval to edit the original host or restart three-direction exploration.

@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
+import { manage } from './brand-artifacts.mjs';
 
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -16,7 +17,7 @@ function references(value, found = new Set()) {
   return [...found];
 }
 
-export function prepareImageConcepts({root, brand, hostTarget, sampleData=false}) {
+export function prepareImageConcepts({root, brand, hostTarget, sampleData=false, regeneration}) {
   const file=imageConceptFile(root,brand), dir=path.dirname(file);
   if (fs.existsSync(file)) return imageConceptDelivery({root,brand});
   assert(!fs.existsSync(path.join(dir,'execution-manifest.json')), 'Existing H5 history is immutable; create a fresh isolated run for image concepts.');
@@ -57,9 +58,54 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false}
   const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
   dispatch.commands={record:[process.execPath,entry,'record-image-concepts','--artifact-root',root,'--brand',brand,'--receipt',path.join(dir,'image-concepts-submission.json')],delivery:[process.execPath,entry,'delivery','--artifact-root',root,'--brand',brand],continue:[process.execPath,entry,'continue','--artifact-root',root,'--brand',brand]};
   dispatch.designSystemInputs={dtcg:{path:path.join(dir,'brand-mod.json'),jsonPointer:'/tokens/dtcg'},mapping:inputs.filter(x=>/component-mapping|dangoui-adapter/.test(x.path)),componentSources:inputs.filter(x=>/\.(vue|css|mjs|md)$/.test(x.path)&&x.path!==source),note:'Read the embedded DTCG and actual declared component sources. This image phase visualizes those constraints; it does not claim runtime component reuse.'};
+  if(regeneration) {
+    dispatch.regeneration=regeneration;
+    dispatch.producerInstructions+=' This is an explicitly requested NEW batch. Apply regeneration.feedback and inspect priorDirections only to avoid repeating rejected visual ideas, never as official image references. Preserve the same host facts and brand constraints. Generate three new complete images, do not copy prior outputs. Preserve all prior failures; this batch requires its own independent review.';
+  }
   const dispatchFile=path.join(dir,'image-concepts-dispatch.json');write(dispatchFile,dispatch);
-  write(file,{schema:'brand-full-image-concepts/v1',brand,hostTarget,medium:'full-image',dispatch:binding(dispatchFile),status:'dispatch-ready',userGoalCompleted:false,hostFilesModified:false});
+  write(file,{schema:'brand-full-image-concepts/v1',brand,hostTarget,medium:'full-image',dispatch:binding(dispatchFile),status:'dispatch-ready',userGoalCompleted:false,hostFilesModified:false,...(regeneration?{parentRun:regeneration.parentRun,feedback:regeneration.feedback}: {})});
   return imageConceptDelivery({root,brand});
+}
+
+// Fork inputs, not workflow state. A new user request is distinct from resuming
+// missing images or retrying a failed checkpoint in the old immutable batch.
+export function regenerateImageConcepts({root,brand,feedback,confirmed=false}) {
+  assert(confirmed&&typeof feedback==='string'&&feedback.trim(),'Explicit new-batch request and user feedback required.');
+  assert(/^[a-z0-9][a-z0-9-]*$/.test(brand||''),'Invalid brand.');
+  root=fs.realpathSync(root);
+  const parentFile=imageConceptFile(root,brand),state=read(parentFile);
+  verifyBinding(state.dispatch);
+  const dispatch=read(state.dispatch.path);
+  [...dispatch.inputs,...dispatch.inputImages].forEach(verifyBinding);
+  const prior=checkpoints(root,brand);
+  assert(prior.length===3,'New batch requires three existing images; continue the current batch to generate missing directions.');
+  const startup=read(dispatch.inputs.find(x=>path.basename(x.path)==='host-startup-page.json').path);
+  const source=path.resolve(root,startup.hostRoot,startup.sourceFile);
+  assert(hash(source)===startup.sourceSha256,'Host startup source changed; refresh host inputs explicitly before a new batch.');
+  const host=path.resolve(root,startup.hostRoot);
+  const sources=new Map([...dispatch.inputs,...dispatch.inputImages].map(x=>[x.path,x]));
+  // Include declared source originals required by later consumers, never old
+  // generated images, checkpoints, receipts or QA state.
+  const mod=read(dispatch.inputs.find(x=>path.basename(x.path)==='brand-mod.json').path);
+  const collect=v=>{if(!v||typeof v!=='object')return; if(typeof v.localPath==='string') {const p=path.resolve(root,v.localPath);const b=binding(p);if(v.sha256)assert(b.sha256===v.sha256,`Changed declared asset: ${p}`);sources.set(p,b);}Object.values(v).filter(x=>x&&typeof x==='object').forEach(collect);};collect(mod);
+  const local=[];
+  for(const b of sources.values()) {
+    verifyBinding(b);
+    assert(!fs.lstatSync(b.path).isSymbolicLink(),'Frozen input symlink must be resolved before starting a new batch.');
+    const rel=path.relative(root,fs.realpathSync(b.path));
+    if(rel.startsWith('..'+path.sep)||path.isAbsolute(rel)) continue;
+    assert(fs.realpathSync(b.path).startsWith(root+path.sep),'Frozen input symlink escapes parent run.');
+    assert(!/image-concepts(?:\/|-|\.json)/.test(rel),'Generated outputs cannot be reused as source inputs.');
+    if(b.path.endsWith('.json')&&path.basename(b.path)!=='host-startup-page.json') {
+      const absoluteRefs=v=>typeof v==='string'?(path.isAbsolute(v)&&v.startsWith(root+path.sep)) : v&&typeof v==='object'&&Object.values(v).some(absoluteRefs);
+      assert(!absoluteRefs(read(b.path)),'Absolute parent-local references require a portable brand input before a new batch.');
+    }
+    local.push({b,rel});
+  }
+  const run=manage('init',{host}),out=run.buildDirectory;
+  for(const {b,rel} of local){const target=path.join(out,rel);fs.mkdirSync(path.dirname(target),{recursive:true});if(path.basename(b.path)==='host-startup-page.json')write(target,{...startup,hostRoot:host});else {fs.copyFileSync(b.path,target);assert(hash(target)===b.sha256,'Copied input hash mismatch.');}}
+  const regeneration={parentRun:root,parentDispatch:state.dispatch,parentState:binding(parentFile),feedback:feedback.trim(),priorDirections:prior.map(d=>({id:d.id,output:d.output,prompt:d.prompt,role:'previous-proposal-not-brand-evidence'}))};
+  return {artifactRoot:out,...prepareImageConcepts({root:out,brand,hostTarget:state.hostTarget,sampleData:dispatch.sampleData,regeneration})};
 }
 
 function verifyBinding(item) { assert(item&&fs.existsSync(item.path)&&hash(item.path)===item.sha256,`Input/output hash mismatch: ${item?.path}`); }
@@ -89,6 +135,7 @@ export function recordImageConcept({root,brand,id,inputFile,outputFile,toolCallI
   assert(args.prompt?.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成'),'Reference-fidelity prompt sentence missing.');
   assert(Array.isArray(args.referenced_image_paths),'Actual referenced_image_paths required.');
   const output=binding(outputFile);
+  assert(!dispatch.regeneration?.priorDirections.some(d=>d.output.sha256===output.sha256),'Prior output cannot count as a newly generated concept.');
   assert(fs.realpathSync(output.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
   const item={id,producer,path:output.path,output,tool:'image_gen',toolCallId,prompt:args.prompt,arguments:binding(inputFile),inputImages:args.referenced_image_paths.map(binding)};
   const bytes=fs.readFileSync(output.path);
@@ -112,6 +159,7 @@ function validateReceipt(receipt, dispatch, root) {
     const bytes=fs.readFileSync(d.path);
     assert(bytes.length>10000&&(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]))||bytes[0]===255&&bytes[1]===216||bytes.toString('ascii',0,4)==='RIFF'&&bytes.toString('ascii',8,12)==='WEBP'),'Output must be an actual nonempty PNG/JPEG/WebP, not HTML or a receipt.');
     const digest=hash(d.path);hashes.push(digest);
+    assert(!dispatch.regeneration?.priorDirections.some(p=>p.output.sha256===digest),'Prior output cannot count as a newly generated concept.');
     assert(d.inputImages?.length>=2,'Actual image inputs required.');
     d.inputImages.forEach(verifyBinding);
     const received=new Set(d.inputImages.map(x=>x.sha256));
@@ -121,6 +169,21 @@ function validateReceipt(receipt, dispatch, root) {
   }
   assert(new Set(hashes).size===3,'Three copies of the same image are not three concepts.');
   assert(receipt.independentReview.verdict==='pass'&&receipt.independentReview.distinctCompositions===true&&receipt.independentReview.notes,'Independent review of visual differences required.');
+}
+
+function verifyReassessment(receipt, failedFile) {
+  const review=receipt.independentReview;
+  if(!fs.existsSync(failedFile)) {
+    assert(!review.supersedesFailedReview,'Cannot supersede a failed review that does not exist.');
+    return;
+  }
+  const prior=review.supersedesFailedReview;
+  assert(prior&&typeof review.reassessmentReason==='string'&&review.reassessmentReason.trim(),'An explicit failed-review binding and reassessmentReason are required; preserve the prior FAIL.');
+  verifyBinding(prior);
+  assert(fs.realpathSync(prior.path)===fs.realpathSync(failedFile),'Reassessment must bind this run’s recorded failed review.');
+  const failed=read(failedFile);
+  assert(failed.verdict==='fail'&&failed.directions?.length===3,'Invalid prior failed review.');
+  assert(receipt.directions.every(d=>failed.directions.some(q=>q.id===d.id&&q.sha256===hash(d.path))),'Reassessment must review the same images as the failed review.');
 }
 
 export function recordImageConcepts({root,brand,receiptFile,reviewFile}) {
@@ -136,11 +199,14 @@ export function recordImageConcepts({root,brand,receiptFile,reviewFile}) {
       const review=receipt.independentReview;
       assert(review.reviewer&&!directions.some(d=>d.producer===review.reviewer)&&review.notes,'Independent failure findings required.');
       assert(directions.every(d=>review.directions?.some(q=>q.id===d.id&&q.sha256===d.output.sha256)),'Failed review must bind actual outputs.');
-      write(path.join(path.dirname(file),'image-concepts-failed-review.json'),review);
+      const failedFile=path.join(path.dirname(file),'image-concepts-failed-review.json');
+      if(fs.existsSync(failedFile)) assert(JSON.stringify(read(failedFile))===JSON.stringify(review),'Recorded failed review is immutable. Keep the new failed report at its submitted path; the original FAIL remains blocked.');
+      else write(failedFile,review);
       return imageConceptDelivery({root,brand});
     }
   } else receipt=read(receiptFile);
   validateReceipt(receipt,dispatch,root);
+  verifyReassessment(receipt,path.join(path.dirname(file),'image-concepts-failed-review.json'));
   const target=path.join(path.dirname(file),'image-concepts-receipt.json');
   if(fs.existsSync(target)) assert(JSON.stringify(read(target))===JSON.stringify(receipt),'Recorded receipt is immutable.');
   else write(target,receipt);
@@ -154,8 +220,8 @@ export function imageConceptDelivery({root,brand}) {
   const failures=generationFailures(root,brand);
   if(failures.length) return {...state,ok:false,status:'blocked',userGoalCompleted:false,generationFailures:failures,completedImages:checkpoints(root,brand).map(d=>({id:d.id,...d.output})),nextAction:'Preserve completed images and recorded tool failures. No automatic regeneration or prompt rewriting; this attempt is incomplete.'};
   const failedFile=path.join(path.dirname(file),'image-concepts-failed-review.json');
-  if(fs.existsSync(failedFile)) return {...state,ok:false,status:'blocked',userGoalCompleted:false,failedReview:read(failedFile),completedImages:checkpoints(root,brand).map(d=>({id:d.id,...d.output})),nextAction:'Independent review failed. Preserve this attempt; do not regenerate or declare completion automatically.'};
   const receiptFile=path.join(path.dirname(file),'image-concepts-receipt.json');
+  if(fs.existsSync(failedFile)&&(!fs.existsSync(receiptFile)||!read(receiptFile).independentReview?.supersedesFailedReview)) return {...state,ok:false,status:'blocked',userGoalCompleted:false,failedReview:read(failedFile),completedImages:checkpoints(root,brand).map(d=>({id:d.id,...d.output})),nextAction:'Independent review failed. Preserve this attempt; do not regenerate or declare completion automatically. A justified independent reassessment of these same images may explicitly bind supersedesFailedReview {path,sha256} and explain reassessmentReason in a new report; record it using record-image-concepts --review without overwriting the old report.'};
   if(!fs.existsSync(receiptFile)) {
     const completed=checkpoints(root,brand),missing=dispatch.directions.filter(d=>!completed.some(c=>c.id===d.id));
     const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
@@ -163,12 +229,12 @@ export function imageConceptDelivery({root,brand}) {
     return {...state,ok:true,status:missing.length?'dispatch-ready':'review-ready',dispatchFile:state.dispatch.path,
       completedImages:completed.map(d=>({id:d.id,...d.output})),
       dispatchRequest:missing.length?{...dispatch,directions:missing,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--input','<saved exact tool args JSON>','--output','<actual image in run>','--tool-call-id','<actual tool ID>','--producer','<actual producer identity>']}:undefined,
-      reviewRequest:missing.length?undefined:{images:completed.map(d=>({id:d.id,...d.output})),inputs:dispatch.inputs,inputImages:dispatch.inputImages,producers:[...new Set(completed.map(d=>d.producer))],
-        instructions:'View all three originals, official references and bound host facts. Check the same viewport and business content, no imported reference-site capabilities, recognizable brand language, readability, and materially different dominant regions/information order/reading paths rather than just reordered cards. Judge complete image concepts, not runtime or pixel-exact token implementation: minor raster color/font variation belongs in limitations; material brand drift or invented business remains a failure. Write only the independent review JSON with concrete findings. Do not reconstruct generation records, generate images or modify the host. A failure remains incomplete.',
+      reviewRequest:missing.length?undefined:{images:completed.map(d=>({id:d.id,...d.output})),inputs:dispatch.inputs,inputImages:dispatch.inputImages,regeneration:dispatch.regeneration,producers:[...new Set(completed.map(d=>d.producer))],
+        instructions:'View all three originals, official references and bound host facts. Check the same viewport and business content, no imported reference-site capabilities, recognizable brand language, readability, and materially different dominant regions/information order/reading paths rather than just reordered cards. If regeneration is present, compare priorDirections as previous proposals, not brand evidence; report how this batch addresses feedback and differs from the previous batch. Judge this image-concept selection stage, not implementation certification: localized color-role, spacing, font or raster deviations that do not materially impair brand recognition, business meaning, reading or direction selection should be stated in limitations and may pass. brandFaithful means recognizable and applicable at this stage, not every token or semantic role is pixel-exact. Missing or misleading business, materially drifted brand identity, unreadable core content or indistinguishable directions still fail. Explain the actual impact; a P-number alone neither blocks nor permits delivery. Do not erase binding source rules: disclose deviations and required implementation corrections. Write only the independent review JSON with concrete findings. Do not reconstruct generation records, generate images or modify the host. Preserve prior failed reports; a justified independent reassessment must explicitly bind supersedesFailedReview and explain reassessmentReason, never silently replace FAIL.',
         reviewFile,reviewShape:{reviewer:'actual independent identity',verdict:'pass or fail',directions:completed.map(d=>({id:d.id,sha256:d.output.sha256,completeScreen:null,brandFaithful:null,hostTaskPreserved:null})),distinctCompositions:null,notes:'actual observed findings',limitations:[],presentationRequirements:[]},
         recordCommand:[process.execPath,entry,'record-image-concepts','--artifact-root',root,'--brand',brand,'--review',reviewFile]},
       nextAction:missing.length?'Generate only missing directions; checkpoint each actual call immediately with record-image-concept. Do not regenerate checkpointed images.':'Run independent visual review using reviewRequest, then record-image-concepts --review. No additional generation.'};
   }
-  const receipt=read(receiptFile);validateReceipt(receipt,dispatch,root);
+  const receipt=read(receiptFile);validateReceipt(receipt,dispatch,root);verifyReassessment(receipt,failedFile);
   return {...state,ok:true,status:'ready-for-user-review',userGoalCompleted:true,fullWorkflowPass:false,interactive:false,hostImplementationComplete:false,images:[...receipt.directions].sort((a,b)=>a.id.localeCompare(b.id)).map(d=>({id:d.id,...binding(d.path)})),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},reviewNotes:receipt.independentReview.notes,presentationRequirements:receipt.independentReview.presentationRequirements||[],limitations:receipt.independentReview.limitations||[],receiptFile,nextAction:'Open comparisonPreview using serve-design-host-h5.mjs with this artifact root. Show all three original images equally with review limitations; await user selection. This gallery is not a host H5 implementation.'};
 }
