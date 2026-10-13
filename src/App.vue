@@ -1,5 +1,6 @@
 <template>
-  <main class="shell" :class="[`theme-${selectedStyleId}`, { 'theme-dango': selectedStyleId === 'dango', 'theme-pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' }]" :style="themeVars">
+  <p v-if="documentRoute && !documentReady" role="status">正在载入示例…</p>
+  <main v-else class="shell" :class="[`theme-${selectedStyleId}`, { 'dango-document-preview': !!documentRoute, 'theme-dango': selectedStyleId === 'dango', 'theme-pokemon-tcg-official': selectedStyleId === 'pokemon-tcg-official' }]" :style="themeVars">
     <aside class="panel" aria-label="Visual inspector">
       <div class="style-rail">
         <SiteThemeControl />
@@ -247,7 +248,7 @@
                   <template v-if="selectedWorkspaceMode === 'style'">
                     <section class="style-mockup-page" aria-label="style preview page">
                       <h2>{{ selectedStyleCategory?.label }} <span>{{ selectedStyleCategory?.zh }}</span></h2>
-                      <p>{{ currentStyleCategoryDescription }}</p>
+                      <p>{{ documentRoute ? (documentFoundationDescriptions[selectedStyleCategoryId] || currentStyleCategoryDescription) : currentStyleCategoryDescription }}</p>
                     </section>
 
                     <section
@@ -256,14 +257,16 @@
                       :class="{ 'style-evidence-mockup-card--pulse': styleCategoryPulse }"
                       aria-label="style evidence"
                     >
-                      <div class="style-preview-heading">
+                      <details v-if="documentRoute" class="document-disclosure"><summary>查看规则来源与实现边界</summary><p>{{ currentStyleCategoryDescription }}</p><p>{{ currentEvidenceChainSummary }}</p><p v-for="note in documentRecipeNotes" :key="note">{{ note }}</p></details>
+                      <div v-if="!documentRoute" class="style-preview-heading">
                         <span>项目结构与映射</span>
                       </div>
-                      <div v-if="currentStyleCapabilityNote" class="style-capability-note">
+                      <div v-if="currentStyleCapabilityNote && !documentRoute" class="style-capability-note">
                         <strong>{{ currentStyleCapabilityNote.title }}</strong>
                         <span>{{ currentStyleCapabilityNote.body }}</span>
                       </div>
                       <section
+                        v-if="!documentRoute"
                         class="computed-evidence-chain"
                         :data-evidence-state="currentEvidenceChainState"
                         aria-label="computed-first evidence chain"
@@ -462,7 +465,8 @@
                             </div>
                           </details>
                         </section>
-                        <section class="style-icon-usage">
+                        <component :is="documentRoute ? 'details' : 'section'" class="style-icon-usage">
+                          <summary v-if="documentRoute">查看图标调用代码</summary>
                           <header>
                             <strong>Icon 怎么用</strong>
                             <span>只展示组件库枚举和调用方式，缺失图标再进入 Asset / ReviewQueue。</span>
@@ -471,7 +475,7 @@
                           <code>&lt;DuIcon :icon="iconCamera" /&gt;</code>
                           <code>&lt;DuActionButton :name="iconRefresh" /&gt;</code>
                           <code>&lt;DuButton text="发布" :icon="iconPlusHeavy" icon-position="left" /&gt;</code>
-                        </section>
+                        </component>
                         <section class="style-icon-enum">
                           <header>
                             <strong>Icon 枚举</strong>
@@ -622,6 +626,7 @@
                     </section>
 
                     <section class="style-evidence-mockup-card component-evidence-mockup-card" aria-label="component evidence">
+                      <p v-if="documentRoute && ['SegmentControl','TabBar','BottomBar','Menu','Time','PriceStatistic','Feed','SPU','Tips','Toast','Dialog','Popup','ShareSheet','ResultPage','Spin'].includes(selectedComponent)" class="dango-catalog-note">静态编排示例：用于观察形态与层级，不执行导航、提交、分享或真实业务操作。</p>
                       <div v-if="selectedComponentCategoryId === 'bar'" class="component-doc-section component-preview-section">
                         <strong>示例</strong>
                         <div class="bar-component-preview" :class="`bar-component-preview--${kebabName(selectedComponent)}`">
@@ -671,6 +676,10 @@
                                 <DuIcon :icon="iconScanning" />
                               </template>
                             </DuSearch>
+                          </div>
+                          <div v-else-if="documentRoute && selectedComponent === 'IconButton'" class="component-example-inline">
+                            <DuIconButton :icon="iconCamera" role="button" tabindex="0" aria-label="相机示例" @click="documentFeedback = '已点击相机示例，不会打开相机。'" @keydown.enter.prevent="documentFeedback = '已点击相机示例，不会打开相机。'" @keydown.space.prevent="documentFeedback = '已点击相机示例，不会打开相机。'" />
+                            <p role="status">{{ documentFeedback }}</p>
                           </div>
                           <div v-else-if="selectedComponent === 'Tabs'" class="navigation-doc-tabs-examples">
                             <DuTabs
@@ -739,6 +748,12 @@
                           </div>
                           <div v-else-if="selectedComponent === 'Time'" class="mock-time-row">
                             <strong>{{ componentExampleState.showLabel ? '2026.06.29' : '20:00' }}</strong><p v-if="componentExampleState.showHelper">Showcase 开始 · 20:00</p>
+                          </div>
+                          <div v-else-if="documentRoute && ['Feed', 'SPU'].includes(selectedComponent)" class="dango-static-example">
+                            <strong>{{ selectedComponent === 'Feed' ? '设计语言更新' : '示例商品' }}</strong>
+                            <p>{{ selectedComponent === 'Feed' ? '用标题、摘要和时间组织内容，让阅读有清楚的顺序。' : '商品标题、价格与状态的组合示意，不提供购买或详情操作。' }}</p>
+                            <small>{{ selectedComponent === 'Feed' ? '设计团队 · 2 分钟阅读' : '¥128 · 展示数据' }}</small>
+                            <p>静态编排示例，不连接业务数据。</p>
                           </div>
                           <div v-else-if="selectedComponent === 'PriceStatistic'" class="mock-stat-grid">
                             <b><small v-if="componentExampleState.showLabel">PRICE</small>¥256</b><b><small v-if="componentExampleState.showLabel">SCORE</small>{{ componentExampleState.active ? 98 : 76 }}</b><b><small v-if="componentExampleState.showLabel">RANK</small>Top 5</b>
@@ -911,8 +926,9 @@
                         </div>
                       </div>
 
-                      <div class="component-doc-section">
-                        <strong>可编辑属性</strong>
+                      <component :is="documentRoute ? 'details' : 'div'" class="component-doc-section">
+                        <summary v-if="documentRoute">调整示例与查看属性说明</summary>
+                        <strong v-else>可编辑属性</strong>
                         <div v-if="selectedComponent === 'NavigationBar'" class="component-editable-controls">
                           <div class="component-editable-group">
                             <label>
@@ -1053,7 +1069,7 @@
                             <em>{{ editableFieldHint(field) }}</em>
                           </span>
                         </div>
-                      </div>
+                      </component>
 
                       <details class="component-doc-section component-code-details">
                         <summary>代码 / Schema</summary>
@@ -2592,12 +2608,26 @@ import catalogUrl from '../data/dangoui.design-system.json?url';
 import './brands/pokemon-tcg-official-current.css';
 import './preview-phone.css';
 import SiteThemeControl from './SiteThemeControl.vue';
+import { componentCategorySpecs, styleCategories } from './documents/dango-catalog.mjs';
 import ColorInventory from './documents/ColorInventory.vue';
 import ButtonExamples from './documents/ButtonExamples.vue';
 import TypographyMatrix from './documents/TypographyMatrix.vue';
 import { typographyRecipes } from './documents/typography-model.mjs';
 import { buildColorStructure, parseHexColor, formatHexColor, readableTextColor, extractColorValues } from './documents/color-model.mjs';
 import { computed, defineComponent, h, nextTick, onBeforeUnmount, onMounted, ref, watch } from "vue";
+const documentProps = defineProps({ documentRoute: { type: String, default: '' } });
+const documentFeedback = ref('点击图标查看反馈。');
+const documentReady = ref(false);
+const documentFoundationDescriptions = {
+  icon: '浏览已有图标，观察图形在按钮与操作入口中的用法。',
+  asset: '区分图片、装饰和字体的用途，不把图片当成通用颜色规则。',
+  divider: '用分割线组织内容，用边界表达分组和选中状态。',
+  layout: '对比通栏、卡片与双列布局，选择适合内容密度的结构。',
+  spacing: '观察内容之间、容器内部和页面边缘的距离。这里展示布局示意，不新增组件库规范。',
+  radius: '对比直角、圆角、胶囊与圆形，保持同类元素一致。',
+  shadow: '观察浮起、内边界与发光的区别；没有需要时不额外添加阴影。',
+  motion: '点击可操作示例观察反馈；动效用于说明变化，不干扰阅读。',
+};
 import dayjs from "dayjs";
 import CatalogSection from "./uikit/CatalogSection.mjs";
 import "./uikit/catalog-section.css";
@@ -3673,114 +3703,6 @@ const cznMediaCopy = {
   },
 };
 
-const styleCategories = [
-  {
-    id: "color",
-    label: "Color",
-    zh: "颜色",
-    meta: "dangoui token",
-  },
-  {
-    id: "typography",
-    label: "Typography",
-    zh: "字体",
-    meta: "待更新",
-    description: "展示 H/B/N 字号层级、字重/行高、字体族和字距规则；先看 DangoUI baseline，再判断品牌字体资产是否只进入页面样式。",
-    status: "待提取",
-    nextStep: "优先确认标题、正文、辅助文字和品牌字体资产各自承接位置。",
-    scope: "Typography 不只是一张字体表；要说明字号、字重、行高、字体族和品牌字体包如何落到组件或页面 CSS。",
-  },
-  {
-    id: "icon",
-    label: "Icon",
-    zh: "图标",
-    meta: "待更新",
-    description: "展示 dangoui-icon-config 里的 icon 枚举，以及 DuIcon、DuActionButton、Button slot 的调用方式。",
-    status: "待提取",
-    nextStep: "优先从 icon 枚举里找可用图标；找不到再记录为待新增 icon 或品牌 asset。",
-    scope: "Icon 页只回答两个问题：库里有哪些 icon、代码里怎么用；不新造 icon name，不把品牌图片混进 icon 枚举。",
-  },
-  {
-    id: "button",
-    label: "Button",
-    zh: "按钮",
-    meta: "待更新",
-    description: "展示 DangoUI 已有 Button、IconButton、ActionButton 的真实形态和调用方式；FAB 单独标记为待新增能力。",
-    status: "待提取",
-    nextStep: "优先使用 DuButton props；图标按钮用 DuIconButton / DuActionButton；悬浮发布入口进入 FAB 待新增。",
-    scope: "Button 页只回答两个问题：组件库里有哪些按钮形态、代码里怎么用；不把 FAB 当成 DuButton 的一个 type。",
-  },
-  {
-    id: "asset",
-    label: "Asset",
-    zh: "图片资产",
-    meta: "待更新",
-    description: "展示图片、字体、纹理、选中态、装饰层和 frame 资产的角色；资产不写成 --du-* token，只说明 Image/slot/CSS/ReviewQueue 如何承接。",
-    status: "待提取",
-    nextStep: "先记录 asset role、尺寸、透明度、复用状态和目标 selector，再决定 Image/slot、CSS background、mask、border-image 或 ReviewQueue。",
-    scope: "Asset 是风格证据层；能用 DangoUI Image/icon slot 承接的走组件，不能承接的走页面资产样式或 ReviewQueue。",
-  },
-  {
-    id: "divider",
-    label: "Divider",
-    zh: "分割线",
-    meta: "token",
-    description: "展示 Divider、Frame、Selection 三类边界语言；普通线走 border token，装饰框和图片边框保持 style-only 或 asset。",
-    status: "待提取",
-    nextStep: "先区分普通 Divider、卡片边界、选中底线、角线/图片 Frame。",
-    scope: "Divider 不是所有边框；特殊装饰线、斜切框、图片边框不能硬写成 --du-border-*。",
-  },
-  {
-    id: "layout",
-    label: "Layout",
-    zh: "布局",
-    meta: "DangoUI 待更新",
-    description: "展示可复用 PageLayout recipe：先看页面是通栏、卡片、贪心双列还是灰白底，再用 bg token、Spacing、Radius、Shadow 和安全区排出真实页面结构。",
-    status: "DangoUI 待更新",
-    nextStep: "等待 DangoUI 研发补 Layout recipe / class preset；当前 demo 用页面 CSS 表达。",
-    scope: "Layout 不是单个业务组件；先识别布局 recipe，再判断内部使用 Image、List、Group、BottomBar 等组件。通栏、卡片、双列、灰白底必须直接展示视觉形态。",
-  },
-  {
-    id: "spacing",
-    label: "Spacing",
-    zh: "间距",
-    meta: "DangoUI 待新增",
-    description: "当前 DangoUI schema 没有通用 spacing token；这里用网格和测量线表达组件之间、网格之间、内部 padding 与安全区的距离关系。",
-    status: "DangoUI 待新增",
-    nextStep: "先确认项目源码里实际使用的 padding/gap/margin，再标记 page CSS、component CSS 或 missing；未来由 spacing token scale 接管。",
-    scope: "不能写成 --du-spacing-*；页面通栏/卡片归 Layout，Spacing 只负责测量距离，不用色块或斜线表达。",
-  },
-  {
-    id: "radius",
-    label: "Radius",
-    zh: "圆角",
-    meta: "DangoUI 待新增",
-    description: "当前 DangoUI schema 没有通用 radius token；用单个大容器表达每档圆角，并区分 frame/card/media/control/pill/circle。",
-    status: "DangoUI 待新增",
-    nextStep: "先补 Radius token scale 和风格化边框反向约束规则。",
-    scope: "不能写成 --du-radius-*；直角、圆角、胶囊和圆形要分开记录。紫色描边只标圆角区域，control radius 不能反推容器 radius。",
-  },
-  {
-    id: "shadow",
-    label: "Shadow",
-    zh: "阴影",
-    meta: "DangoUI 待新增",
-    description: "当前 DangoUI schema 没有通用 shadow token；用单个容器表达 none / elevation / inset line / brand glow 的差异。",
-    status: "DangoUI 待新增",
-    nextStep: "先补 Shadow token scale、InsetLine recipe 和 Glow effect recipe。",
-    scope: "不能写成 --du-shadow-*；没有来源证据时保持 none，不为选中态补阴影；inset line 是边界语言，glow 是氛围 effect。",
-  },
-  {
-    id: "motion",
-    label: "Motion",
-    zh: "动效",
-    meta: "待更新",
-    description: "展示 press、tab switch、snackbar、hover 和品牌氛围动效；轻交互优先走组件 props 或 CSS，复杂动效进入 ReviewQueue。",
-    status: "待提取",
-    nextStep: "先确认点击反馈、切换节奏、反馈出现位置和品牌背景/素材动效是否可被复用。",
-    scope: "Motion 不补无依据 shadow；只记录真实交互节奏、反馈位置和需要资产/脚本承接的动效。",
-  },
-];
 
 const styleRecipeDetails = {
   dango: {
@@ -4382,32 +4304,6 @@ const sideComponentSpecs = [
     pageName: "操作反馈中心",
     description: "从轻量信息提示到重量决策弹层，帮助开发者判断什么时候该打扰用户。",
     components: ["NavigationBar", "NoticeBar", "Snackbar", "Toast", "Dialog", "Popup", "Dropdown", "Popover", "ShareSheet", "Empty", "ResultPage", "Spin", "Skeleton"],
-  },
-];
-const componentCategorySpecs = [
-  {
-    id: "bar",
-    label: "导航",
-    description: "页面骨架、路径切换、入口分发和底部操作。",
-    components: ["NavigationBar", "IconButton", "Search", "Tabs", "SegmentControl", "TabBar", "BottomBar", "Menu"],
-  },
-  {
-    id: "output",
-    label: "数据输出",
-    description: "把内容、媒体、状态和商品信息展示给用户。",
-    components: ["Badge", "Tag", "Empty", "Image", "Avatar", "Time", "PriceStatistic", "Swipe", "Feed", "SPU"],
-  },
-  {
-    id: "input",
-    label: "数据输入",
-    description: "收集用户填写、选择、上传和提交的数据。",
-    components: ["FormItem", "Input", "Textarea", "Radio", "Checkbox", "Switch", "Stepper", "Upload", "Tips", "Group", "DateTimePicker", "Rate", "Cascader", "Select"],
-  },
-  {
-    id: "feedback",
-    label: "反馈",
-    description: "用户操作后的提示、弹层、空态、加载和状态反馈。",
-    components: ["NoticeBar", "Snackbar", "Toast", "Dialog", "Popup", "ShareSheet", "ResultPage", "Spin", "Skeleton"],
   },
 ];
 const distributionListRows = [
@@ -6560,16 +6456,18 @@ function mergedMotionRecipeRows(categoryRows) {
   return [...merged.values()];
 }
 
+const documentRecipeNotes = computed(() => (runtimeStyleRecipeDetails.value.dango?.[selectedStyleCategoryId.value] || []).filter(item => typeof item === 'string'));
 const selectedStyleRecipeRows = computed(() => {
   const recipe = {
     ...styleRecipeDetails,
     ...runtimeStyleRecipeDetails.value,
   }[selectedStyle.value.id];
-  const categoryRows = recipe?.[selectedStyleCategoryId.value] || [];
+  const rawRows = recipe?.[selectedStyleCategoryId.value] || [];
+  const categoryRows = documentProps.documentRoute ? rawRows.filter(item => item && typeof item === 'object') : rawRows;
   const fallbackRows = fallbackStyleRecipeDetails[selectedStyleCategoryId.value] || [];
   const rows = selectedStyleCategoryId.value === "motion"
     ? selectedStyle.value.id === "dango"
-      ? categoryRows
+      ? (documentProps.documentRoute && !categoryRows.length ? fallbackRows : categoryRows)
       : mergedMotionRecipeRows(categoryRows)
     : selectedStyleCategoryId.value === "typography"
     ? selectedStyle.value.id === "dango"
@@ -8491,6 +8389,7 @@ function routeForCurrentState() {
 }
 
 function syncRouteToLocation() {
+  if (documentProps.documentRoute) return;
   if (isApplyingRoute || typeof window === "undefined") return;
   const route = routeForCurrentState();
   const current = `${window.location.pathname}${window.location.search}${window.location.hash}`;
@@ -8501,7 +8400,7 @@ function syncRouteToLocation() {
 
 function applyRouteFromLocation() {
   if (typeof window === "undefined") return;
-  const rawHash = window.location.hash.replace(/^#\/?/, "");
+  const rawHash = (documentProps.documentRoute || window.location.hash).replace(/^#\/?/, "");
   const segments = rawHash.split("/").filter(Boolean).map((segment) => decodeURIComponent(segment));
   if (segments[0] !== "brand") return;
 
@@ -8549,7 +8448,8 @@ function applyRouteFromLocation() {
     }
   }
 
-  clearDemoSelection();
+  if (documentProps.documentRoute) clearCanvasSelection();
+  else clearDemoSelection();
   isApplyingRoute = false;
   syncRouteToLocation();
 }
@@ -8752,6 +8652,8 @@ onMounted(async () => {
   applyRouteFromLocation();
   const response = await fetch(catalogUrl);
   catalog.value = await response.json();
+  if (documentProps.documentRoute) applyRouteFromLocation();
+  documentReady.value = true;
   await nextTick();
   updateMockupScale();
   if (typeof ResizeObserver !== "undefined" && phoneRef.value) {
@@ -8782,4 +8684,5 @@ watch([selectedTemplateId, selectedInspectorTab, selectedStyleId, selectedStyleC
 });
 
 watch([selectedStyleId, selectedTemplateId], restorePhoneScreenScroll);
+watch(() => documentProps.documentRoute, applyRouteFromLocation);
 </script>

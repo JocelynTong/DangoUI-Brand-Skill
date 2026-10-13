@@ -3,6 +3,7 @@ import './test-release-checklist.mjs';
 import { readFileSync } from 'node:fs';
 import { buildColorStructure } from '../src/documents/color-model.mjs';
 import { canonicalDocumentHash } from '../src/documents/routes.mjs';
+import { componentNames, componentSlug, foundationNames } from '../src/documents/dango-catalog.mjs';
 import { typographyGroups, buildTypographyGroups } from '../src/documents/typography-model.mjs';
 const catalog = JSON.parse(readFileSync(new URL('../data/dangoui.design-system.json', import.meta.url)));
 const before = JSON.stringify(catalog);
@@ -13,10 +14,20 @@ assert.equal(rows[1].items.length, 14);
 assert.equal(rows[2].items.length, 61);
 assert.equal(JSON.stringify(catalog), before);
 assert.deepEqual(buildColorStructure(catalog), rows);
-for (const old of ['#/brand/dango/style/button', '#/brand/dango/components/button', '#/variants/dango/foundations/button', '#/variants/dango/components']) {
+for (const old of ['#/brand/dango/style/button', '#/brand/dango/components/button', '#/variants/dango/foundations/button']) {
   assert.equal(canonicalDocumentHash(old), '#/variants/dango/components/button');
   assert.equal(canonicalDocumentHash(old, '?inspectorEmbed=1'), old);
 }
+assert.equal(canonicalDocumentHash('#/variants/dango/components'), '#/variants/dango/components/inspector');
+assert.equal(componentNames.length, 42);
+assert.equal(new Set(componentNames.map(componentSlug)).size, 42);
+assert.equal(foundationNames.length, 10);
+for (const name of componentNames) {
+  const slug = componentSlug(name);
+  assert.equal(canonicalDocumentHash(`#/brand/dango/components/${slug}`), `#/variants/dango/components/${slug}`);
+  assert.equal(canonicalDocumentHash(`#/brand/dango/components/${slug}`, '?variantEmbed=1'), `#/brand/dango/components/${slug}`);
+}
+for (const { id } of foundationNames) assert.equal(canonicalDocumentHash(`#/brand/dango/style/${id}`), `#/variants/dango/foundations/${id}`);
 assert.equal(canonicalDocumentHash('#/brand/dango/style/color'), '#/variants/dango/foundations/color');
 assert.equal(canonicalDocumentHash('#/variants/dango/dango-button'), '#/variants/dango/components/button');
 assert.equal(canonicalDocumentHash('#/variants/dango/dango-introduction'), '#/variants/dango/dango-introduction');

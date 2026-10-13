@@ -38,26 +38,30 @@
           </template>
           <template v-else-if="section === 'foundations'">
           <template v-if="selected.id === 'dango'">
-            <a href="#/variants/dango/foundations/color" :aria-current="inlineDocument === 'color' ? 'page' : undefined">颜色</a>
-            <a href="#/variants/dango/foundations/typography" :aria-current="inlineDocument === 'typography' ? 'page' : undefined">字体</a>
+            <a v-for="item in foundationNames" :key="item.id" :href="`#/variants/dango/foundations/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.zh }}</a>
           </template>
           <a v-else :href="`#/variants/${selected.id}/foundations`" :aria-current="section === 'foundations' && !isDesignSystem ? 'page' : undefined">基础规范</a>
           <a v-if="selected.id === 'onepiece-cardgame'" :href="`#/variants/${selected.id}/design-system`" :aria-current="isDesignSystem ? 'page' : undefined">视觉总览</a>
           </template>
           <template v-else>
-          <a v-if="selected.id === 'dango'" href="#/variants/dango/components/button" :aria-current="inlineDocument === 'button' ? 'page' : undefined">按钮</a>
           <template v-if="selected.id === 'dango'">
-            <a href="#/variants/dango/components/navigation-bar" :aria-current="inlineDocument === 'navigation-bar' ? 'page' : undefined">导航栏</a>
-            <a href="#/variants/dango/components/switch" :aria-current="inlineDocument === 'switch' ? 'page' : undefined">开关</a>
+            <a href="#/variants/dango/components/inspector" :aria-current="routePath.endsWith('/inspector') ? 'page' : undefined">全部组件</a>
+            <a href="#/variants/dango/components/button" :aria-current="inlineDocument === 'button' ? 'page' : undefined">按钮</a>
+            <template v-for="group in componentCategorySpecs" :key="group.id">
+              <p class="vl-directory-group">{{ group.label }}</p>
+              <a v-for="name in group.components" :key="name" :href="`#/variants/dango/components/${componentSlug(name)}`" :aria-current="routePath.endsWith('/' + componentSlug(name)) ? 'page' : undefined">{{ componentLabels[name] || name }}</a>
+            </template>
           </template>
-          <a :href="`#/variants/${selected.id}/components/inspector`" :aria-current="section === 'components' && !inlineDocument ? 'page' : undefined">组件检查器</a>
+          <a v-else :href="`#/variants/${selected.id}/components/inspector`" :aria-current="section === 'components' ? 'page' : undefined">组件检查器</a>
           </template>
         </nav>
       </aside>
       <div class="vl-workspace-content">
       <section v-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
-        <div v-if="!inlineDocument" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
-        <div v-if="inlineDocument" class="vl-document">
+        <div v-if="!inlineDocument && selected.id !== 'dango'" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
+        <DangoCatalog v-if="isDangoCatalog" />
+        <App v-else-if="dangoDocumentRoute" :document-route="dangoDocumentRoute" />
+        <div v-else-if="inlineDocument" class="vl-document">
           <ColorDocument v-if="inlineDocument === 'color'" />
           <TypographyDocument v-else-if="inlineDocument === 'typography'" />
           <NavigationDocument v-else-if="inlineDocument === 'navigation-bar'" />
@@ -70,6 +74,7 @@
         <div class="vl-system-toolbar"><a :href="`#/variants/${selected.id}/foundations`">← 规范明细</a><span>视觉总览试点 · 非完整组件文档</span><a :href="designSystemUrl" target="_blank" rel="noopener">独立窗口 ↗</a></div>
         <iframe :src="designSystemUrl" title="航海王设计系统 · 可交互展示"></iframe>
       </section>
+      <DangoIntroduction v-else-if="selected.id === 'dango' && activeScene.id === 'dango-introduction'" />
       <ReleaseChecklist v-else-if="selected.id === 'dango' && activeScene.id === 'dango-release-checklist'" />
       <div v-else class="vl-detail-grid" :class="{ 'vl-catalog-scene': isCatalogScene }">
         <section class="vl-preview-column" aria-label="场景预览">
@@ -94,6 +99,10 @@
 </template>
 <script setup>
 import {computed,defineAsyncComponent,nextTick,onMounted,onBeforeUnmount,ref,watch} from 'vue';
+import DangoCatalog from './documents/DangoCatalog.vue';
+import DangoIntroduction from './documents/DangoIntroduction.vue';
+import { componentCategorySpecs, foundationNames, componentLabels, componentSlug, componentNames } from './documents/dango-catalog.mjs';
+import './documents/dango-document.css';
 import ColorDocument from './documents/ColorDocument.vue';
 import ButtonDocument from './documents/ButtonDocument.vue';
 import TypographyDocument from './documents/TypographyDocument.vue';
@@ -150,11 +159,19 @@ const inlineDocument=computed(()=>{
   if(section.value==='foundations' && !isDesignSystem.value && (!target || target==='color')) return 'color';
   return section.value==='components' && ['button', 'navigation-bar', 'switch'].includes(target) ? target : '';
 });
+const isDangoCatalog = computed(() => selected.value?.id === 'dango' && section.value === 'components' && !inlineDocument.value && (!routePath.value.split('/')[4] || routePath.value.endsWith('/inspector')));
+const dangoDocumentRoute = computed(() => {
+  if (selected.value?.id !== 'dango' || inlineDocument.value || isDangoCatalog.value) return '';
+  const target = routePath.value.split('/')[4];
+  if (section.value === 'components' && componentNames.some(name => componentSlug(name) === target)) return `#/brand/dango/components/${target}`;
+  if (section.value === 'foundations' && foundationNames.some(item => item.id === target)) return `#/brand/dango/style/${target}`;
+  return '';
+});
 const inspectorContentUrl=computed(()=>selected.value?`${location.pathname}?inspectorEmbed=1#/brand/${selected.value.id}/${section.value === 'components' ? 'components/navigation-bar' : `style/${routePath.value.split('/')[4] || 'color'}`}`:'');
 const designSystemUrl=new URL('design-system.html',location.href.split('#')[0]).href;
 const activeScene=computed(()=>selected.value?.scenes.find(s=>s.id===routePath.value.split('/')[3])||selected.value?.scenes[0]);
 const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移练习 · 示例内容' : '来源参考');
-const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${({ button: '按钮', 'navigation-bar': '导航栏', switch: '开关' }[inlineDocument.value] || '检查器')}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : inlineDocument.value === 'typography' ? '字体' : inlineDocument.value === 'color' ? '颜色' : '基础规范'}`);
+const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
