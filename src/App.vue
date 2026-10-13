@@ -5105,6 +5105,7 @@ const SchemaBrandHeroSection = defineComponent({
     return () => {
       const section = props.section;
       const content = schemaContent(section);
+      const staticOnly = content.interactionMode === "static-evidence-only";
       const variants = Array.isArray(content.variants) ? content.variants : [];
       const variant = variants[activeVariant.value] || {};
       const isPokemonOfficialHomeHero = section?.id === "home-campaign-stage" && section?.recipe === "pokemon-home-stage";
@@ -5136,9 +5137,10 @@ const SchemaBrandHeroSection = defineComponent({
           isPokemonOfficialHomeHero ? h("button", {
             type: "button",
             class: "source-schema-demo__mobile-menu-trigger",
+            disabled: staticOnly,
             "aria-label": mobileMenuOpen.value ? "Close campaign navigation" : "Open campaign navigation",
             "aria-expanded": mobileMenuOpen.value ? "true" : "false",
-            onClick: () => { mobileMenuOpen.value = !mobileMenuOpen.value; },
+            onClick: staticOnly ? undefined : () => { mobileMenuOpen.value = !mobileMenuOpen.value; },
           }, [
             h("span", { class: "source-schema-demo__mobile-menu-label" }, "MENU"),
             h("span", { class: "source-schema-demo__mobile-menu-icon", "aria-hidden": "true" }, [h("i"), h("i"), h("i")]),
@@ -5163,10 +5165,11 @@ const SchemaBrandHeroSection = defineComponent({
                 key: `featured-card-${activeVariant.value}`,
                 type: "button",
                 class: ["pokemon-featured-card", "source-schema-demo__campaign-swap", featuredCardFlipped.value ? "is-flipped" : ""],
+                disabled: staticOnly,
                 "aria-label": featuredCardFlipped.value ? "Show featured Pokémon card front" : "Show featured Pokémon card back",
                 "aria-pressed": featuredCardFlipped.value ? "true" : "false",
-                onClick: toggleFeaturedCard,
-                onKeydown: toggleFeaturedCardFromKeyboard,
+                onClick: staticOnly ? undefined : toggleFeaturedCard,
+                onKeydown: staticOnly ? undefined : toggleFeaturedCardFromKeyboard,
               }, [
                 h("span", { class: "pokemon-featured-card__inner" }, [
                   h("img", {
@@ -5185,7 +5188,7 @@ const SchemaBrandHeroSection = defineComponent({
           : null,
         !assetOnly && actionButtons.length ? h("div", { class: "source-schema-demo__actions source-schema-demo__actions--brand-hero" }, actionButtons) : null,
         controls.length ? h("div", { class: "source-schema-demo__hero-controls", "aria-label": "Campaign slides" }, [
-          ...controls.map((item, index) => h("button", { type: "button", class: index === activeVariant.value ? "is-active" : "", "aria-label": `Show campaign ${item}`, onClick: () => { activeVariant.value = index; } }, item)),
+          ...controls.map((item, index) => h("button", { type: "button", disabled: staticOnly, class: index === activeVariant.value ? "is-active" : "", "aria-label": `Show campaign ${item}`, onClick: staticOnly ? undefined : () => { activeVariant.value = index; } }, item)),
           content.playControl === true ? h("button", { type: "button", class: "source-schema-demo__hero-play", "aria-label": autoplaying.value ? "Pause campaign carousel" : "Play campaign carousel", onClick: () => { autoplaying.value = !autoplaying.value; autoplaying.value ? startCycle() : stopCycle(); } }, autoplaying.value ? "Ⅱ" : "▶") : null,
         ]) : null,
         responsiveBackground ? h("picture", { key: `background-${activeVariant.value}`, class: "source-schema-demo__hero-responsive-bg source-schema-demo__campaign-swap", "aria-hidden": "true" }, [
@@ -6030,6 +6033,7 @@ const SchemaPokemonLearnSection = defineComponent({
         ], { "data-boundary-role": "championship-successor" });
       }
       if (section?.id === "home-news-grid" && section?.recipe === "pokemon-home-news" && stories.length) {
+        const staticOnly = content.interactionMode === "static-evidence-only";
         const heldOutProof = content.heldOutProof;
         const showHeldOutProof = new URLSearchParams(window.location.search).get("proof") === "heldout-news";
         const reducedMotionProof = window.matchMedia?.("(prefers-reduced-motion: reduce)")?.matches
@@ -6040,7 +6044,7 @@ const SchemaPokemonLearnSection = defineComponent({
         const renderStory = (story) => h("article", { class: "pokemon-news__story", "data-story-src": story.sourceUrl || story.src }, [
           h("img", { class: "pokemon-news__image", src: story.src, alt: "" }),
           h("h3", story.title),
-          h("button", { type: "button", class: "pokemon-news__cta" }, [h("span", story.cta || "Learn More"), h("b", { "aria-hidden": "true" }, "›")]),
+          h("button", { type: "button", disabled: staticOnly, class: "pokemon-news__cta" }, [h("span", story.cta || "Learn More"), h("b", { "aria-hidden": "true" }, "›")]),
         ]);
         const renderPage = (page, role) => h("div", {
           key: `${role}-${page}-${pageSize}`,
@@ -6050,16 +6054,16 @@ const SchemaPokemonLearnSection = defineComponent({
         return renderSchemaSection(section, "pokemon-news", [
           h("header", { class: "pokemon-news__header" }, [
             h("h2", content.kicker || "WHAT'S NEW!"),
-            h("button", { type: "button", class: "pokemon-news__more" }, [content.moreLabel || "See More News", h("span", { "aria-hidden": "true" }, "›")]),
+            h("button", { type: "button", disabled: staticOnly, class: "pokemon-news__more" }, [content.moreLabel || "See More News", h("span", { "aria-hidden": "true" }, "›")]),
           ]),
           h("div", { class: "pokemon-news__viewport", "aria-live": "polite" }, [
             newsOutgoingPage.value !== null ? renderPage(newsOutgoingPage.value, "outgoing") : null,
             renderPage(newsPage.value, newsOutgoingPage.value !== null ? "incoming" : "settled"),
           ]),
           h("div", { class: "pokemon-news__controls", "aria-label": "News carousel" }, [
-            h("button", { type: "button", class: "pokemon-news__arrow pokemon-news__arrow--previous", disabled: newsPage.value === 0, "aria-label": "Previous news page", onMousedown: (event) => event.preventDefault(), onClick: () => changeNewsPage(newsPage.value - 1) }, "‹"),
-            h("div", { class: "pokemon-news__dots" }, Array.from({ length: pageCount }, (_, index) => h("button", { type: "button", class: index === newsPage.value ? "is-active" : "", "aria-label": `Show news page ${index + 1}`, "aria-current": index === newsPage.value ? "true" : undefined, onMousedown: (event) => event.preventDefault(), onClick: () => changeNewsPage(index) }, h("span")))),
-            h("button", { type: "button", class: "pokemon-news__arrow pokemon-news__arrow--next", disabled: newsPage.value === pageCount - 1, "aria-label": "Next news page", onMousedown: (event) => event.preventDefault(), onClick: () => changeNewsPage(newsPage.value + 1) }, "›"),
+            h("button", { type: "button", class: "pokemon-news__arrow pokemon-news__arrow--previous", disabled: staticOnly || newsPage.value === 0, "aria-label": "Previous news page", onMousedown: (event) => event.preventDefault(), onClick: staticOnly ? undefined : () => changeNewsPage(newsPage.value - 1) }, "‹"),
+            h("div", { class: "pokemon-news__dots" }, Array.from({ length: pageCount }, (_, index) => h("button", { type: "button", disabled: staticOnly, class: index === newsPage.value ? "is-active" : "", "aria-label": `Show news page ${index + 1}`, "aria-current": index === newsPage.value ? "true" : undefined, onMousedown: (event) => event.preventDefault(), onClick: staticOnly ? undefined : () => changeNewsPage(index) }, h("span")))),
+            h("button", { type: "button", class: "pokemon-news__arrow pokemon-news__arrow--next", disabled: staticOnly || newsPage.value === pageCount - 1, "aria-label": "Next news page", onMousedown: (event) => event.preventDefault(), onClick: staticOnly ? undefined : () => changeNewsPage(newsPage.value + 1) }, "›"),
           ]),
           h("div", { class: "pokemon-news__source-seam", "aria-hidden": "true" }),
           showHeldOutProof && heldOutProof ? h("aside", { class: "pokemon-news__heldout", "aria-label": "Non-official generative proof fixture" }, [
@@ -6072,10 +6076,13 @@ const SchemaPokemonLearnSection = defineComponent({
           ]) : null,
         ], { ref: newsRoot, "data-page-count": pageCount, "data-active-page": newsPage.value, "data-transitioning": newsOutgoingPage.value !== null ? "true" : "false", "data-reduced-motion": reducedMotionProof ? "true" : "false" });
       }
+      const staticOnly = content.interactionMode === "static-evidence-only";
       return renderSchemaSection(section, `pokemon-learn pokemon-learn--${schemaSectionTypeName(section)}`, [
         h("header", [h("span", content.kicker || "LEARN TO PLAY"), h("h2", schemaText(content.title, section.id)), content.description ? h("p", content.description) : null]),
         hero ? h("img", { class: "pokemon-learn__lead", src: hero, alt: content.title || "Pokémon TCG lesson" }) : null,
-        items.length ? h("div", { class: "pokemon-learn__lessons" }, items.map((item, index) => h("article", { class: index === openIndex.value ? "is-open" : "" }, content.reversibleDetails === true
+        items.length ? h("div", { class: "pokemon-learn__lessons" }, items.map((item, index) => h("article", { class: index === openIndex.value ? "is-open" : "" }, staticOnly
+          ? [h("div", { class: "pokemon-learn__static-summary" }, [h("strong", item.title || item.label)]), h("p", item.description || item.body || "Learn how this part of the game works."), cards[index % cards.length] ? renderImage(cards[index % cards.length], "pokemon-learn__diagram") : null]
+          : content.reversibleDetails === true
           ? [h("details", { open: index === openIndex.value }, [
               h("summary", { onClick: (event) => { event.preventDefault(); openIndex.value = openIndex.value === index ? -1 : index; } }, [h("strong", item.title || item.label), h("span", index === openIndex.value ? "−" : "+")]),
               index === openIndex.value ? h("p", item.description || item.body || "Learn how this part of the game works.") : null,
