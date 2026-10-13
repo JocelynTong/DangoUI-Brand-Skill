@@ -87,7 +87,8 @@
     "validate:dangoui-token-source": "node skills/brand/scripts/sync-dangoui-token-source.mjs --check",
     "build:catalog-tokens": "node scripts/build-catalog-tokens.mjs",
     "check:catalog-tokens": "node scripts/build-catalog-tokens.mjs --check",
-    "test:catalog-tokens": "node --test scripts/catalog-tokens.test.mjs"
+    "test:catalog-tokens": "node --test scripts/catalog-tokens.test.mjs",
+    "test:catalog-package": "npm run check:catalog-tokens && node --test scripts/catalog-package.test.mjs"
   },
   "keywords": [],
   "author": "",
