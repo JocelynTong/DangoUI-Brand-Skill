@@ -34,7 +34,7 @@
   },
   "publicRegistryReuse": {
     "defaultRegistry": "https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-registry/v0.1/",
-    "lookupKey": "normalized canonical source URL or /#/brand/{brand}/ demo deep link",
+    "lookupKey": "normalized canonical source URL or /#/variants/{brand}/ demo deep link (legacy /#/brand/{brand}/ supported)",
     "order": [
       "host migrations",
       "local repository registry",

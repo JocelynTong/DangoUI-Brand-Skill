@@ -23,7 +23,7 @@ export function brandFromDemoUrl(value, registryBase = DEFAULT_REGISTRY_BASE) {
     const url = new URL(value);
     const base = new URL(registryBase);
     if (url.origin !== base.origin || url.pathname.replace(/\/$/, '') !== base.pathname.replace(/\/$/, '')) return "";
-    return url.hash.match(/^#\/brand\/([a-z0-9][a-z0-9-]*)(?:\/|$)/)?.[1] || "";
+    return url.hash.match(/^#\/(?:brand|variants)\/([a-z0-9][a-z0-9-]*)(?:\/|$)/)?.[1] || "";
   } catch {
     return "";
   }

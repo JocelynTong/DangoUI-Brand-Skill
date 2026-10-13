@@ -1,0 +1,40 @@
+/* Generated from canonical DTCG before dev/build via package scripts. */
+@import './catalog-tokens.css';
+
+/* Scope the extracted legacy product-gallery recipe; no page reset or fonts. */
+.catalog-grid.catalog-grid[data-appearance="onepiece"] {
+  display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px;
+  min-width: 0; align-items: start; color: #111; background: var(--kit-catalog-surface);
+  font-family: Arial, sans-serif; line-height: 1.2;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-card {
+  display: grid; grid-template-columns: 1fr; min-width: 0; min-height: 0; gap: 4px;
+  align-content: start; justify-items: start; padding: 0 0 8px; margin: 0;
+  overflow: hidden; border: 0; background: transparent; box-shadow: none;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-art {
+  display: block; box-sizing: border-box; width: 100%; max-width: 100%;
+  height: 122px; max-height: 122px; margin: 0 0 5px; padding: 9px;
+  object-fit: contain; object-position: center; background: #e8e8e4;
+  border: 0; border-radius: var(--kit-catalog-media-radius); filter: drop-shadow(0 6px 8px rgba(0,0,0,.18));
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-meta {
+  display: flex; box-sizing: border-box; width: 100%; align-items: center;
+  justify-content: space-between; gap: 4px; border-bottom: 2px solid #111; padding-bottom: 3px;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-meta span {
+  align-self: start; color: #111; font-size: 11px; font-weight: 900; text-transform: uppercase;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-meta small,
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-release {
+  color: #6f6457; font-size: 8px; line-height: 1.2;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-card > strong {
+  color: #111; font: 700 10px/1.15 Arial, sans-serif; overflow-wrap: anywhere;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__product-card > span {
+  align-self: start; color: #111; font-size: 11px; font-weight: 800; text-transform: uppercase;
+}
+.catalog-grid.catalog-grid[data-appearance="onepiece"] .source-schema-demo__missing {
+  grid-column: 1 / -1; padding: 20px; color: #555; font: 14px/1.5 Arial, sans-serif;
+}

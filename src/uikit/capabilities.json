@@ -1,0 +1,45 @@
+{
+  "status": "local-component-trial",
+  "brandCertification": "not-certified",
+  "runtime": "vue3-web-dom",
+  "source": {
+    "brand": "onepiece-cardgame",
+    "brandModVersion": "0.1.0",
+    "basis": "Existing local Demo implementation, not a new interpretation or approval of the official website",
+    "ruleId": "product-first-catalog-density"
+  },
+  "reusableImplementation": [
+    "CatalogProductGrid: render caller-provided items in input order without modifying data",
+    "Explicit empty state and escaped text",
+    "CatalogSection: static title, category labels and product-grid composition"
+  ],
+  "implementationRules": [
+    "Independent use requires appearance=onepiece and an explicit CSS import; the default legacy appearance requires caller styles",
+    "Grid remains two columns at all widths; media box is 122px high with object-fit:contain",
+    "Card reading order is image, category/code, title, release, optional CTA text",
+    "Source density guidance is not implemented as responsive behavior; never require the host to invent eight records"
+  ],
+  "notSupported": [
+    "Taro or mini-program runtime",
+    "Category selection, filtering, requests, navigation and pagination",
+    "Animated grid/list switching or official motion timing",
+    "Desktop four-column / mobile two-column responsive parity",
+    "Full brand typography, expressive design, accessibility or complete host certification"
+  ],
+  "knownLimitations": [
+    "Category buttons are disabled and have no selection event; the first category is always active, so another active item can produce two active labels",
+    "The onepiece section CSS hides description and label; CTA is non-interactive text",
+    "A missing image URL has a text placeholder; failed image requests have no built-in fallback, and the Demo global error handler is not packaged",
+    "Poppins is not bundled; system fallbacks change typography",
+    "Only surface and mediaRadius are generated DTCG tokens; other dimensions remain CSS literals",
+    "Product images, official fonts and reference screenshots are not included; the consumer supplies permitted assets"
+  ],
+  "hostResponsibilities": [
+    "Keep business data, item order, routes, selection state, requests and native interactions in the host",
+    "Do not replace functional host filters with CatalogSection static labels",
+    "Do not infer Taro compatibility from the Vue peer dependency",
+    "Use as a design reference outside Vue Web, not as an installed native adapter"
+  ],
+  "unverified": ["brand-recognition", "real-host-transfer", "motion", "responsive-source-parity"],
+  "verificationBoundary": "Tarball and SSR tests reuse the locally installed Vue peer runtime. They do not verify a fresh install, browser layout, image-network behavior or real-host integration. No legacy QA verdict or failed learning run is superseded."
+}

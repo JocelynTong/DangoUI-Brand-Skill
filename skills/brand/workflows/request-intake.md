@@ -18,7 +18,7 @@
 
 官网已提供但尚无品牌包，不属于缺用户输入。`design-host run` 返回 `prerequisite-dispatch-ready` 与 `source-prerequisite.json`；编排者自动执行其中同一公共入口的 learning.args，完成现有学习角色与独立 QA 后，用其有效 MOD 恢复原 host-concepts。父目标、宿主、隔离目录不变；这不是改成只交品牌 Demo，也不能把 dispatch 当学习成功。`--source-prerequisite` 仅让该学习阶段继续独立学习当前来源，不静默采用 Registry 候选。失败保留接力记录与具体缺口，不要求用户找内部文件，不自动无限重试。缺口涉及真实用户选择时才询问。
 
-先区分链接类型：用户在宿主任务中直接给出本项目品牌库的 `#/brand/<id>/...` 页面，视为选择该已发布包，公共入口自动解析复用；不能把品牌库外壳当官网重新学习。包缺失、网络不可达或 hash 不符时报告准确故障，不回退抓取品牌库 UI。普通官网命中 Registry 仍只是候选，只有明确同意复用并传 `--reuse-style-pack`，或提供本地 `--style-pack` / `--mod-file` 才消费。Registry 学习证据留在隔离工作区，只有 MOD 声明且 hash 完整的 runtime assets 可进入宿主。
+先区分链接类型：用户在宿主任务中直接给出本项目品牌库的 `#/variants/<id>/...`（新版）及 `#/brand/<id>/...` 页面，视为选择该已发布包，公共入口自动解析复用；不能把品牌库外壳当官网重新学习。包缺失、网络不可达或 hash 不符时报告准确故障，不回退抓取品牌库 UI。普通官网命中 Registry 仍只是候选，只有明确同意复用并传 `--reuse-style-pack`，或提供本地 `--style-pack` / `--mod-file` 才消费。Registry 学习证据留在隔离工作区，只有 MOD 声明且 hash 完整的 runtime assets 可进入宿主。
 
 ## 隔离首轮试验
 

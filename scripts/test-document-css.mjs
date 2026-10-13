@@ -1,0 +1,18 @@
+import assert from 'node:assert/strict';
+import { readFileSync, readdirSync } from 'node:fs';
+const read = path => readFileSync(new URL(path, import.meta.url), 'utf8');
+assert.doesNotMatch(read('../src/main.js'), /import\s+['"]\.\/styles\.css|pokemon-tcg-official-current\.css/);
+assert.match(read('../src/App.vue'), /import\s+['"]\.\/styles\.css/);
+const html = read('../dist/index.html');
+const cssPaths = [...html.matchAll(/href="([^" ]+\.css)"/g)].map(match => match[1]);
+assert.ok(cssPaths.length, 'Production entry must include CSS');
+const css = cssPaths.map(path => read(`../dist/${path.replace(/^\.?\//, '')}`)).join('\n');
+assert.ok(Buffer.byteLength(css) < 220_000, 'Document entry CSS budget: 220 KB uncompressed');
+assert.doesNotMatch(css, /\.phone-screen/,'Legacy device canvas CSS must stay lazy');
+console.log(`Document CSS isolation passed (${Buffer.byteLength(css)} bytes).`);
+const assets = readdirSync(new URL('../dist/assets/', import.meta.url));
+const catalogAsset = assets.find(name => /^dangoui\.design-system-.*\.json$/.test(name));
+assert.ok(catalogAsset, 'Production build must emit the catalog JSON used by document and inspector');
+const catalog = JSON.parse(read(`../dist/assets/${catalogAsset}`));
+assert.ok(catalog.tokens.length > 0, 'Emitted catalog must contain tokens');
+console.log('Production catalog asset is present and readable.');

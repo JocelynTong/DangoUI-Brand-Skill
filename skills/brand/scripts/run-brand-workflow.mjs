@@ -247,6 +247,7 @@ const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
 // Selecting a page in our published brand library selects that package, not
 // the library chrome as a new website to learn. Arbitrary hash URLs do not.
 const selectedLibraryBrand = brandFromDemoUrl(opt(rawArgs, "--source-url", ""), opt(rawArgs, "--registry-base", undefined));
+if (selectedLibraryBrand && (forceRelearn || updateExisting || rawArgs.includes('--source-prerequisite'))) block('LIBRARY_LINK_NOT_LEARNING_SOURCE', 'Use the original brand website for learning or maintenance, not a brand library page.');
 const reuseStylePack = rawArgs.includes("--reuse-style-pack") || Boolean(selectedLibraryBrand && ["design-host", "apply-host"].includes(mode));
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");

@@ -1,0 +1,39 @@
+/* The site owns the presentation frame; brand pages own only screen content.
+   Explicit opt-in keeps standalone narrow/proof views unchanged. */
+body.site-preview-phone {
+  background: var(--site-bg);
+}
+body.site-preview-phone .shell,
+body.site-preview-phone .shell :is(.workspace, .demo-stage, .component-showcase, .template-preview) {
+  background: transparent;
+}
+body.site-preview-phone .shell .template-preview {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+body.site-preview-phone .shell .phone.template-phone {
+  box-sizing: border-box;
+  width: min(390px, 100%);
+  max-width: 100%;
+  height: auto;
+  min-height: 0;
+  aspect-ratio: 395 / 832;
+  margin: 0;
+  border: var(--mockup-frame-border-scaled) solid var(--site-border);
+  border-radius: var(--mockup-frame-radius-scaled);
+  background: var(--site-border);
+  box-shadow: none;
+  overflow: hidden;
+}
+body.site-preview-phone .shell .phone.template-phone::before {
+  content: none;
+}
+body.site-preview-phone .shell .phone.template-phone .phone-screen {
+  height: 100%;
+  min-height: 0;
+  border-radius: var(--mockup-screen-radius-scaled);
+  clip-path: inset(0 round var(--mockup-screen-radius-scaled));
+  overflow-x: hidden;
+  overflow-y: auto;
+}

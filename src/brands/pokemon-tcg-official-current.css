@@ -1,0 +1,969 @@
+/*
+ * Pokémon TCG Official — current evidence batch.
+ *
+ * This file is intentionally loaded after styles.css. The legacy stylesheet
+ * contains several historical fidelity attempts; this bounded layer is the
+ * only current Demo implementation and keeps every rule inside the Pokémon
+ * preview surface.
+ */
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official {
+  --pk-ink: #171719;
+  --pk-charcoal: #3d3d3f;
+  --pk-paper: #f5f4ef;
+  --pk-orange: #ee6b2f;
+  --pk-yellow: #f4c933;
+  --pk-navy: #173b76;
+  --pk-line: rgba(23, 23, 25, 0.18);
+  width: 100%;
+  max-width: none;
+  padding: 0;
+  overflow: hidden;
+  background: #fff !important;
+  color: var(--pk-ink);
+  font-family: "PT Sans Official", Arial, sans-serif;
+  container: pokemon-current-demo / inline-size;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official > section {
+  width: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+/* Home: one compact, high-impact campaign beat followed immediately by the
+   productive news surface. The official art stays intact as an independent
+   runtime asset; no source screenshot is used. */
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] {
+  position: relative;
+  isolation: isolate;
+  display: block;
+  height: clamp(500px, 48vw, 650px);
+  min-height: 500px;
+  padding: 0;
+  overflow: hidden;
+  background: #050608;
+  color: #fff;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"]::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(2, 7, 13, 0.18) 25%, rgba(2, 7, 13, 0.03) 58%, rgba(2, 7, 13, 0.48) 100%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.58), transparent 38%);
+  pointer-events: none;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-responsive-bg {
+  position: absolute;
+  z-index: -2;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-responsive-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 47%;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-nav {
+  position: absolute;
+  z-index: 8;
+  inset: 0 0 auto;
+  width: 100%;
+  height: 58px;
+  min-height: 58px;
+  margin: 0;
+  padding: 0 30px 0 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(20px, 3vw, 46px);
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.94);
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-nav .is-active {
+  color: #ffcb05;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__mobile-menu-trigger {
+  display: none;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__logo {
+  position: absolute;
+  z-index: 9;
+  top: 8px;
+  left: 24px;
+  width: 104px;
+  max-height: 44px;
+  object-fit: contain;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-title-image {
+  position: absolute;
+  z-index: 3;
+  left: clamp(28px, 7vw, 112px);
+  bottom: 146px;
+  width: clamp(250px, 32vw, 430px);
+  max-height: 230px;
+  object-fit: contain;
+  filter: drop-shadow(0 12px 22px rgba(0, 0, 0, 0.64));
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-cards {
+  position: absolute;
+  z-index: 4;
+  right: clamp(36px, 8vw, 128px);
+  bottom: 74px;
+  width: clamp(142px, 15vw, 204px);
+  height: auto;
+  display: block;
+  transform: rotate(3deg);
+  filter: drop-shadow(0 22px 28px rgba(0, 0, 0, 0.66));
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .pokemon-featured-card {
+  width: 100%;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__actions--brand-hero {
+  position: absolute;
+  z-index: 5;
+  left: clamp(28px, 7vw, 112px);
+  bottom: 72px;
+  width: max-content;
+  height: auto;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__actions--brand-hero .source-schema-demo__cta {
+  position: relative;
+  width: auto;
+  min-height: 48px;
+  padding: 0 52px 0 22px;
+  border: 3px solid #d6b85a !important;
+  border-radius: 16px;
+  background: #fff;
+  color: #111;
+  font-size: 14px;
+  font-weight: 700;
+  font-style: italic;
+  box-shadow: 0 16px 24px -16px rgba(0, 0, 0, 0.7);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__actions--brand-hero .source-schema-demo__cta::after {
+  content: "→";
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  transform: translateY(-50%);
+  font-size: 20px;
+  font-style: normal;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-controls {
+  position: absolute;
+  z-index: 6;
+  inset: auto 0 0;
+  width: 100%;
+  height: 34px;
+  min-height: 34px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  background: rgba(0, 0, 0, 0.86);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-controls button {
+  position: relative;
+  flex: 0 0 40px;
+  width: 40px;
+  min-width: 40px;
+  height: 28px;
+  min-height: 28px;
+  padding: 0;
+  overflow: hidden;
+  border: 0 !important;
+  border-radius: 0;
+  background: transparent;
+  color: transparent;
+  box-shadow: none;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-controls button::after {
+  content: "";
+  position: absolute;
+  inset: 11px 4px auto;
+  height: 5px;
+  border-radius: 99px;
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-controls button.is-active {
+  background: transparent;
+  box-shadow: none;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-controls button.is-active::after {
+  background: #ffcb05;
+}
+
+/* Productive home area */
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"].pokemon-news {
+  min-height: 0;
+  padding: 42px clamp(24px, 6vw, 88px) 62px;
+  background: #fff;
+  color: var(--pk-ink);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__header {
+  margin: 0 0 26px;
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__header h2 {
+  margin: 0;
+  color: var(--pk-ink);
+  font-family: "Kanit Official", "PT Sans Official", sans-serif;
+  font-size: clamp(38px, 5vw, 64px) !important;
+  font-style: italic;
+  line-height: 0.92;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__more {
+  min-height: 44px;
+  padding: 0 4px;
+  background: transparent;
+  color: var(--pk-ink);
+  font-size: 15px;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__viewport {
+  min-height: 0;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__page {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(16px, 2.2vw, 30px);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__story {
+  padding: 0 0 22px;
+  overflow: hidden;
+  border: 1px solid #d9d9d9;
+  background: #f4f4f4;
+  color: var(--pk-ink);
+  box-shadow: 0 12px 26px rgba(28, 32, 39, 0.1);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__image {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__story h3 {
+  min-height: 2.5em;
+  margin: 18px 20px 14px;
+  color: var(--pk-ink);
+  font-size: clamp(19px, 2vw, 25px);
+  line-height: 1.15;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__cta {
+  min-width: 148px;
+  min-height: 44px;
+  margin-left: 20px;
+  padding: 0 18px;
+  border: 2px solid var(--pk-ink);
+  border-radius: 14px;
+  background: var(--pk-ink);
+  color: #fff;
+  font-weight: 700;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__controls {
+  margin-top: 24px;
+}
+
+/* Database: intentionally dense and task-first. */
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db {
+  min-height: 0;
+  padding: 34px clamp(18px, 5vw, 72px) 54px;
+  background: #ececea;
+  color: var(--pk-ink);
+  font-family: Arial, sans-serif;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__title-plate {
+  width: min(860px, 94%);
+  min-height: 86px;
+  padding: 18px 34px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  background: #fff;
+  color: var(--pk-ink);
+  clip-path: polygon(0 0, 96% 0, 100% 72%, 97% 100%, 0 100%);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__title-plate img {
+  width: 98px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__title-plate h1 {
+  margin: 0;
+  color: var(--pk-ink);
+  font-size: clamp(28px, 3.2vw, 44px);
+  line-height: 1;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__search {
+  margin: 0;
+  padding: 28px clamp(18px, 4vw, 54px) 0;
+  background: var(--pk-charcoal);
+  color: #fff;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__field-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db label span,
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db legend {
+  margin-bottom: 7px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db input:not([type="checkbox"]),
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db select {
+  min-height: 42px;
+  padding: 9px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.24);
+  border-radius: 3px;
+  background: #fff;
+  color: #222;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__energy {
+  margin: 24px 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__energy button {
+  min-height: 36px;
+  padding: 4px 8px;
+  grid-template-columns: 20px minmax(0, 1fr) 28px;
+  gap: 6px;
+  border-width: 1px;
+  color: #252525;
+  font-size: 12px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__energy button::before {
+  width: 18px;
+  height: 18px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__energy button::after {
+  width: 26px;
+  height: 14px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__actions {
+  padding: 0 0 22px;
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__actions button,
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__actions .du-button {
+  min-width: 112px;
+  min-height: 42px;
+  padding: 0 18px;
+  border-radius: 3px;
+  font-weight: 700;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__submit,
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__submit.du-button {
+  background: var(--pk-orange) !important;
+  color: #fff !important;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__advanced-toggle {
+  width: calc(100% + 2 * clamp(18px, 4vw, 54px));
+  min-height: 48px;
+  margin-left: calc(-1 * clamp(18px, 4vw, 54px));
+  padding: 0 18px;
+  background: #5a5a5d;
+  color: #fff;
+  font-weight: 700;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__empty {
+  margin: 0;
+  padding: 30px 18px;
+  background: #fff;
+  color: #666;
+  text-align: center;
+}
+
+/* Learn: clear instructional organisms, each with its own supported role. */
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn {
+  padding: 56px clamp(24px, 7vw, 100px);
+  background: #fff;
+  color: var(--pk-ink);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn > header {
+  max-width: 720px;
+  margin: 0 0 30px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn > header > span {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn h2 {
+  margin: 7px 0 12px;
+  color: inherit;
+  font-family: "Kanit Official", "PT Sans Official", sans-serif;
+  font-size: clamp(38px, 5.2vw, 72px);
+  font-style: italic;
+  line-height: 0.92;
+  text-transform: uppercase;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-entry {
+  position: relative;
+  min-height: 520px;
+  padding-top: 70px;
+  overflow: hidden;
+  background: linear-gradient(135deg, #fff 0 56%, #edf3f8 56% 100%);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-entry .pokemon-learn__lead {
+  width: 66%;
+  max-height: 470px;
+  margin: -180px 0 -34px 38%;
+  object-fit: contain;
+  object-position: right bottom;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-yellow {
+  padding-block: 78px;
+  background: var(--pk-yellow);
+  color: var(--pk-ink);
+  clip-path: polygon(0 2%, 8% 0, 20% 2%, 34% 0, 50% 2%, 66% 0, 82% 2%, 94% 0, 100% 2%, 100% 98%, 86% 100%, 70% 98%, 52% 100%, 36% 98%, 18% 100%, 0 98%);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-navy {
+  padding-block: 82px;
+  background: var(--pk-navy);
+  color: #fff;
+  clip-path: polygon(0 2%, 14% 0, 31% 2%, 49% 0, 70% 2%, 86% 0, 100% 2%, 100% 100%, 0 100%);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__lessons {
+  display: grid;
+  grid-template-columns: minmax(260px, 0.8fr) minmax(340px, 1.2fr);
+  gap: 10px 42px;
+  align-items: start;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__lessons article {
+  grid-column: 1;
+  border-top: 2px solid currentColor;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__lessons summary {
+  min-height: 54px;
+  padding: 14px 0;
+  color: inherit;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__lessons article details[open] > summary {
+  color: #bd0e17;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-navy .pokemon-learn__lessons article details[open] > summary {
+  color: #ffd33d;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__diagram {
+  grid-column: 2;
+  width: 100%;
+  max-height: 470px;
+  object-fit: contain;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-resources {
+  padding-block: 62px 76px;
+  background: #fff;
+  color: var(--pk-ink);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-resources .pokemon-learn__resource-grid {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+/* Held-out: a new two-organism Deck Lab, visibly fictional and not a source
+   page mirror. It reuses only the approved dense-query and annotated-lesson
+   grammar. */
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-page-id="pokemon-tcg-official-held-out"] {
+  background: #ececea;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] {
+  position: relative;
+  isolation: isolate;
+  height: 520px;
+  min-height: 520px;
+  padding: 88px clamp(28px, 7vw, 104px) 62px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  overflow: hidden;
+  background-color: #06101a;
+  background-image:
+    linear-gradient(90deg, rgba(1, 7, 13, 0.92) 0%, rgba(1, 7, 13, 0.6) 42%, rgba(1, 7, 13, 0.08) 72%),
+    linear-gradient(0deg, rgba(0, 0, 0, 0.64), transparent 48%),
+    var(--schema-hero-bg);
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__logo {
+  position: absolute;
+  z-index: 3;
+  top: 24px;
+  left: clamp(28px, 7vw, 104px);
+  width: 110px;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__hero-eyebrow {
+  max-width: 520px;
+  margin-bottom: 10px;
+  color: #e4bf62;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.13em;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__hero-heldout-title {
+  max-width: 570px;
+  color: #fff;
+  font-family: "Kanit Official", "PT Sans Official", sans-serif;
+  font-size: clamp(48px, 6vw, 86px);
+  font-style: italic;
+  line-height: 0.88;
+  text-transform: uppercase;
+  text-shadow: 0 6px 20px rgba(0, 0, 0, 0.72);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] > p {
+  max-width: 500px;
+  margin: 14px 0 20px;
+  color: rgba(255, 255, 255, 0.82);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__hero-cards {
+  position: absolute;
+  z-index: 4;
+  right: clamp(42px, 10vw, 152px);
+  bottom: 34px;
+  width: clamp(142px, 17vw, 220px);
+  transform: rotate(4deg);
+  filter: drop-shadow(0 24px 28px rgba(0, 0, 0, 0.8));
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__card-art {
+  width: 100%;
+  max-height: none;
+  object-fit: contain;
+  opacity: 1 !important;
+  animation: none !important;
+  transform: none !important;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="card-database-search-guidance"] .source-schema-demo__static-cues {
+  margin: 22px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  list-style: none;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="card-database-search-guidance"] .source-schema-demo__static-cues li {
+  padding: 7px 11px;
+  border: 1px solid rgba(23, 23, 25, 0.18);
+  border-radius: 999px;
+  background: #f1f1ef;
+  color: #4f4f52;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__actions--brand-hero {
+  position: static;
+  width: max-content;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__cta {
+  min-height: 48px;
+  padding: 0 22px;
+  border: 2px solid #d6b85a;
+  border-radius: 4px;
+  background: #fff;
+  color: #111;
+  font-weight: 700;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-query"] .pokemon-db__title-plate {
+  background: #fff8d9;
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-briefing"] {
+  position: relative;
+  border-top: 16px solid var(--pk-navy);
+  border-bottom: 16px solid var(--pk-yellow);
+  background: #f5f0df;
+  color: var(--pk-ink);
+}
+
+.theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-briefing"]::before {
+  content: "FICTIONAL TRANSFER TEST";
+  position: absolute;
+  top: 22px;
+  right: clamp(24px, 7vw, 100px);
+  padding: 6px 9px;
+  background: var(--pk-ink);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+}
+
+@container pokemon-current-demo (max-width: 519px) {
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] {
+    height: 560px;
+    min-height: 560px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"]::after {
+    background:
+      linear-gradient(180deg, rgba(0, 0, 0, 0.08) 42%, rgba(0, 0, 0, 0.76) 100%),
+      linear-gradient(90deg, rgba(0, 0, 0, 0.15), transparent 42%);
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-responsive-bg img {
+    object-position: 55% 50%;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-nav {
+    height: 54px;
+    min-height: 54px;
+    padding: 0 16px 0 116px;
+    justify-content: flex-end;
+    gap: 0;
+    font-size: 0;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-nav > span {
+    display: none;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__mobile-menu-trigger {
+    min-width: 88px;
+    min-height: 44px;
+    padding: 0 0 0 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 9px;
+    background: transparent;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__mobile-menu-icon {
+    width: 22px;
+    display: grid;
+    gap: 4px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__mobile-menu-icon i {
+    width: 22px;
+    height: 2px;
+    display: block;
+    background: currentColor;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__mobile-menu-panel {
+    position: absolute;
+    z-index: 12;
+    inset: 54px 0 auto;
+    padding: 8px 14px 14px;
+    display: grid;
+    background: rgba(0, 0, 0, 0.96);
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__mobile-menu-panel button {
+    min-height: 44px;
+    padding: 0 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    background: transparent;
+    color: #fff;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__logo {
+    top: 8px;
+    left: 18px;
+    width: 76px;
+    max-height: 38px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-title-image {
+    top: 72px;
+    bottom: auto;
+    left: 16px;
+    width: 180px;
+    max-height: 102px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-cards {
+    right: 18px;
+    bottom: 54px;
+    width: 92px;
+    transform: rotate(4deg);
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__actions--brand-hero {
+    left: 16px;
+    bottom: 64px;
+    width: 205px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__actions--brand-hero .source-schema-demo__cta {
+    width: 100%;
+    min-height: 46px;
+    padding: 0 40px 0 14px;
+    font-size: 12px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-campaign-stage"] .source-schema-demo__hero-controls {
+    height: 34px;
+    min-height: 34px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"].pokemon-news {
+    padding: 24px 16px 48px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__header {
+    margin-bottom: 17px;
+    align-items: center;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__header h2 {
+    font-size: 32px !important;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__more {
+    min-height: 40px;
+    font-size: 12px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__page {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 14px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="home-news-grid"] .pokemon-news__story {
+    padding-bottom: 18px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db {
+    padding: 18px 0 40px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__title-plate {
+    width: 96%;
+    min-height: 74px;
+    padding: 12px 16px;
+    gap: 12px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__title-plate img {
+    width: 70px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__title-plate h1 {
+    font-size: 25px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__search {
+    padding: 20px 14px 0;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__field-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__energy {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin: 18px 0;
+    gap: 7px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__advanced-toggle {
+    width: calc(100% + 28px);
+    margin-left: -14px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__advanced,
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-db__card-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn {
+    padding: 42px 20px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn h2 {
+    font-size: clamp(34px, 11cqw, 44px);
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-entry {
+    min-height: 560px;
+    padding-top: 44px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-entry .pokemon-learn__lead {
+    width: calc(100% + 40px);
+    max-height: 330px;
+    margin: 4px -20px -42px;
+    object-position: 64% bottom;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-yellow,
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-navy {
+    padding-block: 64px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__lessons {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__lessons article,
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .pokemon-learn__diagram {
+    grid-column: 1;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official .schema-recipe--pokemon-learn-resources .pokemon-learn__resource-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] {
+    height: 500px;
+    min-height: 500px;
+    padding: 82px 18px 30px;
+    background-position: 44% center;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__logo {
+    top: 18px;
+    left: 18px;
+    width: 88px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__hero-heldout-title {
+    max-width: 250px;
+    font-size: 45px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] > p {
+    max-width: 250px;
+    margin: 10px 0 15px;
+    font-size: 13px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__hero-cards {
+    right: 14px;
+    bottom: 24px;
+    width: 104px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-stage"] .source-schema-demo__cta {
+    min-height: 44px;
+    padding: 0 14px;
+    font-size: 12px;
+  }
+
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official [data-schema-section-id="held-out-deck-briefing"]::before {
+    position: static;
+    width: max-content;
+    margin: 0 0 18px;
+    display: block;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official *,
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official *::before,
+  .theme-pokemon-tcg-official .source-schema-demo--pokemon-tcg-official *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}

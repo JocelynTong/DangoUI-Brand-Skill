@@ -4,6 +4,8 @@
   "description": "Learn reusable brand systems and apply them safely through DangoUI.",
   "main": "src/main.js",
   "scripts": {
+    "test:brand-assets": "node scripts/test-brand-assets.mjs",
+    "test:demo": "node scripts/test-navigation.mjs && node scripts/test-document-model.mjs && node scripts/test-site-theme.mjs && node --test scripts/test-demo-catalog.mjs",
     "dev": "vite --host 127.0.0.1",
     "dev:dangoui-local": "DANGOUI_LOCAL=1 vite --host 127.0.0.1",
     "build": "vite build",
@@ -82,7 +84,11 @@
     "validate:brand": "npm run validate:brand-mod && npm run validate:brand-preview",
     "sync:skills": "node scripts/sync-agent-skills.mjs",
     "sync:dangoui-tokens": "node skills/brand/scripts/sync-dangoui-token-source.mjs",
-    "validate:dangoui-token-source": "node skills/brand/scripts/sync-dangoui-token-source.mjs --check"
+    "validate:dangoui-token-source": "node skills/brand/scripts/sync-dangoui-token-source.mjs --check",
+    "build:catalog-tokens": "node scripts/build-catalog-tokens.mjs",
+    "check:catalog-tokens": "node scripts/build-catalog-tokens.mjs --check",
+    "test:catalog-tokens": "node --test scripts/catalog-tokens.test.mjs",
+    "test:catalog-package": "npm run check:catalog-tokens && node --test scripts/catalog-package.test.mjs"
   },
   "keywords": [],
   "author": "",
@@ -96,6 +102,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.7",
-    "dembrandt": "^0.28.0"
+    "dembrandt": "^0.28.0",
+    "style-dictionary": "5.6.0"
   }
 }

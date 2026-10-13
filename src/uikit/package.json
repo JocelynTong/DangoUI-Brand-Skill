@@ -1,0 +1,28 @@
+{
+  "name": "@dangoui/catalog-reference",
+  "version": "0.0.0-trial.1",
+  "private": true,
+  "description": "Private Vue Web presentational catalog trial; requires caller data and CSS imports, not a Taro adapter or certified brand system.",
+  "type": "module",
+  "files": [
+    "CatalogProductGrid.mjs",
+    "CatalogSection.mjs",
+    "catalog.css",
+    "catalog-section.css",
+    "catalog-tokens.css",
+    "catalog.tokens.json",
+    "capabilities.json",
+    "USAGE.md"
+  ],
+  "exports": {
+    "./grid": "./CatalogProductGrid.mjs",
+    "./section": "./CatalogSection.mjs",
+    "./grid.css": "./catalog.css",
+    "./section.css": "./catalog-section.css",
+    "./tokens": "./catalog.tokens.json",
+    "./capabilities": "./capabilities.json"
+  },
+  "sideEffects": ["*.css"],
+  "peerDependencies": { "vue": "^3.5.35" },
+  "license": "UNLICENSED"
+}

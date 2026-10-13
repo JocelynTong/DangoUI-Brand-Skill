@@ -8,6 +8,10 @@ const localDangouiRoot = fileURLToPath(
 );
 
 export default defineConfig({
+  build: { rollupOptions: { input: {
+    main: fileURLToPath(new URL('./index.html', import.meta.url)),
+    designSystem: fileURLToPath(new URL('./design-system.html', import.meta.url)),
+  } } },
   // DangoUI ships cross-platform Vue SFCs whose web build intentionally keeps
   // the mini-program `scroll-view` host element (for example Tabs.vue). Tell
   // Vue's SFC compiler that it is a platform custom element so it is rendered

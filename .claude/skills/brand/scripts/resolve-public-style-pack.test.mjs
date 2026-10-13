@@ -54,6 +54,27 @@ assert.equal(brandFromDemoUrl('https://jocelyntong.github.io/DangoUI-Brand-Skill
 for (const url of ['https://evil.example/#/brand/demo/pages/home', 'https://jocelyntong.github.io/other/#/brand/demo', 'https://tcg.pokemon.com/en-us/', 'https://jocelyntong.github.io/DangoUI-Brand-Skill/#/brand/../x']) assert.equal(brandFromDemoUrl(url), '');
 
 const missing = await resolvePublicStylePack({ sourceUrl: "https://not-listed.example/", root: fixtureRoot });
+// Both public navigation generations select the same package, not a website to learn.
+for (const route of ['brand/demo/pages/home', 'brand/demo/style/color', 'brand/demo/components/button', 'variants/demo', 'variants/demo/demo-home', 'variants/demo/foundations/color', 'variants/demo/components/inspector']) {
+  const sourceUrl = `https://jocelyntong.github.io/DangoUI-Brand-Skill/#/${route}`;
+  assert.equal(brandFromDemoUrl(sourceUrl), 'demo');
+  const resolved = await resolvePublicStylePack({ sourceUrl, root: fixtureRoot });
+  assert.equal(resolved.matched, true);
+  assert.equal(resolved.brand, 'demo');
+}
+for (const brand of ['dango','onepiece-cardgame','pokemon-tcg-official','czn']) {
+  assert.equal(brandFromDemoUrl(`https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants/${brand}/components/inspector`), brand);
+}
+for (const url of [
+  'https://evil.example/#/variants/demo',
+  'https://jocelyntong.github.io/other/#/variants/demo',
+  'https://jocelyntong.github.io/DangoUI-Brand-Skill-extra/#/variants/demo',
+  'https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants',
+  'https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants/../x',
+  'https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants/%2e%2e/x',
+  'http://127.0.0.1:5188/#/variants/demo',
+]) assert.equal(brandFromDemoUrl(url), '');
+assert.equal(brandFromDemoUrl('https://preview.example/library/#/variants/demo/foundations/color', 'https://preview.example/library/'), 'demo');
 assert.equal(missing.matched, false);
 assert.equal(missing.reason, "not-found");
 

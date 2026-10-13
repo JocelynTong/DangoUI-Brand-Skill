@@ -1,0 +1,48 @@
+{
+  "$extensions": {
+    "com.dangoui.delivery": {
+      "status": "local-component-trial",
+      "brandCertification": "not-certified",
+      "basis": "Generated from existing Brand MOD values; inherited descriptions are not a new source verification."
+    }
+  },
+  "catalog": {
+    "surface": {
+      "$type": "color",
+      "$value": {
+        "colorSpace": "srgb",
+        "components": [
+          1,
+          1,
+          1
+        ],
+        "alpha": 1
+      },
+      "$description": "Computed html background rgb(255,255,255).",
+      "$extensions": {
+        "echo.brand.target": "--du-bg-1",
+        "echo.brand.channel": "mapped",
+        "echo.brand.status": "mapped",
+        "echo.brand.usage": "Primary content surface.",
+        "echo.brand.legacyKey": "--du-bg-1",
+        "echo.brand.evidence": "Computed html background rgb(255,255,255)."
+      }
+    },
+    "mediaRadius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$description": "Rendered hero, news and product media are square-edged.",
+      "$extensions": {
+        "echo.brand.target": "--style-card-radius",
+        "echo.brand.channel": "styleOnly",
+        "echo.brand.status": "style-only",
+        "echo.brand.usage": "Media and editorial cards.",
+        "echo.brand.legacyKey": "--style-card-radius",
+        "echo.brand.evidence": "Rendered hero, news and product media are square-edged."
+      }
+    }
+  }
+}

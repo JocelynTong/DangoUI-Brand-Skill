@@ -1,9 +1,17 @@
 import { createApp, defineComponent, h } from "vue";
 import "./dangoui-theme.local.css";
 import "dangoui/style.css";
-import "./styles.css";
+import "./site-base.css";
+import "./documents/shared-examples.css";
+import "./site-theme.css";
+import "./design-document.css";
 import App from "./VariantLibrary.vue";
+import { installDemoImageFallback } from "./demo-image-fallback.mjs";
+const removeImageFallback = installDemoImageFallback(document);
+if (import.meta.hot) import.meta.hot.dispose(removeImageFallback);
 if (new URLSearchParams(location.search).get("variantEmbed") === "1") document.body.classList.add("variant-embed");
+if (new URLSearchParams(location.search).get("variantEmbed") === "1" && new URLSearchParams(location.search).get("previewFrame") === "phone") document.body.classList.add("site-preview-phone");
+if (new URLSearchParams(location.search).get("inspectorEmbed") === "1") document.body.classList.add("inspector-embed");
 
 const app = createApp(App);
 
