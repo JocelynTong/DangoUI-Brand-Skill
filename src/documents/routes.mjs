@@ -29,6 +29,9 @@ export function canonicalDocumentHash(hash, search = '') {
     '#/variants/dango/foundations': '#/variants/dango/foundations/color',
     '#/variants/dango/components': '#/variants/dango/components/inspector',
   };
+  for (const brand of ['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn']) {
+    aliases[`#/brand/${brand}/components/inspector`] = `#/variants/${brand}/components/inspector`;
+  }
   for (const name of componentNames) aliases[`#/brand/dango/components/${componentSlug(name)}`] = `#/variants/dango/components/${componentSlug(name)}`;
   for (const name of componentNames) aliases[`#/brand/czn/components/${componentSlug(name)}`] = `#/variants/czn/components/${componentSlug(name)}`;
   for (const item of foundationNames) aliases[`#/brand/czn/style/${item.id}`] = `#/variants/czn/foundations/${item.id}`;

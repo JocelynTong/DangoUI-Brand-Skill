@@ -19,6 +19,15 @@ for (const old of ['#/brand/dango/style/button', '#/brand/dango/components/butto
   assert.equal(canonicalDocumentHash(old, '?inspectorEmbed=1'), old);
 }
 assert.equal(canonicalDocumentHash('#/variants/dango/components'), '#/variants/dango/components/inspector');
+for (const brand of ['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn']) {
+  const legacy = `#/brand/${brand}/components/inspector`;
+  const canonical = `#/variants/${brand}/components/inspector`;
+  assert.equal(canonicalDocumentHash(legacy), canonical);
+  assert.equal(canonicalDocumentHash(canonical), canonical);
+  for (const query of ['?variantEmbed=1', '?inspectorEmbed=1']) {
+    assert.equal(canonicalDocumentHash(legacy, query), legacy);
+  }
+}
 assert.equal(componentNames.length, 42);
 assert.equal(new Set(componentNames.map(componentSlug)).size, 42);
 assert.equal(foundationNames.length, 10);

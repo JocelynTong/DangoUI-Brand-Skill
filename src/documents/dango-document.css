@@ -22,4 +22,8 @@
 .dango-document-preview .component-doc-section{max-width:100%;min-width:0}
 .dango-document-preview .component-editable-group{background:var(--site-surface);color:var(--site-text)}
 .dango-document-preview pre{max-width:100%;overflow:auto}
+/* Documentation follows the site theme; the actual CZN button previews retain their brand colors. */
+.variant-library .dango-document-preview.theme-czn .style-mockup-page > p,
+.variant-library .dango-document-preview.theme-czn .style-button-library :is(.style-inventory-meta em,.style-button-usage header span){color:var(--site-muted)}
+.variant-library .dango-document-preview.theme-czn .style-button-library :is(.style-inventory-heading,.style-inventory-heading span,.style-inventory-meta strong,.style-button-usage header strong){color:var(--site-text)}
 @media(max-width:600px){.dango-catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px}.dango-document-preview .component-preview-section{padding:16px}.dango-document-preview .style-mockup-page h2{font-size:24px}}
