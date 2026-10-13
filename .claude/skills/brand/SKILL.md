@@ -33,6 +33,8 @@ node <skill目录>/scripts/run-brand-workflow.mjs init --host <宿主目录>
 
 该命令只读检查宿主并返回缺失信息；不联网、不启动、不修改宿主。仅传当前会话明确输入，简短展示 `welcome`，只问最少缺口。
 
+初始化时给出最短用法：在宿主会话用 `$brand <官网或具体品牌库页面链接>` 先生成三张完整效果图；已有本轮图片时，用 `$brand 我选本轮 A，请做成隔离的可操作页面` 进入下文选图落地，不重开三图。提供公共 Variant 库链接。安装或更新核对时，报告本次实际加载目录及可读取的包完整性标识；没有版本依据就明确未知，不把维护仓库版本冒充安装版本。公开版统一用 `$brand`，不要求用户记候选别名或运行目录；升级不授权自动修改原项目。
+
 ## 选择模式
 
 - `learn-brand`：学习品牌并产出 Evidence、Intent、Brand MOD、DangoUI mapping 与品牌学习 Demo；默认不改宿主。
@@ -78,7 +80,7 @@ Demo 是品牌学习能力测试，Evidence Fidelity、Structural Fidelity、Gen
 
 真实字段和业务能力保持；只在用户允许时使用明确标注的测试数据。每张生成后立即按 dispatch 的 `checkpointCommand` 记录实际工具参数文件、输出和调用 ID；脚本保存 hash，`continue` 只返回缺少的方向，不重画已记录图片。三张齐全后 `reviewRequest` 自动给出原图、来源和审核模板；独立审核者只写视觉结论，不代拼生成记录。按返回命令 `record-image-concepts --review` 后运行 `delivery`，用现有静态服务打开 `comparisonPreview.path` 等权展示三张原图及局限；这是图片展厅，不是宿主 H5 实现。独立检查完整界面、品牌参考应用、三案差异及可读性；图片不证明交互、组件运行或像素保真。展示后停止，不自动转 H5。缺少图片能力、参考文件或任何一张结果时如实报告缺口，不用旧 H5、背景拼贴或派发成功代替交付。
 
-用户选定已有图片并要求落地时，执行公共入口 `select-image-code --artifact-root <原图片运行目录> --brand <brand> --direction <a|b|c> --selection <用户选图及落地原话> --confirm-isolated-preview`。入口冻结选图、品牌输入并复制真实宿主；按返回 dispatch 实现该方向，执行 `compile-selected-theme` 消费 DTCG/adapter/真实 DangoUI 包，然后记录实际代码与截图，由独立 QA 检查运行页面、业务和 token 消费。React Web 另派发限域文本 Button 资产及说明，先确认实际版本与任务兼容，QA 检查实际调用和覆盖。本阶段开始可确认宿主已有 Playwright 等本地测试工具；内置浏览器故障不免除 QA，也不授权绕过访问策略。`continue`、`delivery` 使用返回的新目录，不再生成 ABC。交付图片与实际页面对照；选图只授权隔离预览，不授权覆盖原宿主。具体边界见 [request intake](workflows/request-intake.md#选图后落地到隔离宿主)。
+用户选定已有图片并要求落地时，执行公共入口 `select-image-code --artifact-root <原图片运行目录> --brand <brand> --direction <a|b|c> --selection <用户选图及落地原话> --confirm-isolated-preview`。入口冻结选图、品牌输入并复制真实宿主；按返回 dispatch 实现该方向，执行 `compile-selected-theme` 消费 DTCG/adapter/真实 DangoUI 包，按回执的 `entryFile` 单一入口及限域覆盖说明接入，然后记录实际代码与截图，由独立 QA 检查运行页面、业务和 token 消费。React Web 另派发限域文本 Button 资产及说明，先确认实际版本与任务兼容，QA 检查实际调用和覆盖。本阶段开始可确认宿主已有 Playwright 等本地测试工具；内置浏览器故障不免除 QA，也不授权绕过访问策略。`continue`、`delivery` 使用返回的新目录，不再生成 ABC。交付图片与实际页面对照；选图只授权隔离预览，不授权覆盖原宿主。具体边界见 [request intake](workflows/request-intake.md#选图后落地到隔离宿主)。
 
 以下 H5 几何、DOM、交互与 Approved Master 要求仅适用于明确选择 `interactive-h5` 的阶段，不是完整效果图交付的前置门禁。
 

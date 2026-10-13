@@ -104,6 +104,25 @@ test('compiler rejects symlink output directory escaping isolated run',t=>{
   assert.throws(()=>compileSelectedTheme({root:s.artifactRoot,dangouiRoot:f.dangouiRoot}),/Theme output escapes/);
   assert.deepEqual(fs.readdirSync(outside),[]);
 });
+test('single theme entry cannot write through an output symlink',t=>{
+  const f=fixture(t),s=f.select(),outside=f.write(path.join(f.dir,'outside-entry.css'),'untouched');
+  fs.mkdirSync(path.join(s.hostRoot,'src/brand'));
+  fs.symlinkSync(outside,path.join(s.hostRoot,'src/brand/brand-entry.css'));
+  assert.throws(()=>compileSelectedTheme({root:s.artifactRoot,dangouiRoot:f.dangouiRoot}),/cannot be a symlink/);
+  assert.equal(fs.readFileSync(outside,'utf8'),'untouched');
+  assert.equal(fs.existsSync(path.join(s.hostRoot,'src/brand/brand-theme.css')),false);
+});
+test('single theme entry is bound and checked before recording implementation',t=>{
+  const f=fixture(t),s=f.select();
+  const compiled=compileSelectedTheme({root:s.artifactRoot,dangouiRoot:f.dangouiRoot});
+  assert.ok(compiled.bindings.some(b=>b.path===compiled.entryFile&&b.sha256===hash(compiled.entryFile)));
+  assert.deepEqual(compiled.integration.mappedVariables,['--du-primary']);
+  fs.appendFileSync(compiled.entryFile,'\n:root{--du-primary:red}');
+  const comparisonFile=f.write(path.join(s.artifactRoot,'comparison.html'),'<html></html>');
+  const submissionFile=f.write(path.join(f.dir,'entry-submission.json'),{producer:'implementer',previewUrl:'http://localhost:12345/',comparisonFile,outputs:['host/src/App.jsx'],reused:[],adapted:[],limitations:[]});
+  assert.throws(()=>recordSelectedCode({root:s.artifactRoot,submissionFile}),/Changed input\/output/);
+  assert.equal(fs.existsSync(path.join(s.artifactRoot,'implementation.json')),false);
+});
 test('original host modification and frozen input drift are rejected',t=>{
   const f=fixture(t),s=f.select();
   const source=path.join(f.host,'src/App.jsx'),original=fs.readFileSync(source);

@@ -65,6 +65,20 @@ Brand Skill 把这件事改成一条有分工、有产物、有验收、有返�
 
 Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要记内部模式名或提供配置文件路径。
 
+从公共库选品牌时，复制具体品牌页面链接（例如 `https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants/dango`），在要换肤的项目会话里发送：
+
+```text
+$brand 使用这个品牌库链接，为当前项目生成三个差异化完整效果图，先不要改代码：〈品牌页面链接〉
+```
+
+选好后在同一会话继续：
+
+```text
+$brand 我选本轮完整效果图 A，请做成可操作页面，只修改隔离副本，不改原项目、不发布。
+```
+
+等待图片与实际页面的同视口对照及独立验收，再决定是否合入原项目。公开 main 使用 `$brand`，不需要维护者的临时路径或 `$brand-preview` 候选别名。
+
 ## 使用时会发生什么
 
 ### 没有宿主且明确学习品牌
@@ -112,7 +126,7 @@ Codex 中也可以显式写成 `$brand`。自然语言同样有效，不需要�
 | 多页面品牌学习 Demo | Web 已有公开样本和真实页面验收 |
 | 公共品牌库 | v0.1 已上线，相同官网可先复用已有版本 |
 | 三张完整宿主效果图 | MVP 默认交付，图片独立审核与等权比较；不代表运行实现 |
-| 选图后隔离代码预览 | 本分支候选能力；按真实宿主运行与独立 QA 结果交付 |
+| 选图后隔离代码预览 | main 小范围试用；React Web 单页已验证真实映射和限域 Button 适配，其他任务仍须独立验收 |
 | 真实业务项目换肤 | 已完成有限 H5 试点 |
 | QA / TPP 失败回退 | Web 已能定位责任阶段、返工并重新验收 |
 | 多角色工作流 | 已有职责、产物和 Gate；尚不能宣称所有角色都稳定自动并行 |
@@ -178,7 +192,9 @@ mkdir -p .claude/skills
 rsync -a --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
 ```
 
-安装或更新后，重新打开任务或会话。
+更新已有安装时，在上述专用下载仓库中运行 `git pull --ff-only origin main`，再执行对应平台的复制命令；仅拉取仓库不会更新已经安装的 Skill。复制会覆盖安装目录，个人改动应先备份；不要在业务项目里执行该 pull 命令。
+
+安装或更新后，重新打开任务或会话，并确认选择的是 `brand`。让助手报告实际加载的 Skill 路径及包完整性标识；不要仅凭“已安装”判断本轮已用新版。固定旧版试用仍可使用 `mvp-2026-10-13` 标签，但它不包含 main 后续修复。
 
 ## 给开发者：产物与边界
 
@@ -218,8 +234,10 @@ node skills/brand/scripts/run-brand-workflow.mjs update \
 
 维护源只有 `skills/brand/`；`.claude/skills/brand/` 由同步脚本生成。
 
+每次改变入口或交付能力，同时核对本 README 的安装/更新/示例与 `SKILL.md` 初始化引导；发布后核对远端 main 的实际 Skill 文件及包完整性。试跑宿主、截图和临时目录不进入发布。保留固定 MVP 标签，不用移动旧标签代替新版本。
+
 ```bash
-npm run sync:skills
+npm run sync:skills -- --repo-only
 npm run build:brand-registry
 npm run validate:brand
 npm run test:brand-trial

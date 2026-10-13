@@ -106,9 +106,18 @@ export function compileHostTheme({ modFile, adapterFile, dangouiRoot, outputDir 
   if (!rows.some(row => row.channel === 'mapped')) fail('no DangoUI mappings compiled');
   const theme = `/* Generated from frozen DTCG + adapter; load after DangoUI CSS.\n * Variables are not runtime consumption proof. */\n:root {\n${rows.map(row => `  ${row.target}: ${row.value};`).join('\n')}\n}\n`;
   const runtime = packageCss.map(x => `/* dangoui ${pkg.version} ${x.file} */\n${x.css}`).join('\n');
+  const entry = '/* Import this file once from the host global entry. */\n@import "./dangoui-runtime.css";\n@import "./brand-theme.css";\n';
   const proof = { schema: 'host-theme-compilation/v1', status: 'compiled-not-runtime-verified', sources: { modSha256: hash(modText), adapterSha256: hash(adapterText), packageSha256: hash(packageText), dangoui: { name: pkg.name, version: pkg.version, css: packageCss.map(({ file, sha256 }) => ({ file, sha256 })) } }, outputs: { theme: { file: 'brand-theme.css', sha256: hash(theme) }, runtimeStyle: { file: 'dangoui-runtime.css', sha256: hash(runtime) } }, mappings: rows, unresolved, externalResources: [...externalResources], limitations: [...limitations, ...(externalResources.size ? ['Original package CSS retains HTTPS resources; availability/font loading must be checked in the host.'] : []), 'CSS reuse does not prove native component reuse or platform compatibility.', 'Consumer selectors, computed cascade, interaction parity and causal token-change checks remain required.'], runtimeVerified: false };
+  proof.outputs.entry = { file: 'brand-entry.css', sha256: hash(entry) };
+  const entryFile = path.join(outputDir, 'brand-entry.css');
+  const integration = {
+    entryFile,
+    mappedVariables: rows.map(row => row.target),
+    instructions: 'Import entryFile exactly once from the host application/global stylesheet entry; it loads library runtime before brand theme. Do not separately import its two child stylesheets or repeat library CSS later. Inspect existing declarations of mappedVariables on the themed root and consumers: remove or reconnect only stale brand overrides that mask these generated values. Preserve business styles and intentional mode/state overrides, and verify those branches. Do not force the theme with !important. Verify actual computed winners and token change → rendered change → restore in the running host; compilation alone is not runtime proof.',
+  };
   fs.mkdirSync(outputDir, { recursive: true });
   const themeFile = path.join(outputDir, 'brand-theme.css'), runtimeStyleFile = path.join(outputDir, 'dangoui-runtime.css'), proofFile = path.join(outputDir, 'theme-compilation.json');
   fs.writeFileSync(themeFile, theme); fs.writeFileSync(runtimeStyleFile, runtime); fs.writeFileSync(proofFile, JSON.stringify(proof, null, 2) + '\n');
-  return { themeFile, runtimeStyleFile, proofFile, mappedCount: rows.filter(r => r.channel === 'mapped').length, styleOnlyCount: rows.filter(r => r.channel === 'style-only').length, runtimeVerified: false };
+  fs.writeFileSync(entryFile, entry);
+  return { themeFile, runtimeStyleFile, proofFile, entryFile, integration, mappedCount: rows.filter(r => r.channel === 'mapped').length, styleOnlyCount: rows.filter(r => r.channel === 'style-only').length, runtimeVerified: false };
 }

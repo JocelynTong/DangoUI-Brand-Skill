@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
+import crypto from 'node:crypto';
 import { compileHostTheme } from './compile-host-theme.mjs';
 
 function fixture(t) {
@@ -32,6 +33,27 @@ test('compiles alias/inherited type/dimension and copies actual CSS without clai
 });
 test('legacy mirror adapter source resolves by unique canonical target', t => {
   const f = fixture(t); f.adapter.tokenMappings[0].sourceToken = 'old.source'; assert.equal(f.run().mappedCount, 1);
+});
+test('single entry orders actual runtime before mapped overrides and binds all CSS bytes', t => {
+  const f = fixture(t), r = f.run();
+  const imports = [...fs.readFileSync(r.entryFile, 'utf8').matchAll(/@import "([^"]+)";/g)]
+    .map(m => path.resolve(path.dirname(r.entryFile), m[1]));
+  assert.deepEqual(imports, [r.runtimeStyleFile, r.themeFile]);
+  const css = imports.map(file => fs.readFileSync(file, 'utf8')).join('\n');
+  assert.ok(css.indexOf('--du-primary: #000000') < css.indexOf('--du-primary: #ffffff'));
+  assert.deepEqual(r.integration.mappedVariables, ['--du-primary', '--style-radius']);
+  assert.equal(r.integration.entryFile, r.entryFile);
+  const proof = JSON.parse(fs.readFileSync(r.proofFile));
+  for (const output of Object.values(proof.outputs)) {
+    assert.equal(output.sha256, crypto.createHash('sha256').update(fs.readFileSync(path.join(f.outputDir, output.file))).digest('hex'));
+  }
+  // A token edit updates the existing imported theme, without hand-editing the entry.
+  const entry = fs.readFileSync(r.entryFile, 'utf8');
+  f.mod.tokens.dtcg.colors.base.$value = '#123456';
+  f.adapter.tokenMappings[0].sourceValue = '#123456';
+  const changed = f.run();
+  assert.equal(fs.readFileSync(changed.entryFile, 'utf8'), entry);
+  assert.match(fs.readFileSync(imports[1], 'utf8'), /--du-primary: #123456/);
 });
 for (const [name, mutate, pattern] of [
   ['unknown target', f => { f.adapter.tokenMappings[0].targetToken = '--du-made-up'; delete f.mod.tokens.dtcg.colors.action.$extensions; }, /unknown\/unproven/],

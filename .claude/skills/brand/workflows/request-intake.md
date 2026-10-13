@@ -30,7 +30,7 @@
 
 用户已经选择图片并要求实现时，沿用该图片运行的 `select-image-code`，不要重新调用三案 `run`。编排者把对话里的选择原话传入 `--selection`，确认 `--direction` 和 `--confirm-isolated-preview`；普通用户不编写 manifest。返回新的隔离目录和真实宿主副本，不复制历史手工 Demo。图片有旧失败审核时保留失败状态：用户明确选择只能启动限域代码验证，不能将旧图、来源学习或全流程改成 PASS。
 
-执行者读取返回的准确图片、品牌 DTCG/adapter、组件原件与宿主源码。调用同一公共入口的 `compile-selected-theme --artifact-root <新目录> --dangoui-root <实际已安装包>`，导入生成的主题和真实库样式。兼容组件复用，不兼容平台明确适配；不能把只复用 CSS 说成组件 API 复用，也不能把截图铺底说成代码。安装只发生在副本，禁止通过 node_modules 链接写入原项目。
+执行者读取返回的准确图片、品牌 DTCG/adapter、组件原件与宿主源码。调用同一公共入口的 `compile-selected-theme --artifact-root <新目录> --dangoui-root <实际已安装包>`，只在宿主全局入口导入回执的 `entryFile` 一次；它已固定真实库样式 → 品牌主题的顺序，不再分别导入两个子文件或重复加载库 CSS。按 `integration.mappedVariables` 定点检查主题根和实际消费者的声明，仅移除或重接遮蔽本轮生成值的陈旧品牌覆盖；保留业务样式及有意的模式/状态覆盖，并验证对应分支。不要用 `!important` 强压主题，仍须真实运行检查 computed winner 与 token 扰动/恢复。兼容组件复用，不兼容平台明确适配；不能把只复用 CSS 说成组件 API 复用，也不能把截图铺底说成代码。安装只发生在副本，禁止通过 node_modules 链接写入原项目。
 
 React Web dispatch 的 `reusableComponents` 提供候选 [文本 Button](../assets/react-web-button/usage.md) 的准确路径、hash 和适用说明，实现与 QA 共享同一冻结输入。它源自 dangoui 3.6.16，依赖真实库 CSS 与主题；执行者先确认实际安装版本兼容，再按本品牌与任务需要复用。Taro、Vue、React Native 不派发该资产，其他尺寸/变体/图标不因存在 props 而获认证。不附赠手工页面或历史 QA。
 
