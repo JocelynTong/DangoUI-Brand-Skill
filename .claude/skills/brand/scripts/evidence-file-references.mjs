@@ -12,6 +12,19 @@ export function collectPngReferences(value, found) {
   if (value && typeof value === "object") Object.values(value).forEach(item => collectPngReferences(item, found));
 }
 
+export function collectImageReferences(value, found, semanticIdentity = false, extension = /\.(?:png|jpe?g)$/i) {
+  if (typeof value === "string") {
+    // Composition identity is a semantic label, including lists of labels;
+    // file-bearing children such as identity.path still use normal checking.
+    if (semanticIdentity) return;
+    const clean = value.split("#")[0];
+    if (extension.test(clean)) found.add(clean);
+    return;
+  }
+  if (Array.isArray(value)) return value.forEach(item => collectImageReferences(item, found, semanticIdentity, extension));
+  if (value && typeof value === "object") Object.entries(value).forEach(([key, item]) => collectImageReferences(item, found, key === "identity", extension));
+}
+
 export function resolveEvidenceReference(root, migrationRoot, reference) {
   if (path.isAbsolute(reference)) return null;
   const normalized = reference.replaceAll("\\", "/");

@@ -1,12 +1,14 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import crypto from 'node:crypto'
+import { collectImageReferences } from '../skills/brand/scripts/evidence-file-references.mjs'
 
 const root = process.cwd()
 const sourceFile = path.join(root, 'public', 'brand-previews', 'registry.json')
 const outputRoot = path.join(root, 'public', 'brand-registry', 'v0.1')
 const source = JSON.parse(fs.readFileSync(sourceFile, 'utf8'))
-const published = (source.brands || []).filter((brand) => brand.publicationStatus === 'public-preview')
+if (process.argv.length > 2) throw new Error('Scoped publishing is not supported by the basic packager')
+const published = (source.brands || []).filter(brand => brand.publicationStatus === 'public-preview')
 const forbiddenText = [/\/Users\//, /https?:\/\/(?:localhost|127\.0\.0\.1|10\.|192\.168\.)/i, /echotech\.feishu\.cn/i]
 
 function normalizeSource(value) {
@@ -18,24 +20,15 @@ function normalizeSource(value) {
   return url.toString()
 }
 
+// Buffer all output before writing: input failures leave existing output intact.
+// Disk errors or interruption during writes are not transactional.
+const pendingWrites = new Map()
 function writeJson(file, value) {
-  fs.mkdirSync(path.dirname(file), { recursive: true })
-  fs.writeFileSync(file, `${JSON.stringify(value, null, 2)}\n`)
+  pendingWrites.set(file, Buffer.from(`${JSON.stringify(value, null, 2)}\n`))
 }
 
 function collectReferencedPngs(value, found = new Set()) {
-  if (typeof value === 'string') {
-    const clean = value.split('#')[0]
-    if (/\.png$/i.test(clean)) found.add(clean)
-    return found
-  }
-  if (Array.isArray(value)) {
-    for (const item of value) collectReferencedPngs(item, found)
-    return found
-  }
-  if (value && typeof value === 'object') {
-    for (const item of Object.values(value)) collectReferencedPngs(item, found)
-  }
+  collectImageReferences(value, found)
   return found
 }
 
@@ -63,21 +56,104 @@ function rewritePublishedMigrationReferences(value, brand) {
 }
 
 function sha256(file) {
-  return crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex')
+  const bytes = pendingWrites.get(file) || fs.readFileSync(file)
+  if (bytes.subarray(0,42).toString().startsWith('version https://git-lfs.github.com/spec/v1')) throw new Error(`Git LFS object not materialized: ${file}`)
+  return crypto.createHash('sha256').update(bytes).digest('hex')
 }
 
 const brands = []
 const bySource = {}
+// Validate the complete input set before touching an existing published package.
+// A reference omitted from evidenceAssets is still a consumer dependency.
+const evidenceFailures = []
+const requiredEvidenceByBrand = new Map()
+const runtimeFailures = []
+const runtimeAssetsByBrand = new Map()
 for (const brand of published) {
-  const brandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
-  const artifacts = {}
-  const artifactValues = []
+  const migrationRoot = path.resolve(root, brand.migrationRoot)
+  const runtimeAssets = []
+  runtimeAssetsByBrand.set(brand.id, runtimeAssets)
+  const modFile = path.join(migrationRoot, 'brand-mod.json')
+  if (fs.existsSync(modFile)) {
+    const mod = JSON.parse(fs.readFileSync(modFile, 'utf8'))
+    for (const asset of mod.assets || []) {
+      if (!asset?.localPath) continue
+      const localPath = String(asset.localPath).replaceAll('\\', '/')
+      const sourceAsset = path.resolve(root, localPath)
+      if (path.posix.isAbsolute(localPath) || /^[a-z]+:/i.test(localPath)
+        || localPath.split('/').some((part) => !part || part === '.' || part === '..')
+        || !sourceAsset.startsWith(`${root}${path.sep}`)
+        || !fs.existsSync(sourceAsset) || !fs.statSync(sourceAsset).isFile()
+        || fs.statSync(sourceAsset).size === 0
+        || !fs.realpathSync(sourceAsset).startsWith(`${fs.realpathSync(root)}${path.sep}`)) {
+        runtimeFailures.push(`${brand.id}: runtime asset not packageable: ${asset.localPath}`)
+        continue
+      }
+      // Retain the verified bytes so a source change cannot race packaging.
+      const bytes = fs.readFileSync(sourceAsset)
+      if (bytes.toString('utf8', 0, 42).startsWith('version https://git-lfs.github.com/spec/v1')) {
+        runtimeFailures.push(`${brand.id}: Git LFS object not materialized: ${asset.localPath}`)
+        continue
+      }
+      const digest = crypto.createHash('sha256').update(bytes).digest('hex')
+      if (asset.sourceSha256 !== digest) {
+        runtimeFailures.push(`${brand.id}: runtime asset sourceSha256 mismatch: ${asset.localPath}`)
+        continue
+      }
+      runtimeAssets.push({ id: asset.id, installPath: rewritePublishedMigrationReferences(localPath, brand), sha256: digest, bytes })
+    }
+  }
+  const names = ['brand-evidence.json', 'brand-intent.json']
+  const requiredReferences = new Set()
+  requiredEvidenceByBrand.set(brand.id, requiredReferences)
+  for (const name of names) {
+    const file = path.join(migrationRoot, name)
+    if (!fs.existsSync(file)) {
+      evidenceFailures.push(`${brand.id}: missing artifact ${name}`)
+      continue
+    }
+    for (const reference of collectReferencedPngs(JSON.parse(fs.readFileSync(file, 'utf8')))) {
+      if (/^https?:\/\//i.test(reference)) continue // Source URL, not a frozen local capture.
+      requiredReferences.add(reference)
+      const relative = migrationRelativePath(brand, reference)
+      const asset = path.resolve(migrationRoot, relative)
+      if (!asset.startsWith(`${migrationRoot}${path.sep}`) || !fs.existsSync(asset)
+        || !fs.statSync(asset).isFile() || fs.statSync(asset).size === 0
+        || !fs.realpathSync(asset).startsWith(`${fs.realpathSync(migrationRoot)}${path.sep}`)) {
+        evidenceFailures.push(`${brand.id}/${name}: evidence not packageable: ${reference}`)
+      }
+    }
+  }
+}
+if (evidenceFailures.length) {
+  throw new Error(`PUBLIC_REGISTRY_EVIDENCE_INCOMPLETE\n${evidenceFailures.join('\n')}`)
+}
+if (runtimeFailures.length) {
+  throw new Error(`PUBLIC_REGISTRY_RUNTIME_ASSETS_INCOMPLETE\n${runtimeFailures.join('\n')}`)
+}
+const deliveries = new Map()
+for (const brand of published) {
   const artifactFiles = [...new Set(brand.artifactFiles || [])]
   const sourceModFile = path.join(root, brand.migrationRoot, 'brand-mod.json')
   if (fs.existsSync(sourceModFile)) {
     const patterns = JSON.parse(fs.readFileSync(sourceModFile, 'utf8'))?.verification?.patterns
     if (patterns && !artifactFiles.includes(patterns)) artifactFiles.push(patterns)
   }
+  const delivery = Object.fromEntries(artifactFiles.map(name => {
+    const file = path.join(root, brand.migrationRoot, name)
+    const text = fs.readFileSync(file, 'utf8')
+    for (const pattern of forbiddenText) if (pattern.test(text)) throw new Error(`${brand.id}/${name}: contains non-public reference ${pattern}`)
+    return [name, JSON.parse(text)]
+  }))
+  deliveries.set(brand.id, delivery)
+}
+for (const brand of published) {
+  const brandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
+  const artifacts = {}
+  const artifactHashes = {}
+  const artifactValues = []
+  const delivery = deliveries.get(brand.id)
+  const artifactFiles = Object.keys(delivery)
   for (const name of artifactFiles) {
     const sourceArtifact = path.join(root, brand.migrationRoot, name)
     if (!fs.existsSync(sourceArtifact)) throw new Error(`${brand.id}: missing artifact ${name}`)
@@ -85,7 +161,7 @@ for (const brand of published) {
     for (const pattern of forbiddenText) {
       if (pattern.test(text)) throw new Error(`${brand.id}/${name}: contains non-public reference ${pattern}`)
     }
-    const value = JSON.parse(text)
+    const value = delivery[name]
     artifactValues.push(value)
     const publishedValue = rewritePublishedMigrationReferences(value, brand)
     const sourcePrefix = `${brand.migrationRoot.replaceAll('\\', '/').replace(/\/$/, '')}/`
@@ -95,6 +171,7 @@ for (const brand of published) {
     const target = path.join(brandRoot, name)
     writeJson(target, publishedValue)
     artifacts[name.replace(/\.json$/, '')] = `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${name}`
+    artifactHashes[name.replace(/\.json$/, '')] = sha256(target)
   }
   const evidenceAssets = []
   const publishedEvidencePaths = new Set()
@@ -105,16 +182,24 @@ for (const brand of published) {
     if (publishedEvidencePaths.has(relativePath)) continue
     const sourceAsset = path.resolve(root, brand.migrationRoot, relativePath)
     const migrationRoot = path.resolve(root, brand.migrationRoot)
-    if (!sourceAsset.startsWith(`${migrationRoot}${path.sep}`) || !fs.existsSync(sourceAsset)) continue
+    if (!sourceAsset.startsWith(`${migrationRoot}${path.sep}`) || !fs.existsSync(sourceAsset)) {
+      if (requiredEvidenceByBrand.get(brand.id).has(reference)) {
+        throw new Error(`${brand.id}: evidence disappeared during packaging: ${reference}`)
+      }
+      continue // Other artifacts also contain source URLs and runtime asset metadata.
+    }
     const publicRelativePath = path.posix.join('evidence', relativePath.replaceAll('\\', '/'))
     const target = path.join(brandRoot, publicRelativePath)
-    fs.mkdirSync(path.dirname(target), { recursive: true })
-    fs.copyFileSync(sourceAsset, target)
+    if (!fs.statSync(sourceAsset).isFile() || fs.statSync(sourceAsset).size === 0
+      || !fs.realpathSync(sourceAsset).startsWith(`${fs.realpathSync(migrationRoot)}${path.sep}`)) {
+      throw new Error(`${brand.id}: evidence not packageable: ${reference}`)
+    }
+    pendingWrites.set(target, fs.readFileSync(sourceAsset))
     publishedEvidencePaths.add(relativePath)
     evidenceAssets.push({
       path: `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${publicRelativePath}`,
       installPath: relativePath.replaceAll('\\', '/'),
-      sha256: sha256(sourceAsset),
+      sha256: sha256(target),
     })
   }
   const canonicalSources = [...new Set((brand.canonicalSources || [brand.sourceUrl]).map(normalizeSource))]
@@ -124,6 +209,12 @@ for (const brand of published) {
     }
     bySource[sourceUrl] = brand.id
   }
+  const runtimeAssets = runtimeAssetsByBrand.get(brand.id).map(({ bytes, ...asset }) => {
+    const relativePath = `runtime/${asset.installPath}`
+    const target = path.join(brandRoot, relativePath)
+    pendingWrites.set(target, bytes)
+    return { ...asset, path: `/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${relativePath}` }
+  })
   const manifest = {
     schema: 'public-brand-manifest.v0.1',
     id: brand.id,
@@ -134,7 +225,9 @@ for (const brand of published) {
     sourceHost: brand.sourceHost,
     preview: brand.path,
     artifacts,
+    artifactHashes,
     evidenceAssets,
+    runtimeAssets,
     platformSupport: brand.platformSupport,
     reusePolicy: brand.reusePolicy,
     verification: { web: brand.status, standardDemo: brand.standardDemo },
@@ -166,4 +259,8 @@ writeJson(path.join(outputRoot, 'by-source.json'), {
   sources: bySource,
 })
 
+for (const [file, bytes] of pendingWrites) {
+  fs.mkdirSync(path.dirname(file), { recursive: true })
+  fs.writeFileSync(file, bytes)
+}
 console.log(`PUBLIC_BRAND_REGISTRY_BUILT ${brands.length} brands -> ${path.relative(root, outputRoot)}`)
