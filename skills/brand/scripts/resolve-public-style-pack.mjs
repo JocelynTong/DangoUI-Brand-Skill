@@ -17,10 +17,12 @@ export function normalizeSourceUrl(value) {
   return url.toString();
 }
 
-function brandFromDemoUrl(value) {
+export function brandFromDemoUrl(value, registryBase = DEFAULT_REGISTRY_BASE) {
   try {
     const url = new URL(value);
-    return url.hash.match(/#\/brand\/([^/]+)/)?.[1] || "";
+    const base = new URL(registryBase);
+    if (url.origin !== base.origin || url.pathname.replace(/\/$/, '') !== base.pathname.replace(/\/$/, '')) return "";
+    return url.hash.match(/^#\/(?:brand|variants)\/([a-z0-9][a-z0-9-]*)(?:\/|$)/)?.[1] || "";
   } catch {
     return "";
   }
@@ -84,7 +86,7 @@ export async function resolvePublicStylePack({
   const fetchJson = (url) => request(url, true);
   const fetchBytes = (url) => request(url);
 
-  const demoBrand = brandFromDemoUrl(sourceUrl);
+  const demoBrand = brandFromDemoUrl(sourceUrl, registryBase);
   const normalizedSource = normalizeSourceUrl(sourceUrl);
   const localRegistryRoot = path.join(root, "public", "brand-registry", "v0.1");
   const localIndexFile = path.join(localRegistryRoot, "index.json");
