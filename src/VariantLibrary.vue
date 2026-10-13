@@ -11,6 +11,7 @@
     <header class="vl-header"><a href="#/variants" class="vl-wordmark">DangoUI <span>品牌库</span></a><SiteThemeControl /></header>
     <div v-if="loading" class="vl-message" role="status">正在载入品牌…</div>
     <div v-else-if="error" class="vl-message" role="alert">{{ error }} <button @click="load">重试</button></div>
+    <section v-else-if="invalidFoundation" class="vl-message" role="alert"><h1>规范不存在</h1><p>此规范链接可能有误或内容已移除，请从目录重新选择。</p><a :href="`#/variants/${selected.id}/foundations`">返回设计规范</a></section>
     <section v-else-if="invalidScene" class="vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请重新选择页面。</p><a :href="selected ? `#/variants/${selected.id}/${selected.scenes[0].id}` : '#/variants'">{{ selected ? '返回品牌页面' : '返回品牌库' }}</a></section>
     <template v-else-if="!selected">
       <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
@@ -103,6 +104,7 @@
           <CznSceneGuide v-if="['czn-home','czn-gameplay'].includes(activeScene.id)" :scene="activeScene.id" />
           <PokemonSceneGuide v-else-if="selected.id === 'pokemon-tcg-official' && activeScene.id !== 'pokemon-tcg-official-card-database'" :scene="activeScene.id" />
           <OnepieceNewsGuide v-else-if="activeScene.id === 'onepiece-cardgame-news'" />
+          <OnepieceSceneGuide v-else-if="['onepiece-cardgame-home','onepiece-cardgame-events','onepiece-cardgame-editorial-held-out'].includes(activeScene.id)" :scene="activeScene.id" />
           <CatalogUsageGuide v-else-if="isCatalogScene" />
           <SceneUsageGuide v-else-if="hasSceneUsageGuide" :key="activeScene.id" :scene="activeScene.id" />
           <section v-else><h3>场景说明</h3><p>{{ activeScene.id === 'onepiece-cardgame-events' ? '参考活动分类、图片与介绍的编排。卡片和行动文案均为静态展示，不连接报名、活动详情或实时赛事服务。' : activeScene.note }}</p></section>
@@ -125,6 +127,7 @@ import { cznCompositions } from './documents/czn-document-model.mjs';
 import PokemonSceneGuide from './documents/PokemonSceneGuide.vue';
 import { pokemonCompositions } from './documents/pokemon-document-model.mjs';
 import OnepieceNewsGuide from './documents/OnepieceNewsGuide.vue';
+import OnepieceSceneGuide from './documents/OnepieceSceneGuide.vue';
 import { onepieceCompositions } from './documents/onepiece-document-model.mjs';
 import DangoCatalog from './documents/DangoCatalog.vue';
 import DangoIntroduction from './documents/DangoIntroduction.vue';
@@ -138,7 +141,7 @@ import SwitchDocument from './documents/SwitchDocument.vue';
 import ReleaseChecklist from './documents/ReleaseChecklist.vue';
 import CatalogUsageGuide from './documents/CatalogUsageGuide.vue';
 import SceneUsageGuide from './documents/SceneUsageGuide.vue';
-import { canonicalDocumentHash } from './documents/routes.mjs';
+import { canonicalDocumentHash, invalidFoundationHash } from './documents/routes.mjs';
 import { createPreviewPositions, restorePreviewPosition } from './demo-preview-position.mjs';
 const App = defineAsyncComponent(() => import('./App.vue'));
 import SiteThemeControl from './SiteThemeControl.vue';
@@ -173,6 +176,7 @@ const isStandalonePreview = computed(() => isInspector.value && routePath.value.
 const previewScene = computed(() => selected.value?.scenes.find(scene => scene.id === routePath.value.split('/')[4]));
 const invalidPreview = computed(() => isStandalonePreview.value && !loading.value && !error.value && !previewScene.value);
 const invalidScene = computed(() => !isInspector.value && routePath.value.startsWith('/variants/') && (!selected.value || (section.value === 'pages' && !selected.value.scenes.some(scene => scene.id === routePath.value.split('/')[3]))));
+const invalidFoundation = computed(() => !!selected.value && invalidFoundationHash('#' + routePath.value));
 const previewReturnUrl = computed(() => `${location.pathname}#/variants${selected.value ? `/${selected.value.id}${previewScene.value ? `/${previewScene.value.id}` : ''}` : ''}`);
 const section=computed(()=>{
   const part=routePath.value.split('/')[3];
@@ -220,6 +224,7 @@ const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
+  'onepiece-cardgame-editorial-held-out': '航海手记为原创虚构编排练习，非官方资讯。可滚动与打开独立预览，不提供真实文章详情、订阅或实时资讯；真实内容与路由由项目提供。',
   'czn-home': '媒体首页示例，视频播放受网络与浏览器策略影响。导航、二维码和下载区域仅展示，不提供下载或业务跳转。真实媒体授权、加载失败处理与业务入口需另行接入。',
   'czn-gameplay': '五项玩法媒体支持上一项／下一项循环切换，标题、图片和当前序号同步变化。顶部导航与序号只展示，不提供玩法详情；外链素材可用性受网络影响。',
   'pokemon-tcg-official-home': '品牌舞台与资讯编排为静态示例。导航、轮播指示和行动文字不执行跳转；不是实时资讯。可滚动或打开独立预览，真实路由与内容由项目提供。',
@@ -246,7 +251,7 @@ function changed() {
   nextTick(() => window.scrollTo(0, 0));
 }
 watch(()=>[routePath.value,selected.value?.displayName,activeScene.value?.label,loading.value],()=>{
-  const title=invalidPreview.value || (!loading.value && invalidScene.value) ? '场景不存在' : isStandalonePreview.value ? `${selected.value?.displayName || '品牌预览'} · ${previewScene.value?.label || '载入中'} · 独立预览` : isInspector.value ? '检查器' : selected.value ? `${selected.value.displayName} · ${section.value === 'foundations' ? '设计规范' : section.value === 'components' ? '组件' : activeScene.value.label}` : '品牌场景';
+  const title=invalidFoundation.value ? '规范不存在' : invalidPreview.value || (!loading.value && invalidScene.value) ? '场景不存在' : isStandalonePreview.value ? `${selected.value?.displayName || '品牌预览'} · ${previewScene.value?.label || '载入中'} · 独立预览` : isInspector.value ? '检查器' : selected.value ? `${selected.value.displayName} · ${section.value === 'foundations' ? '设计规范' : section.value === 'components' ? '组件' : activeScene.value.label}` : '品牌场景';
   document.title=`${title} · DangoUI 品牌库`;
 },{immediate:true});
 function hideBroken(e,id){e.target.style.display='none';failedCovers.value[id]=true;}

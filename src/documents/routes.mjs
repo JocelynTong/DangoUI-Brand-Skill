@@ -1,4 +1,12 @@
 import { componentNames, componentSlug, foundationNames } from './dango-catalog.mjs';
+export function invalidFoundationHash(hash) {
+  const parts = hash.replace(/^#/, '').split('/');
+  if (parts[1] !== 'variants' || parts[3] !== 'foundations') return false;
+  const brands = ['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'];
+  if (!brands.includes(parts[2])) return false;
+  const target = parts[4];
+  return parts.length > 5 || (!!target && !foundationNames.some(item => item.id === target) && !(target === 'overview' && parts[2] !== 'dango'));
+}
 export function canonicalDocumentHash(hash, search = '') {
   const params = new URLSearchParams(search);
   if (params.has('variantEmbed') || params.has('inspectorEmbed')) return hash;
