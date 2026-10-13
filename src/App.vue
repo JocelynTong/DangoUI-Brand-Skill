@@ -6456,7 +6456,7 @@ function mergedMotionRecipeRows(categoryRows) {
   return [...merged.values()];
 }
 
-const documentRecipeNotes = computed(() => (runtimeStyleRecipeDetails.value.dango?.[selectedStyleCategoryId.value] || []).filter(item => typeof item === 'string'));
+const documentRecipeNotes = computed(() => (runtimeStyleRecipeDetails.value[selectedStyleId.value]?.[selectedStyleCategoryId.value] || []).filter(item => typeof item === 'string'));
 const selectedStyleRecipeRows = computed(() => {
   const recipe = {
     ...styleRecipeDetails,

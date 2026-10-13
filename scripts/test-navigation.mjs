@@ -31,7 +31,7 @@ for (const term of ['pokemon-tcg-official-card-database', 'czn-character', 'czn-
 const parsedGuide = parse(guide);
 assert.deepEqual(parsedGuide.errors, []);
 assert.deepEqual(compileTemplate({ source: parsedGuide.descriptor.template.content, filename: 'CatalogUsageGuide.vue', id: 'catalog-guide-test' }).errors, []);
-assert.match(source, /<CatalogUsageGuide v-if="isCatalogScene"/);
+assert.match(source, /<CatalogUsageGuide v-else-if="isCatalogScene"/);
 assert.match(source, /静态目录示例/);
 assert.match(source, /组件复用范围：/);
 assert.doesNotMatch(guide, /<details\s+open|localhost|127\.0\.0\.1/);

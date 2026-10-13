@@ -37,19 +37,21 @@
           <a v-for="scene in selected.scenes" :key="scene.id" :href="`#/variants/${selected.id}/${scene.id}`" :aria-current="section === 'pages' && activeScene.id === scene.id ? 'page' : undefined">{{ scene.label }}</a>
           </template>
           <template v-else-if="section === 'foundations'">
-          <template v-if="selected.id === 'dango'">
-            <a v-for="item in foundationNames" :key="item.id" :href="`#/variants/dango/foundations/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.zh }}</a>
+          <template v-if="['dango', 'onepiece-cardgame'].includes(selected.id)">
+            <a v-if="selected.id === 'onepiece-cardgame'" href="#/variants/onepiece-cardgame/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
+            <a v-for="item in foundationNames" :key="item.id" :href="`#/variants/${selected.id}/foundations/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.zh }}</a>
           </template>
           <a v-else :href="`#/variants/${selected.id}/foundations`" :aria-current="section === 'foundations' && !isDesignSystem ? 'page' : undefined">基础规范</a>
-          <a v-if="selected.id === 'onepiece-cardgame'" :href="`#/variants/${selected.id}/design-system`" :aria-current="isDesignSystem ? 'page' : undefined">视觉总览</a>
+
           </template>
           <template v-else>
-          <template v-if="selected.id === 'dango'">
-            <a href="#/variants/dango/components/inspector" :aria-current="routePath.endsWith('/inspector') ? 'page' : undefined">全部组件</a>
-            <a href="#/variants/dango/components/button" :aria-current="inlineDocument === 'button' ? 'page' : undefined">按钮</a>
+          <template v-if="['dango', 'onepiece-cardgame'].includes(selected.id)">
+            <a :href="`#/variants/${selected.id}/components/inspector`" :aria-current="routePath.endsWith('/inspector') ? 'page' : undefined">全部组件</a>
+            <template v-if="selected.id === 'onepiece-cardgame'"><p class="vl-directory-group">品牌组合</p><a v-for="item in onepieceCompositions" :key="item.id" :href="`#/variants/onepiece-cardgame/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
+            <a :href="`#/variants/${selected.id}/components/button`" :aria-current="routePath.endsWith('/button') ? 'page' : undefined">按钮</a>
             <template v-for="group in componentCategorySpecs" :key="group.id">
               <p class="vl-directory-group">{{ group.label }}</p>
-              <a v-for="name in group.components" :key="name" :href="`#/variants/dango/components/${componentSlug(name)}`" :aria-current="routePath.endsWith('/' + componentSlug(name)) ? 'page' : undefined">{{ componentLabels[name] || name }}</a>
+              <a v-for="name in group.components" :key="name" :href="`#/variants/${selected.id}/components/${componentSlug(name)}`" :aria-current="routePath.endsWith('/' + componentSlug(name)) ? 'page' : undefined">{{ componentLabels[name] || name }}</a>
             </template>
           </template>
           <a v-else :href="`#/variants/${selected.id}/components/inspector`" :aria-current="section === 'components' ? 'page' : undefined">组件检查器</a>
@@ -58,8 +60,11 @@
       </aside>
       <div class="vl-workspace-content">
       <section v-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
-        <div v-if="!inlineDocument && selected.id !== 'dango'" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
-        <DangoCatalog v-if="isDangoCatalog" />
+        <div v-if="!inlineDocument && !['dango', 'onepiece-cardgame'].includes(selected.id)" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
+        <OnepieceDocument v-if="isOnepieceDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
+        <template v-else-if="isOnepieceCatalog"><OnepieceDocument section="components" target="inspector" /><DangoCatalog brand="onepiece-cardgame" title="基础组件示例" /></template>
+        <div v-else-if="onepieceBaseRoute"><p class="vl-small">基础组件示例 · 展示已有组件与组合形态，不代表航海王专属组件或完整品牌适配。</p><App :document-route="onepieceBaseRoute" /></div>
+        <DangoCatalog v-else-if="isDangoCatalog" />
         <App v-else-if="dangoDocumentRoute" :document-route="dangoDocumentRoute" />
         <div v-else-if="inlineDocument" class="vl-document">
           <ColorDocument v-if="inlineDocument === 'color'" />
@@ -85,7 +90,8 @@
           <div class="vl-preview-stage"><iframe ref="previewFrame" :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`" @load="restoreFramePosition"></iframe></div>
         </section>
         <aside class="vl-notes">
-          <CatalogUsageGuide v-if="isCatalogScene" />
+          <OnepieceNewsGuide v-if="activeScene.id === 'onepiece-cardgame-news'" />
+          <CatalogUsageGuide v-else-if="isCatalogScene" />
           <SceneUsageGuide v-else-if="hasSceneUsageGuide" :key="activeScene.id" :scene="activeScene.id" />
           <section v-else><h3>场景说明</h3><p>{{ activeScene.id === 'onepiece-cardgame-events' ? '参考活动分类、图片与介绍的编排。卡片和行动文案均为静态展示，不连接报名、活动详情或实时赛事服务。' : activeScene.note }}</p></section>
           <section><h3>用于我的项目</h3><button class="vl-copy" @click="copyPrompt">{{ copied ? '已复制使用描述' : '复制使用描述' }}</button><textarea v-if="copyFallback" readonly aria-label="使用描述" :value="prompt"></textarea><p class="vl-small" role="status">{{ copyError }}</p></section>
@@ -99,6 +105,9 @@
 </template>
 <script setup>
 import {computed,defineAsyncComponent,nextTick,onMounted,onBeforeUnmount,ref,watch} from 'vue';
+import OnepieceDocument from './documents/OnepieceDocument.vue';
+import OnepieceNewsGuide from './documents/OnepieceNewsGuide.vue';
+import { onepieceCompositions } from './documents/onepiece-document-model.mjs';
 import DangoCatalog from './documents/DangoCatalog.vue';
 import DangoIntroduction from './documents/DangoIntroduction.vue';
 import { componentCategorySpecs, foundationNames, componentLabels, componentSlug, componentNames } from './documents/dango-catalog.mjs';
@@ -137,7 +146,7 @@ const routePath=computed(()=>hash.value.slice(1).split('?')[0]);
 const isInspector=computed(()=>routePath.value.startsWith('/brand/'));
 const meta={
  'pokemon-tcg-official':{cover:'/assets/brand-assets/pokemon-tcg-official/booster-art-1.jpg',hook:'卡牌、舞台与探索',description:'从品牌舞台进入卡牌世界，再把视觉收进检索与内容层级。',expression:'舞台式主视觉与卡面层次，切换到查询时如何保持清晰的信息入口。',scenes:[['pokemon-tcg-official-home','品牌舞台','source','现有品牌主视觉演示。先感受素材、层次与场景氛围。','品牌表达入口；不是小程序初始化页面。'],['pokemon-tcg-official-card-database','卡牌查询','source','搜索与分类如何进入同一品牌的资料查询页面。','搜索、筛选、结果展示；当前沿用来源查询演示。'],['pokemon-tcg-official-held-out','策略实验室','transfer','既有虚构 Deck Lab，将查询与策略说明组织到新内容中。','查询 + 说明的迁移练习，不是真实卡组数据。'],['pokemon-tcg-official-learn','内容讲解','source','用分段说明与卡牌标注解释玩法。','分步阅读与内容展开。']]},
- 'onepiece-cardgame':{cover:'/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp',hook:'强对比，出航的节奏',description:'鲜明的图文对比、卡牌视觉与编辑式内容编排。',expression:'品牌图像与黑白控制的对比，如何切换到产品、活动与编辑内容。',scenes:[['onepiece-cardgame-home','品牌舞台','source','已有品牌主页表达，观察图像与内容节奏。','品牌入口演示。'],['onepiece-cardgame-products','卡组浏览','source','分类浏览与产品信息层级。','分类 + 内容卡片。'],['onepiece-cardgame-events','活动发现','source','活动视觉与参与入口的组织。','活动列表与行动入口。'],['onepiece-cardgame-editorial-held-out','航海手记','transfer','既有原创虚构内容练习，展示编辑语言的迁移。','分类 + 编辑式内容编排。']]},
+ 'onepiece-cardgame':{cover:'/assets/brand-assets/onepiece-cardgame/source/hero-current-st36.webp',hook:'强对比，出航的节奏',description:'鲜明的图文对比、卡牌视觉与编辑式内容编排。',expression:'品牌图像与黑白控制的对比，如何切换到产品、活动与编辑内容。',scenes:[['onepiece-cardgame-home','品牌舞台','source','已有品牌主页表达，观察图像与内容节奏。','品牌入口演示。'],['onepiece-cardgame-news','资讯动态','transfer','重点资讯、通知和归档列表的编排；代表性内容，非实时新闻。','资讯层级与静态分类。'],['onepiece-cardgame-products','卡组浏览','source','分类浏览与产品信息层级。','分类 + 内容卡片。'],['onepiece-cardgame-events','活动发现','source','活动视觉与参与入口的组织。','活动列表与行动入口。'],['onepiece-cardgame-editorial-held-out','航海手记','transfer','既有原创虚构内容练习，展示编辑语言的迁移。','分类 + 编辑式内容编排。']]},
  'czn':{cover:'https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.jpg',hook:'暗色场景，角色登场',description:'以大幅媒体、角色层次与空间感承载沉浸表达。',expression:'角色与背景的分层、媒体舞台与时间线。原库 QA 尚待完成。',scenes:[['czn-home','品牌舞台','source','原库媒体首页，先观察视觉表现。','品牌舞台，待完成验证。'],['czn-character','角色档案','source','角色切换与身份信息的关系。','对象切换 + 资料展示。'],['czn-held-out','信号档案','transfer','原库虚构档案迁移练习。','档案切换，待完成验证。']]},
  'dango':{hook:'让结构清晰可读',description:'克制的文档层级、组件表达与清晰的行动反馈。',expression:'文档层级与组件状态如何在新任务里延续。',scenes:[['dango-introduction','设计语言','source','既有设计系统介绍页。','信息层级与说明。'],['dango-button','组件交互','source','直接操作已有按钮与状态示例。','基础交互与反馈。'],['dango-release-checklist','发布清单','transfer','既有新内容练习，观察规则的复用。','清单式任务表达。']]}
 };
@@ -159,6 +168,12 @@ const inlineDocument=computed(()=>{
   if(section.value==='foundations' && !isDesignSystem.value && (!target || target==='color')) return 'color';
   return section.value==='components' && ['button', 'navigation-bar', 'switch'].includes(target) ? target : '';
 });
+const isOnepieceCatalog = computed(() => selected.value?.id === 'onepiece-cardgame' && section.value === 'components' && (!routePath.value.split('/')[4] || routePath.value.endsWith('/inspector')));
+const isOnepieceDocument = computed(() => selected.value?.id === 'onepiece-cardgame' && (section.value === 'foundations' || (section.value === 'components' && onepieceCompositions.some(item => item.id === routePath.value.split('/')[4]))));
+const onepieceBaseRoute = computed(() => {
+  const target = routePath.value.split('/')[4];
+  return selected.value?.id === 'onepiece-cardgame' && section.value === 'components' && componentNames.some(name => componentSlug(name) === target) ? `#/brand/onepiece-cardgame/${target === 'button' ? 'style/button' : 'components/' + target}` : '';
+});
 const isDangoCatalog = computed(() => selected.value?.id === 'dango' && section.value === 'components' && !inlineDocument.value && (!routePath.value.split('/')[4] || routePath.value.endsWith('/inspector')));
 const dangoDocumentRoute = computed(() => {
   if (selected.value?.id !== 'dango' || inlineDocument.value || isDangoCatalog.value) return '';
@@ -171,10 +186,11 @@ const inspectorContentUrl=computed(()=>selected.value?`${location.pathname}?insp
 const designSystemUrl=new URL('design-system.html',location.href.split('#')[0]).href;
 const activeScene=computed(()=>selected.value?.scenes.find(s=>s.id===routePath.value.split('/')[3])||selected.value?.scenes[0]);
 const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移练习 · 示例内容' : '来源参考');
-const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
+const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${onepieceCompositions.find(item => item.id === routePath.value.split('/')[4])?.label || componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value || routePath.value.endsWith('/overview') ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
+  'onepiece-cardgame-news': '资讯页使用代表性示例内容，并非实时新闻。重点资讯、通知、列表、分类和 ARCHIVE 仅展示，不提供筛选、归档加载或新闻详情；可滚动和打开独立预览。真实内容、日期和路由由项目提供。',
   'pokemon-tcg-official-card-database': '静态查询示意：输入、搜索、筛选和重置不可操作，未连接官方数据库。仅参考字段分组与布局；SchemaPokemonDatabaseSection 位于 src/App.vue，尚非独立组件。保留宿主真实查询，接口、加载、空结果、错误与分页由业务实现。',
   'czn-character': '角色页只有两个演示状态，两个头像入口与状态一一对应，使用同一角色媒体；顶部导航、CV 与技能仅展示。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件。真实接入需提供稳定角色 ID，以及媒体失败、详情和语音处理。',
   'czn-held-out': '3 条 VOID ECHO 虚构档案支持本地前后循环切换；序号和顶部导航不可点击，信号图形不是实时数据。SchemaCznCurrentSection 位于 src/App.vue，尚非独立组件；数据获取、空状态、错误、详情路由及实时信号需业务实现，不是服务端分页。',
