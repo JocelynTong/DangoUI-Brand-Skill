@@ -2704,7 +2704,7 @@ const activeDocs = [
   {
     kind: "资产架构",
     title: "长期资产怎么存",
-    file: "brand-dtcg-migration-asset-standard.md",
+    file: "skills/brand/references/brand-dtcg-migration-asset-standard.md",
   },
   {
     kind: "执行流程",
@@ -2714,12 +2714,12 @@ const activeDocs = [
   {
     kind: "判定规则",
     title: "如何避免 AI 主观漂移",
-    file: "mapping-rules.md",
+    file: "skills/brand/references/mapping-rules.md",
   },
   {
     kind: "输出格式",
     title: "交付给设计/研发/产品看什么",
-    file: "output-template.md",
+    file: "skills/brand/references/output-template.md",
   },
 ];
 const workflowSteps = ["看 docs 入口", "选模板", "查组件", "追 token chain", "生成 adapter", "demo 验证"];
