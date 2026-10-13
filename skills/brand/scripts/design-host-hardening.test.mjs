@@ -72,7 +72,8 @@ assert.ok(dispatch.timeBudget.remainingMs > 0 && dispatch.timeBudget.remainingMs
 assert.match(dispatch.timeBudget.targetPolicy, /not permission to skip or terminate required specialist roles/);
 assert.equal(dispatch.efficiencyBudget.stageTargetSeconds, 300);
 assert.equal(dispatch.efficiencyBudget.stageHardLimitSeconds, null);
-assert.equal(dispatch.fastDesignHints.imageGenerationForbidden, true);
+assert.equal(dispatch.fastDesignHints.imageGenerationForbidden, false);
+assert.equal(dispatch.fastDesignHints.expressiveProduction.required, false);
 assert.match(dispatch.fastDesignHints.renderPath.policy, /do not probe for Chromium/);
 assert.equal(JSON.parse(fs.readFileSync(path.join(migration, "design-host-route.json"), "utf8")).imageCapability.status, "deferred-until-verified-gap");
 const outputFile = path.join(migration, "strategy.json");

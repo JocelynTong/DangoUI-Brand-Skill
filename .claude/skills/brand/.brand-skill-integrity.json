@@ -3,7 +3,15 @@
   "files": [
     {
       "path": "agents/openai.yaml",
-      "sha256": "7d204bbe6edaf49fd3e4b9d149fd82b5bc0f5c5412ca826e9eb9c9b0eca13dd1"
+      "sha256": "5c906372bdda059127745c3c5bd374f9ce33e9cc60f3cae6ea6b0362d7e0d767"
+    },
+    {
+      "path": "assets/react-web-button/DangoButton.tsx",
+      "sha256": "304fd2fdf5a54f03e979c828c3df999f9dddf4e67a2a1e608176896f5ebc8c92"
+    },
+    {
+      "path": "assets/react-web-button/usage.md",
+      "sha256": "ab1e2429e1c50fb1e42c1d724b26815a457eb3238f7fbf76c6d5bb5e91e93dbf"
     },
     {
       "path": "knowledge-runtime/knowledge/v0.1/cases/duolingo-cross-component-blue-semantic-leak.json",
@@ -583,7 +591,7 @@
     },
     {
       "path": "roles/brand-application-designer.md",
-      "sha256": "6650b32c63e31409648c64dad93bc2363b28a95ba4d21ec3cee821300f4a3620"
+      "sha256": "13fc7d0633f4af366ea9ccfa1b4cbf6c11fd7cf9d511293606c0a6da78b3a26a"
     },
     {
       "path": "roles/brand-interpreter.md",
@@ -595,7 +603,7 @@
     },
     {
       "path": "roles/design-director.md",
-      "sha256": "92539be031cc6dd702b0295387e4f105dbd76a2fd346c04cdce6f47777a6a1b6"
+      "sha256": "3b1c0327e5c36f7fa99bff99886c1221a9f9fe100763d0bb2ef6f1f4dbce6198"
     },
     {
       "path": "roles/evidence-agent.md",
@@ -758,6 +766,14 @@
       "sha256": "62d209477dcd81adccb266af7bce04cf9f997202bee0b8cc658168716a541d42"
     },
     {
+      "path": "scripts/compile-host-theme.mjs",
+      "sha256": "09ec9a4aca581777b053da903652b99a0b6844acd37a92b4b8caf0c98a44cc10"
+    },
+    {
+      "path": "scripts/compile-host-theme.test.mjs",
+      "sha256": "0aef4a8218133035d14100ec2e28196d5c4532639521ea378b468a243e559ce9"
+    },
+    {
       "path": "scripts/component-handoff.mjs",
       "sha256": "df5127cbd74a6da14a7fe7234195ce04c426307d983f1702e9b80b2fee01fcb2"
     },
@@ -807,7 +823,7 @@
     },
     {
       "path": "scripts/design-host-hardening.test.mjs",
-      "sha256": "8b9dd01f9839089bf8547dda67a143ba1b095a2f075e8234f1d4b0fa648275f2"
+      "sha256": "6f7b229e136dd9456e56f7e1e4f32f20322fa9a73517e425b93bf91848d0de0e"
     },
     {
       "path": "scripts/design-knowledge.test.mjs",
@@ -880,6 +896,14 @@
     {
       "path": "scripts/freeze-selected-h5-direction.mjs",
       "sha256": "76386336aeb30a5e251c3308ee8d6fcffab245c439d24c1548d9b39d76a50dea"
+    },
+    {
+      "path": "scripts/full-image-concepts.mjs",
+      "sha256": "2546c7019cd06dad37322a274cccfb0387c3d6a9599aee1559ac0aec10fc5aa9"
+    },
+    {
+      "path": "scripts/full-image-concepts.test.mjs",
+      "sha256": "5e7684050e85abf60a5053ec6c2d886b4a09a9726ca8f42a190ab46abc56db61"
     },
     {
       "path": "scripts/generate-source-fingerprint.mjs",
@@ -971,7 +995,7 @@
     },
     {
       "path": "scripts/parent-delivery-gate.test.mjs",
-      "sha256": "c84c42b7f96ce6742dcbc51825bde8647319f5675a00e1c1e955b89077902e55"
+      "sha256": "46ab5c06a198328aecea13c933a164a717f9a05d5cbf3084427d2c66c5f20a6c"
     },
     {
       "path": "scripts/plan-brand-portfolio.mjs",
@@ -1135,7 +1159,7 @@
     },
     {
       "path": "scripts/resolve-public-style-pack.mjs",
-      "sha256": "bcda66fafcdf478d20e70cf24476e71fdbe7701c645f7107ee8717c49a80f6f1"
+      "sha256": "909273f7c76f926463739c385cfb15a33e379767b0063d4917623357586ad514"
     },
     {
       "path": "scripts/resolve-public-style-pack.network.test.mjs",
@@ -1171,7 +1195,7 @@
     },
     {
       "path": "scripts/run-brand-workflow.apply-host.test.mjs",
-      "sha256": "9491f16b1c90b39abb7c28fdc0a719040ea1c8e34b6b8da5da7adf7a1023d3bb"
+      "sha256": "33d22a53dff4ef0f7013e4814f471be7d6bbc2aa4b03bdbe464056431742e612"
     },
     {
       "path": "scripts/run-brand-workflow.learning-repair.test.mjs",
@@ -1179,11 +1203,11 @@
     },
     {
       "path": "scripts/run-brand-workflow.library-links.test.mjs",
-      "sha256": "b444c21036e509b723b163f2c6b9e49f439f093a11d9097fd269b09058f9377e"
+      "sha256": "88e241cdbf952e23a3eadf8663e9b6c2c8569d1b205562b7170a62c110f82972"
     },
     {
       "path": "scripts/run-brand-workflow.mjs",
-      "sha256": "64ecd8289f65028baf48d85b84189fd2a4fa6ec006b89ebc3e1eff37293fad55"
+      "sha256": "9f52164ea3194562cb3045dc59eee39d3e2b40d799061f82f03b5f964e4f1d3a"
     },
     {
       "path": "scripts/run-brand-workflow.resume-demo.test.mjs",
@@ -1230,8 +1254,16 @@
       "sha256": "1f2e96d8feabcd8fda9c342e57e224a9e9228b19b92a380bfb7bf1560cfe9aaa"
     },
     {
+      "path": "scripts/selected-image-code.mjs",
+      "sha256": "470a913d07a0cd3ded0fb6ce0666491ac1a2296462f0a3e1f24371d0304e6bd0"
+    },
+    {
+      "path": "scripts/selected-image-code.test.mjs",
+      "sha256": "d627b9be204d0ed129532d3b7deb93a53810f158ee05704fa7cf840338c90040"
+    },
+    {
       "path": "scripts/serve-design-host-h5.mjs",
-      "sha256": "8b41c6037ad4d2f844c1ad9068d026b4e7bd186480f7c2e26b7030d7c60231ca"
+      "sha256": "514d4d70f6df395bd53dde0d60c9a7b6c2a11e01953103bc6f8660490065800a"
     },
     {
       "path": "scripts/skill-usage-case-lib.mjs",
@@ -1423,7 +1455,7 @@
     },
     {
       "path": "scripts/validate-host-expression.test.mjs",
-      "sha256": "084b69da0bdf3ae0b83c151eb7625c4f9cde7f54826709ff4ca276e6912d4eb9"
+      "sha256": "6a66423cadb4028fdaf9dd5a9974d7dac89a32ab5e96b505d88afbf8c5d684bf"
     },
     {
       "path": "scripts/validate-host-preedit-baseline.test.mjs",
@@ -1583,7 +1615,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "94034f06f8a213772580b403d8cdd5ebb4f219b3908f990aab315cb14bc6eca3"
+      "sha256": "18ee961562afd219bf0562b8abae4875f63edd5dcd9a345f4dc4e3627c65e4b5"
     },
     {
       "path": "workflow-contract.json",
@@ -1595,8 +1627,8 @@
     },
     {
       "path": "workflows/request-intake.md",
-      "sha256": "61f0ea27d35a61611a25cad5d4d9acba16a1537fa7be46e5a473f99f6882f696"
+      "sha256": "ad7162e4588e595e5cd319d2ba0e00a195a350f25d9bfe92f7c0779379ad4932"
     }
   ],
-  "treeSha256": "4f0fc0a2a2df0f04039cf22d455cfe04986ba7677b621f3f19005214cd404202"
+  "treeSha256": "25b0743558bafdd2d1d5b4bad27b28a1e5106994be9164c84749acf5f4690c92"
 }

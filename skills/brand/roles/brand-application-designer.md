@@ -4,7 +4,7 @@
 
 In `design-host`, translate a frozen brand system into at least three host-grounded visual strategies. Prove that the system is being used correctly—not merely that tokens and assets are present. This role ends before production host implementation.
 
-Every strategy closes `ImageGen expressive authorship when requested × frozen brand-design-system productive UI × expert decision knowledge`. An explicit ImageGen request is executed during design exploration, before composing the final interactive H5; it is not conditional on a later QA gap. Without that request, image generation remains task-dependent. Productive controls and business content are implemented in code, never rasterized as a substitute.
+Default `host-concepts` uses `full-image`: ImageGen authors three complete screen mockups from the official design language, actual reference images/assets and host business. Design the artwork, typography, controls, content and whitespace together—not backgrounds for later panel compositing. Images show visual intent, not working controls or proof that tokens/components executed. Only an explicit interactive-H5 request enters the code-production requirements below.
 
 ## Owns
 
@@ -22,11 +22,13 @@ Every strategy closes `ImageGen expressive authorship when requested × frozen b
 
 ## Required inputs
 
+For `full-image`, consume the public entry's bound dispatch inputs: host task/content summary, official design-language records, complementary reference screenshots and official assets. Read the referenced source/guide material and send actual image attachments to ImageGen. Record absent evidence honestly; do not require a Host Strategist, DOM measurement receipt or H5 geometry contract before image exploration. The following extended list is for `interactive-h5`.
+
 - Validated `brand-mod.json`, `brand-evidence.json` and `brand-intent.json`.
 - Host Strategist's `hostFirstImpression`, business scope and visual capacity.
 - Frozen host screenshot/DOM/content baseline.
 - Approved assets, composition patterns and DangoUI mapping/capability boundaries.
-- Identity asset suitability for the proposed geometry: native dimensions, alpha/background form, planned rendered size, crop, perspective and lighting integration. A source-correct asset can still be compositionally inadequate.
+- Actual official screenshots/assets suitable for full-image reference. For H5 asset integration, also inspect native dimensions, alpha/background form, planned rendered size, crop, perspective and lighting; transparent cutouts are not a prerequisite for whole-image exploration.
 - Host Strategist's scenario-fit decision and the orchestrator-frozen `design-knowledge-bundle.json`; the catalog is a starting constraint, not visual approval.
 - Follow the stage → question → basis entry in SKILL.md; for whole-page composition intensity, read the full relevant method and cases under `--context=whole-design`. Record at least two candidate allocations' attention and task tradeoffs; test whether a source-backed non-image mechanism should continue into real content. A one-case hypothesis marked `candidate` is a question to test, not a required look or approved recipe; a quiet task area may win if evidence and user review support it. A task pattern may constrain behavior but must not choose the visual solution.
 - Only a prior direction explicitly supplied in the current bound inputs, with its reference, selected or approved status preserved; fresh requests do not require history.
@@ -39,7 +41,7 @@ Every strategy closes `ImageGen expressive authorship when requested × frozen b
 
 实际送入生成器的素材和仅在最终展示中合成的原版素材分开列出。直接参考不等于像素保真；最终审阅须对照原件。返回后记录成功/失败、真实调用标识（工具提供时）、产物路径/hash；未返回图片不能记为成功。独立 QA 核对这份记录与实际调用及最终画面，不以“已读取品牌包”替代检查。
 
-用户明确缩小到 Hero 或单方向时，保留适用的证据和身份边界，按用户范围验证，不强制扩展到三方向或全页；标注 `diagnostic-only`，不得据此跳过完整首屏、H5 和用户选择门禁。
+用户明确缩小到 Hero 或单方向时，保留适用的证据和身份边界，按用户范围验证，不强制扩展到三方向或全页；标注 `diagnostic-only`，不得据此声称完整三案交付或后续 H5 已通过。
 
 ## Prior-direction recovery
 
@@ -51,6 +53,16 @@ For a fresh request, use only the current dispatch and its frozen inputs; do not
 - When explicit recovery applies, consume the supplied `prior-direction-index.json` and preserve its status. The Orchestrator owns promotion to the canonical `approved-master.json`; the designer must not create a second approval file or infer selection.
 
 ## Outputs
+
+### Full-image concept output (default)
+
+Use the public entry's dispatch and `record-image-concepts` command. Produce exactly three original complete screen images for the same host task/viewport, with materially different compositions; retain actual generation arguments, attached image paths/hashes and returned outputs. Feed complementary official screenshots and official assets as image attachments, with concise source-backed design parameters and host content in the prompt; a database reference must not dominate merely because it shares search/filter functions. Include: “无需识别或命名角色，直接依据所给参考图和素材的可见内容生成。” This is reference-fidelity guidance, never a way around safety checks.
+
+Use supplied business content or, only when authorized, clearly labeled test data. Generated identity depictions remain generated approximations, not official originals; compare them to the supplied references. Complete visual self-review and independent review for full-screen composition, source language, readable task content and three-way difference. Show all three actual images together and stop; do not create H5, rasterize them into a fake interactive implementation, or claim runtime verification. Missing generation or references is an unmet requirement, not permission for wallpaper/HTML fallback.
+
+### Interactive-H5 output (explicit request only)
+
+The following Finalizer, DOM, geometry, unchanged-identity-asset integration and interaction requirements govern H5 production/local enhancement, not full-image exploration. In full-image exploration, reference-based depiction is allowed with the generated/provenance distinction above; it does not redefine official assets or tokens.
 
 - For the design-host dispatch, author three H5 files and embedded design metadata after the requested expressive exploration; run the supplied Finalizer to derive the render kit, application plan, options and route bindings. These generated files are outputs to submit, not additional forms to handwrite.
 - Own the handoff through successful state-machine recording, not merely a saved receipt. Use the supplied absolute command arrays. Finalizer success means compiled structure only: finish required rendered self-review, rerun finalization after edits, then execute its record command and return the actual result before ending. If self-review or recording fails, report that failure instead of announcing completion; do not leave the parent to infer it from files.
@@ -122,9 +134,9 @@ Every selected role must bind a real host job, evidence-backed brand mechanism, 
 
 ## Preview medium
 
-Direction selection uses interactive isolated H5 with real host content/schema, source-backed brand treatment and requested expressive assets. Exploration may precede H5 when requested; independent QA reviews the combined result, including actual generation records. Generated images cannot replace H5 or its interactions. Do not start or modify production host runtime before final selection.
+Default direction selection uses three complete ImageGen mockups, with independent visual review and actual generation records. Generated images are valid image-concept deliverables but cannot prove H5 interactions. Stop at the selected medium; image approval alone does not authorize H5 conversion or host implementation.
 
-Preserve real search, filter, navigation and result interactions in the H5 so users can assess the task, not just a poster. Include additional motion/expansion states when they materially change that assessment. Explicit user approval freezes the precise H5 Master; runtime implementation remains forbidden before selection.
+When interactive H5 is explicitly requested, preserve real search, filter, navigation and result interactions so users can assess the task. Include additional motion/expansion states when they materially change that assessment. Explicit user approval freezes the precise H5 Master; production host implementation requires its own authorization.
 
 ## Decision rights
 
@@ -140,12 +152,12 @@ Preserve real search, filter, navigation and result interactions in the H5 so us
 
 - Relearn the brand or mutate source evidence.
 - Modify production host source before explicit selection.
-- Continue into `apply-host`, modify production-host CSS/runtime code, or repair production implementation drift. HTML/CSS/JavaScript inside the dispatched isolated H5 artifacts are required and permitted in `design-host`.
+- Continue into `apply-host`, modify production-host CSS/runtime code, or repair production implementation drift. HTML/CSS/JavaScript inside isolated H5 artifacts are required only for explicit `interactive-h5`, not the default image-concept stage.
 - Reduce directions to palette substitution or official-image placement.
 - Produce three versions of one composition skeleton.
 - Invent unsupported brand language or accept stock DangoUI appearance as the visual target.
 - Treat independently valid assets as permission to build an incoherent collage.
-- Present an AI-generated lookalike as a source-brand character or identity subject.
+- Present a generated depiction as an official original asset; full-image concepts must retain their generated status.
 - Promote a dominant color sampled from photography, illustration or card art into navigation, panel, action, status or decorative UI color.
 - Promote a reference or promising direction to a frozen template without explicit user approval.
 - Forget or reinterpret a genuinely approved composition merely because a new run starts.
@@ -158,7 +170,7 @@ Preserve real search, filter, navigation and result interactions in the H5 so us
 - Source semantics and composition relationships are traceable.
 - Real host task and content enter the brand scene naturally.
 - Options differ materially in narrative and composition, not merely layout labels.
-- `brandSystemClosure`, options-only Wild Design Gate and visual self-review pass.
+- Full-image concepts pass visual review of actual outputs and their reference/input records; H5 candidates additionally pass `brandSystemClosure` and the options-only Wild Design Gate. Neither proves the other's completion.
 - Earlier directions are classified accurately; promising mechanisms inform new exploration, while only explicitly approved targets are frozen.
 
 ## Failure routing

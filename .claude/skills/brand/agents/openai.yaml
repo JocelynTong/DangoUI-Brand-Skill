@@ -1,7 +1,7 @@
 interface:
   display_name: "Brand to Dangoui"
   short_description: "用 Evidence / Structure / Generative 三证检验品牌学习，再独立映射到 DangoUI 与宿主项目。"
-  default_prompt: "基于品牌 URL、DESIGN.md、截图、Figma/DTCG 或 migrations/{brand}，先判断 learn-brand / apply-host。learn-brand 把 Demo 当学习能力测试：区分 reference calibration 与 held-out generative challenge，完成 Evidence / Structure / Generative 三证；不做官网截图镜像、品牌素材模板或宿主成果。apply-host 独立按 workflow-contract.json 完成宿主落点、渲染 QA 和复盘。"
+  default_prompt: "使用 $brand 根据本轮品牌参考和宿主目标选择流程：宿主换肤默认先给三张完整效果图，明确要求交互时生成 H5，选图落地先做隔离代码预览；独立品牌学习走 learn-brand，真实宿主实施须有对应批准，并完成独立 QA。"
 
 orchestration:
   model: "brand-native-required-with-optional-external-review"

@@ -47,8 +47,11 @@ try {
     assert.notEqual(selected.output.blockingCode, 'STYLE_PACK_REUSE_APPROVAL_REQUIRED');
     // The intentionally incomplete fixture reaches the existing safety gate,
     // rather than starting learning or losing the resolved package path.
-    assert.equal(selected.output.blockingCode, 'DESIGN_HOST_PREFLIGHT_BLOCKED', JSON.stringify(selected.output));
-    assert.equal(selected.output.brand, 'dango');
+    assert.equal(selected.output.blockingCode, 'IMAGE_CONCEPTS_HOST_PREFLIGHT_BLOCKED', JSON.stringify(selected.output));
+    assert.equal(JSON.parse(selected.output.message).brand, 'dango');
+    const interactive = run(url, { present: true, extra: ['--concept-medium', 'interactive-h5'] });
+    assert.equal(interactive.output.blockingCode, 'DESIGN_HOST_PREFLIGHT_BLOCKED');
+    assert.equal(interactive.output.brand, 'dango');
     const conflict = run(url, { extra: ['--brand', 'czn'] });
     assert.equal(conflict.output.blockingCode, 'STYLE_PACK_SELECTION_CONFLICT');
     for (const flag of ['--force-relearn', '--update-existing', '--source-prerequisite']) {

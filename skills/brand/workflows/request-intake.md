@@ -8,7 +8,9 @@
 - 只有用户明确要求建立、更新或重新认证可复用品牌包，才把独立交付目标设为 `brand-learning → learn-brand`；宿主预览内部需要品牌学习时，按下面的接力保留 `host-concepts` 父目标。
 - 只有用户已确认 H5 并要求修改真实宿主，才使用 `host-implementation → apply-host`。
 
-用户明确要求 ImageGen 做 Expressive、官网系统做 Productive 时，原 `run` 加 `--require-imagegen-expressive`，冻结 `goal.expressiveProduction.required=true`。设计 dispatch 使用 `hints.expressiveProduction`：三个方向分别实际生成表达资产，再与代码实现的品牌 Productive UI 组合成三份 H5；不能等 QA 才决定要不要生图。未明确要求不自动扩大为所有任务必生图。业务对象、字段与行为保留，页面布局和组件组织可重构；旧页面没有表达区不是禁止新表达区的依据。
+新的 `host-concepts → design-host` 默认 `--concept-medium full-image`：先由 ImageGen 生成三张完整界面效果图，不是三张背景再拼代码面板。实际图片输入包含互补官网截图和官方素材；设计师同时读取品牌规则、组件说明及宿主业务摘要。保持同一业务任务，允许重组页面与组件；测试数据仅在用户允许时使用并标注。记录实际 prompt、附件及三个生成结果，按 dispatch 的 `record-image-concepts` 命令提交，再由 `delivery` 返回可展示结果。三图齐全并完成独立视觉检查后停止等待用户选方向；图片不代表 runtime、DTCG 或组件已执行。
+
+只有用户明确要求交互 H5 时传 `--concept-medium interactive-h5`。该阶段要求 ImageGen 做 Expressive 时再加 `--require-imagegen-expressive`，冻结 `goal.expressiveProduction.required=true`，设计阶段生成表达资产并与品牌 Productive 代码组合。不能把完整效果图目标自动升级为 H5，也不能以旧的 H5-only 要求拦截完整效果图交付。
 
 用户已认可准确组件且只要求实施该模块时，同属 `host-implementation → apply-host`，使用 [限域组件交接](../references/approved-component-handoff.md)；不把模块批准提升为整页批准，不要求重做三方向。平台不兼容时明确需要适配，不能用 Vue 框架相同推断运行环境相同。
 
@@ -22,7 +24,27 @@
 
 ## 隔离首轮试验
 
-## 内部判断与用户验收分离
+完整效果图使用入口返回的隔离输出和命令；A/B/C 同场景、同尺寸、等权展示，推荐不能遮蔽其他方案。官网图片以真实附件传入而非只写路径到 prompt。三案独立构图，不用换色或裁切冒充三次探索。用户选择图片只确认视觉方向，不是 Approved H5 Master 或宿主实施授权。
+
+## 选图后落地到隔离宿主
+
+用户已经选择图片并要求实现时，沿用该图片运行的 `select-image-code`，不要重新调用三案 `run`。编排者把对话里的选择原话传入 `--selection`，确认 `--direction` 和 `--confirm-isolated-preview`；普通用户不编写 manifest。返回新的隔离目录和真实宿主副本，不复制历史手工 Demo。图片有旧失败审核时保留失败状态：用户明确选择只能启动限域代码验证，不能将旧图、来源学习或全流程改成 PASS。
+
+执行者读取返回的准确图片、品牌 DTCG/adapter、组件原件与宿主源码。调用同一公共入口的 `compile-selected-theme --artifact-root <新目录> --dangoui-root <实际已安装包>`，导入生成的主题和真实库样式。兼容组件复用，不兼容平台明确适配；不能把只复用 CSS 说成组件 API 复用，也不能把截图铺底说成代码。安装只发生在副本，禁止通过 node_modules 链接写入原项目。
+
+React Web dispatch 的 `reusableComponents` 提供候选 [文本 Button](../assets/react-web-button/usage.md) 的准确路径、hash 和适用说明，实现与 QA 共享同一冻结输入。它源自 dangoui 3.6.16，依赖真实库 CSS 与主题；执行者先确认实际安装版本兼容，再按本品牌与任务需要复用。Taro、Vue、React Native 不派发该资产，其他尺寸/变体/图标不因存在 props 而获认证。不附赠手工页面或历史 QA。
+
+声称组件适配时，以实际版本组件源码的 DOM、类名、尺寸、状态与事件约定为依据，只适配本任务需要的范围。在现有 reused/adapted/limitations 中记录实际 import 与调用位置、改动和未覆盖范围。用真实原组件与宿主实际调用的适配器做同主题状态对照，并检查宿主 CSS 的最终覆盖；仅加载库 CSS 或主色变量生效不能证明组件适配。差异（含可访问性增强）明确列出，原组件未提供的行为不能伪称复用。一个代表组件验证后收口，不自动扩建跨框架库，未覆盖组件如实标为 token-only/未适配。
+
+本选图代码阶段开始时即可确认并记录宿主已安装的 Playwright 等本地运行验收工具及版本。内置浏览器故障不自动免除 QA；可用本轮已确认且获准使用的本地工具完成实际检查，无可用工具时报告真实阻断。不得借工具切换绕过浏览器/网络访问策略、请求头限制或沙箱权限；历史测试结果不替代本轮验收。
+
+完成构建、实际截图及可操作的图/页面对照后，执行返回的 `record-selected-code`。再将完整 `reviewRequest` 交给不同执行者，实际打开页面验证视觉、业务、窄屏布局和 token 改变→渲染改变→恢复。`record-selected-code-review` 后用 `delivery` 展示结果；派发或文件齐全不算完成。失败保留记录、修复明确范围，在同一选图授权下建立新的隔离尝试，不重画效果图。通过只表示该页面可验收，未测路由、后端和跨平台能力明确列出。
+
+原宿主始终只读。用户确认代码预览并明确授权原项目实施后，才走既有准确 H5/宿主实施交接；本入口不自动安装到原项目、不推送、不更新已发布 Skill。
+
+## 交互 H5 与宿主实施的内部判断、用户验收
+
+以下 H5 恢复、Master、交互 QA、DOM 与实施协议只适用于 `interactive-h5` 或 `apply-host`，完整效果图不执行这些后续环节。
 
 用户明确指出历史准确版本作为视觉对照时，先用公共 `recover-reference --artifact-root <当前隔离目录> --brand <当前brand> --source-root <历史目录> --source-master <原master相对路径> --source-master-sha256 <原SHA256> --reason <当前确认依据> --confirm-reference-only` 恢复。它保存原 H5、运行资产及原批准范围，在 `prior-direction-index.json.recoveredReferences` 追加 hash-bound 输入，不修改旧 FAIL、Goal 或源码。下一次设计前必须核对这些输入，不能只检查当前 run 的失败 ABC。
 
@@ -66,7 +88,7 @@ node <skill目录>/scripts/run-brand-workflow.mjs artifacts init --host <绝对�
 
 把返回的 `buildDirectory` 作为 `--artifact-root`，并传绝对 `--host-target`。概念图、migration、临时 Registry、skill link 与预览都写入隔离目录；宿主在用户批准 H5 前保持只读。
 
-## 首轮时效协议
+## 交互 H5 首轮时效协议
 
 从 workflow `prepare` 到三组可交互隔离 H5 通过一次紧凑独立 QA，以 5 分钟为首次可判断结果目标和进度检查点，不再把它作为砍掉专业角色的硬截止。fast 流程保留 20 分钟安全上限，防止工具或角色无限挂起。
 

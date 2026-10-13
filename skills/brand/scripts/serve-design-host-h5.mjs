@@ -3,6 +3,7 @@ import fs from 'node:fs'
 import http from 'node:http'
 import path from 'node:path'
 import { evaluateHostDelivery } from './parent-delivery-gate.mjs'
+import { imageConceptFile, imageConceptDelivery } from './full-image-concepts.mjs'
 
 const args = process.argv.slice(2)
 const arg = (name, fallback = '') => { const i = args.indexOf(name); return i < 0 ? fallback : args[i + 1] || fallback }
@@ -17,12 +18,17 @@ const server = http.createServer((request, response) => {
   if (pathname === '/__brand_comparison__') {
     const brand = url.searchParams.get('brand') || ''
     if (!/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(brand)) { response.writeHead(400).end(); return }
-    const delivery = evaluateHostDelivery({ root, brand })
+    let delivery
+    try { delivery = fs.existsSync(imageConceptFile(root, brand)) ? imageConceptDelivery({root, brand}) : evaluateHostDelivery({ root, brand }) }
+    catch (error) { response.writeHead(409, {'content-type':'application/json; charset=utf-8'}).end(JSON.stringify({userGoalCompleted:false,error:error.message})); return }
     if (!delivery.userGoalCompleted || !delivery.comparisonPreview || delivery.approvedMaster) {
       response.writeHead(409, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }).end(JSON.stringify(delivery))
       return
     }
-    response.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' }).end(comparisonHarness(delivery))
+    let html
+    try { html = delivery.medium === 'full-image' ? imageComparisonHarness(delivery) : comparisonHarness(delivery) }
+    catch (error) { response.writeHead(409, {'content-type':'application/json; charset=utf-8'}).end(JSON.stringify({userGoalCompleted:false,error:error.message})); return }
+    response.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' }).end(html)
     return
   }
   if (pathname === '/__brand_viewport__') {
@@ -60,6 +66,19 @@ function viewportHarness({ src, width, height }) {
 }
 
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char])
+
+function imageComparisonHarness(delivery) {
+  const cards = delivery.images.map(image => {
+    const file = fs.realpathSync(image.path)
+    if (!file.startsWith(root + path.sep)) throw new Error('Image outside isolated run')
+    const src = '/' + path.relative(root, file).split(path.sep).map(encodeURIComponent).join('/')
+    return `<section><h2>方案 ${escapeHtml(image.id.toUpperCase())}</h2><a href="${escapeHtml(src)}" target="_blank" rel="noopener"><img src="${escapeHtml(src)}" alt="方案 ${escapeHtml(image.id.toUpperCase())} 完整效果图"></a></section>`
+  }).join('')
+  const notes = [delivery.reviewNotes,...delivery.presentationRequirements, ...delivery.limitations].filter(Boolean).map(text=>`<li>${escapeHtml(text)}</li>`).join('')
+  return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三张完整效果图 · 选向比较</title><style>
+*{box-sizing:border-box}body{margin:0;padding:24px;background:#edf0f2;color:#172026;font:16px/1.6 system-ui,sans-serif}header,footer,main{max-width:1240px;margin:0 auto}h1{font-size:24px}main{display:flex;gap:20px;overflow-x:auto;align-items:start;padding:16px 0}section{flex:0 0 390px;background:white}h2{font-size:18px;padding:0 12px}img{display:block;width:390px;height:auto}footer{padding:16px 0}a{color:inherit}
+</style></head><body><header><h1>同一场景 · 三张完整效果图</h1><p>图像预览，不可交互；未转成宿主 H5，未修改宿主。三案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。选案请在对话中回复，不会自动实施。</p></header><main aria-label="等权三案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer></body></html>`
+}
 
 function viewportFrame({ src, width, height, id, title }) {
   return `<iframe id="${escapeHtml(id)}" title="${escapeHtml(title)}" src="${escapeHtml(src)}" width="${width}" height="${height}"></iframe>`

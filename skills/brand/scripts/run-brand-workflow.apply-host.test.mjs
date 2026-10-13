@@ -321,7 +321,8 @@ try {
 }
 
 function runFixture(args) {
-  return spawnSync(process.execPath, [entry, ...args], { encoding: "utf8" });
+  // These fixtures exercise the explicitly requested interactive-H5 route.
+  return spawnSync(process.execPath, [entry, ...args, '--concept-medium', 'interactive-h5'], { encoding: "utf8" });
 }
 
 function writeJson(file, value) {

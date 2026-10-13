@@ -9,7 +9,7 @@ import { componentTask } from './component-task.mjs';
 import { prepareModuleTask } from './prepare-module-task.mjs';
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolvePublicStylePack, brandFromDemoUrl } from "./resolve-public-style-pack.mjs";
+import { resolvePublicStylePack, brandFromDemoUrl, registryFailure } from "./resolve-public-style-pack.mjs";
 import { runCachedValidator } from "./validator-cache.mjs";
 import { buildRenderedCollectorArgs } from "./source-capture-policy.mjs";
 import { verifySkillIntegrity } from "./verify-brand-skill-integrity.mjs";
@@ -19,6 +19,8 @@ import { recoverReference } from "./recover-reference.mjs";
 import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-handoff.mjs";
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
+import { prepareImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile } from './full-image-concepts.mjs';
+import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview } from './selected-image-code.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
 verifySkillIntegrity(path.dirname(skillScriptsDir), { allowMissing: true });
@@ -31,6 +33,39 @@ const originalArgs = process.argv.slice(2);
 const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
+
+// A selected image becomes an isolated real-host preview, never an implicit
+// approval to edit the original host or restart three-direction exploration.
+const codeRoot = path.resolve(opt(rawArgs, '--artifact-root', '') || process.cwd());
+if (['select-image-code','compile-selected-theme','record-selected-code','record-selected-code-review'].includes(command)
+    || ['continue','delivery','status'].includes(command) && fs.existsSync(selectedCodeFile(codeRoot))) {
+  try {
+    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review']);
+    if(rawArgs.slice(1).some(x=>x.startsWith('--')&&!allowed.has(x))) throw Error('Selected-image code cannot mix other workflow modes or mutation flags.');
+    if(!path.isAbsolute(opt(rawArgs,'--artifact-root',''))) throw Error('Absolute artifact root required.');
+    const result = command === 'select-image-code' ? selectImageCode({root:codeRoot,brand:opt(rawArgs,'--brand',''),direction:opt(rawArgs,'--direction',''),selection:opt(rawArgs,'--selection',''),confirmed:rawArgs.includes('--confirm-isolated-preview')})
+      : command === 'compile-selected-theme' ? compileSelectedTheme({root:codeRoot,dangouiRoot:opt(rawArgs,'--dangoui-root','')})
+      : command === 'record-selected-code' ? recordSelectedCode({root:codeRoot,submissionFile:opt(rawArgs,'--submission','')})
+      : command === 'record-selected-code-review' ? recordSelectedCodeReview({root:codeRoot,reviewFile:opt(rawArgs,'--review','')})
+      : selectedCodeStatus(codeRoot);
+    process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+  } catch(error) { block('SELECTED_IMAGE_CODE_BLOCKED',error.message); }
+}
+
+if (['record-image-concept','record-image-concepts','continue','delivery','status','run'].includes(command)) {
+  const imageRoot=path.resolve(opt(rawArgs,'--artifact-root','')||opt(rawArgs,'--root',process.cwd()));
+  const imageBrand=opt(rawArgs,'--brand','');
+  if(imageBrand&&fs.existsSync(imageConceptFile(imageRoot,imageBrand))) {
+    if(command==='run'&&(opt(rawArgs,'--concept-medium','full-image')!=='full-image'||opt(rawArgs,'--mode','design-host')!=='design-host')) block('IMAGE_CONCEPTS_RUN_IMMUTABLE','Use a new isolated run for a different medium or workflow.');
+    if(command==='run'&&opt(rawArgs,'--host-target','')&&path.resolve(opt(rawArgs,'--host-target',''))!==path.resolve(readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'')) block('IMAGE_CONCEPTS_HOST_MISMATCH','The existing image run belongs to a different host target.');
+    if(command.startsWith('record-image-concept')) validateArtifactIsolation({command:'run',requestKind:'host-concepts',root:imageRoot,artifactRoot:imageRoot,args:['--host-target',readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'']});
+    try {
+      const result=command==='record-image-concept'?recordImageConcept({root:imageRoot,brand:imageBrand,id:opt(rawArgs,'--direction',''),inputFile:opt(rawArgs,'--input',''),outputFile:opt(rawArgs,'--output',''),toolCallId:opt(rawArgs,'--tool-call-id',''),producer:opt(rawArgs,'--producer','')}):command==='record-image-concepts'?recordImageConcepts({root:imageRoot,brand:imageBrand,receiptFile:opt(rawArgs,'--receipt',''),reviewFile:opt(rawArgs,'--review','')}):imageConceptDelivery({root:imageRoot,brand:imageBrand});
+      process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+    } catch(error) { block('IMAGE_CONCEPTS_BLOCKED',error.message); }
+  }
+  if(command.startsWith('record-image-concept')) block('IMAGE_CONCEPTS_RUN_REQUIRED','Use the existing full-image run artifact root and brand.');
+}
 
 if (rawArgs.includes('--module-task')) {
   if (command !== 'run' || opt(rawArgs, '--request-kind', '') !== 'host-concepts' || opt(rawArgs, '--mode', '') !== 'design-host') block('MODULE_PREP_ROUTE_INVALID', 'Use host-concepts design-host run.');
@@ -300,7 +335,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       install: ["design-host", "apply-host"].includes(mode) && command === "run" && reuseStylePack,
     });
   } catch (error) {
-    registryResolution = { matched: false, reason: "registry-unavailable", error: error.message };
+    registryResolution = registryFailure(error);
   }
 
   if (registryResolution.reason === "registry-unavailable") {
@@ -312,7 +347,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       root,
       registryResolution,
       blockingCode: "PUBLIC_REGISTRY_UNAVAILABLE",
-      nextAction: "Restore Registry access or provide an explicit local --style-pack/--mod-file; do not assume the source is unlisted.",
+      nextAction: "Inspect the network error and restore access to the same public Registry through the environment's permitted network approval flow. If approval is denied, stop and report it. Resume the same command and artifact root; verified files are reused. Do not substitute a maintenance checkout or local --style-pack/--mod-file for the selected public package.",
       message: "Public Registry could not be checked, so the workflow stopped before duplicate learning or host apply.",
     }, null, 2)}\n`);
     process.exit(1);
@@ -392,6 +427,21 @@ if (!intake.ok) {
 
 if (command === "run" && ["design-host", "apply-host"].includes(mode)) {
   installExplicitLocalStylePack({ root, brand, modFile: opt(rawArgs, "--mod-file", "") });
+}
+
+if(command==='run'&&mode==='design-host') {
+  const existingH5=fs.existsSync(path.join(root,'migrations',brand,'execution-manifest.json'));
+  const medium=opt(rawArgs,'--concept-medium',existingH5?'interactive-h5':'full-image');
+  if(!['full-image','interactive-h5'].includes(medium)) block('CONCEPT_MEDIUM_INVALID','Use full-image or explicitly requested interactive-h5.');
+  if(medium==='full-image') {
+    const hostTarget=opt(rawArgs,'--host-target','')||opt(rawArgs,'--host-target-or-plan','');
+    const preflight=spawnSync(process.execPath,[skillScript('apply-host-preflight.mjs'),'--root',root,'--brand',brand,'--host-target',hostTarget,'--profile',profile,'--phase','design'],{cwd:root,encoding:'utf8'});
+    if(preflight.status!==0) block('IMAGE_CONCEPTS_HOST_PREFLIGHT_BLOCKED',preflight.stdout||preflight.stderr);
+    try {
+      const result=prepareImageConcepts({root,brand,hostTarget,sampleData:rawArgs.includes('--allow-labeled-sample-data')});
+      process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+    } catch(error) { block('IMAGE_CONCEPTS_BLOCKED',error.message); }
+  }
 }
 
 if (command === "run" && mode === "design-host") {

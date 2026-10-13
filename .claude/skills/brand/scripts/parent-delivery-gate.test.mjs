@@ -134,7 +134,7 @@ function fixture(t, { root: suppliedRoot, host = '/tmp/host-source' } = {}) {
   const save = (name, value) => { const file = path.join(root, name); fs.mkdirSync(path.dirname(file), { recursive: true }); fs.writeFileSync(file, Buffer.isBuffer(value) || typeof value === 'string' ? value : JSON.stringify(value)); return ref(name); };
   const ref = (name) => ({ path: name, sha256: crypto.createHash('sha256').update(fs.readFileSync(path.join(root, name))).digest('hex') });
   const sourceUrl = 'https://asia-en.onepiece-cardgame.com/';
-  const parentArgs = ['run', '--request-kind', 'host-concepts', '--mode', 'design-host', '--brand', brand, '--profile', 'fast', '--host-target', host, '--source-url', sourceUrl, '--artifact-root', root, '--platform', 'h5'];
+  const parentArgs = ['run', '--request-kind', 'host-concepts', '--mode', 'design-host', '--concept-medium', 'interactive-h5', '--brand', brand, '--profile', 'fast', '--host-target', host, '--source-url', sourceUrl, '--artifact-root', root, '--platform', 'h5'];
   save('source-prerequisite.json', { schema: 'brand-source-prerequisite/v1', parentRequestKind: 'host-concepts', sourceUrl, brand, hostTarget: host, artifactRoot: root, requestedProfile: 'fast', hostMutationAllowed: false, parentArgs, learning: { entry: '/skill/run-brand-workflow.mjs', args: ['run'] }, resume: { requestKind: 'host-concepts', mode: 'design-host' } });
   const screenshot = save(`${prefix}captures/source.png`, 'source pixels');
   const goal = save(`${prefix}goal-contract.json`, createSourceLearningGoal({ root, brand, sourceUrl, profile: 'fast', handoffFile: path.join(root, 'source-prerequisite.json'), sourceScreenshot: screenshot.path }));

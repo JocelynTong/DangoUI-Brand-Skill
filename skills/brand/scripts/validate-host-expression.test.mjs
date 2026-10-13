@@ -2,7 +2,9 @@ import fs from 'node:fs';import os from 'node:os';import path from 'node:path';i
 const root=fs.mkdtempSync(path.join(os.tmpdir(),'expression-test-'));const file=path.join(root,'plan.json');
 try{fs.mkdirSync(path.join(root,'knowledge/v0.1'),{recursive:true});fs.writeFileSync(path.join(root,'knowledge/v0.1/index.json'),JSON.stringify({questions:[{id:'allocation'}]}));
 const asset=(name,text)=>{fs.writeFileSync(path.join(root,name),text);return {path:name,sha256:crypto.createHash('sha256').update(text).digest('hex')}};
-const base=asset('host.txt','fixture'),brand=asset('brand.txt','fixture-brand');const region={id:'search',technique:'none',reason:'high frequency search',primaryTaskProtection:'results first',knowledge:[{questionId:'allocation',disposition:'adapt',contextDifference:'tool not campaign',reason:'no hero needed'}]};
+const bundledIndex=new URL('../knowledge-runtime/knowledge/v0.1/index.json',import.meta.url);
+const questionId=fs.existsSync(bundledIndex)?'expressive-productive-allocation-question':'allocation';
+const base=asset('host.txt','fixture'),brand=asset('brand.txt','fixture-brand');const region={id:'search',technique:'none',reason:'high frequency search',primaryTaskProtection:'results first',knowledge:[{questionId,disposition:'adapt',contextDifference:'tool not campaign',reason:'no hero needed'}]};
 const plan={schema:'host-expression-plan/v1',hostTask:'test fixture',hostBaseline:base,brandInput:brand,regions:[region]};const run=()=>{fs.writeFileSync(file,JSON.stringify(plan));return check(root,file)};
 assert.equal(check(root,file).ok,false);assert.equal(run().ok,true);
 region.technique='generated';assert.equal(run().ok,false);

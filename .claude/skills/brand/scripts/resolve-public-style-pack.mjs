@@ -9,6 +9,17 @@ export const DEFAULT_REGISTRY_REQUEST_TIMEOUT_MS = 8_000;
 export const DEFAULT_REGISTRY_NETWORK_TIMEOUT_MS = 15_000;
 export const DEFAULT_REGISTRY_DOWNLOAD_TIMEOUT_MS = 60_000;
 
+export function registryFailure(error) {
+  return {
+    matched: false,
+    reason: "registry-unavailable",
+    error: error.message,
+    code: error.code || error.cause?.code || null,
+    cause: error.cause?.message || null,
+    hostname: error.cause?.hostname || null,
+  };
+}
+
 export function normalizeSourceUrl(value) {
   const url = new URL(value);
   url.hash = "";
