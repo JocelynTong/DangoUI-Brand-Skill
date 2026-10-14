@@ -9,6 +9,21 @@ import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, re
 
 const entry = path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
 
+test('generation failure preserves images and full-image goal without automatic medium fallback',t=>{
+  const f=fixture(t);prepareImageConcepts(f);const a=f.checkpoint('a');
+  const file=f.write(path.join(f.dir,'image-concepts','b-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'b',tool:'image_gen',code:'moderation_blocked',reason:'Synthetic tool refusal; cause unspecified'});
+  const failureHash=sha(file),saved=a.completedImages[0];
+  const result=imageConceptDelivery(f);
+  assert.equal(result.status,'blocked');assert.equal(result.userGoalCompleted,false);
+  assert.equal(result.failureGuidance.requestedMedium,'full-image');
+  assert.equal(result.failureGuidance.defaultMediumFallback,null);
+  assert.equal(result.failureGuidance.automaticRetry,false);
+  assert.equal(result.failureGuidance.completedCount,1);assert.equal(result.failureGuidance.requiredCount,3);
+  assert.deepEqual(result.completedImages,[saved]);assert.equal(sha(file),failureHash);
+  assert.equal(result.dispatchRequest,undefined);assert.equal(result.reviewRequest,undefined);
+  assert.equal(fs.existsSync(path.join(f.dir,'h5-directions')),false);
+});
+
 test('failed-only freezes passed bytes, reviews only changed image, and retains business gates', t=>{
   const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');f.checkpoint('b');const ready=f.checkpoint('c');
   const parentImages=ready.reviewRequest.images;
