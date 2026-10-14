@@ -8,6 +8,52 @@ import { test } from 'node:test';
 import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts } from './full-image-concepts.mjs';
 
 const entry = path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
+
+test('failed-only freezes passed bytes, reviews only changed image, and retains business gates', t=>{
+  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');f.checkpoint('b');const ready=f.checkpoint('c');
+  const parentImages=ready.reviewRequest.images;
+  const failed={reviewer:'independent',verdict:'fail',notes:'C has wrong business state',limitations:['Keep original limitation'],directions:parentImages.map(d=>({...d,completeScreen:true,brandFaithful:true,hostTaskPreserved:d.id!=='c'}))};
+  const reviewFile=f.write(path.join(f.dir,'fail.json'),failed);recordImageConcepts({...f,reviewFile});
+  const parentHash=sha(path.join(f.dir,'image-concepts-failed-review.json'));
+  const cli=spawnSync(process.execPath,[entry,'regenerate-image-concepts','--artifact-root',f.root,'--brand',f.brand,'--feedback','Fix C business state only','--confirm-new-batch','--failed-only'],{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);
+  const next=JSON.parse(cli.stdout);
+  t.after(()=>fs.rmSync(path.dirname(next.artifactRoot),{recursive:true,force:true}));
+  const opts={root:next.artifactRoot,brand:f.brand};
+  assert.deepEqual(next.dispatchRequest.directions.map(d=>d.id),['c']);
+  assert.deepEqual(next.completedImages.map(d=>d.sha256),parentImages.slice(0,2).map(d=>d.sha256));
+  assert.throws(()=>recordImageConcept({...opts,id:'a',producer:'producer',toolCallId:'bad'}),/frozen/);
+  const d=next.dispatchRequest.directions[0];
+  const inputFile=f.write(path.join(opts.root,'args.json'),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+  const outputFile=path.join(opts.root,'c.png');fs.copyFileSync(parentImages[2].path,outputFile);fs.appendFileSync(outputFile,'corrected');
+  const reviewed=recordImageConcept({...opts,id:'c',producer:'new-producer',toolCallId:'new-c',inputFile,outputFile});
+  assert.deepEqual(reviewed.reviewRequest.images.map(d=>d.id),['c']);
+  assert.deepEqual(reviewed.reviewRequest.frozenImages.map(d=>d.id),['a','b']);
+  const partial={...reviewed.reviewRequest.reviewShape,reviewer:'independent2',verdict:'pass',distinctCompositions:true,notes:'Corrected state; final trio distinct',directions:reviewed.reviewRequest.images.map(d=>({...d,completeScreen:true,brandFaithful:true,hostTaskPreserved:false}))};
+  const rr=f.write(path.join(opts.root,'review.json'),partial);
+  assert.throws(()=>recordImageConcepts({...opts,reviewFile:rr}),/bind and approve/);
+  partial.directions[0].hostTaskPreserved=true;
+  f.write(rr,{...partial,directions:[...partial.directions,failed.directions[0]]});
+  assert.throws(()=>recordImageConcepts({...opts,reviewFile:rr}),/Review only changed/);
+  f.write(rr,{...partial,distinctCompositions:false});
+  assert.throws(()=>recordImageConcepts({...opts,reviewFile:rr}));
+  f.write(rr,partial);
+  const delivered=recordImageConcepts({...opts,reviewFile:rr});
+  assert.equal(delivered.status,'ready-for-user-review');
+  assert.deepEqual(delivered.limitations,['Keep original limitation']);
+  assert.equal(sha(path.join(f.dir,'image-concepts-failed-review.json')),parentHash);
+  assert.equal(imageConceptDelivery(f).status,'blocked');
+  assert.throws(()=>regenerateImageConcepts({...opts,confirmed:true,feedback:'retry',failedOnly:true}),/One bounded/);
+  fs.appendFileSync(next.completedImages[0].path,'tamper');
+  assert.throws(()=>imageConceptDelivery(opts),/hash mismatch|Frozen output/);
+});
+
+test('failed-only rejects missing boolean findings rather than guessing passing images',t=>{
+  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');f.checkpoint('b');const ready=f.checkpoint('c');
+  const reviewFile=f.write(path.join(f.dir,'fail.json'),{reviewer:'independent',verdict:'fail',notes:'incomplete findings',directions:ready.reviewRequest.images});
+  recordImageConcepts({...f,reviewFile});
+  assert.throws(()=>regenerateImageConcepts({...f,feedback:'repair',confirmed:true,failedOnly:true}),/Explicit hash-bound/);
+});
 const sha = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 function fixture(t) {
   const base = fs.mkdtempSync(path.join(os.tmpdir(), 'brand-full-image-test-'));
@@ -58,6 +104,7 @@ test('checkpoint resume, independent review, image gallery and hash rejection st
   f.checkpoint('b');
   const ready = f.checkpoint('c');
   assert.equal(ready.status, 'review-ready');
+  assert.deepEqual(ready.reviewRequest.conceptScope,JSON.parse(fs.readFileSync(path.join(f.dir,'image-concepts-dispatch.json'))).conceptScope);
   const review = { ...ready.reviewRequest.reviewShape, reviewer: 'fixture-producer', verdict: 'pass', distinctCompositions: true, notes: 'Synthetic plumbing test, not actual visual approval', directions: ready.reviewRequest.reviewShape.directions.map(d => ({ ...d, completeScreen: true, brandFaithful: true, hostTaskPreserved: true })) };
   const reviewFile = f.write(path.join(f.dir, 'review.json'), review);
   assert.throws(() => recordImageConcepts({ ...f, reviewFile }), /Independent visual reviewer/);
@@ -88,6 +135,25 @@ test('existing H5 history cannot be overwritten by image preparation', t => {
   const f = fixture(t);
   f.write(path.join(f.dir, 'execution-manifest.json'), { mode: 'design-host' });
   assert.throws(() => prepareImageConcepts(f), /Existing H5 history is immutable/);
+});
+
+test('standard gallery exposes pending and failed honestly, then approved at same URL; incomplete/corrupt remain blocked', async t=>{
+  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');f.checkpoint('b');
+  const server=spawn(process.execPath,[path.resolve('skills/brand/scripts/serve-design-host-h5.mjs'),'--root',f.root,'--port','0']);t.after(()=>server.kill());
+  const base=await new Promise((resolve,reject)=>{let text='';server.stdout.on('data',b=>{text+=b;const m=text.match(/http:\/\/[^\s]+/);if(m)resolve(m[0]);});server.on('error',reject);});
+  const url=new URL('/__brand_comparison__?brand='+f.brand,base);
+  assert.equal((await fetch(url)).status,409);
+  const ready=f.checkpoint('c');assert.equal(ready.userGoalCompleted,false);assert.equal(ready.status,'review-ready');assert.equal(ready.previewAvailable,true);
+  let res=await fetch(url);assert.equal(res.status,200);let html=await res.text();assert.match(html,/data-review-status="pending"/);assert.match(html,/15000/);assert.equal((html.match(/<img /g)||[]).length,3);
+  const failFile=f.write(path.join(f.dir,'failed-status.json'),{reviewer:'independent',verdict:'fail',notes:'Essential navigation missing',directions:ready.reviewRequest.images});
+  assert.equal(recordImageConcepts({...f,reviewFile:failFile}).userGoalCompleted,false);
+  html=await(await fetch(url)).text();assert.match(html,/data-review-status="failed"/);assert.match(html,/Essential navigation missing/);assert.doesNotMatch(html,/setTimeout/);
+  const failed=path.join(f.dir,'image-concepts-failed-review.json');
+  const pass=f.write(path.join(f.dir,'recheck.json'),{reviewer:'another-independent',verdict:'pass',notes:'Synthetic test reassessment',reassessmentReason:'Synthetic fixture correction',supersedesFailedReview:{path:failed,sha256:sha(failed)},distinctCompositions:true,directions:ready.reviewRequest.images.map(d=>({...d,completeScreen:true,brandFaithful:true,hostTaskPreserved:true}))});
+  assert.equal(recordImageConcepts({...f,reviewFile:pass}).userGoalCompleted,true);
+  html=await(await fetch(url)).text();assert.match(html,/data-review-status="approved"/);assert.doesNotMatch(html,/setTimeout/);
+  fs.appendFileSync(ready.reviewRequest.images[0].path,'corrupt');assert.equal((await fetch(url)).status,409);
+  assert.equal((await fetch(new URL('/__brand_comparison__?brand=unprepared-h5',base))).status,409);
 });
 
 test('explicit new batch forks verified inputs, keeps failed parent immutable and resumes independently', t=>{
@@ -154,7 +220,7 @@ test('same-image independent reassessment requires exact failed binding and reas
   assert.equal(recordImageConcepts({...f,reviewFile:next}).userGoalCompleted,true);
   assert.equal(sha(failedFile),original);
   fs.appendFileSync(ready.reviewRequest.images[0].path,'changed');
-  assert.throws(()=>imageConceptDelivery(f),/bind and approve|same images/);
+  assert.throws(()=>imageConceptDelivery(f),/hash mismatch|bind and approve|same images/);
 });
 
 test('material business failure stays blocked and cannot be superseded by a nonpassing review', t=>{

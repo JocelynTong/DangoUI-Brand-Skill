@@ -21,7 +21,8 @@ const server = http.createServer((request, response) => {
     let delivery
     try { delivery = fs.existsSync(imageConceptFile(root, brand)) ? imageConceptDelivery({root, brand}) : evaluateHostDelivery({ root, brand }) }
     catch (error) { response.writeHead(409, {'content-type':'application/json; charset=utf-8'}).end(JSON.stringify({userGoalCompleted:false,error:error.message})); return }
-    if (!delivery.userGoalCompleted || !delivery.comparisonPreview || delivery.approvedMaster) {
+    const imagePreview = delivery.medium === 'full-image' && delivery.previewAvailable === true && delivery.images?.length === 3
+    if ((!delivery.userGoalCompleted && !imagePreview) || !delivery.comparisonPreview || delivery.approvedMaster) {
       response.writeHead(409, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }).end(JSON.stringify(delivery))
       return
     }
@@ -74,10 +75,14 @@ function imageComparisonHarness(delivery) {
     const src = '/' + path.relative(root, file).split(path.sep).map(encodeURIComponent).join('/')
     return `<section><h2>方案 ${escapeHtml(image.id.toUpperCase())}</h2><a href="${escapeHtml(src)}" target="_blank" rel="noopener"><img src="${escapeHtml(src)}" alt="方案 ${escapeHtml(image.id.toUpperCase())} 完整效果图"></a></section>`
   }).join('')
-  const notes = [delivery.reviewNotes,...delivery.presentationRequirements, ...delivery.limitations].filter(Boolean).map(text=>`<li>${escapeHtml(text)}</li>`).join('')
+  const notes = [delivery.reviewNotes,...(delivery.presentationRequirements||[]), ...(delivery.limitations||[])].filter(Boolean).map(text=>`<li>${escapeHtml(text)}</li>`).join('')
+  const status=delivery.previewStatus||'approved'
+  const statusText=status==='pending'?'待独立审核 · 三图已生成，不代表交付通过':status==='failed'?'审核未通过 · 仅供诊断查看，不是合格选案':'独立审核完成 · 可供选案（不代表实施认证）'
+  const guidance=status==='approved'?'可在对话中选择 A/B/C，或说“不满意，再来三个”；不会自动实施。':'请等待审核或纠正结果；当前展示不批准选案，不授权实施。'
+  const refresh=status==='pending'?'<script>setTimeout(()=>{if(document.visibilityState==="visible")location.reload();else document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")location.reload()},{once:true})},15000)</script>':''
   return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三张完整效果图 · 选向比较</title><style>
 *{box-sizing:border-box}body{margin:0;padding:24px;background:#edf0f2;color:#172026;font:16px/1.6 system-ui,sans-serif}header,footer,main{max-width:1240px;margin:0 auto}h1{font-size:24px}main{display:flex;gap:20px;overflow-x:auto;align-items:start;padding:16px 0}section{flex:0 0 390px;background:white}h2{font-size:18px;padding:0 12px}img{display:block;width:390px;height:auto}footer{padding:16px 0}a{color:inherit}
-</style></head><body><header><h1>同一场景 · 三张完整效果图</h1><p>图像预览，不可交互；未转成宿主 H5，未修改宿主。三案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。选案请在对话中回复，不会自动实施。</p></header><main aria-label="等权三案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer></body></html>`
+</style></head><body data-review-status="${escapeHtml(status)}"><header><h1>同一场景 · 三张完整效果图</h1><h2 role="status">${statusText}</h2><p>图像预览，不可交互；未转成宿主 H5，未修改宿主。三案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。${guidance}</p></header><main aria-label="等权三案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer>${refresh}</body></html>`
 }
 
 function viewportFrame({ src, width, height, id, title }) {
