@@ -244,6 +244,17 @@ export function finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles,
 // The single root provenance receipt is permitted only when the state machine
 // froze it and this exact dispatch consumes the separately frozen trial grant.
 export function validateDirectionInputPath({ workspace, migration, dispatch, dispatchPath, input }) {
+  // Registry runtime assets are frozen inputs, not producer output locations.
+  const assetRoot = path.join(workspace, 'public', 'assets', 'brand-assets', path.basename(migration));
+  const candidate = resolveFrom(workspace, input?.path);
+  if (candidate.startsWith(`${assetRoot}${path.sep}`)) {
+    // Check the workspace boundary as well: an asset-root symlink cannot grant
+    // access to another run or brand. The caller still verifies the frozen hash.
+    insideExistingFile(workspace, candidate, 'INPUT_OUTSIDE_ARTIFACT_MIGRATION');
+    const realAssets = path.join(fs.realpathSync(workspace), 'public', 'assets', 'brand-assets', path.basename(migration));
+    if (fs.realpathSync(assetRoot) !== realAssets) throw new Error('INPUT_OUTSIDE_ARTIFACT_MIGRATION');
+    return insideExistingFile(assetRoot, candidate, 'INPUT_OUTSIDE_ARTIFACT_MIGRATION');
+  }
   if (input?.path !== 'source-continuation.json') return insideExistingFile(migration, resolveFrom(workspace, input?.path), 'INPUT_OUTSIDE_ARTIFACT_MIGRATION');
   const file = path.join(workspace, 'source-continuation.json');
   const manifest = readJson(path.join(migration, 'execution-manifest.json'), 'PREVIEW_MANIFEST_INVALID');

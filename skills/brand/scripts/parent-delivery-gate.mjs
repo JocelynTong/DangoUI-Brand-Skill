@@ -192,7 +192,7 @@ export function evaluateSourceContinuation({ root, handoffFile = 'source-prerequ
   const host = path.resolve(handoff.hostTarget);
   if (child === root || path.dirname(child) === root || !inside(root, child) || child === host || child.startsWith(`${host}${path.sep}`)) return result('blocked', ['HOST_CONTINUATION_ISOLATION_INVALID']);
   const savedArgs = originalArgs || handoff.parentArgs || handoff.originalArgs || handoff.resume?.args;
-  const args = savedArgs ? [...savedArgs] : ['run', '--request-kind', 'host-concepts', '--mode', 'design-host', '--profile', handoff.requestedProfile, '--brand', handoff.brand, '--host-target', handoff.hostTarget];
+  const args = savedArgs ? savedArgs.filter(arg => arg !== '--learn-source') : ['run', '--request-kind', 'host-concepts', '--mode', 'design-host', '--profile', handoff.requestedProfile, '--brand', handoff.brand, '--host-target', handoff.hostTarget];
   for (const flag of ['--source-url', '--mod-file', '--style-pack', '--root', '--artifact-root']) {
     let index; while ((index = args.indexOf(flag)) >= 0) args.splice(index, 2);
   }
@@ -246,7 +246,7 @@ export function evaluatePreviewContinuation({ root, continuationScope, previewRe
   const child = path.join(root, 'host-preview-macro', 'build');
   const host = path.resolve(handoff.hostTarget);
   if (child === host || child.startsWith(`${host}${path.sep}`)) return result('blocked', ['HOST_CONTINUATION_ISOLATION_INVALID']);
-  const args = [...handoff.parentArgs];
+  const args = handoff.parentArgs.filter(arg => arg !== '--learn-source');
   for (const flag of ['--source-url', '--mod-file', '--style-pack', '--root', '--artifact-root']) { let index; while ((index = args.indexOf(flag)) >= 0) args.splice(index, 2); }
   args.push('--mod-file', path.join(root, modPath), '--artifact-root', child);
   return result('resume-ready', [], { parentRequestKind: 'host-concepts', parentArtifactRoot: root, learningComplete: false, fullWorkflowPass: false, partialBrandValidation: receipt, previewReadiness: receiptRef, sourceLearningStatus: strict.status, sourceLearningErrors: strict.errors, requiredRuntimeAssets: assets, resume: { entry: handoff.learning.entry, args, artifactRoot: child, modFile: path.join(root, modPath) }, nextAction: 'resume-scoped-host-preview' });

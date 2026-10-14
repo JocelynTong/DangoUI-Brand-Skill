@@ -105,10 +105,35 @@ try {
   assert.equal(JSON.parse(conflict.stdout).blockingCode,'STYLE_PACK_SELECTION_CONFLICT');
   const absent=runFixture(libraryArgs.map(value=>value.includes('#/brand/pokemon-')?value.replaceAll('pokemon-tcg-official','absent-brand'):value));
   assert.equal(JSON.parse(absent.stdout).blockingCode,'SELECTED_STYLE_PACK_NOT_FOUND');
+  // A normal website reference must discover its published pack before any
+  // prerequisite extraction. Discovery is not permission to silently reuse it.
+  writeJson(path.join(registryRoot,'by-source.json'), {sources:{'https://tcg.pokemon.com/en-us':selectedBrand}});
+  const discovery = runFixture(libraryArgs.map(value => value.includes('#/brand/pokemon-') ? 'https://tcg.pokemon.com/en-us/' : value));
+  assert.equal(JSON.parse(discovery.stdout).blockingCode, 'STYLE_PACK_REUSE_APPROVAL_REQUIRED');
+  const websiteArgs = libraryArgs.map(value => value.includes('#/brand/pokemon-') ? 'https://tcg.pokemon.com/en-us/' : value);
+  const learning = runFixture([...websiteArgs, '--learn-source']);
+  assert.equal(learning.status, 0, learning.stdout + learning.stderr);
+  assert.equal(JSON.parse(learning.stdout).status, 'prerequisite-dispatch-ready');
+  const learningHandoff = JSON.parse(fs.readFileSync(path.join(libraryRoot,'source-prerequisite.json'),'utf8'));
+  assert.equal(learningHandoff.parentRequestKind, 'host-concepts');
+  assert.equal(learningHandoff.hostTarget, host);
+  assert.equal(learningHandoff.brand, selectedBrand);
+  assert.equal(learningHandoff.learning.args[learningHandoff.learning.args.indexOf('--brand') + 1], selectedBrand);
+  assert.ok(learningHandoff.parentArgs.includes('--learn-source'));
+  assert.equal(learningHandoff.parentArgs[learningHandoff.parentArgs.indexOf('--source-url') + 1], learningHandoff.sourceUrl);
+  assert.equal(learningHandoff.parentArgs[learningHandoff.parentArgs.indexOf('--brand') + 1], learningHandoff.brand);
+  assert.equal(learningHandoff.parentArgs.includes('--mod-file'), false);
+  fs.unlinkSync(path.join(libraryRoot,'source-prerequisite.json'));
+  assert.equal(JSON.parse(runFixture([...websiteArgs,'--learn-source','--reuse-style-pack']).stdout).blockingCode,'SOURCE_SELECTION_CONFLICT');
+  assert.equal(JSON.parse(runFixture([...libraryArgs,'--learn-source']).stdout).blockingCode,'LIBRARY_LINK_NOT_LEARNING_SOURCE');
+  assert.equal(fs.existsSync(path.join(libraryRoot,'source-prerequisite.json')),false);
+  assert.equal(fs.existsSync(path.join(libraryRoot,'output/extractor-benchmark')),false);
   for (const profile of ["fast", "standard", "certification"]) {
     const profileRoot = path.join(fixtureRoot, profile, "build");
     fs.mkdirSync(profileRoot, { recursive: true });
     writeJson(path.join(fixtureRoot, profile, "run.json"), { schema: "brand-artifact-run/v1", id: profile, host, status: "active" });
+    writeJson(path.join(profileRoot,'public/brand-registry/v0.1/index.json'), {brands:[]});
+    writeJson(path.join(profileRoot,'public/brand-registry/v0.1/by-source.json'), {sources:{}});
     const sourceOnly = runFixture([
       "run", "--request-kind", "host-concepts", "--artifact-root", profileRoot,
       "--profile", profile, "--brand", brand, "--host-target", host,

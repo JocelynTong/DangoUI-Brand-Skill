@@ -2,6 +2,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import crypto from "node:crypto";
+import os from "node:os";
 import { pathToFileURL } from "node:url";
 
 export const DEFAULT_REGISTRY_BASE = "https://jocelyntong.github.io/DangoUI-Brand-Skill/";
@@ -103,6 +104,7 @@ export async function resolvePublicStylePack({
   requestTimeoutMs = DEFAULT_REGISTRY_REQUEST_TIMEOUT_MS,
   networkTimeoutMs = DEFAULT_REGISTRY_NETWORK_TIMEOUT_MS,
   downloadTimeoutMs = DEFAULT_REGISTRY_DOWNLOAD_TIMEOUT_MS,
+  cacheRoot = path.join(os.tmpdir(), 'brand-registry-content-cache'),
 } = {}) {
   if (!sourceUrl) return { matched: false, reason: "source-url-required" };
   const request = registryNetwork({ requestTimeoutMs, networkTimeoutMs });
@@ -180,6 +182,38 @@ export async function resolvePublicStylePack({
   const installedFiles = [];
   const reusedFiles = [];
   const downloadedFiles = [];
+  const cachedFiles = [];
+  // Cache only public, hash-declared bytes. Always resolve current metadata;
+  // a prior run, old manifest or maintenance checkout is never authority.
+  function cachedBytes(expected) {
+    if (source !== 'public' || !cacheRoot || !/^[a-f0-9]{64}$/i.test(expected || '')) return null;
+    const file = path.join(cacheRoot, expected.toLowerCase());
+    try {
+      if (fs.lstatSync(cacheRoot).isSymbolicLink() || !fs.lstatSync(file).isFile()) return null;
+      const bytes = fs.readFileSync(file);
+      return crypto.createHash('sha256').update(bytes).digest('hex') === expected.toLowerCase() ? bytes : null;
+    } catch { return null; }
+  }
+  async function publicBytes(url, expected, mismatch) {
+    const cached = cachedBytes(expected);
+    if (cached) return {bytes:cached, cached:true};
+    const bytes = await fetchBytes(url);
+    verifyDeclaredHash(bytes, expected, mismatch);
+    if (cacheRoot && /^[a-f0-9]{64}$/i.test(expected || '')) {
+      let temporary;
+      try {
+        fs.mkdirSync(cacheRoot, {recursive:true});
+        if (!fs.lstatSync(cacheRoot).isSymbolicLink()) {
+          temporary = path.join(cacheRoot, `${expected}.${crypto.randomUUID()}.tmp`);
+          fs.writeFileSync(temporary, bytes, {flag:'wx'});
+          fs.renameSync(temporary, path.join(cacheRoot, expected.toLowerCase()));
+        }
+      } catch { // Cache availability must not block verified package delivery.
+        if (temporary && fs.existsSync(temporary)) fs.unlinkSync(temporary);
+      }
+    }
+    return {bytes, cached:false};
+  }
   function reuseVerified(target, expected) {
     if (!expected || !fs.existsSync(target) || !fs.statSync(target).isFile()) return false;
     if (crypto.createHash("sha256").update(fs.readFileSync(target)).digest("hex") !== expected) return false;
@@ -203,13 +237,14 @@ export async function resolvePublicStylePack({
       const target = path.join(targetRoot, fileName);
       const expected = manifest.artifactHashes?.[artifactName];
       if (reuseVerified(target, expected)) return;
-      const bytes = source === "local"
-        ? fs.readFileSync(path.join(root, "public", artifactPath.replace(/^\//, "")))
-        : await fetchBytes(remoteUrl(registryBase, artifactPath));
+      const transfer = source === "local"
+        ? {bytes:fs.readFileSync(path.join(root, "public", artifactPath.replace(/^\//, "")))}
+        : await publicBytes(remoteUrl(registryBase, artifactPath), expected, `Registry artifact hash mismatch: ${artifactPath}`);
+      const bytes = transfer.bytes;
       verifyDeclaredHash(bytes, expected, `Registry artifact hash mismatch: ${artifactPath}`);
       JSON.parse(bytes.toString("utf8"));
       fs.writeFileSync(target, bytes);
-      downloadedFiles.push(path.relative(root, target));
+      (transfer.cached ? cachedFiles : downloadedFiles).push(path.relative(root, target));
       installedFiles.push(path.relative(root, target));
       });
     }
@@ -221,13 +256,14 @@ export async function resolvePublicStylePack({
         throw new Error(`Registry evidence install path escapes brand root: ${evidenceAsset.installPath}`);
       }
       if (reuseVerified(target, evidenceAsset.sha256)) return;
-      const value = source === "local"
-        ? fs.readFileSync(path.join(root, "public", evidenceAsset.path.replace(/^\//, "")))
-        : await fetchBytes(remoteUrl(registryBase, evidenceAsset.path));
+      const transfer = source === "local"
+        ? {bytes:fs.readFileSync(path.join(root, "public", evidenceAsset.path.replace(/^\//, "")))}
+        : await publicBytes(remoteUrl(registryBase, evidenceAsset.path), evidenceAsset.sha256, `Registry evidence hash mismatch: ${evidenceAsset.path}`);
+      const value = transfer.bytes;
       verifyDeclaredHash(value, evidenceAsset.sha256, `Registry evidence hash mismatch: ${evidenceAsset.path}`);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.writeFileSync(target, value);
-      downloadedFiles.push(path.relative(root, target));
+      (transfer.cached ? cachedFiles : downloadedFiles).push(path.relative(root, target));
       installedFiles.push(path.relative(root, target));
       });
     }
@@ -241,13 +277,14 @@ export async function resolvePublicStylePack({
         throw new Error(`Registry runtime asset install path escapes artifact root: ${runtimeAsset.installPath}`);
       }
       if (reuseVerified(target, runtimeAsset.sha256)) return;
-      const value = source === "local"
-        ? fs.readFileSync(path.join(root, "public", runtimeAsset.path.replace(/^\//, "")))
-        : await fetchBytes(remoteUrl(registryBase, runtimeAsset.path));
+      const transfer = source === "local"
+        ? {bytes:fs.readFileSync(path.join(root, "public", runtimeAsset.path.replace(/^\//, "")))}
+        : await publicBytes(remoteUrl(registryBase, runtimeAsset.path), runtimeAsset.sha256, `Registry runtime asset hash mismatch: ${runtimeAsset.path}`);
+      const value = transfer.bytes;
       verifyDeclaredHash(value, runtimeAsset.sha256, `Registry runtime asset hash mismatch: ${runtimeAsset.path}`);
       fs.mkdirSync(path.dirname(target), { recursive: true });
       fs.writeFileSync(target, value);
-      downloadedFiles.push(path.relative(root, target));
+      (transfer.cached ? cachedFiles : downloadedFiles).push(path.relative(root, target));
       installedFiles.push(path.relative(root, target));
       });
     }
@@ -277,6 +314,7 @@ export async function resolvePublicStylePack({
     installedFiles,
     reusedFiles: reusedFiles.sort(),
     downloadedFiles: downloadedFiles.sort(),
+    cachedFiles: cachedFiles.sort(),
     reusePolicy: entry.reusePolicy,
   };
 }

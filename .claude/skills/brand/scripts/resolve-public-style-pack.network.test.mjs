@@ -15,8 +15,49 @@ async function fixture(t, handler) {
   await once(server, "listening");
   t.after(() => { server.closeAllConnections(); server.close(); });
   // Deliberately leave only this tiny test fixture; no recursive cleanup.
-  return { root, registryBase: `http://127.0.0.1:${server.address().port}/`, sourceUrl: "https://example.com/" };
+  return { root, cacheRoot:path.join(root,'cache'), registryBase: `http://127.0.0.1:${server.address().port}/`, sourceUrl: "https://example.com/" };
 }
+
+test('a fresh isolated run reuses verified public bytes after partial failure, never stale metadata', async t => {
+  const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
+  const files = {'/data.json':Buffer.from('{"v":1}'), '/frame.png':Buffer.from('frame'), '/asset.png':Buffer.from('asset')};
+  const manifest = {artifacts:{data:'/data.json'}, artifactHashes:{data:sha(files['/data.json'])},
+    evidenceAssets:[{path:'/frame.png',installPath:'frame.png',sha256:sha(files['/frame.png'])}],
+    runtimeAssets:[{path:'/asset.png',installPath:'public/assets/brand-assets/demo/asset.png',sha256:sha(files['/asset.png'])}]};
+  let failAsset = true;
+  const hits = [];
+  const options = await fixture(t,(req,res)=>{
+    hits.push(req.url);
+    if (req.url==='/asset.png' && failAsset) {res.writeHead(404);res.end();return;}
+    res.setHeader('content-type','application/json');
+    res.end(files[req.url] || JSON.stringify(req.url.endsWith('index.json') ? {brands:[{id:'demo',manifest:'/manifest.json'}]}
+      : req.url.endsWith('by-source.json') ? {sources:{'https://example.com/':'demo'}} : manifest));
+  });
+  await assert.rejects(resolvePublicStylePack({...options,install:true}), /404/);
+  failAsset=false; hits.length=0;
+  const second=await resolvePublicStylePack({...options,root:path.join(options.root,'new-run'),install:true});
+  assert.equal(second.cachedFiles.length,2);
+  assert.deepEqual(second.downloadedFiles,['public/assets/brand-assets/demo/asset.png']);
+  assert.equal(hits.includes('/data.json'),false);assert.equal(hits.includes('/frame.png'),false);
+  assert.ok(hits.includes('/manifest.json'));
+  // Corruption forces a real verified fetch, without accepting poisoned cache.
+  fs.writeFileSync(path.join(options.cacheRoot,manifest.evidenceAssets[0].sha256),'corrupt');
+  hits.length=0;
+  const third=await resolvePublicStylePack({...options,root:path.join(options.root,'third-run'),install:true});
+  assert.deepEqual(third.downloadedFiles,['migrations/demo/frame.png']);
+  assert.equal(third.cachedFiles.length,2);
+  // A new publication at the same URL is authoritative, not the old hash cache.
+  files['/data.json']=Buffer.from('{"v":2}');manifest.artifactHashes.data=sha(files['/data.json']);hits.length=0;
+  const fourth=await resolvePublicStylePack({...options,root:path.join(options.root,'fourth-run'),install:true});
+  assert.deepEqual(fourth.downloadedFiles,['migrations/demo/data.json']);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(options.root,'fourth-run/migrations/demo/data.json'))).v,2);
+  const oldHash=manifest.artifactHashes.data;
+  // Wrong remote bytes must neither install nor populate the declared cache key.
+  manifest.artifactHashes.data='a'.repeat(64);
+  await assert.rejects(resolvePublicStylePack({...options,root:path.join(options.root,'bad-run'),install:true}), /hash mismatch/);
+  assert.equal(fs.existsSync(path.join(options.cacheRoot,manifest.artifactHashes.data)),false);
+  assert.ok(fs.existsSync(path.join(options.cacheRoot,oldHash)));
+});
 
 test('resume fetches only missing or corrupt files using the current manifest hashes', async t => {
   const bytes = Buffer.from('{}\n');

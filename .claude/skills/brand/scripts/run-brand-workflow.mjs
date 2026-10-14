@@ -288,12 +288,14 @@ validateRequestKindMode(requestKind, mode);
 const profile = opt(rawArgs, "--profile", ["design-host", "apply-host"].includes(mode) ? "fast" : "full");
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
+const learnSource = rawArgs.includes('--learn-source');
 const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
 // Selecting a page in our published brand library selects that package, not
 // the library chrome as a new website to learn. Arbitrary hash URLs do not.
 const selectedLibraryBrand = brandFromDemoUrl(opt(rawArgs, "--source-url", ""), opt(rawArgs, "--registry-base", undefined));
-if (selectedLibraryBrand && (forceRelearn || updateExisting || rawArgs.includes('--source-prerequisite'))) block('LIBRARY_LINK_NOT_LEARNING_SOURCE', 'Use the original brand website for learning or maintenance, not a brand library page.');
+if (selectedLibraryBrand && (forceRelearn || updateExisting || learnSource || rawArgs.includes('--source-prerequisite'))) block('LIBRARY_LINK_NOT_LEARNING_SOURCE', 'Use the original brand website for learning or maintenance, not a brand library page.');
 const reuseStylePack = rawArgs.includes("--reuse-style-pack") || Boolean(selectedLibraryBrand && ["design-host", "apply-host"].includes(mode));
+if (learnSource && (command !== 'run' || mode !== 'design-host' || reuseStylePack || !opt(rawArgs,'--source-url','') || opt(rawArgs,'--mod-file','') || opt(rawArgs,'--style-pack',''))) block('SOURCE_SELECTION_CONFLICT', 'Explicit source learning requires a host-concepts website request without a selected package.');
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");
 }
@@ -310,31 +312,13 @@ let brand = resolveBrand(rawArgs.slice(1));
 if (selectedLibraryBrand && reuseStylePack && opt(rawArgs, '--brand', '') && brand !== selectedLibraryBrand) block('STYLE_PACK_SELECTION_CONFLICT', 'The selected library page and --brand name different packages.');
 let registryResolution = null;
 const requestedSourceUrl = opt(rawArgs, "--source-url", "");
+if (requestedSourceUrl) {
+  let source;
+  try { source = new URL(requestedSourceUrl); } catch { block('BRAND_SOURCE_URL_INVALID', 'Provide a valid brand reference URL.'); }
+  if (!['https:', 'http:'].includes(source.protocol)) block('BRAND_SOURCE_URL_INVALID', 'Brand references must use HTTP(S).');
+}
 const needsReusablePack = requestedSourceUrl && !opt(rawArgs, "--style-pack", "") && !opt(rawArgs, "--mod-file", "");
 
-// A URL is a complete user reference, not a missing internal package.
-// Keep host-concepts as the parent intent; hand the existing learning pipeline
-// a prerequisite, then resume only after its evidence/package QA gates.
-if (command === "run" && mode === "design-host" && needsReusablePack && !reuseStylePack) {
-  const hostTarget = opt(rawArgs, "--host-target", "") || opt(rawArgs, "--host-target-or-plan", "");
-  let source;
-  try { source = new URL(requestedSourceUrl); } catch { block("BRAND_SOURCE_URL_INVALID", "Provide a valid brand reference URL."); }
-  if (!["https:", "http:"].includes(source.protocol)) block("BRAND_SOURCE_URL_INVALID", "Brand references must use HTTP(S).");
-  const learningArgs = ["run", "--request-kind", "brand-learning", "--mode", "learn-brand", "--profile", profile === "fast" ? "fast" : "full", "--brand", brand, "--source-url", requestedSourceUrl, "--root", root, "--source-prerequisite"];
-  const handoff = {
-    schema: "brand-source-prerequisite/v1", status: "learning-required", parentRequestKind: requestKind,
-    sourceUrl: requestedSourceUrl, brand, hostTarget, artifactRoot: root, parentArgs: [...rawArgs],
-    requestedProfile: profile, hostMutationAllowed: false, fullWorkflowPass: false,
-    learning: { entry: skillScript("run-brand-workflow.mjs"), args: learningArgs },
-    resume: { requestKind, mode, profile, hostTarget, artifactRoot: root, requires: ["learn-brand evidence and independent QA", "validated Brand MOD and hash-bound runtime assets"], modFile: null },
-  };
-  const handoffFile = path.join(root, "source-prerequisite.json");
-  const existingHandoff = readJsonIfExists(handoffFile);
-  if (existingHandoff && (existingHandoff.sourceUrl !== requestedSourceUrl || existingHandoff.hostTarget !== hostTarget || existingHandoff.brand !== brand || (existingHandoff.parentArgs && JSON.stringify(existingHandoff.parentArgs) !== JSON.stringify(rawArgs)))) block("SOURCE_PREREQUISITE_CONFLICT", "The original host request is immutable; continue its handoff or start a separate isolated run.");
-  if (!existingHandoff) fs.writeFileSync(handoffFile, `${JSON.stringify(handoff, null, 2)}\n`, { flag: "wx" });
-  process.stdout.write(`${JSON.stringify({ ...(existingHandoff || handoff), ok: true, command, workflow: mode, requestKind, status: "prerequisite-dispatch-ready", step: "brand-source-learning", handoffFile, userGoalCompleted: false, continueCommand: [fileURLToPath(import.meta.url), "continue", "--artifact-root", root], nextAction: "Orchestrator uses the public continue command without asking the user for a package. It drives the learning dispatch, validates independent QA and resumes preserved host-concepts; this handoff is not learning or H5 success." }, null, 2)}\n`);
-  process.exit(0);
-}
 
 if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
   try {
@@ -384,7 +368,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       process.exit(0);
     }
 
-    if (["design-host", "apply-host"].includes(mode) && !reuseStylePack) {
+    if (["design-host", "apply-host"].includes(mode) && !reuseStylePack && !learnSource) {
       process.stdout.write(`${JSON.stringify({
         ok: false,
         command,
@@ -394,19 +378,48 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
         root,
         registryResolution: { ...registryResolution, installedFiles: [] },
         blockingCode: "STYLE_PACK_REUSE_APPROVAL_REQUIRED",
-        nextAction: "Either run brand-learning for the supplied source, provide an explicit local --style-pack/--mod-file, or explicitly authorize the reviewed Registry pack with --reuse-style-pack.",
+        nextAction: "Ask once in plain language whether to reuse this published brand/version or learn the supplied website anew. Do not ask the user to locate a Variant URL or internal files. After reuse approval repeat this command in the same artifact root with --reuse-style-pack; after explicit learning choice repeat with --learn-source to preserve the host-concepts parent goal. No source extraction has started.",
         message: "A Registry match is only a discovery result. It cannot silently replace current brand learning or become the visual input for host concepts.",
       }, null, 2)}\n`);
       process.exit(1);
     }
 
-    if (["design-host", "apply-host"].includes(mode)) {
+    if (learnSource) {
+      rawArgs = withoutOption(rawArgs, '--brand');
+      rawArgs.push('--brand', brand);
+    }
+    if (["design-host", "apply-host"].includes(mode) && !learnSource) {
       rawArgs = withoutOption(rawArgs, "--source-url");
       rawArgs = withoutOption(rawArgs, "--registry-base");
       if (!opt(rawArgs, "--brand", "")) rawArgs.push("--brand", brand);
       rawArgs.push("--mod-file", path.resolve(root, registryResolution.modFile));
     }
   }
+}
+
+// Discover a published candidate before starting browser-based learning.
+// A URL is a complete user reference, not a missing internal package.
+// Keep host-concepts as the parent intent; hand the existing learning pipeline
+// a prerequisite, then resume only after its evidence/package QA gates.
+if (command === "run" && mode === "design-host" && needsReusablePack && !reuseStylePack) {
+  const hostTarget = opt(rawArgs, "--host-target", "") || opt(rawArgs, "--host-target-or-plan", "");
+  let source;
+  try { source = new URL(requestedSourceUrl); } catch { block("BRAND_SOURCE_URL_INVALID", "Provide a valid brand reference URL."); }
+  if (!["https:", "http:"].includes(source.protocol)) block("BRAND_SOURCE_URL_INVALID", "Brand references must use HTTP(S).");
+  const learningArgs = ["run", "--request-kind", "brand-learning", "--mode", "learn-brand", "--profile", profile === "fast" ? "fast" : "full", "--brand", brand, "--source-url", requestedSourceUrl, "--root", root, "--source-prerequisite"];
+  const handoff = {
+    schema: "brand-source-prerequisite/v1", status: "learning-required", parentRequestKind: requestKind,
+    sourceUrl: requestedSourceUrl, brand, hostTarget, artifactRoot: root, parentArgs: [...rawArgs],
+    requestedProfile: profile, hostMutationAllowed: false, fullWorkflowPass: false,
+    learning: { entry: skillScript("run-brand-workflow.mjs"), args: learningArgs },
+    resume: { requestKind, mode, profile, hostTarget, artifactRoot: root, requires: ["learn-brand evidence and independent QA", "validated Brand MOD and hash-bound runtime assets"], modFile: null },
+  };
+  const handoffFile = path.join(root, "source-prerequisite.json");
+  const existingHandoff = readJsonIfExists(handoffFile);
+  if (existingHandoff && (existingHandoff.sourceUrl !== requestedSourceUrl || existingHandoff.hostTarget !== hostTarget || existingHandoff.brand !== brand || (existingHandoff.parentArgs && JSON.stringify(existingHandoff.parentArgs) !== JSON.stringify(rawArgs)))) block("SOURCE_PREREQUISITE_CONFLICT", "The original host request is immutable; continue its handoff or start a separate isolated run.");
+  if (!existingHandoff) fs.writeFileSync(handoffFile, `${JSON.stringify(handoff, null, 2)}\n`, { flag: "wx" });
+  process.stdout.write(`${JSON.stringify({ ...(existingHandoff || handoff), ok: true, command, workflow: mode, requestKind, status: "prerequisite-dispatch-ready", step: "brand-source-learning", handoffFile, userGoalCompleted: false, continueCommand: [fileURLToPath(import.meta.url), "continue", "--artifact-root", root], nextAction: "Orchestrator uses the public continue command without asking the user for a package. It drives the learning dispatch, validates independent QA and resumes preserved host-concepts; this handoff is not learning or H5 success." }, null, 2)}\n`);
+  process.exit(0);
 }
 
 const passthroughArgs = rawArgs.slice(1);

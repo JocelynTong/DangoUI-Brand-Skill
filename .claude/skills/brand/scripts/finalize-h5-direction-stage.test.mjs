@@ -165,12 +165,27 @@ try {
     const shellRoles = roles.replace('data-composition-role="navigation-shell"', 'data-composition-role="navigation-shell" data-navigation-shell-treatment="native-preserved" data-scene-continuity="continuous" data-host-shell-item="account"');
     return write(`h5-directions/direction-${id}.html`, `<!doctype html><html><body><main id="transfer-${id}" data-result-hierarchy="peer">${shellRoles}</main><script type="application/json" data-brand-direction>${JSON.stringify(metadata)}</script></body></html>\n`);
   });
-  const requiredInputs = [goalFile, evidenceFile, intentFile, modFile, startupFile, baselineFile, knowledgeFile, transferFile, packetFile, captureFile].map((file) => ({ path: path.relative(root, file), sha256: sha(file) }));
+  const runtimeAsset = path.join(root, 'public/assets/brand-assets', brand, 'official.png');
+  fs.mkdirSync(path.dirname(runtimeAsset), { recursive: true });
+  fs.writeFileSync(runtimeAsset, 'frozen official runtime asset');
+  const requiredInputs = [goalFile, evidenceFile, intentFile, modFile, startupFile, baselineFile, knowledgeFile, transferFile, packetFile, captureFile, runtimeAsset].map((file) => ({ path: path.relative(root, file), sha256: sha(file) }));
   const dispatchFile = write("dispatch/h5DirectionGeneration-1.json", { schema: "brand-subagent-dispatch/v1", dispatchId: "dispatch-1", goalSha256: sha(goalFile), stageId: "h5DirectionGeneration-1", stage: "h5DirectionGeneration", role: "brandApplicationDesigner", requiredInputs, sourceTransfer });
 
   // Independent contract failures are reported together before any output writes.
   const originalHtml = htmlFiles.map((file) => fs.readFileSync(file, "utf8"));
   const originalDispatch = fs.readFileSync(dispatchFile, "utf8");
+  const finalize = () => finalizeH5DirectionStage({ root, brand, dispatchFile, htmlFiles, producerExecutionId: '/root/h5-producer' });
+  fs.writeFileSync(runtimeAsset, 'changed asset');
+  assert.throws(finalize, /FROZEN_INPUT_HASH_MISMATCH/);
+  fs.writeFileSync(runtimeAsset, 'frozen official runtime asset');
+  const otherAsset = path.join(root, 'public/assets/brand-assets/other/official.png');
+  fs.mkdirSync(path.dirname(otherAsset), { recursive: true });
+  fs.writeFileSync(otherAsset, 'frozen official runtime asset');
+  const checkAsset = (file) => validateDirectionInputPath({ workspace: root, migration, input: {path: path.relative(root,file)}, dispatch: {}, dispatchPath: dispatchFile });
+  assert.throws(() => checkAsset(otherAsset), /INPUT_OUTSIDE_ARTIFACT_MIGRATION/);
+  const linkedAsset = path.join(path.dirname(runtimeAsset), 'linked.png');
+  fs.symlinkSync(otherAsset, linkedAsset);
+  assert.throws(() => checkAsset(linkedAsset), /INPUT_OUTSIDE_ARTIFACT_MIGRATION/);
   for (const [index, file] of htmlFiles.entries()) fs.writeFileSync(file, originalHtml[index].replace('"systemRef":"componentVariants.0"', '"systemRef":"guessed.alias"').replace('"systemRef":"componentVariants.1"', '"systemRef":"tokens.wrong.path"').replace("data-host-shell-item", "data-navigation-shell-item").replace('data-scene-continuity="continuous"', 'data-scene-continuity="guessed"'));
   const failedHtmlHashes = htmlFiles.map(sha);
   const routeBefore = sha(path.join(migration, "design-host-route.json"));
