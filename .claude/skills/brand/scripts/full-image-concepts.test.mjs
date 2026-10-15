@@ -248,7 +248,14 @@ test('new public host-concepts defaults to full-image and keeps host unchanged',
   assert.equal(sha(f.source), before);
   const resumed = spawnSync(process.execPath, [entry, 'continue', '--artifact-root', f.root, '--brand', f.brand], { encoding: 'utf8' });
   assert.equal(resumed.status, 0, resumed.stdout + resumed.stderr);
-  assert.deepEqual(JSON.parse(resumed.stdout).dispatchRequest.directions.map(d => d.id), ['a', 'b', 'c']);
+  const compact=JSON.parse(resumed.stdout);
+  assert.deepEqual(compact.pendingDirectionIds, ['a', 'b', 'c']);
+  assert.equal(compact.dispatchRequest, undefined);
+  assert.deepEqual(JSON.parse(fs.readFileSync(compact.dispatchFile)).directions.map(d=>d.id), ['a','b','c']);
+  assert.equal(compact.coordinationCommands.preview.includes('--root'),true);
+  const expanded=spawnSync(process.execPath,[entry,'continue','--artifact-root',f.root,'--brand',f.brand,'--full'],{encoding:'utf8'});
+  assert.equal(expanded.status,0,expanded.stdout+expanded.stderr);
+  assert.deepEqual(JSON.parse(expanded.stdout).dispatchRequest.directions,JSON.parse(fs.readFileSync(compact.dispatchFile)).directions);
 });
 
 test('checkpoint resume, independent review, image gallery and hash rejection stay bound', async t => {

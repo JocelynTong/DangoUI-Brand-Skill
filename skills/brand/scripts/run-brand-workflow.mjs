@@ -81,7 +81,8 @@ if (['record-image-concept','record-image-concepts','continue','delivery','statu
     if(command.startsWith('record-image-concept')) validateArtifactIsolation({command:'run',requestKind:'host-concepts',root:imageRoot,artifactRoot:imageRoot,args:['--host-target',readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'']});
     try {
       const result=command==='record-image-concept'?recordImageConcept({root:imageRoot,brand:imageBrand,id:opt(rawArgs,'--direction',''),inputFile:opt(rawArgs,'--input',''),outputFile:opt(rawArgs,'--output',''),toolCallId:opt(rawArgs,'--tool-call-id',''),producer:opt(rawArgs,'--producer','')}):command==='record-image-concepts'?recordImageConcepts({root:imageRoot,brand:imageBrand,receiptFile:opt(rawArgs,'--receipt',''),reviewFile:opt(rawArgs,'--review','')}):imageConceptDelivery({root:imageRoot,brand:imageBrand});
-      process.stdout.write(`${JSON.stringify(rawArgs.includes('--compact')?compactImageConceptResult(result):result,null,2)}\n`);process.exit(0);
+      const compact=rawArgs.includes('--compact')||(['continue','delivery','status'].includes(command)&&!rawArgs.includes('--full'));
+      process.stdout.write(`${JSON.stringify(compact?compactImageConceptResult(result):result,null,2)}\n`);process.exit(0);
     } catch(error) { block('IMAGE_CONCEPTS_BLOCKED',error.message); }
   }
   if(command.startsWith('record-image-concept')) block('IMAGE_CONCEPTS_RUN_REQUIRED','Use the existing full-image run artifact root and brand.');
