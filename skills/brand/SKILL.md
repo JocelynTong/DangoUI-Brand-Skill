@@ -80,7 +80,7 @@ Demo 是品牌学习能力测试，Evidence Fidelity、Structural Fidelity、Gen
 
 ### 默认首轮：完整效果图
 
-三张图片完成 checkpoint 后立即用公共 `delivery.comparisonPreview` 打开标准 `__brand_comparison__` 待审核页，同时派发独立 QA；此时 `userGoalCompleted=false`，不能说已通过。标准页按同一 URL 低频更新为通过或失败，不再手写 comparison-clean 等展厅。QA 只接收当次 `reviewRequest` 和绑定的必要原件，不传全文历史、全 Skill 或重复生产 prompt；导航、标签、状态、路径、虚构功能、品牌与差异检查不得省略。失败标准页仅是诊断展示，不解锁交付。
+每张图片完成 checkpoint 后立即打开公共 `delivery.comparisonPreview` 标准比较页，明确本轮数量和未审核状态，不等三图齐全才展示。blocked 方向如实显示，不隐藏成功图；三图齐全再派发独立 QA。用户说“继续生成”即新一轮三个全新方案，走 `regenerate-image-concepts`，不要求旧轮三齐，也不是补缺失方向。旧轮原件和成功图保留可选，不计入新轮数量；每轮各方向一次调用，结束后由用户决定再生成、选已有图落地或暂停，不自动无限重试、不自动转 H5。图片选择不抹除失败或待确认项，也不授权整体换肤。标准页复用现有比较入口，不手写展厅。QA 只接收本轮 `reviewRequest` 与必要绑定原件，不传全文历史、全 Skill 或重复生产 prompt；业务、品牌与差异检查不省略。
 
 完整图 QA 服务于用户选方向，不是实施认证：不影响品牌辨识、业务含义、阅读与选案的局部色彩角色、间距或栅格偏差，应明确记录 limitations，可通过；业务遗漏/误导、显著品牌漂移、核心内容难读或三案无实质差异仍失败。按实际影响判断，不按 P 编号自动放行或阻断，也不声称偏差符合原规范。复核既有 FAIL 时使用新独立报告，显式绑定 `supersedesFailedReview: {path, sha256}` 并填写 `reassessmentReason`，说明审核标准纠正或新判断依据；同三图重新实看，通过后才可交付，旧失败原件保持不变，不重画来掩盖问题。
 
@@ -126,10 +126,10 @@ fast 确定性诊断或 Host Strategist 必须从启动页源码与可用渲染�
 
 用户明确要求 ImageGen 探索时，在设计阶段检查当前任务是否暴露内建 `image_gen`；未要求的局部增强可在 QA 定位缺口后检查。不得靠环境变量或猜测。
 
-- 有内建 `image_gen` 时运行 `declare-capability --image-generation available`；默认内建模型可直接生成正式图片候选，不要求或猜测其底层模型名。
-- 没有时传 `unavailable`。外部 CLI/API 不是自动替代品，只有用户明确批准后才能另行使用。
+- 完整效果图阶段有内建 `image_gen` 即直接使用派发包生成，不运行 H5 时代的 `declare-capability` 命令；默认内建模型可生成正式图片候选，不要求或猜测其底层模型名。失败记录的文件位置、JSON 模板与后续命令直接使用派发包 `failureRecording`，不要为记录失败翻查脚本源码。
+- 完整效果图阶段没有内建工具时直接说明不可用、保留已有图，不调用能力声明命令、不自动转 H5。外部 CLI/API 不是自动替代品，只有用户明确批准后才能另行使用。
 
-进入局部资产阶段但未声明时，`next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED` 并保持可重试；明确不可用时保留已经通过 QA 的无图 H5，并把缺口标成未增强，不得编造图片产物。不要手写 capability JSON。
+仅在已批准 H5 的局部资产增强阶段，使用该阶段派发的能力声明入口报告 available/unavailable；未声明时，`next` 返回 `IMAGE_GENERATION_CAPABILITY_UNDECLARED` 并保持可重试。明确不可用时保留已经通过 QA 的无图 H5，并把缺口标成未增强，不得编造图片产物。不要手写 capability JSON；这不是完整效果图阶段的前置步骤。
 
 通用公式为 `ImageGen Expressive + 品牌设计系统 Productive + 设计专家决策知识`。明确要求的 Expressive 探索须绑定官网参考、素材和三个不同的构图意图，生成后再组合 H5，不冻结未获批准的旧布局。Productive 的文字、业务数据、表单、搜索和交互由代码承载；数据库等局部模块的风格不能因功能匹配而升级为整站设计语言。生图前冻结适用知识输入，保存实际 prompt、实际参考图和生成结果，具体见 Designer 岗位。只有已批准 H5 的局部增强才冻结 selector、DOM、字体度量和容器几何，并运行 `validate-expressive-geometry-lock.mjs`。两种情形均保留来源身份边界、真实数据、可读性及独立审核；图片不能冒充可交互页面。
 

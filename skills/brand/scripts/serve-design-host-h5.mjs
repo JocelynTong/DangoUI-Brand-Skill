@@ -3,7 +3,7 @@ import fs from 'node:fs'
 import http from 'node:http'
 import path from 'node:path'
 import { evaluateHostDelivery } from './parent-delivery-gate.mjs'
-import { imageConceptFile, imageConceptDelivery } from './full-image-concepts.mjs'
+import { imageConceptFile, imageConceptDelivery, imageConceptHistory } from './full-image-concepts.mjs'
 
 const args = process.argv.slice(2)
 const arg = (name, fallback = '') => { const i = args.indexOf(name); return i < 0 ? fallback : args[i + 1] || fallback }
@@ -15,19 +15,39 @@ const server = http.createServer((request, response) => {
   let pathname
   try { url = new URL(request.url || '/', 'http://127.0.0.1'); pathname = decodeURIComponent(url.pathname) }
   catch { response.writeHead(400).end(); return }
+  if (pathname === '/__brand_history_image__') {
+    const brand=url.searchParams.get('brand')||'',index=url.searchParams.get('history')||'',id=url.searchParams.get('direction')||'';
+    if(!/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(brand)||! /^[1-9][0-9]*$/.test(index)||!['a','b','c'].includes(id)){response.writeHead(400).end();return;}
+    try {
+      const item=imageConceptHistory({root,brand})[Number(index)-1]?.images.find(d=>d.id===id);
+      if(!item){response.writeHead(404).end();return;}
+      response.writeHead(200,{'content-type':types[path.extname(item.path).toLowerCase()]||'application/octet-stream','cache-control':'no-store'});fs.createReadStream(item.path).pipe(response);
+    } catch(error){response.writeHead(409).end(error.message);}
+    return;
+  }
   if (pathname === '/__brand_comparison__') {
     const brand = url.searchParams.get('brand') || ''
     if (!/^[a-zA-Z0-9][a-zA-Z0-9_-]*$/.test(brand)) { response.writeHead(400).end(); return }
-    let delivery
-    try { delivery = fs.existsSync(imageConceptFile(root, brand)) ? imageConceptDelivery({root, brand}) : evaluateHostDelivery({ root, brand }) }
+    let delivery,viewRoot=root,historyIndex=0,historical
+    try {
+      if(url.searchParams.has('history')) {
+        const value=url.searchParams.get('history');
+        if(!/^[1-9][0-9]*$/.test(value))throw Error('Invalid history index.');
+        historyIndex=Number(value);historical=imageConceptHistory({root,brand})[historyIndex-1];
+        if(!historical)throw Error('Unknown bound history.');
+        viewRoot=historical.artifactRoot;
+      }
+      delivery = fs.existsSync(imageConceptFile(viewRoot, brand)) ? imageConceptDelivery({root:viewRoot, brand}) : evaluateHostDelivery({ root:viewRoot, brand });
+      if(historical&&(delivery.images.length!==historical.images.length||delivery.images.some(d=>!historical.images.some(p=>p.id===d.id&&p.sha256===d.sha256))))throw Error('Historical outputs changed after this batch was frozen.');
+    }
     catch (error) { response.writeHead(409, {'content-type':'application/json; charset=utf-8'}).end(JSON.stringify({userGoalCompleted:false,error:error.message})); return }
-    const imagePreview = delivery.medium === 'full-image' && delivery.previewAvailable === true && delivery.images?.length === 3
+    const imagePreview = delivery.medium === 'full-image' && delivery.previewAvailable === true && Array.isArray(delivery.images)
     if ((!delivery.userGoalCompleted && !imagePreview) || !delivery.comparisonPreview || delivery.approvedMaster) {
       response.writeHead(409, { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store' }).end(JSON.stringify(delivery))
       return
     }
     let html
-    try { html = delivery.medium === 'full-image' ? imageComparisonHarness(delivery) : comparisonHarness(delivery) }
+    try { html = delivery.medium === 'full-image' ? imageComparisonHarness(delivery,viewRoot,historyIndex) : comparisonHarness(delivery) }
     catch (error) { response.writeHead(409, {'content-type':'application/json; charset=utf-8'}).end(JSON.stringify({userGoalCompleted:false,error:error.message})); return }
     response.writeHead(200, { 'content-type': 'text/html; charset=utf-8', 'cache-control': 'no-store' }).end(html)
     return
@@ -68,21 +88,31 @@ function viewportHarness({ src, width, height }) {
 
 const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char])
 
-function imageComparisonHarness(delivery) {
-  const cards = delivery.images.map(image => {
+function imageComparisonHarness(delivery,viewRoot=root,historyIndex=0) {
+  const sampleNotice=delivery.sampleData?'<aside role="note" style="padding:16px;background:#fff3cf;border:2px solid #966b10;max-width:1240px;margin:auto"><strong>示例数据：</strong>所有卡组名称、作者、分类/环境和收藏/浏览数值均为示例，非真实业务数据。原图单独查看时也适用；实际落地使用宿主数据。</aside>':'';
+  const cards = ['a','b','c'].map(id => {
+    const image=delivery.images.find(item=>item.id===id);
+    if(!image) {
+      const failure=(delivery.generationFailures||[]).find(item=>item.direction===id);
+      return `<section data-direction="${id}" data-generation-status="${failure?'blocked':'pending'}"><h2>方案 ${id.toUpperCase()}</h2><div style="padding:24px;min-height:420px;overflow-wrap:anywhere"><h3>${failure?'本方案生成受阻':'等待生成'}</h3>${failure?`<p><code>${escapeHtml(failure.code)}</code></p><p>${escapeHtml(failure.reason)}</p><p>以上为工具返回的原始原因；未提供更具体原因时不作推测。本位置没有生成图片，不计入成功数。</p><p>不会自动重试。可选择已有图，或明确请求新一轮生成。</p>`:'<p>成功后将在此显示完整效果图；已有图可先查看。</p>'}</div></section>`;
+    }
     const file = fs.realpathSync(image.path)
-    if (!file.startsWith(root + path.sep)) throw new Error('Image outside isolated run')
-    const src = '/' + path.relative(root, file).split(path.sep).map(encodeURIComponent).join('/')
+    if (!file.startsWith(viewRoot + path.sep)) throw new Error('Image outside isolated run')
+    const src = historyIndex?`/__brand_history_image__?brand=${encodeURIComponent(delivery.brand)}&history=${historyIndex}&direction=${image.id}`:'/' + path.relative(root, file).split(path.sep).map(encodeURIComponent).join('/')
     return `<section><h2>方案 ${escapeHtml(image.id.toUpperCase())}</h2><a href="${escapeHtml(src)}" target="_blank" rel="noopener"><img src="${escapeHtml(src)}" alt="方案 ${escapeHtml(image.id.toUpperCase())} 完整效果图"></a></section>`
   }).join('')
-  const notes = [delivery.reviewNotes,...(delivery.presentationRequirements||[]), ...(delivery.limitations||[])].filter(Boolean).map(text=>`<li>${escapeHtml(text)}</li>`).join('')
+  const notes = [delivery.reviewNotes,...(delivery.generationFailures||[]).map(f=>`方向 ${f.direction.toUpperCase()} 未完成：${f.code}。${f.reason}`),...(delivery.presentationRequirements||[]), ...(delivery.limitations||[])].filter(Boolean).map(text=>`<li>${escapeHtml(text)}</li>`).join('')
   const status=delivery.previewStatus||'approved'
-  const statusText=status==='pending'?'待独立审核 · 三图已生成，不代表交付通过':status==='failed'?'审核未通过 · 仅供诊断查看，不是合格选案':'独立审核完成 · 可供选案（不代表实施认证）'
-  const guidance=status==='approved'?'可在对话中选择 A/B/C，或说“不满意，再来三个”；不会自动实施。':'请等待审核或纠正结果；当前展示不批准选案，不授权实施。'
-  const refresh=status==='pending'?'<script>setTimeout(()=>{if(document.visibilityState==="visible")location.reload();else document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")location.reload()},{once:true})},15000)</script>':''
-  return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>三张完整效果图 · 选向比较</title><style>
+  const count=delivery.images.length
+  const statusText=status==='pending'?'待独立审核 · 三图已生成，不代表交付通过':status==='partial'||status==='partial-blocked'?`已保存 ${count}/3 张 · 尚未完成三图审核`:status==='failed'?'审核未通过 · 保留问题说明':'独立审核完成 · 可供选案（不代表实施认证）'
+  const guidance=`${count?'可以明确选择本轮已有方向并要求隔离单页。':'本轮暂无可选图。'}说“继续生成”会开启新一轮三个全新方案，旧成功图保留可选；只有明确要求“补齐缺失方向”才补图。不会自动重试、转 H5 或整体换肤。`;
+  const directionStates=delivery.directionStates||['a','b','c'].map(id=>({id,status:delivery.images.some(d=>d.id===id)?'saved':'pending'}));
+  const states=`<p aria-label="本轮方向状态">${directionStates.map(d=>`方案 ${d.id.toUpperCase()}：${({saved:'已保存',blocked:'生成受阻',pending:'待生成'})[d.status]}`).join(' · ')}</p>`;
+  const history=`<nav aria-label="历史批次">${historyIndex?`<a href="/__brand_comparison__?brand=${encodeURIComponent(delivery.brand)}">返回最新轮</a><p>历史轮次 ${historyIndex}；选择时请注明此轮及方向。</p>`:''}${(delivery.history||[]).map((h,i)=>`<p><a href="/__brand_comparison__?brand=${encodeURIComponent(delivery.brand)}&history=${historyIndex+i+1}">回看历史轮次 ${historyIndex+i+1}：${h.completedCount} 张已保存${h.images.length?'，可选 '+h.images.map(d=>d.id.toUpperCase()).join('/'):'，暂无可选图'}</a>（不计入本轮）</p>`).join('')}</nav>`;
+  const refresh=(['pending','partial'].includes(status)||status==='partial-blocked'&&directionStates.some(d=>d.status==='pending'))?'<script>setTimeout(()=>{if(document.visibilityState==="visible")location.reload();else document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")location.reload()},{once:true})},15000)</script>':''
+  return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>完整效果图 · 选向比较</title><style>
 *{box-sizing:border-box}body{margin:0;padding:24px;background:#edf0f2;color:#172026;font:16px/1.6 system-ui,sans-serif}header,footer,main{max-width:1240px;margin:0 auto}h1{font-size:24px}main{display:flex;gap:20px;overflow-x:auto;align-items:start;padding:16px 0}section{flex:0 0 390px;background:white}h2{font-size:18px;padding:0 12px}img{display:block;width:390px;height:auto}footer{padding:16px 0}a{color:inherit}
-</style></head><body data-review-status="${escapeHtml(status)}"><header><h1>同一场景 · 三张完整效果图</h1><h2 role="status">${statusText}</h2><p>图像预览，不可交互；未转成宿主 H5，未修改宿主。三案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。${guidance}</p></header><main aria-label="等权三案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer>${refresh}</body></html>`
+</style></head><body data-review-status="${escapeHtml(status)}"><header><h1>同一场景 · 完整效果图</h1><h2 role="status">${statusText}</h2>${states}<p>图像预览，不可交互；未转成宿主 H5，未修改宿主。已有方案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。${guidance}</p>${history}</header>${sampleNotice}<main aria-label="已有方案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer>${refresh}</body></html>`
 }
 
 function viewportFrame({ src, width, height, id, title }) {

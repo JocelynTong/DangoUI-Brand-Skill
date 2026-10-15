@@ -10,6 +10,18 @@ const write = (file, value) => fs.writeFileSync(file, `${JSON.stringify(value, n
 const assert = (condition, message) => { if (!condition) throw new Error(message); };
 const binding = file => ({path:path.resolve(file), sha256:hash(file)});
 export const imageConceptFile = (root, brand) => path.join(root,'migrations',brand,'image-concepts.json');
+// Presentation only: validate and persist the complete result before compacting.
+// Original inputs and prompts stay available through the bound dispatch file.
+export function compactImageConceptResult(result) {
+  const {dispatchRequest, ...rest}=result;
+  return {...rest,...(dispatchRequest?{
+    dispatchFile:result.dispatchFile||result.dispatch?.path,
+    pendingDirectionIds:dispatchRequest.directions.map(d=>d.id),
+    checkpointCommand:dispatchRequest.checkpointCommand,
+    failureRecording:dispatchRequest.failureRecording,
+    readDispatch:'Use the bound dispatch file for full inputs; do not reread unchanged inputs already consumed in this round.'
+  }:{})};
+}
 const conceptScope = {
   expressive:'Original task-appropriate Expressive subjects, imagery and depth are permitted proposals, not claims of official source assets. A plain documentation reference is not a brand-wide ban on illustration or depth. Distinguish actual source prohibitions from absence in one screenshot.',
   productive:'Keep applicable source typography, controls, semantic roles and readable task surfaces. Evaluate deviations at concept-selection impact, not runtime or pixel certification; disclose harmless localized departures.',
@@ -65,9 +77,24 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
   dispatch.designSystemInputs={dtcg:{path:path.join(dir,'brand-mod.json'),jsonPointer:'/tokens/dtcg'},mapping:inputs.filter(x=>/component-mapping|dangoui-adapter/.test(x.path)),componentSources:inputs.filter(x=>/\.(vue|css|mjs|md)$/.test(x.path)&&x.path!==source),note:'Read the embedded DTCG and actual declared component sources. This image phase visualizes those constraints; it does not claim runtime component reuse.'};
   if(regeneration) {
     dispatch.regeneration=regeneration;
-    dispatch.producerInstructions+=' This is an explicitly requested NEW batch. Apply regeneration.feedback and inspect priorDirections only to avoid repeating rejected visual ideas, never as official image references. Preserve the same host facts and brand constraints. Generate three new complete images, do not copy prior outputs. Preserve all prior failures; this batch requires its own independent review.';
+    dispatch.producerInstructions+=regeneration.recovery
+      ? ' This is an explicitly authorized recovery attempt. Preserve checkpointed images; generate ONLY missing directions returned by delivery. Apply regeneration.feedback and recovery.kind. Technical recovery requires a concrete correction. For a safety refusal, independently assess the genuinely new design for compliance before calling; user consent or a new-design flag is not safety approval. Never reword refused content to evade safeguards. Stop after one attempt per missing direction; preserve failures and ask again if incomplete. Prior images are comparison context, not official evidence. The eventual trio needs independent review.'
+      : ' This is an explicitly requested NEW batch, including when the previous batch was incomplete or blocked. Generate three NEW complete images; never copy old outputs or checkpoints. Apply regeneration.feedback and inspect priorDirections only to avoid repeating visual ideas, never as official references. Preserve host facts and brand constraints. Checkpoint and immediately show each success in the standard comparison preview. Attempt each direction once; a failed direction is terminal in this batch and must be reported without retry. Continue the other pending compliant directions already authorized in this batch. No automatic retry or H5 fallback. User authorization is not safety approval: independently assess a genuinely new compliant design, never reword refused content to evade safeguards. Preserve prior failures; this batch needs its own independent review.';
   }
   dispatch.conceptScope=conceptScope;
+  dispatch.executionGuidance={
+    entry:'This is the full-image stage. Do not call declare-capability or use H5 capability declarations. Use only the commands in this dispatch.',
+    preparation:'Read each necessary bound input once. Distill one shared business/brand brief and prepare three complete prompts together; preserve all source references and design inputs. No whole-repository scans.',
+    tools:'Use supported completion waits instead of rapid polling. Never print image base64. As each tool completes, save its real output and checkpoint in the same orchestration step; show the standard preview immediately. --compact on checkpoint/continue/delivery avoids repeating dispatch prompts without changing saved evidence.',
+    coordination:'Start production only when candidate and inputs are ready. Do not keep a producer active waiting for maintenance. Report new visible results or blockers, not acknowledgements or repeated unchanged status.',
+    review:'Use a fresh independent reviewer with reviewRequest and necessary bound originals only, not a reused maintenance conversation. Inspect the three images, shared business facts and brand references; query precise source sections only for unresolved facts. Preserve findings without automatic redraw.'
+  };
+  dispatch.failureRecording={
+    files:Object.fromEntries(['a','b','c'].map(id=>[id,path.join(dir,'image-concepts',`${id}-failure.json`)])),
+    template:{schema:'brand-image-generation-failure/v1',direction:'<failed direction: a|b|c>',tool:'image_gen',code:'<actual tool error code>',reason:'<verbatim actual tool error message>'},
+    instructions:'Save the exact tool arguments/result first. Create the failed direction file once using this schema; never overwrite a saved image or earlier failure. If the tool gives no specific cause, do not infer copyright or another cause. A refusal is terminal for this direction in this batch: no automatic retry. Continue other authorized pending directions and show the standard preview, including the failed slot. No source-code lookup or H5 fallback is needed.',
+    afterWrite:[...dispatch.commands.delivery,'--compact']
+  };
   const dispatchFile=path.join(dir,'image-concepts-dispatch.json');write(dispatchFile,dispatch);
   write(file,{schema:'brand-full-image-concepts/v1',brand,hostTarget,medium:'full-image',dispatch:binding(dispatchFile),status:'dispatch-ready',userGoalCompleted:false,hostFilesModified:false,...(regeneration?{parentRun:regeneration.parentRun,feedback:regeneration.feedback}: {})});
   return imageConceptDelivery({root,brand});
@@ -75,7 +102,7 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
 
 // Fork inputs, not workflow state. A new user request is distinct from resuming
 // missing images or retrying a failed checkpoint in the old immutable batch.
-export function regenerateImageConcepts({root,brand,feedback,confirmed=false,failedOnly=false}) {
+export function regenerateImageConcepts({root,brand,feedback,confirmed=false,failedOnly=false,missingOnly=false,recoveryKind=''}) {
   assert(confirmed&&typeof feedback==='string'&&feedback.trim(),'Explicit new-batch request and user feedback required.');
   assert(/^[a-z0-9][a-z0-9-]*$/.test(brand||''),'Invalid brand.');
   root=fs.realpathSync(root);
@@ -84,7 +111,13 @@ export function regenerateImageConcepts({root,brand,feedback,confirmed=false,fai
   const dispatch=read(state.dispatch.path);
   [...dispatch.inputs,...dispatch.inputImages].forEach(verifyBinding);
   const prior=checkpoints(root,brand);
-  assert(prior.length===3,'New batch requires three existing images; continue the current batch to generate missing directions.');
+  assert(!(missingOnly&&failedOnly),'Missing-image recovery and QA correction are different operations.');
+  const failures=generationFailures(root,brand);
+  if(missingOnly) {
+    assert(prior.length<3,'No missing images; use explicit new-batch generation instead.');
+    assert(['technical-correction','new-design'].includes(recoveryKind),'A concrete technical correction or genuinely new design is required.');
+    if(failures.some(f=>/moderation|safety|policy|refus/i.test(f.code+' '+f.reason))) assert(recoveryKind==='new-design','Safety refusal cannot be retried as a technical error. Assess a genuinely new compliant design; do not evade safeguards.');
+  } else if(failedOnly) assert(prior.length===3,'QA correction requires three existing images.');
   let repair;
   if(failedOnly) {
     assert(!dispatch.regeneration?.repair,'One bounded correction only; preserve this failed correction.');
@@ -122,7 +155,16 @@ export function regenerateImageConcepts({root,brand,feedback,confirmed=false,fai
   }
   const run=manage('init',{host}),out=run.buildDirectory;
   for(const {b,rel} of local){const target=path.join(out,rel);fs.mkdirSync(path.dirname(target),{recursive:true});if(path.basename(b.path)==='host-startup-page.json')write(target,{...startup,hostRoot:host});else {fs.copyFileSync(b.path,target);assert(hash(target)===b.sha256,'Copied input hash mismatch.');}}
-  const regeneration={parentRun:root,parentDispatch:state.dispatch,parentState:binding(parentFile),feedback:feedback.trim(),priorDirections:prior.map(d=>({id:d.id,output:d.output,prompt:d.prompt,role:'previous-proposal-not-brand-evidence'}))};
+  const regeneration={parentRun:root,parentDispatch:state.dispatch,parentState:binding(parentFile),failures:failures.map(f=>f.record),automaticRetry:false,feedback:feedback.trim(),priorDirections:prior.map(d=>({id:d.id,output:d.output,prompt:d.prompt,role:'previous-proposal-not-brand-evidence'}))};
+  if(missingOnly) {
+    regeneration.recovery={kind:recoveryKind,failures:failures.map(f=>f.record),preservedIds:prior.map(d=>d.id),automaticRetry:false};
+    for(const d of prior) {
+      const dir=path.join(out,'migrations',brand,'image-concepts');fs.mkdirSync(dir,{recursive:true});
+      const output=path.join(dir,`${d.id}.png`),args=path.join(dir,`${d.id}-preserved-args.json`);
+      fs.copyFileSync(d.output.path,output);fs.copyFileSync(d.arguments.path,args);
+      write(path.join(dir,`${d.id}-generation.json`),{...d,path:output,output:binding(output),arguments:binding(args)});
+    }
+  }
   if(repair) {
     regeneration.repair=repair;
     for(const d of prior.filter(d=>repair.frozenIds.includes(d.id))) {
@@ -133,6 +175,33 @@ export function regenerateImageConcepts({root,brand,feedback,confirmed=false,fai
     }
   }
   return {artifactRoot:out,...prepareImageConcepts({root:out,brand,hostTarget:state.hostTarget,sampleData:dispatch.sampleData,regeneration})};
+}
+
+// Traverse only immutable parent bindings, never a caller-supplied filesystem path.
+export function imageConceptHistory({root,brand}) {
+  const history=[],seen=new Set([fs.realpathSync(root)]);
+  let state=read(imageConceptFile(root,brand));
+  for (;;) {
+    verifyBinding(state.dispatch);
+    const r=read(state.dispatch.path).regeneration;
+    if(!r) return history;
+    assert(history.length<64,'Image history exceeds supported depth.');
+    verifyBinding(r.parentState);verifyBinding(r.parentDispatch);
+    const parentRoot=fs.realpathSync(r.parentRun);
+    assert(!seen.has(parentRoot),'Cyclic image history.');seen.add(parentRoot);
+    assert(fs.realpathSync(r.parentState.path)===fs.realpathSync(imageConceptFile(parentRoot,brand)),'Parent state does not match image run.');
+    const parent=read(r.parentState.path);
+    assert(parent.dispatch.path===r.parentDispatch.path&&parent.dispatch.sha256===r.parentDispatch.sha256,'Parent dispatch binding changed.');
+    const failures=r.failures||r.recovery?.failures||[];failures.forEach(verifyBinding);
+    const images=(r.priorDirections||[]).map(d=>{
+      assert(['a','b','c'].includes(d.id),'Invalid historical direction.');verifyBinding(d.output);
+      assert(fs.realpathSync(d.output.path).startsWith(parentRoot+path.sep),'Historical image outside bound run.');
+      return {id:d.id,...d.output};
+    });
+    assert(new Set(images.map(d=>d.id)).size===images.length,'Duplicate historical directions.');
+    history.push({artifactRoot:parentRoot,images,completedCount:images.length,failures,comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}&history=${history.length+1}`}});
+    state=parent;
+  }
 }
 
 // Reuse only hash-bound approvals. New images still pass the unchanged full gate.
@@ -187,7 +256,7 @@ export function recordImageConcept({root,brand,id,inputFile,outputFile,toolCallI
   assert(args.prompt?.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成'),'Reference-fidelity prompt sentence missing.');
   assert(Array.isArray(args.referenced_image_paths),'Actual referenced_image_paths required.');
   const output=binding(outputFile);
-  assert(!dispatch.regeneration?.priorDirections.some(d=>d.output.sha256===output.sha256),'Prior output cannot count as a newly generated concept.');
+  assert(!imageConceptHistory({root,brand}).some(h=>h.images.some(d=>d.sha256===output.sha256)),'Prior output cannot count as a newly generated concept.');
   assert(fs.realpathSync(output.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
   const item={id,producer,path:output.path,output,tool:'image_gen',toolCallId,prompt:args.prompt,arguments:binding(inputFile),inputImages:args.referenced_image_paths.map(binding)};
   const bytes=fs.readFileSync(output.path);
@@ -207,13 +276,19 @@ function validateReceipt(receipt, dispatch, root) {
   for(const d of receipt.directions) {
     assert(fs.realpathSync(d.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
     assert(['a','b','c'].includes(d.id)&&d.tool==='image_gen'&&d.toolCallId&&d.prompt?.length>100,'Actual ImageGen call and complete prompt required for each direction.');
-    assert(d.prompt.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成'),'Reference-fidelity prompt sentence missing.');
+    const preserved=dispatch.regeneration?.recovery?.preservedIds.includes(d.id);
+    const prior=dispatch.regeneration?.priorDirections.find(p=>p.id===d.id);
+    // A preserved historical call must retain its exact prompt, not be rewritten
+    // retrospectively to satisfy a newer template. Newly generated calls stay strict.
+    const unchangedHistoricalCall=preserved&&d.prompt===prior?.prompt&&hash(d.path)===prior?.output.sha256;
+    assert(unchangedHistoricalCall||d.prompt.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成'),'Reference-fidelity prompt sentence missing.');
     const bytes=fs.readFileSync(d.path);
     assert(bytes.length>10000&&(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]))||bytes[0]===255&&bytes[1]===216||bytes.toString('ascii',0,4)==='RIFF'&&bytes.toString('ascii',8,12)==='WEBP'),'Output must be an actual nonempty PNG/JPEG/WebP, not HTML or a receipt.');
     const digest=hash(d.path);hashes.push(digest);
     const frozen=frozenReviews(dispatch).find(q=>q.id===d.id);
     if(frozen) assert(frozen.sha256===digest,'Frozen output changed.');
-    else assert(!dispatch.regeneration?.priorDirections.some(p=>p.output.sha256===digest),'Prior output cannot count as a newly generated concept.');
+    else if(dispatch.regeneration?.recovery?.preservedIds.includes(d.id)) assert(dispatch.regeneration.priorDirections.find(p=>p.id===d.id)?.output.sha256===digest,'Preserved recovery image changed.');
+    else assert(!imageConceptHistory({root,brand:dispatch.brand}).some(h=>h.images.some(p=>p.sha256===digest)),'Prior output cannot count as a newly generated concept.');
     assert(d.inputImages?.length>=2,'Actual image inputs required.');
     d.inputImages.forEach(verifyBinding);
     const received=new Set(d.inputImages.map(x=>x.sha256));
@@ -274,12 +349,34 @@ export function recordImageConcepts({root,brand,receiptFile,reviewFile}) {
 export function imageConceptDelivery({root,brand}) {
   const file=imageConceptFile(root,brand),state=read(file);verifyBinding(state.dispatch);
   const dispatch=read(state.dispatch.path);dispatch.inputs.forEach(verifyBinding);dispatch.inputImages.forEach(verifyBinding);
+  state.sampleData=dispatch.sampleData===true;
+  state.history=imageConceptHistory({root,brand});
   const frozen=frozenReviews(dispatch);
   for(const q of frozen) assert(checkpoints(root,brand).find(d=>d.id===q.id)?.output.sha256===q.sha256,'Frozen output changed.');
   const completed=checkpoints(root,brand);
-  const preview=completed.length===3?{previewAvailable:true,previewStatus:'pending',images:completed.map(d=>({id:d.id,...d.output})).sort((a,b)=>a.id.localeCompare(b.id)),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},interactive:false,limitations:[],presentationRequirements:[]}:{};
+  if(dispatch.regeneration?.recovery) {
+    const recovery=dispatch.regeneration.recovery;
+    verifyBinding(dispatch.regeneration.parentDispatch);
+    verifyBinding(dispatch.regeneration.parentState);
+    recovery.failures.forEach(verifyBinding);
+    for(const id of recovery.preservedIds) {
+      const original=dispatch.regeneration.priorDirections.find(d=>d.id===id);
+      verifyBinding(original.output);
+      assert(completed.find(d=>d.id===id)?.output.sha256===original.output.sha256,'Preserved recovery image changed.');
+    }
+  }
+  const preview={previewAvailable:true,previewStatus:completed.length===3?'pending':'partial',images:completed.map(d=>({id:d.id,...d.output})).sort((a,b)=>a.id.localeCompare(b.id)),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},interactive:false,limitations:[],presentationRequirements:[]};
   const failures=generationFailures(root,brand);
-  if(failures.length) return {...state,...preview,previewStatus:'failed',ok:false,status:'blocked',userGoalCompleted:false,generationFailures:failures,completedImages:completed.map(d=>({id:d.id,...d.output})),failureGuidance:{requestedMedium:'full-image',completedCount:completed.length,requiredCount:3,automaticRetry:false,defaultMediumFallback:null,userMessage:`本轮完整效果图尚未完成（已保存 ${completed.length}/3 张）。已保留现有图片及失败记录；先核对原始输入和错误，不自动重试或改成 H5。`,mediumChange:'Do not recommend H5 merely because image generation failed. Only discuss it when the user independently asks for an interactive alternative; explain that it changes the deliverable and does not complete the three-image goal.'},nextAction:'Preserve completed images, exact tool inputs and recorded failures. Inspect the actual error without guessing its cause. Do not automatically regenerate, rewrite prompts to evade a safety refusal, or recommend H5 as a workaround. Report the incomplete full-image goal; a medium change requires an informed explicit user request.'};
+  preview.directionStates=['a','b','c'].map(id=>({id,status:completed.some(d=>d.id===id)?'saved':failures.some(f=>f.direction===id)?'blocked':'pending'}));
+  const pending=dispatch.directions.filter(d=>!completed.some(c=>c.id===d.id)&&!failures.some(f=>f.direction===d.id));
+  const pendingEntry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
+  if(failures.length) return {...state,...preview,previewStatus:'partial-blocked',ok:true,status:pending.length?'dispatch-ready':'awaiting-user-choice',userGoalCompleted:false,generationFailures:failures,completedImages:preview.images,
+    dispatchFile:state.dispatch.path,
+    dispatchRequest:pending.length?{...dispatch,directions:pending,producerInstructions:dispatch.producerInstructions+' Recorded failed directions are terminal: do not retry them. Execute only the pending directions in this packet once, after independently checking compliance. Preserve and show all successes and failures.',checkpointCommand:[process.execPath,pendingEntry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--input','<saved exact tool args JSON>','--output','<actual image in run>','--tool-call-id','<actual tool ID>','--producer','<actual producer identity>']}:undefined,
+    selectionAvailable:completed.length>0,
+    userChoices:{selectableDirections:completed.map(d=>d.id),historicalRuns:state.history,continueGeneration:{command:'regenerate-image-concepts',requiredFlags:['--confirm-new-batch','--feedback'],scope:'three-new-directions',requiresExplicitUserRequest:true},pause:true},
+    failureGuidance:{requestedMedium:'full-image',completedCount:completed.length,requiredCount:3,automaticRetry:false,defaultMediumFallback:null,userMessage:`本轮已保存 ${completed.length}/3 张，生成受阻，尚未完成三图审核。继续生成会开启全新三方案；本轮和历史成功图仍可选择，也可以暂停。没有成功图的轮次不提供虚构选择。`,mediumChange:'No automatic H5 fallback. User choice does not approve image quality or whole-host implementation.'},
+    nextAction:pending.length?'Show comparisonPreview with actual successes and failures now, then execute only dispatchRequest pending compliant directions already authorized in this batch, once each. A recorded failed direction is terminal and must not be retried. Do not start a new batch or ask for redundant authorization to finish the other pending directions. No H5 fallback and no completed-delivery claim.':'Show comparisonPreview now with current direction states, saved images and bound history links. Continue generation means an explicitly authorized NEW batch of three via regenerate-image-concepts --confirm-new-batch --feedback <user request and genuinely new design>. Keep old successes selectable in their original runs and preserve failures. Only an explicit request to fill missing directions uses --missing-only and --recovery-kind. Safety refusals are not permission to retry refused content or evade safeguards. No automatic retry or H5 fallback. Never claim completion for this blocked batch.'};
   const failedFile=path.join(path.dirname(file),'image-concepts-failed-review.json');
   const receiptFile=path.join(path.dirname(file),'image-concepts-receipt.json');
   if(fs.existsSync(failedFile)&&(!fs.existsSync(receiptFile)||!read(receiptFile).independentReview?.supersedesFailedReview)) return {...state,...preview,previewStatus:'failed',ok:false,status:'blocked',userGoalCompleted:false,failedReview:read(failedFile),reviewNotes:read(failedFile).notes,limitations:read(failedFile).limitations||[],presentationRequirements:read(failedFile).presentationRequirements||[],completedImages:checkpoints(root,brand).map(d=>({id:d.id,...d.output})),nextAction:'Independent review failed. Preserve this attempt; do not regenerate or declare completion automatically. A justified independent reassessment of these same images may explicitly bind supersedesFailedReview {path,sha256} and explain reassessmentReason in a new report; record it using record-image-concepts --review without overwriting the old report.'};
@@ -292,12 +389,13 @@ export function imageConceptDelivery({root,brand}) {
       dispatchRequest:missing.length?{...dispatch,directions:missing,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--input','<saved exact tool args JSON>','--output','<actual image in run>','--tool-call-id','<actual tool ID>','--producer','<actual producer identity>']}:undefined,
       reviewRequest:missing.length?undefined:{images:completed.filter(d=>!frozen.some(q=>q.id===d.id)).map(d=>({id:d.id,...d.output})),frozenImages:completed.filter(d=>frozen.some(q=>q.id===d.id)).map(d=>({id:d.id,...d.output})),reviewScope:frozen.length?'Review changed images fully for business, brand and readability. Frozen images are comparison context only; do not repeat their individual review. Confirm distinctCompositions across the final trio. Submit direction findings for changed IDs only. Prior limitations remain.':undefined,inputs:dispatch.inputs,inputImages:dispatch.inputImages,regeneration:dispatch.regeneration?{feedback:dispatch.regeneration.feedback,priorDirections:dispatch.regeneration.priorDirections.map(d=>({id:d.id,output:d.output,role:'comparison-only-not-brand-evidence'}))}:undefined,producers:[...new Set(completed.map(d=>d.producer))],
         conceptScope:dispatch.conceptScope||conceptScope,
+        sampleData:dispatch.sampleData===true,
         inputPolicy:'Use only this reviewRequest, its shared conceptScope and bound images/source files, not full Skill, historical chat, production prompts or unrelated reports. Read necessary host imports/data to verify navigation, exact labels, states, routes and actions; reject invented capabilities or missing essential business. Inspect official reference images, applicable brand rules and trio differences. Omit redundant history, not evidence.',
         instructions:'View all three originals, official references and bound host facts. Check the same viewport and business content, no imported reference-site capabilities, recognizable brand language, readability, and materially different dominant regions/information order/reading paths rather than just reordered cards. If regeneration is present, compare priorDirections as previous proposals, not brand evidence; report how this batch addresses feedback and differs from the previous batch. Judge this image-concept selection stage, not implementation certification: localized color-role, spacing, font or raster deviations that do not materially impair brand recognition, business meaning, reading or direction selection should be stated in limitations and may pass. brandFaithful means recognizable and applicable at this stage, not every token or semantic role is pixel-exact. Missing or misleading business, materially drifted brand identity, unreadable core content or indistinguishable directions still fail. Explain the actual impact; a P-number alone neither blocks nor permits delivery. Do not erase binding source rules: disclose deviations and required implementation corrections. Write only the independent review JSON with concrete findings. Do not reconstruct generation records, generate images or modify the host. Preserve prior failed reports; a justified independent reassessment must explicitly bind supersedesFailedReview and explain reassessmentReason, never silently replace FAIL.',
         ...(dispatch.regeneration?.repair?{instructions:'Review changed images fully against the same frozen business and brand inputs. Missing or misleading business, unreadable core content and material brand drift still fail. At concept-selection stage, localized visual/color-role deviations without material impact on brand recognition, business, reading or direction selection may pass with explicit limitations; a P-number alone does not decide. Frozen images are comparison context only: reuse their hash-bound approvals, do not repeat individual QA. Confirm final trio distinctness. Submit only changed IDs. Do not generate images or alter the host.'}:{}),
         reviewFile,reviewShape:{reviewer:'actual independent identity',verdict:'pass or fail',directions:completed.filter(d=>!frozen.some(q=>q.id===d.id)).map(d=>({id:d.id,sha256:d.output.sha256,completeScreen:null,brandFaithful:null,hostTaskPreserved:null})),distinctCompositions:null,notes:'actual observed findings',limitations:[],presentationRequirements:[]},
         recordCommand:[process.execPath,entry,'record-image-concepts','--artifact-root',root,'--brand',brand,'--review',reviewFile]},
-      nextAction:missing.length?'Generate only missing directions; checkpoint each actual call immediately with record-image-concept. Do not regenerate checkpointed images.':'Open standard comparisonPreview now as PENDING; execute only reviewRequest independently and record-image-concepts --review. Same URL refreshes to final result. Do not build custom comparison pages or claim completion before QA. No additional generation.'};
+      nextAction:missing.length?'Execute this authorized batch only: generate pending directions once; checkpoint and show comparisonPreview immediately after each success. Do not regenerate checkpointed images or automatically retry failures. A later user request to continue generation opens a NEW three-image batch.':'Open standard comparisonPreview now as PENDING; execute only reviewRequest independently and record-image-concepts --review. Same URL refreshes to final result. Do not build custom comparison pages or claim completion before QA. No additional generation.'};
   }
   const receipt=read(receiptFile);validateReceipt(receipt,dispatch,root);verifyReassessment(receipt,failedFile);
   return {...state,previewAvailable:true,previewStatus:'approved',ok:true,status:'ready-for-user-review',userGoalCompleted:true,fullWorkflowPass:false,interactive:false,hostImplementationComplete:false,images:[...receipt.directions].sort((a,b)=>a.id.localeCompare(b.id)).map(d=>({id:d.id,...binding(d.path)})),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},reviewNotes:receipt.independentReview.notes,presentationRequirements:receipt.independentReview.presentationRequirements||[],limitations:receipt.independentReview.limitations||[],receiptFile,nextAction:'Open comparisonPreview using serve-design-host-h5.mjs with this artifact root. Show all three original images equally with review limitations; await user selection. This gallery is not a host H5 implementation.'};

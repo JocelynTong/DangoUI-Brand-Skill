@@ -5,23 +5,162 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
-import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts } from './full-image-concepts.mjs';
+import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, compactImageConceptResult } from './full-image-concepts.mjs';
+
+test('compact output preserves originals, failure state and review while omitting repeated prompt payload',t=>{
+  const f=fixture(t);const full=prepareImageConcepts(f),before=sha(full.dispatch.path);
+  const compact=compactImageConceptResult(full);
+  assert.equal(compact.dispatchRequest,undefined);
+  assert.deepEqual(compact.pendingDirectionIds,['a','b','c']);
+  assert.equal(compact.dispatchFile,full.dispatch.path);
+  assert.deepEqual(compact.failureRecording,full.dispatchRequest.failureRecording);
+  assert.equal(compact.failureRecording.template.schema,'brand-image-generation-failure/v1');
+  assert.equal(compact.failureRecording.files.a,path.join(f.dir,'image-concepts','a-failure.json'));
+  assert.equal(sha(full.dispatch.path),before);
+  assert.deepEqual(JSON.parse(fs.readFileSync(compact.dispatchFile)).inputImages,full.dispatchRequest.inputImages);
+  f.checkpoint('a');
+  f.write(path.join(f.dir,'image-concepts','c-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'c',tool:'image_gen',code:'moderation_blocked',reason:'Synthetic failure'});
+  const result=spawnSync(process.execPath,[entry,'delivery','--artifact-root',f.root,'--brand',f.brand,'--compact'],{encoding:'utf8'});
+  assert.equal(result.status,0,result.stdout+result.stderr);
+  const got=JSON.parse(result.stdout);assert.equal(got.images.length,1);assert.deepEqual(got.pendingDirectionIds,['b']);assert.equal(got.generationFailures.length,1);
+  assert.equal(got.dispatchRequest,undefined);assert.equal(got.userGoalCompleted,false);
+  const reviewed={status:'blocked',reviewRequest:{images:['actual-image']},failedReview:{notes:'real issue'}};
+  assert.deepEqual(compactImageConceptResult(reviewed),reviewed);
+});
 
 const entry = path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
+
+for(const count of [0,1,2]) test(`continue starts three NEW directions from ${count}-image blocked batch without losing history`,t=>{
+  const f=fixture(t);prepareImageConcepts(f);
+  for(const id of ['a','b'].slice(0,count))f.checkpoint(id);
+  const failed=f.write(path.join(f.dir,'image-concepts','c-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'c',tool:'image_gen',code:'moderation_blocked',reason:'Synthetic refusal, not permission to retry'});
+  const old=imageConceptDelivery(f),failureHash=sha(failed);
+  assert.deepEqual(old.userChoices.continueGeneration.requiredFlags,['--confirm-new-batch','--feedback']);
+  const argv=[entry,'regenerate-image-concepts','--artifact-root',f.root,'--brand',f.brand,'--feedback','Three genuinely new compliant concepts'];
+  assert.notEqual(spawnSync(process.execPath,argv,{encoding:'utf8'}).status,0);
+  const cli=spawnSync(process.execPath,[...argv,'--confirm-new-batch'],{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);const next=JSON.parse(cli.stdout);
+  t.after(()=>fs.rmSync(path.dirname(next.artifactRoot),{recursive:true,force:true}));
+  assert.deepEqual(next.dispatchRequest.directions.map(d=>d.id),['a','b','c']);
+  assert.equal(next.completedImages.length,0);assert.equal(next.images.length,0);
+  assert.equal(next.history[0].completedCount,count);
+  assert.deepEqual(next.history[0].images,old.images);
+  assert.equal(sha(failed),failureHash);assert.equal(imageConceptDelivery(f).status,count<2?'dispatch-ready':'awaiting-user-choice');
+  assert.match(next.dispatchRequest.producerInstructions,/never reword refused content/);
+  const opts={root:next.artifactRoot,brand:f.brand},d=next.dispatchRequest.directions[0];
+  const inputFile=f.write(path.join(opts.root,'a-args.json'),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+  const outputFile=path.join(opts.root,'a.png');fs.copyFileSync(f.refs[0],outputFile);fs.appendFileSync(outputFile,'new-a');
+  const partial=recordImageConcept({...opts,id:'a',inputFile,outputFile,toolCallId:'synthetic-new-a',producer:'new-producer'});
+  assert.equal(partial.previewAvailable,true);assert.equal(partial.images.length,1);
+  assert.deepEqual(partial.directionStates.map(d=>d.status),['saved','pending','pending']);
+  if(count){fs.copyFileSync(old.images[0].path,outputFile);assert.throws(()=>recordImageConcept({...opts,id:'b',inputFile,outputFile,toolCallId:'copy',producer:'new-producer'}),/Prior output/);}
+  else {fs.appendFileSync(failed,'changed');assert.throws(()=>imageConceptDelivery(opts),/hash mismatch/);}
+});
+
+test('one gallery serves only hash-bound history and keeps its images outside current count',async t=>{
+  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');
+  f.write(path.join(f.dir,'image-concepts','c-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'c',tool:'image_gen',code:'blocked',reason:'Synthetic failure'});
+  const next=regenerateImageConcepts({...f,confirmed:true,feedback:'Three new concepts'});
+  t.after(()=>fs.rmSync(path.dirname(next.artifactRoot),{recursive:true,force:true}));
+  const server=spawn(process.execPath,[path.resolve('skills/brand/scripts/serve-design-host-h5.mjs'),'--root',next.artifactRoot,'--port','0']);t.after(()=>server.kill());
+  const base=await new Promise((resolve,reject)=>{let output='';server.stdout.on('data',b=>{output+=b;const m=output.match(/http:\/\/[^\s]+/);if(m)resolve(m[0]);});server.on('error',reject);server.on('exit',code=>reject(Error(`Gallery exited ${code}`)));});
+  const current=new URL('/__brand_comparison__?brand='+f.brand,base);
+  let response=await fetch(current),html=await response.text();assert.equal(response.status,200);
+  assert.equal((html.match(/<img /g)||[]).length,0);assert.match(html,/已保存 0\/3 张/);assert.match(html,/可选 A/);assert.match(html,/不计入本轮/);
+  const history=new URL(current);history.searchParams.set('history','1');
+  response=await fetch(history);html=await response.text();assert.equal(response.status,200);assert.match(html,/生成受阻/);assert.match(html,/方案 B：待生成/);assert.equal((html.match(/<img /g)||[]).length,1);
+  const imageUrl=new URL('/__brand_history_image__?brand='+f.brand+'&history=1&direction=a',base);
+  response=await fetch(imageUrl);assert.equal(response.status,200);assert.equal(crypto.createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex'),next.history[0].images[0].sha256);
+  for(const value of ['../','/etc/passwd','999']) {history.searchParams.set('history',value);assert.equal((await fetch(history)).status,409);}
+  assert.equal((await fetch(new URL('/__brand_history_image__?brand='+f.brand+'&history=1&direction=../../etc/passwd',base))).status,400);
+  assert.equal((await fetch(new URL('/__brand_history_image__?brand='+f.brand+'&history=1&direction=b',base))).status,404);
+  fs.appendFileSync(next.history[0].images[0].path,'corrupt');
+  assert.equal((await fetch(imageUrl)).status,409);assert.equal((await fetch(current)).status,409);
+});
+
+test('new concepts cannot reuse images from an older ancestor through an empty intermediate batch',t=>{
+  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');
+  const second=regenerateImageConcepts({...f,confirmed:true,feedback:'New three'});
+  const third=regenerateImageConcepts({root:second.artifactRoot,brand:f.brand,confirmed:true,feedback:'Another new three'});
+  for(const run of [second,third])t.after(()=>fs.rmSync(path.dirname(run.artifactRoot),{recursive:true,force:true}));
+  assert.deepEqual(third.history.map(h=>h.completedCount),[0,1]);
+  const d=third.dispatchRequest.directions[0],inputFile=f.write(path.join(third.artifactRoot,'args.json'),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+  const outputFile=path.join(third.artifactRoot,'a.png');fs.copyFileSync(third.history[1].images[0].path,outputFile);
+  assert.throws(()=>recordImageConcept({root:third.artifactRoot,brand:f.brand,id:'a',inputFile,outputFile,producer:'new-producer',toolCallId:'synthetic-copy'}),/Prior output/);
+});
+
+for(const count of [0,1,2]) test(`public recovery preserves ${count} successful images and dispatches only missing directions`,t=>{
+  const f=fixture(t);prepareImageConcepts({...f,sampleData:true});
+  for(const id of ['a','b'].slice(0,count))f.checkpoint(id);
+  // Synthetic historical calls: keep their original older template verbatim.
+  if(count===2)for(const id of ['a','b']) {
+    const file=path.join(f.dir,'image-concepts',`${id}-generation.json`);
+    const record=JSON.parse(fs.readFileSync(file,'utf8'));
+    const args=JSON.parse(fs.readFileSync(record.arguments.path,'utf8'));
+    record.prompt=args.prompt=args.prompt.replace('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成','依据参考素材保持原 IP 特征，允许新的构图和插画');
+    f.write(record.arguments.path,args);record.arguments.sha256=sha(record.arguments.path);f.write(file,record);
+  }
+  const fail=f.write(path.join(f.dir,'image-concepts','c-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'c',tool:'image_gen',code:'moderation_blocked',reason:'Synthetic refusal'});
+  const before=sha(fail),old=imageConceptDelivery(f);
+  assert.equal(old.previewAvailable,true);assert.equal(old.images.length,count);
+  assert.equal(old.selectionAvailable,count>0);
+  const args=[entry,'regenerate-image-concepts','--artifact-root',f.root,'--brand',f.brand,'--missing-only','--feedback','A genuinely different compliant direction','--recovery-kind','new-design'];
+  assert.notEqual(spawnSync(process.execPath,args,{encoding:'utf8'}).status,0);
+  assert.throws(()=>regenerateImageConcepts({...f,missingOnly:true,confirmed:true,feedback:'retry',recoveryKind:'technical-correction'}),/Safety refusal/);
+  const cli=spawnSync(process.execPath,[...args,'--confirm-new-batch'],{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);const next=JSON.parse(cli.stdout);
+  t.after(()=>fs.rmSync(path.dirname(next.artifactRoot),{recursive:true,force:true}));
+  assert.deepEqual(next.dispatchRequest.directions.map(d=>d.id),['a','b','c'].slice(count));
+  assert.deepEqual(next.completedImages.map(d=>d.sha256),old.completedImages.map(d=>d.sha256));
+  assert.equal(sha(fail),before);assert.equal(imageConceptDelivery(f).status,count<2?'dispatch-ready':'awaiting-user-choice');
+  const opts={root:next.artifactRoot,brand:f.brand};
+  for(const d of next.dispatchRequest.directions){
+    const inputFile=f.write(path.join(opts.root,`${d.id}-args.json`),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+    const outputFile=path.join(opts.root,`${d.id}.png`);fs.copyFileSync(f.refs[0],outputFile);fs.appendFileSync(outputFile,d.id);
+    recordImageConcept({...opts,id:d.id,producer:'new-producer',toolCallId:'synthetic-'+d.id,inputFile,outputFile});
+  }
+  const ready=imageConceptDelivery(opts);assert.equal(ready.status,'review-ready');
+  assert.equal(ready.sampleData,true);assert.equal(ready.reviewRequest.sampleData,true);
+  const reviewFile=f.write(path.join(opts.root,'review.json'),{...ready.reviewRequest.reviewShape,reviewer:'independent-fixture',verdict:'pass',distinctCompositions:true,notes:'synthetic contract only',directions:ready.reviewRequest.images.map(d=>({...d,completeScreen:true,brandFaithful:true,hostTaskPreserved:true}))});
+  assert.equal(recordImageConcepts({...opts,reviewFile}).userGoalCompleted,true);
+  if(count){fs.appendFileSync(next.completedImages[0].path,'changed');assert.throws(()=>imageConceptDelivery(opts),/hash mismatch|changed/);}
+});
 
 test('generation failure preserves images and full-image goal without automatic medium fallback',t=>{
   const f=fixture(t);prepareImageConcepts(f);const a=f.checkpoint('a');
   const file=f.write(path.join(f.dir,'image-concepts','b-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'b',tool:'image_gen',code:'moderation_blocked',reason:'Synthetic tool refusal; cause unspecified'});
   const failureHash=sha(file),saved=a.completedImages[0];
   const result=imageConceptDelivery(f);
-  assert.equal(result.status,'blocked');assert.equal(result.userGoalCompleted,false);
+  assert.equal(result.status,'dispatch-ready');assert.equal(result.userGoalCompleted,false);
   assert.equal(result.failureGuidance.requestedMedium,'full-image');
   assert.equal(result.failureGuidance.defaultMediumFallback,null);
   assert.equal(result.failureGuidance.automaticRetry,false);
   assert.equal(result.failureGuidance.completedCount,1);assert.equal(result.failureGuidance.requiredCount,3);
   assert.deepEqual(result.completedImages,[saved]);assert.equal(sha(file),failureHash);
-  assert.equal(result.dispatchRequest,undefined);assert.equal(result.reviewRequest,undefined);
+  assert.deepEqual(result.dispatchRequest.directions.map(d=>d.id),['c']);assert.equal(result.reviewRequest,undefined);
   assert.equal(fs.existsSync(path.join(f.dir,'h5-directions')),false);
+});
+
+test('a terminal failure keeps other authorized directions dispatchable and gallery refreshing until no pending work',async t=>{
+  const f=fixture(t);prepareImageConcepts(f);
+  const failed=f.write(path.join(f.dir,'image-concepts','a-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'a',tool:'image_gen',code:'moderation_blocked',reason:'Synthetic refusal'});
+  const failureHash=sha(failed),pending=imageConceptDelivery(f);
+  assert.deepEqual(pending.dispatchRequest.directions.map(d=>d.id),['b','c']);
+  assert.equal(pending.previewStatus,'partial-blocked');assert.equal(pending.status,'dispatch-ready');
+  assert.throws(()=>recordImageConcept({...f,id:'a',producer:'producer',toolCallId:'retry'}),/recorded generation failure/);
+  const server=spawn(process.execPath,[path.resolve('skills/brand/scripts/serve-design-host-h5.mjs'),'--root',f.root,'--port','0']);t.after(()=>server.kill());
+  const base=await new Promise((resolve,reject)=>{let text='';server.stdout.on('data',b=>{text+=b;const m=text.match(/http:\/\/[^\s]+/);if(m)resolve(m[0]);});server.on('error',reject);server.on('exit',code=>reject(Error(`Gallery exited ${code}`)));});
+  const url=new URL('/__brand_comparison__?brand='+f.brand,base);
+  let html=await(await fetch(url)).text();assert.match(html,/data-review-status="partial-blocked"/);assert.match(html,/15000/);
+  const afterB=f.checkpoint('b');assert.deepEqual(afterB.dispatchRequest.directions.map(d=>d.id),['c']);assert.equal(afterB.images.length,1);
+  html=await(await fetch(url)).text();assert.match(html,/15000/);assert.match(html,/已保存 1\/3 张/);
+  const done=f.checkpoint('c');assert.equal(done.dispatchRequest,undefined);assert.equal(done.reviewRequest,undefined);assert.equal(done.status,'awaiting-user-choice');assert.equal(done.userGoalCompleted,false);
+  assert.deepEqual(done.directionStates.map(d=>d.status),['blocked','saved','saved']);assert.equal(sha(failed),failureHash);
+  html=await(await fetch(url)).text();assert.doesNotMatch(html,/setTimeout/);assert.equal((html.match(/<img /g)||[]).length,2);
+  assert.match(html,/<section data-direction="a" data-generation-status="blocked">/);
+  assert.match(html,/<code>moderation_blocked<\/code>/);
+  assert.match(html,/Synthetic refusal/);
+  assert.equal((html.match(/<section/g)||[]).length,3);
 });
 
 test('failed-only freezes passed bytes, reviews only changed image, and retains business gates', t=>{
@@ -157,7 +296,7 @@ test('standard gallery exposes pending and failed honestly, then approved at sam
   const server=spawn(process.execPath,[path.resolve('skills/brand/scripts/serve-design-host-h5.mjs'),'--root',f.root,'--port','0']);t.after(()=>server.kill());
   const base=await new Promise((resolve,reject)=>{let text='';server.stdout.on('data',b=>{text+=b;const m=text.match(/http:\/\/[^\s]+/);if(m)resolve(m[0]);});server.on('error',reject);});
   const url=new URL('/__brand_comparison__?brand='+f.brand,base);
-  assert.equal((await fetch(url)).status,409);
+  const partial=await fetch(url);assert.equal(partial.status,200);assert.match(await partial.text(),/已保存 2\/3 张/);
   const ready=f.checkpoint('c');assert.equal(ready.userGoalCompleted,false);assert.equal(ready.status,'review-ready');assert.equal(ready.previewAvailable,true);
   let res=await fetch(url);assert.equal(res.status,200);let html=await res.text();assert.match(html,/data-review-status="pending"/);assert.match(html,/15000/);assert.equal((html.match(/<img /g)||[]).length,3);
   const failFile=f.write(path.join(f.dir,'failed-status.json'),{reviewer:'independent',verdict:'fail',notes:'Essential navigation missing',directions:ready.reviewRequest.images});

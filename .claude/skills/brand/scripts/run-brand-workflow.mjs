@@ -19,7 +19,7 @@ import { recoverReference } from "./recover-reference.mjs";
 import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-handoff.mjs";
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
-import { prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile } from './full-image-concepts.mjs';
+import { prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile, compactImageConceptResult } from './full-image-concepts.mjs';
 import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode } from './selected-image-code.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
@@ -36,11 +36,12 @@ const command = rawArgs[0];
 
 if(command==='regenerate-image-concepts') {
   try {
-    const allowed=new Set(['--artifact-root','--brand','--feedback','--confirm-new-batch','--failed-only']);
+    const allowed=new Set(['--artifact-root','--brand','--feedback','--confirm-new-batch','--failed-only','--missing-only','--recovery-kind','--compact']);
     if(rawArgs.slice(1).some(x=>x.startsWith('--')&&!allowed.has(x))) throw Error('New image batch cannot mix implementation or other workflow flags.');
     if(!path.isAbsolute(opt(rawArgs,'--artifact-root',''))) throw Error('Absolute parent artifact root required.');
-    const result=regenerateImageConcepts({root:opt(rawArgs,'--artifact-root',''),brand:opt(rawArgs,'--brand',''),feedback:opt(rawArgs,'--feedback',''),confirmed:rawArgs.includes('--confirm-new-batch'),failedOnly:rawArgs.includes('--failed-only')});
-    process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+    if(rawArgs.includes('--recovery-kind')&&!rawArgs.includes('--missing-only')) throw Error('--recovery-kind is only for an explicit missing-image request; default regeneration starts three new directions.');
+    const result=regenerateImageConcepts({root:opt(rawArgs,'--artifact-root',''),brand:opt(rawArgs,'--brand',''),feedback:opt(rawArgs,'--feedback',''),confirmed:rawArgs.includes('--confirm-new-batch'),failedOnly:rawArgs.includes('--failed-only'),missingOnly:rawArgs.includes('--missing-only'),recoveryKind:opt(rawArgs,'--recovery-kind','')});
+    process.stdout.write(`${JSON.stringify(rawArgs.includes('--compact')?compactImageConceptResult(result):result,null,2)}\n`);process.exit(0);
   } catch(error) { block('IMAGE_REGENERATION_BLOCKED',error.message); }
 }
 
@@ -80,7 +81,7 @@ if (['record-image-concept','record-image-concepts','continue','delivery','statu
     if(command.startsWith('record-image-concept')) validateArtifactIsolation({command:'run',requestKind:'host-concepts',root:imageRoot,artifactRoot:imageRoot,args:['--host-target',readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'']});
     try {
       const result=command==='record-image-concept'?recordImageConcept({root:imageRoot,brand:imageBrand,id:opt(rawArgs,'--direction',''),inputFile:opt(rawArgs,'--input',''),outputFile:opt(rawArgs,'--output',''),toolCallId:opt(rawArgs,'--tool-call-id',''),producer:opt(rawArgs,'--producer','')}):command==='record-image-concepts'?recordImageConcepts({root:imageRoot,brand:imageBrand,receiptFile:opt(rawArgs,'--receipt',''),reviewFile:opt(rawArgs,'--review','')}):imageConceptDelivery({root:imageRoot,brand:imageBrand});
-      process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+      process.stdout.write(`${JSON.stringify(rawArgs.includes('--compact')?compactImageConceptResult(result):result,null,2)}\n`);process.exit(0);
     } catch(error) { block('IMAGE_CONCEPTS_BLOCKED',error.message); }
   }
   if(command.startsWith('record-image-concept')) block('IMAGE_CONCEPTS_RUN_REQUIRED','Use the existing full-image run artifact root and brand.');
