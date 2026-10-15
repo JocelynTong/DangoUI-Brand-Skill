@@ -4,6 +4,12 @@
 
 Implement the one explicitly selected visual direction in the real host runtime without redesigning it or changing protected business behavior.
 
+## Selected-image single-page scope
+
+For `select-image-code`, use its exact bound image, `targetPage`, host copy, DTCG/adapter and component inputs instead of demanding the whole-host contracts below. Implement one real page and necessary direct dependencies in the isolated host. Reuse compatible components and explicitly adapt incompatible ones; preserve expressive direction rather than reverting to generic controls. Resolve concept labels marked unconfirmed against existing host bindings, not by treating generated text as business truth. Do not scan or reskin other routes. Record changed files and their relation to the target page, plus any shared-style effects. Unrelated routes must not be restyled implicitly through global CSS.
+
+Supply a usable page and image/page comparison, actual build and runtime evidence, token consumption and honest reuse/adaptation limits to independent QA. A successful single page awaits user confirmation; it does not grant whole-host authorization. Subsequent overall reskinning is separately authorized and must satisfy its own existing entry requirements, not a silent continuation.
+
 ## Owns
 
 - DangoUI behavior/API reuse and style-only boundaries.

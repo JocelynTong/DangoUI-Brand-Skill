@@ -4,7 +4,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview} from './selected-image-code.mjs';
+import {spawnSync} from 'node:child_process';
+import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode} from './selected-image-code.mjs';
 
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const binding = p => ({path:p,sha256:hash(p)});
@@ -24,22 +25,73 @@ function fixture(t) {
   write(path.join(dangouiRoot,'theme.css'),':root{--du-primary:#000000}');write(path.join(dangouiRoot,'style.css'),'.du-button{color:var(--du-primary)}');
   const image=write(path.join(brand,'image-concepts/a.png'),'fake-image-test-bytes');
   const args=write(path.join(brand,'image-concepts/a-input.json'),{});
-  const dispatch=write(path.join(brand,'dispatch.json'),{inputs:[binding(mod),binding(adapter)],inputImages:[]});
+  const startup=write(path.join(brand,'host-startup-page.json'),{hostRoot:host,sourceFile:'src/App.jsx',sourceSha256:hash(path.join(host,'src/App.jsx')),route:'/'});
+  const dispatch=write(path.join(brand,'dispatch.json'),{inputs:[binding(mod),binding(adapter),binding(startup)],inputImages:[]});
   json(path.join(brand,'image-concepts.json'),{dispatch:binding(dispatch),hostTarget:host});
   json(path.join(brand,'image-concepts/a-generation.json'),{output:binding(image),arguments:binding(args)});
   const runs=[];
   t.after(()=>{fs.rmSync(dir,{recursive:true,force:true});for(const run of runs)fs.rmSync(path.dirname(run),{recursive:true,force:true});});
   function select(extra={}){const s=selectImageCode({root,brand:'dango',direction:'a',selection:'用户选择 A，仅隔离预览',confirmed:true,...extra});runs.push(s.artifactRoot);return s;}
   function submission(s){compileSelectedTheme({root:s.artifactRoot,dangouiRoot});const preview=write(path.join(s.artifactRoot,'compare.html'),'<html>runtime comparison</html>');const p=write(path.join(dir,'submission.json'),{producer:'implementer',previewUrl:'http://127.0.0.1:12345/',comparisonFile:preview,outputs:['host/src/App.jsx'],reused:[],adapted:['React view'],limitations:[]});return recordSelectedCode({root:s.artifactRoot,submissionFile:p});}
-  function review(s,extra={}){const evidence=write(path.join(s.artifactRoot,'runtime-evidence.txt'),'test fixture, not an actual runtime proof');return write(path.join(dir,'review.json'),{reviewer:'independent-qa',verdict:'pass',submission:binding(path.join(s.artifactRoot,'implementation.json')),checks:{visual:true,business:true,tokenRuntime:true,responsive:true},observations:['fixture observation'],evidence:[binding(evidence)],limitations:[],...extra});}
+  function review(s,extra={}){const evidence=write(path.join(s.artifactRoot,'runtime-evidence.txt'),'test fixture, not an actual runtime proof');return write(path.join(dir,'review.json'),{reviewer:'independent-qa',verdict:'pass',submission:binding(path.join(s.artifactRoot,'implementation.json')),checks:{visual:true,business:true,tokenRuntime:true,responsive:true,singlePageScope:true},observations:['fixture observation'],evidence:[binding(evidence)],limitations:[],...extra});}
   return {dir,root,host,brand,mod,image,dangouiRoot,write,json,select,submission,review};
 }
 
 test('selection requires explicit authorization and exact image hash',t=>{
   const f=fixture(t);assert.throws(()=>f.select({confirmed:false}),/authorization/);
   assert.throws(()=>f.select({selection:''}),/authorization/);
+  assert.throws(()=>f.select({direction:'b'}),/ENOENT/);
   fs.appendFileSync(f.image,'changed');assert.throws(()=>f.select(),/Changed input/);
 });
+
+test('public revision retains selected art, current code and old receipts but requires fresh independent review',t=>{
+  const f=fixture(t),s=f.select();f.submission(s);
+  const failed=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{verdict:'fail',observations:['filter clipped']})});
+  const oldSubmission=path.join(s.artifactRoot,'implementation.json'),oldReview=path.join(s.artifactRoot,'implementation-review.json');
+  const oldHashes=[hash(oldSubmission),hash(oldReview)], art=hash(s.dispatchRequest.selectedImage.path);
+  fs.appendFileSync(path.join(s.hostRoot,'src/App.jsx'),'\n// corrected isolated layout');
+  const recovery=selectedCodeStatus(s.artifactRoot);
+  const args=recovery.revisionCommand.slice(1);args[args.length-1]='filter clipping';
+  const cli=spawnSync(process.execPath,args,{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);
+  const resumed=JSON.parse(cli.stdout);
+  assert.equal(resumed.status,'implementation-dispatch-ready');assert.equal(resumed.hostRoot,s.hostRoot);
+  assert.equal(hash(s.dispatchRequest.selectedImage.path),art);
+  assert.deepEqual([hash(oldSubmission),hash(oldReview)],oldHashes);
+  assert.equal(reviseSelectedCode({root:s.artifactRoot,reason:'filter clipping'}).status,'implementation-dispatch-ready');
+  const pending=f.submission(s);
+  assert.equal(pending.status,'review-ready');
+  assert.notEqual(pending.reviewRequest.submission.path,oldSubmission);
+  assert.throws(()=>recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)}),/submission mismatch/);
+  const done=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{submission:pending.reviewRequest.submission})});
+  assert.equal(done.status,'ready-for-user-review');assert.equal(done.wholeHostAuthorized,false);
+  assert.deepEqual([hash(oldSubmission),hash(oldReview)],oldHashes);
+  fs.appendFileSync(s.dispatchRequest.selectedImage.path,'tampered');
+  assert.throws(()=>reviseSelectedCode({root:s.artifactRoot,reason:'cannot bypass frozen input'}),/Changed input/);
+});
+test('public selection can use a saved image while another direction failed',t=>{
+  const f=fixture(t);const failure=f.json(path.join(f.brand,'image-concepts/c-failure.json'),{code:'moderation_blocked',direction:'c'});
+  const before=hash(failure),imageBefore=hash(f.image);
+  const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'select-image-code','--artifact-root',f.root,'--brand','dango','--direction','a','--selection','测试：已有 A，请仅准备隔离单页','--confirm-isolated-preview'],{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);const result=JSON.parse(cli.stdout);
+  t.after(()=>fs.rmSync(path.dirname(result.artifactRoot),{recursive:true,force:true}));
+  assert.equal(result.status,'implementation-dispatch-ready');assert.equal(result.wholeHostAuthorized,false);
+  assert.equal(result.dispatchRequest.scope,'single-page');assert.equal(hash(failure),before);assert.equal(hash(f.image),imageBefore);
+  assert.throws(()=>f.select({direction:'c'}),/ENOENT/);
+});
+
+test('selected illustration bytes and reuse policy reach implementation and independent QA unchanged',t=>{
+  const f=fixture(t),s=f.select(),art=s.dispatchRequest.selectedArtwork;
+  assert.equal(art.role,'generated-proposal');
+  assert.equal(art.preferredUse,'reuse-selected-illustration');
+  assert.deepEqual(art.source,s.dispatchRequest.selectedImage);
+  assert.equal(hash(art.source.path),hash(f.image));
+  assert.ok(art.source.path.startsWith(s.artifactRoot+path.sep));
+  assert.deepEqual(f.submission(s).reviewRequest.selectedArtwork,art);
+  fs.appendFileSync(art.source.path,'changed');
+  assert.throws(()=>selectedCodeStatus(s.artifactRoot),/Changed input/);
+});
+
 test('React Web Button asset is frozen unchanged and handed to implementation and QA',t=>{
   const f=fixture(t),s=f.select(),asset=s.dispatchRequest.reusableComponents[0];
   assert.equal(asset.sourceVersion,'dangoui 3.6.16');
@@ -71,11 +123,30 @@ test('snapshot isolates actual host, omits secrets and symlinks, continuation is
   assert.deepEqual(selectedCodeStatus(s.artifactRoot),s);
   assert.equal(s.fullWorkflowPass,false);assert.equal(s.status,'implementation-dispatch-ready');
 });
+test('snapshot skips root build artifacts but preserves nested business routes named build',t=>{
+  const f=fixture(t);
+  f.write(path.join(f.host,'build/generated.js'),'compiled artifact');
+  f.write(path.join(f.host,'src/pages/build/index.vue'),'<template><view>real build journey</view></template>');
+  const s=f.select();
+  assert.equal(fs.existsSync(path.join(s.hostRoot,'build/generated.js')),false);
+  assert.equal(fs.readFileSync(path.join(s.hostRoot,'src/pages/build/index.vue'),'utf8'),'<template><view>real build journey</view></template>');
+  const state=JSON.parse(fs.readFileSync(path.join(s.artifactRoot,'selected-image-code.json'),'utf8'));
+  assert.ok(state.baseline.files.some(file=>file.path==='src/pages/build/index.vue'));
+});
+test('a pre-fix run keeps its frozen legacy snapshot policy after the copier is upgraded',t=>{
+  const f=fixture(t);
+  f.write(path.join(f.host,'src/pages/build/index.vue'),'<template><view>real build journey</view></template>');
+  const s=f.select(), stateFile=path.join(s.artifactRoot,'selected-image-code.json');
+  const state=JSON.parse(fs.readFileSync(stateFile,'utf8'));
+  delete state.baselinePolicy;
+  state.baseline.files=state.baseline.files.filter(file=>!file.path.startsWith('src/pages/build/'));
+  fs.writeFileSync(stateFile,JSON.stringify(state,null,2)+'\n');
+  assert.equal(selectedCodeStatus(s.artifactRoot).status,'implementation-dispatch-ready');
+});
 test('file hostTarget resolves the actual project through frozen startup context',t=>{
   const f=fixture(t),dispatchFile=path.join(f.brand,'dispatch.json');
   const dispatch=JSON.parse(fs.readFileSync(dispatchFile,'utf8'));
-  const startup=f.json(path.join(f.brand,'host-startup-page.json'),{hostRoot:f.host});
-  dispatch.inputs.push(binding(startup));f.json(dispatchFile,dispatch);
+  f.json(dispatchFile,dispatch);
   f.json(path.join(f.brand,'image-concepts.json'),{dispatch:binding(dispatchFile),hostTarget:path.join(f.host,'src/App.jsx')});
   const s=f.select();assert.equal(s.dispatchRequest.originalHostReadOnly,f.host);
   assert.ok(fs.existsSync(path.join(s.hostRoot,'package.json')));
@@ -138,7 +209,8 @@ test('review rejects producer self-approval and missing runtime checks; pass rem
 });
 test('recorded host source and review evidence cannot silently mutate',t=>{
   const f=fixture(t),s=f.select();f.submission(s);fs.appendFileSync(path.join(s.hostRoot,'src/App.jsx'),'changed');
-  assert.throws(()=>selectedCodeStatus(s.artifactRoot),/Changed input/);
+  assert.equal(selectedCodeStatus(s.artifactRoot).status,'needs-revision');
+  assert.equal(selectedCodeStatus(s.artifactRoot).previewReady,false);
 });
 test('review dispatch describes evidence bindings and malformed evidence can be corrected without losing runtime',t=>{
   const f=fixture(t),s=f.select(),pending=f.submission(s);
@@ -151,7 +223,7 @@ test('review dispatch describes evidence bindings and malformed evidence can be 
 test('new source files after submission invalidate recorded source inventory',t=>{
   const f=fixture(t),s=f.select();f.submission(s);
   f.write(path.join(s.hostRoot,'src/new-page.jsx'),'export default()=>null;');
-  assert.throws(()=>selectedCodeStatus(s.artifactRoot),/source|inventory|changed/i);
+  assert.equal(selectedCodeStatus(s.artifactRoot).status,'needs-revision');
 });
 test('selected reference and selection statement stay frozen',t=>{
   const f=fixture(t),s=f.select();
@@ -167,4 +239,80 @@ test('path escape in submission outputs is rejected even when target exists',t=>
   const f=fixture(t),s=f.select();const outside=f.write(path.join(f.dir,'outside.txt'),'outside');
   const file=f.write(path.join(f.dir,'bad-submission.json'),{producer:'p',previewUrl:'http://localhost:1234/',comparisonFile:outside,outputs:['host/src/App.jsx'],reused:[],adapted:[],limitations:[]});
   assert.throws(()=>recordSelectedCode({root:s.artifactRoot,submissionFile:file}),/inside the isolated run/);
+});
+
+test('unreviewed image selects only a frozen page and preserves unresolved review notes',t=>{
+  const f=fixture(t);
+  f.json(path.join(f.brand,'image-concepts-failed-review.json'),{verdict:'fail',limitations:['A filter options remain unconfirmed']});
+  const s=f.select();
+  assert.equal(s.dispatchRequest.targetPage.relativePath,'src/App.jsx');
+  assert.equal(s.dispatchRequest.targetPage.source.sha256,hash(path.join(f.host,'src/App.jsx')));
+  assert.equal(s.wholeHostAuthorized,false);
+  const notes=s.dispatchRequest.conceptReviewNotes;
+  assert.equal(notes.length,1);
+  assert.deepEqual(notes[0].limitations,['A filter options remain unconfirmed']);
+  assert.deepEqual(JSON.parse(fs.readFileSync(notes[0].source.path)).limitations,notes[0].limitations);
+  assert.deepEqual(f.submission(s).reviewRequest.conceptReviewNotes,notes);
+  assert.equal(JSON.parse(fs.readFileSync(path.join(s.artifactRoot,'selected-image-code.json'))).parentImageReview,'failed-preserved');
+});
+
+test('superseded image FAIL is historical and only corrected findings reach implementation',t=>{
+  const f=fixture(t),failed=f.json(path.join(f.brand,'image-concepts-failed-review.json'),{verdict:'fail',limitations:['New illustration forbidden']});
+  f.json(path.join(f.brand,'image-concepts-receipt.json'),{independentReview:{verdict:'pass',supersedesFailedReview:binding(failed),limitations:['A filter words unconfirmed'],presentationRequirements:['Mark A filters pending']}});
+  const s=f.select(),notes=s.dispatchRequest.conceptReviewNotes;
+  assert.equal(notes.length,1);assert.equal(notes[0].verdict,'pass');
+  assert.deepEqual(notes[0].limitations,['A filter words unconfirmed']);
+  assert.deepEqual(notes[0].presentationRequirements,['Mark A filters pending']);
+  assert.equal(s.dispatchRequest.inputs.some(b=>/image-concepts-(failed-review|review|receipt)\.json$/.test(b.path)),false);
+  const state=JSON.parse(fs.readFileSync(path.join(s.artifactRoot,'selected-image-code.json')));
+  assert.equal(state.historicalConceptReviews[0].role,'historical-not-current-do-not-reapply');
+  assert.notEqual(state.parentImageReview,'failed-preserved');
+  assert.deepEqual(f.submission(s).reviewRequest.conceptReviewNotes,notes);
+});
+
+test('runtime pass is not user confirmation or whole-host authority and requires scoped review',t=>{
+  const f=fixture(t),s=f.select();f.submission(s);
+  assert.throws(()=>recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{checks:{visual:true,business:true,tokenRuntime:true,responsive:true}})}),/single-page scope/);
+  const done=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)});
+  assert.equal(done.confirmationStatus,'awaiting-user-single-page-confirmation');
+  assert.equal(done.userSinglePageConfirmed,false);
+  assert.equal(done.wholeHostAuthorized,false);
+  assert.equal(done.fullWorkflowPass,false);
+});
+
+test('legacy selected-page submissions remain reviewable without inventing user approval',t=>{
+  const f=fixture(t),s=f.select(),file=path.join(s.artifactRoot,'selected-image-code.json');
+  const state=JSON.parse(fs.readFileSync(file));delete state.targetPage;f.json(file,state);
+  f.submission(s);
+  const done=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{checks:{visual:true,business:true,tokenRuntime:true,responsive:true}})});
+  assert.equal(done.status,'ready-for-user-review');
+  assert.equal(done.wholeHostAuthorized,false);
+  assert.equal(done.userSinglePageConfirmed,false);
+});
+
+test('selection rejects directory-only ambiguity and whole-host submission',t=>{
+  const f=fixture(t),s=f.select();
+  const p=f.json(path.join(f.dir,'wide.json'),{scope:'whole-host'});
+  assert.throws(()=>recordSelectedCode({root:s.artifactRoot,submissionFile:p}),/only one page/);
+  const d=path.join(f.brand,'dispatch.json'),packet=JSON.parse(fs.readFileSync(d));
+  packet.inputs=packet.inputs.filter(b=>!b.path.endsWith('host-startup-page.json'));f.json(d,packet);
+  f.json(path.join(f.brand,'image-concepts.json'),{dispatch:binding(d),hostTarget:f.host});
+  assert.throws(()=>f.select(),/concrete single-page/);
+});
+
+test('changed-file inventory includes shared dependency edits for scoped QA',t=>{
+  const f=fixture(t),s=f.select();
+  f.write(path.join(s.hostRoot,'src/shared.css'),'.page{color:red}');
+  const pending=f.submission(s);
+  assert.ok(pending.reviewRequest.changedFiles.includes('src/shared.css'));
+  assert.ok(pending.reviewRequest.changedFiles.includes('src/brand/brand-entry.css'));
+  assert.equal(pending.reviewRequest.scope,'single-page');
+});
+
+test('public entry cannot reuse selected-page run as whole-host approval',t=>{
+  const f=fixture(t),s=f.select();
+  for(const action of ['run','approve']) {
+    const r=spawnSync(process.execPath,[new URL('./run-brand-workflow.mjs',import.meta.url).pathname,action,'--artifact-root',s.artifactRoot,'--request-kind','host-implementation','--mode','apply-host'],{encoding:'utf8'});
+    assert.match(r.stdout+r.stderr,/SINGLE_PAGE_CONFIRMATION_REQUIRED/);
+  }
 });

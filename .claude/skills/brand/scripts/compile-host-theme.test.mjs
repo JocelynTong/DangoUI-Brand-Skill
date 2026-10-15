@@ -69,6 +69,22 @@ for (const [name, mutate, pattern] of [
 ]) test(`rejects ${name} before output`, t => { const f = fixture(t); mutate(f); assert.throws(f.run, pattern); assert.equal(fs.existsSync(f.outputDir), false); });
 
 test('supports srgb DTCG color object', t => { const f = fixture(t); const color = { colorSpace: 'srgb', components: [1, 0, 0], alpha: 0.5 }; f.mod.tokens.dtcg.colors.base.$value = color; f.adapter.tokenMappings[0].sourceValue = color; assert.match(fs.readFileSync(f.run().themeFile, 'utf8'), /color\(srgb 1 0 0 \/ 0.5\)/); });
+test('preserves an exact HTTPS asset URL in a mapped style-only string token', t => {
+  const f = fixture(t);
+  f.mod.tokens.dtcg.texture = { $type: 'string', $value: 'url(https://assets.example.com/content_bg.png)', $extensions: { 'echo.brand.target': '--style-texture', 'echo.brand.channel': 'styleOnly' } };
+  f.adapter.tokenMappings.push({ sourceToken: 'texture', sourceValue: 'url(https://assets.example.com/content_bg.png)', targetToken: '--style-texture', targetExists: false, mappingType: 'style-only' });
+  const result = f.run();
+  assert.match(fs.readFileSync(result.themeFile, 'utf8'), /--style-texture: url\("https:\/\/assets\.example\.com\/content_bg\.png"\)/);
+  assert.match(JSON.parse(fs.readFileSync(result.proofFile)).limitations.join('\n'), /HTTPS asset string preserved/);
+});
+test('rejects non-HTTPS and injected asset URL string tokens', t => {
+  for (const value of ['url(http://assets.example.com/a.png)', 'url(javascript:alert(1))', 'url(https://assets.example.com/a.png);color:red']) {
+    const f = fixture(t);
+    f.mod.tokens.dtcg.texture = { $type: 'string', $value: value, $extensions: { 'echo.brand.target': '--style-texture', 'echo.brand.channel': 'styleOnly' } };
+    f.adapter.tokenMappings.push({ sourceToken: 'texture', sourceValue: value, targetToken: '--style-texture', targetExists: false, mappingType: 'style-only' });
+    assert.throws(f.run, /unsafe or unsupported string value/);
+  }
+});
 test('descriptive composition is disclosed, never emitted as CSS', t => { const f = fixture(t); f.mod.tokens.dtcg.layout = { $type: 'string', $value: 'left navigation + main', $extensions: { 'echo.brand.target': '--style-layout' } }; const r = f.run(); assert.equal(JSON.parse(fs.readFileSync(r.proofFile)).unresolved.length, 1); assert.doesNotMatch(fs.readFileSync(r.themeFile, 'utf8'), /--style-layout/); });
 test('retains original HTTPS CSS resource and discloses network dependency', t => { const f = fixture(t); fs.appendFileSync(path.join(f.dangouiRoot, 'style.css'), '@font-face {src:url("https://example.com/font.woff2")}'); const r = f.run(); assert.deepEqual(JSON.parse(fs.readFileSync(r.proofFile)).externalResources, ['https://example.com/font.woff2']); });
 test('rejects broken relative package resources', t => { const f = fixture(t); fs.appendFileSync(path.join(f.dangouiRoot, 'style.css'), '@font-face {src:url("./font.woff2")}'); assert.throws(f.run, /unresolved relative/); });

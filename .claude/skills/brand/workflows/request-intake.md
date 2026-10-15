@@ -46,9 +46,11 @@
 
 `continue` 只恢复当前批次缺图，不启动换批。宿主或冻结输入变化时必须先更新输入。用户明确要求全新三方案，才使用上述全量换批。为修复独立 QA 定位的客观失败，只允许一次 `regenerate-image-concepts --failed-only --confirm-new-batch --artifact-root <失败批次> --brand <brand> --feedback <QA纠正事项>`：新目录保留失败历史，通过图按原图哈希和逐图审核结论冻结，仅生成 dispatch 返回的失败方向。不得为了修一图重画通过图。复审只对改动图完整检查业务、品牌与可读性；冻结图仅用于确认最终三案仍有实质差异，不重复逐图审核。按 reviewShape 只提交改动方向，程序合并冻结结论及原限制。缺失逐图真假判断、哈希失效或只有整组差异失败时停止，不猜测重做范围；纠正后再失败也停止，不换成全量重生成绕过次数限制。业务错误门槛不变，不改写旧 FAIL，不转 H5，不修改宿主。
 
-用户已经选择图片并要求实现时，沿用该图片运行的 `select-image-code`，不要重新调用三案 `run`。编排者把对话里的选择原话传入 `--selection`，确认 `--direction` 和 `--confirm-isolated-preview`；普通用户不编写 manifest。返回新的隔离目录和真实宿主副本，不复制历史手工 Demo。图片有旧失败审核时保留失败状态：用户明确选择只能启动限域代码验证，不能将旧图、来源学习或全流程改成 PASS。
+用户已经选择图片并要求实现时，沿用该图片运行的 `select-image-code`，不要重新调用三案 `run`。编排者把选择原话传入 `--selection`，确认 `--direction` 和 `--confirm-isolated-preview`；普通用户不编写 manifest。入口冻结单页 `targetPage` 的源码/hash/路由，返回新隔离目录与真实宿主副本，不复制历史手工 Demo。`conceptReviewNotes` 的待确认项必须随图交接，不以图中的筛选词替代真实业务。旧失败审核保留，选图不能把旧图、来源学习或全流程改成 PASS。
 
 执行者读取返回的准确图片、品牌 DTCG/adapter、组件原件与宿主源码。调用同一公共入口的 `compile-selected-theme --artifact-root <新目录> --dangoui-root <实际已安装包>`，只在宿主全局入口导入回执的 `entryFile` 一次；它已固定真实库样式 → 品牌主题的顺序，不再分别导入两个子文件或重复加载库 CSS。按 `integration.mappedVariables` 定点检查主题根和实际消费者的声明，仅移除或重接遮蔽本轮生成值的陈旧品牌覆盖；保留业务样式及有意的模式/状态覆盖，并验证对应分支。不要用 `!important` 强压主题，仍须真实运行检查 computed winner 与 token 扰动/恢复。兼容组件复用，不兼容平台明确适配；不能把只复用 CSS 说成组件 API 复用，也不能把截图铺底说成代码。安装只发生在副本，禁止通过 node_modules 链接写入原项目。
+
+选中图同时是视觉目标和可复用的生成插画来源。实施与 QA 收到同一 `selectedArtwork`：优先复用合适的插画区域，以原图字节和响应式图片定位保留主体，不默认重新生图、删除 IP 或用 CSS 重画替代。根据每张原图实际尺寸确定展示范围，窄屏也不得露出图中的假搜索框、导航或列表。真实控件和业务数据用代码及品牌设计系统实现；插画内烘焙文字如实披露为像素。生成插画标为 `generated-proposal`，不能成为官方品牌证据，但不因此禁止用于已授权的隔离页面。无法合理分离时说明局限，先问用户再改变表达或新增生成。沿用 `reused/adapted/limitations` 记录原图 hash、运行资产、展示范围和实际引用，不新增审批文件；QA 核实插画保留、无假控件、响应式与真实设计系统消费。
 
 React Web dispatch 的 `reusableComponents` 提供候选 [文本 Button](../assets/react-web-button/usage.md) 的准确路径、hash 和适用说明，实现与 QA 共享同一冻结输入。它源自 dangoui 3.6.16，依赖真实库 CSS 与主题；执行者先确认实际安装版本兼容，再按本品牌与任务需要复用。Taro、Vue、React Native 不派发该资产，其他尺寸/变体/图标不因存在 props 而获认证。不附赠手工页面或历史 QA。
 
@@ -56,9 +58,11 @@ React Web dispatch 的 `reusableComponents` 提供候选 [文本 Button](../asse
 
 本选图代码阶段开始时即可确认并记录宿主已安装的 Playwright 等本地运行验收工具及版本。内置浏览器故障不自动免除 QA；可用本轮已确认且获准使用的本地工具完成实际检查，无可用工具时报告真实阻断。不得借工具切换绕过浏览器/网络访问策略、请求头限制或沙箱权限；历史测试结果不替代本轮验收。
 
-完成构建、实际截图及可操作的图/页面对照后，执行返回的 `record-selected-code`。再将完整 `reviewRequest` 交给不同执行者，实际打开页面验证视觉、业务、窄屏布局和 token 改变→渲染改变→恢复。`record-selected-code-review` 后用 `delivery` 展示结果；派发或文件齐全不算完成。失败保留记录、修复明确范围，在同一选图授权下建立新的隔离尝试，不重画效果图。通过只表示该页面可验收，未测路由、后端和跨平台能力明确列出。
+完成构建、实际截图及可操作的图/页面对照后，执行返回的 `record-selected-code`。将完整 `reviewRequest` 交给不同执行者，实际打开页面验证视觉、业务、窄屏布局、changedFiles/singlePageScope 和 token 改变→渲染改变→恢复。`record-selected-code-review` 后用 `delivery` 展示结果；派发或文件齐全不算完成。失败保留记录并限域修复，不重画效果图。通过的 `confirmationStatus=awaiting-user-single-page-confirmation` 仅表示单页可验收，`userSinglePageConfirmed=false`、`wholeHostAuthorized=false`；未测路由、后端和跨平台能力明确列出。
 
-原宿主始终只读。用户确认代码预览并明确授权原项目实施后，才走既有准确 H5/宿主实施交接；本入口不自动安装到原项目、不推送、不更新已发布 Skill。
+提交后发现局部缺陷时，执行状态返回的 `revisionCommand`（`revise-selected-code --artifact-root <当前目录> --reason <具体缺陷>`），再修改当前隔离副本、构建并重新记录。旧提交和审核原件不覆盖，新修订必须绑定新的实际截图并重新独立 QA；不重新选图、不重新复制原宿主、不借用旧 PASS。若已先改代码，`continue` 会返回同一恢复命令而不是无路可走的 hash 错误。冻结品牌、选图或原宿主变化仍是输入问题，不能用修订绕过。仅对明确缺陷做一轮限域修复；再次失败且没有新的纠正依据时如实报告，不自动循环。
+
+原宿主始终只读。本阶段只实现所选真实单页及必要直接依赖，不扫描或换肤其他页面。独立运行 QA 后展示“选中效果图 ↔ 实际可操作页面”，请用户确认单页；不满意只局部修复，不重开三图。确认单页与授权整体换肤是两个不同事实，用户明确要求扩展后才制定后续页面范围并走实施交接。本入口不自动安装到原项目、不推送、不更新已发布 Skill；全项目最终验收不能由单页通过代替。
 
 ## 交互 H5 与宿主实施的内部判断、用户验收
 

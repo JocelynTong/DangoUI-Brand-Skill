@@ -62,6 +62,15 @@ export function compileHostTheme({ modFile, adapterFile, dangouiRoot, outputDir 
       return `color(srgb ${value.components.join(' ')} / ${value.alpha ?? 1})`;
     }
     if (typeof value === 'number' && Number.isFinite(value) && ['number', 'fontWeight'].includes(type)) return String(value);
+    if (type === 'string' && typeof value === 'string') {
+      const httpsAsset = value.match(/^url\((https:\/\/[^\s"'();{}<>\\]+)\)$/i);
+      if (httpsAsset) {
+        const parsed = new URL(httpsAsset[1]);
+        if (parsed.protocol !== 'https:') fail('unsafe or unsupported string value');
+        limitations.add('HTTPS asset string preserved as a scoped style-only token; runtime availability must be checked in the host.');
+        return `url("${parsed.href}")`;
+      }
+    }
     if (typeof value !== 'string' || /[;{}\n\r<>]|\/\*|url\(|var\(/i.test(value)) fail(`unsafe or unsupported ${type} value`);
     if (type === 'color') {
       if (!/^(#(?:[\da-f]{3}|[\da-f]{4}|[\da-f]{6}|[\da-f]{8})|(?:rgb|rgba|hsl|hsla|color)\([\d\s.,%/+a-z-]+\)|transparent|currentColor)$/i.test(value)) fail('invalid legacy color');

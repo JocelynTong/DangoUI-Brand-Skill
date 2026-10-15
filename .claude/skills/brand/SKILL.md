@@ -9,7 +9,7 @@ description: 从品牌官网、活动页、DESIGN.md、截图、Figma 或 DTCG �
 
 ## 用户结果与内部组织
 
-在真实宿主会话中，用户只给品牌网址时，默认目标是 `host-concepts`：先由 ImageGen 生成三张完整宿主换肤效果图，用户选方向并明确要求后才转可交互 H5；认可 H5 并授权后才修改宿主。没有宿主上下文且明确学习品牌时才独立交付 learn-brand。学习成果、映射审计和 QA 页面是内部产物，不得顶替宿主预览。
+在真实宿主会话中，默认主线是：准备一次充分输入 → ImageGen 三张完整效果图并及时展示 → 用户选图并要求落地 → 真实宿主隔离单页 → 独立运行 QA → 用户确认单页并明确授权整体换肤 → 扩展实施与最终验收。只选图不自动转代码，单页通过不授权全项目修改；交互 H5 是用户明确选择的可选介质，不是默认额外中转站。没有宿主上下文且明确学习品牌时才独立交付 learn-brand。学习成果、映射审计和 QA 页面是内部产物，不得顶替宿主预览。
 
 本项目品牌库 `#/variants/<id>/...`（新版）及 `#/brand/<id>/...` 链接是“选用已发布品牌包”，不是待学习官网；入口自动解析复用。普通官网先查询公开候选，再用一句话确认复用已有包还是重新学习，不要求用户自己寻找 Variant 链接；未确认不抓官网或静默替换来源。返回角色 dispatch 后实际执行该角色，不能反复调用 `continue` 代替执行；具体恢复行为见 request intake。
 
@@ -92,6 +92,8 @@ Productive 保留来源的文字、控件与语义色等适用规则；Expressiv
 
 用户选定已有图片并要求落地时，执行公共入口 `select-image-code --artifact-root <原图片运行目录> --brand <brand> --direction <a|b|c> --selection <用户选图及落地原话> --confirm-isolated-preview`。入口冻结选图、品牌输入并复制真实宿主；按返回 dispatch 实现该方向，执行 `compile-selected-theme` 消费 DTCG/adapter/真实 DangoUI 包，按回执的 `entryFile` 单一入口及限域覆盖说明接入，然后记录实际代码与截图，由独立 QA 检查运行页面、业务和 token 消费。React Web 另派发限域文本 Button 资产及说明，先确认实际版本与任务兼容，QA 检查实际调用和覆盖。本阶段开始可确认宿主已有 Playwright 等本地测试工具；内置浏览器故障不免除 QA，也不授权绕过访问策略。`continue`、`delivery` 使用返回的新目录，不再生成 ABC。交付图片与实际页面对照；选图只授权隔离预览，不授权覆盖原宿主。具体边界见 [request intake](workflows/request-intake.md#选图后落地到隔离宿主)。
 
+选图落地优先复用已选图中的合适插画区域，真实控件和数据由品牌设计系统与宿主代码承载；不默认重生插画或删掉 IP 换成 CSS。实施与 QA 共用 dispatch 的 `selectedArtwork`，具体边界见 request intake 的选图落地部分。
+
 以下 H5 几何、DOM、交互与 Approved Master 要求仅适用于明确选择 `interactive-h5` 的阶段，不是完整效果图交付的前置门禁。
 
 ### 明确请求的交互 H5
@@ -162,7 +164,7 @@ fast 档也先全扫并实施所有 APPLY 页，再做代表性 Smoke QA；它�
 ## 共同硬边界
 
 - 来源截图可用于 Evidence/QA 与 ImageGen 参考输入，不能复制进 runtime 冒充实现资产。
-- `generated-proposal` 不能定义品牌身份；只有 `evidence-source` 和明确批准的 `derived-approved` 可进入正式方向。
+- `generated-proposal` 不能作为官方品牌身份的证据或写回品牌规则。用户选定效果图并要求落地时，可在隔离单页直接复用其中合适的插画区域，真实控件与数据仍由代码实现；不能把整张截图当成可操作页面。其他正式资产采用与宿主实施仍需对应阶段批准。
 - 品牌素材像素颜色不能自动提升为按钮、状态、文本或导航语义色。
 - Producer 自检不能替代独立 QA；实现者不能担任自己的 QA，包括局部回归复验。
 - 用户指出视觉不符时，定位最早责任节点并只重做受影响范围；关闭问题必须有实际新截图/操作证据与按 review mode 完成的独立复核，不沿用旧 PASS。

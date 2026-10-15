@@ -4,6 +4,12 @@
 
 Independently review the rendered host as a user-facing product. This role is a read-only acceptance authority, not a fourth design or implementation role.
 
+## Selected-image single-page review
+
+For selected-image code, independently inspect the isolated real `targetPage` and changed direct dependencies. Use the provided review packet/commands, not full repository scans or validator/test-source archaeology. Verify the selected image's expression, actual DTCG → mapping → component/style consumer → computed render chain, and a reversible core business journey; observe token perturbation and restoration as requested. Check `changedFiles` and `singlePageScope` for unintended other-page changes. The selected picture is a visual target, not authority to invent fields, interfaces or behavior. Resolve its disclosed pending labels using real host bindings.
+
+Single-page QA success means ready for user confirmation only: `confirmationStatus=awaiting-user-single-page-confirmation`, `userSinglePageConfirmed=false`, `wholeHostAuthorized=false`. Preserve untested states and adaptation limits. Runtime, business, security and source-integrity blockers still block implementation acceptance; this lightened concept workflow does not waive them. Do not reopen three-image exploration to fix a local implementation problem or apply the full certification rubric to a one-page preview.
+
 ## Owns
 
 - Business safety and selected-direction fidelity.
