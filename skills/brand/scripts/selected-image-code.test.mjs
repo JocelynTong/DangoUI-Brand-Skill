@@ -5,10 +5,101 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawnSync} from 'node:child_process';
+import {nativeNavigationGeometry} from '../assets/taro-native-navigation/safe-area.mjs';
 import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison} from './selected-image-code.mjs';
 
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const binding = p => ({path:p,sha256:hash(p)});
+test('native safe area uses measured px and rejects synthetic/missing metrics',()=>{
+  assert.deepEqual(nativeNavigationGeometry({windowWidth:390,statusBarHeight:47,capsule:{top:51,bottom:83,left:293,right:380}}),{statusBarHeight:47,safeTop:87,navigationHeight:40,capsuleLeft:293,rightInset:105});
+  assert.throws(()=>nativeNavigationGeometry({windowWidth:390,statusBarHeight:47}),/capsule/);
+  assert.throws(()=>nativeNavigationGeometry({windowWidth:390,statusBarHeight:47,capsule:{top:40,bottom:83,left:293,right:400}}),/capsule/);
+  assert.throws(()=>nativeNavigationGeometry({windowWidth:390}),/Measured/);
+});
+test('Taro selection freezes native helper for implementation and QA without changing art',t=>{
+  const f=fixture(t);f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4',vue:'3'}});
+  const before=hash(f.image),s=f.select(),native=s.dispatchRequest.nativeRuntime;
+  assert.equal(native.platform,'taro-native');
+  for(const b of [native.helper,native.usage]) {
+    assert.equal(b.sha256,hash(b.path));assert.ok(s.dispatchRequest.inputs.some(i=>i.path===b.path&&i.sha256===b.sha256));
+  }
+  assert.equal(hash(f.image),before);assert.equal(s.dispatchRequest.selectedImage.sha256,before);
+  const pending=f.submission(s);assert.deepEqual(pending.reviewRequest.nativeRuntime,native);
+  assert.equal(pending.reviewRequest.reviewShape.checks.nativeRuntime,null);
+  assert.throws(()=>recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)}),/nativeRuntime/);
+  assert.equal(recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{checks:{visual:true,business:true,tokenRuntime:true,responsive:true,singlePageScope:true,nativeRuntime:true}})}).status,'ready-for-user-review');
+  fs.appendFileSync(native.helper.path,'\n// drift');assert.throws(()=>selectedCodeStatus(s.artifactRoot),/Changed input/);
+});
+test('non-Taro selection does not dispatch native assets',t=>{
+  const f=fixture(t);
+  for(const dependencies of [{react:'19'},{vue:'3'},{react:'19','react-native':'0.80'},{}]) {
+    f.write(path.join(f.host,'package.json'),{dependencies});const s=f.select();
+    assert.equal(s.dispatchRequest.nativeRuntime,undefined);
+    assert.equal(fs.existsSync(path.join(s.artifactRoot,'native-runtime')),false);
+    assert.equal(f.submission(s).reviewRequest.nativeRuntime,undefined);
+  }
+});
+test('Taro compilation scopes roots before hashing and preserves all token declarations',t=>{
+  const f=fixture(t);
+  f.write(path.join(f.dangouiRoot,'theme.css'),':root {--du-primary:#000000}\n/* :root is a comment */\n:root[data-theme="dark"]{--du-primary:#ffffff}');
+  f.write(path.join(f.dangouiRoot,'style.css'),'.du-button::before{content:":root";color:var(--du-primary)}');
+  const web=f.select(),webTheme=compileSelectedTheme({root:web.artifactRoot,dangouiRoot:f.dangouiRoot});
+  f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4'}});
+  const native=f.select(),theme=compileSelectedTheme({root:native.artifactRoot,dangouiRoot:f.dangouiRoot});
+  assert.equal(theme.integration.rootSelector,'.selected-brand-page');
+  assert.equal(webTheme.integration.rootSelector,undefined);
+  assert.equal(fs.readFileSync(theme.themeFile,'utf8').replaceAll('.selected-brand-page',':root'),fs.readFileSync(webTheme.themeFile,'utf8'));
+  const css=fs.readFileSync(theme.runtimeStyleFile,'utf8');
+  assert.match(css,/\.selected-brand-page\[data-theme="dark"\]/);assert.match(css,/content:":root"/);assert.match(css,/\/\* :root is a comment \*\//);
+  for(const b of theme.bindings)assert.equal(hash(b.path),b.sha256);
+  const proof=JSON.parse(fs.readFileSync(theme.proofFile));assert.equal(proof.outputs.theme.sha256,hash(theme.themeFile));assert.equal(proof.outputs.runtimeStyle.sha256,hash(theme.runtimeStyleFile));
+  assert.equal(f.submission(native).status,'review-ready');
+});
+test('native root alias groups do not leak variables to page or theme aliases',t=>{
+  const f=fixture(t);f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4'}});
+  f.write(path.join(f.dangouiRoot,'theme.css'),':root,page,.du-theme-qd,.g-theme-qd,.du-theme-basic,.g-theme-basic{--du-primary:#123456}');
+  const s=f.select(),theme=compileSelectedTheme({root:s.artifactRoot,dangouiRoot:f.dangouiRoot});
+  const css=fs.readFileSync(theme.runtimeStyleFile,'utf8');
+  assert.match(css,/\.selected-brand-page \{--du-primary:#123456\}/);assert.doesNotMatch(css,/:root|\.du-theme-qd|,page/);
+  assert.match(css,/\.du-button\{color:var\(--du-primary\)\}/);
+});
+test('native comparison and submission carry real evidence without a fake H5 URL',t=>{
+  const f=fixture(t);f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4'}});
+  const s=f.select(),distPath=path.join(s.hostRoot,'dist'),screenshot=f.write(path.join(s.artifactRoot,'native.png'),'fixture screenshot bytes');
+  f.write(path.join(distPath,'app.js'),'native compiled fixture');
+  const nativePreview={distPath,route:'/',screenshot};
+  const p=prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview});
+  assert.equal(p.previewUrl,undefined);assert.match(fs.readFileSync(p.comparisonFile,'utf8'),/静态证据/);assert.doesNotMatch(fs.readFileSync(p.comparisonFile,'utf8'),/<iframe/);
+  compileSelectedTheme({root:s.artifactRoot,dangouiRoot:f.dangouiRoot});
+  const submission=f.json(path.join(f.dir,'native-submission.json'),{producer:'implementer',nativePreview:p.nativePreview,comparisonFile:p.comparisonFile,outputs:['host/src/App.jsx'],reused:[],adapted:[],limitations:[]});
+  const pending=recordSelectedCode({root:s.artifactRoot,submissionFile:submission});assert.deepEqual(pending.reviewRequest.nativePreview,p.nativePreview);
+  assert.throws(()=>recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)}),/nativeRuntime/);
+  const done=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{checks:{visual:true,business:true,tokenRuntime:true,responsive:true,singlePageScope:true,nativeRuntime:true}})});
+  assert.deepEqual(done.nativePreview,p.nativePreview);assert.equal(done.previewUrl,undefined);
+  f.write(path.join(distPath,'new.js'),'new native build');assert.equal(selectedCodeStatus(s.artifactRoot).status,'needs-revision');
+});
+test('native comparison rejects mixed media, route mismatch, escaping paths and changed dist',t=>{
+  const f=fixture(t),web=f.select();
+  assert.throws(()=>prepareSelectedCodeComparison({root:web.artifactRoot,nativePreview:{}}),/Taro/);
+  f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4'}});const s=f.select();
+  const distPath=path.join(s.hostRoot,'dist');f.write(path.join(distPath,'app.js'),'native');
+  const screenshot=f.write(path.join(s.artifactRoot,'native.png'),'fixture'),nativePreview={distPath,route:'/',screenshot};
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview,previewUrl:'http://localhost:1234'}),/not both/);
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview:{...nativePreview,route:'other'}}),/route/);
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview:{...nativePreview,distPath:f.host}}),/isolated host/);
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview:{...nativePreview,screenshot:f.image}}),/isolated run/);
+  const p=prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview});f.write(path.join(distPath,'app.js'),'changed');
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,nativePreview:p.nativePreview,outputDir:path.join(s.artifactRoot,'fresh')}),/dist changed/);
+});
+test('public native comparison returns a native submission descriptor and no H5 URL',t=>{
+  const f=fixture(t);f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4'}});const s=f.select();
+  const distPath=path.join(s.hostRoot,'dist');f.write(path.join(distPath,'app.js'),'native');
+  const screenshot=f.write(path.join(s.artifactRoot,'native.png'),'fixture');
+  const input=f.json(path.join(s.artifactRoot,'native-input.json'),{distPath,route:'/',screenshot});
+  const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'prepare-selected-code-comparison','--artifact-root',s.artifactRoot,'--native-preview',input],{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);const p=JSON.parse(cli.stdout);
+  assert.equal(p.nativePreview.route,'/');assert.equal(p.previewUrl,undefined);assert.ok(fs.existsSync(p.nativePreviewFile));
+});
 function fixture(t) {
   const dir=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'selected-code-test-'))), root=path.join(dir,'input'), host=path.join(dir,'original');
   const write=(p,v)=>{fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,typeof v==='string'?v:JSON.stringify(v));return p;};

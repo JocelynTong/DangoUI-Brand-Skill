@@ -8,7 +8,8 @@ const read = file => fs.readFileSync(file, 'utf8');
 
 // This is a compiler, not a runtime or visual verdict. It intentionally does not
 // import the package's JS (React hosts may reuse CSS but not Vue components).
-export function compileHostTheme({ modFile, adapterFile, dangouiRoot, outputDir }) {
+export function compileHostTheme({ modFile, adapterFile, dangouiRoot, outputDir, rootSelector = ':root' }) {
+  if (rootSelector !== ':root' && rootSelector !== '.selected-brand-page') fail('unsupported theme root selector');
   const modText = read(modFile), adapterText = read(adapterFile);
   const mod = JSON.parse(modText), adapter = JSON.parse(adapterText);
   if (!mod.tokens?.dtcg) fail('canonical tokens.dtcg missing');
@@ -113,14 +114,28 @@ export function compileHostTheme({ modFile, adapterFile, dangouiRoot, outputDir 
     else fail(`missing adapter mapping for ${key}`);
   }
   if (!rows.some(row => row.channel === 'mapped')) fail('no DangoUI mappings compiled');
-  const theme = `/* Generated from frozen DTCG + adapter; load after DangoUI CSS.\n * Variables are not runtime consumption proof. */\n:root {\n${rows.map(row => `  ${row.target}: ${row.value};`).join('\n')}\n}\n`;
-  const runtime = packageCss.map(x => `/* dangoui ${pkg.version} ${x.file} */\n${x.css}`).join('\n');
+  const theme = `/* Generated from frozen DTCG + adapter; load after DangoUI CSS.\n * Variables are not runtime consumption proof. */\n${rootSelector} {\n${rows.map(row => `  ${row.target}: ${row.value};`).join('\n')}\n}\n`;
+  // Adapt selector tokens only, preserving declarations, comments and strings.
+  const scopeRoots = css => {
+    if(rootSelector === ':root')return css;
+    // A root alias group (:root,page,.du-theme-...) is one variable owner.
+    // Retaining page/alias selectors would leak selected-page tokens globally.
+    const grouped=css.replace(/([^{}]+)\{/g,(whole,prelude)=>{
+      const selectors=prelude.replace(/\/\*[\s\S]*?\*\//g,'').trim().split(',').map(s=>s.trim());
+      if(selectors.length>1&&selectors.includes(':root'))return (prelude.match(/\/\*[\s\S]*?\*\//g)||[]).join('\n')+'\n'+rootSelector+' {';
+      return whole;
+    });
+    return grouped.replace(/\/\*[\s\S]*?\*\/|"(?:\\.|[^"\\])*"|'(?:\\.|[^'\\])*'|:root\b/g, token => token === ':root' ? rootSelector : token);
+  };
+  const runtime = packageCss.map(x => `/* dangoui ${pkg.version} ${x.file} */\n${scopeRoots(x.css)}`).join('\n');
   const entry = '/* Import this file once from the host global entry. */\n@import "./dangoui-runtime.css";\n@import "./brand-theme.css";\n';
   const proof = { schema: 'host-theme-compilation/v1', status: 'compiled-not-runtime-verified', sources: { modSha256: hash(modText), adapterSha256: hash(adapterText), packageSha256: hash(packageText), dangoui: { name: pkg.name, version: pkg.version, css: packageCss.map(({ file, sha256 }) => ({ file, sha256 })) } }, outputs: { theme: { file: 'brand-theme.css', sha256: hash(theme) }, runtimeStyle: { file: 'dangoui-runtime.css', sha256: hash(runtime) } }, mappings: rows, unresolved, externalResources: [...externalResources], limitations: [...limitations, ...(externalResources.size ? ['Original package CSS retains HTTPS resources; availability/font loading must be checked in the host.'] : []), 'CSS reuse does not prove native component reuse or platform compatibility.', 'Consumer selectors, computed cascade, interaction parity and causal token-change checks remain required.'], runtimeVerified: false };
   proof.outputs.entry = { file: 'brand-entry.css', sha256: hash(entry) };
+  if(rootSelector !== ':root') proof.rootSelector = rootSelector;
   const entryFile = path.join(outputDir, 'brand-entry.css');
   const integration = {
     entryFile,
+    ...(rootSelector !== ':root' ? {rootSelector,scopeInstructions:'Bind class selected-brand-page to the selected target-page root (including loading state). Native root selectors were adapted before hashing; preserve all generated files and token values. This scopes root variables only, not every library component selector; untested shared CSS effects remain limitations.'} : {}),
     mappedVariables: rows.map(row => row.target),
     instructions: 'Import entryFile exactly once from the host application/global stylesheet entry; it loads library runtime before brand theme. Do not separately import its two child stylesheets or repeat library CSS later. Inspect existing declarations of mappedVariables on the themed root and consumers: remove or reconnect only stale brand overrides that mask these generated values. Preserve business styles and intentional mode/state overrides, and verify those branches. Do not force the theme with !important. Verify actual computed winners and token change → rendered change → restore in the running host; compilation alone is not runtime proof.',
   };

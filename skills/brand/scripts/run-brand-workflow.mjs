@@ -51,13 +51,13 @@ const codeRoot = path.resolve(opt(rawArgs, '--artifact-root', '') || process.cwd
 if (['select-image-code','compile-selected-theme','prepare-selected-code-comparison','record-selected-code','record-selected-code-review','revise-selected-code'].includes(command)
     || ['continue','delivery','status'].includes(command) && fs.existsSync(selectedCodeFile(codeRoot))) {
   try {
-    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review','--reason','--preview-url','--output-dir']);
+    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review','--reason','--preview-url','--output-dir','--native-preview']);
     if(rawArgs.slice(1).some(x=>x.startsWith('--')&&!allowed.has(x))) throw Error('Selected-image code cannot mix other workflow modes or mutation flags.');
     if(!path.isAbsolute(opt(rawArgs,'--artifact-root',''))) throw Error('Absolute artifact root required.');
     const result = command === 'select-image-code' ? selectImageCode({root:codeRoot,brand:opt(rawArgs,'--brand',''),direction:opt(rawArgs,'--direction',''),selection:opt(rawArgs,'--selection',''),confirmed:rawArgs.includes('--confirm-isolated-preview')})
       : command === 'revise-selected-code' ? reviseSelectedCode({root:codeRoot,reason:opt(rawArgs,'--reason','')})
       : command === 'compile-selected-theme' ? compileSelectedTheme({root:codeRoot,dangouiRoot:opt(rawArgs,'--dangoui-root','')})
-      : command === 'prepare-selected-code-comparison' ? prepareSelectedCodeComparison({root:codeRoot,previewUrl:opt(rawArgs,'--preview-url',''),outputDir:opt(rawArgs,'--output-dir','')})
+      : command === 'prepare-selected-code-comparison' ? prepareSelectedCodeComparison({root:codeRoot,previewUrl:opt(rawArgs,'--preview-url',''),outputDir:opt(rawArgs,'--output-dir',''),...(opt(rawArgs,'--native-preview','')?{nativePreview:JSON.parse(fs.readFileSync(opt(rawArgs,'--native-preview',''),'utf8'))}:{})})
       : command === 'record-selected-code' ? recordSelectedCode({root:codeRoot,submissionFile:opt(rawArgs,'--submission','')})
       : command === 'record-selected-code-review' ? recordSelectedCodeReview({root:codeRoot,reviewFile:opt(rawArgs,'--review','')})
       : selectedCodeStatus(codeRoot);

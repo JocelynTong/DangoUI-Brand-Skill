@@ -105,14 +105,16 @@ function imageComparisonHarness(delivery,viewRoot=root,historyIndex=0) {
   const status=delivery.previewStatus||'approved'
   const count=delivery.images.length
   const statusText=status==='pending'?'待独立审核 · 三图已生成，不代表交付通过':status==='partial'||status==='partial-blocked'?`已保存 ${count}/3 张 · 尚未完成三图审核`:status==='failed'?'审核未通过 · 保留问题说明':'独立审核完成 · 可供选案（不代表实施认证）'
-  const guidance=`${count?'可以明确选择本轮已有方向并要求隔离单页。':'本轮暂无可选图。'}说“继续生成”会开启新一轮三个全新方案，旧成功图保留可选；只有明确要求“补齐缺失方向”才补图。不会自动重试、转 H5 或整体换肤。`;
+  const available=delivery.images.map(image=>image.id.toUpperCase()).join('/');
+  const historicalAvailable=(delivery.history||[]).some(h=>h.images?.length);
+  const guidance=`<aside aria-label="下一步选择"><h2>接下来可以怎么做</h2><p>回到对话告诉助手即可，不需要操作内部流程：</p><ul><li>再探索：说“再来三个新方向”。会新建一轮，保留已有图，不自动重试被拒方向。</li>${count?`<li>选已有图：本轮可选 ${escapeHtml(available)}。说“选本轮 ${escapeHtml(delivery.images[0].id.toUpperCase())}，落地隔离单页”（方向由你决定）。</li>`:'<li>本轮暂无可选图。</li>'}${historicalAvailable?'<li>选历史图：打开下面的历史批次，选好后说“选历史第 N 轮 C，落地隔离单页”，以实际轮次和方向为准。</li>':''}<li>暂时不继续：说“暂停”。</li></ul><p>只落地单页，不自动整体换肤；明确要求后才执行下一步。</p></aside>`;
   const directionStates=delivery.directionStates||['a','b','c'].map(id=>({id,status:delivery.images.some(d=>d.id===id)?'saved':'pending'}));
   const states=`<p aria-label="本轮方向状态">${directionStates.map(d=>`方案 ${d.id.toUpperCase()}：${({saved:'已保存',blocked:'生成受阻',pending:'待生成'})[d.status]}`).join(' · ')}</p>`;
   const history=`<nav aria-label="历史批次">${historyIndex?`<a href="/__brand_comparison__?brand=${encodeURIComponent(delivery.brand)}">返回最新轮</a><p>历史轮次 ${historyIndex}；选择时请注明此轮及方向。</p>`:''}${(delivery.history||[]).map((h,i)=>`<p><a href="/__brand_comparison__?brand=${encodeURIComponent(delivery.brand)}&history=${historyIndex+i+1}">回看历史轮次 ${historyIndex+i+1}：${h.completedCount} 张已保存${h.images.length?'，可选 '+h.images.map(d=>d.id.toUpperCase()).join('/'):'，暂无可选图'}</a>（不计入本轮）</p>`).join('')}</nav>`;
   const refresh=(['pending','partial'].includes(status)||status==='partial-blocked'&&directionStates.some(d=>d.status==='pending'))?'<script>setTimeout(()=>{if(document.visibilityState==="visible")location.reload();else document.addEventListener("visibilitychange",()=>{if(document.visibilityState==="visible")location.reload()},{once:true})},15000)</script>':''
   return `<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>完整效果图 · 选向比较</title><style>
 *{box-sizing:border-box}body{margin:0;padding:24px;background:#edf0f2;color:#172026;font:16px/1.6 system-ui,sans-serif}header,footer,main{max-width:1240px;margin:0 auto}h1{font-size:24px}main{display:flex;gap:20px;overflow-x:auto;align-items:start;padding:16px 0}section{flex:0 0 390px;background:white}h2{font-size:18px;padding:0 12px}img{display:block;width:390px;height:auto}footer{padding:16px 0}a{color:inherit}
-</style></head><body data-review-status="${escapeHtml(status)}"><header><h1>同一场景 · 完整效果图</h1><h2 role="status">${statusText}</h2>${states}<p>图像预览，不可交互；未转成宿主 H5，未修改宿主。已有方案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。${guidance}</p>${history}</header>${sampleNotice}<main aria-label="已有方案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer>${refresh}</body></html>`
+</style></head><body data-review-status="${escapeHtml(status)}"><header><h1>同一场景 · 完整效果图</h1><h2 role="status">${statusText}</h2>${states}<p>图像预览，不可交互；未转成宿主 H5，未修改宿主。已有方案等权展示，无默认选中。</p><p>窄屏可横向查看，点击图片打开原图。</p>${guidance}${history}</header>${sampleNotice}<main aria-label="已有方案原图">${cards}</main><footer><h2>审核说明与局限</h2><ul>${notes}</ul></footer>${refresh}</body></html>`
 }
 
 function viewportFrame({ src, width, height, id, title }) {

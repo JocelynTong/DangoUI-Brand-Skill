@@ -30,10 +30,26 @@ function verifiedTools(value = []) {
     return {name:tool.name,version:tool.version,path:tool.path,verified:true};
   });
 }
-export function prepareSelectedCodeComparison({root,previewUrl,outputDir}) {
+function validateNativePreview(root,state,value) {
+  assert(state.nativeRuntime||state.framework==='taro','nativePreview requires a Taro host.');
+  assert(value&&typeof value.distPath==='string'&&path.isAbsolute(value.distPath),'nativePreview requires absolute distPath.');
+  const distPath=fs.realpathSync(value.distPath);
+  assert(within(fs.realpathSync(state.hostRoot),distPath)&&fs.statSync(distPath).isDirectory(),'Native dist must be inside isolated host.');
+  assert(value.route===state.targetPage?.route&&typeof value.route==='string','Native route must match frozen targetPage.');
+  const screenshot=typeof value.screenshot==='string'?bind(value.screenshot):value.screenshot;
+  localBinding(root,screenshot);
+  assert(!within(state.hostRoot,fs.realpathSync(screenshot.path))&&/\.(png|jpe?g|webp)$/i.test(screenshot.path),'Native screenshot must be raster evidence outside host source.');
+  const inventory=snapshot(distPath);
+  assert(inventory.files.length&&!inventory.skippedSymlinks.length,'Native dist must contain files and no symlinks.');
+  if(value.distFiles)assert(JSON.stringify(value.distFiles)===JSON.stringify(inventory.files),'Native dist changed since comparison; prepare fresh evidence.');
+  return {mode:'native',distPath,route:value.route,screenshot,distFiles:inventory.files,interactionEntry:'Open distPath in native developer tools or device; comparison is static evidence, not an interactive H5 runtime.'};
+}
+export function prepareSelectedCodeComparison({root,previewUrl,outputDir,nativePreview}) {
   root=fs.realpathSync(root);
   const state=read(selectedCodeFile(root));inputs(state);
-  const runtime=localPreview(previewUrl);
+  assert(!(nativePreview&&previewUrl),'Choose nativePreview or H5 previewUrl, not both.');
+  const native=nativePreview?validateNativePreview(root,state,nativePreview):null;
+  const runtime=native?null:localPreview(previewUrl);
   const dir=path.resolve(outputDir || path.join(activeAttempt(root).dir,'selected-code-comparison'));
   const parent=fs.realpathSync(path.dirname(dir));
   const destination=path.join(parent,path.basename(dir));
@@ -45,6 +61,15 @@ export function prepareSelectedCodeComparison({root,previewUrl,outputDir}) {
   const ext=path.extname(state.image.path).toLowerCase();
   assert(['.png','.jpg','.jpeg','.webp','.gif'].includes(ext), 'Selected comparison image must be a raster file.');
   const imageName='selected-reference'+ext;
+  if(native) {
+    const actualName='native-runtime'+path.extname(native.screenshot.path).toLowerCase();
+    const html=`<!doctype html><html lang="zh-CN"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>选图与原生截图</title><style>body{font:16px/1.6 system-ui;margin:24px}main{display:flex;gap:24px;flex-wrap:wrap}img{width:390px;max-width:100%;height:auto}section{max-width:390px}</style><h1>方向 ${escapeHtml(state.direction.toUpperCase())} · 原生单页静态证据</h1><p>这是选图与实际原生截图的比较，不是可交互 H5。实际操作请在开发工具或真机中打开下方 dist 和路由；截图不证明交互、窄屏或 QA 通过。</p><p>dist: <code>${escapeHtml(native.distPath)}</code><br>路由: <code>${escapeHtml(native.route)}</code></p><main><section><h2>选中效果图</h2><img src="${imageName}" alt="选中效果图原件"></section><section><h2>原生运行截图</h2><img src="${actualName}" alt="实际原生运行截图"></section></main></html>`;
+    fs.mkdirSync(dir);fs.copyFileSync(state.image.path,path.join(dir,imageName),fs.constants.COPYFILE_EXCL);fs.copyFileSync(native.screenshot.path,path.join(dir,actualName),fs.constants.COPYFILE_EXCL);
+    const comparisonFile=path.join(dir,'index.html');fs.writeFileSync(comparisonFile,html,{flag:'wx'});
+    const normalized={...native,screenshot:bind(path.join(dir,actualName))};
+    const nativePreviewFile=path.join(dir,'native-preview.json');save(nativePreviewFile,normalized);
+    return {ok:true,comparisonFile,nativePreview:normalized,nativePreviewFile,selectedImage:bind(path.join(dir,imageName)),comparison:bind(comparisonFile),preview:{command:[process.execPath,path.join(skillRoot,'scripts','serve-design-host-h5.mjs'),'--root',dir,'--port','0'],path:'/index.html',instructions:'Static evidence comparison only. Open nativePreview.distPath and route in native developer tools for actual interaction. Include nativePreview and comparisonFile in submission; omit previewUrl.'}};
+  }
   const html=`<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>选图与实际单页</title><style>*{box-sizing:border-box}body{margin:0;padding:24px;background:#edf0f2;color:#17191c;font:15px/1.6 system-ui,sans-serif}header,footer{max-width:840px;margin:0 auto 24px}h1{font-size:24px}h2{font-size:17px}main{display:flex;gap:24px;justify-content:center;flex-wrap:wrap}.frame{display:block;width:390px;height:844px;border:0;background:white}img.frame{object-fit:contain;object-position:top}p{max-width:390px}select{font:inherit;padding:6px}footer{margin-top:24px}a{color:inherit}</style></head><body><header><h1>选中方向 ${escapeHtml(state.direction.toUpperCase())} · 图片与真实单页</h1><label>同一 CSS 视口 <select id="viewport"><option value="390">390 × 844</option><option value="320">320 × 740</option></select></label> · <a href="${escapeHtml(runtime)}" target="_blank" rel="noopener noreferrer">单独打开实际页面</a></header><main><section><h2>选中的完整效果图 · 静态</h2><img class="frame" src="${imageName}" alt="选中效果图原件"></section><section><h2>真实单页 · 可操作</h2><iframe class="frame" title="隔离宿主实际单页" src="${escapeHtml(runtime)}" referrerpolicy="no-referrer"></iframe></section></main><footer>图片不证明交互。运行数据及加载状态以实际宿主为准；范围仅限隔离单页。此比较页不表示 QA 通过、用户确认或整体换肤授权。实际业务、设计系统消费、窄屏与返回路径仍须独立检查。</footer><script>document.getElementById('viewport').addEventListener('change',function(){const width=this.value==='320'?320:390;document.querySelectorAll('.frame').forEach(function(frame){frame.style.width=width+'px';frame.style.height=(width===320?740:844)+'px'})})</script></body></html>`;
   fs.mkdirSync(dir);
   fs.copyFileSync(state.image.path,path.join(dir,imageName),fs.constants.COPYFILE_EXCL);
@@ -156,6 +181,12 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
   const pkg=read(path.join(host,'package.json')),deps={...pkg.dependencies,...pkg.devDependencies};
   const framework=deps['@tarojs/taro']?'taro':deps.react?'react':deps.vue?'vue':'unknown';
   const reusableComponents=[];
+  let nativeRuntime;
+  if(framework==='taro') {
+    const dest=path.join(out,'native-runtime');fs.mkdirSync(dest);
+    const assets=['safe-area.mjs','usage.md'].map(name=>{const to=path.join(dest,name);fs.copyFileSync(path.join(skillRoot,'assets','taro-native-navigation',name),to);const b=bind(to);copied.push(b);return b;});
+    nativeRuntime={platform:'taro-native',helper:assets[0],usage:assets[1],requiredCheck:'nativeRuntime',instructions:'Read the frozen helper and usage. Inspect existing navStyle, inline geometry, capsule and status-bar ownership before integrating the selected header. Native runtime evidence is required; H5/proxy/build success cannot replace it. Preserve selected art and single-page scope.'};
+  }
   if(framework==='react'&&!deps['react-native']) {
     const dest=path.join(out,'reusable-components','react-web-button');fs.mkdirSync(dest,{recursive:true});
     const assets=['DangoButton.tsx','usage.md'].map(name=>{const to=path.join(dest,name);fs.copyFileSync(path.join(skillRoot,'assets','react-web-button',name),to);const b=bind(to);copied.push(b);return b;});
@@ -165,12 +196,37 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
   const state={schema:'selected-image-code/v1',brand,direction,hostOriginal:host,hostRoot:clone,brandRoot,modFile,adapterFile:path.join(brandRoot,'migrations',brand,'dangoui-adapter.json'),image:bind(image),selection:bind(selectionFile),inputs:copied,baseline,baselinePolicy,framework,reusableComponents,parentRun:root,parentImageReview:parentFailed?'failed-preserved':'not-promoted',createdAt:new Date().toISOString(),fullWorkflowPass:false};
   assert(fs.existsSync(state.adapterFile),'Frozen DangoUI adapter missing.');
   state.targetPage=targetPage;
+  if(nativeRuntime)state.nativeRuntime=nativeRuntime;
   state.conceptReviewNotes=conceptReviewNotes;
   state.historicalConceptReviews=historicalConceptReviews;
   save(selectedCodeFile(out),state);
   return selectedCodeStatus(out);
 }
 export function selectedCodeStatus(root) {
+  const result=selectedCodeStatusBase(root),state=read(selectedCodeFile(root));
+  if(state.nativeRuntime) {
+    verify(state.nativeRuntime.helper);verify(state.nativeRuntime.usage);
+    const packet=result.dispatchRequest||result.reviewRequest;
+    if(packet)packet.nativeRuntime={...state.nativeRuntime,themeScope:'.selected-brand-page',themeIntegration:'Bind class selected-brand-page to the target page root, including loading state. compile-selected-theme scopes native root variables before freezing; do not edit generated CSS after compilation.'};
+    if(result.reviewRequest)result.reviewRequest.reviewShape.checks.nativeRuntime=null;
+    if(result.dispatchRequest) {
+      result.dispatchRequest.commands.prepareNativeComparison=cmd('prepare-selected-code-comparison',root,'--native-preview','<native-preview-input.json>');
+      result.dispatchRequest.nativePreviewShape={distPath:path.join(state.hostRoot,'dist'),route:state.targetPage?.route,screenshot:path.join(root,'<actual-native-screenshot.png>')};
+      result.dispatchRequest.nativeDelivery='For native delivery use prepareNativeComparison with nativePreviewShape, then submit its returned nativePreview and comparisonFile without previewUrl. Static screenshots are not interaction proof; QA must operate native developer tools/device.';
+    }
+  }
+  const implementation=activeAttempt(root).implementation;
+  if(fs.existsSync(implementation)) {
+    const p=read(implementation);
+    if(p.nativePreview) {
+      try {validateNativePreview(root,state,p.nativePreview);} catch(error) {return {...result,status:'needs-revision',previewReady:false,userGoalCompleted:false,reason:error.message};}
+      result.nativePreview=p.nativePreview;
+      if(result.reviewRequest)result.reviewRequest.nativePreview=p.nativePreview;
+    }
+  }
+  return result;
+}
+function selectedCodeStatusBase(root) {
   const state=read(selectedCodeFile(root));inputs(state);
   const selectedArtwork={source:state.image,role:'generated-proposal',preferredUse:'reuse-selected-illustration',instructions:'Reuse suitable illustration regions from the selected image as generated-proposal runtime artwork, not official brand evidence. Prefer existing image bytes with responsive CSS framing over regenerating, redrawing subjects with CSS, or deleting IP. Inspect actual dimensions and choose framing per image, not a fixed brand crop. Keep subjects visible and exclude rasterized navigation, search, filters and records from the visible region. Build functional controls and live content in code using the frozen design system. Disclose baked-in decorative text. If no suitable region can be separated by layout, disclose the limitation and ask before new generation or changing expression; do not retry rejected edits. Record source hash, runtime asset, visible region and consumer in existing reused/adapted/limitations. QA verifies the same asset at target and narrow viewports, retained subjects, no fake/duplicate controls, and actual DTCG/component consumption.'};
   const base={ok:true,artifactRoot:root,hostRoot:state.hostRoot,scope:'selected-image-isolated-code-preview',targetPage:state.targetPage||null,wholeHostAuthorized:false,userSinglePageConfirmed:false,originalHostModified:false,fullWorkflowPass:false,hostImplementationComplete:false};
@@ -203,7 +259,7 @@ export function compileSelectedTheme({root,dangouiRoot}) {
   for(const name of ['brand-theme.css','dangoui-runtime.css','brand-entry.css','theme-compilation.json']) {
     assert(!fs.lstatSync(path.join(outputDir,name),{throwIfNoEntry:false})?.isSymbolicLink(),'Theme output file cannot be a symlink.');
   }
-  const result=compileHostTheme({modFile:state.modFile,adapterFile:state.adapterFile,dangouiRoot,outputDir});
+  const result=compileHostTheme({modFile:state.modFile,adapterFile:state.adapterFile,dangouiRoot,outputDir,...(state.nativeRuntime||state.framework==='taro'?{rootSelector:'.selected-brand-page'}:{})});
   const record={...result,bindings:[result.themeFile,result.runtimeStyleFile,result.entryFile,result.proofFile].map(bind)};
   fs.writeFileSync(path.join(root,'theme-build.json'),JSON.stringify(record,null,2)+'\n');return record;
 }
@@ -211,13 +267,18 @@ export function recordSelectedCode({root,submissionFile}) {
   const state=read(selectedCodeFile(root));inputs(state);const p=read(submissionFile);
   assert(!p.scope||p.scope==='single-page','Selection authorizes only one page, not whole-host implementation.');
   assert(p.producer&&Array.isArray(p.outputs)&&p.outputs.length&&Array.isArray(p.reused)&&Array.isArray(p.adapted)&&Array.isArray(p.limitations),'Implementation submission incomplete.');
-  localPreview(p.previewUrl);
+  assert(!(p.nativePreview&&p.previewUrl),'Choose nativePreview or H5 previewUrl, not both.');
+  if(p.nativePreview) {
+    assert(p.nativePreview.distFiles&&p.nativePreview.screenshot?.sha256,'Use nativePreview returned by prepare-selected-code-comparison.');
+    p.nativePreview=validateNativePreview(root,state,p.nativePreview);
+  } else localPreview(p.previewUrl);
   p.verifiedRuntimeTools=verifiedTools(p.verifiedRuntimeTools);
   const comparison=localBinding(root,bind(p.comparisonFile));
   const theme=read(path.join(root,'theme-build.json'));theme.bindings.forEach(b=>localBinding(root,b));
   const outputs=filesUnder(root,p.outputs);assert(outputs.some(b=>within(state.hostRoot,b.path)),'Actual host source outputs required.');
   // Freeze the complete current source copy so review cannot silently drift.
   const source=snapshot(state.hostRoot);const all=[...outputs,comparison,...source.files.map(f=>bind(path.join(state.hostRoot,f.path)))];
+  if(p.nativePreview)all.push(p.nativePreview.screenshot,...p.nativePreview.distFiles.map(f=>bind(path.join(p.nativePreview.distPath,f.path))));
   const before=new Map(state.baseline.files.map(f=>[f.path,f.sha256])),after=new Map(source.files.map(f=>[f.path,f.sha256]));
   const changedFiles=[...new Set([...before.keys(),...after.keys()])].filter(f=>before.get(f)!==after.get(f));
   save(activeAttempt(root).implementation,{...p,scope:'single-page',changedFiles,themeCompilation:bind(theme.proofFile),sourceFiles:source.files,outputs:[...new Map([...all,...theme.bindings].map(b=>[b.path,b])).values()]});
@@ -235,6 +296,7 @@ export function recordSelectedCodeReview({root,reviewFile}) {
     localBinding(root,b);
   });
   if(r.verdict==='pass')assert(['visual','business','tokenRuntime','responsive'].every(k=>r.checks?.[k]===true),'All scoped runtime checks must pass.');
+  if(r.verdict==='pass'&&read(selectedCodeFile(root)).nativeRuntime)assert(r.checks?.nativeRuntime===true,'Independent nativeRuntime check required; H5/proxy cannot replace native verification.');
   if(r.verdict==='pass'&&read(selectedCodeFile(root)).targetPage)assert(r.checks?.singlePageScope===true,'Independent single-page scope check required; no whole-host approval.');
   save(review,r);return selectedCodeStatus(root);
 }

@@ -67,6 +67,8 @@ test('one gallery serves only hash-bound history and keeps its images outside cu
   const current=new URL('/__brand_comparison__?brand='+f.brand,base);
   let response=await fetch(current),html=await response.text();assert.equal(response.status,200);
   assert.equal((html.match(/<img /g)||[]).length,0);assert.match(html,/已保存 0\/3 张/);assert.match(html,/可选 A/);assert.match(html,/不计入本轮/);
+  assert.match(html,/aria-label="下一步选择"/);assert.match(html,/再来三个新方向/);
+  assert.match(html,/本轮暂无可选图/);assert.match(html,/选历史图/);assert.match(html,/暂停/);
   const history=new URL(current);history.searchParams.set('history','1');
   response=await fetch(history);html=await response.text();assert.equal(response.status,200);assert.match(html,/生成受阻/);assert.match(html,/方案 B：待生成/);assert.equal((html.match(/<img /g)||[]).length,1);
   const imageUrl=new URL('/__brand_history_image__?brand='+f.brand+'&history=1&direction=a',base);
@@ -76,6 +78,22 @@ test('one gallery serves only hash-bound history and keeps its images outside cu
   assert.equal((await fetch(new URL('/__brand_history_image__?brand='+f.brand+'&history=1&direction=b',base))).status,404);
   fs.appendFileSync(next.history[0].images[0].path,'corrupt');
   assert.equal((await fetch(imageUrl)).status,409);assert.equal((await fetch(current)).status,409);
+});
+
+test('all blocked with historical B/C still exposes real choices without changing original images',async t=>{
+  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('b');f.checkpoint('c');
+  const next=regenerateImageConcepts({...f,confirmed:true,feedback:'New independent directions'});
+  t.after(()=>fs.rmSync(path.dirname(next.artifactRoot),{recursive:true,force:true}));
+  const opts={root:next.artifactRoot,brand:f.brand};
+  for(const id of ['a','b','c'])f.write(path.join(opts.root,'migrations',f.brand,'image-concepts',`${id}-failure.json`),{schema:'brand-image-generation-failure/v1',direction:id,tool:'image_gen',code:'moderation_blocked',reason:'Synthetic refusal'});
+  const result=imageConceptDelivery(opts);
+  assert.equal(result.status,'awaiting-user-choice');assert.equal(result.images.length,0);assert.equal(result.selectionAvailable,true);
+  assert.deepEqual(result.userChoices.selectableDirections,[]);assert.deepEqual(result.history[0].images.map(i=>i.id),['b','c']);
+  const server=spawn(process.execPath,[path.resolve('skills/brand/scripts/serve-design-host-h5.mjs'),'--root',opts.root,'--port','0']);t.after(()=>server.kill());
+  const base=await new Promise((resolve,reject)=>{let text='';server.stdout.on('data',b=>{text+=b;const m=text.match(/http:\/\/[^\s]+/);if(m)resolve(m[0]);});server.on('error',reject);server.on('exit',code=>reject(Error(`Gallery exited ${code}`)));});
+  const response=await fetch(new URL('/__brand_comparison__?brand='+f.brand,base)),html=await response.text();
+  assert.equal(response.status,200);assert.match(html,/已保存 0\/3 张/);assert.match(html,/可选 B\/C/);assert.match(html,/再来三个新方向/);assert.match(html,/选历史图/);assert.match(html,/暂停/);assert.doesNotMatch(html,/setTimeout/);
+  for(const image of next.history[0].images)assert.equal(sha(image.path),image.sha256);
 });
 
 test('new concepts cannot reuse images from an older ancestor through an empty intermediate batch',t=>{
@@ -160,6 +178,8 @@ test('a terminal failure keeps other authorized directions dispatchable and gall
   assert.match(html,/<section data-direction="a" data-generation-status="blocked">/);
   assert.match(html,/<code>moderation_blocked<\/code>/);
   assert.match(html,/Synthetic refusal/);
+  assert.match(html,/本轮可选 B\/C/);assert.match(html,/落地隔离单页/);
+  assert.doesNotMatch(html,/选历史图/);
   assert.equal((html.match(/<section/g)||[]).length,3);
 });
 
