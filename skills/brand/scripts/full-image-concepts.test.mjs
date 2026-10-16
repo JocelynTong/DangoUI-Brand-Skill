@@ -30,6 +30,14 @@ test('compact output preserves originals, failure state and review while omittin
 
 const entry = path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
 
+test('normal dispatch shares concrete section-state guidance with producer and review',t=>{
+  const f=fixture(t);prepareImageConcepts(f);
+  const dispatch=JSON.parse(fs.readFileSync(path.join(f.dir,'image-concepts-dispatch.json'),'utf8'));
+  assert.match(dispatch.conceptScope.business,/actual visible labels/);
+  assert.match(dispatch.conceptScope.business,/collapsed/);
+  assert.match(dispatch.conceptScope.business,/leaving composition and imagery free/);
+});
+
 for(const count of [0,1,2]) test(`continue starts three NEW directions from ${count}-image blocked batch without losing history`,t=>{
   const f=fixture(t);prepareImageConcepts(f);
   for(const id of ['a','b'].slice(0,count))f.checkpoint(id);

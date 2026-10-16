@@ -221,7 +221,8 @@ function buildHostStartupPage(rootPath, hostRoot, requestedHostRoot, targetResol
   const explicitFile = fs.existsSync(requestedHostRoot) && fs.statSync(requestedHostRoot).isFile() ? requestedHostRoot : null;
   const route = targetResolution?.route || null;
   const clean = String(route || "").replace(/^\//, "").replace(/\.(?:vue|tsx?|jsx?)$/i, "");
-  const bases = explicitFile ? [explicitFile] : [
+  const resolvedEntry = targetResolution?.sourceFile ? path.join(hostRoot, targetResolution.sourceFile) : null;
+  const bases = explicitFile ? [explicitFile] : resolvedEntry ? [resolvedEntry] : [
     path.join(hostRoot, clean), path.join(hostRoot, "src", clean),
     path.join(hostRoot, "src", "pages", clean), path.join(hostRoot, "src", "views", clean),
   ];
@@ -344,7 +345,44 @@ function resolveHostTarget(hostRoot, requestedTarget = hostRoot) {
     const route = pages?.match(/["']([^"']+)["']/)?.[1];
     if (route) return { strategy: "default-home-first-route", route, source: path.relative(hostRoot, file) };
   }
+  const webEntry = resolveReactWebEntry(hostRoot);
+  if (webEntry) return webEntry;
   return { strategy: "host-root-fallback", route: null, warning: "DEFAULT_HOME_ROUTE_NOT_DETECTED" };
+}
+
+// Follow a local HTML module entry to its single rendered local component.
+// Do not guess App.tsx by filename or choose a branch of a router.
+function resolveReactWebEntry(hostRoot) {
+  const inside = (file) => file.startsWith(`${fs.realpathSync(hostRoot)}${path.sep}`);
+  const localFile = (base) => {
+    const found = [base, ...['.tsx','.jsx','.ts','.js'].map(ext => base + ext)]
+      .filter(file => fs.existsSync(file) && fs.statSync(file).isFile() && inside(fs.realpathSync(file)));
+    return found.length === 1 ? found[0] : null;
+  };
+  const html = path.join(hostRoot, 'index.html');
+  if (!fs.existsSync(html)) return null;
+  const tags = fs.readFileSync(html, 'utf8').match(/<script\b[^>]*>/gi) || [];
+  const modules = tags.filter(tag => /\btype\s*=\s*["']module["']/.test(tag))
+    .map(tag => tag.match(/\bsrc\s*=\s*["']([^"']+)["']/)?.[1]).filter(Boolean);
+  if (modules.length !== 1 || /^(?:\w+:|\/\/)/.test(modules[0])) return null;
+  const entry = localFile(path.resolve(hostRoot, modules[0].replace(/^\//, '')));
+  if (!entry) return null;
+  const source = fs.readFileSync(entry, 'utf8');
+  const rendered = source.match(/\.render\s*\(([\s\S]*)\)\s*;?\s*$/)?.[1];
+  if (!rendered) return null;
+  const imports = [...source.matchAll(/import\s+(\w+|\{[^}]+\})\s+from\s+["'](\.[^"']+)["']/g)];
+  const roots = [];
+  for (const [, binding, specifier] of imports) {
+    const names = binding.replace(/[{}]/g, '').split(',').map(item => item.trim().split(/\s+as\s+/).at(-1));
+    if (!names.some(name => /^[A-Z]\w*$/.test(name) && new RegExp(`<${name}(?:\\s|/|>)`).test(rendered))) continue;
+    const file = localFile(path.resolve(path.dirname(entry), specifier));
+    if (!file) return null;
+    roots.push(file);
+  }
+  if (roots.length !== 1) return null;
+  const component = fs.readFileSync(roots[0], 'utf8');
+  if (/\b(?:RouterProvider|BrowserRouter|HashRouter|Routes|useRoutes|createBrowserRouter)\b/.test(source + component)) return null;
+  return { strategy: 'html-react-render-entry', route: '/', source: path.relative(hostRoot, entry), sourceFile: path.relative(hostRoot, roots[0]), runtimeState: 'unverified-read-startup-conditions-before-freezing-business' };
 }
 
 function inspectHostLayout(hostRoot, scopedFiles = null) {

@@ -34,7 +34,7 @@ function coordinationCommands(root, brand) {
 const conceptScope = {
   expressive:'Original task-appropriate Expressive subjects, imagery and depth are permitted proposals, not claims of official source assets. A plain documentation reference is not a brand-wide ban on illustration or depth. Distinguish actual source prohibitions from absence in one screenshot.',
   productive:'Keep applicable source typography, controls, semantic roles and readable task surfaces. Evaluate deviations at concept-selection impact, not runtime or pixel certification; disclose harmless localized departures.',
-  business:'Use current bound host source and necessary imports/data plus explicit user facts. Verify labels, navigation, actions, actual availability conditions and internally consistent counts/states. Do not infer sequential locks, ranking or new abilities from a visual metaphor or old review. Unknown facts remain unknown.'
+  business:'Use current bound host source and necessary imports/data plus explicit user facts. Verify labels, navigation, actions, actual availability conditions and internally consistent counts/states. For resource/help sections, state the actual visible labels and whether the section is collapsed; a section heading alone does not authorize invented child links. Use this same concrete business content for all three prompts, leaving composition and imagery free. Do not infer sequential locks, ranking or new abilities from a visual metaphor or old review. Unknown facts remain unknown.'
 };
 
 function references(value, found = new Set()) {

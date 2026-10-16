@@ -10,7 +10,7 @@ fs.writeFileSync(path.join(root,'package.json'),JSON.stringify({name:'fixture',d
 for(const installStatus of ['installed','updated','already-current']) test(`${installStatus} collects missing inputs without writing`,()=>{
  const before=fs.readdirSync(root);const pkg=fs.readFileSync(path.join(root,'package.json'),'utf8');
  const result=initializeBrand({host:root,hostConfirmed:true,installStatus});
- assert.deepEqual(result.missing.map(x=>x.field),['reference','page']);
+ assert.deepEqual(result.missing.map(x=>x.field),['reference']);
  assert.equal(result.readOnly,true);assert.deepEqual(fs.readdirSync(root),before);assert.equal(fs.readFileSync(path.join(root,'package.json'),'utf8'),pkg);
 });
 test('complete inputs route to planning, not implementation',()=>assert.equal(initializeBrand({host:root,hostConfirmed:true,reference:'https://example.com',page:'home'}).status,'ready-for-planning'));
@@ -26,5 +26,13 @@ for(const installStatus of ['installed','updated','already-current','unknown']) 
 });
 test('complete inputs retain discovery without asking again',()=>{
  const r=initializeBrand({host:root,hostConfirmed:true,reference:'https://example.com',page:'home'});
- assert.equal(r.missing.length,0);assert.match(r.welcome,/#\/variants/);
+ assert.equal(r.missing.length,0);assert.equal(r.target.kind,'explicit-page');assert.equal(r.target.value,'home');
+});
+test('brand selected defaults to host homepage without a page question',()=>{
+ const before=fs.readFileSync(path.join(root,'package.json'),'utf8');
+ const r=initializeBrand({host:root,hostConfirmed:true,reference:'https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants/dango'});
+ assert.deepEqual(r.missing,[]);assert.equal(r.status,'ready-for-planning');
+ assert.equal(r.target.kind,'host-startup-page');assert.equal(r.target.source,'default');
+ assert.equal(r.inputs.page,'');assert.equal(r.readOnly,true);
+ assert.equal(fs.readFileSync(path.join(root,'package.json'),'utf8'),before);
 });
