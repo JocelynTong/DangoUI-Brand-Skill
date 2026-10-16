@@ -16,6 +16,8 @@
 
 只有用户明确要求交互 H5 时传 `--concept-medium interactive-h5`。该阶段要求 ImageGen 做 Expressive 时再加 `--require-imagegen-expressive`，冻结 `goal.expressiveProduction.required=true`，设计阶段生成表达资产并与品牌 Productive 代码组合。不能把完整效果图目标自动升级为 H5，也不能以旧的 H5-only 要求拦截完整效果图交付。
 
+新 `run design-host` 不依据旧 `execution-manifest.json` 推断介质。若返回 `IMAGE_CONCEPTS_FRESH_RUN_REQUIRED`，由编排者为新图片请求准备独立运行目录及完整品牌/宿主输入，保留旧目录，不为消除错误改传 H5 或擅自选旧 A。用户明确续修旧 H5 时仍走原轮次的 continuation/retry 入口；仅有旧 H5 而没有可选生图原件时，不能把 H5 截图冒充已生成图片或自动试装。
+
 用户已认可准确组件且只要求实施该模块时，同属 `host-implementation → apply-host`，使用 [限域组件交接](../references/approved-component-handoff.md)；不把模块批准提升为整页批准，不要求重做三方向。平台不兼容时明确需要适配，不能用 Vue 框架相同推断运行环境相同。
 
 尚未认可准确组件、但已明确授权沿用现有品牌与宿主开展单模块隔离选材/适配试验时，使用 `host-concepts → design-host --module-task <任务>`，输入品牌包根、宿主与准确模块路径，执行 Agent 从返回索引选 recipe，入口自动准备隔离副本和 hash-bound 交接（详见同一参考的“普通输入自动准备”）。不让普通用户填写内部 manifest；已有准确 manifest 可兼容 `--component-task`。品牌候选不得伪装成 approved kit；不扩建 Demo、不重跑无关整页方案，也不重判来源学习认证。

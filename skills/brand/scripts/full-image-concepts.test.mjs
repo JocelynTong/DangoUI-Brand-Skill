@@ -318,6 +318,22 @@ test('existing H5 history cannot be overwritten by image preparation', t => {
   assert.throws(() => prepareImageConcepts(f), /Existing H5 history is immutable/);
 });
 
+for (const mode of ['design-host', 'learn-brand']) test(`public new image request cannot inherit historical ${mode} medium`, t => {
+  const f=fixture(t);
+  const manifest=f.write(path.join(f.dir,'execution-manifest.json'),{mode});
+  const old=f.write(path.join(f.dir,'h5-directions/a.html'),'<p>old A, not selected</p>');
+  const before=[sha(manifest),sha(old),sha(f.source),sha(path.join(f.dir,'brand-mod.json'))];
+  const args=[entry,'run','--request-kind','host-concepts','--mode','design-host','--brand',f.brand,'--artifact-root',f.root,'--host-target',f.hostTarget,'--mod-file',path.join(f.dir,'brand-mod.json')];
+  for(const flags of [[],['--concept-medium','full-image']]) {
+    const r=spawnSync(process.execPath,[...args,...flags],{encoding:'utf8'});
+    assert.equal(r.status,1,r.stdout+r.stderr);
+    assert.equal(JSON.parse(r.stdout).blockingCode,'IMAGE_CONCEPTS_FRESH_RUN_REQUIRED');
+    assert.deepEqual([sha(manifest),sha(old),sha(f.source),sha(path.join(f.dir,'brand-mod.json'))],before);
+    assert.equal(fs.existsSync(path.join(f.dir,'design-host-route.json')),false);
+    assert.equal(fs.existsSync(path.join(f.dir,'image-concepts.json')),false);
+  }
+});
+
 test('standard gallery exposes pending and failed honestly, then approved at same URL; incomplete/corrupt remain blocked', async t=>{
   const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');f.checkpoint('b');
   const server=spawn(process.execPath,[path.resolve('skills/brand/scripts/serve-design-host-h5.mjs'),'--root',f.root,'--port','0']);t.after(()=>server.kill());

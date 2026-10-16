@@ -460,13 +460,20 @@ if (!intake.ok) {
   process.exit(1);
 }
 
+// Historical output does not authorize changing a new request's medium.
+// Preserve the old run; the orchestrator prepares a fresh isolated image run.
+if (command === 'run' && mode === 'design-host'
+    && opt(rawArgs, '--concept-medium', 'full-image') === 'full-image'
+    && fs.existsSync(path.join(root, 'migrations', brand, 'execution-manifest.json'))) {
+  block('IMAGE_CONCEPTS_FRESH_RUN_REQUIRED', 'New concepts default to full-image. Preserve this historical run and use a fresh isolated artifact root with the complete brand and host inputs. Do not fall back to H5 or select an old direction. Only an explicit user request to continue H5 may use its existing continuation/retry entry, or --concept-medium interactive-h5 for an explicitly requested H5 run.');
+}
+
 if (command === "run" && ["design-host", "apply-host"].includes(mode)) {
   installExplicitLocalStylePack({ root, brand, modFile: opt(rawArgs, "--mod-file", "") });
 }
 
 if(command==='run'&&mode==='design-host') {
-  const existingH5=fs.existsSync(path.join(root,'migrations',brand,'execution-manifest.json'));
-  const medium=opt(rawArgs,'--concept-medium',existingH5?'interactive-h5':'full-image');
+  const medium=opt(rawArgs,'--concept-medium','full-image');
   if(!['full-image','interactive-h5'].includes(medium)) block('CONCEPT_MEDIUM_INVALID','Use full-image or explicitly requested interactive-h5.');
   if(medium==='full-image') {
     const hostTarget=opt(rawArgs,'--host-target','')||opt(rawArgs,'--host-target-or-plan','');
