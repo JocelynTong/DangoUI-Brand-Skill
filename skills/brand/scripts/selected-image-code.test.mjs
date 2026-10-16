@@ -128,6 +128,22 @@ function fixture(t) {
   return {dir,root,host,brand,mod,image,dangouiRoot,write,json,select,submission,review};
 }
 
+test('scoped authorization limitation survives delivery without granting whole-host approval',t=>{
+  const f=fixture(t),s=f.select();f.submission(s);
+  const limitations=['Account authorization unavailable; outside selected core search journey, not certified.'];
+  const result=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{limitations,observations:['Synthetic fixture: required search input, results and clear recovery observed; account unavailable.']})});
+  assert.equal(result.status,'ready-for-user-review');
+  assert.deepEqual(result.limitations,limitations);
+  assert.equal(result.wholeHostAuthorized,false);
+});
+
+for(const business of [false,null])test(`authorization limitation cannot waive broken or unverified core search (${business})`,t=>{
+  const f=fixture(t),s=f.select();f.submission(s);
+  const reviewFile=f.review(s,{checks:{visual:true,business,tokenRuntime:true,responsive:true,singlePageScope:true},limitations:['Account authorization warning'],observations:['Required search is broken or lacks actual input evidence.']});
+  assert.throws(()=>recordSelectedCodeReview({root:s.artifactRoot,reviewFile}),/scoped runtime checks/);
+  assert.equal(selectedCodeStatus(s.artifactRoot).status,'review-ready');
+});
+
 test('selection requires explicit authorization and exact image hash',t=>{
   const f=fixture(t);assert.throws(()=>f.select({confirmed:false}),/authorization/);
   assert.throws(()=>f.select({selection:''}),/authorization/);

@@ -204,6 +204,7 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
 }
 export function selectedCodeStatus(root) {
   const result=selectedCodeStatusBase(root),state=read(selectedCodeFile(root));
+  if(result.reviewRequest)result.reviewRequest.instructions += ' Assess warnings by observed impact on the frozen single-page task, not by console severity or warning count. In observations record the affected operation, evidence, actual effect and attribution (host authorization, implementation regression, or unknown); source similarity alone cannot establish a pre-existing defect in another user installation. Authentication warnings may remain in limitations only when evidence shows the required core journey works and the failed operation is outside that journey; never label the failed operation passed. Required search must have evidence of actual input, corresponding results or empty state, and clear/reset recovery; screenshots alone or untested precise input cannot pass business. If required interaction is broken or unverified, keep business false or null and report the specific defect or evidence gap, not a blanket brand failure. Preserve existing valid evidence and images, request only missing existing records, and do not restart generation or demand a full user rerun. Do not change authentication, suppress errors, copy credentials or perform writes to make QA pass.';
   if(state.nativeRuntime) {
     verify(state.nativeRuntime.helper);verify(state.nativeRuntime.usage);
     const packet=result.dispatchRequest||result.reviewRequest;

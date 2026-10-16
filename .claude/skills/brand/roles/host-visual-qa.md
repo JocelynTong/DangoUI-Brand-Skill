@@ -12,6 +12,14 @@ Single-page QA success means ready for user confirmation only: `confirmationStat
 
 ## Owns
 
+### Scope warnings by actual impact
+
+For a selected-image single page, console warnings are evidence to investigate, not an automatic failure. Record the affected operation, observed impact, evidence and attribution in existing `observations`; use `unknown` when the user installation or cause cannot be verified. Matching local source is not proof of a pre-existing issue in someone else's installation.
+
+An authorization failure outside the frozen core journey can remain in `limitations` only with evidence that the required journey works. Do not certify the failed account/price operation. A required search or interaction that is broken **or unverified** still blocks business readiness: inspect actual input, corresponding results/empty state, and clear/reset recovery where applicable. Do not turn “not tested” into “passed” or equate it with a confirmed implementation regression. Preserve completed checks and identify only the missing evidence or failed operation; never silently narrow the frozen scope after failure.
+
+Use existing version-bound records where sufficient; request missing existing records before asking for new execution. Do not regenerate images, suppress warnings, alter auth, copy credentials or require a whole-flow rerun to clear a local finding. These rules use the existing review fields and do not add another approval stage.
+
 - Business safety and selected-direction fidelity.
 - Brand application quality and masked structural recognition.
 - Readability, scrolling, responsive behavior, real-device asset quality, navigation and safe-area behavior.
