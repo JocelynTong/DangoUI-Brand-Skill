@@ -5,7 +5,7 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawnSync} from 'node:child_process';
-import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode} from './selected-image-code.mjs';
+import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison} from './selected-image-code.mjs';
 
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const binding = p => ({path:p,sha256:hash(p)});
@@ -315,4 +315,63 @@ test('public entry cannot reuse selected-page run as whole-host approval',t=>{
     const r=spawnSync(process.execPath,[new URL('./run-brand-workflow.mjs',import.meta.url).pathname,action,'--artifact-root',s.artifactRoot,'--request-kind','host-implementation','--mode','apply-host'],{encoding:'utf8'});
     assert.match(r.stdout+r.stderr,/SINGLE_PAGE_CONFIRMATION_REQUIRED/);
   }
+});
+
+test('standard comparison uses immutable exact image, escaped loopback URL and existing static server',t=>{
+  const f=fixture(t),s=f.select();
+  const source=s.dispatchRequest.selectedImage.path, before=hash(source);
+  const result=prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl:'http://127.0.0.1:4317/?a=1&b="/><script>alert(1)</script>#/page'});
+  assert.equal(result.selectedImage.sha256,before);assert.equal(hash(source),before);
+  const html=fs.readFileSync(result.comparisonFile,'utf8');
+  assert.match(html,/&amp;b=/);assert.ok(!html.includes('<script>alert(1)</script>'));
+  assert.match(html,/iframe/);assert.match(html,/320 × 740/);
+  assert.ok(result.preview.command.includes(path.resolve('skills/brand/scripts/serve-design-host-h5.mjs')));
+  const saved=hash(result.comparisonFile);
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl:'http://localhost:1234/'}),/already exists/);
+  assert.equal(hash(result.comparisonFile),saved);
+  assert.ok(s.dispatchRequest.commands.prepareComparison.includes('prepare-selected-code-comparison'));
+});
+
+test('comparison rejects non-loopback, credential URLs, host destinations and symlink collisions without writes',t=>{
+  const f=fixture(t),s=f.select(),out=path.join(f.dir,'fresh-comparison');
+  for(const previewUrl of ['https://example.com/','javascript:alert(1)','http://localhost.evil.test/','http://user:secret@localhost:80/']) {
+    assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl,outputDir:out}),/loopback/);
+    assert.equal(fs.existsSync(out),false);
+  }
+  for(const host of [s.hostRoot,f.host]) assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl:'http://localhost:1234/',outputDir:path.join(host,'comparison')}),/outside host/);
+  fs.symlinkSync(f.host,out);
+  assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl:'http://localhost:1234/',outputDir:out}),/already exists/);
+  assert.equal(fs.existsSync(path.join(f.host,'index.html')),false);
+});
+
+test('public comparison command writes only new output and keeps reviewed receipts intact',t=>{
+  const f=fixture(t),s=f.select();f.submission(s);recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)});
+  const receipt=path.join(s.artifactRoot,'implementation-review.json'),before=hash(receipt),out=path.join(f.dir,'new-validation');
+  const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'prepare-selected-code-comparison','--artifact-root',s.artifactRoot,'--preview-url','http://[::1]:4317/#/page','--output-dir',out],{encoding:'utf8'});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);
+  assert.equal(JSON.parse(cli.stdout).comparisonFile,path.join(out,'index.html'));
+  assert.equal(hash(receipt),before);assert.equal(selectedCodeStatus(s.artifactRoot).status,'ready-for-user-review');
+});
+
+test('producer verified runtime paths and versions reach QA without being treated as independent proof',t=>{
+  const f=fixture(t),s=f.select();compileSelectedTheme({root:s.artifactRoot,dangouiRoot:f.dangouiRoot});
+  const comparison=prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl:'http://localhost:1234/'});
+  const verifiedRuntimeTools=[{name:'node test runtime',version:process.version,path:process.execPath,verified:true}];
+  const submission={producer:'implementer',previewUrl:comparison.previewUrl,comparisonFile:comparison.comparisonFile,outputs:['host/src/App.jsx'],reused:[],adapted:[],limitations:[],verifiedRuntimeTools};
+  const file=f.json(path.join(f.dir,'tool-submission.json'),{...submission,verifiedRuntimeTools:[{...verifiedRuntimeTools[0],version:''}]});
+  assert.throws(()=>recordSelectedCode({root:s.artifactRoot,submissionFile:file}),/verified runtime tool/);
+  assert.equal(fs.existsSync(path.join(s.artifactRoot,'implementation.json')),false);
+  f.json(file,submission);const result=recordSelectedCode({root:s.artifactRoot,submissionFile:file});
+  assert.deepEqual(result.reviewRequest.verifiedRuntimeTools,verifiedRuntimeTools);
+  assert.match(result.reviewRequest.runtimeToolProvenance,/not independent QA proof/);
+  assert.equal(result.status,'review-ready');
+});
+
+test('selected-code public stdout flushes a dispatch larger than a pipe buffer',t=>{
+  const f=fixture(t),s=f.select(),file=path.join(s.artifactRoot,'selected-image-code.json');
+  const state=JSON.parse(fs.readFileSync(file,'utf8'));
+  state.inputs=Array.from({length:800},()=>state.inputs[0]);f.json(file,state);
+  const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'continue','--artifact-root',s.artifactRoot],{encoding:'utf8',maxBuffer:2*1024*1024});
+  assert.equal(cli.status,0,cli.stdout+cli.stderr);assert.ok(Buffer.byteLength(cli.stdout)>65536);
+  assert.equal(JSON.parse(cli.stdout).dispatchRequest.inputs.length,800);
 });

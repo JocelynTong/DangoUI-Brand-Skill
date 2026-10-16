@@ -20,7 +20,7 @@ import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-han
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
 import { prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile, compactImageConceptResult } from './full-image-concepts.mjs';
-import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode } from './selected-image-code.mjs';
+import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison } from './selected-image-code.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
 verifySkillIntegrity(path.dirname(skillScriptsDir), { allowMissing: true });
@@ -48,19 +48,20 @@ if(command==='regenerate-image-concepts') {
 // A selected image becomes an isolated real-host preview, never an implicit
 // approval to edit the original host or restart three-direction exploration.
 const codeRoot = path.resolve(opt(rawArgs, '--artifact-root', '') || process.cwd());
-if (['select-image-code','compile-selected-theme','record-selected-code','record-selected-code-review','revise-selected-code'].includes(command)
+if (['select-image-code','compile-selected-theme','prepare-selected-code-comparison','record-selected-code','record-selected-code-review','revise-selected-code'].includes(command)
     || ['continue','delivery','status'].includes(command) && fs.existsSync(selectedCodeFile(codeRoot))) {
   try {
-    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review','--reason']);
+    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review','--reason','--preview-url','--output-dir']);
     if(rawArgs.slice(1).some(x=>x.startsWith('--')&&!allowed.has(x))) throw Error('Selected-image code cannot mix other workflow modes or mutation flags.');
     if(!path.isAbsolute(opt(rawArgs,'--artifact-root',''))) throw Error('Absolute artifact root required.');
     const result = command === 'select-image-code' ? selectImageCode({root:codeRoot,brand:opt(rawArgs,'--brand',''),direction:opt(rawArgs,'--direction',''),selection:opt(rawArgs,'--selection',''),confirmed:rawArgs.includes('--confirm-isolated-preview')})
       : command === 'revise-selected-code' ? reviseSelectedCode({root:codeRoot,reason:opt(rawArgs,'--reason','')})
       : command === 'compile-selected-theme' ? compileSelectedTheme({root:codeRoot,dangouiRoot:opt(rawArgs,'--dangoui-root','')})
+      : command === 'prepare-selected-code-comparison' ? prepareSelectedCodeComparison({root:codeRoot,previewUrl:opt(rawArgs,'--preview-url',''),outputDir:opt(rawArgs,'--output-dir','')})
       : command === 'record-selected-code' ? recordSelectedCode({root:codeRoot,submissionFile:opt(rawArgs,'--submission','')})
       : command === 'record-selected-code-review' ? recordSelectedCodeReview({root:codeRoot,reviewFile:opt(rawArgs,'--review','')})
       : selectedCodeStatus(codeRoot);
-    process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+    await new Promise((resolve,reject)=>process.stdout.write(`${JSON.stringify(result,null,2)}\n`,error=>error?reject(error):resolve()));process.exit(0);
   } catch(error) { block('SELECTED_IMAGE_CODE_BLOCKED',error.message); }
 }
 

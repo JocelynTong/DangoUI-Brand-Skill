@@ -76,6 +76,8 @@ React Web dispatch 的 `reusableComponents` 提供候选 [文本 Button](../asse
 
 本选图代码阶段开始时即可确认并记录宿主已安装的 Playwright 等本地运行验收工具及版本。内置浏览器故障不自动免除 QA；可用本轮已确认且获准使用的本地工具完成实际检查，无可用工具时报告真实阻断。不得借工具切换绕过浏览器/网络访问策略、请求头限制或沙箱权限；历史测试结果不替代本轮验收。
 
+实际页面运行后，使用 dispatch 的 `prepare-selected-code-comparison` 命令生成标准选图/页面对照，不手写展厅。传入真实 localhost 页面 URL，使用返回的 comparisonFile 与服务命令；旧输出不可覆盖。实施提交可携带已验证的 `verifiedRuntimeTools`（name、version、绝对 path、verified），自动交给 QA 复核可用性，不作为独立验收证明。宿主编码、构建和业务检查仍由对应执行者完成。
+
 完成构建、实际截图及可操作的图/页面对照后，执行返回的 `record-selected-code`。将完整 `reviewRequest` 交给不同执行者，实际打开页面验证视觉、业务、窄屏布局、changedFiles/singlePageScope 和 token 改变→渲染改变→恢复。`record-selected-code-review` 后用 `delivery` 展示结果；派发或文件齐全不算完成。失败保留记录并限域修复，不重画效果图。通过的 `confirmationStatus=awaiting-user-single-page-confirmation` 仅表示单页可验收，`userSinglePageConfirmed=false`、`wholeHostAuthorized=false`；未测路由、后端和跨平台能力明确列出。
 
 提交后发现局部缺陷时，执行状态返回的 `revisionCommand`（`revise-selected-code --artifact-root <当前目录> --reason <具体缺陷>`），再修改当前隔离副本、构建并重新记录。旧提交和审核原件不覆盖，新修订必须绑定新的实际截图并重新独立 QA；不重新选图、不重新复制原宿主、不借用旧 PASS。若已先改代码，`continue` 会返回同一恢复命令而不是无路可走的 hash 错误。冻结品牌、选图或原宿主变化仍是输入问题，不能用修订绕过。仅对明确缺陷做一轮限域修复；再次失败且没有新的纠正依据时如实报告，不自动循环。
