@@ -1,0 +1,33 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+import {spawnSync} from 'node:child_process';
+import {retireCandidate} from './retire-brand-candidate.mjs';
+import {buildSkillIntegrity} from './verify-brand-skill-integrity.mjs';
+import {compactSelectedCodeResult} from './selected-image-code.mjs';
+const source=path.resolve(import.meta.dirname,'..');
+test('retired public entry follows installed version and preserves args, missing target fails closed',()=>{
+ const dir=fs.mkdtempSync(path.join(os.tmpdir(),'brand-retirement-test-'));
+ const candidate=path.join(dir,'old'),installed=path.join(dir,'installed');
+ const original=fs.readFileSync(path.join(source,'scripts/run-brand-workflow.mjs'),'utf8');
+ fs.cpSync(source,candidate,{recursive:true,dereference:true});fs.cpSync(source,installed,{recursive:true,dereference:true});
+ const refresh=p=>fs.writeFileSync(path.join(p,'.brand-skill-integrity.json'),JSON.stringify(buildSkillIntegrity(p)));
+ fs.writeFileSync(path.join(installed,'scripts/run-brand-workflow.mjs'),'console.log(JSON.stringify({version:1,args:process.argv.slice(2)}));');refresh(installed);refresh(candidate);
+ const r=retireCandidate(candidate,installed);
+ const args=['continue','--artifact-root','/tmp/existing page','--brand','dango'];
+ const run=()=>spawnSync(process.execPath,[path.join(candidate,'scripts/run-brand-workflow.mjs'),...args],{encoding:'utf8'});
+ assert.deepEqual(JSON.parse(run().stdout),{version:1,args});assert.ok(fs.existsSync(path.join(r.backup,'scripts/run-brand-workflow.mjs')));
+ fs.writeFileSync(path.join(installed,'scripts/run-brand-workflow.mjs'),'console.log(JSON.stringify({version:2,args:process.argv.slice(2)}));');refresh(installed);
+ assert.equal(JSON.parse(run().stdout).version,2);
+ fs.renameSync(installed,installed+'-offline');assert.notEqual(run().status,0);
+ assert.equal(fs.readFileSync(path.join(source,'scripts/run-brand-workflow.mjs'),'utf8'),original);
+});
+test('single-page pending hands off one fresh owner; ready result has no dispatch',()=>{
+ const root=fs.mkdtempSync(path.join(os.tmpdir(),'brand-owner-test-'));
+ const r=compactSelectedCodeResult({artifactRoot:root,status:'implementation-dispatch-ready',dispatchRequest:{role:'host-implementation',inputs:[{full:true}]}});
+ assert.equal(r.launch.fork_turns,'none');assert.match(r.launch.message,/selected-page-executor/);
+ assert.deepEqual(JSON.parse(fs.readFileSync(r.specialistPacket.path)).inputs,[{full:true}]);
+ const ready=compactSelectedCodeResult({artifactRoot:root,status:'ready-for-user-review'});assert.equal(ready.launch,undefined);
+});

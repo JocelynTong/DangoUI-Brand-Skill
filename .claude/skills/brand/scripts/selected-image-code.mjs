@@ -29,8 +29,10 @@ export function compactSelectedCodeResult(result) {
     assert(!fs.lstatSync(file).isSymbolicLink()&&sha(file)===digest,'Changed or unsafe specialist packet.');
   } else fs.writeFileSync(file,bytes,{flag:'wx'});
   const {[key]:packet,...summary}=result;
-  return {...summary,specialistPacket:{kind:key,role:packet.role,path:file,sha256:digest},
-    nextAction:'Dispatch this exact packet to its specialist once. Keep complete inputs in the packet; do not relay them through the coordinator. Use the record command result as delivery when ready; do not recheck unchanged delivery or rerun QA.'};
+  const specialistPacket={kind:key,role:packet.role,path:file,sha256:digest};
+  return {...summary,specialistPacket,
+    launch:{task_name:'selected_page',fork_turns:'none',message:`Execute the selected single-page task at ${file}; verify SHA-256 ${digest}. Read ${path.join(skillRoot,'workflows/selected-page-executor.md')} and the packet. Own the task through independent review and final delivery; return one final result, not per-stage handoffs.`},
+    nextAction:'Launch this short-context owner once. It owns implementation, independent QA and any authorized bounded revision. Do not redispatch stages or poll from the outer conversation. Ready delivery returns directly without launching a worker or QA.'};
 }
 const cmd = (action, root, ...args) => [process.execPath,entry,action,'--artifact-root',root,...args];
 function localPreview(value) {
