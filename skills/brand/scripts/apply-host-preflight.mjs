@@ -210,7 +210,14 @@ export function runApplyHostPreflight({ root = process.cwd(), brand, hostTarget,
   };
   if (write && brand) {
     fs.mkdirSync(migrationRoot, { recursive: true });
-    if (startupPage) fs.writeFileSync(path.join(migrationRoot, "host-startup-page.json"), `${JSON.stringify(startupPage, null, 2)}\n`);
+    if (startupPage) {
+      const file=path.join(migrationRoot, "host-startup-page.json");
+      // Preserve declared observation evidence only for the exact same target.
+      // Preflight does not capture or claim to have viewed the running host.
+      const prior=fs.existsSync(file)?JSON.parse(fs.readFileSync(file,"utf8")):null;
+      if(prior?.sourceSha256===startupPage.sourceSha256&&prior?.sourceFile===startupPage.sourceFile&&prior?.route===startupPage.route&&path.resolve(rootPath,prior.hostRoot)===path.resolve(rootPath,startupPage.hostRoot)&&prior.visualEvidence) startupPage.visualEvidence=prior.visualEvidence;
+      fs.writeFileSync(file, `${JSON.stringify(startupPage, null, 2)}\n`);
+    }
     if (pageInventory) fs.writeFileSync(path.join(migrationRoot, "host-page-inventory.json"), `${JSON.stringify(pageInventory, null, 2)}\n`);
     fs.writeFileSync(path.join(migrationRoot, `${lane}-preflight.json`), `${JSON.stringify(result, null, 2)}\n`);
   }

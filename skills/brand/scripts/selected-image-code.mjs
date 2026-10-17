@@ -16,6 +16,22 @@ const save = (file, value) => fs.writeFileSync(file, JSON.stringify(value, null,
 const within = (root, file) => { const p=path.relative(root,file); return p!==''&&!p.startsWith('..'+path.sep)&&p!=='..'&&!path.isAbsolute(p); };
 const verify = b => { assert(b?.path && /^[a-f0-9]{64}$/.test(b.sha256||'') && sha(b.path)===b.sha256, `Changed input/output: ${b?.path}`); return b.path; };
 export const selectedCodeFile = root => path.join(root,'selected-image-code.json');
+// The full specialist input stays immutable on disk, not in the coordinator's
+// conversation. This is transport compaction, never reduced design input.
+export function compactSelectedCodeResult(result) {
+  const key=result.reviewRequest?'reviewRequest':result.dispatchRequest?'dispatchRequest':null;
+  if(!key)return result;
+  const root=fs.realpathSync(result.artifactRoot);
+  const bytes=JSON.stringify(result[key],null,2)+'\n';
+  const digest=crypto.createHash('sha256').update(bytes).digest('hex');
+  const file=path.join(root,`selected-code-${digest}.json`);
+  if(fs.existsSync(file)) {
+    assert(!fs.lstatSync(file).isSymbolicLink()&&sha(file)===digest,'Changed or unsafe specialist packet.');
+  } else fs.writeFileSync(file,bytes,{flag:'wx'});
+  const {[key]:packet,...summary}=result;
+  return {...summary,specialistPacket:{kind:key,role:packet.role,path:file,sha256:digest},
+    nextAction:'Dispatch this exact packet to its specialist once. Keep complete inputs in the packet; do not relay them through the coordinator. Use the record command result as delivery when ready; do not recheck unchanged delivery or rerun QA.'};
+}
 const cmd = (action, root, ...args) => [process.execPath,entry,action,'--artifact-root',root,...args];
 function localPreview(value) {
   const url = new URL(value);
@@ -204,6 +220,19 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
 }
 export function selectedCodeStatus(root) {
   const result=selectedCodeStatusBase(root),state=read(selectedCodeFile(root));
+  if(result.reviewRequest)result.reviewRequest.mechanicalValidation={performedBy:'selectedCodeStatus',scope:'Frozen inputs, submission outputs and current source inventory verified by the entry. This is not runtime/visual approval.',instruction:'Do not separately enumerate and hash the same files. Review actual semantics, affected runtime behavior and evidence. Recording revalidates bindings; report discrepancies instead of bypassing checks.'};
+  if(result.reviewRequest && result.recovery?.previousReview) {
+    const recovery=result.recovery;
+    localBinding(root,recovery.previousSubmission);localBinding(root,recovery.previousReview);
+    const previous=read(recovery.previousSubmission.path), review=read(recovery.previousReview.path);
+    assert(review.submission?.sha256===recovery.previousSubmission.sha256 && review.submission?.path===recovery.previousSubmission.path,'Previous review submission mismatch.');
+    review.evidence.forEach(b=>localBinding(root,b));
+    const current=read(result.reviewRequest.submission.path);
+    result.reviewRequest.regression=selectedRevisionScope(previous,current,review,[...(state.targetPage?['singlePageScope']:[]),...(state.nativeRuntime?['nativeRuntime']:[])]);
+    result.reviewRequest.regression.previousReview=recovery.previousReview;
+    result.reviewRequest.regression.evidence=review.evidence;
+    result.reviewRequest.instructions='This is a revision, not a fresh full-page certification. First compare regression.changedSinceReview and the bound prior observations. Re-test failed/unknown and affected checks plus a short affected-control smoke; cite unchanged valid evidence explicitly rather than repeat the full journey. CSS-only is not proof of low impact: inspect the actual CSS and broaden for visibility, geometry, responsive or shared-state changes. Never inherit the overall verdict or pass unverified checks. For token probes use the actual consumer scope, wait for computed style to settle, then restore and verify restoration. '+result.reviewRequest.instructions.replace('Historical verification is not this-run proof.','Prior evidence is usable only after checking its binding and unchanged scope.');
+  }
   if(result.reviewRequest)result.reviewRequest.instructions += ' Assess warnings by observed impact on the frozen single-page task, not by console severity or warning count. In observations record the affected operation, evidence, actual effect and attribution (host authorization, implementation regression, or unknown); source similarity alone cannot establish a pre-existing defect in another user installation. Authentication warnings may remain in limitations only when evidence shows the required core journey works and the failed operation is outside that journey; never label the failed operation passed. Required search must have evidence of actual input, corresponding results or empty state, and clear/reset recovery; screenshots alone or untested precise input cannot pass business. If required interaction is broken or unverified, keep business false or null and report the specific defect or evidence gap, not a blanket brand failure. Preserve existing valid evidence and images, request only missing existing records, and do not restart generation or demand a full user rerun. Do not change authentication, suppress errors, copy credentials or perform writes to make QA pass.';
   if(state.nativeRuntime) {
     verify(state.nativeRuntime.helper);verify(state.nativeRuntime.usage);
@@ -226,6 +255,13 @@ export function selectedCodeStatus(root) {
     }
   }
   return result;
+}
+export function selectedRevisionScope(previous,current,review,requiredChecks=[]) {
+  const before=new Map(previous.sourceFiles.map(f=>[f.path,f.sha256]));
+  const after=new Map(current.sourceFiles.map(f=>[f.path,f.sha256]));
+  const changedSinceReview=[...new Set([...before.keys(),...after.keys()])].filter(p=>before.get(p)!==after.get(p));
+  const checks={visual:null,business:null,tokenRuntime:null,responsive:null,...Object.fromEntries(requiredChecks.map(k=>[k,null])),...review.checks};
+  return {mode:'impact-scoped',changedSinceReview,failedOrUnverifiedChecks:Object.entries(checks).filter(([,v])=>v!==true).map(([k])=>k),priorPassedChecks:Object.entries(checks).filter(([,v])=>v===true).map(([k])=>k),automaticPass:false};
 }
 function selectedCodeStatusBase(root) {
   const state=read(selectedCodeFile(root));inputs(state);

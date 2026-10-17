@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 import { validateHostExpression } from './validate-host-expression.mjs';
+import { imageCoordinationReply } from './image-coordination-reply.mjs';
+import { prepareImageBatchHandoff } from './image-batch-handoff.mjs';
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
 import crypto from "node:crypto";
@@ -19,8 +21,8 @@ import { recoverReference } from "./recover-reference.mjs";
 import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-handoff.mjs";
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
-import { prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile, compactImageConceptResult } from './full-image-concepts.mjs';
-import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison } from './selected-image-code.mjs';
+import { prepareImageConcepts, regenerateImageConcepts, recordImagePreparation, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile, compactImageConceptResult, coordinationReply } from './full-image-concepts.mjs';
+import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison, compactSelectedCodeResult } from './selected-image-code.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
 verifySkillIntegrity(path.dirname(skillScriptsDir), { allowMissing: true });
@@ -33,6 +35,14 @@ const originalArgs = process.argv.slice(2);
 const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
+
+if(command==='handoff-image-batch') {
+  try {
+    const root=opt(rawArgs,'--artifact-root',''),brand=opt(rawArgs,'--brand','');
+    if(!path.isAbsolute(root)||!brand)throw Error('Absolute artifact root and brand required.');
+    console.log(JSON.stringify(prepareImageBatchHandoff({root,brand,verifyExisting:rawArgs.includes('--verify-existing')}),null,2));process.exit(0);
+  } catch(error) {block('IMAGE_BATCH_HANDOFF_BLOCKED',error.message);}
+}
 
 if(command==='regenerate-image-concepts') {
   try {
@@ -51,7 +61,7 @@ const codeRoot = path.resolve(opt(rawArgs, '--artifact-root', '') || process.cwd
 if (['select-image-code','compile-selected-theme','prepare-selected-code-comparison','record-selected-code','record-selected-code-review','revise-selected-code'].includes(command)
     || ['continue','delivery','status'].includes(command) && fs.existsSync(selectedCodeFile(codeRoot))) {
   try {
-    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review','--reason','--preview-url','--output-dir','--native-preview']);
+    const allowed = new Set(['--artifact-root','--brand','--direction','--selection','--confirm-isolated-preview','--dangoui-root','--submission','--review','--reason','--preview-url','--output-dir','--native-preview','--compact','--full']);
     if(rawArgs.slice(1).some(x=>x.startsWith('--')&&!allowed.has(x))) throw Error('Selected-image code cannot mix other workflow modes or mutation flags.');
     if(!path.isAbsolute(opt(rawArgs,'--artifact-root',''))) throw Error('Absolute artifact root required.');
     const result = command === 'select-image-code' ? selectImageCode({root:codeRoot,brand:opt(rawArgs,'--brand',''),direction:opt(rawArgs,'--direction',''),selection:opt(rawArgs,'--selection',''),confirmed:rawArgs.includes('--confirm-isolated-preview')})
@@ -61,7 +71,8 @@ if (['select-image-code','compile-selected-theme','prepare-selected-code-compari
       : command === 'record-selected-code' ? recordSelectedCode({root:codeRoot,submissionFile:opt(rawArgs,'--submission','')})
       : command === 'record-selected-code-review' ? recordSelectedCodeReview({root:codeRoot,reviewFile:opt(rawArgs,'--review','')})
       : selectedCodeStatus(codeRoot);
-    await new Promise((resolve,reject)=>process.stdout.write(`${JSON.stringify(result,null,2)}\n`,error=>error?reject(error):resolve()));process.exit(0);
+    const compact=rawArgs.includes('--compact')||!rawArgs.includes('--full');
+    await new Promise((resolve,reject)=>process.stdout.write(`${JSON.stringify(compact?compactSelectedCodeResult(result):result,null,2)}\n`,error=>error?reject(error):resolve()));process.exit(0);
   } catch(error) { block('SELECTED_IMAGE_CODE_BLOCKED',error.message); }
 }
 
@@ -73,20 +84,21 @@ if (fs.existsSync(selectedCodeFile(selectedScopeRoot)) &&
   block('SINGLE_PAGE_CONFIRMATION_REQUIRED', 'This run is an isolated single-page preview. Finish its runtime QA and obtain explicit user confirmation of that page before separately authorizing whole-host reskinning. Selection or QA pass is not whole-host approval. Use continue/delivery for this run; do not repurpose it as apply-host.');
 }
 
-if (['record-image-concept','record-image-concepts','continue','delivery','status','run'].includes(command)) {
+if (['record-image-preparation','record-image-concept','record-image-concepts','continue','delivery','status','run'].includes(command)) {
   const imageRoot=path.resolve(opt(rawArgs,'--artifact-root','')||opt(rawArgs,'--root',process.cwd()));
   const imageBrand=opt(rawArgs,'--brand','');
   if(imageBrand&&fs.existsSync(imageConceptFile(imageRoot,imageBrand))) {
     if(command==='run'&&(opt(rawArgs,'--concept-medium','full-image')!=='full-image'||opt(rawArgs,'--mode','design-host')!=='design-host')) block('IMAGE_CONCEPTS_RUN_IMMUTABLE','Use a new isolated run for a different medium or workflow.');
     if(command==='run'&&opt(rawArgs,'--host-target','')&&path.resolve(opt(rawArgs,'--host-target',''))!==path.resolve(readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'')) block('IMAGE_CONCEPTS_HOST_MISMATCH','The existing image run belongs to a different host target.');
-    if(command.startsWith('record-image-concept')) validateArtifactIsolation({command:'run',requestKind:'host-concepts',root:imageRoot,artifactRoot:imageRoot,args:['--host-target',readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'']});
+    if(command.startsWith('record-image-')) validateArtifactIsolation({command:'run',requestKind:'host-concepts',root:imageRoot,artifactRoot:imageRoot,args:['--host-target',readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'']});
     try {
-      const result=command==='record-image-concept'?recordImageConcept({root:imageRoot,brand:imageBrand,id:opt(rawArgs,'--direction',''),inputFile:opt(rawArgs,'--input',''),outputFile:opt(rawArgs,'--output',''),toolCallId:opt(rawArgs,'--tool-call-id',''),producer:opt(rawArgs,'--producer','')}):command==='record-image-concepts'?recordImageConcepts({root:imageRoot,brand:imageBrand,receiptFile:opt(rawArgs,'--receipt',''),reviewFile:opt(rawArgs,'--review','')}):imageConceptDelivery({root:imageRoot,brand:imageBrand});
-      const compact=rawArgs.includes('--compact')||(['continue','delivery','status'].includes(command)&&!rawArgs.includes('--full'));
-      process.stdout.write(`${JSON.stringify(compact?compactImageConceptResult(result):result,null,2)}\n`);process.exit(0);
+      const result=command==='record-image-preparation'?recordImagePreparation({root:imageRoot,brand:imageBrand,briefFile:opt(rawArgs,'--brief',''),promptFile:opt(rawArgs,'--prompt-brief',''),screenshotFiles:rawArgs.flatMap((x,i)=>x==='--screenshot'?[rawArgs[i+1]]:[]),sourceUrl:opt(rawArgs,'--source-url',''),scene:opt(rawArgs,'--scene',''),observer:opt(rawArgs,'--observer',''),capturedAt:opt(rawArgs,'--captured-at',null),notObserved:opt(rawArgs,'--not-observed',''),sourceFiles:rawArgs.flatMap((x,i)=>x==='--source-file'?[rawArgs[i+1]]:[])}):command==='record-image-concept'?recordImageConcept({root:imageRoot,brand:imageBrand,id:opt(rawArgs,'--direction',''),inputFile:opt(rawArgs,'--input',''),outputFile:opt(rawArgs,'--output',''),toolCallId:opt(rawArgs,'--tool-call-id',''),producer:opt(rawArgs,'--producer','')}):command==='record-image-concepts'?recordImageConcepts({root:imageRoot,brand:imageBrand,receiptFile:opt(rawArgs,'--receipt',''),reviewFile:opt(rawArgs,'--review','')}):imageConceptDelivery({root:imageRoot,brand:imageBrand});
+      const compact=!rawArgs.includes('--full');
+      const reply=compact?(['continue','status'].includes(command)&&!opt(rawArgs,'--since','')?imageCoordinationReply(result,{root:imageRoot,brand:imageBrand}):coordinationReply(result,opt(rawArgs,'--since',''))):result;
+      process.stdout.write(`${JSON.stringify(reply,null,2)}\n`);process.exit(0);
     } catch(error) { block('IMAGE_CONCEPTS_BLOCKED',error.message); }
   }
-  if(command.startsWith('record-image-concept')) block('IMAGE_CONCEPTS_RUN_REQUIRED','Use the existing full-image run artifact root and brand.');
+  if(command.startsWith('record-image-')) block('IMAGE_CONCEPTS_RUN_REQUIRED','Use the existing full-image run artifact root and brand.');
 }
 
 if (rawArgs.includes('--module-task')) {
@@ -480,8 +492,10 @@ if(command==='run'&&mode==='design-host') {
     const preflight=spawnSync(process.execPath,[skillScript('apply-host-preflight.mjs'),'--root',root,'--brand',brand,'--host-target',hostTarget,'--profile',profile,'--phase','design'],{cwd:root,encoding:'utf8'});
     if(preflight.status!==0) block('IMAGE_CONCEPTS_HOST_PREFLIGHT_BLOCKED',preflight.stdout||preflight.stderr);
     try {
-      const result=prepareImageConcepts({root,brand,hostTarget,sampleData:rawArgs.includes('--allow-labeled-sample-data')});
-      process.stdout.write(`${JSON.stringify(result,null,2)}\n`);process.exit(0);
+      const result=prepareImageConcepts({root,brand,hostTarget,sampleData:rawArgs.includes('--allow-labeled-sample-data'),controlAuditRequired:true});
+      const reply=rawArgs.includes('--full')?result:coordinationReply(result);
+      reply.batchHandoffCommand=[process.execPath,skillScript('run-brand-workflow.mjs'),'handoff-image-batch','--artifact-root',root,'--brand',brand];
+      process.stdout.write(`${JSON.stringify(reply,null,2)}\n`);process.exit(0);
     } catch(error) { block('IMAGE_CONCEPTS_BLOCKED',error.message); }
   }
 }

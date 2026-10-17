@@ -6,10 +6,52 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawnSync} from 'node:child_process';
 import {nativeNavigationGeometry} from '../assets/taro-native-navigation/safe-area.mjs';
-import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison} from './selected-image-code.mjs';
+import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison, compactSelectedCodeResult} from './selected-image-code.mjs';
 
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const binding = p => ({path:p,sha256:hash(p)});
+test('compact public handoff retains exact full input and rejects packet tampering',t=>{
+ const f=fixture(t),s=f.select(),result=compactSelectedCodeResult(s);
+ assert.equal(result.dispatchRequest,undefined);
+ assert.deepEqual(JSON.parse(fs.readFileSync(result.specialistPacket.path)),s.dispatchRequest);
+ assert.equal(hash(result.specialistPacket.path),result.specialistPacket.sha256);
+ assert.deepEqual(compactSelectedCodeResult(s),result);
+ fs.appendFileSync(result.specialistPacket.path,'changed');
+ assert.throws(()=>compactSelectedCodeResult(s),/unsafe|Changed/);
+});
+test('compact public status delivers recorded review without creating a new revision',t=>{
+ const f=fixture(t),s=f.select();f.submission(s);
+ recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)});
+ const before=hash(path.join(s.artifactRoot,'implementation-review.json'));
+ const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'continue','--compact','--artifact-root',s.artifactRoot],{encoding:'utf8'});
+ assert.equal(cli.status,0,cli.stdout+cli.stderr);
+ const result=JSON.parse(cli.stdout);assert.equal(result.status,'ready-for-user-review');
+ assert.equal(result.wholeHostAuthorized,false);assert.equal(result.specialistPacket,undefined);
+ assert.equal(hash(path.join(s.artifactRoot,'implementation-review.json')),before);
+ assert.equal(fs.existsSync(path.join(s.artifactRoot,'revisions')),false);
+});
+test('default public handoff stays compact through pending review and record returns delivery',t=>{
+ const f=fixture(t),s=f.select();
+ const cli=(action,...args)=>spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),action,'--artifact-root',s.artifactRoot,...args],{encoding:'utf8'});
+ const pending=f.submission(s);
+ const handoff=cli('continue');assert.equal(handoff.status,0,handoff.stdout+handoff.stderr);
+ const result=JSON.parse(handoff.stdout);
+ assert.equal(result.status,'review-ready');assert.equal(result.reviewRequest,undefined);
+ assert.equal(hash(result.specialistPacket.path),result.specialistPacket.sha256);
+ assert.deepEqual(JSON.parse(fs.readFileSync(result.specialistPacket.path)),pending.reviewRequest);
+ const incomplete=f.review(s,{checks:{visual:true,business:null,tokenRuntime:true,responsive:true,singlePageScope:true}});
+ const blocked=cli('record-selected-code-review','--review',incomplete);
+ assert.notEqual(blocked.status,0);assert.equal(selectedCodeStatus(s.artifactRoot).status,'review-ready');
+ const recorded=cli('record-selected-code-review','--review',f.review(s));
+ assert.equal(recorded.status,0,recorded.stdout+recorded.stderr);
+ const delivered=JSON.parse(recorded.stdout);
+ assert.equal(delivered.status,'ready-for-user-review');assert.equal(delivered.specialistPacket,undefined);
+ assert.equal(delivered.comparisonFile,path.join(s.artifactRoot,'compare.html'));
+ assert.equal(delivered.wholeHostAuthorized,false);assert.equal(delivered.userSinglePageConfirmed,false);
+ assert.equal(fs.existsSync(path.join(s.artifactRoot,'revisions')),false);
+ fs.appendFileSync(s.dispatchRequest.selectedImage.path,'tampered');
+ assert.notEqual(cli('continue').status,0);
+});
 test('native safe area uses measured px and rejects synthetic/missing metrics',()=>{
   assert.deepEqual(nativeNavigationGeometry({windowWidth:390,statusBarHeight:47,capsule:{top:51,bottom:83,left:293,right:380}}),{statusBarHeight:47,safeTop:87,navigationHeight:40,capsuleLeft:293,rightInset:105});
   assert.throws(()=>nativeNavigationGeometry({windowWidth:390,statusBarHeight:47}),/capsule/);
@@ -169,6 +211,16 @@ test('public revision retains selected art, current code and old receipts but re
   const pending=f.submission(s);
   assert.equal(pending.status,'review-ready');
   assert.notEqual(pending.reviewRequest.submission.path,oldSubmission);
+  assert.equal(pending.reviewRequest.regression.mode,'impact-scoped');
+  assert.deepEqual(pending.reviewRequest.regression.changedSinceReview,['src/App.jsx']);
+  assert.equal(pending.reviewRequest.regression.previousReview.sha256,oldHashes[1]);
+  assert.equal(pending.reviewRequest.regression.automaticPass,false);
+  assert.ok(pending.reviewRequest.regression.evidence.length>0);
+  const priorEvidence=pending.reviewRequest.regression.evidence[0].path;
+  const priorBytes=fs.readFileSync(priorEvidence);
+  fs.appendFileSync(priorEvidence,'tampered');
+  assert.throws(()=>selectedCodeStatus(s.artifactRoot),/Changed|hash|mismatch/i);
+  fs.writeFileSync(priorEvidence,priorBytes);
   assert.throws(()=>recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)}),/submission mismatch/);
   const done=recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s,{submission:pending.reviewRequest.submission})});
   assert.equal(done.status,'ready-for-user-review');assert.equal(done.wholeHostAuthorized,false);
@@ -183,7 +235,9 @@ test('public selection can use a saved image while another direction failed',t=>
   assert.equal(cli.status,0,cli.stdout+cli.stderr);const result=JSON.parse(cli.stdout);
   t.after(()=>fs.rmSync(path.dirname(result.artifactRoot),{recursive:true,force:true}));
   assert.equal(result.status,'implementation-dispatch-ready');assert.equal(result.wholeHostAuthorized,false);
-  assert.equal(result.dispatchRequest.scope,'single-page');assert.equal(hash(failure),before);assert.equal(hash(f.image),imageBefore);
+  assert.equal(result.dispatchRequest,undefined);
+  assert.equal(hash(result.specialistPacket.path),result.specialistPacket.sha256);
+  assert.equal(JSON.parse(fs.readFileSync(result.specialistPacket.path)).scope,'single-page');assert.equal(hash(failure),before);assert.equal(hash(f.image),imageBefore);
   assert.throws(()=>f.select({direction:'c'}),/ENOENT/);
 });
 
@@ -478,7 +532,7 @@ test('selected-code public stdout flushes a dispatch larger than a pipe buffer',
   const f=fixture(t),s=f.select(),file=path.join(s.artifactRoot,'selected-image-code.json');
   const state=JSON.parse(fs.readFileSync(file,'utf8'));
   state.inputs=Array.from({length:800},()=>state.inputs[0]);f.json(file,state);
-  const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'continue','--artifact-root',s.artifactRoot],{encoding:'utf8',maxBuffer:2*1024*1024});
+  const cli=spawnSync(process.execPath,[path.resolve('skills/brand/scripts/run-brand-workflow.mjs'),'continue','--full','--artifact-root',s.artifactRoot],{encoding:'utf8',maxBuffer:2*1024*1024});
   assert.equal(cli.status,0,cli.stdout+cli.stderr);assert.ok(Buffer.byteLength(cli.stdout)>65536);
   assert.equal(JSON.parse(cli.stdout).dispatchRequest.inputs.length,800);
 });

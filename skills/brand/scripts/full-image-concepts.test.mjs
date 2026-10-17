@@ -5,7 +5,8 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
-import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImageConcept, recordImageConcepts, compactImageConceptResult } from './full-image-concepts.mjs';
+import {prepareImageBatchHandoff} from './image-batch-handoff.mjs';
+import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImagePreparation, recordImageConcept, recordImageConcepts, compactImageConceptResult } from './full-image-concepts.mjs';
 
 test('compact output preserves originals, failure state and review while omitting repeated prompt payload',t=>{
   const f=fixture(t);const full=prepareImageConcepts(f),before=sha(full.dispatch.path);
@@ -29,6 +30,21 @@ test('compact output preserves originals, failure state and review while omittin
 });
 
 const entry = path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
+test('batch handoff transfers whole execution responsibility and preserves three existing originals',t=>{
+ const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');
+ assert.throws(()=>prepareImageBatchHandoff({...f,verifyExisting:true}),/three saved/);
+ f.checkpoint('b');f.checkpoint('c');
+ const prior=imageConceptDelivery(f);const result=prepareImageBatchHandoff({...f,verifyExisting:true});
+ t.after(()=>fs.rmSync(path.dirname(result.packet.path),{recursive:true,force:true}));
+ const packet=JSON.parse(fs.readFileSync(result.packet.path));
+ assert.equal(result.launch.fork_turns,'none');assert.equal(packet.allowGeneration,false);
+ assert.equal(packet.allowHostEdits,false);assert.deepEqual(packet.reviewInputs.images,prior.images);
+ assert.deepEqual(packet.reviewInputs.inputs,prior.reviewRequest.inputs);
+ assert.deepEqual(packet.reviewInputs.inputImages,prior.reviewRequest.inputImages);
+ assert.deepEqual(packet.reviewInputs.sharedBrief,prior.reviewRequest.sharedBrief);
+ assert.deepEqual(imageConceptDelivery(f).images,prior.images);
+});
+const completePrompt = prompt => `${prompt}\n<shared-design-brief>Host: search collection; navigation: home; action: Search; no captured records, show loading state. Viewport 1280x800. Brand rules: use bound typography and control shapes. Runtime state not observed.</shared-design-brief>`;
 
 test('normal dispatch shares concrete section-state guidance with producer and review',t=>{
   const f=fixture(t);prepareImageConcepts(f);
@@ -36,6 +52,80 @@ test('normal dispatch shares concrete section-state guidance with producer and r
   assert.match(dispatch.conceptScope.business,/actual visible labels/);
   assert.match(dispatch.conceptScope.business,/collapsed/);
   assert.match(dispatch.conceptScope.business,/leaving composition and imagery free/);
+});
+
+test('host observations remain separate from brand references and the actual shared brief reaches QA',t=>{
+  const f=fixture(t);
+  const startupFile=path.join(f.dir,'host-startup-page.json');
+  const startup=JSON.parse(fs.readFileSync(startupFile));
+  const capture=f.write(path.join(f.root,'captures/host-home.png'),fs.readFileSync(f.refs[0]));
+  f.write(startupFile,{...startup,visualEvidence:{screenshot:path.relative(f.root,capture)}});
+  const result=prepareImageConcepts(f),dispatch=result.dispatchRequest;
+  assert.equal(dispatch.sharedBrief.hostVisualEvidence.status,'available');
+  assert.equal(dispatch.sharedBrief.hostVisualEvidence.images[0].path,capture);
+  assert.equal(dispatch.inputImages.some(x=>x.path===capture),false);
+  assert.equal(dispatch.sharedBrief.brandVisual.inputs.some(x=>x.path===f.source),false);
+  f.checkpoint('a');f.checkpoint('b');f.checkpoint('c');
+  const qa=imageConceptDelivery(f).reviewRequest;
+  assert.deepEqual(qa.sharedBrief,dispatch.sharedBrief);
+  assert.equal(qa.sharedDesignBrief.status,'observed');
+  assert.equal(qa.sharedDesignBrief.text,completePrompt('').split('<shared-design-brief>')[1].split('</shared-design-brief>')[0]);
+  fs.appendFileSync(capture,'changed');
+  assert.throws(()=>imageConceptDelivery(f),/hash mismatch/);
+});
+
+test('missing or differing briefs preserve successful images and expose the difference to QA',t=>{
+  const f=fixture(t),dispatch=prepareImageConcepts(f).dispatchRequest;
+  assert.equal(dispatch.sharedBrief.hostVisualEvidence.status,'not-observed');
+  f.checkpoint('a');
+  const inputFile=f.write(path.join(f.dir,'changed-args.json'),{prompt:completePrompt(dispatch.directions[1].prompt).replace('action: Search','action: Purchase'),referenced_image_paths:f.refs});
+  const outputFile=f.write(path.join(f.dir,'changed-output.png'),fs.readFileSync(f.refs[0]));
+  const saved=recordImageConcept({...f,id:'b',inputFile,outputFile,producer:'fixture-producer',toolCallId:'synthetic'});
+  assert.equal(saved.images.length,2);
+  assert.equal(saved.dispatchRequest.sharedDesignBrief.status,'inconsistent');
+  const missing=f.write(path.join(f.dir,'missing-args.json'),{prompt:dispatch.directions[2].prompt,referenced_image_paths:f.refs});
+  const third=f.write(path.join(f.dir,'third.png'),Buffer.concat([fs.readFileSync(f.refs[0]),Buffer.from('third')]));
+  const ready=recordImageConcept({...f,id:'c',inputFile:missing,outputFile:third,producer:'fixture-producer',toolCallId:'synthetic-c'});
+  assert.equal(ready.status,'review-ready');
+  assert.equal(ready.images.length,3);
+  assert.equal(ready.reviewRequest.sharedDesignBrief.status,'inconsistent');
+  assert.deepEqual(ready.reviewRequest.sharedDesignBrief.differingDirectionIds,['b']);
+  assert.deepEqual(ready.reviewRequest.sharedDesignBrief.missingDirectionIds,['c']);
+  assert.match(ready.reviewRequest.sharedDesignBrief.directions[1].text,/Purchase/);
+});
+
+test('absent brief delimiters are recorded as missing without blocking a successful checkpoint',t=>{
+  const f=fixture(t),dispatch=prepareImageConcepts(f).dispatchRequest;
+  const inputFile=f.write(path.join(f.dir,'plain-args.json'),{prompt:dispatch.directions[0].prompt,referenced_image_paths:f.refs});
+  const outputFile=f.write(path.join(f.dir,'plain.png'),fs.readFileSync(f.refs[0]));
+  const saved=recordImageConcept({...f,id:'a',inputFile,outputFile,producer:'fixture-producer',toolCallId:'synthetic'});
+  assert.equal(saved.images.length,1);
+  assert.equal(saved.dispatchRequest.sharedDesignBrief.status,'missing');
+});
+
+test('host capture retains historical scene provenance and verifies its declared hash',t=>{
+  const f=fixture(t),startupFile=path.join(f.dir,'host-startup-page.json');
+  const startup=JSON.parse(fs.readFileSync(startupFile));
+  const capture=f.write(path.join(f.root,'captures/host.png'),fs.readFileSync(f.refs[0]));
+  const visualEvidence={capturedAt:'2026-10-15T10:00:00Z',scene:'first visit, 0/5',source:'local browser observation',images:[{path:path.relative(f.root,capture),sha256:sha(capture)}]};
+  f.write(startupFile,{...startup,visualEvidence});
+  const observation=prepareImageConcepts(f).dispatchRequest.sharedBrief.hostVisualEvidence;
+  assert.equal(observation.images[0].capturedAt,visualEvidence.capturedAt);
+  assert.equal(observation.images[0].scene,visualEvidence.scene);
+  assert.equal(observation.images[0].source,visualEvidence.source);
+  assert.equal(observation.images[0].currency,'not-revalidated');
+  assert.equal(observation.images[0].observationScope,'historical-observation');
+  assert.match(observation.limitations[0],/dependencies, runtime state/);
+});
+
+for(const problem of ['changed','missing'])test(`declared ${problem} host capture is an input error, not silently re-endorsed or omitted`,t=>{
+  const f=fixture(t),startupFile=path.join(f.dir,'host-startup-page.json');
+  const startup=JSON.parse(fs.readFileSync(startupFile));
+  const capture=path.join(f.root,'captures/host.png');
+  if(problem==='changed') f.write(capture,fs.readFileSync(f.refs[0]));
+  f.write(startupFile,{...startup,visualEvidence:{path:path.relative(f.root,capture),sha256:'0'.repeat(64)}});
+  assert.throws(()=>prepareImageConcepts(f),problem==='changed'?/host observation hash mismatch/:/host observation is missing/);
+  assert.equal(fs.existsSync(path.join(f.dir,'image-concepts.json')),false);
 });
 
 for(const count of [0,1,2]) test(`continue starts three NEW directions from ${count}-image blocked batch without losing history`,t=>{
@@ -56,7 +146,7 @@ for(const count of [0,1,2]) test(`continue starts three NEW directions from ${co
   assert.equal(sha(failed),failureHash);assert.equal(imageConceptDelivery(f).status,count<2?'dispatch-ready':'awaiting-user-choice');
   assert.match(next.dispatchRequest.producerInstructions,/never reword refused content/);
   const opts={root:next.artifactRoot,brand:f.brand},d=next.dispatchRequest.directions[0];
-  const inputFile=f.write(path.join(opts.root,'a-args.json'),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+  const inputFile=f.write(path.join(opts.root,'a-args.json'),{prompt:completePrompt(d.prompt),referenced_image_paths:d.referenced_image_paths});
   const outputFile=path.join(opts.root,'a.png');fs.copyFileSync(f.refs[0],outputFile);fs.appendFileSync(outputFile,'new-a');
   const partial=recordImageConcept({...opts,id:'a',inputFile,outputFile,toolCallId:'synthetic-new-a',producer:'new-producer'});
   assert.equal(partial.previewAvailable,true);assert.equal(partial.images.length,1);
@@ -110,7 +200,7 @@ test('new concepts cannot reuse images from an older ancestor through an empty i
   const third=regenerateImageConcepts({root:second.artifactRoot,brand:f.brand,confirmed:true,feedback:'Another new three'});
   for(const run of [second,third])t.after(()=>fs.rmSync(path.dirname(run.artifactRoot),{recursive:true,force:true}));
   assert.deepEqual(third.history.map(h=>h.completedCount),[0,1]);
-  const d=third.dispatchRequest.directions[0],inputFile=f.write(path.join(third.artifactRoot,'args.json'),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+  const d=third.dispatchRequest.directions[0],inputFile=f.write(path.join(third.artifactRoot,'args.json'),{prompt:completePrompt(d.prompt),referenced_image_paths:d.referenced_image_paths});
   const outputFile=path.join(third.artifactRoot,'a.png');fs.copyFileSync(third.history[1].images[0].path,outputFile);
   assert.throws(()=>recordImageConcept({root:third.artifactRoot,brand:f.brand,id:'a',inputFile,outputFile,producer:'new-producer',toolCallId:'synthetic-copy'}),/Prior output/);
 });
@@ -141,7 +231,7 @@ for(const count of [0,1,2]) test(`public recovery preserves ${count} successful 
   assert.equal(sha(fail),before);assert.equal(imageConceptDelivery(f).status,count<2?'dispatch-ready':'awaiting-user-choice');
   const opts={root:next.artifactRoot,brand:f.brand};
   for(const d of next.dispatchRequest.directions){
-    const inputFile=f.write(path.join(opts.root,`${d.id}-args.json`),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+    const inputFile=f.write(path.join(opts.root,`${d.id}-args.json`),{prompt:completePrompt(d.prompt),referenced_image_paths:d.referenced_image_paths});
     const outputFile=path.join(opts.root,`${d.id}.png`);fs.copyFileSync(f.refs[0],outputFile);fs.appendFileSync(outputFile,d.id);
     recordImageConcept({...opts,id:d.id,producer:'new-producer',toolCallId:'synthetic-'+d.id,inputFile,outputFile});
   }
@@ -206,7 +296,7 @@ test('failed-only freezes passed bytes, reviews only changed image, and retains 
   assert.deepEqual(next.completedImages.map(d=>d.sha256),parentImages.slice(0,2).map(d=>d.sha256));
   assert.throws(()=>recordImageConcept({...opts,id:'a',producer:'producer',toolCallId:'bad'}),/frozen/);
   const d=next.dispatchRequest.directions[0];
-  const inputFile=f.write(path.join(opts.root,'args.json'),{prompt:d.prompt,referenced_image_paths:d.referenced_image_paths});
+  const inputFile=f.write(path.join(opts.root,'args.json'),{prompt:completePrompt(d.prompt),referenced_image_paths:d.referenced_image_paths});
   const outputFile=path.join(opts.root,'c.png');fs.copyFileSync(parentImages[2].path,outputFile);fs.appendFileSync(outputFile,'corrected');
   const reviewed=recordImageConcept({...opts,id:'c',producer:'new-producer',toolCallId:'new-c',inputFile,outputFile});
   assert.deepEqual(reviewed.reviewRequest.images.map(d=>d.id),['c']);
@@ -254,10 +344,12 @@ function fixture(t) {
   write(path.join(dir, 'brand-evidence.json'), { screenshots: refs.slice(0, 2).map(p => path.relative(root, p)) });
   write(path.join(dir, 'brand-intent.json'), {});
   write(path.join(dir, 'host-startup-page.json'), { hostRoot: host, sourceFile: 'src/pages/home/index.vue', sourceSha256: sha(source) });
-  const opts = { root, brand, hostTarget: host };
+  // Legacy fixtures exercise existing immutable runs; new public runs below
+  // exercise the required observation/brief preparation handoff.
+  const opts = { root, brand, hostTarget: host, preparationRequired:false };
   const checkpoint = id => {
     const dispatch = imageConceptDelivery(opts).dispatchRequest;
-    const inputFile = write(path.join(dir, `args-${id}.json`), { prompt: dispatch.directions.find(d => d.id === id).prompt, referenced_image_paths: refs });
+    const inputFile = write(path.join(dir, `args-${id}.json`), { prompt: completePrompt(dispatch.directions.find(d => d.id === id).prompt), referenced_image_paths: refs });
     const outputFile = write(path.join(dir, `output-${id}.png`), raster(id.charCodeAt(0)));
     return recordImageConcept({ ...opts, id, inputFile, outputFile, toolCallId: `fixture-${id}`, producer: 'fixture-producer' });
   };
@@ -270,20 +362,72 @@ test('new public host-concepts defaults to full-image and keeps host unchanged',
   assert.equal(result.status, 0, result.stdout + result.stderr);
   const output = JSON.parse(result.stdout);
   assert.equal(output.medium, 'full-image');
-  assert.deepEqual(output.dispatchRequest.directions.map(d => d.id), ['a', 'b', 'c']);
+  assert.equal(output.status,'preparation-required');
+  assert.equal(output.dispatchRequest,undefined);
+  assert.equal(output.preparationRequest.role,'image-concept-input-preparation');
   assert.equal(output.userGoalCompleted, false);
   assert.equal(fs.existsSync(path.join(f.dir, 'execution-manifest.json')), false);
   assert.equal(sha(f.source), before);
   const resumed = spawnSync(process.execPath, [entry, 'continue', '--artifact-root', f.root, '--brand', f.brand], { encoding: 'utf8' });
   assert.equal(resumed.status, 0, resumed.stdout + resumed.stderr);
-  const compact=JSON.parse(resumed.stdout);
+  assert.equal(JSON.parse(resumed.stdout).status,'preparation-required');
+  const brief=f.write(path.join(f.root,'draft.md'),'Host: search collection. Search action. Unknown runtime state. Viewport 1280x800. Brand controls follow tokens; original expressive imagery remains a proposal.');
+  const recorded=spawnSync(process.execPath,[entry,'record-image-preparation','--artifact-root',f.root,'--brand',f.brand,'--brief',brief,'--scene','source-only first visit','--observer','fixture-agent','--not-observed','No runtime browser in this fixture','--compact'],{encoding:'utf8'});
+  assert.equal(recorded.status,0,recorded.stdout+recorded.stderr);
+  const compact=JSON.parse(recorded.stdout);
   assert.deepEqual(compact.pendingDirectionIds, ['a', 'b', 'c']);
   assert.equal(compact.dispatchRequest, undefined);
   assert.deepEqual(JSON.parse(fs.readFileSync(compact.dispatchFile)).directions.map(d=>d.id), ['a','b','c']);
   assert.equal(compact.coordinationCommands.preview.includes('--root'),true);
+  const prepared=JSON.parse(fs.readFileSync(compact.dispatchFile));
+  assert.equal(prepared.sharedBrief.prepared.observation.status,'not-observed');
+  assert.deepEqual(prepared.sharedBrief.hostVisualEvidence.limitations,['No runtime browser in this fixture']);
+  assert.equal(prepared.sharedBrief.prepared.observation.capturedAt,null);
+  assert.equal(prepared.sharedBrief.prepared.promptTextStatus,'not-prepared');
+  assert.ok(prepared.directions.every(d=>!d.prompt.includes(fs.readFileSync(brief,'utf8'))));
   const expanded=spawnSync(process.execPath,[entry,'continue','--artifact-root',f.root,'--brand',f.brand,'--full'],{encoding:'utf8'});
   assert.equal(expanded.status,0,expanded.stdout+expanded.stderr);
   assert.deepEqual(JSON.parse(expanded.stdout).dispatchRequest.directions,JSON.parse(fs.readFileSync(compact.dispatchFile)).directions);
+});
+
+test('prepared scene, common brief and dependency originals reach producer and independent QA unchanged',t=>{
+  const f=fixture(t);
+  const initial=prepareImageConcepts({...f,preparationRequired:true});
+  assert.equal(initial.status,'preparation-required');
+  const brief=f.write(path.join(f.root,'draft.md'),'Local provenance: http://localhost:4175/ and src/data.ts. Maintenance scope only. Collection product; first visit; Search collection and Search action; no real records. 1280x800. Controls follow brand; original landscape is a proposed visual treatment.');
+  const promptFile=f.write(path.join(f.root,'prompt.txt'),'Collection product. Search collection and Search action. First visit; no real records. 1280x800. Original landscape is a proposed visual treatment; controls follow brand.');
+  const dependency=f.write(path.join(f.hostTarget,'src/data.ts'),'export const labels = ["Search collection"];');
+  const screenshot=f.write(path.join(f.root,'host-shot.png'),fs.readFileSync(f.refs[0]));
+  const params={...f,briefFile:brief,promptFile,screenshotFile:screenshot,sourceUrl:'http://localhost:4175/',scene:'first visit',observer:'fixture-browser-agent',capturedAt:'2026-10-16T12:00:00Z',sourceFiles:[dependency]};
+  const prepared=recordImagePreparation(params);
+  assert.equal(prepared.status,'dispatch-ready');
+  const d=prepared.dispatchRequest;
+  assert.equal(prepared.preparationReviewRequest.status,'pending-no-images');
+  assert.equal(prepared.preparationReviewRequest.reviewed,false);
+  assert.deepEqual(prepared.preparationReviewRequest.inputs,d.inputs);
+  assert.deepEqual(prepared.preparationReviewRequest.sharedBrief,d.sharedBrief);
+  assert.equal(d.sharedBrief.hostVisualEvidence.status,'observed');
+  assert.deepEqual(d.sharedBrief.hostVisualEvidence.limitations,[d.sharedBrief.prepared.observation.scope]);
+  assert.doesNotMatch(d.sharedBrief.hostVisualEvidence.limitations.join(' '),/No host screenshot|not been observed/);
+  assert.ok(d.directions.every(direction=>direction.prompt.includes(fs.readFileSync(promptFile,'utf8'))&&!direction.prompt.includes('localhost')&&!direction.prompt.includes('src/data.ts')));
+  assert.equal(d.inputImages.some(i=>i.path===screenshot),false);
+  assert.equal(d.sharedBrief.prepared.observation.capturedAt,params.capturedAt);
+  assert.ok(d.inputs.some(i=>i.path===dependency&&i.sha256===sha(dependency)));
+  assert.deepEqual(recordImagePreparation(params).dispatchRequest,d);
+  // The tool output and draft are mutable work files; frozen copies survive.
+  fs.appendFileSync(screenshot,'work-file changed');fs.appendFileSync(brief,'draft changed');
+  for(const direction of d.directions) {
+    const inputFile=f.write(path.join(f.root,`${direction.id}-prepared-args.json`),{prompt:direction.prompt,referenced_image_paths:direction.referenced_image_paths});
+    const outputFile=f.write(path.join(f.root,`${direction.id}-prepared-output.png`),Buffer.concat([fs.readFileSync(f.refs[0]),Buffer.from(direction.id)]));
+    recordImageConcept({...f,id:direction.id,inputFile,outputFile,toolCallId:'synthetic-'+direction.id,producer:'fixture-producer'});
+  }
+  const qa=imageConceptDelivery(f).reviewRequest;
+  assert.deepEqual(qa.sharedBrief,d.sharedBrief);
+  assert.deepEqual(qa.inputs,d.inputs);
+  assert.deepEqual(qa.preparedInput,d.preparedInput);
+  assert.equal(qa.sharedDesignBrief.status,'observed');
+  fs.appendFileSync(dependency,'changed');
+  assert.throws(()=>imageConceptDelivery(f),/hash mismatch/);
 });
 
 test('checkpoint resume, independent review, image gallery and hash rejection stay bound', async t => {
@@ -381,7 +525,7 @@ test('explicit new batch forks verified inputs, keeps failed parent immutable an
   assert.deepEqual(old,old.map(([x])=>[x,sha(path.join(f.dir,x))]));
   assert.equal(imageConceptDelivery(f).status,'blocked');
   const args=next.dispatchRequest.directions[0];
-  const inputFile=f.write(path.join(next.artifactRoot,'args.json'),{prompt:args.prompt,referenced_image_paths:args.referenced_image_paths});
+  const inputFile=f.write(path.join(next.artifactRoot,'args.json'),{prompt:completePrompt(args.prompt),referenced_image_paths:args.referenced_image_paths});
   const prior=ready.reviewRequest.images[0];
   const outputFile=path.join(next.artifactRoot,'old.png');fs.copyFileSync(prior.path,outputFile);
   assert.throws(()=>recordImageConcept({root:next.artifactRoot,brand:f.brand,id:'a',inputFile,outputFile,toolCallId:'new',producer:'new'}),/Prior output/);

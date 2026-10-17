@@ -22,7 +22,7 @@ export function collectBrandUsage(jsonl, options) {
     throw new Error('Select exactly one turn or an inclusive startLine/endLine range.');
   let sessionThread = null, currentTurn = null;
   let previous = null, selectedEvents = 0, duplicateEvents = 0, selectedLines = 0;
-  const totals = unavailable(), invalid = new Set(), reasons = new Set();
+  const totals = unavailable(), invalid = new Set(), reasons = new Set(), selectedTurns = new Set();
   const lines = jsonl.split(/\r?\n/);
   if (ranged && endLine > lines.length - (lines.at(-1) === '' ? 1 : 0)) throw new Error('Range exceeds the supplied log.');
   for (let index = 0; index < lines.length; index++) {
@@ -43,7 +43,11 @@ export function collectBrandUsage(jsonl, options) {
     const eventThread = rpc?.threadId ?? sessionThread;
     const eventTurn = rpc?.turnId ?? payload.turn_id ?? currentTurn;
     const selected = eventThread === thread && (turn ? eventTurn === turn : index + 1 >= startLine && index + 1 <= endLine);
-    if (selected) selectedLines++;
+    if (selected) {
+      selectedLines++;
+      if (eventTurn) selectedTurns.add(eventTurn);
+      if (ranged && selectedTurns.size > 1) throw new Error('Range crosses multiple turns; collect each explicit --turn separately.');
+    }
     const raw = rpc?.tokenUsage?.total ?? (row.type === 'event_msg' && payload.type === 'token_count' ? payload.info?.total_token_usage : null);
     if (!raw || eventThread !== thread) continue;
     const cumulative = normalize(raw);
@@ -76,12 +80,16 @@ export function collectBrandUsage(jsonl, options) {
     scope: { thread, ...(turn ? { turn } : { startLine, endLine }) },
     modelUsage: { status: Object.values(totals).every(v => v !== null) ? 'reported' : 'unavailable-or-partial', ...totals },
     imageGenerationUsage: { status: 'unavailable', tokens: null, reason: 'Image tool usage is not established by Codex model token counters; no estimates are made.' },
-    evidence: { selectedLines, usageEvents: selectedEvents, duplicateNotifications: duplicateEvents, reasons: [...reasons] },
+    evidence: { selectedLines, turns: [...selectedTurns], usageEvents: selectedEvents, duplicateNotifications: duplicateEvents, reasons: [...reasons] },
     accounting: 'Cached input is a subset of input; reasoning output is a subset of output. Do not add these subsets to total. Counts cover observed cumulative deltas only; unreported or in-flight work is unavailable. Keep development and trial reports separate.',
   };
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
+  if (process.argv.includes('--help')) {
+    console.log('Usage: --session FILE --thread ID --round ID --category development|trial (--turn ID | --start-line N --end-line N)\nPrefer the actual task_started turn ID. Collect once after completion; cached input is already included in input.');
+    process.exit(0);
+  }
   try {
     const args = process.argv.slice(2), opts = {};
     for (let i = 0; i < args.length; i += 2) {

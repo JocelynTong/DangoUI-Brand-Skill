@@ -48,7 +48,7 @@
 
 统计必须包含主会话协调、设计执行者和独立 QA 的不重叠 turn，分别列缓存、非缓存输入和输出。复核已有图的实验只与同一批原图的复核阶段比较，生图次数为零、首图/三图生成耗时为不适用；不能以此声称整轮生图降耗。维护代码与实验准备单列，不计为用户运行。
 
-生产候选和输入准备好后才启动执行者，不让生产者等待维护修复。一次读取必要原件，形成共同业务/品牌底稿并同时准备三案 prompt；原截图、素材、DTCG、映射和业务事实不因减 token 删除。工具按支持的完成等待获取结果，避免秒级轮询；成功后在同一编排步骤保存图片并 checkpoint，立即展示，禁止输出图片 base64。`record-image-concept`、`continue`、`delivery` 可加 `--compact` 避免反复返回未变化的完整 dispatch；原输入和完整 prompt 仍在绑定的 dispatchFile 中，首次必须读取，缺失事实定点查询。每次 checkpoint 已返回最新状态，不再为了相同状态额外调用 continue/delivery。
+生产候选和输入准备好后，通过 `handoff-image-batch` 将整个图片批次交给新短上下文执行者，外层不再逐阶段派发或等待。实际执行返回的 launch，不只保存参数。执行者自己完成生产并交给一个独立 QA；其完成事件返回后一次交付。必要的工具等待留在短上下文，不能声称平台等待零开销。一次读取必要原件，形成共同业务/品牌底稿；原截图、素材、DTCG、映射和业务事实不因减 token 删除。成功后保存图片并 checkpoint，立即展示，禁止输出图片 base64。每次 checkpoint 已返回最新状态，不再为了相同状态额外调用 continue/delivery。仅复核已有图时使用 `--verify-existing`，不运行生成分支。
 
 独立图片 QA 使用新的精简上下文，不复用维护/代码审查会话；只接收 reviewRequest、实际三图与必要品牌/业务原件，业务疑点才读取准确源码片段，不重复扫描整个宿主。检查不延迟已有图展示，不自动重画。普通运行只报告新结果或阻碍，不为确认收到、重复状态来回唤醒执行者。用量统计在阶段结束由编排者一次采集，不让生产者寻找自己的日志；同口径比较累计 token、非缓存/缓存输入、输出和实际耗时，不把低缓存 token 数等同于低费用。
 
@@ -86,9 +86,9 @@ Taro 选图入口同时冻结 `nativeRuntime` 的[纯安全区几何 helper 与�
 
 Taro 原生运行使用同一命令的 `--native-preview <JSON文件>`，不传 `--preview-url`。输入 `{distPath: 隔离host内真实dist绝对路径, route: 冻结目标路由, screenshot: artifactRoot内且host外的实际原生截图绝对路径}`。入口输出明确标注静态证据的“选图 ↔ 原生截图”比较页，并返回含截图 hash 和 dist 清单的 `nativePreview`；正式提交携带返回的 `nativePreview` 与 `comparisonFile`，省略 `previewUrl`。QA/delivery 继续携带同一原生入口，真实操作在开发工具或真机中完成；dist/截图漂移要求新证据，静态比较页不证明交互或原生通过。
 
-完成构建、实际截图及可操作的图/页面对照后，执行返回的 `record-selected-code`。将完整 `reviewRequest` 交给不同执行者，实际打开页面验证视觉、业务、窄屏布局、changedFiles/singlePageScope 和 token 改变→渲染改变→恢复。`record-selected-code-review` 后用 `delivery` 展示结果；派发或文件齐全不算完成。失败保留记录并限域修复，不重画效果图。通过的 `confirmationStatus=awaiting-user-single-page-confirmation` 仅表示单页可验收，`userSinglePageConfirmed=false`、`wholeHostAuthorized=false`；未测路由、后端和跨平台能力明确列出。
+完成构建、实际截图及可操作的图/页面对照后，执行返回的 `record-selected-code`。入口默认把完整 `reviewRequest` 保存为绑定的 `specialistPacket`，协调者只转交此引用给不同执行者；执行者核对 hash 后读取一次，实际打开页面验证视觉、业务、窄屏布局、changedFiles/singlePageScope 和 token 改变→渲染改变→恢复。`record-selected-code-review` 返回 `ready-for-user-review` 时直接展示该回执的结果，无须重复调用 `delivery`；未就绪仍按返回状态审核或修复，派发或文件齐全不算完成。失败保留记录并限域修复，不重画效果图。通过的 `confirmationStatus=awaiting-user-single-page-confirmation` 仅表示单页可验收，`userSinglePageConfirmed=false`、`wholeHostAuthorized=false`；未测路由、后端和跨平台能力明确列出。
 
-提交后发现局部缺陷时，执行状态返回的 `revisionCommand`（`revise-selected-code --artifact-root <当前目录> --reason <具体缺陷>`），再修改当前隔离副本、构建并重新记录。旧提交和审核原件不覆盖，新修订必须绑定新的实际截图并重新独立 QA；不重新选图、不重新复制原宿主、不借用旧 PASS。若已先改代码，`continue` 会返回同一恢复命令而不是无路可走的 hash 错误。冻结品牌、选图或原宿主变化仍是输入问题，不能用修订绕过。仅对明确缺陷做一轮限域修复；再次失败且没有新的纠正依据时如实报告，不自动循环。
+提交后发现局部缺陷时，先通过 `record-selected-code-review` 登记已完成的失败审核，再执行状态返回的 `revisionCommand`（`revise-selected-code --artifact-root <当前目录> --reason <具体缺陷>`），修改当前隔离副本并重新记录。只运行此次改动需要的构建/检查，不默认重跑全项目测试或重新打包。旧提交和审核原件不覆盖；新修订绑定新的实际截图，由独立 QA 根据返回的 `regression` 检查改动、失败项及受影响操作，明确引用仍有效的未变部分证据，不继承旧 PASS。缺少已登记审核时不可凭空复用结论。若已先改代码，`continue` 会返回同一恢复命令而不是无路可走的 hash 错误。冻结品牌、选图或原宿主变化仍是输入问题，不能用修订绕过。仅对明确缺陷做一轮限域修复；再次失败且没有新的纠正依据时如实报告，不自动循环。
 
 原宿主始终只读。本阶段只实现所选真实单页及必要直接依赖，不扫描或换肤其他页面。独立运行 QA 后展示“选中效果图 ↔ 实际可操作页面”，只问是否确认该单页；不满意且要求修订时局部修复，明确重新探索则走新三案。用户说“确认单页”只表达该页认可，保留原话与准确版本，不冒充脚本已有确认写入能力，也不把 wholeHostAuthorized 改为 true。之后只有用户另外明确要求整体换肤，才核对范围并走实施交接；不能把“确认单页，并授权整体换肤”作为必答口令或继续使用的条件。本入口不自动安装到原项目、不推送、不更新已发布 Skill；全项目最终验收不能由单页通过代替。
 
