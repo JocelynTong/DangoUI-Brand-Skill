@@ -1,8 +1,12 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import os from 'node:os';
 import crypto from 'node:crypto';
+import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { manage } from './brand-artifacts.mjs';
+import { readImageCall, verifyImageCall, requireRuntimeEvidence, literalArguments, findCurrentThreadImageCall } from './image-call-evidence.mjs';
+import { declaredImageReferences } from './brand-image-references.mjs';
 
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -13,12 +17,41 @@ export const imageConceptFile = (root, brand) => path.join(root,'migrations',bra
 // Presentation only: validate and persist the complete result before compacting.
 // Original inputs and prompts stay available through the bound dispatch file.
 export function compactImageConceptResult(result) {
-  const {dispatchRequest, ...rest}=result;
-  return {...rest,...(dispatchRequest?{
+  if(result.executableCall) {
+    const {toolArguments,...compact}=result;
+    return compact;
+  }
+  const {dispatchRequest, unverifiedPreviews, ...rest}=result;
+  // The reviewer reads the complete packet once. Do not make its coordinator
+  // ingest and re-serialize the same evidence on every checkpoint/status reply.
+  const review=rest.reviewRequest;
+  if(review?.reviewFile && Array.isArray(review.images)) {
+    const bytes=Buffer.from(`${JSON.stringify(review,null,2)}\n`);
+    const digest=crypto.createHash('sha256').update(bytes).digest('hex');
+    const dir=path.join(os.tmpdir(),'brand-image-review-inputs');
+    const file=path.join(dir,`${digest}.json`);
+    fs.mkdirSync(dir,{recursive:true,mode:0o700});
+    assert(!fs.lstatSync(dir).isSymbolicLink(),'Review packet directory must not be a symlink.');
+    try { fs.writeFileSync(file,bytes,{flag:'wx',mode:0o600}); }
+    catch(error) { if(error.code!=='EEXIST') throw error; }
+    assert(!fs.lstatSync(file).isSymbolicLink() && hash(file)===digest,'Frozen review packet changed; refusing stale or altered review input.');
+    delete rest.reviewRequest;
+    rest.reviewRequestFile={path:file,sha256:digest};
+    rest.reviewDispatch={role:'independent-image-review',input:rest.reviewRequestFile,
+      instruction:'Read this complete packet once and perform its independent review. Do not ask the coordinator to copy its contents. This is a pending request, not a QA pass.',
+      recordCommand:[...review.recordCommand.filter(arg=>arg!=='--compact'),'--compact']};
+  }
+  return {...rest,...(unverifiedPreviews?{unverifiedPreviews:unverifiedPreviews.map(item=>({
+    id:item.id,output:item.output,argumentsStatus:item.argumentsStatus,
+    imagegenAttribution:item.imagegenAttribution,selectionAvailable:false,
+    argumentError:item.argumentError,
+    evidence:{callId:item.provenance.callId,logPath:item.provenance.logPath,
+      eventSha256:item.provenance.eventSha256,status:item.provenance.status}
+  }))}:{}),...(dispatchRequest?{
     dispatchFile:result.dispatchFile||result.dispatch?.path,
     pendingDirectionIds:dispatchRequest.directions.map(d=>d.id),
     sharedDesignBriefLocation:'Read the complete sharedDesignBrief from dispatchFile once in the executor, not in the coordinator.',
-    checkpointCommand:dispatchRequest.checkpointCommand,
+    checkpointCommand:dispatchRequest.checkpointCommand && [...dispatchRequest.checkpointCommand.filter(arg=>arg!=='--compact'),'--compact'],
     failureRecording:dispatchRequest.failureRecording,
     readDispatch:'Use the bound dispatch file for full inputs; do not reread unchanged inputs already consumed in this round.'
   }:{})};
@@ -163,6 +196,7 @@ export function regenerateImageConcepts({root,brand,feedback,confirmed=false,fai
   const dispatch=read(state.dispatch.path);
   [...dispatch.inputs,...dispatch.inputImages].forEach(verifyBinding);
   const prior=checkpoints(root,brand);
+  if(missingOnly||failedOnly) assert(unverifiedPreviews(root,brand).length===0,'Preserve unverified previews; do not treat them as missing images for recovery.');
   assert(!(missingOnly&&failedOnly),'Missing-image recovery and QA correction are different operations.');
   const failures=generationFailures(root,brand);
   if(missingOnly) {
@@ -368,7 +402,30 @@ function commonBrief(completed,dispatch) {
 }
 function checkpoints(root, brand) {
   return ['a','b','c'].map(id=>path.join(root,'migrations',brand,'image-concepts',`${id}-generation.json`))
-    .filter(fs.existsSync).map(file=>{const item=read(file);verifyBinding(item.arguments);verifyBinding(item.output);item.inputImages.forEach(verifyBinding);if(item.preparedInput)verifyBinding(item.preparedInput);return item;});
+    .filter(fs.existsSync).map(file=>{const item=read(file);verifyBinding(item.arguments);verifyBinding(item.output);item.inputImages.forEach(verifyBinding);if(item.preparedInput)verifyBinding(item.preparedInput);
+      assert(item.prompt===read(item.arguments.path).prompt,'Checkpoint prompt differs from bound actual arguments.');
+      return item;});
+}
+
+export function unverifiedPreviews(root,brand,directions=['a','b','c']) {
+  return directions.flatMap(id=>{
+    const file=path.join(root,'migrations',brand,'image-concepts',`${id}-unverified-preview.json`);
+    if(!fs.existsSync(file)) return [];
+    const item=read(file);verifyBinding(item.output);
+    const actual=readImageCall(item.provenance.logPath,item.provenance.callId,{allowUnverifiedArguments:true});
+    assert(actual.evidence.eventSha256===item.provenance.eventSha256&&(actual.argumentError?actual.rawCall===item.rawCall:isDeepStrictEqual(literalArguments(item.rawCall),actual.args)),'Unverified preview call evidence changed.');
+    requireRuntimeEvidence(actual,item.output.path);
+    // Preserve the original failure receipt. A corrected verifier may recover
+    // only the same immutable call/output, never a replacement generation.
+    const recovered=path.join(root,'migrations',brand,'image-concepts',`${id}-generation.json`);
+    if(!actual.argumentError&&fs.existsSync(recovered)) {
+      const saved=read(recovered);
+      assert(saved.output.sha256===item.output.sha256&&saved.provenance.eventSha256===item.provenance.eventSha256&&saved.provenance.callId===item.provenance.callId,'Recovered preview differs from original evidence.');
+      verifyImageCall(item.provenance.logPath,item.provenance.callId,read(saved.arguments.path));
+      return [];
+    }
+    return [item];
+  });
 }
 
 function generationFailures(root, brand) {
@@ -382,33 +439,86 @@ function generationFailures(root, brand) {
 }
 
 // Persist each actual call immediately. Hashes and review handoff are mechanical;
-// the caller supplies the real tool ID, never a fabricated successful review.
-export function recordImageConcept({root,brand,id,inputFile,outputFile,toolCallId,producer}) {
-  assert(['a','b','c'].includes(id)&&producer&&toolCallId,'Direction, actual producer and tool call ID required.');
+// the real tool ID comes from runtime evidence, never from a fabricated review.
+export function recordImageConcept({root,brand,id,inputFile,outputFile,toolCallId,producer,callLog,callId}) {
+  assert(['a','b','c'].includes(id)&&producer,'Direction and actual producer required.');
   assert(!generationFailures(root,brand).some(f=>f.direction===id),'This direction has a recorded generation failure; preserve it rather than overwriting the failed attempt.');
   const state=read(imageConceptFile(root,brand));verifyBinding(state.dispatch);
   const dispatch=preparedDispatch(read(state.dispatch.path),root,brand);dispatch.inputs.forEach(verifyBinding);dispatch.inputImages.forEach(verifyBinding);
   assert(!frozenReviews(dispatch).some(q=>q.id===id),'Passed direction is frozen; do not regenerate it.');
-  const args=read(inputFile);
-  assert(args.prompt?.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成'),'Reference-fidelity prompt sentence missing.');
+  assert(Boolean(callLog)===Boolean(callId),'Actual tool call log and call ID must be provided together.');
+  if(!callLog) ({callLog,callId}=findCurrentThreadImageCall(outputFile));
+  const actual=readImageCall(callLog,callId,{allowUnverifiedArguments:true});
+  if(actual.argumentError) {
+    const provenance=requireRuntimeEvidence(actual,outputFile),output=binding(outputFile);
+    assert(fs.realpathSync(output.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
+    assert(!checkpoints(root,brand).some(x=>x.id===id||x.provenance?.callId===callId),'Existing verified direction/call cannot be replaced by an unverified preview.');
+    // A concurrent exec wrapper may emit several distinct outputs. These are
+    // display-only previews, not verified ImageGen calls or selectable directions.
+    assert(!unverifiedPreviews(root,brand).some(x=>x.id!==id&&x.output.sha256===output.sha256),'One output cannot count as multiple previews.');
+    assert(!imageConceptHistory({root,brand}).some(h=>h.images.some(d=>d.sha256===output.sha256)),'Prior output cannot count as a new preview.');
+    const item={id,producer,output,provenance,rawCall:actual.rawCall,argumentError:actual.argumentError,argumentsStatus:'unverified',imagegenAttribution:'unverified',selectionAvailable:false};
+    const target=path.join(root,'migrations',brand,'image-concepts',`${id}-unverified-preview.json`);
+    if(fs.existsSync(target)) assert(isDeepStrictEqual(read(target),item),'Unverified preview is immutable.');
+    else write(target,item);
+    return imageConceptDelivery({root,brand});
+  }
+  if(inputFile) verifyImageCall(callLog,callId,read(inputFile));
+  const priorPreview=unverifiedPreviews(root,brand).find(x=>x.id===id);
+  if(priorPreview) assert(priorPreview.provenance.callId===callId&&priorPreview.provenance.eventSha256===actual.evidence.eventSha256&&priorPreview.output.sha256===hash(outputFile),'Unverified preview is preserved; only its identical runtime evidence may be recovered.');
+  const args=actual?.args || read(inputFile);
+  assert(typeof args.prompt==='string','Actual prompt required.');
+  const provenance=requireRuntimeEvidence(actual,outputFile);
+  toolCallId=provenance.callId;
+  const promptDiagnostics=args.prompt.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成')?[]:['reference-fidelity-sentence-missing-in-actual-call'];
+  const plannedFile=path.join(root,'migrations',brand,'image-concepts',`${id}-planned-arguments.json`);
+  const plannedInput=fs.existsSync(plannedFile)
+    ? {status:isDeepStrictEqual(read(plannedFile),args)?'matched':'differs',arguments:binding(plannedFile)}
+    : {status:'unavailable',reason:'No frozen planned arguments exist; actual tool arguments remain authoritative.'};
+  if(plannedInput.status==='differs') promptDiagnostics.push('planned-input-differs-from-actual-call');
+  const commonFile=dispatch.sharedBrief?.prepared?.promptText;
+  if(dispatch.sharedInputRequired&&commonFile) {
+    verifyBinding(commonFile);
+    const common=fs.readFileSync(commonFile.path,'utf8').trim();
+    if(!args.prompt.includes(`<shared-design-brief>\n${common}\n</shared-design-brief>`)) promptDiagnostics.push('shared-business-input-changed-or-missing-in-actual-call');
+  }
+  if(!inputFile) {
+    inputFile=path.join(root,'migrations',brand,'image-concepts',`${id}-actual-arguments.json`);
+    if(fs.existsSync(inputFile)) assert(JSON.stringify(read(inputFile))===JSON.stringify(args),'Frozen actual arguments differ.');
+    else write(inputFile,args);
+  }
   assert(Array.isArray(args.referenced_image_paths),'Actual referenced_image_paths required.');
   const output=binding(outputFile);
   assert(!imageConceptHistory({root,brand}).some(h=>h.images.some(d=>d.sha256===output.sha256)),'Prior output cannot count as a newly generated concept.');
+  assert(!checkpoints(root,brand).some(x=>x.id!==id&&x.provenance?.callId===toolCallId),'One tool call cannot count as multiple directions.');
   assert(fs.realpathSync(output.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
-  const item={id,producer,path:output.path,output,tool:'image_gen',toolCallId,prompt:args.prompt,arguments:binding(inputFile),inputImages:args.referenced_image_paths.map(binding),...(dispatch.preparedInput?{preparedInput:dispatch.preparedInput}:{})};
+  const item={id,producer,path:output.path,output,tool:'image_gen',toolCallId,prompt:args.prompt,provenance,promptDiagnostics,plannedInput,arguments:binding(inputFile),inputImages:args.referenced_image_paths.map(binding),...(dispatch.preparedInput?{preparedInput:dispatch.preparedInput}:{})};
   const bytes=fs.readFileSync(output.path);
   assert(args.prompt.length>100&&bytes.length>10000&&(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]))||bytes[0]===255&&bytes[1]===216||bytes.toString('ascii',0,4)==='RIFF'&&bytes.toString('ascii',8,12)==='WEBP'),'Output must be an actual nonempty PNG/JPEG/WebP.');
-  const received=new Set(item.inputImages.map(x=>x.sha256));
-  assert(dispatch.inputImages.filter(x=>x.role==='official-page-design-language'&&received.has(x.sha256)).length>=2&&dispatch.inputImages.filter(x=>x.role==='official-asset-reference').every(x=>received.has(x.sha256)),'Generator did not receive sufficient frozen official screenshots/assets.');
+  verifyReceivedImageReferences(dispatch,item.inputImages,root);
   const target=path.join(root,'migrations',brand,'image-concepts',`${id}-generation.json`);
   if(fs.existsSync(target)) assert(JSON.stringify(read(target))===JSON.stringify(item),'Generation checkpoint already exists with different content.');
   else write(target,item);
   return imageConceptDelivery({root,brand});
 }
-function validateReceipt(receipt, dispatch, root) {
+function verifyReceivedImageReferences(dispatch, receivedInputs, root) {
+  const modBinding=dispatch.inputs.find(x=>path.basename(x.path)==='brand-mod.json');
+  assert(modBinding,'Frozen brand MOD required for image references.');
+  verifyBinding(modBinding);
+  const declared=declaredImageReferences(read(modBinding.path),root);
+  if(declared) assert(isDeepStrictEqual(declared,dispatch.inputImages),'Frozen image references differ from the bound brand declaration.');
+  else assert(dispatch.inputImages.filter(x=>x.role==='official-page-design-language').length>=2,'Legacy image references require two official page screenshots.');
+  const received=new Set(receivedInputs.map(x=>x.sha256));
+  assert(dispatch.inputImages.every(x=>received.has(x.sha256)),'Generator did not receive sufficient frozen official screenshots/assets.');
+}
+
+function validateReceipt(receipt, dispatch, root, newSubmission=false) {
   const producers=new Set([receipt.producer,...(receipt.directions||[]).map(d=>d.producer)].filter(Boolean));
   assert(receipt.producer&&receipt.independentReview?.reviewer&&!producers.has(receipt.independentReview.reviewer),'Independent visual reviewer required.');
-  assert(receipt.directions?.length===3&&new Set(receipt.directions.map(x=>x.id)).size===3,'Exactly three distinct directions required.');
+  const failures=generationFailures(root,dispatch.brand);
+  const expected=['a','b','c'].filter(id=>!failures.some(f=>f.direction===id));
+  assert(expected.length>0&&receipt.directions?.length===expected.length&&new Set(receipt.directions.map(x=>x.id)).size===expected.length&&receipt.directions.every(d=>expected.includes(d.id)),'Exactly the successful directions required; pending or failed slots cannot be reviewed.');
+  assert(receipt.independentReview.directions?.length===expected.length&&new Set(receipt.independentReview.directions.map(d=>d.id)).size===expected.length&&receipt.independentReview.directions.every(d=>expected.includes(d.id)),'Review must cover exactly the successful direction IDs.');
   const hashes=[];
   for(const d of receipt.directions) {
     assert(fs.realpathSync(d.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
@@ -418,7 +528,14 @@ function validateReceipt(receipt, dispatch, root) {
     // A preserved historical call must retain its exact prompt, not be rewritten
     // retrospectively to satisfy a newer template. Newly generated calls stay strict.
     const unchangedHistoricalCall=preserved&&d.prompt===prior?.prompt&&hash(d.path)===prior?.output.sha256;
-    assert(unchangedHistoricalCall||d.prompt.includes('无需识别或命名角色，直接依据所给参考图和素材的可见内容生成'),'Reference-fidelity prompt sentence missing.');
+    if((newSubmission||dispatch.actualCallEvidenceRequired)&&!unchangedHistoricalCall) {
+      const recorded=checkpoints(root,dispatch.brand).find(x=>x.id===d.id);
+      assert(recorded?.provenance?.status==='verified-against-tool-call'&&recorded.prompt===d.prompt&&recorded.output.sha256===hash(d.path)&&recorded.toolCallId===d.toolCallId,'Receipt must match verified actual tool checkpoint.');
+      const actual=verifyImageCall(recorded.provenance.logPath,recorded.provenance.callId,read(recorded.arguments.path));
+      requireRuntimeEvidence(actual,recorded.path);
+      assert(actual.evidence.callId===d.toolCallId,'Receipt call ID differs from actual tool call.');
+      assert(JSON.stringify(d.inputImages)===JSON.stringify(actual.args.referenced_image_paths.map(binding)),'Receipt references differ from actual tool call.');
+    }
     const bytes=fs.readFileSync(d.path);
     assert(bytes.length>10000&&(bytes.subarray(0,8).equals(Buffer.from([137,80,78,71,13,10,26,10]))||bytes[0]===255&&bytes[1]===216||bytes.toString('ascii',0,4)==='RIFF'&&bytes.toString('ascii',8,12)==='WEBP'),'Output must be an actual nonempty PNG/JPEG/WebP, not HTML or a receipt.');
     const digest=hash(d.path);hashes.push(digest);
@@ -426,14 +543,13 @@ function validateReceipt(receipt, dispatch, root) {
     if(frozen) assert(frozen.sha256===digest,'Frozen output changed.');
     else if(dispatch.regeneration?.recovery?.preservedIds.includes(d.id)) assert(dispatch.regeneration.priorDirections.find(p=>p.id===d.id)?.output.sha256===digest,'Preserved recovery image changed.');
     else assert(!imageConceptHistory({root,brand:dispatch.brand}).some(h=>h.images.some(p=>p.sha256===digest)),'Prior output cannot count as a newly generated concept.');
-    assert(d.inputImages?.length>=2,'Actual image inputs required.');
+    assert(d.inputImages?.length>=1,'Actual image inputs required.');
     d.inputImages.forEach(verifyBinding);
-    const received=new Set(d.inputImages.map(x=>x.sha256));
-    assert(dispatch.inputImages.filter(x=>x.role==='official-page-design-language'&&received.has(x.sha256)).length>=2&&dispatch.inputImages.filter(x=>x.role==='official-asset-reference').every(x=>received.has(x.sha256)),'Generator did not receive sufficient frozen official screenshots/assets.');
+    verifyReceivedImageReferences(dispatch,d.inputImages,root);
     const qa=receipt.independentReview.directions?.find(x=>x.id===d.id);
     assert(qa?.sha256===digest&&qa.completeScreen===true&&qa.brandFaithful===true&&qa.hostTaskPreserved===true,'Independent review must bind and approve each actual complete screen.');
   }
-  assert(new Set(hashes).size===3,'Three copies of the same image are not three concepts.');
+  assert(new Set(hashes).size===expected.length,'Copies of the same image are not distinct concepts.');
   assert(receipt.independentReview.verdict==='pass'&&receipt.independentReview.distinctCompositions===true&&receipt.independentReview.notes,'Independent review of visual differences required.');
 }
 
@@ -448,7 +564,7 @@ function verifyReassessment(receipt, failedFile) {
   verifyBinding(prior);
   assert(fs.realpathSync(prior.path)===fs.realpathSync(failedFile),'Reassessment must bind this run’s recorded failed review.');
   const failed=read(failedFile);
-  assert(failed.verdict==='fail'&&failed.directions?.length===3,'Invalid prior failed review.');
+  assert(failed.verdict==='fail'&&failed.directions?.length===receipt.directions.length,'Invalid prior failed review.');
   assert(receipt.directions.every(d=>failed.directions.some(q=>q.id===d.id&&q.sha256===hash(d.path))),'Reassessment must review the same images as the failed review.');
 }
 
@@ -468,14 +584,16 @@ export function validateControlAudit(review) {
 }
 
 export function recordImageConcepts({root,brand,receiptFile,reviewFile}) {
-  assert(generationFailures(root,brand).length===0,'Recorded generation failures prevent completed delivery.');
+  assert(unverifiedPreviews(root,brand).length===0,'Unverified argument previews cannot pass formal review or completed delivery.');
   const file=imageConceptFile(root,brand),state=read(file);verifyBinding(state.dispatch);
   const dispatch=preparedDispatch(read(state.dispatch.path),root,brand);dispatch.inputs.forEach(verifyBinding);dispatch.inputImages.forEach(verifyBinding);
   let receipt;
   if(reviewFile) {
     const directions=checkpoints(root,brand);
-    assert(directions.length===3,'Three generation checkpoints required.');
+    const failures=generationFailures(root,brand);
+    assert(directions.length>0&&['a','b','c'].every(id=>directions.some(d=>d.id===id)||failures.some(f=>f.direction===id)),'All directions must be terminal and at least one successful checkpoint is required before review.');
     receipt={producer:directions[0].producer,directions,independentReview:mergeRepairReview(read(reviewFile),dispatch)};
+    assert(receipt.independentReview.directions?.length===directions.length&&new Set(receipt.independentReview.directions.map(d=>d.id)).size===directions.length&&receipt.independentReview.directions.every(q=>directions.some(d=>q.id===d.id&&q.sha256===d.output.sha256)),'Review must cover exactly the successful direction IDs and actual output hashes.');
     if(receipt.independentReview.verdict==='fail') {
       const review=receipt.independentReview;
       assert(review.reviewer&&!directions.some(d=>d.producer===review.reviewer)&&review.notes,'Independent failure findings required.');
@@ -490,7 +608,7 @@ export function recordImageConcepts({root,brand,receiptFile,reviewFile}) {
     receipt=read(receiptFile);
   }
   if(dispatch.controlAuditRequired) validateControlAudit(receipt.independentReview);
-  validateReceipt(receipt,dispatch,root);
+  validateReceipt(receipt,dispatch,root,true);
   verifyReassessment(receipt,path.join(path.dirname(file),'image-concepts-failed-review.json'));
   const target=path.join(path.dirname(file),'image-concepts-receipt.json');
   if(fs.existsSync(target)) assert(JSON.stringify(read(target))===JSON.stringify(receipt),'Recorded receipt is immutable.');
@@ -523,30 +641,48 @@ export function imageConceptDelivery({root,brand}) {
     }
   }
   const preview={coordinationCommands:coordinationCommands(root,brand),previewAvailable:true,previewStatus:completed.length===3?'pending':'partial',images:completed.map(d=>({id:d.id,...d.output})).sort((a,b)=>a.id.localeCompare(b.id)),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},interactive:false,limitations:[],presentationRequirements:[]};
+  const unverified=unverifiedPreviews(root,brand);
+  if(unverified.length) {
+    const failures=generationFailures(root,brand);
+    const pending=dispatch.directions.filter(d=>!completed.some(x=>x.id===d.id)&&!unverified.some(x=>x.id===d.id)&&!failures.some(x=>x.direction===d.id));
+    const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
+    return {...state,...preview,dispatchFile,ok:true,status:pending.length?'dispatch-ready':'arguments-unverified',previewStatus:'unverified',userGoalCompleted:false,selectionAvailable:false,
+    images:[...preview.images,...unverified.map(d=>({id:d.id,...d.output,argumentsStatus:'unverified'}))].sort((a,b)=>a.id.localeCompare(b.id)),
+    unverifiedPreviews:unverified,generationFailures:failures,directionStates:['a','b','c'].map(id=>({id,status:unverified.some(d=>d.id===id)?'unverified':completed.some(d=>d.id===id)?'saved':failures.some(d=>d.direction===id)?'blocked':'pending'})),
+    dispatchRequest:pending.length?{...dispatch,directions:pending,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--output','<actual image in run>','--producer','<actual producer identity>']}:undefined,
+    limitations:['图片与运行时工具输出一致，但部分调用的 ImageGen 来源及实际参数未核实。仅供预览，不能通过正式审核或选图落地。',...completed.filter(d=>d.plannedInput?.status==='differs').map(d=>'方案 '+d.id.toUpperCase()+' 实际输入与确认稿不一致；原图与真实调用已保留，不计入有效输入对照。')],
+    nextAction:pending.length?'Show the standard comparison preview and execute only the pending authorized directions once. Preserve unverified previews; never regenerate those directions or reconstruct their arguments. Formal review and selection remain blocked.':'Show the standard comparison preview. Preserve original images and call evidence. Do not regenerate unverified directions, reconstruct arguments or claim verified QA/selection.'};
+  }
   if(dispatch.preparedInput&&completed.length===0) preview.preparationReviewRequest={status:'pending-no-images',scope:'input-preparation-only',reviewed:false,preparedInput:dispatch.preparedInput,inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,conceptScope:dispatch.conceptScope,instructions:'These are the same frozen preparation originals supplied to the designer. Inspect business/source correspondence, observation provenance and applicable brand-rule scope if input review is requested. No generated images exist; this packet is not visual QA, a review result or approval to claim a completed concept. Original Expressive proposals are allowed; plain documentation samples do not impose a whole-screen illustration/depth ban.'};
   const failures=generationFailures(root,brand);
   preview.directionStates=['a','b','c'].map(id=>({id,status:completed.some(d=>d.id===id)?'saved':failures.some(f=>f.direction===id)?'blocked':'pending'}));
   const pending=dispatch.directions.filter(d=>!completed.some(c=>c.id===d.id)&&!failures.some(f=>f.direction===d.id));
   const pendingEntry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
-  if(failures.length) return {...state,...preview,previewStatus:'partial-blocked',ok:true,status:pending.length?'dispatch-ready':'awaiting-user-choice',userGoalCompleted:false,generationFailures:failures,completedImages:preview.images,
+  const failureDelivery=failures.length?{...state,...preview,previewStatus:'partial-blocked',ok:true,status:pending.length?'dispatch-ready':'awaiting-user-choice',userGoalCompleted:false,generationFailures:failures,completedImages:preview.images,
     dispatchFile,
-    dispatchRequest:pending.length?{...dispatch,sharedDesignBrief,directions:pending,producerInstructions:dispatch.producerInstructions+' Recorded failed directions are terminal: do not retry them. Execute only the pending directions in this packet once, after independently checking compliance. Preserve and show all successes and failures.',checkpointCommand:[process.execPath,pendingEntry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--input','<saved exact tool args JSON>','--output','<actual image in run>','--tool-call-id','<actual tool ID>','--producer','<actual producer identity>']}:undefined,
+    dispatchRequest:pending.length?{...dispatch,sharedDesignBrief,directions:pending,producerInstructions:dispatch.producerInstructions+' Recorded failed directions are terminal: do not retry them. Execute only the pending directions in this packet once, after independently checking compliance. Preserve and show all successes and failures.',checkpointCommand:[process.execPath,pendingEntry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--output','<actual image in run>','--producer','<actual producer identity>']}:undefined,
     selectionAvailable:completed.length>0||(state.history||[]).some(h=>h.images?.length>0),
     userChoices:{selectableDirections:completed.map(d=>d.id),historicalRuns:state.history,continueGeneration:{command:'regenerate-image-concepts',requiredFlags:['--confirm-new-batch','--feedback'],scope:'three-new-directions',requiresExplicitUserRequest:true},pause:true},
     failureGuidance:{requestedMedium:'full-image',completedCount:completed.length,requiredCount:3,automaticRetry:false,defaultMediumFallback:null,userMessage:`本轮已保存 ${completed.length}/3 张，生成受阻，尚未完成三图审核。继续生成会开启全新三方案；本轮和历史成功图仍可选择，也可以暂停。没有成功图的轮次不提供虚构选择。`,mediumChange:'No automatic H5 fallback. User choice does not approve image quality or whole-host implementation.'},
-    nextAction:pending.length?'Show comparisonPreview with actual successes and failures now, then execute only dispatchRequest pending compliant directions already authorized in this batch, once each. A recorded failed direction is terminal and must not be retried. Do not start a new batch or ask for redundant authorization to finish the other pending directions. No H5 fallback and no completed-delivery claim.':'Show comparisonPreview now with current direction states, saved images and bound history links. Continue generation means an explicitly authorized NEW batch of three via regenerate-image-concepts --confirm-new-batch --feedback <user request and genuinely new design>. Keep old successes selectable in their original runs and preserve failures. Only an explicit request to fill missing directions uses --missing-only and --recovery-kind. Safety refusals are not permission to retry refused content or evade safeguards. No automatic retry or H5 fallback. Never claim completion for this blocked batch.'};
+    nextAction:pending.length?'Show comparisonPreview with actual successes and failures now, then execute only dispatchRequest pending compliant directions already authorized in this batch, once each. A recorded failed direction is terminal and must not be retried. Do not start a new batch or ask for redundant authorization to finish the other pending directions. No H5 fallback and no completed-delivery claim.':'Show comparisonPreview now with current direction states, saved images and bound history links. Continue generation means an explicitly authorized NEW batch of three via regenerate-image-concepts --confirm-new-batch --feedback <user request and genuinely new design>. Keep old successes selectable in their original runs and preserve failures. Only an explicit request to fill missing directions uses --missing-only and --recovery-kind. Safety refusals are not permission to retry refused content or evade safeguards. No automatic retry or H5 fallback. Never claim completion for this blocked batch.'}:null;
+  if(failureDelivery&&(pending.length||!completed.length)) return failureDelivery;
+  // Terminal partial batches use the same evidence/review contract as a trio.
+  // Failures remain visible; reviewing saved outputs never completes the trio.
+  if(failureDelivery) Object.assign(preview,failureDelivery,{previewStatus:'partial-pending'});
   const failedFile=path.join(path.dirname(file),'image-concepts-failed-review.json');
   const receiptFile=path.join(path.dirname(file),'image-concepts-receipt.json');
   if(fs.existsSync(failedFile)&&(!fs.existsSync(receiptFile)||!read(receiptFile).independentReview?.supersedesFailedReview)) return {...state,...preview,previewStatus:'failed',ok:false,status:'blocked',userGoalCompleted:false,failedReview:read(failedFile),reviewNotes:read(failedFile).notes,limitations:read(failedFile).limitations||[],presentationRequirements:read(failedFile).presentationRequirements||[],completedImages:checkpoints(root,brand).map(d=>({id:d.id,...d.output})),nextAction:'Independent review failed. Preserve this attempt; do not regenerate or declare completion automatically. A justified independent reassessment of these same images may explicitly bind supersedesFailedReview {path,sha256} and explain reassessmentReason in a new report; record it using record-image-concepts --review without overwriting the old report.'};
   if(!fs.existsSync(receiptFile)) {
-    const missing=dispatch.directions.filter(d=>!completed.some(c=>c.id===d.id));
+    const missing=pending;
     const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
     const reviewFile=path.join(path.dirname(file),'image-concepts-review.json');
     return {...state,...preview,ok:true,status:missing.length?'dispatch-ready':'review-ready',dispatchFile,
       completedImages:completed.map(d=>({id:d.id,...d.output})),
-      dispatchRequest:missing.length?{...dispatch,sharedDesignBrief,directions:missing,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--input','<saved exact tool args JSON>','--output','<actual image in run>','--tool-call-id','<actual tool ID>','--producer','<actual producer identity>']}:undefined,
+      dispatchRequest:missing.length?{...dispatch,sharedDesignBrief,directions:missing,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--output','<actual image in run>','--producer','<actual producer identity>']}:undefined,
       reviewRequest:missing.length?undefined:{images:completed.filter(d=>!frozen.some(q=>q.id===d.id)).map(d=>({id:d.id,...d.output})),frozenImages:completed.filter(d=>frozen.some(q=>q.id===d.id)).map(d=>({id:d.id,...d.output})),reviewScope:frozen.length?'Review changed images fully for business, brand and readability. Frozen images are comparison context only; do not repeat their individual review. Confirm distinctCompositions across the final trio. Submit direction findings for changed IDs only. Prior limitations remain.':undefined,inputs:dispatch.inputs,inputImages:dispatch.inputImages,regeneration:dispatch.regeneration?{feedback:dispatch.regeneration.feedback,priorDirections:dispatch.regeneration.priorDirections.map(d=>({id:d.id,output:d.output,role:'comparison-only-not-brand-evidence'}))}:undefined,producers:[...new Set(completed.map(d=>d.producer))],
         sharedBrief:dispatch.sharedBrief,
+        ...(failures.length?{generationFailures:failures,reviewScope:'Review every successful original listed in images, using the same business, brand, readability and evidence gates. Failed slots have no image and must not appear in direction findings. Compare distinctness among available images (one image has no pair to compare). This review cannot complete the requested three-image batch.'}:{}),
+        callEvidence:completed.map(d=>({id:d.id,provenance:d.provenance||{status:'legacy-unverified'},promptDiagnostics:d.promptDiagnostics||[],plannedInput:d.plannedInput||{status:'unavailable',reason:'Legacy checkpoint did not record a planned-input comparison.'}})),
         preparedInput:dispatch.preparedInput,
         sharedDesignBrief,
         conceptScope:dispatch.conceptScope||conceptScope,
@@ -555,11 +691,13 @@ export function imageConceptDelivery({root,brand}) {
         instructions:'View all three originals, official references and bound host facts. Check the same viewport and business content, no imported reference-site capabilities, recognizable brand language, readability, and materially different dominant regions/information order/reading paths rather than just reordered cards. If regeneration is present, compare priorDirections as previous proposals, not brand evidence; report how this batch addresses feedback and differs from the previous batch. Judge this image-concept selection stage, not implementation certification: localized color-role, spacing, font or raster deviations that do not materially impair brand recognition, business meaning, reading or direction selection should be stated in limitations and may pass. brandFaithful means recognizable and applicable at this stage, not every token or semantic role is pixel-exact. Missing or misleading business, materially drifted brand identity, unreadable core content or indistinguishable directions still fail. Explain the actual impact; a P-number alone neither blocks nor permits delivery. Do not erase binding source rules: disclose deviations and required implementation corrections. Write only the independent review JSON with concrete findings. Do not reconstruct generation records, generate images or modify the host. Preserve prior failed reports; a justified independent reassessment must explicitly bind supersedesFailedReview and explain reassessmentReason, never silently replace FAIL.',
         ...(dispatch.regeneration?.repair?{instructions:'Review changed images fully against the same frozen business and brand inputs. Missing or misleading business, unreadable core content and material brand drift still fail. At concept-selection stage, localized visual/color-role deviations without material impact on brand recognition, business, reading or direction selection may pass with explicit limitations; a P-number alone does not decide. Frozen images are comparison context only: reuse their hash-bound approvals, do not repeat individual QA. Confirm final trio distinctness. Submit only changed IDs. Do not generate images or alter the host.'}:{}),
         controlAuditRequired:dispatch.controlAuditRequired===true,
+        ...(failures.length?{instructions:'View every supplied successful original and bound official references/host facts. Use conceptScope, inputPolicy and controlAuditContract unchanged: check business content, brand recognition, readability and distinct compositions among available images; missing or misleading business still fails. Failed generation slots have no image and must not be included in review directions. For one image, distinctCompositions means no duplicate pair exists, not that a trio was compared. Localized nonmaterial visual deviations may pass only with limitations and required implementation corrections. Submit exactly the successful IDs and hashes. A pass approves only these images at concept-selection scope, never the three-image goal or implementation. Preserve FAIL; reassessment must bind supersedesFailedReview and explain reassessmentReason. Do not generate images or modify the host.'}:{}),
         controlAuditContract:{scope:'Inspect all visually actionable controls, including header icon buttons, against the bound host facts. Check required people/context content as well. Do not mistake expressive decoration for capability. Disclose unsupported controls without redrawing concepts; distinguish selectable direction from faithful implementation.',perDirection:{controlAudit:{scanEvidence:'Actual inspected regions',controls:[{label:'visible control meaning',location:'image region',status:'supported|unsupported|uncertain|decoration',sourceEvidence:'bound host evidence for supported controls',reason:'visual basis if decoration',implementationAction:'omit or confirm unsupported capability at implementation'}]}}},
         reviewFile,reviewShape:{reviewer:'actual independent identity',verdict:'pass or fail',directions:completed.filter(d=>!frozen.some(q=>q.id===d.id)).map(d=>({id:d.id,sha256:d.output.sha256,completeScreen:null,brandFaithful:null,hostTaskPreserved:null})),distinctCompositions:null,notes:'actual observed findings',limitations:[],presentationRequirements:[]},
         recordCommand:[process.execPath,entry,'record-image-concepts','--artifact-root',root,'--brand',brand,'--review',reviewFile]},
       nextAction:missing.length?'Execute this authorized batch only: generate pending directions once; checkpoint and show comparisonPreview immediately after each success. Do not regenerate checkpointed images or automatically retry failures. A later user request to continue generation opens a NEW three-image batch.':'Open standard comparisonPreview now as PENDING; execute only reviewRequest independently and record-image-concepts --review. Same URL refreshes to final result. Do not build custom comparison pages or claim completion before QA. No additional generation.'};
   }
   const receipt=read(receiptFile);validateReceipt(receipt,dispatch,root);verifyReassessment(receipt,failedFile);
+  if(failureDelivery) return {...failureDelivery,previewStatus:'partial-approved',reviewNotes:receipt.independentReview.notes,presentationRequirements:receipt.independentReview.presentationRequirements||[],limitations:receipt.independentReview.limitations||[],receiptFile,failureGuidance:{...failureDelivery.failureGuidance,userMessage:`本轮已保存 ${completed.length}/3 张，已有图已通过独立审核；生成受阻的方向仍保留，三图目标未完成。`}};
   return {...state,previewAvailable:true,previewStatus:'approved',ok:true,status:'ready-for-user-review',userGoalCompleted:true,fullWorkflowPass:false,interactive:false,hostImplementationComplete:false,images:[...receipt.directions].sort((a,b)=>a.id.localeCompare(b.id)).map(d=>({id:d.id,...binding(d.path)})),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},reviewNotes:receipt.independentReview.notes,presentationRequirements:receipt.independentReview.presentationRequirements||[],limitations:receipt.independentReview.limitations||[],receiptFile,nextAction:'Open comparisonPreview using serve-design-host-h5.mjs with this artifact root. Show all three original images equally with review limitations; await user selection. This gallery is not a host H5 implementation.'};
 }

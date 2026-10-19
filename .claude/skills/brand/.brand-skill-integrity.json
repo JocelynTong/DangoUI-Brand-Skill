@@ -698,6 +698,10 @@
       "sha256": "5b82b478d286c4e65b6aa0db2c22ac71e4247d5f5543fbfa8c15b6ea6d90fe12"
     },
     {
+      "path": "scripts/brand-image-references.mjs",
+      "sha256": "51dbd6610690f298ac77359e7cc720a2ceb114108fa85dde0adb53ca048e027a"
+    },
+    {
       "path": "scripts/brand-phase1-acceptance.mjs",
       "sha256": "bc0386fb5497042d58d445024964f25be33c78066b342e06b277d7a41464b2e3"
     },
@@ -919,7 +923,7 @@
     },
     {
       "path": "scripts/full-image-concepts.mjs",
-      "sha256": "b7757d534976db69cae4d301c79fe84583fea6f98cc3446ffa9d3f776de7fea2"
+      "sha256": "93b1428301308a6cec42b801f9b4da5492abaaf94f4a07cdf76e76417016b62d"
     },
     {
       "path": "scripts/full-image-concepts.test.mjs",
@@ -951,7 +955,15 @@
     },
     {
       "path": "scripts/image-batch-handoff.mjs",
-      "sha256": "1bab748a5a6ca9546f0dc542c8f699c32eac0d3e9b7e2c6427cfcabff65b396b"
+      "sha256": "2ca9ba45a8060cd0cb038573187f69327cc9c5899dc1580f9357fb9d0bcd7f7f"
+    },
+    {
+      "path": "scripts/image-call-evidence.mjs",
+      "sha256": "9f8eeb826eb0515fd822182d594b085fcc3315a97a61af8a8fb8c287b1c1d2bc"
+    },
+    {
+      "path": "scripts/image-call-evidence.test.mjs",
+      "sha256": "be9897329cb29b4a7668ded8dbe9f6ba629bbe9aa4c567d42e9b4dc844bba2ac"
     },
     {
       "path": "scripts/image-coordination-reply.mjs",
@@ -1134,6 +1146,10 @@
       "sha256": "ee3b50046415d5402519488577a0347662382f8c9a87d042c6591447814ec5b7"
     },
     {
+      "path": "scripts/read-image-arguments.mjs",
+      "sha256": "b1994727cc93e0c2f35d62ff4a4c5e6c5ceb3269e47dd7504e4fa4e5a4a1cc45"
+    },
+    {
       "path": "scripts/record-wild-design-history.mjs",
       "sha256": "e546d7644d67582d094ad2466839b88c9c149deb0e5ffedb4896c84f135f214d"
     },
@@ -1144,6 +1160,10 @@
     {
       "path": "scripts/recover-reference.test.mjs",
       "sha256": "2e50e1360b35a07a4a79272e209c5a94ae2433c57958e54789d8dcd3a140f114"
+    },
+    {
+      "path": "scripts/release-selection-recovery.test.mjs",
+      "sha256": "9c9494d08835c3806ff210ab4284c98328207199458b7aeaf3f6d9c34cd61ee9"
     },
     {
       "path": "scripts/render-layered-scene.mjs",
@@ -1251,7 +1271,7 @@
     },
     {
       "path": "scripts/run-brand-workflow.mjs",
-      "sha256": "7edb99b47e06056b1cf42721c6818597dce7c53c557efdc43d1b19d5425ccf9a"
+      "sha256": "3db6a008aff06e28bf86fce55654f32d1c04258404f8cf4df6c604373ef20c4d"
     },
     {
       "path": "scripts/run-brand-workflow.resume-demo.test.mjs",
@@ -1299,7 +1319,7 @@
     },
     {
       "path": "scripts/selected-image-code.mjs",
-      "sha256": "b8a95c709a7069ceea19cdd5d4d6f71129fd4ee68adf595ebe21bd76359a4d3f"
+      "sha256": "a3e6f8522ac52d52dc8db89ef5fb77e51d0a27cd5baff9a33c022f6b9fa2b7c8"
     },
     {
       "path": "scripts/selected-image-code.test.mjs",
@@ -1311,7 +1331,7 @@
     },
     {
       "path": "scripts/serve-design-host-h5.mjs",
-      "sha256": "e4d1f3e602233ee9404f19dc2709c37c3a50a1d87ff089e9bb4abb05ca3a49c7"
+      "sha256": "7d419a310bb4d43e461c5cf66c06a57115130f7c98280e6f2b835fc367ab3df1"
     },
     {
       "path": "scripts/skill-usage-case-lib.mjs",
@@ -1690,5 +1710,5 @@
       "sha256": "be8f71fac7d30d0204f58eab702baae564d4d54614d44e513e93fad2bd99dc93"
     }
   ],
-  "treeSha256": "1823613b67d1ccdfa6f58045f29c3b6d6a252e17c292167c4f0655564fc116d6"
+  "treeSha256": "a84d2d9006dc4dc8be9fafedba9868ece697d40120deea21d2e8eca366df3faf"
 }

@@ -4,6 +4,7 @@ import crypto from 'node:crypto';
 import { fileURLToPath } from 'node:url';
 import { manage } from './brand-artifacts.mjs';
 import { compileHostTheme } from './compile-host-theme.mjs';
+import { unverifiedPreviews } from './full-image-concepts.mjs';
 
 const skillRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const runtimeTools = 'At stage start, confirm and record available local runtime-test tools, including already installed Playwright where available. Built-in browser failure does not automatically waive QA: use an available permitted local test tool, or report the actual blocker. Never bypass browser/network access policy, header restrictions or sandbox permissions.';
@@ -153,6 +154,7 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
   const parent=read(path.join(root,'migrations',brand,'image-concepts.json'));
   verify(parent.dispatch);const dispatch=read(parent.dispatch.path);
   dispatch.inputs.forEach(verify);dispatch.inputImages.forEach(verify);
+  assert(unverifiedPreviews(root,brand,[direction]).length===0,'Unverified preview cannot be selected for implementation.');
   const generation=read(path.join(root,'migrations',brand,'image-concepts',`${direction}-generation.json`));
   verify(generation.output);verify(generation.arguments);
   assert(within(root,fs.realpathSync(generation.output.path)),'Selected image outside run.');

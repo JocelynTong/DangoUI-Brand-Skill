@@ -3,7 +3,7 @@ import path from 'node:path';
 import os from 'node:os';
 import crypto from 'node:crypto';
 import {fileURLToPath} from 'node:url';
-import {imageConceptDelivery,imageConceptFile} from './full-image-concepts.mjs';
+import {imageConceptDelivery,imageConceptFile,compactImageConceptResult} from './full-image-concepts.mjs';
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
 const binding=p=>({path:p,sha256:crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex')});
 
@@ -18,7 +18,7 @@ export function prepareImageBatchHandoff({root,brand,verifyExisting=false}) {
   const directory=fs.mkdtempSync(path.join(os.tmpdir(),'brand-image-batch-'));
   const packet={schema:'brand-image-batch/v1',mode:verifyExisting?'verify-existing':'continue-authorized-batch',root,brand,
     owner:'short-context-batch-executor',allowGeneration:!verifyExisting,allowHostEdits:false,
-    dispatch:binding(dispatchFile),delivery,reviewInputs:{images:delivery.images||delivery.completedImages||[],inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,preparedInput:dispatch.preparedInput,conceptScope:dispatch.conceptScope},
+    dispatch:binding(dispatchFile),delivery:compactImageConceptResult(delivery),reviewInputs:{images:delivery.images||delivery.completedImages||[],inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,preparedInput:dispatch.preparedInput,conceptScope:dispatch.conceptScope},
     entry:path.join(scripts,'run-brand-workflow.mjs'),resultDirectory:directory,
     executorReference:path.resolve(scripts,'../workflows/image-batch-executor.md')};
   const packetFile=path.join(directory,'task.json');fs.writeFileSync(packetFile,JSON.stringify(packet,null,2),{flag:'wx',mode:0o600});
