@@ -8,6 +8,25 @@ import { test } from 'node:test';
 import {prepareImageBatchHandoff} from './image-batch-handoff.mjs';
 import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImagePreparation, recordImageConcept, recordImageConcepts, compactImageConceptResult } from './full-image-concepts.mjs';
 
+test('identity policy survives preparation without turning business exclusions into character bans',t=>{
+ const f=fixture(t),policy={scope:'full-image-concept',instruction:'Preserve original IP; allow new illustrations. Host search remains Search.'};
+ f.write(path.join(f.dir,'brand-intent.json'),{imageIdentityPolicy:policy});
+ const prepared=prepareImageConcepts({...f,preparationRequired:true});
+ const dispatch=JSON.parse(fs.readFileSync(prepared.dispatch.path));
+ assert.deepEqual(dispatch.imageIdentityPolicy,policy);
+ for(const d of dispatch.directions)assert(d.prompt.includes(policy.instruction));
+ const briefFile=f.write(path.join(f.root,'brief.md'),'Host: Search. No source-site game statuses.');
+ const promptFile=f.write(path.join(f.root,'prompt.txt'),'Do not copy source fields, recognizable characters, logos into host.');
+ const args={...f,briefFile,promptFile,scene:'search',observer:'test',notObserved:'source-only fixture'};
+ assert.throws(()=>recordImagePreparation(args),/contradicts the bound brand identity policy/);
+ f.write(promptFile,'Host: Search. Do not copy source-site game statuses. '+policy.instruction);
+ recordImagePreparation(args);
+ const packet=JSON.parse(fs.readFileSync(path.join(f.dir,'host-preparation/producer-dispatch.json')));
+ assert.deepEqual(packet.imageIdentityPolicy,policy);
+ assert.deepEqual(packet.inputImages,dispatch.inputImages);
+ assert.equal(fs.readFileSync(packet.sharedBrief.prepared.promptText.path,'utf8'),fs.readFileSync(promptFile,'utf8'));
+});
+
 test('compact output preserves originals, failure state and review while omitting repeated prompt payload',t=>{
   const f=fixture(t);const full=prepareImageConcepts(f),before=sha(full.dispatch.path);
   const compact=compactImageConceptResult(full);

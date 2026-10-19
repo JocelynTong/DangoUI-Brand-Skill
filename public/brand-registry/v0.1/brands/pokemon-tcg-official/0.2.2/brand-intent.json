@@ -1,0 +1,777 @@
+{
+  "schema": "brand-intent/v4",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "role": "brand-interpreter",
+  "status": "READY_FOR_DESIGN_DIRECTION_WITH_INTERACTION_LIMITS",
+  "evidenceBoundary": {
+    "soleSourceObservation": "migrations/pokemon-tcg-official/recapture-2026-09-27/source-observation-manifest-full.json",
+    "evidenceFile": "migrations/pokemon-tcg-official/brand-evidence.json",
+    "forbiddenInheritance": [
+      "previous-run source captures",
+      "previous-run action traces",
+      "old QA or PASS verdicts",
+      "pokemon-tcg-pitch-black",
+      "pokemon30"
+    ],
+    "interactionLimit": "Current evidence supports static/default control treatment and native-scroll composition only. It does not authorize enabled click/hover/focus/restored behavior."
+  },
+  "knowledgeBasis": [
+    {
+      "ref": "basis:host-brand-scope",
+      "application": "A feature is kept at page or section scope unless the current run shows the same role across independent pages; Pokémon's campaign, database and instruction systems are therefore intentionally not flattened into one universal skin."
+    },
+    {
+      "ref": "basis:cross-page-token-promotion-question",
+      "application": "Same pixels and frequency do not prove the same semantic role. Home campaign discovery and database Search remain separate treatments."
+    },
+    {
+      "ref": "policy:primary-color-and-cta",
+      "application": "Identity-bearing navigation, interface palette and action treatment are judged separately. Current default-only evidence cannot approve a global brand-primary or global action token."
+    },
+    {
+      "ref": "method:design-asset-adoption",
+      "application": "Composition and component recipes receive only the narrowest supported page/scenario scope, and still require independent visual QA after implementation."
+    }
+  ],
+  "brandThesis": "Pokémon TCG is not expressed by one paint bucket. It is expressed by purpose-specific organisms held together by authentic collectible imagery, forceful italic display hierarchy, hard section boundaries and deliberate responsive re-authoring: cinematic discovery on Home, compact productive density in the card database, and painted diagram-led instruction in Learn.",
+  "formulaBoundary": {
+    "expressive": "Preserve recognizable Pokémon IP from the supplied references in full-image concepts. New illustrations, poses, materials and scene compositions are allowed; do not require an exact copy of the original illustration. Generated art is a proposal, not an authentic official asset or endorsement. Keep the host business and visible copy independent from the source website business.",
+    "productive": "Read the learned brand system directly: purpose-specific surfaces, typography roles, control recipes, section boundaries and responsive geometry come from this current Evidence chain.",
+    "expertDecision": "Knowledge-base decisions set attention allocation, task-space protection, narrowest reuse scope and responsive strategy; they do not substitute for current source facts."
+  },
+  "invariants": [
+    {
+      "id": "purpose-specific-organisms",
+      "rule": "Home campaign, database query and Learn instruction remain distinct visual systems; shared brand recognition comes from hierarchy, authentic objects and deliberate boundaries, not one global background color.",
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "database-desktop-search-organism-current",
+        "learn-desktop-instruction-hierarchy-current"
+      ]
+    },
+    {
+      "id": "authentic-identity-object-boundary",
+      "rule": "Keep official source assets identifiable as source evidence. New recognizable Pokémon illustrations are allowed in generated proposals and must not be represented as official originals. Preserving IP does not import card-database fields, campaign navigation, game rules or statuses into the host.",
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "home-mobile-campaign-stage-current",
+        "learn-mobile-card-anatomy-current"
+      ]
+    },
+    {
+      "id": "mobile-is-art-directed",
+      "rule": "390px layouts re-author order and object pairing rather than uniformly scaling desktop; focal asset weight, section purpose and reading order are preserved.",
+      "evidenceRefs": [
+        "home-mobile-campaign-stage-current",
+        "home-mobile-editorial-stack-current",
+        "database-mobile-search-organism-current",
+        "learn-mobile-card-anatomy-current",
+        "learn-mobile-field-sequence-current"
+      ]
+    },
+    {
+      "id": "productive-task-space-protected",
+      "rule": "Dense task pages keep productive controls and readable results dominant; expressive mass cannot consume the database's first-task viewport.",
+      "evidenceRefs": [
+        "database-desktop-search-organism-current",
+        "database-mobile-search-organism-current"
+      ]
+    }
+  ],
+  "colorRoles": [
+    {
+      "id": "home-identity-black-cap",
+      "status": "approved-page-recipe",
+      "evidenceRefs": [
+        "home-navigation-color-current"
+      ],
+      "allowedRoles": [
+        "Home navigation cap",
+        "Home campaign surround"
+      ],
+      "forbiddenRoles": [
+        "global app surface",
+        "database result surface",
+        "Learn instruction field"
+      ],
+      "reason": "Current identity-bearing Home proves this role at desktop and 390px, but no same-role cross-page action/state set exists."
+    },
+    {
+      "id": "learn-navy-instruction-field",
+      "status": "approved-section-recipe",
+      "evidenceRefs": [
+        "learn-navy-field-color-current",
+        "learn-mobile-field-sequence-current"
+      ],
+      "allowedRoles": [
+        "field-of-play instructional organism"
+      ],
+      "forbiddenRoles": [
+        "global brand primary",
+        "database search shell",
+        "Home campaign"
+      ],
+      "reason": "The color is tied to explanatory diagrams and section containment."
+    },
+    {
+      "id": "database-orange-search",
+      "status": "approved-component-recipe",
+      "evidenceRefs": [
+        "database-search-action-current"
+      ],
+      "allowedRoles": [
+        "card database Search default treatment"
+      ],
+      "forbiddenRoles": [
+        "global primary action",
+        "Home campaign action",
+        "Learn CTA"
+      ],
+      "reason": "Per primary-color-and-cta, a task-local Search control does not establish global brand or action color."
+    }
+  ],
+  "typography": {
+    "expressiveDisplay": {
+      "status": "approved-scenario-recipe",
+      "evidenceRefs": [
+        "home-editorial-typography-current",
+        "learn-mobile-display-typography-current"
+      ],
+      "rule": "Use heavy italic uppercase display typography for expressive editorial or instructional headings, with clearly quieter supporting copy.",
+      "notFor": [
+        "database labels",
+        "form values",
+        "body copy",
+        "compact navigation"
+      ]
+    },
+    "productiveText": {
+      "status": "preserve-system-role",
+      "evidenceRefs": [
+        "database-desktop-search-organism-current",
+        "database-mobile-search-organism-current"
+      ],
+      "rule": "Keep form labels, values and dense task copy restrained and readable; expressive display typography must not enter productive controls."
+    }
+  },
+  "frameAndBoundary": [
+    {
+      "id": "campaign-stage-boundary",
+      "status": "approved",
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "home-mobile-campaign-stage-current"
+      ],
+      "rule": "A near-black stage contains expressive campaign layers, then ends clearly before white editorial content."
+    },
+    {
+      "id": "painted-instruction-boundaries",
+      "status": "approved",
+      "evidenceRefs": [
+        "learn-desktop-instruction-hierarchy-current",
+        "learn-mobile-card-anatomy-current",
+        "learn-mobile-field-sequence-current"
+      ],
+      "rule": "Warm and navy painted fields separate different learning models and bind text to authentic cards/diagrams."
+    },
+    {
+      "id": "productive-query-boundary",
+      "status": "approved",
+      "evidenceRefs": [
+        "database-desktop-search-organism-current",
+        "database-mobile-search-organism-current"
+      ],
+      "rule": "A continuous charcoal field groups the entire database query task and keeps labels/inputs/actions in one readable organism."
+    }
+  ],
+  "density": {
+    "home": "Expressive high-mass opening followed by breathable, separately bounded editorial bands.",
+    "database": "High productive density inside one task organism; little decorative mass before the primary query controls.",
+    "learn": "Low-to-medium density in onboarding, then dense paired instruction within strongly bounded painted chapters."
+  },
+  "motionAndInteraction": {
+    "status": "static-and-scroll-only",
+    "approved": [
+      "native-scroll progression",
+      "section sequence",
+      "default control appearance"
+    ],
+    "notApproved": [
+      "carousel state changes",
+      "database search execution",
+      "advanced-search disclosure",
+      "Learn accordion expansion",
+      "hover/focus styling"
+    ],
+    "reason": "The sole current observation has complete scroll timelines but no fresh action trace with triggered, settled and restored states."
+  },
+  "assetUsage": [
+    {
+      "id": "official-identity-assets",
+      "status": "required-authentic",
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "home-mobile-campaign-stage-current",
+        "learn-mobile-card-anatomy-current"
+      ],
+      "rule": "Use official identity assets unchanged and independently layered; no source screenshot may become runtime content and no generated likeness may replace an identity subject."
+    },
+    {
+      "id": "generated-expressive-environment",
+      "status": "future-imagegen-scope",
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "learn-desktop-instruction-hierarchy-current"
+      ],
+      "rule": "ImageGen may create a source-independent environment and complete expressive composition around neutral identity slots, while the official assets are fused deterministically afterward."
+    }
+  ],
+  "interactionRecipes": [
+    {
+      "id": "campaign-discovery-default",
+      "status": "approved-static-only",
+      "evidenceRefs": [
+        "home-campaign-action-current",
+        "home-campaign-radius-current",
+        "home-campaign-spacing-current",
+        "home-campaign-shadow-current"
+      ],
+      "usage": "Home campaign discovery action appearance only",
+      "notFor": [
+        "enabled behavior without fresh action evidence",
+        "database Search"
+      ]
+    },
+    {
+      "id": "database-search-default",
+      "status": "approved-static-only",
+      "evidenceRefs": [
+        "database-search-action-current"
+      ],
+      "usage": "Card-database Search default appearance only",
+      "notFor": [
+        "global CTA token",
+        "enabled search behavior without fresh action evidence"
+      ]
+    }
+  ],
+  "primaryActionReview": {
+    "policyRef": "primary-color-and-cta",
+    "methodRef": "cross-page-token-promotion",
+    "status": "candidate-not-approved",
+    "sources": [
+      {
+        "pageId": "home",
+        "observationPageId": "home-desktop",
+        "semanticRole": "campaign-discovery",
+        "evidenceRefs": [
+          "home-campaign-action-current"
+        ],
+        "visibleControlCount": 2,
+        "excludedControlCount": 0,
+        "sourcePriority": "identity-bearing-home",
+        "salience": "high",
+        "states": [
+          "default"
+        ],
+        "treatment": "white fill / black text on dark campaign"
+      },
+      {
+        "pageId": "card-database",
+        "observationPageId": "card-database-mobile-390",
+        "semanticRole": "database-search",
+        "evidenceRefs": [
+          "database-search-action-current"
+        ],
+        "visibleControlCount": 1,
+        "excludedControlCount": 1,
+        "sourcePriority": "core-task-page",
+        "salience": "high",
+        "states": [
+          "default"
+        ],
+        "treatment": "orange fill / white text in charcoal query field"
+      },
+      {
+        "pageId": "how-to-play",
+        "observationPageId": "how-to-play-mobile-390",
+        "semanticRole": "instructional-navigation",
+        "evidenceRefs": [
+          "learn-mobile-display-typography-current"
+        ],
+        "visibleControlCount": 0,
+        "excludedControlCount": 0,
+        "sourcePriority": "core-instruction-page",
+        "salience": "medium",
+        "states": [
+          "default"
+        ],
+        "treatment": "no same-role primary action evidenced"
+      }
+    ],
+    "identityVsActionDecision": "The black Home cap is an identity/navigation field, not an action token. Campaign discovery and database Search are different semantic roles and remain scoped.",
+    "exceptions": [
+      "Database orange Search is local to query execution.",
+      "White Home campaign actions depend on the dark expressive stage."
+    ],
+    "unresolvedStates": [
+      "hover",
+      "focus",
+      "click-triggered",
+      "restored"
+    ],
+    "approvalBoundary": "No global primary-action or brand-primary token is approved from this run."
+  },
+  "semanticClaims": [
+    {
+      "id": "semantic-home-black-cap",
+      "kind": "color",
+      "status": "validated",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": [
+        "home-navigation-color-current"
+      ],
+      "scope": "Home navigation and campaign surround only"
+    },
+    {
+      "id": "semantic-learn-navy-field",
+      "kind": "color",
+      "status": "validated",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": [
+        "learn-navy-field-color-current"
+      ],
+      "scope": "Learn field-of-play organism only"
+    },
+    {
+      "id": "semantic-expressive-display",
+      "kind": "typography",
+      "status": "validated",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": [
+        "home-editorial-typography-current",
+        "learn-mobile-display-typography-current"
+      ],
+      "scope": "Expressive editorial/instructional headings"
+    },
+    {
+      "id": "semantic-campaign-lift",
+      "kind": "shadow",
+      "status": "validated",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": [
+        "home-campaign-shadow-current"
+      ],
+      "scope": "Home campaign discovery action only"
+    },
+    {
+      "id": "semantic-campaign-action-default",
+      "kind": "action-color",
+      "status": "validated",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": [
+        "home-campaign-action-current"
+      ],
+      "scope": "Home campaign discovery default state"
+    },
+    {
+      "id": "semantic-database-search-default",
+      "kind": "action-color",
+      "status": "validated",
+      "evidenceDisposition": "validated",
+      "evidenceRefs": [
+        "database-search-action-current"
+      ],
+      "scope": "Card-database Search default state"
+    }
+  ],
+  "patterns": [
+    {
+      "id": "home-cinematic-campaign-stage-current",
+      "status": "approved",
+      "grain": "page-opening-composition",
+      "meaning": "A dominant expressive campaign with distinct official identity layers precedes productive editorial discovery.",
+      "suitableFor": [
+        "Home campaign entry"
+      ],
+      "notFor": [
+        "database query",
+        "generic held-out hero",
+        "Learn chapter"
+      ],
+      "allowedRoles": [
+        "campaign surround",
+        "official identity slots",
+        "campaign discovery action",
+        "carousel affordance"
+      ],
+      "forbiddenRoles": [
+        "source screenshot runtime",
+        "generated Pokémon likeness",
+        "global dark theme"
+      ],
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "home-mobile-campaign-stage-current"
+      ],
+      "requiredMechanisms": [
+        "separate background/identity/card/action/control layers",
+        "desktop art-directed crop",
+        "mobile vertical reflow"
+      ],
+      "replaceableSlots": [
+        "campaign copy",
+        "approved official identity assets",
+        "campaign destination"
+      ],
+      "validationStatus": "current-evidence-approved"
+    },
+    {
+      "id": "home-banded-editorial-journey-current",
+      "status": "approved",
+      "grain": "page-section-sequence",
+      "meaning": "Distinct image/copy bands carry discovery from news through ecosystem, event, play and product content.",
+      "suitableFor": [
+        "Home editorial discovery"
+      ],
+      "notFor": [
+        "dense forms",
+        "instructional definitions"
+      ],
+      "allowedRoles": [
+        "editorial section",
+        "ecosystem section",
+        "product guidance"
+      ],
+      "forbiddenRoles": [
+        "uniform generic card grid"
+      ],
+      "evidenceRefs": [
+        "home-mobile-editorial-stack-current"
+      ],
+      "requiredMechanisms": [
+        "visible section boundary",
+        "one dominant image/copy relationship per band",
+        "mobile reordering by section purpose"
+      ],
+      "replaceableSlots": [
+        "editorial image",
+        "heading",
+        "summary",
+        "single action"
+      ],
+      "validationStatus": "current-evidence-approved"
+    },
+    {
+      "id": "database-dense-query-organism-current",
+      "status": "approved",
+      "grain": "task-organism",
+      "meaning": "One continuous charcoal field holds the complete query-building task with restrained typography and a single local orange Search action.",
+      "suitableFor": [
+        "Card database search construction"
+      ],
+      "notFor": [
+        "campaign hero",
+        "generic settings form",
+        "global dark mode"
+      ],
+      "allowedRoles": [
+        "query labels",
+        "light inputs",
+        "energy choices",
+        "reset",
+        "search",
+        "advanced disclosure"
+      ],
+      "forbiddenRoles": [
+        "expressive display heading inside inputs",
+        "large decorative hero"
+      ],
+      "evidenceRefs": [
+        "database-desktop-search-organism-current",
+        "database-mobile-search-organism-current",
+        "database-search-action-current"
+      ],
+      "requiredMechanisms": [
+        "task-order grouping",
+        "mobile full-width stacking",
+        "productive first-viewport dominance"
+      ],
+      "replaceableSlots": [
+        "query fields",
+        "filter choices",
+        "result status"
+      ],
+      "validationStatus": "current-evidence-approved-static-only"
+    },
+    {
+      "id": "learn-painted-instruction-chapters-current",
+      "status": "approved",
+      "grain": "instructional-page-composition",
+      "meaning": "Warm card-anatomy and navy play-field chapters bind explanatory terms to authentic objects using contrasting painted boundaries.",
+      "suitableFor": [
+        "How-to-play instruction"
+      ],
+      "notFor": [
+        "global page skin",
+        "database filters",
+        "campaign hero"
+      ],
+      "allowedRoles": [
+        "instruction heading",
+        "definition/object pair",
+        "diagram sequence"
+      ],
+      "forbiddenRoles": [
+        "decorative card gallery without explanation",
+        "generated replacement card"
+      ],
+      "evidenceRefs": [
+        "learn-desktop-instruction-hierarchy-current",
+        "learn-mobile-card-anatomy-current",
+        "learn-mobile-field-sequence-current"
+      ],
+      "requiredMechanisms": [
+        "painted chapter boundary",
+        "term/object pairing",
+        "ordered mobile sequence"
+      ],
+      "replaceableSlots": [
+        "instruction text",
+        "authentic card/diagram asset"
+      ],
+      "validationStatus": "current-evidence-approved"
+    },
+    {
+      "id": "bounded-long-form-organisms-current",
+      "status": "approved",
+      "grain": "cross-page-structural-rule",
+      "meaning": "Long pages remain sequences of purpose-specific organisms; responsive design preserves each organism's task and reading order.",
+      "suitableFor": [
+        "held-out structural proof"
+      ],
+      "notFor": [
+        "copying a source page",
+        "using section count as fidelity",
+        "transferring source-owned colors/assets"
+      ],
+      "allowedRoles": [
+        "entry organism",
+        "task organism",
+        "instruction organism",
+        "editorial organism"
+      ],
+      "forbiddenRoles": [
+        "one undifferentiated infinite canvas"
+      ],
+      "evidenceRefs": [
+        "home-mobile-editorial-stack-current",
+        "database-mobile-search-organism-current",
+        "learn-mobile-card-anatomy-current",
+        "learn-mobile-field-sequence-current"
+      ],
+      "requiredMechanisms": [
+        "purpose boundary",
+        "explicit reading order",
+        "element-level responsive strategy"
+      ],
+      "replaceableSlots": [
+        "source-independent content"
+      ],
+      "validationStatus": "current-evidence-approved"
+    }
+  ],
+  "mappingCoverage": {
+    "color": {
+      "status": "style-only",
+      "sourceCount": 2,
+      "evidenceRefs": [
+        "home-navigation-color-current",
+        "learn-navy-field-color-current"
+      ],
+      "priorityReason": "Both are high-salience current observations tied to different page purposes and backgrounds; neither has the same-role state set required for a global token.",
+      "reason": "Keep them as Home identity-stage and Learn instructional-field recipes; do not collapse them into brand-primary.",
+      "styleRecipe": "home-identity-cap=black/white; learn-field=deep-navy/white-light-blue; each limited to its evidenced organism"
+    },
+    "typography": {
+      "status": "style-only",
+      "sourceCount": 2,
+      "evidenceRefs": [
+        "home-editorial-typography-current",
+        "learn-mobile-display-typography-current"
+      ],
+      "priorityReason": "Current desktop and mobile evidence shows display hierarchy is visually dominant and task-relevant, while productive controls use a quieter system.",
+      "reason": "Apply the heavy italic uppercase display role only to expressive headings and preserve readable system text in productive regions.",
+      "styleRecipe": "expressive-display: heavy italic uppercase, high contrast, compact line-height; productive-copy remains restrained"
+    },
+    "radius": {
+      "status": "mapped",
+      "sourceCount": 1,
+      "evidenceRefs": [
+        "home-campaign-radius-current"
+      ],
+      "priorityReason": "The current high-salience campaign action proves a local silhouette in one default state, not a global control family.",
+      "reason": "Map only to the Home campaign-discovery component variant.",
+      "targetComponent": "CampaignDiscoveryAction.radius=16px"
+    },
+    "spacing": {
+      "status": "mapped",
+      "sourceCount": 1,
+      "evidenceRefs": [
+        "home-campaign-spacing-current"
+      ],
+      "priorityReason": "Current campaign action spacing materially controls legibility and visual weight, but only one component role is proven.",
+      "reason": "Map the observed padding to the campaign-discovery variant and retain productive-control density elsewhere.",
+      "targetComponent": "CampaignDiscoveryAction.padding=14px 20px; min-height=44px"
+    },
+    "shadow": {
+      "status": "style-only",
+      "sourceCount": 1,
+      "evidenceRefs": [
+        "home-campaign-shadow-current"
+      ],
+      "priorityReason": "A visible high-salience lift exists on the campaign action, but no cross-page shadow system or state set is available.",
+      "reason": "Keep the lift inside the campaign action recipe only.",
+      "styleRecipe": "campaign-action-lift: rgba(0,0,0,.35) 0 16px 24px -16px"
+    },
+    "action-color": {
+      "status": "style-only",
+      "sourceCount": 2,
+      "evidenceRefs": [
+        "home-campaign-action-current",
+        "database-search-action-current"
+      ],
+      "priorityReason": "Both current controls are high-salience and task-relevant, but they perform different semantic jobs and only default states are observed.",
+      "reason": "Per the CTA policy, keep white campaign-discovery and orange database-search as separate component recipes; global primary-action remains unresolved.",
+      "styleRecipe": "campaign-discovery=white/black on dark stage; database-search=rgb(238,107,47)/white in charcoal query organism"
+    }
+  },
+  "styleRecipeDetails": [
+    {
+      "id": "campaign-discovery-action",
+      "evidenceRefs": [
+        "home-campaign-action-current",
+        "home-campaign-radius-current",
+        "home-campaign-spacing-current",
+        "home-campaign-shadow-current"
+      ],
+      "scope": "Home campaign only",
+      "statesApproved": [
+        "default"
+      ],
+      "statesBlocked": [
+        "hover",
+        "focus",
+        "pressed"
+      ],
+      "sourceMeasurements": [
+        {
+          "evidenceRef": "home-campaign-action-current",
+          "property": "background-color/color",
+          "value": "rgb(255, 255, 255) / rgb(0, 0, 0)",
+          "sourcePageId": "home-desktop",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+          },
+          "state": "default",
+          "selector": "a.button.button--thirty.button__cta"
+        },
+        {
+          "evidenceRef": "home-campaign-radius-current",
+          "property": "border-radius",
+          "value": "16px",
+          "sourcePageId": "home-desktop",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+          },
+          "state": "default",
+          "selector": "a.button.button--thirty.button__cta"
+        },
+        {
+          "evidenceRef": "home-campaign-spacing-current",
+          "property": "padding",
+          "value": "14px 20px",
+          "sourcePageId": "home-desktop",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+          },
+          "state": "default",
+          "selector": "a.button.button--thirty.button__cta"
+        },
+        {
+          "evidenceRef": "home-campaign-shadow-current",
+          "property": "box-shadow",
+          "value": "rgba(0, 0, 0, 0.35) 0px 16px 24px -16px",
+          "sourcePageId": "home-desktop",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+          },
+          "state": "default",
+          "selector": "a.button.button--thirty.button__cta"
+        }
+      ]
+    },
+    {
+      "id": "database-search-action",
+      "evidenceRefs": [
+        "database-search-action-current"
+      ],
+      "scope": "Card database Search only",
+      "statesApproved": [
+        "default"
+      ],
+      "statesBlocked": [
+        "hover",
+        "focus",
+        "pressed"
+      ],
+      "sourceMeasurements": [
+        {
+          "evidenceRef": "database-search-action-current",
+          "property": "background-color",
+          "value": "rgb(238, 107, 47)",
+          "sourcePageId": "card-database-mobile-390",
+          "capture": {
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/card-database/mobile-390-input-scroll/frames/scroll-0844.jpg"
+          },
+          "state": "default",
+          "selector": "#simpleSubmit"
+        }
+      ]
+    }
+  ],
+  "unresolvedClaims": [
+    {
+      "id": "enabled-interactions",
+      "reason": "Fresh action traces for triggered, settled and restored states are absent.",
+      "owner": "evidence-agent",
+      "requiredForDemo": "only-if-enabled"
+    },
+    {
+      "id": "global-primary-action",
+      "reason": "Same-role cross-page and hover/focus evidence is absent; campaign discovery and database Search are different jobs.",
+      "owner": "brand-interpreter",
+      "requiredForDemo": false
+    },
+    {
+      "id": "exact-learn-paint-token",
+      "reason": "Current evidence supports the instructional color role, not an exact reusable global token.",
+      "owner": "evidence-agent",
+      "requiredForDemo": false
+    }
+  ],
+  "coldStart": {
+    "confirmed": true,
+    "prohibitedConclusionReuse": [
+      "pokemon-tcg-pitch-black",
+      "pokemon30"
+    ],
+    "currentEvidenceOnly": true
+  },
+  "imageIdentityPolicy": {
+    "scope": "full-image-concept",
+    "instruction": "Preserve recognizable original Pokémon IP using the supplied official references. New illustrations, poses, materials and compositions are allowed; exact reproduction of the source illustration is not required. Keep host business labels, data and actions unchanged. Do not import source-site business fields, game states or campaign navigation. Do not claim generated art is an official asset or endorsement.",
+    "basis": "Explicit user creative direction; not a claim inferred from official screenshots."
+  }
+}

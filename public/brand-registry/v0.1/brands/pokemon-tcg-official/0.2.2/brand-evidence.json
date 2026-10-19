@@ -1,0 +1,865 @@
+{
+  "schema": "brand-evidence/v5",
+  "brand": "pokemon-tcg-official",
+  "goalId": "pokemon-tcg-official-cold-start-v2",
+  "status": "READY_FOR_INTERPRETER_WITH_INTERACTION_LIMITS",
+  "sourceObservation": {
+    "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/source-observation-manifest-full.json",
+    "sha256": "645e62d5336fbf939865fa8fff056c8dc2ba05fbac66628b72e89264935f3dfd",
+    "policy": "sole-source-observation-for-this-rebuild"
+  },
+  "consumerDecision": {
+    "status": "accepted-with-constraints",
+    "acceptedFor": [
+      "composition",
+      "responsive-geometry",
+      "visual-token-and-style-roles",
+      "static-control-treatment"
+    ],
+    "blockedFor": [
+      "claiming click/hover/focus/restored behavior",
+      "enabling uncaptured interactive controls"
+    ],
+    "reason": "Six current rendered observations cover three core pages at desktop and 390px. Native scrolling is complete, but no current click/hover/focus/restoration trace exists, so interaction semantics remain visually scoped."
+  },
+  "goalCoverage": [
+    {
+      "goalRef": "home-brand-stage",
+      "status": "proved",
+      "evidenceRefs": [
+        "home-desktop-campaign-stage-current",
+        "home-mobile-campaign-stage-current"
+      ],
+      "reason": "Current desktop and 390px captures show the campaign stage, authentic card/character artwork, CTA placement and section transition."
+    },
+    {
+      "goalRef": "card-database-search-organism",
+      "status": "proved-with-interaction-constraint",
+      "evidenceRefs": [
+        "database-desktop-search-organism-current",
+        "database-mobile-search-organism-current",
+        "database-search-action-current"
+      ],
+      "reason": "Current captures prove search structure, density and default treatment; triggered/restored business behavior is not asserted."
+    },
+    {
+      "goalRef": "learning-content-hierarchy",
+      "status": "proved-with-interaction-constraint",
+      "evidenceRefs": [
+        "learn-desktop-instruction-hierarchy-current",
+        "learn-mobile-card-anatomy-current",
+        "learn-mobile-field-sequence-current"
+      ],
+      "reason": "Current scroll sequences prove instructional hierarchy and responsive pairing; accordion behavior is not asserted."
+    },
+    {
+      "goalRef": "responsive-section-structure",
+      "status": "proved",
+      "evidenceRefs": [
+        "home-mobile-editorial-stack-current",
+        "database-mobile-search-organism-current",
+        "learn-mobile-card-anatomy-current",
+        "learn-mobile-field-sequence-current"
+      ],
+      "reason": "All mobile evidence comes from this run's mobile-390-input-scroll captures and is paired with a current desktop observation."
+    }
+  ],
+  "interactionCoverage": {
+    "status": "limited-to-native-scroll",
+    "observedStates": [
+      "stable-initial",
+      "continuous-scroll",
+      "settled-end"
+    ],
+    "unobservedStates": [
+      "click-triggered",
+      "hover",
+      "focus",
+      "restored"
+    ],
+    "implementationBoundary": "Keep uncaptured controls non-operable in the learning Demo or visibly label them as static evidence samples until a fresh action trace exists."
+  },
+  "claims": [
+    {
+      "id": "home-desktop-campaign-stage-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "The desktop Home opens with a near-black campaign stage: the 30th identity, official Pokémon illustration, authentic card, two white actions and carousel navigation are separate layers above a sequence of sharply bounded editorial bands.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1920,
+        807
+      ],
+      "visibleDom": {
+        "selector": "header.main-header#default",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 807
+        }
+      },
+      "sourceProof": {
+        "selector": "header.main-header#default",
+        "visibleRect": [
+          0,
+          0,
+          1920,
+          807
+        ],
+        "paintedBackground": "near-black campaign field",
+        "paintedForeground": "white campaign actions and multicolor official identity assets",
+        "state": "default"
+      }
+    },
+    {
+      "id": "home-mobile-campaign-stage-current",
+      "sourcePageId": "home-mobile-390",
+      "logicalPageId": "home",
+      "observationPageId": "home-mobile-390",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "At 390px the Home campaign becomes a vertical art-directed stage: focal Pokémon first, campaign mark, full card, actions and carousel controls remain separately readable instead of uniformly shrinking the desktop canvas.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/mobile-390-input-scroll/frames/scroll-0000.jpg"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "paintedBackground": "black with saturated blue-yellow campaign art",
+        "paintedForeground": "white controls and official card/mark layers",
+        "state": "default"
+      }
+    },
+    {
+      "id": "home-mobile-editorial-stack-current",
+      "sourcePageId": "home-mobile-390",
+      "logicalPageId": "home",
+      "observationPageId": "home-mobile-390",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "responsive-composition",
+      "claim": "Home's desktop split bands reflow into an alternating image-first/copy-first single-column journey while preserving each section's purpose and order.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/mobile-390-input-scroll/frames/scroll-3376.jpg"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "paintedBackground": "alternating white, black and branded image bands",
+        "paintedForeground": "centered editorial heading/body/action groups",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "database-desktop-search-organism-current",
+      "sourcePageId": "card-database-desktop",
+      "logicalPageId": "card-database",
+      "observationPageId": "card-database-desktop",
+      "sourceUrl": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "The desktop database contains a light title plate followed by one dense charcoal search organism with aligned keyword, evolution, energy and advanced-filter regions.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/card-database/desktop-input-scroll/frames/000.jpg"
+      },
+      "sourceRegion": [
+        320,
+        106,
+        1280,
+        720
+      ],
+      "visibleDom": {
+        "selector": "form#filters.form-analytics",
+        "visible": true,
+        "boundingBox": {
+          "x": 320,
+          "y": 168,
+          "width": 1280,
+          "height": 640
+        }
+      },
+      "sourceProof": {
+        "selector": "form#filters.form-analytics",
+        "visibleRect": [
+          320,
+          168,
+          1280,
+          640
+        ],
+        "paintedBackground": "dark charcoal",
+        "paintedForeground": "white labels and light input surfaces",
+        "state": "default"
+      }
+    },
+    {
+      "id": "database-mobile-search-organism-current",
+      "sourcePageId": "card-database-mobile-390",
+      "logicalPageId": "card-database",
+      "observationPageId": "card-database-mobile-390",
+      "sourceUrl": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+      "status": "observed",
+      "salience": "high",
+      "kind": "responsive-composition",
+      "claim": "At 390px the database keeps one continuous charcoal task field and stacks keyword, evolution, energy, Reset, Search and advanced-search disclosure in task order.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/card-database/mobile-390-input-scroll/frames/scroll-0844.jpg"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "paintedBackground": "charcoal task field",
+        "paintedForeground": "white labels, energy rows, gray reset and orange search",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "learn-desktop-instruction-hierarchy-current",
+      "sourcePageId": "how-to-play-desktop",
+      "logicalPageId": "how-to-play",
+      "observationPageId": "how-to-play-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "composition",
+      "claim": "The desktop Learn page progresses from media-led onboarding into a warm painted card-anatomy field, a navy play-field organism, product guidance and next steps.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/000.png",
+        "mode": "original-scroll-frame-sequence",
+        "viewport": {
+          "width": 1920,
+          "height": 807
+        },
+        "scrollHeight": 7385,
+        "note": "The unavailable full-page aggregate is replaced by original frames from the same frozen capture, verified against its timeline hashes. No new capture or synthesized image. Repeated end frame 9 is unavailable; original frame 10 covers the same final scroll position.",
+        "frames": [
+          {
+            "index": 0,
+            "scrollTop": 0,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/000.png",
+            "sha256": "944603982edc059e08763003c908acc870084938487318f012e2cce4fa300805"
+          },
+          {
+            "index": 1,
+            "scrollTop": 807,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/001.png",
+            "sha256": "bbf22dd9083870a9870dbd1badaacdcae0c5a561e0a0f0613a67a6f24eea39be"
+          },
+          {
+            "index": 2,
+            "scrollTop": 1614,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/002.png",
+            "sha256": "4df82eff8f1ad86cd1fb773b6c915956b6389aedee691b1f1a24138722c8a367"
+          },
+          {
+            "index": 3,
+            "scrollTop": 2421,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/003.png",
+            "sha256": "4ab97dd49f93f8e247b31b640358b07ff8baf42f327c7c9c09c3c177068a00a0"
+          },
+          {
+            "index": 4,
+            "scrollTop": 3228,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/004.png",
+            "sha256": "619093161d7db3b043256404253ed5d56c9da1dd126bbb833655f28100780ea5"
+          },
+          {
+            "index": 5,
+            "scrollTop": 4035,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/005.png",
+            "sha256": "affeca3e7c7164d57ba2fd5470367245e9a56292c28397d6f296297fd1333597"
+          },
+          {
+            "index": 6,
+            "scrollTop": 4842,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/006.png",
+            "sha256": "50a99b277f7c71378416f9229db2b1267d75901cbb40c9b9edadf8b44158b3d7"
+          },
+          {
+            "index": 7,
+            "scrollTop": 5649,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/007.png",
+            "sha256": "8dd4b66e2ee568d61b9f81f95532a27ce7ec4737b524861ad66cafbd002e0d3b"
+          },
+          {
+            "index": 8,
+            "scrollTop": 6456,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/008.png",
+            "sha256": "253cf10f17cd52e159c968a36b6b41ee2e0ab5f4302c2c983117beb021007b84"
+          },
+          {
+            "index": 10,
+            "scrollTop": 6578,
+            "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/desktop-input-scroll/frames/010.png",
+            "sha256": "824f780b87a20c05063b1389a6ceeaaddb161eefa9df208555e0290288f7974c"
+          }
+        ]
+      },
+      "sourceRegion": [
+        0,
+        0,
+        1920,
+        7385
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 1920,
+          "height": 7385
+        }
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          1920,
+          7385
+        ],
+        "paintedBackground": "white onboarding, cream/yellow anatomy and navy field organisms",
+        "paintedForeground": "oversized black/white instructional hierarchy with authentic card diagrams",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "learn-mobile-card-anatomy-current",
+      "sourcePageId": "how-to-play-mobile-390",
+      "logicalPageId": "how-to-play",
+      "observationPageId": "how-to-play-mobile-390",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "responsive-composition",
+      "claim": "At 390px the card-anatomy organism repeats the authentic full card beside each definition, preserving term-to-object proximity instead of compressing the desktop side-by-side layout.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/mobile-390-input-scroll/frames/scroll-3376.jpg"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "paintedBackground": "warm cream with yellow paint boundary",
+        "paintedForeground": "black term/description groups paired with authentic card crops",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "learn-mobile-field-sequence-current",
+      "sourcePageId": "how-to-play-mobile-390",
+      "logicalPageId": "how-to-play",
+      "observationPageId": "how-to-play-mobile-390",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "responsive-composition",
+      "claim": "At 390px the navy field-of-play organism becomes a vertical sequence of labeled definitions and matching blue diagrams, retaining their pair order across the long scroll.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/mobile-390-input-scroll/frames/scroll-7596.jpg"
+      },
+      "sourceRegion": [
+        0,
+        0,
+        390,
+        844
+      ],
+      "visibleDom": {
+        "selector": "body",
+        "visible": true,
+        "boundingBox": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844
+        }
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "paintedBackground": "deep navy painted field",
+        "paintedForeground": "white instructional copy and light-blue diagrams",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "home-navigation-color-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "color",
+      "semanticRole": "identity-navigation",
+      "states": [
+        "default"
+      ],
+      "claim": "Home uses a painted black navigation field with white foreground as an identity-bearing cap, not as a global surface token.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+      },
+      "computed": {
+        "property": "background-color",
+        "value": "rgb(0, 0, 0)"
+      },
+      "sourceProof": {
+        "selector": "#main-nav__inner",
+        "visibleRect": [
+          0,
+          0,
+          1920,
+          84
+        ],
+        "paintedBackground": "rgb(0, 0, 0)",
+        "paintedForeground": "rgb(255, 255, 255)",
+        "state": "default"
+      }
+    },
+    {
+      "id": "learn-navy-field-color-current",
+      "sourcePageId": "how-to-play-mobile-390",
+      "logicalPageId": "how-to-play",
+      "observationPageId": "how-to-play-mobile-390",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "color",
+      "semanticRole": "instructional-field",
+      "states": [
+        "continuous-scroll"
+      ],
+      "claim": "Deep navy is an instructional field color around play-location diagrams; it is not evidence for a global page background.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/mobile-390-input-scroll/frames/scroll-7596.jpg"
+      },
+      "computed": {
+        "property": "background-color",
+        "value": "deep-navy-painted-field (pixel-observed; exact token unresolved)"
+      },
+      "sourceProof": {
+        "selector": "body",
+        "visibleRect": [
+          0,
+          0,
+          390,
+          844
+        ],
+        "paintedBackground": "deep navy",
+        "paintedForeground": "white copy and light-blue diagrams",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "home-editorial-typography-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "typography",
+      "semanticRole": "expressive-editorial-heading",
+      "states": [
+        "continuous-scroll"
+      ],
+      "claim": "Home editorial bands use heavy italic uppercase display headings that are much louder than body copy and controls.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/001.jpg"
+      },
+      "computed": {
+        "property": "font-family/font-weight",
+        "value": "Kanit / 700 (current rendered-source computation)"
+      },
+      "sourceProof": {
+        "selector": "h2.whats-new__title",
+        "visibleRect": [
+          372,
+          5,
+          576,
+          53
+        ],
+        "paintedBackground": "white section field",
+        "paintedForeground": "near-black heavy italic heading",
+        "state": "continuous-scroll"
+      }
+    },
+    {
+      "id": "learn-mobile-display-typography-current",
+      "sourcePageId": "how-to-play-mobile-390",
+      "logicalPageId": "how-to-play",
+      "observationPageId": "how-to-play-mobile-390",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/learn/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "typography",
+      "semanticRole": "instructional-display-heading",
+      "states": [
+        "default"
+      ],
+      "claim": "The Learn mobile entry preserves an oversized italic all-caps title while keeping the explanatory paragraph substantially quieter.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/how-to-play/mobile-390-input-scroll/frames/scroll-0000.jpg"
+      },
+      "computed": {
+        "property": "bounding-box hierarchy",
+        "value": "h1 374×110.39; paragraph 374×46.8 in 390px viewport"
+      },
+      "sourceProof": {
+        "selector": "h1",
+        "visibleRect": [
+          8,
+          136,
+          374,
+          110.39
+        ],
+        "paintedBackground": "soft photographic hero",
+        "paintedForeground": "near-black italic display text",
+        "state": "default"
+      }
+    },
+    {
+      "id": "home-campaign-radius-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "radius",
+      "semanticRole": "campaign-discovery-action",
+      "states": [
+        "default"
+      ],
+      "claim": "Campaign actions use a compact rounded-rectangle silhouette; the radius is local to this expressive action family.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+      },
+      "computed": {
+        "property": "border-radius",
+        "value": "16px"
+      },
+      "sourceProof": {
+        "selector": "a.button.button--thirty.button__cta",
+        "visibleRect": [
+          366,
+          453,
+          347,
+          59
+        ],
+        "paintedBackground": "rgb(255, 255, 255)",
+        "paintedForeground": "rgb(0, 0, 0)",
+        "state": "default"
+      }
+    },
+    {
+      "id": "home-campaign-spacing-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "spacing",
+      "semanticRole": "campaign-discovery-action",
+      "states": [
+        "default"
+      ],
+      "claim": "Campaign actions use generous horizontal padding and a 59px overall control height to remain distinct on the cinematic stage.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+      },
+      "computed": {
+        "property": "padding",
+        "value": "14px 20px"
+      },
+      "sourceProof": {
+        "selector": "a.button.button--thirty.button__cta",
+        "visibleRect": [
+          366,
+          453,
+          347,
+          59
+        ],
+        "paintedBackground": "rgb(255, 255, 255)",
+        "paintedForeground": "rgb(0, 0, 0)",
+        "state": "default"
+      }
+    },
+    {
+      "id": "home-campaign-shadow-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "shadow",
+      "semanticRole": "campaign-discovery-action",
+      "states": [
+        "default"
+      ],
+      "claim": "A restrained downward lift separates the white campaign action from the dark stage; no cross-page shadow system is proven.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+      },
+      "computed": {
+        "property": "box-shadow",
+        "value": "rgba(0, 0, 0, 0.35) 0px 16px 24px -16px"
+      },
+      "sourceProof": {
+        "selector": "a.button.button--thirty.button__cta",
+        "visibleRect": [
+          366,
+          453,
+          347,
+          59
+        ],
+        "paintedBackground": "rgb(255, 255, 255)",
+        "paintedForeground": "rgb(0, 0, 0)",
+        "state": "default"
+      }
+    },
+    {
+      "id": "home-campaign-action-current",
+      "sourcePageId": "home-desktop",
+      "logicalPageId": "home",
+      "observationPageId": "home-desktop",
+      "sourceUrl": "https://tcg.pokemon.com/en-us/",
+      "status": "observed",
+      "salience": "high",
+      "kind": "action-color",
+      "semanticRole": "campaign-discovery",
+      "states": [
+        "default"
+      ],
+      "claim": "Home campaign discovery actions are white with black text on the dark hero stage.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/home/desktop-input-scroll/frames/000.jpg"
+      },
+      "computed": {
+        "property": "background-color/color",
+        "value": "rgb(255, 255, 255) / rgb(0, 0, 0)"
+      },
+      "sourceProof": {
+        "selector": "a.button.button--thirty.button__cta",
+        "visibleRect": [
+          366,
+          453,
+          347,
+          59
+        ],
+        "paintedBackground": "rgb(255, 255, 255)",
+        "paintedForeground": "rgb(0, 0, 0)",
+        "state": "default"
+      }
+    },
+    {
+      "id": "database-search-action-current",
+      "sourcePageId": "card-database-mobile-390",
+      "logicalPageId": "card-database",
+      "observationPageId": "card-database-mobile-390",
+      "sourceUrl": "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
+      "status": "observed",
+      "salience": "high",
+      "kind": "action-color",
+      "semanticRole": "database-search",
+      "states": [
+        "default"
+      ],
+      "claim": "The database Search action is saturated orange with white text inside the charcoal query organism; it is a task-local treatment, not the brand's global primary action.",
+      "capture": {
+        "path": "migrations/pokemon-tcg-official/recapture-2026-09-27/card-database/mobile-390-input-scroll/frames/scroll-0844.jpg"
+      },
+      "computed": {
+        "property": "background-color",
+        "value": "rgb(238, 107, 47)"
+      },
+      "sourceProof": {
+        "selector": "#simpleSubmit",
+        "visibleRect": [
+          16,
+          706,
+          128,
+          48
+        ],
+        "paintedBackground": "rgb(238, 107, 47)",
+        "paintedForeground": "rgb(255, 255, 255)",
+        "state": "default"
+      }
+    }
+  ],
+  "dimensionCoverage": {
+    "color": {
+      "status": "observed",
+      "claimIds": [
+        "home-navigation-color-current",
+        "learn-navy-field-color-current"
+      ],
+      "sourceCount": 2
+    },
+    "typography": {
+      "status": "observed",
+      "claimIds": [
+        "home-editorial-typography-current",
+        "learn-mobile-display-typography-current"
+      ],
+      "sourceCount": 2
+    },
+    "radius": {
+      "status": "observed",
+      "claimIds": [
+        "home-campaign-radius-current"
+      ],
+      "sourceCount": 1
+    },
+    "spacing": {
+      "status": "observed",
+      "claimIds": [
+        "home-campaign-spacing-current"
+      ],
+      "sourceCount": 1
+    },
+    "shadow": {
+      "status": "observed",
+      "claimIds": [
+        "home-campaign-shadow-current"
+      ],
+      "sourceCount": 1
+    },
+    "action-color": {
+      "status": "observed",
+      "claimIds": [
+        "home-campaign-action-current",
+        "database-search-action-current"
+      ],
+      "sourceCount": 2
+    }
+  },
+  "thirdPartySeedDispositions": [
+    {
+      "seedId": "dembrandt-current-run",
+      "status": "unavailable",
+      "reason": "This rebuild uses rendered browser evidence only; no current Dembrandt output is promoted or silently copied."
+    }
+  ],
+  "unresolvedClaims": [
+    {
+      "id": "interactive-control-states-current",
+      "status": "unresolved-blocking-for-enabled-controls",
+      "reason": "No current hover/focus/click/restored action trace exists in the sole source observation.",
+      "owner": "evidence-agent",
+      "requiredForDemo": "only-if-controls-are-enabled"
+    },
+    {
+      "id": "exact-learn-painted-field-token",
+      "status": "unresolved-non-blocking",
+      "reason": "Current captures prove the color role and relationship but not a reusable exact token value.",
+      "owner": "evidence-agent",
+      "requiredForDemo": false
+    }
+  ]
+}

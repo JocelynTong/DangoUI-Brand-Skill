@@ -117,6 +117,7 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
   assert(fs.existsSync(source)&&hash(source)===startup.sourceSha256,'Host startup source changed or is unavailable.');
   inputs.push(binding(source));
   const mod=read(path.join(dir,'brand-mod.json'));
+  const identityPolicy=read(path.join(dir,'brand-intent.json')).imageIdentityPolicy||null;
   // Embedded DTCG is already part of the bound MOD. Bind actual declared kit
   // source files too, rather than leaving the consumer with paths in prose.
   for(const kit of mod.componentKits||[]) for(const declared of kit.files||[]) {
@@ -159,6 +160,12 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
       : ' This is an explicitly requested NEW batch, including when the previous batch was incomplete or blocked. Generate three NEW complete images; never copy old outputs or checkpoints. Apply regeneration.feedback and inspect priorDirections only to avoid repeating visual ideas, never as official references. Preserve host facts and brand constraints. Checkpoint and immediately show each success in the standard comparison preview. Attempt each direction once; a failed direction is terminal in this batch and must be reported without retry. Continue the other pending compliant directions already authorized in this batch. No automatic retry or H5 fallback. User authorization is not safety approval: independently assess a genuinely new compliant design, never reword refused content to evade safeguards. Preserve prior failures; this batch needs its own independent review.';
   }
   dispatch.conceptScope=conceptScope;
+  if(identityPolicy) {
+    dispatch.imageIdentityPolicy=identityPolicy;
+    const identityText=`Brand identity for this image concept: ${identityPolicy.instruction}`;
+    dispatch.directions=dispatch.directions.map(d=>({...d,prompt:`${d.prompt}\n${identityText}`}));
+    dispatch.producerInstructions+=' Preserve imageIdentityPolicy in the shared tool-facing brief and every final prompt. Source business exclusions apply to fields/actions/states, not identity-bearing illustration. Do not expand them into a ban on recognizable characters. Generated illustrations remain proposals, not official evidence or endorsement.';
+  }
   dispatch.sharedBrief={
     hostBusiness:{inputs:[binding(path.join(dir,'host-startup-page.json')),binding(source)],route:startup.route||null,purpose:'Read the target source and only necessary imports/data to establish concrete business facts. Source analysis is not runtime observation.'},
     hostVisualEvidence:{status:hostImages.length?'available':'not-observed',images:hostImages,purpose:'Inspect available host captures for visible business content and state. Existing colors, spacing, layout and visual hierarchy are not the redesign target.',limitations:hostImages.length?['Historical captures have not been revalidated. Matching entry source does not prove unchanged dependencies, runtime state or current appearance.']:['No host screenshot is bound; runtime appearance and state have not been observed.']},
@@ -299,7 +306,11 @@ export function recordImagePreparation({root,brand,briefFile,promptFile,screensh
   assert(dispatch.preparationRequired===true,'This historical run has no preparation step; preserve it and prepare a new run.');
   [...dispatch.inputs,...dispatch.inputImages].forEach(verifyBinding);
   assert(briefFile&&fs.readFileSync(briefFile,'utf8').trim()&&scene?.trim()&&observer?.trim(),'A concrete shared brief, scene and actual observer are required.');
-  if(promptFile) assert(fs.readFileSync(promptFile,'utf8').trim(),'The tool-facing shared brief cannot be empty.');
+  if(promptFile) {
+    const promptText=fs.readFileSync(promptFile,'utf8');
+    assert(promptText.trim(),'The tool-facing shared brief cannot be empty.');
+    if(dispatch.imageIdentityPolicy) assert(!/\bno characters\b|\bavoid recognizable characters\b|\bdo not copy[^.\n]*recognizable characters\b|\bnever to redraw\b|\bmust not redraw identity\b/i.test(promptText),'Shared brief contradicts the bound brand identity policy; separate host business exclusions from IP illustration.');
+  }
   const screenshots=screenshotFiles.length?screenshotFiles:screenshotFile?[screenshotFile]:[];
   assert(Boolean(screenshots.length)!==Boolean(notObserved),'Provide an actual screenshot or an explicit not-observed reason.');
   for(const screenshot of screenshots) {
