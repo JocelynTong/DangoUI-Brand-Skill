@@ -28,6 +28,8 @@ node <skill目录>/scripts/run-brand-workflow.mjs continue --artifact-root <已�
 
 返回 `ready-for-user-review`：直接展示 previewUrl 与 comparisonFile，说明限制并停止。不另读 request-intake、岗位文档、完整设计包，不重新派发实施或 QA，不重复调用 delivery。返回 `launch`：只启动一次不继承历史的负责人，由其读取绑定包、完成实施、独立 QA 和有界局部修复；外层不逐阶段派发或轮询。缺少选图/目录或返回阻断时只定位具体缺口，不扫描历史项目。
 
+返回 `native-binding-required`：千岛宿主缺少本地应用绑定（干净 Git 导出可能不含被忽略的 qdmp.json）。实施前确认该宿主已有 appId，只在隔离副本补 appId 后沿返回命令续接；不复制密钥、不跨项目猜 ID、不重新选图或生图。配置存在不代表授权或原生验收通过，仍使用开发者工具验证目标页。
+
 已通过的现有页面不代表本轮新做了 QA；单页确认与整体换肤授权分开。需要计量时只用已有 collect-brand-usage.mjs 一次读取明确轮次，未知标未知，不以续看成本冒充完整实施降耗。
 
 ## 其他请求的按需入口

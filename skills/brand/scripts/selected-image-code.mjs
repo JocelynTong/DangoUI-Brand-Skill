@@ -5,6 +5,7 @@ import { fileURLToPath } from 'node:url';
 import { manage } from './brand-artifacts.mjs';
 import { compileHostTheme } from './compile-host-theme.mjs';
 import { unverifiedPreviews } from './full-image-concepts.mjs';
+import { inspectNativeBinding } from './native-binding.mjs';
 
 const skillRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const runtimeTools = 'At stage start, confirm and record available local runtime-test tools, including already installed Playwright where available. Built-in browser failure does not automatically waive QA: use an available permitted local test tool, or report the actual blocker. Never bypass browser/network access policy, header restrictions or sandbox permissions.';
@@ -49,12 +50,17 @@ function verifiedTools(value = []) {
     return {name:tool.name,version:tool.version,path:tool.path,verified:true};
   });
 }
+function nativeTargetRoute(state) {
+  const route=state.targetPage?.route;
+  return route===state.targetPage?.relativePath&&/^src\/pages\/.+\.(vue|tsx|jsx)$/.test(route||'')
+    ? route.replace(/^src\//,'').replace(/\.(vue|tsx|jsx)$/,'') : route;
+}
 function validateNativePreview(root,state,value) {
   assert(state.nativeRuntime||state.framework==='taro','nativePreview requires a Taro host.');
   assert(value&&typeof value.distPath==='string'&&path.isAbsolute(value.distPath),'nativePreview requires absolute distPath.');
   const distPath=fs.realpathSync(value.distPath);
   assert(within(fs.realpathSync(state.hostRoot),distPath)&&fs.statSync(distPath).isDirectory(),'Native dist must be inside isolated host.');
-  assert(value.route===state.targetPage?.route&&typeof value.route==='string','Native route must match frozen targetPage.');
+  assert(value.route===nativeTargetRoute(state)&&typeof value.route==='string','Native route must match frozen targetPage.');
   const screenshot=typeof value.screenshot==='string'?bind(value.screenshot):value.screenshot;
   localBinding(root,screenshot);
   assert(!within(state.hostRoot,fs.realpathSync(screenshot.path))&&/\.(png|jpe?g|webp)$/i.test(screenshot.path),'Native screenshot must be raster evidence outside host source.');
@@ -262,6 +268,16 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
 }
 export function selectedCodeStatus(root) {
   const result=selectedCodeStatusBase(root),state=read(selectedCodeFile(root));
+  if(result.dispatchRequest&&state.framework==='taro') {
+    const binding=inspectNativeBinding(state.hostRoot);
+    if(binding.required&&!binding.ready) {
+      const {dispatchRequest,...pending}=result;
+      return {...pending,status:'native-binding-required',nativeBinding:binding,
+        nextAction:'Before implementation, obtain the existing application ID for this host from the user or an explicitly authorized source. Write only appId to isolated host qdmp.json; never copy secrets or scan other projects. Then continue this same artifact root. Do not regenerate images, recreate the host, or use H5 as native acceptance.',
+        resumeCommand:cmd('continue',root)};
+    }
+    if(binding.required)result.dispatchRequest.nativeBinding=binding;
+  }
   if(result.reviewRequest)result.reviewRequest.mechanicalValidation={performedBy:'selectedCodeStatus',scope:'Frozen inputs, submission outputs and current source inventory verified by the entry. This is not runtime/visual approval.',instruction:'Do not separately enumerate and hash the same files. Review actual semantics, affected runtime behavior and evidence. Recording revalidates bindings; report discrepancies instead of bypassing checks.'};
   if(result.reviewRequest && result.recovery?.previousReview) {
     const recovery=result.recovery;
@@ -283,7 +299,7 @@ export function selectedCodeStatus(root) {
     if(result.reviewRequest)result.reviewRequest.reviewShape.checks.nativeRuntime=null;
     if(result.dispatchRequest) {
       result.dispatchRequest.commands.prepareNativeComparison=cmd('prepare-selected-code-comparison',root,'--native-preview','<native-preview-input.json>');
-      result.dispatchRequest.nativePreviewShape={distPath:path.join(state.hostRoot,'dist'),route:state.targetPage?.route,screenshot:path.join(root,'<actual-native-screenshot.png>')};
+      result.dispatchRequest.nativePreviewShape={distPath:path.join(state.hostRoot,'dist'),route:nativeTargetRoute(state),screenshot:path.join(root,'<actual-native-screenshot.png>')};
       result.dispatchRequest.nativeDelivery='For native delivery use prepareNativeComparison with nativePreviewShape, then submit its returned nativePreview and comparisonFile without previewUrl. Static screenshots are not interaction proof; QA must operate native developer tools/device.';
     }
   }

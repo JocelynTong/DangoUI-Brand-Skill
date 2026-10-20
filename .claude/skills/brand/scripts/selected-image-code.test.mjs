@@ -5,11 +5,31 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {spawnSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import {nativeNavigationGeometry} from '../assets/taro-native-navigation/safe-area.mjs';
 import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison, compactSelectedCodeResult} from './selected-image-code.mjs';
 
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const binding = p => ({path:p,sha256:hash(p)});
+test('normal QD selection stops before implementation for missing binding and continues the same art after appId setup',t=>{
+ const f=fixture(t);
+ f.json(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4.2.0','taro-plugin-qd':'1'}});
+ const result=f.select();
+ assert.equal(result.status,'native-binding-required');assert.equal(result.dispatchRequest,undefined);
+ assert.equal(compactSelectedCodeResult(result).launch,undefined);
+ const imageHash=hash(f.image);
+ f.json(path.join(result.artifactRoot,'host','qdmp.json'),{appId:'echoTest123'});
+ const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
+ const run=spawnSync(process.execPath,[entry,'continue','--artifact-root',result.artifactRoot],{encoding:'utf8'});
+ assert.equal(run.status,0,run.stderr);
+ const continued=JSON.parse(run.stdout);
+ assert.equal(continued.status,'implementation-dispatch-ready');
+ assert.ok(continued.specialistPacket);
+ const packet=JSON.parse(fs.readFileSync(continued.specialistPacket.path,'utf8'));
+ assert.equal(packet.nativeBinding.appId,'echoTest123');
+ assert.equal(hash(f.image),imageHash);
+ assert.equal(fs.existsSync(path.join(f.host,'qdmp.json')),false);
+});
 test('repeated selection resumes unique reviewed page without launch, tolerates unrelated incomplete record and rejects ambiguity',t=>{
  const f=fixture(t,{managed:true}),s=f.select();
  f.submission(s);recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)});
@@ -131,6 +151,14 @@ test('non-Taro selection does not dispatch native assets',t=>{
     assert.equal(fs.existsSync(path.join(s.artifactRoot,'native-runtime')),false);
     assert.equal(f.submission(s).reviewRequest.nativeRuntime,undefined);
   }
+});
+test('legacy source-shaped native route resolves without changing frozen state',t=>{
+ const f=fixture(t);f.write(path.join(f.host,'package.json'),{dependencies:{'@tarojs/taro':'4'}});
+ const s=f.select(),file=path.join(s.artifactRoot,'selected-image-code.json');
+ const state=JSON.parse(fs.readFileSync(file,'utf8'));
+ state.targetPage.route=state.targetPage.relativePath='src/pages/plaza/index.vue';f.json(file,state);
+ const frozen=hash(file),status=selectedCodeStatus(s.artifactRoot);
+ assert.equal(status.dispatchRequest.nativePreviewShape.route,'pages/plaza/index');assert.equal(hash(file),frozen);
 });
 test('Taro compilation scopes roots before hashing and preserves all token declarations',t=>{
   const f=fixture(t);
