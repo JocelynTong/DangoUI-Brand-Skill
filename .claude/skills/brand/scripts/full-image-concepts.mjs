@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { manage } from './brand-artifacts.mjs';
-import { readImageCall, verifyImageCall, requireRuntimeEvidence, literalArguments, findCurrentThreadImageCall, nativeImageOutputEvidence } from './image-call-evidence.mjs';
+import { readImageCall, verifyImageCall, requireRuntimeEvidence, literalArguments, findCurrentThreadImageCall, nativeImageOutputEvidence, currentThreadImageLogs } from './image-call-evidence.mjs';
 import { declaredImageReferences } from './brand-image-references.mjs';
 import { consumeLearnedBrandInput, verifyLearnedPrompt } from './learned-brand-input.mjs';
 
@@ -453,6 +453,11 @@ export function unverifiedPreviews(root,brand,directions=['a','b','c']) {
     const file=path.join(root,'migrations',brand,'image-concepts',`${id}-unverified-preview.json`);
     if(!fs.existsSync(file)) return [];
     const item=read(file);verifyBinding(item.output);
+    if(item.provenance.status==='native-image-output-verified') {
+      const proof=nativeImageOutputEvidence(item.provenance.logPath,item.output.path);
+      assert(proof.eventSha256===item.provenance.eventSha256,'Native preview evidence changed.');
+      return [{...item,selectionAvailable:true,outputProvenance:proof}];
+    }
     const actual=readImageCall(item.provenance.logPath,item.provenance.callId,{allowUnverifiedArguments:true});
     assert(actual.evidence.eventSha256===item.provenance.eventSha256&&(actual.argumentError?actual.rawCall===item.rawCall:isDeepStrictEqual(literalArguments(item.rawCall),actual.args)),'Unverified preview call evidence changed.');
     requireRuntimeEvidence(actual,item.output.path);
@@ -485,12 +490,31 @@ function generationFailures(root, brand) {
 // the real tool ID comes from runtime evidence, never from a fabricated review.
 export function recordImageConcept({root,brand,id,inputFile,outputFile,toolCallId,producer,callLog,callId}) {
   assert(['a','b','c'].includes(id)&&producer,'Direction and actual producer required.');
-  assert(!generationFailures(root,brand).some(f=>f.direction===id),'This direction has a recorded generation failure; preserve it rather than overwriting the failed attempt.');
+  const priorFailure=generationFailures(root,brand).find(f=>f.direction===id);
+  assert(!priorFailure||priorFailure.code==='CHECKPOINT_EVIDENCE_UNAVAILABLE','This direction has a recorded generation failure; preserve it rather than overwriting the failed attempt.');
   const state=read(imageConceptFile(root,brand));verifyBinding(state.dispatch);
   const dispatch=preparedDispatch(read(state.dispatch.path),root,brand);dispatch.inputs.forEach(verifyBinding);dispatch.inputImages.forEach(verifyBinding);
   assert(!frozenReviews(dispatch).some(q=>q.id===id),'Passed direction is frozen; do not regenerate it.');
   assert(Boolean(callLog)===Boolean(callId),'Actual tool call log and call ID must be provided together.');
-  if(!callLog) ({callLog,callId}=findCurrentThreadImageCall(outputFile));
+  if(!callLog) {
+    try { ({callLog,callId}=findCurrentThreadImageCall(outputFile)); }
+    catch(error) {
+      // An exec may store the image without emitting it. Recover only native
+      // bytes, never reconstruct computed arguments from prepared inputs.
+      const matches=currentThreadImageLogs().flatMap(log=>{try{return [nativeImageOutputEvidence(log,outputFile)];}catch{return [];}});
+      assert(matches.length===1,error.message);
+      const output=binding(outputFile),provenance=matches[0];
+      assert(fs.realpathSync(output.path).startsWith(fs.realpathSync(root)+path.sep),'Generated output must be inside this isolated run.');
+      assert(!checkpoints(root,brand).some(x=>x.id===id||x.output.sha256===output.sha256),'Existing direction/output cannot be replaced.');
+      assert(!unverifiedPreviews(root,brand).some(x=>x.id!==id&&x.output.sha256===output.sha256),'One output cannot count as multiple previews.');
+      assert(!imageConceptHistory({root,brand}).some(h=>h.images.some(x=>x.sha256===output.sha256)),'Prior output cannot count as a new preview.');
+      const item={id,producer,output,provenance,argumentsStatus:'unverified',imagegenAttribution:'native-output-verified',selectionAvailable:true,argumentError:'Native output recovered; actual computed call arguments are not verified.'};
+      const target=path.join(root,'migrations',brand,'image-concepts',`${id}-unverified-preview.json`);
+      if(fs.existsSync(target)) assert(isDeepStrictEqual(read(target),item),'Unverified preview is immutable.');else write(target,item);
+      return imageConceptDelivery({root,brand});
+    }
+  }
+  assert(!priorFailure,'Preserve the original checkpoint failure; do not replace it with a verified generation record.');
   const actual=readImageCall(callLog,callId,{allowUnverifiedArguments:true});
   if(actual.argumentError) {
     const provenance=requireRuntimeEvidence(actual,outputFile),output=binding(outputFile);
@@ -692,15 +716,18 @@ export function imageConceptDelivery({root,brand}) {
   const preview={coordinationCommands:coordinationCommands(root,brand),previewAvailable:true,previewStatus:completed.length===3?'pending':'partial',images:completed.map(d=>({id:d.id,...d.output})).sort((a,b)=>a.id.localeCompare(b.id)),comparisonPreview:{path:`/__brand_comparison__?brand=${encodeURIComponent(brand)}`,medium:'full-image'},interactive:false,limitations:[],presentationRequirements:[]};
   const unverified=unverifiedPreviews(root,brand);
   if(unverified.length) {
+    const failedFile=path.join(path.dirname(file),'image-concepts-failed-review.json');
+    const failed=fs.existsSync(failedFile)?read(failedFile):null;
     const failures=generationFailures(root,brand);
     const pending=dispatch.directions.filter(d=>!completed.some(x=>x.id===d.id)&&!unverified.some(x=>x.id===d.id)&&!failures.some(x=>x.direction===d.id));
     const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
     const selectableIds=[...completed.map(d=>d.id),...unverified.filter(d=>d.selectionAvailable).map(d=>d.id)];
-    return {...state,...preview,dispatchFile,ok:true,status:pending.length?'dispatch-ready':'arguments-unverified',previewStatus:'unverified',userGoalCompleted:false,selectionAvailable:selectableIds.length>0,selectableIds,
+    return {...state,...preview,dispatchFile,ok:!failed,status:failed?'blocked':pending.length?'dispatch-ready':'arguments-unverified',previewStatus:failed?'failed':'unverified',userGoalCompleted:false,selectionAvailable:selectableIds.length>0,selectableIds,
+    ...(failed?{failedReview:failed,reviewNotes:failed.notes,selectionAvailable:false,presentationRequirements:['以下原审核结论保留不改：恢复展示的原图尚未纳入该审核；展示不代表审核通过。',...(failed.presentationRequirements||[])]}:{}),
     images:[...preview.images,...unverified.map(d=>({id:d.id,...d.output,argumentsStatus:'unverified',selectionAvailable:d.selectionAvailable}))].sort((a,b)=>a.id.localeCompare(b.id)),
     unverifiedPreviews:unverified,generationFailures:failures,directionStates:['a','b','c'].map(id=>({id,status:unverified.some(d=>d.id===id)?'unverified':completed.some(d=>d.id===id)?'saved':failures.some(d=>d.direction===id)?'blocked':'pending'})),
     dispatchRequest:pending.length?{...dispatch,directions:pending,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--output','<actual image in run>','--producer','<actual producer identity>']}:undefined,
-    limitations:['部分调用的实际参数未核实，不代表生图输入或视觉审核通过。仅原生 ImageGen 完成记录与图片字节一致的方向可在用户明确选择后落地隔离单页；旧回执保留，实施仍需独立验收。',...completed.filter(d=>d.plannedInput?.status==='differs').map(d=>'方案 '+d.id.toUpperCase()+' 实际输入与确认稿不一致；原图与真实调用已保留，不计入有效输入对照。')],
+    limitations:[...(failed?.limitations||[]),'部分调用的实际参数未核实，不代表生图输入或视觉审核通过。仅原生 ImageGen 完成记录与图片字节一致的方向可在用户明确选择后落地隔离单页；旧回执保留，实施仍需独立验收。',...completed.filter(d=>d.plannedInput?.status==='differs').map(d=>'方案 '+d.id.toUpperCase()+' 实际输入与确认稿不一致；原图与真实调用已保留，不计入有效输入对照。')],
     nextAction:pending.length?'Show the standard comparison preview and execute only pending authorized directions once. Preserve existing images and unknown argument status.':'Show the preview and selectableIds. Only explicit user selection authorizes isolated implementation. Preserve unknown arguments; do not regenerate or claim verified input/QA.'};
   }
   if(dispatch.preparedInput&&completed.length===0) preview.preparationReviewRequest={status:'pending-no-images',scope:'input-preparation-only',reviewed:false,preparedInput:dispatch.preparedInput,inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,conceptScope:dispatch.conceptScope,instructions:'These are the same frozen preparation originals supplied to the designer. Inspect business/source correspondence, observation provenance and applicable brand-rule scope if input review is requested. No generated images exist; this packet is not visual QA, a review result or approval to claim a completed concept. Original Expressive proposals are allowed; plain documentation samples do not impose a whole-screen illustration/depth ban.'};

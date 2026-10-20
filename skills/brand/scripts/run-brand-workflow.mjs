@@ -22,6 +22,7 @@ import { freezeSelectedH5, validateLocalSelectedMaster } from "./selected-h5-han
 import { readCanonicalLearningProof } from "./learning-proof-contract.mjs";
 import { installNativeSourceInput, readNativeSourceInput } from './native-source-input.mjs';
 import { prepareImageConcepts, regenerateImageConcepts, recordImagePreparation, recordImageConcept, recordImageConcepts, imageConceptDelivery, imageConceptFile, compactImageConceptResult, coordinationReply } from './full-image-concepts.mjs';
+import { ensureImagePreview } from './serve-design-host-h5.mjs';
 import { selectImageCode, selectedCodeStatus, selectedCodeFile, compileSelectedTheme, recordSelectedCode, recordSelectedCodeReview, reviseSelectedCode, prepareSelectedCodeComparison, compactSelectedCodeResult } from './selected-image-code.mjs';
 
 const skillScriptsDir = path.dirname(fileURLToPath(import.meta.url));
@@ -93,6 +94,7 @@ if (['record-image-preparation','record-image-concept','record-image-concepts','
     if(command.startsWith('record-image-')) validateArtifactIsolation({command:'run',requestKind:'host-concepts',root:imageRoot,artifactRoot:imageRoot,args:['--host-target',readJsonIfExists(imageConceptFile(imageRoot,imageBrand))?.hostTarget||'']});
     try {
       const result=command==='record-image-preparation'?recordImagePreparation({root:imageRoot,brand:imageBrand,briefFile:opt(rawArgs,'--brief',''),promptFile:opt(rawArgs,'--prompt-brief',''),screenshotFiles:rawArgs.flatMap((x,i)=>x==='--screenshot'?[rawArgs[i+1]]:[]),sourceUrl:opt(rawArgs,'--source-url',''),scene:opt(rawArgs,'--scene',''),observer:opt(rawArgs,'--observer',''),capturedAt:opt(rawArgs,'--captured-at',null),notObserved:opt(rawArgs,'--not-observed',''),sourceFiles:rawArgs.flatMap((x,i)=>x==='--source-file'?[rawArgs[i+1]]:[])}):command==='record-image-concept'?recordImageConcept({root:imageRoot,brand:imageBrand,id:opt(rawArgs,'--direction',''),inputFile:opt(rawArgs,'--input',''),outputFile:opt(rawArgs,'--output',''),toolCallId:opt(rawArgs,'--tool-call-id',''),producer:opt(rawArgs,'--producer',''),callLog:opt(rawArgs,'--call-log',''),callId:opt(rawArgs,'--call-id','')}):command==='record-image-concepts'?recordImageConcepts({root:imageRoot,brand:imageBrand,receiptFile:opt(rawArgs,'--receipt',''),reviewFile:opt(rawArgs,'--review','')}):imageConceptDelivery({root:imageRoot,brand:imageBrand});
+      if(command.startsWith('record-image-')||command==='delivery') Object.assign(result,await ensureImagePreview(result,imageRoot));
       const compact=!rawArgs.includes('--full');
       const reply=compact?(['continue','status'].includes(command)&&!opt(rawArgs,'--since','')?imageCoordinationReply(result,{root:imageRoot,brand:imageBrand}):coordinationReply(result,opt(rawArgs,'--since',''))):result;
       process.stdout.write(`${JSON.stringify(reply,null,2)}\n`);process.exit(0);

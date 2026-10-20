@@ -8,6 +8,29 @@ import { test } from 'node:test';
 import {prepareImageBatchHandoff} from './image-batch-handoff.mjs';
 import {writeLearnedBrandInput} from './learned-brand-input.mjs';
 import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImagePreparation, recordImageConcept, recordImageConcepts, compactImageConceptResult } from './full-image-concepts.mjs';
+import {saveImageComparison} from './serve-design-host-h5.mjs';
+
+test('native-only checkpoint preserves failure and shows pixels without passing QA or inventing arguments',t=>{
+ const f=fixture(t);prepareImageConcepts(f);
+ const oldHome=process.env.CODEX_HOME,oldThread=process.env.CODEX_THREAD_ID;
+ t.after(()=>{if(oldHome===undefined)delete process.env.CODEX_HOME;else process.env.CODEX_HOME=oldHome;if(oldThread===undefined)delete process.env.CODEX_THREAD_ID;else process.env.CODEX_THREAD_ID=oldThread;});
+ process.env.CODEX_HOME=path.join(f.root,'test-runtime');process.env.CODEX_THREAD_ID='01234567-1234-1234-1234-012345678901';
+ const outputFile=f.write(path.join(f.dir,'image-concepts/a.png'),Buffer.from('test native output, not visual evidence'));
+ f.write(path.join(process.env.CODEX_HOME,'sessions',`rollout-${process.env.CODEX_THREAD_ID}.jsonl`),[
+  {type:'session_meta',payload:{id:process.env.CODEX_THREAD_ID}},
+  {type:'event_msg',payload:{type:'item_completed',item:{kind:'image_gen.generation',id:'native-test',status:'completed',result:fs.readFileSync(outputFile).toString('base64')}}}
+ ].map(JSON.stringify).join('\n')+'\n');
+ const failure=f.write(path.join(f.dir,'image-concepts/a-failure.json'),{schema:'brand-image-generation-failure/v1',direction:'a',tool:'image_gen',code:'CHECKPOINT_EVIDENCE_UNAVAILABLE',reason:'No emitted tool image'}),before=sha(failure);
+ f.write(path.join(f.dir,'image-concepts-failed-review.json'),{notes:'Business issue remains',limitations:['Do not approve'],presentationRequirements:[]});
+ const result=recordImageConcept({...f,id:'a',outputFile,producer:'fixture'});
+ assert.equal(result.images.length,1);assert.equal(result.previewStatus,'failed');assert.equal(result.userGoalCompleted,false);assert.equal(result.selectionAvailable,false);
+ assert.equal(sha(failure),before);assert(!fs.existsSync(path.join(f.dir,'image-concepts/a-generation.json')));
+ assert.equal(result.unverifiedPreviews[0].provenance.automaticArgumentsVerified,false);
+ const saved=saveImageComparison(result,f.root),html=fs.readFileSync(saved.comparisonPreview.file,'utf8');
+ assert(html.includes('Business issue remains'));assert(html.includes('方案 A 完整效果图'));assert(html.includes('历史记录失败'));
+ assert.throws(()=>recordImageConcept({...f,id:'b',outputFile,producer:'fixture'}),/multiple previews/);
+ fs.writeFileSync(outputFile,'tampered');assert.throws(()=>imageConceptDelivery(f),/changed|binding|hash/i);
+});
 
 test('identity policy survives preparation without turning business exclusions into character bans',t=>{
  const f=fixture(t),policy={scope:'full-image-concept',instruction:'Preserve original IP; allow new illustrations. Host search remains Search.'};
