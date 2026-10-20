@@ -5,7 +5,7 @@ import crypto from 'node:crypto';
 import { isDeepStrictEqual } from 'node:util';
 import { fileURLToPath } from 'node:url';
 import { manage } from './brand-artifacts.mjs';
-import { readImageCall, verifyImageCall, requireRuntimeEvidence, literalArguments, findCurrentThreadImageCall } from './image-call-evidence.mjs';
+import { readImageCall, verifyImageCall, requireRuntimeEvidence, literalArguments, findCurrentThreadImageCall, nativeImageOutputEvidence } from './image-call-evidence.mjs';
 import { declaredImageReferences } from './brand-image-references.mjs';
 
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
@@ -435,7 +435,9 @@ export function unverifiedPreviews(root,brand,directions=['a','b','c']) {
       verifyImageCall(item.provenance.logPath,item.provenance.callId,read(saved.arguments.path));
       return [];
     }
-    return [item];
+    let outputProvenance;
+    try { outputProvenance=nativeImageOutputEvidence(item.provenance.logPath,item.output.path); } catch {}
+    return [{...item,selectionAvailable:Boolean(outputProvenance),outputProvenance:outputProvenance||null}];
   });
 }
 
@@ -657,12 +659,13 @@ export function imageConceptDelivery({root,brand}) {
     const failures=generationFailures(root,brand);
     const pending=dispatch.directions.filter(d=>!completed.some(x=>x.id===d.id)&&!unverified.some(x=>x.id===d.id)&&!failures.some(x=>x.direction===d.id));
     const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
-    return {...state,...preview,dispatchFile,ok:true,status:pending.length?'dispatch-ready':'arguments-unverified',previewStatus:'unverified',userGoalCompleted:false,selectionAvailable:false,
-    images:[...preview.images,...unverified.map(d=>({id:d.id,...d.output,argumentsStatus:'unverified'}))].sort((a,b)=>a.id.localeCompare(b.id)),
+    const selectableIds=[...completed.map(d=>d.id),...unverified.filter(d=>d.selectionAvailable).map(d=>d.id)];
+    return {...state,...preview,dispatchFile,ok:true,status:pending.length?'dispatch-ready':'arguments-unverified',previewStatus:'unverified',userGoalCompleted:false,selectionAvailable:selectableIds.length>0,selectableIds,
+    images:[...preview.images,...unverified.map(d=>({id:d.id,...d.output,argumentsStatus:'unverified',selectionAvailable:d.selectionAvailable}))].sort((a,b)=>a.id.localeCompare(b.id)),
     unverifiedPreviews:unverified,generationFailures:failures,directionStates:['a','b','c'].map(id=>({id,status:unverified.some(d=>d.id===id)?'unverified':completed.some(d=>d.id===id)?'saved':failures.some(d=>d.direction===id)?'blocked':'pending'})),
     dispatchRequest:pending.length?{...dispatch,directions:pending,checkpointCommand:[process.execPath,entry,'record-image-concept','--artifact-root',root,'--brand',brand,'--direction','<a|b|c>','--output','<actual image in run>','--producer','<actual producer identity>']}:undefined,
-    limitations:['图片与运行时工具输出一致，但部分调用的 ImageGen 来源及实际参数未核实。仅供预览，不能通过正式审核或选图落地。',...completed.filter(d=>d.plannedInput?.status==='differs').map(d=>'方案 '+d.id.toUpperCase()+' 实际输入与确认稿不一致；原图与真实调用已保留，不计入有效输入对照。')],
-    nextAction:pending.length?'Show the standard comparison preview and execute only the pending authorized directions once. Preserve unverified previews; never regenerate those directions or reconstruct their arguments. Formal review and selection remain blocked.':'Show the standard comparison preview. Preserve original images and call evidence. Do not regenerate unverified directions, reconstruct arguments or claim verified QA/selection.'};
+    limitations:['部分调用的实际参数未核实，不代表生图输入或视觉审核通过。仅原生 ImageGen 完成记录与图片字节一致的方向可在用户明确选择后落地隔离单页；旧回执保留，实施仍需独立验收。',...completed.filter(d=>d.plannedInput?.status==='differs').map(d=>'方案 '+d.id.toUpperCase()+' 实际输入与确认稿不一致；原图与真实调用已保留，不计入有效输入对照。')],
+    nextAction:pending.length?'Show the standard comparison preview and execute only pending authorized directions once. Preserve existing images and unknown argument status.':'Show the preview and selectableIds. Only explicit user selection authorizes isolated implementation. Preserve unknown arguments; do not regenerate or claim verified input/QA.'};
   }
   if(dispatch.preparedInput&&completed.length===0) preview.preparationReviewRequest={status:'pending-no-images',scope:'input-preparation-only',reviewed:false,preparedInput:dispatch.preparedInput,inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,conceptScope:dispatch.conceptScope,instructions:'These are the same frozen preparation originals supplied to the designer. Inspect business/source correspondence, observation provenance and applicable brand-rule scope if input review is requested. No generated images exist; this packet is not visual QA, a review result or approval to claim a completed concept. Original Expressive proposals are allowed; plain documentation samples do not impose a whole-screen illustration/depth ban.'};
   const failures=generationFailures(root,brand);

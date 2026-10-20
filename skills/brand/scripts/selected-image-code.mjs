@@ -147,6 +147,24 @@ function assertOriginal(state) {
 function localBinding(root,b) { verify(b);assert(within(fs.realpathSync(root),fs.realpathSync(b.path)), 'Output must stay inside the isolated run.'); return b; }
 function inputs(state){state.inputs.forEach(verify);(state.conceptReviewNotes||[]).forEach(n=>verify(n.source));verify(state.image);verify(state.selection);assertOriginal(state);}
 function filesUnder(root,files){return files.map(f=>localBinding(root,bind(path.resolve(root,f))));}
+function existingSelection(root,brand,direction,image) {
+  // Only managed sibling runs, not conversation/history discovery. Read small
+  // selection metadata; full input/output verification happens once on reuse.
+  const runs=path.dirname(path.dirname(root));
+  if(path.basename(root)!=='build'||path.basename(runs)!=='runs')return null;
+  const matches=[],unreadable=[];
+  for(const d of fs.readdirSync(runs,{withFileTypes:true})) {
+    if(!d.isDirectory())continue;
+    const build=path.join(runs,d.name,'build'),file=selectedCodeFile(build);
+    if(!fs.existsSync(file)||fs.lstatSync(file).isSymbolicLink())continue;
+    let s;
+    try { s=read(file); } catch { unreadable.push(file);continue; }
+    if(s.parentRun===root&&s.brand===brand&&s.direction===direction&&s.image?.sha256===image.sha256)matches.push(build);
+  }
+  assert(matches.length<=1,'Multiple existing single pages match this selection; identify the intended revision instead of creating another.');
+  assert(matches.length||!unreadable.length,'Unreadable sibling selection records prevent safe new-page creation; recover those records before creating a duplicate.');
+  return matches[0]||null;
+}
 export function selectImageCode({root,brand,direction,selection,confirmed=false}) {
   assert(confirmed && selection?.trim(),'Explicit user selection and isolated-code authorization required.');
   assert(/^[a-z0-9][a-z0-9-]*$/.test(brand||'')&&['a','b','c'].includes(direction),'Invalid brand/direction.');
@@ -154,10 +172,24 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
   const parent=read(path.join(root,'migrations',brand,'image-concepts.json'));
   verify(parent.dispatch);const dispatch=read(parent.dispatch.path);
   dispatch.inputs.forEach(verify);dispatch.inputImages.forEach(verify);
-  assert(unverifiedPreviews(root,brand,[direction]).length===0,'Unverified preview cannot be selected for implementation.');
-  const generation=read(path.join(root,'migrations',brand,'image-concepts',`${direction}-generation.json`));
-  verify(generation.output);verify(generation.arguments);
+  const previews=unverifiedPreviews(root,brand,[direction]);
+  let generation,outputProvenance;
+  if(previews.length) {
+    assert(previews.length===1,'Ambiguous unverified preview.');
+    const preview=previews[0];
+    assert(preview.selectionAvailable&&preview.outputProvenance,'Expected exactly one native completed ImageGen output matching selected bytes.');
+    outputProvenance=preview.outputProvenance;
+    generation={output:preview.output};
+  } else {
+    generation=read(path.join(root,'migrations',brand,'image-concepts',`${direction}-generation.json`));
+    verify(generation.arguments);
+  }
+  verify(generation.output);
   assert(within(root,fs.realpathSync(generation.output.path)),'Selected image outside run.');
+  const existing=existingSelection(root,brand,direction,generation.output);
+  if(existing) return {...selectedCodeStatus(existing),selectionResumed:true,
+    ...(outputProvenance?{outputProvenance}:{}),
+    entryWork:{existingPageReused:true,newImplementation:false,newQA:false}};
   const target=fs.realpathSync(parent.hostTarget);
   const startupPath=dispatch.inputs.find(b=>path.basename(b.path)==='host-startup-page.json')?.path;
   const startup=startupPath?read(startupPath):null;
@@ -197,7 +229,12 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
   function assets(v){if(!v||typeof v!=='object')return;for(const [k,x] of Object.entries(v)){if(k==='localPath'&&typeof x==='string'){const p=path.resolve(root,x);assert(within(root,p)&&fs.existsSync(p),`Missing declared asset: ${x}`);copySource(bind(p));}else if(typeof x==='object')assets(x);}}
   assets(mod);
   const image=path.join(out,'selected-reference'+path.extname(generation.output.path));fs.copyFileSync(generation.output.path,image);
-  const selectionFile=path.join(out,'selection.json');save(selectionFile,{statement:selection,direction,image:bind(image),targetPage,scope:'single-page-isolated-preview',originalHostModificationAuthorized:false,wholeHostAuthorized:false});
+  if(outputProvenance) {
+    const receipt=path.join(root,'migrations',brand,'image-concepts',`${direction}-unverified-preview.json`);
+    copySource(bind(receipt));
+    conceptReviewNotes.push({source:bind(path.join(brandRoot,path.relative(root,receipt))),role:'provenance-limitation',verdict:'not-promoted',notes:outputProvenance.limitation});
+  }
+  const selectionFile=path.join(out,'selection.json');save(selectionFile,{statement:selection,direction,image:bind(image),targetPage,scope:'single-page-isolated-preview',originalHostModificationAuthorized:false,wholeHostAuthorized:false,...(outputProvenance?{outputProvenance}:{})});
   const pkg=read(path.join(host,'package.json')),deps={...pkg.dependencies,...pkg.devDependencies};
   const framework=deps['@tarojs/taro']?'taro':deps.react?'react':deps.vue?'vue':'unknown';
   const reusableComponents=[];
@@ -216,6 +253,7 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
   const state={schema:'selected-image-code/v1',brand,direction,hostOriginal:host,hostRoot:clone,brandRoot,modFile,adapterFile:path.join(brandRoot,'migrations',brand,'dangoui-adapter.json'),image:bind(image),selection:bind(selectionFile),inputs:copied,baseline,baselinePolicy,framework,reusableComponents,parentRun:root,parentImageReview:parentFailed?'failed-preserved':'not-promoted',createdAt:new Date().toISOString(),fullWorkflowPass:false};
   assert(fs.existsSync(state.adapterFile),'Frozen DangoUI adapter missing.');
   state.targetPage=targetPage;
+  if(outputProvenance)state.outputProvenance=outputProvenance;
   if(nativeRuntime)state.nativeRuntime=nativeRuntime;
   state.conceptReviewNotes=conceptReviewNotes;
   state.historicalConceptReviews=historicalConceptReviews;

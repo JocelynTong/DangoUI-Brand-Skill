@@ -10,6 +10,57 @@ import {selectImageCode, selectedCodeStatus, compileSelectedTheme, recordSelecte
 
 const hash = p => crypto.createHash('sha256').update(fs.readFileSync(p)).digest('hex');
 const binding = p => ({path:p,sha256:hash(p)});
+test('repeated selection resumes unique reviewed page without launch, tolerates unrelated incomplete record and rejects ambiguity',t=>{
+ const f=fixture(t,{managed:true}),s=f.select();
+ f.submission(s);recordSelectedCodeReview({root:s.artifactRoot,reviewFile:f.review(s)});
+ const review=path.join(s.artifactRoot,'implementation-review.json'),before=hash(review);
+ const runs=path.dirname(path.dirname(f.root));
+ const broken=fs.mkdtempSync(path.join(runs,'unit-incomplete-')),duplicate=fs.mkdtempSync(path.join(runs,'unit-duplicate-'));
+ t.after(()=>{fs.rmSync(broken,{recursive:true,force:true});fs.rmSync(duplicate,{recursive:true,force:true});});
+ f.write(path.join(broken,'build','selected-image-code.json'),'{unfinished');
+ const result=compactSelectedCodeResult(f.select());
+ assert.equal(result.artifactRoot,s.artifactRoot);
+ assert.equal(result.selectionResumed,true);
+ assert.equal(result.status,'ready-for-user-review');
+ assert.equal(result.launch,undefined);
+ assert.equal(result.specialistPacket,undefined);
+ assert.equal(result.entryWork.newQA,false);
+ assert.equal(result.entryWork.newImplementation,false);
+ assert.equal(hash(review),before);
+ f.write(path.join(duplicate,'build','selected-image-code.json'),fs.readFileSync(path.join(s.artifactRoot,'selected-image-code.json'),'utf8'));
+ assert.throws(()=>f.select(),/Multiple existing/);
+});
+test('explicit user selection accepts native output while preserving unknown arguments and frozen input',t=>{
+ const f=fixture(t),old=process.env.CODEX_HOME;
+ t.after(()=>{if(old)process.env.CODEX_HOME=old;else delete process.env.CODEX_HOME;});
+ process.env.CODEX_HOME=f.dir;
+ const log=path.join(f.dir,'sessions','preview.jsonl'),bytes=fs.readFileSync(f.image).toString('base64');
+ const rawCall='generatedImage(load("result-any-direction"));';
+ const event={type:'response_item',timestamp:'2026-10-21T00:00:00Z',payload:{type:'custom_tool_call',call_id:'emit',name:'exec',input:rawCall}};
+ const output={type:'response_item',payload:{type:'custom_tool_call_output',call_id:'emit',output:[{image_url:'data:image/png;base64,'+bytes}]}};
+ const native={type:'event_msg',payload:{type:'item_completed',item:{kind:'image_gen.generation',id:'any-brand-any-direction',status:'completed',failure:null,result:bytes}}};
+ const writeLog=items=>f.write(log,items.map(JSON.stringify).join('\n')+'\n');
+ writeLog([event,output,native]);
+ const receipt=f.json(path.join(f.brand,'image-concepts/a-unverified-preview.json'),{id:'a',output:binding(f.image),rawCall,provenance:{logPath:log,callId:'emit',eventSha256:crypto.createHash('sha256').update(JSON.stringify(event)).digest('hex')}});
+ const receiptHash=hash(receipt);
+ fs.unlinkSync(path.join(f.brand,'image-concepts/a-generation.json'));
+ assert.throws(()=>f.select({confirmed:false}),/Explicit user selection/);
+ const result=f.select(),state=JSON.parse(fs.readFileSync(path.join(result.artifactRoot,'selected-image-code.json')));
+ assert.equal(state.outputProvenance.automaticArgumentsVerified,false);
+ assert.equal(state.outputProvenance.status,'native-image-output-verified');
+ assert.equal(hash(receipt),receiptHash);
+ assert.equal(fs.existsSync(path.join(f.brand,'image-concepts/a-generation.json')),false);
+ assert.equal(hash(path.join(result.artifactRoot,'selected-reference.png')),hash(f.image));
+ assert.equal(state.fullWorkflowPass,false);
+ assert(state.conceptReviewNotes.some(n=>n.role==='provenance-limitation'));
+ writeLog([event,output]);
+ assert.throws(()=>f.select(),/exactly one native/);
+ const forged=JSON.parse(fs.readFileSync(receipt));forged.outputProvenance={status:'native-image-output-verified'};forged.selectionAvailable=true;
+ f.json(receipt,forged);
+ assert.throws(()=>f.select(),/exactly one native/,'Disk receipt cannot supply native evidence.');
+ writeLog([event,output,native]);fs.appendFileSync(f.image,'changed');
+ assert.throws(()=>f.select(),/hash mismatch/);
+});
 test('compact public handoff retains exact full input and rejects packet tampering',t=>{
  const f=fixture(t),s=f.select(),result=compactSelectedCodeResult(s);
  assert.equal(result.dispatchRequest,undefined);
@@ -142,8 +193,8 @@ test('public native comparison returns a native submission descriptor and no H5 
   assert.equal(cli.status,0,cli.stdout+cli.stderr);const p=JSON.parse(cli.stdout);
   assert.equal(p.nativePreview.route,'/');assert.equal(p.previewUrl,undefined);assert.ok(fs.existsSync(p.nativePreviewFile));
 });
-function fixture(t) {
-  const dir=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'selected-code-test-'))), root=path.join(dir,'input'), host=path.join(dir,'original');
+function fixture(t,{managed=false}={}) {
+  const dir=fs.realpathSync(fs.mkdtempSync(path.join(os.tmpdir(),'selected-code-test-'))), root=managed?path.join(fs.realpathSync(os.tmpdir()),'brand-workflow-artifacts','runs',crypto.randomUUID(),'build'):path.join(dir,'input'), host=path.join(dir,'original');
   const write=(p,v)=>{fs.mkdirSync(path.dirname(p),{recursive:true});fs.writeFileSync(p,typeof v==='string'?v:JSON.stringify(v));return p;};
   const json=(p,v)=>write(p,JSON.stringify(v));
   write(path.join(host,'package.json'),{dependencies:{react:'19.0.0'}});
@@ -163,7 +214,7 @@ function fixture(t) {
   json(path.join(brand,'image-concepts.json'),{dispatch:binding(dispatch),hostTarget:host});
   json(path.join(brand,'image-concepts/a-generation.json'),{output:binding(image),arguments:binding(args)});
   const runs=[];
-  t.after(()=>{fs.rmSync(dir,{recursive:true,force:true});for(const run of runs)fs.rmSync(path.dirname(run),{recursive:true,force:true});});
+  t.after(()=>{fs.rmSync(dir,{recursive:true,force:true});for(const run of runs)fs.rmSync(path.dirname(run),{recursive:true,force:true});if(managed)fs.rmSync(path.dirname(root),{recursive:true,force:true});});
   function select(extra={}){const s=selectImageCode({root,brand:'dango',direction:'a',selection:'用户选择 A，仅隔离预览',confirmed:true,...extra});runs.push(s.artifactRoot);return s;}
   function submission(s){compileSelectedTheme({root:s.artifactRoot,dangouiRoot});const preview=write(path.join(s.artifactRoot,'compare.html'),'<html>runtime comparison</html>');const p=write(path.join(dir,'submission.json'),{producer:'implementer',previewUrl:'http://127.0.0.1:12345/',comparisonFile:preview,outputs:['host/src/App.jsx'],reused:[],adapted:['React view'],limitations:[]});return recordSelectedCode({root:s.artifactRoot,submissionFile:p});}
   function review(s,extra={}){const evidence=write(path.join(s.artifactRoot,'runtime-evidence.txt'),'test fixture, not an actual runtime proof');return write(path.join(dir,'review.json'),{reviewer:'independent-qa',verdict:'pass',submission:binding(path.join(s.artifactRoot,'implementation.json')),checks:{visual:true,business:true,tokenRuntime:true,responsive:true,singlePageScope:true},observations:['fixture observation'],evidence:[binding(evidence)],limitations:[],...extra});}
@@ -486,7 +537,7 @@ test('standard comparison uses immutable exact image, escaped loopback URL and e
   const html=fs.readFileSync(result.comparisonFile,'utf8');
   assert.match(html,/&amp;b=/);assert.ok(!html.includes('<script>alert(1)</script>'));
   assert.match(html,/iframe/);assert.match(html,/320 × 740/);
-  assert.ok(result.preview.command.includes(path.resolve('skills/brand/scripts/serve-design-host-h5.mjs')));
+  assert.ok(result.preview.command.includes(fs.realpathSync('skills/brand/scripts/serve-design-host-h5.mjs')));
   const saved=hash(result.comparisonFile);
   assert.throws(()=>prepareSelectedCodeComparison({root:s.artifactRoot,previewUrl:'http://localhost:1234/'}),/already exists/);
   assert.equal(hash(result.comparisonFile),saved);

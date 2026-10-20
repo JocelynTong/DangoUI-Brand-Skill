@@ -4,8 +4,32 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
-import {literalArguments,readImageCall,verifyImageCall,requireRuntimeEvidence,findCurrentThreadImageCall,pendingImageCalls,runtimeEntries,frozenImageCall} from './image-call-evidence.mjs';
+import {literalArguments,readImageCall,verifyImageCall,requireRuntimeEvidence,findCurrentThreadImageCall,pendingImageCalls,runtimeEntries,frozenImageCall,nativeImageOutputEvidence} from './image-call-evidence.mjs';
 import {spawnSync} from 'node:child_process';
+
+test('native output evidence verifies bytes without claiming computed arguments',t=>{
+  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'native-image-evidence-')),old=process.env.CODEX_HOME;
+  t.after(()=>{fs.rmSync(dir,{recursive:true,force:true});if(old)process.env.CODEX_HOME=old;else delete process.env.CODEX_HOME;});
+  process.env.CODEX_HOME=dir;
+  fs.mkdirSync(path.join(dir,'sessions'));
+  const file=path.join(dir,'sessions','test.jsonl'),out=path.join(dir,'out.png'),bytes=Buffer.from('unit image bytes');
+  fs.writeFileSync(out,bytes);
+  const event={type:'event_msg',payload:{type:'item_completed',item:{kind:'image_gen.generation',status:'completed',id:'native-one',result:bytes.toString('base64'),failure:null}}};
+  const write=items=>fs.writeFileSync(file,items.map(JSON.stringify).join('\n')+'\n');
+  write([event]);
+  const evidence=nativeImageOutputEvidence(file,out);
+  assert.equal(evidence.automaticArgumentsVerified,false);
+  assert.equal(evidence.generationId,'native-one');
+  write([{...event,payload:{...event.payload,item:{...event.payload.item,result:'different',savedPath:out}}}]);
+  assert.throws(()=>nativeImageOutputEvidence(file,out),/exactly one/);
+  write([{...event,payload:{...event.payload,item:{...event.payload.item,status:'failed'}}}]);
+  assert.throws(()=>nativeImageOutputEvidence(file,out),/exactly one/);
+  write([event,event]);assert.throws(()=>nativeImageOutputEvidence(file,out),/exactly one/);
+  write([event]);fs.writeFileSync(out,'tampered');
+  assert.throws(()=>nativeImageOutputEvidence(file,out),/exactly one/);
+  const external=path.join(dir,'recreated.jsonl');fs.copyFileSync(file,external);
+  assert.throws(()=>nativeImageOutputEvidence(external,out),/runtime session store/);
+});
 
 test('frozen transport passes exact full data without model transcription and stops on tamper',async t=>{
   const dir=fs.mkdtempSync(path.join(os.tmpdir(),'frozen-transport-'));t.after(()=>fs.rmSync(dir,{recursive:true,force:true}));

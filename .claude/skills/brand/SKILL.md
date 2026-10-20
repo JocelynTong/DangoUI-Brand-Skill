@@ -21,6 +21,8 @@ node <skill目录>/scripts/run-brand-workflow.mjs continue --artifact-root <已�
 
 选图落地优先复用已选图中的合适插画区域，真实控件和数据由品牌设计系统与宿主代码承载；不默认重生插画或删掉 IP 换成 CSS。实施与 QA 共用 dispatch 的 `selectedArtwork`，具体边界见 request intake 的选图落地部分。
 
+用户明确选图时，入口分别核验图片来源与生图参数：原生 ImageGen 完成记录和输出字节一致、但历史调用参数无法解析的图片，可进入隔离单页，保留 `automaticArgumentsVerified=false` 及原失败回执，不宣称生图输入已验证。没有原生来源或图片被改动仍拒绝。再次选择同一张图时，入口核实并续接唯一现有单页；返回可查看结果就直接展示，不新建实施、不重跑 QA、不再调用 continue/delivery 或读取完整包。
+
 
 返回 `ready-for-user-review`：直接展示 previewUrl 与 comparisonFile，说明限制并停止。不另读 request-intake、岗位文档、完整设计包，不重新派发实施或 QA，不重复调用 delivery。返回 `launch`：只启动一次不继承历史的负责人，由其读取绑定包、完成实施、独立 QA 和有界局部修复；外层不逐阶段派发或轮询。缺少选图/目录或返回阻断时只定位具体缺口，不扫描历史项目。
 

@@ -188,17 +188,21 @@ git sparse-checkout set skills/brand
 
 ```bash
 mkdir -p "${CODEX_HOME:-$HOME/.codex}/skills"
-rsync -a --delete skills/brand/ "${CODEX_HOME:-$HOME/.codex}/skills/brand/"
+rsync -ac --delete skills/brand/ "${CODEX_HOME:-$HOME/.codex}/skills/brand/"
 ```
 
 ### Claude Code
 
 ```bash
 mkdir -p .claude/skills
-rsync -a --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
+rsync -ac --delete /path/to/dangoui-brand-skill/skills/brand/ .claude/skills/brand/
 ```
 
 更新已有安装时，在上述专用下载仓库中运行 `git pull --ff-only origin main`，再执行对应平台的复制命令；仅拉取仓库不会更新已经安装的 Skill。复制会覆盖安装目录，个人改动应先备份；不要在业务项目里执行该 pull 命令。
+
+`-c` 按文件内容校验，避免同大小、同时间的旧文件被跳过。复制目标仅限 Skill 安装目录，不要指向业务项目或结果目录；更新不删除或迁移旧图、单页和运行记录。
+
+本次选图续接修复支持在明确选定同一张图后直接续接已有单页，不重新实施或重复 QA。原生生图记录能核实图片来源但不能还原调用参数时，会保留“参数未核实”的限制，不冒充完整审核通过；缺失原件不能靠更新恢复。保留旧项目，在更新后的会话中使用 `$brand` 并说明“选之前的 B，继续隔离单页，不重新生图”（替换为实际选案）；多个同名批次时补充原结果链接或缩略图即可。不会自动整体换肤。
 
 安装或更新后，重新打开任务或会话，并确认选择的是 `brand`。让助手报告实际加载的 Skill 路径及包完整性标识；不要仅凭“已安装”判断本轮已用新版。固定旧版试用仍可使用 `mvp-2026-10-13` 标签，但它不包含 main 后续修复。
 
