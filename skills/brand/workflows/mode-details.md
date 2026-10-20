@@ -6,7 +6,7 @@
 
 三图结果交付时，按 [request intake 的结果引导](../workflows/request-intake.md#三图结果后的用户引导) 给用户简短的选图或换批语句；不要只丢预览链接。用户明确要求“再来三个”时走 `regenerate-image-concepts` 新隔离批次，不用 `continue` 重画旧图，不自动转代码。
 
-首次安装、更新或用户问“怎么用”时，复用本会话信息并执行：
+首次安装、更新或用户问“怎么用”时，复用本会话信息并执行；宿主中再次调用 skill 并给品牌链接时也用此只读入口确定新轮次范围，不以旧单页待确认代替本轮意图：
 
 ```bash
 node <skill目录>/scripts/run-brand-workflow.mjs init --host <宿主目录>

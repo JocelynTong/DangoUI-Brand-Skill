@@ -37,6 +37,7 @@ export function initializeBrand({ host, hostConfirmed = false, reference = '', p
     schema: 'brand-initialization/v1', installStatus, readOnly: true,
     project, issue, inputs: {reference, page}, target, missing,
     status: missing.length ? 'needs-input' : 'ready-for-planning',
+    requestLifecycle: {kind:'new-concept-round', reusePriorOutcome:false, preservePriorArtifacts:true, artifactRoot:'allocate-new', brandInput:'resolve-current', wholeHostAuthorized:false},
     next: missing.length ? '只询问缺失信息；不得启动换肤。' : '说明范围后读取 target 对应宿主事实，进入 host-concepts / full-image 正常入口生成三张完整效果图；成功一张先展示一张，不修改宿主。当前明确的只读检查或暂停指令仍优先，不因 init 就擅自生图。',
     example,
     boundary: '安装成功不等于自动开始执行；本入口不联网、不写文件、不运行宿主命令、不沿用旧方向。',

@@ -36,3 +36,13 @@ test('brand selected defaults to host homepage without a page question',()=>{
  assert.equal(r.inputs.page,'');assert.equal(r.readOnly,true);
  assert.equal(fs.readFileSync(path.join(root,'package.json'),'utf8'),before);
 });
+test('repeated brand invocation plans a fresh round even with an old page awaiting confirmation',()=>{
+ const old=path.join(root,'selected-code.json');fs.writeFileSync(old,JSON.stringify({status:'ready-for-user-review',confirmationStatus:'awaiting-user-single-page-confirmation'}));
+ const before=fs.readFileSync(old);
+ for(let i=0;i<2;i++){
+  const r=initializeBrand({host:root,hostConfirmed:true,reference:'https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants/dango'});
+  assert.equal(r.requestLifecycle.kind,'new-concept-round');assert.equal(r.requestLifecycle.artifactRoot,'allocate-new');
+  assert.equal(r.requestLifecycle.reusePriorOutcome,false);assert.equal(r.requestLifecycle.wholeHostAuthorized,false);
+ }
+ assert.deepEqual(fs.readFileSync(old),before);
+});
