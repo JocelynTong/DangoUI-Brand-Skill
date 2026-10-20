@@ -3,6 +3,8 @@ import path from 'node:path'
 import crypto from 'node:crypto'
 import { materializeLearningDelivery } from './brand-learning-delivery.mjs'
 import { collectImageReferences } from '../skills/brand/scripts/evidence-file-references.mjs'
+import { writeLearnedBrandInput } from '../skills/brand/scripts/learned-brand-input.mjs'
+import { commitBrandPackage } from './commit-brand-package.mjs'
 
 const root = process.cwd()
 const sourceFile = path.join(root, 'public', 'brand-previews', 'registry.json')
@@ -152,7 +154,10 @@ for (const brand of published) {
   deliveries.set(brand.id, delivery)
 }
 for (const brand of published) {
-  const brandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
+  const finalBrandRoot = path.join(outputRoot, 'brands', brand.id, brand.version)
+  fs.mkdirSync(path.dirname(finalBrandRoot),{recursive:true})
+  const brandRoot = fs.mkdtempSync(path.join(path.dirname(finalBrandRoot),'.package-staging-'))
+  try {
   const artifacts = {}
   const artifactHashes = {}
   const artifactValues = []
@@ -203,6 +208,41 @@ for (const brand of published) {
       sha256: sha256(sourceAsset),
     })
   }
+  // Bind distributable bytes after path/version materialization, never the
+  // pre-publication hashes. The installer consumes this projection unchanged.
+  const sourceMod=delivery['brand-mod.json'];
+  for(const group of [...(sourceMod?.componentSources||[]),...(sourceMod?.componentKits||[])])for(const ref of group.files||[]) {
+    const sourcePath=path.resolve(root,ref.path),migrationRoot=fs.realpathSync(path.join(root,brand.migrationRoot));
+    if(!fs.existsSync(sourcePath)||!fs.realpathSync(sourcePath).startsWith(migrationRoot+path.sep)||sha256(sourcePath)!==ref.sha256)throw Error(`${brand.id}: component original missing, outside package or changed: ${ref.path}`);
+    const relative=path.relative(migrationRoot,fs.realpathSync(sourcePath));
+    const target=path.join(brandRoot,relative);
+    fs.mkdirSync(path.dirname(target),{recursive:true});fs.copyFileSync(sourcePath,target);
+    evidenceAssets.push({path:`/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${relative.replaceAll('\\','/')}`,installPath:relative.replaceAll('\\','/'),sha256:ref.sha256});
+  }
+  for (const name of ['DESIGN.md', 'design.md', 'DESIGN.sources.json']) {
+    const sourceGuide=path.join(root,brand.migrationRoot,name)
+    if (!fs.readdirSync(path.dirname(sourceGuide)).includes(name)) continue
+    const text=fs.readFileSync(sourceGuide,'utf8')
+    for(const pattern of forbiddenText)if(pattern.test(text))throw Error(`${brand.id}/${name}: contains non-public reference`)
+    const targetGuide=path.join(brandRoot,name)
+    if(name==='DESIGN.sources.json') {
+      const provenance=JSON.parse(text)
+      provenance.sources=provenance.sources.map(ref=>{
+        const basename=path.basename(ref.path),original=path.join(root,brand.migrationRoot,basename),published=path.join(brandRoot,basename)
+        if(!fs.existsSync(original)||sha256(original)!==ref.sha256)throw Error(`${brand.id}: stale guide source ${basename}`)
+        if(!fs.existsSync(published))throw Error(`${brand.id}: unpublished guide source ${basename}`)
+        return {...ref,path:basename,originalSourceSha256:ref.sha256,sha256:sha256(published)}
+      })
+      provenance.publicationTransform='Path/version normalization and existing materializeLearningDelivery; original source hashes retained. No new brand approval.'
+      writeJson(targetGuide,provenance)
+    } else fs.copyFileSync(sourceGuide,targetGuide)
+    evidenceAssets.push({path:`/brand-registry/v0.1/brands/${brand.id}/${brand.version}/${name}`,installPath:name,sha256:sha256(targetGuide)})
+  }
+  if(['brand-mod.json','brand-intent.json','brand-evidence.json','component-mapping.json','dangoui-adapter.json'].every(name=>fs.existsSync(path.join(brandRoot,name)))) {
+    const learned=writeLearnedBrandInput(brandRoot)
+    artifacts['learned-brand-input']=`/brand-registry/v0.1/brands/${brand.id}/${brand.version}/learned-brand-input.json`
+    artifactHashes['learned-brand-input']=learned.sha256
+  }
   const canonicalSources = [...new Set((brand.canonicalSources || [brand.sourceUrl]).map(normalizeSource))]
   for (const sourceUrl of canonicalSources) {
     if (bySource[sourceUrl] && bySource[sourceUrl] !== brand.id) {
@@ -223,6 +263,8 @@ for (const brand of published) {
     displayName: brand.displayName,
     version: brand.version,
     publicationStatus: brand.publicationStatus,
+    businessApply: brand.businessApply,
+    demoPurpose: brand.demoPurpose,
     canonicalSources,
     sourceHost: brand.sourceHost,
     preview: brand.path,
@@ -236,8 +278,11 @@ for (const brand of published) {
     updatedAt: brand.updatedAt,
   }
   writeJson(path.join(brandRoot, 'manifest.json'), manifest)
+  commitBrandPackage(brandRoot,finalBrandRoot)
   brands.push({
     id: brand.id,
+    businessApply: brand.businessApply,
+    demoPurpose: brand.demoPurpose,
     displayName: brand.displayName,
     version: brand.version,
     canonicalSources,
@@ -247,6 +292,9 @@ for (const brand of published) {
     reusePolicy: brand.reusePolicy,
     updatedAt: brand.updatedAt,
   })
+  } finally {
+    if(fs.existsSync(brandRoot))fs.rmSync(brandRoot,{recursive:true,force:true})
+  }
 }
 
 writeJson(path.join(outputRoot, 'index.json'), {

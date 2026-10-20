@@ -1,0 +1,177 @@
+{
+  "schema": "public-brand-manifest.v0.1",
+  "id": "dango",
+  "displayName": "DangoUI",
+  "version": "0.2.1",
+  "publicationStatus": "public-preview",
+  "businessApply": false,
+  "demoPurpose": "brand-learning-capability-test",
+  "canonicalSources": [
+    "https://dumpling.echo.tech/"
+  ],
+  "sourceHost": "dumpling.echo.tech",
+  "preview": "/brand-previews/dango.json",
+  "artifacts": {
+    "brand-mod": "/brand-registry/v0.1/brands/dango/0.2.1/brand-mod.json",
+    "brand-evidence": "/brand-registry/v0.1/brands/dango/0.2.1/brand-evidence.json",
+    "brand-intent": "/brand-registry/v0.1/brands/dango/0.2.1/brand-intent.json",
+    "dangoui-adapter": "/brand-registry/v0.1/brands/dango/0.2.1/dangoui-adapter.json",
+    "component-mapping": "/brand-registry/v0.1/brands/dango/0.2.1/component-mapping.json",
+    "design-direction": "/brand-registry/v0.1/brands/dango/0.2.1/design-direction.json",
+    "source-manifest": "/brand-registry/v0.1/brands/dango/0.2.1/source-manifest.json",
+    "fidelity-report": "/brand-registry/v0.1/brands/dango/0.2.1/fidelity-report.json",
+    "learned-brand-input": "/brand-registry/v0.1/brands/dango/0.2.1/learned-brand-input.json"
+  },
+  "artifactHashes": {
+    "brand-mod": "270b92a9b48c06e95b0e289cdfed2100c2ee9d8c73e53e4fb6f3f2c21997d2cf",
+    "brand-evidence": "3df0e97c49a48699f4de34bedfa88b4cced865da55612105370b7c794884e3b4",
+    "brand-intent": "552af4ffecd250cc0d6e605e3591dacfcf9e8732a92c3c2d7b2039ccecc71a6e",
+    "dangoui-adapter": "a7a2318af27248e1495063f823b999f4917471e614e077a755c601404c1fb023",
+    "component-mapping": "82efa541a83a4051c7abeeb19bb22383ee86a3dee27f9a4e672cccf69a812671",
+    "design-direction": "3a3be472b398d91ce2a894d07c13c398af457d02fb54be1e3693119c1720b814",
+    "source-manifest": "0d1fd0239520b9343067d6f2aaff3b7b1a906a45a30e8c81907c20735c9e43a6",
+    "fidelity-report": "1b3c8ad0c943d4924ce9fe727d80fbb837bc58945b631567528bf0bf03dd1a3b",
+    "learned-brand-input": "47e12c7bc85a06626438ac4964920df9b916fe74b3c2011bb275c085c825430c"
+  },
+  "evidenceAssets": [
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/button/desktop/frame-00.png",
+      "installPath": "captures/source/button/desktop/frame-00.png",
+      "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/button/desktop/primary-button/activated.png",
+      "installPath": "captures/source/button/desktop/primary-button/activated.png",
+      "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/button/desktop/primary-button/default.png",
+      "installPath": "captures/source/button/desktop/primary-button/default.png",
+      "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/button/desktop/primary-button/focus.png",
+      "installPath": "captures/source/button/desktop/primary-button/focus.png",
+      "sha256": "47b096c479472f981b6a88ebd4d965c32c9e7d21ee7cf49cc9c3663577c17f37"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/button/desktop/primary-button/hover.png",
+      "installPath": "captures/source/button/desktop/primary-button/hover.png",
+      "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/introduction/desktop/frame-00.png",
+      "installPath": "captures/source/introduction/desktop/frame-00.png",
+      "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/evidence/captures/source/introduction/mobile-390/frame-00.png",
+      "installPath": "captures/source/introduction/mobile-390/frame-00.png",
+      "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/dist/style.css",
+      "installPath": "component-originals/dangoui/dist/style.css",
+      "sha256": "92cf5d8e51ead45c06635373053860d41fbf0a8eaa81509e5480cff670df250d"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/dist/theme.css",
+      "installPath": "component-originals/dangoui/dist/theme.css",
+      "sha256": "543364536843c40672bba1bc003485e1e03e4e46a85903f7d1c39e1006dfb34d"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/LICENSE",
+      "installPath": "component-originals/dangoui/LICENSE",
+      "sha256": "9dc312bd86c8212da887fb820586c13c9904f7d384fe6c1bfcfab0bf8a5b20eb"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/package.json",
+      "installPath": "component-originals/dangoui/package.json",
+      "sha256": "4a156bf326cb5fa4ae2e5c41f8f06970911eceff4d1141e4770a35755d28a563"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/button/Button.vue",
+      "installPath": "component-originals/dangoui/src/button/Button.vue",
+      "sha256": "621952243d5e8968a605fae85f9d3d1818fe56346afb2ebd9fea96041e32a583"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/button/style.scss",
+      "installPath": "component-originals/dangoui/src/button/style.scss",
+      "sha256": "8187ae882057c25accd65893218047825ca2f91e8606968abb65aec5caf12c30"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/composables/useSize.ts",
+      "installPath": "component-originals/dangoui/src/composables/useSize.ts",
+      "sha256": "d55934e23b97f0aa5b4df7c382058611cb111cb87cff8d975daaad04f8bd0a98"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/divider/helpers.ts",
+      "installPath": "component-originals/dangoui/src/divider/helpers.ts",
+      "sha256": "ac56882510b3082520f789b3898b7f751fda297cc31cf87cad3158f8076d0087"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/helpers/index.ts",
+      "installPath": "component-originals/dangoui/src/helpers/index.ts",
+      "sha256": "a7042a972f9da955a99303fb30231941cb249350da31ee12e4bbf267c7f16d48"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/icon/Icon.vue",
+      "installPath": "component-originals/dangoui/src/icon/Icon.vue",
+      "sha256": "762bddf5900b02aaa144e293347be21e30fb05c637da9f9c46462b6c510625b4"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/icon/iconfont-config.json",
+      "installPath": "component-originals/dangoui/src/icon/iconfont-config.json",
+      "sha256": "47b5ba2600ce8a50e2a6696e47e22750b3667fd2727b428c28c538adae0524aa"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/plugins/globalConfig.ts",
+      "installPath": "component-originals/dangoui/src/plugins/globalConfig.ts",
+      "sha256": "e488e28b53a50ce563ab357d469166982bbd2d98bfbf357bd3a1abe46d67a2e7"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/search/Search.scss",
+      "installPath": "component-originals/dangoui/src/search/Search.scss",
+      "sha256": "5ce0a7e64746bc44fbb27cbb96440387581fe70332b4bcdf2346a62855d8f4b2"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/search/Search.vue",
+      "installPath": "component-originals/dangoui/src/search/Search.vue",
+      "sha256": "620b74151a81d68a9a9b1d9d99605c128d1eb0da335717d8249ce7063b932157"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/component-originals/dangoui/src/upload/helpers.ts",
+      "installPath": "component-originals/dangoui/src/upload/helpers.ts",
+      "sha256": "bd6dbceff8a93512ad6c15e4acd009abb4b844b5e07f94e0ff99ede1051d6270"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/DESIGN.md",
+      "installPath": "DESIGN.md",
+      "sha256": "27cfb9cf75ff8ba143590c7e9177caea851df3d1583805ef8d6baeaa5ba679ae"
+    },
+    {
+      "path": "/brand-registry/v0.1/brands/dango/0.2.1/DESIGN.sources.json",
+      "installPath": "DESIGN.sources.json",
+      "sha256": "d553e39df52079342df46bf50105a7a3753413984b407e749fd239672a2226b1"
+    }
+  ],
+  "runtimeAssets": [],
+  "platformSupport": {
+    "web": "verified",
+    "taroH5": "planned",
+    "weapp": "unverified",
+    "ios": "unverified",
+    "android": "unverified",
+    "flutter": "unverified",
+    "harmonyos": "unverified"
+  },
+  "reusePolicy": {
+    "metadataAndRules": "public",
+    "runtimeAssets": "excluded"
+  },
+  "verification": {
+    "web": "fidelity-pass",
+    "standardDemo": true
+  },
+  "updatedAt": "2026-09-14T00:00:00.000Z"
+}

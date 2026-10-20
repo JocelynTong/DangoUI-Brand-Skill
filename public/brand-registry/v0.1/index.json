@@ -8,30 +8,6 @@
   },
   "brands": [
     {
-      "id": "dango",
-      "displayName": "DangoUI",
-      "version": "0.2.0",
-      "canonicalSources": [
-        "https://dumpling.echo.tech/"
-      ],
-      "manifest": "/brand-registry/v0.1/brands/dango/0.2.0/manifest.json",
-      "preview": "/brand-previews/dango.json",
-      "platformSupport": {
-        "web": "verified",
-        "taroH5": "planned",
-        "weapp": "unverified",
-        "ios": "unverified",
-        "android": "unverified",
-        "flutter": "unverified",
-        "harmonyos": "unverified"
-      },
-      "reusePolicy": {
-        "metadataAndRules": "public",
-        "runtimeAssets": "excluded"
-      },
-      "updatedAt": "2026-09-14T00:00:00.000Z"
-    },
-    {
       "id": "onepiece-cardgame",
       "displayName": "ONE PIECE CARD GAME",
       "version": "0.1.0",
@@ -56,15 +32,43 @@
       "updatedAt": "2026-09-01T00:00:00.000Z"
     },
     {
+      "id": "dango",
+      "businessApply": false,
+      "demoPurpose": "brand-learning-capability-test",
+      "displayName": "DangoUI",
+      "version": "0.2.1",
+      "canonicalSources": [
+        "https://dumpling.echo.tech/"
+      ],
+      "manifest": "/brand-registry/v0.1/brands/dango/0.2.1/manifest.json",
+      "preview": "/brand-previews/dango.json",
+      "platformSupport": {
+        "web": "verified",
+        "taroH5": "planned",
+        "weapp": "unverified",
+        "ios": "unverified",
+        "android": "unverified",
+        "flutter": "unverified",
+        "harmonyos": "unverified"
+      },
+      "reusePolicy": {
+        "metadataAndRules": "public",
+        "runtimeAssets": "excluded"
+      },
+      "updatedAt": "2026-09-14T00:00:00.000Z"
+    },
+    {
       "id": "pokemon-tcg-official",
+      "businessApply": false,
+      "demoPurpose": "brand-learning-capability-test",
       "displayName": "Pokémon TCG Official",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "canonicalSources": [
         "https://tcg.pokemon.com/en-us",
         "https://www.pokemon.com/us/pokemon-tcg/pokemon-cards",
         "https://tcg.pokemon.com/en-us/learn"
       ],
-      "manifest": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.2/manifest.json",
+      "manifest": "/brand-registry/v0.1/brands/pokemon-tcg-official/0.2.3/manifest.json",
       "preview": "/brand-previews/pokemon-tcg-official.json",
       "platformSupport": {
         "web": "verified",

@@ -735,7 +735,7 @@
     },
     {
       "path": "scripts/brand-subagent-workflow.mjs",
-      "sha256": "cf1b86178709c27d78a7724f427712578b38e8955bea57dd15210a0288e58c18"
+      "sha256": "d1683192ef89146912bcb10383ce6d8a83d46d682a171918d214825467e194aa"
     },
     {
       "path": "scripts/brand-subagent-workflow.prepare.test.mjs",
@@ -923,11 +923,11 @@
     },
     {
       "path": "scripts/full-image-concepts.mjs",
-      "sha256": "73272c3ab465ac10235b1349e0934bb5f9cccdd59e48395faae3e16496ec3b61"
+      "sha256": "d8b3ce816a689b35c2e4b020a386c41cf3fa18a7766bb78c0f02871fffe40ebc"
     },
     {
       "path": "scripts/full-image-concepts.test.mjs",
-      "sha256": "daaeedef0ce4637dfa8a54cc1f07760a37783059a7a2b1e7331b9725dfcbf8a8"
+      "sha256": "223d7206d3fd3670cca49e75281cf62dd92b5f308bbb4b237518c90b5aa79c19"
     },
     {
       "path": "scripts/generate-source-fingerprint.mjs",
@@ -1006,6 +1006,18 @@
       "sha256": "cfc41242aae20c19b51d788ee2cbca54b4b02000f7a1d060125dde706ecad9a9"
     },
     {
+      "path": "scripts/learned-brand-input.mjs",
+      "sha256": "49ede2836c8133d478c68fa6cf00d281ef0e42a3130dad63cecfbac61436103b"
+    },
+    {
+      "path": "scripts/learned-brand-input.test.mjs",
+      "sha256": "aec4889083ab77393e2fb74852e31b6f8c2ea96a2431005c6c78078d31f1420f"
+    },
+    {
+      "path": "scripts/learned-brand-record.test.mjs",
+      "sha256": "3bc9899bad2d3942356389678a9b8c436aa46191f9d331440cc2a5150d6c8ed6"
+    },
+    {
       "path": "scripts/learning-closure-recovery.test.mjs",
       "sha256": "b0f903694a6bab220d971c27ac7cee74570ff679f96e5997aec50ef2907c98f1"
     },
@@ -1060,6 +1072,14 @@
     {
       "path": "scripts/plan-brand-update.test.mjs",
       "sha256": "3969712adbefd80776fb9f174bf3d8ad38376ec264464936ef26872f891362c6"
+    },
+    {
+      "path": "scripts/prepare-learning-originals.mjs",
+      "sha256": "c8d1702fd4d7c159ce869faae3ca04c92285ef89237a79d6f72554f1addf6486"
+    },
+    {
+      "path": "scripts/prepare-learning-originals.test.mjs",
+      "sha256": "3a24dd6a6a168b8b06bf065ae5b16c9825006cdc84b7062e7b792f5c84b1c390"
     },
     {
       "path": "scripts/prepare-module-task.mjs",
@@ -1223,7 +1243,7 @@
     },
     {
       "path": "scripts/resolve-public-style-pack.mjs",
-      "sha256": "9887bcb4b8ad8aaa6dc34f831348907514d964dbf16a0049954dad916c2467ac"
+      "sha256": "7855587f0dbfa76e51909d9ad2914043f9f3f097a6e813984b14967b6d3fc4c2"
     },
     {
       "path": "scripts/resolve-public-style-pack.network.test.mjs",
@@ -1695,7 +1715,7 @@
     },
     {
       "path": "workflow-contract.json",
-      "sha256": "459ae5907111d86a41ee9fbde952331e5d5ff9db67996c33b04e4a77d109bd40"
+      "sha256": "96962ad79d05d30f21eca1247cc90684e3ea586a6ef849c00d8f5318b6113a1b"
     },
     {
       "path": "workflows/image-batch-executor.md",
@@ -1703,7 +1723,7 @@
     },
     {
       "path": "workflows/learn-brand.md",
-      "sha256": "728d7fd0e1bf9b049c3cc83e04b49f96d6ec7aa56e4e3d49e5ec88bb5f8bf83f"
+      "sha256": "fdcc69c4f92e1f3fc1ec94f1c46267b90238abab81682f3cffef5e5cd777aeec"
     },
     {
       "path": "workflows/mode-details.md",
@@ -1718,5 +1738,5 @@
       "sha256": "be8f71fac7d30d0204f58eab702baae564d4d54614d44e513e93fad2bd99dc93"
     }
   ],
-  "treeSha256": "7bb8fe82a9ea079551170f08434270bb6ce52b05126b531dfa4b00a99595ec5c"
+  "treeSha256": "1f6d98401d329f2b1567d435b1341094c570fea764e98501900ae9c0d5c33594"
 }

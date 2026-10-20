@@ -1,0 +1,332 @@
+{
+  "schema": "dangoui-adapter/v0.2",
+  "brand": "dango-v2",
+  "mode": "identity-first",
+  "catalog": {
+    "file": "skills/brand/references/dangoui.design-system.json",
+    "package": "dangoui",
+    "version": "3.6.16"
+  },
+  "tokenMappings": [
+    {
+      "sourceToken": "color.surface.page",
+      "sourceValue": "#ffffff",
+      "targetToken": "--du-bg-2",
+      "targetExists": true,
+      "mappingType": "identity",
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop"
+      ],
+      "allowedRoles": [
+        "documentation page canvas"
+      ],
+      "forbiddenRoles": [
+        "media surface"
+      ],
+      "consumerLocations": [
+        ".source-schema-demo--dango-v2"
+      ],
+      "computedVerification": "rgb(255, 255, 255)",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "color.surface.module",
+      "sourceValue": "#ffffff",
+      "targetToken": "--du-bg-1",
+      "targetExists": true,
+      "mappingType": "identity",
+      "evidenceRefs": [
+        "dango-v2-button-page-shell"
+      ],
+      "allowedRoles": [
+        "documentation module surface"
+      ],
+      "forbiddenRoles": [
+        "selected navigation"
+      ],
+      "consumerLocations": [
+        ".dango-docs__example-table"
+      ],
+      "computedVerification": "rgb(255, 255, 255)",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "color.text.primary",
+      "sourceValue": "#000000",
+      "targetToken": "--du-text-1",
+      "targetExists": true,
+      "mappingType": "identity",
+      "evidenceRefs": [
+        "dango-v2-content-hierarchy"
+      ],
+      "allowedRoles": [
+        "documentation text"
+      ],
+      "forbiddenRoles": [
+        "dark media"
+      ],
+      "consumerLocations": [
+        ".dango-docs__article"
+      ],
+      "computedVerification": "rgb(0, 0, 0)",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "color.border.subtle",
+      "sourceValue": "#0000001f",
+      "targetToken": "--du-border-1",
+      "targetExists": true,
+      "mappingType": "identity",
+      "evidenceRefs": [
+        "dango-v2-button-page-shell"
+      ],
+      "allowedRoles": [
+        "quiet divider"
+      ],
+      "forbiddenRoles": [
+        "focus ring"
+      ],
+      "consumerLocations": [
+        ".dango-docs__title-rule"
+      ],
+      "computedVerification": "rgba(0, 0, 0, 0.12)",
+      "status": "runtime-consumed"
+    },
+    {
+      "sourceToken": "color.action.primary",
+      "sourceValue": "#7C66FF",
+      "targetToken": "--du-primary-solid-bg",
+      "targetExists": true,
+      "mappingType": "identity",
+      "evidenceRefs": [
+        "dango-v2-primary-button"
+      ],
+      "allowedRoles": [
+        "Primary Button solid fill"
+      ],
+      "forbiddenRoles": [
+        "current navigation",
+        "generic accent"
+      ],
+      "consumerLocations": [
+        "button.dango-docs__primary"
+      ],
+      "computedVerification": "rgb(124, 102, 255)",
+      "status": "runtime-consumed-native-component"
+    },
+    {
+      "sourceToken": "color.navigation.current",
+      "sourceValue": "#5854FF",
+      "targetToken": "--style-docs-navigation-current",
+      "targetExists": false,
+      "mappingType": "style-only",
+      "evidenceRefs": [
+        "dango-v2-active-navigation"
+      ],
+      "allowedRoles": [
+        "current-page navigation cue"
+      ],
+      "forbiddenRoles": [
+        "Primary Button",
+        "section chrome"
+      ],
+      "consumerLocations": [
+        ".dango-docs__nav-group > span.is-current"
+      ],
+      "computedVerification": "rgb(88, 84, 255)",
+      "status": "runtime-consumed-style-only"
+    },
+    {
+      "sourceToken": "dimension.control.normalHeight",
+      "sourceValue": "32px",
+      "targetToken": "--style-primary-button-height",
+      "targetExists": false,
+      "mappingType": "style-only",
+      "evidenceRefs": [
+        "dango-v2-primary-button"
+      ],
+      "allowedRoles": [
+        "normal Primary specimen"
+      ],
+      "forbiddenRoles": [
+        "all controls"
+      ],
+      "consumerLocations": [
+        "button.dango-docs__primary"
+      ],
+      "computedVerification": "32px",
+      "status": "runtime-consumed-style-only"
+    },
+    {
+      "sourceToken": "dimension.control.radius",
+      "sourceValue": "4px",
+      "targetToken": "--style-primary-button-radius",
+      "targetExists": false,
+      "mappingType": "style-only",
+      "evidenceRefs": [
+        "dango-v2-primary-button"
+      ],
+      "allowedRoles": [
+        "normal Primary specimen"
+      ],
+      "forbiddenRoles": [
+        "global radius"
+      ],
+      "consumerLocations": [
+        "button.dango-docs__primary"
+      ],
+      "computedVerification": "4px",
+      "status": "runtime-consumed-style-only"
+    }
+  ],
+  "scopedRecipes": [
+    {
+      "id": "recipe-responsive-docs-shell",
+      "patternRef": "dango-docs-shell-responsive",
+      "evidenceRefs": [
+        "dango-v2-docs-shell-desktop",
+        "dango-v2-docs-shell-mobile",
+        "dango-v2-button-page-shell"
+      ],
+      "sourceRegion": [
+        0,
+        0,
+        1,
+        1
+      ],
+      "instruction": "Compose the desktop navigation-reading-outline frame and reflow to one reading column at 390px.",
+      "suitableFor": [
+        "long technical documentation"
+      ],
+      "notFor": [
+        "marketing hero",
+        "uniformly scaled mobile grid"
+      ],
+      "allowedTransformations": [
+        "responsive-reflow",
+        "content substitution"
+      ],
+      "sourceMeasurements": [
+        {
+          "evidenceRef": "dango-v2-docs-shell-desktop",
+          "property": "height",
+          "value": "56px",
+          "sourcePageId": "introduction",
+          "capture": {
+            "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+            "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+          }
+        },
+        {
+          "evidenceRef": "dango-v2-docs-shell-mobile",
+          "property": "width",
+          "value": "390px",
+          "sourcePageId": "introduction",
+          "capture": {
+            "path": "migrations/dango/captures/source/introduction/mobile-390/frame-00.png",
+            "sha256": "551fbb3290c434648817753f2772fcefb841554003ca8a61357eb9da5881ad41"
+          }
+        },
+        {
+          "evidenceRef": "dango-v2-button-page-shell",
+          "property": "width",
+          "value": "1060px",
+          "sourcePageId": "button",
+          "capture": {
+            "path": "migrations/dango/captures/source/button/desktop/frame-00.png",
+            "sha256": "b821e6f5a5aa77071460d8a561755a17c03472669954bb5d4cf8f61901199013"
+          }
+        }
+      ],
+      "mappingKind": "style-only",
+      "runtimeStatus": "not-verified"
+    },
+    {
+      "id": "recipe-editorial-technical-sequence",
+      "patternRef": "dango-editorial-technical-hierarchy",
+      "evidenceRefs": [
+        "dango-v2-content-hierarchy"
+      ],
+      "sourceRegion": [
+        0.161111,
+        0.088889,
+        0.691667,
+        0.786
+      ],
+      "instruction": "Use title, prose, flat technical surface, structured list and following sections as distinct reading layers.",
+      "suitableFor": [
+        "technical explanation"
+      ],
+      "notFor": [
+        "ornamental asset-led section"
+      ],
+      "allowedTransformations": [
+        "replace content while preserving hierarchy"
+      ],
+      "sourceMeasurements": [
+        {
+          "evidenceRef": "dango-v2-content-hierarchy",
+          "property": "font-size",
+          "value": "36px",
+          "sourcePageId": "introduction",
+          "capture": {
+            "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+            "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+          }
+        }
+      ],
+      "mappingKind": "style-only",
+      "runtimeStatus": "not-verified"
+    },
+    {
+      "id": "recipe-scoped-purple-states",
+      "patternRef": "dango-purple-state-roles",
+      "evidenceRefs": [
+        "dango-v2-active-navigation",
+        "dango-v2-primary-button"
+      ],
+      "sourceRegion": [
+        0.008333,
+        0.114444,
+        0.121528,
+        0.036111
+      ],
+      "instruction": "Keep navigation-current purple and primary-action purple separate and local to their observed roles.",
+      "suitableFor": [
+        "current navigation",
+        "primary action"
+      ],
+      "notFor": [
+        "section chrome",
+        "global purple wash"
+      ],
+      "allowedTransformations": [
+        "semantic label substitution"
+      ],
+      "sourceMeasurements": [
+        {
+          "evidenceRef": "dango-v2-active-navigation",
+          "property": "color",
+          "value": "rgb(88, 84, 255)",
+          "sourcePageId": "introduction",
+          "capture": {
+            "path": "migrations/dango/captures/source/introduction/desktop/frame-00.png",
+            "sha256": "9794dcaef1f5bc62174edf707bca99cbfff030ea03d5e4bf3320e27c5507b7f7"
+          }
+        },
+        {
+          "evidenceRef": "dango-v2-primary-button",
+          "property": "background-color",
+          "value": "rgb(124, 102, 255)",
+          "sourcePageId": "button",
+          "capture": {
+            "path": "migrations/dango/captures/source/button/desktop/primary-button/default.png",
+            "sha256": "8c5e2e45391aeb186aa3bf76917cbe96f3f020d92da9c79ceaedb8f48efa779f"
+          }
+        }
+      ],
+      "mappingKind": "style-only",
+      "runtimeStatus": "not-verified"
+    }
+  ]
+}

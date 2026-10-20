@@ -6,6 +6,12 @@ Learn-brand 是品牌学习能力的 self-testing pipeline，不是网站镜像�
 
 ## 节点顺序
 
+Interpreter 的交接需包含 brand-intent.json、brand-mod.json、component-mapping.json 和 dangoui-adapter.json，映射空缺保留原因，不伪造组件实现。正常 record 在原学习校验通过后机械生成 learned-brand-input.json：冻结版本、全部 intent、DTCG、原件哈希、适用范围和未验证项，不额外作品牌判断。DESIGN.md 与可验证的 DESIGN.sources.json 随包交接；缺文档或组件原件明确记录，不冒充完整学习。补修通过时保存 learning-revisions 中的旧原件与派生版本，历史收据不改写。
+
+design-host 消费此学习产物，只准备宿主业务、观察和创意方向；不临场补学缺失品牌包。新请求缺少产物或来源变化时回到学习/打包环节，已冻结的旧结果仍按原记录续看。公开构建基于实际分发字节绑定版本与来源，安装后检查一致性；发布新脚本之前还需对应品牌包完成升级。图片阶段的可用不等于真实控件、字体加载或全部组件状态已验收。
+
+补齐已有 DangoUI Button/Search 原件时，在尚未编译的隔离学习修订运行 `prepare-learning-originals.mjs <migration目录> <已核对版本的dangoui原包目录>`，收集源码及包内相对导入依赖，保留 LICENSE 和外部依赖，不执行包代码。脚本以 `componentSources` 交接，不冒充可独立运行的 `componentKits`。缺 DESIGN.md 时从同版 JSON 机械生成并绑定来源；有文档则保留原文，只记录非视觉的组件附件变更。之后沿原 record 编译、公开构建与安装流程；design-host 不运行此补学步骤。Vue 原件不意味着 React/Taro 适配或运行验收通过。
+
 顶层 `Design Director / Orchestrator` 组织：
 
 `Evidence → Brand Interpreter → Demo Designer → Blind QA / TPP`

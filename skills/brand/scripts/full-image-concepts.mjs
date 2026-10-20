@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url';
 import { manage } from './brand-artifacts.mjs';
 import { readImageCall, verifyImageCall, requireRuntimeEvidence, literalArguments, findCurrentThreadImageCall, nativeImageOutputEvidence } from './image-call-evidence.mjs';
 import { declaredImageReferences } from './brand-image-references.mjs';
+import { consumeLearnedBrandInput, verifyLearnedPrompt } from './learned-brand-input.mjs';
 
 const hash = file => crypto.createHash('sha256').update(fs.readFileSync(file)).digest('hex');
 const read = file => JSON.parse(fs.readFileSync(file, 'utf8'));
@@ -117,10 +118,13 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
   assert(fs.existsSync(source)&&hash(source)===startup.sourceSha256,'Host startup source changed or is unavailable.');
   inputs.push(binding(source));
   const mod=read(path.join(dir,'brand-mod.json'));
+  const learnedBrand=consumeLearnedBrandInput(dir);
+  const compiledLearningExpected=Boolean(mod.componentSources?.length)||fs.existsSync(path.join(dir,'learning-revisions'));
+  assert(learnedBrand||!compiledLearningExpected,'LEARNED_INPUT_REQUIRED: This upgraded package is missing its version-bound learning delivery. Restore the published package; do not relearn it inside design-host. Existing saved image runs remain available.');
   const identityPolicy=read(path.join(dir,'brand-intent.json')).imageIdentityPolicy||null;
   // Embedded DTCG is already part of the bound MOD. Bind actual declared kit
   // source files too, rather than leaving the consumer with paths in prose.
-  for(const kit of mod.componentKits||[]) for(const declared of kit.files||[]) {
+  for(const kit of [...(mod.componentKits||[]),...(mod.componentSources||[])]) for(const declared of kit.files||[]) {
     const p=path.resolve(root,declared.path);
     assert(fs.existsSync(p)&&(!declared.sha256||hash(p)===declared.sha256),`Missing/changed component kit original: ${p}`);
     if(!inputs.some(x=>x.path===p)) inputs.push(binding(p));
@@ -152,14 +156,16 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
   dispatch.controlAuditRequired=controlAuditRequired;
   const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
   dispatch.commands={record:[process.execPath,entry,'record-image-concepts','--artifact-root',root,'--brand',brand,'--receipt',path.join(dir,'image-concepts-submission.json')],delivery:[process.execPath,entry,'delivery','--artifact-root',root,'--brand',brand],continue:[process.execPath,entry,'continue','--artifact-root',root,'--brand',brand]};
-  dispatch.designSystemInputs={dtcg:{path:path.join(dir,'brand-mod.json'),jsonPointer:'/tokens/dtcg'},mapping:inputs.filter(x=>/component-mapping|dangoui-adapter/.test(x.path)),componentSources:inputs.filter(x=>/\.(vue|css|mjs|md)$/.test(x.path)&&x.path!==source),note:'Read the embedded DTCG and actual declared component sources. This image phase visualizes those constraints; it does not claim runtime component reuse.'};
+  const componentOriginalPaths=new Set([...(mod.componentKits||[]),...(mod.componentSources||[])].flatMap(group=>(group.files||[]).map(file=>path.resolve(root,file.path))));
+  dispatch.designSystemInputs={dtcg:{path:path.join(dir,'brand-mod.json'),jsonPointer:'/tokens/dtcg'},mapping:inputs.filter(x=>/component-mapping|dangoui-adapter/.test(x.path)),componentSources:inputs.filter(x=>componentOriginalPaths.has(x.path)||/\.(vue|css|mjs|md)$/.test(x.path)&&x.path!==source),note:'Read the embedded DTCG and actual declared component sources. This image phase visualizes those constraints; it does not claim runtime component reuse.'};
   if(regeneration) {
     dispatch.regeneration=regeneration;
-    dispatch.producerInstructions+=regeneration.recovery
+    dispatch.regenerationInstructions=regeneration.recovery
       ? ' This is an explicitly authorized recovery attempt. Preserve checkpointed images; generate ONLY missing directions returned by delivery. Apply regeneration.feedback and recovery.kind. Technical recovery requires a concrete correction. For a safety refusal, independently assess the genuinely new design for compliance before calling; user consent or a new-design flag is not safety approval. Never reword refused content to evade safeguards. Stop after one attempt per missing direction; preserve failures and ask again if incomplete. Prior images are comparison context, not official evidence. The eventual trio needs independent review.'
       : ' This is an explicitly requested NEW batch, including when the previous batch was incomplete or blocked. Generate three NEW complete images; never copy old outputs or checkpoints. Apply regeneration.feedback and inspect priorDirections only to avoid repeating visual ideas, never as official references. Preserve host facts and brand constraints. Checkpoint and immediately show each success in the standard comparison preview. Attempt each direction once; a failed direction is terminal in this batch and must be reported without retry. Continue the other pending compliant directions already authorized in this batch. No automatic retry or H5 fallback. User authorization is not safety approval: independently assess a genuinely new compliant design, never reword refused content to evade safeguards. Preserve prior failures; this batch needs its own independent review.';
   }
   dispatch.conceptScope=conceptScope;
+  if(dispatch.regenerationInstructions)dispatch.producerInstructions+=dispatch.regenerationInstructions;
   if(identityPolicy) {
     dispatch.imageIdentityPolicy=identityPolicy;
     const identityText=`Brand identity for this image concept: ${identityPolicy.instruction}`;
@@ -187,6 +193,21 @@ export function prepareImageConcepts({root, brand, hostTarget, sampleData=false,
     instructions:'Save the exact tool arguments/result first. Create the failed direction file once using this schema; never overwrite a saved image or earlier failure. If the tool gives no specific cause, do not infer copyright or another cause. A refusal is terminal for this direction in this batch: no automatic retry. Continue other authorized pending directions and show the standard preview, including the failed slot. No source-code lookup or H5 fallback is needed.',
     afterWrite:[...dispatch.commands.delivery,'--compact']
   };
+  if(learnedBrand) {
+    dispatch.learnedBrandInput={...binding(learnedBrand.path),brand:learnedBrand.brand,version:learnedBrand.version,promptSha256:learnedBrand.promptSha256,gaps:learnedBrand.gaps};
+    for(const original of learnedBrand.sources) {
+      const bound=binding(path.join(dir,original.path));
+      if(!dispatch.inputs.some(x=>x.path===bound.path))dispatch.inputs.push(bound);
+    }
+    dispatch.inputs.push(binding(learnedBrand.path));
+    dispatch.directions=dispatch.directions.map(d=>({...d,prompt:`${d.prompt}\n<learned-brand-input>\n${learnedBrand.promptText}\n</learned-brand-input>`}));
+    dispatch.producerInstructions='Use the frozen learned-brand-input block unchanged in every final prompt. Its scope, exceptions, unresolved claims and IP policy remain authoritative; do not relearn the website or rewrite brand conclusions. Read the bound host sources and observation once to prepare identical actual host labels, actions, state, data and viewport. Do not transfer source-site business into the host. Add a different task-appropriate Expressive proposal for each direction, outside both frozen blocks. Existing learning limitations are not blanket bans on new illustration or depth. Preserve the reference-fidelity sentence, exact tool arguments and attached source images. Generate each authorized direction once, checkpoint each result immediately; no H5 or host edits. Incomplete source learning remains disclosed, not silently upgraded.';
+    if(dispatch.regenerationInstructions)dispatch.producerInstructions+=dispatch.regenerationInstructions;
+    dispatch.sharedBrief.brandVisual.purpose='Consume the frozen learning output; consult bound originals for traceability, not to redefine brand rules. Learning limitations and scope remain unchanged.';
+    dispatch.sharedBrief.brandVisual.inputs=dispatch.inputs.filter(x=>x.path!==source&&path.basename(x.path)!=='host-startup-page.json');
+    dispatch.sharedBrief.promptContract.purpose='Prepare and reuse the same actual host business facts and viewport. Brand input is separately frozen in learned-brand-input; do not repeat or reinterpret it. Creative direction remains outside both blocks. Preserve source uncertainty and do not send credentials or unrelated source code.';
+    dispatch.executionGuidance.preparation='Prepare host business and three creative directions once. The brand block is already compiled and must not be re-summarized. Keep full source evidence available to designer and QA.';
+  }
   const dispatchFile=path.join(dir,'image-concepts-dispatch.json');write(dispatchFile,dispatch);
   write(file,{schema:'brand-full-image-concepts/v1',brand,hostTarget,medium:'full-image',dispatch:binding(dispatchFile),status:'dispatch-ready',userGoalCompleted:false,hostFilesModified:false,...(regeneration?{parentRun:regeneration.parentRun,feedback:regeneration.feedback}: {})});
   return imageConceptDelivery({root,brand});
@@ -273,11 +294,18 @@ export function regenerateImageConcepts({root,brand,feedback,confirmed=false,fai
 const preparationFile=(root,brand)=>path.join(root,'migrations',brand,'host-preparation.json');
 function preparationRequest(root,brand,dispatch) {
   const entry=path.join(path.dirname(fileURLToPath(import.meta.url)),'run-brand-workflow.mjs');
-  return {role:'image-concept-input-preparation',inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,
+  const request={role:'image-concept-input-preparation',inputs:dispatch.inputs,inputImages:dispatch.inputImages,sharedBrief:dispatch.sharedBrief,
     instructions:'The executing agent prepares inputs; do not ask the user to write metadata. Read the target page and necessary business imports. Observe the real target scene using the available browser/runtime and save its actual screenshot. If unavailable, record the concrete reason with --not-observed; do not invent a capture. Write one shared Markdown brief with host product identity, task, role/scenario, exact visible content and actions, state/availability and unknowns, viewport, source locators, applicable brand design rules and original Expressive opportunities. Keep sampled Productive controls separate from whole-screen art direction: a plain reference or a control color role does not prohibit original illustration, depth or background composition. Explain any genuine source restriction and its applicable scope. The host capture observes content and state, not a style lock. Keep full source/design originals local for designer and QA; only distilled visible facts and visual rules go to ImageGen.',
     briefPath:path.join(root,'migrations',brand,'host-preparation-draft.md'),
     recordCommand:[process.execPath,entry,'record-image-preparation','--artifact-root',root,'--brand',brand,'--brief','<shared Markdown context brief>','--prompt-brief','<tool-facing shared business and visual summary>','--screenshot','<actual host capture>','--source-url','<observed page URL>','--scene','<observed scenario>','--observer','<actual executor>'],
     options:{promptBrief:'Use --prompt-brief <text file> for the shared ImageGen-facing text: only relevant visible business facts and distilled visual rules. Keep local URLs, source paths, provenance and workflow instructions in the full local --brief. Only prompt-brief is inserted into generation scaffolds; without it, the designer must distill the same frozen local brief before generating.',screenshot:'Repeat --screenshot for complementary actual host captures from the same observed scene.',sourceFile:'Repeat --source-file <necessary host dependency> to bind source evidence used for business facts.',capturedAt:'Optional --captured-at <actual capture time>; omission means capture time unknown, not now.',unavailable:'Replace --screenshot/--source-url with --not-observed <actual reason>. Keep --brief, --scene and --observer.'}};
+  if(dispatch.learnedBrandInput) {
+    request.learnedBrandInput=dispatch.learnedBrandInput;
+    request.instructions='Read the host page and necessary business imports once. Record actual host identity, task, labels, actions, state, conditions, unknowns and viewport. Use an actual host screenshot when available; otherwise state the observation limit. Prepare the common business brief, not another brand interpretation. The learned-brand-input block already supplies frozen visual values, scopes, exceptions and IP policy and is inserted unchanged. Do not learn the website, rewrite that block, or import source-site business. Original Expressive directions remain creative proposals outside the common blocks. Keep full provenance and source paths local; user does not fill technical metadata.';
+    request.options.promptBrief='Use --prompt-brief for tool-facing host business facts only. Do not repeat or rewrite learned brand rules; they are inserted separately. Full local --brief retains source provenance and observation limits.';
+    request.recordCommand=request.recordCommand.map(value=>value==='<tool-facing shared business and visual summary>'?'<tool-facing host business facts>':value);
+  }
+  return request;
 }
 
 function preparedDispatch(dispatch,root,brand) {
@@ -297,7 +325,9 @@ function preparedDispatch(dispatch,root,brand) {
       hostVisualEvidence:{...dispatch.sharedBrief.hostVisualEvidence,status:preparation.observation.status,images:observationImages.length?observationImages.map(image=>({...image,role:'host-business-observation'})):dispatch.sharedBrief.hostVisualEvidence.images,observation:preparation.observation,
         limitations:observationImages.length?[preparation.observation.scope]:[preparation.observation.reason||'Runtime appearance and state have not been observed.',...(dispatch.sharedBrief.hostVisualEvidence.images.length?['Earlier bound captures are historical context, not an observation of this scene.']:[])]}},
     directions:dispatch.directions.map(d=>({...d,prompt:preparation.promptText?`${d.prompt}\n<shared-design-brief>\n${fs.readFileSync(preparation.promptText.path,'utf8').trim()}\n</shared-design-brief>`:d.prompt})),
-    producerInstructions:dispatch.producerInstructions+' Read sharedBrief.prepared: it binds the shared business/design brief, actual observation and necessary source evidence also sent to QA. The full brief is local context, never a raw tool payload. Only its separately prepared promptText, when present, is inserted into each scaffold; otherwise distill one tool-safe business/visual summary from the frozen brief before the calls. Keep business identity and facts while developing each visual proposal.'};
+    producerInstructions:dispatch.producerInstructions+(dispatch.learnedBrandInput
+      ? ' Read sharedBrief.prepared for host business and observation only. Reuse the learned-brand-input block without rewriting it. If the host brief is missing, prepare only host facts, not another brand summary. The same bound originals go to QA.'
+      : ' Read sharedBrief.prepared: it binds the shared business/design brief, actual observation and necessary source evidence also sent to QA. The full brief is local context, never a raw tool payload. Only its separately prepared promptText, when present, is inserted into each scaffold; otherwise distill one tool-safe business/visual summary from the frozen brief before the calls. Keep business identity and facts while developing each visual proposal.')};
 }
 
 export function recordImagePreparation({root,brand,briefFile,promptFile,screenshotFile,screenshotFiles=[],sourceUrl='',scene,observer,capturedAt=null,notObserved='',sourceFiles=[]}) {
@@ -489,6 +519,11 @@ export function recordImageConcept({root,brand,id,inputFile,outputFile,toolCallI
     ? {status:isDeepStrictEqual(read(plannedFile),args)?'matched':'differs',arguments:binding(plannedFile)}
     : {status:'unavailable',reason:'No frozen planned arguments exist; actual tool arguments remain authoritative.'};
   if(plannedInput.status==='differs') promptDiagnostics.push('planned-input-differs-from-actual-call');
+  if(dispatch.learnedBrandInput) {
+    verifyBinding(dispatch.learnedBrandInput);
+    const learned=read(dispatch.learnedBrandInput.path);
+    if(!args.prompt.includes(`<learned-brand-input>\n${learned.promptText}\n</learned-brand-input>`))promptDiagnostics.push('learned-brand-input-changed-or-missing-in-actual-call');
+  }
   const commonFile=dispatch.sharedBrief?.prepared?.promptText;
   if(dispatch.sharedInputRequired&&commonFile) {
     verifyBinding(commonFile);
@@ -541,6 +576,7 @@ function validateReceipt(receipt, dispatch, root, newSubmission=false) {
     // A preserved historical call must retain its exact prompt, not be rewritten
     // retrospectively to satisfy a newer template. Newly generated calls stay strict.
     const unchangedHistoricalCall=preserved&&d.prompt===prior?.prompt&&hash(d.path)===prior?.output.sha256;
+    if(!unchangedHistoricalCall)verifyLearnedPrompt(d.prompt,dispatch.learnedBrandInput);
     if((newSubmission||dispatch.actualCallEvidenceRequired)&&!unchangedHistoricalCall) {
       const recorded=checkpoints(root,dispatch.brand).find(x=>x.id===d.id);
       assert(recorded?.provenance?.status==='verified-against-tool-call'&&recorded.prompt===d.prompt&&recorded.output.sha256===hash(d.path)&&recorded.toolCallId===d.toolCallId,'Receipt must match verified actual tool checkpoint.');

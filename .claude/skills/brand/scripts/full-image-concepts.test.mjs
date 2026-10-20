@@ -6,11 +6,13 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import {prepareImageBatchHandoff} from './image-batch-handoff.mjs';
+import {writeLearnedBrandInput} from './learned-brand-input.mjs';
 import { imageConceptDelivery, prepareImageConcepts, regenerateImageConcepts, recordImagePreparation, recordImageConcept, recordImageConcepts, compactImageConceptResult } from './full-image-concepts.mjs';
 
 test('identity policy survives preparation without turning business exclusions into character bans',t=>{
  const f=fixture(t),policy={scope:'full-image-concept',instruction:'Preserve original IP; allow new illustrations. Host search remains Search.'};
  f.write(path.join(f.dir,'brand-intent.json'),{imageIdentityPolicy:policy});
+ writeLearnedBrandInput(f.dir,{supersede:true});
  const prepared=prepareImageConcepts({...f,preparationRequired:true});
  const dispatch=JSON.parse(fs.readFileSync(prepared.dispatch.path));
  assert.deepEqual(dispatch.imageIdentityPolicy,policy);
@@ -49,6 +51,77 @@ test('compact output preserves originals, failure state and review while omittin
 });
 
 const entry = path.resolve('skills/brand/scripts/run-brand-workflow.mjs');
+test('learning-bound brand block reaches all directions without runtime reinterpretation',t=>{
+  const f=fixture(t),modFile=path.join(f.dir,'brand-mod.json');
+  const mod=JSON.parse(fs.readFileSync(modFile));
+  mod.manifest={brand:f.brand,version:'test-v1',scope:{notFor:['global campaign CTA']}};
+  mod.tokens={dtcg:{surface:{$type:'color',$value:'#FFFFFF'}}};
+  f.write(modFile,mod);
+  for(const name of ['component-mapping.json','dangoui-adapter.json'])if(!fs.existsSync(path.join(f.dir,name)))f.write(path.join(f.dir,name),{});
+  const learned=writeLearnedBrandInput(f.dir,{supersede:true});
+  const result=prepareImageConcepts({...f,preparationRequired:true});
+  const dispatch=JSON.parse(fs.readFileSync(result.dispatch.path));
+  for(const direction of dispatch.directions)assert(direction.prompt.includes(learned.promptText));
+  assert.equal(dispatch.learnedBrandInput.promptSha256,learned.promptSha256);
+  assert(dispatch.inputs.some(x=>x.path===learned.path));
+  assert(!dispatch.producerInstructions.includes('distilled from bound design inputs'));
+  const brief=f.write(path.join(f.root,'host-only.md'),'Host: Search; no records.');
+  recordImagePreparation({...f,briefFile:brief,promptFile:brief,scene:'search',observer:'fixture',notObserved:'source only'});
+  const prepared=JSON.parse(fs.readFileSync(path.join(f.dir,'host-preparation/producer-dispatch.json')));
+  for(const direction of prepared.directions)assert(direction.prompt.includes(learned.promptText));
+  assert(!prepared.producerInstructions.includes('business/visual summary'));
+  const savedDispatch=fs.readFileSync(result.dispatch.path);
+  fs.renameSync(learned.path,learned.path+'.retained');
+  assert.throws(()=>prepareImageConcepts({...f,preparationRequired:true}),/hash mismatch/);
+  fs.renameSync(learned.path+'.retained',learned.path);
+  const continued=prepareImageConcepts({...f,preparationRequired:true});
+  assert(continued.status);
+  assert.deepEqual(fs.readFileSync(result.dispatch.path),savedDispatch);
+});
+test('new design-host cannot silently learn an incomplete upgraded brand package',t=>{
+  const f=fixture(t);
+  fs.unlinkSync(path.join(f.dir,'learned-brand-input.json'));
+  assert.throws(()=>prepareImageConcepts(f),/LEARNED_INPUT_REQUIRED/);
+  assert.equal(fs.existsSync(path.join(f.dir,'image-concepts-dispatch.json')),false);
+});
+test('unmigrated published brands retain their existing entry without claiming compiled learning',t=>{
+  const f=fixture(t);
+  fs.unlinkSync(path.join(f.dir,'learned-brand-input.json'));
+  fs.rmSync(path.join(f.dir,'learning-revisions'),{recursive:true,force:true});
+  const result=prepareImageConcepts(f);
+  const dispatch=JSON.parse(fs.readFileSync(result.dispatch.path));
+  assert.equal(dispatch.learnedBrandInput,undefined);
+  assert.equal(dispatch.directions.length,3);
+});
+test('public receipt entry rejects altered learning prompt without deleting saved outputs',t=>{
+  const f=fixture(t);prepareImageConcepts(f);
+  const directions=['a','b','c'].map((id,index)=>{
+    const file=f.write(path.join(f.dir,`${id}-saved.png`),Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),Buffer.alloc(11000,index)]));
+    return {id,path:file,tool:'image_gen',toolCallId:`synthetic-${id}`,producer:'synthetic',prompt:'Changed learning interpretation. '.repeat(10),inputImages:f.refs.map(path=>({path,sha256:sha(path)}))};
+  });
+  const hashes=directions.map(d=>sha(d.path));
+  const receiptFile=f.write(path.join(f.dir,'synthetic-review.json'),{producer:'synthetic',directions,independentReview:{reviewer:'other',verdict:'pass',distinctCompositions:true,notes:'Synthetic control-flow test, not visual evidence.',directions:directions.map(d=>({id:d.id,sha256:sha(d.path),completeScreen:true,brandFaithful:true,hostTaskPreserved:true}))}});
+  assert.throws(()=>recordImageConcepts({...f,receiptFile}),/LEARNED_INPUT_NOT_USED/);
+  assert.deepEqual(directions.map(d=>sha(d.path)),hashes);
+  assert.equal(fs.existsSync(path.join(f.dir,'image-concepts-receipt.json')),false);
+});
+test('existing legacy dispatch resumes without imposing new learning compilation',t=>{
+  const f=fixture(t);prepareImageConcepts(f);
+  const dispatchFile=path.join(f.dir,'image-concepts-dispatch.json');
+  const dispatch=JSON.parse(fs.readFileSync(dispatchFile));
+  delete dispatch.learnedBrandInput;
+  dispatch.inputs=dispatch.inputs.filter(i=>!i.path.endsWith('/learned-brand-input.json'));
+  f.write(dispatchFile,dispatch);
+  const stateFile=path.join(f.dir,'image-concepts.json');
+  const state=JSON.parse(fs.readFileSync(stateFile));state.dispatch.sha256=sha(dispatchFile);f.write(stateFile,state);
+  const expected=imageConceptDelivery(f);
+  fs.unlinkSync(path.join(f.dir,'learned-brand-input.json'));
+  const before=sha(dispatchFile),result=prepareImageConcepts(f);
+  assert.equal(result.status,expected.status);
+  assert.equal(result.userGoalCompleted,false);
+  assert.equal(sha(dispatchFile),before);
+  assert.equal(fs.existsSync(path.join(f.dir,'learned-brand-input.json')),false);
+});
 test('batch handoff transfers whole execution responsibility and preserves three existing originals',t=>{
  const f=fixture(t);prepareImageConcepts(f);f.checkpoint('a');
  assert.throws(()=>prepareImageBatchHandoff({...f,verifyExisting:true}),/three saved/);
@@ -359,12 +432,14 @@ function fixture(t) {
   // Synthetic bytes test provenance plumbing only; these are never visual QA evidence.
   const raster = n => Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]), Buffer.alloc(11000, n)]);
   const refs = ['captures/home.png', 'captures/editorial.png', 'assets/hero.png'].map((p, i) => write(path.join(root, p), raster(i)));
-  write(path.join(dir, 'brand-mod.json'), { schema: 'fixture/v1', tokens: [], assets: refs.map(p => path.relative(root, p)) });
+  write(path.join(dir, 'brand-mod.json'), { schema: 'fixture/v1',manifest:{brand,version:'fixture-v1'}, tokens: {dtcg:{}}, assets: refs.map(p => path.relative(root, p)) });
   write(path.join(dir, 'brand-evidence.json'), { screenshots: refs.slice(0, 2).map(p => path.relative(root, p)) });
   write(path.join(dir, 'brand-intent.json'), {});
+  write(path.join(dir,'component-mapping.json'),{});
+  write(path.join(dir,'dangoui-adapter.json'),{});
+  writeLearnedBrandInput(dir);
   write(path.join(dir, 'host-startup-page.json'), { hostRoot: host, sourceFile: 'src/pages/home/index.vue', sourceSha256: sha(source) });
-  // Legacy fixtures exercise existing immutable runs; new public runs below
-  // exercise the required observation/brief preparation handoff.
+  // Compiled synthetic learning package; no website learning in host setup.
   const opts = { root, brand, hostTarget: host, preparationRequired:false };
   const checkpoint = id => {
     const dispatch = imageConceptDelivery(opts).dispatchRequest;
@@ -554,7 +629,8 @@ test('explicit new batch forks verified inputs, keeps failed parent immutable an
 
 test('new batch rejects absolute parent-local JSON references before copying stale paths', t=>{
   const f=fixture(t);
-  const mod=path.join(f.dir,'brand-mod.json');f.write(mod,{assets:f.refs.map(x=>fs.realpathSync(x))});
+  const mod=path.join(f.dir,'brand-mod.json');f.write(mod,{...JSON.parse(fs.readFileSync(mod)),assets:f.refs.map(x=>fs.realpathSync(x))});
+  writeLearnedBrandInput(f.dir,{supersede:true});
   prepareImageConcepts(f);f.checkpoint('a');f.checkpoint('b');f.checkpoint('c');
   assert.throws(()=>regenerateImageConcepts({...f,feedback:'again',confirmed:true}),/portable brand input/);
 });

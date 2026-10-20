@@ -4,6 +4,7 @@ import path from "node:path";
 import crypto from "node:crypto";
 import os from "node:os";
 import { pathToFileURL } from "node:url";
+import { consumeLearnedBrandInput } from './learned-brand-input.mjs';
 
 export const DEFAULT_REGISTRY_BASE = "https://jocelyntong.github.io/DangoUI-Brand-Skill/";
 export const DEFAULT_REGISTRY_REQUEST_TIMEOUT_MS = 8_000;
@@ -298,6 +299,9 @@ export async function resolvePublicStylePack({
     }));
     if (failure) throw failure;
     installedFiles.sort();
+    // Validate after all artifacts and guides have arrived. Do not regenerate
+    // missing/stale learning outputs here or silently reinterpret their scope.
+    if(manifest.artifacts?.['learned-brand-input'])consumeLearnedBrandInput(targetRoot);
   }
 
   return {

@@ -10,10 +10,10 @@
     {
       "id": "dango",
       "displayName": "DangoUI",
-      "version": "0.2.0",
+      "version": "0.2.1",
       "publicationStatus": "public-preview",
       "path": "/brand-previews/dango.json",
-      "migrationRoot": "migrations/dango-v2",
+      "migrationRoot": "migrations/dango-release-0.2.1",
       "demoPurpose": "brand-learning-capability-test",
       "status": "fidelity-pass",
       "standardDemo": true,
@@ -61,8 +61,16 @@
       "businessApply": false,
       "sourceUrl": "https://czn.qq.com/",
       "sourceHost": "czn.qq.com",
-      "canonicalSources": ["https://czn.qq.com/"],
-      "artifactFiles": ["brand-evidence.json", "brand-intent.json", "design-direction.json", "fidelity-report.json", "source-manifest.json"],
+      "canonicalSources": [
+        "https://czn.qq.com/"
+      ],
+      "artifactFiles": [
+        "brand-evidence.json",
+        "brand-intent.json",
+        "design-direction.json",
+        "fidelity-report.json",
+        "source-manifest.json"
+      ],
       "platformSupport": {
         "web": "unverified",
         "taroH5": "planned",
@@ -123,7 +131,7 @@
     {
       "id": "pokemon-tcg-official",
       "displayName": "Pokémon TCG Official",
-      "version": "0.2.2",
+      "version": "0.2.3",
       "publicationStatus": "public-preview",
       "sourceUrl": "https://tcg.pokemon.com/en-us/",
       "sourceHost": "tcg.pokemon.com",
@@ -156,7 +164,7 @@
         "runtimeAssets": "review-required"
       },
       "path": "/brand-previews/pokemon-tcg-official.json",
-      "migrationRoot": "migrations/pokemon-tcg-official",
+      "migrationRoot": "migrations/pokemon-tcg-official-release-0.2.3",
       "demoPurpose": "brand-learning-capability-test",
       "status": "fidelity-pass",
       "standardDemo": true,

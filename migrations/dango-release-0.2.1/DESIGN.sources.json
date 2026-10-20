@@ -1,0 +1,84 @@
+{
+  "schema": "derived-design-guide-sources/v1",
+  "root": "../..",
+  "derivation": "Existing frozen JSON only; no new collection, Google/Stitch run or current host verification.",
+  "hashAlgorithm": "sha256",
+  "sources": [
+    {
+      "path": "public/brand-registry/v0.1/brands/dango/0.2.0/brand-mod.json",
+      "sha256": "436ce862c6f51dd309ff1b18e59e8ec94b0498f1b492cc4c169ac37211cb7d81",
+      "pointers": [
+        "/manifest",
+        "/manifest/scope",
+        "/tokens/dtcg",
+        "/tokens/styleOnly",
+        "/semanticRoles",
+        "/platformOverrides/web",
+        "/assets"
+      ],
+      "preComponentAttachmentSha256": "f91a02e602fd94105beade18b051bf808d10941568be2a2954cd936ca6d6a3b8"
+    },
+    {
+      "path": "public/brand-registry/v0.1/brands/dango/0.2.0/brand-intent.json",
+      "sha256": "33189adcea4498b5b9a828762ff1586ede2cc839c82f54abcb1a6f0713d45e4d",
+      "pointers": [
+        "/interpretationBoundary",
+        "/patterns/0",
+        "/patterns/1",
+        "/patterns/2",
+        "/styleRecipeDetails/1",
+        "/interactionRecipes/0",
+        "/assetRoleBoundaries",
+        "/distinctivenessSignalContract",
+        "/unresolvedClaims",
+        "/unresolvedClaims/0",
+        "/antiPatterns",
+        "/antiPatterns/2",
+        "/antiPatterns/5"
+      ],
+      "preComponentAttachmentSha256": "33189adcea4498b5b9a828762ff1586ede2cc839c82f54abcb1a6f0713d45e4d"
+    },
+    {
+      "path": "public/brand-registry/v0.1/brands/dango/0.2.0/brand-evidence.json",
+      "sha256": "21fc3d39185992375e5117e2ae59d74a1df1c1859d5a2f5ae3d982c58cf36587",
+      "pointers": [
+        "/claims",
+        "/claims/0",
+        "/claims/1",
+        "/claims/2",
+        "/claims/3",
+        "/claims/5",
+        "/claims/6",
+        "/claims/7",
+        "/claims/8"
+      ],
+      "preComponentAttachmentSha256": "3df0e97c49a48699f4de34bedfa88b4cced865da55612105370b7c794884e3b4"
+    },
+    {
+      "path": "public/brand-registry/v0.1/brands/dango/0.2.0/component-mapping.json",
+      "sha256": "82efa541a83a4051c7abeeb19bb22383ee86a3dee27f9a4e672cccf69a812671",
+      "pointers": [
+        "/mappings"
+      ],
+      "preComponentAttachmentSha256": "82efa541a83a4051c7abeeb19bb22383ee86a3dee27f9a4e672cccf69a812671"
+    },
+    {
+      "path": "public/brand-registry/v0.1/brands/dango/0.2.0/dangoui-adapter.json",
+      "sha256": "56de590c3cf890b31924a2688a5fcf3c9871e0483c826085dad2fcc92cddcbcd",
+      "pointers": [
+        "/catalog",
+        "/tokenMappings",
+        "/tokenMappings/0",
+        "/tokenMappings/1",
+        "/tokenMappings/2",
+        "/tokenMappings/3",
+        "/tokenMappings/4",
+        "/tokenMappings/5",
+        "/tokenMappings/6",
+        "/tokenMappings/7"
+      ],
+      "preComponentAttachmentSha256": "56de590c3cf890b31924a2688a5fcf3c9871e0483c826085dad2fcc92cddcbcd"
+    }
+  ],
+  "componentAttachment": "Only componentSources attached to MOD; visual data and original scope unchanged."
+}

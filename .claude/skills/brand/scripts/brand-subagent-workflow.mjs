@@ -5,6 +5,7 @@ import path from "node:path";
 import { execFileSync, spawnSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { freezeDesignKnowledge } from "./freeze-design-knowledge.mjs";
+import { writeLearnedBrandInput } from './learned-brand-input.mjs';
 import { deriveHostStartupBaseline } from "./derive-host-startup-baseline.mjs";
 import { validatePreviewGrant, normalizeHostRecommendation } from "./parent-delivery-gate.mjs";
 import { validateTransferReview, installTransferReview } from "./source-transfer-input.mjs";
@@ -537,6 +538,13 @@ function record() {
   if (manifest.mode === "learn-brand" && current.role === "designTranslator" && receipt.verdict === "pass") {
     verifyLearnBrandHandoff("interpreter");
     if (readJsonRequired(goalFile).goalType === "brand-learning-capability-test") verifyLearningModOutput(receiptOutputs);
+    for(const name of ['brand-intent.json','brand-mod.json','component-mapping.json','dangoui-adapter.json']) {
+      if(!receiptOutputs.some(item=>path.resolve(root,item.path)===path.join(migrationDir,name)))fail(`LEARNING_DELIVERY_OUTPUT_REQUIRED: ${name}`);
+    }
+    // Freeze the consumer projection at the learning boundary, never inside a
+    // host designer. Preserve source approval statuses rather than manufacture QA.
+    const learned=writeLearnedBrandInput(migrationDir,{supersede:true});
+    current.derivedLearningInput={path:relative(path.join(migrationDir,'learning-revisions',learned.sourceDigest,'learned-brand-input.json')),sha256:learned.sha256,sourceDigest:learned.sourceDigest,version:learned.version,approval:'Derived from accepted source files; not independent QA approval.'};
   }
   if (array(receipt.outputs).length === 0) fail("Receipt must include at least one hashed output.");
   if (manifest.mode === "design-host" && current.stage === "h5DirectionGeneration" && receipt.verdict === "pass") {
