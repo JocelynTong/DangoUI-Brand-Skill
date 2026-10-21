@@ -10,25 +10,26 @@
 
 > 当前阶段：公开 MVP / controlled alpha。已发布的 `mvp-2026-10-13` 保留为三张完整效果图的固定版本；本分支整合选图后的隔离代码预览，仍须按实际任务验收，不代表生产或跨项目认证。微信开发者工具、移动端真机和更多真实业务仍在验证中。
 
-[查看公共 Variant 库](https://jocelyntong.github.io/DangoUI-Brand-Skill/) · [查看互动复盘流程图](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
+[查看品牌展示库](https://jocelyntong.github.io/DangoUI-Brand-Skill/#/variants) · [查看双 Pipeline 工作流程](https://jocelyntong.github.io/DangoUI-Brand-Skill/brand-retro-flow.html)
 
 ## 先用一句话理解
 
-过去，做一次品牌化页面通常需要一个人同时研究官网、总结风格、设计页面、写代码和自查。上下文一长，很容易漏掉动效、资产用途、业务边界或真实页面验收。
+Brand Skill 有两条目标不同的 Pipeline：
 
-Brand Skill 把这件事改成一条有分工、有产物、有验收、有返工路线的流程：
+| Pipeline | 负责什么 | 交付什么 |
+| --- | --- | --- |
+| `learn-brand` | 把品牌学成可复用、可追溯的设计能力 | 版本化品牌包、来源、规则、Demo 和独立验收状态 |
+| `design-host` | 把品牌能力用于当前真实宿主 | A / B / C 三张完整效果图、用户选案、隔离可操作单页和独立 QA |
+
+两条 Pipeline 可以接力：`learn-brand` 的品牌包可以成为 `design-host` 的输入。如果当前宿主任务只有官网、还没有可用品牌包，系统会先完成一次有界的品牌学习，再返回原来的宿主目标；不会用品牌学习报告顶替宿主结果。
 
 ```text
-品牌来源
-  → 找到真实视觉证据
-  → 解释品牌语言和适用场景
-  → 映射为可复用设计能力
-  → 生成不同结构的 Demo，或应用到现有项目
-  → 检查视觉、交互、业务和回退
-  → 通过后再交付；不通过就回到责任阶段修正
+learn-brand：品牌来源 → 证据 → 品牌解释与映射 → Demo → 独立 QA → 版本化品牌包
+                                                                      ↓
+design-host：真实宿主 + 品牌输入 → A / B / C 完整效果图 → 用户选案 → 隔离单页 → 独立 QA
 ```
 
-互动流程图中的红框代表历史上真正卡住过的节点。点击红框，可以查看问题发生时间、解决时间、当时卡在哪里以及后来如何解决。
+三张效果图用于选方向，不是已经写好的页面；隔离单页通过，也不等于已经获准修改整个项目。只有用户再次明确授权，才进入更多页面或整体换肤的 `apply-host` 阶段。
 
 ## 谁可以用
 
