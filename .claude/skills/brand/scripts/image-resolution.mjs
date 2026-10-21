@@ -1,5 +1,14 @@
 import fs from 'node:fs';
 
+// Snapshot of the exposed Codex tool contract, not the separate Images API.
+export const builtInImageCapability = Object.freeze({
+  tool:'image_gen.imagegen', checkedAt:'2026-10-21',
+  exposedParameters:['prompt','referenced_image_paths','num_last_images_to_include','transparent_background'],
+  explicitSizeControl:false, maximumResolution:null, guaranteedMinimumResolution:null,
+  evidence:'Current built-in tool schema; API size controls do not establish built-in capability.',
+});
+export const rasterDeliveryGuidance='Create a readable complete concept at the chosen viewport aspect ratio. Mobile width 1080 px and desktop width 1920 px are desired HD delivery thresholds, not guaranteed built-in tool capabilities. The current built-in tool exposes no size control or documented maximum; do not invent size arguments. Measure the actual output. A saved concept can be shown and selected below the HD threshold; report HD incomplete separately. Do not crop, upscale, regenerate or switch APIs automatically to claim compliance.';
+
 // Read original raster headers, never CSS size or an upscaled derivative.
 export function rasterDimensions(file) {
   const b=fs.readFileSync(file);
@@ -26,9 +35,13 @@ export function rasterDimensions(file) {
 
 export function imageResolution(file) {
   const size=rasterDimensions(file);
-  if(!size?.width||!size?.height)return {status:'unknown',note:'原图尺寸未能识别，不代表达到高清目标。'};
+  const boundary={blocksSelection:false,blocksImplementation:false,automaticRegeneration:false,capability:builtInImageCapability,
+    hdDelivery:{status:'not-verified',complete:false,reason:'Pixel dimensions alone do not verify readability, native provenance or asset suitability.'}};
+  if(!size?.width||!size?.height)return {...boundary,status:'unknown',note:'预览与高清交付分开：原图尺寸未知，高清未核实；不因尺寸状态阻止选图，业务与来源核验仍有效。'};
   // Orientation is explicit here; it is not proof of host platform.
   const portrait=size.height>size.width,minimumWidth=portrait?1080:1920;
-  return {...size,minimumWidth,basis:portrait?'portrait-width':'landscape-width',status:size.width>=minimumWidth?'target-met':'below-target',
-    note:`原图 ${size.width} × ${size.height} px；${portrait?'竖版':'横版'}宽度目标 ≥ ${minimumWidth} px${size.width<minimumWidth?'，当前未达到高清目标':''}。原图保留，可先选方向；不自动放大或重画，尺寸不代表业务审核通过。`};
+  const met=size.width>=minimumWidth;
+  return {...boundary,...size,minimumWidth,basis:portrait?'portrait-width':'landscape-width',status:met?'target-met':'below-target',
+    hdDelivery:{...boundary.hdDelivery,status:met?'pixel-threshold-met-needs-visual-check':'incomplete',reason:met?boundary.hdDelivery.reason:'Actual original width is below the HD delivery threshold.'},
+    note:`预览已保存：${size.width} × ${size.height} px。${portrait?'竖版':'横版'}高清宽度目标 ≥ ${minimumWidth} px；${met?'像素门槛已满足，高清视觉质量尚未核实':'高清交付未完成'}。可继续选图落地，业务与来源限制不变；内置工具不保证指定尺寸，不自动放大、重画或切换 API。`};
 }

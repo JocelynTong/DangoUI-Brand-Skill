@@ -6,6 +6,7 @@ import { manage } from './brand-artifacts.mjs';
 import { compileHostTheme } from './compile-host-theme.mjs';
 import { unverifiedPreviews } from './full-image-concepts.mjs';
 import { inspectNativeBinding } from './native-binding.mjs';
+import {imageResolution} from './image-resolution.mjs';
 
 const skillRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const runtimeTools = 'At stage start, confirm and record available local runtime-test tools, including already installed Playwright where available. Built-in browser failure does not automatically waive QA: use an available permitted local test tool, or report the actual blocker. Never bypass browser/network access policy, header restrictions or sandbox permissions.';
@@ -268,6 +269,8 @@ export function selectImageCode({root,brand,direction,selection,confirmed=false}
 }
 export function selectedCodeStatus(root) {
   const result=selectedCodeStatusBase(root),state=read(selectedCodeFile(root));
+  result.selectedImageResolution=imageResolution(state.image.path);
+  result.imageDeliveryBoundary='Selected concept resolution is reported independently of single-page acceptance. Preserve source pixels; implement real controls using the brand system. Inspect reused artwork at its actual display size. Low concept resolution alone does not block selection or implementation; a passed page never certifies an HD raster. No automatic generation, upscaling or API switch.';
   if(result.dispatchRequest&&state.framework==='taro') {
     const binding=inspectNativeBinding(state.hostRoot);
     if(binding.required&&!binding.ready) {
