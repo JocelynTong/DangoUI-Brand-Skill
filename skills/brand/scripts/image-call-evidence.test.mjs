@@ -5,6 +5,11 @@ import os from 'node:os';
 import path from 'node:path';
 import crypto from 'node:crypto';
 import {literalArguments,readImageCall,verifyImageCall,requireRuntimeEvidence,findCurrentThreadImageCall,pendingImageCalls,runtimeEntries,frozenImageCall,nativeImageOutputEvidence} from './image-call-evidence.mjs';
+
+test('inline native emission accepts literals without executing computed programs',()=>{
+  assert.deepEqual(literalArguments('generatedImage(await tools.image_gen__imagegen({prompt:"hello",referenced_image_paths:["/a.png"]}));'),{prompt:'hello',referenced_image_paths:['/a.png']});
+  for(const source of ['if(true) generatedImage(await tools.image_gen__imagegen({prompt:"x"}));','generatedImage(await tools.image_gen__imagegen(args));','generatedImage(await tools.image_gen__imagegen({prompt:"x"})); other();']) assert.throws(()=>literalArguments(source));
+});
 import {spawnSync} from 'node:child_process';
 
 test('native output evidence verifies bytes without claiming computed arguments',t=>{

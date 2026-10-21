@@ -4,6 +4,7 @@ import http from 'node:http'
 import path from 'node:path'
 import crypto from 'node:crypto'
 import {spawn} from 'node:child_process'
+import {imageResolution} from './image-resolution.mjs'
 import {fileURLToPath, pathToFileURL} from 'node:url'
 import { evaluateHostDelivery } from './parent-delivery-gate.mjs'
 import { imageConceptFile, imageConceptDelivery, imageConceptHistory } from './full-image-concepts.mjs'
@@ -92,6 +93,7 @@ if(process.argv[1]&&path.resolve(process.argv[1])===serverScript) server.listen(
 // delivery even when no preview server was started or QA subsequently fails.
 export function saveImageComparison(delivery,viewRoot) {
   if(!delivery.previewAvailable||!delivery.images?.length)return delivery;
+  delivery={...delivery,images:delivery.images.map(item=>({...item,resolution:imageResolution(item.path)}))};
   const file=path.join(viewRoot,'migrations',delivery.brand,'image-concepts','comparison.html');
   fs.writeFileSync(file,imageComparisonHarness(delivery,fs.realpathSync(viewRoot),0,true));
   return {...delivery,comparisonPreview:{...delivery.comparisonPreview,file,url:pathToFileURL(file).href},
@@ -136,7 +138,13 @@ export async function ensureImagePreview(delivery,viewRoot) {
     }
     return {...saved,comparisonPreview:{...saved.comparisonPreview,url:info.baseUrl+saved.comparisonPreview.path.replace(/^\//,''),transport:'http',serverPid:info.pid},previewService:{status:'ready'},presentationAction:'Open comparisonPreview.url now and give the user this clickable link. Show saved images despite pending/failed QA; do not claim review passed.'};
   }catch(error){
-    return {...saved,previewService:{status:'unavailable',reason:error.message},presentationAction:'HTTP preview did not start. Report previewService.reason; do not claim browser delivery succeeded. Preserve the local comparison and all images.'};
+    const permissionRequired=/\b(?:EPERM|EACCES)\b/.test(error.message);
+    const recoveryCommand=[process.execPath,fileURLToPath(new URL('./run-brand-workflow.mjs',import.meta.url)),'delivery','--artifact-root',realRoot,'--brand',saved.brand,'--compact'];
+    return {...saved,previewService:{status:'unavailable',reason:error.message,permissionRequired,
+      recovery:{command:recoveryCommand,sandbox_permissions:permissionRequired?'require_escalated':'use_default',
+        justification:'Allow the existing isolated image comparison to start a loopback preview server? No generation, QA or host changes.',
+        maxAttempts:1,scope:'preview-only'}},
+      presentationAction:'Open the saved comparisonPreview.url immediately as a local preview, explicitly not HTTP delivery. Then execute previewService.recovery.command once using its requested permission mechanism. If permission is denied or recovery fails, retain the local preview and report the reason; do not regenerate, rerun QA or repeatedly retry.'};
   }finally{if(owned)fs.unlinkSync(lock);}
 }
 
@@ -169,8 +177,10 @@ function imageComparisonHarness(delivery,viewRoot=root,historyIndex=0,fileMode=f
     if (!file.startsWith(viewRoot + path.sep)) throw new Error('Image outside isolated run')
     const src = fileMode?pathToFileURL(file).href:historyIndex?`/__brand_history_image__?brand=${encodeURIComponent(delivery.brand)}&history=${historyIndex}&direction=${image.id}`:'/' + path.relative(root, file).split(path.sep).map(encodeURIComponent).join('/')
     const finding=delivery.failedReview?.directions?.find(d=>d.id===id&&d.sha256===image.sha256);
-    const currentNote=image.argumentsStatus==='unverified'?'原图来源已核实；调用参数未核实，本图未纳入原审核。':finding?.hostTaskPreserved===false?'原审核：业务要求未通过（问题保留，未重跑审核）。':'图片已保存；展示不代表审核通过。';
-    return `<section><h2>方案 ${escapeHtml(image.id.toUpperCase())}</h2><p class="image-note">${currentNote}</p><a href="${escapeHtml(src)}" target="_blank" rel="noopener"><img src="${escapeHtml(src)}" alt="方案 ${escapeHtml(image.id.toUpperCase())} 完整效果图"></a>${finding?.notes?`<div class="image-note"><h3>已有业务复核记录</h3><p>${escapeHtml(finding.notes)}</p></div>`:''}</section>`
+    const existing=observations?.schema==='brand-image-observations/v1'?observations.directions?.find(d=>d.id===id&&d.sha256===image.sha256):null;
+    const currentNote=(image.argumentsStatus==='unverified'?'原图来源已核实；调用参数未核实，不代表审核通过。':finding?.hostTaskPreserved===false?'原审核：业务要求未通过（问题保留，未重跑审核）。':'图片已保存；展示不代表审核通过。')+' '+imageResolution(file).note;
+    const findingText=finding?.notes||(existing?.notes||[]).join('\n');
+    return `<section><h2>方案 ${escapeHtml(image.id.toUpperCase())}</h2><p class="image-note">${currentNote}</p><a href="${escapeHtml(src)}" target="_blank" rel="noopener"><img src="${escapeHtml(src)}" alt="方案 ${escapeHtml(image.id.toUpperCase())} 完整效果图"></a>${findingText?`<div class="image-note"><h3>已有复核问题（未重跑，非通过）</h3><p style="white-space:pre-line">${escapeHtml(findingText)}</p></div>`:''}</section>`
   }).join('')
   const notes = [delivery.reviewNotes,...observationNotes,...(delivery.generationFailures||[]).map(f=>`方向 ${f.direction.toUpperCase()} ${delivery.images.some(i=>i.id===f.direction)?'历史记录失败（原图已恢复展示，参数仍未核实）':'未完成'}：${f.code}。${f.reason}`),...(delivery.presentationRequirements||[]), ...(delivery.limitations||[])].filter(Boolean).map(text=>`<li>${escapeHtml(typeof text==='string'?text:JSON.stringify(text))}</li>`).join('')
   const status=delivery.previewStatus||'approved'

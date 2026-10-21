@@ -62,7 +62,8 @@ export function literalArguments(source) {
     prefix=prefix.slice(expected.length);
   }
   const assignment=prefix.match(/^\s*(?:const|let)\s+([A-Za-z_$][\w$]*)\s*=\s*await\s*$/);
-  if(!assignment) throw new Error('Only a direct awaited ImageGen call is auditable; no branches or comments.');
+  const inline=/^\s*generatedImage\(\s*await\s*$/.test(prefix);
+  if(!assignment&&!inline) throw new Error('Only a direct awaited ImageGen call is auditable; no branches or comments.');
   let i = hits[0].index + hits[0][0].length;
   const ws = () => { while (/\s/.test(source[i] || '') && i < source.length) i++; };
   function value() {
@@ -106,7 +107,7 @@ export function literalArguments(source) {
   }
   const result=value(); ws(); if(source[i]!==')') throw new Error('Unexpected call expression');
   const tail=source.slice(i+1).replace(/\s/g,'');
-  if(tail!==`;generatedImage(${assignment[1]});`) throw new Error('Expected direct generatedImage result emission only.');
+  if(tail!==(inline?');':`;generatedImage(${assignment[1]});`)) throw new Error('Expected direct generatedImage result emission only.');
   return result;
 }
 
