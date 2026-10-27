@@ -4,7 +4,7 @@
     "brand": "linjie",
     "displayName": "临界 · Web 试用包",
     "sourceUrl": "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516",
-    "version": "0.1.0-trial.1",
+    "version": "0.1.0-trial.2",
     "scope": {
       "kind": "source-scoped-style-trial",
       "completeBrandCertification": false,
@@ -735,7 +735,7 @@
         },
         {
           "path": "migrations/linjie-theme/usage.md",
-          "sha256": "7f800d07b94fd9000d71321d9fb037636af65685cb8dabe192253ba54bbe283c"
+          "sha256": "83976ecae9d347e4acb422d84bc897e04f21b65f178e21111f862fcb681f2193"
         }
       ],
       "unsupportedPlatforms": [
@@ -748,7 +748,7 @@
         "Component-instance Tokens-QD / Tokens-LJ bindings still require per-variant audit.",
         "Real DangoUI 3.6.16 components, with local CSS compatibility recipes; not a complete native Linjie implementation.",
         "No backend, host application integration, mini-program runtime or production approval.",
-        "Button Large(48) size family observed; individual state fidelity and FormItem error/read-only/select remain unverified."
+        "Primary Solid 48/36/28 child heights observed; see hash-bound guide. Primary typography/radius, disabled background child binding and host semantic matches remain unverified."
       ]
     }
   ],
@@ -841,12 +841,12 @@
       "Component-instance Tokens-QD / Tokens-LJ bindings still require per-variant audit.",
       "Real DangoUI 3.6.16 components, with local CSS compatibility recipes; not a complete native Linjie implementation.",
       "No backend, host application integration, mini-program runtime or production approval.",
-      "Button Large(48) size family observed; individual state fidelity and FormItem error/read-only/select remain unverified."
+      "Primary Solid 48/36/28 child heights observed; see hash-bound guide. Primary typography/radius, disabled background child binding and host semantic matches remain unverified."
     ]
   },
   "distribution": {
     "kind": "runtime-only-source-scoped-trial",
-    "originalCompleteManifestSha256": "60660db5f5a050cab16f7f2ec8e00db2850a7dd953eea2fce8b984a219061c02",
+    "originalCompleteManifestSha256": "2e45d258abaffbd94b885536aff42ecd4eebb0889a2e0cc33a15f5b64d95741f",
     "sourceUrl": "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516",
     "sourcePageIds": [
       "1350:2516"
@@ -919,6 +919,13 @@
     ],
     "completeBrandCertification": false,
     "miniProgramVerified": false,
-    "productionApproved": false
+    "productionApproved": false,
+    "incrementalGuideRevision": {
+      "version": "0.1.0-trial.2",
+      "status": "candidate-awaiting-independent-qa",
+      "scope": "Primary Solid height facts and host adaptation boundaries only",
+      "sourceEvidenceBundled": false,
+      "sourceVisualCertification": false
+    }
   }
 }

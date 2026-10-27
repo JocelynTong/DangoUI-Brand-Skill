@@ -8,7 +8,7 @@
 
 读取当前项目说明与构建配置；项目根有 frontend 时检查它。确定 Taro/原生/uni-app、Vue/React、sourceRoot、当前页、构建脚本、组件来源及原有调试器。读取项目已有 AGENTS/DESIGN/README，不执行配置来猜平台。当前机械隔离入口支持 Taro Vue3；其他平台如实说明未覆盖并按其已有工程方式适配，不能强行拷贝 Vue Web 组件。
 
-临界随 skill 更新提供：`<skill>/assets/style-packs/linjie/brand-mod.json`。它是候选局部视觉参考，含明暗颜色、按钮大尺寸观察及来源边界，未包含全部组件状态和来源截图。读取 manifest、componentVariants、tokens、kit.designGuide 和其声明文件，不将未附证据改写为 observed/approved。禁止从品牌名自行猜值、套用 Web DangoUI 默认尺寸、把未知状态涂成紫色。缺少精确规则的项目保持宿主可用样式并列为未覆盖。
+临界随 skill 更新提供：`<skill>/assets/style-packs/linjie/brand-mod.json`。它是候选局部视觉参考，含明暗颜色、Primary Solid 48/36/28 按钮子变体尺寸事实及来源边界，未包含全部组件状态和来源截图。读取 manifest、componentVariants、tokens、kit.designGuide 和其声明文件；尺寸、字体与状态只应用于 guide 明确匹配的变体，White/Trade 字体不推广为 Primary，Dialog 内 Large40 不替代通用按钮48，未匹配的 Tabs/卡片/底部 sheet 保留宿主值，不将未附证据改写为 observed/approved。禁止从品牌名自行猜值、套用 Web DangoUI 默认尺寸、把未知状态涂成紫色。缺少精确规则的项目保持宿主可用样式并列为未覆盖。
 
 ## 沿用公共入口与隔离试装
 
@@ -33,7 +33,7 @@ node <skill>/scripts/run-brand-workflow.mjs run \
 
 在隔离副本改已授权目标，可新增组件限定在 dispatch 允许目录。平台样式使用实际 class 与 page/页面根作用域，不复制 DOM 选择器、:root 或浏览器专属组件。先看设计宽度与单位换算，例如 375 设计宽度下源 48 设计像素不能写成 48rpx；真实编译/测量确认。不要更改业务语义来迎合规范示例。
 
-保持原目标不可变备份及受保护文件哈希。编译读宿主现有脚本；沿用已安装依赖时说明是依赖复用验证，不冒充新机安装。复用原调试工具打开隔离副本的实际小程序产物，不要求用户开 Web demo。必要的账号/后端沿用宿主正常环境，不复制密钥，不伪造业务数据通过。隔离产物如缺 appId，核对隔离产物 project.config.json 的 appid 与宿主既有真实应用标识一致（仅产物配置，不改冻结源码），再在原开发者工具绑定，仅本地调试；不使用虚构 appId、不上传发布、不改变权限，无法获得合法绑定时如实报告运行未验证。
+增量更新以宿主当前版本为新 baseline；已有 72/56rpx 中小按钮在 375 画布对应36/28设计px时保持，不为展示改动而重写。不得恢复上轮备份覆盖用户后续业务或样式修改。保持原目标不可变备份及受保护文件哈希。编译读宿主现有脚本；沿用已安装依赖时说明是依赖复用验证，不冒充新机安装。复用原调试工具打开隔离副本的实际小程序产物，不要求用户开 Web demo。必要的账号/后端沿用宿主正常环境，不复制密钥，不伪造业务数据通过。隔离产物如缺 appId，核对隔离产物 project.config.json 的 appid 与宿主既有真实应用标识一致（仅产物配置，不改冻结源码），再在原开发者工具绑定，仅本地调试；不使用虚构 appId、不上传发布、不改变权限，无法获得合法绑定时如实报告运行未验证。
 
 ## 验证、交付、回写
 
