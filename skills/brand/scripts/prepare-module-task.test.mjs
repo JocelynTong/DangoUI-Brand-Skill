@@ -133,3 +133,69 @@ test('hidden authentication trees are skipped while accepted brand sources remai
   assert.equal(fs.existsSync(path.join(f.opts.artifactRoot, 'host/src/.brand-components/old/Item.vue')), true);
   assert.equal(r.preparation.credentialsCopied, undefined); assert.match(r.preparation.credentialExclusionPolicy, /not a secret-content scan/);
 });
+
+function candidateFixture(t) {
+  const f = fixture(t);
+  delete f.opts.recipes;
+  f.opts.candidateKit = 'web-reference';
+  const files = {'runtime.mjs':'export const candidate = true;', 'runtime.css':'.candidate{}', 'usage.md':'Candidate reference only; no source or host approval.'};
+  for (const [name,bytes] of Object.entries(files)) f.write(f.brandRoot,name,bytes);
+  f.mod = {manifest:{brand:'example',scope:{kind:'source-scoped-style-trial',completeBrandCertification:false}},distribution:{evidenceStatus:'private-source-evidence-not-bundled-not-revalidated'},componentKits:[{id:'web-reference',status:'candidate-awaiting-independent-qa',runtime:'browser-dom',framework:'vue3',entry:'runtime.mjs',stylesheet:'runtime.css',designGuide:'usage.md',files:Object.entries(files).map(([name,bytes])=>({path:name,sha256:hash(bytes)})),limitations:['No mini-program approval.']}]};
+  fs.unlinkSync(path.join(f.brandRoot,'brand-evidence.json'));
+  f.write(f.brandRoot,'brand-mod.json',f.mod);
+  return f;
+}
+test('candidate kit creates reference-only adaptation without evidence screenshots or DangoUI host', t => {
+  const f=candidateFixture(t);const before=fs.readFileSync(path.join(f.hostRoot,f.opts.target));const result=f.run();
+  assert.equal(result.status,'awaiting-adaptation');
+  assert.equal(result.preparation.referenceOnly,true);
+  assert.equal(result.preparation.completeBrandCertification,false);
+  const task=JSON.parse(fs.readFileSync(path.join(f.opts.artifactRoot,'task.json')));
+  assert.equal(task.approval,'pending');assert.equal(task.brand.candidates[0].framework,'html');
+  assert.equal(fs.existsSync(path.join(f.opts.artifactRoot,'brand/runtime.mjs')),true);
+  assert.equal(fs.existsSync(path.join(f.opts.artifactRoot,'host/runtime.mjs')),false);
+  assert.deepEqual(fs.readFileSync(path.join(f.hostRoot,f.opts.target)),before);
+  const scoped=JSON.parse(fs.readFileSync(path.join(f.opts.artifactRoot,'brand/selected-recipes.json')));
+  assert.equal(scoped.source.evidencePath,null);assert.equal(scoped.sourceCertification,'candidate-unbundled-not-revalidated');
+  assert.match(scoped.restrictions.join(' '),/DangoUI adoption is not required/);
+});
+test('candidate kit rejects hash drift, unsafe paths, unknown identity and mixed recipes before output', t => {
+  for (const kind of ['hash','path','unknown','mixed','platform','authorization']) {
+    const f=candidateFixture(t);
+    if(kind==='hash')f.mod.componentKits[0].files[0].sha256='a'.repeat(64);
+    if(kind==='path')f.mod.componentKits[0].files[0].path='../runtime.mjs';
+    if(kind==='unknown')f.opts.candidateKit='missing';
+    if(kind==='mixed')f.opts.recipes='toggle';
+    if(kind==='platform')f.mod.componentKits[0].runtime='taro';
+    if(kind==='authorization')f.opts.authorization='';
+    f.write(f.brandRoot,'brand-mod.json',f.mod);
+    assert.throws(()=>f.run());assert.equal(fs.existsSync(f.opts.artifactRoot),false);
+  }
+});
+test('candidate recipe does not gain access to approved recipe branch', t => {
+  const f=fixture(t);f.mod.componentVariants[0].status='candidate-awaiting-independent-qa';f.write(f.brandRoot,'brand-mod.json',f.mod);
+  assert.throws(()=>f.run(),/MODULE_PREP_RECIPE_NOT_SUPPORTED/);assert.equal(fs.existsSync(f.opts.artifactRoot),false);
+});
+test('public module task accepts explicit candidate kit and still blocks mixed approved recipes', t => {
+  const f=candidateFixture(t);
+  const args=['skills/brand/scripts/run-brand-workflow.mjs','run','--request-kind','host-concepts','--mode','design-host','--mod-file',path.join(f.brandRoot,'brand-mod.json'),'--host-target',f.hostRoot,'--module-task',f.opts.task,'--module-id',f.opts.moduleId,'--module-target',f.opts.target,'--candidate-kit',f.opts.candidateKit,'--trial-authorization',f.opts.authorization,'--artifact-root',f.opts.artifactRoot];
+  const mixed=spawnSync(process.execPath,[...args,'--recipes','toggle'],{encoding:'utf8'});
+  assert.notEqual(mixed.status,0);assert.equal(fs.existsSync(f.opts.artifactRoot),false);
+  const result=spawnSync(process.execPath,args,{encoding:'utf8'});
+  assert.equal(result.status,0,result.stdout+result.stderr);
+  const output=JSON.parse(result.stdout);assert.equal(output.status,'awaiting-adaptation');assert.equal(output.preparation.candidateKitId,'web-reference');assert.equal(output.userGoalCompleted,false);
+});
+test('reference-only candidate ignores unrelated same-path host files and preserves them', t => {
+  const f=candidateFixture(t);f.write(f.hostRoot,'runtime.mjs','host-owned different bytes');
+  f.run();assert.equal(fs.readFileSync(path.join(f.hostRoot,'runtime.mjs'),'utf8'),'host-owned different bytes');
+});
+test('multiple kits require explicit selected token keys and exclude other kit tokens', t => {
+  const f=candidateFixture(t);f.mod.tokens={styleOnly:{own:{value:'#123'},other:{value:'#456'}}};
+  f.mod.componentKits.push({...f.mod.componentKits[0],id:'other-kit'});f.write(f.brandRoot,'brand-mod.json',f.mod);
+  assert.throws(()=>f.run(),/TOKEN_SCOPE_REQUIRED/);assert.equal(fs.existsSync(f.opts.artifactRoot),false);
+  f.mod.componentKits[0].styleTokenKeys=['missing'];f.write(f.brandRoot,'brand-mod.json',f.mod);
+  assert.throws(()=>f.run(),/TOKEN_SCOPE_REQUIRED/);assert.equal(fs.existsSync(f.opts.artifactRoot),false);
+  f.mod.componentKits[0].styleTokenKeys=['own'];f.write(f.brandRoot,'brand-mod.json',f.mod);f.run();
+  const selected=JSON.parse(fs.readFileSync(path.join(f.opts.artifactRoot,'brand/selected-recipes.json')));
+  assert.deepEqual(Object.keys(selected.styleOnly),['own']);assert.equal(selected.styleOnly.own.value,'#123');
+});

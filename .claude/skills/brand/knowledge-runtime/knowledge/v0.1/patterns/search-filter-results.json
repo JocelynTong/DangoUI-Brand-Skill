@@ -46,8 +46,7 @@
     "搜索条件与结果之间有可理解的因果关系",
     "加载、空结果和错误不能伪装成真实记录",
     "可返回修改条件",
-    "品牌表达不能掩盖主任务",
-    "没有精选、排行、推荐或选中证据时，重复结果保持同级尺寸、权重与比较关系"
+    "品牌表达不能掩盖主任务"
   ],
   "expressiveSlots": [
     {
@@ -63,19 +62,17 @@
     {
       "id": "results",
       "purpose": "让业务结果有品牌辨识度",
-      "boundary": "可设计容器节奏，不得以活动图片冒充动态结果或遮挡结果信息；不得为了视觉焦点把普通结果伪装成精选、排行或推荐。"
+      "boundary": "可设计容器节奏，不得以活动图片冒充动态结果或遮挡结果信息。"
     }
   ],
   "sourceScenario": "public/knowledge/v0.1/scenarios/search-filter-results.json",
   "supportingMethods": [
     "source-selection",
     "cross-page-token-promotion",
-    "knowledge-promotion",
-    "expressive-productive-allocation"
+    "knowledge-promotion"
   ],
   "negativeCases": [
-    "pokemon-database-orange-not-global-cta",
-    "duolingo-peer-results-hierarchy-correction"
+    "pokemon-database-orange-not-global-cta"
   ],
   "promotionGate": "先在至少一个真实宿主中证明任务、状态、品牌来源和 DangoUI 映射都成立，再经独立视觉 QA 与人工审美批准；当前未通过。",
   "readerPurpose": "任务适用范围与结构"

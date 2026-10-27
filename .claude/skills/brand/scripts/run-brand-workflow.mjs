@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { installWebTrial } from './install-web-trial.mjs';
 import { validateHostExpression } from './validate-host-expression.mjs';
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -9,7 +10,7 @@ import { componentTask } from './component-task.mjs';
 import { prepareModuleTask } from './prepare-module-task.mjs';
 import path from "node:path";
 import { fileURLToPath } from "node:url";
-import { resolvePublicStylePack } from "./resolve-public-style-pack.mjs";
+import { resolvePublicStylePack, brandFromDemoUrl } from "./resolve-public-style-pack.mjs";
 import { runCachedValidator } from "./validator-cache.mjs";
 import { buildRenderedCollectorArgs } from "./source-capture-policy.mjs";
 import { verifySkillIntegrity } from "./verify-brand-skill-integrity.mjs";
@@ -28,16 +29,21 @@ const resolveSkillScript = (script) => script.includes("skills/brand/scripts/")
   : script;
 
 const originalArgs = process.argv.slice(2);
+if(originalArgs[0]==='install-web-trial'){
+ const args=originalArgs.slice(1),allowed=['--mod-file','--destination-root','--brand'];
+ try{if(args.length!==6||args.some((v,i)=>i%2===0&&!allowed.includes(v)))throw Error('WEB_TRIAL_ARGUMENTS_INVALID');const get=k=>args[args.indexOf(k)+1];if(allowed.some(k=>!args.includes(k)))throw Error('WEB_TRIAL_ARGUMENTS_MISSING');console.log(JSON.stringify(installWebTrial({modFile:path.resolve(get('--mod-file')),destinationRoot:path.resolve(get('--destination-root')),brand:get('--brand')}),null,2));}catch(error){console.log(JSON.stringify({ok:false,blockingCode:error.message,userGoalCompleted:false}));process.exitCode=1;}
+ process.exit(process.exitCode||0);
+}
 const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];
 
 if (rawArgs.includes('--module-task')) {
   if (command !== 'run' || opt(rawArgs, '--request-kind', '') !== 'host-concepts' || opt(rawArgs, '--mode', '') !== 'design-host') block('MODULE_PREP_ROUTE_INVALID', 'Use host-concepts design-host run.');
-  const allowed = new Set(['--module-task', '--module-id', '--module-target', '--brand-root', '--mod-file', '--host-target', '--artifact-root', '--trial-authorization', '--recipes', '--build-target', '--request-kind', '--mode']);
+  const allowed = new Set(['--module-task', '--module-id', '--module-target', '--brand-root', '--mod-file', '--host-target', '--artifact-root', '--trial-authorization', '--recipes', '--candidate-kit', '--host-support-files', '--build-target', '--request-kind', '--mode']);
   if (rawArgs.slice(1).some(arg => arg.startsWith('--') && !allowed.has(arg))) block('MODULE_PREP_MIXED_SCOPE', 'Module trial cannot mix whole-page or approved component inputs.');
   try {
-    const result = prepareModuleTask({ task: opt(rawArgs, '--module-task', ''), moduleId: opt(rawArgs, '--module-id', ''), target: opt(rawArgs, '--module-target', ''), brandRoot: opt(rawArgs, '--brand-root', ''), modFile: opt(rawArgs, '--mod-file', ''), hostRoot: opt(rawArgs, '--host-target', ''), artifactRoot: opt(rawArgs, '--artifact-root', ''), authorization: opt(rawArgs, '--trial-authorization', ''), recipes: opt(rawArgs, '--recipes', ''), buildTarget: opt(rawArgs, '--build-target', 'weapp') });
+    const result = prepareModuleTask({ task: opt(rawArgs, '--module-task', ''), moduleId: opt(rawArgs, '--module-id', ''), target: opt(rawArgs, '--module-target', ''), brandRoot: opt(rawArgs, '--brand-root', ''), modFile: opt(rawArgs, '--mod-file', ''), hostRoot: opt(rawArgs, '--host-target', ''), artifactRoot: opt(rawArgs, '--artifact-root', ''), authorization: opt(rawArgs, '--trial-authorization', ''), recipes: opt(rawArgs, '--recipes', ''), candidateKit: opt(rawArgs, '--candidate-kit', ''), buildTarget: opt(rawArgs, '--build-target', 'weapp'), supportFiles: opt(rawArgs, '--host-support-files', '') });
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`); process.exit(0);
   } catch (error) { block('MODULE_PREP_BLOCKED', error.message); }
 }
@@ -218,7 +224,10 @@ const profile = opt(rawArgs, "--profile", ["design-host", "apply-host"].includes
 const forceRelearn = rawArgs.includes("--force-relearn");
 const updateExisting = rawArgs.includes("--update-existing");
 const allowNewBrandId = rawArgs.includes("--allow-new-brand-id");
-const reuseStylePack = rawArgs.includes("--reuse-style-pack");
+// A trusted library link selects a package, never the showcase as a source website.
+const selectedLibraryBrand = brandFromDemoUrl(opt(rawArgs, "--source-url", ""), opt(rawArgs, "--registry-base", undefined));
+if (selectedLibraryBrand && (forceRelearn || updateExisting || rawArgs.includes('--source-prerequisite'))) block('LIBRARY_LINK_NOT_LEARNING_SOURCE', 'Use the original brand website for learning or maintenance, not a brand library page.');
+const reuseStylePack = rawArgs.includes("--reuse-style-pack") || Boolean(selectedLibraryBrand && ["design-host", "apply-host"].includes(mode));
 if (forceRelearn && mode !== "learn-brand") {
   fail("--force-relearn is only valid for learn-brand maintenance runs.");
 }
@@ -232,6 +241,7 @@ const artifactRoot = opt(rawArgs, "--artifact-root", "");
 const root = path.resolve(artifactRoot || opt(rawArgs, "--root", process.cwd()));
 const artifactIsolation = validateArtifactIsolation({ command, requestKind, root, artifactRoot, args: rawArgs.slice(1) });
 let brand = resolveBrand(rawArgs.slice(1));
+if (selectedLibraryBrand && reuseStylePack && opt(rawArgs, '--brand', '') && brand !== selectedLibraryBrand) block('STYLE_PACK_SELECTION_CONFLICT', 'The selected library page and --brand name different packages.');
 let registryResolution = null;
 const requestedSourceUrl = opt(rawArgs, "--source-url", "");
 const needsReusablePack = requestedSourceUrl && !opt(rawArgs, "--style-pack", "") && !opt(rawArgs, "--mod-file", "");
@@ -287,6 +297,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
     process.exit(1);
   }
 
+  if (selectedLibraryBrand && !registryResolution.matched) block('SELECTED_STYLE_PACK_NOT_FOUND', 'The selected library package is unavailable; do not learn the library UI as a brand website.');
   if (registryResolution.matched) {
     if (forceRelearn && brand !== registryResolution.brand && !allowNewBrandId) {
       fail(`EXISTING_BRAND_ID_REQUIRED: ${registryResolution.brand} already owns this source. Revalidate it as an internal revision; creating ${brand} requires explicit --allow-new-brand-id authorization.`);
@@ -327,7 +338,7 @@ if (needsReusablePack && ["run", "plan", "detect"].includes(command)) {
       rawArgs = withoutOption(rawArgs, "--source-url");
       rawArgs = withoutOption(rawArgs, "--registry-base");
       if (!opt(rawArgs, "--brand", "")) rawArgs.push("--brand", brand);
-      rawArgs.push("--mod-file", registryResolution.modFile);
+      rawArgs.push("--mod-file", path.resolve(root, registryResolution.modFile));
     }
   }
 }

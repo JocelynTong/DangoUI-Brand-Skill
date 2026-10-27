@@ -40,10 +40,10 @@ const command = rawArgs[0];
 
 if (rawArgs.includes('--module-task')) {
   if (command !== 'run' || opt(rawArgs, '--request-kind', '') !== 'host-concepts' || opt(rawArgs, '--mode', '') !== 'design-host') block('MODULE_PREP_ROUTE_INVALID', 'Use host-concepts design-host run.');
-  const allowed = new Set(['--module-task', '--module-id', '--module-target', '--brand-root', '--mod-file', '--host-target', '--artifact-root', '--trial-authorization', '--recipes', '--build-target', '--request-kind', '--mode']);
+  const allowed = new Set(['--module-task', '--module-id', '--module-target', '--brand-root', '--mod-file', '--host-target', '--artifact-root', '--trial-authorization', '--recipes', '--candidate-kit', '--host-support-files', '--build-target', '--request-kind', '--mode']);
   if (rawArgs.slice(1).some(arg => arg.startsWith('--') && !allowed.has(arg))) block('MODULE_PREP_MIXED_SCOPE', 'Module trial cannot mix whole-page or approved component inputs.');
   try {
-    const result = prepareModuleTask({ task: opt(rawArgs, '--module-task', ''), moduleId: opt(rawArgs, '--module-id', ''), target: opt(rawArgs, '--module-target', ''), brandRoot: opt(rawArgs, '--brand-root', ''), modFile: opt(rawArgs, '--mod-file', ''), hostRoot: opt(rawArgs, '--host-target', ''), artifactRoot: opt(rawArgs, '--artifact-root', ''), authorization: opt(rawArgs, '--trial-authorization', ''), recipes: opt(rawArgs, '--recipes', ''), buildTarget: opt(rawArgs, '--build-target', 'weapp') });
+    const result = prepareModuleTask({ task: opt(rawArgs, '--module-task', ''), moduleId: opt(rawArgs, '--module-id', ''), target: opt(rawArgs, '--module-target', ''), brandRoot: opt(rawArgs, '--brand-root', ''), modFile: opt(rawArgs, '--mod-file', ''), hostRoot: opt(rawArgs, '--host-target', ''), artifactRoot: opt(rawArgs, '--artifact-root', ''), authorization: opt(rawArgs, '--trial-authorization', ''), recipes: opt(rawArgs, '--recipes', ''), candidateKit: opt(rawArgs, '--candidate-kit', ''), buildTarget: opt(rawArgs, '--build-target', 'weapp'), supportFiles: opt(rawArgs, '--host-support-files', '') });
     process.stdout.write(`${JSON.stringify(result, null, 2)}\n`); process.exit(0);
   } catch (error) { block('MODULE_PREP_BLOCKED', error.message); }
 }

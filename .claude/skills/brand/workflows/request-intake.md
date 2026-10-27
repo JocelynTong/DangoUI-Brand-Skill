@@ -1,5 +1,9 @@
 # 对话意图与首轮预览协议
 
+## 已有小程序的明确换肤请求
+
+用户明确要求“当前小程序换成临界风格”，且选择使用现有临界包时，优先按 [已有小程序换肤](../references/existing-miniapp-reskin.md) 执行：从随 skill 的候选包逐页选择与适配，复用 `--module-task --candidate-kit` 隔离入口，接着实际修改、编译、调试和独立复核。此类明确实施试用不要求先做 ABC 或 Web demo，不要求重新学习整套品牌；candidate 状态仍保留，未覆盖组件与未测业务必须列出。不能把准备 dispatch、单页结果或部分组件通过提升成整个小程序换肤完成。以下整页方案默认只适用于用户尚在探索/选择设计方向的请求。
+
 ## 冻结当前轮意图
 
 只使用当前会话、当前轮用户明确给出的目标与品牌参考。历史会话、旧 migration、示例、Variant 库和仓库中碰巧存在的品牌目录不能补全本轮输入。
@@ -17,6 +21,8 @@
 官网已提供但尚无品牌包，不属于缺用户输入。`design-host run` 返回 `prerequisite-dispatch-ready` 与 `source-prerequisite.json`；编排者自动执行其中同一公共入口的 learning.args，完成现有学习角色与独立 QA 后，用其有效 MOD 恢复原 host-concepts。父目标、宿主、隔离目录不变；这不是改成只交品牌 Demo，也不能把 dispatch 当学习成功。`--source-prerequisite` 仅让该学习阶段继续独立学习当前来源，不静默采用 Registry 候选。失败保留接力记录与具体缺口，不要求用户找内部文件，不自动无限重试。缺口涉及真实用户选择时才询问。
 
 官网命中 Registry 时默认只返回候选，不安装也不进入生图。只有用户明确同意复用并传 `--reuse-style-pack`，或者当前轮直接提供本地 `--style-pack` / `--mod-file`，才消费已有包；否则先独立执行 `brand-learning → learn-brand`。Registry 包中的学习证据留在隔离工作区，只有 Brand MOD 声明且 hash 完整的 runtime assets 能作为设计输入，不能整包写入宿主。
+
+品牌库链接识别兼容 `#/variants/<id>/...` 和 `#/brand/<id>/...`，仅接受配置的品牌库域名与站点路径。将其解析为品牌包选择，不把展示站当来源官网重新学习；包缺失或不可用时报告故障，不以抓取展示站替代。
 
 ## 隔离首轮试验
 
