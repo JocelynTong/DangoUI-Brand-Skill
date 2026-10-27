@@ -1,0 +1,924 @@
+{
+  "schema": "brand-mod.v0.1",
+  "manifest": {
+    "brand": "linjie",
+    "displayName": "临界 · Web 试用包",
+    "sourceUrl": "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516",
+    "version": "0.1.0-trial.1",
+    "scope": {
+      "kind": "source-scoped-style-trial",
+      "completeBrandCertification": false,
+      "globalTokenPromotion": false,
+      "sourcePageIds": [
+        "1350:2516"
+      ],
+      "for": [
+        "LinjieCoreTrial Web designer trial"
+      ],
+      "notFor": [
+        "game-only content mod",
+        "production certification",
+        "mini-program or native runtime"
+      ]
+    },
+    "producer": {
+      "skill": "/brand",
+      "decoupledFrom": [
+        "/qdmp"
+      ]
+    }
+  },
+  "tokens": {
+    "mapped": {},
+    "styleOnly": {
+      "--style-linjie-primary": {
+        "value": "#7247DC",
+        "modes": {
+          "light": "#7247DC",
+          "dark": "#9B7DE9"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-1",
+          "urn:linjie:unbundled-evidence:unbundled-source-2"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-on-primary": {
+        "value": "#FFFFFF",
+        "modes": {
+          "light": "#FFFFFF",
+          "dark": "#FFFFFF"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-1",
+          "urn:linjie:unbundled-evidence:unbundled-source-2"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-primary-disabled-bg": {
+        "value": "rgb(114 71 220 / 24%)",
+        "modes": {
+          "light": "rgb(114 71 220 / 24%)",
+          "dark": "rgb(155 125 233 / 24%)"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-1",
+          "urn:linjie:unbundled-evidence:unbundled-source-2"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-primary-disabled-color": {
+        "value": "#FFFFFF",
+        "modes": {
+          "light": "#FFFFFF",
+          "dark": "rgb(255 255 255 / 40%)"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-1",
+          "urn:linjie:unbundled-evidence:unbundled-source-2"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-surface": {
+        "value": "#FFFFFF",
+        "modes": {
+          "light": "#FFFFFF",
+          "dark": "#0A0A0A"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-3",
+          "urn:linjie:unbundled-evidence:unbundled-source-4"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-surface-2": {
+        "value": "#FFFFFF",
+        "modes": {
+          "light": "#FFFFFF",
+          "dark": "#141414"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-3",
+          "urn:linjie:unbundled-evidence:unbundled-source-4"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-text": {
+        "value": "#000000",
+        "modes": {
+          "light": "#000000",
+          "dark": "#FFFFFF"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-5",
+          "urn:linjie:unbundled-evidence:unbundled-source-6"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-text-2": {
+        "value": "rgb(0 0 0 / 64%)",
+        "modes": {
+          "light": "rgb(0 0 0 / 64%)",
+          "dark": "rgb(255 255 255 / 88%)"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-5",
+          "urn:linjie:unbundled-evidence:unbundled-source-6"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-muted": {
+        "value": "rgb(0 0 0 / 40%)",
+        "modes": {
+          "light": "rgb(0 0 0 / 40%)",
+          "dark": "rgb(255 255 255 / 64%)"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-5",
+          "urn:linjie:unbundled-evidence:unbundled-source-6"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-disabled-text": {
+        "value": "rgb(0 0 0 / 24%)",
+        "modes": {
+          "light": "rgb(0 0 0 / 24%)",
+          "dark": "rgb(255 255 255 / 24%)"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-5",
+          "urn:linjie:unbundled-evidence:unbundled-source-6"
+        ],
+        "usage": "Scoped trial recipe only"
+      },
+      "--style-linjie-line": {
+        "value": "rgb(0 0 0 / 8%)",
+        "modes": {
+          "light": "rgb(0 0 0 / 8%)",
+          "dark": "rgb(255 255 255 / 16%)"
+        },
+        "status": "style-only",
+        "evidence": [
+          "urn:linjie:unbundled-evidence:unbundled-source-7",
+          "urn:linjie:unbundled-evidence:unbundled-source-8"
+        ],
+        "usage": "Scoped trial recipe only"
+      }
+    },
+    "dtcg": {
+      "$description": "Linjie local Web trial. Source rows are observed; runtime equivalence is pending.",
+      "light": {
+        "primary": {
+          "$type": "color",
+          "$value": "#7247DC",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-primary",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.primary"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidBg",
+            "echo.brand.mode": "light"
+          }
+        },
+        "on-primary": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-on-primary",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.on-primary"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidColor",
+            "echo.brand.mode": "light"
+          }
+        },
+        "primary-disabled-bg": {
+          "$type": "color",
+          "$value": "rgb(114 71 220 / 24%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-primary-disabled-bg",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.primary-disabled-bg"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidDisabledtempBg",
+            "echo.brand.mode": "light"
+          }
+        },
+        "primary-disabled-color": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-primary-disabled-color",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.primary-disabled-color"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidDisabledtempColor",
+            "echo.brand.mode": "light"
+          }
+        },
+        "surface": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-surface",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.surface"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-3",
+              "urn:linjie:unbundled-evidence:unbundled-source-4"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/bg/1",
+            "echo.brand.mode": "light"
+          }
+        },
+        "surface-2": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-surface-2",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.surface-2"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-3",
+              "urn:linjie:unbundled-evidence:unbundled-source-4"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/bg/2",
+            "echo.brand.mode": "light"
+          }
+        },
+        "text": {
+          "$type": "color",
+          "$value": "#000000",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-text",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.text"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/1",
+            "echo.brand.mode": "light"
+          }
+        },
+        "text-2": {
+          "$type": "color",
+          "$value": "rgb(0 0 0 / 64%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-text-2",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.text-2"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/2",
+            "echo.brand.mode": "light"
+          }
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "rgb(0 0 0 / 40%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-muted",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.muted"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/3",
+            "echo.brand.mode": "light"
+          }
+        },
+        "disabled-text": {
+          "$type": "color",
+          "$value": "rgb(0 0 0 / 24%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-disabled-text",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.disabled-text"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/disabled",
+            "echo.brand.mode": "light"
+          }
+        },
+        "line": {
+          "$type": "color",
+          "$value": "rgb(0 0 0 / 8%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-line",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.line"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-7",
+              "urn:linjie:unbundled-evidence:unbundled-source-8"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/border/2",
+            "echo.brand.mode": "light"
+          }
+        }
+      },
+      "dark": {
+        "primary": {
+          "$type": "color",
+          "$value": "#9B7DE9",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-primary",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.primary"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidBg",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "on-primary": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-on-primary",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.on-primary"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidColor",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "primary-disabled-bg": {
+          "$type": "color",
+          "$value": "rgb(155 125 233 / 24%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-primary-disabled-bg",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.primary-disabled-bg"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidDisabledtempBg",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "primary-disabled-color": {
+          "$type": "color",
+          "$value": "rgb(255 255 255 / 40%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-primary-disabled-color",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.primary-disabled-color"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-1",
+              "urn:linjie:unbundled-evidence:unbundled-source-2"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/component/button/primary/solidDisabledtempColor",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "surface": {
+          "$type": "color",
+          "$value": "#0A0A0A",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-surface",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.surface"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-3",
+              "urn:linjie:unbundled-evidence:unbundled-source-4"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/bg/1",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "surface-2": {
+          "$type": "color",
+          "$value": "#141414",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-surface-2",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.surface-2"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-3",
+              "urn:linjie:unbundled-evidence:unbundled-source-4"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/bg/2",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "text": {
+          "$type": "color",
+          "$value": "#FFFFFF",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-text",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.text"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/1",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "text-2": {
+          "$type": "color",
+          "$value": "rgb(255 255 255 / 88%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-text-2",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.text-2"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/2",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "muted": {
+          "$type": "color",
+          "$value": "rgb(255 255 255 / 64%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-muted",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.muted"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/3",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "disabled-text": {
+          "$type": "color",
+          "$value": "rgb(255 255 255 / 24%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-disabled-text",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.disabled-text"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-5",
+              "urn:linjie:unbundled-evidence:unbundled-source-6"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/text/disabled",
+            "echo.brand.mode": "dark"
+          }
+        },
+        "line": {
+          "$type": "color",
+          "$value": "rgb(255 255 255 / 16%)",
+          "$extensions": {
+            "echo.brand.target": "--style-linjie-line",
+            "echo.brand.channel": "styleOnly",
+            "echo.brand.scope": ".linjie-trial-theme",
+            "echo.brand.allowedRoles": [
+              "trial.component.line"
+            ],
+            "echo.brand.evidenceRefs": [
+              "urn:linjie:unbundled-evidence:unbundled-source-7",
+              "urn:linjie:unbundled-evidence:unbundled-source-8"
+            ],
+            "echo.brand.recipeId": "linjie-core-button",
+            "echo.brand.sourceVariable": "Tokens-LJ/border/2",
+            "echo.brand.mode": "dark"
+          }
+        }
+      }
+    }
+  },
+  "semanticRoles": {
+    "surface.page": {
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No global host mapping certified. Local source variable recipe only."
+    },
+    "surface.card": {
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No global host mapping certified. Local source variable recipe only."
+    },
+    "text.primary": {
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No global host mapping certified. Local source variable recipe only."
+    },
+    "border.subtle": {
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No global host mapping certified. Local source variable recipe only."
+    },
+    "action.primary.fill": {
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No global host mapping certified. Local source variable recipe only."
+    }
+  },
+  "componentVariants": [
+    {
+      "id": "linjie-core-button",
+      "targetComponent": "DuButton",
+      "status": "candidate-awaiting-independent-qa",
+      "sourceNode": "139837:430870",
+      "evidenceRefs": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516#139837:430870"
+      ],
+      "runtimeEntry": "migrations/linjie-theme/runtime/linjie-components.mjs",
+      "scope": ".linjie-trial-theme",
+      "boundary": "Local Web recipe; full source state/API equivalence unproven."
+    },
+    {
+      "id": "linjie-core-navigation",
+      "targetComponent": "DuNavigationBar",
+      "status": "candidate-awaiting-independent-qa",
+      "sourceNode": "139238:2486663",
+      "evidenceRefs": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516#139238:2486663"
+      ],
+      "runtimeEntry": "migrations/linjie-theme/runtime/linjie-components.mjs",
+      "scope": ".linjie-trial-theme",
+      "boundary": "Local Web recipe; full source state/API equivalence unproven."
+    },
+    {
+      "id": "linjie-core-form",
+      "targetComponent": "DuForm + DuFormItem + DuInput",
+      "status": "candidate-awaiting-independent-qa",
+      "sourceNode": "140310:598764",
+      "evidenceRefs": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516#140310:598764"
+      ],
+      "runtimeEntry": "migrations/linjie-theme/runtime/linjie-components.mjs",
+      "scope": ".linjie-trial-theme",
+      "boundary": "Local Web recipe; full source state/API equivalence unproven."
+    }
+  ],
+  "componentKits": [
+    {
+      "id": "linjie-core-web-trial",
+      "status": "candidate-awaiting-independent-qa",
+      "framework": "vue3",
+      "runtime": "browser-dom",
+      "entry": "migrations/linjie-theme/runtime/linjie-components.mjs",
+      "stylesheet": "migrations/linjie-theme/runtime/linjie-theme.css",
+      "designGuide": "migrations/linjie-theme/usage.md",
+      "peerDependencies": {
+        "vue": "^3.5.35",
+        "dangoui": "3.6.16"
+      },
+      "scope": ".linjie-trial-theme",
+      "files": [
+        {
+          "path": "migrations/linjie-theme/runtime/linjie-components.mjs",
+          "sha256": "70d9185f9f285b46e32130e5d8b81083f39deffe301f7a00677181e4b4bc0e35"
+        },
+        {
+          "path": "migrations/linjie-theme/runtime/linjie-theme.css",
+          "sha256": "1eba148951c8818d3f29bd509773255169d6f317d47595c66cbfc55667f4ad80"
+        },
+        {
+          "path": "migrations/linjie-theme/runtime/linjie-tokens.css",
+          "sha256": "65f322c78e01cde202b433689ee3a2e10fc0ec09b043d67bfb79138b8a3de5b2"
+        },
+        {
+          "path": "migrations/linjie-theme/usage.md",
+          "sha256": "7f800d07b94fd9000d71321d9fb037636af65685cb8dabe192253ba54bbe283c"
+        }
+      ],
+      "unsupportedPlatforms": [
+        "mini-program",
+        "native-app"
+      ],
+      "limitations": [
+        "Figma Desktop local cached observation on 2026-10-26; cloud freshness unconfirmed.",
+        "Only 11 curated variable rows in two modes; 531 is collection size, not extracted count.",
+        "Component-instance Tokens-QD / Tokens-LJ bindings still require per-variant audit.",
+        "Real DangoUI 3.6.16 components, with local CSS compatibility recipes; not a complete native Linjie implementation.",
+        "No backend, host application integration, mini-program runtime or production approval.",
+        "Button Large(48) size family observed; individual state fidelity and FormItem error/read-only/select remain unverified."
+      ]
+    }
+  ],
+  "slots": [
+    {
+      "id": "linjie-core-button-slot",
+      "recipeId": "linjie-core-button",
+      "scope": ".linjie-trial-theme"
+    },
+    {
+      "id": "linjie-core-navigation-slot",
+      "recipeId": "linjie-core-navigation",
+      "scope": ".linjie-trial-theme"
+    },
+    {
+      "id": "linjie-core-form-slot",
+      "recipeId": "linjie-core-form",
+      "scope": ".linjie-trial-theme"
+    }
+  ],
+  "assets": [
+    {
+      "id": "no-hero-background",
+      "role": "hero-background",
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No branded imagery required or licensed into this component trial; no runtime asset."
+    },
+    {
+      "id": "no-section-background",
+      "role": "section-background",
+      "kind": "unresolvedEvidenceRole",
+      "target": null,
+      "value": null,
+      "status": "rejected",
+      "evidenceRefs": [
+        "urn:linjie:unbundled-evidence:unbundled-source-9"
+      ],
+      "sources": [
+        "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516"
+      ],
+      "reason": "No branded imagery required or licensed into this component trial; no runtime asset."
+    }
+  ],
+  "layoutRules": {
+    "sectionBackgroundChain": {
+      "layers": [
+        {
+          "id": "no-background",
+          "assetId": "no-section-background",
+          "render": false
+        }
+      ]
+    },
+    "overlay": {
+      "inspectorTag": {
+        "mustNotAffectLayout": true
+      }
+    },
+    "bottomBarReserve": {
+      "required": true,
+      "when": "host chooses fixed bottom controls; trial itself uses document flow"
+    }
+  },
+  "platformOverrides": {
+    "web": {
+      "status": "trial"
+    },
+    "miniProgram": {
+      "status": "unsupported"
+    },
+    "native": {
+      "status": "unsupported"
+    }
+  },
+  "verification": {
+    "status": "candidate-awaiting-independent-qa",
+    "complete": false,
+    "limitations": [
+      "Figma Desktop local cached observation on 2026-10-26; cloud freshness unconfirmed.",
+      "Only 11 curated variable rows in two modes; 531 is collection size, not extracted count.",
+      "Component-instance Tokens-QD / Tokens-LJ bindings still require per-variant audit.",
+      "Real DangoUI 3.6.16 components, with local CSS compatibility recipes; not a complete native Linjie implementation.",
+      "No backend, host application integration, mini-program runtime or production approval.",
+      "Button Large(48) size family observed; individual state fidelity and FormItem error/read-only/select remain unverified."
+    ]
+  },
+  "distribution": {
+    "kind": "runtime-only-source-scoped-trial",
+    "originalCompleteManifestSha256": "60660db5f5a050cab16f7f2ec8e00db2850a7dd953eea2fce8b984a219061c02",
+    "sourceUrl": "https://www.figma.com/design/rWa4hTLYc3DU3vRogRcvcF/?node-id=1350-2516",
+    "sourcePageIds": [
+      "1350:2516"
+    ],
+    "evidenceStatus": "private-source-evidence-not-bundled-not-revalidated",
+    "unbundledEvidence": [
+      {
+        "id": "unbundled-source-1",
+        "status": "unbundled-private-evidence",
+        "sha256": "b3e8845d9c46b8fedbb65aab35cb648ffa8a7d554c75db02865edcc50022cff3",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-2",
+        "status": "unbundled-private-evidence",
+        "sha256": "434b648e66d0e84bf9c9f26002929a66f2b6994ab547afb8424da67f1848b94f",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-3",
+        "status": "unbundled-private-evidence",
+        "sha256": "4aafda872d3aca502e1272d1d362decccc8ca948a884d79f866591495e147d92",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-4",
+        "status": "unbundled-private-evidence",
+        "sha256": "9537eed7db0386f062af7c29ad5d0221f3683d481d262a6f124cb36981c6e790",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-5",
+        "status": "unbundled-private-evidence",
+        "sha256": "f41ec926fd4c4ae0450de13b0e0429bbdb292a8be512330a55ddf7843f86161c",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-6",
+        "status": "unbundled-private-evidence",
+        "sha256": "5bdb3cdf30bff3b69b612854b64d16636db18ac264793b2eef3313c54ff8fe51",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-7",
+        "status": "unbundled-private-evidence",
+        "sha256": "11d1f90836a47f4261fc41350db094d394d289b20cdc3b48ff29015b3cf5f253",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-8",
+        "status": "unbundled-private-evidence",
+        "sha256": "93cdc2e378204cdc58c42a53b21eb72b969ad5fdaf75fd18c2980ef9017c306b",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      },
+      {
+        "id": "unbundled-source-9",
+        "status": "unbundled-private-evidence",
+        "sha256": "881f5fc44a9e628eefcb102f6f604ac7b0e347219e699c0b25da2826c1b7081e",
+        "availableInDistribution": false,
+        "independentlyVerifiedByDistribution": false
+      }
+    ],
+    "completeBrandCertification": false,
+    "miniProgramVerified": false,
+    "productionApproved": false
+  }
+}

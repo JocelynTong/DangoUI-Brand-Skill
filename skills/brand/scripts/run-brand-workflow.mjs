@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import { installWebTrial } from './install-web-trial.mjs';
 import { validateHostExpression } from './validate-host-expression.mjs';
 import { spawnSync } from "node:child_process";
 import fs from "node:fs";
@@ -28,6 +29,11 @@ const resolveSkillScript = (script) => script.includes("skills/brand/scripts/")
   : script;
 
 const originalArgs = process.argv.slice(2);
+if(originalArgs[0]==='install-web-trial'){
+ const args=originalArgs.slice(1),allowed=['--mod-file','--destination-root','--brand'];
+ try{if(args.length!==6||args.some((v,i)=>i%2===0&&!allowed.includes(v)))throw Error('WEB_TRIAL_ARGUMENTS_INVALID');const get=k=>args[args.indexOf(k)+1];if(allowed.some(k=>!args.includes(k)))throw Error('WEB_TRIAL_ARGUMENTS_MISSING');console.log(JSON.stringify(installWebTrial({modFile:path.resolve(get('--mod-file')),destinationRoot:path.resolve(get('--destination-root')),brand:get('--brand')}),null,2));}catch(error){console.log(JSON.stringify({ok:false,blockingCode:error.message,userGoalCompleted:false}));process.exitCode=1;}
+ process.exit(process.exitCode||0);
+}
 const normalized = normalizeEntryCommand(originalArgs);
 let rawArgs = normalized.args;
 const command = rawArgs[0];

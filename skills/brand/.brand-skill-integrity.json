@@ -819,7 +819,7 @@
     },
     {
       "path": "scripts/evidence-file-references.mjs",
-      "sha256": "dfbe55a03b9dcb17023799a4a83c25bb8181ee8885f9b56a84043caf620b2c52"
+      "sha256": "8f835708c01c0c73ca6394924534cf1bbc5e59a85aebdb5068701ee1ad7342b2"
     },
     {
       "path": "scripts/evidence-visibility-gate.test.mjs",
@@ -907,11 +907,23 @@
     },
     {
       "path": "scripts/install-component-kit.mjs",
-      "sha256": "fd1ee4ca3ad104e8f7cd9525c7360bf186f49e8967e12fa4d8327c38f950f12b"
+      "sha256": "9b57bed7865f9b40d72120b809680fb514ecdc7ac7c92145fcb3a1e98520db11"
     },
     {
       "path": "scripts/install-component-kit.test.mjs",
       "sha256": "6244834fae8a5a2209bc0fa05b4f0656bf9ed4dedf9e2fdab99bebc12c27f589"
+    },
+    {
+      "path": "scripts/install-local-style-pack.mjs",
+      "sha256": "31305e243d202c357b676f19d6686dd5d6f328750f68479deffdacb43a054be7"
+    },
+    {
+      "path": "scripts/install-web-trial.mjs",
+      "sha256": "f65ad01e8d284d6d4e7cfeca76841a5bf299e353a5dd926083b8ba9236649ed5"
+    },
+    {
+      "path": "scripts/install-web-trial.test.mjs",
+      "sha256": "b5126291a7efe5f36db0232d6303cd91f7ad83890a9c866aef1da04924c7af32"
     },
     {
       "path": "scripts/interaction-evidence-policy.mjs",
@@ -1123,7 +1135,7 @@
     },
     {
       "path": "scripts/resolve-public-style-pack.mjs",
-      "sha256": "ce903339a6031bdfe33908f43188804147b204b99a399bc442e74d1cec03622e"
+      "sha256": "070b28dcff927ab0857b01f293183063bb444c5d437c14cfaa9556db1765cdbd"
     },
     {
       "path": "scripts/resolve-public-style-pack.network.test.mjs",
@@ -1131,7 +1143,7 @@
     },
     {
       "path": "scripts/resolve-public-style-pack.test.mjs",
-      "sha256": "b6559a41edff4349aae817ee201dc6d120c53c401f3d549a530aa1f154c06974"
+      "sha256": "3e8f37aae0528a89dd2ed3c4fb5546636e40663ac6021651d57c8c75478bc1b1"
     },
     {
       "path": "scripts/resume-demo.producer.test.mjs",
@@ -1166,8 +1178,12 @@
       "sha256": "2f3886c7e927dbc4f57d86128f833b302386d8b53898bbdcb10b785a02dfc178"
     },
     {
+      "path": "scripts/run-brand-workflow.library-links.test.mjs",
+      "sha256": "7921061901fd6e9431a7e615ffb9e8013e753d75d4da65d2c87a81fe826a3910"
+    },
+    {
       "path": "scripts/run-brand-workflow.mjs",
-      "sha256": "fe71eb762ac3525833682eb5569a84e40990ef4bf586eba39cc8b7b16997362f"
+      "sha256": "c40982281cd25f9e0c3eee9f2e9ffbf146f4571fd91163deeab46929f1cd6d47"
     },
     {
       "path": "scripts/run-brand-workflow.resume-demo.test.mjs",
@@ -1567,11 +1583,11 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "4f103319584f14d48812baf2fcca8e97d94a1e5661203266200155524ddf04f4"
+      "sha256": "6ac99ad88690de38c3c07381d9a3eaaa91a906ceb0836a39e82cafe270fd777d"
     },
     {
       "path": "workflow-contract.json",
-      "sha256": "44ebdaeb90982ec205755c73543db3ae77486f87cd938cc9e711da65ae323d59"
+      "sha256": "6fc92b02f9b704f34283a53d3314dad4e417959da5db71067ceecec9131a2988"
     },
     {
       "path": "workflows/learn-brand.md",
@@ -1579,8 +1595,8 @@
     },
     {
       "path": "workflows/request-intake.md",
-      "sha256": "3dca620b934094643ceb54187356c8310b45da76199da7290d04ac922bb21cdb"
+      "sha256": "faaed0c4c9f91f2f41140efab2651c347df0e0ba80e702ed9f2f92203b68d295"
     }
   ],
-  "treeSha256": "283af0c8dc6bd06903fe747fbe14d89c31f6d8e56b2fadd14ca25fdc6eb7a559"
+  "treeSha256": "c16ac84b11eba0b0a68ad618ba277a93f79928f00bd7182db1bb54bfe6f5e058"
 }
