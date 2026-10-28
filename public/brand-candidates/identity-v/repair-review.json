@@ -1,0 +1,25 @@
+{
+  "schema": "independent-candidate-repair-review/v1",
+  "reviewer": "/root/id5_repair_qa",
+  "reviewedOn": "2026-10-28",
+  "reviewMode": "fresh-blind",
+  "verdict": "pass-for-local-candidate-library-and-entry-repair",
+  "currentManifestSha256": "6e1be729a05f9069d1e1e21f0609448d85312eab829c8541f59851576f0f83ba",
+  "fullBrandLearningPass": false,
+  "nativeHostRuntimePass": false,
+  "publicDeploymentVerified": false,
+  "checks": [
+    {"id":"regression-tests","result":"pass","evidence":"Independently ran node --test scripts/identity-v-candidate.test.mjs: 2/2 pass."},
+    {"id":"portable-integrity","result":"pass","evidence":"Independently ran node public/brand-candidates/identity-v/verify.mjs: manifest hashes, asset hashes, token targets and Demo references pass."},
+    {"id":"public-entry","result":"pass-for-preparation-only","evidence":"Read /private/tmp/identity-v-package-entry-repair-20261028/dispatch.json: ok=true, awaiting-adaptation, referenceOnly=true, approval=pending, fullWorkflowPass=false, userGoalCompleted=false. Original package now declares manifest.id/scope and vue3/browser-dom candidate metadata."},
+    {"id":"honest-status","result":"pass","evidence":"Registry remains draft/evidence-pending with standardDemo=false and businessApply=false. Detail distinguishes source observations from Demo-derived styles and says native visual/interaction acceptance has not passed."},
+    {"id":"browser-runtime","result":"pass-for-tested-local-candidate-scope","evidence":"Chrome tab 281442268 opened http://127.0.0.1:8787/#/variants/identity-v-official/foundations/overview. Candidate results and limitations visible; clicked Button preview, clicked primary button and observed count 0 to 1; clicked complete Demo and all four initial img elements loaded. Screenshot showed hero, art lettering and controls. Document scrollWidth=1512, viewport=1512."},
+    {"id":"guide-link","result":"pass-after-repair","evidence":"Initial README.md navigation was blocked by Chrome ERR_BLOCKED_BY_CLIENT. The library was changed to guide.html; independent browser clicked the actual 接入与验证边界 link from the detail page and loaded http://127.0.0.1:8787/brand-candidates/identity-v/guide.html successfully. Instructions, candidate boundaries and historical QA disclaimer are visible. No browser block was bypassed."}
+  ],
+  "findings": [
+    {"id":"published-guide-paths","severity":"medium","status":"resolved","description":"Rechecked runtime-preview/preview.html, validation.json, dangoui-adapter.json and evidence/: all now exist in public directory. Installer and verify checks pass again."},
+    {"id":"historical-report-binding","severity":"medium","status":"resolved","description":"README now explicitly labels independent-review.json historical and old-manifest-bound, and directs current review to repair-review.json. Candidate status is preserved."},
+    {"id":"browser-guide-access","severity":"medium","status":"resolved","description":"Actual detail-page guide.html link opens a readable HTML page with the source README and candidate disclaimer. Raw README remains a package source file."}
+  ],
+  "limitations": ["No source website visited.", "No public deployment verified.", "No native mini-program runtime checked.", "8770 initially failed and was occupied by sharingd; browser checks used working 8787. No system process was changed.", "Only local candidate navigation and basic Button interaction tested; not complete state or mobile certification."]
+}

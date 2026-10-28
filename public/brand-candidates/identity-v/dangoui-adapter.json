@@ -1,0 +1,50 @@
+{
+  "version": "3.6.16",
+  "scope": ".iv-garden opt-in classes",
+  "status": "source-wired-awaiting-runtime-review",
+  "mappings": [
+    {
+      "recipe": "iv-action",
+      "component": "Button",
+      "type": "primary",
+      "consumer": "src/button/style.scss",
+      "variables": [
+        "--du-bt-solid-color",
+        "--du-bt-solid-bg"
+      ],
+      "role": "control",
+      "antiScopes": [
+        "global primary",
+        "business status",
+        "other components"
+      ],
+      "provenance": "demo-derived-unapproved"
+    },
+    {
+      "recipe": "iv-outline",
+      "component": "Button",
+      "type": "outline",
+      "variables": [
+        "--du-bt-color",
+        "--du-bt-border"
+      ],
+      "role": "control",
+      "antiScopes": [
+        "global text",
+        "global border"
+      ],
+      "provenance": "demo-derived-unapproved"
+    }
+  ],
+  "styleOnly": [
+    "iv-panel",
+    "iv-tabs"
+  ],
+  "unverified": [
+    "loading",
+    "temporary disabled",
+    "all other components",
+    "mini-program",
+    "official brand semantics"
+  ]
+}

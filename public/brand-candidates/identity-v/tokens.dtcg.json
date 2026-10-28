@@ -1,0 +1,183 @@
+{
+  "ink": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.4627450980392157,
+        0.19607843137254902,
+        0.2549019607843137
+      ],
+      "alpha": 1,
+      "hex": "#763241"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-ink",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "source-nav-observed; demo-role-proposed"
+    }
+  },
+  "cream": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        1,
+        0.9372549019607843,
+        0.9137254901960784
+      ],
+      "alpha": 1,
+      "hex": "#ffefe9"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-cream",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "source-nav-observed; demo-role-proposed"
+    }
+  },
+  "page": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.0784313725490196,
+        0.17254901960784313,
+        0.20784313725490197
+      ],
+      "alpha": 1,
+      "hex": "#142c35"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-page",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "line": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.8431372549019608,
+        0.7058823529411765,
+        0.611764705882353
+      ],
+      "alpha": 1,
+      "hex": "#d7b49c"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-line",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "panel": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.09411764705882353,
+        0.1803921568627451,
+        0.23921568627450981
+      ],
+      "alpha": 0.8509803921568627,
+      "hex": "#182e3d"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-panel",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "selected": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.9411764705882353,
+        0.8352941176470589,
+        0.8196078431372549
+      ],
+      "alpha": 1,
+      "hex": "#f0d5d1"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-selected",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "muted": {
+    "$type": "color",
+    "$value": {
+      "colorSpace": "srgb",
+      "components": [
+        0.8509803921568627,
+        0.8156862745098039,
+        0.788235294117647
+      ],
+      "alpha": 1,
+      "hex": "#d9d0c9"
+    },
+    "$description": "Demo 使用值；不是官方全局语义色。",
+    "$extensions": {
+      "echo.brand.target": "--iv-muted",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "control-radius": {
+    "$type": "dimension",
+    "$value": {
+      "value": 4,
+      "unit": "px"
+    },
+    "$extensions": {
+      "echo.brand.target": "--iv-control-radius",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "panel-radius": {
+    "$type": "dimension",
+    "$value": {
+      "value": 5,
+      "unit": "px"
+    },
+    "$extensions": {
+      "echo.brand.target": "--iv-panel-radius",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "panel-padding": {
+    "$type": "dimension",
+    "$value": {
+      "value": 30,
+      "unit": "px"
+    },
+    "$extensions": {
+      "echo.brand.target": "--iv-panel-padding",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  },
+  "section-gap": {
+    "$type": "dimension",
+    "$value": {
+      "value": 85,
+      "unit": "px"
+    },
+    "$extensions": {
+      "echo.brand.target": "--iv-section-gap",
+      "echo.brand.channel": "styleOnly",
+      "identityV.provenance": "demo-derived-unapproved"
+    }
+  }
+}

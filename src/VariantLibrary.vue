@@ -15,6 +15,11 @@
     <section v-else-if="invalidScene" class="vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请重新选择页面。</p><a :href="selected ? `#/variants/${selected.id}/${selected.scenes[0].id}` : '#/variants'">{{ selected ? '返回品牌页面' : '返回品牌库' }}</a></section>
     <template v-else-if="!selected">
       <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
+      <section aria-label="候选学习成果" style="margin:24px 0;padding:28px;border:1px solid #d7b49c;border-radius:12px;background:#142c35;color:#ffefe9">
+        <p>候选学习成果 · 完整学习未通过</p><h2>第五人格 · 盛夏花园</h2>
+        <p>归档首页素材、交互 Demo、11 个候选 Token 与 DangoUI Web 按钮。布局与渐变是 Demo 推演；宿主原生验收、官方字体及完整品牌规范仍未认证。</p>
+        <p><a style="color:inherit" href="./brand-candidates/identity-v/demo.html">打开交互 Demo ↗</a> · <a style="color:inherit" href="./brand-candidates/identity-v/preview.html">DangoUI 按钮预览 ↗</a> · <a style="color:inherit" href="./brand-candidates/identity-v/guide.html">接入与验证边界 ↗</a></p>
+      </section>
       <section class="vl-grid" aria-label="品牌 Variant 列表">
         <a v-for="brand in brands" :key="brand.id" :href="`#/variants/${brand.id}`" class="vl-card" :class="`vl-card--${brand.id}`">
           <div class="vl-cover"><img v-if="brand.cover" :src="brand.cover" :alt="`${brand.displayName} 品牌素材`" @error="hideBroken($event, brand.id)"/><div v-else class="vl-typographic">Dango<span>Design → Build</span></div><span v-if="failedCovers[brand.id]" class="vl-media-fallback">{{ brand.displayName }}<small>远程封面暂未载入</small></span><div class="vl-cover-shade"></div><span class="vl-cover-label">{{ brand.hook }}</span></div>
@@ -259,3 +264,4 @@ async function copyPrompt(){try{await navigator.clipboard.writeText(prompt.value
 async function load(){loading.value=true;error.value='';try{const r=await fetch('/brand-previews/registry.json');if(!r.ok)throw Error();const d=await r.json();brands.value=['pokemon-tcg-official','onepiece-cardgame','czn','dango'].map(id=>{const b=d.brands.find(b=>b.id===id),m=meta[id];return b?{...b,...m,scenes:m.scenes.filter(scene=>scene[0]!=='dango-button' && ['source','transfer'].includes(scene[2])).map(([id,label,kind,note,pattern])=>({id,label,kind,note,pattern}))}:null}).filter(Boolean);}catch{error.value='品牌列表读取失败。';}finally{loading.value=false;}}
 onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();});onBeforeUnmount(()=>{window.removeEventListener('hashchange',changed);stopRestoring();});
 </script>
+

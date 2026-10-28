@@ -1,0 +1,13 @@
+/* All recipes are Demo proposals. Scope + opt-in class prevent accidental reskins. */
+.iv-garden .iv-action{--du-bt-solid-color:var(--iv-ink);--du-bt-solid-bg:linear-gradient(125deg,#fff5db,#ecc6cd 65%,#b8c5e7);color:var(--iv-ink);background:var(--du-bt-solid-bg);border:1px solid #fff0cf;padding:13px 34px;height:auto;min-height:48px;min-width:180px;box-shadow:0 0 0 4px #e9d1bd25,inset 0 0 0 3px #fff6;border-radius:var(--iv-control-radius);font-size:14px;letter-spacing:2px;line-height:1.6;cursor:pointer;transition:transform .2s}
+.iv-garden .iv-action:hover{transform:translateY(-3px)}
+.iv-garden .iv-outline{--du-bt-color:var(--iv-cream);--du-bt-border:#ffffff77;color:var(--iv-cream);border:1px solid var(--du-bt-border);background:#302e4940;border-radius:30px;padding:9px 18px;height:auto;min-height:40px;line-height:1.6;cursor:pointer}
+.iv-garden .iv-panel{background:var(--iv-panel);border:1px solid #d1bb9c77;border-radius:var(--iv-panel-radius);padding:var(--iv-panel-padding);box-shadow:0 20px 50px #071a2340}
+.iv-garden .iv-tabs{display:flex;flex-wrap:wrap;gap:12px}
+.iv-garden .iv-tabs button{padding:9px 24px;border:1px solid #d5b7a570;color:var(--iv-cream);background:#253d4bbd;border-radius:3px;font:inherit;cursor:pointer}
+.iv-garden .iv-tabs button[aria-selected=true]{background:var(--iv-selected);color:var(--iv-ink);border-color:#f7e5cb}
+.iv-garden :is(.iv-action,.iv-outline,.iv-tabs button):focus-visible{outline:3px solid white;outline-offset:5px}
+/* Disabled is an integration fallback, not an observed source state. */
+.iv-garden :is(.iv-action,.iv-outline):is(:disabled,[aria-disabled=true]){opacity:.45;transform:none;cursor:not-allowed}
+@media(max-width:700px){.iv-garden .iv-action{min-width:140px;padding:12px 18px}.iv-garden .iv-panel{padding:18px}.iv-garden .iv-tabs{gap:7px}.iv-garden .iv-tabs button{padding:9px 12px;font-size:12px}}
+@media(prefers-reduced-motion:reduce){.iv-garden .iv-action{transition:none;transform:none}}

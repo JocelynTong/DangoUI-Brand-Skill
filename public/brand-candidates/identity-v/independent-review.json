@@ -1,0 +1,38 @@
+{
+  "schema": "independent-candidate-package-review/v1",
+  "reviewer": "/root/local_evidence_review",
+  "reviewedOn": "2026-10-28",
+  "verdict": "pass-for-local-demo-candidate-scope",
+  "fullBrandLearningPass": false,
+  "officialCertification": false,
+  "sourceSiteAccessed": false,
+  "scope": "Opt-in Web candidate: real DangoUI Button preview, native HTML Demo regression, local package declarations and file hashes.",
+  "manifestBinding": {"path": "brand-mod.json", "sha256": "372bd737cfb436991b9ed1c72de1a414934fc70fdbdac8f7d35b32109849cb5c"},
+  "fileIntegrity": {"checkedFiles": 16, "hashMismatches": []},
+  "runtime": {
+    "browser": "Chrome extension, independent tab 281442190",
+    "previewUrl": "http://127.0.0.1:8769/migrations/identity-v/brand-package/runtime-preview/preview.html",
+    "demoUrl": "http://127.0.0.1:8769/migrations/identity-v/brand-package/runtime-preview/demo.html",
+    "observations": [
+      {"check": "real-button-dom", "result": "pass", "observed": "Primary: du-button du-button--normal du-button--primary du-c-primary-bt iv-action. Outline: du-button du-button--normal du-button--outline du-c-primary-bt iv-outline. index.js imports Button from dangoui and renders it with Vue h()."},
+      {"check": "computed-style", "result": "pass", "observed": "Primary color rgb(118,50,65), linear-gradient(125deg,rgb(255,245,219),rgb(236,198,205) 65%,rgb(184,197,231)), 4px radius. Outline color rgb(255,239,233), no gradient, 30px radius."},
+      {"check": "counter-and-reset", "result": "pass", "observed": "Clicking 开启花园来信 changed visible counter 0 to 1; 重置演示 changed it to 0."},
+      {"check": "disabled-click", "result": "pass", "observed": "Clicking 禁用 · 接入补充 left counter at 0. aria-disabled=true and computed opacity=0.45. Native disabled property is false; this observation only verifies the tested pointer activation, not all accessibility or keyboard states."},
+      {"check": "mobile-preview", "result": "pass", "observed": "Viewport capability set to 390x844. documentElement.scrollWidth=390. Buttons wrap inside panel; labels and limitations visible. Override reset after review."},
+      {"check": "transplanted-demo-resources", "result": "pass", "observed": "At 390px width, documentElement.scrollWidth=390 and no incomplete or zero-naturalWidth image elements were found."},
+      {"check": "transplanted-demo-interactions", "result": "pass", "observed": "Favorite updates label and local-only toast. Second and third tabs update selected state, image description, count and copy. Original image modal opens and Escape closes it, returning focus to enlarge button."},
+      {"check": "visible-boundaries", "result": "pass", "observed": "Demo says original HTML, candidate style package, separate DangoUI button preview and incomplete certification. Historical activity warning, design inference, source limitations and system font usage are visible."}
+    ]
+  },
+  "documentation": {
+    "result": "pass-for-stated-scope",
+    "observed": "README distinguishes homepage observations from Demo-derived tokens, disabled-state additions and unverified official mobile/font/business states. It limits actual DangoUI integration to Button and names panel/Tab as CSS recipes. package.json is private and declares Vue and DangoUI peers; component kit manifest binds runtime files and dependencies. Official artwork distribution authorization is explicitly unverified."
+  },
+  "blockingFindings": [],
+  "limitations": [
+    "Runtime observation used the served built preview; this is not an independent fresh peer-dependency installation or proof of every consuming host.",
+    "Loading, keyboard activation of disabled state, full accessibility, all Button props and other DangoUI components were not exhaustively tested.",
+    "No source-site recapture, source completeness validation, official mobile fidelity, Structural Fidelity or Generative Proof certification was performed.",
+    "Review does not approve public distribution of copyrighted assets or mini-program/production use."
+  ]
+}

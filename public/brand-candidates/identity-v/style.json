@@ -1,0 +1,277 @@
+{
+  "name": "Identity V · Garden Demo",
+  "schemaVersion": "0.1.0",
+  "source": {
+    "url": "https://id5.163.com/",
+    "mode": "archived-local-only",
+    "demoSha256": "25225dfeffe4e3d6fe302a5f78487407d39e389bb576cf51096e63d5e63cafa3"
+  },
+  "tokens": {
+    "dtcg": {
+      "ink": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.4627450980392157,
+            0.19607843137254902,
+            0.2549019607843137
+          ],
+          "alpha": 1,
+          "hex": "#763241"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-ink",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "source-nav-observed; demo-role-proposed"
+        }
+      },
+      "cream": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            1,
+            0.9372549019607843,
+            0.9137254901960784
+          ],
+          "alpha": 1,
+          "hex": "#ffefe9"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-cream",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "source-nav-observed; demo-role-proposed"
+        }
+      },
+      "page": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.0784313725490196,
+            0.17254901960784313,
+            0.20784313725490197
+          ],
+          "alpha": 1,
+          "hex": "#142c35"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-page",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "line": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8431372549019608,
+            0.7058823529411765,
+            0.611764705882353
+          ],
+          "alpha": 1,
+          "hex": "#d7b49c"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-line",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "panel": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.09411764705882353,
+            0.1803921568627451,
+            0.23921568627450981
+          ],
+          "alpha": 0.8509803921568627,
+          "hex": "#182e3d"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-panel",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "selected": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.9411764705882353,
+            0.8352941176470589,
+            0.8196078431372549
+          ],
+          "alpha": 1,
+          "hex": "#f0d5d1"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-selected",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "muted": {
+        "$type": "color",
+        "$value": {
+          "colorSpace": "srgb",
+          "components": [
+            0.8509803921568627,
+            0.8156862745098039,
+            0.788235294117647
+          ],
+          "alpha": 1,
+          "hex": "#d9d0c9"
+        },
+        "$description": "Demo 使用值；不是官方全局语义色。",
+        "$extensions": {
+          "echo.brand.target": "--iv-muted",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "control-radius": {
+        "$type": "dimension",
+        "$value": {
+          "value": 4,
+          "unit": "px"
+        },
+        "$extensions": {
+          "echo.brand.target": "--iv-control-radius",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "panel-radius": {
+        "$type": "dimension",
+        "$value": {
+          "value": 5,
+          "unit": "px"
+        },
+        "$extensions": {
+          "echo.brand.target": "--iv-panel-radius",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "panel-padding": {
+        "$type": "dimension",
+        "$value": {
+          "value": 30,
+          "unit": "px"
+        },
+        "$extensions": {
+          "echo.brand.target": "--iv-panel-padding",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      },
+      "section-gap": {
+        "$type": "dimension",
+        "$value": {
+          "value": 85,
+          "unit": "px"
+        },
+        "$extensions": {
+          "echo.brand.target": "--iv-section-gap",
+          "echo.brand.channel": "styleOnly",
+          "identityV.provenance": "demo-derived-unapproved"
+        }
+      }
+    },
+    "styleOnly": {
+      "--iv-ink": {
+        "value": "#763241"
+      },
+      "--iv-cream": {
+        "value": "#ffefe9"
+      },
+      "--iv-page": {
+        "value": "#142c35"
+      },
+      "--iv-line": {
+        "value": "#d7b49c"
+      },
+      "--iv-panel": {
+        "value": "#182e3dd9"
+      },
+      "--iv-selected": {
+        "value": "#f0d5d1"
+      },
+      "--iv-muted": {
+        "value": "#d9d0c9"
+      },
+      "--iv-control-radius": {
+        "value": "4px"
+      },
+      "--iv-panel-radius": {
+        "value": "5px"
+      },
+      "--iv-panel-padding": {
+        "value": "30px"
+      },
+      "--iv-section-gap": {
+        "value": "85px"
+      }
+    },
+    "mapped": {}
+  },
+  "assets": [
+    {
+      "path": "assets/263945dba041572cbe9d.webp",
+      "sha256": "263945dba041572cbe9d36ac5c9e288610b366c137011004e404939b7e266d39"
+    },
+    {
+      "path": "assets/d25196dcb9013928415a.webp",
+      "sha256": "d25196dcb9013928415aafce5e4cfca400b6d3bec710fca4167a93cbebb44af8"
+    },
+    {
+      "path": "assets/bd1951081f4f4c376edf.webp",
+      "sha256": "bd1951081f4f4c376edf78a2f51c5bb5edcb7637ce88b008ca2ddf45e4f9f3e9"
+    },
+    {
+      "path": "assets/c86f25a27eeed6426973.webp",
+      "sha256": "c86f25a27eeed642697308c4a9d7f1c20da508dedf66023a6a7541832151cced"
+    },
+    {
+      "path": "assets/5b46b3f0bc1ba160b3b4.webp",
+      "sha256": "5b46b3f0bc1ba160b3b4229d497054c491ba7e21ab8be9fa4030558e89fea2ff"
+    },
+    {
+      "path": "assets/cae8f9c9726fe7177d4f.webp",
+      "sha256": "cae8f9c9726fe7177d4f6c6ce8fa70b90187c7158bc0a28550c6305863a9764a"
+    },
+    {
+      "path": "assets/464c61a9bf4882130025.jpg",
+      "sha256": "464c61a9bf488213002545f7b7dd9c5623a21cda74f58ff36f2155cf7a0d8954"
+    },
+    {
+      "path": "assets/c18920f7e162c9450a77.jpg",
+      "sha256": "c18920f7e162c9450a77333fe276f0b186b5f7d9d6150e075dc6dfe94bb42bce"
+    }
+  ],
+  "brandMetadata": {
+    "status": "candidate-demo-derived",
+    "officialCertification": false,
+    "sourceCoverage": "homepage-only",
+    "unverified": [
+      "official mobile layout",
+      "official font",
+      "other sections",
+      "full DangoUI components",
+      "business status colors",
+      "mini-program runtime"
+    ]
+  }
+}

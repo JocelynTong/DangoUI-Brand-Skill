@@ -1,0 +1,2700 @@
+{
+  "schema": "local-evidence-review/v1",
+  "brand": "identity-v",
+  "sourceUrl": "https://id5.163.com/",
+  "status": "partial-evidence-only",
+  "userAuthorizedScope": "continue with already captured local materials",
+  "networkRequests": 0,
+  "fullWorkflowPass": false,
+  "sourceInputs": [
+    {
+      "path": "output/extractor-benchmark/identity-v/rendered/raw-capture.json",
+      "sha256": "a6a1087f772762ebe4e99766506455f00690115f17a7a83b49c2597de6410b2b"
+    },
+    {
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets.json",
+      "sha256": "1ed52cde9f5ca2b5f3797c40fcfd1e726446babac08c0081e584c75513079bbc"
+    }
+  ],
+  "viewport": {
+    "width": 1440,
+    "height": 900
+  },
+  "frameCount": 12,
+  "uniqueActiveStates": [
+    "swiper-slide kv swiper-slide-active"
+  ],
+  "assets": [
+    {
+      "url": "https://webinput.nie.netease.com/img/id5/icon.png/64",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/263945dba041572cbe9d.webp",
+      "sha256": "263945dba041572cbe9d36ac5c9e288610b366c137011004e404939b7e266d39",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1792,
+      "specs": {
+        "intrinsicSize": {
+          "width": 64,
+          "height": 64
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 64,
+          "height": 64
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [
+        {
+          "url": "https://webinput.nie.netease.com/img/id5/icon.png/64",
+          "tag": "img",
+          "alt": "logo",
+          "id": "",
+          "rect": [
+            8.0625,
+            60.375,
+            40.3125,
+            40.3125
+          ],
+          "visibility": {
+            "visible": true,
+            "reasons": [
+              "within-geometry-bounds"
+            ],
+            "effectiveRect": {
+              "x": 8.0625,
+              "y": 60.375,
+              "width": 40.3125,
+              "height": 40.3125
+            },
+            "boundary": "conservative viewport/overflow/CSS only; transformed clips and arbitrary occlusion unverified; explicit child visibility overrides may be withheld"
+          },
+          "intrinsicSize": {
+            "width": 64,
+            "height": 64
+          },
+          "page": "https://id5.163.com/",
+          "documentLang": "",
+          "frameIndex": 0
+        }
+      ],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/code_tb_f6487528.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/eeab0a72726bc9bf2e77.webp",
+      "sha256": "eeab0a72726bc9bf2e7735bd5623ff73c41b287a91db5c445b571c6aeea180f3",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 9276,
+      "specs": {
+        "intrinsicSize": {
+          "width": 400,
+          "height": 400
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 400,
+          "height": 400
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/code_wb_1d597048.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/d3af145d9aa3cca14935.webp",
+      "sha256": "d3af145d9aa3cca149350a35222ad508d02a333ec0639998dbc497c9d9f157bb",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 18838,
+      "specs": {
+        "intrinsicSize": {
+          "width": 400,
+          "height": 400
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 400,
+          "height": 400
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/code_wx_61fd9745.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/5dc07ac48c0381274c71.webp",
+      "sha256": "5dc07ac48c0381274c718ac41b28756c6eb8fa366f91e39f6a9aaff4fb3c83d5",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 6766,
+      "specs": {
+        "intrinsicSize": {
+          "width": 142,
+          "height": 142
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 142,
+          "height": 142
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/blank_bcdbce96.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/8ddc5c73144cecd1fa15.webp",
+      "sha256": "8ddc5c73144cecd1fa1594d6da3b33b76b0ba828e5ffda89b7f775815581d9e1",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 120,
+      "specs": {
+        "intrinsicSize": {
+          "width": 100,
+          "height": 100
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 100,
+          "height": 100
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/slogan_bec80eeb.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/d25196dcb9013928415a.webp",
+      "sha256": "d25196dcb9013928415aafce5e4cfca400b6d3bec710fca4167a93cbebb44af8",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 195724,
+      "specs": {
+        "intrinsicSize": {
+          "width": 1238,
+          "height": 488
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 1238,
+          "height": 488
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [
+        {
+          "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/slogan_bec80eeb.png",
+          "tag": "img",
+          "alt": "slogan",
+          "id": "",
+          "rect": [
+            324.1953125,
+            362.6400146484375,
+            831.921875,
+            327.921875
+          ],
+          "visibility": {
+            "visible": true,
+            "reasons": [
+              "within-geometry-bounds"
+            ],
+            "effectiveRect": {
+              "x": 324.1953125,
+              "y": 362.6400146484375,
+              "width": 831.921875,
+              "height": 327.921875
+            },
+            "boundary": "conservative viewport/overflow/CSS only; transformed clips and arbitrary occlusion unverified; explicit child visibility overrides may be withheld"
+          },
+          "intrinsicSize": {
+            "width": 1238,
+            "height": 488
+          },
+          "page": "https://id5.163.com/",
+          "documentLang": "",
+          "frameIndex": 0
+        }
+      ],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav1on_1b53503c.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/e36c28a946d511f70d0e.webp",
+      "sha256": "e36c28a946d511f70d0ef678e6d10417ec9e80724e1d943d715602346b69ed00",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 10362,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav2on_82b8a4ab.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/031cb97c4a875d9f191f.webp",
+      "sha256": "031cb97c4a875d9f191f35ebd8593046c1b3ee0634ad46b330f9b6c6d4cdf62e",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 10682,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav3on_73ab292a.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/b27b04eb6b7fc026f9b7.webp",
+      "sha256": "b27b04eb6b7fc026f9b74b4f1d34e5e15a0a62a4298cd93a07dea25c73f24b60",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 9082,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav5on_206062f0.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/34bb253836c9faf610ed.webp",
+      "sha256": "34bb253836c9faf610ed666b2f4d132cf3cb9c0ab394029e91cce24a37d759de",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 9652,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/oppo-1_a9208c07.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/ca3ec6fc8b0f196f1f21.webp",
+      "sha256": "ca3ec6fc8b0f196f1f21a9abd36dbfa6197bae7f10e47869704903a8a94a66ef",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 13780,
+      "specs": {
+        "intrinsicSize": {
+          "width": 214,
+          "height": 297
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 214,
+          "height": 297
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/oppo-2_a9fa6877.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/1ebb9f89b948904b596a.webp",
+      "sha256": "1ebb9f89b948904b596a88a3bb575c325a39929a105e339ce4e2b179f1e422d0",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 12242,
+      "specs": {
+        "intrinsicSize": {
+          "width": 214,
+          "height": 297
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 214,
+          "height": 297
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/oppo-3_e3d9b90b.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/96622134952ea7631501.webp",
+      "sha256": "96622134952ea7631501a2db8aaa0cc276c75ceda34f23209190b40bf66add58",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 11472,
+      "specs": {
+        "intrinsicSize": {
+          "width": 214,
+          "height": 297
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 214,
+          "height": 297
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/topBar_86975fc1.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/e87832219308063a8e26.webp",
+      "sha256": "e87832219308063a8e26d72a8d20439d760e672e64e8dea39a2da9fc9e65a582",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 3026,
+      "specs": {
+        "intrinsicSize": {
+          "width": 1920,
+          "height": 79
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 1920,
+          "height": 79
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_cg_c8b40c28.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/1747b3559725ee1c491f.webp",
+      "sha256": "1747b3559725ee1c491f0d8da32b690fe3049eaf7cd69a373126b6f1d5fed0c8",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 338,
+      "specs": {
+        "intrinsicSize": {
+          "width": 22,
+          "height": 17
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 22,
+          "height": 17
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_s_df33d89f.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/85bbbaafe277817f70f5.webp",
+      "sha256": "85bbbaafe277817f70f58d15d10bc960a6a8ae85d80501bd3d697b0c2d11e87a",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 264,
+      "specs": {
+        "intrinsicSize": {
+          "width": 16,
+          "height": 18
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 16,
+          "height": 18
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/code_ds_e3c3e620.jpg",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/7e792f771007ff74851a.jpg",
+      "sha256": "7e792f771007ff74851a501c1fd6c7553cba8bd4c3554beec640273b9d201570",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 5024,
+      "specs": {
+        "intrinsicSize": {
+          "width": 91,
+          "height": 91
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 91,
+          "height": 91
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_gw_08d5a06d.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/b16bebe9ce16b9034734.webp",
+      "sha256": "b16bebe9ce16b90347345d6e0de7488578eed926e776fbab59e78f48a73a4b76",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 910,
+      "specs": {
+        "intrinsicSize": {
+          "width": 124,
+          "height": 34
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 124,
+          "height": 34
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://nie.res.netease.com/comm/NIE_copyRight/images/netease.2.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/608c41cab23ea7376c82.webp",
+      "sha256": "608c41cab23ea7376c82b4c89a7751ec9e10d36684b8362e3f5d19491e012b76",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2120,
+      "specs": {
+        "intrinsicSize": {
+          "width": 118,
+          "height": 31
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 118,
+          "height": 31
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/downBg_ea01606e.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/2ebc4e1ad5ba5a111173.webp",
+      "sha256": "2ebc4e1ad5ba5a111173b463b3c5335800eb80a96430f71d2ff9207495720dd6",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 20090,
+      "specs": {
+        "intrinsicSize": {
+          "width": 921,
+          "height": 241
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 921,
+          "height": 241
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_wyy_d7ecaa4d.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/c9c16099f2e2c4736951.webp",
+      "sha256": "c9c16099f2e2c4736951a9354fb6953a8d9f139aa345911995c0011e508827ac",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1398,
+      "specs": {
+        "intrinsicSize": {
+          "width": 76,
+          "height": 103
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 76,
+          "height": 103
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/play1_05c05496.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/5a4e13b8edb03bfabac8.webp",
+      "sha256": "5a4e13b8edb03bfabac8c986b60089b60fe3a19210e19dd72799e64a015090ec",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2324,
+      "specs": {
+        "intrinsicSize": {
+          "width": 72,
+          "height": 72
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 72,
+          "height": 72
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_wx_c07f5cfa.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/416b3030dc6dc1b90614.webp",
+      "sha256": "416b3030dc6dc1b90614663d460be00993fb0875bc3e534afd4ddce6124740a5",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 304,
+      "specs": {
+        "intrinsicSize": {
+          "width": 18,
+          "height": 15
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 18,
+          "height": 15
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_cang_80d05ecf.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/95661a65d59b2cb698cf.webp",
+      "sha256": "95661a65d59b2cb698cfd43f063489ead3f3892afe253e6c5e720d6dcac397ee",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 394,
+      "specs": {
+        "intrinsicSize": {
+          "width": 17,
+          "height": 19
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 17,
+          "height": 19
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/download-ios_feb53a6d.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/c6d6f0484cc8161fca50.webp",
+      "sha256": "c6d6f0484cc8161fca506ecaf53f0c4b7d50717007a399661b4bb4c02847171b",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1530,
+      "specs": {
+        "intrinsicSize": {
+          "width": 152,
+          "height": 49
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 152,
+          "height": 49
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_mumu_f1bc8843.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/0aaeed2b22921b4a0048.webp",
+      "sha256": "0aaeed2b22921b4a0048a65079954e80feb8d151682b686393f73bfbd78f24c3",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1382,
+      "specs": {
+        "intrinsicSize": {
+          "width": 76,
+          "height": 103
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 76,
+          "height": 103
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_wb_dd302a43.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/941560bb8320d32e2631.webp",
+      "sha256": "941560bb8320d32e26310cd5413b46fac1fc898e850a8f66da65d8e169da7c80",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 374,
+      "specs": {
+        "intrinsicSize": {
+          "width": 20,
+          "height": 16
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 20,
+          "height": 16
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_fashao_f4f12286.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/f4620a0db79b46458b76.webp",
+      "sha256": "f4620a0db79b46458b765f245c15e47ce300de40ddc4b9d86640826b88531d1d",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1266,
+      "specs": {
+        "intrinsicSize": {
+          "width": 76,
+          "height": 103
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 76,
+          "height": 103
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_tb_3856e26d.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/1673ffdaccf062035740.webp",
+      "sha256": "1673ffdaccf062035740eefa555df6b0c77ca2cc14cd9858bfc48c68e5b275b5",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 246,
+      "specs": {
+        "intrinsicSize": {
+          "width": 17,
+          "height": 17
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 17,
+          "height": 17
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_ss_eafafbc6.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/b095a5a7292d3fc21a58.webp",
+      "sha256": "b095a5a7292d3fc21a58a497138ee2a3de2bf352ab71618751e67f91008c4532",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 984,
+      "specs": {
+        "intrinsicSize": {
+          "width": 124,
+          "height": 33
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 124,
+          "height": 33
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn-shiling_8bfc7460.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/780035b382591ffab696.webp",
+      "sha256": "780035b382591ffab6966af643cddda51e4eff744fd4c76beaac58023a37fa3b",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 840,
+      "specs": {
+        "intrinsicSize": {
+          "width": 38,
+          "height": 49
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 38,
+          "height": 49
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/navBg_55b88a51.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/bd1951081f4f4c376edf.webp",
+      "sha256": "bd1951081f4f4c376edf78a2f51c5bb5edcb7637ce88b008ca2ddf45e4f9f3e9",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2066,
+      "specs": {
+        "intrinsicSize": {
+          "width": 144,
+          "height": 46
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 144,
+          "height": 46
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_tap_5fdd5a1a.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/c05e1ae827705493b2c0.webp",
+      "sha256": "c05e1ae827705493b2c0e2616a709a0280a8e99221d5a42f7eda944e7ed9b3b0",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 258,
+      "specs": {
+        "intrinsicSize": {
+          "width": 18,
+          "height": 18
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 18,
+          "height": 18
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn-xiaomi-zq_de2e9cbb.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/478302cbe2a361dae005.webp",
+      "sha256": "478302cbe2a361dae00595ac3753999a33940649a84f926575da2de5cd157f56",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 5962,
+      "specs": {
+        "intrinsicSize": {
+          "width": 191,
+          "height": 121
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 191,
+          "height": 121
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_ds_af75d06b.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/3b685c15cf282bd57370.webp",
+      "sha256": "3b685c15cf282bd57370944428893012d446d9fd8267d7a80647881d83409572",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1466,
+      "specs": {
+        "intrinsicSize": {
+          "width": 76,
+          "height": 103
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 76,
+          "height": 103
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/i_qq_ac90bc63.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/9b5240b99e2471223c53.webp",
+      "sha256": "9b5240b99e2471223c5381eeb5780d34d27f65288d304222553581f51b382228",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 208,
+      "specs": {
+        "intrinsicSize": {
+          "width": 15,
+          "height": 18
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 15,
+          "height": 18
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/kv-float_c0e7f7e3.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/436b5ab25ee974377494.webp",
+      "sha256": "436b5ab25ee974377494df7aedf0c5899410b31f33bdf9dfeb3c0a3e28e65232",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 8094,
+      "specs": {
+        "intrinsicSize": {
+          "width": 157,
+          "height": 173
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 157,
+          "height": 173
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/download-android_884c8ff4.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/e577d5c72966904da39f.webp",
+      "sha256": "e577d5c72966904da39f935392a7aabd1552d9aee7eb37baf7e99fb3c84978db",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1520,
+      "specs": {
+        "intrinsicSize": {
+          "width": 152,
+          "height": 50
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 152,
+          "height": 50
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_tap_a02f2dfc.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/f83543ce2460b857920b.webp",
+      "sha256": "f83543ce2460b857920b6a0cffd41fcdaefea82909a18318a7c8c847333931b3",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1318,
+      "specs": {
+        "intrinsicSize": {
+          "width": 76,
+          "height": 103
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 76,
+          "height": 103
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/btn_down_9377872f.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/c22e210869a21eeb30d6.webp",
+      "sha256": "c22e210869a21eeb30d661ec88c0243c6218872ce311c16d9c768c71b9cdf337",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 946,
+      "specs": {
+        "intrinsicSize": {
+          "width": 124,
+          "height": 34
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 124,
+          "height": 34
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav4on_2bf8776d.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/3735d7e5242f4226f587.webp",
+      "sha256": "3735d7e5242f4226f58742821e1d863c4cf09ac7ec6451625f703d11dd2f3099",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 9328,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://nie.res.netease.com/comm/NIE_copyRight/images/nie.2.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/945e6f8a023611b9b2d8.webp",
+      "sha256": "945e6f8a023611b9b2d84c0bf485f21db933da6318ba22284c66cc18b889779a",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2298,
+      "specs": {
+        "intrinsicSize": {
+          "width": 134,
+          "height": 31
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 134,
+          "height": 31
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/title_7ba3eef2.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/d135dff822660c11dff2.webp",
+      "sha256": "d135dff822660c11dff2c342efa557e46a745ffa74eb22700029545a3bc68a5b",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 13670,
+      "specs": {
+        "intrinsicSize": {
+          "width": 494,
+          "height": 121
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 494,
+          "height": 121
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/pre_d1aceab7.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/86fb62e3b14db840f12a.webp",
+      "sha256": "86fb62e3b14db840f12abcddc00ed13b71f6ab3dd5ab39f1cbc4230cbc022fb9",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2050,
+      "specs": {
+        "intrinsicSize": {
+          "width": 53,
+          "height": 89
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 53,
+          "height": 89
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/next_709cc03a.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/1387c2fa20a3f8b16be7.webp",
+      "sha256": "1387c2fa20a3f8b16be75324d184bfd301d415620430c4e75db8eab38653e3e9",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2080,
+      "specs": {
+        "intrinsicSize": {
+          "width": 53,
+          "height": 89
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 53,
+          "height": 89
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/title_9604dd5e.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/48dc597c9b2dfe7b4c75.webp",
+      "sha256": "48dc597c9b2dfe7b4c75306f50b0e26bcd6c92450b7c74f93b7766d144d32765",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 13638,
+      "specs": {
+        "intrinsicSize": {
+          "width": 494,
+          "height": 121
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 494,
+          "height": 121
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/title_66c61160.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/15b8aa67beb4c55fbb0d.webp",
+      "sha256": "15b8aa67beb4c55fbb0dfd791afe27e128da5e37b1f5af4d8433a742b114c798",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 13604,
+      "specs": {
+        "intrinsicSize": {
+          "width": 494,
+          "height": 121
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 494,
+          "height": 121
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/topBtn1_h_42f0e6d4.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/0d92414388a723294ba6.webp",
+      "sha256": "0d92414388a723294ba6b91f7cf01c34e86e85ffea30e85ab34bc70a9d11a1e8",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 4468,
+      "specs": {
+        "intrinsicSize": {
+          "width": 281,
+          "height": 61
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 281,
+          "height": 61
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/topBtn2_47001ab8.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/56834b36f55c36aef459.webp",
+      "sha256": "56834b36f55c36aef459b6cbf460ead382ca2ffd666d2661072d7e46673e6770",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 5200,
+      "specs": {
+        "intrinsicSize": {
+          "width": 281,
+          "height": 62
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 281,
+          "height": 62
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://bee.tc.netease.com/record_devilfish?system=buildin_devilfish&fake_user_id=elk_MQCFveH&client_type=0&is_first_login=1&is_login=0&activity=https%3A%2F%2Fid5.163.com%2F&visit_url_title=%E7%AC%AC%E4%BA%94%E4%BA%BA%E6%A0%BC%E6%9A%91%E6%9C%9F%E7%89%88%E6%9C%AC%E2%80%94%E2%80%94%E2%80%9C%E5%9D%A0%E5%85%A5%E7%9B%9B%E5%A4%8F%EF%BC%8C%E6%B5%B7%E8%89%B2%E5%BC%A5%E6%B7%B1%E2%80%9D&visit_url_source=&screen_resolution=1440x900&browser_language=en-us&color_depth=24-bit&monitor=open_action&last_modify=1793117409&user_account=&product=id5.163.com&isindex=0",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/e2a8aca48c5b24df14c6.bin",
+      "sha256": "e2a8aca48c5b24df14c6e0ab0b30df7ed50fa97bc22fd706c71a7eebe96a8b67",
+      "hashVerified": true,
+      "mime": "image/avif",
+      "bytes": 7,
+      "specs": {
+        "intrinsicSize": null,
+        "alphaChannel": "unknown",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": null,
+        "inspection": {
+          "status": "unknown",
+          "method": "none",
+          "reason": "unsupported-or-invalid-format"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/contBox1_801e4db3.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/40c086d21e3e93981453.webp",
+      "sha256": "40c086d21e3e93981453d0728d45813276170dd065e7cf7d9706457a9967790b",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 41586,
+      "specs": {
+        "intrinsicSize": {
+          "width": 1340,
+          "height": 731
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 1340,
+          "height": 731
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/title_175c5fd6.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/0016f75a569cffdcebd2.webp",
+      "sha256": "0016f75a569cffdcebd29f149588fe88d038edef0165c6a7510ba9f3e4a9ba7d",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 13610,
+      "specs": {
+        "intrinsicSize": {
+          "width": 494,
+          "height": 121
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 494,
+          "height": 121
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/topBtn0_h_beaedcb9.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/98d80bdc6baaaa03331e.webp",
+      "sha256": "98d80bdc6baaaa03331eb0529273785e49befbc8293d8ce427c2028bb98b3037",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 5180,
+      "specs": {
+        "intrinsicSize": {
+          "width": 317,
+          "height": 61
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 317,
+          "height": 61
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/topBtn1_3ac8c2f5.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/0d733959983d5f1ac7e8.webp",
+      "sha256": "0d733959983d5f1ac7e821319dd7d5c3de25658a480f5873e78000ff6bc3a622",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 4612,
+      "specs": {
+        "intrinsicSize": {
+          "width": 318,
+          "height": 62
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 318,
+          "height": 62
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/zsbg_0a936632.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/1a8d6d15afed589eb3b2.webp",
+      "sha256": "1a8d6d15afed589eb3b228796970e44cefa8cd10f3c8009499dcd60484a3dd7f",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 3134,
+      "specs": {
+        "intrinsicSize": {
+          "width": 220,
+          "height": 1080
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 220,
+          "height": 1080
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/stitle_5578e2d1.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/27bc40765856ac1632d3.webp",
+      "sha256": "27bc40765856ac1632d3c9abf36c46cf65a22e7b06bbe7414fc86d8605aed7a0",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 7198,
+      "specs": {
+        "intrinsicSize": {
+          "width": 180,
+          "height": 66
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 180,
+          "height": 66
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav1_aadd1149.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/133dccf40d7b6a6f5b0c.webp",
+      "sha256": "133dccf40d7b6a6f5b0c3096763cc606e58f78077ca6d7f8ff590804bdbe1226",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 10456,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/line_1e3d14b3.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/3fa0885f82acd94f7da7.webp",
+      "sha256": "3fa0885f82acd94f7da71bfce31b5680133f0622bbee65ec413646a848266882",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 290,
+      "specs": {
+        "intrinsicSize": {
+          "width": 170,
+          "height": 7
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 170,
+          "height": 7
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav2_0ced9a05.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/4e93162ce3082b426f2d.webp",
+      "sha256": "4e93162ce3082b426f2de901dde2e9e7df378c234a99a92a7779ffe74dc592d9",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 10790,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav3_fcb19449.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/330014731ee7d434f0fe.webp",
+      "sha256": "330014731ee7d434f0fe99fd3127e2e2542bc67a16427a931479e33ff8bfb856",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 9196,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/nav4_3325fede.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/988a00b20dbd4596d90d.webp",
+      "sha256": "988a00b20dbd4596d90d85e3c72e069167ccce08fd6fb4eb34a90c28d7f7db01",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 9338,
+      "specs": {
+        "intrinsicSize": {
+          "width": 188,
+          "height": 138
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 188,
+          "height": 138
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/title_4077a004.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/24828bcd19c3395da0c6.webp",
+      "sha256": "24828bcd19c3395da0c6e252d6f50be98634d3ff880e1cda07aa2be2f1bb4aee",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 12824,
+      "specs": {
+        "intrinsicSize": {
+          "width": 494,
+          "height": 121
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 494,
+          "height": 121
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/close_6270b89e.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/32c19f0fb64fefd820ff.webp",
+      "sha256": "32c19f0fb64fefd820ff0a7bbd5dc567f98362e09970d1b777e25ce57e634066",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1584,
+      "specs": {
+        "intrinsicSize": {
+          "width": 45,
+          "height": 45
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 45,
+          "height": 45
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/down_code_ff463ef7.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/184b2cf35c72e19e0ce7.webp",
+      "sha256": "184b2cf35c72e19e0ce720b202544a401337aab853287025d29f03591237da92",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 4560,
+      "specs": {
+        "intrinsicSize": {
+          "width": 110,
+          "height": 110
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 110,
+          "height": 110
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [
+        {
+          "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/down_code_ff463ef7.png",
+          "tag": "img",
+          "alt": "",
+          "id": "",
+          "rect": [
+            517.421875,
+            699.640625,
+            67.859375,
+            67.859375
+          ],
+          "visibility": {
+            "visible": true,
+            "reasons": [
+              "within-geometry-bounds"
+            ],
+            "effectiveRect": {
+              "x": 517.421875,
+              "y": 699.640625,
+              "width": 67.859375,
+              "height": 67.859375
+            },
+            "boundary": "conservative viewport/overflow/CSS only; transformed clips and arbitrary occlusion unverified; explicit child visibility overrides may be withheld"
+          },
+          "intrinsicSize": {
+            "width": 110,
+            "height": 110
+          },
+          "page": "https://id5.163.com/",
+          "documentLang": "",
+          "frameIndex": 0
+        }
+      ],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/1-1_23626c55.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/c86f25a27eeed6426973.webp",
+      "sha256": "c86f25a27eeed642697308c4a9d7f1c20da508dedf66023a6a7541832151cced",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 91754,
+      "specs": {
+        "intrinsicSize": {
+          "width": 971,
+          "height": 532
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 971,
+          "height": 532
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/1-2_d00402d5.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/5b46b3f0bc1ba160b3b4.webp",
+      "sha256": "5b46b3f0bc1ba160b3b4229d497054c491ba7e21ab8be9fa4030558e89fea2ff",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 61118,
+      "specs": {
+        "intrinsicSize": {
+          "width": 971,
+          "height": 532
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 971,
+          "height": 532
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/1-3_8307d524.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/cae8f9c9726fe7177d4f.webp",
+      "sha256": "cae8f9c9726fe7177d4f6c6ce8fa70b90187c7158bc0a28550c6305863a9764a",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 64012,
+      "specs": {
+        "intrinsicSize": {
+          "width": 971,
+          "height": 532
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 971,
+          "height": 532
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/1-4_daac2372.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/9436293af3914b4c91b2.webp",
+      "sha256": "9436293af3914b4c91b2a04f6c644c4038a8480ddcbabb41f55844b6c19a1360",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 71204,
+      "specs": {
+        "intrinsicSize": {
+          "width": 971,
+          "height": 532
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 971,
+          "height": 532
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/kv_59852b71.jpg",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/464c61a9bf4882130025.jpg",
+      "sha256": "464c61a9bf488213002545f7b7dd9c5623a21cda74f58ff36f2155cf7a0d8954",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 578975,
+      "specs": {
+        "intrinsicSize": {
+          "width": 1920,
+          "height": 1080
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 1920,
+          "height": 1080
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/bg_b_ba06c111.jpg",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/c18920f7e162c9450a77.jpg",
+      "sha256": "c18920f7e162c9450a77333fe276f0b186b5f7d9d6150e075dc6dfe94bb42bce",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 366117,
+      "specs": {
+        "intrinsicSize": {
+          "width": 1920,
+          "height": 1080
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 1920,
+          "height": 1080
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/bg_da7de480.jpg",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/fbbb34cdb4fd54ff92e0.jpg",
+      "sha256": "fbbb34cdb4fd54ff92e0e193419c82cc74e8c89dfd9454568e6abf01f27f2b8d",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 569473,
+      "specs": {
+        "intrinsicSize": {
+          "width": 1920,
+          "height": 1080
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 1920,
+          "height": 1080
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://id5.res.netease.com/pc/fab/20260318144430/img/000000000_5b9f621f.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/f368e07352a14d52b866.webp",
+      "sha256": "f368e07352a14d52b8669b802d4c223109e2aa5b6b5f905bad312102758ac2fe",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 10680,
+      "specs": {
+        "intrinsicSize": {
+          "width": 195,
+          "height": 174
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 195,
+          "height": 174
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://nie.res.netease.com/comm/nie.topBar/images/sprite-w-2_4603fbd.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/bdf71e1a7a035ab42078.webp",
+      "sha256": "bdf71e1a7a035ab4207809ae3f301df50f6e06e3d702c88cad20363255df7a45",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 6024,
+      "specs": {
+        "intrinsicSize": {
+          "width": 115,
+          "height": 463
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 115,
+          "height": 463
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://nie.res.netease.com/comm/nie.topBar/images/logo_b5525b7.png",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/65826999856729da89ba.webp",
+      "sha256": "65826999856729da89ba9b12cdca7dc65acd1ead6c191b021fa23a3ea4ce238a",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 2752,
+      "specs": {
+        "intrinsicSize": {
+          "width": 133,
+          "height": 44
+        },
+        "alphaChannel": "present",
+        "transparency": "unknown",
+        "maxSafeDisplaySize": {
+          "width": 133,
+          "height": 44
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://nie.res.netease.com/comm/nie.topBar/images/normal_6eb4d48.jpg",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/38408dfab60a475af0ea.webp",
+      "sha256": "38408dfab60a475af0ea212e9a1f4eea0307b9067e7dd11c230cf21a2977909f",
+      "hashVerified": true,
+      "mime": "image/webp",
+      "bytes": 1376,
+      "specs": {
+        "intrinsicSize": {
+          "width": 170,
+          "height": 185
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 170,
+          "height": 185
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "webp-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://fz.fp.ps.netease.com/file/6adafdcc56525301f7ee149aRfCGu2cF07",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/8edf0e0db8f5fd615099.jpg",
+      "sha256": "8edf0e0db8f5fd615099dac8fc3b46a17b28d98363565599163a1b90fe0f9075",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 32214,
+      "specs": {
+        "intrinsicSize": {
+          "width": 170,
+          "height": 185
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 170,
+          "height": 185
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://fz.fp.ps.netease.com/file/6adafc3ca400d5a12197ff402BlIIp9d07",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/2444b20dad6f203b297b.jpg",
+      "sha256": "2444b20dad6f203b297b477a71e2aa4751a437b0c32567f17d025da5ea5d4765",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 22605,
+      "specs": {
+        "intrinsicSize": {
+          "width": 420,
+          "height": 55
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 420,
+          "height": 55
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [
+        {
+          "url": "https://fz.fp.ps.netease.com/file/6adafc3ca400d5a12197ff402BlIIp9d07",
+          "tag": "img",
+          "alt": "",
+          "id": "NIE-topBar-abc-s",
+          "rect": [
+            180,
+            0,
+            420,
+            55
+          ],
+          "visibility": {
+            "visible": true,
+            "reasons": [
+              "partially-clipped"
+            ],
+            "effectiveRect": {
+              "x": 180,
+              "y": 0,
+              "width": 420,
+              "height": 54
+            },
+            "boundary": "conservative viewport/overflow/CSS only; transformed clips and arbitrary occlusion unverified; explicit child visibility overrides may be withheld"
+          },
+          "intrinsicSize": {
+            "width": 420,
+            "height": 55
+          },
+          "page": "https://id5.163.com/",
+          "documentLang": "",
+          "frameIndex": 0
+        }
+      ],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    },
+    {
+      "url": "https://fz.fp.ps.netease.com/file/6adafc3c9e55934eb32de859uU7MWKfo07",
+      "path": "output/extractor-benchmark/identity-v/rendered/browser-assets/6d7e9526bea1ce35043a.jpg",
+      "sha256": "6d7e9526bea1ce35043abc2ceaa544ac166e38f234484920950986675b9fdc63",
+      "hashVerified": true,
+      "mime": "image/jpeg",
+      "bytes": 151855,
+      "specs": {
+        "intrinsicSize": {
+          "width": 960,
+          "height": 250
+        },
+        "alphaChannel": "absent",
+        "transparency": "absent",
+        "maxSafeDisplaySize": {
+          "width": 960,
+          "height": 250
+        },
+        "inspection": {
+          "status": "inspected",
+          "method": "jpeg-header"
+        }
+      },
+      "firstFramePlacement": [],
+      "status": "archived-candidate",
+      "usageApproval": "not-granted"
+    }
+  ],
+  "claims": [
+    {
+      "id": "home-text-1",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "1V4非对称对抗竞技游戏",
+      "selector": "div#wrap > div:nth-of-type(2) > p:nth-of-type(1)",
+      "region": {
+        "x": 53.75,
+        "y": 73.46875,
+        "width": 130.328125,
+        "height": 14
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "static",
+        "color": "rgb(238, 222, 207)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "\"Microsoft YaHei\", Arial, \"Helvetica Neue\", HelveticaNeue, Helvetica, \"BBAlpha Sans\", sans-serif, HelveticasimSun, \"Lucida Grande\", \"Lucida Sans Unicode\"",
+        "fontSize": "12.096px",
+        "fontWeight": "400",
+        "lineHeight": "16.128px",
+        "letterSpacing": "normal",
+        "textAlign": "start",
+        "borderRadius": "0px",
+        "borderColor": "rgb(238, 222, 207)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-2",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "首页",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(1)",
+      "region": {
+        "x": 234.46875,
+        "y": 75.4375,
+        "width": 21.5,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(118, 50, 65)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "url(\"https://id5.res.netease.com/pc/fab/20260318144430/img/navBg_55b88a51.png\")",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(118, 50, 65)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-3",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "暑期福利",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(2)",
+      "region": {
+        "x": 321.828125,
+        "y": 75.4375,
+        "width": 43,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(255, 239, 233)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(255, 239, 233)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-4",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "全新玩法",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(3)",
+      "region": {
+        "x": 419.9375,
+        "y": 75.4375,
+        "width": 43,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(255, 239, 233)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(255, 239, 233)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-5",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "全新时装",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(4)",
+      "region": {
+        "x": 518.046875,
+        "y": 75.4375,
+        "width": 43,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(255, 239, 233)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(255, 239, 233)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-6",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "暑期活动",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(5)",
+      "region": {
+        "x": 616.15625,
+        "y": 75.4375,
+        "width": 43,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(255, 239, 233)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(255, 239, 233)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-7",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "全新赛季",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(6)",
+      "region": {
+        "x": 714.265625,
+        "y": 75.4375,
+        "width": 43,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(255, 239, 233)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(255, 239, 233)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-8",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "IP联动",
+      "selector": "div#wrap > div:nth-of-type(2) > div:nth-of-type(1) > div:nth-of-type(7)",
+      "region": {
+        "x": 818.140625,
+        "y": 75.4375,
+        "width": 31.46875,
+        "height": 15
+      },
+      "computed": {
+        "display": "inline-block",
+        "position": "relative",
+        "color": "rgb(255, 239, 233)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "backgroundImage": "none",
+        "fontFamily": "syhtct",
+        "fontSize": "10.752px",
+        "fontWeight": "600",
+        "lineHeight": "30.912px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "0px",
+        "borderColor": "rgb(255, 239, 233)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    },
+    {
+      "id": "home-text-9",
+      "status": "observed-local-sample",
+      "page": "https://id5.163.com/",
+      "frameIndex": 0,
+      "capture": {
+        "path": "output/extractor-benchmark/identity-v/rendered/browser-frames/000.png",
+        "sha256": "419eceedb974b44b7b09efcef1f53e1bce4916bc4e10882d8383bc198a312001"
+      },
+      "text": "©版权信息",
+      "selector": "div#wrap > div:nth-of-type(4) > div:nth-of-type(1)",
+      "region": {
+        "x": 1368.5,
+        "y": 882.828125,
+        "width": 50.921875,
+        "height": 12
+      },
+      "computed": {
+        "display": "block",
+        "position": "absolute",
+        "color": "rgba(255, 255, 255, 0.7)",
+        "backgroundColor": "rgba(0, 0, 0, 0.8)",
+        "backgroundImage": "none",
+        "fontFamily": "\"Microsoft YaHei\", Arial, \"Helvetica Neue\", HelveticaNeue, Helvetica, \"BBAlpha Sans\", sans-serif, HelveticasimSun, \"Lucida Grande\", \"Lucida Sans Unicode\"",
+        "fontSize": "10.752px",
+        "fontWeight": "400",
+        "lineHeight": "22.176px",
+        "letterSpacing": "normal",
+        "textAlign": "center",
+        "borderRadius": "10.752px",
+        "borderColor": "rgba(255, 255, 255, 0.7)",
+        "borderWidth": "0px",
+        "boxShadow": "none",
+        "padding": "0px",
+        "gap": "normal",
+        "gridTemplateColumns": "none",
+        "alignItems": "normal",
+        "justifyContent": "normal",
+        "opacity": "1",
+        "transform": "none",
+        "fill": "rgb(0, 0, 0)",
+        "stroke": "none"
+      },
+      "scope": "this campaign homepage at captured desktop viewport only",
+      "semanticPromotion": "not-approved"
+    }
+  ],
+  "gaps": [
+    "12 个采样帧的 active controller 均为首页 kv，其他 6 个控制器页面未证明覆盖。",
+    "后续采样和全页图出现网易游戏目录遮挡；不得用于全站布局结论。",
+    "仅有桌面采样，移动端结构未验证。",
+    "fontFamily 声明不等于实际字体资源已交付或字形已核验。",
+    "素材归档不等于用途批准；非首帧素材的页面语境仍待核实。",
+    "独立学习入口未生成 sealed Goal；本目录是用户授权的本地证据整理，不是正式角色链 PASS。"
+  ],
+  "visualNotes": [
+    {
+      "status": "observed-homepage-only",
+      "text": "全屏插画主视觉占据首屏大部分面积；中央人物与下方艺术字形成主要焦点。"
+    },
+    {
+      "status": "observed-homepage-only",
+      "text": "导航为横向半透明粉紫表面，当前项使用装饰性底图；下载入口集中于下方花饰面板。"
+    },
+    {
+      "status": "inferred-campaign-expression",
+      "text": "暮色、花卉、粉紫与蓝绿构成此活动页面的表达；尚不能视为第五人格全品牌不变量。"
+    }
+  ]
+}
