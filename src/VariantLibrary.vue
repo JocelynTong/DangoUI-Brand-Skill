@@ -15,12 +15,11 @@
     <section v-else-if="invalidScene" class="vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请重新选择页面。</p><a :href="selected ? `#/variants/${selected.id}/${selected.scenes[0].id}` : '#/variants'">{{ selected ? '返回品牌页面' : '返回品牌库' }}</a></section>
     <template v-else-if="!selected">
       <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
-      <section aria-label="候选学习成果" style="margin:24px 0;padding:28px;border:1px solid #d7b49c;border-radius:12px;background:#142c35;color:#ffefe9">
-        <p>候选学习成果 · 完整学习未通过</p><h2>第五人格 · 盛夏花园</h2>
-        <p>归档首页素材、交互 Demo、11 个候选 Token 与 DangoUI Web 按钮。布局与渐变是 Demo 推演；宿主原生验收、官方字体及完整品牌规范仍未认证。</p>
-        <p><a style="color:inherit" href="./brand-candidates/identity-v/demo.html">打开交互 Demo ↗</a> · <a style="color:inherit" href="./brand-candidates/identity-v/preview.html">DangoUI 按钮预览 ↗</a> · <a style="color:inherit" href="./brand-candidates/identity-v/guide.html">接入与验证边界 ↗</a></p>
-      </section>
       <section class="vl-grid" aria-label="品牌 Variant 列表">
+        <a href="./brand-candidates/identity-v/guide.html" class="vl-card vl-card--identity-v-official" aria-label="第五人格 · 盛夏花园候选成果">
+          <div class="vl-cover"><img src="./brand-candidates/identity-v/assets/464c61a9bf4882130025.jpg" alt="第五人格盛夏花园官方归档主视觉" style="object-position:52% 42%" /><div class="vl-cover-shade"></div><span class="vl-cover-label">暮色花园，盛夏来信</span></div>
+          <div class="vl-card-body"><div class="vl-card-heading"><h2>第五人格</h2><span>↗</span></div><p>归档首页素材与盛夏花园 Demo，探索按钮、面板和内容层级。</p><div class="vl-card-meta"><span>交互 Demo · 组件预览</span><span>候选 · 待完整验证</span></div></div>
+        </a>
         <a v-for="brand in brands" :key="brand.id" :href="`#/variants/${brand.id}`" class="vl-card" :class="`vl-card--${brand.id}`">
           <div class="vl-cover"><img v-if="brand.cover" :src="brand.cover" :alt="`${brand.displayName} 品牌素材`" @error="hideBroken($event, brand.id)"/><div v-else class="vl-typographic">Dango<span>Design → Build</span></div><span v-if="failedCovers[brand.id]" class="vl-media-fallback">{{ brand.displayName }}<small>远程封面暂未载入</small></span><div class="vl-cover-shade"></div><span class="vl-cover-label">{{ brand.hook }}</span></div>
           <div class="vl-card-body"><div class="vl-card-heading"><h2>{{ brand.displayName }}</h2><span>↗</span></div><p>{{ brand.description }}</p><div class="vl-card-meta"><span>{{ brand.scenes.length }} 个演示场景</span><span>{{ brand.publicationStatus === 'draft' ? '学习中' : '预览' }}</span></div></div>
