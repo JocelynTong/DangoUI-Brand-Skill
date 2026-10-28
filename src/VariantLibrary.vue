@@ -17,7 +17,7 @@
       <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
       <section class="vl-grid" aria-label="品牌 Variant 列表">
         <a href="./brand-candidates/identity-v/guide.html" class="vl-card vl-card--identity-v-official" aria-label="第五人格 · 盛夏花园候选成果">
-          <div class="vl-cover"><img src="./brand-candidates/identity-v/assets/464c61a9bf4882130025.jpg" alt="第五人格盛夏花园官方归档主视觉" style="object-position:52% 42%" /><div class="vl-cover-shade"></div><span class="vl-cover-label">暮色花园，盛夏来信</span></div>
+          <div class="vl-cover"><img :src="'./brand-candidates/identity-v/assets/464c61a9bf4882130025.jpg'" alt="第五人格盛夏花园官方归档主视觉" style="object-position:52% 42%" /><div class="vl-cover-shade"></div><span class="vl-cover-label">暮色花园，盛夏来信</span></div>
           <div class="vl-card-body"><div class="vl-card-heading"><h2>第五人格</h2><span>↗</span></div><p>归档首页素材与盛夏花园 Demo，探索按钮、面板和内容层级。</p><div class="vl-card-meta"><span>交互 Demo · 组件预览</span><span>候选 · 待完整验证</span></div></div>
         </a>
         <a v-for="brand in brands" :key="brand.id" :href="`#/variants/${brand.id}`" class="vl-card" :class="`vl-card--${brand.id}`">
