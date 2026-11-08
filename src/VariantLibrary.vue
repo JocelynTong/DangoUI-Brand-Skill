@@ -14,8 +14,12 @@
     <section v-else-if="invalidFoundation" class="vl-message" role="alert"><h1>规范不存在</h1><p>此规范链接可能有误或内容已移除，请从目录重新选择。</p><a :href="`#/variants/${selected.id}/foundations`">返回设计规范</a></section>
     <section v-else-if="invalidScene" class="vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请重新选择页面。</p><a :href="selected ? `#/variants/${selected.id}/${selected.scenes[0].id}` : '#/variants'">{{ selected ? '返回品牌页面' : '返回品牌库' }}</a></section>
     <template v-else-if="!selected">
-      <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
-      <details class="vl-reuse-guide" id="brand-reuse">
+      <section class="vl-gallery-home" aria-labelledby="brand-library-title">
+        <header class="vl-gallery-heading">
+          <div><p class="vl-gallery-kicker">BRAND LIBRARY</p><h1 id="brand-library-title">DangoUI 品牌库</h1><p>从代表性品牌进入设计系统、组件与页面示例。</p></div>
+          <label class="vl-gallery-search"><span aria-hidden="true">⌕</span><span class="vl-sr-only">搜索品牌</span><input v-model.trim="searchQuery" type="search" placeholder="搜索品牌" /></label>
+        </header>
+        <details class="vl-reuse-guide" id="brand-reuse">
           <summary>什么时候值得用 Brand Skill？</summary>
           <p>只想比较几张创意图，可以直接用 Codex。团队反复做品牌合作、需要把选中的方向交给研发时，品牌库可以保存上次确认过的素材、组件映射和适用范围。</p>
           <dl>
@@ -24,16 +28,34 @@
             <dt>何时算交付</dt><dd>从效果图到可操作单页，在目标设备上核对控件、状态和视觉。我们正在比较直接使用 Codex 与使用 skill 的人工时间、返工及成本；跨项目节省幅度尚待实测。</dd>
           </dl>
         </details>
-      <section class="vl-grid" aria-label="品牌 Variant 列表">
-        <a href="./brand-candidates/identity-v/guide.html" class="vl-card vl-card--identity-v-official" aria-label="第五人格 · 盛夏花园候选成果">
-          <div class="vl-cover"><img :src="'./brand-candidates/identity-v/assets/464c61a9bf4882130025.jpg'" alt="第五人格盛夏花园官方归档主视觉" style="object-position:52% 42%" /><div class="vl-cover-shade"></div><span class="vl-cover-label">暮色花园，盛夏来信</span></div>
-          <div class="vl-card-body"><div class="vl-card-heading"><h2>第五人格</h2><span>↗</span></div><p>归档首页素材与盛夏花园 Demo，探索按钮、面板和内容层级。</p><div class="vl-card-meta"><span>交互 Demo · 组件预览</span><span>候选 · 待完整验证</span></div></div>
-        </a>
-        <a v-for="brand in brands" :key="brand.id" :href="`#/variants/${brand.id}`" class="vl-card" :class="`vl-card--${brand.id}`">
-          <div class="vl-cover"><img v-if="brand.cover" :src="brand.cover" :alt="`${brand.displayName} 品牌素材`" @error="hideBroken($event, brand.id)"/><div v-else class="vl-typographic">Dango<span>Design → Build</span></div><span v-if="failedCovers[brand.id]" class="vl-media-fallback">{{ brand.displayName }}<small>远程封面暂未载入</small></span><div class="vl-cover-shade"></div><span class="vl-cover-label">{{ brand.hook }}</span></div>
-          <div class="vl-card-body"><div class="vl-card-heading"><h2>{{ brand.displayName }}</h2><span>↗</span></div><p>{{ brand.description }}</p><div class="vl-card-meta"><span>{{ brand.scenes.length }} 个演示场景</span><span>{{ brand.publicationStatus === 'draft' ? '学习中' : '预览' }}</span></div></div>
-        </a>
-      </section><p class="vl-footnote">Web 预览 · 适配与验证范围见各品牌说明。</p>
+        <div v-if="featuredBrand" class="vl-gallery-stage">
+          <article class="vl-feature" :class="`vl-feature--${featuredBrand.id}`">
+            <a class="vl-feature__visual" :href="brandHref(featuredBrand)" :aria-label="`进入 ${featuredBrand.displayName} 品牌库`"><DangoLibraryCover v-if="featuredBrand.id === 'dango'" /><BrandLibraryCover v-else :brand="featuredBrand" /></a>
+            <div class="vl-feature__copy">
+              <div class="vl-feature__identity"><span class="vl-feature__eyebrow">{{ hasDownloadData ? '下载热度 TOP 1' : '最近更新' }}</span><h2>{{ featuredBrand.displayName }}</h2><small class="vl-feature__context">{{ hasDownloadData ? downloadMetric(featuredBrand) : `${updatedAtLabel(featuredBrand)} 更新` }}</small></div>
+              <a class="vl-feature__action" :href="brandHref(featuredBrand)">进入品牌库 <span>→</span></a>
+            </div>
+          </article>
+          <aside class="vl-ranking" :aria-label="hasDownloadData ? '热门下载榜' : '近期更新品牌'">
+            <div class="vl-ranking__head"><div><span>{{ hasDownloadData ? 'DOWNLOAD RANKING' : 'RECENTLY UPDATED' }}</span><h2>{{ hasDownloadData ? '热门下载榜' : '近期更新' }}</h2></div><small>{{ hasDownloadData ? '近 30 天' : '等待下载数据' }}</small></div>
+            <ol class="vl-ranking-list">
+              <li v-for="(brand, index) in rankingBrands" :key="brand.id"><component :is="brandHref(brand) ? 'a' : 'div'" class="vl-ranking-item" :href="brandHref(brand)"><span class="vl-ranking-item__number">{{ String(index + 2).padStart(2, '0') }}</span><span class="vl-ranking-item__cover"><DangoLibraryCover v-if="brand.id === 'dango'" /><BrandLibraryCover v-else :brand="brand" /></span><span class="vl-ranking-item__copy"><strong>{{ brand.displayName }}</strong><small>{{ hasDownloadData ? downloadMetric(brand) : updatedAtLabel(brand) }}</small></span><span v-if="brandHref(brand)" aria-hidden="true">↗</span></component></li>
+            </ol>
+            <p v-if="!hasDownloadData" class="vl-ranking__note">接入下载统计后自动切换热度排序</p>
+          </aside>
+        </div>
+        <div class="vl-gallery-toolbar"><div><span>ALL BRANDS</span><h2>全部品牌 <small>{{ visibleBrands.length }}/{{ galleryBrands.length }}</small></h2></div><label class="vl-gallery-filter"><span class="vl-sr-only">筛选品牌状态</span><select v-model="statusFilter"><option v-for="option in statusOptions" :key="option.value" :value="option.value">{{ option.label }}</option></select></label></div>
+        <section v-if="visibleBrands.length" class="vl-gallery-grid" aria-label="全部品牌">
+          <article v-for="brand in visibleBrands" :key="brand.id" class="vl-gallery-card" :class="[`vl-gallery-card--${brand.id}`, { 'is-unavailable': !brand.scenes.length }]">
+            <component :is="brandHref(brand) ? 'a' : 'div'" class="vl-gallery-card__cover" :href="brandHref(brand)" :aria-label="`查看 ${brand.displayName} · ${variantStatusLabel(brand.variantStatus)}`">
+              <DangoLibraryCover v-if="brand.id === 'dango'" /><BrandLibraryCover v-else :brand="brand" />
+              <span class="vl-gallery-card__overlay"><span><strong>{{ brand.displayName }}</strong><small :class="`vl-status--${brand.variantStatus}`">{{ hasDownloadData && downloadCountOf(brand) !== null ? downloadMetric(brand) : variantStatusLabel(brand.variantStatus) }}</small></span><b v-if="brandHref(brand)" aria-hidden="true">↗</b></span>
+            </component>
+          </article>
+        </section>
+        <p v-else class="vl-gallery-empty">没有找到匹配的品牌，请换个关键词或状态。</p>
+        <p class="vl-footnote">Web 预览 · 适配与验证范围见各品牌说明。</p>
+      </section>
     </template>
     <template v-else>
       <a class="vl-back" href="#/variants">← 全部品牌</a>
@@ -157,6 +179,9 @@ import SceneUsageGuide from './documents/SceneUsageGuide.vue';
 import { canonicalDocumentHash, invalidFoundationHash } from './documents/routes.mjs';
 import { createPreviewPositions, restorePreviewPosition } from './demo-preview-position.mjs';
 const App = defineAsyncComponent(() => import('./App.vue'));
+import BrandLibraryCover from './BrandLibraryCover.vue';
+import DangoLibraryCover from './DangoLibraryCover.vue';
+import galleryEntries from './gallery-entries.json';
 import SiteThemeControl from './SiteThemeControl.vue';
 import './variant-library.css';
 const isCatalogScene = computed(() => selected.value?.id === 'onepiece-cardgame' && activeScene.value?.id === 'onepiece-cardgame-products');
@@ -184,6 +209,28 @@ const meta={
  'czn':{cover:'https://game.gtimg.cn/images/czn/cp/a20250820xnz/20260617/xh_bg.jpg',hook:'暗色场景，角色登场',description:'以大幅媒体、角色层次与空间感承载沉浸表达。',expression:'角色与背景的分层、媒体舞台与时间线。原库 QA 尚待完成。',scenes:[['czn-home','品牌舞台','source','原库媒体首页，先观察视觉表现。','品牌舞台，待完成验证。'],['czn-gameplay','玩法介绍','source','五项玩法媒体与标题、序号同步切换。','媒体浏览；不提供玩法详情。'],['czn-character','角色档案','source','角色切换与身份信息的关系。','对象切换 + 资料展示。'],['czn-held-out','信号档案','transfer','原库虚构档案迁移练习。','档案切换，待完成验证。']]},
  'dango':{hook:'让结构清晰可读',description:'克制的文档层级、组件表达与清晰的行动反馈。',expression:'文档层级与组件状态如何在新任务里延续。',scenes:[['dango-introduction','设计语言','source','既有设计系统介绍页。','信息层级与说明。'],['dango-button','组件交互','source','直接操作已有按钮与状态示例。','基础交互与反馈。'],['dango-release-checklist','发布清单','transfer','既有新内容练习，观察规则的复用。','清单式任务表达。']]}
 };
+const galleryBrands = computed(() => galleryEntries.map(entry => ({
+  scenes: [], ...brands.value.find(brand => brand.id === entry.id), ...entry
+})));
+const variantStatusLabels={preview:'预览',implementation:'实现中','qa-pending':'QA 待通过',rework:'返工中','evidence-pending':'证据待补'};
+function variantStatusLabel(status){return variantStatusLabels[status]||'学习中';}
+const searchQuery=ref(''),statusFilter=ref('all');
+const statusOptions=[{value:'all',label:'全部状态'},{value:'preview',label:'预览'},{value:'implementation',label:'实现中'},{value:'qa-pending',label:'QA 待通过'},{value:'rework',label:'返工中'},{value:'evidence-pending',label:'证据待补'}];
+const downloadNumberFormat=new Intl.NumberFormat('zh-CN');
+function downloadCountOf(brand){
+  const candidates=[brand?.downloads?.last30Days,brand?.downloadCount30d,brand?.downloadCount];
+  for(const candidate of candidates){if(candidate===null||candidate===undefined||candidate==='')continue;const value=Number(candidate);if(Number.isFinite(value)&&value>=0)return value;}
+  return null;
+}
+function updatedAtTime(brand){const value=Date.parse(brand?.updatedAt||'');return Number.isFinite(value)?value:0;}
+function updatedAtLabel(brand){const value=updatedAtTime(brand);return value?new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit'}).format(value).replaceAll('/','.'): '时间待补';}
+function brandHref(brand){return brand.scenes.length ? `#/variants/${brand.id}` : brand.href;}
+function downloadMetric(brand){const value=downloadCountOf(brand);return value===null?'下载数据待接入':`${downloadNumberFormat.format(value)} 次下载`;}
+const hasDownloadData=computed(()=>galleryBrands.value.some(brand=>downloadCountOf(brand)!==null));
+const rankedBrands=computed(()=>[...galleryBrands.value].sort((a,b)=>{if(hasDownloadData.value){const byDownloads=(downloadCountOf(b)??-1)-(downloadCountOf(a)??-1);if(byDownloads)return byDownloads;}return updatedAtTime(b)-updatedAtTime(a)||(a.variantOrder??999)-(b.variantOrder??999);}));
+const featuredBrand=computed(()=>rankedBrands.value[0]||null);
+const rankingBrands=computed(()=>rankedBrands.value.slice(1,4));
+const visibleBrands=computed(()=>{const query=searchQuery.value.toLocaleLowerCase('zh-CN');return galleryBrands.value.filter(brand=>{const matchesStatus=statusFilter.value==='all'||brand.variantStatus===statusFilter.value;const text=[brand.displayName,brand.description,brand.hook].filter(Boolean).join(' ').toLocaleLowerCase('zh-CN');return matchesStatus&&(!query||text.includes(query));});});
 const selected=computed(()=>brands.value.find(b=>b.id===routePath.value.split('/')[2]));
 const isStandalonePreview = computed(() => isInspector.value && routePath.value.split('/')[3] === 'pages' && new URLSearchParams(location.search).get('variantEmbed') === '1' && window.self === window.top);
 const previewScene = computed(() => selected.value?.scenes.find(scene => scene.id === routePath.value.split('/')[4]));
