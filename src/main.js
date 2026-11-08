@@ -13,6 +13,8 @@ if (new URLSearchParams(location.search).get("variantEmbed") === "1") document.b
 if (new URLSearchParams(location.search).get("variantEmbed") === "1" && new URLSearchParams(location.search).get("previewFrame") === "phone") document.body.classList.add("site-preview-phone");
 if (new URLSearchParams(location.search).get("inspectorEmbed") === "1") document.body.classList.add("inspector-embed");
 
+if (new URLSearchParams(location.search).get("variantEmbed") === "1" && new URLSearchParams(location.search).get("previewFrame") === "desktop") document.body.classList.add("site-preview-desktop");
+
 const app = createApp(App);
 
 // dangoui@3.6.16 is a cross-platform package. Its precompiled web bundle keeps

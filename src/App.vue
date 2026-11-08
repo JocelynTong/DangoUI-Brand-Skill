@@ -2609,6 +2609,9 @@ import './brands/pokemon-tcg-official-current.css';
 import './preview-phone.css';
 import SiteThemeControl from './SiteThemeControl.vue';
 import { componentCategorySpecs, styleCategories } from './documents/dango-catalog.mjs';
+import PokemonLessonDiagram from './documents/PokemonLessonDiagram.vue';
+import PokemonDeckLab from './documents/PokemonDeckLab.vue';
+import PokemonCardSearch from './documents/PokemonCardSearch.vue';
 import ColorInventory from './documents/ColorInventory.vue';
 import ButtonExamples from './documents/ButtonExamples.vue';
 import TypographyMatrix from './documents/TypographyMatrix.vue';
@@ -5690,6 +5693,11 @@ const SchemaPokemonDatabaseSection = defineComponent({
       const staticOnly = content.interactionMode === "static-evidence-only";
       const cards = schemaAssetList(section, "cards");
       const energy = Array.isArray(content.energyTypes) ? content.energyTypes : [];
+      if (content.interactionMode === "local-card-search") {
+        return renderSchemaSection(section, "pokemon-db", [
+          h(PokemonCardSearch, { cards, energyTypes: energy, title: content.title }),
+        ]);
+      }
       return renderSchemaSection(section, "pokemon-db", [
         h("header", { class: "pokemon-db__title-plate" }, [
           h("img", { src: "/assets/brand-assets/pokemon-tcg-official/tcg-logo.png", alt: "Pokémon Trading Card Game" }),
@@ -6199,6 +6207,8 @@ const sectionRendererRegistry = {
   "onepiece-event-discovery": SchemaOnePieceEventDiscoverySection,
   "database-card-strip": SchemaAssetStripSection,
   "database-cta": SchemaActionClusterSection,
+  "pokemon-deck-lab": PokemonDeckLab,
+  "pokemon-lesson-diagram": PokemonLessonDiagram,
   "pokemon-database": SchemaPokemonDatabaseSection,
   "pokemon-learn-section": SchemaPokemonLearnSection,
   "dango-docs-page": SchemaDangoDocsPageSection,

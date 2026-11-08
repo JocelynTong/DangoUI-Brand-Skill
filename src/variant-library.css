@@ -123,3 +123,13 @@ body.inspector-embed .workspace{min-width:0}
   font-size: 24px;
   line-height: 1;
 }
+
+body.site-preview-desktop .shell .template-preview,
+body.site-preview-desktop .shell .phone.template-phone,
+body.site-preview-desktop .shell .phone.template-phone .phone-screen {
+  box-sizing:border-box; width:100%; max-width:none; height:100vh; min-height:0; margin:0; padding:0;
+  border:0; border-radius:0; clip-path:none; box-shadow:none;
+}
+body.site-preview-desktop .shell .phone.template-phone::before { content:none; }
+body.site-preview-desktop .shell .phone.template-phone .phone-screen { overflow:auto; }
+body.site-preview-desktop .shell .template-preview { display:block; }

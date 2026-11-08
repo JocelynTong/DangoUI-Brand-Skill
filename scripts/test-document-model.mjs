@@ -18,10 +18,10 @@ for (const old of ['#/brand/dango/style/button', '#/brand/dango/components/butto
   assert.equal(canonicalDocumentHash(old), '#/variants/dango/components/button');
   assert.equal(canonicalDocumentHash(old, '?inspectorEmbed=1'), old);
 }
-assert.equal(canonicalDocumentHash('#/variants/dango/components'), '#/variants/dango/components/inspector');
+assert.equal(canonicalDocumentHash('#/variants/dango/components'), '#/variants/dango/components/button');
 for (const brand of ['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn']) {
   const legacy = `#/brand/${brand}/components/inspector`;
-  const canonical = `#/variants/${brand}/components/inspector`;
+  const canonical = `#/variants/${brand}/components/button`;
   assert.equal(canonicalDocumentHash(legacy), canonical);
   assert.equal(canonicalDocumentHash(canonical), canonical);
   for (const query of ['?variantEmbed=1', '?inspectorEmbed=1']) {

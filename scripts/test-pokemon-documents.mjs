@@ -12,14 +12,14 @@ assert.equal(samples.cards.length, 4);
 assert.equal(samples.stories.length, 3);
 assert.equal(samples.types.length, 11);
 assert.ok(samples.campaign.product.src);
-assert.equal(samples.anatomy.content.interactionMode, 'static-evidence-only');
+assert.equal(samples.anatomy.content.interactionMode, 'select-region');
 assert.equal(JSON.stringify(preview), before);
 assert.deepEqual(pokemonSamples({}), {campaign:undefined, stories:[],types:[],cards:[],anatomy:undefined});
 assert.equal(new Set(pokemonCompositions.map(x=>x.id)).size, 4);
 for(const {id} of foundationNames){assert.ok(pokemonFoundations[id]);assert.equal(canonicalDocumentHash(`#/brand/pokemon-tcg-official/style/${id}`),`#/variants/pokemon-tcg-official/foundations/${id}`);}
 for(const name of componentNames){const old=`#/brand/pokemon-tcg-official/components/${componentSlug(name)}`;assert.equal(canonicalDocumentHash(old),`#/variants/pokemon-tcg-official/components/${componentSlug(name)}`);for(const query of ['?variantEmbed=1','?inspectorEmbed=1'])assert.equal(canonicalDocumentHash(old,query),old);}
-assert.equal(canonicalDocumentHash('#/variants/pokemon-tcg-official/components'),'#/variants/pokemon-tcg-official/components/inspector');
-assert.equal(canonicalDocumentHash('#/variants/pokemon-tcg-official/foundations'),'#/variants/pokemon-tcg-official/foundations/overview');
+assert.equal(canonicalDocumentHash('#/variants/pokemon-tcg-official/components'),'#/variants/pokemon-tcg-official/components/button');
+assert.equal(canonicalDocumentHash('#/variants/pokemon-tcg-official/foundations'),'#/variants/pokemon-tcg-official/foundations/color');
 for(const file of ['PokemonDocument.vue','PokemonSceneGuide.vue']){const source=read(`../src/documents/${file}`), parsed=parse(source);assert.deepEqual(parsed.errors,[]);assert.deepEqual(compileTemplate({source:parsed.descriptor.template.content,filename:file,id:file}).errors,[]);assert.doesNotMatch(source,/<iframe/);}
 const library=read('../src/VariantLibrary.vue');
 for(const page of preview.pages) assert.ok(library.includes(`'${page.id}':`), `${page.id} copy boundary`);

@@ -73,10 +73,7 @@
           <a v-for="scene in selected.scenes" :key="scene.id" :href="`#/variants/${selected.id}/${scene.id}`" :aria-current="section === 'pages' && activeScene.id === scene.id ? 'page' : undefined">{{ scene.label }}</a>
           </template>
           <template v-else-if="section === 'foundations'">
-            <a v-if="selected.id === 'czn'" href="#/variants/czn/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
           <template v-if="['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)">
-            <a v-if="selected.id === 'pokemon-tcg-official'" href="#/variants/pokemon-tcg-official/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
-            <a v-if="selected.id === 'onepiece-cardgame'" href="#/variants/onepiece-cardgame/foundations/overview" :aria-current="routePath.endsWith('/overview') ? 'page' : undefined">视觉总览</a>
             <a v-for="item in foundationNames" :key="item.id" :href="`#/variants/${selected.id}/foundations/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.zh }}</a>
           </template>
           <a v-else :href="`#/variants/${selected.id}/foundations`" :aria-current="section === 'foundations' && !isDesignSystem ? 'page' : undefined">基础规范</a>
@@ -84,10 +81,7 @@
           </template>
           <template v-else>
           <template v-if="['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)">
-            <template v-if="selected.id === 'pokemon-tcg-official'"><p class="vl-directory-group">品牌组合</p><a v-for="item in pokemonCompositions" :key="item.id" :href="`#/variants/pokemon-tcg-official/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
-            <a :href="`#/variants/${selected.id}/components/inspector`" :aria-current="routePath.endsWith('/inspector') ? 'page' : undefined">全部组件</a>
-            <template v-if="selected.id === 'czn'"><p class="vl-directory-group">品牌组合</p><a v-for="item in cznCompositions" :key="item.id" :href="`#/variants/czn/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
-            <template v-if="selected.id === 'onepiece-cardgame'"><p class="vl-directory-group">品牌组合</p><a v-for="item in onepieceCompositions" :key="item.id" :href="`#/variants/onepiece-cardgame/components/${item.id}`" :aria-current="routePath.endsWith('/' + item.id) ? 'page' : undefined">{{ item.label }}</a><p class="vl-directory-group">基础组件 · 非品牌专属</p></template>
+            <p class="vl-directory-group">基础</p>
             <a :href="`#/variants/${selected.id}/components/button`" :aria-current="routePath.endsWith('/button') ? 'page' : undefined">按钮</a>
             <template v-for="group in componentCategorySpecs" :key="group.id">
               <p class="vl-directory-group">{{ group.label }}</p>
@@ -101,13 +95,13 @@
       <div class="vl-workspace-content">
       <section v-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
         <div v-if="!inlineDocument && !['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
-        <CznDocument v-if="isCznDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
+        <CznDocument v-if="isCznDocument" :section="section" :target="routePath.split('/')[4] || 'color'" />
         <template v-else-if="isCznCatalog"><CznDocument section="components" target="inspector" /><DangoCatalog brand="czn" title="基础组件示例" /></template>
         <div v-else-if="cznBaseRoute"><p class="vl-small">基础组件示例 · 非 CZN 专属，不代表完整品牌适配。</p><App :document-route="cznBaseRoute" /></div>
-        <PokemonDocument v-else-if="isPokemonDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
+        <PokemonDocument v-else-if="isPokemonDocument" :section="section" :target="routePath.split('/')[4] || 'color'" />
         <template v-else-if="isPokemonCatalog"><PokemonDocument section="components" target="inspector" /><DangoCatalog brand="pokemon-tcg-official" title="基础组件示例" /></template>
         <div v-else-if="pokemonBaseRoute"><p class="vl-small">基础组件示例 · 非 Pokémon 专属，不代表完整品牌适配。</p><App :document-route="pokemonBaseRoute" /></div>
-        <OnepieceDocument v-else-if="isOnepieceDocument" :section="section" :target="routePath.split('/')[4] || 'overview'" />
+        <OnepieceDocument v-else-if="isOnepieceDocument" :section="section" :target="routePath.split('/')[4] || 'color'" />
         <template v-else-if="isOnepieceCatalog"><OnepieceDocument section="components" target="inspector" /><DangoCatalog brand="onepiece-cardgame" title="基础组件示例" /></template>
         <div v-else-if="onepieceBaseRoute"><p class="vl-small">基础组件示例 · 展示已有组件与组合形态，不代表航海王专属组件或完整品牌适配。</p><App :document-route="onepieceBaseRoute" /></div>
         <DangoCatalog v-else-if="isDangoCatalog" />
@@ -128,14 +122,17 @@
       <DangoIntroduction v-else-if="selected.id === 'dango' && activeScene.id === 'dango-introduction'" />
       <ReleaseChecklist v-else-if="selected.id === 'dango' && activeScene.id === 'dango-release-checklist'" />
       <div v-else class="vl-detail-grid" :class="{ 'vl-catalog-scene': isCatalogScene }">
-        <section class="vl-preview-column" aria-label="场景预览">
-          <div class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
+        <section :style="hasDeviceViews ? {gridColumn: '1 / -1'} : undefined" class="vl-preview-column" aria-label="场景预览">
+          <div v-if="!hasDeviceViews" class="vl-preview-toolbar"><div><strong>{{ activeScene.label }}</strong><span>{{ sceneStatus }}</span></div><a :href="previewUrl" target="_blank" rel="noopener">独立预览 ↗</a></div>
           <p v-if="isCatalogScene" class="vl-small" role="note">静态目录示例 · 可滚动浏览，分类、页码与卡片不执行业务操作。</p>
           <p v-if="activeScene.id === 'onepiece-cardgame-home'" class="vl-small" role="note">商品与活动入口打开本站示例，不进入具体商品或活动详情；无对应页面的内容仅展示。外部资源链接将离开本站。</p>
           <p v-if="activeScene.id === 'onepiece-cardgame-events'" class="vl-small" role="note">静态活动示例 · 可滚动浏览；TRY PLAYING 等行动文字仅展示，不提供报名、详情或活动查询。</p>
-          <div class="vl-preview-stage"><iframe ref="previewFrame" :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`" @load="restoreFramePosition"></iframe></div>
+          <div v-if="hasDeviceViews" class="pk-home-views" role="group" aria-label="预览设备">
+            <button v-for="view in homeViews" :key="view.id" type="button" :aria-pressed="homeView === view.id" @click="homeView = view.id">{{ view.label }}</button>
+          </div>
+          <div :class="{ 'pk-device-space': hasDeviceViews }"><div class="vl-preview-stage" :class="{ 'pk-device': hasDeviceViews, 'pk-preview-desktop': desktopPreview }"><iframe ref="previewFrame" :key="framedPreviewUrl" :src="framedPreviewUrl" :title="`${selected.displayName} · ${activeScene.label}`" @load="restoreFramePosition"></iframe></div></div>
         </section>
-        <aside class="vl-notes">
+        <aside v-if="!hasDeviceViews" class="vl-notes">
           <CznSceneGuide v-if="['czn-home','czn-gameplay'].includes(activeScene.id)" :scene="activeScene.id" />
           <PokemonSceneGuide v-else-if="selected.id === 'pokemon-tcg-official' && activeScene.id !== 'pokemon-tcg-official-card-database'" :scene="activeScene.id" />
           <OnepieceNewsGuide v-else-if="activeScene.id === 'onepiece-cardgame-news'" />
@@ -280,9 +277,13 @@ const inspectorContentUrl=computed(()=>selected.value?`${location.pathname}?insp
 const designSystemUrl=new URL('design-system.html',location.href.split('#')[0]).href;
 const activeScene=computed(()=>selected.value?.scenes.find(s=>s.id===routePath.value.split('/')[3])||selected.value?.scenes[0]);
 const sceneStatus=computed(()=>activeScene.value?.kind === 'transfer' ? '迁移练习 · 示例内容' : '来源参考');
+const hasDeviceViews = computed(() => selected.value?.id === 'pokemon-tcg-official');
+const homeViews = [{ id: 'mobile', label: '手机' }, { id: 'desktop', label: '电脑' }];
+const homeView = ref('mobile');
+const desktopPreview = computed(() => hasDeviceViews.value && homeView.value === 'desktop');
 const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${[...onepieceCompositions, ...pokemonCompositions, ...cznCompositions].find(item => item.id === routePath.value.split('/')[4])?.label || componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value || routePath.value.endsWith('/overview') ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
-const framedPreviewUrl=computed(()=>previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
+const framedPreviewUrl=computed(()=>hasDeviceViews.value ? previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=desktop') : previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
   'onepiece-cardgame-editorial-held-out': '航海手记为原创虚构编排练习，非官方资讯。可滚动与打开独立预览，不提供真实文章详情、订阅或实时资讯；真实内容与路由由项目提供。',
   'czn-home': '媒体首页示例，视频播放受网络与浏览器策略影响。导航、二维码和下载区域仅展示，不提供下载或业务跳转。真实媒体授权、加载失败处理与业务入口需另行接入。',
@@ -322,6 +323,44 @@ onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();})
 
 
 <style scoped>
+.pk-home-views { display:flex; flex-wrap:wrap; gap:4px; margin:0 0 16px; }
+.pk-home-views button { padding:6px 12px; border:1px solid transparent; border-radius:6px; background:transparent; color:var(--site-muted); font:inherit; cursor:pointer; }
+.pk-home-views button[aria-pressed="true"] { border-color:var(--site-border); background:var(--site-surface); color:var(--site-text); }
+@property --pk-screen-width {
+  syntax: '<length>';
+  initial-value: 390px;
+  inherits: true;
+}
+.pk-device-space { container-type:inline-size; }
+.vl-preview-stage.pk-device {
+  --pk-screen-width:390px;
+  --pk-scale:min(1, tan(atan2(calc(100cqw - 16px), var(--pk-screen-width))));
+  position:relative;
+  box-sizing:content-box;
+  width:min(var(--pk-screen-width), calc(100% - 16px));
+  height:calc(800px * var(--pk-scale));
+  margin:0 auto;
+  overflow:hidden;
+  border:8px solid #474b59;
+  border-radius:22px;
+  background:#101114;
+  transition:--pk-screen-width 420ms ease;
+}
+.vl-preview-stage.pk-preview-desktop { --pk-screen-width:1280px; }
+.pk-device iframe {
+  position:absolute;
+  inset:0 auto auto 0;
+  width:var(--pk-screen-width);
+  max-width:none;
+  height:800px;
+  transform-origin:top left;
+  transform:scale(var(--pk-scale));
+}
+@media (prefers-reduced-motion: reduce) {
+  .vl-preview-stage.pk-device { transition:none; }
+}
+
+
 .vl-reuse-guide { margin: 12px 0 24px; padding: 12px 0; border-block: 1px solid currentColor; }
 .vl-reuse-guide summary { cursor: pointer; font-weight: 650; }
 .vl-reuse-guide p, .vl-reuse-guide dd { max-width: 58em; line-height: 1.65; }

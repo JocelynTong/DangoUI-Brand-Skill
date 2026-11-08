@@ -12,7 +12,7 @@ const source = readSource('src/App.vue');
 const dataFile = 'public/brand-previews/pokemon-tcg-official.json';
 const data = JSON.parse(readSource(dataFile));
 const sections = Object.fromEntries(data.pages.flatMap(page => page.sections.map(section => [section.id, section])));
-const ids = ['home-campaign-stage', 'home-news-grid', 'learn-card-breakdown', 'learn-field-of-play', 'held-out-deck-briefing'];
+const ids = ['home-campaign-stage', 'home-news-grid'];
 
 test('Pokémon preview sections explicitly declare their static boundaries', () => {
   for (const id of ids) {
@@ -43,8 +43,7 @@ test('Vue implementation compiles', () => {
   assert.ok(compileScript(parse(source).descriptor, { id: 'pokemon-static-minimal' }).content);
 });
 
-test('existing query sections retain static mode', () => {
-  for (const id of ['card-database-search-shell', 'card-database-search-guidance', 'held-out-deck-query']) {
-    assert.equal(sections[id].content.interactionMode, 'static-evidence-only', id);
-  }
+test('card database searches local samples and Deck Lab filters local strategies', () => {
+  assert.equal(sections['card-database-search-shell'].content.interactionMode, 'local-card-search');
+  assert.equal(sections['held-out-deck-query'].content.interactionMode, 'local-strategy-filter');
 });

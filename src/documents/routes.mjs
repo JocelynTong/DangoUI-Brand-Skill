@@ -43,5 +43,12 @@ export function canonicalDocumentHash(hash, search = '') {
   for (const item of foundationNames) aliases[`#/brand/onepiece-cardgame/style/${item.id}`] = `#/variants/onepiece-cardgame/foundations/${item.id}`;
   aliases['#/brand/onepiece-cardgame/style/button'] = '#/variants/onepiece-cardgame/components/button';
   for (const item of foundationNames) aliases[`#/brand/dango/style/${item.id}`] = `#/variants/dango/foundations/${item.id}`;
+  for (const brand of ['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn']) {
+    const root = `#/variants/${brand}`;
+    for (const path of ['foundations', 'foundations/overview']) aliases[`${root}/${path}`] = `${root}/foundations/color`;
+    for (const path of ['components', 'components/inspector']) aliases[`${root}/${path}`] = `${root}/components/button`;
+    aliases[`#/brand/${brand}/components/inspector`] = `${root}/components/button`;
+  }
+  aliases['#/variants/onepiece-cardgame/design-system'] = '#/variants/onepiece-cardgame/foundations/color';
   return aliases[hash] || hash;
 }
