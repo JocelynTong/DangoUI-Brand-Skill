@@ -15,6 +15,15 @@
     <section v-else-if="invalidScene" class="vl-message" role="alert"><h1>场景不存在</h1><p>此链接可能有误或场景已移除，请重新选择页面。</p><a :href="selected ? `#/variants/${selected.id}/${selected.scenes[0].id}` : '#/variants'">{{ selected ? '返回品牌页面' : '返回品牌库' }}</a></section>
     <template v-else-if="!selected">
       <section class="vl-intro"><h1>品牌库</h1><p>选择品牌，查看设计系统与页面示例。</p></section>
+      <details class="vl-reuse-guide" id="brand-reuse">
+          <summary>什么时候值得用 Brand Skill？</summary>
+          <p>只想比较几张创意图，可以直接用 Codex。团队反复做品牌合作、需要把选中的方向交给研发时，品牌库可以保存上次确认过的素材、组件映射和适用范围。</p>
+          <dl>
+            <dt>首次接入一个品牌</dt><dd>从官网提取有出处的视觉特征，先看方向。产品负责人确认宿主业务，品牌方确认素材用途；官网未展示的控件状态仍需设计判断。</dd>
+            <dt>同一品牌用到第二个项目</dt><dd>沿用已验证的组件配方和设计判断，再按新宿主检查。第五人格卡组页选中过逆光近景，到了新人欢迎页，仍应让这次的用户选择构图，并核实素材用途。</dd>
+            <dt>何时算交付</dt><dd>从效果图到可操作单页，在目标设备上核对控件、状态和视觉。我们正在比较直接使用 Codex 与使用 skill 的人工时间、返工及成本；跨项目节省幅度尚待实测。</dd>
+          </dl>
+        </details>
       <section class="vl-grid" aria-label="品牌 Variant 列表">
         <a href="./brand-candidates/identity-v/guide.html" class="vl-card vl-card--identity-v-official" aria-label="第五人格 · 盛夏花园候选成果">
           <div class="vl-cover"><img :src="'./brand-candidates/identity-v/assets/464c61a9bf4882130025.jpg'" alt="第五人格盛夏花园官方归档主视觉" style="object-position:52% 42%" /><div class="vl-cover-shade"></div><span class="vl-cover-label">暮色花园，盛夏来信</span></div>
@@ -264,3 +273,11 @@ async function load(){loading.value=true;error.value='';try{const r=await fetch(
 onMounted(()=>{window.addEventListener('hashchange',changed);changed();load();});onBeforeUnmount(()=>{window.removeEventListener('hashchange',changed);stopRestoring();});
 </script>
 
+
+<style scoped>
+.vl-reuse-guide { margin: 12px 0 24px; padding: 12px 0; border-block: 1px solid currentColor; }
+.vl-reuse-guide summary { cursor: pointer; font-weight: 650; }
+.vl-reuse-guide p, .vl-reuse-guide dd { max-width: 58em; line-height: 1.65; }
+.vl-reuse-guide dt { font-weight: 650; margin-top: .8em; }
+.vl-reuse-guide dd { margin: .2em 0; }
+</style>
