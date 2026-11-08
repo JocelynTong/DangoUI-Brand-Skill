@@ -1,3 +1,4 @@
+import referenceBrands from './brand-details.json' with { type: 'json' };
 import { componentNames, componentSlug, foundationNames } from './dango-catalog.mjs';
 export function invalidFoundationHash(hash) {
   const parts = hash.replace(/^#/, '').split('/');
@@ -10,6 +11,14 @@ export function invalidFoundationHash(hash) {
 export function canonicalDocumentHash(hash, search = '') {
   const params = new URLSearchParams(search);
   if (params.has('variantEmbed') || params.has('inspectorEmbed')) return hash;
+  const [, family, brand, section, topic] = hash.replace(/^#/, '').split('/');
+  const reference = Object.hasOwn(referenceBrands, brand) && referenceBrands[brand];
+  if (family === 'variants' && reference) {
+    const tab = section === 'components' && Object.keys(reference.components).length ? 'components' : 'foundations';
+    const pages = reference[tab];
+    const first = tab === 'components' && pages.button ? 'button' : Object.keys(pages)[0];
+    return `#/variants/${brand}/${tab}/${Object.hasOwn(pages, topic) ? topic : first}`;
+  }
   const aliases = {
     '#/variants/czn/foundations': '#/variants/czn/foundations/overview',
     '#/variants/czn/components': '#/variants/czn/components/inspector',

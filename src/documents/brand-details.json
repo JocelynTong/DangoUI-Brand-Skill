@@ -1,0 +1,874 @@
+{
+  "re1999": {
+    "name": "重返未来：1999",
+    "coverage": "桌面证据已覆盖；移动证据未晋级",
+    "foundations": {
+      "color": {
+        "label": "颜色",
+        "colors": [
+          {
+            "value": "#B55829",
+            "label": "编辑分类选中",
+            "scope": "仅用于 NEWS 当前分类文字与边界",
+            "status": "verified"
+          },
+          {
+            "value": "#E9DCCD",
+            "label": "可选分类纸色",
+            "scope": "仅用于 NEWS 未选分类文字",
+            "status": "verified"
+          },
+          {
+            "value": "#BBA893",
+            "label": "叙事前景文字",
+            "scope": "NEWS 标题／日期与角色引语",
+            "status": "verified"
+          }
+        ]
+      },
+      "typography": {
+        "label": "字体",
+        "rows": [
+          {
+            "title": "SourceHanSerifCN",
+            "text": "首页舞台文字。仅在已观察到的首页舞台角色成立，不能提升为全站字体。",
+            "status": "verified"
+          },
+          {
+            "title": "其他字重与字号",
+            "text": "全局排版系统。尚未形成跨页面、跨视口的可复用比例。",
+            "status": "pending"
+          }
+        ]
+      },
+      "asset": {
+        "label": "图片素材",
+        "rows": [
+          {
+            "title": "全屏动态场景",
+            "text": "首页第一视觉。必须保持独立媒体、周边档案标签和行动簇，不能压成一张截图。",
+            "status": "verified"
+          },
+          {
+            "title": "角色主图",
+            "text": "角色三联结构主体。当前 Demo 使用的主图变体与来源不一致。",
+            "status": "rework"
+          }
+        ]
+      },
+      "layout": {
+        "label": "布局",
+        "rows": [
+          {
+            "title": "三种结构已批准",
+            "text": "全屏档案舞台、不对称资讯索引、角色选择／主体／叙事三联结构。窄屏允许按阅读顺序重排，但不能变成等权卡片网格。",
+            "status": "verified"
+          }
+        ]
+      },
+      "motion": {
+        "label": "动效",
+        "rows": [
+          {
+            "title": "仅 NEWS 选择状态通过",
+            "text": "分类选择具备 default／triggered／settled／restored 证据；通用时长与 easing 未验证。",
+            "status": "partial"
+          }
+        ]
+      }
+    },
+    "components": {
+      "button": {
+        "label": "按钮",
+        "group": "基础",
+        "rows": [
+          {
+            "title": "分类选择控件",
+            "text": "铜色只表示 NEWS 当前分类文字与边界，禁止扩张为全局主按钮填充色。",
+            "status": "partial"
+          }
+        ]
+      },
+      "card": {
+        "label": "内容容器",
+        "group": "组件",
+        "rows": [
+          {
+            "title": "不对称编辑组合",
+            "text": "一个视觉主图配一个高密度五行索引；不能降级为通用等权卡片。",
+            "status": "partial"
+          }
+        ]
+      }
+    }
+  },
+  "hpma": {
+    "name": "哈利波特：魔法觉醒",
+    "coverage": "HOME、CARDS/MEDIA 已观察；NEWS 不可用",
+    "foundations": {
+      "asset": {
+        "label": "图片素材",
+        "rows": [
+          {
+            "title": "月夜城堡舞台",
+            "text": "首页第一视觉。已观察到全屏场景、浅金标题、下载簇与纵向描边行动。",
+            "status": "observed"
+          },
+          {
+            "title": "绘本式角色场景",
+            "text": "卡牌／媒体内容。已观察到全屏角色插画、棕褐绘本面板与金色装饰路径。",
+            "status": "observed"
+          },
+          {
+            "title": "NEWS 画面",
+            "text": "资讯状态。目标容器保持零宽并停留在屏外，不能用首页截图冒充。",
+            "status": "missing"
+          }
+        ]
+      },
+      "layout": {
+        "label": "布局",
+        "rows": [
+          {
+            "title": "两种结构可见",
+            "text": "首页为全屏电影舞台；卡牌／媒体为插画与绘本面板组合。两者都不是通用圆角卡片，但跨页规则尚未闭环。",
+            "status": "partial"
+          }
+        ]
+      }
+    },
+    "components": {}
+  },
+  "duolingo-official": {
+    "name": "Duolingo Official",
+    "coverage": "颜色、字体、圆角、间距、下沿与行动色均有证据",
+    "foundations": {
+      "color": {
+        "label": "颜色",
+        "colors": [
+          {
+            "value": "#F7F7F7",
+            "label": "页面背景",
+            "scope": "已映射的界面颜色",
+            "status": "verified"
+          },
+          {
+            "value": "#FFFFFF",
+            "label": "内容表面",
+            "scope": "已映射的界面颜色",
+            "status": "verified"
+          },
+          {
+            "value": "#3C3C3C",
+            "label": "主要文字",
+            "scope": "已映射的界面颜色",
+            "status": "verified"
+          },
+          {
+            "value": "#E5E5E5",
+            "label": "安静边界",
+            "scope": "已映射的界面颜色",
+            "status": "verified"
+          },
+          {
+            "value": "#58CC02",
+            "label": "单一主行动",
+            "scope": "仅用于当前任务的主行动",
+            "status": "scoped"
+          },
+          {
+            "value": "#58A700",
+            "label": "主行动下沿",
+            "scope": "只与主行动成对使用",
+            "status": "scoped"
+          }
+        ]
+      },
+      "typography": {
+        "label": "字体",
+        "rows": [
+          {
+            "title": "Rounded sans fallback",
+            "text": "可分发替代字体。不声称官方专有字体可分发。",
+            "status": "verified"
+          },
+          {
+            "title": "15 / 700",
+            "text": "短行动标签。用于已观察的行动家族。",
+            "status": "verified"
+          },
+          {
+            "title": "20 / 500 / 28",
+            "text": "输入文字。绑定 Text Input。",
+            "status": "verified"
+          },
+          {
+            "title": "17 / 500 / 20",
+            "text": "内容卡正文。绑定 Content Card。",
+            "status": "verified"
+          }
+        ]
+      },
+      "asset": {
+        "label": "图片素材",
+        "rows": [
+          {
+            "title": "Official character art",
+            "text": "邀请、里程碑与反馈峰值。使用 hash-bound 官方资产；不能重画角色，也不能覆盖密集工具内容。",
+            "status": "verified"
+          },
+          {
+            "title": "角色形状语言",
+            "text": "长页解释。配合真实任务与大留白，不作全局壁纸。",
+            "status": "verified"
+          }
+        ]
+      },
+      "layout": {
+        "label": "布局",
+        "rows": [
+          {
+            "title": "Productive + Expressive 分层",
+            "text": "真实任务、结果字段和密度保持稳定；角色只进入邀请、里程碑和反馈峰值。首屏生产性内容必须可见。",
+            "status": "verified"
+          }
+        ]
+      },
+      "spacing": {
+        "label": "间距",
+        "rows": [
+          {
+            "title": "组件范围内已测量",
+            "text": "Input 8×14px；行动水平 16px；Card 12／12／24px；行动堆栈间距 12px。不是全局 spacing scale。",
+            "status": "verified"
+          }
+        ]
+      },
+      "radius": {
+        "label": "圆角",
+        "rows": [
+          {
+            "title": "按组件分配",
+            "text": "Input 与首页主行动 12px；登录行动与内容卡 16px。不能压成一个全局圆角。",
+            "status": "verified"
+          }
+        ]
+      },
+      "shadow": {
+        "label": "阴影",
+        "rows": [
+          {
+            "title": "下沿深度，不是浮动阴影",
+            "text": "主行动使用 4px 深绿下沿；内容卡使用 4px 中性下沿。",
+            "status": "verified"
+          }
+        ]
+      },
+      "motion": {
+        "label": "动效",
+        "rows": [
+          {
+            "title": "动效范围有限",
+            "text": "角色动效可进入小型鼓励时刻；主行动 pressed 精确变化仍待安全采集。",
+            "status": "partial"
+          }
+        ]
+      }
+    },
+    "components": {
+      "button": {
+        "label": "按钮",
+        "group": "基础",
+        "rows": [
+          {
+            "title": "Raised productive action",
+            "text": "饱和面、深色 4px 下沿、短而粗的标签；一个视图只突出一个下一步。",
+            "status": "verified"
+          }
+        ]
+      },
+      "input": {
+        "label": "输入控件",
+        "group": "组件",
+        "rows": [
+          {
+            "title": "Bordered text input",
+            "text": "48px 高、12px 圆角、2px 中性边界、8×14px 内间距。",
+            "status": "verified"
+          }
+        ]
+      },
+      "card": {
+        "label": "内容容器",
+        "group": "组件",
+        "rows": [
+          {
+            "title": "Productive content card",
+            "text": "白色表面、2px 中性边界、4px 下沿、16px 圆角；不得修改宿主字段和密度。",
+            "status": "verified"
+          }
+        ]
+      }
+    }
+  },
+  "identity-v-official": {
+    "name": "第五人格",
+    "coverage": "首页局部观察、8 份 Demo 原素材、Web Button；官网其他栏目与原生宿主运行未验证",
+    "foundations": {
+      "color": {
+        "label": "颜色",
+        "colors": [
+          {
+            "value": "#763241",
+            "label": "导航选中 / Demo ink",
+            "scope": "首页导航局部观察；作为按钮文字色属于 Demo 推演",
+            "status": "observed"
+          },
+          {
+            "value": "#ffefe9",
+            "label": "导航文字 / Demo cream",
+            "scope": "首页导航局部观察；不代表全局文本语义",
+            "status": "observed"
+          }
+        ]
+      },
+      "typography": {
+        "label": "字体",
+        "rows": [
+          {
+            "title": "系统字体与 Songti / Georgia",
+            "text": "Demo 替代字体。官方品牌字体未验证。",
+            "status": "partial"
+          }
+        ]
+      },
+      "asset": {
+        "label": "图片素材",
+        "rows": [
+          {
+            "title": "8 份归档原素材",
+            "text": "主视觉、艺术字、导航装饰和历史活动图。本地 hash 已核验；历史活动内容与公开再分发授权未认证。",
+            "status": "partial"
+          }
+        ]
+      }
+    },
+    "components": {
+      "button": {
+        "label": "按钮",
+        "group": "基础",
+        "rows": [
+          {
+            "title": "DangoUI Web Button 已运行检查",
+            "text": "primary / outline 局部样式及点击测试；非完整状态矩阵。",
+            "status": "partial"
+          }
+        ]
+      },
+      "card": {
+        "label": "内容容器",
+        "group": "组件",
+        "rows": [
+          {
+            "title": "原生 CSS 面板配方",
+            "text": "不是 DangoUI Card 运行认证。",
+            "status": "partial"
+          }
+        ]
+      }
+    }
+  },
+  "linjie": {
+    "name": "临界",
+    "coverage": "Button、IconButton、NavigationBar、FormItem、Input、Input Frame Select；业务 Frame 仅作装配证据",
+    "foundations": {
+      "color": {
+        "label": "颜色",
+        "colors": [
+          {
+            "value": "#7247DC",
+            "label": "Light Primary",
+            "scope": "2026-10-26 Figma Tokens-LJ：primary solidBg 为纯色；旧渐变不作为当前按钮规范",
+            "status": "observed"
+          },
+          {
+            "value": "#9B7DE9",
+            "label": "Dark Primary",
+            "scope": "Tokens-LJ 暗色 primary solidBg；按钮前景 solidColor 为白色",
+            "status": "observed"
+          },
+          {
+            "value": "#FFFFFF",
+            "label": "Light bg/1–3",
+            "scope": "Tokens-LJ 浅色前三级表面均为白色；bg/4 为 #F8F8F8",
+            "status": "observed"
+          },
+          {
+            "value": "#0A0A0A",
+            "label": "Dark bg/1",
+            "scope": "暗色表面层级：#0A0A0A / #141414 / #1F1F1F / #292929",
+            "status": "observed"
+          },
+          {
+            "value": "#00000066",
+            "label": "Light text/3",
+            "scope": "浅色文字：text/1 黑 100%、text/2 黑 64%、text/3 黑 40%、disabled 黑 24%",
+            "status": "observed"
+          },
+          {
+            "value": "#FFFFFFA3",
+            "label": "Dark text/3",
+            "scope": "暗色文字：text/1 白 100%、text/2 白 88%、text/3 白 64%、disabled 白 24%",
+            "status": "observed"
+          }
+        ]
+      },
+      "typography": {
+        "label": "字体",
+        "rows": [
+          {
+            "title": "系统无衬线",
+            "text": "移动业务标题、正文与数据。Figma 的投票、交易与 Feed 均以紧凑无衬线层级为主；具体字体文件仍未获得可分发证据。",
+            "status": "observed"
+          },
+          {
+            "title": "高对比数字与行动标签",
+            "text": "价格、倒计时、Tab 与提交动作。强调依靠字重、颜色和局部底色，而不是装饰字体。",
+            "status": "observed"
+          }
+        ]
+      },
+      "asset": {
+        "label": "图片素材",
+        "rows": [
+          {
+            "title": "业务内容媒体",
+            "text": "Feed、发现与交易卡主体。Figma 明确展示插画／作品图作为信息主体；本 Variant 使用抽象占位，不复制私有内容素材。",
+            "status": "observed"
+          },
+          {
+            "title": "临界图标与角色资产",
+            "text": "导航、状态和品牌身份。Figma 可见但没有独立分发授权；当前只复刻结构与语义，不导出原图。",
+            "status": "partial"
+          }
+        ]
+      },
+      "layout": {
+        "label": "布局",
+        "rows": [
+          {
+            "title": "375px 来源业务画布",
+            "text": "投票和 Trade 来源使用 375×812 画布；当前试用组件在独立 390×844 Web 视口中验收，二者分别记录。",
+            "status": "observed"
+          }
+        ]
+      },
+      "spacing": {
+        "label": "间距",
+        "rows": [
+          {
+            "title": "业务组件内部节奏已观察",
+            "text": "表单标签、分段控件、媒体选项与底部行动有稳定疏密关系；尚未抽取完整的全局 spacing scale。",
+            "status": "partial"
+          }
+        ]
+      },
+      "radius": {
+        "label": "圆角",
+        "rows": [
+          {
+            "title": "来源容器 Large = 16",
+            "text": "历史投票画布记录绑定 Tokens-LJ Radius/Large = 16；这是容器观察，不代表当前所有控件统一 16px。组件圆角按各自主定义另行核对。",
+            "status": "observed"
+          }
+        ]
+      },
+      "shadow": {
+        "label": "阴影",
+        "rows": [
+          {
+            "title": "轻表面分层",
+            "text": "浅色 Feed／Trade 主要依靠白色表面、细边界和轻投影分层；暗黑模式则主要依靠明度与色块。",
+            "status": "partial"
+          }
+        ]
+      }
+    },
+    "components": {
+      "business-poll": {
+        "label": "投票创建",
+        "group": "业务组件",
+        "rows": [
+          {
+            "title": "投票创建组合",
+            "text": "提供 375×812 浅色／暗黑创建流程。",
+            "status": "observed"
+          }
+        ]
+      },
+      "business-post": {
+        "label": "Feed / Post",
+        "group": "业务组件",
+        "rows": [
+          {
+            "title": "Feed / Post 组合",
+            "text": "与个人主页 Feed/Post 实例提供作者、媒体、正文与互动结构。",
+            "status": "observed"
+          }
+        ]
+      },
+      "business-trade": {
+        "label": "Trade",
+        "group": "业务组件",
+        "rows": [
+          {
+            "title": "Trade 发现组合",
+            "text": "提供搜索、活动、作品、价格与底部导航的完整移动结构。",
+            "status": "observed"
+          }
+        ]
+      },
+      "business-profile": {
+        "label": "Profile",
+        "group": "业务组件",
+        "rows": [
+          {
+            "title": "Profile 组件家族",
+            "text": "个人主页页内可见 Feed/Post、Trade Profile 及浅色／暗黑主态；仍需逐实例状态抽取。",
+            "status": "observed"
+          }
+        ]
+      },
+      "business-message": {
+        "label": "Message / IM",
+        "group": "业务组件",
+        "rows": [
+          {
+            "title": "Message / IM 组件家族",
+            "text": "Figma 页面树包含消息与 IM 家族；会话状态与空态仍待逐节点核验。",
+            "status": "observed"
+          }
+        ]
+      },
+      "business-lifecycle": {
+        "label": "发布 / 展示 / 履约",
+        "group": "业务组件",
+        "rows": [
+          {
+            "title": "发布—展示—交易履约",
+            "text": "第二份产品 Figma 的 102423:298332 页面串联 Home Feed、搜索、个人主页、订阅收藏、订单详情与 Token 买卖；Action Sheet 9252:63926 提供 6 个真实业务变体。",
+            "status": "observed"
+          }
+        ]
+      },
+      "button": {
+        "label": "按钮",
+        "group": "基础",
+        "rows": [
+          {
+            "title": "DuButton 已真实接线",
+            "text": "真实调用 dangoui@3.6.16 的 DuButton。状态矩阵、computed style 与独立 QA 回执未完成，当前仅 runtime wired。",
+            "status": "partial"
+          }
+        ]
+      },
+      "navigation-bar": {
+        "label": "导航栏",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "DuNavigationBar 已真实接线",
+            "text": "当前展示基础型导航，业务类型变体与 H5 返回行为不冒充已验证。",
+            "status": "partial"
+          }
+        ]
+      },
+      "icon-button": {
+        "label": "图标按钮",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "返回与工具行动",
+            "text": "投票标题栏可见返回与更多工具图标；独立交互状态仍待抽取。",
+            "status": "observed"
+          }
+        ]
+      },
+      "search": {
+        "label": "搜索",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "发现搜索",
+            "text": "Trade 节点提供作品／用户搜索框及相邻入口。",
+            "status": "observed"
+          }
+        ]
+      },
+      "tabs": {
+        "label": "标签切换",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "内容频道 Tabs",
+            "text": "Trade 节点提供发现、稿位、作品、创作者频道。",
+            "status": "observed"
+          }
+        ]
+      },
+      "segment-control": {
+        "label": "分段控制",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "投票类型分段",
+            "text": "投票创建页提供 PK组件／投票组件双段选择。",
+            "status": "observed"
+          }
+        ]
+      },
+      "tab-bar": {
+        "label": "底部导航",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "五项底部导航",
+            "text": "Trade 节点提供社区、市场、消息、交易／抽选、我的完整结构。",
+            "status": "observed"
+          }
+        ]
+      },
+      "bottom-bar": {
+        "label": "底部操作",
+        "group": "导航",
+        "rows": [
+          {
+            "title": "固定任务行动栏",
+            "text": "投票浅色／暗黑画布均提供取消与完成双行动。",
+            "status": "observed"
+          }
+        ]
+      },
+      "badge": {
+        "label": "徽标",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "消息与状态徽标",
+            "text": "Trade 底部消息入口和内容卡可见数值／状态徽标。",
+            "status": "observed"
+          }
+        ]
+      },
+      "tag": {
+        "label": "标签",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "内容身份标签",
+            "text": "Trade 作品卡包含 Q版人设等身份标签。",
+            "status": "observed"
+          }
+        ]
+      },
+      "image": {
+        "label": "图片",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "业务媒体",
+            "text": "Trade、Post 和投票选项均以图片容器承载主要内容。",
+            "status": "observed"
+          }
+        ]
+      },
+      "avatar": {
+        "label": "头像",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "作者头像",
+            "text": "Post 与交易卡包含作者身份头像。",
+            "status": "observed"
+          }
+        ]
+      },
+      "time": {
+        "label": "时间",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "时间与倒计时",
+            "text": "Trade 活动卡包含截拍倒计时，Post 包含发布时间。",
+            "status": "observed"
+          }
+        ]
+      },
+      "price-statistic": {
+        "label": "价格与统计",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "价格与库存",
+            "text": "Trade 节点包含当前价、成交价、起拍价与库存。",
+            "status": "observed"
+          }
+        ]
+      },
+      "swipe": {
+        "label": "轮播",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "活动媒体轮播",
+            "text": "Trade 活动与内容媒体可见分页式横向展示；切换行为尚未验证。",
+            "status": "observed"
+          }
+        ]
+      },
+      "feed": {
+        "label": "信息流",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "Feed 信息流",
+            "text": "Post 与个人主页提供稳定的作者—媒体—正文—互动阅读顺序。",
+            "status": "observed"
+          }
+        ]
+      },
+      "spu": {
+        "label": "商品",
+        "group": "数据输出",
+        "rows": [
+          {
+            "title": "交易作品条目",
+            "text": "Trade 节点提供作品媒体、标题、作者、价格与库存组合。",
+            "status": "observed"
+          }
+        ]
+      },
+      "form-item": {
+        "label": "表单项",
+        "group": "数据输入",
+        "rows": [
+          {
+            "title": "DuFormItem 已真实接线",
+            "text": "真实组件已用于投票标题字段；错误态 API 与暗黑语义变量仍是上游能力缺口。",
+            "status": "partial"
+          }
+        ]
+      },
+      "input": {
+        "label": "输入框",
+        "group": "数据输入",
+        "rows": [
+          {
+            "title": "DuFormItem + DuInput 已真实接线",
+            "text": "当前已使用真实 DangoUI 表单组件，暗黑硬编码样式和交互回执仍待验收。",
+            "status": "partial"
+          }
+        ]
+      },
+      "upload": {
+        "label": "上传",
+        "group": "数据输入",
+        "rows": [
+          {
+            "title": "双列媒体选项",
+            "text": "投票创建页的两个选项均提供选填图片上传区域。",
+            "status": "observed"
+          }
+        ]
+      },
+      "tips": {
+        "label": "辅助提示",
+        "group": "数据输入",
+        "rows": [
+          {
+            "title": "限制与辅助提示",
+            "text": "标题字数限制、图片选填与选项文案均提供辅助说明。",
+            "status": "observed"
+          }
+        ]
+      },
+      "group": {
+        "label": "表单分组",
+        "group": "数据输入",
+        "rows": [
+          {
+            "title": "任务字段分组",
+            "text": "标题、类型、选项和底部行动形成稳定任务分组。",
+            "status": "observed"
+          }
+        ]
+      },
+      "toast": {
+        "label": "轻提示",
+        "group": "反馈",
+        "rows": [
+          {
+            "title": "Toast 状态",
+            "text": "临界迁地基页图层中存在 Toast 业务组件，具体状态待逐节点抽取。",
+            "status": "observed"
+          }
+        ]
+      },
+      "dialog": {
+        "label": "对话框",
+        "group": "反馈",
+        "rows": [
+          {
+            "title": "Dialog 状态",
+            "text": "临界迁地基页图层中存在 Dialog 业务组件，具体状态待逐节点抽取。",
+            "status": "observed"
+          }
+        ]
+      },
+      "card": {
+        "label": "卡片",
+        "group": "DangoUI 包内扩展",
+        "rows": [
+          {
+            "title": "Feed／Trade 内容卡",
+            "text": "Figma 以媒体、标题、价格／作者／互动信息组成内容容器；Variant 只做结构化复刻。",
+            "status": "observed"
+          }
+        ]
+      },
+      "divider": {
+        "label": "分割线",
+        "group": "DangoUI 包内扩展",
+        "rows": [
+          {
+            "title": "内容分隔线",
+            "text": "投票表单与 Trade 内容分区可见细分隔线，但尚未抽取独立 Divider 组件。",
+            "status": "observed"
+          }
+        ]
+      },
+      "action-sheet": {
+        "label": "操作面板",
+        "group": "DangoUI 包内扩展",
+        "rows": [
+          {
+            "title": "六场景 Action Sheet",
+            "text": "是 6 变体组件集，覆盖拍卖、一口价、发布裁切器、发布选择器、角色档案与暗拍。",
+            "status": "observed"
+          }
+        ]
+      },
+      "sticky": {
+        "label": "吸顶",
+        "group": "DangoUI 包内扩展",
+        "rows": [
+          {
+            "title": "固定底部区域",
+            "text": "投票底部行动与 Trade 底部导航表现为固定区域；滚动保持行为尚未验证。",
+            "status": "observed"
+          }
+        ]
+      }
+    }
+  }
+}

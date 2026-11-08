@@ -59,17 +59,24 @@
     </template>
     <template v-else>
       <a class="vl-back" href="#/variants">← 全部品牌</a>
-      <section class="vl-brand-heading"><div><h1>{{ selected.displayName }}</h1><p>{{ selected.description }}</p></div><div class="vl-brand-tools"><a :href="selected.sourceUrl">品牌来源 ↗</a></div></section>
+      <section class="vl-brand-heading"><div><h1>{{ selected.displayName }}</h1><p>{{ selected.description }}</p></div><div class="vl-brand-tools"><a v-if="selected.sourceUrl" :href="selected.sourceUrl">品牌来源 ↗</a></div></section>
       <nav class="vl-primary-nav" aria-label="内容分类" @click="closeMenu">
-        <a :href="`#/variants/${selected.id}/${selected.scenes[0].id}`" :aria-current="section === 'pages' ? 'page' : undefined">页面示例</a>
+        <a v-if="reference && selected.href" :href="selected.href">页面示例</a>
+        <a v-if="selected.scenes.length" :href="`#/variants/${selected.id}/${selected.scenes[0].id}`" :aria-current="section === 'pages' ? 'page' : undefined">页面示例</a>
         <a :href="`#/variants/${selected.id}/foundations`" :aria-current="section === 'foundations' ? 'page' : undefined">设计规范</a>
-        <a :href="`#/variants/${selected.id}/components`" :aria-current="section === 'components' ? 'page' : undefined">组件</a>
+        <a v-if="!reference || Object.keys(reference.components).length" :href="`#/variants/${selected.id}/components`" :aria-current="section === 'components' ? 'page' : undefined">组件</a>
       </nav>
       <div class="vl-workspace">
       <aside class="vl-navigation">
         <button ref="menuToggle" class="vl-menu-toggle" :aria-expanded="menuOpen" aria-controls="brand-directory" @click="menuOpen = !menuOpen">目录 · {{ directoryLabel }} <span>{{ menuOpen ? '−' : '+' }}</span></button>
         <nav id="brand-directory" class="vl-document-nav" :class="{ 'is-open': menuOpen }" aria-label="品牌目录" @click="closeMenu">
-          <template v-if="section === 'pages'">
+          <template v-if="reference">
+            <template v-for="[group, items] in referenceGroups" :key="group">
+              <p v-if="group" class="vl-directory-group">{{ group }}</p>
+              <a v-for="item in items" :key="item.id" :href="`#/variants/${selected.id}/${section}/${item.id}`" :aria-current="referenceTopic === item.id ? 'page' : undefined">{{ item.label }}</a>
+            </template>
+          </template>
+          <template v-else-if="section === 'pages'">
           <a v-for="scene in selected.scenes" :key="scene.id" :href="`#/variants/${selected.id}/${scene.id}`" :aria-current="section === 'pages' && activeScene.id === scene.id ? 'page' : undefined">{{ scene.label }}</a>
           </template>
           <template v-else-if="section === 'foundations'">
@@ -93,7 +100,8 @@
         </nav>
       </aside>
       <div class="vl-workspace-content">
-      <section v-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
+      <BrandReference v-if="referencePage" :key="selected.id + referenceTopic" :brand="selected.id" :page="referencePage" :topic="referenceTopic" :coverage="reference.coverage" />
+      <section v-else-if="section !== 'pages' && !isDesignSystem" class="vl-system" :aria-label="section === 'components' ? '组件文档' : '设计规范'">
         <div v-if="!inlineDocument && !['dango', 'onepiece-cardgame', 'pokemon-tcg-official', 'czn'].includes(selected.id)" class="vl-system-toolbar"><span>{{ section === 'components' ? '组件用法、状态与实现 · 当前品牌' : '颜色、字体与基础规则 · 当前品牌' }}</span><a v-if="selected.id === 'dango' && section === 'components'" :href="`#/variants/dango/components/${routePath.endsWith('/button') ? 'navigation-bar' : 'button'}`">{{ routePath.endsWith('/button') ? '全部组件 →' : '按钮文档试点 →' }}</a><a v-if="selected.id === 'onepiece-cardgame' && section === 'foundations'" :href="`#/variants/${selected.id}/design-system`">视觉总览试点 →</a></div>
         <CznDocument v-if="isCznDocument" :section="section" :target="routePath.split('/')[4] || 'color'" />
         <template v-else-if="isCznCatalog"><CznDocument section="components" target="inspector" /><DangoCatalog brand="czn" title="基础组件示例" /></template>
@@ -178,6 +186,8 @@ import { createPreviewPositions, restorePreviewPosition } from './demo-preview-p
 const App = defineAsyncComponent(() => import('./App.vue'));
 import BrandLibraryCover from './BrandLibraryCover.vue';
 import DangoLibraryCover from './DangoLibraryCover.vue';
+import BrandReference from './documents/BrandReference.vue';
+import referenceBrands from './documents/brand-details.json';
 import galleryEntries from './gallery-entries.json';
 import SiteThemeControl from './SiteThemeControl.vue';
 import './variant-library.css';
@@ -221,14 +231,27 @@ function downloadCountOf(brand){
 }
 function updatedAtTime(brand){const value=Date.parse(brand?.updatedAt||'');return Number.isFinite(value)?value:0;}
 function updatedAtLabel(brand){const value=updatedAtTime(brand);return value?new Intl.DateTimeFormat('zh-CN',{year:'numeric',month:'2-digit',day:'2-digit'}).format(value).replaceAll('/','.'): '时间待补';}
-function brandHref(brand){return brand.scenes.length ? `#/variants/${brand.id}` : brand.href;}
+function brandHref(brand){return referenceBrands[brand.id] || brand.scenes.length ? `#/variants/${brand.id}` : brand.href;}
 function downloadMetric(brand){const value=downloadCountOf(brand);return value===null?'下载数据待接入':`${downloadNumberFormat.format(value)} 次下载`;}
 const hasDownloadData=computed(()=>galleryBrands.value.some(brand=>downloadCountOf(brand)!==null));
 const rankedBrands=computed(()=>[...galleryBrands.value].sort((a,b)=>{if(hasDownloadData.value){const byDownloads=(downloadCountOf(b)??-1)-(downloadCountOf(a)??-1);if(byDownloads)return byDownloads;}return updatedAtTime(b)-updatedAtTime(a)||(a.variantOrder??999)-(b.variantOrder??999);}));
 const featuredBrand=computed(()=>rankedBrands.value[0]||null);
 const rankingBrands=computed(()=>rankedBrands.value.slice(1,4));
 const visibleBrands=computed(()=>{const query=searchQuery.value.toLocaleLowerCase('zh-CN');return galleryBrands.value.filter(brand=>{const matchesStatus=statusFilter.value==='all'||brand.variantStatus===statusFilter.value;const text=[brand.displayName,brand.description,brand.hook].filter(Boolean).join(' ').toLocaleLowerCase('zh-CN');return matchesStatus&&(!query||text.includes(query));});});
-const selected=computed(()=>brands.value.find(b=>b.id===routePath.value.split('/')[2]));
+const selected=computed(()=>galleryBrands.value.find(b=>b.id===routePath.value.split('/')[2]));
+const reference = computed(() => referenceBrands[selected.value?.id]);
+const referenceTopics = computed(() => reference.value?.[section.value] || {});
+const referenceTopic = computed(() => routePath.value.split('/')[4]);
+const referencePage = computed(() => referenceTopics.value[referenceTopic.value]);
+const referenceGroups = computed(() => {
+  const groups = new Map();
+  for (const [id, item] of Object.entries(referenceTopics.value)) {
+    const group = item.group || '';
+    if (!groups.has(group)) groups.set(group, []);
+    groups.get(group).push({ id, label: item.label });
+  }
+  return groups;
+});
 const isStandalonePreview = computed(() => isInspector.value && routePath.value.split('/')[3] === 'pages' && new URLSearchParams(location.search).get('variantEmbed') === '1' && window.self === window.top);
 const previewScene = computed(() => selected.value?.scenes.find(scene => scene.id === routePath.value.split('/')[4]));
 const invalidPreview = computed(() => isStandalonePreview.value && !loading.value && !error.value && !previewScene.value);
@@ -281,7 +304,7 @@ const hasDeviceViews = computed(() => selected.value?.id === 'pokemon-tcg-offici
 const homeViews = [{ id: 'mobile', label: '手机' }, { id: 'desktop', label: '电脑' }];
 const homeView = ref('mobile');
 const desktopPreview = computed(() => hasDeviceViews.value && homeView.value === 'desktop');
-const directoryLabel = computed(() => section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${[...onepieceCompositions, ...pokemonCompositions, ...cznCompositions].find(item => item.id === routePath.value.split('/')[4])?.label || componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value || routePath.value.endsWith('/overview') ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
+const directoryLabel = computed(() => referencePage.value ? referencePage.value.label : section.value === 'pages' ? `页面示例 · ${activeScene.value?.label}` : section.value === 'components' ? `组件 · ${[...onepieceCompositions, ...pokemonCompositions, ...cznCompositions].find(item => item.id === routePath.value.split('/')[4])?.label || componentLabels[componentNames.find(name => componentSlug(name) === routePath.value.split('/')[4])] || '全部组件'}` : `设计规范 · ${isDesignSystem.value || routePath.value.endsWith('/overview') ? '视觉总览' : foundationNames.find(item => item.id === routePath.value.split('/')[4])?.zh || '基础规范'}`);
 const previewUrl=computed(()=>selected.value?`${location.pathname}?variantEmbed=1#/brand/${selected.value.id}/pages/${activeScene.value.id}`:'');
 const framedPreviewUrl=computed(()=>hasDeviceViews.value ? previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=desktop') : previewUrl.value.replace('?variantEmbed=1', '?variantEmbed=1&previewFrame=phone'));
 const sceneCopyBoundaries = {
