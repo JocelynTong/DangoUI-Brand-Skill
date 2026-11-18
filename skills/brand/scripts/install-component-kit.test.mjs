@@ -68,3 +68,40 @@ test('guide must be explicitly declared; arbitrary markdown is not installed', (
   assert.throws(()=>installComponentKits(input),/FILE_TYPE_INVALID/);
   assert.deepEqual(fs.readdirSync(input.destinationRoot),[]);
 });
+test('missing static imports and undeclared package dependencies fail before copying', () => {
+  const input=setup(), kit=input.kits[0];
+  const update = text => { fs.writeFileSync(path.join(input.sourceRoot,'entry.mjs'),text); kit.files[0].sha256=createHash('sha256').update(text).digest('hex'); };
+  update("import './omitted.css'; export default 1;");
+  assert.throws(()=>installComponentKits(input),/IMPORT_UNDECLARED/);
+  assert.deepEqual(fs.readdirSync(input.destinationRoot),[]);
+  update("import { h } from 'vue'; import { DuButton } from 'dangoui'; export default h(DuButton);");
+  assert.throws(()=>installComponentKits(input),/DEPENDENCY_UNDECLARED/);
+  kit.peerDependencies={vue:'^3.5.0',dangoui:'3.6.16'};
+  assert.equal(installComponentKits({...input,validateOnly:true}).copiedOrVerifiedFiles,2);
+  assert.deepEqual(fs.readdirSync(input.destinationRoot),[]);
+  installComponentKits(input);
+});
+test('CSS dependencies must ship with the kit, including nested imports', () => {
+  const input=setup(), kit=input.kits[0];
+  const css="@import './tokens.css'; .kit { background: url('./asset.svg'); }";
+  fs.writeFileSync(path.join(input.sourceRoot,'style.css'),css);
+  kit.files[1].sha256=createHash('sha256').update(css).digest('hex');
+  assert.throws(()=>installComponentKits(input),/IMPORT_UNDECLARED/);
+  for (const [name,body] of [['tokens.css',':root{}'],['asset.svg','<svg/>']]) {
+    fs.writeFileSync(path.join(input.sourceRoot,name),body);
+    kit.files.push({path:name,sha256:createHash('sha256').update(body).digest('hex')});
+  }
+  assert.equal(installComponentKits(input).copiedOrVerifiedFiles,4);
+});
+test('Web Vue SFC can be packaged without implying target verification', () => {
+  const input=setup(), kit=input.kits[0];
+  const code='<template><button>Trial</button></template><style scoped>button{color:inherit}</style>';
+  fs.writeFileSync(path.join(input.sourceRoot,'Trial.vue'),code);
+  kit.entry='Trial.vue'; delete kit.stylesheet;
+  kit.framework='vue3'; kit.runtime='browser-dom'; kit.targets=['web']; kit.verifiedTargets=[];
+  kit.files=[{path:'Trial.vue',sha256:createHash('sha256').update(code).digest('hex')}];
+  installComponentKits(input);
+  const [handoff]=componentKitHandoff({root:input.destinationRoot,kits:input.kits});
+  assert.deepEqual(handoff.targets,['web']); assert.deepEqual(handoff.verifiedTargets,[]);
+  assert.equal(handoff.status,'unspecified');
+});

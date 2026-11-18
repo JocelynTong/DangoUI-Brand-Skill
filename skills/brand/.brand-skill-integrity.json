@@ -14,6 +14,30 @@
       "sha256": "ab1e2429e1c50fb1e42c1d724b26815a457eb3238f7fbf76c6d5bb5e91e93dbf"
     },
     {
+      "path": "assets/style-packs/linjie/brand-mod.json",
+      "sha256": "aa934a48c9140f76654f634a961c5b7e19d509ac71990f1519b71826d696108f"
+    },
+    {
+      "path": "assets/style-packs/linjie/migrations/linjie-theme/runtime/linjie-components.mjs",
+      "sha256": "70d9185f9f285b46e32130e5d8b81083f39deffe301f7a00677181e4b4bc0e35"
+    },
+    {
+      "path": "assets/style-packs/linjie/migrations/linjie-theme/runtime/linjie-theme.css",
+      "sha256": "1eba148951c8818d3f29bd509773255169d6f317d47595c66cbfc55667f4ad80"
+    },
+    {
+      "path": "assets/style-packs/linjie/migrations/linjie-theme/runtime/linjie-tokens.css",
+      "sha256": "65f322c78e01cde202b433689ee3a2e10fc0ec09b043d67bfb79138b8a3de5b2"
+    },
+    {
+      "path": "assets/style-packs/linjie/migrations/linjie-theme/usage.md",
+      "sha256": "83976ecae9d347e4acb422d84bc897e04f21b65f178e21111f862fcb681f2193"
+    },
+    {
+      "path": "assets/style-packs/linjie/README.md",
+      "sha256": "8b5cb48274afbd6da98da87810790039674a5784063c3addf632f9c54e8b08ee"
+    },
+    {
       "path": "assets/taro-native-navigation/safe-area.mjs",
       "sha256": "a5a5679552eff9464c0d37221fa49c99e2e9f09abad5265a906c3ff41b7ba506"
     },
@@ -499,7 +523,7 @@
     },
     {
       "path": "references/approved-component-handoff.md",
-      "sha256": "6c7f0fb6a61cc93e76c729295c4a68c7dd2261881631075102557da87beb33d7"
+      "sha256": "bd3ef2d643b584c43d83727b1ff608bd06eba1c9f977d756597cde4f7c7f4a58"
     },
     {
       "path": "references/artifact-lifecycle.md",
@@ -538,6 +562,10 @@
       "sha256": "24821fc0bc082c50e147631568df8dd7003daa8a249054a6d8079c73058c9652"
     },
     {
+      "path": "references/existing-miniapp-reskin.md",
+      "sha256": "d835e577705443a61802a35e1d3c34909d23ab0627ff71a69988e8d230724f75"
+    },
+    {
       "path": "references/expressive-moments-playbook.md",
       "sha256": "8708e7341aa0265e88d63bcdadfa7c78895135ec3da9611afeec1a8a73d4ff40"
     },
@@ -568,6 +596,10 @@
     {
       "path": "references/host-visual-opportunity-map.md",
       "sha256": "7ba78ad218b7f80e0d2e2e34dc6a6f8771bb1d85039d08f1a924d9300bdb57c6"
+    },
+    {
+      "path": "references/linjie-trial2-validation.md",
+      "sha256": "81879c44241451f1dc1046d693abf18af4f28484c13d0c08c631c58f07110a3d"
     },
     {
       "path": "references/mapping-rules.md",
@@ -995,11 +1027,11 @@
     },
     {
       "path": "scripts/install-component-kit.mjs",
-      "sha256": "2ccaa6364cdb503e47b9256ec6587cea0cc669db39040c53577da971333ad170"
+      "sha256": "9b57bed7865f9b40d72120b809680fb514ecdc7ac7c92145fcb3a1e98520db11"
     },
     {
       "path": "scripts/install-component-kit.test.mjs",
-      "sha256": "2c492b55cfca6f3e521baaeef4ee31450f839e1f9b4e110827f05a662af36e40"
+      "sha256": "38f0776d4e75b3ca9b259fdb10779586458f4dc02a8233698455d0b51509d020"
     },
     {
       "path": "scripts/interaction-evidence-policy.mjs",
@@ -1091,11 +1123,11 @@
     },
     {
       "path": "scripts/prepare-module-task.mjs",
-      "sha256": "b28c5431063a74212c1caa1c85c50a3fd349cac8ca2c029105f83f90a31d7984"
+      "sha256": "dc257c8c1f75298c231133b5e8c692e5c2de9f85cc06f18eff1638886decc878"
     },
     {
       "path": "scripts/prepare-module-task.test.mjs",
-      "sha256": "3c9c40fc38267b191acf66d947d9968e382039b9201a5d8f216269a9db276cf2"
+      "sha256": "27cb86f4abc99c3d4a8bd4629e7196852f1407bc8b1540f22ec79142df97f4df"
     },
     {
       "path": "scripts/prepare-qa-review.mjs",
@@ -1307,7 +1339,7 @@
     },
     {
       "path": "scripts/run-brand-workflow.mjs",
-      "sha256": "a2f1a4fdfa0a6d47b8f456356721867af218c7f47718f115e98f8423c91c2744"
+      "sha256": "acbcd20045907e16551acc536d23839785c0c29e65fafe485c80bfa0f00230f5"
     },
     {
       "path": "scripts/run-brand-workflow.resume-demo.test.mjs",
@@ -1719,7 +1751,7 @@
     },
     {
       "path": "SKILL.md",
-      "sha256": "1f42738e42f5352b9965e3d74e8d4f80d71bdfb353ac087e7088f3e2e9766e4f"
+      "sha256": "f71dec9f9a95599ee5d9eb0d5e37206b60be99aca829be35685229b86192e680"
     },
     {
       "path": "workflow-contract.json",
@@ -1746,5 +1778,5 @@
       "sha256": "be8f71fac7d30d0204f58eab702baae564d4d54614d44e513e93fad2bd99dc93"
     }
   ],
-  "treeSha256": "80c41e08e9af2db006574aca7385f5404189b9159fc67afe4308296431d89d4b"
+  "treeSha256": "7d191fe7f0862b5c7e6ef0b45700e38f56eca5c1545ad02fbe19aa08ee82ad10"
 }

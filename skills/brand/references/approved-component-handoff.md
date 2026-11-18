@@ -50,7 +50,7 @@ status 只检查已冻结输入、安装文件、受保护文件和真实相对�
 品牌身份兼容 `manifest.id` 与已发布 MOD 的 `manifest.brand`；同时存在时必须一致，并匹配 evidence.brand。该兼容不转换设计内容：只有组合描述而没有 local-style-recipe 时返回 `MODULE_PREP_RECIPES_REQUIRED`，由学习侧补齐有依据的局部配方，不能重标旧状态或让实施者临场猜样式。
 
 ```sh
-node <skill>/scripts/run-brand-workflow.mjs run --request-kind host-concepts --mode design-host \
+node <skill>/scripts/run-brand-workflow.mjs run --request-kind host-concepts --mode design-host --goal-scope single-module \
   --brand-root <原品牌包绝对目录> --host-target <原宿主绝对目录> \
   --module-task '<本轮准确单模块任务与须保留行为>' --module-id <安全小写任务ID> \
   --module-target <宿主相对Vue文件>

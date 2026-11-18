@@ -1,0 +1,54 @@
+@import "./linjie-tokens.css";
+/* Source-scoped candidate recipe, not a certified global Linjie theme.
+   Values and limitations are declared in ../brand-profile.dtcg.json.
+   Import after dangoui/theme.css and dangoui/style.css. */
+.linjie-trial-theme {
+  --du-bg-1: var(--style-linjie-surface);
+  --du-bg-2: var(--style-linjie-surface-2);
+  --du-c-bg-2-channel: 255, 255, 255;
+  --du-text-1: var(--style-linjie-text);
+  --du-text-2: var(--style-linjie-text-2);
+  --du-text-3: var(--style-linjie-muted);
+  --du-border-2: var(--style-linjie-line);
+  --du-icon-1: var(--style-linjie-text);
+  --du-icon-disabled: var(--style-linjie-muted);
+  --du-primary-color: var(--style-linjie-primary);
+  --du-primary-border: var(--style-linjie-primary);
+  --du-primary-solid-bg: var(--style-linjie-primary);
+  --du-primary-solid-color: var(--style-linjie-on-primary);
+  --du-primary-text-color: var(--style-linjie-primary);
+  --du-primary-solid-disabledtemp-bg: var(--style-linjie-primary-disabled-bg);
+  --du-primary-solid-disabledtemp-color: var(--style-linjie-primary-disabled-color);
+  --du-default-disabledtemp-color: var(--style-linjie-disabled-text);
+  box-sizing: border-box;
+  min-height: 100%;
+  margin: 0;
+  color: var(--du-text-1);
+  background: var(--du-bg-1);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+.linjie-trial-theme[data-theme='dark'] {
+  --du-c-bg-2-channel: 20, 20, 20;
+  color-scheme: dark;
+}
+.linjie-trial-theme *, .linjie-trial-theme *::before, .linjie-trial-theme *::after { box-sizing: border-box; }
+.linjie-trial-theme .linjie-trial-kicker { margin: 0; padding: 18px 20px 8px; color: var(--du-text-3); font-size: 10px; letter-spacing: .1em; }
+.linjie-trial-theme .linjie-trial-body { padding: 12px 20px 24px; }
+.linjie-trial-theme .linjie-trial-note { margin: 0 0 18px; color: var(--du-text-3); font-size: 12px; }
+.linjie-trial-theme .linjie-trial-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 16px 0 10px; }
+.linjie-trial-theme .linjie-trial-feedback { display: block; min-height: 42px; overflow-wrap: anywhere; font-size: 12px; color: var(--du-text-1); }
+.linjie-trial-theme .linjie-trial-state-label { margin: 22px 0 0; font-size: 12px; color: var(--du-text-3); }
+/* Local Web adapters for hard-coded DangoUI defaults. These are explicit
+   compatibility recipes, not new DangoUI APIs or source design tokens. */
+.linjie-trial-theme .du-form { background: transparent; }
+.linjie-trial-theme .du-form-item__label { color: var(--du-text-1); }
+.linjie-trial-theme .du-form-item__tips { color: var(--du-text-3); }
+.linjie-trial-theme .du-form-item__bottom-line { background: var(--du-border-2); }
+.linjie-trial-theme .du-input__input { background: transparent; color: var(--du-text-1); border: 0; padding: 0; }
+.linjie-trial-theme .du-input__input:disabled { -webkit-text-fill-color: var(--style-linjie-disabled-text); color: var(--style-linjie-disabled-text); opacity: 1; }
+.linjie-trial-theme .du-input__input:focus-visible { outline: 2px solid var(--style-linjie-primary); outline-offset: 2px; }
+.linjie-trial-theme .du-button--large { height: 48px; }
+.linjie-trial-theme .du-button:focus-visible { outline: 2px solid var(--style-linjie-primary); outline-offset: 3px; }
+.linjie-trial-theme .du-navigation-bar__wrapper { position: relative; background: var(--du-bg-1); }

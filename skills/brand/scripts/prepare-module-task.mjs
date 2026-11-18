@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { createHash } from 'node:crypto';
 import { componentTask } from './component-task.mjs';
+import { installComponentKits } from './install-component-kit.mjs';
 import { moduleConfigLiterals } from './module-config-literals.mjs';
 
 const fail = message => { throw new Error(message); };
@@ -41,21 +42,48 @@ export function prepareModuleTask(options) {
   const modPath = options.modFile ? path.relative(brandRoot, path.resolve(options.modFile)) : 'brand-mod.json';
   const modBytes = read(brandRoot, modPath), mod = JSON.parse(modBytes);
   const modDir = path.dirname(modPath);
-  const evidencePath = path.join(modDir, 'brand-evidence.json');
-  const evidenceBytes = read(brandRoot, evidencePath), evidence = JSON.parse(evidenceBytes);
+  const hostRoot = root(options.hostRoot);
+  read(hostRoot, options.target);
+  const sourceFiles = new Map();
+  let evidencePath, evidenceBytes, evidence, brandId, selectedIds = [], scopedClaims, scopedRecipes, scopedTokens, scopedDtcg, selectedKit;
+  if (options.candidateKit) {
+    if (options.recipes) fail('MODULE_PREP_CANDIDATE_RECIPE_MIXED');
+    if (!options.task?.trim() || !safe(options.target) || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(options.moduleId || '')) fail('MODULE_PREP_TASK_REQUIRED');
+    if (!options.authorization?.trim()) fail('MODULE_PREP_TRIAL_AUTHORIZATION_REQUIRED');
+    const identities = [mod.manifest?.id, mod.manifest?.brand].filter(x => x !== undefined);
+    brandId = identities[0];
+    if (!brandId || identities.some(x => x !== brandId || !/^[a-z0-9][a-z0-9-]*$/.test(x))) fail('MODULE_PREP_BRAND_ID_INVALID');
+    const matches = (mod.componentKits || []).filter(x => x.id === options.candidateKit);
+    if (matches.length !== 1) fail('MODULE_PREP_CANDIDATE_KIT_UNKNOWN');
+    selectedKit = matches[0];
+    if (mod.manifest?.scope?.kind !== 'source-scoped-style-trial' || selectedKit.status !== 'candidate-awaiting-independent-qa' || selectedKit.runtime !== 'browser-dom' || selectedKit.framework !== 'vue3') fail('MODULE_PREP_CANDIDATE_SCOPE_UNSUPPORTED');
+    if (!selectedKit.designGuide || !selectedKit.files?.some(x => x.path === selectedKit.designGuide)) fail('MODULE_PREP_CANDIDATE_GUIDE_REQUIRED');
+    if (new Set(selectedKit.files.map(x => x.path)).size !== selectedKit.files.length) fail('MODULE_PREP_CANDIDATE_DUPLICATE_FILE');
+    // Validation only: Web code remains in brand reference files, never in the Taro host.
+    installComponentKits({sourceRoot:brandRoot,destinationRoot:brandRoot,kits:[selectedKit],validateOnly:true});
+    for (const file of selectedKit.files) {
+      const bytes = read(brandRoot,file.path);
+      if (hash(bytes) !== file.sha256) fail('MODULE_PREP_CANDIDATE_HASH');
+      sourceFiles.set(file.path,bytes);
+    }
+    const tokenMap = mod.tokens?.styleOnly || {};
+    const keys = selectedKit.styleTokenKeys;
+    if ((mod.componentKits.length > 1 && !Array.isArray(keys)) || (keys !== undefined && (!Array.isArray(keys) || new Set(keys).size !== keys.length || keys.some(key => typeof key !== 'string' || !Object.hasOwn(tokenMap,key))))) fail('MODULE_PREP_CANDIDATE_TOKEN_SCOPE_REQUIRED');
+    scopedClaims = []; scopedRecipes = []; scopedTokens = keys === undefined ? tokenMap : Object.fromEntries(keys.map(key => [key,tokenMap[key]])); scopedDtcg = {};
+  } else {
+  evidencePath = path.join(modDir, 'brand-evidence.json');
+  evidenceBytes = read(brandRoot, evidencePath), evidence = JSON.parse(evidenceBytes);
   // Published MODs use `brand`; local recipe packages may use `id`.
   // Accept the identity alias, never normalize recipe approval or evidence.
   const identities = [mod.manifest?.id, mod.manifest?.brand].filter(value => value !== undefined);
   if (identities.some(value => typeof value !== 'string' || !/^[a-z0-9][a-z0-9-]*$/.test(value)) || new Set(identities).size > 1) fail('MODULE_PREP_BRAND_ID_INVALID');
-  const brandId = identities[0];
+  brandId = identities[0];
   if (!brandId || evidence.brand !== brandId || !Array.isArray(mod.componentVariants) || !Array.isArray(evidence.claims)) fail('MODULE_PREP_PACKAGE_UNSUPPORTED');
   const variants = mod.componentVariants.filter(x => x.component === 'local-style-recipe');
   if (!variants.length) fail('MODULE_PREP_RECIPES_REQUIRED:Package has no local-style-recipe. Return to scoped brand learning; composed patterns are not approved module recipes.');
   if (new Set(variants.map(x => x.id)).size !== variants.length) fail('MODULE_PREP_RECIPES_INVALID');
   if (!options.task?.trim() || !safe(options.target) || !/^[a-z0-9][a-z0-9-]{0,63}$/.test(options.moduleId || '')) fail('MODULE_PREP_TASK_REQUIRED');
-  const hostRoot = root(options.hostRoot);
-  read(hostRoot, options.target);
-  const selectedIds = options.recipes ? options.recipes.split(',') : [];
+  selectedIds = options.recipes ? options.recipes.split(',') : [];
   if (!selectedIds.length) return {
     ok: true, status: 'awaiting-recipe-selection', scope: 'single-module', approval: 'pending', fullWorkflowPass: false, userGoalCompleted: false,
     task: options.task, target: options.target, packageSha256: hash(modBytes),
@@ -84,7 +112,7 @@ export function prepareModuleTask(options) {
     }
     if (Object.hasOwn(claim, 'beforeCapture') !== Object.hasOwn(claim, 'afterCapture')) fail(`MODULE_PREP_CAPTURE_PAIR_REQUIRED:${claim.id}`);
   }
-  const sourceFiles = new Map();
+
   const prefix = `migrations/${brandId}/`;
   function dependency(binding) {
     if (!safe(binding.path) || !/^[a-f0-9]{64}$/.test(binding.sha256 || '')) fail('MODULE_PREP_DEPENDENCY_BINDING_REQUIRED');
@@ -101,7 +129,8 @@ export function prepareModuleTask(options) {
     if (typeof value.path === 'string') return { ...value, ...dependency(value) };
     return Object.fromEntries(Object.entries(value).map(([key, child]) => [key, bindTree(child)]));
   }
-  const scopedClaims = bindTree(claims), scopedRecipes = bindTree(selected), scopedTokens = bindTree(tokens), scopedDtcg = bindTree(dtcg);
+  scopedClaims = bindTree(claims); scopedRecipes = bindTree(selected); scopedTokens = bindTree(tokens); scopedDtcg = bindTree(dtcg);
+  }
   const configCandidates = ['config/index.js', 'config/index.ts', 'config/index.mjs'].filter(x => fs.existsSync(path.join(hostRoot, x)));
   if (configCandidates.length !== 1) fail('MODULE_PREP_CONFIG_AMBIGUOUS');
   const configFile = configCandidates[0], config = read(hostRoot, configFile).toString();
@@ -143,19 +172,19 @@ export function prepareModuleTask(options) {
   const write = (relative, bytes) => { const dest = path.join(output, relative); fs.mkdirSync(path.dirname(dest), { recursive: true }); fs.writeFileSync(dest, bytes, { flag: 'wx' }); };
   for (const [name, bytes] of hostFiles) write(`host/${name}`, bytes);
   for (const [name, bytes] of sourceFiles) write(`brand/${name}`, bytes);
-  const scoped = { schema: 'selected-brand-recipes/v1', source: { modPath: path.join(brandRoot, modPath), modSha256: hash(modBytes), evidencePath: path.join(brandRoot, evidencePath), evidenceSha256: hash(evidenceBytes) }, manifest: mod.manifest, limitations: mod.limitations, recipes: scopedRecipes, styleOnly: scopedTokens, dtcg: { styleOnly: scopedDtcg }, claims: scopedClaims,
-    restrictions: ['Source-scoped recipe is not host approval or a prebuilt component.', 'Evidence screenshots are review-only; never embed in runtime.', 'Only included recipes/tokens/evidence are available. Global semantic roles are not authorized. Other assets, layout contracts, fonts and demo code are not authorized inputs.', 'Keep host data, state values, event behavior, APIs, routes and unrelated UI unchanged; explicitly adapt platform presentation only.'] };
+  const scoped = { schema: 'selected-brand-recipes/v1', source: { modPath: path.join(brandRoot, modPath), modSha256: hash(modBytes), evidencePath: evidencePath ? path.join(brandRoot, evidencePath) : null, evidenceSha256: evidenceBytes ? hash(evidenceBytes) : null }, manifest: mod.manifest, limitations: selectedKit ? [...(selectedKit.limitations || []), ...(mod.verification?.limitations || [])] : mod.limitations, candidateKit: selectedKit || null, distribution: selectedKit ? mod.distribution || null : null, sourceCertification: selectedKit ? 'candidate-unbundled-not-revalidated' : undefined, recipes: scopedRecipes, styleOnly: scopedTokens, dtcg: { styleOnly: scopedDtcg }, claims: scopedClaims,
+    restrictions: ['Source-scoped recipe is not host approval or a prebuilt component.', 'Evidence screenshots are review-only; never embed in runtime.', 'Only included recipes/tokens/evidence are available. Global semantic roles are not authorized. Other assets, layout contracts, fonts and demo code are not authorized inputs.', 'Keep host data, state values, event behavior, APIs, routes and unrelated UI unchanged; explicitly adapt platform presentation only.', ...(selectedKit ? ['Web kit is reference-only: do not import or install its browser components into Taro. Adapt presentation onto existing host controls; DangoUI adoption is not required.', 'Candidate/unbundled evidence is not source approval, host approval or full learning completion.'] : [])] };
   write('brand/selected-recipes.json', JSON.stringify(scoped, null, 2));
   const bind = (name, bytes) => ({ path: name, sha256: hash(bytes) });
   const scopedBinding = bind('selected-recipes.json', fs.readFileSync(path.join(output, 'brand/selected-recipes.json')));
   const protectedFiles = [...hostFiles].filter(([name]) => name !== options.target).map(([name, bytes]) => bind(name, bytes));
   const manifest = { schema: 'component-selection-task/v1', scope: 'single-module', approval: 'pending', authorization: { scope: 'isolated-trial-only', statement: options.authorization }, module: { id: options.moduleId, description: options.task },
-    brand: { id: brandId, root: path.join(output, 'brand'), candidates: [{ id: 'selected-source-recipes', runtime: 'browser-dom', framework: 'html', files: [scopedBinding, ...[...sourceFiles].map(([name, bytes]) => bind(name, bytes))], usage: scopedBinding, capability: scopedBinding }] },
+    brand: { id: brandId, root: path.join(output, 'brand'), candidates: [{ id: selectedKit ? selectedKit.id : 'selected-source-recipes', runtime: 'browser-dom', framework: 'html', files: [scopedBinding, ...[...sourceFiles].map(([name, bytes]) => bind(name, bytes))], usage: selectedKit ? bind(selectedKit.designGuide, sourceFiles.get(selectedKit.designGuide)) : scopedBinding, capability: scopedBinding }] },
     host: { root: hostRoot, trialRoot: path.join(output, 'host'), sourceRoot, target: options.target, sha256: hash(hostFiles.get(options.target)), configFile, buildTarget: options.buildTarget || 'weapp', protectedFiles, acceptedComponents: protectedFiles.filter(x => x.path.includes('/.brand-components/')) },
     protectedBehavior: ['Preserve all existing business data, record order/count, state values and event semantics; source visual rules do not authorize business changes.', 'Only the described module presentation in the target file may change. Preserve other brands, unrelated target-file sections and all protected source files.', 'Original host stays read-only. No authentication changes, write operations or dependency installation are authorized by dispatch.'] };
   write('task.json', JSON.stringify(manifest, null, 2));
   const result = componentTask({ manifestPath: path.join(output, 'task.json') });
-  result.preparation = { artifactRoot: output, manifest: path.join(output, 'task.json'), selectedRecipeIds: selectedIds, sourceScope: mod.manifest.scope, credentialExclusionPolicy: 'Skip all hidden path segments except .brand-components/.brand-trials, qdmp.json, application_default_credentials.json and pem/key/p12 files. This filename policy is not a secret-content scan and does not certify arbitrary source files as credential-free.', dependenciesCopied: false, configurationExecuted: false, unrelatedEvidenceValidated: false, completeBrandCertification: false };
+  result.preparation = { artifactRoot: output, manifest: path.join(output, 'task.json'), selectedRecipeIds: selectedIds, candidateKitId: selectedKit?.id || null, referenceOnly: Boolean(selectedKit), sourceScope: mod.manifest.scope, credentialExclusionPolicy: 'Skip all hidden path segments except .brand-components/.brand-trials, qdmp.json, application_default_credentials.json and pem/key/p12 files. This filename policy is not a secret-content scan and does not certify arbitrary source files as credential-free.', dependenciesCopied: false, configurationExecuted: false, unrelatedEvidenceValidated: false, completeBrandCertification: false };
   write('dispatch.json', JSON.stringify(result, null, 2));
   return result;
 }
